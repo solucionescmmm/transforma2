@@ -1,0 +1,12 @@
+{
+    "name": "Novedades",
+    "description": "Aplicativo para la solicitud de novedades.",
+    "license": "ISC",
+    "openSourceProject": 0,
+    "governmentWideReuseProject": 0,
+    "tags": ["TI"],
+    "contact": {
+        "email": "scardonas@choucairtesting.com"
+    },
+    "version": "0.1.0"
+}
