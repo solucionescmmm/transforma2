@@ -1,13 +1,14 @@
 //Librerias
 const Ajv = require("ajv");
 const addFormats = require("ajv-formats");
+const validator = require("validator").default;
 
 //CLases
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
 
 class setEmpresario {
     #objData;
-    #intIdEmpreasrio;
+    #intIdEmpresario;
     #objResult;
     /**
      * @param {object} data
@@ -17,11 +18,24 @@ class setEmpresario {
     }
 
     async main() {
+        await this.#validations();
         await this.#setEmpresario();
         await this.#setEmpresa();
         await this.#setEmprendimiento();
 
         return this.#objResult;
+    }
+
+    async #validations() {
+        if (
+            !validator.isEmail(this.#objData.dataEmpresario.strUsuario, {
+                domain_specific_validation: "cmmmedellin.org",
+            })
+        ) {
+            throw new Error(
+                "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
+            );
+        }
     }
 
     async #setEmpresario() {
@@ -30,7 +44,7 @@ class setEmpresario {
         if (query.error) {
             throw new Error(query.msg);
         }
-        this.#intIdEmpreasrio = query.data.intId;
+        this.#intIdEmpresario = query.data.intId;
 
         this.#objResult = {
             error: query.error,
@@ -39,18 +53,26 @@ class setEmpresario {
         };
     }
     async #setEmpresa() {
+        let prevData = this.#objData.dataEmpresa;
+        let newData = {
+            ...prevData,
+            intIdEmpresario: this.#intIdEmpresario,
+        };
         let dao = new classInterfaceDAOEmpresarios();
-        let query = await dao.setEmpresa(this.#objData.dataEmpresa);
+        let query = await dao.setEmpresa(newData);
         if (query.error) {
             await this.#rollbackTransaction();
         }
     }
 
     async #setEmprendimiento() {
+        let prevData = this.#objData.dataEmprendimiento;
+        let newData = {
+            ...prevData,
+            intIdEmpresario: this.#intIdEmpresario,
+        };
         let dao = new classInterfaceDAOEmpresarios();
-        let query = await dao.setEmprendimineto(
-            this.#objData.dataEmprendimiento
-        );
+        let query = await dao.setEmprendimineto(newData);
         if (query.error) {
             await this.#rollbackTransaction();
         }
@@ -60,7 +82,7 @@ class setEmpresario {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.deleteEmpresario({
-            intIdEmpresario: this.#intIdEmpreasrio,
+            intIdEmpresario: this.#intIdEmpresario,
         });
 
         this.#objResult = {
