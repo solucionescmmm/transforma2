@@ -15,6 +15,7 @@ app.use(express.json());
 app.use("/trasnforma/api", authToken);
 
 //router
-app.use(require("../infra/http/apiMain.routes"))
+app.use(require("../infra/http/apiMain.routes"));
+app.use(require("../../Listas/Infra/http/apiListas.routes"));
 
 module.exports = app;
