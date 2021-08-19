@@ -5,7 +5,6 @@ const sql = require("mssql");
 const {
     conexion,
 } = require("../../../../common/config/confSQL_connectionTransfroma");
-
 class daoListas {
     async getListas(data) {
         try {
@@ -15,9 +14,10 @@ class daoListas {
                 .input("pstrGrupo", sql.VarChar, data.strGrupo)
                 .input("pstrCodigo", sql.VarChar, data.strCodigo)
                 .execute("usp_ConsultarListas");
+            
             let result = {
                 error: false,
-                data: response.recordsets[0] ? response.recordsets[0][0] : null,
+                data: response.recordsets[0]
             };
             sql.close(conexion);
             return result;
