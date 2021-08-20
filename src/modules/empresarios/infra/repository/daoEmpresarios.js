@@ -9,41 +9,38 @@ const {
 
 class daoEmpresarios {
     async setEmpresario(data) {
+        console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`  
-        DECLARE @intId INTERGER;
-
-        INSER INTO tbl_Empresario VALUES
-        (
-            ${data.strNombres}, 
-            ${data.strApellidos},
-            ${data.dtFechaNacimiento},
-            ${data.intIdTipoDocto},
-            ${data.strNroDocto},
-            ${data.strLugarExpedicionDocto},
-            ${data.dtFechaExpedicionDocto},
-            ${data.intIdSexo},
-            ${data.strCelular},
-            ${data.strCorreoElectronico},
-            ${data.intIdNivelEducativo},
-            ${data.strTitulos},
-            ${data.intIdCondicionDiscapacidad},
-            ${data.intIdSede},
-            ${data.intIdTipoEmpresario},
-            ${data.dtFechaVinculacion},
-            ${data.intIdestado},
-            ${data.strUrlFoto},
-            ${data.strUsuario},
-            ${data.intIdEspacioJornada}
-        );
-        SET @intId = SCOPE_IDENTITY();
-
-        SELECT * FROM tbl_Empresario WHERE intId = @intId`;
+            let response = await conn
+                .request()
+                .input("pintId", sql.BigInt, data.intId)
+                .input("pstrNombres", sql.VarChar, data.strNombres)
+                .input("pstrApellidos", sql.VarChar, data.strApellidos)
+                .input("pdtFechaNacimiento", sql.Date, data.dtFechaNacimiento)
+                .input("pstrTipoDocto", sql.VarChar, data.strTipoDocto)
+                .input("pstrNroDocto", sql.VarChar, data.strNroDocto)
+                .input("pstrLugarExpedicionDocto", sql.VarChar, data.strLugarExpedicionDocto)
+                .input("pdtFechaExpedicionDocto", sql.DateTime, data.dtFechaExpedicionDocto)
+                .input("pstrSexo", sql.VarChar, data.strSexo)
+                .input("pstrCelular", sql.VarChar, data.strCelular)
+                .input("pstrCorreoElectronico", sql.VarChar, data.strCorreoElectronico)
+                .input("pstrNivelEducativo", sql.VarChar, data.strNivelEducativo)
+                .input("pstrTitulos", sql.VarChar, data.strTitulos)
+                .input("pstrCondicionDiscapacidad", sql.VarChar, data.strCondicionDiscapacidad)
+                .input("pstrSede", sql.VarChar, data.strSede)
+                .input("pstrTipoEmpresario", sql.VarChar, data.strTipoEmpresario)
+                .input("pdtFechaVinculacion", sql.DateTime, data.dtFechaVinculacion)
+                .input("pstrEstado", sql.VarChar, data.strEstado)
+                .input("pstrUrlFoto", sql.VarChar, data.strUrlFoto)
+                .input("pstrUsuario", sql.VarChar, data.strUsuario)
+                .input("pstrEspacioJornada", sql.VarChar, data.strEspacioJornada)
+                .execute("usp_ActualizarInfoEmpresario");
+            console.log(response)
             let result = {
                 error: false,
-                data: response.recordset[0],
-                msg: `El empresario con nombre ${response.recordset[0].strNombres}, fue registrado con éxito, con el identificador #${response.recordset[0].intId}.`,
+                data: response,
+                msg: `El empresario fue registrado con éxito.`,
             };
 
             sql.close(conexion);
@@ -66,6 +63,19 @@ class daoEmpresarios {
     async setEmpresa(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
+            let response1 = await conn
+            .request()
+            .input("pstrUrlLogo",sql.VarChar, data.strUrlLogo)
+            .input("pdtFechaFundacion",sql.Date, data.dtFechaFundacion)
+            .input("pstrUnidadProdOperacion",sql.VarChar, data.strUnidadProdOperacion)
+            .input("pstrDireccion",sql.VarChar, data.strDireccion)
+            .input("pstrMunicipio",sql.VarChar, data.strMunicipio)
+            .input("strBarrio",sql.VarChar, data.strBarrio)
+            .input("pintEstrato",sql.VarChar, data.intEstrato)
+            .input("pstrSectorEconomico",sql.VarChar, data.strSectorEconomico)
+            .input("pstrC",sql.VarChar, data.strSectorEconomico)
+
+
             let response = await conn.query`
             DECLARE @intId INTEGER;
             
@@ -203,6 +213,24 @@ class daoEmpresarios {
             sql.close(conexion);
 
             return result;
+        }
+    }
+    async getEmpresario(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.request().execute("")
+            
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El empresario fue registrado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            
         }
     }
 }

@@ -24,5 +24,11 @@ class interfaceDAOEmpresarios {
         let result = await dao.deleteEmpresario(data);
         return result;
     }
+
+    async getEmpresario() {
+        const dao = new classDaoSql();
+        let result = await dao.getEmpresario(data);
+        return result;
+    }
 }
 module.exports = interfaceDAOEmpresarios;

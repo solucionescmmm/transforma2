@@ -5,7 +5,7 @@ const routes = require("express").Router();
 const classController = require("../../app/controllers/ctrl_Empresarios");
 
 //routes
-routes.post("/transforma/api/postEmpresario", async (req, res) => {
+routes.post("/transforma/api/postempresario", async (req, res) => {
     let controllerEmpresarios = new classController();
     await controllerEmpresarios.postEmpresario(req, res);
 });

@@ -17,5 +17,6 @@ app.use("/trasnforma/api", authToken);
 //router
 app.use(require("../infra/http/apiMain.routes"));
 app.use(require("../../Listas/Infra/http/apiListas.routes"));
+app.use(require("../../Empresarios/infra/http/apiEmpresarios.routes"))
 
 module.exports = app;

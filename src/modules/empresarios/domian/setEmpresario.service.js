@@ -6,6 +6,9 @@ const validator = require("validator").default;
 //CLases
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
 
+//services
+const getEmpresario = require("./getEmpresario.service");
+
 class setEmpresario {
     #objData;
     #intIdEmpresario;
@@ -18,17 +21,15 @@ class setEmpresario {
     }
 
     async main() {
-        await this.#validations();
+        //await this.#validations();
         await this.#setEmpresario();
-        await this.#setEmpresa();
-        await this.#setEmprendimiento();
 
         return this.#objResult;
     }
 
     async #validations() {
         if (
-            !validator.isEmail(this.#objData.dataEmpresario.strUsuario, {
+            !validator.isEmail(this.#objData.strUsuario, {
                 domain_specific_validation: "cmmmedellin.org",
             })
         ) {
@@ -36,15 +37,23 @@ class setEmpresario {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
+        let queryGetEmpresario = await getEmpresario();
+        let arrEmpresarios = queryGetEmpresario.data;
+        for (let i = 0; i < arrEmpresarios.length; i++) {
+            if (this.#objData.strNroDocto === arrEmpresarios[i].strNroDocto) {
+                throw new Error(
+                    "Ya existe un empresario con este mismo número de identificación"
+                );
+            }
+        }
     }
 
     async #setEmpresario() {
         let dao = new classInterfaceDAOEmpresarios();
-        let query = await dao.setEmpresarios(this.#objData.dataEmpresario);
+        let query = await dao.setEmpresarios(this.#objData);
         if (query.error) {
             throw new Error(query.msg);
         }
-        this.#intIdEmpresario = query.data.intId;
 
         this.#objResult = {
             error: query.error,
@@ -52,6 +61,7 @@ class setEmpresario {
             msg: query.msg,
         };
     }
+
     async #setEmpresa() {
         let prevData = this.#objData.dataEmpresa;
         let newData = {
