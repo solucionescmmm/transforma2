@@ -16,7 +16,10 @@ export default function Loader({ loading }) {
     //===============================================================================================================================================
     const classes = loaderStyles();
     return (
-        <Backdrop className={classes.Backdrop} open={loading ? loading : true}>
+        <Backdrop
+            className={classes.Backdrop}
+            open={typeof loading === "boolean" ? loading : true}
+        >
             <CircularProgress />
         </Backdrop>
     );

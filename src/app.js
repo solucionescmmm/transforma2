@@ -20,7 +20,7 @@ import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import { es } from "date-fns/locale";
 
 //Componente de Permisos
-import { AbilityContext } from "./config/Can";
+import { AbilityContext } from "./common/config/Can";
 import { Ability } from "@casl/ability";
 import CacheBuster from "./common/middlewares/CacheBuster";
 
@@ -45,13 +45,13 @@ const App = () => {
                     palette: {
                         mode: "light",
                         primary: {
-                            main: "#007c6a",
+                            main: "#00BAB3",
                             dark: "#007c6a",
                             light: "#0288D1",
                             contrastText: "#ffff",
                         },
                         secondary: {
-                            main: "#ED6F17",
+                            main: "#FF4160",
                         },
                         divider: "#BDBDBD",
                     },

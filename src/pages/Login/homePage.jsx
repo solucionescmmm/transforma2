@@ -109,7 +109,7 @@ const Login = () => {
     const classes = loginStyles();
 
     if (token) {
-        return <Redirect to="/novedades" />;
+        return <Redirect to="/transforma" />;
     }
 
     return (

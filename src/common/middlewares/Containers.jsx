@@ -8,7 +8,7 @@ const ContainerMiddleware = ({ children }) => {
     return (
         <Fragment>
             <TimeOut />
-            <VerifyToken />
+            {/* <VerifyToken /> */}
 
             {children}
         </Fragment>

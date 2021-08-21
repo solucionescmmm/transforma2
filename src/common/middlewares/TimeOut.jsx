@@ -48,7 +48,7 @@ const IdleTimerContainer = () => {
     //===============================================================================================================================================
     const onIdle = () => {
         setModalIsOpen(true);
-        sessionTimeoutRef.current = setTimeout(logOut, 1000 * 60);
+        sessionTimeoutRef.current = setTimeout(logOut, 500);
     };
 
     const logOut = () => {
@@ -93,6 +93,7 @@ const IdleTimerContainer = () => {
                         Permanecer
                     </Button>
                 </DialogActions>
+                
             </Dialog>
         </Fragment>
     );

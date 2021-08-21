@@ -4,9 +4,9 @@ import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 //Componentes
-import ErrorPage from "../components/Error/503";
+import ErrorPage from "../components/Error";
 
-function ErrorFallback({ error, resetErrorBoundary }) {
+function ErrorFallback({ error }) {
     return (
         <ErrorPage
             msg="Ha ocurrido un error, por favor escala al área de TI para más información."
