@@ -12,7 +12,7 @@ import { AuthContext } from "../middlewares/Auth";
 import { AppContext } from "../../app";
 
 //Librerias
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import typeConvertor from "string-type-convertor";
 
 //Componentes de Material UI
@@ -124,6 +124,7 @@ const Main = ({ children }) => {
     //===============================================================================================================================================
     const { strInfoUser, cerrarSesion } = useContext(AuthContext);
     const { bitDarkMode } = useContext(AppContext);
+    const { push } = useHistory();
 
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -279,16 +280,19 @@ const Main = ({ children }) => {
                                                     rel="noopener noreferrer"
                                                     style={{
                                                         textDecoration: "none",
-                                                        color: bitDarkMode
-                                                            ? "white"
-                                                            : "black",
+                                                        color: "black",
                                                     }}
                                                     target="_blank"
                                                 >
                                                     Mi perfil
                                                 </a>
                                             </MenuItem>
-                                            <MenuItem onClick={() => cerrarSesion()}>
+                                            <MenuItem
+                                                onClick={() => {
+                                                    cerrarSesion();
+                                                    push("/");
+                                                }}
+                                            >
                                                 Cerrar sesión
                                             </MenuItem>
                                         </Box>

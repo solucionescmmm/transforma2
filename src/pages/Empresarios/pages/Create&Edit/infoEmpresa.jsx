@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 
 //Librerias
 import { Controller } from "react-hook-form";
+import NumberFormat from "react-number-format";
 
 //Componentes de Material UI
 import {
@@ -29,6 +30,8 @@ import Dropzone from "../../../../common/components/dropzone";
 import SelectUnidadOperativa from "../../components/selectUnidadOperativa";
 import SelectSectorEconomico from "../../components/selectSectorEconomico";
 import SelectCategoriaProducto from "../../components/selectCategoriaProducto";
+import DropdownCategoriaServicio from "../../components/dropdownCategoriaServicio";
+import DropdrownMediosComunicacion from "../../components/dropdownMediosComunicacion";
 
 const InfoEmpresa = ({ disabled, values, errors, control, isEdit, setValue }) => {
     const [loading, setLoading] = useState(true);
@@ -45,7 +48,7 @@ const InfoEmpresa = ({ disabled, values, errors, control, isEdit, setValue }) =>
         intEstrato: "",
         intIdCategoriaProducto: "",
         strOtraCategoriaProducto: "",
-        intIdCategoriaServicio: "",
+        intIdCategoriaServicio: [],
         btGeneraEmpleo: "",
         intNumeroEmpleados: "",
         valorVentasMes: "",
@@ -92,7 +95,7 @@ const InfoEmpresa = ({ disabled, values, errors, control, isEdit, setValue }) =>
             <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Box sx={{ flexGrow: 1 }}>
                     <Typography style={{ fontWeight: "bold" }}>
-                        Información principal
+                        Información de la empresa
                     </Typography>
                 </Box>
 
@@ -141,12 +144,14 @@ const InfoEmpresa = ({ disabled, values, errors, control, isEdit, setValue }) =>
                             name="strNombreMarca"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
+                                    label="Nombre de la marca"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     required
                                     fullWidth
+                                    variant="standard"
                                     error={errors?.strNombreMarca ? true : false}
                                     helperText={
                                         errors?.strNombreMarca?.message ||
@@ -286,33 +291,9 @@ const InfoEmpresa = ({ disabled, values, errors, control, isEdit, setValue }) =>
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     variant="standard"
-                                    error={errors?.strMunicipio ? true : false}
+                                    error={errors?.strBarrio ? true : false}
                                     helperText={
-                                        errors?.strMunicipio?.messae ||
-                                        "Digite el Barrio/Corregimiento/Vereda de la empresa."
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strBarrio}
-                            name="strBarrio"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Barrio/Corregimiento/Vereda de la empresa"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
-                                    error={errors?.strMunicipio ? true : false}
-                                    helperText={
-                                        errors?.strMunicipio?.messae ||
+                                        errors?.strBarrio?.messae ||
                                         "Digite el Barrio/Corregimiento/Vereda de la empresa."
                                     }
                                 />
@@ -457,7 +438,166 @@ const InfoEmpresa = ({ disabled, values, errors, control, isEdit, setValue }) =>
                         />
                     </Grid>
 
-                    {/*//TODO: FAlta Categoria de servicio para abajo*/}
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.intIdCategoriaServicio}
+                            name="intIdCategoriaServicio"
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownCategoriaServicio
+                                    label="Categoría de servicio"
+                                    name={name}
+                                    vlaue={value}
+                                    onChange={(e, value) => onChange(value)}
+                                    multiple
+                                    disabled={disabled}
+                                    error={errors?.intIdCategoriaServicio ? true : false}
+                                    helperText={
+                                        errors?.intIdCategoriaServicio?.messae ||
+                                        "Selecciona la categoría del servicio."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.btGeneraEmpleo}
+                            name="btGeneraEmpleo"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿La empresa genera empleo?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        handlderChangeData(e.target.name, e.target.value);
+                                        setValue("intNumeroEmpleados", "");
+                                    }}
+                                    select
+                                    fullWidth
+                                    variant="standard"
+                                    required
+                                    disabled={disabled}
+                                    error={errors?.btGeneraEmpleo ? true : false}
+                                    helperText={
+                                        errors?.btGeneraEmpleo?.messae ||
+                                        "Selecciona si la empresa genera empleo o no."
+                                    }
+                                >
+                                    <MenuItem value={true}>Si</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (value === "") {
+                                        return "Por favor, selecciona si la empresa genera empleo o no.";
+                                    }
+                                },
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.intNumeroEmpleados}
+                            name="intNumeroEmpleados"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Número de empleos generados"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    type="numeric"
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={data.btGeneraEmpleo ? false : disabled}
+                                    required={data.btGeneraEmpleo ? true : false}
+                                    error={errors?.intNumeroEmpleados ? true : false}
+                                    helperText={
+                                        errors?.intNumeroEmpleados?.messae ||
+                                        "Digita la cantidad de empleos generados."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (data.btGeneraEmpleo) {
+                                        if (value === "") {
+                                            return "Por favor, digita la cantidad de empleos generados.";
+                                        }
+
+                                        let intNumeroEmpleados = parseInt(value);
+
+                                        if (intNumeroEmpleados < 1) {
+                                            return "La cantidad de empleados no pueden ser inferiores a 1.";
+                                        }
+                                    }
+                                },
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.valorVentasMes}
+                            name="valorVentasMes"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="Valor promedio de las ventas mensuales"
+                                    name={name}
+                                    value={value}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={errors?.valorVentasMes ? true : false}
+                                    helperText={
+                                        errors?.valorVentasMes?.messae ||
+                                        "Digita la cantidad promedio de las ventas mensuales."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digita la cantidad promedio de las ventas mensuales.",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.objMediosUtilizadosVentas}
+                            name="objMediosUtilizadosVentas"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdrownMediosComunicacion
+                                    label="Medios que utilice para la venta de sus productos o servicios"
+                                    name={name}
+                                    vlaue={value}
+                                    onChange={(e, value) => onChange(value)}
+                                    multiple
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objMediosUtilizadosVentas ? true : false
+                                    }
+                                    helperText={
+                                        errors?.objMediosUtilizadosVentas?.messae ||
+                                        "Seleccione los medios que utilice para la venta de sus productos o servicios."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
                 </Grid>
             </Collapse>
         </Fragment>

@@ -31,6 +31,7 @@ import InfoPrincipal from "./infoPrincipal";
 import InfoEmpresarioPr from "./infoEmpresarioPr";
 import InfoEmpresarioSec from "./infoEmpresarioSec";
 import InfoEmprendimiento from "./infoEmprendimiento";
+import InfoEmpresa from "./infoEmpresa";
 
 const styles = makeStyles((theme) => ({
     paper: {
@@ -244,6 +245,16 @@ const CUEmpresario = ({ isEdit }) => {
 
                         <Grid item xs={12}>
                             <InfoEmprendimiento
+                                control={control}
+                                disabled={loading}
+                                errors={errors}
+                                setValue={setValue}
+                                setError={setError}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <InfoEmpresa
                                 control={control}
                                 disabled={loading}
                                 errors={errors}
