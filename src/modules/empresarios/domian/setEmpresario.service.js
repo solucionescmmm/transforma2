@@ -8,6 +8,7 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 
 //services
 const getEmpresario = require("./getEmpresario.service");
+const getCategoriaEmpresario = require("./getCategoriaServicio.service");
 
 class setEmpresario {
     #objData;
@@ -21,8 +22,9 @@ class setEmpresario {
     }
 
     async main() {
-        //await this.#validations();
+        await this.#validations();
         await this.#setEmpresario();
+        await this.#setEmpresa();
 
         return this.#objResult;
     }
@@ -37,23 +39,27 @@ class setEmpresario {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
-        let queryGetEmpresario = await getEmpresario();
-        let arrEmpresarios = queryGetEmpresario.data;
-        for (let i = 0; i < arrEmpresarios.length; i++) {
-            if (this.#objData.strNroDocto === arrEmpresarios[i].strNroDocto) {
-                throw new Error(
-                    "Ya existe un empresario con este mismo número de identificación"
-                );
-            }
+        let queryGetEmpresario = await getEmpresario(
+            this.#objData.dataEmpresario.strNroDocto
+        );
+
+        if (queryGetEmpresario.data) {
+            throw new Error(
+                "EL empresario ya existe con el mismo numero de documento"
+            );
         }
     }
 
     async #setEmpresario() {
         let dao = new classInterfaceDAOEmpresarios();
-        let query = await dao.setEmpresarios(this.#objData);
+
+        let query = await dao.setEmpresarios(this.#objData.dataEmpresario);
+
         if (query.error) {
             throw new Error(query.msg);
         }
+
+        this.#intIdEmpresario = query.data.intId;
 
         this.#objResult = {
             error: query.error,
@@ -63,13 +69,28 @@ class setEmpresario {
     }
 
     async #setEmpresa() {
+
+        let queryGetCategoriaProducto = await getCategoriaEmpresario(
+            this.#objData.dataEmpresa.strCategoriaProducto
+        );
+
+        let queryGetCategoriaServicio = await getCategoriaEmpresario(
+            this.#objData.dataEmpresa.strCategoriaServicio
+        );
+
         let prevData = this.#objData.dataEmpresa;
+
         let newData = {
             ...prevData,
             intIdEmpresario: this.#intIdEmpresario,
+            intIdNombreCategoriaProducto: queryGetCategoriaProducto?.data || null,
+            intIdNombreCategoriaServicio: queryGetCategoriaServicio?.data || null,
         };
+
         let dao = new classInterfaceDAOEmpresarios();
+
         let query = await dao.setEmpresa(newData);
+
         if (query.error) {
             await this.#rollbackTransaction();
         }
@@ -77,12 +98,16 @@ class setEmpresario {
 
     async #setEmprendimiento() {
         let prevData = this.#objData.dataEmprendimiento;
+
         let newData = {
             ...prevData,
             intIdEmpresario: this.#intIdEmpresario,
         };
+
         let dao = new classInterfaceDAOEmpresarios();
+
         let query = await dao.setEmprendimineto(newData);
+
         if (query.error) {
             await this.#rollbackTransaction();
         }

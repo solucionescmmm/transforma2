@@ -1,6 +1,7 @@
 const classDaoSql = require("../repository/daoEmpresarios");
 
 class interfaceDAOEmpresarios {
+    
     async setEmpresarios(data) {
         const dao = new classDaoSql();
         let result = await dao.setEmpresario(data);
@@ -28,6 +29,12 @@ class interfaceDAOEmpresarios {
     async getEmpresario() {
         const dao = new classDaoSql();
         let result = await dao.getEmpresario(data);
+        return result;
+    }
+
+    async getCategoriaEmpresario() {
+        const dao = new classDaoSql();
+        let result = await dao.getCategoriaEmpresario(data);
         return result;
     }
 }
