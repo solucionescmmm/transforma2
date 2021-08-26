@@ -39,32 +39,31 @@ const Dropzone = ({
     setError,
     errors,
 }) => {
-    const validator = useCallback((file) => {
-        const extension = file.name.substring(
-            file.name.lastIndexOf("."),
-            file.name.length
-        );
+    const validator = useCallback(
+        (file) => {
+            const extension = file.name.substring(
+                file.name.lastIndexOf("."),
+                file.name.length
+            );
 
-        if (extension !== "jpeg" && extension !== "jpg" && extension !== "png") {
-            console.log(errors);
+            if (extension !== ".jpeg" && extension !== ".jpg" && extension !== ".png") {
+                setError(name, {
+                    type: "imagen-no-valida",
+                    message: "Solo se permiten imagenes de tipo jpg, jpeg o png.",
+                });
 
-            setError(name, {
-                type: "imagen-no-valida",
-                message: "Solo se permiten imagenes de tipo jpg, jpeg o png.",
-            });
+                return {
+                    code: "imagen-no-valida",
+                    message: "Solo se permiten imagenes de tipo jpg, jpeg o png.",
+                };
+            }
 
-            return {
-                code: "imagen-no-valida",
-                message: "Solo se permiten imagenes de tipo jpg, jpeg o png.",
-            };
-        }
+            return null;
+        },
+        [setError, name]
+    );
 
-        return null;
-    }, []);
-
-    const onDropAccepted = useCallback((files) => {
-        
-    }, []);
+    const onDropAccepted = useCallback((files) => {}, []);
 
     const onDropRejected = useCallback((files) => {}, []);
 
@@ -76,8 +75,6 @@ const Dropzone = ({
     });
 
     const archivos = acceptedFiles.map((archivo, i) => {
-        console.log(archivo);
-
         return (
             <Paper key={i} style={{ padding: "10px", marginBottom: "5px" }}>
                 {archivo.path}

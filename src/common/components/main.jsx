@@ -203,7 +203,7 @@ const Main = ({ children }) => {
                                     variant="subtitle1"
                                     sx={{ display: { sm: "none", md: "inherit" } }}
                                 >
-                                    {strInfoUser ? strInfoUser.strUsuario : "undefined"}
+                                    {strInfoUser ? strInfoUser.name : "undefined"}
                                 </Typography>
                             </Box>
 
@@ -258,18 +258,18 @@ const Main = ({ children }) => {
                                                 <b>
                                                     {`${
                                                         strInfoUser
-                                                            ? strInfoUser.strNombre
+                                                            ? strInfoUser.givenName
                                                             : undefined
                                                     } ${
                                                         strInfoUser
-                                                            ? strInfoUser.strApellidos
+                                                            ? strInfoUser.familyName
                                                             : undefined
                                                     }`}
                                                 </b>
                                             </Typography>
                                             <Typography variant="caption" noWrap>
                                                 {strInfoUser
-                                                    ? strInfoUser.strEmail
+                                                    ? strInfoUser.email
                                                     : undefined}
                                             </Typography>
                                         </Box>

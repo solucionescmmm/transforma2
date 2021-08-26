@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 //Componentes de Material UI
 import { Grid, Typography, Paper, Breadcrumbs, Button } from "@material-ui/core";
@@ -8,6 +8,9 @@ import { Home as HomeIcon } from "@material-ui/icons";
 
 //Estilos de Material UI
 import { makeStyles } from "@material-ui/styles";
+
+//Context
+import { AuthContext } from "../../common/middlewares/Auth";
 
 const homeStyles = makeStyles((theme) => ({
     paper: {
@@ -44,6 +47,8 @@ const homeStyles = makeStyles((theme) => ({
 }));
 
 const HomePage = () => {
+    const { strInfoUser } = useContext(AuthContext);
+
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
@@ -63,7 +68,7 @@ const HomePage = () => {
             <Grid item xs={12}>
                 <Paper className={classes.paper}>
                     <Typography style={{ fontWeight: "bold" }} variant="subtitle1">
-                        {`Bienvenido`}
+                        {`Bienvenido ${strInfoUser?.name}`}
                     </Typography>
                 </Paper>
             </Grid>

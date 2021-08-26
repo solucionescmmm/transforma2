@@ -97,15 +97,20 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdEspacioJornada}
-                            name="intIdEspacioJornada"
+                            name="objInfoPrincipal.intIdEspacioJornada"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectEspacioJornada
                                     label="Espacio de la jornada"
                                     name={name}
                                     value={value}
-                                    error={errors?.intIdEspacioJornada ? true : false}
+                                    error={
+                                        errors?.objInfoPrincipal?.intIdEspacioJornada
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.intIdEspacioJornada?.message ||
+                                        errors?.objInfoPrincipal?.intIdEspacioJornada
+                                            ?.message ||
                                         "Selecciona el espacio de la jornada."
                                     }
                                     onChange={(e) => onChange(e)}
@@ -124,7 +129,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdEstado}
-                            name="intIdEstado"
+                            name="objInfoPrincipal.intIdEstado"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectEstadoEmpresario
                                     label="Estado del empresario"
@@ -133,9 +138,13 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     required
-                                    error={errors?.intIdEstado ? true : false}
+                                    error={
+                                        errors?.objInfoPrincipal?.intIdEstado
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.intIdEstado?.message ||
+                                        errors?.objInfoPrincipal?.intIdEstado?.message ||
                                         "Selecciona el estado del empresario."
                                     }
                                 />
@@ -209,7 +218,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     label="Fecha de vinculación"
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e, date) => onChange(date)}
+                                    onChange={(date) => onChange(date)}
                                     renderInput={(props) => (
                                         <TextField
                                             {...props}

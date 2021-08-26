@@ -32,6 +32,7 @@ import InfoEmpresarioPr from "./infoEmpresarioPr";
 import InfoEmpresarioSec from "./infoEmpresarioSec";
 import InfoEmprendimiento from "./infoEmprendimiento";
 import InfoEmpresa from "./infoEmpresa";
+import InfoAdicional from "./infoAdicional";
 
 const styles = makeStyles((theme) => ({
     paper: {
@@ -68,30 +69,12 @@ const CUEmpresario = ({ isEdit }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        objInfoPrincipal: {
-            intIdEspacioJornada: "",
-            intIdEstado: "",
-            intIdSede: "",
-            intIdTipoEmpresario: "",
-            dtFechaVinculacion: null,
-        },
-        objInfoEmpresarioPr: {
-            strNombres: "",
-            strApellidos: "",
-            intIdTipoDocto: "",
-            strNroDocto: "",
-            strLugarExpedicionDocto: "",
-            dtFechaExpedicionDocto: null,
-            dtFechaNacimiento: null,
-            intIdSexo: null,
-            strCelular: "",
-            strCorreoElectronico: "",
-            intIdNivelEducativo: "",
-            intIdCondicionDiscapacidad: "",
-            strTitulos: "",
-            fileFoto: "",
-        },
+        objInfoPrincipal: {},
+        objInfoEmpresarioPr: {},
         arrInfoEmpresarioSec: [],
+        objInfoEmprendimiento: {},
+        objInfoEmpresa: {},
+        objInfoAdicional: {},
     });
 
     const [success, setSucces] = useState(false);
@@ -255,6 +238,16 @@ const CUEmpresario = ({ isEdit }) => {
 
                         <Grid item xs={12}>
                             <InfoEmpresa
+                                control={control}
+                                disabled={loading}
+                                errors={errors}
+                                setValue={setValue}
+                                setError={setError}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <InfoAdicional
                                 control={control}
                                 disabled={loading}
                                 errors={errors}

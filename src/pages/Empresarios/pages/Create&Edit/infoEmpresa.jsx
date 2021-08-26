@@ -33,7 +33,15 @@ import SelectCategoriaProducto from "../../components/selectCategoriaProducto";
 import DropdownCategoriaServicio from "../../components/dropdownCategoriaServicio";
 import DropdrownMediosComunicacion from "../../components/dropdownMediosComunicacion";
 
-const InfoEmpresa = ({ disabled, values, errors, control, isEdit, setValue }) => {
+const InfoEmpresa = ({
+    disabled,
+    values,
+    errors,
+    control,
+    isEdit,
+    setValue,
+    setError,
+}) => {
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
@@ -132,6 +140,7 @@ const InfoEmpresa = ({ disabled, values, errors, control, isEdit, setValue }) =>
                                         errors?.fileLogoEmpresa?.message ||
                                         "Selecciona el logo de la empresa."
                                     }
+                                    setError={setError}
                                 />
                             )}
                             control={control}
@@ -172,14 +181,14 @@ const InfoEmpresa = ({ disabled, values, errors, control, isEdit, setValue }) =>
                             name="dtFechaFundacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
+                                    label="Fecha de fundación"
                                     value={value}
-                                    onChange={(e, date) => onChange(date)}
+                                    onChange={(date) => onChange(date)}
                                     disabled={disabled}
                                     renderInput={(props) => (
                                         <TextField
                                             {...props}
                                             name={name}
-                                            label="Fecha de fundación"
                                             variant="standard"
                                             required
                                             error={

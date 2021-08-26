@@ -120,7 +120,9 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             alignItems: "center",
                         }}
                     >
-                        <Box>
+                        <Box sx={{
+                            flexGrow: 1
+                        }}>
                             <p>{`Empresario secundario #${index + 1}`}</p>
                         </Box>
 
@@ -271,7 +273,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             label="Fecha de expedición del documento"
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e, date) => onChange(date)}
+                                            onChange={(date) => onChange(date)}
                                             renderInput={(props) => (
                                                 <TextField
                                                     {...props}
@@ -307,7 +309,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             label="Fecha de nacimiento"
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e, date) => onChange(date)}
+                                            onChange={(date) => onChange(date)}
                                             renderInput={(props) => (
                                                 <TextField
                                                     {...props}
