@@ -72,7 +72,12 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
         <Fragment>
             <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Typography style={{ fontWeight: "bold" }}>
+                    <Typography
+                        style={{
+                            fontWeight: "bold",
+                            color: errors?.objInfoPrincipal ? "#D33030" : "inherit",
+                        }}
+                    >
                         Información principal
                     </Typography>
                 </Box>
@@ -90,7 +95,11 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                 </Box>
             </Box>
 
-            <hr />
+            <hr
+                style={{
+                    borderColor: errors?.objInfoPrincipal ? "#D33030" : "inherit",
+                }}
+            />
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
@@ -160,7 +169,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.intIdSede}
-                            name="intIdSede"
+                            name="objInfoPrincipal.intIdSede"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectSedes
                                     label="Sede"
@@ -169,9 +178,11 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     required
-                                    error={errors?.intIdSede ? true : false}
+                                    error={
+                                        errors?.objInfoPrincipal?.intIdSede ? true : false
+                                    }
                                     helperText={
-                                        errors?.intIdSede?.message ||
+                                        errors?.objInfoPrincipal?.intIdSede?.message ||
                                         "Selecciona la sede."
                                     }
                                 />
@@ -186,7 +197,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.intIdTipoEmpresario}
-                            name="intIdTipoEmpresario"
+                            name="objInfoPrincipal.intIdTipoEmpresario"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectTipoEmpresario
                                     label="Tipo de empresario"
@@ -195,9 +206,14 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     required
-                                    error={errors?.intIdTipoEmpresario ? true : false}
+                                    error={
+                                        errors?.objInfoPrincipal?.intIdTipoEmpresario
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.intIdTipoEmpresario?.message ||
+                                        errors?.objInfoPrincipal?.intIdTipoEmpresario
+                                            ?.message ||
                                         "Selecciona el tipo de empresario."
                                     }
                                 />
@@ -212,7 +228,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.dtFechaVinculacion}
-                            name="dtFechaVinculacion"
+                            name="objInfoPrincipal.dtFechaVinculacion"
                             render={({ field: { name, onChange, value } }) => (
                                 <DatePicker
                                     label="Fecha de vinculación"
@@ -227,10 +243,14 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                             required
                                             variant="standard"
                                             error={
-                                                errors?.dtFechaVinculacion ? true : false
+                                                errors?.objInfoPrincipal
+                                                    ?.dtFechaVinculacion
+                                                    ? true
+                                                    : false
                                             }
                                             helperText={
-                                                errors?.dtFechaVinculacion?.message ||
+                                                errors?.objInfoPrincipal
+                                                    ?.dtFechaVinculacion?.message ||
                                                 "Selecciona la fecha de vinculación"
                                             }
                                         />

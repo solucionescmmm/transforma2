@@ -94,7 +94,12 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
         <Fragment>
             <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Typography style={{ fontWeight: "bold" }}>
+                    <Typography
+                        style={{
+                            fontWeight: "bold",
+                            color: errors?.objInfoEmpresarioPr ? "#D33030" : "inherit",
+                        }}
+                    >
                         Información del empresario principal
                     </Typography>
                 </Box>
@@ -112,14 +117,18 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                 </Box>
             </Box>
 
-            <hr />
+            <hr
+                style={{
+                    borderColor: errors?.objInfoEmpresarioPr ? "#D33030" : "inherit",
+                }}
+            />
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strNombres}
-                            name="strNombres"
+                            name="objInfoEmpresarioPr.strNombres"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Nombres"
@@ -130,9 +139,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     disabled={disabled}
                                     fullWidth
                                     variant="standard"
-                                    error={errors?.strNombres ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.strNombres
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strNombres?.message ||
+                                        errors?.objInfoEmpresarioPr?.strNombres
+                                            ?.message ||
                                         "Digíta el nombre del empresario."
                                     }
                                 />
@@ -152,7 +166,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strApellidos}
-                            name="strApellidos"
+                            name="objInfoEmpresarioPr.strApellidos"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Apellidos"
@@ -163,9 +177,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     disabled={disabled}
                                     fullWidth
                                     variant="standard"
-                                    error={errors?.strApellidos ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.strApellidos
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strApellidos?.message ||
+                                        errors?.objInfoEmpresarioPr?.strApellidos
+                                            ?.message ||
                                         "Digíta los apellidos del empresario."
                                     }
                                 />
@@ -186,7 +205,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdTipoDocto}
-                            name="intIdTipoDocto"
+                            name="objInfoEmpresarioPr.intIdTipoDocto"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTipoDocumento
                                     label="Tipo de documento"
@@ -195,9 +214,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     onChange={(e) => onChange(e)}
                                     required
                                     disabled={disabled}
-                                    error={errors?.intIdTipoDocto ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.intIdTipoDocto
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.intIdTipoDocto?.message ||
+                                        errors?.objInfoEmpresarioPr?.intIdTipoDocto
+                                            ?.message ||
                                         "Selecciona el tipo de documento."
                                     }
                                 />
@@ -212,7 +236,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strNroDocto}
-                            name="strNroDocto"
+                            name="objInfoEmpresarioPr.strNroDocto"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Número de documento"
@@ -223,9 +247,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     disabled={disabled}
                                     fullWidth
                                     variant="standard"
-                                    error={errors?.strNroDocto ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.strNroDocto
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strNroDocto?.message ||
+                                        errors?.objInfoEmpresarioPr?.strNroDocto
+                                            ?.message ||
                                         "Digita el número de documento del empresario."
                                     }
                                 />
@@ -241,7 +270,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strLugarExpedicionDocto}
-                            name="strLugarExpedicionDocto"
+                            name="objInfoEmpresarioPr.strLugarExpedicionDocto"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Lugar de expredición del documento"
@@ -251,9 +280,15 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     disabled={disabled}
                                     fullWidth
                                     variant="standard"
-                                    error={errors?.strLugarExpedicionDocto ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strLugarExpedicionDocto
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strLugarExpedicionDocto?.message ||
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strLugarExpedicionDocto?.message ||
                                         "Digita el lugar de expedición del documento del empresario."
                                     }
                                 />
@@ -265,7 +300,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.dtFechaExpedicionDocto}
-                            name="dtFechaExpedicionDocto"
+                            name="objInfoEmpresarioPr.dtFechaExpedicionDocto"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
                                     label="Fecha de expedición del documento"
@@ -279,12 +314,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors?.dtFechaExpedicionDocto
+                                                errors?.objInfoEmpresarioPr
+                                                    ?.dtFechaExpedicionDocto
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.dtFechaExpedicionDocto?.message ||
+                                                errors?.objInfoEmpresarioPr
+                                                    ?.dtFechaExpedicionDocto?.message ||
                                                 "Selecciona la fecha de expedición del documento del empresario."
                                             }
                                         />
@@ -298,7 +335,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.dtFechaNacimiento}
-                            name="dtFechaNacimiento"
+                            name="objInfoEmpresarioPr.dtFechaNacimiento"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
                                     label="Fecha de nacimiento"
@@ -312,10 +349,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors?.dtFechaNacimiento ? true : false
+                                                errors?.objInfoEmpresarioPr
+                                                    ?.dtFechaNacimiento
+                                                    ? true
+                                                    : false
                                             }
                                             helperText={
-                                                errors?.dtFechaNacimiento?.message ||
+                                                errors?.objInfoEmpresarioPr
+                                                    ?.dtFechaNacimiento?.message ||
                                                 "Selecciona la fecha de expedición del documento del empresario."
                                             }
                                         />
@@ -329,7 +370,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdSexo}
-                            name="intIdSexo"
+                            name="objInfoEmpresarioPr.intIdSexo"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectSexo
                                     label="Sexo del empresario"
@@ -338,9 +379,13 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     required
-                                    error={errors?.intIdSexo ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.intIdSexo
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.intIdSexo?.message ||
+                                        errors?.objInfoEmpresarioPr?.intIdSexo?.message ||
                                         "Selecciona el sexo del empresario."
                                     }
                                 />
@@ -355,7 +400,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strCelular}
-                            name="strCelular"
+                            name="objInfoEmpresarioPr.strCelular"
                             render={({ field: { name, value, onChange } }) => (
                                 <NumberFormat
                                     format="### ### ####"
@@ -368,9 +413,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     variant="standard"
                                     disabled={disabled}
                                     required
-                                    error={errors?.strCelular ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.strCelular
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strCelular?.message ||
+                                        errors?.objInfoEmpresarioPr?.strCelular
+                                            ?.message ||
                                         "Digita el número celular del empresario."
                                     }
                                 />
@@ -393,7 +443,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strCorreoElectronico}
-                            name="strCorreoElectronico"
+                            name="objInfoEmpresarioPr.strCorreoElectronico"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Correo electrónico"
@@ -403,9 +453,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
-                                    error={errors?.strCorreoElectronico ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strCorreoElectronico?.message ||
+                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico
+                                            ?.message ||
                                         "Digita el correo electrónico del empresario."
                                     }
                                 />
@@ -426,7 +481,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdNivelEducativo}
-                            name="intIdNivelEducativo"
+                            name="objInfoEmpresarioPr.intIdNivelEducativo"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectNivelEducativo
                                     label="Nivel educativo"
@@ -434,9 +489,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
-                                    error={errors?.intIdNivelEducativo ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.intIdNivelEducativo
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.intIdNivelEducativo?.message ||
+                                        errors?.objInfoEmpresarioPr?.intIdNivelEducativo
+                                            ?.message ||
                                         "Selecciona el nivel educativo del empresario."
                                     }
                                 />
@@ -448,7 +508,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdCondicionDiscapacidad}
-                            name="intIdCondicionDiscapacidad"
+                            name="objInfoEmpresarioPr.intIdCondicionDiscapacidad"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTiposDiscapacidad
                                     label="Condición de discapacidad"
@@ -457,10 +517,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.intIdCondicionDiscapacidad ? true : false
+                                        errors?.objInfoEmpresarioPr
+                                            ?.intIdCondicionDiscapacidad
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.intIdCondicionDiscapacidad?.message ||
+                                        errors?.objInfoEmpresarioPr
+                                            ?.intIdCondicionDiscapacidad?.message ||
                                         "Selecciona la discapacidad del empresario, en caso de padecer alguna."
                                     }
                                 />
@@ -472,7 +536,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strTitulos}
-                            name="strTitulos"
+                            name="objInfoEmpresarioPr.strTitulos"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Título(s)"
@@ -482,9 +546,14 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     disabled={disabled}
                                     fullWidth
                                     variant="standard"
-                                    error={errors?.strTitulos ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.strTitulos
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strTitulos?.message ||
+                                        errors?.objInfoEmpresarioPr?.strTitulos
+                                            ?.message ||
                                         "Digita los títulos o título del empresario, en caso de poseer alguno."
                                     }
                                 />
@@ -496,7 +565,7 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.fileFoto}
-                            name="fileFoto"
+                            name="objInfoEmpresarioPr.fileFoto"
                             render={({ field: { name, value, onChange } }) => (
                                 <Dropzone
                                     label="Foto del empresario"
@@ -505,9 +574,13 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     disabled={disabled}
                                     onChange={(url) => onChange(url)}
                                     setError={setError}
-                                    error={errors?.fileFoto ? true : false}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.fileFoto
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.fileFoto?.message ||
+                                        errors?.objInfoEmpresarioPr?.fileFoto?.message ||
                                         "Por favor selecciona una foto del empresario."
                                     }
                                     errors={errors}
