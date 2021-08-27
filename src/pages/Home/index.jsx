@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 //Componentes de Material UI
-import { Grid, Typography, Paper, Breadcrumbs, Button } from "@material-ui/core";
+import { Grid, Typography, Paper, Breadcrumbs } from "@material-ui/core";
 
 //Iconos
 import { Home as HomeIcon } from "@material-ui/icons";
@@ -68,7 +68,7 @@ const HomePage = () => {
             <Grid item xs={12}>
                 <Paper className={classes.paper}>
                     <Typography style={{ fontWeight: "bold" }} variant="subtitle1">
-                        {`Bienvenido ${strInfoUser?.name}`}
+                        {`Bienvenido ${strInfoUser?.strNombre} ${strInfoUser?.strApellidos}`}
                     </Typography>
                 </Paper>
             </Grid>

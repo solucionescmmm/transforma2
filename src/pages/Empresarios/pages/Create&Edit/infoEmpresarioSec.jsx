@@ -51,6 +51,8 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEd
         setLoading(false);
     }, [arrayValues, isEdit]);
 
+    console.log(fields);
+
     if (loading) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
@@ -63,7 +65,12 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEd
         <Fragment>
             <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Typography style={{ fontWeight: "bold" }}>
+                    <Typography
+                        style={{
+                            fontWeight: "bold",
+                            color: errors?.arrInfoEmpresarioSec ? "#D33030" : "inherit",
+                        }}
+                    >
                         Información de empresarios secundarios
                     </Typography>
                 </Box>
@@ -81,7 +88,11 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEd
                 </Box>
             </Box>
 
-            <hr />
+            <hr
+                style={{
+                    borderColor: errors?.arrInfoEmpresarioSec ? "#D33030" : "inherit",
+                }}
+            />
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
@@ -130,7 +141,9 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEd
                                     strLugarExpedicionDocto: "",
                                     dtFechaExpedicionDocto: null,
                                     dtFechaNacimiento: null,
-                                    intIdSexo: null,
+                                    intIdSexo: "",
+                                    strCelular: "",
+                                    strCorreoElectronico: "",
                                 })
                             }
                         >

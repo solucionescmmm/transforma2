@@ -74,10 +74,10 @@ const VerifyToken = () => {
     const getDataToken = useCallback(async (signalGetDataToken, token) => {
         await axios({
             method: "GET",
-            baseURL: `${process.env.REACT_APP_API_BACK_PROT_DATALAKE}://${process.env.REACT_APP_API_BACK_HOST_DATALAKE}${process.env.REACT_APP_API_BACK_PORT_DATALAKE}`,
-            url: `${process.env.REACT_APP_API_DATALAKE_LOGIN_GETDATA}`,
+            baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+            url: `${process.env.REACT_APP_API_TRANSFORMA_AUTHORIZE}`,
             headers: {
-                token,
+                Authorization: token,
             },
             cancelToken: signalGetDataToken.token,
         })

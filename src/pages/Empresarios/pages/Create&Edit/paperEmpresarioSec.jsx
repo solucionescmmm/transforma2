@@ -42,7 +42,9 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
         strLugarExpedicionDocto: "",
         dtFechaExpedicionDocto: null,
         dtFechaNacimiento: null,
-        intIdSexo: null,
+        intIdSexo: "",
+        strCelular: "",
+        strCorreoElectronico: "",
     });
 
     const [loading, setLoading] = useState(true);
@@ -62,7 +64,9 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || "",
                 dtFechaExpedicionDocto: values.dtFechaExpedicionDocto || null,
                 dtFechaNacimiento: values.dtFechaNacimiento || null,
-                intIdSexo: values.intIdSexo || null,
+                intIdSexo: values.intIdSexo || "",
+                strCelular: values.strCelular || "",
+                strCorreoElectronico: values.strCorreoElectronico || "",
             });
         }
 
@@ -79,13 +83,39 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
 
     if (!data.Id) {
         return (
-            <Alert severity="error" style={{ marginBottom: "15px" }}>
-                <AlertTitle>
-                    <b>Se esperaba un identificador</b>
-                </AlertTitle>
-                Ha ocurrido un error al renderizar el formulario de empresarios
-                secundarios.
-            </Alert>
+            <Box
+                sx={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: {
+                        xs: "column",
+                        md: "row",
+                    },
+                    alignItems: {
+                        xs: "flex-end",
+                        md: "center",
+                    },
+                    marginBottom: "15px",
+                }}
+            >
+                <Box sx={{ flexGrow: 1 }}>
+                    <Alert severity="error" style={{ marginBottom: "15px" }}>
+                        <AlertTitle>
+                            <b>Se esperaba un identificador</b>
+                        </AlertTitle>
+                        Ha ocurrido un error al renderizar el formulario de empresarios
+                        secundarios.
+                    </Alert>
+                </Box>
+
+                <Box>
+                    <IconButton color="error" onClick={() => remove(index)}>
+                        <Tooltip title="Eliminar">
+                            <DeleteIcon />
+                        </Tooltip>
+                    </IconButton>
+                </Box>
+            </Box>
         );
     }
 
@@ -120,9 +150,11 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             alignItems: "center",
                         }}
                     >
-                        <Box sx={{
-                            flexGrow: 1
-                        }}>
+                        <Box
+                            sx={{
+                                flexGrow: 1,
+                            }}
+                        >
                             <p>{`Empresario secundario #${index + 1}`}</p>
                         </Box>
 
@@ -183,7 +215,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.intIdTipoDocto}
-                                    name="intIdTipoDocto"
+                                    name={`arrInfoEmpresarioSec[${index}].intIdTipoDocto`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <SelectTipoDocumento
                                             label="Tipo de documento"
@@ -210,7 +242,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.strNroDocto}
-                                    name="strNroDocto"
+                                    name={`arrInfoEmpresarioSec[${index}].strNroDocto`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <TextField
                                             label="Número de documento"
@@ -239,7 +271,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.strLugarExpedicionDocto}
-                                    name="strLugarExpedicionDocto"
+                                    name={`arrInfoEmpresarioSec[${index}].strLugarExpedicionDocto`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <TextField
                                             label="Lugar de expredición del documento"
@@ -267,7 +299,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.dtFechaExpedicionDocto}
-                                    name="dtFechaExpedicionDocto"
+                                    name={`arrInfoEmpresarioSec[${index}].dtFechaExpedicionDocto`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <DatePicker
                                             label="Fecha de expedición del documento"
@@ -303,7 +335,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.dtFechaNacimiento}
-                                    name="dtFechaNacimiento"
+                                    name={`arrInfoEmpresarioSec[${index}].dtFechaNacimiento`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <DatePicker
                                             label="Fecha de nacimiento"
@@ -338,7 +370,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.intIdSexo}
-                                    name="intIdSexo"
+                                    name={`arrInfoEmpresarioSec[${index}].intIdSexo`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <SelectSexo
                                             label="Sexo del empresario"
@@ -364,7 +396,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.strCelular}
-                                    name="strCelular"
+                                    name={`arrInfoEmpresarioSec[${index}].strCelular`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <NumberFormat
                                             format="### ### ####"
@@ -410,7 +442,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                             <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.strCorreoElectronico}
-                                    name="strCorreoElectronico"
+                                    name={`arrInfoEmpresarioSec[${index}].strCorreoElectronico`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <TextField
                                             label="Correo electrónico"

@@ -92,7 +92,12 @@ const InformacionPrincipal = ({
         <Fragment>
             <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Typography style={{ fontWeight: "bold" }}>
+                    <Typography
+                        style={{
+                            fontWeight: "bold",
+                            color: errors?.objInfoEmprendimiento ? "#D33030" : "inherit",
+                        }}
+                    >
                         Información del emprendimiento
                     </Typography>
                 </Box>
@@ -110,14 +115,18 @@ const InformacionPrincipal = ({
                 </Box>
             </Box>
 
-            <hr />
+            <hr
+                style={{
+                    borderColor: errors?.objInfoEmprendimiento ? "#D33030" : "inherit",
+                }}
+            />
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.btElaboraProductoServicio}
-                            name="btElaboraProductoServicio"
+                            name="objInfoEmprendimiento.btElaboraProductoServicio"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Elabora usted un producto o servicio?"
@@ -130,10 +139,14 @@ const InformacionPrincipal = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.btElaboraProductoServicio ? true : false
+                                        errors?.objInfoEmprendimiento
+                                            ?.btElaboraProductoServicio
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.btElaboraProductoServicio?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.btElaboraProductoServicio?.message ||
                                         "Selecciona una opción."
                                     }
                                 >
@@ -144,7 +157,7 @@ const InformacionPrincipal = ({
                             control={control}
                             rules={{
                                 validate: (value) => {
-                                    if (value === "") {
+                                    if (value === "" || value === undefined) {
                                         return "Por favor, selecciona una opción.";
                                     }
                                 },
@@ -155,7 +168,7 @@ const InformacionPrincipal = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.btTieneSoloIdea}
-                            name="btTieneSoloIdea"
+                            name="objInfoEmprendimiento.btTieneSoloIdea"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Tengo solo la idea?"
@@ -167,7 +180,11 @@ const InformacionPrincipal = ({
                                     fullWidth
                                     disabled={disabled}
                                     required
-                                    error={errors?.btTieneSoloIdea ? true : false}
+                                    error={
+                                        errors?.objInfoEmprendimiento?.btTieneSoloIdea
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
                                         errors?.btTieneSoloIdea?.message ||
                                         "Selecciona una opción."
@@ -180,7 +197,7 @@ const InformacionPrincipal = ({
                             control={control}
                             rules={{
                                 validate: (value) => {
-                                    if (value === "") {
+                                    if (value === "" || value === undefined) {
                                         return "Por favor, selecciona una opción.";
                                     }
                                 },
@@ -191,7 +208,7 @@ const InformacionPrincipal = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdCuandoComienzaEmpresa}
-                            name="intIdCuandoComienzaEmpresa"
+                            name="objInfoEmprendimiento.intIdCuandoComienzaEmpresa"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectCuandoComienzaEmpresa
                                     label="Si aún no ha comenzado su empresa ¿Cuándo planea comenzar?"
@@ -200,10 +217,14 @@ const InformacionPrincipal = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.intIdCuandoComienzaEmpresa ? true : false
+                                        errors?.objInfoEmprendimiento
+                                            ?.intIdCuandoComienzaEmpresa
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.intIdCuandoComienzaEmpresa?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.intIdCuandoComienzaEmpresa?.message ||
                                         "Selecciona una opción."
                                     }
                                 />
@@ -218,7 +239,7 @@ const InformacionPrincipal = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdTiempoDedicacion}
-                            name="intIdTiempoDedicacion"
+                            name="objInfoEmprendimiento.intIdTiempoDedicacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTiempoDedicacionEmpresa
                                     label="Tiempo de dedicación actual a la idea o negocio"
@@ -227,9 +248,15 @@ const InformacionPrincipal = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     required
-                                    error={errors?.intIdTiempoDedicacion ? true : false}
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.intIdTiempoDedicacion
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.intIdTiempoDedicacion?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.intIdTiempoDedicacion?.message ||
                                         "Selecciona una opción."
                                     }
                                 />
@@ -244,7 +271,7 @@ const InformacionPrincipal = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.btGrupoAsociativo}
-                            name="btGrupoAsociativo"
+                            name="objInfoEmprendimiento.btGrupoAsociativo"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Pertenece algún grupo asociativo?"
@@ -253,16 +280,23 @@ const InformacionPrincipal = ({
                                     onChange={(e) => {
                                         onChange(e);
                                         handlerChangeData(e.target.name, e.target.value);
-                                        setValue("btAsociacionUnidadProdIndividual", "");
+                                        setValue(
+                                            "objInfoEmprendimiento.btAsociacionUnidadProdIndividual",
+                                            ""
+                                        );
                                     }}
                                     select
                                     variant="standard"
                                     fullWidth
                                     disabled={disabled}
-                                    error={errors?.btGrupoAsociativo ? true : false}
+                                    error={
+                                        errors?.objInfoEmprendimiento?.btGrupoAsociativo
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.btGrupoAsociativo?.message ||
-                                        "Selecciona una opción."
+                                        errors?.objInfoEmprendimiento?.btGrupoAsociativo
+                                            ?.message || "Selecciona una opción."
                                     }
                                 >
                                     <MenuItem value={true}>Si</MenuItem>
@@ -276,7 +310,7 @@ const InformacionPrincipal = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.btAsociacionUnidadProdIndividual}
-                            name="btAsociacionUnidadProdIndividual"
+                            name="objInfoEmprendimiento.btAsociacionUnidadProdIndividual"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Desea registrarse como asociación o cómo unidad productiva individual?"
@@ -286,17 +320,19 @@ const InformacionPrincipal = ({
                                     select
                                     variant="standard"
                                     fullWidth
-                                    disabled={!data.btGrupoAsociativo ? true : disabled}
+                                    disabled={!data?.btGrupoAsociativo ? true : disabled}
                                     error={
-                                        errors?.btAsociacionUnidadProdIndividual
+                                        errors?.objInfoEmprendimiento
+                                            ?.btAsociacionUnidadProdIndividual
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.btAsociacionUnidadProdIndividual
-                                            ?.message || "Selecciona una opción."
+                                        errors?.objInfoEmprendimiento
+                                            ?.btAsociacionUnidadProdIndividual?.message ||
+                                        "Selecciona una opción."
                                     }
-                                    required={data.btGrupoAsociativo ? true : false}
+                                    required={data?.btGrupoAsociativo ? true : false}
                                 >
                                     <MenuItem value={true}>Si</MenuItem>
                                     <MenuItem value={false}>No</MenuItem>
@@ -307,7 +343,7 @@ const InformacionPrincipal = ({
                                 validate: (value) => {
                                     if (
                                         data.btGrupoAsociativo === false &&
-                                        value === ""
+                                        (value === "" || value === undefined)
                                     ) {
                                         return "Por favor, selecciona una opción.";
                                     }
@@ -319,7 +355,7 @@ const InformacionPrincipal = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strProductosServicios}
-                            name="strProductosServicios"
+                            name="objInfoEmprendimiento.strProductosServicios"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Describa los productos o servicios que ofrece"
@@ -331,9 +367,15 @@ const InformacionPrincipal = ({
                                     required
                                     multiline
                                     rows={4}
-                                    error={errors?.strProductosServicios ? true : false}
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strProductosServicios
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strProductosServicios?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.strProductosServicios?.message ||
                                         "Describe detalladamente los servicios que ofrece el empresario."
                                     }
                                 />
@@ -349,7 +391,7 @@ const InformacionPrincipal = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strMateriaPrima}
-                            name="strMateriaPrima"
+                            name="objInfoEmprendimiento.strMateriaPrima"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Materias primas utilizadas"
@@ -360,9 +402,14 @@ const InformacionPrincipal = ({
                                     variant="outlined"
                                     multiline
                                     rows={4}
-                                    error={errors?.strMateriaPrima ? true : false}
+                                    error={
+                                        errors?.objInfoEmprendimiento?.strMateriaPrima
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strMateriaPrima?.message ||
+                                        errors?.objInfoEmprendimiento?.strMateriaPrima
+                                            ?.message ||
                                         "Describe detalladamente los materias primas que utiliza el empresario."
                                     }
                                 />
@@ -374,7 +421,7 @@ const InformacionPrincipal = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strNombreTecnica}
-                            name="strNombreTecnica"
+                            name="objInfoEmprendimiento.strNombreTecnica"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Nombre de la técnica utilizada"
@@ -385,9 +432,14 @@ const InformacionPrincipal = ({
                                     variant="outlined"
                                     multiline
                                     rows={4}
-                                    error={errors?.strNombreTecnica ? true : false}
+                                    error={
+                                        errors?.objInfoEmprendimiento?.strNombreTecnica
+                                            ? true
+                                            : false
+                                    }
                                     helperText={
-                                        errors?.strNombreTecnica?.message ||
+                                        errors?.objInfoEmprendimiento?.strNombreTecnica
+                                            ?.message ||
                                         "Describe detalladamente la técnica que utiliza el empresario."
                                     }
                                 />

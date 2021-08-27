@@ -13,7 +13,7 @@ import ContainerMiddleware from "../common/middlewares/Containers";
 
 //==================================> Otros componentes
 import Main from "../common/components/main";
-// import PrivateRoute from "../common/middlewares/PrivateRoute";
+import PrivateRoute from "../common/middlewares/PrivateRoute";
 // import ErrorPage from "../common/components/Error";
 // import MaintenancePage from "../common/components/Error/503";
 
@@ -25,7 +25,7 @@ const CUEmpresario = lazy(() =>
     import("../pages/Empresarios/pages/Create&Edit/pageCUEmpresario")
 );
 
-const RoutesTransforma = () => {
+const RoutesTransforma = ({ path }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -33,31 +33,33 @@ const RoutesTransforma = () => {
 
     return (
         <ContainerMiddleware>
-            <Main>
-                <Suspense fallback={<Loading />}>
-                    <Switch location={location}>
-                        <Route
-                            path="/transforma"
-                            exact
-                            component={() => (
-                                <div className="animate__animated animate__fadeIn">
-                                    <Home />
-                                </div>
-                            )}
-                        />
+            <PrivateRoute path={path}>
+                <Main>
+                    <Suspense fallback={<Loading />}>
+                        <Switch location={location}>
+                            <Route
+                                path="/transforma"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <Home />
+                                    </div>
+                                )}
+                            />
 
-                        <Route
-                            path="/transforma/asesor/empresario/create"
-                            exact
-                            component={() => (
-                                <div className="animate__animated animate__fadeIn">
-                                    <CUEmpresario />
-                                </div>
-                            )}
-                        />
-                    </Switch>
-                </Suspense>
-            </Main>
+                            <Route
+                                path="/transforma/asesor/empresario/create"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <CUEmpresario />
+                                    </div>
+                                )}
+                            />
+                        </Switch>
+                    </Suspense>
+                </Main>
+            </PrivateRoute>
         </ContainerMiddleware>
     );
 };

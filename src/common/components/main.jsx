@@ -9,7 +9,6 @@ import React, {
 
 //Context
 import { AuthContext } from "../middlewares/Auth";
-import { AppContext } from "../../app";
 
 //Librerias
 import { Link, useHistory } from "react-router-dom";
@@ -123,7 +122,6 @@ const Main = ({ children }) => {
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
     const { strInfoUser, cerrarSesion } = useContext(AuthContext);
-    const { bitDarkMode } = useContext(AppContext);
     const { push } = useHistory();
 
     //===============================================================================================================================================
@@ -203,7 +201,7 @@ const Main = ({ children }) => {
                                     variant="subtitle1"
                                     sx={{ display: { sm: "none", md: "inherit" } }}
                                 >
-                                    {strInfoUser ? strInfoUser.name : "undefined"}
+                                    {strInfoUser ? strInfoUser.strUsuario : "undefined"}
                                 </Typography>
                             </Box>
 
@@ -213,7 +211,10 @@ const Main = ({ children }) => {
                                     handleProfile(e);
                                 }}
                             >
-                                <Avatar className={classes.avatar}>
+                                <Avatar
+                                    className={classes.avatar}
+                                    src={strInfoUser?.strURLImagen}
+                                >
                                     <PersonIcon />
                                 </Avatar>
                             </IconButton>
@@ -233,7 +234,10 @@ const Main = ({ children }) => {
                                     }}
                                 >
                                     <Box>
-                                        <Avatar className={classes.avatarInterno}>
+                                        <Avatar
+                                            className={classes.avatarInterno}
+                                            src={strInfoUser?.strURLImagen}
+                                        >
                                             <PersonIcon
                                                 className={classes.avatarInterno}
                                             />
@@ -258,18 +262,18 @@ const Main = ({ children }) => {
                                                 <b>
                                                     {`${
                                                         strInfoUser
-                                                            ? strInfoUser.givenName
+                                                            ? strInfoUser.strNombre
                                                             : undefined
                                                     } ${
                                                         strInfoUser
-                                                            ? strInfoUser.familyName
+                                                            ? strInfoUser.strApellidos
                                                             : undefined
                                                     }`}
                                                 </b>
                                             </Typography>
                                             <Typography variant="caption" noWrap>
                                                 {strInfoUser
-                                                    ? strInfoUser.email
+                                                    ? strInfoUser.strEmail
                                                     : undefined}
                                             </Typography>
                                         </Box>

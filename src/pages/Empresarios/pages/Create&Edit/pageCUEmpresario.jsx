@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
+
+//Context
+import { AuthContext } from "../../../../common/middlewares/Auth";
 
 //Librerias
 import { Link as RouterLink, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 
 //Componentes de Material UI
 import {
@@ -66,6 +71,11 @@ const styles = makeStyles((theme) => ({
 
 const CUEmpresario = ({ isEdit }) => {
     //===============================================================================================================================================
+    //========================================== Context ============================================================================================
+    //===============================================================================================================================================
+    const { token } = useContext(AuthContext);
+
+    //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
@@ -89,7 +99,6 @@ const CUEmpresario = ({ isEdit }) => {
     const {
         control,
         formState: { errors },
-        getValues,
         handleSubmit,
         reset,
         setError,
@@ -101,6 +110,97 @@ const CUEmpresario = ({ isEdit }) => {
     //===============================================================================================================================================
     const classes = styles();
 
+    const onSubmit = (data) => {
+        setData((prevState) => ({
+            ...prevState,
+            ...data,
+        }));
+
+        console.log(data);
+
+        // setFlagSubmit(true);
+    };
+
+    const submitData = useCallback(
+        async (signalSubmitData) => {
+            setLoading(true);
+
+            setFlagSubmit(false);
+
+            await axios(
+                {
+                    method: isEdit ? "PUT" : "POST",
+                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+                    url: `${
+                        isEdit
+                            ? process.env
+                                  .REACT_APP_API_NOVEDADES_UPDATESOLICITUDVACACIONES
+                            : process.env.REACT_APP_API_NOVEDADES_SETSOLICITUDVACACIONES
+                    }`,
+                    data,
+                    headers: {
+                        token,
+                        "Content-Type": "application/json;charset=UTF-8",
+                    },
+                },
+                {
+                    cancelToken: signalSubmitData.token,
+                }
+            )
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    toast.success(res.data.msg);
+
+                    setLoading(false);
+                    setSucces(true);
+                })
+                .catch((error) => {
+                    if (!axios.isCancel(error)) {
+                        let msg;
+
+                        if (error.response) {
+                            msg = error.response.data.msg;
+                        } else if (error.request) {
+                            msg = error.message;
+                        } else {
+                            msg = error.message;
+                        }
+
+                        console.error(error);
+                        setLoading(false);
+
+                        toast.error(msg);
+                    }
+                });
+        },
+        [token, data, isEdit]
+    );
+
+    //===============================================================================================================================================
+    //========================================== useEffects =========================================================================================
+    //===============================================================================================================================================
+
+    useEffect(() => {
+        if (isEdit) {
+            reset(data);
+        }
+    }, [data, reset, isEdit]);
+
+    useEffect(() => {
+        let signalSubmitData = axios.CancelToken.source();
+
+        if (flagSubmit) {
+            submitData(signalSubmitData);
+        }
+
+        return () => {
+            signalSubmitData.cancel("Petición abortada.");
+        };
+    }, [flagSubmit, submitData]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -109,7 +209,14 @@ const CUEmpresario = ({ isEdit }) => {
     }
 
     return (
-        <Grid container direction="row" spacing={3}>
+        <Grid
+            container
+            direction="row"
+            spacing={3}
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+        >
             <Grid item xs={12}>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Link
