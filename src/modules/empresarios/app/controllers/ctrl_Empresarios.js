@@ -3,12 +3,51 @@ const classSetEmpresario = require("../../domian/setEmpresario.service");
 
 //servicios
 const getEmpresario = require("../../domian/getEmpresario.service");
+const uploadFile = require("../functions/uploadFile");
 
 class ctrlEmpresarios {
+    async uploadFileEmpresario(req, res) {
+        try {
+            uploadFile(req, res, async (error) => {
+                if (error) {
+                    let result = {
+                        error: true,
+                        msg: error.message,
+                    };
+
+                    res.status(500).json(result);
+                }
+
+                let result = {
+                    error: false,
+                    data: {
+                        fileName: req.file.filename,
+                        mimeType: req.file.mimetype,
+                        size: req.file.size,
+                        extension: req.file.originalname.substring(
+                            req.file.originalname.lastIndexOf("."),
+                            req.file.originalname.length
+                        ),
+                        path: `/uploads/Empresarios/${req.file.filename}`,
+                    },
+                };
+
+                res.status(200).json(result);
+            });
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
     async postEmpresario(req, res) {
         try {
             let data = req.body;
-            
+
             let service = new classSetEmpresario(data);
 
             let query = await service.main();
@@ -26,6 +65,7 @@ class ctrlEmpresarios {
             res.status(400).json(result);
         }
     }
+
     async getEmpresario(req, res) {
         try {
             let data = req.query;

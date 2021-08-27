@@ -23,6 +23,12 @@ const login = async (token) => {
                 audience: CLIENT_ID,
             })
             .catch((error) => {
+                if (error.message.startsWith("Token used too late")) {
+                    throw new Error(
+                        "El token suministrado por Google ha expirado, por favor intenta nuevamente."
+                    );
+                }
+
                 throw new Error(error.message);
             })
             .then((res) => {

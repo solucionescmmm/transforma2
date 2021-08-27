@@ -1,10 +1,13 @@
 //librerias
 const routes = require("express").Router();
 
-// class
+//Middlewares
+const cache = require("../../../../common/middleware/apiCache");
+
+// Clases
 const classController = require("../../app/controllers/ctrl_Listas");
 
-routes.get("/transforma/api/listas", async (req, res) => {
+routes.get("/transforma/api/listas", cache(), async (req, res) => {
     let controllerListas = new classController();
     controllerListas.getListas(req, res);
 });

@@ -4,6 +4,7 @@ require("dotenv-flow").config();
 //Librerias
 const express = require("express");
 const app = express();
+const path = require("path");
 
 //Librerias adicionales
 const cors = require("cors");
@@ -22,6 +23,12 @@ app.use(morgan((process.env.NODE_ENV = "development" ? "dev" : "common")));
 app.use(helmet());
 app.use(compression({ level: 9 }));
 app.use("/transforma/api", authToken);
+
+//Static
+app.use(
+    "/uploads/Empresarios",
+    express.static(path.resolve(__dirname, "../../Empresarios/app/uploads"))
+);
 
 //router
 app.use(require("../infra/http/apiMain.routes"));
