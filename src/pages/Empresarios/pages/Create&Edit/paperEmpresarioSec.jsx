@@ -37,12 +37,12 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
     const [data, setData] = useState({
         Id: null,
         strNombresApellidos: "",
-        intIdTipoDocto: "",
+        strTipoDocto: "",
         strNroDocto: "",
         strLugarExpedicionDocto: "",
         dtFechaExpedicionDocto: null,
         dtFechaNacimiento: null,
-        intIdSexo: "",
+        strSexo: "",
         strCelular: "",
         strCorreoElectronico: "",
     });
@@ -59,12 +59,12 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
             setData({
                 Id: values.intId || values.strId || null,
                 strNombresApellidos: values.strNombresApellidos || "",
-                intIdTipoDocto: values.intIdTipoDocto || "",
+                strTipoDocto: values.strTipoDocto || "",
                 strNroDocto: values.strNroDocto || "",
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || "",
                 dtFechaExpedicionDocto: values.dtFechaExpedicionDocto || null,
                 dtFechaNacimiento: values.dtFechaNacimiento || null,
-                intIdSexo: values.intIdSexo || "",
+                strSexo: values.strSexo || "",
                 strCelular: values.strCelular || "",
                 strCorreoElectronico: values.strCorreoElectronico || "",
             });
@@ -214,8 +214,8 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
 
                             <Grid item xs={12} md={6}>
                                 <Controller
-                                    defaultValue={data.intIdTipoDocto}
-                                    name={`arrInfoEmpresarioSec[${index}].intIdTipoDocto`}
+                                    defaultValue={data.strTipoDocto}
+                                    name={`arrInfoEmpresarioSec[${index}].strTipoDocto`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <SelectTipoDocumento
                                             label="Tipo de documento"
@@ -226,11 +226,11 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             disabled={disabled}
                                             error={
                                                 !!errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.intIdTipoDocto
+                                                    ?.strTipoDocto
                                             }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.intIdTipoDocto?.message ||
+                                                    ?.strTipoDocto?.message ||
                                                 "Selecciona el tipo de documento del empresario."
                                             }
                                         />
@@ -255,11 +255,11 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             variant="standard"
                                             error={
                                                 !!errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.intIdTipoDocto
+                                                    ?.strTipoDocto
                                             }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.intIdTipoDocto?.message ||
+                                                    ?.strTipoDocto?.message ||
                                                 "Selecciona el tipo de documento del empresario."
                                             }
                                         />
@@ -369,8 +369,8 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
 
                             <Grid item xs={12} md={6}>
                                 <Controller
-                                    defaultValue={data.intIdSexo}
-                                    name={`arrInfoEmpresarioSec[${index}].intIdSexo`}
+                                    defaultValue={data.strSexo}
+                                    name={`arrInfoEmpresarioSec[${index}].strSexo`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <SelectSexo
                                             label="Sexo del empresario"
@@ -380,11 +380,11 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             disabled={disabled}
                                             error={
                                                 !!errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.intIdSexo
+                                                    ?.strSexo
                                             }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.intIdSexo?.message ||
+                                                    ?.strSexo?.message ||
                                                 "Seleccione el sexo del empresario."
                                             }
                                         />

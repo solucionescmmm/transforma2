@@ -39,8 +39,8 @@ const InformacionPrincipal = ({
     const [data, setData] = useState({
         btElaboraProductoServicio: "",
         btTieneSoloIdea: "",
-        intIdCuandoComienzaEmpresa: "",
-        intIdTiempoDedicacion: "",
+        strCuandoComienzaEmpresa: "",
+        strTiempoDedicacion: "",
         btGrupoAsociativo: "",
         btAsociacionUnidadProdIndividual: "",
         strProductosServicios: "",
@@ -66,8 +66,8 @@ const InformacionPrincipal = ({
             setData({
                 btElaboraProductoServicio: values.btElaboraProductoServicio || "",
                 btTieneSoloIdea: values.btTieneSoloIdea || "",
-                intIdCuandoComienzaEmpresa: values.intIdCuandoComienzaEmpresa || "",
-                intIdTiempoDedicacion: values.intIdTiempoDedicacion || "",
+                strCuandoComienzaEmpresa: values.strCuandoComienzaEmpresa || "",
+                strTiempoDedicacion: values.strTiempoDedicacion || "",
                 btGrupoAsociativo: values.btGrupoAsociativo || "",
                 btAsociacionUnidadProdIndividual:
                     values.btAsociacionUnidadProdIndividual || "",
@@ -207,8 +207,8 @@ const InformacionPrincipal = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdCuandoComienzaEmpresa}
-                            name="objInfoEmprendimiento.intIdCuandoComienzaEmpresa"
+                            defaultValue={data.strCuandoComienzaEmpresa}
+                            name="objInfoEmprendimiento.strCuandoComienzaEmpresa"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectCuandoComienzaEmpresa
                                     label="Si aún no ha comenzado su empresa ¿Cuándo planea comenzar?"
@@ -218,13 +218,13 @@ const InformacionPrincipal = ({
                                     disabled={disabled}
                                     error={
                                         errors?.objInfoEmprendimiento
-                                            ?.intIdCuandoComienzaEmpresa
+                                            ?.strCuandoComienzaEmpresa
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.intIdCuandoComienzaEmpresa?.message ||
+                                            ?.strCuandoComienzaEmpresa?.message ||
                                         "Selecciona una opción."
                                     }
                                 />
@@ -238,8 +238,8 @@ const InformacionPrincipal = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdTiempoDedicacion}
-                            name="objInfoEmprendimiento.intIdTiempoDedicacion"
+                            defaultValue={data.strTiempoDedicacion}
+                            name="objInfoEmprendimiento.strTiempoDedicacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTiempoDedicacionEmpresa
                                     label="Tiempo de dedicación actual a la idea o negocio"
@@ -250,13 +250,13 @@ const InformacionPrincipal = ({
                                     required
                                     error={
                                         errors?.objInfoEmprendimiento
-                                            ?.intIdTiempoDedicacion
+                                            ?.strTiempoDedicacion
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.intIdTiempoDedicacion?.message ||
+                                            ?.strTiempoDedicacion?.message ||
                                         "Selecciona una opción."
                                     }
                                 />

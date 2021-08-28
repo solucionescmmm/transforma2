@@ -33,24 +33,31 @@ import SelectNivelEducativo from "../../components/selectNivelEducativo";
 import SelectTiposDiscapacidad from "../../components/selectTipoDiscapacidad";
 import Dropzone from "../../../../common/components/dropzone";
 
-const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }) => {
+const InformacionEmpresarioPr = ({
+    disabled,
+    values,
+    errors,
+    control,
+    setError,
+    clearErrors,
+}) => {
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
         strNombres: "",
         strApellidos: "",
-        intIdTipoDocto: "",
+        strTipoDocto: "",
         strNroDocto: "",
         strLugarExpedicionDocto: "",
         dtFechaExpedicionDocto: null,
         dtFechaNacimiento: null,
-        intIdSexo: "",
+        strSexo: "",
         strCelular: "",
         strCorreoElectronico: "",
-        intIdNivelEducativo: "",
-        intIdCondicionDiscapacidad: "",
+        strNivelEducativo: "",
+        strCondicionDiscapacidad: "",
         strTitulos: "",
-        fileFoto: "",
+        strURLFileFoto: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -64,18 +71,18 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
             setData({
                 strNombres: values.strNombres || "",
                 strApellidos: values.strApellidos || "",
-                intIdTipoDocto: values.intIdTipoDocto || "",
+                strTipoDocto: values.strTipoDocto || "",
                 strNroDocto: values.strNroDocto || "",
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || "",
                 dtFechaExpedicionDocto: values.dtFechaExpedicionDocto || null,
                 dtFechaNacimiento: values.dtFechaNacimiento || null,
-                intIdSexo: values.intIdSexo || null,
+                strSexo: values.strSexo || null,
                 strCelular: values.strCelular || "",
                 strCorreoElectronico: values.strCorreoElectronico || "",
-                intIdNivelEducativo: values.intIdNivelEducativo || "",
-                intIdCondicionDiscapacidad: values.intIdCondicionDiscapacidad || "",
+                strNivelEducativo: values.strNivelEducativo || "",
+                strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
                 strTitulos: values.strTitulos || "",
-                fileFoto: values.fileFoto || "",
+                strURLFileFoto: values.strURLFileFoto || "",
             });
         }
 
@@ -204,8 +211,8 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdTipoDocto}
-                            name="objInfoEmpresarioPr.intIdTipoDocto"
+                            defaultValue={data.strTipoDocto}
+                            name="objInfoEmpresarioPr.strTipoDocto"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTipoDocumento
                                     label="Tipo de documento"
@@ -215,12 +222,12 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     required
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.intIdTipoDocto
+                                        errors?.objInfoEmpresarioPr?.strTipoDocto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.intIdTipoDocto
+                                        errors?.objInfoEmpresarioPr?.strTipoDocto
                                             ?.message ||
                                         "Selecciona el tipo de documento."
                                     }
@@ -369,8 +376,8 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdSexo}
-                            name="objInfoEmpresarioPr.intIdSexo"
+                            defaultValue={data.strSexo}
+                            name="objInfoEmpresarioPr.strSexo"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectSexo
                                     label="Sexo del empresario"
@@ -380,12 +387,12 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmpresarioPr?.intIdSexo
+                                        errors?.objInfoEmpresarioPr?.strSexo
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.intIdSexo?.message ||
+                                        errors?.objInfoEmpresarioPr?.strSexo?.message ||
                                         "Selecciona el sexo del empresario."
                                     }
                                 />
@@ -480,8 +487,8 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdNivelEducativo}
-                            name="objInfoEmpresarioPr.intIdNivelEducativo"
+                            defaultValue={data.strNivelEducativo}
+                            name="objInfoEmpresarioPr.strNivelEducativo"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectNivelEducativo
                                     label="Nivel educativo"
@@ -490,12 +497,12 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.intIdNivelEducativo
+                                        errors?.objInfoEmpresarioPr?.strNivelEducativo
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.intIdNivelEducativo
+                                        errors?.objInfoEmpresarioPr?.strNivelEducativo
                                             ?.message ||
                                         "Selecciona el nivel educativo del empresario."
                                     }
@@ -507,8 +514,8 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdCondicionDiscapacidad}
-                            name="objInfoEmpresarioPr.intIdCondicionDiscapacidad"
+                            defaultValue={data.strCondicionDiscapacidad}
+                            name="objInfoEmpresarioPr.strCondicionDiscapacidad"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTiposDiscapacidad
                                     label="Condición de discapacidad"
@@ -518,13 +525,13 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
                                     disabled={disabled}
                                     error={
                                         errors?.objInfoEmpresarioPr
-                                            ?.intIdCondicionDiscapacidad
+                                            ?.strCondicionDiscapacidad
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr
-                                            ?.intIdCondicionDiscapacidad?.message ||
+                                            ?.strCondicionDiscapacidad?.message ||
                                         "Selecciona la discapacidad del empresario, en caso de padecer alguna."
                                     }
                                 />
@@ -564,25 +571,28 @@ const InformacionEmpresarioPr = ({ disabled, values, errors, control, setError }
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.fileFoto}
-                            name="objInfoEmpresarioPr.fileFoto"
+                            defaultValue={data.strURLFileFoto}
+                            name="objInfoEmpresarioPr.strURLFileFoto"
                             render={({ field: { name, value, onChange } }) => (
                                 <Dropzone
                                     label="Foto del empresario"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(url) => onChange(url)}
+                                    onChange={onChange}
                                     setError={setError}
+                                    clearErrors={clearErrors}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.fileFoto
+                                        errors?.objInfoEmpresarioPr?.strURLFileFoto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.fileFoto?.message ||
+                                        errors?.objInfoEmpresarioPr?.strURLFileFoto
+                                            ?.message ||
                                         "Por favor selecciona una foto del empresario."
                                     }
+                                    maxFiles={1}
                                     errors={errors}
                                 />
                             )}

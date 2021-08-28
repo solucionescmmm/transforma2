@@ -78,6 +78,14 @@ const CUEmpresario = ({ isEdit }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
+
+    //TODO: Se tiene que construir 4 objetos que tengan relacion con las siguientes tablas >
+    /**
+     * 1. tbl_Empresario
+     * 2. tbl_EmpresarioSecundario
+     * 3. tbl_InfoEmprendimiento
+     * 4. tbl_InfoEmpresa
+     */
     const [data, setData] = useState({
         objInfoPrincipal: {},
         objInfoEmpresarioPr: {},
@@ -103,6 +111,7 @@ const CUEmpresario = ({ isEdit }) => {
         reset,
         setError,
         setValue,
+        clearErrors,
     } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
@@ -134,10 +143,28 @@ const CUEmpresario = ({ isEdit }) => {
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_NOVEDADES_UPDATESOLICITUDVACACIONES
-                            : process.env.REACT_APP_API_NOVEDADES_SETSOLICITUDVACACIONES
+                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATEREGISTRO
+                            : process.env.REACT_APP_API_TRANSFORMA_INTERESADOS_SETREGISTRO
                     }`,
                     data,
+                    transformRequest: [
+                        (data) => {
+                            //TODO: Realizar transformacion de datos.
+
+                            /**
+                             * El objeto seria el siguiente
+                             * 
+                             * {
+                             *    "objEmpresario",
+                             *    "objEmpresarioSecundario",
+                             *    "objInfoEmprendimiento",
+                             *    "objInfoEmpresa"
+                             * }
+                             */
+
+                            return JSON.stringify(data);
+                        },
+                    ],
                     headers: {
                         token,
                         "Content-Type": "application/json;charset=UTF-8",
@@ -310,6 +337,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 errors={errors}
                                 setValue={setValue}
                                 setError={setError}
+                                clearErrors={clearErrors}
                             />
                         </Grid>
 
@@ -320,6 +348,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 errors={errors}
                                 setValue={setValue}
                                 setError={setError}
+                                clearErrors={clearErrors}
                             />
                         </Grid>
 
@@ -330,6 +359,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 errors={errors}
                                 setValue={setValue}
                                 setError={setError}
+                                clearErrors={clearErrors}
                             />
                         </Grid>
 
@@ -340,6 +370,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 errors={errors}
                                 setValue={setValue}
                                 setError={setError}
+                                clearErrors={clearErrors}
                             />
                         </Grid>
 
@@ -350,6 +381,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 errors={errors}
                                 setValue={setValue}
                                 setError={setError}
+                                clearErrors={clearErrors}
                             />
                         </Grid>
 
@@ -360,6 +392,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 errors={errors}
                                 setValue={setValue}
                                 setError={setError}
+                                clearErrors={clearErrors}
                             />
                         </Grid>
 

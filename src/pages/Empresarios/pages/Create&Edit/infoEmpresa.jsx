@@ -45,18 +45,18 @@ const InfoEmpresa = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        fileLogoEmpresa: null,
+        strURLFileLogoEmpresa: null,
         strNombreMarca: "",
         dtFechaFundacion: null,
-        intIdUnidadProdOperacion: "",
+        strUnidadProdOperacion: "",
         strDireccion: "",
         strMunicipio: "",
         strBarrio: "",
-        intIdSectorEconomico: "",
+        strSectorEconomico: "",
         intEstrato: "",
-        intIdCategoriaProducto: "",
+        strCategoriaProducto: "",
         strOtraCategoriaProducto: "",
-        intIdCategoriaServicio: [],
+        arrCategoriaServicio: [],
         btGeneraEmpleo: "",
         intNumeroEmpleados: "",
         valorVentasMes: "",
@@ -135,8 +135,8 @@ const InfoEmpresa = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.fileLogoEmpresa}
-                            name="objInfoEmpresa.fileLogoEmpresa"
+                            defaultValue={data.strURLFileLogoEmpresa}
+                            name="objInfoEmpresa.strURLFileLogoEmpresa"
                             render={({ field: { name, onChange, value } }) => (
                                 <Dropzone
                                     label="Logo de la empresa"
@@ -144,17 +144,18 @@ const InfoEmpresa = ({
                                     value={value}
                                     disabled={disabled}
                                     onChange={(url) => onChange(url)}
+                                    maxFiles={1}
+                                    setError={setError}
                                     error={
-                                        errors?.objInfoEmpresa?.fileLogoEmpresa
+                                        errors?.objInfoEmpresa?.strURLFileLogoEmpresa
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.fileLogoEmpresa
+                                        errors?.objInfoEmpresa?.strURLFileLogoEmpresa
                                             ?.message ||
                                         "Selecciona el logo de la empresa."
                                     }
-                                    setError={setError}
                                 />
                             )}
                             control={control}
@@ -233,8 +234,8 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdUnidadProdOperacion}
-                            name="objInfoEmpresa.intIdUnidadProdOperacion"
+                            defaultValue={data.strUnidadProdOperacion}
+                            name="objInfoEmpresa.strUnidadProdOperacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectUnidadOperativa
                                     label="Unidad operativa"
@@ -243,12 +244,12 @@ const InfoEmpresa = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.intIdUnidadProdOperacion
+                                        errors?.objInfoEmpresa?.strUnidadProdOperacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.intIdUnidadProdOperacion
+                                        errors?.objInfoEmpresa?.strUnidadProdOperacion
                                             ?.message ||
                                         "Selecciona el lugar donde opera la unidad operativa del empresario."
                                     }
@@ -347,8 +348,8 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdSectorEconomico}
-                            name="objInfoEmpresa.intIdSectorEconomico"
+                            defaultValue={data.strSectorEconomico}
+                            name="objInfoEmpresa.strSectorEconomico"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectSectorEconomico
                                     label="Sector económico"
@@ -357,12 +358,12 @@ const InfoEmpresa = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.intIdSectorEconomico
+                                        errors?.objInfoEmpresa?.strSectorEconomico
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.intIdSectorEconomico
+                                        errors?.objInfoEmpresa?.strSectorEconomico
                                             ?.message ||
                                         "Selecciona el sector económico de la empresa."
                                     }
@@ -415,8 +416,8 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdCategoriaProducto}
-                            name="objInfoEmpresa.intIdCategoriaProducto"
+                            defaultValue={data.strCategoriaProducto}
+                            name="objInfoEmpresa.strCategoriaProducto"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectCategoriaProducto
                                     label="Categoría de producto"
@@ -432,12 +433,12 @@ const InfoEmpresa = ({
                                     }}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.intIdCategoriaProducto
+                                        errors?.objInfoEmpresa?.strCategoriaProducto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.intIdCategoriaProducto
+                                        errors?.objInfoEmpresa?.strCategoriaProducto
                                             ?.message ||
                                         "Selecciona la categoría del producto."
                                     }
@@ -462,7 +463,7 @@ const InfoEmpresa = ({
                                     name={name}
                                     value={value}
                                     disabled={
-                                        data.intIdCategoriaProducto !== "Otro"
+                                        data.strCategoriaProducto !== "Otro"
                                             ? true
                                             : disabled
                                     }
@@ -480,7 +481,7 @@ const InfoEmpresa = ({
                                         "En caso de que aplique, digita cual seria la otra categoría del producto."
                                     }
                                     required={
-                                        data.intIdCategoriaProducto === "Otro"
+                                        data.strCategoriaProducto === "Otro"
                                             ? true
                                             : false
                                     }
@@ -489,7 +490,7 @@ const InfoEmpresa = ({
                             control={control}
                             rules={{
                                 validate: (value) => {
-                                    if (data.intIdCategoriaProducto !== "Otro") {
+                                    if (data.strCategoriaProducto !== "Otro") {
                                         if (value === "" || value === undefined) {
                                             return "Por favor, digita cual seria la otra categoría del producto.";
                                         }
@@ -501,8 +502,8 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdCategoriaServicio}
-                            name="objInfoEmpresa.intIdCategoriaServicio"
+                            defaultValue={data.arrCategoriaServicio}
+                            name="objInfoEmpresa.arrCategoriaServicio"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownCategoriaServicio
                                     label="Categoría de servicio"
@@ -512,12 +513,12 @@ const InfoEmpresa = ({
                                     multiple
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.intIdCategoriaServicio
+                                        errors?.objInfoEmpresa?.arrCategoriaServicio
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.intIdCategoriaServicio
+                                        errors?.objInfoEmpresa?.arrCategoriaServicio
                                             ?.message ||
                                         "Selecciona la categoría del servicio."
                                     }
