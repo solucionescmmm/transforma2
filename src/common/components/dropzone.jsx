@@ -20,6 +20,7 @@ import {
     Tooltip,
     Box,
     CircularProgress,
+    Grid,
 } from "@material-ui/core";
 
 import { Delete as DeleteIcon } from "@material-ui/icons";
@@ -73,6 +74,7 @@ const Dropzone = ({
     setError,
     errors,
     maxFiles,
+    type,
     clearErrors,
 }) => {
     //===============================================================================================================================================
@@ -99,37 +101,29 @@ const Dropzone = ({
                 file.name.length
             );
 
-            if (maxFiles) {
-                if (file.length > maxFiles) {
+            if (type === "Imagen") {
+                if (
+                    extension !== ".jpeg" &&
+                    extension !== ".jpg" &&
+                    extension !== ".png"
+                ) {
                     setError(name, {
                         type: "imagen-no-valida",
-                        message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+                        message:
+                            "Solo se permiten imagenes de tipo jpg, jpeg o png, por favor revisa e intenta nuevamente",
                     });
 
                     return {
                         code: "imagen-no-valida",
-                        message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+                        message:
+                            "Solo se permiten imagenes de tipo jpg, jpeg o png, por favor revisa e intenta nuevamente",
                     };
                 }
             }
 
-            if (extension !== ".jpeg" && extension !== ".jpg" && extension !== ".png") {
-                setError(name, {
-                    type: "imagen-no-valida",
-                    message:
-                        "Solo se permiten imagenes de tipo jpg, jpeg o png, por favor revisa e intenta nuevamente",
-                });
-
-                return {
-                    code: "imagen-no-valida",
-                    message:
-                        "Solo se permiten imagenes de tipo jpg, jpeg o png, por favor revisa e intenta nuevamente",
-                };
-            }
-
             return null;
         },
-        [setError, name, maxFiles]
+        [setError, name, type]
     );
 
     const onSubmitFile = useCallback(
@@ -190,16 +184,30 @@ const Dropzone = ({
                         setLoading(false);
 
                         toast.error(msg);
-                        setError(name);
+                        setError(name, error.message);
                     }
                 });
         },
-        [token, setError, name, files, clearErrors, onChange]
+        [token, files, setError, name, onChange, clearErrors]
     );
 
-    const onDropAccepted = useCallback(() => {
-        setFlagSubmit(true);
-    }, []);
+    const onDropAccepted = useCallback(
+        (files) => {
+            if (maxFiles) {
+                if (files.length > maxFiles) {
+                    setError(name, {
+                        type: "imagen-no-valida",
+                        message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+                    });
+
+                    return;
+                }
+            }
+
+            setFlagSubmit(true);
+        },
+        [maxFiles, setError, name]
+    );
 
     const onDropRejected = useCallback(() => {}, []);
 
@@ -249,29 +257,31 @@ const Dropzone = ({
 
     const archivos = files.map((archivo, i) => {
         return (
-            <Paper key={i} style={{ padding: "10px", marginBottom: "5px" }}>
-                <img
-                    className={classes.file}
-                    alt="Dropzone-preview-img"
-                    src={archivo.preview}
-                />
+            <Grid item xs={4}>
+                <Paper key={i} style={{ padding: "10px", marginBottom: "5px" }}>
+                    <img
+                        className={classes.file}
+                        alt="Dropzone-preview-img"
+                        src={archivo.preview}
+                    />
 
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <p>{archivo.path}</p>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <p>{archivo.path}</p>
 
-                    <IconButton color="error" onClick={removeFile(archivo)}>
-                        <Tooltip title="Eliminar archivo">
-                            <DeleteIcon />
-                        </Tooltip>
-                    </IconButton>
-                </Box>
-            </Paper>
+                        <IconButton color="error" onClick={removeFile(archivo)}>
+                            <Tooltip title="Eliminar archivo">
+                                <DeleteIcon />
+                            </Tooltip>
+                        </IconButton>
+                    </Box>
+                </Paper>
+            </Grid>
         );
     });
 
@@ -299,7 +309,9 @@ const Dropzone = ({
                 ) : files.length > 0 ? (
                     <Fragment>
                         <h4 className={classes.titleFile}>Archivos</h4>
-                        {archivos}
+                        <Grid container direction="row" spacing={1} justifyContent="center">
+                            {archivos}
+                        </Grid>
                     </Fragment>
                 ) : isDragActive ? (
                     <p>Suelta el archivo</p>

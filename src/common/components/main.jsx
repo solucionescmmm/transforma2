@@ -11,7 +11,7 @@ import React, {
 import { AuthContext } from "../middlewares/Auth";
 
 //Librerias
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import typeConvertor from "string-type-convertor";
 
 //Componentes de Material UI
@@ -122,7 +122,6 @@ const Main = ({ children }) => {
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
     const { strInfoUser, cerrarSesion } = useContext(AuthContext);
-    const { push } = useHistory();
 
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -280,7 +279,7 @@ const Main = ({ children }) => {
                                         <Box>
                                             <MenuItem>
                                                 <a
-                                                    href="https://wilson.choucairtesting.com/"
+                                                    href="https://admin.google.com"
                                                     rel="noopener noreferrer"
                                                     style={{
                                                         textDecoration: "none",
@@ -294,7 +293,6 @@ const Main = ({ children }) => {
                                             <MenuItem
                                                 onClick={() => {
                                                     cerrarSesion();
-                                                    push("/");
                                                 }}
                                             >
                                                 Cerrar sesión

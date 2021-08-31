@@ -33,10 +33,10 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        intIdEspacioJornada: "",
-        intIdEstado: "",
-        intIdSede: "",
-        intIdTipoEmpresario: "",
+        strEspacioJornada: "",
+        strEstado: "",
+        strSede: "",
+        strTipoEmpresario: "",
         dtFechaVinculacion: null,
     });
 
@@ -49,10 +49,10 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
     useEffect(() => {
         if (values && isEdit) {
             setData({
-                intIdEspacioJornada: values.intIdEspacioJornada || "",
-                intIdEstado: values.intIdEstado || "",
-                intIdSede: values.intIdSede || "",
-                intIdTipoEmpresario: values.intIdTipoEmpresario || "",
+                strEspacioJornada: values.strEspacioJornada || "",
+                strEstado: values.strEstado || "",
+                strSede: values.strSede || "",
+                strTipoEmpresario: values.strTipoEmpresario || "",
                 dtFechaVinculacion: values.dtFechaVinculacion || null,
             });
         }
@@ -105,20 +105,20 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdEspacioJornada}
-                            name="objInfoPrincipal.intIdEspacioJornada"
+                            defaultValue={data.strEspacioJornada}
+                            name="objInfoPrincipal.strEspacioJornada"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectEspacioJornada
                                     label="Espacio de la jornada"
                                     name={name}
                                     value={value}
                                     error={
-                                        errors?.objInfoPrincipal?.intIdEspacioJornada
+                                        errors?.objInfoPrincipal?.strEspacioJornada
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.intIdEspacioJornada
+                                        errors?.objInfoPrincipal?.strEspacioJornada
                                             ?.message ||
                                         "Selecciona el espacio de la jornada."
                                     }
@@ -137,8 +137,8 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intIdEstado}
-                            name="objInfoPrincipal.intIdEstado"
+                            defaultValue={data.strEstado}
+                            name="objInfoPrincipal.strEstado"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectEstadoEmpresario
                                     label="Estado del empresario"
@@ -148,12 +148,12 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.intIdEstado
+                                        errors?.objInfoPrincipal?.strEstado
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.intIdEstado?.message ||
+                                        errors?.objInfoPrincipal?.strEstado?.message ||
                                         "Selecciona el estado del empresario."
                                     }
                                 />
@@ -168,8 +168,8 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            defaultValue={data.intIdSede}
-                            name="objInfoPrincipal.intIdSede"
+                            defaultValue={data.strSede}
+                            name="objInfoPrincipal.strSede"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectSedes
                                     label="Sede"
@@ -179,10 +179,10 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.intIdSede ? true : false
+                                        errors?.objInfoPrincipal?.strSede ? true : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.intIdSede?.message ||
+                                        errors?.objInfoPrincipal?.strSede?.message ||
                                         "Selecciona la sede."
                                     }
                                 />
@@ -196,8 +196,8 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            defaultValue={data.intIdTipoEmpresario}
-                            name="objInfoPrincipal.intIdTipoEmpresario"
+                            defaultValue={data.strTipoEmpresario}
+                            name="objInfoPrincipal.strTipoEmpresario"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectTipoEmpresario
                                     label="Tipo de empresario"
@@ -207,12 +207,12 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.intIdTipoEmpresario
+                                        errors?.objInfoPrincipal?.strTipoEmpresario
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.intIdTipoEmpresario
+                                        errors?.objInfoPrincipal?.strTipoEmpresario
                                             ?.message ||
                                         "Selecciona el tipo de empresario."
                                     }

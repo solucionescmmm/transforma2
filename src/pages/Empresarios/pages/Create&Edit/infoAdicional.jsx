@@ -37,13 +37,13 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
         btEtiquetaEmpaque: "",
         btMejorarEtiquetaEmpaque: "",
         strPrincipalesNecesidades: "",
-        strRequisitoLey: "",
+        arrRequisitoLey: [],
         strOtrosRequisitos: "",
         btInteresadoProcesoCMM: "",
         strTemasCapacitacion: "",
-        strComoSeEntero: "",
+        arrComoSeEntero: [],
         strOtrosMediosEntero: "",
-        strMediosDeComunicacion: "",
+        arrMediosDeComunicacion: [],
         strOtroMedioComunicacion: "",
         btRecibirInfoCMM: "",
         strRecomendaciones: "",
@@ -63,13 +63,13 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
                 btEtiquetaEmpaque: "",
                 btMejorarEtiquetaEmpaque: "",
                 strPrincipalesNecesidades: "",
-                strRequisitoLey: "",
+                arrRequisitoLey: [],
                 strOtrosRequisitos: "",
                 btInteresadoProcesoCMM: "",
                 strTemasCapacitacion: "",
-                strComoSeEntero: "",
+                arrComoSeEntero: "",
                 strOtrosMediosEntero: "",
-                strMediosDeComunicacion: "",
+                arrMediosDeComunicacion: "",
                 strOtroMedioComunicacion: "",
                 btRecibirInfoCMM: "",
                 strRecomendaciones: "",
@@ -319,8 +319,8 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strRequisitoLey}
-                            name="objInfoAdicional.strRequisitoLey"
+                            defaultValue={data.arrRequisitoLey}
+                            name="objInfoAdicional.arrRequisitoLey"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownRequisitosLey
                                     label="Requisitos de ley"
@@ -330,12 +330,12 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
                                     multiple
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoAdicional?.strRequisitoLey
+                                        errors?.objInfoAdicional?.arrRequisitoLey
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.strRequisitoLey
+                                        errors?.objInfoAdicional?.arrRequisitoLey
                                             ?.message ||
                                         "Seleccione los requisitos de ley que cumple actualmente."
                                     }
@@ -446,8 +446,8 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strComoSeEntero}
-                            name="objInfoAdicional.strComoSeEntero"
+                            defaultValue={data.arrComoSeEntero}
+                            name="objInfoAdicional.arrComoSeEntero"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownComoSeEntero
                                     label="¿Cómo se enteró de la Corporación?"
@@ -457,12 +457,12 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
                                     multiple
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoAdicional?.strComoSeEntero
+                                        errors?.objInfoAdicional?.arrComoSeEntero
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.strComoSeEntero
+                                        errors?.objInfoAdicional?.arrComoSeEntero
                                             ?.message ||
                                         "Seleccione el como se entero de la corporación."
                                     }
@@ -503,8 +503,8 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strMediosDeComunicacion}
-                            name="objInfoAdicional.strMediosDeComunicacion"
+                            defaultValue={data.arrMediosDeComunicacion}
+                            name="objInfoAdicional.arrMediosDeComunicacion"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdowMediosComunicacion
                                     label="¿A través de cuál(es) de los siguientes medios le gustaría que se comunicaran con usted?"
@@ -514,12 +514,12 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
                                     multiple
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoAdicional?.strMediosDeComunicacion
+                                        errors?.objInfoAdicional?.arrMediosDeComunicacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.strMediosDeComunicacion
+                                        errors?.objInfoAdicional?.arrMediosDeComunicacion
                                             ?.message ||
                                         "Seleccione los medios que le gustaría que la Corporación Mundial de la Mujer Medellín se comunicara con usted."
                                     }

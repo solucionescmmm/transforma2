@@ -60,7 +60,7 @@ const InfoEmpresa = ({
         btGeneraEmpleo: "",
         intNumeroEmpleados: "",
         valorVentasMes: "",
-        objMediosUtilizadosVentas: "",
+        arrMediosUtilizadosVentas: [],
     });
 
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -145,6 +145,7 @@ const InfoEmpresa = ({
                                     disabled={disabled}
                                     onChange={(url) => onChange(url)}
                                     maxFiles={1}
+                                    type="Imagen"
                                     setError={setError}
                                     error={
                                         errors?.objInfoEmpresa?.strURLFileLogoEmpresa
@@ -656,8 +657,8 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.objMediosUtilizadosVentas}
-                            name="objInfoEmpresa.objMediosUtilizadosVentas"
+                            defaultValue={data.arrMediosUtilizadosVentas}
+                            name="objInfoEmpresa.arrMediosUtilizadosVentas"
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdrownMediosComunicacion
                                     label="Medios que utilice para la venta de sus productos o servicios"
@@ -667,12 +668,12 @@ const InfoEmpresa = ({
                                     multiple
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.objMediosUtilizadosVentas
+                                        errors?.objInfoEmpresa?.arrMediosUtilizadosVentas
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.objMediosUtilizadosVentas
+                                        errors?.objInfoEmpresa?.arrMediosUtilizadosVentas
                                             ?.message ||
                                         "Seleccione los medios que utilice para la venta de sus productos o servicios."
                                     }

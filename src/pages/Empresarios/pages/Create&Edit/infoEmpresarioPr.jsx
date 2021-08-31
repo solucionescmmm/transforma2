@@ -582,6 +582,9 @@ const InformacionEmpresarioPr = ({
                                     onChange={onChange}
                                     setError={setError}
                                     clearErrors={clearErrors}
+                                    maxFiles={1}
+                                    type="Imagen"
+                                    errors={errors}
                                     error={
                                         errors?.objInfoEmpresarioPr?.strURLFileFoto
                                             ? true
@@ -590,10 +593,8 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strURLFileFoto
                                             ?.message ||
-                                        "Por favor selecciona una foto del empresario."
+                                        "Selecciona una foto del empresario."
                                     }
-                                    maxFiles={1}
-                                    errors={errors}
                                 />
                             )}
                             control={control}

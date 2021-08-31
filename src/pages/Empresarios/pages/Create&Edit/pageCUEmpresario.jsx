@@ -153,7 +153,7 @@ const CUEmpresario = ({ isEdit }) => {
 
                             /**
                              * El objeto seria el siguiente
-                             * 
+                             *
                              * {
                              *    "objEmpresario",
                              *    "objEmpresarioSecundario",
@@ -162,7 +162,112 @@ const CUEmpresario = ({ isEdit }) => {
                              * }
                              */
 
-                            return JSON.stringify(data);
+                            let newData = {
+                                objEmpresario: {
+                                    strNombres: data.objInfoEmpresarioPr.strNombres,
+                                    strApellidos: data.objInfoEmpresarioPr.strApellidos,
+                                    dtFechaNacimiento:
+                                        data.objInfoEmpresarioPr.dtFechaNacimiento,
+                                    strTipoDocto: data.objInfoEmpresarioPr.strTipoDocto,
+                                    strNroDocto: data.objInfoEmpresarioPr.strNroDocto,
+                                    strLugarExpedicionDocto:
+                                        data.objInfoEmpresarioPr.strLugarExpedicionDocto,
+                                    dtFechaExpedicionDocto:
+                                        data.objInfoEmpresarioPr.dtFechaExpedicionDocto,
+                                    strSexo: data.objInfoEmpresarioPr.strSexo,
+                                    strCelular: data.objInfoEmpresarioPr.strCelular,
+                                    strCorreoElectronico:
+                                        data.objInfoEmpresarioPr.strCorreoElectronico,
+                                    strNivelEducativo:
+                                        data.objInfoEmpresarioPr.strNivelEducativo,
+                                    strTitulos: data.objInfoEmpresarioPr.strTitulos,
+                                    strCondicionDiscapacidad:
+                                        data.objInfoEmpresarioPr.strCondicionDiscapacidad,
+                                    strSede: data.objInfoPrincipal.strSede,
+                                    strTipoEmpresario:
+                                        data.objInfoPrincipal.strTipoEmpresario,
+                                    dtFechaVinculacion:
+                                        data.objInfoPrincipal.dtFechaVinculacion,
+                                    strEstado: data.objInfoPrincipal.strEstado,
+                                    strUrlFoto: data.objInfoEmpresarioPr.strURLFileFoto,
+                                    strEspacioJornada:
+                                        data.objInfoPrincipal.strNivelEducativo,
+                                },
+                                arrEmpresarioSecundario: data.arrInfoEmpresarioSec,
+                                objInfoEmprendimiento: {
+                                    btTieneSoloIdea:
+                                        data.objInfoEmprendimiento.btTieneSoloIdea,
+                                    strPlaneaComenzar:
+                                        data.objInfoEmprendimiento
+                                            .strCuandoComienzaEmpresa,
+                                    strTiempoDedicacion:
+                                        data.objInfoEmprendimiento.strTiempoDedicacion,
+                                    btGrupoAsociativo:
+                                        data.objInfoEmprendimiento.btGrupoAsociativo,
+                                    btAsociacionUnidadProdIndividual:
+                                        data.objInfoEmprendimiento
+                                            .btAsociacionUnidadProdIndividual,
+                                    strProductosServicios:
+                                        data.objInfoEmprendimiento.strProductosServicios,
+                                    strMateriaPrima:
+                                        data.objInfoEmprendimiento.strMateriaPrima,
+                                    strNombreTecnica:
+                                        data.objInfoEmprendimiento.strNombreTecnica,
+                                },
+                                objInfoEmpresa: {
+                                    strUrlLogo: data.objInfoEmpresa.strURLFileLogoEmpresa,
+                                    dtFechaFundacion:
+                                        data.objInfoEmpresa.dtFechaFundacion,
+                                    strUnidadProdOperacion:
+                                        data.objInfoEmpresa.strUnidadProdOperacion,
+                                    strDireccion: data.objInfoEmpresa.strDireccion,
+                                    strMunicipio: data.objInfoEmpresa.strMunicipio,
+                                    strBarrio: data.objInfoEmpresa.strBarrio,
+                                    intEstrato: data.objInfoEmpresa.intEstrato,
+                                    strCategoriaProducto:
+                                        data.objInfoEmpresa.strCategoriaProducto,
+                                    strOtraCategoriaProducto:
+                                        data.objInfoEmpresa.strOtraCategoriaProducto,
+                                    arrCategoriaServicio:
+                                        data.objInfoEmpresa.arrCategoriaServicio,
+                                    btGeneraEmpleo: data.objInfoEmpresa.btGeneraEmpleo,
+                                    intNumeroEmpleados:
+                                        data.objInfoEmpresa.intNumeroEmpleados,
+                                    valorVentasMes: data.objInfoEmpresa.valorVentasMes,
+                                    strMediosUtilizadosVentas:
+                                        data.objInfoEmpresa.arrMediosUtilizadosVentas,
+                                    btNombreMarca: data.objInfoAdicional.btNombreMarca,
+                                    btLogotipo: data.objInfoAdicional.btLogotipo,
+                                    btEtiquetaEmpaque:
+                                        data.objInfoAdicional.btEtiquetaEmpaque,
+                                    btMejorarEtiquetaEmpaque:
+                                        data.objInfoAdicional.btMejorarEtiquetaEmpaque,
+                                    strPrincipalesNecesidades:
+                                        data.objInfoAdicional.strPrincipalesNecesidades,
+                                    strRequisitoLey:
+                                        data.objInfoAdicional.arrRequisitoLey,
+                                    strOtrosRequisitos:
+                                        data.objInfoAdicional.strOtrosRequisitos,
+                                    btInteresadoProcesoCMM:
+                                        data.objInfoAdicional.btInteresadoProcesoCMM,
+                                    strTemasCapacitacion:
+                                        data.objInfoAdicional.strTemasCapacitacion,
+                                    strComoSeEntero:
+                                        data.objInfoAdicional.arrComoSeEntero,
+                                    strOtrosMediosEntero:
+                                        data.objInfoAdicional.strOtrosMediosEntero,
+                                    strMedioDeComunicacion:
+                                        data.objInfoAdicional.arrMediosDeComunicacion,
+                                    strOtroMedioComunicacion:
+                                        data.objInfoAdicional.strOtroMedioComunicacion,
+                                    btRecibirInfoCMM:
+                                        data.objInfoAdicional.btRecibirInfoCMM,
+                                    strRecomendaciones:
+                                        data.objInfoAdicional.strRecomendaciones,
+                                },
+                            };
+
+                            return JSON.stringify(newData);
                         },
                     ],
                     headers: {

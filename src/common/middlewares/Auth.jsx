@@ -20,12 +20,13 @@ const Auth = ({ children }) => {
     };
 
     const cerrarSesion = () => {
+        localStorage.removeItem("token");
+        Cookies.remove("token");
+
         setData({
             token: undefined,
             strData: undefined,
         });
-        localStorage.removeItem("token");
-        Cookies.remove("token");
     };
 
     useEffect(() => {
