@@ -8,7 +8,6 @@ const {
 } = require("../../../../common/config/confSQL_connectionTransfroma");
 
 class daoEmpresarios {
-    
     async setEmpresario(data) {
         console.log(data);
         try {
@@ -69,7 +68,7 @@ class daoEmpresarios {
     async setEmpresa(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            
+
             let response = await conn.query`
             DECLARE @intId INTEGER;
             
@@ -145,11 +144,11 @@ class daoEmpresarios {
             
             INSERT INTO tbl_InfoEmprendimiento VALUES
             (
+                ${data.intId}
                 ${data.intIdEmpresario},
-                ${data.btElaboraProductoServicio},
                 ${data.btTieneSoloIdea},
-                ${data.intIdCuandoComienzaEmpresa},
-                ${data.intIdTiempoDedicacion},
+                ${data.strPlaneaComenzar},
+                ${data.strTiempoDedicacion},
                 ${data.btGrupoAsociativo},
                 ${data.btAsociacionUnidadProdIndividual},
                 ${data.strProductosServicios},
@@ -176,6 +175,55 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo setEmprendimiento de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async setEmpresarioSecundrio(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            CLARE @intId INTEGER;
+            
+            INSERT INTO tbl_InfoEmprendimiento VALUES
+            (
+                ${data.intId},
+                ${data.intIdEmpresario},
+                ${data.strNombresApellidos},
+                ${data.strSexo},
+                ${data.dtFechaNacimiento},
+                ${data.strTipoDocto},
+                ${data.strNroDocto},
+                ${data.strLugarExpedicionDocto},
+                ${data.dtFechaExpedicionDocto},
+                ${data.strCelular},
+                ${data.strCorreoElectronico},
+                ${data.strUsuario}
+            )
+            SET @intId = SCOPE IDENTITY();
+
+            SELECT * FROM tbl_InfoEmprendimiento WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El emprendimiento #${response.recordset[0].intId} fue registrado con éxito, para el empresario #${response.recordset[0].intIdEmpresario}.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setEmpresarioSecundario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
@@ -220,7 +268,10 @@ class daoEmpresarios {
 
             let result = {
                 error: false,
-                data:response.recordsets[0].length > 0? response.recordsets[0] : null,
+                data:
+                    response.recordsets[0].length > 0
+                        ? response.recordsets[0]
+                        : null,
             };
 
             sql.close(conexion);
@@ -239,7 +290,7 @@ class daoEmpresarios {
             return result;
         }
     }
-    async getCategoriaEmpresario(data){
+    async getCategoriaEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -248,7 +299,7 @@ class daoEmpresarios {
 
             let result = {
                 error: false,
-                data:response.recordsets[0]
+                data: response.recordsets[0],
             };
 
             sql.close(conexion);

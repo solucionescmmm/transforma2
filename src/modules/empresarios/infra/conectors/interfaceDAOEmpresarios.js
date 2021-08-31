@@ -20,6 +20,12 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
+    async setEmpresarioSecundario(data){
+        const dao = new classDaoSql();
+        let result = await dao.setEmpresarioSecundrio(data);
+        return result;
+    }
+
     async deleteEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.deleteEmpresario(data);
