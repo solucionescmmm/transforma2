@@ -171,7 +171,7 @@ const InformacionPrincipal = ({
                             name="objInfoEmprendimiento.btTieneSoloIdea"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿Tengo solo la idea?"
+                                    label="¿Tengo solo la idea o ya tengo productos en venta?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -279,7 +279,7 @@ const InformacionPrincipal = ({
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e);
-                                        handlerChangeData(e.target.name, e.target.value);
+                                        handlerChangeData("btGrupoAsociativo", e.target.value);
                                         setValue(
                                             "objInfoEmprendimiento.btAsociacionUnidadProdIndividual",
                                             ""

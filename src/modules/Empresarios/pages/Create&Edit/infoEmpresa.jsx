@@ -426,7 +426,7 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e);
-                                        handlderChangeData(e.target.name, e.target.value);
+                                        handlderChangeData("strCategoriaProducto", e.target.value);
                                         setValue(
                                             "objInfoEmpresa.strOtraCategoriaProducto",
                                             ""
@@ -491,7 +491,7 @@ const InfoEmpresa = ({
                             control={control}
                             rules={{
                                 validate: (value) => {
-                                    if (data.strCategoriaProducto !== "Otro") {
+                                    if (data.strCategoriaProducto === "Otro") {
                                         if (value === "" || value === undefined) {
                                             return "Por favor, digita cual seria la otra categoría del producto.";
                                         }
@@ -628,6 +628,7 @@ const InfoEmpresa = ({
                                     label="Valor promedio de las ventas mensuales"
                                     name={name}
                                     value={value}
+                                    onChange={(e) => onChange(e)}
                                     thousandSeparator={true}
                                     allowNegative={false}
                                     prefix={"$"}

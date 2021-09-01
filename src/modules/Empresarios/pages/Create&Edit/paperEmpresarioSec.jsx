@@ -208,6 +208,15 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                     rules={{
                                         required:
                                             "Por favor, digita los nombres y apellidos del empresario",
+                                        validate: (value) => {
+                                            if (
+                                                !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
+                                                    value
+                                                )
+                                            ) {
+                                                return "Los nombres y apellidos no pueden contener números ni caracteres especiales.";
+                                            }
+                                        },
                                     }}
                                 />
                             </Grid>

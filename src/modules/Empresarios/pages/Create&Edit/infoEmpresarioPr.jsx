@@ -52,8 +52,10 @@ const InformacionEmpresarioPr = ({
         dtFechaExpedicionDocto: null,
         dtFechaNacimiento: null,
         strSexo: "",
-        strCelular: "",
-        strCorreoElectronico: "",
+        strCelular1: "",
+        strCelular2: "",
+        strCorreoElectronico1: "",
+        strCorreoElectronico2: "",
         strNivelEducativo: "",
         strCondicionDiscapacidad: "",
         strTitulos: "",
@@ -77,8 +79,10 @@ const InformacionEmpresarioPr = ({
                 dtFechaExpedicionDocto: values.dtFechaExpedicionDocto || null,
                 dtFechaNacimiento: values.dtFechaNacimiento || null,
                 strSexo: values.strSexo || null,
-                strCelular: values.strCelular || "",
-                strCorreoElectronico: values.strCorreoElectronico || "",
+                strCelular1: values.strCelular1 || "",
+                strCelular2: values.strCelular2 || "",
+                strCorreoElectronico1: values.strCorreoElectronico1 || "",
+                strCorreoElectronico2: values.strCorreoElectronico2 || "",
                 strNivelEducativo: values.strNivelEducativo || "",
                 strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
                 strTitulos: values.strTitulos || "",
@@ -162,7 +166,11 @@ const InformacionEmpresarioPr = ({
                             rules={{
                                 required: "Por favor, digíta el nombre del empresario.",
                                 validate: (value) => {
-                                    if (!validator.isAlpha(value)) {
+                                    if (
+                                        !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
+                                            value
+                                        )
+                                    ) {
                                         return "El nombre no debe contener números ni caracteres especiales.";
                                     }
                                 },
@@ -201,7 +209,11 @@ const InformacionEmpresarioPr = ({
                                 required:
                                     "Por favor, digíta los apellidos del empresario.",
                                 validate: (value) => {
-                                    if (!/^[a-z ,.'-]+$/i.test(value)) {
+                                    if (
+                                        !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
+                                            value
+                                        )
+                                    ) {
                                         return "Los apellidos no deben contener números ni caracteres especiales.";
                                     }
                                 },
@@ -406,8 +418,8 @@ const InformacionEmpresarioPr = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strCelular}
-                            name="objInfoEmpresarioPr.strCelular"
+                            defaultValue={data.strCelular1}
+                            name="objInfoEmpresarioPr.strCelular1"
                             render={({ field: { name, value, onChange } }) => (
                                 <NumberFormat
                                     format="### ### ####"
@@ -421,12 +433,12 @@ const InformacionEmpresarioPr = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strCelular
+                                        errors?.objInfoEmpresarioPr?.strCelular1
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strCelular
+                                        errors?.objInfoEmpresarioPr?.strCelular1
                                             ?.message ||
                                         "Digita el número celular del empresario."
                                     }
@@ -449,8 +461,50 @@ const InformacionEmpresarioPr = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strCorreoElectronico}
-                            name="objInfoEmpresarioPr.strCorreoElectronico"
+                            defaultValue={data.strCelular2}
+                            name="objInfoEmpresarioPr.strCelular2"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    format="### ### ####"
+                                    value={value}
+                                    customInput={TextField}
+                                    name={name}
+                                    onChange={(e) => onChange(e)}
+                                    label="Celular alterno"
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.strCelular2
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresarioPr?.strCelular2
+                                            ?.message ||
+                                        "Digita el número celular del empresario."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (value) {
+                                        let strValue = value.replace(/\s/g, "");
+
+                                        if (!validator.isMobilePhone(strValue, "es-CO")) {
+                                            return "El número ingresado no corresponde a un operador válido en Colombia.";
+                                        }
+                                    }
+                                },
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strCorreoElectronico1}
+                            name="objInfoEmpresarioPr.strCorreoElectronico1"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Correo electrónico"
@@ -461,14 +515,52 @@ const InformacionEmpresarioPr = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico
+                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico1
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico
+                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico1
                                             ?.message ||
                                         "Digita el correo electrónico del empresario."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (value) {
+                                        if (!validator.isEmail(value)) {
+                                            return "El valor ingresado no corresponde a un correo electrónico válido.";
+                                        }
+                                    }
+                                },
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strCorreoElectronico2}
+                            name="objInfoEmpresarioPr.strCorreoElectronico2"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Correo electrónico alterno"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico2
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico2
+                                            ?.message ||
+                                        "Digita el correo electrónico alterno del empresario."
                                     }
                                 />
                             )}
