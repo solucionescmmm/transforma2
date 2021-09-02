@@ -20,9 +20,9 @@ import PrivateRoute from "../common/middlewares/PrivateRoute";
 //===============================================================================================================================================
 //========================================== Otros Componentes ==================================================================================
 //===============================================================================================================================================
-const Home = lazy(() => import("../pages/Home"));
+const Home = lazy(() => import("../modules/Home/homePage"));
 const CUEmpresario = lazy(() =>
-    import("../pages/Empresarios/pages/Create&Edit/pageCUEmpresario")
+    import("../modules/Empresarios/pages/Create&Edit/pageCUEmpresario")
 );
 
 const RoutesTransforma = ({ path }) => {
