@@ -184,7 +184,7 @@ const Dropzone = ({
                         setLoading(false);
 
                         toast.error(msg);
-                        setError(name, error.message);
+                        setError(name, msg);
                     }
                 });
         },
@@ -277,7 +277,7 @@ const Dropzone = ({
                         <IconButton
                             color="error"
                             onClick={removeFile(archivo)}
-                            disabled={disabled}
+                            disabled={disabled || loading}
                         >
                             <Tooltip title="Eliminar archivo">
                                 <DeleteIcon />
@@ -297,12 +297,12 @@ const Dropzone = ({
             error={error}
             fullWidth
             className={classes.FormControl}
-            disabled={disabled}
+            disabled={disabled || loading}
         >
             <InputLabel htmlFor={`${name}-dropzone`}>{label}</InputLabel>
             <Div
                 {...getRootProps()}
-                disabled={disabled}
+                disabled={disabled || loading}
                 id={`${name}-dropzone`}
                 style={{ borderColor: error ? "#D64342" : "gray" }}
             >
@@ -333,7 +333,7 @@ const Dropzone = ({
                 ) : (
                     <Fragment>
                         <p>Selecciona un archivo y arrastralo aqui.</p>
-                        <Button variant="contained" disabled={disabled}>
+                        <Button variant="contained" disabled={disabled || loading}>
                             Seleccionar archivo
                         </Button>
                     </Fragment>

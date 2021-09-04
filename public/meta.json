@@ -1,12 +1,12 @@
 {
-    "name": "Novedades",
-    "description": "Aplicativo para la solicitud de novedades.",
+    "name": "Transforma",
+    "description": "Aplicativo de la corporación de la mujer",
     "license": "ISC",
     "openSourceProject": 0,
     "governmentWideReuseProject": 0,
     "tags": ["TI"],
     "contact": {
-        "email": "scardonas@choucairtesting.com"
+        "email": "scardonas@xelerica.com"
     },
     "version": "0.1.0"
 }
