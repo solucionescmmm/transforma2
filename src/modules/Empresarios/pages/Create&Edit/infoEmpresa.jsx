@@ -41,6 +41,7 @@ const InfoEmpresa = ({
     isEdit,
     setValue,
     setError,
+    clearErrors
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -147,6 +148,7 @@ const InfoEmpresa = ({
                                     maxFiles={1}
                                     type="Imagen"
                                     setError={setError}
+                                    clearErrors={clearErrors}
                                     error={
                                         errors?.objInfoEmpresa?.strURLFileLogoEmpresa
                                             ? true
@@ -268,7 +270,7 @@ const InfoEmpresa = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strDireccion}
-                            name="strDireccion"
+                            name="objInfoEmpresa.strDireccion"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Dirección de la empresa"

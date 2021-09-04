@@ -51,8 +51,6 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEd
         setLoading(false);
     }, [arrayValues, isEdit]);
 
-    console.log(fields);
-
     if (loading) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">

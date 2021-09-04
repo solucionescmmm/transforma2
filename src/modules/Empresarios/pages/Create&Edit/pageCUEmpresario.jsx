@@ -125,9 +125,7 @@ const CUEmpresario = ({ isEdit }) => {
             ...data,
         }));
 
-        console.log(data);
-
-        // setFlagSubmit(true);
+        setFlagSubmit(true);
     };
 
     const submitData = useCallback(

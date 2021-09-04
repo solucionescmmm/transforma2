@@ -28,7 +28,14 @@ import DropdownRecibirAsesoria from "../../components/dropdownRecibirAsesoria";
 import DropdownComoSeEntero from "../../components/dropdownComoSeEntero";
 import DropdowMediosComunicacion from "../../components/dropdownMediosComunicacion";
 
-const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => {
+const InformacionPrincipal = ({
+    disabled,
+    values,
+    errors,
+    control,
+    isEdit,
+    setValue,
+}) => {
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
@@ -40,7 +47,7 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
         arrRequisitoLey: [],
         strOtrosRequisitos: "",
         btInteresadoProcesoCMM: "",
-        strTemasCapacitacion: "",
+        arrTemasCapacitacion: [],
         arrComoSeEntero: [],
         strOtrosMediosEntero: "",
         arrMediosDeComunicacion: [],
@@ -55,6 +62,13 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
         setOpenCollapse(!openCollapese);
     };
 
+    const handlderChangeData = (name, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
     useEffect(() => {
         if (values && isEdit) {
             setData({
@@ -66,7 +80,7 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
                 arrRequisitoLey: [],
                 strOtrosRequisitos: "",
                 btInteresadoProcesoCMM: "",
-                strTemasCapacitacion: "",
+                arrTemasCapacitacion: "",
                 arrComoSeEntero: "",
                 strOtrosMediosEntero: "",
                 arrMediosDeComunicacion: "",
@@ -384,7 +398,21 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
                                     y asesoría?"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e);
+
+                                        handlderChangeData(
+                                            "btInteresadoProcesoCMM",
+                                            e.target.value
+                                        );
+
+                                        handlderChangeData("arrTemasCapacitacion", []);
+
+                                        setValue(
+                                            "objInfoAdicional.arrTemasCapacitacion",
+                                            null
+                                        );
+                                    }}
                                     select
                                     fullWidth
                                     variant="standard"
@@ -418,8 +446,8 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.strTemasCapacitacion}
-                            name="objInfoAdicional.strTemasCapacitacion"
+                            defaultValue={data.arrTemasCapacitacion}
+                            name="objInfoAdicional.arrTemasCapacitacion"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownRecibirAsesoria
                                     label="¿En que temas le gustaría recibir asesoría o capacitación y quiere inscribirse?"
@@ -427,20 +455,32 @@ const InformacionPrincipal = ({ disabled, values, errors, control, isEdit }) => 
                                     vlaue={value}
                                     onChange={(e, value) => onChange(value)}
                                     multiple
-                                    disabled={disabled}
+                                    disabled={
+                                        !data.btInteresadoProcesoCMM ? true : disabled
+                                    }
                                     error={
-                                        errors?.objInfoAdicional?.strTemasCapacitacion
+                                        errors?.objInfoAdicional?.arrTemasCapacitacion
                                             ? true
                                             : false
                                     }
+                                    required={data.btInteresadoProcesoCMM ? true : false}
                                     helperText={
-                                        errors?.objInfoAdicional?.strTemasCapacitacion
+                                        errors?.objInfoAdicional?.arrTemasCapacitacion
                                             ?.message ||
                                         "Seleccione en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse."
                                     }
                                 />
                             )}
                             control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (data.btInteresadoProcesoCMM) {
+                                        if (value.length === 0) {
+                                            return "Por favor, seleccione en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse.";
+                                        }
+                                    }
+                                },
+                            }}
                         />
                     </Grid>
 

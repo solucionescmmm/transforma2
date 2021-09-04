@@ -325,7 +325,7 @@ const InformacionEmpresarioPr = ({
                                     label="Fecha de expedición del documento"
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e, date) => onChange(date)}
+                                    onChange={(date) => onChange(date)}
                                     renderInput={(props) => (
                                         <TextField
                                             {...props}
@@ -360,7 +360,7 @@ const InformacionEmpresarioPr = ({
                                     label="Fecha de nacimiento"
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e, date) => onChange(date)}
+                                    onChange={(date) => onChange(date)}
                                     renderInput={(props) => (
                                         <TextField
                                             {...props}
@@ -621,6 +621,7 @@ const InformacionEmpresarioPr = ({
                                             ? true
                                             : false
                                     }
+                                    required
                                     helperText={
                                         errors?.objInfoEmpresarioPr
                                             ?.strCondicionDiscapacidad?.message ||
@@ -629,6 +630,9 @@ const InformacionEmpresarioPr = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required: "Por favor, selecciona la discapacidad del empresario, en caso de padecer alguna."
+                            }}
                         />
                     </Grid>
 
