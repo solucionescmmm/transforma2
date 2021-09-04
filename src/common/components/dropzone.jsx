@@ -274,7 +274,11 @@ const Dropzone = ({
                     >
                         <p>{archivo.path}</p>
 
-                        <IconButton color="error" onClick={removeFile(archivo)}>
+                        <IconButton
+                            color="error"
+                            onClick={removeFile(archivo)}
+                            disabled={disabled}
+                        >
                             <Tooltip title="Eliminar archivo">
                                 <DeleteIcon />
                             </Tooltip>
@@ -298,6 +302,7 @@ const Dropzone = ({
             <InputLabel htmlFor={`${name}-dropzone`}>{label}</InputLabel>
             <Div
                 {...getRootProps()}
+                disabled={disabled}
                 id={`${name}-dropzone`}
                 style={{ borderColor: error ? "#D64342" : "gray" }}
             >
@@ -328,7 +333,9 @@ const Dropzone = ({
                 ) : (
                     <Fragment>
                         <p>Selecciona un archivo y arrastralo aqui.</p>
-                        <Button variant="contained">Seleccionar archivo</Button>
+                        <Button variant="contained" disabled={disabled}>
+                            Seleccionar archivo
+                        </Button>
                     </Fragment>
                 )}
             </Div>

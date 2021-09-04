@@ -8,6 +8,7 @@ import { Link as RouterLink, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { format } from "date-fns";
 
 //Componentes de Material UI
 import {
@@ -164,14 +165,25 @@ const CUEmpresario = ({ isEdit }) => {
                                 objEmpresario: {
                                     strNombres: data.objInfoEmpresarioPr.strNombres,
                                     strApellidos: data.objInfoEmpresarioPr.strApellidos,
-                                    dtFechaNacimiento:
-                                        data.objInfoEmpresarioPr.dtFechaNacimiento,
+                                    dtFechaNacimiento: data.objInfoEmpresarioPr
+                                        .dtFechaNacimiento
+                                        ? format(
+                                              data.objInfoEmpresarioPr.dtFechaNacimiento,
+                                              "yyyy-MM-dd"
+                                          )
+                                        : null,
                                     strTipoDocto: data.objInfoEmpresarioPr.strTipoDocto,
                                     strNroDocto: data.objInfoEmpresarioPr.strNroDocto,
                                     strLugarExpedicionDocto:
                                         data.objInfoEmpresarioPr.strLugarExpedicionDocto,
-                                    dtFechaExpedicionDocto:
-                                        data.objInfoEmpresarioPr.dtFechaExpedicionDocto,
+                                    dtFechaExpedicionDocto: data.objInfoEmpresarioPr
+                                        .dtFechaExpedicionDocto
+                                        ? format(
+                                              data.objInfoEmpresarioPr
+                                                  .dtFechaExpedicionDocto,
+                                              "yyyy-MM-dd"
+                                          )
+                                        : null,
                                     strSexo: data.objInfoEmpresarioPr.strSexo,
                                     strCelular1: data.objInfoEmpresarioPr.strCelular1,
                                     strCelular2: data.objInfoEmpresarioPr.strCelular2,
@@ -187,8 +199,13 @@ const CUEmpresario = ({ isEdit }) => {
                                     strSede: data.objInfoPrincipal.strSede,
                                     strTipoEmpresario:
                                         data.objInfoPrincipal.strTipoEmpresario,
-                                    dtFechaVinculacion:
-                                        data.objInfoPrincipal.dtFechaVinculacion,
+                                    dtFechaVinculacion: data.objInfoPrincipal
+                                        .dtFechaVinculacion
+                                        ? format(
+                                              data.objInfoPrincipal.dtFechaVinculacion,
+                                              "yyyy-MM-dd"
+                                          )
+                                        : null,
                                     strEstado: data.objInfoPrincipal.strEstado,
                                     strUrlFoto: data.objInfoEmpresarioPr.strURLFileFoto,
                                     strEspacioJornada:
@@ -217,8 +234,12 @@ const CUEmpresario = ({ isEdit }) => {
                                 },
                                 objInfoEmpresa: {
                                     strUrlLogo: data.objInfoEmpresa.strURLFileLogoEmpresa,
-                                    dtFechaFundacion:
-                                        data.objInfoEmpresa.dtFechaFundacion,
+                                    dtFechaFundacion: data.objInfoEmpresa.dtFechaFundacion
+                                        ? format(
+                                              data.objInfoEmpresa.dtFechaFundacion,
+                                              "yyyy-MM-dd"
+                                          )
+                                        : null,
                                     strUnidadProdOperacion:
                                         data.objInfoEmpresa.strUnidadProdOperacion,
                                     strDireccion: data.objInfoEmpresa.strDireccion,
