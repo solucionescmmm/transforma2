@@ -475,7 +475,7 @@ const InformacionPrincipal = ({
                             rules={{
                                 validate: (value) => {
                                     if (data.btInteresadoProcesoCMM) {
-                                        if (value.length === 0) {
+                                        if (value?.length === 0) {
                                             return "Por favor, seleccione en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse.";
                                         }
                                     }
