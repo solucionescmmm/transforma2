@@ -289,7 +289,12 @@ const Dropzone = ({
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
-        <FormControl error={error} fullWidth className={classes.FormControl}>
+        <FormControl
+            error={error}
+            fullWidth
+            className={classes.FormControl}
+            disabled={disabled}
+        >
             <InputLabel htmlFor={`${name}-dropzone`}>{label}</InputLabel>
             <Div
                 {...getRootProps()}
@@ -309,7 +314,12 @@ const Dropzone = ({
                 ) : files.length > 0 ? (
                     <Fragment>
                         <h4 className={classes.titleFile}>Archivos</h4>
-                        <Grid container direction="row" spacing={1} justifyContent="center">
+                        <Grid
+                            container
+                            direction="row"
+                            spacing={1}
+                            justifyContent="center"
+                        >
                             {archivos}
                         </Grid>
                     </Fragment>

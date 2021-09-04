@@ -173,9 +173,12 @@ const CUEmpresario = ({ isEdit }) => {
                                     dtFechaExpedicionDocto:
                                         data.objInfoEmpresarioPr.dtFechaExpedicionDocto,
                                     strSexo: data.objInfoEmpresarioPr.strSexo,
-                                    strCelular: data.objInfoEmpresarioPr.strCelular,
-                                    strCorreoElectronico:
-                                        data.objInfoEmpresarioPr.strCorreoElectronico,
+                                    strCelular1: data.objInfoEmpresarioPr.strCelular1,
+                                    strCelular2: data.objInfoEmpresarioPr.strCelular2,
+                                    strCorreoElectronico1:
+                                        data.objInfoEmpresarioPr.strCorreoElectronico1,
+                                    strCorreoElectronico2:
+                                        data.objInfoEmpresarioPr.strCorreoElectronico2,
                                     strNivelEducativo:
                                         data.objInfoEmpresarioPr.strNivelEducativo,
                                     strTitulos: data.objInfoEmpresarioPr.strTitulos,
@@ -189,7 +192,7 @@ const CUEmpresario = ({ isEdit }) => {
                                     strEstado: data.objInfoPrincipal.strEstado,
                                     strUrlFoto: data.objInfoEmpresarioPr.strURLFileFoto,
                                     strEspacioJornada:
-                                        data.objInfoPrincipal.strNivelEducativo,
+                                        data.objInfoPrincipal.strEspacioJornada,
                                 },
                                 arrEmpresarioSecundario: data.arrInfoEmpresarioSec,
                                 objInfoEmprendimiento: {
