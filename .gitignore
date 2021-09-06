@@ -30,5 +30,6 @@ package-lock.json
 .eslintcache
 node_modules
 
-
+uploads/
+!uploads/*.md
 
