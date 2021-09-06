@@ -47,8 +47,9 @@ class ctrlEmpresarios {
     async postEmpresario(req, res) {
         try {
             let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new classSetEmpresario(data);
+            let service = new classSetEmpresario(data, strDataUser);
 
             let query = await service.main();
             if (query.error) {

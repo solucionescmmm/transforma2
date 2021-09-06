@@ -1,6 +1,5 @@
 //librerias
 const sql = require("mssql");
-const validator = require("validator").default;
 
 //Conexion
 const {
@@ -9,7 +8,7 @@ const {
 
 class daoEmpresarios {
     async setEmpresario(data) {
-        console.log(data);
+        //console.log(data);
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -17,16 +16,16 @@ class daoEmpresarios {
             
             INSERT INTO tbl_Empresario VALUES
             (
-                ${data.intId},
                 ${data.strNombres},
                 ${data.strApellidos},
                 ${data.dtFechaNacimiento},
                 ${data.strTipoDocto},
                 ${data.strNroDocto},
+                ${data.strLugarExpedicionDocto},
                 ${data.dtFechaExpedicionDocto},
                 ${data.strSexo},
-                ${data.strCelular},
-                ${data.strCorreoElectronico}
+                ${data.strCelular1},
+                ${data.strCorreoElectronico1},
                 ${data.strNivelEducativo},
                 ${data.strTitulos},
                 ${data.strCondicionDiscapacidad},
@@ -35,23 +34,27 @@ class daoEmpresarios {
                 ${data.dtFechaVinculacion},
                 ${data.strEstado},
                 ${data.strUrlFoto},
+                GETDATE(),
                 ${data.strUsuario},
                 ${data.strEspacioJornada}
             )
             
-            SET @intId = SCOPE IDENTITY();
+            SET @intId = SCOPE_IDENTITY();
 
             SELECT * FROM tbl_Empresario WHERE intId = @intId`;
+            
             let result = {
                 error: false,
                 data: response.recordset[0],
                 msg: `El empresario ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue registrado con éxito.`,
             };
+            console.log(result)
 
             sql.close(conexion);
 
             return result;
         } catch (error) {
+            console.log(error)
             let result = {
                 error: true,
                 msg:
@@ -107,9 +110,39 @@ class daoEmpresarios {
                 ${data.btRecibirInfoCMM},
                 ${data.strRecomendaciones},
                 ${data.strUsuario}
+
+                objInfoEmpresa: {
+                    strUrlLogo: null,
+                    dtFechaFundacion: '2017-08-16T05:00:00.000Z',
+                    strUnidadProdOperacion: 'Local independiente desde la vivienda',
+                    strDireccion: 'calle 43A #4322',
+                    strMunicipio: 'Bello',
+                    strBarrio: 'Niquia',
+                    intEstrato: '4',
+                    strCategoriaProducto: 'Alimentos y bebidas',
+                    strOtraCategoriaProducto: '',
+                    arrCategoriaServicio: [],
+                    btGeneraEmpleo: true,
+                    intNumeroEmpleados: '4',
+                    valorVentasMes: '$1,232,222',
+                    strMediosUtilizadosVentas: [ [Object] ],
+                    btNombreMarca: false,
+                    btLogotipo: false,
+                    btEtiquetaEmpaque: false,
+                    btMejorarEtiquetaEmpaque: true,
+                    strPrincipalesNecesidades: '',
+                    strRequisitoLey: [ [Object] ],
+                    strOtrosRequisitos: '',
+                    btInteresadoProcesoCMM: false,
+                    strComoSeEntero: [ [Object] ],
+                    strOtrosMediosEntero: '',
+                    strMedioDeComunicacion: [],
+                    btRecibirInfoCMM: false,
+                    strRecomendaciones: ''
+                  }
             )
 
-            SET @intId = SCOPE IDENTITY();
+            SET @intId = SCOPE_IDENTITY();
 
             SELECT * FROM tbl_InfoEmpresa WHERE intId = @intId`;
 
@@ -144,7 +177,6 @@ class daoEmpresarios {
             
             INSERT INTO tbl_InfoEmprendimiento VALUES
             (
-                ${data.intId}
                 ${data.intIdEmpresario},
                 ${data.btTieneSoloIdea},
                 ${data.strPlaneaComenzar},
@@ -154,9 +186,10 @@ class daoEmpresarios {
                 ${data.strProductosServicios},
                 ${data.strMateriaPrima},
                 ${data.strNombreTecnica},
-                ${data.strUsuario}    
+                GETDATE(),
+                ${data.strUsuario}
             )
-            SET @intId = SCOPE IDENTITY();
+            SET @intId = SCOPE_IDENTITY();
 
             SELECT * FROM tbl_InfoEmprendimiento WHERE intId = @intId`;
 
@@ -311,6 +344,35 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo getCategoriaEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getNroDocumentoEmpresario(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            SELECT strNroDocto FROM tbl_Empresario where strNroDocto = ${data.strNroDocto}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0]
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteEmpresario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
