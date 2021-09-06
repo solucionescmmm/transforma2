@@ -108,7 +108,8 @@ const Login = () => {
     };
 
     const onFailureAuth = (error) => {
-        toast.error(error.message);
+        console.log(error);
+        toast.error(error.details);
     };
 
     const submitData = useCallback(
