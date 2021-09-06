@@ -386,7 +386,7 @@ const CUEmpresario = ({ isEdit }) => {
                     <Link
                         color="inherit"
                         component={RouterLink}
-                        to="/transforma/asesor/empresarios"
+                        to="/transforma/asesor/empresario/read/all"
                         className={classes.link}
                     >
                         Empresarios

@@ -16,11 +16,16 @@ import Main from "../common/components/main";
 import PrivateRoute from "../common/middlewares/PrivateRoute";
 // import ErrorPage from "../common/components/Error";
 // import MaintenancePage from "../common/components/Error/503";
+import PageNotFound from "../common/components/Error/404";
 
 //===============================================================================================================================================
 //========================================== Otros Componentes ==================================================================================
 //===============================================================================================================================================
 const Home = lazy(() => import("../modules/Home/homePage"));
+const REmpresarios = lazy(() =>
+    import("../modules/Empresarios/pages/Read/readEmpresarios")
+);
+
 const CUEmpresario = lazy(() =>
     import("../modules/Empresarios/pages/Create&Edit/pageCUEmpresario")
 );
@@ -48,6 +53,16 @@ const RoutesTransforma = ({ path }) => {
                             />
 
                             <Route
+                                path="/transforma/asesor/empresario/read/all"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <REmpresarios />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
                                 path="/transforma/asesor/empresario/create"
                                 exact
                                 component={() => (
@@ -56,6 +71,8 @@ const RoutesTransforma = ({ path }) => {
                                     </div>
                                 )}
                             />
+
+                            <Route path="*" component={PageNotFound} />
                         </Switch>
                     </Suspense>
                 </Main>

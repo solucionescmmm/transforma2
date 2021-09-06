@@ -81,7 +81,7 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
             <ListItem
                 button
                 component={RouterLink}
-                to="/transforma/asesor/empresario/create"
+                to="/transforma/asesor/empresario/read/all"
                 selected={
                     location.pathname.startsWith("/transforma/asesor/empresario/")
                         ? true
