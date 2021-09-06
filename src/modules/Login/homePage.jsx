@@ -97,7 +97,7 @@ const Login = () => {
     //===============================================================================================================================================
     //#NOTE: variable que se utiliza para aplicar estilos personalizados de material ui
     const classes = loginStyles();
-    
+
     const onSuccessAuth = (res) => {
         setData((prevState) => ({
             ...prevState,
@@ -108,7 +108,7 @@ const Login = () => {
     };
 
     const onFailureAuth = (error) => {
-        console.log(error);
+        toast.error(error.message);
     };
 
     const submitData = useCallback(
@@ -240,7 +240,7 @@ const Login = () => {
                                         }}
                                     >
                                         <GoogleLogin
-                                            clientId="870993995291-7sl6msiqqecem5178c71iqt9i6i0h0lp.apps.googleusercontent.com"
+                                            clientId={process.env.REACT_APP_CLIENT_GOOGLE}
                                             buttonText="Ingresar"
                                             render={({ onClick }) => (
                                                 <LoadingButton
@@ -258,7 +258,6 @@ const Login = () => {
                                             )}
                                             onSuccess={onSuccessAuth}
                                             onFailure={onFailureAuth}
-                                            // hostedDomain={process.env.REACT_APP_DOMAIN}
                                         />
                                     </Grid>
                                 </Grid>
