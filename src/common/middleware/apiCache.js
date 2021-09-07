@@ -14,7 +14,10 @@ const cache = () => {
             res.sendResponse = res.send;
 
             res.send = async (body) => {
-                await apicache.set(key, body, process.env.CACHE_DURATION);
+                if (res.status === 200) {
+                    await apicache.set(key, body, process.env.CACHE_DURATION);
+                }
+
                 res.sendResponse(body);
             };
 

@@ -1,4 +1,4 @@
-const app = require("./modules/main/app");
+const app = require("./modules/Main/app");
 
 const Main = () => {
     app.listen(app.get("port"));
