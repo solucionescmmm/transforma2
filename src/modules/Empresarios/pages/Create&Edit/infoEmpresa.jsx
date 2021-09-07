@@ -31,7 +31,7 @@ import SelectUnidadOperativa from "../../components/selectUnidadOperativa";
 import SelectSectorEconomico from "../../components/selectSectorEconomico";
 import SelectCategoriaProducto from "../../components/selectCategoriaProducto";
 import DropdownCategoriaServicio from "../../components/dropdownCategoriaServicio";
-import DropdrownMediosComunicacion from "../../components/dropdownMediosComunicacion";
+import ModalMediosVetanProductos from "../../components/modalMediosVentaProductos";
 
 const InfoEmpresa = ({
     disabled,
@@ -41,7 +41,7 @@ const InfoEmpresa = ({
     isEdit,
     setValue,
     setError,
-    clearErrors
+    clearErrors,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -428,7 +428,10 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e);
-                                        handlderChangeData("strCategoriaProducto", e.target.value);
+                                        handlderChangeData(
+                                            "strCategoriaProducto",
+                                            e.target.value
+                                        );
                                         setValue(
                                             "objInfoEmpresa.strOtraCategoriaProducto",
                                             ""
@@ -663,12 +666,11 @@ const InfoEmpresa = ({
                             defaultValue={data.arrMediosUtilizadosVentas}
                             name="objInfoEmpresa.arrMediosUtilizadosVentas"
                             render={({ field: { name, value, onChange } }) => (
-                                <DropdrownMediosComunicacion
+                                <ModalMediosVetanProductos
                                     label="Medios que utilice para la venta de sus productos o servicios"
                                     name={name}
-                                    vlaue={value}
-                                    onChange={(e, value) => onChange(value)}
-                                    multiple
+                                    value={value}
+                                    onChange={(value) => onChange(value)}
                                     disabled={disabled}
                                     error={
                                         errors?.objInfoEmpresa?.arrMediosUtilizadosVentas
