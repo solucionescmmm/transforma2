@@ -1,11 +1,10 @@
 //Librerias
 const validator = require("validator").default;
-const { parseISO, format } = require("date-fns");
+
 //CLases
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
 
 //services
-const getEmpresario = require("./getEmpresario.service");
 const getCategoriaEmpresario = require("./getCategoriaServicio.service");
 
 class setEmpresario {
@@ -24,15 +23,15 @@ class setEmpresario {
     async main() {
         await this.#validations();
         await this.#setEmpresario();
-        //  await this.#setEmpresa();
+        await this.#setEmpresarioSecundario();
         await this.#setEmprendimiento();
-        // await this.#setEmpresarioSecundario();
+        //await this.#setEmpresa();
         return this.#objResult;
     }
 
     async #validations() {
         //console.log(this.#objData);
-       // console.log(this.#objUser);
+        //console.log(this.#objUser);
         let dao = new classInterfaceDAOEmpresarios();
 
         if (
@@ -47,7 +46,6 @@ class setEmpresario {
         let queryGetNroDoctoEmpresario = await dao.getNroDocumentoEmpresario({
             strNroDocto: this.#objData.objEmpresario.strNroDocto,
         });
-        console.log(queryGetNroDoctoEmpresario);
 
         if (queryGetNroDoctoEmpresario.data) {
             throw new Error(
@@ -59,12 +57,9 @@ class setEmpresario {
     async #setEmpresario() {
         let prevData = this.#objData.objEmpresario;
 
-        
-
         let newData = {
             ...prevData,
             strUsuario: this.#objUser.strEmail,
-            
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -134,13 +129,16 @@ class setEmpresario {
     }
 
     async #setEmpresarioSecundario() {
+        
+
         let dao = new classInterfaceDAOEmpresarios();
-        for (let i = 0; i < arrEmpresarioSecundario.length; i++) {
+        for (let i = 0; i < this.#objData.arrEmpresarioSecundario.length; i++) {
             let prevData = this.#objData.arrEmpresarioSecundario[i];
 
             let newData = {
                 ...prevData,
-                intIdEmpresario: this.#intIdEmpresario,
+                intIdEmpresarioPrincipal: this.#intIdEmpresario,
+                strUsuario: this.#objUser.strEmail,
             };
 
             let query = await dao.setEmpresarioSecundario(newData);
@@ -152,89 +150,6 @@ class setEmpresario {
     }
 
     async #rollbackTransaction() {
-        let newData = {
-            objEmpresario: {
-                strNombres: data.objInfoEmpresarioPr.strNombres,
-                strApellidos: data.objInfoEmpresarioPr.strApellidos,
-                dtFechaNacimiento: data.objInfoEmpresarioPr.dtFechaNacimiento,
-                strTipoDocto: data.objInfoEmpresarioPr.strTipoDocto,
-                strNroDocto: data.objInfoEmpresarioPr.strNroDocto,
-                strLugarExpedicionDocto:
-                    data.objInfoEmpresarioPr.strLugarExpedicionDocto,
-                dtFechaExpedicionDocto:
-                    data.objInfoEmpresarioPr.dtFechaExpedicionDocto,
-                strSexo: data.objInfoEmpresarioPr.strSexo,
-                strCelular: data.objInfoEmpresarioPr.strCelular,
-                strCorreoElectronico:
-                    data.objInfoEmpresarioPr.strCorreoElectronico,
-                strNivelEducativo: data.objInfoEmpresarioPr.strNivelEducativo,
-                strTitulos: data.objInfoEmpresarioPr.strTitulos,
-                strCondicionDiscapacidad:
-                    data.objInfoEmpresarioPr.strCondicionDiscapacidad,
-                strSede: data.objInfoPrincipal.strSede,
-                strTipoEmpresario: data.objInfoPrincipal.strTipoEmpresario,
-                dtFechaVinculacion: data.objInfoPrincipal.dtFechaVinculacion,
-                strEstado: data.objInfoPrincipal.strEstado,
-                strUrlFoto: data.objInfoEmpresarioPr.strURLFileFoto,
-                strEspacioJornada: data.objInfoPrincipal.strNivelEducativo,
-            },
-            arrEmpresarioSecundario: data.arrInfoEmpresarioSec,
-            objInfoEmprendimiento: {
-                btTieneSoloIdea: data.objInfoEmprendimiento.btTieneSoloIdea,
-                strPlaneaComenzar:
-                    data.objInfoEmprendimiento.strCuandoComienzaEmpresa,
-                strTiempoDedicacion:
-                    data.objInfoEmprendimiento.strTiempoDedicacion,
-                btGrupoAsociativo: data.objInfoEmprendimiento.btGrupoAsociativo,
-                btAsociacionUnidadProdIndividual:
-                    data.objInfoEmprendimiento.btAsociacionUnidadProdIndividual,
-                strProductosServicios:
-                    data.objInfoEmprendimiento.strProductosServicios,
-                strMateriaPrima: data.objInfoEmprendimiento.strMateriaPrima,
-                strNombreTecnica: data.objInfoEmprendimiento.strNombreTecnica,
-            },
-            objInfoEmpresa: {
-                strUrlLogo: data.objInfoEmpresa.strURLFileLogoEmpresa,
-                dtFechaFundacion: data.objInfoEmpresa.dtFechaFundacion,
-                strUnidadProdOperacion:
-                    data.objInfoEmpresa.strUnidadProdOperacion,
-                strDireccion: data.objInfoEmpresa.strDireccion,
-                strMunicipio: data.objInfoEmpresa.strMunicipio,
-                strBarrio: data.objInfoEmpresa.strBarrio,
-                intEstrato: data.objInfoEmpresa.intEstrato,
-                strCategoriaProducto: data.objInfoEmpresa.strCategoriaProducto,
-                strOtraCategoriaProducto:
-                    data.objInfoEmpresa.strOtraCategoriaProducto,
-                arrCategoriaServicio: data.objInfoEmpresa.arrCategoriaServicio,
-                btGeneraEmpleo: data.objInfoEmpresa.btGeneraEmpleo,
-                intNumeroEmpleados: data.objInfoEmpresa.intNumeroEmpleados,
-                valorVentasMes: data.objInfoEmpresa.valorVentasMes,
-                strMediosUtilizadosVentas:
-                    data.objInfoEmpresa.arrMediosUtilizadosVentas,
-                btNombreMarca: data.objInfoAdicional.btNombreMarca,
-                btLogotipo: data.objInfoAdicional.btLogotipo,
-                btEtiquetaEmpaque: data.objInfoAdicional.btEtiquetaEmpaque,
-                btMejorarEtiquetaEmpaque:
-                    data.objInfoAdicional.btMejorarEtiquetaEmpaque,
-                strPrincipalesNecesidades:
-                    data.objInfoAdicional.strPrincipalesNecesidades,
-                strRequisitoLey: data.objInfoAdicional.arrRequisitoLey,
-                strOtrosRequisitos: data.objInfoAdicional.strOtrosRequisitos,
-                btInteresadoProcesoCMM:
-                    data.objInfoAdicional.btInteresadoProcesoCMM,
-                strTemasCapacitacion:
-                    data.objInfoAdicional.strTemasCapacitacion,
-                strComoSeEntero: data.objInfoAdicional.arrComoSeEntero,
-                strOtrosMediosEntero:
-                    data.objInfoAdicional.strOtrosMediosEntero,
-                strMedioDeComunicacion:
-                    data.objInfoAdicional.arrMediosDeComunicacion,
-                strOtroMedioComunicacion:
-                    data.objInfoAdicional.strOtroMedioComunicacion,
-                btRecibirInfoCMM: data.objInfoAdicional.btRecibirInfoCMM,
-                strRecomendaciones: data.objInfoAdicional.strRecomendaciones,
-            },
-        };
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.deleteEmpresario({

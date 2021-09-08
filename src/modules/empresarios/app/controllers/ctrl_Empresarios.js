@@ -69,8 +69,11 @@ class ctrlEmpresarios {
 
     async getEmpresario(req, res) {
         try {
-            let data = req.query;
-            let query = await getEmpresario(data);
+            let objParams = req.query;
+            let { strDataUser } = req;
+
+            let query = await getEmpresario(objParams, strDataUser);
+
             if (query.error) {
                 throw new Error(query.msg);
             }

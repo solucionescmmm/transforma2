@@ -1,5 +1,6 @@
 //librerias
 const sql = require("mssql");
+const validator = require("validator").default;
 
 //Conexion
 const {
@@ -8,7 +9,6 @@ const {
 
 class daoEmpresarios {
     async setEmpresario(data) {
-        //console.log(data);
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -48,13 +48,11 @@ class daoEmpresarios {
                 data: response.recordset[0],
                 msg: `El empresario ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue registrado con éxito.`,
             };
-            console.log(result)
 
             sql.close(conexion);
 
             return result;
         } catch (error) {
-            console.log(error)
             let result = {
                 error: true,
                 msg:
@@ -221,12 +219,11 @@ class daoEmpresarios {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
             let response = await conn.query`
-            CLARE @intId INTEGER;
+            DECLARE @intId INTEGER;
             
-            INSERT INTO tbl_InfoEmprendimiento VALUES
+            INSERT INTO tbl_EmpresarioSecundario VALUES
             (
-                ${data.intId},
-                ${data.intIdEmpresario},
+                ${data.intIdEmpresarioPrincipal},
                 ${data.strNombresApellidos},
                 ${data.strSexo},
                 ${data.dtFechaNacimiento},
@@ -236,16 +233,17 @@ class daoEmpresarios {
                 ${data.dtFechaExpedicionDocto},
                 ${data.strCelular},
                 ${data.strCorreoElectronico},
+                GETDATE(),
                 ${data.strUsuario}
             )
-            SET @intId = SCOPE IDENTITY();
+            SET @intId = SCOPE_IDENTITY();
 
-            SELECT * FROM tbl_InfoEmprendimiento WHERE intId = @intId`;
+            SELECT * FROM tbl_EmpresarioSecundario WHERE intId = @intId`;
 
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El emprendimiento #${response.recordset[0].intId} fue registrado con éxito, para el empresario #${response.recordset[0].intIdEmpresario}.`,
+                //msg: `El emprendimiento #${response.recordset[0].intId} fue registrado con éxito, para el empresario #${response.recordset[0].intIdEmpresario}.`,
             };
 
             sql.close(conexion);
@@ -297,20 +295,80 @@ class daoEmpresarios {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
             let response = await conn.query`
-            SELECT strNroDocto FROM tbl_Empresario where strNroDocto = ${data.strNroDocto}`;
+            SELECT 
+            
+            Empresario.intId,
+            Empresario.strNombres,
+            Empresario.strApellidos,
+            Empresario.dtFechaNacimiento,
+            Empresario.strTipoDocto,
+            Empresario.strNroDocto,
+            Empresario.strLugarExpedicionDocto,
+            Empresario.dtFechaExpedicionDocto,
+            Empresario.strSexo,
+            Empresario.strCelular,
+            Empresario.strCorreoElectronico,
+            Empresario.strNivelEducativo,
+            Empresario.strTitulos,
+            Empresario.strCondicionDiscapacidad,
+            Empresario.strSede,
+            Empresario.strTipoEmpresario,
+            Empresario.dtFechaVinculacion,
+            Empresario.strEstado,
+            Empresario.strUrlFoto,
+            Empresario.strEspacioJornada,
+            (
+                SELECT * FROM tbl_InfoEmprendimiento Emprendimiento
+                WHERE Emprendimiento.intIdEmpresario = Empresario.intId
+                FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
+            ) as objInfoEmprendimiento,
+            (
+                SELECT * FROM tbl_EmpresarioSecundario EmpresarioSec
+                WHERE EmpresarioSec.intIdEmpresarioPrincipal = Empresario.intId
+                FOR JSON PATH
+            ) as arrEmpresarioSecundario
 
+            FROM tbl_Empresario Empresario
+
+            WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)
+            AND   (Empresario.strNombres = ${data.strNombres} OR ${data.strNombres} IS NULL)
+            AND   (Empresario.strApellidos = ${data.strApellidos} OR ${data.strApellidos} IS NULL)
+            AND   (Empresario.strNroDocto = ${data.strNroDocto} OR ${data.strNroDocto} IS NULL)
+            AND   (Empresario.strCorreoElectronico = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)`;
+
+            
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].objInfoEmprendimiento) {
+                    let { objInfoEmprendimiento} = arrNewData[i];
+
+                    if (validator.isJSON(objInfoEmprendimiento)) {
+                        objInfoEmprendimiento = JSON.parse(objInfoEmprendimiento);
+                        arrNewData[i].objInfoEmprendimiento = objInfoEmprendimiento;
+                    }
+                }
+                if (arrNewData[i].arrEmpresarioSecundario) {
+                    let { arrEmpresarioSecundario } = arrNewData[i];
+
+                    if (validator.isJSON(arrEmpresarioSecundario)) {
+                            arrEmpresarioSecundario = JSON.parse(arrEmpresarioSecundario);
+                            arrNewData[i].arrEmpresarioSecundario = arrEmpresarioSecundario;
+                    }
+                }  
+                    
+            }
+            
             let result = {
                 error: false,
-                data:
-                    response.recordsets[0].length > 0
-                        ? response.recordsets[0]
-                        : null,
+                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
             };
-
+            
             sql.close(conexion);
 
             return result;
         } catch (error) {
+            console.log(error)
             let result = {
                 error: true,
                 msg:

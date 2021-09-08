@@ -31,7 +31,7 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
-    async getEmpresario() {
+    async getEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.getEmpresario(data);
         return result;
