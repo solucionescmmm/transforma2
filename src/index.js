@@ -1,3 +1,6 @@
+//Paquetes
+require("dotenv-flow").config();
+
 //Librerias
 const https = require("https");
 const fs = require("fs");
@@ -10,8 +13,12 @@ const Main = () => {
         https
             .createServer(
                 {
-                    key: fs.readFileSync("/var/www/servicios.demismanos.org/ssl/servicios.demismanos.org-le.key"),
-                    cert: fs.readFileSync("/var/www/servicios.demismanos.org/ssl/servicios.demismanos.org-le.crt"),
+                    key: fs.readFileSync(
+                        "/var/www/servicios.demismanos.org/ssl/servicios.demismanos.org-le.key"
+                    ),
+                    cert: fs.readFileSync(
+                        "/var/www/servicios.demismanos.org/ssl/servicios.demismanos.org-le.crt"
+                    ),
                 },
                 app
             )
