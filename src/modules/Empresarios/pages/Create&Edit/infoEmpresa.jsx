@@ -32,6 +32,7 @@ import SelectSectorEconomico from "../../components/selectSectorEconomico";
 import SelectCategoriaProducto from "../../components/selectCategoriaProducto";
 import DropdownCategoriaServicio from "../../components/dropdownCategoriaServicio";
 import ModalMediosVetanProductos from "../../components/modalMediosVentaProductos";
+import ModalMediosDigitales from "../../components/modalMediosDigitales";
 
 const InfoEmpresa = ({
     disabled,
@@ -62,6 +63,7 @@ const InfoEmpresa = ({
         intNumeroEmpleados: "",
         valorVentasMes: "",
         arrMediosUtilizadosVentas: [],
+        arrMediosDigitales: [],
     });
 
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -681,6 +683,33 @@ const InfoEmpresa = ({
                                         errors?.objInfoEmpresa?.arrMediosUtilizadosVentas
                                             ?.message ||
                                         "Seleccione los medios que utilice para la venta de sus productos o servicios."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.arrMediosDigitales}
+                            name="objInfoEmpresa.arrMediosDigitales"
+                            render={({ field: { name, value, onChange } }) => (
+                                <ModalMediosDigitales
+                                    label="Medios digitales"
+                                    name={name}
+                                    value={value}
+                                    onChange={(value) => onChange(value)}
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmpresa?.arrMediosDigitales
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.arrMediosDigitales
+                                            ?.message ||
+                                        "Seleccione los medios digitales que utilice y coloque su ID."
                                     }
                                 />
                             )}

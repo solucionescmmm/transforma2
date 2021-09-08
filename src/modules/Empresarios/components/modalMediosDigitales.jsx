@@ -21,7 +21,7 @@ import {
     useMediaQuery,
 } from "@material-ui/core";
 
-const ModalMediosVetanProductos = ({
+const ModalMediosDigitales = ({
     value,
     name,
     label,
@@ -37,79 +37,39 @@ const ModalMediosVetanProductos = ({
     const [openModal, setOpenModal] = useState(false);
 
     const [dataCheckbox, setDataCheckbox] = useState({
-        objEncargo: {
+        objInstagram: {
             checked: false,
-            label: "Por encargo (personalizado)",
-            parent: null,
+            label: "Instagram",
+            parent: "strIdInstragram",
         },
-        objVentaDirectaVivienda: {
+        objFacebook: {
             checked: false,
-            label: "Venta directa en la vivienda",
-            parent: null,
+            label: "Facebook",
+            parent: "strIdFacebook",
         },
-        objVentaDirectaLocal: {
+        objYouTube: {
             checked: false,
-            label: "Venta directa en local",
-            parent: "strVentaDirectaLocal",
+            label: "YouTube",
+            parent: "strIdYouTube",
         },
-        objVentaPorMayor: {
+        objTwitter: {
             checked: false,
-            label: "Venta al por mayor",
-            parent: "strVentaPorMayor",
+            label: "Twitter",
+            parent: "strIdTwitter",
         },
-        objExportaciones: {
+        objLinkedIn: {
             checked: false,
-            label: "Exportaciones",
-            parent: "strExportaciones",
-        },
-        objVentaCatalogo: {
-            checked: false,
-            label: "Venta por Catálogo",
-            parent: "strVentaCatalogo",
-        },
-        objPaginaWeb: {
-            checked: false,
-            label: "Página web",
-            parent: "strPaginaWeb",
-        },
-        objFerias: {
-            checked: false,
-            label: "Ferias",
-            parent: "strFerias",
-        },
-        objMultimarcas: {
-            checked: false,
-            label: "Multimarcas o boutique",
-            parent: "strMultimarcas",
-        },
-        objComercioElectronico: {
-            checked: false,
-            label: "Plataformas comercio electrónico",
-            parent: "strComercioElectronico",
-        },
-        objReferidos: {
-            checked: false,
-            label: "Referidos",
-            parent: "strReferidos",
-        },
-        objRedesComercializacion: {
-            checked: false,
-            label: "Grupos o redes para la comercialización",
-            parent: "strRedesComercializacion",
+            label: "LinkedIn",
+            parent: "strIdLinkedIn",
         },
     });
 
     const [valuesCheck, setValuesCheck] = useState({
-        strVentaDirectaLocal: "",
-        strVentaPorMayor: "",
-        strExportaciones: "",
-        strVentaCatalogo: "",
-        strPaginaWeb: "",
-        strFerias: "",
-        strMultimarcas: "",
-        strComercioElectronico: "",
-        strReferidos: "",
-        strRedesComercializacion: "",
+        strIdInstragram: "",
+        strIdFacebook: "",
+        strIdYouTube: "",
+        strIdTwitter: "",
+        strIdLinkedIn: "",
     });
 
     //===============================================================================================================================================
@@ -198,13 +158,13 @@ const ModalMediosVetanProductos = ({
                                         {value.checked && value.parent && (
                                             <TextField
                                                 key={key}
-                                                label="¿Cuáles?"
+                                                label="Id"
                                                 name={Object.keys(valuesCheck).find(
                                                     (e) => e === value.parent
                                                 )}
                                                 value={valuesCheck[value.parent]}
                                                 fullWidth
-                                                helperText="Digita detalladamente cuales son los productos o servicios que aplican."
+                                                helperText="Por favor específico la url o nombre del perfil."
                                                 variant="standard"
                                                 onChange={(e) =>
                                                     handleChangeValuesCheck(
@@ -242,13 +202,11 @@ const ModalMediosVetanProductos = ({
                 }}
                 onClick={() => (!disabled ? handleOpenModal() : null)}
             >
-                <FormLabel htmlFor="chip-components-mediosVentaProductos">
-                    {label}
-                </FormLabel>
+                <FormLabel htmlFor="chip-components-mediosDigitales">{label}</FormLabel>
 
                 {value?.length > 0 ? (
                     <Input
-                        id="chip-components-mediosVentaProductos"
+                        id="chip-components-mediosDigitales"
                         startAdornment={value.map((e, i) => (
                             <Chip
                                 key={i}
@@ -272,4 +230,4 @@ const ModalMediosVetanProductos = ({
     );
 };
 
-export default ModalMediosVetanProductos;
+export default ModalMediosDigitales;

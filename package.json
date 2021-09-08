@@ -49,13 +49,11 @@
         "web-vitals": "^1.1.2"
     },
     "scripts": {
-        "start:dev": "react-scripts start",
+        "start:dev": "env-cmd -f .env.development react-scripts start",
+        "start:prod": "env-cmd -f .env.production react-scripts start",
         "build:prod": "react-scripts build",
         "build:local": "env-cmd -f .env.development.local react-scripts build",
-        "build:dev": "env-cmd -f .env.development react-scripts build",
-        "build:test": "env-cmd -f .env.testing react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "build:dev": "env-cmd -f .env.development react-scripts build"
     },
     "eslintConfig": {
         "extends": [
