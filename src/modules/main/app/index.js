@@ -1,6 +1,3 @@
-//Paquetes
-require("dotenv").config();
-
 //Librerias
 const express = require("express");
 const app = express();
@@ -14,6 +11,8 @@ const compression = require("compression");
 const authToken = require("../../../common/middleware/authToken");
 
 //Declaracion de variables globales
+console.log(process.env.NODE_ENV);
+
 app.set("port", process.env.PORT);
 app.set("typeServer", process.env.NODE_ENV);
 

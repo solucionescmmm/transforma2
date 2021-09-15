@@ -22,8 +22,8 @@ const Main = () => {
                 },
                 app
             )
-            .listen(process.env.PORT, function () {
-                console.log("HTTPS server listening on port " + process.env.PORT + "...");
+            .listen(app.get("port"), () => {
+                console.log("HTTPS server listening on port " + app.get("port") + "...");
             });
     } else {
         app.listen(app.get("port"));
