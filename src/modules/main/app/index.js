@@ -1,5 +1,5 @@
 //Paquetes
-require("dotenv-flow").config();
+require("dotenv").config();
 
 //Librerias
 const express = require("express");
