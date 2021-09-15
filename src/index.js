@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import App from "./app";
 
 //Componentes de Material UI
-import { StyledEngineProvider, createTheme } from "@material-ui/core/styles";
+import { StyledEngineProvider, createTheme } from "@mui/material/styles";
 
-import { ThemeProvider } from "@material-ui/styles";
+import { ThemeProvider } from "@mui/styles";
 
 const themeOptions = createTheme();
 

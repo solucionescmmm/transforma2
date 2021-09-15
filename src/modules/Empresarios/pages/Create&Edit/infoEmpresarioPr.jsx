@@ -14,17 +14,17 @@ import {
     Tooltip,
     CircularProgress,
     TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 
 import NumberFormat from "react-number-format";
 
-import { DatePicker } from "@material-ui/lab";
+import { DatePicker } from "@mui/lab";
 
 //Iconos de Material UI
 import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 //Componentes
 import SelectTipoDocumento from "../../components/selectTipoDocumento";
@@ -111,12 +111,12 @@ const InformacionEmpresarioPr = ({
                             color: errors?.objInfoEmpresarioPr ? "#D33030" : "inherit",
                         }}
                     >
-                        Información del empresario principal
+                        Información de la persona empresaria principal
                     </Typography>
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()}>
+                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
                         <Tooltip
                             title={
                                 openCollapese ? "Contraer detalle" : "Expandir detalle"
@@ -158,13 +158,13 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strNombres
                                             ?.message ||
-                                        "Digíta el nombre del empresario."
+                                        "Digíta el nombre o nombres de la persona."
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digíta el nombre del empresario.",
+                                required: "Por favor, digíta el nombre o nombres de la persona.",
                                 validate: (value) => {
                                     if (
                                         !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
@@ -200,14 +200,14 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strApellidos
                                             ?.message ||
-                                        "Digíta los apellidos del empresario."
+                                        "Digíta los apellidos de la persona."
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta los apellidos del empresario.",
+                                    "Por favor, digíta los apellidos de la persona.",
                                 validate: (value) => {
                                     if (
                                         !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
@@ -274,14 +274,14 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strNroDocto
                                             ?.message ||
-                                        "Digita el número de documento del empresario."
+                                        "Digita el número de documento."
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digita el número de documento del empresario.",
+                                    "Por favor, digita el número de documento.",
                             }}
                         />
                     </Grid>
@@ -292,7 +292,7 @@ const InformacionEmpresarioPr = ({
                             name="objInfoEmpresarioPr.strLugarExpedicionDocto"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Lugar de expredición del documento"
+                                    label="Lugar de expedición del documento"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -308,7 +308,7 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr
                                             ?.strLugarExpedicionDocto?.message ||
-                                        "Digita el lugar de expedición del documento del empresario."
+                                        "Digita el lugar de expedición del documento."
                                     }
                                 />
                             )}
@@ -341,7 +341,7 @@ const InformacionEmpresarioPr = ({
                                             helperText={
                                                 errors?.objInfoEmpresarioPr
                                                     ?.dtFechaExpedicionDocto?.message ||
-                                                "Selecciona la fecha de expedición del documento del empresario."
+                                                "Selecciona la fecha de expedición del documento."
                                             }
                                         />
                                     )}
@@ -376,7 +376,7 @@ const InformacionEmpresarioPr = ({
                                             helperText={
                                                 errors?.objInfoEmpresarioPr
                                                     ?.dtFechaNacimiento?.message ||
-                                                "Selecciona la fecha de expedición del documento del empresario."
+                                                "Selecciona la fecha de nacimiento."
                                             }
                                         />
                                     )}
@@ -392,7 +392,7 @@ const InformacionEmpresarioPr = ({
                             name="objInfoEmpresarioPr.strSexo"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectSexo
-                                    label="Sexo del empresario"
+                                    label="Género"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -405,13 +405,13 @@ const InformacionEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strSexo?.message ||
-                                        "Selecciona el sexo del empresario."
+                                        "Selecciona el género de la persona."
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona el sexo del empresario.",
+                                required: "Por favor, selecciona el genero de la persona.",
                             }}
                         />
                     </Grid>

@@ -8,12 +8,10 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 /**
- * El hook devuelve el los motivos de cancelación de una solicitud
+ * El hook devuelve los datos de los empresarios registrados
  *
  * @author Santiago Cardona Saldarriaga <scardonas@xelerica.com>
- * @param {{strGrupo: string, strCodigo: string, autoLoad: Boolean}} - Parametros de búsqueda:
- * - `strGrupo` Utilice el parámetro en caso de buscar la información por un grupo en específico.
- * - `strCodigo` Utilice el parámetro en caso de buscar la información por un codigo en específico.
+ * @param {{autoLoad: Boolean}} - Parametros de búsqueda:
  * - `autoLoad` Utilice el parámetro en caso de que el hook haga la llamada a la API de forma automatica.
  * @returns {{data: Object, refreshGetData: Function}} Devuelve un objeto con las información de los motivos de no reemplazo y una función para llamar nuevamente a la API
  * @example
@@ -21,20 +19,15 @@ import { toast } from "react-hot-toast";
  * {
     "error": false,
     "data": [
-        {
-            "intId": 1,
-            "strNombre": "Motivos propios",
-            "intIdTipoSolicitud": 1,
-            "strTipoSolicitud": "Vacaciones"
-        }
+      
     ]
     }
  * @example
     Función que permite realizar el llamada a la API
-    function refreshGetData({strGrupo, strCodigo})
+    function refreshGetData()
  *
  */
-const useGetListas = ({ strGrupo = null, strCodigo = null, autoLoad = true } = {}) => {
+const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -49,18 +42,17 @@ const useGetListas = ({ strGrupo = null, strCodigo = null, autoLoad = true } = {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, strGrupo, strCodigo }) => {
+        async ({ signalSubmitData, intId }) => {
             await axios(
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_GETLISTS}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_INTERESADOS_GETDATA}`,
                     headers: {
                         token,
                     },
                     params: {
-                        strGrupo,
-                        strCodigo,
+                        intId,
                     },
                 },
                 {
@@ -94,12 +86,12 @@ const useGetListas = ({ strGrupo = null, strCodigo = null, autoLoad = true } = {
         [token]
     );
 
-    const refreshGetData = ({ strGrupo = null, strCodigo = null } = {}) => {
+    const refreshGetData = ({ intId = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, strGrupo, strCodigo });
+        getData({ signalSubmitData, intId });
     };
 
     //===============================================================================================================================================
@@ -109,13 +101,13 @@ const useGetListas = ({ strGrupo = null, strCodigo = null, autoLoad = true } = {
         let signalSubmitData = axios.CancelToken.source();
 
         if (autoLoad) {
-            getData({ signalSubmitData, strGrupo, strCodigo });
+            getData({ signalSubmitData, intId });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, strGrupo, strCodigo, autoLoad]);
+    }, [getData, autoLoad, intId]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
@@ -123,4 +115,4 @@ const useGetListas = ({ strGrupo = null, strCodigo = null, autoLoad = true } = {
     return { data, refreshGetData };
 };
 
-export default useGetListas;
+export default useGetEmpresarios;

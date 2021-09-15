@@ -13,15 +13,15 @@ import {
     Tooltip,
     CircularProgress,
     TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import { DatePicker } from "@material-ui/lab";
+import { DatePicker } from "@mui/lab";
 
 //Iconos de Material UI
 import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 //Componentes
 import SelectEspacioJornada from "../../components/selectEspacioJornada";
@@ -83,7 +83,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()}>
+                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
                         <Tooltip
                             title={
                                 openCollapese ? "Contraer detalle" : "Expandir detalle"
@@ -103,69 +103,6 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strEspacioJornada}
-                            name="objInfoPrincipal.strEspacioJornada"
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectEspacioJornada
-                                    label="Espacio de la jornada"
-                                    name={name}
-                                    value={value}
-                                    error={
-                                        errors?.objInfoPrincipal?.strEspacioJornada
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPrincipal?.strEspacioJornada
-                                            ?.message ||
-                                        "Selecciona el espacio de la jornada."
-                                    }
-                                    onChange={(e) => onChange(e)}
-                                    disabled={disabled}
-                                    required
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona el espacio de la jornada.",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strEstado}
-                            name="objInfoPrincipal.strEstado"
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectEstadoEmpresario
-                                    label="Estado del empresario"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoPrincipal?.strEstado
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPrincipal?.strEstado?.message ||
-                                        "Selecciona el estado del empresario."
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona el estado del empresario.",
-                            }}
-                        />
-                    </Grid>
-
                     <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.strSede}
@@ -196,31 +133,32 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            defaultValue={data.strTipoEmpresario}
-                            name="objInfoPrincipal.strTipoEmpresario"
+                            defaultValue={data.strEspacioJornada}
+                            name="objInfoPrincipal.strEspacioJornada"
                             render={({ field: { name, onChange, value } }) => (
-                                <SelectTipoEmpresario
-                                    label="Tipo de empresario"
+                                <SelectEspacioJornada
+                                    label="Modalidad de ingreso"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={disabled}
-                                    required
                                     error={
-                                        errors?.objInfoPrincipal?.strTipoEmpresario
+                                        errors?.objInfoPrincipal?.strEspacioJornada
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strTipoEmpresario
+                                        errors?.objInfoPrincipal?.strEspacioJornada
                                             ?.message ||
-                                        "Selecciona el tipo de empresario."
+                                        "Selecciona la modalidad de ingreso."
                                     }
+                                    onChange={(e) => onChange(e)}
+                                    disabled={disabled}
+                                    required
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona el tipo de empresario.",
+                                required:
+                                    "Por favor, selecciona la modalidad de ingreso.",
                             }}
                         />
                     </Grid>
@@ -261,6 +199,66 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                             rules={{
                                 required:
                                     "Por favor, selecciona la fecha de vinculación.",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strEstado}
+                            name="objInfoPrincipal.strEstado"
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectEstadoEmpresario
+                                    label="Estado de vinculación"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPrincipal?.strEstado ? true : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal?.strEstado?.message ||
+                                        "Selecciona el estado de vinculación."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona el estado de vinculación.",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strTipoEmpresario}
+                            name="objInfoPrincipal.strTipoEmpresario"
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectTipoEmpresario
+                                    label="Tipo de vinculación"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPrincipal?.strTipoEmpresario
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal?.strTipoEmpresario
+                                            ?.message ||
+                                        "Selecciona el tipo de vinculación."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona el tipo de vinculación.",
                             }}
                         />
                     </Grid>

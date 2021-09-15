@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 
 //Componentes de Material UI
-import { Grid, Typography, Paper, Breadcrumbs } from "@material-ui/core";
+import { Grid, Typography, Paper, Breadcrumbs } from "@mui/material";
 
 //Iconos
-import { Home as HomeIcon } from "@material-ui/icons";
+import { Home as HomeIcon } from "@mui/icons-material";
 
 //Estilos de Material UI
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 
 //Context
 import { AuthContext } from "../../common/middlewares/Auth";

@@ -7,14 +7,13 @@ import Player from "react-lottie-player";
 import { Toaster, ToastBar, toast } from "react-hot-toast";
 
 //Componentes de Material UI
-import { CssBaseline, Typography, useMediaQuery, Button } from "@material-ui/core";
-import { ThemeProvider, createTheme } from "@material-ui/core/styles";
-import { esES } from "@material-ui/core/locale";
-import { esES as DatatableLocationES } from "@material-ui/data-grid";
+import { CssBaseline, Typography, useMediaQuery, Button, adaptV4Theme } from "@mui/material";
+import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
+import { esES } from "@mui/material/locale";
 
 //Componente de Material Lab
-import { LocalizationProvider } from "@material-ui/lab";
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
+import { LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 //Componentes de DateFns
 import { es } from "date-fns/locale";
@@ -40,25 +39,21 @@ const App = () => {
 
     const themeOptions = useMemo(
         () =>
-            createTheme(
-                {
-                    palette: {
-                        mode: "light",
-                        primary: {
-                            main: "#00BAB3",
-                            dark: "#007c6a",
-                            light: "#0288D1",
-                            contrastText: "#ffff",
-                        },
-                        secondary: {
-                            main: "#FF4160",
-                        },
-                        divider: "#BDBDBD",
+            createTheme(adaptV4Theme({
+                palette: {
+                    mode: "light",
+                    primary: {
+                        main: "#00BAB3",
+                        dark: "#007c6a",
+                        light: "#0288D1",
+                        contrastText: "#ffff",
                     },
+                    secondary: {
+                        main: "#FF4160",
+                    },
+                    divider: "#BDBDBD",
                 },
-                esES,
-                DatatableLocationES
-            ),
+            }, esES)),
         []
     );
 
@@ -161,16 +156,18 @@ const App = () => {
                                 bitDarkMode,
                             }}
                         >
-                            <ThemeProvider theme={themeOptions}>
-                                <AbilityContext.Provider value={ability}>
-                                    <LocalizationProvider
-                                        dateAdapter={AdapterDateFns}
-                                        locale={es}
-                                    >
-                                        <Routes />
-                                    </LocalizationProvider>
-                                </AbilityContext.Provider>
-                            </ThemeProvider>
+                            <StyledEngineProvider injectFirst>
+                                <ThemeProvider theme={themeOptions}>
+                                    <AbilityContext.Provider value={ability}>
+                                        <LocalizationProvider
+                                            dateAdapter={AdapterDateFns}
+                                            locale={es}
+                                        >
+                                            <Routes />
+                                        </LocalizationProvider>
+                                    </AbilityContext.Provider>
+                                </ThemeProvider>
+                            </StyledEngineProvider>
                         </AppContext.Provider>
                     </Fragment>
                 );

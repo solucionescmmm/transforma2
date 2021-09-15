@@ -16,13 +16,13 @@ import {
     Collapse,
     Button,
     Grid,
-} from "@material-ui/core";
+} from "@mui/material";
 
 //Iconos de Material UI
 import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 //Componentes
 import PaperEmpresarioSec from "./paperEmpresarioSec";
@@ -74,7 +74,7 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEd
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()}>
+                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
                         <Tooltip
                             title={
                                 openCollapese ? "Contraer detalle" : "Expandir detalle"

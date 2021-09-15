@@ -15,15 +15,15 @@ import {
     CircularProgress,
     TextField,
     MenuItem,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import { DatePicker } from "@material-ui/lab";
+import { DatePicker } from "@mui/lab";
 
 //Iconos de Material UI
 import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 //Componentes
 import Dropzone from "../../../../common/components/dropzone";
@@ -116,7 +116,7 @@ const InfoEmpresa = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()}>
+                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
                         <Tooltip
                             title={
                                 openCollapese ? "Contraer detalle" : "Expandir detalle"

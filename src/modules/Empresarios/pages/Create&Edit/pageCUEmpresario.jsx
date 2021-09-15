@@ -21,16 +21,16 @@ import {
     Tooltip,
     SvgIcon,
     LinearProgress,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import { LoadingButton } from "@material-ui/lab";
+import { LoadingButton } from "@mui/lab";
 
 //Iconos
-import { Home as HomeIcon } from "@material-ui/icons";
+import { Home as HomeIcon } from "@mui/icons-material";
 
 //Estilos
-import { makeStyles } from "@material-ui/styles";
-import { Box } from "@material-ui/system";
+import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/system";
 
 //Componentes
 import InfoPrincipal from "./infoPrincipal";
@@ -428,15 +428,17 @@ const CUEmpresario = ({ isEdit }) => {
                                     <Typography
                                         align="center"
                                         style={{ fontWeight: "bold" }}
+                                        color="primary"
+                                        variant="h6"
                                     >
                                         {isEdit
-                                            ? "Editar Empresario"
-                                            : "Registrar Empresario"}
+                                            ? "EDITAR EMPRESA"
+                                            : "REGISTRAR EMPRESA"}
                                     </Typography>
                                 </Box>
 
                                 <Box>
-                                    <IconButton color="secondary">
+                                    <IconButton color="secondary" size="large">
                                         <Tooltip title="Importar información">
                                             <SvgIcon>
                                                 <path

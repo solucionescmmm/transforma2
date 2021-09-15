@@ -1,14 +1,17 @@
 import React, { Fragment, useState } from "react";
 
 //Hooks
+import useGetEmpresarios from "../../hooks/useGetEmpresarios";
 
 //Librerias
 import { Link as RouterLink, useHistory } from "react-router-dom";
 
 //Componentes de Material UI
-import { Grid, Breadcrumbs, Link, Typography } from "@material-ui/core";
-import { ThemeProvider, createTheme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/styles";
+import { Grid, Breadcrumbs, Link, Typography, Avatar } from "@mui/material";
+
+import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
+
+import { makeStyles } from "@mui/styles";
 
 //Iconos
 import {
@@ -29,10 +32,13 @@ import {
     AddBox as AddBoxIcon,
     Refresh as RefreshIcon,
     Home as HomeIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 //Table Material UI
 import MaterialTable from "@material-table/core";
+
+//Componentes
+import PanelEmpresarios from "../../components/panelEmpresarios";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -50,30 +56,46 @@ const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
-            title: "Empresario",
-            field: "strNombre",
+            title: "Foto",
+            render: (rowData) => (
+                <Avatar
+                    alt={rowData.strNombres + rowData.strApellidos}
+                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strUrlFoto}`}
+                />
+            ),
+            width: "0%",
+        },
+        {
+            title: "Nombres",
+            field: "strNombres",
             type: "string",
             defaultSort: "desc",
         },
         {
-            title: "Sede",
-            field: "dtFechaInicio",
-            type: "date",
+            title: "Apellidos",
+            field: "strApellidos",
+            type: "string",
+            defaultSort: "desc",
         },
         {
             title: "NIT",
-            field: "dtFechaFin",
+            field: "strNroDocto",
+            type: "string",
+        },
+        {
+            title: "Sede",
+            field: "strSede",
+            type: "string",
+        },
+        {
+            title: "Fecha de vinculación",
+            field: "dtFechaVinculacion",
             type: "date",
         },
         {
             title: "Estado",
-            field: "dtFechaReingreso",
-            type: "date",
-        },
-        {
-            title: "Categoría",
-            field: "dtFechaReingreso",
-            type: "date",
+            field: "strEstado",
+            type: "string",
         },
     ]);
 
@@ -81,6 +103,7 @@ const ReadSolicitudesUser = () => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { push } = useHistory();
+    const { data, refreshGetData } = useGetEmpresarios({ autoload: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -110,132 +133,143 @@ const ReadSolicitudesUser = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <ThemeProvider
-                        theme={createTheme({
-                            palette: {
-                                mode: "light",
-                                primary: {
-                                    main: "#007c6a",
-                                    dark: "#007c6a",
-                                    light: "#0288D1",
-                                    contrastText: "#ffff",
+                    <PanelEmpresarios data={data} />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <StyledEngineProvider injectFirst>
+                        <ThemeProvider
+                            theme={createTheme({
+                                palette: {
+                                    mode: "light",
+                                    primary: {
+                                        main: "#00BAB3",
+                                        dark: "#007c6a",
+                                        light: "#0288D1",
+                                        contrastText: "#ffff",
+                                    },
+                                    secondary: {
+                                        main: "#FF4160",
+                                    },
+                                    divider: "#BDBDBD",
                                 },
-                                secondary: {
-                                    main: "#ED6F17",
-                                },
-                                divider: "#BDBDBD",
-                            },
-                            typography: { fontSize: 13.2 },
-                            components: {
-                                MuiTableBody: {
-                                    styleOverrides: {
-                                        root: {
-                                            fontSize: 13.2,
+                                typography: { fontSize: 13.2 },
+                                components: {
+                                    MuiTableBody: {
+                                        styleOverrides: {
+                                            root: {
+                                                fontSize: 13.2,
+                                            },
                                         },
                                     },
                                 },
-                            },
-                        })}
-                    >
-                        <MaterialTable
-                            icons={{
-                                Add: AddBoxIcon,
-                                Clear: ClearIcon,
-                                Check: CheckIcon,
-                                Delete: DeleteOutlineIcon,
-                                Edit: EditIcon,
-                                DetailPanel: ChevronRightIcon,
-                                Export: SaveAltIcon,
-                                Filter: FilterListIcon,
-                                FirstPage: FirstPageIcon,
-                                LastPage: LastPageIcon,
-                                NextPage: ChevronRightIcon,
-                                PreviousPage: ChevronLeftIcon,
-                                Search: SearchIcon,
-                                ResetSearch: ClearIcon,
-                                SortArrow: ArrowDownwardIcon,
-                                ThirdStateCheck: RemoveIcon,
-                                ViewColumn: ViewColumnIcon,
-                            }}
-                            localization={{
-                                pagination: {
-                                    labelRowsSelect: "filas",
-                                    labelDisplayedRows: "{from}-{to} de {count}",
-                                    firstTooltip: "Primera página",
-                                    previousTooltip: "Página anterior",
-                                    nextTooltip: "Siguiente página",
-                                    lastTooltip: "Última página",
-                                    labelRowsPerPage: "Filas por página:",
-                                },
-                                toolbar: {
-                                    nRowsSelected: "{0} filas seleccionadas",
-                                    searchTooltip: "Buscar",
-                                    searchPlaceholder: "Buscar",
-                                },
-                                header: {
-                                    actions: "Acciones",
-                                },
-                                body: {
-                                    emptyDataSourceMessage:
-                                        "No existe información por mostrar",
-                                    filterRow: {
-                                        filterTooltip: "Filtro",
+                            })}
+                        >
+                            <MaterialTable
+                                icons={{
+                                    Add: AddBoxIcon,
+                                    Clear: ClearIcon,
+                                    Check: CheckIcon,
+                                    Delete: DeleteOutlineIcon,
+                                    Edit: EditIcon,
+                                    DetailPanel: ChevronRightIcon,
+                                    Export: SaveAltIcon,
+                                    Filter: FilterListIcon,
+                                    FirstPage: FirstPageIcon,
+                                    LastPage: LastPageIcon,
+                                    NextPage: ChevronRightIcon,
+                                    PreviousPage: ChevronLeftIcon,
+                                    Search: SearchIcon,
+                                    ResetSearch: ClearIcon,
+                                    SortArrow: ArrowDownwardIcon,
+                                    ThirdStateCheck: RemoveIcon,
+                                    ViewColumn: ViewColumnIcon,
+                                }}
+                                localization={{
+                                    pagination: {
+                                        labelRowsSelect: "filas",
+                                        labelDisplayedRows: "{from}-{to} de {count}",
+                                        firstTooltip: "Primera página",
+                                        previousTooltip: "Página anterior",
+                                        nextTooltip: "Siguiente página",
+                                        lastTooltip: "Última página",
+                                        labelRowsPerPage: "Filas por página:",
                                     },
-                                    editRow: {
-                                        deleteText:
-                                            "Esta seguro de eliminar el registro?",
+                                    toolbar: {
+                                        nRowsSelected: "{0} filas seleccionadas",
+                                        searchTooltip: "Buscar",
+                                        searchPlaceholder: "Buscar",
                                     },
-                                },
-                                selector: {
-                                    okLabel: "aceptar",
-                                    cancelLabel: "Cancelar",
-                                    clearLabel: "Clear",
-                                    todayLabel: "Hoy",
-                                },
-                                grouping: {
-                                    placeholder:
-                                        "Arrasta el nombre de la columna para agrupar los campos",
-                                    groupedBy: "Datos agrupados por: ",
-                                },
-                            }}
-                            // isLoading={data === undefined ? true : false}
-                            data={[]}
-                            columns={objColumns}
-                            title="Lista de Empresarios"
-                            options={{
-                                grouping: true,
-                                title: true,
-                                filtering: false,
-                                search: true,
-                                exportAllData: true,
-                                columnsButton: true,
-                                headerStyle: {
-                                    position: "sticky",
-                                    top: "0",
-                                    backgroundColor: "white",
-                                },
-                                detailPanelColumnStylele: {
-                                    fontSize: 12,
-                                },
-                                maxBodyHeight: "320px",
-                            }}
-                            actions={[
-                                {
-                                    icon: AddBoxIcon,
-                                    tooltip: "Registrar empresario",
-                                    isFreeAction: true,
-                                    onClick: () =>
-                                        push("/transforma/asesor/empresario/create"),
-                                },
-                                {
-                                    icon: RefreshIcon,
-                                    tooltip: "Refrescar datos",
-                                    isFreeAction: true,
-                                    // onClick: () => refreshGetData(),
-                                },
-                            ]}
-                        />
-                    </ThemeProvider>
+                                    header: {
+                                        actions: "Acciones",
+                                    },
+                                    body: {
+                                        emptyDataSourceMessage:
+                                            "No existe información por mostrar",
+                                        filterRow: {
+                                            filterTooltip: "Filtro",
+                                        },
+                                        editRow: {
+                                            deleteText:
+                                                "Esta seguro de eliminar el registro?",
+                                        },
+                                    },
+                                    selector: {
+                                        okLabel: "aceptar",
+                                        cancelLabel: "Cancelar",
+                                        clearLabel: "Clear",
+                                        todayLabel: "Hoy",
+                                    },
+                                    grouping: {
+                                        placeholder:
+                                            "Arrasta el nombre de la columna para agrupar los campos",
+                                        groupedBy: "Datos agrupados por: ",
+                                    },
+                                }}
+                                isLoading={data === undefined ? true : false}
+                                data={!data?.error && data ? data : []}
+                                columns={objColumns}
+                                title="Lista de Empresarios"
+                                options={{
+                                    grouping: true,
+                                    title: true,
+                                    filtering: true,
+                                    search: true,
+                                    exportAllData: true,
+                                    columnsButton: true,
+                                    headerStyle: {
+                                        position: "sticky",
+                                        top: "0",
+                                        backgroundColor: "white",
+                                    },
+                                    detailPanelColumnStylele: {
+                                        fontSize: 12,
+                                    },
+                                    maxBodyHeight: "420px",
+                                }}
+                                actions={[
+                                    {
+                                        icon: () => <AddBoxIcon color="success" />,
+                                        tooltip: "Registrar empresario",
+                                        isFreeAction: true,
+                                        onClick: () =>
+                                            push("/transforma/asesor/empresario/create"),
+                                    },
+                                    {
+                                        icon: RefreshIcon,
+                                        tooltip: "Refrescar datos",
+                                        isFreeAction: true,
+                                        onClick: () => refreshGetData(),
+                                    },
+                                ]}
+                                onRowClick={(e, rowData) => {
+                                    push(
+                                        `/transforma/asesor/empresario/read/${rowData.intId}`
+                                    );
+                                }}
+                            />
+                        </ThemeProvider>
+                    </StyledEngineProvider>
                 </Grid>
             </Grid>
         </Fragment>

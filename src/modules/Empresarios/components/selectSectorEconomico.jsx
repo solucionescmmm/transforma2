@@ -13,10 +13,10 @@ import {
     AlertTitle,
     IconButton,
     Tooltip,
-} from "@material-ui/core";
+} from "@mui/material";
 
 //Iconos
-import { Refresh as RefreshIcon } from "@material-ui/icons";
+import { Refresh as RefreshIcon } from "@mui/icons-material";
 
 const SelectSectorEconomico = ({
     label,
@@ -53,7 +53,7 @@ const SelectSectorEconomico = ({
                                 strCodigo: "SectorEconomico",
                             });
                         }}
-                    >
+                        size="large">
                         <Tooltip title="Refrescar">
                             <RefreshIcon />
                         </Tooltip>
@@ -80,7 +80,7 @@ const SelectSectorEconomico = ({
                                 strCodigo: "SectorEconomico",
                             });
                         }}
-                    >
+                        size="large">
                         <Tooltip title="Refrescar">
                             <RefreshIcon />
                         </Tooltip>

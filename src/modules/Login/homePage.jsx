@@ -18,12 +18,12 @@ import {
     Container,
     Typography,
     LinearProgress,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import { LoadingButton } from "@material-ui/lab";
+import { LoadingButton } from "@mui/lab";
 
 //Estilos de Material UI
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 
 //Imagenes
 import LogoImg from "../../static/img/LogoLogin.svg";
@@ -68,7 +68,7 @@ const loginStyles = makeStyles((theme) => ({
     },
     logo: {
         width: "500px",
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down('md')]: {
             width: "300px",
         },
     },

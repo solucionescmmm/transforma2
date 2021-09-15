@@ -20,10 +20,10 @@ import {
     Box,
     useTheme,
     useMediaQuery,
-} from "@material-ui/core";
+} from "@mui/material";
 
 //Estilos de Material UI
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 
 //Componentes de Lottie Player
 import Player from "react-lottie-player";
@@ -34,7 +34,7 @@ const verifyTokenStyles = makeStyles((theme) => ({
         height: "200px",
         width: "230px",
 
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down('md')]: {
             height: "200px",
             width: "230px",
             marginBottom: "35px",
@@ -52,7 +52,7 @@ const VerifyToken = () => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const location = useLocation();
 
     //===============================================================================================================================================
@@ -133,12 +133,7 @@ const VerifyToken = () => {
     //===============================================================================================================================================
     if (error.flag) {
         return (
-            <Dialog
-                open
-                fullScreen={fullScreen}
-                disableBackdropClick
-                disableEscapeKeyDown
-            >
+            <Dialog open fullScreen={fullScreen} disableEscapeKeyDown>
                 <DialogTitle>Error</DialogTitle>
 
                 <DialogContent>
@@ -188,9 +183,7 @@ const VerifyToken = () => {
                 return modalIsOpen;
             })()}
             fullScreen={fullScreen}
-            disableBackdropClick
-            disableEscapeKeyDown
-        >
+            disableEscapeKeyDown>
             <DialogTitle>Sesión expirada</DialogTitle>
 
             <DialogContent>

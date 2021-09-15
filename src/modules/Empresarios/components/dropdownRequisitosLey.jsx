@@ -18,14 +18,14 @@ import {
     Tooltip,
     IconButton,
     Checkbox,
-} from "@material-ui/core";
+} from "@mui/material";
 
 //Iconos
 import {
     Refresh as RefreshIcon,
     CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
     CheckBox as CheckBoxIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 const DropdownRequisitosLey = ({
     id,
@@ -64,7 +64,7 @@ const DropdownRequisitosLey = ({
                                 strCodigo: "RequisitosLey",
                             });
                         }}
-                    >
+                        size="large">
                         <Tooltip title="Refrescar">
                             <RefreshIcon />
                         </Tooltip>

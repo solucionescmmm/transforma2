@@ -9,12 +9,12 @@ import {
     ListItem as MuiListItem,
     ListItemIcon,
     ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import { withStyles } from "@material-ui/styles";
+import { withStyles } from "@mui/styles";
 
 //Iconos de Material UI
-import { Home as HomeIcon, Business as BusinessIcon } from "@material-ui/icons";
+import { Home as HomeIcon, Business as BusinessIcon } from "@mui/icons-material";
 
 const ListItem = withStyles({
     root: {

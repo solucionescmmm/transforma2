@@ -1,14 +1,14 @@
 import React from "react";
 
 //Componentes de Material UI
-import { Grid, Box, Container } from "@material-ui/core";
-import { Alert, AlertTitle } from "@material-ui/core";
+import { Grid, Box, Container } from "@mui/material";
+import { Alert, AlertTitle } from "@mui/material";
 
 //Componentes de Lottie-player
 import Player from "react-lottie-player";
 
 //Estilos de Material UI
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 
 const errorPageStyles = makeStyles((theme) => ({
     player: {
@@ -16,13 +16,13 @@ const errorPageStyles = makeStyles((theme) => ({
         height: "500px",
         width: "500px",
 
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down('md')]: {
             height: "150px",
             width: "180px",
         },
     },
     box: {
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down('md')]: {
             height: "30vh",
         },
     },

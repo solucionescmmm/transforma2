@@ -21,11 +21,11 @@ import {
     Box,
     CircularProgress,
     Grid,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import { Delete as DeleteIcon } from "@material-ui/icons";
+import { Delete as DeleteIcon } from "@mui/icons-material";
 
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 
 //Componentes de @emotion
 const Div = styled.div`
@@ -50,12 +50,12 @@ const styles = makeStyles((theme) => ({
     file: {
         width: "auto",
         height: "200px",
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down('md')]: {
             height: "100px",
         },
     },
     titleFile: {
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down('md')]: {
             marginTop: "35px",
         },
     },
@@ -278,7 +278,7 @@ const Dropzone = ({
                             color="error"
                             onClick={removeFile(archivo)}
                             disabled={disabled || loading}
-                        >
+                            size="large">
                             <Tooltip title="Eliminar archivo">
                                 <DeleteIcon />
                             </Tooltip>

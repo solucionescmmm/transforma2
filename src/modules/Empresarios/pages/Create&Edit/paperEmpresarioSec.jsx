@@ -16,9 +16,9 @@ import {
     Tooltip,
     Alert,
     AlertTitle,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import { DatePicker } from "@material-ui/lab";
+import { DatePicker } from "@mui/lab";
 
 import NumberFormat from "react-number-format";
 
@@ -27,7 +27,7 @@ import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
     Delete as DeleteIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 //Componentes
 import SelectTipoDocumento from "../../components/selectTipoDocumento";
@@ -109,7 +109,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                 </Box>
 
                 <Box>
-                    <IconButton color="error" onClick={() => remove(index)}>
+                    <IconButton color="error" onClick={() => remove(index)} size="large">
                         <Tooltip title="Eliminar">
                             <DeleteIcon />
                         </Tooltip>
@@ -159,7 +159,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                         </Box>
 
                         <Box>
-                            <IconButton onClick={() => handlerChangeOpenCollapse()}>
+                            <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
                                 <Tooltip
                                     title={
                                         openCollapese
@@ -490,7 +490,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
             </Box>
 
             <Box>
-                <IconButton color="error" onClick={() => remove(index)}>
+                <IconButton color="error" onClick={() => remove(index)} size="large">
                     <Tooltip title="Eliminar">
                         <DeleteIcon />
                     </Tooltip>

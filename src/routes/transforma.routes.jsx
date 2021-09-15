@@ -22,8 +22,13 @@ import PageNotFound from "../common/components/Error/404";
 //========================================== Otros Componentes ==================================================================================
 //===============================================================================================================================================
 const Home = lazy(() => import("../modules/Home/homePage"));
+
 const REmpresarios = lazy(() =>
     import("../modules/Empresarios/pages/Read/readEmpresarios")
+);
+
+const DetailsEmpresario = lazy(() =>
+    import("../modules/Empresarios/pages/Details/homePage")
 );
 
 const CUEmpresario = lazy(() =>
@@ -58,6 +63,16 @@ const RoutesTransforma = ({ path }) => {
                                 component={() => (
                                     <div className="animate__animated animate__fadeIn">
                                         <REmpresarios />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/asesor/empresario/read/:intId"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <DetailsEmpresario />
                                     </div>
                                 )}
                             />

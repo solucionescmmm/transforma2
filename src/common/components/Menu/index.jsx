@@ -16,13 +16,13 @@ import {
     IconButton,
     useTheme,
     useMediaQuery,
-} from "@material-ui/core";
+} from "@mui/material";
 
 //Estilos de Material UI
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 
 //Iconos de Material UI
-import { ChevronLeft as ChevronLeftIcon } from "@material-ui/icons/";
+import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
 
 //Imagenes
 import Logo from "../../../static/img/LogoMenu.svg";
@@ -33,18 +33,18 @@ import GetListUser from "./getListUser";
 
 const menuStyles = makeStyles((theme) => ({
     paper: {
-        width: "275.84px !important",
+        width: "200px !important",
         overflowX: "hidden",
         backgroundImage: `url(${BackGroundImg})`,
         backgroundColor: "#00BAB3",
         borderRadius: "0 0 250px 0",
     },
     bntCloseMenu: {
-        marginBottom: "11.6px",
+        marginBottom: "3.5px",
         marginTop: "11.6px",
-        [theme.breakpoints.down("sm")]: {
-            marginBottom: "7.5px",
-            marginTop: "7.5px",
+        [theme.breakpoints.down("md")]: {
+            marginBottom: "3.8px",
+            marginTop: "3.8px",
         },
     },
     box: {
@@ -64,8 +64,16 @@ const Menu = ({ open, toggleDrawer }) => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const theme = useTheme();
-    const movil = useMediaQuery(theme.breakpoints.down("sm"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+    //===============================================================================================================================================
+    //========================================== Funciones ==========================================================================================
+    //===============================================================================================================================================
+    const classes = menuStyles();
+
+    //===============================================================================================================================================
+    //========================================== useEffects =========================================================================================
+    //===============================================================================================================================================
     useEffect(() => {
         if (strInfoUser) {
             let rules = defineRulesFor(strInfoUser.strRolApp, "TRANSFORMA");
@@ -73,11 +81,6 @@ const Menu = ({ open, toggleDrawer }) => {
             ability.update(rules);
         }
     }, [strInfoUser, ability]);
-
-    //===============================================================================================================================================
-    //========================================== Funciones ==========================================================================================
-    //===============================================================================================================================================
-    const classes = menuStyles();
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -88,7 +91,7 @@ const Menu = ({ open, toggleDrawer }) => {
             open={open}
             onClose={(e) => toggleDrawer(e, false)}
             PaperProps={{ className: classes.paper }}
-            variant={movil ? "temporary" : "persistent"}
+            variant={isMobile ? "temporary" : "persistent"}
         >
             <Box
                 className={classes.bntCloseMenu}
@@ -97,7 +100,7 @@ const Menu = ({ open, toggleDrawer }) => {
                     justifyContent: "flex-end",
                 }}
             >
-                <IconButton onClick={(e) => toggleDrawer(e, false)}>
+                <IconButton onClick={(e) => toggleDrawer(e, false)} size="large">
                     <ChevronLeftIcon htmlColor="white" />
                 </IconButton>
             </Box>

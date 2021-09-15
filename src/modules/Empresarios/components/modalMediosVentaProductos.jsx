@@ -19,7 +19,7 @@ import {
     DialogTitle,
     useTheme,
     useMediaQuery,
-} from "@material-ui/core";
+} from "@mui/material";
 
 const ModalMediosVetanProductos = ({
     value,
@@ -160,7 +160,7 @@ const ModalMediosVetanProductos = ({
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const theme = useTheme();
-    const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const bitMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     return (
         <Fragment>

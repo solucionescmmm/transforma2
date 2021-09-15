@@ -19,7 +19,7 @@ import {
     DialogTitle,
     useTheme,
     useMediaQuery,
-} from "@material-ui/core";
+} from "@mui/material";
 
 const ModalMediosDigitales = ({
     value,
@@ -120,7 +120,7 @@ const ModalMediosDigitales = ({
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const theme = useTheme();
-    const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const bitMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     return (
         <Fragment>

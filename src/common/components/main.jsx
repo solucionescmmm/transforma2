@@ -25,16 +25,19 @@ import {
     Typography,
     Container,
     Box,
-} from "@material-ui/core";
+    adaptV4Theme,
+    useTheme,
+    useMediaQuery,
+} from "@mui/material";
 
-import { Menu as MenuIcon } from "@material-ui/icons";
+import { Menu as MenuIcon } from "@mui/icons-material";
 
 //Estilos de Material UI
-import { ThemeProvider, createTheme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/styles";
+import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
 
 //Iconos de Material UI
-import { Person as PersonIcon } from "@material-ui/icons";
+import { Person as PersonIcon } from "@mui/icons-material";
 
 //Imagenes
 import BackGroundImg from "../../static/img/LoginBackground.svg";
@@ -42,11 +45,13 @@ import BackGroundImg from "../../static/img/LoginBackground.svg";
 //Componentes
 import MenuDrawer from "./Menu";
 
-const themeOptions = createTheme({
-    palette: {
-        mode: "light",
-    },
-});
+const themeOptions = createTheme(
+    adaptV4Theme({
+        palette: {
+            mode: "light",
+        },
+    })
+);
 
 const mainStyles = makeStyles((theme) => ({
     avatarInterno: {
@@ -65,8 +70,8 @@ const mainStyles = makeStyles((theme) => ({
     },
     appBarMenuActive: {
         [theme.breakpoints.up("sm")]: {
-            width: `calc(100% - 17rem)`,
-            marginLeft: "17rem",
+            width: `calc(100% - 12rem)`,
+            marginLeft: "12rem",
             transition: theme.transitions.create(["margin", "width"], {
                 easing: theme.transitions.easing.easeOut,
                 duration: theme.transitions.duration.enteringScreen,
@@ -101,7 +106,7 @@ const mainStyles = makeStyles((theme) => ({
     },
 
     hiddenElements: {
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("md")]: {
             display: "none",
         },
     },
@@ -131,6 +136,12 @@ const Main = ({ children }) => {
     const [anchorEl, setAnchorEl] = useState();
 
     //===============================================================================================================================================
+    //========================================== Hooks personalizados ===============================================================================
+    //===============================================================================================================================================
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+    //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = mainStyles();
@@ -152,161 +163,175 @@ const Main = ({ children }) => {
         setAnchorEl(e.currentTarget);
     }, []);
 
+    //===============================================================================================================================================
+    //========================================== useEffects =========================================================================================
+    //===============================================================================================================================================
     useEffect(() => {
-        if (localStorage.getItem("bitMenuDrawer")) {
+        if (localStorage.getItem("bitMenuDrawer") && !isMobile) {
             let bitMenuDrawer = typeConvertor(localStorage.getItem("bitMenuDrawer"));
             setOpenMenu(bitMenuDrawer);
         }
-    }, []);
+    }, [isMobile]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
         <Fragment>
-            <ThemeProvider theme={themeOptions}>
-                <AppBar
-                    className={!openMenu ? classes.appBar : classes.appBarMenuActive}
-                    classes={{ root: classes.appColor }}
-                >
-                    <Toolbar>
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                                display: "flex",
-                                alignItems: "center",
-                            }}
-                        >
-                            {!openMenu ? (
-                                <IconButton onClick={(e) => toggleDrawer(e, true)}>
-                                    <MenuIcon htmlColor="white" />
-                                </IconButton>
-                            ) : null}
-                            <Typography variant="h6" style={{ textOverflow: "ellipsis" }}>
-                                <Link className={classes.link} to="/transforma">
-                                    Transforma
-                                </Link>
-                            </Typography>
-                        </Box>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Box className={classes.hiddenElements}>
-                                <Typography
-                                    variant="subtitle1"
-                                    sx={{ display: { sm: "none", md: "inherit" } }}
-                                >
-                                    {strInfoUser ? strInfoUser.strUsuario : "undefined"}
-                                </Typography>
-                            </Box>
-
-                            <IconButton
-                                onClick={(e) => {
-                                    toggleProfile();
-                                    handleProfile(e);
+            <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={themeOptions}>
+                    <AppBar
+                        className={!openMenu ? classes.appBar : classes.appBarMenuActive}
+                        classes={{ root: classes.appColor }}
+                    >
+                        <Toolbar>
+                            <Box
+                                sx={{
+                                    flexGrow: 1,
+                                    display: "flex",
+                                    alignItems: "center",
                                 }}
                             >
-                                <Avatar
-                                    className={classes.avatar}
-                                    src={strInfoUser?.strURLImagen}
+                                {!openMenu ? (
+                                    <IconButton
+                                        onClick={(e) => toggleDrawer(e, true)}
+                                        size="large"
+                                    >
+                                        <MenuIcon htmlColor="white" />
+                                    </IconButton>
+                                ) : null}
+                                <Typography
+                                    variant="h6"
+                                    style={{ textOverflow: "ellipsis" }}
                                 >
-                                    <PersonIcon />
-                                </Avatar>
-                            </IconButton>
-
-                            <Menu
-                                anchorEl={anchorEl}
-                                open={openMenuProfile}
-                                onClose={toggleProfile}
-                                variant="menu"
+                                    <Link className={classes.link} to="/transforma">
+                                        Transforma
+                                    </Link>
+                                </Typography>
+                            </Box>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
                             >
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        padding: "0px 15px",
-                                    }}
-                                >
-                                    <Box>
-                                        <Avatar
-                                            className={classes.avatarInterno}
-                                            src={strInfoUser?.strURLImagen}
-                                        >
-                                            <PersonIcon
-                                                className={classes.avatarInterno}
-                                            />
-                                        </Avatar>
-                                    </Box>
+                                <Box className={classes.hiddenElements}>
+                                    <Typography
+                                        variant="subtitle1"
+                                        sx={{ display: { sm: "none", md: "inherit" } }}
+                                    >
+                                        {strInfoUser
+                                            ? strInfoUser.strUsuario
+                                            : "undefined"}
+                                    </Typography>
+                                </Box>
 
+                                <IconButton
+                                    onClick={(e) => {
+                                        toggleProfile();
+                                        handleProfile(e);
+                                    }}
+                                    size="large"
+                                >
+                                    <Avatar
+                                        className={classes.avatar}
+                                        src={strInfoUser?.strURLImagen}
+                                    >
+                                        <PersonIcon />
+                                    </Avatar>
+                                </IconButton>
+
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    open={openMenuProfile}
+                                    onClose={toggleProfile}
+                                    variant="menu"
+                                >
                                     <Box
                                         sx={{
                                             display: "flex",
-                                            flexDirection: "column",
+                                            alignItems: "center",
                                             justifyContent: "center",
+                                            padding: "0px 15px",
                                         }}
                                     >
+                                        <Box>
+                                            <Avatar
+                                                className={classes.avatarInterno}
+                                                src={strInfoUser?.strURLImagen}
+                                            >
+                                                <PersonIcon
+                                                    className={classes.avatarInterno}
+                                                />
+                                            </Avatar>
+                                        </Box>
+
                                         <Box
                                             sx={{
-                                                padding: "6px 16px",
-                                                maxWidth: "200px",
-                                                alignItems: "center",
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                justifyContent: "center",
                                             }}
                                         >
-                                            <Typography noWrap>
-                                                <b>
-                                                    {`${
-                                                        strInfoUser
-                                                            ? strInfoUser.strNombre
-                                                            : undefined
-                                                    } ${
-                                                        strInfoUser
-                                                            ? strInfoUser.strApellidos
-                                                            : undefined
-                                                    }`}
-                                                </b>
-                                            </Typography>
-                                            <Typography variant="caption" noWrap>
-                                                {strInfoUser
-                                                    ? strInfoUser.strEmail
-                                                    : undefined}
-                                            </Typography>
-                                        </Box>
-                                        <Box>
-                                            <MenuItem>
-                                                <a
-                                                    href="https://admin.google.com"
-                                                    rel="noopener noreferrer"
-                                                    style={{
-                                                        textDecoration: "none",
-                                                        color: "black",
-                                                    }}
-                                                    target="_blank"
-                                                >
-                                                    Mi perfil
-                                                </a>
-                                            </MenuItem>
-                                            <MenuItem
-                                                onClick={() => {
-                                                    cerrarSesion();
+                                            <Box
+                                                sx={{
+                                                    padding: "6px 16px",
+                                                    maxWidth: "200px",
+                                                    alignItems: "center",
                                                 }}
                                             >
-                                                Cerrar sesión
-                                            </MenuItem>
+                                                <Typography noWrap>
+                                                    <b>
+                                                        {`${
+                                                            strInfoUser
+                                                                ? strInfoUser.strNombre
+                                                                : undefined
+                                                        } ${
+                                                            strInfoUser
+                                                                ? strInfoUser.strApellidos
+                                                                : undefined
+                                                        }`}
+                                                    </b>
+                                                </Typography>
+                                                <Typography variant="caption" noWrap>
+                                                    {strInfoUser
+                                                        ? strInfoUser.strEmail
+                                                        : undefined}
+                                                </Typography>
+                                            </Box>
+                                            <Box>
+                                                <MenuItem>
+                                                    <a
+                                                        href="https://admin.google.com"
+                                                        rel="noopener noreferrer"
+                                                        style={{
+                                                            textDecoration: "none",
+                                                            color: "black",
+                                                        }}
+                                                        target="_blank"
+                                                    >
+                                                        Mi perfil
+                                                    </a>
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={() => {
+                                                        cerrarSesion();
+                                                    }}
+                                                >
+                                                    Cerrar sesión
+                                                </MenuItem>
+                                            </Box>
                                         </Box>
                                     </Box>
-                                </Box>
-                            </Menu>
-                        </Box>
-                    </Toolbar>
-                </AppBar>
+                                </Menu>
+                            </Box>
+                        </Toolbar>
+                    </AppBar>
 
-                <MenuDrawer open={openMenu} toggleDrawer={toggleDrawer} />
-            </ThemeProvider>
+                    <MenuDrawer open={openMenu} toggleDrawer={toggleDrawer} />
+                </ThemeProvider>
+            </StyledEngineProvider>
 
             <main className={!openMenu ? classes.main : classes.mainMenuActive}>
                 <Container>{children}</Container>
