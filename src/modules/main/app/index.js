@@ -15,6 +15,7 @@ const authToken = require("../../../common/middleware/authToken");
 
 //Declaracion de variables globales
 app.set("port", process.env.PORT);
+app.set("typeServer", process.env.NODE_ENV);
 
 //Middlewares
 app.use(cors());

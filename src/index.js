@@ -9,7 +9,7 @@ const fs = require("fs");
 const app = require("./modules/Main/app");
 
 const Main = () => {
-    if (process.env.NODE_ENV === "production") {
+    if (app.get("typeServer") === "production") {
         https
             .createServer(
                 {
