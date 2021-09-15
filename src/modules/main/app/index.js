@@ -1,3 +1,6 @@
+//Paquetes
+require("dotenv").config();
+
 //Librerias
 const express = require("express");
 const app = express();

@@ -1,3 +1,6 @@
+//Paquetes
+require("dotenv").config();
+
 const conexion = {
     user: process.env.DBTRANSFORMA_USER,
     password: process.env.DBTRANSFORMA_PASS,
