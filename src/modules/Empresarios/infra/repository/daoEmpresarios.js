@@ -3,9 +3,7 @@ const sql = require("mssql");
 const validator = require("validator").default;
 
 //Conexion
-const {
-    conexion,
-} = require("../../../../common/config/confSQL_connectionTransfroma");
+const { conexion } = require("../../../../common/config/confSQL_connectionTransfroma");
 
 class daoEmpresarios {
     async setEmpresario(data) {
@@ -42,7 +40,7 @@ class daoEmpresarios {
             SET @intId = SCOPE_IDENTITY();
 
             SELECT * FROM tbl_Empresario WHERE intId = @intId`;
-            
+
             let result = {
                 error: false,
                 data: response.recordset[0],
@@ -267,7 +265,7 @@ class daoEmpresarios {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            await conn.query`DELETE FROM tbl_Empresario WHERE intId = ${data.intIdEmpresario}`;
+            await conn.query`DELETE FROM tbl_Empresario WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
@@ -290,6 +288,91 @@ class daoEmpresarios {
             return result;
         }
     }
+
+    async deleteInfoEmprendimiento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`DELETE FROM tbl_InfoEmprendimiento WHERE intIdEmpresario = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: "La información del emprendimiento fue eliminada con éxito.",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteInfoEmprendimiento de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteInfoEmpresa(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`DELETE FROM tbl_InfoEmpresa WHERE intIdEmpresario = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: "La información de la empresa fue eliminada con éxito.",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteInfoEmpresa de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteEmpresarioSecundario(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`DELETE FROM tbl_EmpresarioSecundario WHERE intIdEmpresario = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: "La información del empresario secundario fue eliminada con éxito.",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteEmpresarioSecundario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -336,12 +419,11 @@ class daoEmpresarios {
             AND   (Empresario.strNroDocto = ${data.strNroDocto} OR ${data.strNroDocto} IS NULL)
             AND   (Empresario.strCorreoElectronico = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)`;
 
-            
             let arrNewData = response.recordsets[0];
 
             for (let i = 0; i < arrNewData.length; i++) {
                 if (arrNewData[i].objInfoEmprendimiento) {
-                    let { objInfoEmprendimiento} = arrNewData[i];
+                    let { objInfoEmprendimiento } = arrNewData[i];
 
                     if (validator.isJSON(objInfoEmprendimiento)) {
                         objInfoEmprendimiento = JSON.parse(objInfoEmprendimiento);
@@ -352,23 +434,22 @@ class daoEmpresarios {
                     let { arrEmpresarioSecundario } = arrNewData[i];
 
                     if (validator.isJSON(arrEmpresarioSecundario)) {
-                            arrEmpresarioSecundario = JSON.parse(arrEmpresarioSecundario);
-                            arrNewData[i].arrEmpresarioSecundario = arrEmpresarioSecundario;
+                        arrEmpresarioSecundario = JSON.parse(arrEmpresarioSecundario);
+                        arrNewData[i].arrEmpresarioSecundario = arrEmpresarioSecundario;
                     }
-                }  
-                    
+                }
             }
-            
+
             let result = {
                 error: false,
                 data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
             };
-            
+
             sql.close(conexion);
 
             return result;
         } catch (error) {
-            console.log(error)
+            console.log(error);
             let result = {
                 error: true,
                 msg:
@@ -381,6 +462,7 @@ class daoEmpresarios {
             return result;
         }
     }
+
     async getCategoriaEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -410,7 +492,7 @@ class daoEmpresarios {
         }
     }
 
-    async getNroDocumentoEmpresario(data){
+    async getNroDocumentoEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -419,7 +501,7 @@ class daoEmpresarios {
 
             let result = {
                 error: false,
-                data: response.recordset[0]
+                data: response.recordset[0],
             };
 
             sql.close(conexion);

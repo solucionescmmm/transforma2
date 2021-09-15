@@ -31,6 +31,24 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
+    async deleteInfoEmprendimiento(data) {
+        const dao = new classDaoSql();
+        let result = await dao.deleteInfoEmprendimiento(data);
+        return result;
+    }
+
+    async deleteInfoEmpresa(data) {
+        const dao = new classDaoSql();
+        let result = await dao.deleteInfoEmpresa(data);
+        return result;
+    }
+
+    async deleteEmpresarioSecundario(data) {
+        const dao = new classDaoSql();
+        let result = await dao.deleteEmpresarioSecundario(data);
+        return result;
+    }
+
     async getEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.getEmpresario(data);

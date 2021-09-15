@@ -81,13 +81,11 @@ class setEmpresario {
 
     async #setEmpresa() {
         let queryGetCategoriaProducto = await getCategoriaEmpresario({
-            strNombreCategoria:
-                this.#objData.objInfoEmpresa.strCategoriaProducto,
+            strNombreCategoria: this.#objData.objInfoEmpresa.strCategoriaProducto,
         });
 
         let queryGetCategoriaServicio = await getCategoriaEmpresario({
-            strNombreCategoria:
-                this.#objData.objInfoEmpresa.strCategoriaServicio,
+            strNombreCategoria: this.#objData.objInfoEmpresa.strCategoriaServicio,
         });
 
         let prevData = this.#objData.objInfoEmpresa;
@@ -95,10 +93,8 @@ class setEmpresario {
         let newData = {
             ...prevData,
             intIdEmpresario: this.#intIdEmpresario,
-            intIdNombreCategoriaProducto:
-                queryGetCategoriaProducto?.data || null,
-            intIdNombreCategoriaServicio:
-                queryGetCategoriaServicio?.data || null,
+            intIdNombreCategoriaProducto: queryGetCategoriaProducto?.data || null,
+            intIdNombreCategoriaServicio: queryGetCategoriaServicio?.data || null,
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -129,8 +125,6 @@ class setEmpresario {
     }
 
     async #setEmpresarioSecundario() {
-        
-
         let dao = new classInterfaceDAOEmpresarios();
         for (let i = 0; i < this.#objData.arrEmpresarioSecundario.length; i++) {
             let prevData = this.#objData.arrEmpresarioSecundario[i];
@@ -153,7 +147,7 @@ class setEmpresario {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.deleteEmpresario({
-            intIdEmpresario: this.#intIdEmpresario,
+            intId: this.#intIdEmpresario,
         });
 
         this.#objResult = {
