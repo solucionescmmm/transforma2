@@ -3,7 +3,9 @@ const sql = require("mssql");
 const validator = require("validator").default;
 
 //Conexion
-const { conexion } = require("../../../../common/config/confSQL_connectionTransfroma");
+const {
+    conexion,
+} = require("../../../../common/config/confSQL_connectionTransfroma");
 
 class daoEmpresarios {
     async setEmpresario(data) {
@@ -44,7 +46,7 @@ class daoEmpresarios {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El empresario ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue registrado con éxito.`,
+                msg: `La persona ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue registrado con éxito.`,
             };
 
             sql.close(conexion);
@@ -261,6 +263,157 @@ class daoEmpresarios {
         }
     }
 
+    async updateEmpresario(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_Empresario
+
+            SET strNombres               = COALESCE(${data.strNombres}, strNombres),
+                strApellidos             = COALESCE(${data.strApellidos}, strApellidos),
+                dtFechaNacimiento        = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
+                strTipoDocto             = COALESCE(${data.strTipoDocto}, strTipoDocto),
+                strNroDocto              = COALESCE(${data.strNroDocto}, strNroDocto),
+                strLugarExpedicionDocto  = COALESCE(${data.strLugarExpedicionDocto}, strLugarExpedicionDocto),
+                dtFechaExpedicionDocto   = COALESCE(${data.dtFechaExpedicionDocto}, dtFechaExpedicionDocto),
+                strSexo                  = COALESCE(${data.strSexo}, strSexo),
+                strCelular1              = COALESCE(${data.strCelular1}, strCelular1),
+                strCorreoElectronico1    = COALESCE(${data.strCorreoElectronico1}, strCorreoElectronico1),
+                strNivelEducativo        = COALESCE(${data.strNivelEducativo}, strNivelEducativo),
+                strTitulos               = COALESCE(${data.strTitulos}, strTitulos),
+                strCondicionDiscapacidad = COALESCE(${data.strCondicionDiscapacidad}, strCondicionDiscapacidad),
+                strSede                  = COALESCE(${data.strSede}, strSede),
+                strTipoEmpresario        = COALESCE(${data.strTipoEmpresario}, strTipoEmpresario),
+                dtFechaVinculacion       = COALESCE(${data.dtFechaVinculacion}, dtFechaVinculacion),
+                strEstado                = COALESCE(${data.strEstado}, strEstado),
+                strUrlFoto               = COALESCE(${data.strUrlFoto}, strUrlFoto),
+                dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuario               = COALESCE(${data.strUsuario}, strUsuario),
+                strEspacioJornada        = COALESCE(${data.strEspacioJornada}, strEspacioJornada)
+
+            WHERE intId = ${data.intId}
+
+            SELECT * FROM tbl_Empresario WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `La persona ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue actualizada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateEmpresa(data){
+
+    }
+
+    async updateEmprendimiento(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_InfoEmprendimiento
+
+            SET btTieneSoloIdea                  = COALESCE(${data.btTieneSoloIdea}, btTieneSoloIdea),
+                strPlaneaComenzar                = COALESCE(${data.strPlaneaComenzar}, strPlaneaComenzar),
+                dtFechaNacimiento                = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
+                strTiempoDedicacion              = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
+                btGrupoAsociativo                = COALESCE(${data.btGrupoAsociativo}, btGrupoAsociativo),
+                btAsociacionUnidadProdIndividual = COALESCE(${data.btAsociacionUnidadProdIndividual}, btAsociacionUnidadProdIndividual),
+                strProductosServicios            = COALESCE(${data.strProductosServicios}, strProductosServicios),
+                strMateriaPrima                  = COALESCE(${data.strMateriaPrima}, strMateriaPrima),
+                strNombreTecnica                 = COALESCE(${data.strNombreTecnica}, strNombreTecnica),
+                dtmActualizacion                 = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuario                       = COALESCE(${data.strUsuario}, strUsuario)
+
+            WHERE intIdEmpresario = ${data.intIdEmpresario}
+
+            SELECT * FROM tbl_InfoEmprendimiento WHERE intIdEmpresario = ${data.intIdEmpresario}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `La persona ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue actualizada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateEmpresarioSecundario(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_EmpresarioSecundario
+
+            SET strNombresApellidos     = COALESCE(${data.strNombresApellidos}, strNombresApellidos),
+                strSexo                 = COALESCE(${data.strSexo}, strSexo),
+                dtFechaNacimiento       = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
+                strTipoDocto            = COALESCE(${data.strTipoDocto}, strTipoDocto),
+                strNroDocto             = COALESCE(${data.strNroDocto}, strNroDocto),
+                strLugarExpedicionDocto = COALESCE(${data.strLugarExpedicionDocto}, strLugarExpedicionDocto),
+                dtFechaExpedicionDocto  = COALESCE(${data.dtFechaExpedicionDocto}, dtFechaExpedicionDocto),
+                strCelular              = COALESCE(${data.strCelular}, strCelular),
+                strCorreoElectronico    = COALESCE(${data.strCorreoElectronico}, strCorreoElectronico),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuario              = COALESCE(${data.strUsuario}, strUsuario)
+
+                WHERE intIdEmpresarioPrincipal = ${data.intIdEmpresarioPrincipal} AND intId = ${data.intId}
+                
+            SELECT * FROM tbl_EmpresarioSecundario WHERE intIdEmpresarioPrincipal = ${data.intIdEmpresarioPrincipal}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async deleteEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -417,6 +570,11 @@ class daoEmpresarios {
             AND   (Empresario.strNombres = ${data.strNombres} OR ${data.strNombres} IS NULL)
             AND   (Empresario.strApellidos = ${data.strApellidos} OR ${data.strApellidos} IS NULL)
             AND   (Empresario.strNroDocto = ${data.strNroDocto} OR ${data.strNroDocto} IS NULL)
+            AND   (Empresario.strCorreoElectronico = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)
+            AND   (Empresario.strSede = ${data.strSede} OR ${data.strSede} IS NULL)
+            AND   (Empresario.strEstado = ${data.strEstado} OR ${data.strEstado} IS NULL)
+            AND   (Empresario.strTipoEmpresario = ${data.strTipoEmpresario} OR ${data.strTipoEmpresario} IS NULL)
+            AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)
             AND   (Empresario.strCorreoElectronico = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
@@ -426,23 +584,33 @@ class daoEmpresarios {
                     let { objInfoEmprendimiento } = arrNewData[i];
 
                     if (validator.isJSON(objInfoEmprendimiento)) {
-                        objInfoEmprendimiento = JSON.parse(objInfoEmprendimiento);
-                        arrNewData[i].objInfoEmprendimiento = objInfoEmprendimiento;
+                        objInfoEmprendimiento = JSON.parse(
+                            objInfoEmprendimiento
+                        );
+                        arrNewData[i].objInfoEmprendimiento =
+                            objInfoEmprendimiento;
                     }
                 }
                 if (arrNewData[i].arrEmpresarioSecundario) {
                     let { arrEmpresarioSecundario } = arrNewData[i];
 
                     if (validator.isJSON(arrEmpresarioSecundario)) {
-                        arrEmpresarioSecundario = JSON.parse(arrEmpresarioSecundario);
-                        arrNewData[i].arrEmpresarioSecundario = arrEmpresarioSecundario;
+                        arrEmpresarioSecundario = JSON.parse(
+                            arrEmpresarioSecundario
+                        );
+                        arrNewData[i].arrEmpresarioSecundario =
+                            arrEmpresarioSecundario;
                     }
                 }
             }
 
             let result = {
                 error: false,
-                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
             };
 
             sql.close(conexion);

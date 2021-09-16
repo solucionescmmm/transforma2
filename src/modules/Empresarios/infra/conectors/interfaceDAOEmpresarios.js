@@ -25,21 +25,45 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
+    async updateEmpresario(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateEmpresario(data);
+        return result;
+    }
+
+    async updateEmpresa(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateEmpresa(data);
+        return result;
+    }
+
+    async updateEmprendimiento(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateEmprendimiento(data);
+        return result;
+    }
+
+    async updateEmpresarioSecundario(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateEmpresarioSecundario(data);
+        return result;
+    }
+
     async deleteEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.deleteEmpresario(data);
         return result;
     }
 
-    async deleteInfoEmprendimiento(data) {
-        const dao = new classDaoSql();
-        let result = await dao.deleteInfoEmprendimiento(data);
-        return result;
-    }
-
     async deleteInfoEmpresa(data) {
         const dao = new classDaoSql();
         let result = await dao.deleteInfoEmpresa(data);
+        return result;
+    }
+
+    async deleteInfoEmprendimiento(data) {
+        const dao = new classDaoSql();
+        let result = await dao.deleteInfoEmprendimiento(data);
         return result;
     }
 
