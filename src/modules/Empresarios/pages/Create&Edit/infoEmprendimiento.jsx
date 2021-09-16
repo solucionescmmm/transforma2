@@ -342,7 +342,7 @@ const InformacionPrincipal = ({
                             rules={{
                                 validate: (value) => {
                                     if (
-                                        data.btGrupoAsociativo === false &&
+                                        data.btGrupoAsociativo === true &&
                                         (value === "" || value === undefined)
                                     ) {
                                         return "Por favor, selecciona una opción.";

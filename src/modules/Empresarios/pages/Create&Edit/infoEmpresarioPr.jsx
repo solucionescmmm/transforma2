@@ -59,6 +59,7 @@ const InformacionEmpresarioPr = ({
         strNivelEducativo: "",
         strCondicionDiscapacidad: "",
         strTitulos: "",
+        strDireccionResidencia: "",
         strURLFileFoto: "",
     });
 
@@ -164,7 +165,8 @@ const InformacionEmpresarioPr = ({
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digíta el nombre o nombres de la persona.",
+                                required:
+                                    "Por favor, digíta el nombre o nombres de la persona.",
                                 validate: (value) => {
                                     if (
                                         !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
@@ -273,15 +275,13 @@ const InformacionEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strNroDocto
-                                            ?.message ||
-                                        "Digita el número de documento."
+                                            ?.message || "Digita el número de documento."
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, digita el número de documento.",
+                                required: "Por favor, digita el número de documento.",
                             }}
                         />
                     </Grid>
@@ -411,7 +411,8 @@ const InformacionEmpresarioPr = ({
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona el genero de la persona.",
+                                required:
+                                    "Por favor, selecciona el genero de la persona.",
                             }}
                         />
                     </Grid>
@@ -631,7 +632,8 @@ const InformacionEmpresarioPr = ({
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona la discapacidad del empresario, en caso de padecer alguna."
+                                required:
+                                    "Por favor, selecciona la discapacidad del empresario, en caso de padecer alguna.",
                             }}
                         />
                     </Grid>
@@ -658,6 +660,36 @@ const InformacionEmpresarioPr = ({
                                         errors?.objInfoEmpresarioPr?.strTitulos
                                             ?.message ||
                                         "Digita los títulos o título del empresario, en caso de poseer alguno."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strDireccionResidencia}
+                            name="objInfoEmpresarioPr.strDireccionResidencia"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Dirección de residencia"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={disabled}
+                                    fullWidth
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strDireccionResidencia
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strDireccionResidencia?.message ||
+                                        "Digita la dirección de residencia de la persona."
                                     }
                                 />
                             )}

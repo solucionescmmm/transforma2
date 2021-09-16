@@ -243,7 +243,7 @@ const InfoEmpresa = ({
                             name="objInfoEmpresa.strUnidadProdOperacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectUnidadOperativa
-                                    label="Unidad operativa"
+                                    label="Unidad productiva de la empresa"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -256,7 +256,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strUnidadProdOperacion
                                             ?.message ||
-                                        "Selecciona el lugar donde opera la unidad operativa del empresario."
+                                        "Selecciona el lugar donde opera la unidad productiva de la empresa."
                                     }
                                     required
                                 />
@@ -264,7 +264,7 @@ const InfoEmpresa = ({
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona el lugar donde opera la unidad operativa del empresario.",
+                                    "Por favor, selecciona el lugar donde opera la unidad productiva de la empresa.",
                             }}
                         />
                     </Grid>
@@ -393,6 +393,7 @@ const InfoEmpresa = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
+                                    select
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     variant="standard"
@@ -405,11 +406,9 @@ const InfoEmpresa = ({
                                     }
                                 >
                                     {(() => {
-                                        let arrItems = [6];
-
-                                        return arrItems.map((e, i) => (
-                                            <MenuItem key={i} value={i}>
-                                                {i}
+                                        return [...Array(6)].map((e, i) => (
+                                            <MenuItem key={i} value={i + 1}>
+                                                {i + 1}
                                             </MenuItem>
                                         ));
                                     })()}

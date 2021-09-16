@@ -194,6 +194,8 @@ const CUEmpresario = ({ isEdit }) => {
                                     strNivelEducativo:
                                         data.objInfoEmpresarioPr.strNivelEducativo,
                                     strTitulos: data.objInfoEmpresarioPr.strTitulos,
+                                    strDireccionResidencia:
+                                        data.objInfoEmpresarioPr.strDireccionResidencia,
                                     strCondicionDiscapacidad:
                                         data.objInfoEmpresarioPr.strCondicionDiscapacidad,
                                     strSede: data.objInfoPrincipal.strSede,
@@ -431,9 +433,7 @@ const CUEmpresario = ({ isEdit }) => {
                                         color="primary"
                                         variant="h6"
                                     >
-                                        {isEdit
-                                            ? "EDITAR EMPRESA"
-                                            : "REGISTRAR EMPRESA"}
+                                        {isEdit ? "EDITAR EMPRESA" : "REGISTRAR EMPRESA"}
                                     </Typography>
                                 </Box>
 
