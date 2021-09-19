@@ -36,7 +36,8 @@ class daoEmpresarios {
                 ${data.strUrlFoto},
                 GETDATE(),
                 ${data.strUsuario},
-                ${data.strEspacioJornada}
+                ${data.strEspacioJornada},
+                ${data.strEstrato}
             )
             
             SET @intId = SCOPE_IDENTITY();

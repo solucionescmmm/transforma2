@@ -9,7 +9,7 @@ const fs = require("fs");
 const app = require("./modules/Main/app");
 
 const Main = () => {
-    console.log(app.get("typeServer"));
+    //console.log(app.get("typeServer"));
 
     if (app.get("typeServer") === "production") {
         https
