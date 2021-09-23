@@ -18,7 +18,7 @@ import {
 //Iconos
 import { Refresh as RefreshIcon } from "@mui/icons-material";
 
-const SelectEspacioJornada = ({
+const SelectTipoRelacion = ({
     label,
     name,
     value,
@@ -30,7 +30,7 @@ const SelectEspacioJornada = ({
 }) => {
     const { data, refreshGetData } = useGetListas({
         strGrupo: "Empresarios",
-        strCodigo: "EspacioJornada",
+        strCodigo: "RelacionPersonaPrincipal",
     });
 
     if (data === undefined) {
@@ -50,7 +50,7 @@ const SelectEspacioJornada = ({
                         onClick={() => {
                             refreshGetData({
                                 strGrupo: "Empresarios",
-                                strCodigo: "EspacioJornada",
+                                strCodigo: "RelacionPersonaPrincipal",
                             });
                         }}
                         size="large">
@@ -63,7 +63,7 @@ const SelectEspacioJornada = ({
                 <AlertTitle>
                     <b>Sin datos</b>
                 </AlertTitle>
-                No existen datos de los tipos de espacios de jornada.
+                No existen datos de tipos de relación.
             </Alert>
         );
     }
@@ -77,7 +77,7 @@ const SelectEspacioJornada = ({
                         onClick={() => {
                             refreshGetData({
                                 strGrupo: "Empresarios",
-                                strCodigo: "EspacioJornada",
+                                strCodigo: "RelacionPersonaPrincipal",
                             });
                         }}
                         size="large">
@@ -90,8 +90,7 @@ const SelectEspacioJornada = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos de los tipos de espacios de
-                jornada.
+                Ha ocurrido un error al obtener los datos de tipos de relación.
             </Alert>
         );
     }
@@ -119,4 +118,4 @@ const SelectEspacioJornada = ({
     );
 };
 
-export default SelectEspacioJornada;
+export default SelectTipoRelacion;

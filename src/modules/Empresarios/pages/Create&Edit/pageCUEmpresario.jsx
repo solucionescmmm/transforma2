@@ -1,10 +1,13 @@
-import React, { useState, useCallback, useEffect, useContext } from "react";
+import React, { useState, useCallback, useEffect, useContext, useRef } from "react";
 
 //Context
 import { AuthContext } from "../../../../common/middlewares/Auth";
 
+//Hooks
+import useGetEmpresarios from "../../hooks/useGetEmpresarios";
+
 //Librerias
-import { Link as RouterLink, Redirect } from "react-router-dom";
+import { Link as RouterLink, Redirect, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -21,6 +24,7 @@ import {
     Tooltip,
     SvgIcon,
     LinearProgress,
+    Container,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -36,11 +40,18 @@ import { Box } from "@mui/system";
 import InfoPrincipal from "./infoPrincipal";
 import InfoEmpresarioPr from "./infoEmpresarioPr";
 import InfoEmpresarioSec from "./infoEmpresarioSec";
-import InfoEmprendimiento from "./infoEmprendimiento";
 import InfoEmpresa from "./infoEmpresa";
 import InfoAdicional from "./infoAdicional";
+import Loader from "../../../../common/components/Loader";
+import PageError from "../../../../common/components/Error";
 
 const styles = makeStyles((theme) => ({
+    containerPR: {
+        [theme.breakpoints.down("sm")]: {
+            paddingRigth: "0px",
+            paddingLeft: "0px",
+        },
+    },
     paper: {
         position: "relative",
         borderRadius: "7px",
@@ -79,19 +90,10 @@ const CUEmpresario = ({ isEdit }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-
-    //TODO: Se tiene que construir 4 objetos que tengan relacion con las siguientes tablas >
-    /**
-     * 1. tbl_Empresario
-     * 2. tbl_EmpresarioSecundario
-     * 3. tbl_InfoEmprendimiento
-     * 4. tbl_InfoEmpresa
-     */
     const [data, setData] = useState({
         objInfoPrincipal: {},
         objInfoEmpresarioPr: {},
         arrInfoEmpresarioSec: [],
-        objInfoEmprendimiento: {},
         objInfoEmpresa: {},
         objInfoAdicional: {},
     });
@@ -99,6 +101,8 @@ const CUEmpresario = ({ isEdit }) => {
     const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
+
+    const [loadingGetData, setLoadingGetData] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
@@ -114,6 +118,12 @@ const CUEmpresario = ({ isEdit }) => {
         setValue,
         clearErrors,
     } = useForm({ mode: "onChange" });
+
+    const { intId } = useParams();
+
+    const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
+
+    const refFntGetData = useRef(getUniqueData);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -148,59 +158,11 @@ const CUEmpresario = ({ isEdit }) => {
                     data,
                     transformRequest: [
                         (data) => {
-                            //TODO: Realizar transformacion de datos.
-
-                            /**
-                             * El objeto seria el siguiente
-                             *
-                             * {
-                             *    "objEmpresario",
-                             *    "objEmpresarioSecundario",
-                             *    "objInfoEmprendimiento",
-                             *    "objInfoEmpresa"
-                             * }
-                             */
-
                             let newData = {
                                 objEmpresario: {
-                                    strNombres: data.objInfoEmpresarioPr.strNombres,
-                                    strApellidos: data.objInfoEmpresarioPr.strApellidos,
-                                    dtFechaNacimiento: data.objInfoEmpresarioPr
-                                        .dtFechaNacimiento
-                                        ? format(
-                                              data.objInfoEmpresarioPr.dtFechaNacimiento,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                    strTipoDocto: data.objInfoEmpresarioPr.strTipoDocto,
-                                    strNroDocto: data.objInfoEmpresarioPr.strNroDocto,
-                                    strLugarExpedicionDocto:
-                                        data.objInfoEmpresarioPr.strLugarExpedicionDocto,
-                                    dtFechaExpedicionDocto: data.objInfoEmpresarioPr
-                                        .dtFechaExpedicionDocto
-                                        ? format(
-                                              data.objInfoEmpresarioPr
-                                                  .dtFechaExpedicionDocto,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                    strSexo: data.objInfoEmpresarioPr.strSexo,
-                                    strCelular1: data.objInfoEmpresarioPr.strCelular1,
-                                    strCelular2: data.objInfoEmpresarioPr.strCelular2,
-                                    strCorreoElectronico1:
-                                        data.objInfoEmpresarioPr.strCorreoElectronico1,
-                                    strCorreoElectronico2:
-                                        data.objInfoEmpresarioPr.strCorreoElectronico2,
-                                    strNivelEducativo:
-                                        data.objInfoEmpresarioPr.strNivelEducativo,
-                                    strTitulos: data.objInfoEmpresarioPr.strTitulos,
-                                    strDireccionResidencia:
-                                        data.objInfoEmpresarioPr.strDireccionResidencia,
-                                    strCondicionDiscapacidad:
-                                        data.objInfoEmpresarioPr.strCondicionDiscapacidad,
                                     strSede: data.objInfoPrincipal.strSede,
-                                    strTipoEmpresario:
-                                        data.objInfoPrincipal.strTipoEmpresario,
+                                    strModalidadIngreso:
+                                        data.objInfoPrincipal.strModalidadIngreso,
                                     dtFechaVinculacion: data.objInfoPrincipal
                                         .dtFechaVinculacion
                                         ? format(
@@ -208,86 +170,122 @@ const CUEmpresario = ({ isEdit }) => {
                                               "yyyy-MM-dd"
                                           )
                                         : null,
-                                    strEstado: data.objInfoPrincipal.strEstado,
-                                    strUrlFoto: data.objInfoEmpresarioPr.strURLFileFoto,
-                                    strEspacioJornada:
-                                        data.objInfoPrincipal.strEspacioJornada,
+                                    strEstadoVinculacion:
+                                        data.objInfoPrincipal.strEstadoVinculacion,
+                                    strTipoVinculacion:
+                                        data.objInfoPrincipal.strTipoVinculacion,
+                                    strURLFileLogoEmpresa:
+                                        data.objInfoEmpresarioPr.strURLFileLogoEmpresa,
+                                    strEstadoNegocio:
+                                        data.objInfoEmpresarioPr.strEstadoNegocio,
+                                    strCuandoComienzaEmpresa:
+                                        data.objInfoEmpresarioPr.strCuandoComienzaEmpresa,
+                                    strNombreMarca:
+                                        data.objInfoEmpresarioPr.strNombreMarca,
+                                    dtFechaFundacion: data.objInfoEmpresarioPr
+                                        .dtFechaFundacion
+                                        ? format(
+                                              data.objInfoEmpresarioPr.dtFechaFundacion,
+                                              "yyyy-MM-dd"
+                                          )
+                                        : null,
+                                    strLugarOperacion:
+                                        data.objInfoEmpresarioPr.strLugarOperacion,
+                                    strDireccionResidencia: data.objInfoEmpresarioPr.strDireccionResidencia,
+                                    strDepartamento:
+                                        data.objInfoEmpresarioPr.strDepartamento,
+                                    strCiudad: data.objInfoEmpresarioPr.strCiudad,
+                                    strBarrio: data.objInfoEmpresarioPr.strBarrio,
+                                    strEstrato: data.objInfoEmpresarioPr.strEstrato,
+                                    strSectorEconomico:
+                                        data.objInfoEmpresarioPr.strSectorEconomico,
+                                    strCategoriaProducto:
+                                        data.objInfoEmpresarioPr.strCategoriaProducto,
+                                    strCategoriaServicio:
+                                        data.objInfoEmpresarioPr.strCategoriaServicio,
+                                    arrCategoriasSecundarias:
+                                        data.objInfoEmpresarioPr.arrCategoriasSecundarias,
+                                    strOtraCategoria:
+                                        data.objInfoEmpresarioPr.strOtraCategoria,
+                                    strDescProductosServicios:
+                                        data.objInfoEmpresarioPr
+                                            .strDescProductosServicios,
+                                    strMateriaPrima:
+                                        data.objInfoEmpresarioPr.strMateriaPrima,
+                                    strNombreTecnica:
+                                        data.objInfoEmpresarioPr.strNombreTecnica,
+                                    strTiempoDedicacion:
+                                        data.objInfoEmpresarioPr.strTiempoDedicacion,
+                                    btGeneraEmpleo:
+                                        data.objInfoEmpresarioPr.btGeneraEmpleo,
+                                    intNumeroEmpleados:
+                                        data.objInfoEmpresarioPr.intNumeroEmpleados,
+                                    dblValorVentasMes:
+                                        data.objInfoEmpresarioPr.dblValorVentasMes,
+                                    arrFormasComercializacion:
+                                        data.objInfoEmpresarioPr
+                                            .arrFormasComercializacion,
+                                    arrMediosDigitales:
+                                        data.objInfoEmpresarioPr.arrMediosDigitales,
+                                    btGrupoAsociativo:
+                                        data.objInfoEmpresarioPr.btGrupoAsociativo,
+                                    strAsociacionUnidadProdIndividual:
+                                        data.objInfoEmpresarioPr
+                                            .strAsociacionUnidadProdIndividual,
                                 },
                                 arrEmpresarioSecundario: data.arrInfoEmpresarioSec,
-                                objInfoEmprendimiento: {
-                                    btTieneSoloIdea:
-                                        data.objInfoEmprendimiento.btTieneSoloIdea,
-                                    strPlaneaComenzar:
-                                        data.objInfoEmprendimiento
-                                            .strCuandoComienzaEmpresa,
-                                    strTiempoDedicacion:
-                                        data.objInfoEmprendimiento.strTiempoDedicacion,
-                                    btGrupoAsociativo:
-                                        data.objInfoEmprendimiento.btGrupoAsociativo,
-                                    btAsociacionUnidadProdIndividual:
-                                        data.objInfoEmprendimiento
-                                            .btAsociacionUnidadProdIndividual,
-                                    strProductosServicios:
-                                        data.objInfoEmprendimiento.strProductosServicios,
-                                    strMateriaPrima:
-                                        data.objInfoEmprendimiento.strMateriaPrima,
-                                    strNombreTecnica:
-                                        data.objInfoEmprendimiento.strNombreTecnica,
-                                },
                                 objInfoEmpresa: {
-                                    strUrlLogo: data.objInfoEmpresa.strURLFileLogoEmpresa,
+                                    strURLFileLogoEmpresa:
+                                        data.objInfoEmpresa.strURLFileLogoEmpresa,
+                                    strEstadoNegocio:
+                                        data.objInfoEmpresa.strEstadoNegocio,
+                                    strCuandoComienzaEmpresa:
+                                        data.objInfoEmpresa.strCuandoComienzaEmpresa,
+                                    strNombreMarca: data.objInfoEmpresa.strNombreMarca,
                                     dtFechaFundacion: data.objInfoEmpresa.dtFechaFundacion
                                         ? format(
                                               data.objInfoEmpresa.dtFechaFundacion,
                                               "yyyy-MM-dd"
                                           )
                                         : null,
-                                    strUnidadProdOperacion:
-                                        data.objInfoEmpresa.strUnidadProdOperacion,
-                                    strDireccion: data.objInfoEmpresa.strDireccion,
-                                    strMunicipio: data.objInfoEmpresa.strMunicipio,
+                                    strLugarOperacion:
+                                        data.objInfoEmpresa.strLugarOperacion,
+                                    strDireccionResidencia: data.objInfoEmpresa.strDireccionResidencia,
+                                    strDepartamento: data.objInfoEmpresa.strDepartamento,
+                                    strCiudad: data.objInfoEmpresa.strCiudad,
                                     strBarrio: data.objInfoEmpresa.strBarrio,
-                                    intEstrato: data.objInfoEmpresa.intEstrato,
+                                    strEstrato: data.objInfoEmpresa.strEstrato,
+                                    strSectorEconomico:
+                                        data.objInfoEmpresa.strSectorEconomico,
                                     strCategoriaProducto:
                                         data.objInfoEmpresa.strCategoriaProducto,
-                                    strOtraCategoriaProducto:
-                                        data.objInfoEmpresa.strOtraCategoriaProducto,
-                                    arrCategoriaServicio:
-                                        data.objInfoEmpresa.arrCategoriaServicio,
+                                    strCategoriaServicio:
+                                        data.objInfoEmpresa.strCategoriaServicio,
+                                    arrCategoriasSecundarias:
+                                        data.objInfoEmpresa.arrCategoriasSecundarias,
+                                    strOtraCategoria:
+                                        data.objInfoEmpresa.strOtraCategoria,
+                                    strDescProductosServicios:
+                                        data.objInfoEmpresa.strDescProductosServicios,
+                                    strMateriaPrima: data.objInfoEmpresa.strMateriaPrima,
+                                    strNombreTecnica:
+                                        data.objInfoEmpresa.strNombreTecnica,
+                                    strTiempoDedicacion:
+                                        data.objInfoEmpresa.strTiempoDedicacion,
                                     btGeneraEmpleo: data.objInfoEmpresa.btGeneraEmpleo,
                                     intNumeroEmpleados:
                                         data.objInfoEmpresa.intNumeroEmpleados,
-                                    valorVentasMes: data.objInfoEmpresa.valorVentasMes,
-                                    strMediosUtilizadosVentas:
-                                        data.objInfoEmpresa.arrMediosUtilizadosVentas,
-                                    btNombreMarca: data.objInfoAdicional.btNombreMarca,
-                                    btLogotipo: data.objInfoAdicional.btLogotipo,
-                                    btEtiquetaEmpaque:
-                                        data.objInfoAdicional.btEtiquetaEmpaque,
-                                    btMejorarEtiquetaEmpaque:
-                                        data.objInfoAdicional.btMejorarEtiquetaEmpaque,
-                                    strPrincipalesNecesidades:
-                                        data.objInfoAdicional.strPrincipalesNecesidades,
-                                    strRequisitoLey:
-                                        data.objInfoAdicional.arrRequisitoLey,
-                                    strOtrosRequisitos:
-                                        data.objInfoAdicional.strOtrosRequisitos,
-                                    btInteresadoProcesoCMM:
-                                        data.objInfoAdicional.btInteresadoProcesoCMM,
-                                    strTemasCapacitacion:
-                                        data.objInfoAdicional.strTemasCapacitacion,
-                                    strComoSeEntero:
-                                        data.objInfoAdicional.arrComoSeEntero,
-                                    strOtrosMediosEntero:
-                                        data.objInfoAdicional.strOtrosMediosEntero,
-                                    strMedioDeComunicacion:
-                                        data.objInfoAdicional.arrMediosDeComunicacion,
-                                    strOtroMedioComunicacion:
-                                        data.objInfoAdicional.strOtroMedioComunicacion,
-                                    btRecibirInfoCMM:
-                                        data.objInfoAdicional.btRecibirInfoCMM,
-                                    strRecomendaciones:
-                                        data.objInfoAdicional.strRecomendaciones,
+                                    dblValorVentasMes:
+                                        data.objInfoEmpresa.dblValorVentasMes,
+                                    arrFormasComercializacion:
+                                        data.objInfoEmpresa.arrFormasComercializacion,
+                                    arrMediosDigitales:
+                                        data.objInfoEmpresa.arrMediosDigitales,
+                                    btGrupoAsociativo:
+                                        data.objInfoEmpresa.btGrupoAsociativo,
+                                    strAsociacionUnidadProdIndividual:
+                                        data.objInfoEmpresa
+                                            .strAsociacionUnidadProdIndividual,
                                 },
                             };
 
@@ -338,6 +336,23 @@ const CUEmpresario = ({ isEdit }) => {
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
+    useEffect(() => {
+        if (isEdit) {
+            setLoadingGetData(true);
+
+            async function getData() {
+                await refFntGetData.current({ intId }).then((res) => {
+                    let data = res?.[0];
+
+                    setData(data);
+
+                    setLoadingGetData(false);
+                });
+            }
+
+            getData();
+        }
+    }, [isEdit, intId]);
 
     useEffect(() => {
         if (isEdit) {
@@ -362,6 +377,20 @@ const CUEmpresario = ({ isEdit }) => {
     //===============================================================================================================================================
     if (success) {
         return <Redirect to="/transforma/asesor/empresario/read/all" />;
+    }
+
+    if (loadingGetData) {
+        return <Loader />;
+    }
+
+    if (data?.error) {
+        return (
+            <PageError
+                severity="error"
+                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                title={data.msg}
+            />
+        );
     }
 
     return (
@@ -401,148 +430,141 @@ const CUEmpresario = ({ isEdit }) => {
             </Grid>
 
             <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                    {loading ? (
-                        <LinearProgress className={classes.linearProgress} />
-                    ) : null}
+                <Container className={classes.containerPR}>
+                    <Paper className={classes.paper}>
+                        {loading ? (
+                            <LinearProgress className={classes.linearProgress} />
+                        ) : null}
 
-                    <Grid
-                        container
-                        direction="row"
-                        spacing={2}
-                        style={{ padding: "25px" }}
-                    >
-                        <Grid item xs={12}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    width: "100%",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
+                        <Grid
+                            container
+                            direction="row"
+                            spacing={2}
+                            style={{ padding: "25px" }}
+                        >
+                            <Grid item xs={12}>
                                 <Box
                                     sx={{
-                                        flexGrow: 1,
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        width: "100%",
+                                        justifyContent: "center",
+                                        alignItems: "center",
                                     }}
                                 >
-                                    <Typography
-                                        align="center"
-                                        style={{ fontWeight: "bold" }}
-                                        color="primary"
-                                        variant="h6"
+                                    <Box
+                                        sx={{
+                                            flexGrow: 1,
+                                        }}
                                     >
-                                        {isEdit ? "EDITAR EMPRESA" : "REGISTRAR EMPRESA"}
-                                    </Typography>
+                                        <Typography
+                                            align="center"
+                                            style={{ fontWeight: "bold" }}
+                                            color="primary"
+                                            variant="h6"
+                                        >
+                                            {isEdit
+                                                ? "EDITAR EMPRESA"
+                                                : "REGISTRAR EMPRESA"}
+                                        </Typography>
+                                    </Box>
+
+                                    <Box>
+                                        <IconButton color="secondary" size="large">
+                                            <Tooltip title="Importar información">
+                                                <SvgIcon>
+                                                    <path
+                                                        id="icons8_microsoft_excel"
+                                                        d="M14.5,3,2,5.556V23.444L14.5,26ZM17,5.556V8.111h2.5v2.556H17v2.556h2.5v2.556H17v2.556h2.5v2.556H17v2.556h8.75A1.265,1.265,0,0,0,27,22.167V6.833a1.265,1.265,0,0,0-1.25-1.278Zm5,2.556h2.5v2.556H22ZM4.72,9.768H6.941L8.1,12.6a5.7,5.7,0,0,1,.237.8h.032a8.475,8.475,0,0,1,.251-.826L9.9,9.768h2.026L9.51,14.458,12,19.232H9.839L8.448,16.147a2.67,2.67,0,0,1-.166-.631h-.02c-.031.146-.094.364-.188.656l-1.4,3.06H4.5L7.076,14.5ZM22,13.222h2.5v2.556H22Zm0,5.111h2.5v2.556H22Z"
+                                                        transform="translate(-2 -3)"
+                                                    />
+                                                </SvgIcon>
+                                            </Tooltip>
+                                        </IconButton>
+                                    </Box>
                                 </Box>
+                            </Grid>
 
-                                <Box>
-                                    <IconButton color="secondary" size="large">
-                                        <Tooltip title="Importar información">
-                                            <SvgIcon>
-                                                <path
-                                                    id="icons8_microsoft_excel"
-                                                    d="M14.5,3,2,5.556V23.444L14.5,26ZM17,5.556V8.111h2.5v2.556H17v2.556h2.5v2.556H17v2.556h2.5v2.556H17v2.556h8.75A1.265,1.265,0,0,0,27,22.167V6.833a1.265,1.265,0,0,0-1.25-1.278Zm5,2.556h2.5v2.556H22ZM4.72,9.768H6.941L8.1,12.6a5.7,5.7,0,0,1,.237.8h.032a8.475,8.475,0,0,1,.251-.826L9.9,9.768h2.026L9.51,14.458,12,19.232H9.839L8.448,16.147a2.67,2.67,0,0,1-.166-.631h-.02c-.031.146-.094.364-.188.656l-1.4,3.06H4.5L7.076,14.5ZM22,13.222h2.5v2.556H22Zm0,5.111h2.5v2.556H22Z"
-                                                    transform="translate(-2 -3)"
-                                                />
-                                            </SvgIcon>
-                                        </Tooltip>
-                                    </IconButton>
-                                </Box>
-                            </Box>
-                        </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="caption">
+                                    Todos los campos marcados con (*) son obligatorios.
+                                </Typography>
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <Typography variant="caption">
-                                Todos los campos marcados con (*) son obligatorios.
-                            </Typography>
-                        </Grid>
+                            <Grid item xs={12}>
+                                <InfoPrincipal
+                                    control={control}
+                                    disabled={loading}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <InfoPrincipal
-                                control={control}
-                                disabled={loading}
-                                errors={errors}
-                                setValue={setValue}
-                                setError={setError}
-                                clearErrors={clearErrors}
-                            />
-                        </Grid>
+                            <Grid item xs={12}>
+                                <InfoEmpresarioPr
+                                    control={control}
+                                    disabled={loading}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <InfoEmpresarioPr
-                                control={control}
-                                disabled={loading}
-                                errors={errors}
-                                setValue={setValue}
-                                setError={setError}
-                                clearErrors={clearErrors}
-                            />
-                        </Grid>
+                            <Grid item xs={12}>
+                                <InfoEmpresarioSec
+                                    control={control}
+                                    disabled={loading}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <InfoEmpresarioSec
-                                control={control}
-                                disabled={loading}
-                                errors={errors}
-                                setValue={setValue}
-                                setError={setError}
-                                clearErrors={clearErrors}
-                            />
-                        </Grid>
+                            <Grid item xs={12}>
+                                <InfoEmpresa
+                                    control={control}
+                                    disabled={loading}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <InfoEmprendimiento
-                                control={control}
-                                disabled={loading}
-                                errors={errors}
-                                setValue={setValue}
-                                setError={setError}
-                                clearErrors={clearErrors}
-                            />
-                        </Grid>
+                            <Grid item xs={12}>
+                                <InfoAdicional
+                                    control={control}
+                                    disabled={loading}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <InfoEmpresa
-                                control={control}
-                                disabled={loading}
-                                errors={errors}
-                                setValue={setValue}
-                                setError={setError}
-                                clearErrors={clearErrors}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <InfoAdicional
-                                control={control}
-                                disabled={loading}
-                                errors={errors}
-                                setValue={setValue}
-                                setError={setError}
-                                clearErrors={clearErrors}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "row-reverse",
-                                }}
-                            >
-                                <LoadingButton
-                                    variant="contained"
-                                    type="submit"
-                                    loading={loading}
+                            <Grid item xs={12}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row-reverse",
+                                    }}
                                 >
-                                    {isEdit ? "guardar" : "registrar"}
-                                </LoadingButton>
-                            </Box>
+                                    <LoadingButton
+                                        variant="contained"
+                                        type="submit"
+                                        loading={loading}
+                                    >
+                                        {isEdit ? "guardar" : "registrar"}
+                                    </LoadingButton>
+                                </Box>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Paper>
+                    </Paper>
+                </Container>
             </Grid>
         </Grid>
     );

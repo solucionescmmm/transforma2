@@ -14,6 +14,7 @@ import {
     Tooltip,
     CircularProgress,
     TextField,
+    MenuItem,
 } from "@mui/material";
 
 import NumberFormat from "react-number-format";
@@ -28,10 +29,11 @@ import {
 
 //Componentes
 import SelectTipoDocumento from "../../components/selectTipoDocumento";
-import SelectSexo from "../../components/selectSexo";
+import SelectGenero from "../../components/selectGenero";
 import SelectNivelEducativo from "../../components/selectNivelEducativo";
 import SelectTiposDiscapacidad from "../../components/selectTipoDiscapacidad";
 import Dropzone from "../../../../common/components/dropzone";
+import ModalDireccionResidencia from "../../components/modalDireccionResidencia";
 
 const InformacionEmpresarioPr = ({
     disabled,
@@ -51,19 +53,23 @@ const InformacionEmpresarioPr = ({
         strLugarExpedicionDocto: "",
         dtFechaExpedicionDocto: null,
         dtFechaNacimiento: null,
-        strSexo: "",
+        strGenero: "",
         strCelular1: "",
         strCelular2: "",
         strCorreoElectronico1: "",
         strCorreoElectronico2: "",
         strNivelEducativo: "",
-        strCondicionDiscapacidad: "",
         strTitulos: "",
+        strCondicionDiscapacidad: "",
+        strEstrato: "",
+        strDepartamento: "",
+        strCiudad: "",
+        strBarrio: "",
         strDireccionResidencia: "",
         strURLFileFoto: "",
     });
 
-    const [openCollapese, setOpenCollapse] = useState(true);
+    const [openCollapese, setOpenCollapse] = useState(false);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
@@ -79,14 +85,19 @@ const InformacionEmpresarioPr = ({
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || "",
                 dtFechaExpedicionDocto: values.dtFechaExpedicionDocto || null,
                 dtFechaNacimiento: values.dtFechaNacimiento || null,
-                strSexo: values.strSexo || null,
+                strGenero: values.strGenero || null,
                 strCelular1: values.strCelular1 || "",
                 strCelular2: values.strCelular2 || "",
                 strCorreoElectronico1: values.strCorreoElectronico1 || "",
                 strCorreoElectronico2: values.strCorreoElectronico2 || "",
                 strNivelEducativo: values.strNivelEducativo || "",
-                strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
                 strTitulos: values.strTitulos || "",
+                strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
+                strEstrato: values.strEstrato || "",
+                strDepartamento: values.strDepartamento || "",
+                strCiudad: values.strCiudad || "",
+                strBarrio: values.strBarrio || "",
+                strDireccionResidencia: values.strDireccionResidencia || "",
                 strURLFileFoto: values.strURLFileFoto || "",
             });
         }
@@ -388,10 +399,10 @@ const InformacionEmpresarioPr = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strSexo}
-                            name="objInfoEmpresarioPr.strSexo"
+                            defaultValue={data.strGenero}
+                            name="objInfoEmpresarioPr.strGenero"
                             render={({ field: { name, value, onChange } }) => (
-                                <SelectSexo
+                                <SelectGenero
                                     label="Género"
                                     name={name}
                                     value={value}
@@ -399,12 +410,12 @@ const InformacionEmpresarioPr = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strSexo
+                                        errors?.objInfoEmpresarioPr?.strGenero
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strSexo?.message ||
+                                        errors?.objInfoEmpresarioPr?.strGenero?.message ||
                                         "Selecciona el género de la persona."
                                     }
                                 />
@@ -412,7 +423,7 @@ const InformacionEmpresarioPr = ({
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona el genero de la persona.",
+                                    "Por favor, selecciona el género de la persona.",
                             }}
                         />
                     </Grid>
@@ -441,14 +452,14 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strCelular1
                                             ?.message ||
-                                        "Digita el número celular del empresario."
+                                        "Digita el número celular de la persona."
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digita el número celular del empresario.",
+                                    "Por favor, digita el número celular de la persona.",
                                 validate: (value) => {
                                     let strValue = value.replace(/\s/g, "");
 
@@ -483,7 +494,7 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strCelular2
                                             ?.message ||
-                                        "Digita el número celular del empresario."
+                                        "Digita el número celular de la persona."
                                     }
                                 />
                             )}
@@ -523,7 +534,7 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strCorreoElectronico1
                                             ?.message ||
-                                        "Digita el correo electrónico del empresario."
+                                        "Digita el correo electrónico de la persona."
                                     }
                                 />
                             )}
@@ -561,7 +572,7 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strCorreoElectronico2
                                             ?.message ||
-                                        "Digita el correo electrónico alterno del empresario."
+                                        "Digita el correo electrónico alterno de la persona."
                                     }
                                 />
                             )}
@@ -597,7 +608,7 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strNivelEducativo
                                             ?.message ||
-                                        "Selecciona el nivel educativo del empresario."
+                                        "Selecciona el nivel educativo de la persona."
                                     }
                                 />
                             )}
@@ -606,39 +617,6 @@ const InformacionEmpresarioPr = ({
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strCondicionDiscapacidad}
-                            name="objInfoEmpresarioPr.strCondicionDiscapacidad"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectTiposDiscapacidad
-                                    label="Condición de discapacidad"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoEmpresarioPr
-                                            ?.strCondicionDiscapacidad
-                                            ? true
-                                            : false
-                                    }
-                                    required
-                                    helperText={
-                                        errors?.objInfoEmpresarioPr
-                                            ?.strCondicionDiscapacidad?.message ||
-                                        "Selecciona la discapacidad del empresario, en caso de padecer alguna."
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona la discapacidad del empresario, en caso de padecer alguna.",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strTitulos}
                             name="objInfoEmpresarioPr.strTitulos"
@@ -667,12 +645,102 @@ const InformacionEmpresarioPr = ({
                         />
                     </Grid>
 
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strCondicionDiscapacidad}
+                            name="objInfoEmpresarioPr.strCondicionDiscapacidad"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectTiposDiscapacidad
+                                    label="Condición de discapacidad"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strCondicionDiscapacidad
+                                            ? true
+                                            : false
+                                    }
+                                    required
+                                    helperText={
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strCondicionDiscapacidad?.message ||
+                                        "Selecciona la discapacidad de la persona, en caso de padecer alguna."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona la discapacidad de la persona, en caso de padecer alguna.",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strEstrato}
+                            name="objInfoEmpresa.strEstrato"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Estrato socioeconómico"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    select
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmpresa?.strEstrato ? true : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strEstrato?.message ||
+                                        "Selecciona el estrato socioeconómico de la persona"
+                                    }
+                                >
+                                    {(() => {
+                                        let arrItem = [
+                                            { value: 1 },
+                                            { value: 2 },
+                                            { value: 3 },
+                                            { value: 4 },
+                                            { value: 5 },
+                                            { value: 6 },
+                                            { value: "Rural" },
+                                        ];
+
+                                        return arrItem.map((e, i) => (
+                                            <MenuItem key={i} value={e.value}>
+                                                {e.value}
+                                            </MenuItem>
+                                        ));
+                                    })()}
+                                </TextField>
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        Departamento
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        Ciudad
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        Barrio / corregimiento / Vereda
+                    </Grid>
+
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strDireccionResidencia}
                             name="objInfoEmpresarioPr.strDireccionResidencia"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <ModalDireccionResidencia
                                     label="Dirección de residencia"
                                     name={name}
                                     value={value}
@@ -703,7 +771,7 @@ const InformacionEmpresarioPr = ({
                             name="objInfoEmpresarioPr.strURLFileFoto"
                             render={({ field: { name, value, onChange } }) => (
                                 <Dropzone
-                                    label="Foto del empresario"
+                                    label="Foto de la persona"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -721,7 +789,7 @@ const InformacionEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strURLFileFoto
                                             ?.message ||
-                                        "Selecciona una foto del empresario."
+                                        "Selecciona una foto de la persona."
                                     }
                                 />
                             )}

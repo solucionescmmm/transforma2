@@ -332,7 +332,7 @@ const Dropzone = ({
                     <p>Suelta el archivo</p>
                 ) : (
                     <Fragment>
-                        <p>Selecciona un archivo y arrastralo aqui.</p>
+                        <p>Selecciona un archivo y arrástralo aquí.</p>
                         <Button variant="contained" disabled={disabled || loading}>
                             Seleccionar archivo
                         </Button>

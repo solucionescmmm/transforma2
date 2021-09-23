@@ -18,7 +18,7 @@ import {
 //Iconos
 import { Refresh as RefreshIcon } from "@mui/icons-material";
 
-const SelectUnidadOperativa = ({
+const SelectLugarOperacion = ({
     label,
     name,
     value,
@@ -30,7 +30,7 @@ const SelectUnidadOperativa = ({
 }) => {
     const { data, refreshGetData } = useGetListas({
         strGrupo: "Empresa",
-        strCodigo: "UnidadOpera",
+        strCodigo: "LugarOperacion",
     });
 
     if (data === undefined) {
@@ -118,4 +118,4 @@ const SelectUnidadOperativa = ({
     );
 };
 
-export default SelectUnidadOperativa;
+export default SelectLugarOperacion;

@@ -27,7 +27,7 @@ import {
     CheckBox as CheckBoxIcon,
 } from "@mui/icons-material";
 
-const DropdownCategoriaServicio = ({
+const DropdownCategoriasSecundarias = ({
     id,
     value,
     name,
@@ -41,7 +41,7 @@ const DropdownCategoriaServicio = ({
 }) => {
     const { data, refreshGetData } = useGetListas({
         strGrupo: "Empresa",
-        strCodigo: "CategoriaServicio",
+        strCodigo: "CategoriasSecundarias",
     });
 
     if (!data) {
@@ -61,7 +61,7 @@ const DropdownCategoriaServicio = ({
                         onClick={() => {
                             refreshGetData({
                                 strGrupo: "Empresa",
-                                strCodigo: "CategoriaServicio",
+                                strCodigo: "CategoriasSecundarias",
                             });
                         }}
                         size="large">
@@ -74,7 +74,7 @@ const DropdownCategoriaServicio = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos de las categorías de servicios.
+                Ha ocurrido un error al obtener los datos del listado "Categorías Secundarias".
             </Alert>
         );
     }
@@ -88,7 +88,7 @@ const DropdownCategoriaServicio = ({
             clearText="Borrar"
             openText="Abrir"
             closeText="Cerrar"
-            noOptionsText="Categoría de servicio no encontrada."
+            noOptionsText="Valor no encontrado."
             disabled={disabled}
             fullWidth
             multiple={multiple}
@@ -149,4 +149,4 @@ const DropdownCategoriaServicio = ({
     );
 };
 
-export default DropdownCategoriaServicio;
+export default DropdownCategoriasSecundarias;

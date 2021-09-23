@@ -23,7 +23,6 @@ import {
     Avatar,
     IconButton,
     Typography,
-    Container,
     Box,
     adaptV4Theme,
     useTheme,
@@ -62,46 +61,32 @@ const mainStyles = makeStyles((theme) => ({
         width: "30px",
         height: "30px",
     },
-    appBar: {
-        transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarMenuActive: {
-        [theme.breakpoints.up("sm")]: {
-            width: `calc(100% - 12rem)`,
-            marginLeft: "12rem",
-            transition: theme.transitions.create(["margin", "width"], {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-        },
-    },
+    appBar: {},
+    appBarMenuActive: {},
 
     main: {
-        display: "flex",
+        display: "block",
         position: "relative",
         flexGrow: 1,
         top: "80px",
-        transition: theme.transitions.create("margin", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: "0",
+        margin: "0 25px 0 25px",
+        [theme.breakpoints.down("sm")]: {
+            margin: "0px",
+            paddingRight: "10px",
+            paddingLeft: "10px",
+        },
     },
 
     mainMenuActive: {
         top: "80px",
-        display: "flex",
+        display: "block",
         position: "relative",
+        margin: "0 25px 0 25px",
         flexGrow: 1,
-        [theme.breakpoints.up("sm")]: {
-            transition: theme.transitions.create("margin", {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            marginLeft: "18rem",
+        [theme.breakpoints.down("sm")]: {
+            margin: "0px",
+            paddingRight: "10px",
+            paddingLeft: "10px",
         },
     },
 
@@ -151,7 +136,6 @@ const Main = ({ children }) => {
             return;
         }
 
-        localStorage.setItem("bitMenuDrawer", flag);
         setOpenMenu(flag);
     }, []);
 
@@ -334,7 +318,7 @@ const Main = ({ children }) => {
             </StyledEngineProvider>
 
             <main className={!openMenu ? classes.main : classes.mainMenuActive}>
-                <Container>{children}</Container>
+                {children}
             </main>
         </Fragment>
     );

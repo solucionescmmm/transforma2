@@ -18,7 +18,7 @@ import {
 //Iconos
 import { Refresh as RefreshIcon } from "@mui/icons-material";
 
-const SelectEstadoEmpresario = ({
+const SelectGenero = ({
     label,
     name,
     value,
@@ -30,7 +30,7 @@ const SelectEstadoEmpresario = ({
 }) => {
     const { data, refreshGetData } = useGetListas({
         strGrupo: "Empresarios",
-        strCodigo: "EstadoEmpresario",
+        strCodigo: "Genero",
     });
 
     if (data === undefined) {
@@ -50,7 +50,7 @@ const SelectEstadoEmpresario = ({
                         onClick={() => {
                             refreshGetData({
                                 strGrupo: "Empresarios",
-                                strCodigo: "EstadoEmpresario",
+                                strCodigo: "Sexo",
                             });
                         }}
                         size="large">
@@ -63,7 +63,7 @@ const SelectEstadoEmpresario = ({
                 <AlertTitle>
                     <b>Sin datos</b>
                 </AlertTitle>
-                No existen datos de los tipos de estados de empresarios.
+                No existen datos de tipos de sexo.
             </Alert>
         );
     }
@@ -77,7 +77,7 @@ const SelectEstadoEmpresario = ({
                         onClick={() => {
                             refreshGetData({
                                 strGrupo: "Empresarios",
-                                strCodigo: "EstadoEmpresario",
+                                strCodigo: "Sexo",
                             });
                         }}
                         size="large">
@@ -90,8 +90,7 @@ const SelectEstadoEmpresario = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos de los tipos de estados de
-                empresarios.
+                Ha ocurrido un error al obtener los datos de tipos de sexo.
             </Alert>
         );
     }
@@ -119,4 +118,4 @@ const SelectEstadoEmpresario = ({
     );
 };
 
-export default SelectEstadoEmpresario;
+export default SelectGenero;

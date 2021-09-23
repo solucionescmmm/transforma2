@@ -7,7 +7,7 @@ import useGetEmpresarios from "../../hooks/useGetEmpresarios";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 
 //Componentes de Material UI
-import { Grid, Breadcrumbs, Link, Typography, Avatar } from "@mui/material";
+import { Grid, Breadcrumbs, Link, Typography, Avatar, Box, Button } from "@mui/material";
 
 import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
 
@@ -36,6 +36,7 @@ import {
 
 //Table Material UI
 import MaterialTable from "@material-table/core";
+import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import PanelEmpresarios from "../../components/panelEmpresarios";
@@ -56,7 +57,7 @@ const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
-            title: "Foto",
+            title: "",
             render: (rowData) => (
                 <Avatar
                     alt={rowData.strNombres + rowData.strApellidos}
@@ -78,7 +79,7 @@ const ReadSolicitudesUser = () => {
             defaultSort: "desc",
         },
         {
-            title: "NIT",
+            title: "Documento",
             field: "strNroDocto",
             type: "string",
         },
@@ -162,6 +163,13 @@ const ReadSolicitudesUser = () => {
                                             },
                                         },
                                     },
+                                    MuiTableCell: {
+                                        styleOverrides: {
+                                            root: {
+                                                padding: "5px",
+                                            },
+                                        },
+                                    },
                                 },
                             })}
                         >
@@ -234,7 +242,7 @@ const ReadSolicitudesUser = () => {
                                     grouping: true,
                                     title: true,
                                     filtering: true,
-                                    search: true,
+                                    search: false,
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -245,16 +253,9 @@ const ReadSolicitudesUser = () => {
                                     detailPanelColumnStylele: {
                                         fontSize: 12,
                                     },
-                                    maxBodyHeight: "420px",
+                                    maxBodyHeight: "520px",
                                 }}
                                 actions={[
-                                    {
-                                        icon: () => <AddBoxIcon color="success" />,
-                                        tooltip: "Registrar empresario",
-                                        isFreeAction: true,
-                                        onClick: () =>
-                                            push("/transforma/asesor/empresario/create"),
-                                    },
                                     {
                                         icon: RefreshIcon,
                                         tooltip: "Refrescar datos",
@@ -266,6 +267,30 @@ const ReadSolicitudesUser = () => {
                                     push(
                                         `/transforma/asesor/empresario/read/${rowData.intId}`
                                     );
+                                }}
+                                components={{
+                                    Toolbar: (props) => (
+                                        <div>
+                                            <MTableToolbar {...props} />
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    flexDirection: "row-reverse",
+                                                    padding: "10px",
+                                                }}
+                                            >
+                                                <Button
+                                                    onClick={() =>
+                                                        push(
+                                                            "/transforma/asesor/empresario/create"
+                                                        )
+                                                    }
+                                                >
+                                                    Agregar persona empresaria
+                                                </Button>
+                                            </Box>
+                                        </div>
+                                    ),
                                 }}
                             />
                         </ThemeProvider>

@@ -16,6 +16,14 @@ import {
     Tooltip,
     Alert,
     AlertTitle,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    DialogContentText,
+    Dialog,
+    Button,
+    useTheme,
+    useMediaQuery,
 } from "@mui/material";
 
 import { DatePicker } from "@mui/lab";
@@ -31,40 +39,65 @@ import {
 
 //Componentes
 import SelectTipoDocumento from "../../components/selectTipoDocumento";
-import SelectSexo from "../../components/selectSexo";
+import SelectGenero from "../../components/selectGenero";
+import SelectTipoRelacion from "../../components/selectTipoRelacion";
 
 const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }) => {
+    //===============================================================================================================================================
+    //========================================== Declaracion de estados =============================================================================
+    //===============================================================================================================================================
     const [data, setData] = useState({
         Id: null,
-        strNombresApellidos: "",
+        strTipoRelacion: "",
+        strNombres: "",
+        strApellidos: "",
         strTipoDocto: "",
         strNroDocto: "",
         strLugarExpedicionDocto: "",
         dtFechaExpedicionDocto: null,
         dtFechaNacimiento: null,
-        strSexo: "",
+        strGenero: "",
         strCelular: "",
         strCorreoElectronico: "",
     });
 
     const [loading, setLoading] = useState(true);
     const [openCollapese, setOpenCollapse] = useState(true);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
 
+    //===============================================================================================================================================
+    //========================================== Hooks personalizados ===============================================================================
+    //===============================================================================================================================================
+    const theme = useTheme();
+    const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+    //===============================================================================================================================================
+    //========================================== Funciones ==========================================================================================
+    //===============================================================================================================================================
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
     };
 
+    const handlerChangeOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
+
+    //===============================================================================================================================================
+    //========================================== useEffects =========================================================================================
+    //===============================================================================================================================================
     useEffect(() => {
         if (values) {
             setData({
                 Id: values.intId || values.strId || null,
-                strNombresApellidos: values.strNombresApellidos || "",
+                strTipoRelacion: values.strTipoRelacion || "",
+                strNombres: values.strNombres || "",
+                strApellidos: values.strApellidos || "",
                 strTipoDocto: values.strTipoDocto || "",
                 strNroDocto: values.strNroDocto || "",
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || "",
                 dtFechaExpedicionDocto: values.dtFechaExpedicionDocto || null,
                 dtFechaNacimiento: values.dtFechaNacimiento || null,
-                strSexo: values.strSexo || "",
+                strGenero: values.strGenero || "",
                 strCelular: values.strCelular || "",
                 strCorreoElectronico: values.strCorreoElectronico || "",
             });
@@ -73,6 +106,9 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
         setLoading(false);
     }, [values]);
 
+    //===============================================================================================================================================
+    //========================================== Renders ============================================================================================
+    //===============================================================================================================================================
     if (loading) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
@@ -103,8 +139,8 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                         <AlertTitle>
                             <b>Se esperaba un identificador</b>
                         </AlertTitle>
-                        Ha ocurrido un error al renderizar el formulario de empresarios
-                        secundarios.
+                        Ha ocurrido un error al renderizar el formulario de personas
+                        empresarias secundarias.
                     </Alert>
                 </Box>
 
@@ -135,6 +171,48 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                 marginBottom: "15px",
             }}
         >
+            <Box>
+                <Dialog
+                    fullScreen={bitMobile}
+                    open={openModalDelete}
+                    onClose={handlerChangeOpenModalDelete}
+                    fullWidth
+                    PaperProps={{
+                        style: {
+                            backgroundColor: "#FDEDED",
+                        },
+                    }}
+                >
+                    <DialogTitle>{`¿Deseas eliminar la información de la persona empresaria secundaria #${index+1}?`}</DialogTitle>
+
+                    <DialogContent>
+                        <DialogContentText>
+                            El proceso es irreversible, recuerde que, al aceptar, no podrá
+                            recuperar la información, a excepción de que no guarde los cambios efectuados.
+                        </DialogContentText>
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button
+                            onClick={() => handlerChangeOpenModalDelete()}
+                            color="inherit"
+                        >
+                            cancelar
+                        </Button>
+
+                        <Button
+                            onClick={() => {
+                                remove(index);
+                                handlerChangeOpenModalDelete();
+                            }}
+                            color="error"
+                        >
+                            Aceptar
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </Box>
+
             <Box sx={{ flexGrow: 1 }}>
                 <Paper
                     style={{
@@ -155,11 +233,14 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                 flexGrow: 1,
                             }}
                         >
-                            <p>{`Empresario secundario #${index + 1}`}</p>
+                            <p>{`Persona empresaria secundaria #${index + 1}`}</p>
                         </Box>
 
                         <Box>
-                            <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                            <IconButton
+                                onClick={() => handlerChangeOpenCollapse()}
+                                size="large"
+                            >
                                 <Tooltip
                                     title={
                                         openCollapese
@@ -181,11 +262,42 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12}>
                                 <Controller
-                                    defaultValue={data.strNombresApellidos}
-                                    name={`arrInfoEmpresarioSec[${index}].strNombresApellidos`}
+                                    defaultValue={data.strTipoRelacion}
+                                    name={`arrInfoEmpresarioSec[${index}].strTipoRelacion`}
+                                    render={({ field: { name, value, onChange } }) => (
+                                        <SelectTipoRelacion
+                                            label="Tipo de relación con la persona principal"
+                                            name={name}
+                                            value={value}
+                                            onChange={(e) => onChange(e)}
+                                            disabled={disabled}
+                                            required
+                                            error={
+                                                !!errors?.arrInfoEmpresarioSec?.[index]
+                                                    ?.strTipoRelacion
+                                            }
+                                            helperText={
+                                                errors?.arrInfoEmpresarioSec?.[index]
+                                                    ?.strTipoRelacion?.message ||
+                                                "Selecciona la relación que tiene con la persona principal."
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, selecciona la relación que tiene con la persona principal.",
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} md={6}>
+                                <Controller
+                                    defaultValue={data.strNombres}
+                                    name={`arrInfoEmpresarioSec[${index}].strNombres`}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
-                                            label="Nombres y Apellidos"
+                                            label="Nombres"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
@@ -195,26 +307,68 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             required
                                             error={
                                                 !!errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.strNombresApellidos
+                                                    ?.strNombres
                                             }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.strNombresApellidos?.message ||
-                                                "Digita los nombres y apellidos del empresario."
+                                                    ?.strNombres?.message ||
+                                                "Digita los nombres de la persona."
                                             }
                                         />
                                     )}
                                     control={control}
                                     rules={{
                                         required:
-                                            "Por favor, digita los nombres y apellidos del empresario",
+                                            "Por favor, digita los nombres de la persona.",
                                         validate: (value) => {
                                             if (
                                                 !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
                                                     value
                                                 )
                                             ) {
-                                                return "Los nombres y apellidos no pueden contener números ni caracteres especiales.";
+                                                return "Los nombres no pueden contener números ni caracteres especiales.";
+                                            }
+                                        },
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} md={6}>
+                                <Controller
+                                    defaultValue={data.strApellidos}
+                                    name={`arrInfoEmpresarioSec[${index}].strApellidos`}
+                                    render={({ field: { name, onChange, value } }) => (
+                                        <TextField
+                                            label="Apellidos"
+                                            name={name}
+                                            value={value}
+                                            disabled={disabled}
+                                            onChange={(e) => onChange(e)}
+                                            fullWidth
+                                            variant="standard"
+                                            required
+                                            error={
+                                                !!errors?.arrInfoEmpresarioSec?.[index]
+                                                    ?.strApellidos
+                                            }
+                                            helperText={
+                                                errors?.arrInfoEmpresarioSec?.[index]
+                                                    ?.strApellidos?.message ||
+                                                "Digita apellidos de la persona."
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, digita apellidos de la persona",
+                                        validate: (value) => {
+                                            if (
+                                                !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
+                                                    value
+                                                )
+                                            ) {
+                                                return "Los apellidos no pueden contener números ni caracteres especiales.";
                                             }
                                         },
                                     }}
@@ -240,7 +394,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strTipoDocto?.message ||
-                                                "Selecciona el tipo de documento del empresario."
+                                                "Selecciona el tipo de documento de la persona."
                                             }
                                         />
                                     )}
@@ -269,7 +423,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strTipoDocto?.message ||
-                                                "Selecciona el tipo de documento del empresario."
+                                                "Selecciona el tipo de documento de la persona."
                                             }
                                         />
                                     )}
@@ -297,7 +451,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strLugarExpedicionDocto?.message ||
-                                                "Digita el lugar de expedición del documento del empresario."
+                                                "Digita el lugar de expedición del documento de la persona."
                                             }
                                         />
                                     )}
@@ -331,7 +485,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                                             index
                                                         ]?.dtFechaExpedicionDocto
                                                             ?.message ||
-                                                        "Digita el lugar de expedición del documento del empresario."
+                                                        "Digita el lugar de expedición del documento de la persona."
                                                     }
                                                 />
                                             )}
@@ -366,7 +520,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                                         errors?.arrInfoEmpresarioSec?.[
                                                             index
                                                         ]?.dtFechaNacimiento?.message ||
-                                                        "Seleccione la fecha de nacimiento del empresario."
+                                                        "Selecciona la fecha de nacimiento de la persona."
                                                     }
                                                 />
                                             )}
@@ -378,23 +532,23 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
 
                             <Grid item xs={12} md={6}>
                                 <Controller
-                                    defaultValue={data.strSexo}
-                                    name={`arrInfoEmpresarioSec[${index}].strSexo`}
+                                    defaultValue={data.strGenero}
+                                    name={`arrInfoEmpresarioSec[${index}].strGenero`}
                                     render={({ field: { name, value, onChange } }) => (
-                                        <SelectSexo
-                                            label="Sexo del empresario"
+                                        <SelectGenero
+                                            label="Género"
                                             name={name}
                                             value={value}
                                             onChange={(e) => onChange(e)}
                                             disabled={disabled}
                                             error={
                                                 !!errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.strSexo
+                                                    ?.strGenero
                                             }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
-                                                    ?.strSexo?.message ||
-                                                "Seleccione el sexo del empresario."
+                                                    ?.strGenero?.message ||
+                                                "Selecciona el genéro de la persona."
                                             }
                                         />
                                     )}
@@ -424,7 +578,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strCelular?.message ||
-                                                "Digita el número celular del empresario."
+                                                "Digita el número celular de la persona."
                                             }
                                         />
                                     )}
@@ -468,7 +622,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strCorreoElectronico?.message ||
-                                                "Digita el correo electrónico del empresario."
+                                                "Digita el correo electrónico de la persona."
                                             }
                                         />
                                     )}
@@ -490,7 +644,11 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
             </Box>
 
             <Box>
-                <IconButton color="error" onClick={() => remove(index)} size="large">
+                <IconButton
+                    color="error"
+                    onClick={() => handlerChangeOpenModalDelete()}
+                    size="large"
+                >
                     <Tooltip title="Eliminar">
                         <DeleteIcon />
                     </Tooltip>

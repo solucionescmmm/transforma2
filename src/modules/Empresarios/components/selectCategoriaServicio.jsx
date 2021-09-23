@@ -5,66 +5,41 @@ import useGetListas from "../hooks/useGetListas";
 
 //Componentes de Material UI
 import {
-    TextField,
     MenuItem,
+    TextField,
     Box,
     CircularProgress,
     Alert,
     AlertTitle,
-    IconButton,
     Tooltip,
+    IconButton,
 } from "@mui/material";
 
 //Iconos
 import { Refresh as RefreshIcon } from "@mui/icons-material";
 
-const SelectTipoEmpresario = ({
-    label,
-    name,
+const SelectCategoriaServicio = ({
+    id,
     value,
+    name,
     onChange,
+    disabled,
     error,
     helperText,
-    disabled,
+    label,
+    multiple,
     required,
 }) => {
     const { data, refreshGetData } = useGetListas({
-        strGrupo: "Empresarios",
-        strCodigo: "TipoEmpresario",
+        strGrupo: "Empresa",
+        strCodigo: "CategoriaServicio",
     });
 
-    if (data === undefined) {
+    if (!data) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
                 <CircularProgress size={30} />
             </Box>
-        );
-    }
-
-    if (data === null) {
-        return (
-            <Alert
-                severity="info"
-                action={
-                    <IconButton
-                        onClick={() => {
-                            refreshGetData({
-                                strGrupo: "Empresarios",
-                                strCodigo: "TipoEmpresario",
-                            });
-                        }}
-                        size="large">
-                        <Tooltip title="Refrescar">
-                            <RefreshIcon />
-                        </Tooltip>
-                    </IconButton>
-                }
-            >
-                <AlertTitle>
-                    <b>Sin datos</b>
-                </AlertTitle>
-                No existen datos de los tipos de empresarios.
-            </Alert>
         );
     }
 
@@ -76,11 +51,12 @@ const SelectTipoEmpresario = ({
                     <IconButton
                         onClick={() => {
                             refreshGetData({
-                                strGrupo: "Empresarios",
-                                strCodigo: "TipoEmpresario",
+                                strGrupo: "Empresa",
+                                strCodigo: "CategoriaServicio",
                             });
                         }}
-                        size="large">
+                        size="large"
+                    >
                         <Tooltip title="Refrescar">
                             <RefreshIcon />
                         </Tooltip>
@@ -90,7 +66,7 @@ const SelectTipoEmpresario = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos de los tipos de empresarios.
+                Ha ocurrido un error al obtener los datos de las categorías de servicios.
             </Alert>
         );
     }
@@ -118,4 +94,4 @@ const SelectTipoEmpresario = ({
     );
 };
 
-export default SelectTipoEmpresario;
+export default SelectCategoriaServicio;

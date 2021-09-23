@@ -27,12 +27,16 @@ import {
 
 //Componentes
 import Dropzone from "../../../../common/components/dropzone";
-import SelectUnidadOperativa from "../../components/selectUnidadOperativa";
+import SelectLugarOperacion from "../../components/selectLugarOperacion";
 import SelectSectorEconomico from "../../components/selectSectorEconomico";
 import SelectCategoriaProducto from "../../components/selectCategoriaProducto";
-import DropdownCategoriaServicio from "../../components/dropdownCategoriaServicio";
+import SelectCategoriaServicio from "../../components/selectCategoriaServicio";
 import ModalMediosVetanProductos from "../../components/modalMediosVentaProductos";
 import ModalMediosDigitales from "../../components/modalMediosDigitales";
+import SelectTiempoDedicacionEmpresa from "../../components/selectTiempoDedicacionEmpresa";
+import DropdownCategoriasSecundarias from "../../components/dropdownCategoriasSecundarias";
+import SelectCuandoComienzaEmpresa from "../../components/selectCuandoComienzaEmpresa";
+import ModalDireccionResidencia from "../../components/modalDireccionResidencia";
 
 const InfoEmpresa = ({
     disabled,
@@ -48,31 +52,41 @@ const InfoEmpresa = ({
 
     const [data, setData] = useState({
         strURLFileLogoEmpresa: null,
+        strEstadoNegocio: "",
+        strCuandoComienzaEmpresa: "",
         strNombreMarca: "",
         dtFechaFundacion: null,
-        strUnidadProdOperacion: "",
-        strDireccion: "",
-        strMunicipio: "",
+        strLugarOperacion: "",
+        strDireccionResidencia: "",
+        strDepartamento: "",
+        strCiudad: "",
         strBarrio: "",
+        strEstrato: "",
         strSectorEconomico: "",
-        intEstrato: "",
         strCategoriaProducto: "",
-        strOtraCategoriaProducto: "",
-        arrCategoriaServicio: [],
+        strCategoriaServicio: "",
+        arrCategoriasSecundarias: [],
+        strOtraCategoria: "",
+        strDescProductosServicios: "",
+        strMateriaPrima: "",
+        strNombreTecnica: "",
+        strTiempoDedicacion: "",
         btGeneraEmpleo: "",
         intNumeroEmpleados: "",
-        valorVentasMes: "",
-        arrMediosUtilizadosVentas: [],
+        dblValorVentasMes: "",
+        arrFormasComercializacion: [],
         arrMediosDigitales: [],
+        btGrupoAsociativo: "",
+        strAsociacionUnidadProdIndividual: "",
     });
 
-    const [openCollapese, setOpenCollapse] = useState(true);
+    const [openCollapese, setOpenCollapse] = useState(false);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
     };
 
-    const handlderChangeData = (name, value) => {
+    const handlerChangeData = (name, value) => {
         setData((prevState) => ({
             ...prevState,
             [name]: value,
@@ -81,13 +95,7 @@ const InfoEmpresa = ({
 
     useEffect(() => {
         if (values && isEdit) {
-            setData({
-                intIdEspacioJornada: values.intIdEspacioJornada || "",
-                intIdEstado: values.intIdEstado || "",
-                intIdSede: values.intIdSede || "",
-                intIdTipoEmpresario: values.intIdTipoEmpresario || "",
-                dtFechaVinculacion: values.dtFechaVinculacion || null,
-            });
+            setData({});
         }
 
         setLoading(false);
@@ -169,11 +177,86 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
+                            defaultValue={data.strEstadoNegocio}
+                            name="objInfoEmprendimiento.strEstadoNegocio"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Estado del negocio"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    select
+                                    variant="standard"
+                                    fullWidth
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoEmprendimiento?.strEstadoNegocio
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.strEstadoNegocio?.message ||
+                                        "Selecciona una opción."
+                                    }
+                                >
+                                    <MenuItem value="Idea de negocio">
+                                        Idea de negocio
+                                    </MenuItem>
+                                    <MenuItem value="Negocio con ventas realizadas">
+                                        Negocio con ventas realizadas
+                                    </MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (value === "" || value === undefined) {
+                                        return "Por favor, selecciona una opción.";
+                                    }
+                                },
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strCuandoComienzaEmpresa}
+                            name="objInfoEmprendimiento.strCuandoComienzaEmpresa"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectCuandoComienzaEmpresa
+                                    label="Si aún no ha comenzado su empresa ¿Cuándo planea comenzar?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strCuandoComienzaEmpresa
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strCuandoComienzaEmpresa?.message ||
+                                        "Selecciona una opción."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción.",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
                             defaultValue={data.strNombreMarca}
                             name="objInfoEmpresa.strNombreMarca"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Nombre de la marca"
+                                    label="Nombre de la empresa"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -188,13 +271,13 @@ const InfoEmpresa = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa?.strNombreMarca?.message ||
-                                        "Digita el nombre de la marca."
+                                        "Digita el nombre de la empresa."
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el nombre de la marca.",
+                                required: "Por favor, digita el nombre de la empresa.",
                             }}
                         />
                     </Grid>
@@ -239,24 +322,24 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strUnidadProdOperacion}
-                            name="objInfoEmpresa.strUnidadProdOperacion"
+                            defaultValue={data.strLugarOperacion}
+                            name="objInfoEmpresa.strLugarOperacion"
                             render={({ field: { name, value, onChange } }) => (
-                                <SelectUnidadOperativa
-                                    label="Unidad productiva de la empresa"
+                                <SelectLugarOperacion
+                                    label="Lugar de operación de la empresa"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.strUnidadProdOperacion
+                                        errors?.objInfoEmpresa?.strLugarOperacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strUnidadProdOperacion
+                                        errors?.objInfoEmpresa?.strLugarOperacion
                                             ?.message ||
-                                        "Selecciona el lugar donde opera la unidad productiva de la empresa."
+                                        "Selecciona el lugar donde opera la empresa."
                                     }
                                     required
                                 />
@@ -271,10 +354,10 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strDireccion}
-                            name="objInfoEmpresa.strDireccion"
+                            defaultValue={data.strDireccionResidencia}
+                            name="objInfoEmpresa.strDireccionResidencia"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <ModalDireccionResidencia
                                     label="Dirección de la empresa"
                                     name={name}
                                     value={value}
@@ -283,13 +366,13 @@ const InfoEmpresa = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresa?.strDireccion
+                                        errors?.objInfoEmpresa?.strDireccionResidencia
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strDireccion?.message ||
-                                        "Digite la dirección de la empresa."
+                                        errors?.objInfoEmpresa?.strDireccionResidencia?.message ||
+                                        "Digita la dirección de la empresa."
                                     }
                                 />
                             )}
@@ -298,12 +381,16 @@ const InfoEmpresa = ({
                     </Grid>
 
                     <Grid item xs={12} md={6}>
+                        <div>Departamento</div>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strMunicipio}
-                            name="objInfoEmpresa.strMunicipio"
+                            defaultValue={data.strCiudad}
+                            name="objInfoEmpresa.strCiudad"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Municipio de la empresa"
+                                    label="Ciudad"
                                     disabled={disabled}
                                     name={name}
                                     value={value}
@@ -311,13 +398,13 @@ const InfoEmpresa = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresa?.strMunicipio
+                                        errors?.objInfoEmpresa?.strCiudad
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strMunicipio?.message ||
-                                        "Digite el municipio de la empresa."
+                                        errors?.objInfoEmpresa?.strCiudad?.message ||
+                                        "Seleccione la ciudad de ubicación de la empresa."
                                     }
                                 />
                             )}
@@ -343,7 +430,7 @@ const InfoEmpresa = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa?.strBarrio?.message ||
-                                        "Digite el Barrio/Corregimiento/Vereda de la empresa."
+                                        "Digita el Barrio/Corregimiento/Vereda de la empresa."
                                     }
                                 />
                             )}
@@ -352,6 +439,51 @@ const InfoEmpresa = ({
                     </Grid>
 
                     <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strEstrato}
+                            name="objInfoEmpresa.strEstrato"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Estrato socioeconómico de la empresa"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    select
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmpresa?.strEstrato ? true : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strEstrato?.message ||
+                                        "Selecciona el estrato socioeconómico de la empresa"
+                                    }
+                                >
+                                    {(() => {
+                                        let arrItem = [
+                                            { value: 1 },
+                                            { value: 2 },
+                                            { value: 3 },
+                                            { value: 4 },
+                                            { value: 5 },
+                                            { value: 6 },
+                                            { value: "Rural" },
+                                        ];
+
+                                        return arrItem.map((e, i) => (
+                                            <MenuItem key={i} value={e.value}>
+                                                {e.value}
+                                            </MenuItem>
+                                        ));
+                                    })()}
+                                </TextField>
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strSectorEconomico}
                             name="objInfoEmpresa.strSectorEconomico"
@@ -385,58 +517,20 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.intEstrato}
-                            name="objInfoEmpresa.intEstrato"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Estrato socioeconómico de la empresa"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    select
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmpresa?.intEstrato ? true : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmpresa?.intEstrato?.message ||
-                                        "Seleccione el estrato socioeconómico de la empresa"
-                                    }
-                                >
-                                    {(() => {
-                                        return [...Array(6)].map((e, i) => (
-                                            <MenuItem key={i} value={i + 1}>
-                                                {i + 1}
-                                            </MenuItem>
-                                        ));
-                                    })()}
-                                </TextField>
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
                             defaultValue={data.strCategoriaProducto}
                             name="objInfoEmpresa.strCategoriaProducto"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectCategoriaProducto
-                                    label="Categoría de producto"
+                                    label="Categoría de los productos"
                                     name={name}
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e);
-                                        handlderChangeData(
+                                        handlerChangeData(
                                             "strCategoriaProducto",
                                             e.target.value
                                         );
-                                        setValue(
-                                            "objInfoEmpresa.strOtraCategoriaProducto",
-                                            ""
-                                        );
+                                        setValue("objInfoEmpresa.strOtraCategoria", "");
                                     }}
                                     disabled={disabled}
                                     error={
@@ -447,91 +541,221 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strCategoriaProducto
                                             ?.message ||
-                                        "Selecciona la categoría del producto."
+                                        "Selecciona la categoría de los productos."
                                     }
                                     required
                                 />
                             )}
                             control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona la categoría del producto.",
-                            }}
                         />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strOtraCategoriaProducto}
-                            name="objInfoEmpresa.strOtraCategoriaProducto"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Otro ¿cuál?"
-                                    name={name}
-                                    value={value}
-                                    disabled={
-                                        data.strCategoriaProducto !== "Otro"
-                                            ? true
-                                            : disabled
-                                    }
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmpresa?.strOtraCategoriaProducto
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmpresa?.strOtraCategoriaProducto
-                                            ?.message ||
-                                        "En caso de que aplique, digita cual seria la otra categoría del producto."
-                                    }
-                                    required={
-                                        data.strCategoriaProducto === "Otro"
-                                            ? true
-                                            : false
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (data.strCategoriaProducto === "Otro") {
-                                        if (value === "" || value === undefined) {
-                                            return "Por favor, digita cual seria la otra categoría del producto.";
-                                        }
-                                    }
-                                },
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.arrCategoriaServicio}
-                            name="objInfoEmpresa.arrCategoriaServicio"
+                            defaultValue={data.strCategoriaServicio}
+                            name="objInfoEmpresa.strCategoriaServicio"
                             render={({ field: { name, onChange, value } }) => (
-                                <DropdownCategoriaServicio
-                                    label="Categoría de servicio"
+                                <SelectCategoriaServicio
+                                    label="Categoría de los servicios"
                                     name={name}
                                     vlaue={value}
                                     onChange={(e, value) => onChange(value)}
-                                    multiple
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.arrCategoriaServicio
+                                        errors?.objInfoEmpresa?.strCategoriaServicio
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.arrCategoriaServicio
+                                        errors?.objInfoEmpresa?.strCategoriaServicio
                                             ?.message ||
                                         "Selecciona la categoría del servicio."
                                     }
                                 />
                             )}
                             control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoEmpresa.arrCategoriasSecundarias"
+                            defaultValue={data.arrCategoriasSecundarias}
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownCategoriasSecundarias
+                                    label="Categorías secundarias"
+                                    name={name}
+                                    vlaue={value}
+                                    onChange={(e, value) => onChange(value)}
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmpresa?.strCategoriaServicio
+                                            ? true
+                                            : false
+                                    }
+                                    multiple
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strCategoriaServicio
+                                            ?.message ||
+                                        "Selecciona las categorías secundarias en caso de que aplique."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strOtraCategoria}
+                            name="objInfoEmpresa.strOtraCategoria"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Otra categoría ¿cuál?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmpresa?.strOtraCategoria
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strOtraCategoria
+                                            ?.message ||
+                                        "En caso de que aplique, digita cual seria la otra categoría del producto o servicio."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strDescProductosServicios}
+                            name="objInfoEmprendimiento.strDescProductosServicios"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Describe los productos o servicios que ofrece"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="outlined"
+                                    required
+                                    multiline
+                                    rows={4}
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strDescProductosServicios
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strDescProductosServicios?.message ||
+                                        "Describe detalladamente los servicios que ofrece la empresa."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, describe detalladamente los servicios que ofrece la empresa.",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strMateriaPrima}
+                            name="objInfoEmprendimiento.strMateriaPrima"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Materias primas utilizadas"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="outlined"
+                                    multiline
+                                    rows={4}
+                                    error={
+                                        errors?.objInfoEmprendimiento?.strMateriaPrima
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento?.strMateriaPrima
+                                            ?.message ||
+                                        "Describe detalladamente los materias primas que utiliza."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strNombreTecnica}
+                            name="objInfoEmprendimiento.strNombreTecnica"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Nombre de la técnica utilizada"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="outlined"
+                                    multiline
+                                    rows={4}
+                                    error={
+                                        errors?.objInfoEmprendimiento?.strNombreTecnica
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento?.strNombreTecnica
+                                            ?.message ||
+                                        "Describe detalladamente la técnica que utiliza."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strTiempoDedicacion}
+                            name="objInfoEmprendimiento.strTiempoDedicacion"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectTiempoDedicacionEmpresa
+                                    label="Tiempo de dedicación actual a la idea o negocio"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoEmprendimiento?.strTiempoDedicacion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento?.strTiempoDedicacion
+                                            ?.message || "Selecciona una opción."
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción.",
+                            }}
                         />
                     </Grid>
 
@@ -546,7 +770,10 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e);
-                                        handlderChangeData(e.target.name, e.target.value);
+                                        handlerChangeData(
+                                            "btGeneraEmpleo",
+                                            e.target.value
+                                        );
                                         setValue("objInfoEmpresa.intNumeroEmpleados", "");
                                     }}
                                     select
@@ -564,7 +791,7 @@ const InfoEmpresa = ({
                                         "Selecciona si la empresa genera empleo o no."
                                     }
                                 >
-                                    <MenuItem value={true}>Si</MenuItem>
+                                    <MenuItem value={true}>Sí</MenuItem>
                                     <MenuItem value={false}>No</MenuItem>
                                 </TextField>
                             )}
@@ -589,10 +816,10 @@ const InfoEmpresa = ({
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
-                                    type="numeric"
+                                    type="number"
                                     fullWidth
                                     variant="standard"
-                                    disabled={data.btGeneraEmpleo ? false : disabled}
+                                    disabled={!data.btGeneraEmpleo ? true : disabled}
                                     required={data.btGeneraEmpleo ? true : false}
                                     error={
                                         errors?.objInfoEmpresa?.intNumeroEmpleados
@@ -627,8 +854,8 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.valorVentasMes}
-                            name="objInfoEmpresa.valorVentasMes"
+                            defaultValue={data.dblValorVentasMes}
+                            name="objInfoEmpresa.dblValorVentasMes"
                             render={({ field: { name, value, onChange } }) => (
                                 <NumberFormat
                                     label="Valor promedio de las ventas mensuales"
@@ -644,12 +871,12 @@ const InfoEmpresa = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmpresa?.valorVentasMes
+                                        errors?.objInfoEmpresa?.dblValorVentasMes
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.valorVentasMes?.message ||
+                                        errors?.objInfoEmpresa?.dblValorVentasMes?.message ||
                                         "Digita la cantidad promedio de las ventas mensuales."
                                     }
                                 />
@@ -662,26 +889,26 @@ const InfoEmpresa = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.arrMediosUtilizadosVentas}
-                            name="objInfoEmpresa.arrMediosUtilizadosVentas"
+                            defaultValue={data.arrFormasComercializacion}
+                            name="objInfoEmpresa.arrFormasComercializacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <ModalMediosVetanProductos
-                                    label="Medios que utilice para la venta de sus productos o servicios"
+                                    label="Formas de comercialización"
                                     name={name}
                                     value={value}
                                     onChange={(value) => onChange(value)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.arrMediosUtilizadosVentas
+                                        errors?.objInfoEmpresa?.arrFormasComercializacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.arrMediosUtilizadosVentas
+                                        errors?.objInfoEmpresa?.arrFormasComercializacion
                                             ?.message ||
-                                        "Seleccione los medios que utilice para la venta de sus productos o servicios."
+                                        "Selecciona los medios que utilice para la venta de sus productos o servicios."
                                     }
                                 />
                             )}
@@ -689,7 +916,7 @@ const InfoEmpresa = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.arrMediosDigitales}
                             name="objInfoEmpresa.arrMediosDigitales"
@@ -708,11 +935,100 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.arrMediosDigitales
                                             ?.message ||
-                                        "Seleccione los medios digitales que utilice y coloque su ID."
+                                        "Selecciona los medios digitales que utilice y coloque su ID."
                                     }
                                 />
                             )}
                             control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.btGrupoAsociativo}
+                            name="objInfoEmprendimiento.btGrupoAsociativo"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Pertenece algún grupo asociativo?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        handlerChangeData(
+                                            "btGrupoAsociativo",
+                                            e.target.value
+                                        );
+                                        setValue(
+                                            "objInfoEmprendimiento.strAsociacionUnidadProdIndividual",
+                                            ""
+                                        );
+                                    }}
+                                    select
+                                    variant="standard"
+                                    fullWidth
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmprendimiento?.btGrupoAsociativo
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento?.btGrupoAsociativo
+                                            ?.message || "Selecciona una opción."
+                                    }
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strAsociacionUnidadProdIndividual}
+                            name="objInfoEmprendimiento.strAsociacionUnidadProdIndividual"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Como desea registrarse?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    select
+                                    variant="standard"
+                                    fullWidth
+                                    disabled={!data?.btGrupoAsociativo ? true : disabled}
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strAsociacionUnidadProdIndividual
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strAsociacionUnidadProdIndividual?.message ||
+                                        "Selecciona una opción."
+                                    }
+                                    required={data?.btGrupoAsociativo ? true : false}
+                                >
+                                    <MenuItem value="Asociación">Asociación</MenuItem>
+                                    <MenuItem value="Empresa independiente">
+                                        Empresa independiente
+                                    </MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (
+                                        data.btGrupoAsociativo === true &&
+                                        (value === "" || value === undefined)
+                                    ) {
+                                        return "Por favor, selecciona una opción.";
+                                    }
+                                },
+                            }}
                         />
                     </Grid>
                 </Grid>

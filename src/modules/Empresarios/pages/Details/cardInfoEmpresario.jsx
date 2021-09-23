@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 
 //Librerias
 import { parseISO, format, differenceInCalendarYears } from "date-fns";
@@ -13,6 +13,7 @@ import {
     Collapse,
     IconButton,
     Tooltip,
+    Button,
 } from "@mui/material";
 
 //Iconos
@@ -21,13 +22,17 @@ import {
     ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 
+//Componentes
+import ModalDeleteEmpresario from "../../components/modalDeleteEmpresario";
+
 const CardInfoEmpresario = ({ values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [openCollapseInfoPrincipal, setOpenCollapseInfoPrincipal] = useState(false);
+    const [openCollapseInfoPrincipal, setOpenCollapseInfoPrincipal] = useState(true);
     const [openCollapseInfoContacto, setOpenCollapseInfoContacto] = useState(false);
     const [openCollapseInfoEmpresa, setOpenCollapseInfoEmpresa] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -36,391 +41,434 @@ const CardInfoEmpresario = ({ values }) => {
         setOpenCollapseInfoPrincipal(!openCollapseInfoPrincipal);
     };
 
+    const handlerChangeOpenCollapseInfoContacto = () => {
+        setOpenCollapseInfoContacto(!openCollapseInfoContacto);
+    };
+
+    const handlerChangeOpenCollapseInfoEmpresa = () => {
+        setOpenCollapseInfoEmpresa(!openCollapseInfoEmpresa);
+    };
+
+    const handlerChangeOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
-        <Paper sx={{ padding: "10px" }}>
-            <Box
-                sx={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "center",
-                    marginTop: "-40px",
-                    float: "left",
-                }}
-            >
-                <Avatar
-                    sx={{ width: 130, height: 130 }}
-                    alt={`${values.objEmpresario.strNombres} ${values.objEmpresario.strApellidos}`}
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${values.objEmpresario.strUrlFoto}`}
-                />
-            </Box>
+        <Fragment>
+            <ModalDeleteEmpresario
+                open={openModalDelete}
+                handleOpenDialog={handlerChangeOpenModalDelete}
+                intId={values.objEmpresario.intId}
+            />
 
-            <Grid container direction="row">
-                <Grid item xs={12}>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            width: "100%",
-                        }}
-                    >
-                        <Typography>
-                            {`${values.objEmpresario.strNombres} ${values.objEmpresario.strApellidos}`}
-                        </Typography>
-                    </Box>
-                </Grid>
+            <Paper sx={{ padding: "10px" }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "center",
+                        marginTop: "-40px",
+                        float: "left",
+                    }}
+                >
+                    <Avatar
+                        sx={{ width: 130, height: 130 }}
+                        alt={`${values.objEmpresario.strNombres} ${values.objEmpresario.strApellidos}`}
+                        src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${values.objEmpresario.strUrlFoto}`}
+                    />
+                </Box>
 
-                <Grid item xs={12}>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            width: "100%",
-                        }}
-                    >
-                        <Typography
+                <Grid container direction="row">
+                    <Grid item xs={12}>
+                        <Box
                             sx={{
-                                textTransform: "uppercase",
-                                color:
-                                    values.objEmpresario.strEstado === "Activo"
-                                        ? "#00BAB3"
-                                        : "inherit",
+                                display: "flex",
+                                justifyContent: "center",
+                                width: "100%",
                             }}
                         >
-                            {`${values.objEmpresario.strEstado}`}
-                        </Typography>
-                    </Box>
-                </Grid>
-
-                <Grid item xs={12} sx={{ marginTop: "45px" }}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Typography>Información principal</Typography>
+                            <Typography>
+                                {`${values.objEmpresario.strNombres} ${values.objEmpresario.strApellidos}`}
+                            </Typography>
                         </Box>
+                    </Grid>
 
-                        <Box>
-                            <IconButton
-                                onClick={() => handlerChangeOpenCollapseInfoPrincipal()}
-                                size="large"
+                    <Grid item xs={12}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                width: "100%",
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    textTransform: "uppercase",
+                                    color:
+                                        values.objEmpresario.strEstado === "Activo"
+                                            ? "#00BAB3"
+                                            : "inherit",
+                                }}
                             >
-                                <Tooltip
-                                    title={
-                                        openCollapseInfoPrincipal
-                                            ? "Contraer detalle"
-                                            : "Expandir detalle"
-                                    }
-                                >
-                                    {openCollapseInfoPrincipal ? (
-                                        <ExpandLessIcon />
-                                    ) : (
-                                        <ExpandMoreIcon />
-                                    )}
-                                </Tooltip>
-                            </IconButton>
+                                {`${values.objEmpresario.strEstado}`}
+                            </Typography>
                         </Box>
-                    </Box>
+                    </Grid>
 
-                    <Collapse in={openCollapseInfoPrincipal} timeout="auto">
-                        <Grid container direction="row">
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
+                    <Grid item xs={12} sx={{ marginTop: "45px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography>Información principal</Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoPrincipal()
+                                    }
+                                    size="large"
                                 >
-                                    <span
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoPrincipal
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoPrincipal ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseInfoPrincipal} timeout="auto">
+                            <Grid container direction="row">
+                                <Grid item xs={12}>
+                                    <p
                                         style={{
-                                            color: "#00BAB3",
+                                            margin: "0px",
+                                            fontSize: "14px",
                                         }}
                                     >
-                                        Fecha de vinculación:{" "}
-                                    </span>
-                                    {values.objEmpresario.dtFechaVinculacion
-                                        ? format(
-                                              parseISO(
-                                                  values.objEmpresario.dtFechaVinculacion
-                                              ),
-                                              "yyyy-MM-dd"
-                                          )
-                                        : "No disponible"}
-                                </p>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            color: "#00BAB3",
-                                        }}
-                                    >
-                                        Tipo de vinculación:{" "}
-                                    </span>
-                                    {values.objEmpresario.strTipoEmpresario ||
-                                        "No disponible"}
-                                </p>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            color: "#00BAB3",
-                                        }}
-                                    >
-                                        Etapa del proceso:{" "}
-                                    </span>
-                                    {values.objEmpresario.strEtapa || "No disponible"}
-                                </p>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            color: "#00BAB3",
-                                        }}
-                                    >
-                                        Etapa de desarrollo:{" "}
-                                    </span>
-                                    {values.objEmpresario.strEtapa || "No disponible"}
-                                </p>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            color: "#00BAB3",
-                                        }}
-                                    >
-                                        Sede:{" "}
-                                    </span>
-                                    {values.objEmpresario.strSede || "No disponible"}
-                                </p>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            color: "#00BAB3",
-                                        }}
-                                    >
-                                        Tipo de documento:{" "}
-                                    </span>
-                                    {values.objEmpresario.strTipoDocto || "No disponible"}
-                                </p>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            color: "#00BAB3",
-                                        }}
-                                    >
-                                        Número de documento:{" "}
-                                    </span>
-                                    {values.objEmpresario.strNroDocto || "No disponible"}
-                                </p>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            color: "#00BAB3",
-                                        }}
-                                    >
-                                        Género:{" "}
-                                    </span>
-                                    {values.objEmpresario.strSexo || "No disponible"}
-                                </p>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            color: "#00BAB3",
-                                        }}
-                                    >
-                                        Edad:{" "}
-                                    </span>
-                                    {values.objEmpresario.dtFechaNacimiento
-                                        ? differenceInCalendarYears(
-                                              new Date(),
-                                              parseISO(
-                                                  values.objEmpresario.dtFechaNacimiento
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Fecha de vinculación:{" "}
+                                        </span>
+                                        {values.objEmpresario.dtFechaVinculacion
+                                            ? format(
+                                                  parseISO(
+                                                      values.objEmpresario
+                                                          .dtFechaVinculacion
+                                                  ),
+                                                  "yyyy-MM-dd"
                                               )
-                                          )
-                                        : "No disponible"}
-                                </p>
-                            </Grid>
+                                            : "No disponible"}
+                                    </p>
+                                </Grid>
 
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
+                                <Grid item xs={12}>
+                                    <p
                                         style={{
-                                            color: "#00BAB3",
+                                            margin: "0px",
+                                            fontSize: "14px",
                                         }}
                                     >
-                                        Dirección:{" "}
-                                    </span>
-                                    {values.objEmpresario.strDireccion || "No disponible"}
-                                </p>
-                            </Grid>
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Tipo de vinculación:{" "}
+                                        </span>
+                                        {values.objEmpresario.strTipoEmpresario ||
+                                            "No disponible"}
+                                    </p>
+                                </Grid>
 
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
+                                <Grid item xs={12}>
+                                    <p
                                         style={{
-                                            color: "#00BAB3",
+                                            margin: "0px",
+                                            fontSize: "14px",
                                         }}
                                     >
-                                        Barrio:{" "}
-                                    </span>
-                                    {values.objEmpresario.strDireccion || "No disponible"}
-                                </p>
-                            </Grid>
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Etapa del proceso:{" "}
+                                        </span>
+                                        {values.objEmpresario.strEtapa || "No disponible"}
+                                    </p>
+                                </Grid>
 
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "14px",
-                                    }}
-                                >
-                                    <span
+                                <Grid item xs={12}>
+                                    <p
                                         style={{
-                                            color: "#00BAB3",
+                                            margin: "0px",
+                                            fontSize: "14px",
                                         }}
                                     >
-                                        Estrato:{" "}
-                                    </span>
-                                    {values.objEmpresario.strDireccion || "No disponible"}
-                                </p>
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Etapa de desarrollo:{" "}
+                                        </span>
+                                        {values.objEmpresario.strEtapa || "No disponible"}
+                                    </p>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "14px",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Sede:{" "}
+                                        </span>
+                                        {values.objEmpresario.strSede || "No disponible"}
+                                    </p>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "14px",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Tipo de documento:{" "}
+                                        </span>
+                                        {values.objEmpresario.strTipoDocto ||
+                                            "No disponible"}
+                                    </p>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "14px",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Número de documento:{" "}
+                                        </span>
+                                        {values.objEmpresario.strNroDocto ||
+                                            "No disponible"}
+                                    </p>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "14px",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Género:{" "}
+                                        </span>
+                                        {values.objEmpresario.strSexo || "No disponible"}
+                                    </p>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "14px",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Edad:{" "}
+                                        </span>
+                                        {values.objEmpresario.dtFechaNacimiento
+                                            ? differenceInCalendarYears(
+                                                  new Date(),
+                                                  parseISO(
+                                                      values.objEmpresario
+                                                          .dtFechaNacimiento
+                                                  )
+                                              )
+                                            : "No disponible"}
+                                    </p>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "14px",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Dirección:{" "}
+                                        </span>
+                                        {values.objEmpresario.strDireccion ||
+                                            "No disponible"}
+                                    </p>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "14px",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Barrio:{" "}
+                                        </span>
+                                        {values.objEmpresario.strDireccion ||
+                                            "No disponible"}
+                                    </p>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "14px",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                color: "#00BAB3",
+                                            }}
+                                        >
+                                            Estrato:{" "}
+                                        </span>
+                                        {values.objEmpresario.strDireccion ||
+                                            "No disponible"}
+                                    </p>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Collapse>
-                </Grid>
+                        </Collapse>
+                    </Grid>
 
-                <Grid item xs={12}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Typography>Información de contacto</Typography>
-                        </Box>
+                    <Grid item xs={12}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography>Información de contacto</Typography>
+                            </Box>
 
-                        <Box>
-                            <IconButton
-                                onClick={() => handlerChangeOpenCollapseInfoPrincipal()}
-                                size="large"
-                            >
-                                <Tooltip
-                                    title={
-                                        openCollapseInfoPrincipal
-                                            ? "Contraer detalle"
-                                            : "Expandir detalle"
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoContacto()
                                     }
+                                    size="large"
                                 >
-                                    {openCollapseInfoPrincipal ? (
-                                        <ExpandLessIcon />
-                                    ) : (
-                                        <ExpandMoreIcon />
-                                    )}
-                                </Tooltip>
-                            </IconButton>
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoContacto
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoContacto ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
                         </Box>
-                    </Box>
-                </Grid>
+                    </Grid>
 
-                <Grid item xs={12}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Typography>Información de la empresa</Typography>
-                        </Box>
+                    <Grid item xs={12}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography>Información de la empresa</Typography>
+                            </Box>
 
-                        <Box>
-                            <IconButton
-                                onClick={() => handlerChangeOpenCollapseInfoPrincipal()}
-                                size="large"
-                            >
-                                <Tooltip
-                                    title={
-                                        openCollapseInfoPrincipal
-                                            ? "Contraer detalle"
-                                            : "Expandir detalle"
-                                    }
+                            <Box>
+                                <IconButton
+                                    onClick={() => handlerChangeOpenCollapseInfoEmpresa()}
+                                    size="large"
                                 >
-                                    {openCollapseInfoPrincipal ? (
-                                        <ExpandLessIcon />
-                                    ) : (
-                                        <ExpandMoreIcon />
-                                    )}
-                                </Tooltip>
-                            </IconButton>
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoEmpresa
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoEmpresa ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
                         </Box>
-                    </Box>
-                </Grid>
+                    </Grid>
 
-                <Grid item xs={12}>
-                    
+                    <Grid item xs={12} md={6}>
+                        <Button fullWidth color="success">
+                            Editar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Button
+                            fullWidth
+                            color="error"
+                            onClick={() => handlerChangeOpenModalDelete()}
+                        >
+                            Eliminar
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Paper>
+            </Paper>
+        </Fragment>
     );
 };
 

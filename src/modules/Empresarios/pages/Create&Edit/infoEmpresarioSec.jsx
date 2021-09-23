@@ -27,7 +27,7 @@ import {
 //Componentes
 import PaperEmpresarioSec from "./paperEmpresarioSec";
 
-const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEdit }) => {
+const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control }) => {
     const { fields, append, remove } = useFieldArray({
         control,
         name: "arrInfoEmpresarioSec",
@@ -35,21 +35,21 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEd
 
     const [loading, setLoading] = useState(true);
 
-    const [data, setData] = useState([]);
-
-    const [openCollapese, setOpenCollapse] = useState(true);
+    const [openCollapese, setOpenCollapse] = useState(false);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
     };
 
     useEffect(() => {
-        if (arrayValues && isEdit) {
-            setData(arrayValues);
+        if (arrayValues) {
+            for (let i = 0; i < arrayValues.length; i++) {
+                append({ ...arrayValues[i], strId: shortid.generate() });
+            }
         }
 
         setLoading(false);
-    }, [arrayValues, isEdit]);
+    }, [arrayValues, append]);
 
     if (loading) {
         return (
@@ -69,7 +69,7 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEd
                             color: errors?.arrInfoEmpresarioSec ? "#D33030" : "inherit",
                         }}
                     >
-                        Información de empresarios secundarios
+                        Información de personas empresarias secundarias
                     </Typography>
                 </Box>
 
@@ -145,7 +145,7 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control, isEd
                                 })
                             }
                         >
-                            Agregar empresario secundario
+                            Agregar persona empresaria secundaria
                         </Button>
                     </Grid>
                 </Grid>

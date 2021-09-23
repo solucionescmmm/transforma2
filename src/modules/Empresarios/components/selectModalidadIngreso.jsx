@@ -18,7 +18,7 @@ import {
 //Iconos
 import { Refresh as RefreshIcon } from "@mui/icons-material";
 
-const SelectSexo = ({
+const SelectModalidadIngreso = ({
     label,
     name,
     value,
@@ -30,7 +30,7 @@ const SelectSexo = ({
 }) => {
     const { data, refreshGetData } = useGetListas({
         strGrupo: "Empresarios",
-        strCodigo: "Sexo",
+        strCodigo: "ModalidadIngreso",
     });
 
     if (data === undefined) {
@@ -50,7 +50,7 @@ const SelectSexo = ({
                         onClick={() => {
                             refreshGetData({
                                 strGrupo: "Empresarios",
-                                strCodigo: "Sexo",
+                                strCodigo: "EspacioJornada",
                             });
                         }}
                         size="large">
@@ -63,7 +63,7 @@ const SelectSexo = ({
                 <AlertTitle>
                     <b>Sin datos</b>
                 </AlertTitle>
-                No existen datos de tipos de sexo.
+                No existen datos de los tipos de espacios de jornada.
             </Alert>
         );
     }
@@ -77,7 +77,7 @@ const SelectSexo = ({
                         onClick={() => {
                             refreshGetData({
                                 strGrupo: "Empresarios",
-                                strCodigo: "Sexo",
+                                strCodigo: "EspacioJornada",
                             });
                         }}
                         size="large">
@@ -90,7 +90,8 @@ const SelectSexo = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos de tipos de sexo.
+                Ha ocurrido un error al obtener los datos de los tipos de espacios de
+                jornada.
             </Alert>
         );
     }
@@ -118,4 +119,4 @@ const SelectSexo = ({
     );
 };
 
-export default SelectSexo;
+export default SelectModalidadIngreso;

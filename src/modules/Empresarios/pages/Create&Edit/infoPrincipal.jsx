@@ -24,41 +24,41 @@ import {
 } from "@mui/icons-material";
 
 //Componentes
-import SelectEspacioJornada from "../../components/selectEspacioJornada";
-import SelectEstadoEmpresario from "../../components/selectEstadoEmpresario";
+import SelectModalidadIngreso from "../../components/selectModalidadIngreso";
+import SelectEstadoVinculacion from "../../components/selectEstadoVinculacion";
 import SelectSedes from "../../components/selectSedes";
-import SelectTipoEmpresario from "../../components/selectTipoEmpresario";
+import SelectTipoVinculacion from "../../components/selectTipoVinculacion";
 
-const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
+const InfoPrincipal = ({ disabled, values, errors, control }) => {
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        strEspacioJornada: "",
-        strEstado: "",
         strSede: "",
-        strTipoEmpresario: "",
+        strModalidadIngreso: "",
         dtFechaVinculacion: null,
+        strEstadoVinculacion: "",
+        strTipoVinculacion: "",
     });
 
-    const [openCollapese, setOpenCollapse] = useState(true);
+    const [openCollapese, setOpenCollapse] = useState(false);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
     };
 
     useEffect(() => {
-        if (values && isEdit) {
+        if (values) {
             setData({
-                strEspacioJornada: values.strEspacioJornada || "",
-                strEstado: values.strEstado || "",
                 strSede: values.strSede || "",
-                strTipoEmpresario: values.strTipoEmpresario || "",
+                strModalidadIngreso: values.strModalidadIngreso || "",
                 dtFechaVinculacion: values.dtFechaVinculacion || null,
+                strEstadoVinculacion: values.strEstadoVinculacion || "",
+                strTipoVinculacion: values.strTipoVinculacion || "",
             });
         }
 
         setLoading(false);
-    }, [values, isEdit]);
+    }, [values]);
 
     if (loading) {
         return (
@@ -133,20 +133,20 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            defaultValue={data.strEspacioJornada}
-                            name="objInfoPrincipal.strEspacioJornada"
+                            defaultValue={data.strModalidadIngreso}
+                            name="objInfoPrincipal.strModalidadIngreso"
                             render={({ field: { name, onChange, value } }) => (
-                                <SelectEspacioJornada
+                                <SelectModalidadIngreso
                                     label="Modalidad de ingreso"
                                     name={name}
                                     value={value}
                                     error={
-                                        errors?.objInfoPrincipal?.strEspacioJornada
+                                        errors?.objInfoPrincipal?.strModalidadIngreso
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strEspacioJornada
+                                        errors?.objInfoPrincipal?.strModalidadIngreso
                                             ?.message ||
                                         "Selecciona la modalidad de ingreso."
                                     }
@@ -205,10 +205,10 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strEstado}
-                            name="objInfoPrincipal.strEstado"
+                            defaultValue={data.strEstadoVinculacion}
+                            name="objInfoPrincipal.strEstadoVinculacion"
                             render={({ field: { name, onChange, value } }) => (
-                                <SelectEstadoEmpresario
+                                <SelectEstadoVinculacion
                                     label="Estado de vinculación"
                                     name={name}
                                     value={value}
@@ -216,10 +216,10 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.strEstado ? true : false
+                                        errors?.objInfoPrincipal?.strEstadoVinculacion ? true : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strEstado?.message ||
+                                        errors?.objInfoPrincipal?.strEstadoVinculacion?.message ||
                                         "Selecciona el estado de vinculación."
                                     }
                                 />
@@ -234,10 +234,10 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strTipoEmpresario}
-                            name="objInfoPrincipal.strTipoEmpresario"
+                            defaultValue={data.strTipoVinculacion}
+                            name="objInfoPrincipal.strTipoVinculacion"
                             render={({ field: { name, onChange, value } }) => (
-                                <SelectTipoEmpresario
+                                <SelectTipoVinculacion
                                     label="Tipo de vinculación"
                                     name={name}
                                     value={value}
@@ -245,12 +245,12 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.strTipoEmpresario
+                                        errors?.objInfoPrincipal?.strTipoVinculacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strTipoEmpresario
+                                        errors?.objInfoPrincipal?.strTipoVinculacion
                                             ?.message ||
                                         "Selecciona el tipo de vinculación."
                                     }

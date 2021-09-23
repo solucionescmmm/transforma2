@@ -87,6 +87,16 @@ const RoutesTransforma = ({ path }) => {
                                 )}
                             />
 
+                            <Route
+                                path="/transforma/asesor/empresario/edit/:intId"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <CUEmpresario isEdit />
+                                    </div>
+                                )}
+                            />
+
                             <Route path="*" component={PageNotFound} />
                         </Switch>
                     </Suspense>

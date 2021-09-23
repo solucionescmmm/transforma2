@@ -67,11 +67,7 @@ const ModalMediosVetanProductos = ({
             label: "Venta por Catálogo",
             parent: "strVentaCatalogo",
         },
-        objPaginaWeb: {
-            checked: false,
-            label: "Página web",
-            parent: "strPaginaWeb",
-        },
+
         objFerias: {
             checked: false,
             label: "Ferias",
@@ -81,11 +77,6 @@ const ModalMediosVetanProductos = ({
             checked: false,
             label: "Multimarcas o boutique",
             parent: "strMultimarcas",
-        },
-        objComercioElectronico: {
-            checked: false,
-            label: "Plataformas comercio electrónico",
-            parent: "strComercioElectronico",
         },
         objReferidos: {
             checked: false,
@@ -104,10 +95,8 @@ const ModalMediosVetanProductos = ({
         strVentaPorMayor: "",
         strExportaciones: "",
         strVentaCatalogo: "",
-        strPaginaWeb: "",
         strFerias: "",
         strMultimarcas: "",
-        strComercioElectronico: "",
         strReferidos: "",
         strRedesComercializacion: "",
     });
@@ -160,10 +149,55 @@ const ModalMediosVetanProductos = ({
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const theme = useTheme();
-    const bitMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const bitMobile = useMediaQuery(theme.breakpoints.down("md"));
 
     return (
         <Fragment>
+            <FormControl
+                error={error}
+                disabled={disabled}
+                required={required}
+                fullWidth
+                onClick={() => (!disabled ? handleOpenModal() : null)}
+            >
+                <FormLabel
+                    sx={{
+                        position: "absolute",
+                        top: "-3px",
+                    }}
+                    htmlFor="chip-components-mediosVentaProductos"
+                >
+                    {label}
+                </FormLabel>
+
+                {value?.length > 0 ? (
+                    <Input
+                        id="chip-components-mediosVentaProductos"
+                        name={name}
+                        startAdornment={value.map((e, i) => (
+                            <Chip
+                                key={i}
+                                label={e.value ? `${e.label}: ${e.value}` : `${e.label}`}
+                            />
+                        ))}
+                    />
+                ) : (
+                    <Input
+                        id="chip-components-mediosVentaProductos"
+                        name={name}
+                        placeholder="Haga clic para seleccionar los medios"
+                    />
+                )}
+
+                <FormHelperText
+                    sx={{
+                        marginLeft: "0px",
+                    }}
+                >
+                    {helperText}
+                </FormHelperText>
+            </FormControl>
+
             <Dialog
                 open={openModal}
                 onClose={handleOpenModal}
@@ -231,43 +265,6 @@ const ModalMediosVetanProductos = ({
                     </Button>
                 </DialogActions>
             </Dialog>
-
-            <FormControl
-                error={error}
-                disabled={disabled}
-                required={required}
-                sx={{
-                    width: "100%",
-                    height: "100%",
-                }}
-                onClick={() => (!disabled ? handleOpenModal() : null)}
-            >
-                <FormLabel htmlFor="chip-components-mediosVentaProductos">
-                    {label}
-                </FormLabel>
-
-                {value?.length > 0 ? (
-                    <Input
-                        id="chip-components-mediosVentaProductos"
-                        startAdornment={value.map((e, i) => (
-                            <Chip
-                                key={i}
-                                label={e.value ? `${e.label}: ${e.value}` : `${e.label}`}
-                            />
-                        ))}
-                    />
-                ) : (
-                    <Button>Haga clic para seleccionar los datos.</Button>
-                )}
-
-                <FormHelperText
-                    sx={{
-                        marginLeft: "0px",
-                    }}
-                >
-                    {helperText}
-                </FormHelperText>
-            </FormControl>
         </Fragment>
     );
 };

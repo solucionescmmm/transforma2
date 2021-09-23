@@ -8,15 +8,7 @@ import { AbilityContext } from "../../config/Can";
 import defineRulesFor from "../../config/Permissions";
 
 //Componentes de Material UI
-import {
-    Drawer,
-    Box,
-    Typography,
-    Divider,
-    IconButton,
-    useTheme,
-    useMediaQuery,
-} from "@mui/material";
+import { Drawer, Box, Typography, Divider, IconButton } from "@mui/material";
 
 //Estilos de Material UI
 import { makeStyles } from "@mui/styles";
@@ -61,12 +53,6 @@ const Menu = ({ open, toggleDrawer }) => {
     const ability = useContext(AbilityContext);
 
     //===============================================================================================================================================
-    //========================================== Hooks personalizados ===============================================================================
-    //===============================================================================================================================================
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
-    //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = menuStyles();
@@ -91,7 +77,7 @@ const Menu = ({ open, toggleDrawer }) => {
             open={open}
             onClose={(e) => toggleDrawer(e, false)}
             PaperProps={{ className: classes.paper }}
-            variant={isMobile ? "temporary" : "persistent"}
+            variant="temporary"
         >
             <Box
                 className={classes.bntCloseMenu}
@@ -138,7 +124,7 @@ const Menu = ({ open, toggleDrawer }) => {
                     </Box>
 
                     <Box>
-                        <GetListUser />
+                        <GetListUser toggleDrawer={toggleDrawer} movil={true} />
                     </Box>
                 </Box>
                 <Box>

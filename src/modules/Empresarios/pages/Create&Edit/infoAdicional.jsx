@@ -56,7 +56,7 @@ const InformacionPrincipal = ({
         strRecomendaciones: "",
     });
 
-    const [openCollapese, setOpenCollapse] = useState(true);
+    const [openCollapese, setOpenCollapse] = useState(false);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
@@ -351,7 +351,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.arrRequisitoLey
                                             ?.message ||
-                                        "Seleccione los requisitos de ley que cumple actualmente."
+                                        "Selecciona los requisitos de ley que cumple actualmente."
                                     }
                                 />
                             )}
@@ -380,7 +380,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.strOtrosRequisitos
                                             ?.message ||
-                                        "Digite en caso de tener otros requisitos de ley."
+                                        "Digita en caso de tener otros requisitos de ley."
                                     }
                                 />
                             )}
@@ -467,7 +467,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.arrTemasCapacitacion
                                             ?.message ||
-                                        "Seleccione en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse."
+                                        "Selecciona en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse."
                                     }
                                 />
                             )}
@@ -476,7 +476,7 @@ const InformacionPrincipal = ({
                                 validate: (value) => {
                                     if (data.btInteresadoProcesoCMM) {
                                         if (value?.length === 0) {
-                                            return "Por favor, seleccione en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse.";
+                                            return "Por favor, Selecciona en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse.";
                                         }
                                     }
                                 },
@@ -504,7 +504,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.arrComoSeEntero
                                             ?.message ||
-                                        "Seleccione el como se entero de la corporación."
+                                        "Selecciona el como se entero de la corporación."
                                     }
                                 />
                             )}
@@ -533,7 +533,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.strOtrosRequisitos
                                             ?.message ||
-                                        "Digite otras opciones, en caso de que aplique."
+                                        "Digita otras opciones, en caso de que aplique."
                                     }
                                 />
                             )}
@@ -561,7 +561,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.arrMediosDeComunicacion
                                             ?.message ||
-                                        "Seleccione los medios que le gustaría que la Corporación Mundial de la Mujer Medellín se comunicara con usted."
+                                        "Selecciona los medios que le gustaría que la Corporación Mundial de la Mujer Medellín se comunicara con usted."
                                     }
                                 />
                             )}
@@ -590,7 +590,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.strOtrosMediosEntero
                                             ?.message ||
-                                        "Digite otras opciones, en caso de que aplique."
+                                        "Digita otras opciones, en caso de que aplique."
                                     }
                                 />
                             )}
@@ -632,7 +632,7 @@ const InformacionPrincipal = ({
                             rules={{
                                 validate: (value) => {
                                     if (value === "" || value === undefined) {
-                                        return "Por favor, seleccione si le gustaría recibir información de la Corporación Mundial de la Mujer Medellín.";
+                                        return "Por favor, Selecciona si le gustaría recibir información de la Corporación Mundial de la Mujer Medellín.";
                                     }
                                 },
                             }}
