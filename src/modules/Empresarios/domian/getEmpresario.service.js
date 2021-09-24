@@ -11,8 +11,8 @@ const getEmpresario = async (objParams, strDataUser) => {
         strNroDocto,
         strCorreoElectronico,
         strSede,
-        strEstado,
-        strTipoEmpresario,
+        strEstadoVinculacion,
+        strTipoVinculacion,
         dtFechaVinculacion,
     } = objParams;
 
@@ -39,8 +39,8 @@ const getEmpresario = async (objParams, strDataUser) => {
         strNroDocto: strNroDocto || null,
         strCorreoElectronico: strCorreoElectronico || null,
         strSede: strSede || null,
-        strEstado: strEstado || null,
-        strTipoEmpresario: strTipoEmpresario || null,
+        strEstadoVinculacion: strEstadoVinculacion || null,
+        strTipoVinculacion: strTipoVinculacion || null,
         dtFechaVinculacion: dtFechaVinculacion || null,
     };
 
@@ -75,8 +75,9 @@ const getEmpresario = async (objParams, strDataUser) => {
                     strEspacioJornada:array[i].strEspacioJornada
                 }
                 data[i] ={
-                    ...array[i],
                     objEmpresario,
+                    objInfoEmpresa:array[i]?.objInfoEmpresa || undefined,
+                    arrEmpresarioSecundario:array[i]?.arrEmpresarioSecundario || undefined,
                 }
             }
             let result = {

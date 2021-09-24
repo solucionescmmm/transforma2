@@ -4,9 +4,6 @@ const validator = require("validator").default;
 //CLases
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
 
-//services
-const getCategoriaEmpresario = require("./getCategoriaServicio.service");
-
 class setEmpresario {
     #objData;
     #objUser;
@@ -22,15 +19,14 @@ class setEmpresario {
 
     async main() {
         await this.#validations();
-        await this.#setEmpresario();
-        await this.#setEmpresarioSecundario();
-        await this.#setEmprendimiento();
+        //await this.#setEmpresario();
+        //await this.#setEmpresarioSecundario();
         //await this.#setEmpresa();
         return this.#objResult;
     }
 
     async #validations() {
-        //console.log(this.#objData);
+        console.log(this.#objData);
         //console.log(this.#objUser);
         let dao = new classInterfaceDAOEmpresarios();
 
@@ -80,34 +76,7 @@ class setEmpresario {
     }
 
     async #setEmpresa() {
-        let queryGetCategoriaProducto = await getCategoriaEmpresario({
-            strNombreCategoria: this.#objData.objInfoEmpresa.strCategoriaProducto,
-        });
-
-        let queryGetCategoriaServicio = await getCategoriaEmpresario({
-            strNombreCategoria: this.#objData.objInfoEmpresa.strCategoriaServicio,
-        });
-
         let prevData = this.#objData.objInfoEmpresa;
-
-        let newData = {
-            ...prevData,
-            intIdEmpresario: this.#intIdEmpresario,
-            intIdNombreCategoriaProducto: queryGetCategoriaProducto?.data || null,
-            intIdNombreCategoriaServicio: queryGetCategoriaServicio?.data || null,
-        };
-
-        let dao = new classInterfaceDAOEmpresarios();
-
-        let query = await dao.setEmpresa(newData);
-
-        if (query.error) {
-            await this.#rollbackTransaction();
-        }
-    }
-
-    async #setEmprendimiento() {
-        let prevData = this.#objData.objInfoEmprendimiento;
 
         let newData = {
             ...prevData,
@@ -117,7 +86,7 @@ class setEmpresario {
 
         let dao = new classInterfaceDAOEmpresarios();
 
-        let query = await dao.setEmprendimineto(newData);
+        let query = await dao.setEmpresa(newData);
 
         if (query.error) {
             await this.#rollbackTransaction();
