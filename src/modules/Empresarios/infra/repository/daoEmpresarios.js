@@ -18,26 +18,32 @@ class daoEmpresarios {
             (
                 ${data.strNombres},
                 ${data.strApellidos},
-                ${data.dtFechaNacimiento},
                 ${data.strTipoDocto},
                 ${data.strNroDocto},
                 ${data.strLugarExpedicionDocto},
                 ${data.dtFechaExpedicionDocto},
-                ${data.strSexo},
+                ${data.dtFechaNacimiento},
+                ${data.strGenero},
                 ${data.strCelular1},
+                ${data.strCelular2},
                 ${data.strCorreoElectronico1},
+                ${data.strCorreoElectronico2},
                 ${data.strNivelEducativo},
                 ${data.strTitulos},
                 ${data.strCondicionDiscapacidad},
                 ${data.strSede},
-                ${data.strTipoEmpresario},
+                ${data.strModalidadIngreso},
                 ${data.dtFechaVinculacion},
-                ${data.strEstado},
-                ${data.strUrlFoto},
+                ${data.strEstadoVinculacion},
+                ${data.strTipoVinculacion},
+                ${data.strEstrato},
+                ${data.strDepartamento},
+                ${data.strCiudad},
+                ${data.strBarrio},
+                ${data.strDireccionResidencia},
+                ${data.strUrlFileFoto},
                 GETDATE(),
-                ${data.strUsuario},
-                ${data.strEspacioJornada},
-                ${data.strEstrato}
+                ${data.strUsuario}
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -76,69 +82,34 @@ class daoEmpresarios {
             
             INSERT INTO tbl_InfoEmpresa VALUES
             (
-                ${data.intId}
                 ${data.intIdEmpresario},
-                ${data.strUrlLogo},
+                ${data.strURLFileLogoEmpresa},
+                ${data.strNombreMarca},
                 ${data.dtFechaFundacion},
-                ${data.strUnidadProdOperacion},
-                ${data.strDireccion},
-                ${data.strMunicipio},
+                ${data.strLugarOperacion},
+                ${data.strEstrato},
+                ${data.strDepartamento},
+                ${data.strCiudad},
                 ${data.strBarrio},
-                ${data.intIdSectorEconomico},
-                ${data.intEstrato},
-                ${data.intIdNombreCategoriaProducto}
-                ${data.intIdNombreCategoriaServicio},
+                ${data.strDireccionResidencia},
+                ${data.strSectorEconomico},
+                ${data.strCategoriaProducto}
+                ${data.strCategoriaServicio},
+                ${data.strCategoriasSecundarias},
                 ${data.strOtraCategoria},
+                ${data.strDescProductosServicios},
+                ${data.strMateriaPrima},
+                ${data.strNombreTecnica},
+                ${data.strTiempoDedicacion},
                 ${data.btGeneraEmpleo},
                 ${data.intNumeroEmpleados},
                 ${data.valorVentasMes},
-                ${data.strMediosUtilizadosVentas},
-                ${data.btNombreMarca},
-                ${data.btLogotipo},
-                ${data.btEtiquetaEmpaque},
-                ${data.btMejorarEtiquetaEmpaque},
-                ${data.strPrincipalesNecesidades},
-                ${data.strRequisitoLey},
-                ${data.strOtrosRequisitos},
-                ${data.btInteresadoProcesoCMM},
-                ${data.strTemasCapacitacion},
-                ${data.strComoSeEntero},
-                ${data.strOtrosMediosEntero},
-                ${data.strMedioDeComunicacion},
-                ${data.strOtroMedioComunicacion},
-                ${data.btRecibirInfoCMM},
-                ${data.strRecomendaciones},
+                ${data.strFormasComercializacion},
+                ${data.strMediosDigitales},
+                ${data.btGrupoAsociativo},
+                ${data.strAsociacionUnidadProdIndividual},
+                GETDATE(),
                 ${data.strUsuario}
-
-                objInfoEmpresa: {
-                    strUrlLogo: null,
-                    dtFechaFundacion: '2017-08-16T05:00:00.000Z',
-                    strUnidadProdOperacion: 'Local independiente desde la vivienda',
-                    strDireccion: 'calle 43A #4322',
-                    strMunicipio: 'Bello',
-                    strBarrio: 'Niquia',
-                    intEstrato: '4',
-                    strCategoriaProducto: 'Alimentos y bebidas',
-                    strOtraCategoriaProducto: '',
-                    arrCategoriaServicio: [],
-                    btGeneraEmpleo: true,
-                    intNumeroEmpleados: '4',
-                    valorVentasMes: '$1,232,222',
-                    strMediosUtilizadosVentas: [ [Object] ],
-                    btNombreMarca: false,
-                    btLogotipo: false,
-                    btEtiquetaEmpaque: false,
-                    btMejorarEtiquetaEmpaque: true,
-                    strPrincipalesNecesidades: '',
-                    strRequisitoLey: [ [Object] ],
-                    strOtrosRequisitos: '',
-                    btInteresadoProcesoCMM: false,
-                    strComoSeEntero: [ [Object] ],
-                    strOtrosMediosEntero: '',
-                    strMedioDeComunicacion: [],
-                    btRecibirInfoCMM: false,
-                    strRecomendaciones: ''
-                  }
             )
 
             SET @intId = SCOPE_IDENTITY();
@@ -168,53 +139,6 @@ class daoEmpresarios {
         }
     }
 
-    async setEmprendimiento(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
-            DECLARE @intId INTEGER;
-            
-            INSERT INTO tbl_InfoEmprendimiento VALUES
-            (
-                ${data.intIdEmpresario},
-                ${data.btTieneSoloIdea},
-                ${data.strPlaneaComenzar},
-                ${data.strTiempoDedicacion},
-                ${data.btGrupoAsociativo},
-                ${data.btAsociacionUnidadProdIndividual},
-                ${data.strProductosServicios},
-                ${data.strMateriaPrima},
-                ${data.strNombreTecnica},
-                GETDATE(),
-                ${data.strUsuario}
-            )
-            SET @intId = SCOPE_IDENTITY();
-
-            SELECT * FROM tbl_InfoEmprendimiento WHERE intId = @intId`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-                msg: `El emprendimiento #${response.recordset[0].intId} fue registrado con éxito, para el empresario #${response.recordset[0].intIdEmpresario}.`,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo setEmprendimiento de la clase daoEmpresarios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
     async setEmpresarioSecundrio(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -225,13 +149,15 @@ class daoEmpresarios {
             INSERT INTO tbl_EmpresarioSecundario VALUES
             (
                 ${data.intIdEmpresarioPrincipal},
-                ${data.strNombresApellidos},
-                ${data.strSexo},
-                ${data.dtFechaNacimiento},
+                ${data.strTipoRelacion},
+                ${data.strNombres},
+                ${data.strApellidos},
                 ${data.strTipoDocto},
                 ${data.strNroDocto},
                 ${data.strLugarExpedicionDocto},
                 ${data.dtFechaExpedicionDocto},
+                ${data.dtFechaNacimiento},
+                ${data.strGenero},
                 ${data.strCelular},
                 ${data.strCorreoElectronico},
                 GETDATE(),
@@ -243,8 +169,7 @@ class daoEmpresarios {
 
             let result = {
                 error: false,
-                data: response.recordset[0],
-                //msg: `El emprendimiento #${response.recordset[0].intId} fue registrado con éxito, para el empresario #${response.recordset[0].intIdEmpresario}.`,
+                data: response.recordset[0]
             };
 
             sql.close(conexion);
@@ -273,25 +198,32 @@ class daoEmpresarios {
 
             SET strNombres               = COALESCE(${data.strNombres}, strNombres),
                 strApellidos             = COALESCE(${data.strApellidos}, strApellidos),
-                dtFechaNacimiento        = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
                 strTipoDocto             = COALESCE(${data.strTipoDocto}, strTipoDocto),
                 strNroDocto              = COALESCE(${data.strNroDocto}, strNroDocto),
                 strLugarExpedicionDocto  = COALESCE(${data.strLugarExpedicionDocto}, strLugarExpedicionDocto),
                 dtFechaExpedicionDocto   = COALESCE(${data.dtFechaExpedicionDocto}, dtFechaExpedicionDocto),
-                strSexo                  = COALESCE(${data.strSexo}, strSexo),
+                dtFechaNacimiento        = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
+                strGenero                = COALESCE(${data.strGenero}, strGenero),
                 strCelular1              = COALESCE(${data.strCelular1}, strCelular1),
+                strCelular2              = COALESCE(${data.strCelular2}, strCelular2),
                 strCorreoElectronico1    = COALESCE(${data.strCorreoElectronico1}, strCorreoElectronico1),
+                strCorreoElectronico2    = COALESCE(${data.strCorreoElectronico2}, strCorreoElectronico2),
                 strNivelEducativo        = COALESCE(${data.strNivelEducativo}, strNivelEducativo),
                 strTitulos               = COALESCE(${data.strTitulos}, strTitulos),
                 strCondicionDiscapacidad = COALESCE(${data.strCondicionDiscapacidad}, strCondicionDiscapacidad),
                 strSede                  = COALESCE(${data.strSede}, strSede),
-                strTipoEmpresario        = COALESCE(${data.strTipoEmpresario}, strTipoEmpresario),
+                strModalidadIngreso      = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
                 dtFechaVinculacion       = COALESCE(${data.dtFechaVinculacion}, dtFechaVinculacion),
-                strEstado                = COALESCE(${data.strEstado}, strEstado),
-                strUrlFoto               = COALESCE(${data.strUrlFoto}, strUrlFoto),
+                strEstadoVinculacion     = COALESCE(${data.strEstadoVinculacion}, strEstadoVinculacion),
+                strTipoVinculacion       = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
+                strEstrato               = COALESCE(${data.strEstrato}, strEstrato),
+                strDepartamento          = COALESCE(${data.strDepartamento}, strDepartamento),
+                strCiudad                = COALESCE(${data.strCiudad}, strCiudad),
+                strBarrio                = COALESCE(${data.strBarrio}, strBarrio),
+                strDireccionResidencia   = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
+                strUrlFileFoto           = COALESCE(${data.strUrlFileFoto}, strUrlFileFoto),
                 dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario               = COALESCE(${data.strUsuario}, strUsuario),
-                strEspacioJornada        = COALESCE(${data.strEspacioJornada}, strEspacioJornada)
+                strUsuario               = COALESCE(${data.strUsuario}, strUsuario)
 
             WHERE intId = ${data.intId}
 
@@ -321,36 +253,47 @@ class daoEmpresarios {
     }
 
     async updateEmpresa(data){
-
-    }
-
-    async updateEmprendimiento(data){
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
 
-            UPDATE tbl_InfoEmprendimiento
+            UPDATE tbl_InfoEmpresa
 
-            SET btTieneSoloIdea                  = COALESCE(${data.btTieneSoloIdea}, btTieneSoloIdea),
-                strPlaneaComenzar                = COALESCE(${data.strPlaneaComenzar}, strPlaneaComenzar),
-                dtFechaNacimiento                = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
-                strTiempoDedicacion              = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
-                btGrupoAsociativo                = COALESCE(${data.btGrupoAsociativo}, btGrupoAsociativo),
-                btAsociacionUnidadProdIndividual = COALESCE(${data.btAsociacionUnidadProdIndividual}, btAsociacionUnidadProdIndividual),
-                strProductosServicios            = COALESCE(${data.strProductosServicios}, strProductosServicios),
-                strMateriaPrima                  = COALESCE(${data.strMateriaPrima}, strMateriaPrima),
-                strNombreTecnica                 = COALESCE(${data.strNombreTecnica}, strNombreTecnica),
-                dtmActualizacion                 = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario                       = COALESCE(${data.strUsuario}, strUsuario)
+            SET strURLFileLogoEmpresa             = COALESCE(${data.strURLFileLogoEmpresa}, strURLFileLogoEmpresa),
+                strNombreMarca                    = COALESCE(${data.strNombreMarca}, strNombreMarca),
+                dtFechaFundacion                  = COALESCE(${data.dtFechaFundacion}, dtFechaFundacion),
+                strLugarOperacion                 = COALESCE(${data.strLugarOperacion}, strLugarOperacion),
+                strEstrato                        = COALESCE(${data.strEstrato}, strEstrato),
+                strDepartamento                   = COALESCE(${data.strDepartamento}, strDepartamento),
+                strCiudad                         = COALESCE(${data.strCiudad}, strCiudad),
+                strBarrio                         = COALESCE(${data.strBarrio}, strBarrio),
+                strDireccionResidencia            = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
+                strSectorEconomico                = COALESCE(${data.strSectorEconomico}, strSectorEconomico),
+                strCategoriaProducto              = COALESCE(${data.strCategoriaProducto}, strCategoriaProducto),
+                strCategoriaServicio              = COALESCE(${data.strCategoriaServicio}, strCategoriaServicio),
+                strCategoriasSecundarias          = COALESCE(${data.strCategoriasSecundarias}, strCategoriasSecundarias),
+                strOtraCategoria                  = COALESCE(${data.strOtraCategoria}, strOtraCategoria),
+                strDescProductosServicios         = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
+                strMateriaPrima                   = COALESCE(${data.strMateriaPrima}, strMateriaPrima),
+                strNombreTecnica                  = COALESCE(${data.strNombreTecnica}, strNombreTecnica),
+                strTiempoDedicacion               = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
+                btGeneraEmpleo                    = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
+                intNumeroEmpleados                = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
+                valorVentasMes                    = COALESCE(${data.valorVentasMes}, valorVentasMes),
+                strFormasComercializacion         = COALESCE(${data.strFormasComercializacion}, strFormasComercializacion),
+                strMediosDigitales                = COALESCE(${data.strMediosDigitales}, strMediosDigitales),
+                btGrupoAsociativo                 = COALESCE(${data.btGrupoAsociativo}, btGrupoAsociativo),
+                strAsociacionUnidadProdIndividual = COALESCE(${data.strAsociacionUnidadProdIndividual}, strAsociacionUnidadProdIndividual),
+                dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
 
             WHERE intIdEmpresario = ${data.intIdEmpresario}
 
-            SELECT * FROM tbl_InfoEmprendimiento WHERE intIdEmpresario = ${data.intIdEmpresario}`;
+            SELECT * FROM tbl_InfoEmpresa WHERE intIdEmpresario = ${data.intIdEmpresario}`;
 
             let result = {
                 error: false,
-                data: response.recordset[0],
-                msg: `La persona ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue actualizada con éxito.`,
+                data: response.recordset[0]
             };
 
             sql.close(conexion);
@@ -361,52 +304,7 @@ class daoEmpresarios {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setEmpresario de la clase daoEmpresarios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async updateEmpresarioSecundario(data){
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
-
-            UPDATE tbl_EmpresarioSecundario
-
-            SET strNombresApellidos     = COALESCE(${data.strNombresApellidos}, strNombresApellidos),
-                strSexo                 = COALESCE(${data.strSexo}, strSexo),
-                dtFechaNacimiento       = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
-                strTipoDocto            = COALESCE(${data.strTipoDocto}, strTipoDocto),
-                strNroDocto             = COALESCE(${data.strNroDocto}, strNroDocto),
-                strLugarExpedicionDocto = COALESCE(${data.strLugarExpedicionDocto}, strLugarExpedicionDocto),
-                dtFechaExpedicionDocto  = COALESCE(${data.dtFechaExpedicionDocto}, dtFechaExpedicionDocto),
-                strCelular              = COALESCE(${data.strCelular}, strCelular),
-                strCorreoElectronico    = COALESCE(${data.strCorreoElectronico}, strCorreoElectronico),
-                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario              = COALESCE(${data.strUsuario}, strUsuario)
-
-                WHERE intIdEmpresarioPrincipal = ${data.intIdEmpresarioPrincipal} AND intId = ${data.intId}
-                
-            SELECT * FROM tbl_EmpresarioSecundario WHERE intIdEmpresarioPrincipal = ${data.intIdEmpresarioPrincipal}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo setEmpresario de la clase daoEmpresarios",
+                    "Error en el metodo updateEmpresa de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
@@ -435,34 +333,6 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo deleteEmpresario de la clase daoEmpresarios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async deleteInfoEmprendimiento(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            await conn.query`DELETE FROM tbl_InfoEmprendimiento WHERE intIdEmpresario = ${data.intId}`;
-
-            let result = {
-                error: false,
-                msg: "La información del emprendimiento fue eliminada con éxito.",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo deleteInfoEmprendimiento de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
@@ -503,7 +373,7 @@ class daoEmpresarios {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            await conn.query`DELETE FROM tbl_EmpresarioSecundario WHERE intIdEmpresario = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_EmpresarioSecundario WHERE intIdEmpresarioPrincipal = ${data.intIdEmpresarioPrincipal}`;
 
             let result = {
                 error: false,
@@ -555,11 +425,6 @@ class daoEmpresarios {
             Empresario.strUrlFoto,
             Empresario.strEspacioJornada,
             (
-                SELECT * FROM tbl_InfoEmprendimiento Emprendimiento
-                WHERE Emprendimiento.intIdEmpresario = Empresario.intId
-                FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
-            ) as objInfoEmprendimiento,
-            (
                 SELECT * FROM tbl_EmpresarioSecundario EmpresarioSec
                 WHERE EmpresarioSec.intIdEmpresarioPrincipal = Empresario.intId
                 FOR JSON PATH
@@ -573,7 +438,7 @@ class daoEmpresarios {
             AND   (Empresario.strNroDocto = ${data.strNroDocto} OR ${data.strNroDocto} IS NULL)
             AND   (Empresario.strCorreoElectronico = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)
             AND   (Empresario.strSede = ${data.strSede} OR ${data.strSede} IS NULL)
-            AND   (Empresario.strEstado = ${data.strEstado} OR ${data.strEstado} IS NULL)
+            AND   (Empresario.strEstadoVinculacion = ${data.strEstadoVinculacion} OR ${data.strEstadoVinculacion} IS NULL)
             AND   (Empresario.strTipoEmpresario = ${data.strTipoEmpresario} OR ${data.strTipoEmpresario} IS NULL)
             AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)
             AND   (Empresario.strCorreoElectronico = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)`;
@@ -581,17 +446,6 @@ class daoEmpresarios {
             let arrNewData = response.recordsets[0];
 
             for (let i = 0; i < arrNewData.length; i++) {
-                if (arrNewData[i].objInfoEmprendimiento) {
-                    let { objInfoEmprendimiento } = arrNewData[i];
-
-                    if (validator.isJSON(objInfoEmprendimiento)) {
-                        objInfoEmprendimiento = JSON.parse(
-                            objInfoEmprendimiento
-                        );
-                        arrNewData[i].objInfoEmprendimiento =
-                            objInfoEmprendimiento;
-                    }
-                }
                 if (arrNewData[i].arrEmpresarioSecundario) {
                     let { arrEmpresarioSecundario } = arrNewData[i];
 
@@ -624,35 +478,6 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo deleteEmpresario de la clase daoEmpresarios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async getCategoriaEmpresario(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            let response = await conn.query`
-            SELECT intId FROM tbl_CategoriasProductos_Servicios where strNombreCategoria = ${data.strNombreCategoria}`;
-
-            let result = {
-                error: false,
-                data: response.recordsets[0],
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo getCategoriaEmpresario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);

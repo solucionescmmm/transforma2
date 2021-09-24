@@ -1,5 +1,6 @@
 //Classes
 const classSetEmpresario = require("../../domian/setEmpresario.service");
+const classUpdateEmpresario = require("../../domian/updateEmpresario.service")
 
 //servicios
 const getEmpresario = require("../../domian/getEmpresario.service");
@@ -52,6 +53,31 @@ class ctrlEmpresarios {
             let service = new classSetEmpresario(data, strDataUser);
 
             let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async updateEmpresario(req, res){
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new classUpdateEmpresario(data, strDataUser);
+
+            let query = await service.main();
+
             if (query.error) {
                 throw new Error(query.msg);
             }
@@ -68,6 +94,26 @@ class ctrlEmpresarios {
     }
 
     async getEmpresario(req, res) {
+        try {
+            let objParams = req.query;
+            let { strDataUser } = req;
+
+            let query = await getEmpresario(objParams, strDataUser);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+    async deleteEmpresario(req, res){
         try {
             let objParams = req.query;
             let { strDataUser } = req;

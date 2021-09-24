@@ -6,21 +6,23 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 
 class updateEmpresario {
     #objData;
+    #objUser;
     #objEmpresarioActual;
     #intIdEmpresarioActual;
     #objResult;
     /**
      * @param {object} data
      */
-    constructor(data) {
+    constructor(data, strDataUser) {
         this.#objData = data;
+        this.#objUser = strDataUser
     }
 
     async main() {
         await this.#validations();
         await this.#getEmpresario();
         await this.#updateEmpresario();
-        await this.#updateEmprendimiento();
+        await this.#updateEmpresa();
         await this.#updateEmpresarioSecundario();
 
         return this.#objResult;
@@ -68,7 +70,6 @@ class updateEmpresario {
 
         let newData = {
             ...prevData,
-            intId: this.#intIdEmpresarioActual,
             strUsuario: this.#objUser.strEmail,
         };
 
@@ -77,10 +78,9 @@ class updateEmpresario {
         let query = await dao.updateEmpresario(newData);
 
         if (query.error) {
+            await this.#rollbackTransaction();
             throw new Error(query.msg);
         }
-
-        this.#intIdEmpresario = query.data.intId;
 
         this.#objResult = {
             error: query.error,
@@ -89,10 +89,8 @@ class updateEmpresario {
         };
     }
 
-    async #updateEmpresa() {}
-
-    async #updateEmprendimiento() {
-        let prevData = this.#objData.objInfoEmprendimiento;
+    async #updateEmpresa() {
+        let prevData = this.#objData.objEmpresario;
 
         let newData = {
             ...prevData,
@@ -102,7 +100,7 @@ class updateEmpresario {
 
         let dao = new classInterfaceDAOEmpresarios();
 
-        let query = await dao.updateEmprendimiento(newData);
+        let query = await dao.updateEmpresa(newData);
 
         if (query.error) {
             await this.#rollbackTransaction();
@@ -111,19 +109,28 @@ class updateEmpresario {
 
     async #updateEmpresarioSecundario() {
         let dao = new classInterfaceDAOEmpresarios();
-        for (let i = 0; i < this.#objData.arrEmpresarioSecundario.length; i++) {
-            let prevData = this.#objData.arrEmpresarioSecundario[i];
+        if (this.#objData.arrEmpresarioSecundario.length !== this.#objEmpresarioActual.arrEmpresarioSecundario.length) {
 
-            let newData = {
-                ...prevData,
-                intIdEmpresarioPrincipal: this.#intIdEmpresarioActual,
-                strUsuario: this.#objUser.strEmail,
-            };
+            let queryDeleteEmpresarioSecundario = await dao.deleteEmpresarioSecundario({
+                intId : this.#intIdEmpresarioActual
+            })
+            if (queryDeleteEmpresarioSecundario.error) {
+                throw new Error(queryDeleteEmpresarioSecundario.msg);
+            }
+            for (let i = 0; i < this.#objData.arrEmpresarioSecundario.length; i++) {
+                let prevData = this.#objData.arrEmpresarioSecundario[i];
 
-            let query = await dao.updateEmpresarioSecundario(newData);
+                let newData = {
+                    ...prevData,
+                    intIdEmpresarioPrincipal: this.#intIdEmpresarioActual,
+                    strUsuario: this.#objUser.strEmail,
+                };
 
-            if (query.error) {
-                await this.#rollbackTransaction();
+                let query = await dao.setEmpresarioSecundario(newData);
+
+                if (query.error) {
+                    await this.#rollbackTransaction();
+                }
             }
         }
     }
@@ -133,9 +140,6 @@ class updateEmpresario {
 
         let rollEmpresario = await dao.updateEmpresario(
             this.#objEmpresarioActual.objEmpresario
-        );
-        let rollEmprendimiento = await dao.updateEmprendimiento(
-            this.#objEmpresarioActual.objInfoEmprendimiento
         );
         let rollEmpresa = await dao.updateEmpresa(
             this.#objEmpresarioActual.objInfoEmpresa
@@ -161,10 +165,6 @@ class updateEmpresario {
 
         if (rollEmpresa.error) {
             throw new Error(rollEmpresa.msg);
-        }
-
-        if (rollEmprendimiento.error) {
-            throw new Error(rollEmprendimiento.msg);
         }
 
         this.#objResult = {
