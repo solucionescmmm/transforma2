@@ -67,14 +67,8 @@ const ReadSolicitudesUser = () => {
             width: "0%",
         },
         {
-            title: "Nombres",
+            title: "Nombres y Apellidos",
             field: "strNombres",
-            type: "string",
-            defaultSort: "desc",
-        },
-        {
-            title: "Apellidos",
-            field: "strApellidos",
             type: "string",
             defaultSort: "desc",
         },
@@ -84,10 +78,21 @@ const ReadSolicitudesUser = () => {
             type: "string",
         },
         {
+            title: "Empresa",
+            field: "strNroDocto",
+            type: "string",
+        },
+        {
             title: "Sede",
             field: "strSede",
             type: "string",
         },
+        {
+            title: "Categoría",
+            field: "strNroDocto",
+            type: "string",
+        },
+
         {
             title: "Fecha de vinculación",
             field: "dtFechaVinculacion",
@@ -285,6 +290,7 @@ const ReadSolicitudesUser = () => {
                                                             "/transforma/asesor/empresario/create"
                                                         )
                                                     }
+                                                    variant="contained"
                                                 >
                                                     Agregar persona empresaria
                                                 </Button>
