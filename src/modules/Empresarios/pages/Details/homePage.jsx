@@ -55,32 +55,7 @@ const DetailsEmpresario = () => {
     //===============================================================================================================================================
     useEffect(() => {
         if (data && data.length > 0) {
-            setObjInteresado({
-                objEmpresario: {
-                    strNombres: data[0].strNombres || "",
-                    strApellidos: data[0].strApellidos || "",
-                    dtFechaNacimiento: data[0].dtFechaNacimiento || null,
-                    strTipoDocto: data[0].strTipoDocto || "",
-                    strNroDocto: data[0].strNroDocto || "",
-                    strLugarExpedicionDocto: data[0].strLugarExpedicionDocto || "",
-                    dtFechaExpedicionDocto: data[0].dtFechaExpedicionDocto || null,
-                    strSexo: data[0].strSexo || "",
-                    strCelular1: data[0].strCelular1 || "",
-                    strCelular2: data[0].strCelular2 || "",
-                    strCorreoElectronico1: data[0].strCorreoElectronico1 || "",
-                    strCorreoElectronico2: data[0].strCorreoElectronico2 || "",
-                    strNivelEducativo: data[0].strNivelEducativo || "",
-                    strTitulos: data[0].strTitulos || "",
-                    strCondicionDiscapacidad: data[0].strCondicionDiscapacidad || "",
-                    strSede: data[0].strSede || "",
-                    strTipoEmpresario: data[0].strTipoEmpresario || "",
-                    dtFechaVinculacion: data[0].dtFechaVinculacion || null,
-                    strEstado: data[0].strEstado || "",
-                    strUrlFoto: data[0].strUrlFoto || "",
-                    strEspacioJornada: data[0].strSede || "",
-                },
-                arrEmpresarioSecundario: data[0].arrEmpresarioSecundario || [],
-            });
+            setObjInteresado(data[0]);
         }
     }, [data]);
 
