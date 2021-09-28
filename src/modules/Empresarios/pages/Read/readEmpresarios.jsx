@@ -100,7 +100,7 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Estado",
-            field: "objEmpresario.strEstado",
+            field: "objEmpresario.strEstadoVinculacion",
             type: "string",
         },
     ]);
