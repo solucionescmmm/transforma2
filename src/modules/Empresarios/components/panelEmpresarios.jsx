@@ -37,7 +37,7 @@ const PanelEmpresarios = ({ data }) => {
             let intTotal = 0;
 
             for (let i = 0; i < data.length; i++) {
-                if (data[i].strEstado === "Activo") {
+                if (data[i].strEstadoVinculacion === "Activo") {
                     intActivos++;
                 }
 
