@@ -19,9 +19,9 @@ class setEmpresario {
 
     async main() {
         await this.#validations();
-        //await this.#setEmpresario();
-        //await this.#setEmpresarioSecundario();
-        //await this.#setEmpresa();
+        await this.#setEmpresario();
+        await this.#setEmpresarioSecundario();
+        await this.#setEmpresa();
         return this.#objResult;
     }
 
@@ -87,7 +87,7 @@ class setEmpresario {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setEmpresa(newData);
-
+        console.log(query)
         if (query.error) {
             await this.#rollbackTransaction();
         }
@@ -105,7 +105,7 @@ class setEmpresario {
             };
 
             let query = await dao.setEmpresarioSecundario(newData);
-
+            //console.log(query)
             if (query.error) {
                 await this.#rollbackTransaction();
             }

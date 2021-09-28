@@ -93,7 +93,7 @@ class daoEmpresarios {
                 ${data.strBarrio},
                 ${data.strDireccionResidencia},
                 ${data.strSectorEconomico},
-                ${data.strCategoriaProducto}
+                ${data.strCategoriaProducto},
                 ${data.strCategoriaServicio},
                 ${data.strCategoriasSecundarias},
                 ${data.strOtraCategoria},
@@ -432,6 +432,11 @@ class daoEmpresarios {
             Empresario.strDireccionResidencia,
             Empresario.strUrlFileFoto,
             (
+                SELECT * FROM tbl_InfoEmpresa Empresa
+                WHERE Empresa.intIdEmpresario = Empresario.intId
+                FOR JSON PATH
+            ) as objInfoEmpresa,
+            (
                 SELECT * FROM tbl_EmpresarioSecundario EmpresarioSec
                 WHERE EmpresarioSec.intIdEmpresarioPrincipal = Empresario.intId
                 FOR JSON PATH
@@ -461,6 +466,17 @@ class daoEmpresarios {
                         );
                         arrNewData[i].arrEmpresarioSecundario =
                             arrEmpresarioSecundario;
+                    }
+                }
+                if (arrNewData[i].objInfoEmpresa) {
+                    let { objInfoEmpresa } = arrNewData[i];
+
+                    if (validator.isJSON(objInfoEmpresa)) {
+                        objInfoEmpresa = JSON.parse(
+                            objInfoEmpresa
+                        );
+                        arrNewData[i].objInfoEmpresa =
+                        objInfoEmpresa;
                     }
                 }
             }
