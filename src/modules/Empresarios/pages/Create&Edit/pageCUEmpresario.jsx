@@ -535,7 +535,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 />
                             </Grid>
 
-                            <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                                 <InfoAdicional
                                     control={control}
                                     disabled={loading}
@@ -544,7 +544,7 @@ const CUEmpresario = ({ isEdit }) => {
                                     setError={setError}
                                     clearErrors={clearErrors}
                                 />
-                            </Grid>
+                            </Grid> */}
 
                             <Grid item xs={12}>
                                 <Box
