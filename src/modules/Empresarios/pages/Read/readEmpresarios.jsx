@@ -60,7 +60,7 @@ const ReadSolicitudesUser = () => {
             title: "",
             render: (rowData) => (
                 <Avatar
-                    alt={rowData.strNombres + rowData.strApellidos}
+                    alt={rowData.objEmpresario.strNombres + rowData.objEmpresario.strApellidos}
                     src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strUrlFoto}`}
                 />
             ),
@@ -68,39 +68,39 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Nombres y Apellidos",
-            field: "strNombres",
+            field: "objEmpresario.strNombres",
             type: "string",
             defaultSort: "desc",
         },
         {
             title: "Documento",
-            field: "strNroDocto",
+            field: "objEmpresario.strNroDocto",
             type: "string",
         },
         {
             title: "Empresa",
-            field: "strNroDocto",
+            field: "objEmpresario.strNroDocto",
             type: "string",
         },
         {
             title: "Sede",
-            field: "strSede",
+            field: "objEmpresario.strSede",
             type: "string",
         },
         {
             title: "Categoría",
-            field: "strNroDocto",
+            field: "objEmpresario.strNroDocto",
             type: "string",
         },
 
         {
             title: "Fecha de vinculación",
-            field: "dtFechaVinculacion",
+            field: "objEmpresario.dtFechaVinculacion",
             type: "date",
         },
         {
             title: "Estado",
-            field: "strEstado",
+            field: "objEmpresario.strEstado",
             type: "string",
         },
     ]);
