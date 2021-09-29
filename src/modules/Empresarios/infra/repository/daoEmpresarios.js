@@ -93,7 +93,7 @@ class daoEmpresarios {
                 ${data.strBarrio},
                 ${data.strDireccionResidencia},
                 ${data.strSectorEconomico},
-                ${data.strCategoriaProducto}
+                ${data.strCategoriaProducto},
                 ${data.strCategoriaServicio},
                 ${data.strCategoriasSecundarias},
                 ${data.strOtraCategoria},
@@ -407,23 +407,35 @@ class daoEmpresarios {
             Empresario.intId,
             Empresario.strNombres,
             Empresario.strApellidos,
-            Empresario.dtFechaNacimiento,
             Empresario.strTipoDocto,
             Empresario.strNroDocto,
             Empresario.strLugarExpedicionDocto,
             Empresario.dtFechaExpedicionDocto,
-            Empresario.strSexo,
-            Empresario.strCelular,
-            Empresario.strCorreoElectronico,
+            Empresario.dtFechaNacimiento,
+            Empresario.strGenero,
+            Empresario.strCelular1,
+            Empresario.strCelular2,
+            Empresario.strCorreoElectronico1,
+            Empresario.strCorreoElectronico2,
             Empresario.strNivelEducativo,
             Empresario.strTitulos,
             Empresario.strCondicionDiscapacidad,
             Empresario.strSede,
-            Empresario.strTipoEmpresario,
+            Empresario.strModalidadIngreso,
             Empresario.dtFechaVinculacion,
-            Empresario.strEstado,
-            Empresario.strUrlFoto,
-            Empresario.strEspacioJornada,
+            Empresario.strEstadoVinculacion,
+            Empresario.strTipoVinculacion,
+            Empresario.strEstrato,
+            Empresario.strDepartamento,
+            Empresario.strCiudad,
+            Empresario.strBarrio,
+            Empresario.strDireccionResidencia,
+            Empresario.strUrlFileFoto,
+            (
+                SELECT * FROM tbl_InfoEmpresa Empresa
+                WHERE Empresa.intIdEmpresario = Empresario.intId
+                FOR JSON PATH
+            ) as objInfoEmpresa,
             (
                 SELECT * FROM tbl_EmpresarioSecundario EmpresarioSec
                 WHERE EmpresarioSec.intIdEmpresarioPrincipal = Empresario.intId
@@ -436,12 +448,11 @@ class daoEmpresarios {
             AND   (Empresario.strNombres = ${data.strNombres} OR ${data.strNombres} IS NULL)
             AND   (Empresario.strApellidos = ${data.strApellidos} OR ${data.strApellidos} IS NULL)
             AND   (Empresario.strNroDocto = ${data.strNroDocto} OR ${data.strNroDocto} IS NULL)
-            AND   (Empresario.strCorreoElectronico = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)
+            AND   (Empresario.strCorreoElectronico1 = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)
             AND   (Empresario.strSede = ${data.strSede} OR ${data.strSede} IS NULL)
             AND   (Empresario.strEstadoVinculacion = ${data.strEstadoVinculacion} OR ${data.strEstadoVinculacion} IS NULL)
-            AND   (Empresario.strTipoEmpresario = ${data.strTipoEmpresario} OR ${data.strTipoEmpresario} IS NULL)
-            AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)
-            AND   (Empresario.strCorreoElectronico = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)`;
+            AND   (Empresario.strTipoVinculacion = ${data.strTipoVinculacion} OR ${data.strTipoVinculacion} IS NULL)
+            AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
@@ -455,6 +466,17 @@ class daoEmpresarios {
                         );
                         arrNewData[i].arrEmpresarioSecundario =
                             arrEmpresarioSecundario;
+                    }
+                }
+                if (arrNewData[i].objInfoEmpresa) {
+                    let { objInfoEmpresa } = arrNewData[i];
+
+                    if (validator.isJSON(objInfoEmpresa)) {
+                        objInfoEmpresa = JSON.parse(
+                            objInfoEmpresa
+                        );
+                        arrNewData[i].objInfoEmpresa =
+                        objInfoEmpresa;
                     }
                 }
             }
