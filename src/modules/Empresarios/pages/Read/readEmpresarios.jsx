@@ -270,7 +270,7 @@ const ReadSolicitudesUser = () => {
                                 ]}
                                 onRowClick={(e, rowData) => {
                                     push(
-                                        `/transforma/asesor/empresario/read/${rowData.intId}`
+                                        `/transforma/asesor/empresario/read/${rowData.objEmpresario.intId}`
                                     );
                                 }}
                                 components={{

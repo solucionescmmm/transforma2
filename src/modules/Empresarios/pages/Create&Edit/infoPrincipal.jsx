@@ -216,10 +216,13 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.strEstadoVinculacion ? true : false
+                                        errors?.objInfoPrincipal?.strEstadoVinculacion
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strEstadoVinculacion?.message ||
+                                        errors?.objInfoPrincipal?.strEstadoVinculacion
+                                            ?.message ||
                                         "Selecciona el estado de vinculación."
                                     }
                                 />

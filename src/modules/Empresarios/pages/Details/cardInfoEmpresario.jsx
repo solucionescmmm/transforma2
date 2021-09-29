@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 
 //Librerias
 import { parseISO, format, differenceInCalendarYears } from "date-fns";
+import { useHistory } from "react-router-dom";
 
 //Componentes de Material UI
 import {
@@ -33,6 +34,11 @@ const CardInfoEmpresario = ({ values }) => {
     const [openCollapseInfoContacto, setOpenCollapseInfoContacto] = useState(false);
     const [openCollapseInfoEmpresa, setOpenCollapseInfoEmpresa] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
+
+    //===============================================================================================================================================
+    //========================================== Hooks personalizados ===============================================================================
+    //===============================================================================================================================================
+    const { push } = useHistory();
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -108,12 +114,13 @@ const CardInfoEmpresario = ({ values }) => {
                                 sx={{
                                     textTransform: "uppercase",
                                     color:
-                                        values.objEmpresario.strEstado === "Activo"
+                                        values.objEmpresario.strEstadoVinculacion ===
+                                        "Activo"
                                             ? "#00BAB3"
                                             : "inherit",
                                 }}
                             >
-                                {`${values.objEmpresario.strEstado}`}
+                                {`${values.objEmpresario.strEstadoVinculacion}`}
                             </Typography>
                         </Box>
                     </Grid>
@@ -190,7 +197,7 @@ const CardInfoEmpresario = ({ values }) => {
                                         >
                                             Tipo de vinculación:{" "}
                                         </span>
-                                        {values.objEmpresario.strTipoEmpresario ||
+                                        {values.objEmpresario.strTipoVinculacion ||
                                             "No disponible"}
                                     </p>
                                 </Grid>
@@ -301,7 +308,8 @@ const CardInfoEmpresario = ({ values }) => {
                                         >
                                             Género:{" "}
                                         </span>
-                                        {values.objEmpresario.strSexo || "No disponible"}
+                                        {values.objEmpresario.strGenero ||
+                                            "No disponible"}
                                     </p>
                                 </Grid>
 
@@ -345,7 +353,7 @@ const CardInfoEmpresario = ({ values }) => {
                                         >
                                             Dirección:{" "}
                                         </span>
-                                        {values.objEmpresario.strDireccion ||
+                                        {values.objEmpresario.strDireccionResidencia ||
                                             "No disponible"}
                                     </p>
                                 </Grid>
@@ -364,7 +372,7 @@ const CardInfoEmpresario = ({ values }) => {
                                         >
                                             Barrio:{" "}
                                         </span>
-                                        {values.objEmpresario.strDireccion ||
+                                        {values.objEmpresario.strDireccionResidencia ||
                                             "No disponible"}
                                     </p>
                                 </Grid>
@@ -383,7 +391,7 @@ const CardInfoEmpresario = ({ values }) => {
                                         >
                                             Estrato:{" "}
                                         </span>
-                                        {values.objEmpresario.strDireccion ||
+                                        {values.objEmpresario.strEstrato ||
                                             "No disponible"}
                                     </p>
                                 </Grid>
@@ -452,7 +460,15 @@ const CardInfoEmpresario = ({ values }) => {
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <Button fullWidth color="success">
+                        <Button
+                            fullWidth
+                            color="success"
+                            onClick={() =>
+                                push(
+                                    `/transforma/asesor/empresario/edit/${values.objEmpresario.intId}`
+                                )
+                            }
+                        >
                             Editar
                         </Button>
                     </Grid>

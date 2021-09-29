@@ -11,7 +11,7 @@ import { Link as RouterLink, Redirect, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 //Componentes de Material UI
 import {
@@ -101,6 +101,11 @@ const CUEmpresario = ({ isEdit }) => {
     const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
+
+    const [errorGetData, setErrorGetData] = useState({
+        flag: false,
+        msg: "",
+    });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
 
@@ -326,13 +331,85 @@ const CUEmpresario = ({ isEdit }) => {
             setLoadingGetData(true);
 
             async function getData() {
-                await refFntGetData.current({ intId }).then((res) => {
-                    let data = res?.[0];
+                await refFntGetData
+                    .current({ intId })
+                    .then((res) => {
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
 
-                    setData(data);
+                        if (res.data) {
+                            let data = res.data.data[0];
 
-                    setLoadingGetData(false);
-                });
+                            setData({
+                                objInfoPrincipal: {
+                                    strSede: data.objEmpresario.strSede,
+                                    strModalidadIngreso:
+                                        data.objEmpresario.strModalidadIngreso,
+                                    dtFechaVinculacion: data.objEmpresario
+                                        .dtFechaVinculacion
+                                        ? parseISO(data.objEmpresario.dtFechaVinculacion)
+                                        : null,
+                                    strEstadoVinculacion:
+                                        data.objEmpresario.strEstadoVinculacion,
+                                    strTipoVinculacion:
+                                        data.objEmpresario.strTipoVinculacion,
+                                },
+
+                                objInfoEmpresarioPr: {
+                                    strNombres: data.objEmpresario.strNombres,
+                                    strApellidos: data.objEmpresario.strApellidos,
+                                    strTipoDocto: data.objEmpresario.strTipoDocto,
+                                    strNroDocto: data.objEmpresario.strNroDocto,
+                                    strLugarExpedicionDocto:
+                                        data.objEmpresario.strLugarExpedicionDocto,
+                                    dtFechaExpedicionDocto: data.objEmpresario
+                                        .dtFechaExpedicionDocto
+                                        ? parseISO(
+                                              data.objEmpresario.dtFechaExpedicionDocto
+                                          )
+                                        : null,
+                                    dtFechaNacimiento: data.objEmpresario
+                                        .dtFechaNacimiento
+                                        ? parseISO(data.objEmpresario.dtFechaNacimiento)
+                                        : null,
+                                    strGenero: data.objEmpresario.strGenero,
+                                    strCelular1: data.objEmpresario.strCelular1,
+                                    strCelular2: data.objEmpresario.strCelular2,
+                                    strCorreoElectronico1:
+                                        data.objEmpresario.strCorreoElectronico1,
+                                    strCorreoElectronico2:
+                                        data.objEmpresario.strCorreoElectronico2,
+                                    strNivelEducativo:
+                                        data.objEmpresario.strNivelEducativo,
+                                    strTitulos: data.objEmpresario.strTitulos,
+                                    strCondicionDiscapacidad:
+                                        data.objEmpresario.strCondicionDiscapacidad,
+                                    strEstrato: data.objEmpresario.strEstrato,
+                                    strDepartamento: data.objEmpresario.strDepartamento,
+                                    strCiudad: data.objEmpresario.strCiudad,
+                                    strBarrio: data.objEmpresario.strBarrio,
+                                    strDireccionResidencia:
+                                        data.objEmpresario.strDireccionResidencia,
+                                    strURLFileFoto: data.objEmpresario.strURLFileFoto,
+                                },
+
+                                objInfoEmpresa: {
+                                    ...data.objInfoEmpresa[0],
+                                    dtFechaFundacion: data.objInfoEmpresa[0].dtFechaFundacion
+                                        ? parseISO(data.objInfoEmpresa[0].dtFechaFundacion)
+                                        : null,
+                                },
+                            });
+                        }
+
+                        setLoadingGetData(false);
+                        setErrorGetData({ flag: false, msg: "" });
+                    })
+                    .catch((error) => {
+                        setErrorGetData({ flag: true, msg: error.message });
+                        setLoadingGetData(false);
+                    });
             }
 
             getData();
@@ -366,6 +443,16 @@ const CUEmpresario = ({ isEdit }) => {
 
     if (loadingGetData) {
         return <Loader />;
+    }
+
+    if (errorGetData.flag) {
+        return (
+            <PageError
+                severity="error"
+                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                title={errorGetData.msg}
+            />
+        );
     }
 
     if (data?.error) {
@@ -479,6 +566,7 @@ const CUEmpresario = ({ isEdit }) => {
                             <Grid item xs={12}>
                                 <InfoPrincipal
                                     control={control}
+                                    values={data.objInfoPrincipal}
                                     disabled={loading}
                                     errors={errors}
                                     setValue={setValue}

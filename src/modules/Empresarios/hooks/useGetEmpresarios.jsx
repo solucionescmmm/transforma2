@@ -43,7 +43,7 @@ const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
     //===============================================================================================================================================
     const getData = useCallback(
         async ({ signalSubmitData, intId }) => {
-            await axios(
+            return await axios(
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
@@ -61,6 +61,8 @@ const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
             )
                 .then((res) => {
                     setData(res.data.data);
+
+                    return res;
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -80,6 +82,8 @@ const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
                             error: true,
                             msg,
                         });
+
+                        return error;
                     }
                 });
         },
