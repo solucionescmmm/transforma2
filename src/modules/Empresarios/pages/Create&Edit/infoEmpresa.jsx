@@ -178,7 +178,7 @@ const InfoEmpresa = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strEstadoNegocio}
-                            name="objInfoEmprendimiento.strEstadoNegocio"
+                            name="objInfoEmpresa.strEstadoNegocio"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Estado del negocio"
@@ -191,7 +191,7 @@ const InfoEmpresa = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmprendimiento?.strEstadoNegocio
+                                        errors?.objInfoEmpresa?.strEstadoNegocio
                                             ? true
                                             : false
                                     }
@@ -222,7 +222,7 @@ const InfoEmpresa = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strCuandoComienzaEmpresa}
-                            name="objInfoEmprendimiento.strCuandoComienzaEmpresa"
+                            name="objInfoEmpresa.strCuandoComienzaEmpresa"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectCuandoComienzaEmpresa
                                     label="Si aún no ha comenzado su empresa ¿Cuándo planea comenzar?"
@@ -231,13 +231,13 @@ const InfoEmpresa = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmprendimiento
+                                        errors?.objInfoEmpresa
                                             ?.strCuandoComienzaEmpresa
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento
+                                        errors?.objInfoEmpresa
                                             ?.strCuandoComienzaEmpresa?.message ||
                                         "Selecciona una opción."
                                     }
@@ -636,7 +636,7 @@ const InfoEmpresa = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strDescProductosServicios}
-                            name="objInfoEmprendimiento.strDescProductosServicios"
+                            name="objInfoEmpresa.strDescProductosServicios"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Describe los productos o servicios que ofrece"
@@ -649,13 +649,13 @@ const InfoEmpresa = ({
                                     multiline
                                     rows={4}
                                     error={
-                                        errors?.objInfoEmprendimiento
+                                        errors?.objInfoEmpresa
                                             ?.strDescProductosServicios
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento
+                                        errors?.objInfoEmpresa
                                             ?.strDescProductosServicios?.message ||
                                         "Describe detalladamente los servicios que ofrece la empresa."
                                     }
@@ -672,7 +672,7 @@ const InfoEmpresa = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strMateriaPrima}
-                            name="objInfoEmprendimiento.strMateriaPrima"
+                            name="objInfoEmpresa.strMateriaPrima"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Materias primas utilizadas"
@@ -684,12 +684,12 @@ const InfoEmpresa = ({
                                     multiline
                                     rows={4}
                                     error={
-                                        errors?.objInfoEmprendimiento?.strMateriaPrima
+                                        errors?.objInfoEmpresa?.strMateriaPrima
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strMateriaPrima
+                                        errors?.objInfoEmpresa?.strMateriaPrima
                                             ?.message ||
                                         "Describe detalladamente los materias primas que utiliza."
                                     }
@@ -702,7 +702,7 @@ const InfoEmpresa = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strNombreTecnica}
-                            name="objInfoEmprendimiento.strNombreTecnica"
+                            name="objInfoEmpresa.strNombreTecnica"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Nombre de la técnica utilizada"
@@ -714,12 +714,12 @@ const InfoEmpresa = ({
                                     multiline
                                     rows={4}
                                     error={
-                                        errors?.objInfoEmprendimiento?.strNombreTecnica
+                                        errors?.objInfoEmpresa?.strNombreTecnica
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strNombreTecnica
+                                        errors?.objInfoEmpresa?.strNombreTecnica
                                             ?.message ||
                                         "Describe detalladamente la técnica que utiliza."
                                     }
@@ -732,7 +732,7 @@ const InfoEmpresa = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strTiempoDedicacion}
-                            name="objInfoEmprendimiento.strTiempoDedicacion"
+                            name="objInfoEmpresa.strTiempoDedicacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTiempoDedicacionEmpresa
                                     label="Tiempo de dedicación actual a la idea o negocio"
@@ -742,12 +742,12 @@ const InfoEmpresa = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmprendimiento?.strTiempoDedicacion
+                                        errors?.objInfoEmpresa?.strTiempoDedicacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strTiempoDedicacion
+                                        errors?.objInfoEmpresa?.strTiempoDedicacion
                                             ?.message || "Selecciona una opción."
                                     }
                                 />
@@ -946,7 +946,7 @@ const InfoEmpresa = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.btGrupoAsociativo}
-                            name="objInfoEmprendimiento.btGrupoAsociativo"
+                            name="objInfoEmpresa.btGrupoAsociativo"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Pertenece algún grupo asociativo?"
@@ -959,7 +959,7 @@ const InfoEmpresa = ({
                                             e.target.value
                                         );
                                         setValue(
-                                            "objInfoEmprendimiento.strAsociacionUnidadProdIndividual",
+                                            "objInfoEmpresa.strAsociacionUnidadProdIndividual",
                                             ""
                                         );
                                     }}
@@ -968,12 +968,12 @@ const InfoEmpresa = ({
                                     fullWidth
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmprendimiento?.btGrupoAsociativo
+                                        errors?.objInfoEmpresa?.btGrupoAsociativo
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.btGrupoAsociativo
+                                        errors?.objInfoEmpresa?.btGrupoAsociativo
                                             ?.message || "Selecciona una opción."
                                     }
                                 >
@@ -988,7 +988,7 @@ const InfoEmpresa = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strAsociacionUnidadProdIndividual}
-                            name="objInfoEmprendimiento.strAsociacionUnidadProdIndividual"
+                            name="objInfoEmpresa.strAsociacionUnidadProdIndividual"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Como desea registrarse?"
@@ -1000,13 +1000,13 @@ const InfoEmpresa = ({
                                     fullWidth
                                     disabled={!data?.btGrupoAsociativo ? true : disabled}
                                     error={
-                                        errors?.objInfoEmprendimiento
+                                        errors?.objInfoEmpresa
                                             ?.strAsociacionUnidadProdIndividual
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento
+                                        errors?.objInfoEmpresa
                                             ?.strAsociacionUnidadProdIndividual?.message ||
                                         "Selecciona una opción."
                                     }
