@@ -9,6 +9,7 @@ const {
 
 class daoEmpresarios {
     async setEmpresario(data) {
+        console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -16,13 +17,13 @@ class daoEmpresarios {
             
             INSERT INTO tbl_Empresario VALUES
             (
-                ${data.strNombres},
-                ${data.strApellidos},
+                ${data.strNombres}, 
                 ${data.strTipoDocto},
                 ${data.strNroDocto},
                 ${data.strLugarExpedicionDocto},
                 ${data.dtFechaExpedicionDocto},
                 ${data.dtFechaNacimiento},
+                ${data.strNacionalidad},
                 ${data.strGenero},
                 ${data.strCelular1},
                 ${data.strCelular2},
@@ -373,7 +374,7 @@ class daoEmpresarios {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            await conn.query`DELETE FROM tbl_EmpresarioSecundario WHERE intIdEmpresarioPrincipal = ${data.intIdEmpresarioPrincipal}`;
+            await conn.query`DELETE FROM tbl_EmpresarioSecundario WHERE intIdEmpresarioPrincipal = ${data.intId}`;
 
             let result = {
                 error: false,

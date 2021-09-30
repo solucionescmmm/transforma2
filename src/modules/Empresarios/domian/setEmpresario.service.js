@@ -26,7 +26,7 @@ class setEmpresario {
     }
 
     async #validations() {
-        console.log(this.#objData);
+       // console.log(this.#objData);
         //console.log(this.#objUser);
         let dao = new classInterfaceDAOEmpresarios();
 
