@@ -1,6 +1,7 @@
 //Classes
 const classSetEmpresario = require("../../domian/setEmpresario.service");
 const classUpdateEmpresario = require("../../domian/updateEmpresario.service")
+const classDaleteEmpresario = require("../../domian/deleteEmpresario.service")
 
 //servicios
 const getEmpresario = require("../../domian/getEmpresario.service");
@@ -116,9 +117,10 @@ class ctrlEmpresarios {
     async deleteEmpresario(req, res){
         try {
             let objParams = req.query;
-            let { strDataUser } = req;
 
-            let query = await getEmpresario(objParams, strDataUser);
+            let service = new classDaleteEmpresario(objParams);
+
+            let query = await service.main();
 
             if (query.error) {
                 throw new Error(query.msg);
