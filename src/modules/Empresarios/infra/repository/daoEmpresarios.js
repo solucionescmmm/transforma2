@@ -17,7 +17,8 @@ class daoEmpresarios {
             
             INSERT INTO tbl_Empresario VALUES
             (
-                ${data.strNombres}, 
+                ${data.strNombres},
+                ${data.strApellidos} 
                 ${data.strTipoDocto},
                 ${data.strNroDocto},
                 ${data.strLugarExpedicionDocto},
