@@ -26,8 +26,7 @@ class setEmpresario {
     }
 
     async #validations() {
-       // console.log(this.#objData);
-        //console.log(this.#objUser);
+       //console.log(this.#objData);
         let dao = new classInterfaceDAOEmpresarios();
 
         if (
@@ -78,15 +77,25 @@ class setEmpresario {
     async #setEmpresa() {
         let prevData = this.#objData.objInfoEmpresa;
 
+        let aux_arrCategoriasSecundarias= JSON.stringify(this.#objData.objInfoEmpresa?.arrCategoriasSecundarias || "")
+        let aux_arrFormasComercializacion = JSON.stringify(this.#objData.objInfoEmpresa?.arrFormasComercializacion ||"")
+        let aux_arrMediosDigitales = JSON.stringify(this.#objData.objInfoEmpresa?.arrMediosDigitales||"")
+        let aux_arrRequisitoLey = JSON.stringify(this.#objData.objInfoEmpresa?.arrRequisitoLey||"")
+        
         let newData = {
             ...prevData,
             intIdEmpresario: this.#intIdEmpresario,
             strUsuario: this.#objUser.strEmail,
+            arrCategoriasSecundarias: aux_arrCategoriasSecundarias,
+            arrFormasComercializacion: aux_arrFormasComercializacion,
+            arrMediosDigitales: aux_arrMediosDigitales,
+            arrRequisitoLey: aux_arrRequisitoLey,
         };
 
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setEmpresa(newData);
+
         console.log(query)
         if (query.error) {
             await this.#rollbackTransaction();
@@ -105,7 +114,7 @@ class setEmpresario {
             };
 
             let query = await dao.setEmpresarioSecundario(newData);
-            //console.log(query)
+
             if (query.error) {
                 await this.#rollbackTransaction();
             }
@@ -115,9 +124,35 @@ class setEmpresario {
     async #rollbackTransaction() {
         let dao = new classInterfaceDAOEmpresarios();
 
-        let query = await dao.deleteEmpresario({
+        let queryEmpresarioSecundario = await dao.deleteEmpresarioSecundario({
+            intId :this.#intIdEmpresario,
+        })
+
+        let queryEmpresa = await dao.deleteInfoEmpresa({
+             intId : this.#intIdEmpresario,
+         })
+
+         let query = await dao.deleteEmpresario({
             intId: this.#intIdEmpresario,
         });
+
+        if (queryEmpresa.error) {
+            this.#objResult = {
+                error: true,
+                msg: queryEmpresa.error
+                    ? queryEmpresa.msg
+                    : "El registro del empresario ha fallado, se devolvieron los cambios efectuados en el sistema, por favor contacta al área de TI para más información.",
+            };
+        }
+
+        if (queryEmpresarioSecundario.error) {
+            this.#objResult = {
+                error: true,
+                msg: queryEmpresarioSecundario.error
+                    ? queryEmpresarioSecundario.msg
+                    : "El registro del empresario ha fallado, se devolvieron los cambios efectuados en el sistema, por favor contacta al área de TI para más información.",
+            };
+        }
 
         this.#objResult = {
             error: true,
