@@ -8,7 +8,6 @@ import {
     FormLabel,
     FormHelperText,
     Chip,
-    TextField,
     Input,
     Button,
     Grid,
@@ -75,21 +74,27 @@ const ModalMediosVetanProductos = ({
         },
         objMultimarcas: {
             checked: false,
-            label: "Multimarcas o boutique",
+            label: "Multimarcas y/o minimercados ",
             parent: "strMultimarcas",
-        },
-        objReferidos: {
-            checked: false,
-            label: "Referidos",
-            parent: "strReferidos",
         },
         objRedesComercializacion: {
             checked: false,
             label: "Grupos o redes para la comercialización",
             parent: "strRedesComercializacion",
         },
+        objAlmacenesCadena: {
+            checked: false,
+            label: "Almacenes de cadena",
+            parent: "strAlmacenesCadena",
+        },
+        objVentasCorporativas: {
+            checked: false,
+            label: "Ventas corporativas",
+            parent: "strVentasCorporativas",
+        },
     });
 
+    // eslint-disable-next-line
     const [valuesCheck, setValuesCheck] = useState({
         strVentaDirectaLocal: "",
         strVentaPorMayor: "",
@@ -99,6 +104,8 @@ const ModalMediosVetanProductos = ({
         strMultimarcas: "",
         strReferidos: "",
         strRedesComercializacion: "",
+        strAlmacenesCadena: "",
+        strVentasCorporativas: "",
     });
 
     //===============================================================================================================================================
@@ -138,12 +145,12 @@ const ModalMediosVetanProductos = ({
         }));
     };
 
-    const handleChangeValuesCheck = (key, value) => {
-        setValuesCheck((prevState) => ({
-            ...prevState,
-            [key]: value,
-        }));
-    };
+    // const handleChangeValuesCheck = (key, value) => {
+    //     setValuesCheck((prevState) => ({
+    //         ...prevState,
+    //         [key]: value,
+    //     }));
+    // };
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -174,8 +181,12 @@ const ModalMediosVetanProductos = ({
                     <Input
                         id="chip-components-mediosVentaProductos"
                         name={name}
+                        sx={{ flexWrap: "wrap" }}
                         startAdornment={value.map((e, i) => (
                             <Chip
+                                sx={{
+                                    maxWidth: "inherit",
+                                }}
                                 key={i}
                                 label={e.value ? `${e.label}: ${e.value}` : `${e.label}`}
                             />
@@ -229,7 +240,7 @@ const ModalMediosVetanProductos = ({
                                             label={value.label}
                                         />
 
-                                        {value.checked && value.parent && (
+                                        {/* {value.checked && value.parent && (
                                             <TextField
                                                 key={key}
                                                 label="¿Cuáles?"
@@ -247,7 +258,7 @@ const ModalMediosVetanProductos = ({
                                                     )
                                                 }
                                             />
-                                        )}
+                                        )} */}
                                     </Fragment>
                                 ))}
                             </FormGroup>

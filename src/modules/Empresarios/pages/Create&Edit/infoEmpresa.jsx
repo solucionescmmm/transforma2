@@ -37,13 +37,13 @@ import SelectTiempoDedicacionEmpresa from "../../components/selectTiempoDedicaci
 import DropdownCategoriasSecundarias from "../../components/dropdownCategoriasSecundarias";
 import SelectCuandoComienzaEmpresa from "../../components/selectCuandoComienzaEmpresa";
 import ModalDireccionResidencia from "../../components/modalDireccionResidencia";
+import DropdownRequisitosLey from "../../components/dropdownRequisitosLey";
 
 const InfoEmpresa = ({
     disabled,
     values,
     errors,
     control,
-    isEdit,
     setValue,
     setError,
     clearErrors,
@@ -74,6 +74,8 @@ const InfoEmpresa = ({
         btGeneraEmpleo: "",
         intNumeroEmpleados: "",
         dblValorVentasMes: "",
+        arrRequisitoLey: [],
+        strOtrosRequisitosLey: "",
         arrFormasComercializacion: [],
         arrMediosDigitales: [],
         btGrupoAsociativo: "",
@@ -94,12 +96,43 @@ const InfoEmpresa = ({
     };
 
     useEffect(() => {
-        if (values && isEdit) {
-            setData({});
+        if (values) {
+            setData({
+                strURLFileLogoEmpresa: values.strURLFileLogoEmpresa || null,
+                strEstadoNegocio: values.strEstadoNegocio || "",
+                strCuandoComienzaEmpresa: values.strCuandoComienzaEmpresa || "",
+                strNombreMarca: values.strNombreMarca || "",
+                dtFechaFundacion: values.dtFechaFundacion || null,
+                strLugarOperacion: values.strLugarOperacion || "",
+                strDireccionResidencia: values.strDireccionResidencia || "",
+                strDepartamento: values.strDepartamento || "",
+                strCiudad: values.strCiudad || "",
+                strBarrio: values.strBarrio || "",
+                strEstrato: values.strEstrato || "",
+                strSectorEconomico: values.strSectorEconomico || "",
+                strCategoriaProducto: values.strCategoriaProducto || "",
+                strCategoriaServicio: values.strCategoriaServicio || "",
+                arrCategoriasSecundarias: values.arrCategoriasSecundarias || [],
+                strOtraCategoria: values.strOtraCategoria || "",
+                strDescProductosServicios: values.strDescProductosServicios || "",
+                strMateriaPrima: values.strMateriaPrima || "",
+                strNombreTecnica: values.strNombreTecnica || "",
+                strTiempoDedicacion: values.strTiempoDedicacion || "",
+                btGeneraEmpleo: values.btGeneraEmpleo || "",
+                intNumeroEmpleados: values.intNumeroEmpleados || "",
+                dblValorVentasMes: values.dblValorVentasMes || "",
+                arrRequisitoLey: values.arrRequisitoLey || [],
+                strOtrosRequisitosLey: values.strOtrosRequisitosLey || "",
+                arrFormasComercializacion: values.arrFormasComercializacion || [],
+                arrMediosDigitales: values.arrMediosDigitales || [],
+                btGrupoAsociativo: values.btGrupoAsociativo || "",
+                strAsociacionUnidadProdIndividual:
+                    values.strAsociacionUnidadProdIndividual || "",
+            });
         }
 
         setLoading(false);
-    }, [values, isEdit]);
+    }, [values]);
 
     if (loading) {
         return (
@@ -295,7 +328,6 @@ const InfoEmpresa = ({
                                             {...props}
                                             name={name}
                                             variant="standard"
-                                            required
                                             error={
                                                 errors?.objInfoEmpresa?.dtFechaFundacion
                                                     ? true
@@ -312,9 +344,6 @@ const InfoEmpresa = ({
                                 />
                             )}
                             control={control}
-                            rules={{
-                                required: "Por favor, selecciona la fecha de fundación.",
-                            }}
                         />
                     </Grid>
 
@@ -566,7 +595,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strCategoriaServicio
                                             ?.message ||
-                                        "Selecciona la categoría del servicio."
+                                        "Selecciona la categoría de los servicios."
                                     }
                                 />
                             )}
@@ -614,6 +643,7 @@ const InfoEmpresa = ({
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     variant="standard"
+                                    disabled={disabled}
                                     error={
                                         errors?.objInfoEmpresa?.strOtraCategoria
                                             ? true
@@ -622,7 +652,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strOtraCategoria
                                             ?.message ||
-                                        "En caso de que aplique, digita cual seria la otra categoría del producto o servicio."
+                                        "En caso de que aplique, digita cuál sería la otra categoría del producto o servicio."
                                     }
                                 />
                             )}
@@ -640,6 +670,7 @@ const InfoEmpresa = ({
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
+                                    disabled={disabled}
                                     fullWidth
                                     variant="outlined"
                                     required
@@ -675,6 +706,7 @@ const InfoEmpresa = ({
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
+                                    disabled={disabled}
                                     fullWidth
                                     variant="outlined"
                                     multiline
@@ -705,6 +737,7 @@ const InfoEmpresa = ({
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
+                                    disabled={disabled}
                                     fullWidth
                                     variant="outlined"
                                     multiline
@@ -885,6 +918,63 @@ const InfoEmpresa = ({
                                 required:
                                     "Por favor, digita la cantidad promedio de las ventas mensuales.",
                             }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.arrRequisitoLey}
+                            name="objInfoEmpresa.arrRequisitoLey"
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownRequisitosLey
+                                    label="Requisitos de ley"
+                                    name={name}
+                                    values={value}
+                                    onChange={(e, value) => onChange(value)}
+                                    multiple
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmpresa?.arrRequisitoLey
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.arrRequisitoLey
+                                            ?.message ||
+                                        "Selecciona los requisitos de ley que cumple actualmente."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strOtrosRequisitosLey}
+                            name="objInfoEmpresa.strOtrosRequisitosLey"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Otros requisitos de ley"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmpresa?.strOtrosRequisitosLey
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strOtrosRequisitosLey
+                                            ?.message ||
+                                        "Digita en caso de tener otros requisitos de ley."
+                                    }
+                                />
+                            )}
+                            control={control}
                         />
                     </Grid>
 

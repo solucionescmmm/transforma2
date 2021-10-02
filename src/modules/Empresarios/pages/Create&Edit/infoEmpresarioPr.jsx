@@ -35,7 +35,7 @@ import SelectTiposDiscapacidad from "../../components/selectTipoDiscapacidad";
 import Dropzone from "../../../../common/components/dropzone";
 import ModalDireccionResidencia from "../../components/modalDireccionResidencia";
 
-const InformacionEmpresarioPr = ({
+const InfoEmpresarioPr = ({
     disabled,
     values,
     errors,
@@ -85,7 +85,7 @@ const InformacionEmpresarioPr = ({
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || "",
                 dtFechaExpedicionDocto: values.dtFechaExpedicionDocto || null,
                 dtFechaNacimiento: values.dtFechaNacimiento || null,
-                strGenero: values.strGenero || null,
+                strGenero: values.strGenero || "",
                 strCelular1: values.strCelular1 || "",
                 strCelular2: values.strCelular2 || "",
                 strCorreoElectronico1: values.strCorreoElectronico1 || "",
@@ -802,4 +802,4 @@ const InformacionEmpresarioPr = ({
     );
 };
 
-export default InformacionEmpresarioPr;
+export default InfoEmpresarioPr;

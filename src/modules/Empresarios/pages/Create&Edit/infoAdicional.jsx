@@ -23,35 +23,21 @@ import {
 } from "@mui/icons-material";
 
 //Componentes
-import DropdownRequisitosLey from "../../components/dropdownRequisitosLey";
 import DropdownRecibirAsesoria from "../../components/dropdownRecibirAsesoria";
 import DropdownComoSeEntero from "../../components/dropdownComoSeEntero";
 import DropdowMediosComunicacion from "../../components/dropdownMediosComunicacion";
 
-const InformacionPrincipal = ({
-    disabled,
-    values,
-    errors,
-    control,
-    isEdit,
-    setValue,
-}) => {
+const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        btNombreMarca: "",
-        btLogotipo: "",
-        btEtiquetaEmpaque: "",
-        btMejorarEtiquetaEmpaque: "",
         strPrincipalesNecesidades: "",
-        arrRequisitoLey: [],
-        strOtrosRequisitos: "",
         btInteresadoProcesoCMM: "",
         arrTemasCapacitacion: [],
         arrComoSeEntero: [],
-        strOtrosMediosEntero: "",
+        strOtroComoSeEntero: "",
         arrMediosDeComunicacion: [],
-        strOtroMedioComunicacion: "",
+        strOtrosMediosComunicacion: "",
         btRecibirInfoCMM: "",
         strRecomendaciones: "",
     });
@@ -70,28 +56,22 @@ const InformacionPrincipal = ({
     };
 
     useEffect(() => {
-        if (values && isEdit) {
+        if (values) {
             setData({
-                btNombreMarca: "",
-                btLogotipo: "",
-                btEtiquetaEmpaque: "",
-                btMejorarEtiquetaEmpaque: "",
-                strPrincipalesNecesidades: "",
-                arrRequisitoLey: [],
-                strOtrosRequisitos: "",
-                btInteresadoProcesoCMM: "",
-                arrTemasCapacitacion: "",
-                arrComoSeEntero: "",
-                strOtrosMediosEntero: "",
-                arrMediosDeComunicacion: "",
-                strOtroMedioComunicacion: "",
-                btRecibirInfoCMM: "",
-                strRecomendaciones: "",
+                strPrincipalesNecesidades: values.strPrincipalesNecesidades || "",
+                btInteresadoProcesoCMM: values.btInteresadoProcesoCMM || "",
+                arrTemasCapacitacion: values.arrTemasCapacitacion || [],
+                arrComoSeEntero: values.arrComoSeEntero || [],
+                strOtroComoSeEntero: values.strOtroComoSeEntero || "",
+                arrMediosDeComunicacion: values.arrMediosDeComunicacion || [],
+                strOtrosMediosComunicacion: values.strOtrosMediosComunicacion || "",
+                btRecibirInfoCMM: values.btRecibirInfoCMM || "",
+                strRecomendaciones: values.strRecomendaciones || "",
             });
         }
 
         setLoading(false);
-    }, [values, isEdit]);
+    }, [values]);
 
     if (loading) {
         return (
@@ -136,176 +116,13 @@ const InformacionPrincipal = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.btNombreMarca}
-                            name="objInfoAdicional.btNombreMarca"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿Tiene nombre de la marca?"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    select
-                                    fullWidth
-                                    variant="standard"
-                                    required
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoAdicional?.btNombreMarca
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoAdicional?.btNombreMarca
-                                            ?.message ||
-                                        "Selecciona si la empresa tiene nombre de la marca."
-                                    }
-                                >
-                                    <MenuItem value={true}>Si</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                </TextField>
-                            )}
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona si la empresa tiene nombre de la marca.";
-                                    }
-                                },
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.btLogotipo}
-                            name="objInfoAdicional.btLogotipo"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿Tiene Logotipo?"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    select
-                                    fullWidth
-                                    variant="standard"
-                                    required
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoAdicional?.btLogotipo
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoAdicional?.btLogotipo?.message ||
-                                        "Selecciona si la empresa tiene logotipo."
-                                    }
-                                >
-                                    <MenuItem value={true}>Si</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                </TextField>
-                            )}
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona si la empresa tiene logotipo.";
-                                    }
-                                },
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.btEtiquetaEmpaque}
-                            name="objInfoAdicional.btEtiquetaEmpaque"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿Tiene etiqueta o empaque?"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    select
-                                    fullWidth
-                                    variant="standard"
-                                    required
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoAdicional?.btEtiquetaEmpaque
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoAdicional?.btEtiquetaEmpaque
-                                            ?.message ||
-                                        "Selecciona si la empresa tiene etiqueta o empaque."
-                                    }
-                                >
-                                    <MenuItem value={true}>Si</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                </TextField>
-                            )}
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona si la empresa tiene etiqueta o empaque.";
-                                    }
-                                },
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.btMejorarEtiquetaEmpaque}
-                            name="objInfoAdicional.btMejorarEtiquetaEmpaque"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿Le gustaría mejorar su marca, logotipo o etiqueta/empaque de su negocio?"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    select
-                                    fullWidth
-                                    variant="standard"
-                                    required
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoAdicional?.btMejorarEtiquetaEmpaque
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoAdicional?.btMejorarEtiquetaEmpaque
-                                            ?.message ||
-                                        "Selecciona si la empresa quiere mejorar su marca, logotipo o etiqueta/empaque."
-                                    }
-                                >
-                                    <MenuItem value={true}>Si</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                </TextField>
-                            )}
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona si la empresa quiere mejorar su marca, logotipo o etiqueta/empaque.";
-                                    }
-                                },
-                            }}
-                        />
-                    </Grid>
-
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strPrincipalesNecesidades}
                             name="objInfoAdicional.strPrincipalesNecesidades"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿Cuáles son las principales necesidades e intereses de la unidad productiva o empresa?"
+                                    label="¿Cuáles son las principales necesidades e intereses de la empresa?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -323,64 +140,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional
                                             ?.strPrincipalesNecesidades?.message ||
-                                        "Describa cuales son las principales necesidades e intereses de la unidad productiva o empresa."
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.arrRequisitoLey}
-                            name="objInfoAdicional.arrRequisitoLey"
-                            render={({ field: { name, onChange, value } }) => (
-                                <DropdownRequisitosLey
-                                    label="Requisitos de ley"
-                                    name={name}
-                                    vlaue={value}
-                                    onChange={(e, value) => onChange(value)}
-                                    multiple
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoAdicional?.arrRequisitoLey
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoAdicional?.arrRequisitoLey
-                                            ?.message ||
-                                        "Selecciona los requisitos de ley que cumple actualmente."
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strOtrosRequisitos}
-                            name="objInfoAdicional.strOtrosRequisitos"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Otros requisitos de ley"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoAdicional?.strOtrosRequisitos
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoAdicional?.strOtrosRequisitos
-                                            ?.message ||
-                                        "Digita en caso de tener otros requisitos de ley."
+                                        "Describa cuales son las principales necesidades e intereses de la empresa."
                                     }
                                 />
                             )}
@@ -394,8 +154,7 @@ const InformacionPrincipal = ({
                             name="objInfoAdicional.btInteresadoProcesoCMM"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿Estaría interesado en hacer parte del proceso de formación, capacitación 
-                                    y asesoría?"
+                                    label="¿Tiene interés en hacer parte del proceso de formación, capacitación y asesoría?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => {
@@ -426,10 +185,10 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.btInteresadoProcesoCMM
                                             ?.message ||
-                                        "Selecciona si esta interesado en hacer parte del proceso de formación, capacitación y asesoría de la CMMMedellín."
+                                        "Selecciona sí tiene interés en hacer parte del proceso de formación, capacitación y asesoría de De Mis Manos "
                                     }
                                 >
-                                    <MenuItem value={true}>Si</MenuItem>
+                                    <MenuItem value={true}>Sí</MenuItem>
                                     <MenuItem value={false}>No</MenuItem>
                                 </TextField>
                             )}
@@ -437,7 +196,7 @@ const InformacionPrincipal = ({
                             rules={{
                                 validate: (value) => {
                                     if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona si esta interesado en hacer parte del proceso de formación, capacitación y asesoría de la CMMMedellín.";
+                                        return "Por favor, selecciona sí tiene interés en hacer parte del proceso de formación, capacitación y asesoría de De Mis Manos ";
                                     }
                                 },
                             }}
@@ -492,7 +251,7 @@ const InformacionPrincipal = ({
                                 <DropdownComoSeEntero
                                     label="¿Cómo se enteró de la Corporación?"
                                     name={name}
-                                    vlaue={value}
+                                    values={value}
                                     onChange={(e, value) => onChange(value)}
                                     multiple
                                     disabled={disabled}
@@ -504,7 +263,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.arrComoSeEntero
                                             ?.message ||
-                                        "Selecciona el como se entero de la corporación."
+                                        "Selecciona el cómo se enteró de la corporación."
                                     }
                                 />
                             )}
@@ -514,27 +273,27 @@ const InformacionPrincipal = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strOtrosRequisitos}
-                            name="objInfoAdicional.strOtrosRequisitos"
-                            render={({ field: { name, value, onChange } }) => (
+                            defaultValue={data.strOtroComoSeEntero}
+                            name="objInfoAdicional.strOtroComoSeEntero"
+                            render={({ field: { name, onChange, value } }) => (
                                 <TextField
-                                    label="Otros ¿Cuáles?"
+                                    label="Otro ¿Cuál?"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
+                                    onChange={(e, value) => onChange(value)}
                                     disabled={disabled}
+                                    fullWidth
                                     error={
-                                        errors?.objInfoAdicional?.strOtrosRequisitos
+                                        errors?.objInfoAdicional?.arrComoSeEntero
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.strOtrosRequisitos
+                                        errors?.objInfoAdicional?.arrComoSeEntero
                                             ?.message ||
-                                        "Digita otras opciones, en caso de que aplique."
+                                        "Digita, en caso de que aplique otro medio por el cuál se enteró de la corporación."
                                     }
+                                    variant="standard"
                                 />
                             )}
                             control={control}
@@ -549,7 +308,7 @@ const InformacionPrincipal = ({
                                 <DropdowMediosComunicacion
                                     label="¿A través de cuál(es) de los siguientes medios le gustaría que se comunicaran con usted?"
                                     name={name}
-                                    vlaue={value}
+                                    value={value}
                                     onChange={(e, value) => onChange(value)}
                                     multiple
                                     disabled={disabled}
@@ -561,7 +320,7 @@ const InformacionPrincipal = ({
                                     helperText={
                                         errors?.objInfoAdicional?.arrMediosDeComunicacion
                                             ?.message ||
-                                        "Selecciona los medios que le gustaría que la Corporación Mundial de la Mujer Medellín se comunicara con usted."
+                                        "Selecciona los medios que te gustarían para que De Mis Manos se comunique contigo."
                                     }
                                 />
                             )}
@@ -571,8 +330,8 @@ const InformacionPrincipal = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strOtrosMediosEntero}
-                            name="objInfoAdicional.strOtrosMediosEntero"
+                            defaultValue={data.strOtrosMediosComunicacion}
+                            name="objInfoAdicional.strOtrosMediosComunicacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Otro ¿Cuál?"
@@ -583,13 +342,14 @@ const InformacionPrincipal = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoAdicional?.strOtrosMediosEntero
+                                        errors?.objInfoAdicional
+                                            ?.strOtrosMediosComunicacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.strOtrosMediosEntero
-                                            ?.message ||
+                                        errors?.objInfoAdicional
+                                            ?.strOtrosMediosComunicacion?.message ||
                                         "Digita otras opciones, en caso de que aplique."
                                     }
                                 />
@@ -604,7 +364,7 @@ const InformacionPrincipal = ({
                             name="objInfoAdicional.btRecibirInfoCMM"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿Le gustaría recibir información de la Corporación?"
+                                    label="¿La persona autoriza a De Mis Manos para el envío de información? "
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -624,7 +384,7 @@ const InformacionPrincipal = ({
                                         "Selecciona si le gustaría recibir información de la Corporación."
                                     }
                                 >
-                                    <MenuItem value={true}>Si</MenuItem>
+                                    <MenuItem value={true}>Sí</MenuItem>
                                     <MenuItem value={false}>No</MenuItem>
                                 </TextField>
                             )}
@@ -675,4 +435,4 @@ const InformacionPrincipal = ({
     );
 };
 
-export default InformacionPrincipal;
+export default InfoAdicional;

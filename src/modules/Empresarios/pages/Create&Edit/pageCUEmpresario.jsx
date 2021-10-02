@@ -266,7 +266,7 @@ const CUEmpresario = ({ isEdit }) => {
                                     intNumeroEmpleados:
                                         data.objInfoEmpresa.intNumeroEmpleados,
                                     dblValorVentasMes:
-                                        data.objInfoEmpresa.dblValorVentasMes ,
+                                        data.objInfoEmpresa.dblValorVentasMes,
                                     arrFormasComercializacion:
                                         data.objInfoEmpresa.arrFormasComercializacion,
                                     arrMediosDigitales:
@@ -276,6 +276,26 @@ const CUEmpresario = ({ isEdit }) => {
                                     strAsociacionUnidadProdIndividual:
                                         data.objInfoEmpresa
                                             .strAsociacionUnidadProdIndividual,
+                                },
+                                objInfoAdicional: {
+                                    strPrincipalesNecesidades:
+                                        data.objInfoAdicional.strPrincipalesNecesidades,
+                                    btInteresadoProcesoCMM:
+                                        data.objInfoAdicional.btInteresadoProcesoCMM,
+                                    arrTemasCapacitacion:
+                                        data.objInfoAdicional.arrTemasCapacitacion,
+                                    arrComoSeEntero:
+                                        data.objInfoAdicional.arrComoSeEntero,
+                                    strOtroComoSeEntero:
+                                        data.objInfoAdicional.strOtroComoSeEntero,
+                                    arrMediosDeComunicacion:
+                                        data.objInfoAdicional.arrMediosDeComunicacion,
+                                    strOtrosMediosComunicacion:
+                                        data.objInfoAdicional.strOtrosMediosComunicacion,
+                                    btRecibirInfoCMM:
+                                        data.objInfoAdicional.btRecibirInfoCMM,
+                                    strRecomendaciones:
+                                        data.objInfoAdicional.strRecomendaciones,
                                 },
                             };
 
@@ -581,6 +601,7 @@ const CUEmpresario = ({ isEdit }) => {
                             <Grid item xs={12}>
                                 <InfoEmpresarioPr
                                     control={control}
+                                    values={data.objInfoEmpresarioPr}
                                     disabled={loading}
                                     errors={errors}
                                     setValue={setValue}
@@ -593,6 +614,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 <InfoEmpresarioSec
                                     control={control}
                                     disabled={loading}
+                                    values={data.arrInfoEmpresarioSec}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -604,6 +626,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 <InfoEmpresa
                                     control={control}
                                     disabled={loading}
+                                    values={data.objInfoEmpresa}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -611,16 +634,17 @@ const CUEmpresario = ({ isEdit }) => {
                                 />
                             </Grid>
 
-                            {/* <Grid item xs={12}>
+                            <Grid item xs={12}>
                                 <InfoAdicional
                                     control={control}
                                     disabled={loading}
+                                    values={data.objInfoAdicional}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
                                     clearErrors={clearErrors}
                                 />
-                            </Grid> */}
+                            </Grid>
 
                             <Grid item xs={12}>
                                 <Box
