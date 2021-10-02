@@ -9,7 +9,6 @@ const {
 
 class daoEmpresarios {
     async setEmpresario(data) {
-        console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -85,6 +84,8 @@ class daoEmpresarios {
             INSERT INTO tbl_InfoEmpresa VALUES
             (
                 ${data.intIdEmpresario},
+                ${data.strEstadoNegocio},
+                ${data.strCuandoPlaneaComenzar},
                 ${data.strURLFileLogoEmpresa},
                 ${data.strNombreMarca},
                 ${data.dtFechaFundacion},
@@ -97,7 +98,7 @@ class daoEmpresarios {
                 ${data.strSectorEconomico},
                 ${data.strCategoriaProducto},
                 ${data.strCategoriaServicio},
-                ${data.strCategoriasSecundarias},
+                ${data.arrCategoriasSecundarias},
                 ${data.strOtraCategoria},
                 ${data.strDescProductosServicios},
                 ${data.strMateriaPrima},
@@ -105,11 +106,13 @@ class daoEmpresarios {
                 ${data.strTiempoDedicacion},
                 ${data.btGeneraEmpleo},
                 ${data.intNumeroEmpleados},
-                ${data.valorVentasMes},
-                ${data.strFormasComercializacion},
-                ${data.strMediosDigitales},
+                ${data.dblValorVentasMes},
+                ${data.arrFormasComercializacion},
+                ${data.arrMediosDigitales},
                 ${data.btGrupoAsociativo},
                 ${data.strAsociacionUnidadProdIndividual},
+                ${data.arrRequisitoLey},
+                ${data.strOtrosRequisitos},
                 GETDATE(),
                 ${data.strUsuario}
             )
@@ -472,6 +475,7 @@ class daoEmpresarios {
                 }
                 if (arrNewData[i].objInfoEmpresa) {
                     let { objInfoEmpresa } = arrNewData[i];
+                    
 
                     if (validator.isJSON(objInfoEmpresa)) {
                         objInfoEmpresa = JSON.parse(
@@ -496,7 +500,6 @@ class daoEmpresarios {
 
             return result;
         } catch (error) {
-            console.log(error);
             let result = {
                 error: true,
                 msg:
