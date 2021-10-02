@@ -231,15 +231,13 @@ const InfoEmpresa = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa
-                                            ?.strCuandoComienzaEmpresa
+                                        errors?.objInfoEmpresa?.strCuandoComienzaEmpresa
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa
-                                            ?.strCuandoComienzaEmpresa?.message ||
-                                        "Selecciona una opción."
+                                        errors?.objInfoEmpresa?.strCuandoComienzaEmpresa
+                                            ?.message || "Selecciona una opción."
                                     }
                                 />
                             )}
@@ -371,7 +369,8 @@ const InfoEmpresa = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strDireccionResidencia?.message ||
+                                        errors?.objInfoEmpresa?.strDireccionResidencia
+                                            ?.message ||
                                         "Digita la dirección de la empresa."
                                     }
                                 />
@@ -398,9 +397,7 @@ const InfoEmpresa = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresa?.strCiudad
-                                            ? true
-                                            : false
+                                        errors?.objInfoEmpresa?.strCiudad ? true : false
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa?.strCiudad?.message ||
@@ -649,14 +646,13 @@ const InfoEmpresa = ({
                                     multiline
                                     rows={4}
                                     error={
-                                        errors?.objInfoEmpresa
-                                            ?.strDescProductosServicios
+                                        errors?.objInfoEmpresa?.strDescProductosServicios
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa
-                                            ?.strDescProductosServicios?.message ||
+                                        errors?.objInfoEmpresa?.strDescProductosServicios
+                                            ?.message ||
                                         "Describe detalladamente los servicios que ofrece la empresa."
                                     }
                                 />
@@ -861,7 +857,9 @@ const InfoEmpresa = ({
                                     label="Valor promedio de las ventas mensuales"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
                                     thousandSeparator={true}
                                     allowNegative={false}
                                     prefix={"$"}
@@ -876,7 +874,8 @@ const InfoEmpresa = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.dblValorVentasMes?.message ||
+                                        errors?.objInfoEmpresa?.dblValorVentasMes
+                                            ?.message ||
                                         "Digita la cantidad promedio de las ventas mensuales."
                                     }
                                 />
@@ -1007,8 +1006,8 @@ const InfoEmpresa = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa
-                                            ?.strAsociacionUnidadProdIndividual?.message ||
-                                        "Selecciona una opción."
+                                            ?.strAsociacionUnidadProdIndividual
+                                            ?.message || "Selecciona una opción."
                                     }
                                     required={data?.btGrupoAsociativo ? true : false}
                                 >

@@ -266,7 +266,7 @@ const CUEmpresario = ({ isEdit }) => {
                                     intNumeroEmpleados:
                                         data.objInfoEmpresa.intNumeroEmpleados,
                                     dblValorVentasMes:
-                                        data.objInfoEmpresa.dblValorVentasMes,
+                                        data.objInfoEmpresa.dblValorVentasMes ,
                                     arrFormasComercializacion:
                                         data.objInfoEmpresa.arrFormasComercializacion,
                                     arrMediosDigitales:
@@ -396,8 +396,11 @@ const CUEmpresario = ({ isEdit }) => {
 
                                 objInfoEmpresa: {
                                     ...data.objInfoEmpresa[0],
-                                    dtFechaFundacion: data.objInfoEmpresa[0].dtFechaFundacion
-                                        ? parseISO(data.objInfoEmpresa[0].dtFechaFundacion)
+                                    dtFechaFundacion: data.objInfoEmpresa[0]
+                                        .dtFechaFundacion
+                                        ? parseISO(
+                                              data.objInfoEmpresa[0].dtFechaFundacion
+                                          )
                                         : null,
                                 },
                             });
