@@ -22,6 +22,7 @@ class setEmpresario {
         await this.#setEmpresario();
         await this.#setEmpresarioSecundario();
         await this.#setEmpresa();
+        await this.#setInfoAdicional();
         return this.#objResult;
     }
 
@@ -118,6 +119,32 @@ class setEmpresario {
             if (query.error) {
                 await this.#rollbackTransaction();
             }
+        }
+    }
+
+    async #setInfoAdicional(){
+        let dao = new classInterfaceDAOEmpresarios()
+
+        let prevData = this.#objData.objInfoAdicional;
+
+        let aux_arrTemasCapacitacion =JSON.stringify(this.#objData.objInfoAdicional?.arrTemasCapacitacion||"");
+        let aux_arrComoSeEntero = JSON.stringify(this.#objData.objInfoAdicional?.arrComoSeEntero||"");
+        let aux_arrMediosDeComunicacion = JSON.stringify(this.#objData.objInfoAdicional?.arrMediosDeComunicacion||"");
+
+        
+        let newData={
+            ...prevData,
+            intIdEmpresario: this.#intIdEmpresario,
+            strUsuario: this.#objUser.strEmail,
+            arrTemasCapacitacion:aux_arrTemasCapacitacion,
+            arrComoSeEntero:aux_arrComoSeEntero,
+            arrMediosDeComunicacion:aux_arrMediosDeComunicacion,
+        }
+
+        let query = await dao.setInfoAdicional(newData)
+
+        if(query.error){
+            await this.#rollbackTransaction();
         }
     }
 

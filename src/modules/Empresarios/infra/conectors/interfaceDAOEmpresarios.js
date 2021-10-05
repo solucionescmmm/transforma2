@@ -20,6 +20,12 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
+    async setInfoAdicional(data){
+        const dao = new classDaoSql();
+        let result = await dao.setInfoAdicional(data);
+        return result
+    }
+
     async updateEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.updateEmpresario(data);
@@ -38,6 +44,12 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
+    async updateInfoAdicional(data){
+        const dao = new classDaoSql()
+        let result = await dao.updateInfoAdicional(data)
+        return result
+    }
+
     async deleteEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.deleteEmpresario(data);
@@ -54,6 +66,12 @@ class interfaceDAOEmpresarios {
         const dao = new classDaoSql();
         let result = await dao.deleteEmpresarioSecundario(data);
         return result;
+    }
+
+    async deleteInfoAdiconal(data){
+        const dao = new classDaoSql()
+        let result = await dao.deleteInfoAdicional(data);
+        return result
     }
 
     async getEmpresario(data) {

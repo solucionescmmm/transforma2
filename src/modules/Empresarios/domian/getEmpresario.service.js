@@ -88,9 +88,16 @@ const getEmpresario = async (objParams, strDataUser) => {
                     arrMediosDigitales: JSON.parse(array[i].objInfoEmpresa?.arrMediosDigitales||null),
                     arrRequisitoLey: JSON.parse(array[i].objInfoEmpresa?.arrRequisitoLey||null),
                 }
+                let objInfoAdicional ={
+                    ...array[i]?.objInfoAdicional,
+                    arrTemasCapacitacion:JSON.parse(array[i].objInfoAdicional?.arrTemasCapacitacion||null),
+                    arrComoSeEntero:JSON.parse(array[i].objInfoAdicional?.arrComoSeEntero||null),
+                    arrMediosDeComunicacion:JSON.parse(array[i].objInfoAdicional?.arrMediosDeComunicacion||null),
+                }
                 data[i] ={
                     objEmpresario,
                     objInfoEmpresa,
+                    objInfoAdicional,
                     arrEmpresarioSecundario:array[i]?.arrEmpresarioSecundario || undefined,
                 }
             }
