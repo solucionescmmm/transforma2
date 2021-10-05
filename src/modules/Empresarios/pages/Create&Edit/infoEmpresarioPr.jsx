@@ -34,6 +34,7 @@ import SelectNivelEducativo from "../../components/selectNivelEducativo";
 import SelectTiposDiscapacidad from "../../components/selectTipoDiscapacidad";
 import Dropzone from "../../../../common/components/dropzone";
 import ModalDireccionResidencia from "../../components/modalDireccionResidencia";
+import DropdownLocalizaciones from "../../components/dropdownLocalizaciones";
 
 const InfoEmpresarioPr = ({
     disabled,
@@ -62,9 +63,9 @@ const InfoEmpresarioPr = ({
         strTitulos: "",
         strCondicionDiscapacidad: "",
         strEstrato: "",
-        strDepartamento: "",
-        strCiudad: "",
-        strBarrio: "",
+        arrDepartamento: "",
+        arrCiudad: "",
+        arrBarrio: "",
         strDireccionResidencia: "",
         strURLFileFoto: "",
     });
@@ -73,6 +74,13 @@ const InfoEmpresarioPr = ({
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
+    };
+
+    const handlerChangeData = (name, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
 
     useEffect(() => {
@@ -94,9 +102,9 @@ const InfoEmpresarioPr = ({
                 strTitulos: values.strTitulos || "",
                 strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
                 strEstrato: values.strEstrato || "",
-                strDepartamento: values.strDepartamento || "",
-                strCiudad: values.strCiudad || "",
-                strBarrio: values.strBarrio || "",
+                arrDepartamento: values.arrDepartamento || "",
+                arrCiudad: values.arrCiudad || "",
+                arrBarrio: values.arrBarrio || "",
                 strDireccionResidencia: values.strDireccionResidencia || "",
                 strURLFileFoto: values.strURLFileFoto || "",
             });
@@ -723,19 +731,98 @@ const InfoEmpresarioPr = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
-                        Departamento
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.arrDepartamento}
+                            name="objInfoEmpresarioPr.arrDepartamento"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownLocalizaciones
+                                    label="Departamento"
+                                    strCodigo="departamentos"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData("arrDepartamento", value);
+                                    }}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.arrDepartamento
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresarioPr?.arrDepartamento
+                                            ?.message ||
+                                        "Selecciona el departamento de residencia."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
                     </Grid>
 
-                    <Grid item xs={12}>
-                        Ciudad
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.arrCiudad}
+                            name="objInfoEmpresarioPr.arrCiudad"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownLocalizaciones
+                                    label="Ciudad"
+                                    strCodigo="municipios"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData("arrCiudad", value);
+                                    }}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.arrCiudad
+                                            ? true
+                                            : false
+                                    }
+                                    strDepartamento={data.arrDepartamento?.region_name}
+                                    helperText={
+                                        errors?.objInfoEmpresarioPr?.arrCiudad?.message ||
+                                        "Selecciona la ciudad de residencia."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
                     </Grid>
 
-                    <Grid item xs={12}>
-                        Barrio / corregimiento / Vereda
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.arrBarrio}
+                            name="objInfoEmpresarioPr.arrBarrio"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownLocalizaciones
+                                    label="Barrio/Corregimiento/Vereda"
+                                    strCodigo="localidades"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData("arrBarrio", value);
+                                    }}
+                                    error={
+                                        errors?.objInfoEmpresarioPr?.arrBarrio
+                                            ? true
+                                            : false
+                                    }
+                                    strDepartamento={data.arrDepartamento?.region_name}
+                                    strCiudad={data.arrCiudad?.city_name}
+                                    helperText={
+                                        errors?.objInfoEmpresarioPr?.arrBarrio?.message ||
+                                        "Selecciona el barrio/corregimiento/vereda de residencia."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strDireccionResidencia}
                             name="objInfoEmpresarioPr.strDireccionResidencia"

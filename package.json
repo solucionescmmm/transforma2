@@ -10,7 +10,7 @@
         "@casl/react": "^2.3.0",
         "@emotion/react": "^11.4.0",
         "@emotion/styled": "^11.3.0",
-        "@material-table/core": "^0.2.2",
+        "@material-table/core": "^0.2.3",
         "@mui/core": "^5.0.0-alpha.48",
         "@mui/icons-material": "^5.0.1",
         "@mui/lab": "^5.0.0-alpha.48",

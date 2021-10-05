@@ -1,7 +1,7 @@
 import React from "react";
 
 //Hooks
-import useGetListas from "../hooks/useGetListas";
+import useGetLocalizaciones from "../hooks/useGetLocalizaciones";
 
 //Componentes de Material UI
 import {
@@ -27,7 +27,7 @@ import {
     CheckBox as CheckBoxIcon,
 } from "@mui/icons-material";
 
-const DropdownCategoriasSecundarias = ({
+const DropdownLocalizaciones = ({
     id,
     value,
     name,
@@ -37,11 +37,15 @@ const DropdownCategoriasSecundarias = ({
     helperText,
     label,
     multiple,
+    strCodigo,
+    strDepartamento,
+    strCiudad,
     required,
 }) => {
-    const { data, refreshGetData } = useGetListas({
-        strGrupo: "Empresa",
-        strCodigo: "CategoriasSecundarias",
+    const { data, refreshGetData } = useGetLocalizaciones({
+        strCodigo,
+        strDepartamento,
+        strCiudad,
     });
 
     if (!data) {
@@ -61,7 +65,7 @@ const DropdownCategoriasSecundarias = ({
                         onClick={() => {
                             refreshGetData({
                                 strGrupo: "Empresa",
-                                strCodigo: "CategoriasSecundarias",
+                                strCodigo: "EnteroCorporacion",
                             });
                         }}
                         size="large"
@@ -75,8 +79,7 @@ const DropdownCategoriasSecundarias = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos del listado "Categorías
-                Secundarias".
+                Ha ocurrido un error al obtener los datos del listado de localización.
             </Alert>
         );
     }
@@ -109,29 +112,41 @@ const DropdownCategoriasSecundarias = ({
                 if (typeof value === "string") {
                     return option === value;
                 } else {
-                    return option.strCodigoRetorno === value.strCodigoRetorno;
+                    if (option.region_name) {
+                        return option.region_name === value.region_name;
+                    }
+
+                    if (option.city_name) {
+                        return option.city_name === value.city_name;
+                    }
                 }
             }}
-            getOptionLabel={(option) => option.strCodigoRetorno || option}
+            getOptionLabel={(option) => option?.region_name || option?.city_name || option}
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
-                    if (option.strCodigoRetorno) {
+                    if (option.region_name) {
                         return (
                             <Chip
                                 key={index}
-                                label={option.strCodigoRetorno}
-                                {...getTagProps({ index })}
-                            />
-                        );
-                    } else {
-                        return (
-                            <Chip
-                                key={index}
-                                label={option}
+                                label={option.region_name}
                                 {...getTagProps({ index })}
                             />
                         );
                     }
+
+                    if (option.city_name) {
+                        return (
+                            <Chip
+                                key={index}
+                                label={option.city_name}
+                                {...getTagProps({ index })}
+                            />
+                        );
+                    }
+
+                    return (
+                        <Chip key={index} label={option} {...getTagProps({ index })} />
+                    );
                 })
             }
             renderOption={(props, option, { selected }) => (
@@ -145,7 +160,7 @@ const DropdownCategoriasSecundarias = ({
                                 checked={selected}
                             />
                         )}
-                        <ListItemText primary={option.strCodigoRetorno} />
+                        <ListItemText primary={option.region_name || option.city_name} />
                     </ListItem>
                 </List>
             )}
@@ -153,4 +168,4 @@ const DropdownCategoriasSecundarias = ({
     );
 };
 
-export default DropdownCategoriasSecundarias;
+export default DropdownLocalizaciones;

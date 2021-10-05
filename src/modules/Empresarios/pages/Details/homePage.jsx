@@ -1,10 +1,16 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, lazy } from "react";
 
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
 
 //Librerias
-import { Link as RouterLink, useParams } from "react-router-dom";
+import {
+    Link as RouterLink,
+    useParams,
+    MemoryRouter,
+    Route,
+    Switch,
+} from "react-router-dom";
 
 //Componentes de Material UI
 import { Grid, Breadcrumbs, Link, Typography, Tabs, Tab } from "@mui/material";
@@ -19,6 +25,8 @@ import CardInfoEmpresario from "./cardInfoEmpresario";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
+
+const Comentarios = lazy(() => import("../../../Comentarios/pages/homePage"));
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -44,6 +52,8 @@ const DetailsEmpresario = () => {
     //===============================================================================================================================================
     const { intId } = useParams();
     const { data } = useGetEmpresarios({ autoload: true, intId });
+
+    const [currentTab, setCurrentTab] = useState(`/comentarios/${intId}`);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -109,14 +119,43 @@ const DetailsEmpresario = () => {
                 </Grid>
 
                 <Grid item xs={12} md={9} style={{ marginTop: "30px" }}>
-                    <Tabs>
-                        <Tab label="Comentarios" />
-                        <Tab label="Diagnósticos" />
-                        <Tab label="Ruta" />
-                        <Tab label="Acompañamiento" />
-                        <Tab label="Indicadores" />
-                        <Tab label="Documentación" />
-                    </Tabs>
+                    <MemoryRouter
+                        initialEntries={[`/comentarios/${intId}`]}
+                        initialIndex={0}
+                    >
+                        <Tabs value={currentTab} sx={{marginBottom: "18px"}}>
+                            <Tab
+                                label="Comentarios"
+                                value={`/comentarios/${intId}`}
+                                component={RouterLink}
+                                to={`/comentarios/${intId}`}
+                            />
+                            <Tab
+                                label="Diagnósticos"
+                                value={`/diagnosticos`}
+                                component={RouterLink}
+                                to={`/diagnosticos`}
+                            />
+                            <Tab label="Ruta" />
+                            <Tab label="Acompañamiento" />
+                            <Tab label="Indicadores" />
+                            <Tab label="Documentación" />
+                        </Tabs>
+
+                        <Switch>
+                            <Route path="/comentarios/:intId" exact>
+                                {({ location }) => {
+                                    setCurrentTab(location.pathname);
+
+                                    return (
+                                        <div className="animate__animated animate__fadeIn">
+                                            <Comentarios />
+                                        </div>
+                                    );
+                                }}
+                            </Route>
+                        </Switch>
+                    </MemoryRouter>
                 </Grid>
             </Grid>
         </Fragment>

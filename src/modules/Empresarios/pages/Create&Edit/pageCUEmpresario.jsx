@@ -213,10 +213,10 @@ const CUEmpresario = ({ isEdit }) => {
                                     strCondicionDiscapacidad:
                                         data.objInfoEmpresarioPr.strCondicionDiscapacidad,
                                     strEstrato: data.objInfoEmpresarioPr.strEstrato,
-                                    strDepartamento:
-                                        data.objInfoEmpresarioPr.strDepartamento,
-                                    strCiudad: data.objInfoEmpresarioPr.strCiudad,
-                                    strBarrio: data.objInfoEmpresarioPr.strBarrio,
+                                    arrDepartamento:
+                                        data.objInfoEmpresarioPr.arrDepartamento,
+                                    arrCiudad: data.objInfoEmpresarioPr.arrCiudad,
+                                    arrBarrio: data.objInfoEmpresarioPr.arrBarrio,
                                     strDireccionResidencia:
                                         data.objInfoEmpresarioPr.strDireccionResidencia,
                                     strURLFileFoto:

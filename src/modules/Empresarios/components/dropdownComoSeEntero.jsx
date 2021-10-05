@@ -64,7 +64,8 @@ const DropdownComoSeEntero = ({
                                 strCodigo: "EnteroCorporacion",
                             });
                         }}
-                        size="large">
+                        size="large"
+                    >
                         <Tooltip title="Refrescar">
                             <RefreshIcon />
                         </Tooltip>
@@ -136,12 +137,14 @@ const DropdownComoSeEntero = ({
             renderOption={(props, option, { selected }) => (
                 <List {...props} disablePadding>
                     <ListItem>
-                        <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                            checkedIcon={<CheckBoxIcon fontSize="small" />}
-                            style={{ marginRight: 8 }}
-                            checked={selected}
-                        />
+                        {multiple && (
+                            <Checkbox
+                                icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                                checkedIcon={<CheckBoxIcon fontSize="small" />}
+                                style={{ marginRight: 8 }}
+                                checked={selected}
+                            />
+                        )}
                         <ListItemText primary={option.strCodigoRetorno} />
                     </ListItem>
                 </List>

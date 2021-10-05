@@ -35,8 +35,6 @@ const CUEmpresario = lazy(() =>
     import("../modules/Empresarios/pages/Create&Edit/pageCUEmpresario")
 );
 
-const Comentarios = lazy(() => import("../modules/Comentarios/pages/homePage"));
-
 const RoutesTransforma = ({ path }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -65,16 +63,6 @@ const RoutesTransforma = ({ path }) => {
                                 component={() => (
                                     <div className="animate__animated animate__fadeIn">
                                         <REmpresarios />
-                                    </div>
-                                )}
-                            />
-
-                            <Route
-                                path="/transforma/asesor/empresario/read/comentarios"
-                                exact
-                                component={() => (
-                                    <div className="animate__animated animate__fadeIn">
-                                        <Comentarios />
                                     </div>
                                 )}
                             />

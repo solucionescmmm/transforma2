@@ -36,7 +36,7 @@ const PaperGetComentarios = ({ socket }) => {
             container
             direction="row"
             spacing={2}
-            sx={{ maxHeight: "500px", overflowY: "scroll", paddingBottom: "15px" }}
+            sx={{ maxHeight: "370px", overflowY: "scroll", paddingBottom: "15px" }}
         >
             {arrComentarios.map((e, i) => {
                 if (e.strTipo === "Tarea") {

@@ -64,7 +64,8 @@ const DropwdownMediosComunicacion = ({
                                 strCodigo: "MediosComunicacion",
                             });
                         }}
-                        size="large">
+                        size="large"
+                    >
                         <Tooltip title="Refrescar">
                             <RefreshIcon />
                         </Tooltip>
@@ -135,12 +136,14 @@ const DropwdownMediosComunicacion = ({
             renderOption={(props, option, { selected }) => (
                 <List {...props} disablePadding>
                     <ListItem>
-                        <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                            checkedIcon={<CheckBoxIcon fontSize="small" />}
-                            style={{ marginRight: 8 }}
-                            checked={selected}
-                        />
+                        {multiple && (
+                            <Checkbox
+                                icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                                checkedIcon={<CheckBoxIcon fontSize="small" />}
+                                style={{ marginRight: 8 }}
+                                checked={selected}
+                            />
+                        )}
                         <ListItemText primary={option.strCodigoRetorno} />
                     </ListItem>
                 </List>

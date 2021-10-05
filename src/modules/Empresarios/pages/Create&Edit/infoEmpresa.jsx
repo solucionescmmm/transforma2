@@ -38,6 +38,7 @@ import DropdownCategoriasSecundarias from "../../components/dropdownCategoriasSe
 import SelectCuandoComienzaEmpresa from "../../components/selectCuandoComienzaEmpresa";
 import ModalDireccionResidencia from "../../components/modalDireccionResidencia";
 import DropdownRequisitosLey from "../../components/dropdownRequisitosLey";
+import DropdownLocalizaciones from "../../components/dropdownLocalizaciones";
 
 const InfoEmpresa = ({
     disabled,
@@ -58,9 +59,9 @@ const InfoEmpresa = ({
         dtFechaFundacion: null,
         strLugarOperacion: "",
         strDireccionResidencia: "",
-        strDepartamento: "",
-        strCiudad: "",
-        strBarrio: "",
+        arrDepartamento: [],
+        arrCiudad: [],
+        arrBarrio: [],
         strEstrato: "",
         strSectorEconomico: "",
         strCategoriaProducto: "",
@@ -105,9 +106,9 @@ const InfoEmpresa = ({
                 dtFechaFundacion: values.dtFechaFundacion || null,
                 strLugarOperacion: values.strLugarOperacion || "",
                 strDireccionResidencia: values.strDireccionResidencia || "",
-                strDepartamento: values.strDepartamento || "",
-                strCiudad: values.strCiudad || "",
-                strBarrio: values.strBarrio || "",
+                arrDepartamento: values.arrDepartamento || "",
+                arrCiudad: values.arrCiudad || "",
+                arrBarrio: values.arrBarrio || "",
                 strEstrato: values.strEstrato || "",
                 strSectorEconomico: values.strSectorEconomico || "",
                 strCategoriaProducto: values.strCategoriaProducto || "",
@@ -409,28 +410,28 @@ const InfoEmpresa = ({
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <div>Departamento</div>
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strCiudad}
-                            name="objInfoEmpresa.strCiudad"
+                            defaultValue={data.arrDepartamento}
+                            name="objInfoEmpresa.arrDepartamento"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Ciudad"
-                                    disabled={disabled}
+                                <DropdownLocalizaciones
+                                    label="Departamento"
+                                    strCodigo="departamentos"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData("arrDepartamento", value);
+                                    }}
                                     error={
-                                        errors?.objInfoEmpresa?.strCiudad ? true : false
+                                        errors?.objInfoEmpresa?.arrDepartamento
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strCiudad?.message ||
-                                        "Seleccione la ciudad de ubicación de la empresa."
+                                        errors?.objInfoEmpresa?.arrDepartamento
+                                            ?.message ||
+                                        "Selecciona el departamento de la empresa."
                                     }
                                 />
                             )}
@@ -440,23 +441,58 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strBarrio}
-                            name="objInfoEmpresa.strBarrio"
+                            defaultValue={data.arrCiudad}
+                            name="objInfoEmpresa.arrCiudad"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Barrio/Corregimiento/Vereda de la empresa"
+                                <DropdownLocalizaciones
+                                    label="Ciudad"
+                                    strCodigo="municipios"
                                     name={name}
-                                    disabled={disabled}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData("arrCiudad", value);
+                                    }}
                                     error={
-                                        errors?.objInfoEmpresa?.strBarrio ? true : false
+                                        errors?.objInfoEmpresa?.arrCiudad
+                                            ? true
+                                            : false
                                     }
+                                    arrDepartamento={data.arrDepartamento?.region_name}
                                     helperText={
-                                        errors?.objInfoEmpresa?.strBarrio?.message ||
-                                        "Digita el Barrio/Corregimiento/Vereda de la empresa."
+                                        errors?.objInfoEmpresa?.arrCiudad?.message ||
+                                        "Selecciona la ciudad de la empresa."
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.arrBarrio}
+                            name="objInfoEmpresa.arrBarrio"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownLocalizaciones
+                                    label="Barrio/Corregimiento/Vereda"
+                                    strCodigo="localidades"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData("arrBarrio", value);
+                                    }}
+                                    error={
+                                        errors?.objInfoEmpresa?.arrBarrio
+                                            ? true
+                                            : false
+                                    }
+                                    arrDepartamento={data.arrDepartamento?.region_name}
+                                    arrCiudad={data.arrCiudad?.city_name}
+                                    helperText={
+                                        errors?.objInfoEmpresa?.arrBarrio?.message ||
+                                        "Selecciona el barrio/corregimiento/vereda de la empresa."
                                     }
                                 />
                             )}
