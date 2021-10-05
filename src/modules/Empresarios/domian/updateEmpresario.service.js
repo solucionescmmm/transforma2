@@ -24,6 +24,7 @@ class updateEmpresario {
         await this.#updateEmpresario();
         await this.#updateEmpresa();
         await this.#updateEmpresarioSecundario();
+        await this.#updateInfoAdicional();
 
         return this.#objResult;
     }
@@ -90,12 +91,21 @@ class updateEmpresario {
     }
 
     async #updateEmpresa() {
-        let prevData = this.#objData.objEmpresario;
+        let prevData = this.#objData.objInfoEmpresa;
 
+        let aux_arrCategoriasSecundarias= JSON.stringify(this.#objData.objInfoEmpresa?.arrCategoriasSecundarias || "")
+        let aux_arrFormasComercializacion = JSON.stringify(this.#objData.objInfoEmpresa?.arrFormasComercializacion ||"")
+        let aux_arrMediosDigitales = JSON.stringify(this.#objData.objInfoEmpresa?.arrMediosDigitales||"")
+        let aux_arrRequisitoLey = JSON.stringify(this.#objData.objInfoEmpresa?.arrRequisitoLey||"")
+        
         let newData = {
             ...prevData,
             intIdEmpresario: this.#intIdEmpresarioActual,
             strUsuario: this.#objUser.strEmail,
+            arrCategoriasSecundarias: aux_arrCategoriasSecundarias,
+            arrFormasComercializacion: aux_arrFormasComercializacion,
+            arrMediosDigitales: aux_arrMediosDigitales,
+            arrRequisitoLey: aux_arrRequisitoLey,
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -135,15 +145,65 @@ class updateEmpresario {
         }
     }
 
+    async #updateInfoAdicional(){
+        let dao = new classInterfaceDAOEmpresarios()
+
+        let prevData = this.#objData.objInfoAdicional;
+
+        let aux_arrTemasCapacitacion =JSON.stringify(this.#objData.objInfoAdicional?.arrTemasCapacitacion||"");
+        let aux_arrComoSeEntero = JSON.stringify(this.#objData.objInfoAdicional?.arrComoSeEntero||"");
+        let aux_arrMediosDeComunicacion = JSON.stringify(this.#objData.objInfoAdicional?.arrMediosDeComunicacion||"");
+
+        
+        let newData={
+            ...prevData,
+            intIdEmpresario: this.#intIdEmpresarioActual,
+            strUsuario: this.#objUser.strEmail,
+            arrTemasCapacitacion:aux_arrTemasCapacitacion,
+            arrComoSeEntero:aux_arrComoSeEntero,
+            arrMediosDeComunicacion:aux_arrMediosDeComunicacion,
+        }
+
+        let query = await dao.updateInfoAdicional(newData)
+
+        if(query.error){
+            await this.#rollbackTransaction();
+        }
+    }
+
     async #rollbackTransaction() {
         let dao = new classInterfaceDAOEmpresarios();
+        let prevData = this.#objEmpresarioActual;
 
         let rollEmpresario = await dao.updateEmpresario(
             this.#objEmpresarioActual.objEmpresario
         );
-        let rollEmpresa = await dao.updateEmpresa(
-            this.#objEmpresarioActual.objInfoEmpresa
-        );
+        let aux_arrCategoriasSecundarias= JSON.stringify(this.#objEmpresarioActual.objInfoEmpresa?.arrCategoriasSecundarias || "")
+        let aux_arrFormasComercializacion = JSON.stringify(this.#objEmpresarioActual.objInfoEmpresa?.arrFormasComercializacion ||"")
+        let aux_arrMediosDigitales = JSON.stringify(this.#objEmpresarioActual.objInfoEmpresa?.arrMediosDigitales||"")
+        let aux_arrRequisitoLey = JSON.stringify(this.#objEmpresarioActual.objInfoEmpresa?.arrRequisitoLey||"")
+
+        let objDataEmpresa = {
+            ...prevData.objInfoEmpresa,
+            arrCategoriasSecundarias: aux_arrCategoriasSecundarias,
+            arrFormasComercializacion: aux_arrFormasComercializacion,
+            arrMediosDigitales: aux_arrMediosDigitales,
+            arrRequisitoLey: aux_arrRequisitoLey,
+        }
+        let rollEmpresa = await dao.updateEmpresa(objDataEmpresa);
+
+        let aux_arrTemasCapacitacion =JSON.stringify(this.#objEmpresarioActual.objInfoAdicional?.arrTemasCapacitacion||"");
+        let aux_arrComoSeEntero = JSON.stringify(this.#objEmpresarioActual.objInfoAdicional?.arrComoSeEntero||"");
+        let aux_arrMediosDeComunicacion = JSON.stringify(this.#objEmpresarioActual.objInfoAdicional?.arrMediosDeComunicacion||"");
+
+        let objDataAdicional ={
+            ...prevData.objInfoAdicional,
+            arrTemasCapacitacion:aux_arrTemasCapacitacion,
+            arrComoSeEntero:aux_arrComoSeEntero,
+            arrMediosDeComunicacion:aux_arrMediosDeComunicacion,
+        }
+
+        let rollAdicional = await dao.updateInfoAdicional(objDataAdicional)
 
         for (
             let i = 0;
@@ -165,6 +225,10 @@ class updateEmpresario {
 
         if (rollEmpresa.error) {
             throw new Error(rollEmpresa.msg);
+        }
+
+        if (rollAdicional.error) {
+            throw new Error(rollAdicional.msg);
         }
 
         this.#objResult = {

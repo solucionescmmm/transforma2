@@ -68,6 +68,8 @@ class deleteEmpresario {
             );
         }
     }
+
+    
 }
 
 module.exports = deleteEmpresario;

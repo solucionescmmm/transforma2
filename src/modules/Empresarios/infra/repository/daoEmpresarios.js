@@ -194,6 +194,54 @@ class daoEmpresarios {
         }
     }
 
+    async setInfoAdicional(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            DECLARE @intId INTEGER;
+            
+            INSERT INTO tbl_InfoAdicional VALUES
+            (
+                ${data.intIdEmpresario},
+                ${data.strPrincipalesNecesidades},
+                ${data.btInteresadoProcesoCMM},
+                ${data.arrTemasCapacitacion},
+                ${data.arrComoSeEntero},
+                ${data.strOtroComoSeEntero},
+                ${data.arrMediosDeComunicacion},
+                ${data.strOtrosMediosComunicacion},
+                ${data.btRecibirInfoCMM},
+                ${data.strRecomendaciones},
+                GETDATE(),
+                ${data.strUsuario}
+            )
+            SET @intId = SCOPE_IDENTITY();
+
+            SELECT * FROM tbl_InfoAdicional WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0]
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setInfoAdicional de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -248,7 +296,7 @@ class daoEmpresarios {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setEmpresario de la clase daoEmpresarios",
+                    "Error en el metodo updateEmpresario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
@@ -264,7 +312,9 @@ class daoEmpresarios {
 
             UPDATE tbl_InfoEmpresa
 
-            SET strURLFileLogoEmpresa             = COALESCE(${data.strURLFileLogoEmpresa}, strURLFileLogoEmpresa),
+            SET strEstadoNegocio                  = COALESCE(${data.strEstadoNegocio}, strEstadoNegocio),
+                strCuandoPlaneaComenzar           = COALESCE(${data.strCuandoPlaneaComenzar}, strCuandoPlaneaComenzar),
+                strURLFileLogoEmpresa             = COALESCE(${data.strURLFileLogoEmpresa}, strURLFileLogoEmpresa),
                 strNombreMarca                    = COALESCE(${data.strNombreMarca}, strNombreMarca),
                 dtFechaFundacion                  = COALESCE(${data.dtFechaFundacion}, dtFechaFundacion),
                 strLugarOperacion                 = COALESCE(${data.strLugarOperacion}, strLugarOperacion),
@@ -276,7 +326,7 @@ class daoEmpresarios {
                 strSectorEconomico                = COALESCE(${data.strSectorEconomico}, strSectorEconomico),
                 strCategoriaProducto              = COALESCE(${data.strCategoriaProducto}, strCategoriaProducto),
                 strCategoriaServicio              = COALESCE(${data.strCategoriaServicio}, strCategoriaServicio),
-                strCategoriasSecundarias          = COALESCE(${data.strCategoriasSecundarias}, strCategoriasSecundarias),
+                strCategoriasSecundarias          = COALESCE(${data.arrCategoriasSecundarias}, strCategoriasSecundarias),
                 strOtraCategoria                  = COALESCE(${data.strOtraCategoria}, strOtraCategoria),
                 strDescProductosServicios         = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
                 strMateriaPrima                   = COALESCE(${data.strMateriaPrima}, strMateriaPrima),
@@ -284,11 +334,13 @@ class daoEmpresarios {
                 strTiempoDedicacion               = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
                 btGeneraEmpleo                    = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
                 intNumeroEmpleados                = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
-                valorVentasMes                    = COALESCE(${data.valorVentasMes}, valorVentasMes),
-                strFormasComercializacion         = COALESCE(${data.strFormasComercializacion}, strFormasComercializacion),
-                strMediosDigitales                = COALESCE(${data.strMediosDigitales}, strMediosDigitales),
+                valorVentasMes                    = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
+                strFormasComercializacion         = COALESCE(${data.arrFormasComercializacion}, strFormasComercializacion),
+                strMediosDigitales                = COALESCE(${data.arrMediosDigitales}, strMediosDigitales),
                 btGrupoAsociativo                 = COALESCE(${data.btGrupoAsociativo}, btGrupoAsociativo),
                 strAsociacionUnidadProdIndividual = COALESCE(${data.strAsociacionUnidadProdIndividual}, strAsociacionUnidadProdIndividual),
+                strRequisitosLey                  = COALESCE(${data.arrRequisitoLey}, strRequisitosLey),
+                strOtrosRequisitos                = COALESCE(${data.strOtrosRequisitos}, strOtrosRequisitos),
                 dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
 
@@ -310,6 +362,51 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo updateEmpresa de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateInfoAdicional(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_InfoAdicional
+
+            SET strPrincipalesNecesidades  = COALESCE(${data.strPrincipalesNecesidades}, strPrincipalesNecesidades),
+                btInteresadoProcesoCMM     = COALESCE(${data.btInteresadoProcesoCMM}, btInteresadoProcesoCMM),
+                strTemasCapacitacion       = COALESCE(${data.arrTemasCapacitacion}, strTemasCapacitacion),
+                strComoSeEntero            = COALESCE(${data.arrComoSeEntero}, strComoSeEntero),
+                strOtroComoSeEntero        = COALESCE(${data.strOtroComoSeEntero}, strOtroComoSeEntero),
+                strMediosDeComunicacion    = COALESCE(${data.arrMediosDeComunicacion}, strMediosDeComunicacion),
+                strOtrosMediosComunicacion = COALESCE(${data.strOtrosMediosComunicacion}, strOtrosMediosComunicacion),
+                btRecibirInfoCMM           = COALESCE(${data.btRecibirInfoCMM}, btRecibirInfoCMM),
+                strRecomendaciones         = COALESCE(${data.strRecomendaciones}, strRecomendaciones),
+                dtmActualizacion           = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuario                 = COALESCE(${data.strUsuario}, strUsuario)
+
+            WHERE intIdEmpresario = ${data.intIdEmpresario}
+
+            SELECT * FROM tbl_InfoAdicional WHERE intIdEmpresario = ${data.intIdEmpresario}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateInfoAdicional de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
@@ -402,6 +499,34 @@ class daoEmpresarios {
         }
     }
 
+    async deleteInfoAdicional(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`DELETE FROM tbl_InfoAdicional WHERE intIdEmpresario = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: "La información de la empresa fue eliminada con éxito.",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteInfoAdicional de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -441,6 +566,11 @@ class daoEmpresarios {
                 WHERE Empresa.intIdEmpresario = Empresario.intId
                 FOR JSON PATH
             ) as objInfoEmpresa,
+            (
+                SELECT * FROM tbl_InfoAdicional Adicional
+                WHERE Adicional.intIdEmpresario = Empresario.IntId
+                FOR JSON PATH
+            ) as objInfoAdicional,
             (
                 SELECT * FROM tbl_EmpresarioSecundario EmpresarioSec
                 WHERE EmpresarioSec.intIdEmpresarioPrincipal = Empresario.intId
@@ -483,6 +613,18 @@ class daoEmpresarios {
                         );
                         arrNewData[i].objInfoEmpresa =
                         objInfoEmpresa;
+                    }
+                }
+                if (arrNewData[i].objInfoAdicional) {
+                    let { objInfoAdicional } = arrNewData[i];
+                    
+
+                    if (validator.isJSON(objInfoAdicional)) {
+                        objInfoAdicional = JSON.parse(
+                            objInfoAdicional
+                        );
+                        arrNewData[i].objInfoAdicional =
+                        objInfoAdicional;
                     }
                 }
             }
@@ -533,7 +675,7 @@ class daoEmpresarios {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo deleteEmpresario de la clase daoEmpresarios",
+                    "Error en el metodo getNroDocumentoEmpresario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
