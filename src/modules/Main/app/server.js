@@ -49,7 +49,7 @@ class clsServer {
             cors: {
                 origin:
                     app.get("typeServer") === "production"
-                        ? "https://servicios.demismanos.org"
+                        ? "https://pruebas.demismanos.org"
                         : "http://localhost:3000",
                 methods: ["GET", "POST", "DELETE", "PUT"],
             },
