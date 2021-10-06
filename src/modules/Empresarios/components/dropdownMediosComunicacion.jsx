@@ -41,7 +41,7 @@ const DropwdownMediosComunicacion = ({
 }) => {
     const { data, refreshGetData } = useGetListas({
         strGrupo: "Empresa",
-        strCodigo: "MediosComunicacion",
+        strCodigo: "MediosDigitales",
     });
 
     if (!data) {

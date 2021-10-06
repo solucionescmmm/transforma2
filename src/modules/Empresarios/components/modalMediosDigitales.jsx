@@ -156,6 +156,7 @@ const ModalMediosDigitales = ({
                 {value?.length > 0 ? (
                     <Input
                         id="chip-components-mediosDigitales"
+                        sx={{ flexWrap: "wrap" }}
                         startAdornment={value.map((e, i) => (
                             <Chip
                                 key={i}

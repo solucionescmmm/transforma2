@@ -9,7 +9,7 @@ import { Paper, Box, Grid, Avatar, Typography, Button } from "@mui/material";
 //Iconos
 import { Comment as CommentIcon } from "@mui/icons-material";
 
-const Comentario = ({ values }) => {
+const ComentarioCritico = ({ values }) => {
     const [data, setData] = useState({
         srtMensaje: "",
         dtFechaCreacion: null,
@@ -48,7 +48,7 @@ const Comentario = ({ values }) => {
                 <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
             </Box>
 
-            <Paper sx={{ padding: "10px", width: "90%" }}>
+            <Paper sx={{ padding: "10px", backgroundColor: "#F16360", width: "90%" }}>
                 <Grid container direction="row" spacing={1}>
                     <Grid item xs={12}>
                         <Box sx={{ display: "flex" }}>
@@ -59,6 +59,10 @@ const Comentario = ({ values }) => {
                                 <Typography sx={{ fontSize: "10px" }}>
                                     {data.dtFechaCreacion}
                                 </Typography>
+                            </Box>
+
+                            <Box>
+                                <Typography sx={{ fontSize: "12px" }}>Crítico</Typography>
                             </Box>
                         </Box>
                     </Grid>
@@ -83,4 +87,4 @@ const Comentario = ({ values }) => {
     );
 };
 
-export default memo(Comentario);
+export default memo(ComentarioCritico);

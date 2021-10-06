@@ -36,6 +36,7 @@ const PaperAddComentario = ({ socket }) => {
         control,
         formState: { errors },
         handleSubmit,
+        reset,
     } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
@@ -48,6 +49,22 @@ const PaperAddComentario = ({ socket }) => {
             ...data,
             strUsuario: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
+        });
+
+        setData({
+            strTipo: "",
+            srtMensaje: "",
+            strUsuario: "",
+            strUsuarioAsignado: "",
+            strURLImagenUsuario: "",
+        });
+
+        reset({
+            strTipo: "",
+            srtMensaje: "",
+            strUsuario: "",
+            strUsuarioAsignado: "",
+            strURLImagenUsuario: "",
         });
 
         setLoading(false);
@@ -104,7 +121,9 @@ const PaperAddComentario = ({ socket }) => {
                     />
                 </Grid>
 
-                <Grid item xs={12} md={6}></Grid>
+                <Grid item xs={12} md={6}>
+                    Usuario
+                </Grid>
 
                 <Grid item xs={12}>
                     <Controller

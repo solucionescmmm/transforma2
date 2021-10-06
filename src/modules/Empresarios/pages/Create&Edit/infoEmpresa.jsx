@@ -357,7 +357,22 @@ const InfoEmpresa = ({
                                     label="Lugar de operación de la empresa"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e);
+
+                                        handlerChangeData(
+                                            "strLugarOperacion",
+                                            e.target.value
+                                        );
+
+                                        setValue(
+                                            "objInfoEmpresa.strDireccionResidencia",
+                                            ""
+                                        );
+                                        setValue("objInfoEmpresa.arrDepartamento", "");
+                                        setValue("objInfoEmpresa.arrCiudad", "");
+                                        setValue("objInfoEmpresa.arrBarrio", "");
+                                    }}
                                     disabled={disabled}
                                     error={
                                         errors?.objInfoEmpresa?.strLugarOperacion
@@ -390,7 +405,11 @@ const InfoEmpresa = ({
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
-                                    disabled={disabled}
+                                    disabled={
+                                        data.strLugarOperacion === "Desde la vivienda"
+                                            ? true
+                                            : disabled
+                                    }
                                     fullWidth
                                     variant="standard"
                                     error={
@@ -417,6 +436,11 @@ const InfoEmpresa = ({
                                 <DropdownLocalizaciones
                                     label="Departamento"
                                     strCodigo="departamentos"
+                                    disabled={
+                                        data.strLugarOperacion === "Desde la vivienda"
+                                            ? true
+                                            : disabled
+                                    }
                                     name={name}
                                     value={value}
                                     onChange={(e, value) => {
@@ -449,14 +473,17 @@ const InfoEmpresa = ({
                                     strCodigo="municipios"
                                     name={name}
                                     value={value}
+                                    disabled={
+                                        data.strLugarOperacion === "Desde la vivienda"
+                                            ? true
+                                            : disabled
+                                    }
                                     onChange={(e, value) => {
                                         onChange(value);
                                         handlerChangeData("arrCiudad", value);
                                     }}
                                     error={
-                                        errors?.objInfoEmpresa?.arrCiudad
-                                            ? true
-                                            : false
+                                        errors?.objInfoEmpresa?.arrCiudad ? true : false
                                     }
                                     arrDepartamento={data.arrDepartamento?.region_name}
                                     helperText={
@@ -478,15 +505,18 @@ const InfoEmpresa = ({
                                     label="Barrio/Corregimiento/Vereda"
                                     strCodigo="localidades"
                                     name={name}
+                                    disabled={
+                                        data.strLugarOperacion === "Desde la vivienda"
+                                            ? true
+                                            : disabled
+                                    }
                                     value={value}
                                     onChange={(e, value) => {
                                         onChange(value);
                                         handlerChangeData("arrBarrio", value);
                                     }}
                                     error={
-                                        errors?.objInfoEmpresa?.arrBarrio
-                                            ? true
-                                            : false
+                                        errors?.objInfoEmpresa?.arrBarrio ? true : false
                                     }
                                     arrDepartamento={data.arrDepartamento?.region_name}
                                     arrCiudad={data.arrCiudad?.city_name}

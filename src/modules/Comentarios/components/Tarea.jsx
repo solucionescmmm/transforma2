@@ -4,7 +4,10 @@ import React, { useState, useEffect, memo } from "react";
 import { parseISO, format } from "date-fns";
 
 //Componentes de Material UI
-import { Paper, Box, Grid, Avatar, Typography } from "@mui/material";
+import { Paper, Box, Grid, Avatar, Typography, Button } from "@mui/material";
+
+//Iconos
+import { Comment as CommentIcon } from "@mui/icons-material";
 
 const ComentarioTarea = ({ values }) => {
     const [data, setData] = useState({
@@ -45,17 +48,38 @@ const ComentarioTarea = ({ values }) => {
                 <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
             </Box>
 
-            <Paper sx={{ padding: "10px" }}>
+            <Paper sx={{ padding: "10px", backgroundColor: "#FFF4E5", width: "90%" }}>
                 <Grid container direction="row" spacing={1}>
                     <Grid item xs={12}>
-                        <Typography variant="subtitle2" component="p">{data.strUsuario}</Typography>
-                        <Typography sx={{fontSize: "10px"}}>{data.dtFechaCreacion}</Typography>
-                    </Grid>
+                        <Box sx={{ display: "flex" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography variant="subtitle2" component="p">
+                                    {data.strUsuario}
+                                </Typography>
+                                <Typography sx={{ fontSize: "10px" }}>
+                                    {data.dtFechaCreacion}
+                                </Typography>
+                            </Box>
 
-                    <Grid item xs={12}></Grid>
+                            <Box>
+                                <Typography sx={{ fontSize: "12px" }}>Tarea</Typography>
+                            </Box>
+                        </Box>
+                    </Grid>
 
                     <Grid item xs={12}>
                         <Typography>{data.srtMensaje}</Typography>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            startIcon={<CommentIcon />}
+                            size="small"
+                            sx={{ fontSize: "10px" }}
+                            color="inherit"
+                        >
+                            responder
+                        </Button>
                     </Grid>
                 </Grid>
             </Paper>

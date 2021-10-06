@@ -222,7 +222,9 @@ const CUEmpresario = ({ isEdit }) => {
                                     strURLFileFoto:
                                         data.objInfoEmpresarioPr.strURLFileFoto,
                                 },
+
                                 arrEmpresarioSecundario: data.arrInfoEmpresarioSec,
+
                                 objInfoEmpresa: {
                                     strURLFileLogoEmpresa:
                                         data.objInfoEmpresa.strURLFileLogoEmpresa,
@@ -277,6 +279,7 @@ const CUEmpresario = ({ isEdit }) => {
                                         data.objInfoEmpresa
                                             .strAsociacionUnidadProdIndividual,
                                 },
+                                
                                 objInfoAdicional: {
                                     strPrincipalesNecesidades:
                                         data.objInfoAdicional.strPrincipalesNecesidades,
@@ -422,6 +425,10 @@ const CUEmpresario = ({ isEdit }) => {
                                               data.objInfoEmpresa[0].dtFechaFundacion
                                           )
                                         : null,
+                                },
+
+                                objInfoAdicional: {
+                                    ...data.objInfoAdicional,
                                 },
                             });
                         }

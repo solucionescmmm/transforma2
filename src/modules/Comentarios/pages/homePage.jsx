@@ -55,11 +55,11 @@ const Comentarios = () => {
 
     return (
         <Grid container direction="row" spacing={3}>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={8}>
                 <PaperGetComentarios socket={socket} />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} md={4}>
                 <PaperAddComentario socket={socket} />
             </Grid>
         </Grid>

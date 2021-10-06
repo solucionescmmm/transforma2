@@ -741,6 +741,7 @@ const InfoEmpresarioPr = ({
                                     strCodigo="departamentos"
                                     name={name}
                                     value={value}
+                                    disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
                                         handlerChangeData("arrDepartamento", value);
@@ -771,6 +772,7 @@ const InfoEmpresarioPr = ({
                                     strCodigo="municipios"
                                     name={name}
                                     value={value}
+                                    disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
                                         handlerChangeData("arrCiudad", value);
@@ -801,6 +803,7 @@ const InfoEmpresarioPr = ({
                                     strCodigo="localidades"
                                     name={name}
                                     value={value}
+                                    disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
                                         handlerChangeData("arrBarrio", value);
