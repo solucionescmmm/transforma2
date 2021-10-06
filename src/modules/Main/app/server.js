@@ -47,7 +47,10 @@ class clsServer {
 
         const io = socketIo(this.#objServer, {
             cors: {
-                origin: "http://localhost:3000",
+                origin:
+                    app.get("typeServer") === "production"
+                        ? "https://servicios.demismanos.org:8000"
+                        : "http://localhost:3000",
                 methods: ["GET", "POST", "DELETE", "PUT"],
             },
         });
