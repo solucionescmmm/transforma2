@@ -215,9 +215,7 @@ const ModalDeleteEmpresario = ({ handleOpenDialog, open, intId }) => {
 
             <DialogContent>
                 <DialogContentText>
-                    El proceso es irreversible, recuerde que, al aceptar, se enviará un
-                    correo electrónico a los administradores para informar la eliminación
-                    de la persona empresaria.
+                    El proceso es irreversible y no podrás recuperar la información.
                 </DialogContentText>
             </DialogContent>
 

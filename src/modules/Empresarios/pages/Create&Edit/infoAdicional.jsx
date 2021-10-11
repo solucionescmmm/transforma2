@@ -381,7 +381,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.btRecibirInfoCMM
                                             ?.message ||
-                                        "Selecciona si le gustaría recibir información de la Corporación."
+                                        "Selecciona si le gustaría recibir información de la Corporación Mundial de la Mujer Medellín."
                                     }
                                 >
                                     <MenuItem value={true}>Sí</MenuItem>

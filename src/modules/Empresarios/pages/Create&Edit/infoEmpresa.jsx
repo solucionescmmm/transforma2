@@ -62,7 +62,6 @@ const InfoEmpresa = ({
         arrDepartamento: [],
         arrCiudad: [],
         arrBarrio: [],
-        strEstrato: "",
         strSectorEconomico: "",
         strCategoriaProducto: "",
         strCategoriaServicio: "",
@@ -109,7 +108,6 @@ const InfoEmpresa = ({
                 arrDepartamento: values.arrDepartamento || "",
                 arrCiudad: values.arrCiudad || "",
                 arrBarrio: values.arrBarrio || "",
-                strEstrato: values.strEstrato || "",
                 strSectorEconomico: values.strSectorEconomico || "",
                 strCategoriaProducto: values.strCategoriaProducto || "",
                 strCategoriaServicio: values.strCategoriaServicio || "",
@@ -218,7 +216,19 @@ const InfoEmpresa = ({
                                     label="Estado del negocio"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e);
+
+                                        handlerChangeData(
+                                            "strEstadoNegocio",
+                                            e.target.value
+                                        );
+
+                                        setValue(
+                                            "objInfoEmpresa.strCuandoComienzaEmpresa",
+                                            ""
+                                        );
+                                    }}
                                     select
                                     variant="standard"
                                     fullWidth
@@ -263,9 +273,19 @@ const InfoEmpresa = ({
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
-                                    disabled={disabled}
+                                    disabled={
+                                        data.strEstadoNegocio ===
+                                        "Negocio con ventas realizadas"
+                                            ? true
+                                            : disabled
+                                    }
                                     error={
                                         errors?.objInfoEmpresa?.strCuandoComienzaEmpresa
+                                            ? true
+                                            : false
+                                    }
+                                    required={
+                                        data.strEstadoNegocio === "Idea de negocio"
                                             ? true
                                             : false
                                     }
@@ -277,7 +297,11 @@ const InfoEmpresa = ({
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona una opción.",
+                                validate: (value) => {
+                                    if (data.strEstadoNegocio === "" && !value) {
+                                        return "Por favor, selecciona una opción.";
+                                    }
+                                },
                             }}
                         />
                     </Grid>
@@ -531,51 +555,6 @@ const InfoEmpresa = ({
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strEstrato}
-                            name="objInfoEmpresa.strEstrato"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Estrato socioeconómico de la empresa"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    select
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmpresa?.strEstrato ? true : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmpresa?.strEstrato?.message ||
-                                        "Selecciona el estrato socioeconómico de la empresa"
-                                    }
-                                >
-                                    {(() => {
-                                        let arrItem = [
-                                            { value: 1 },
-                                            { value: 2 },
-                                            { value: 3 },
-                                            { value: 4 },
-                                            { value: 5 },
-                                            { value: 6 },
-                                            { value: "Rural" },
-                                        ];
-
-                                        return arrItem.map((e, i) => (
-                                            <MenuItem key={i} value={e.value}>
-                                                {e.value}
-                                            </MenuItem>
-                                        ));
-                                    })()}
-                                </TextField>
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strSectorEconomico}
                             name="objInfoEmpresa.strSectorEconomico"
@@ -993,7 +972,7 @@ const InfoEmpresa = ({
                             name="objInfoEmpresa.arrRequisitoLey"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownRequisitosLey
-                                    label="Requisitos de ley"
+                                    label="Requerimientos legales que cumple"
                                     name={name}
                                     values={value}
                                     onChange={(e, value) => onChange(value)}
@@ -1007,7 +986,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.arrRequisitoLey
                                             ?.message ||
-                                        "Selecciona los requisitos de ley que cumple actualmente."
+                                        "Selecciona los requerimientos de ley que cumple actualmente."
                                     }
                                 />
                             )}

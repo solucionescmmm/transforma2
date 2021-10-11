@@ -63,7 +63,7 @@ const ModalMediosVetanProductos = ({
         },
         objVentaCatalogo: {
             checked: false,
-            label: "Venta por Catálogo",
+            label: "Venta por catálogo",
             parent: "strVentaCatalogo",
         },
 
@@ -196,7 +196,7 @@ const ModalMediosVetanProductos = ({
                     <Input
                         id="chip-components-mediosVentaProductos"
                         name={name}
-                        placeholder="Haga clic para seleccionar los medios"
+                        placeholder="Haz clic para seleccionar"
                     />
                 )}
 

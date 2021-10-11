@@ -156,6 +156,7 @@ const ModalMediosDigitales = ({
                 {value?.length > 0 ? (
                     <Input
                         id="chip-components-mediosDigitales"
+                        name={name}
                         sx={{ flexWrap: "wrap" }}
                         startAdornment={value.map((e, i) => (
                             <Chip
@@ -166,8 +167,9 @@ const ModalMediosDigitales = ({
                     />
                 ) : (
                     <Input
+                        name={name}
                         id="chip-components-mediosDigitales"
-                        placeholder="Selecciona los medios"
+                        placeholder="Haz clic para seleccionar"
                     />
                 )}
 

@@ -20,11 +20,9 @@ import {
     Paper,
     Breadcrumbs,
     Link,
-    IconButton,
-    Tooltip,
-    SvgIcon,
     LinearProgress,
     Container,
+    Alert,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -279,7 +277,7 @@ const CUEmpresario = ({ isEdit }) => {
                                         data.objInfoEmpresa
                                             .strAsociacionUnidadProdIndividual,
                                 },
-                                
+
                                 objInfoAdicional: {
                                     strPrincipalesNecesidades:
                                         data.objInfoAdicional.strPrincipalesNecesidades,
@@ -566,12 +564,12 @@ const CUEmpresario = ({ isEdit }) => {
                                             variant="h6"
                                         >
                                             {isEdit
-                                                ? "EDITAR EMPRESA"
-                                                : "REGISTRAR EMPRESA"}
+                                                ? "EDITAR PERSONA EMPRESARIA"
+                                                : "REGISTRAR PERSONA EMPRESARIA"}
                                         </Typography>
                                     </Box>
 
-                                    <Box>
+                                    {/* <Box>
                                         <IconButton color="secondary" size="large">
                                             <Tooltip title="Importar información">
                                                 <SvgIcon>
@@ -583,7 +581,7 @@ const CUEmpresario = ({ isEdit }) => {
                                                 </SvgIcon>
                                             </Tooltip>
                                         </IconButton>
-                                    </Box>
+                                    </Box> */}
                                 </Box>
                             </Grid>
 
@@ -652,6 +650,19 @@ const CUEmpresario = ({ isEdit }) => {
                                     clearErrors={clearErrors}
                                 />
                             </Grid>
+
+                            {(errors.objInfoPrincipal ||
+                                errors.objInfoEmpresarioPr ||
+                                errors.arrInfoEmpresarioSec ||
+                                errors.objInfoEmpresa ||
+                                errors.objInfoAdicional) && (
+                                <Grid item xs={12}>
+                                    <Alert severity="error">
+                                        Lo sentimos, tienes cambios pendientes en el
+                                        formulario, revisa e intentalo nuevamente.
+                                    </Alert>
+                                </Grid>
+                            )}
 
                             <Grid item xs={12}>
                                 <Box

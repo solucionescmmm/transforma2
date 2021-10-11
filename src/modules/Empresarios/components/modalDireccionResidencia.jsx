@@ -162,7 +162,7 @@ const ModalDireccionResidencia = ({
                     id={`txt${name}`}
                     name={name}
                     value={value}
-                    placeholder="Haga clic para introducir la dirección de residencia"
+                    placeholder="Haz clic para seleccionar"
                 />
                 <FormHelperText
                     sx={{

@@ -7,7 +7,17 @@ import { AuthContext } from "../../../common/middlewares/Auth";
 import { useForm, Controller } from "react-hook-form";
 
 //Componentes de Material UI
-import { Paper, Grid, TextField, MenuItem } from "@mui/material";
+import {
+    Paper,
+    Grid,
+    TextField,
+    MenuItem,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+} from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
 const PaperAddComentario = ({ socket }) => {
@@ -20,6 +30,7 @@ const PaperAddComentario = ({ socket }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
+        btResuelto: false,
         strTipo: "",
         srtMensaje: "",
         strUsuario: "",
@@ -52,6 +63,7 @@ const PaperAddComentario = ({ socket }) => {
         });
 
         setData({
+            btResuelto: false,
             strTipo: "",
             srtMensaje: "",
             strUsuario: "",
@@ -60,6 +72,7 @@ const PaperAddComentario = ({ socket }) => {
         });
 
         reset({
+            btResuelto: false,
             strTipo: "",
             srtMensaje: "",
             strUsuario: "",

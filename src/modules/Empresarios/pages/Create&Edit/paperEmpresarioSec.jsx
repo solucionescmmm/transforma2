@@ -437,7 +437,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                     name={`arrInfoEmpresarioSec[${index}].strLugarExpedicionDocto`}
                                     render={({ field: { name, value, onChange } }) => (
                                         <TextField
-                                            label="Lugar de expredición del documento"
+                                            label="Lugar de expedición del documento"
                                             name={name}
                                             value={value}
                                             onChange={(e) => onChange(e)}
