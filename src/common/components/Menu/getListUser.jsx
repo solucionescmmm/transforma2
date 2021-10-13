@@ -96,7 +96,7 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                 <ListItemIcon>
                     <BusinessIcon />
                 </ListItemIcon>
-                <ListItemText primary="Empresarios" />
+                <ListItemText primary="Empresas" />
             </ListItem>
         </List>
     );

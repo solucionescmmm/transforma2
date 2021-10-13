@@ -11,15 +11,20 @@ import { Comment as CommentIcon } from "@mui/icons-material";
 
 const ComentarioSugerencia = ({ values }) => {
     const [data, setData] = useState({
+        intIdComentario: null,
+        intIdEmpresario: null,
         srtMensaje: "",
         dtFechaCreacion: null,
         strUsuario: "",
         strUsuarioAsignado: "",
         strURLImagenUsuario: "",
+        arrRespuestas: [],
     });
 
     useEffect(() => {
         setData({
+            intIdComentario: values.intIdComentario || null,
+            intIdEmpresario: values.intIdEmpresario || null,
             srtMensaje: values.srtMensaje || "",
             dtFechaCreacion: values.dtFechaCreacion
                 ? format(parseISO(values.dtFechaCreacion), "yyyy-MM-dd")
@@ -27,6 +32,7 @@ const ComentarioSugerencia = ({ values }) => {
             strUsuario: values.strUsuario || "",
             strUsuarioAsignado: values.strUsuarioAsignado || "",
             strURLImagenUsuario: values.strURLImagenUsuario || "",
+            arrRespuestas: values.arrRespuestas || [],
         });
     }, [values]);
 

@@ -199,7 +199,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strURLFileLogoEmpresa
                                             ?.message ||
-                                        "Selecciona el logo de la empresa."
+                                        "Selecciona el logo de la empresa"
                                     }
                                 />
                             )}
@@ -256,7 +256,7 @@ const InfoEmpresa = ({
                             rules={{
                                 validate: (value) => {
                                     if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona una opción.";
+                                        return "Por favor, selecciona una opción";
                                     }
                                 },
                             }}
@@ -291,7 +291,7 @@ const InfoEmpresa = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa?.strCuandoComienzaEmpresa
-                                            ?.message || "Selecciona una opción."
+                                            ?.message || "Selecciona una opción"
                                     }
                                 />
                             )}
@@ -299,7 +299,7 @@ const InfoEmpresa = ({
                             rules={{
                                 validate: (value) => {
                                     if (data.strEstadoNegocio === "" && !value) {
-                                        return "Por favor, selecciona una opción.";
+                                        return "Por favor, selecciona una opción";
                                     }
                                 },
                             }}
@@ -327,13 +327,13 @@ const InfoEmpresa = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa?.strNombreMarca?.message ||
-                                        "Digita el nombre de la empresa."
+                                        "Digita el nombre de la empresa"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el nombre de la empresa.",
+                                required: "Por favor, digita el nombre de la empresa",
                             }}
                         />
                     </Grid>
@@ -361,7 +361,7 @@ const InfoEmpresa = ({
                                             helperText={
                                                 errors?.objInfoEmpresa?.dtFechaFundacion
                                                     ?.message ||
-                                                "Selecciona la fecha de fundación."
+                                                "Selecciona la fecha de fundación"
                                             }
                                             fullWidth
                                         />
@@ -406,7 +406,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strLugarOperacion
                                             ?.message ||
-                                        "Selecciona el lugar donde opera la empresa."
+                                        "Selecciona el lugar donde opera la empresa"
                                     }
                                     required
                                 />
@@ -414,7 +414,7 @@ const InfoEmpresa = ({
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona el lugar donde opera la unidad productiva de la empresa.",
+                                    "Por favor, selecciona el lugar donde opera la unidad productiva de la empresa",
                             }}
                         />
                     </Grid>
@@ -444,7 +444,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strDireccionResidencia
                                             ?.message ||
-                                        "Digita la dirección de la empresa."
+                                        "Digita la dirección de la empresa"
                                     }
                                 />
                             )}
@@ -479,7 +479,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.arrDepartamento
                                             ?.message ||
-                                        "Selecciona el departamento de la empresa."
+                                        "Selecciona el departamento de la empresa"
                                     }
                                 />
                             )}
@@ -512,7 +512,7 @@ const InfoEmpresa = ({
                                     arrDepartamento={data.arrDepartamento?.region_name}
                                     helperText={
                                         errors?.objInfoEmpresa?.arrCiudad?.message ||
-                                        "Selecciona la ciudad de la empresa."
+                                        "Selecciona la ciudad de la empresa"
                                     }
                                 />
                             )}
@@ -525,9 +525,8 @@ const InfoEmpresa = ({
                             defaultValue={data.arrBarrio}
                             name="objInfoEmpresa.arrBarrio"
                             render={({ field: { name, value, onChange } }) => (
-                                <DropdownLocalizaciones
+                                <TextField
                                     label="Barrio/Corregimiento/Vereda"
-                                    strCodigo="localidades"
                                     name={name}
                                     disabled={
                                         data.strLugarOperacion === "Desde la vivienda"
@@ -535,19 +534,16 @@ const InfoEmpresa = ({
                                             : disabled
                                     }
                                     value={value}
-                                    onChange={(e, value) => {
-                                        onChange(value);
-                                        handlerChangeData("arrBarrio", value);
-                                    }}
+                                    onChange={(e, value) => onChange(value)}
                                     error={
                                         errors?.objInfoEmpresa?.arrBarrio ? true : false
                                     }
-                                    arrDepartamento={data.arrDepartamento?.region_name}
-                                    arrCiudad={data.arrCiudad?.city_name}
                                     helperText={
                                         errors?.objInfoEmpresa?.arrBarrio?.message ||
-                                        "Selecciona el barrio/corregimiento/vereda de la empresa."
+                                        "Selecciona el barrio/corregimiento/vereda de la empresa"
                                     }
+                                    variant="standard"
+                                    fullWidth
                                 />
                             )}
                             control={control}
@@ -573,7 +569,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strSectorEconomico
                                             ?.message ||
-                                        "Selecciona el sector económico de la empresa."
+                                        "Selecciona el sector económico de la empresa"
                                     }
                                     required
                                 />
@@ -581,7 +577,7 @@ const InfoEmpresa = ({
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona el sector económico de la empresa.",
+                                    "Por favor, selecciona el sector económico de la empresa",
                             }}
                         />
                     </Grid>
@@ -612,7 +608,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strCategoriaProducto
                                             ?.message ||
-                                        "Selecciona la categoría de los productos."
+                                        "Selecciona la categoría de los productos"
                                     }
                                     required
                                 />
@@ -640,7 +636,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strCategoriaServicio
                                             ?.message ||
-                                        "Selecciona la categoría de los servicios."
+                                        "Selecciona la categoría de los servicios"
                                     }
                                 />
                             )}
@@ -668,7 +664,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strCategoriaServicio
                                             ?.message ||
-                                        "Selecciona las categorías secundarias en caso de que aplique."
+                                        "Selecciona las categorías secundarias en caso de que aplique"
                                     }
                                 />
                             )}
@@ -697,7 +693,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strOtraCategoria
                                             ?.message ||
-                                        "En caso de que aplique, digita cuál sería la otra categoría del producto o servicio."
+                                        "En caso de que aplique, digita cuál sería la otra categoría del producto o servicio"
                                     }
                                 />
                             )}
@@ -729,14 +725,14 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strDescProductosServicios
                                             ?.message ||
-                                        "Describe detalladamente los servicios que ofrece la empresa."
+                                        "Describe detalladamente los servicios que ofrece la empresa"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, describe detalladamente los servicios que ofrece la empresa.",
+                                    "Por favor, describe detalladamente los servicios que ofrece la empresa",
                             }}
                         />
                     </Grid>
@@ -764,7 +760,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strMateriaPrima
                                             ?.message ||
-                                        "Describe detalladamente los materias primas que utiliza."
+                                        "Describe detalladamente los materias primas que utiliza"
                                     }
                                 />
                             )}
@@ -795,7 +791,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strNombreTecnica
                                             ?.message ||
-                                        "Describe detalladamente la técnica que utiliza."
+                                        "Describe detalladamente la técnica que utiliza"
                                     }
                                 />
                             )}
@@ -822,13 +818,13 @@ const InfoEmpresa = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa?.strTiempoDedicacion
-                                            ?.message || "Selecciona una opción."
+                                            ?.message || "Selecciona una opción"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona una opción.",
+                                required: "Por favor, selecciona una opción",
                             }}
                         />
                     </Grid>
@@ -862,7 +858,7 @@ const InfoEmpresa = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa?.btGeneraEmpleo?.message ||
-                                        "Selecciona si la empresa genera empleo o no."
+                                        "Selecciona si la empresa genera empleo o no"
                                     }
                                 >
                                     <MenuItem value={true}>Sí</MenuItem>
@@ -873,7 +869,7 @@ const InfoEmpresa = ({
                             rules={{
                                 validate: (value) => {
                                     if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona si la empresa genera empleo o no.";
+                                        return "Por favor, selecciona si la empresa genera empleo o no";
                                     }
                                 },
                             }}
@@ -903,7 +899,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.intNumeroEmpleados
                                             ?.message ||
-                                        "Digita la cantidad de empleos generados."
+                                        "Digita la cantidad de empleos generados"
                                     }
                                 />
                             )}
@@ -912,13 +908,13 @@ const InfoEmpresa = ({
                                 validate: (value) => {
                                     if (data.btGeneraEmpleo) {
                                         if (value === "" || value === undefined) {
-                                            return "Por favor, digita la cantidad de empleos generados.";
+                                            return "Por favor, digita la cantidad de empleos generados";
                                         }
 
                                         let intNumeroEmpleados = parseInt(value);
 
                                         if (intNumeroEmpleados < 1) {
-                                            return "La cantidad de empleados no pueden ser inferiores a 1.";
+                                            return "La cantidad de empleados no pueden ser inferiores a 1";
                                         }
                                     }
                                 },
@@ -954,14 +950,14 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.dblValorVentasMes
                                             ?.message ||
-                                        "Digita la cantidad promedio de las ventas mensuales."
+                                        "Digita la cantidad promedio de las ventas mensuales"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digita la cantidad promedio de las ventas mensuales.",
+                                    "Por favor, digita la cantidad promedio de las ventas mensuales",
                             }}
                         />
                     </Grid>
@@ -986,7 +982,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.arrRequisitoLey
                                             ?.message ||
-                                        "Selecciona los requerimientos de ley que cumple actualmente."
+                                        "Selecciona los requerimientos legales que cumple actualmente"
                                     }
                                 />
                             )}
@@ -1000,7 +996,7 @@ const InfoEmpresa = ({
                             name="objInfoEmpresa.strOtrosRequisitosLey"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Otros requisitos de ley"
+                                    label="Otros requerimientos legales"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -1015,7 +1011,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strOtrosRequisitosLey
                                             ?.message ||
-                                        "Digita en caso de tener otros requisitos de ley."
+                                        "Digita en caso de cumplir otros requerimientos legales"
                                     }
                                 />
                             )}
@@ -1042,7 +1038,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.arrFormasComercializacion
                                             ?.message ||
-                                        "Selecciona los medios que utilice para la venta de sus productos o servicios."
+                                        "Selecciona los medios que utilice para la venta de sus productos o servicios"
                                     }
                                 />
                             )}
@@ -1069,7 +1065,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.arrMediosDigitales
                                             ?.message ||
-                                        "Selecciona los medios digitales que utilice y coloque su ID."
+                                        "Selecciona los medios digitales que utilice y coloque su ID"
                                     }
                                 />
                             )}
@@ -1108,7 +1104,7 @@ const InfoEmpresa = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa?.btGrupoAsociativo
-                                            ?.message || "Selecciona una opción."
+                                            ?.message || "Selecciona una opción"
                                     }
                                 >
                                     <MenuItem value={true}>Sí</MenuItem>
@@ -1142,7 +1138,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa
                                             ?.strAsociacionUnidadProdIndividual
-                                            ?.message || "Selecciona una opción."
+                                            ?.message || "Selecciona una opción"
                                     }
                                     required={data?.btGrupoAsociativo ? true : false}
                                 >
@@ -1159,7 +1155,7 @@ const InfoEmpresa = ({
                                         data.btGrupoAsociativo === true &&
                                         (value === "" || value === undefined)
                                     ) {
-                                        return "Por favor, selecciona una opción.";
+                                        return "Por favor, selecciona una opción";
                                     }
                                 },
                             }}

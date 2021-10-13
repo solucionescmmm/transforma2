@@ -10,16 +10,23 @@ import { Paper, Box, Grid, Avatar, Typography, Button } from "@mui/material";
 import { Comment as CommentIcon } from "@mui/icons-material";
 
 const ComentarioTarea = ({ values }) => {
+    const [openRespuestas, setOpenRespuestas] = useState(false);
+
     const [data, setData] = useState({
+        intIdComentario: null,
+        intIdEmpresario: null,
         srtMensaje: "",
         dtFechaCreacion: null,
         strUsuario: "",
         strUsuarioAsignado: "",
         strURLImagenUsuario: "",
+        arrRespuestas: [],
     });
 
     useEffect(() => {
         setData({
+            intIdComentario: values.intIdComentario || null,
+            intIdEmpresario: values.intIdEmpresario || null,
             srtMensaje: values.srtMensaje || "",
             dtFechaCreacion: values.dtFechaCreacion
                 ? format(parseISO(values.dtFechaCreacion), "yyyy-MM-dd")
@@ -27,6 +34,7 @@ const ComentarioTarea = ({ values }) => {
             strUsuario: values.strUsuario || "",
             strUsuarioAsignado: values.strUsuarioAsignado || "",
             strURLImagenUsuario: values.strURLImagenUsuario || "",
+            arrRespuestas: values.arrRespuestas || [],
         });
     }, [values]);
 
@@ -79,6 +87,10 @@ const ComentarioTarea = ({ values }) => {
                             color="inherit"
                         >
                             responder
+                        </Button>
+
+                        <Button size="small" sx={{ fontSize: "10px" }} color="inherit">
+                            Mostrar respuestas ({data.arrRespuestas.length})
                         </Button>
                     </Grid>
                 </Grid>

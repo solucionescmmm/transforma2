@@ -79,7 +79,7 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Empresa",
-            field: "objEmpresario.strNroDocto",
+            field: "objInfoEmpresa.strNombreMarca",
             type: "string",
         },
         {
@@ -89,7 +89,7 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Categoría",
-            field: "objEmpresario.strNroDocto",
+            field: "objInfoEmpresa.strSectorEconomico",
             type: "string",
         },
 

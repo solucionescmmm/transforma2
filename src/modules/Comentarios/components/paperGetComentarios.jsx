@@ -36,12 +36,7 @@ const PaperGetComentarios = ({ socket }) => {
     }
 
     return (
-        <Grid
-            container
-            direction="row"
-            spacing={2}
-            sx={{ maxHeight: "635px", overflowY: "scroll", paddingBottom: "15px" }}
-        >
+        <Grid container direction="row" spacing={2} sx={{ paddingBottom: "15px" }}>
             {arrComentarios.map((e, i) => {
                 if (e.strTipo === "Tarea") {
                     return (
@@ -51,7 +46,7 @@ const PaperGetComentarios = ({ socket }) => {
                     );
                 }
 
-                if(e.strTipo === "Alerta") {
+                if (e.strTipo === "Alerta") {
                     return (
                         <Grid item xs={12} key={i}>
                             <Alerta values={e} />
@@ -59,7 +54,7 @@ const PaperGetComentarios = ({ socket }) => {
                     );
                 }
 
-                if(e.strTipo === "Sugerencia") {
+                if (e.strTipo === "Sugerencia") {
                     return (
                         <Grid item xs={12} key={i}>
                             <Sugerencia values={e} />
@@ -67,7 +62,7 @@ const PaperGetComentarios = ({ socket }) => {
                     );
                 }
 
-                if(e.strTipo === "Comentario") {
+                if (e.strTipo === "Comentario") {
                     return (
                         <Grid item xs={12} key={i}>
                             <Comentario values={e} />
@@ -75,7 +70,7 @@ const PaperGetComentarios = ({ socket }) => {
                     );
                 }
 
-                if(e.strTipo === "Situación Crítica") {
+                if (e.strTipo === "Situación Crítica") {
                     return (
                         <Grid item xs={12} key={i}>
                             <Critica values={e} />

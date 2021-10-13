@@ -120,7 +120,7 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                     }
                                     helperText={
                                         errors?.objInfoPrincipal?.strSede?.message ||
-                                        "Selecciona la sede."
+                                        "Selecciona la sede"
                                     }
                                 />
                             )}
@@ -148,7 +148,7 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                     helperText={
                                         errors?.objInfoPrincipal?.strModalidadIngreso
                                             ?.message ||
-                                        "Selecciona la modalidad de ingreso."
+                                        "Selecciona la modalidad de ingreso"
                                     }
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
@@ -158,7 +158,7 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona la modalidad de ingreso.",
+                                    "Por favor, selecciona la modalidad de ingreso",
                             }}
                         />
                     </Grid>
@@ -198,7 +198,7 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona la fecha de vinculación.",
+                                    "Por favor, selecciona la fecha de vinculación",
                             }}
                         />
                     </Grid>
@@ -223,14 +223,14 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                     helperText={
                                         errors?.objInfoPrincipal?.strEstadoVinculacion
                                             ?.message ||
-                                        "Selecciona el estado de vinculación."
+                                        "Selecciona el estado de vinculación"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona el estado de vinculación.",
+                                    "Por favor, selecciona el estado de vinculación",
                             }}
                         />
                     </Grid>
@@ -255,13 +255,13 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                     helperText={
                                         errors?.objInfoPrincipal?.strTipoVinculacion
                                             ?.message ||
-                                        "Selecciona el tipo de vinculación."
+                                        "Selecciona el tipo de vinculación"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona el tipo de vinculación.",
+                                required: "Por favor, selecciona el tipo de vinculación",
                             }}
                         />
                     </Grid>

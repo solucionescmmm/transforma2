@@ -178,21 +178,22 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strNombres
                                             ?.message ||
-                                        "Digíta el nombre o nombres de la persona."
+                                        "Digíta el nombre o nombres de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta el nombre o nombres de la persona.",
+                                    "Por favor, digíta el nombre o nombres de la persona",
+
                                 validate: (value) => {
                                     if (
                                         !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
                                             value
                                         )
                                     ) {
-                                        return "El nombre no debe contener números ni caracteres especiales.";
+                                        return "El nombre no debe contener números ni caracteres especiales";
                                     }
                                 },
                             }}
@@ -221,21 +222,20 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strApellidos
                                             ?.message ||
-                                        "Digíta los apellidos de la persona."
+                                        "Digíta los apellidos de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, digíta los apellidos de la persona.",
+                                required: "Por favor, digíta los apellidos de la persona",
                                 validate: (value) => {
                                     if (
                                         !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
                                             value
                                         )
                                     ) {
-                                        return "Los apellidos no deben contener números ni caracteres especiales.";
+                                        return "Los apellidos no deben contener números ni caracteres especiales";
                                     }
                                 },
                             }}
@@ -261,8 +261,7 @@ const InfoEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strTipoDocto
-                                            ?.message ||
-                                        "Selecciona el tipo de documento."
+                                            ?.message || "Selecciona el tipo de documento"
                                     }
                                 />
                             )}
@@ -294,13 +293,13 @@ const InfoEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strNroDocto
-                                            ?.message || "Digita el número de documento."
+                                            ?.message || "Digita el número de documento"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el número de documento.",
+                                required: "Por favor, digita el número de documento",
                             }}
                         />
                     </Grid>
@@ -327,7 +326,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr
                                             ?.strLugarExpedicionDocto?.message ||
-                                        "Digita el lugar de expedición del documento."
+                                        "Digita el lugar de expedición del documento"
                                     }
                                 />
                             )}
@@ -360,7 +359,7 @@ const InfoEmpresarioPr = ({
                                             helperText={
                                                 errors?.objInfoEmpresarioPr
                                                     ?.dtFechaExpedicionDocto?.message ||
-                                                "Selecciona la fecha de expedición del documento."
+                                                "Selecciona la fecha de expedición del documento"
                                             }
                                         />
                                     )}
@@ -395,7 +394,7 @@ const InfoEmpresarioPr = ({
                                             helperText={
                                                 errors?.objInfoEmpresarioPr
                                                     ?.dtFechaNacimiento?.message ||
-                                                "Selecciona la fecha de nacimiento."
+                                                "Selecciona la fecha de nacimiento"
                                             }
                                         />
                                     )}
@@ -424,14 +423,13 @@ const InfoEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strGenero?.message ||
-                                        "Selecciona el género de la persona."
+                                        "Selecciona el género de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, selecciona el género de la persona.",
+                                required: "Por favor, selecciona el género de la persona",
                             }}
                         />
                     </Grid>
@@ -460,19 +458,19 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strCelular1
                                             ?.message ||
-                                        "Digita el número celular de la persona."
+                                        "Digita el número celular de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digita el número celular de la persona.",
+                                    "Por favor, digita el número celular de la persona",
                                 validate: (value) => {
                                     let strValue = value.replace(/\s/g, "");
 
                                     if (!validator.isMobilePhone(strValue, "es-CO")) {
-                                        return "El número ingresado no corresponde a un operador válido en Colombia.";
+                                        return "El número ingresado no corresponde a un operador válido en Colombia";
                                     }
                                 },
                             }}
@@ -502,7 +500,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strCelular2
                                             ?.message ||
-                                        "Digita el número celular de la persona."
+                                        "Digita el número celular de la persona"
                                     }
                                 />
                             )}
@@ -513,7 +511,7 @@ const InfoEmpresarioPr = ({
                                         let strValue = value.replace(/\s/g, "");
 
                                         if (!validator.isMobilePhone(strValue, "es-CO")) {
-                                            return "El número ingresado no corresponde a un operador válido en Colombia.";
+                                            return "El número ingresado no corresponde a un operador válido en Colombia";
                                         }
                                     }
                                 },
@@ -542,7 +540,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strCorreoElectronico1
                                             ?.message ||
-                                        "Digita el correo electrónico de la persona."
+                                        "Digita el correo electrónico de la persona"
                                     }
                                 />
                             )}
@@ -551,7 +549,7 @@ const InfoEmpresarioPr = ({
                                 validate: (value) => {
                                     if (value) {
                                         if (!validator.isEmail(value)) {
-                                            return "El valor ingresado no corresponde a un correo electrónico válido.";
+                                            return "El valor ingresado no corresponde a un correo electrónico válido";
                                         }
                                     }
                                 },
@@ -580,7 +578,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strCorreoElectronico2
                                             ?.message ||
-                                        "Digita el correo electrónico alterno de la persona."
+                                        "Digita el correo electrónico alterno de la persona"
                                     }
                                 />
                             )}
@@ -589,7 +587,7 @@ const InfoEmpresarioPr = ({
                                 validate: (value) => {
                                     if (value) {
                                         if (!validator.isEmail(value)) {
-                                            return "El valor ingresado no corresponde a un correo electrónico válido.";
+                                            return "El valor ingresado no corresponde a un correo electrónico válido";
                                         }
                                     }
                                 },
@@ -616,7 +614,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strNivelEducativo
                                             ?.message ||
-                                        "Selecciona el nivel educativo de la persona."
+                                        "Selecciona el nivel educativo de la persona"
                                     }
                                 />
                             )}
@@ -645,7 +643,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strTitulos
                                             ?.message ||
-                                        "Digita los títulos o título del empresario, en caso de poseer alguno."
+                                        "Digita los títulos o título del empresario, en caso de poseer alguno"
                                     }
                                 />
                             )}
@@ -674,14 +672,14 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr
                                             ?.strCondicionDiscapacidad?.message ||
-                                        "Selecciona la discapacidad de la persona, en caso de padecer alguna."
+                                        "Selecciona la discapacidad de la persona, en caso de padecer alguna"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona la discapacidad de la persona, en caso de padecer alguna.",
+                                    "Por favor, selecciona la discapacidad de la persona, en caso de padecer alguna",
                             }}
                         />
                     </Grid>
@@ -754,7 +752,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.arrDepartamento
                                             ?.message ||
-                                        "Selecciona el departamento de residencia."
+                                        "Selecciona el departamento de residencia"
                                     }
                                 />
                             )}
@@ -785,7 +783,7 @@ const InfoEmpresarioPr = ({
                                     strDepartamento={data.arrDepartamento?.region_name}
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.arrCiudad?.message ||
-                                        "Selecciona la ciudad de residencia."
+                                        "Selecciona la ciudad de residencia"
                                     }
                                 />
                             )}
@@ -798,27 +796,23 @@ const InfoEmpresarioPr = ({
                             defaultValue={data.arrBarrio}
                             name="objInfoEmpresarioPr.arrBarrio"
                             render={({ field: { name, value, onChange } }) => (
-                                <DropdownLocalizaciones
+                                <TextField
                                     label="Barrio/Corregimiento/Vereda"
-                                    strCodigo="localidades"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e, value) => {
-                                        onChange(value);
-                                        handlerChangeData("arrBarrio", value);
-                                    }}
+                                    onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoEmpresarioPr?.arrBarrio
                                             ? true
                                             : false
                                     }
-                                    strDepartamento={data.arrDepartamento?.region_name}
-                                    strCiudad={data.arrCiudad?.city_name}
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.arrBarrio?.message ||
-                                        "Selecciona el barrio/corregimiento/vereda de residencia."
+                                        "Selecciona el barrio/corregimiento/vereda de residencia"
                                     }
+                                    variant="standard"
+                                    fullWidth
                                 />
                             )}
                             control={control}
@@ -847,7 +841,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr
                                             ?.strDireccionResidencia?.message ||
-                                        "Digita la dirección de residencia de la persona."
+                                        "Digita la dirección de residencia de la persona"
                                     }
                                 />
                             )}
@@ -879,7 +873,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strURLFileFoto
                                             ?.message ||
-                                        "Selecciona una foto de la persona."
+                                        "Selecciona una foto de la persona"
                                     }
                                 />
                             )}

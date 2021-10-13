@@ -140,7 +140,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional
                                             ?.strPrincipalesNecesidades?.message ||
-                                        "Describa cuales son las principales necesidades e intereses de la empresa."
+                                        "Describa cuales son las principales necesidades e intereses de la empresa"
                                     }
                                 />
                             )}
@@ -185,7 +185,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.btInteresadoProcesoCMM
                                             ?.message ||
-                                        "Selecciona sí tiene interés en hacer parte del proceso de formación, capacitación y asesoría de De Mis Manos "
+                                        "Selecciona sí tiene interés en hacer parte del proceso de formación, capacitación y asesoría de De Mis Manos"
                                     }
                                 >
                                     <MenuItem value={true}>Sí</MenuItem>
@@ -196,7 +196,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                             rules={{
                                 validate: (value) => {
                                     if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona sí tiene interés en hacer parte del proceso de formación, capacitación y asesoría de De Mis Manos ";
+                                        return "Por favor, selecciona sí tiene interés en hacer parte del proceso de formación, capacitación y asesoría de De Mis Manos";
                                     }
                                 },
                             }}
@@ -226,7 +226,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.arrTemasCapacitacion
                                             ?.message ||
-                                        "Selecciona en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse."
+                                        "Selecciona en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse"
                                     }
                                 />
                             )}
@@ -235,7 +235,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                 validate: (value) => {
                                     if (data.btInteresadoProcesoCMM) {
                                         if (value?.length === 0) {
-                                            return "Por favor, Selecciona en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse.";
+                                            return "Por favor, Selecciona en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse";
                                         }
                                     }
                                 },
@@ -263,7 +263,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.arrComoSeEntero
                                             ?.message ||
-                                        "Selecciona el cómo se enteró de la corporación."
+                                        "Selecciona el cómo se enteró de la corporación"
                                     }
                                 />
                             )}
@@ -291,7 +291,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.arrComoSeEntero
                                             ?.message ||
-                                        "Digita, en caso de que aplique otro medio por el cuál se enteró de la corporación."
+                                        "Digita, en caso de que aplique otro medio por el cuál se enteró de la corporación"
                                     }
                                     variant="standard"
                                 />
@@ -320,7 +320,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.arrMediosDeComunicacion
                                             ?.message ||
-                                        "Selecciona los medios que te gustarían para que De Mis Manos se comunique contigo."
+                                        "Selecciona los medios que te gustarían para que De Mis Manos se comunique contigo"
                                     }
                                 />
                             )}
@@ -350,7 +350,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional
                                             ?.strOtrosMediosComunicacion?.message ||
-                                        "Digita otras opciones, en caso de que aplique."
+                                        "Digita otras opciones, en caso de que aplique"
                                     }
                                 />
                             )}
@@ -381,7 +381,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.btRecibirInfoCMM
                                             ?.message ||
-                                        "Selecciona si le gustaría recibir información de la Corporación Mundial de la Mujer Medellín."
+                                        "Selecciona si le gustaría recibir información de De Mis Manos"
                                     }
                                 >
                                     <MenuItem value={true}>Sí</MenuItem>
@@ -392,7 +392,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                             rules={{
                                 validate: (value) => {
                                     if (value === "" || value === undefined) {
-                                        return "Por favor, Selecciona si le gustaría recibir información de la Corporación Mundial de la Mujer Medellín.";
+                                        return "Por favor, Selecciona si le gustaría recibir información de De Mis Manos";
                                     }
                                 },
                             }}
@@ -422,7 +422,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.strRecomendaciones
                                             ?.message ||
-                                        "Describa si tiene comentarios positivos, ideas o recomendaciones."
+                                        "Describa si tiene comentarios positivos, ideas o recomendaciones"
                                     }
                                 />
                             )}

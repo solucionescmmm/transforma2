@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 
 //Librerias
 import io from "socket.io-client";
@@ -9,7 +9,7 @@ import { Grid } from "@mui/material";
 //Componentes
 import PageError from "../../../common/components/Error";
 import Loader from "../../../common/components/Loader";
-import PaperAddComentario from "../components/paperAddComentario";
+import ModalAddComentario from "../components/modalAddComentario";
 import PaperGetComentarios from "../components/paperGetComentarios";
 
 const Comentarios = () => {
@@ -55,12 +55,12 @@ const Comentarios = () => {
 
     return (
         <Grid container direction="row" spacing={3}>
-            <Grid item xs={12} md={8}>
-                <PaperGetComentarios socket={socket} />
+            <Grid item xs={12}>
+                <ModalAddComentario socket={socket} />
             </Grid>
 
-            <Grid item xs={12} md={4}>
-                <PaperAddComentario socket={socket} />
+            <Grid item xs={12}>
+                <PaperGetComentarios socket={socket} />
             </Grid>
         </Grid>
     );

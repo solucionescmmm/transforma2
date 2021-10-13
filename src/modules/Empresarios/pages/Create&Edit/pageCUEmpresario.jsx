@@ -658,8 +658,9 @@ const CUEmpresario = ({ isEdit }) => {
                                 errors.objInfoAdicional) && (
                                 <Grid item xs={12}>
                                     <Alert severity="error">
-                                        Lo sentimos, tienes cambios pendientes en el
-                                        formulario, revisa e intentalo nuevamente.
+                                        Lo sentimos, tienes campos pendientes por
+                                        diligenciar en el formulario, revisa e intentalo
+                                        nuevamente.
                                     </Alert>
                                 </Grid>
                             )}

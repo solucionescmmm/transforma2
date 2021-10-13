@@ -279,14 +279,14 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strTipoRelacion?.message ||
-                                                "Selecciona la relación que tiene con la persona principal."
+                                                "Selecciona la relación que tiene con la persona principal"
                                             }
                                         />
                                     )}
                                     control={control}
                                     rules={{
                                         required:
-                                            "Por favor, selecciona la relación que tiene con la persona principal.",
+                                            "Por favor, selecciona la relación que tiene con la persona principal",
                                     }}
                                 />
                             </Grid>
@@ -312,21 +312,21 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strNombres?.message ||
-                                                "Digita los nombres de la persona."
+                                                "Digita los nombres de la persona"
                                             }
                                         />
                                     )}
                                     control={control}
                                     rules={{
                                         required:
-                                            "Por favor, digita los nombres de la persona.",
+                                            "Por favor, digita los nombres de la persona",
                                         validate: (value) => {
                                             if (
                                                 !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
                                                     value
                                                 )
                                             ) {
-                                                return "Los nombres no pueden contener números ni caracteres especiales.";
+                                                return "Los nombres no pueden contener números ni caracteres especiales";
                                             }
                                         },
                                     }}
@@ -354,7 +354,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strApellidos?.message ||
-                                                "Digita apellidos de la persona."
+                                                "Digita apellidos de la persona"
                                             }
                                         />
                                     )}
@@ -368,7 +368,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                                     value
                                                 )
                                             ) {
-                                                return "Los apellidos no pueden contener números ni caracteres especiales.";
+                                                return "Los apellidos no pueden contener números ni caracteres especiales";
                                             }
                                         },
                                     }}
@@ -394,7 +394,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strTipoDocto?.message ||
-                                                "Selecciona el tipo de documento de la persona."
+                                                "Selecciona el tipo de documento de la persona"
                                             }
                                         />
                                     )}
@@ -423,7 +423,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strTipoDocto?.message ||
-                                                "Selecciona el tipo de documento de la persona."
+                                                "Selecciona el tipo de documento de la persona"
                                             }
                                         />
                                     )}
@@ -451,7 +451,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strLugarExpedicionDocto?.message ||
-                                                "Digita el lugar de expedición del documento de la persona."
+                                                "Digita el lugar de expedición del documento de la persona"
                                             }
                                         />
                                     )}
@@ -485,7 +485,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                                             index
                                                         ]?.dtFechaExpedicionDocto
                                                             ?.message ||
-                                                        "Digita el lugar de expedición del documento de la persona."
+                                                        "Digita el lugar de expedición del documento de la persona"
                                                     }
                                                 />
                                             )}
@@ -520,7 +520,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                                         errors?.arrInfoEmpresarioSec?.[
                                                             index
                                                         ]?.dtFechaNacimiento?.message ||
-                                                        "Selecciona la fecha de nacimiento de la persona."
+                                                        "Selecciona la fecha de nacimiento de la persona"
                                                     }
                                                 />
                                             )}
@@ -548,7 +548,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strGenero?.message ||
-                                                "Selecciona el genéro de la persona."
+                                                "Selecciona el genéro de la persona"
                                             }
                                         />
                                     )}
@@ -578,7 +578,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strCelular?.message ||
-                                                "Digita el número celular de la persona."
+                                                "Digita el número celular de la persona"
                                             }
                                         />
                                     )}
@@ -594,7 +594,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                                         "es-CO"
                                                     )
                                                 ) {
-                                                    return "El número ingresado no corresponde a un operador válido en Colombia.";
+                                                    return "El número ingresado no corresponde a un operador válido en Colombia";
                                                 }
                                             }
                                         },
@@ -622,7 +622,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             helperText={
                                                 errors?.arrInfoEmpresarioSec?.[index]
                                                     ?.strCorreoElectronico?.message ||
-                                                "Digita el correo electrónico de la persona."
+                                                "Digita el correo electrónico de la persona"
                                             }
                                         />
                                     )}
@@ -631,7 +631,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                         validate: (value) => {
                                             if (value) {
                                                 if (!validator.isEmail(value)) {
-                                                    return "El valor ingresado no corresponde a un correo electrónico válido.";
+                                                    return "El valor ingresado no corresponde a un correo electrónico válido";
                                                 }
                                             }
                                         },

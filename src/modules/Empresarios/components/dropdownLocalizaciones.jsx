@@ -97,6 +97,7 @@ const DropdownLocalizaciones = ({
             disabled={disabled}
             fullWidth
             multiple={multiple}
+            disableCloseOnSelect={multiple ? true : false}
             renderInput={(props) => (
                 <TextField
                     label={label}

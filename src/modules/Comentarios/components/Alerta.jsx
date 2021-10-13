@@ -11,15 +11,20 @@ import { Comment as CommentIcon } from "@mui/icons-material";
 
 const ComentarioAlerta = ({ values }) => {
     const [data, setData] = useState({
+        intIdComentario: null,
+        intIdEmpresario: null,
         srtMensaje: "",
         dtFechaCreacion: null,
         strUsuario: "",
         strUsuarioAsignado: "",
         strURLImagenUsuario: "",
+        arrRespuestas: [],
     });
 
     useEffect(() => {
         setData({
+            intIdComentario: values.intIdComentario || null,
+            intIdEmpresario: values.intIdEmpresario || null,
             srtMensaje: values.srtMensaje || "",
             dtFechaCreacion: values.dtFechaCreacion
                 ? format(parseISO(values.dtFechaCreacion), "yyyy-MM-dd")
@@ -27,6 +32,7 @@ const ComentarioAlerta = ({ values }) => {
             strUsuario: values.strUsuario || "",
             strUsuarioAsignado: values.strUsuarioAsignado || "",
             strURLImagenUsuario: values.strURLImagenUsuario || "",
+            arrRespuestas: values.arrRespuestas || [],
         });
     }, [values]);
 
@@ -72,7 +78,12 @@ const ComentarioAlerta = ({ values }) => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Button startIcon={<CommentIcon />} size="small" sx={{fontSize: "10px"}} color="inherit">
+                        <Button
+                            startIcon={<CommentIcon />}
+                            size="small"
+                            sx={{ fontSize: "10px" }}
+                            color="inherit"
+                        >
                             responder
                         </Button>
                     </Grid>

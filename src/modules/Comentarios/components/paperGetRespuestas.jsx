@@ -9,30 +9,26 @@ import { Paper, Box, Grid, Avatar, Typography, Button } from "@mui/material";
 //Iconos
 import { Comment as CommentIcon } from "@mui/icons-material";
 
-const ComentarioCritico = ({ values }) => {
+const Comentario = ({ values }) => {
     const [data, setData] = useState({
         intIdComentario: null,
-        intIdEmpresario: null,
-        srtMensaje: "",
+        intIdComentarioPr: "",
+        strComentario: "",
         dtFechaCreacion: null,
         strUsuario: "",
-        strUsuarioAsignado: "",
         strURLImagenUsuario: "",
-        arrRespuestas: [],
     });
 
     useEffect(() => {
         setData({
             intIdComentario: values.intIdComentario || null,
-            intIdEmpresario: values.intIdEmpresario || null,
-            srtMensaje: values.srtMensaje || "",
+            intIdComentarioPr: values.intIdComentarioPr || "",
+            strComentario: values.strComentario || "",
             dtFechaCreacion: values.dtFechaCreacion
                 ? format(parseISO(values.dtFechaCreacion), "yyyy-MM-dd")
                 : "",
             strUsuario: values.strUsuario || "",
-            strUsuarioAsignado: values.strUsuarioAsignado || "",
             strURLImagenUsuario: values.strURLImagenUsuario || "",
-            arrRespuestas: values.arrRespuestas || [],
         });
     }, [values]);
 
@@ -54,7 +50,7 @@ const ComentarioCritico = ({ values }) => {
                 <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
             </Box>
 
-            <Paper sx={{ padding: "10px", backgroundColor: "#F16360", width: "90%" }}>
+            <Paper sx={{ padding: "10px", width: "90%" }}>
                 <Grid container direction="row" spacing={1}>
                     <Grid item xs={12}>
                         <Box sx={{ display: "flex" }}>
@@ -66,26 +62,11 @@ const ComentarioCritico = ({ values }) => {
                                     {data.dtFechaCreacion}
                                 </Typography>
                             </Box>
-
-                            <Box>
-                                <Typography sx={{ fontSize: "12px" }}>Crítico</Typography>
-                            </Box>
                         </Box>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Typography>{data.srtMensaje}</Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Button
-                            startIcon={<CommentIcon />}
-                            size="small"
-                            sx={{ fontSize: "10px" }}
-                            color="inherit"
-                        >
-                            responder
-                        </Button>
+                        <Typography>{data.strComentario}</Typography>
                     </Grid>
                 </Grid>
             </Paper>
@@ -93,4 +74,4 @@ const ComentarioCritico = ({ values }) => {
     );
 };
 
-export default memo(ComentarioCritico);
+export default memo(Comentario);
