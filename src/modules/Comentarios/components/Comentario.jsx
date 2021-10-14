@@ -1,15 +1,42 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, useContext, memo } from "react";
+
+//Context
+import { AuthContext } from "../../../common/middlewares/Auth";
 
 //Librerias
 import { parseISO, format } from "date-fns";
 
 //Componentes de Material UI
-import { Paper, Box, Grid, Avatar, Typography, Button } from "@mui/material";
+import {
+    Paper,
+    Box,
+    Grid,
+    Avatar,
+    Typography,
+    Button,
+    Collapse,
+    IconButton,
+    Menu,
+    MenuItem,
+} from "@mui/material";
 
 //Iconos
-import { Comment as CommentIcon } from "@mui/icons-material";
+import { Comment as CommentIcon, MoreVert as MoreVertIcon } from "@mui/icons-material";
+
+//Componentes
+import PaperGetRespuestas from "./paperGetRespuestas";
 
 const Comentario = ({ values }) => {
+    //===============================================================================================================================================
+    //========================================== Context ============================================================================================
+    //===============================================================================================================================================
+    const { strInfoUser } = useContext(AuthContext);
+
+    const [openRespuestas, setOpenRespuestas] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(false);
+
+    const openMenu = Boolean(anchorEl);
+
     const [data, setData] = useState({
         intIdComentario: null,
         intIdEmpresario: null,
@@ -20,6 +47,18 @@ const Comentario = ({ values }) => {
         strURLImagenUsuario: "",
         arrRespuestas: [],
     });
+
+    const handlerChangeOpenCollapse = () => {
+        setOpenRespuestas(!openRespuestas);
+    };
+
+    const handleOpenMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+    };
 
     useEffect(() => {
         setData({
@@ -57,7 +96,7 @@ const Comentario = ({ values }) => {
             <Paper sx={{ padding: "10px", width: "90%" }}>
                 <Grid container direction="row" spacing={1}>
                     <Grid item xs={12}>
-                        <Box sx={{ display: "flex" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography variant="subtitle2" component="p">
                                     {data.strUsuario}
@@ -65,6 +104,29 @@ const Comentario = ({ values }) => {
                                 <Typography sx={{ fontSize: "10px" }}>
                                     {data.dtFechaCreacion}
                                 </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    size="small"
+                                    onClick={handleOpenMenu}
+                                    disabled={
+                                        strInfoUser.strUsuario !== data.strUsuario
+                                            ? true
+                                            : false
+                                    }
+                                >
+                                    <MoreVertIcon />
+                                </IconButton>
+
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    open={openMenu}
+                                    onClose={handleCloseMenu}
+                                >
+                                    <MenuItem>Editar</MenuItem>
+                                    <MenuItem>Eliminar</MenuItem>
+                                </Menu>
                             </Box>
                         </Box>
                     </Grid>
@@ -82,7 +144,28 @@ const Comentario = ({ values }) => {
                         >
                             responder
                         </Button>
+
+                        <Button
+                            size="small"
+                            sx={{ fontSize: "10px" }}
+                            color="inherit"
+                            onClick={() => handlerChangeOpenCollapse()}
+                            disabled={data.arrRespuestas.length === 0 ? true : false}
+                        >
+                            {openRespuestas ? "Cerrar respuestas" : " Mostrar respuestas"}{" "}
+                            ({data.arrRespuestas.length})
+                        </Button>
                     </Grid>
+
+                    <Collapse timeout="auto" in={openRespuestas} sx={{ width: "100%" }}>
+                        <Grid container direction="row" spacing={2}>
+                            {data.arrRespuestas.map((e, i) => (
+                                <Grid item xs={12} key={i} sx={{ marginLeft: "25px" }}>
+                                    <PaperGetRespuestas values={e} />
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Collapse>
                 </Grid>
             </Paper>
         </Box>

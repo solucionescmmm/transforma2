@@ -1,15 +1,36 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, useContext, memo } from "react";
+
+//Context
+import { AuthContext } from "../../../common/middlewares/Auth";
 
 //Librerias
 import { parseISO, format } from "date-fns";
 
 //Componentes de Material UI
-import { Paper, Box, Grid, Avatar, Typography, Button } from "@mui/material";
+import {
+    Paper,
+    Box,
+    Grid,
+    Avatar,
+    Typography,
+    Menu,
+    MenuItem,
+    IconButton,
+} from "@mui/material";
 
 //Iconos
-import { Comment as CommentIcon } from "@mui/icons-material";
+import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 
 const Comentario = ({ values }) => {
+    //===============================================================================================================================================
+    //========================================== Context ============================================================================================
+    //===============================================================================================================================================
+    const { strInfoUser } = useContext(AuthContext);
+
+    const [anchorEl, setAnchorEl] = useState(false);
+
+    const openMenu = Boolean(anchorEl);
+
     const [data, setData] = useState({
         intIdComentario: null,
         intIdComentarioPr: "",
@@ -18,6 +39,14 @@ const Comentario = ({ values }) => {
         strUsuario: "",
         strURLImagenUsuario: "",
     });
+
+    const handleOpenMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+    };
 
     useEffect(() => {
         setData({
@@ -38,6 +67,7 @@ const Comentario = ({ values }) => {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
+                width: "100%",
             }}
         >
             <Box
@@ -61,6 +91,29 @@ const Comentario = ({ values }) => {
                                 <Typography sx={{ fontSize: "10px" }}>
                                     {data.dtFechaCreacion}
                                 </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    size="small"
+                                    onClick={handleOpenMenu}
+                                    disabled={
+                                        strInfoUser.strUsuario !== data.strUsuario
+                                            ? true
+                                            : false
+                                    }
+                                >
+                                    <MoreVertIcon />
+                                </IconButton>
+
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    open={openMenu}
+                                    onClose={handleCloseMenu}
+                                >
+                                    <MenuItem>Editar</MenuItem>
+                                    <MenuItem>Eliminar</MenuItem>
+                                </Menu>
                             </Box>
                         </Box>
                     </Grid>

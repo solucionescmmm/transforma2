@@ -14,6 +14,10 @@ import {
 } from "@mui/icons-material";
 
 const PerfilEmpresario = ({ values }) => {
+    //===============================================================================================================================================
+    //========================================== Renders ============================================================================================
+    //===============================================================================================================================================
+
     return (
         <Grid container direction="row" spacing={3}>
             <Grid item xs={12} md={6}>
@@ -247,6 +251,61 @@ const PerfilEmpresario = ({ values }) => {
                     <b style={{ marginBottom: "15px", display: "block" }}>
                         Información de la empresa
                     </b>
+
+                    <p
+                        style={{
+                            margin: "0px",
+                            fontSize: "14px",
+                        }}
+                    >
+                        <span
+                            style={{
+                                color: "#00BAB3",
+                            }}
+                        >
+                            Categoría:{" "}
+                        </span>
+                        {values.objInfoEmpresa.strCategoriaProducto ||
+                            values.objInfoEmpresa.strCategoriaServicio ||
+                            "No disponible"}
+                    </p>
+
+                    <p
+                        style={{
+                            margin: "0px",
+                            fontSize: "14px",
+                        }}
+                    >
+                        <span
+                            style={{
+                                color: "#00BAB3",
+                            }}
+                        >
+                            Año de creación:{" "}
+                        </span>
+                        {values.objInfoEmpresa.dtFechaFundacion
+                            ? format(
+                                  parseISO(values.objInfoEmpresa.dtFechaFundacion),
+                                  "yyyy-MM-dd"
+                              )
+                            : "No disponible"}
+                    </p>
+
+                    <p
+                        style={{
+                            margin: "0px",
+                            fontSize: "14px",
+                        }}
+                    >
+                        <span
+                            style={{
+                                color: "#00BAB3",
+                            }}
+                        >
+                            Dedicación:{" "}
+                        </span>
+                        {values.objInfoEmpresa.strTiempoDedicacion || "No disponible"}
+                    </p>
                 </Paper>
             </Grid>
         </Grid>

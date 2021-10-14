@@ -16,6 +16,7 @@ import {
 import {
     Grid,
     Breadcrumbs,
+    Button,
     Link,
     Typography,
     Tabs,
@@ -34,6 +35,9 @@ import Loader from "../../../../common/components/Loader";
 //Estilos
 import { makeStyles } from "@mui/styles";
 import PerfilEmpresario from "../Perfil/homePage";
+
+//Componentes
+import ModalDeleteEmpresario from "../../components/modalDeleteEmpresario";
 
 const Comentarios = lazy(() => import("../../../Comentarios/pages/homePage"));
 
@@ -56,6 +60,8 @@ const DetailsEmpresario = () => {
         arrEmpresarioSecundario: [],
     });
 
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -68,6 +74,10 @@ const DetailsEmpresario = () => {
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = styles();
+
+    const handlerChangeOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -97,6 +107,12 @@ const DetailsEmpresario = () => {
 
     return (
         <Fragment>
+            <ModalDeleteEmpresario
+                open={openModalDelete}
+                handleOpenDialog={handlerChangeOpenModalDelete}
+                intId={intId}
+            />
+
             <Grid container direction="row" spacing={2}>
                 <Grid item xs={12}>
                     <Breadcrumbs aria-label="breadcrumb">
@@ -137,7 +153,7 @@ const DetailsEmpresario = () => {
                             src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objEmpresario.strUrlFoto}`}
                         />
 
-                        <Box>
+                        <Box sx={{ flexGrow: 1 }}>
                             <Typography>
                                 {`${objInteresado.objEmpresario.strNombres} ${objInteresado.objEmpresario.strApellidos}`}
                             </Typography>
@@ -154,6 +170,22 @@ const DetailsEmpresario = () => {
                             >
                                 {`${objInteresado.objEmpresario.strEstadoVinculacion}`}
                             </Typography>
+                        </Box>
+
+                        <Box>
+                            <Button
+                                component={RouterLink}
+                                to={`/transforma/asesor/empresario/edit/${intId}`}
+                            >
+                                Editar
+                            </Button>
+
+                            <Button
+                                color="error"
+                                onClick={() => handlerChangeOpenModalDelete()}
+                            >
+                                Eliminar
+                            </Button>
                         </Box>
                     </Box>
                 </Grid>
