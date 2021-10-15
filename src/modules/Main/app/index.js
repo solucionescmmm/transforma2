@@ -33,5 +33,6 @@ app.use(require("../infra/http/apiMain.routes"));
 app.use(require("../../Listas/Infra/http/apiListas.routes"));
 app.use(require("../../Empresarios/infra/http/apiEmpresarios.routes"));
 app.use(require("../../Localizaciones/infra/http/apiLocalizaciones.routes"))
+app.use(require("../../Comentarios/infra/http/apiComentarios.routes"))
 
 module.exports = app;
