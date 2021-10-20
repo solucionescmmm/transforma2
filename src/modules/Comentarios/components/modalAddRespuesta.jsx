@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment } from "react";
+import React, { useState, useContext } from "react";
 
 //Context
 import { AuthContext } from "../../../common/middlewares/Auth";
@@ -10,7 +10,6 @@ import { useForm, Controller } from "react-hook-form";
 import {
     Grid,
     TextField,
-    MenuItem,
     Button,
     Dialog,
     DialogTitle,
@@ -22,7 +21,7 @@ import {
 
 import { LoadingButton } from "@mui/lab";
 
-const ModalAddComentario = ({ socket }) => {
+const ModalAddComentario = ({ socket, onClose, open, intId }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -32,16 +31,12 @@ const ModalAddComentario = ({ socket }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        intIdEmpresario: null,
-        btResuelto: false,
-        strTipo: "",
-        srtMensaje: "",
+        intIdComentarioPr: "",
+        strComentario: "",
+        dtFechaCreacion: null,
         strUsuario: "",
-        strUsuarioAsignado: "",
         strURLImagenUsuario: "",
     });
-
-    const [openModal, setOpenModal] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
@@ -71,31 +66,24 @@ const ModalAddComentario = ({ socket }) => {
         });
 
         setData({
-            intIdEmpresario: null,
-            btResuelto: false,
-            strTipo: "",
-            srtMensaje: "",
+            intIdComentarioPr: "",
+            strComentario: "",
+            dtFechaCreacion: null,
             strUsuario: "",
-            strUsuarioAsignado: "",
             strURLImagenUsuario: "",
         });
 
         reset({
-            btResuelto: false,
-            strTipo: "",
-            srtMensaje: "",
+            intIdComentarioPr: "",
+            strComentario: "",
+            dtFechaCreacion: null,
             strUsuario: "",
-            strUsuarioAsignado: "",
             strURLImagenUsuario: "",
         });
 
         setLoading(false);
 
-        handlerChangeOpenModal();
-    };
-
-    const handlerChangeOpenModal = () => {
-        setOpenModal(!openModal);
+        onClose();
     };
 
     //===============================================================================================================================================
@@ -103,69 +91,64 @@ const ModalAddComentario = ({ socket }) => {
     //===============================================================================================================================================
 
     return (
-        <Fragment>
-            <Button onClick={() => handlerChangeOpenModal()} fullWidth>
-                Agregar comentario
-            </Button>
+        <Dialog
+            open={open}
+            onClose={onClose}
+            maxWidth="sm"
+            fullWidth
+            fullScreen={bitMobile}
+            PaperProps={{
+                component: "form",
+                noValidate: "noValidate",
+                onSubmit: handleSubmit(onSubmit),
+            }}
+        >
+            <DialogTitle>Agregar Respuesta</DialogTitle>
 
-            <Dialog
-                open={openModal}
-                onClose={handlerChangeOpenModal}
-                maxWidth="md"
-                fullScreen={bitMobile}
-                PaperProps={{
-                    component: "form",
-                    noValidate: "noValidate",
-                    onSubmit: handleSubmit(onSubmit),
-                }}
-            >
-                <DialogTitle>Agregar Respuesta</DialogTitle>
-
-                <DialogContent>
-                    <Grid container component="form" direction="row" spacing={2}>
-                        <Grid item xs={12}>
-                            <Controller
-                                defaultValue={data.srtMensaje}
-                                name="srtMensaje"
-                                render={({ field: { name, value, onChange } }) => (
-                                    <TextField
-                                        label="Comentario"
-                                        name={name}
-                                        value={value}
-                                        onChange={(e) => onChange(e)}
-                                        disabled={loading}
-                                        error={errors?.srtMensaje ? true : false}
-                                        required
-                                        helperText={
-                                            errors?.srtMensaje?.message ||
-                                            "Digite el comentario."
-                                        }
-                                        fullWidth
-                                        variant="outlined"
-                                        multiline
-                                        rows={4}
-                                    />
-                                )}
-                                control={control}
-                                rules={{
-                                    required: "Por favor, digite el comentario",
-                                }}
-                            />
-                        </Grid>
+            <DialogContent>
+                <Grid container component="form" direction="row" spacing={2}>
+                    <Grid item xs={12} sx={{marginTop: "10px"}}>
+                        <Controller
+                            defaultValue={data.strComentario}
+                            name="srtMensaje"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Comentario"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={loading}
+                                    error={errors?.strComentario ? true : false}
+                                    required
+                                    helperText={
+                                        errors?.strComentario?.message ||
+                                        "Digite el comentario."
+                                    }
+                                    fullWidth
+                                    variant="outlined"
+                                    multiline
+                                    rows={4}
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, digite el comentario",
+                            }}
+                        />
                     </Grid>
-                </DialogContent>
+                </Grid>
+            </DialogContent>
 
-                <DialogActions>
-                    <LoadingButton loading={loading} type="submit">
-                        Comentar
-                    </LoadingButton>
+            <DialogActions>
+                <LoadingButton loading={loading} type="submit">
+                    Comentar
+                </LoadingButton>
 
-                    <Button onClick={() => handlerChangeOpenModal()} color="inherit">
-                        Cancelar
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </Fragment>
+                <Button onClick={() => onClose()} color="inherit">
+                    Cancelar
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 

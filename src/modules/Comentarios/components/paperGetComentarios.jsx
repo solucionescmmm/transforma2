@@ -41,7 +41,7 @@ const PaperGetComentarios = ({ socket }) => {
                 if (e.strTipo === "Tarea") {
                     return (
                         <Grid item xs={12} key={i}>
-                            <Tarea values={e} />
+                            <Tarea values={e} socket={socket} />
                         </Grid>
                     );
                 }
@@ -49,7 +49,7 @@ const PaperGetComentarios = ({ socket }) => {
                 if (e.strTipo === "Alerta") {
                     return (
                         <Grid item xs={12} key={i}>
-                            <Alerta values={e} />
+                            <Alerta values={e} socket={socket} />
                         </Grid>
                     );
                 }
@@ -57,7 +57,7 @@ const PaperGetComentarios = ({ socket }) => {
                 if (e.strTipo === "Sugerencia") {
                     return (
                         <Grid item xs={12} key={i}>
-                            <Sugerencia values={e} />
+                            <Sugerencia values={e} socket={socket} />
                         </Grid>
                     );
                 }
@@ -65,7 +65,7 @@ const PaperGetComentarios = ({ socket }) => {
                 if (e.strTipo === "Comentario") {
                     return (
                         <Grid item xs={12} key={i}>
-                            <Comentario values={e} />
+                            <Comentario values={e} socket={socket} />
                         </Grid>
                     );
                 }
@@ -73,7 +73,7 @@ const PaperGetComentarios = ({ socket }) => {
                 if (e.strTipo === "Situación Crítica") {
                     return (
                         <Grid item xs={12} key={i}>
-                            <Critica values={e} />
+                            <Critica values={e} socket={socket} />
                         </Grid>
                     );
                 }

@@ -9,24 +9,34 @@ import {
     ListItem as MuiListItem,
     ListItemIcon,
     ListItemText,
+    Divider,
 } from "@mui/material";
 
 import { withStyles } from "@mui/styles";
 
 //Iconos de Material UI
-import { Home as HomeIcon, Business as BusinessIcon } from "@mui/icons-material";
+import {
+    Home as HomeIcon,
+    Equalizer as EqualizerIcon,
+    ListAlt as ListAltIcon,
+    People as PeopleIcon,
+    Person as PersonIcon,
+    Report as ReportIcon,
+    Engineering as EngineeringIcon,
+} from "@mui/icons-material";
 
 const ListItem = withStyles({
     root: {
-        color: "white",
+        color: "black",
         "& .MuiListItemIcon-root": {
-            color: "white",
+            color: "black",
         },
         "&$selected": {
-            backgroundColor: "white",
-            color: "#00BAB3",
+            backgroundColor: "#00BAB3",
+            color: "white",
+            borderRadius: "0px 20px 20px 0px",
             "& .MuiListItemIcon-root": {
-                color: "#00BAB3",
+                color: "white",
             },
         },
         "&$selected:hover": {
@@ -94,9 +104,95 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                 }}
             >
                 <ListItemIcon>
-                    <BusinessIcon />
+                    <PeopleIcon />
                 </ListItemIcon>
-                <ListItemText primary="Empresas" />
+                <ListItemText primary="Personas Empresarias" />
+            </ListItem>
+
+            <ListItem
+                button
+                component={RouterLink}
+                to="/transforma/asesor/empresario/read/all"
+                selected={
+                    location.pathname.startsWith("/transforma/asesor/actividades/")
+                        ? true
+                        : false
+                }
+                onClick={(e) => {
+                    if (movil) {
+                        toggleDrawer(e, false);
+                    }
+                }}
+            >
+                <ListItemIcon>
+                    <ListAltIcon />
+                </ListItemIcon>
+                <ListItemText primary="Actividades" />
+            </ListItem>
+
+            <ListItem
+                button
+                component={RouterLink}
+                to="/transforma/asesor/empresario/read/all"
+                selected={
+                    location.pathname.startsWith("/transforma/asesor/estadisticas/")
+                        ? true
+                        : false
+                }
+                onClick={(e) => {
+                    if (movil) {
+                        toggleDrawer(e, false);
+                    }
+                }}
+            >
+                <ListItemIcon>
+                    <EqualizerIcon />
+                </ListItemIcon>
+                <ListItemText primary="Estadísticas" />
+            </ListItem>
+
+            <Divider />
+
+            <ListItem
+                button
+                component={RouterLink}
+                to="/transforma/asesor/empresario/read/all"
+                selected={
+                    location.pathname.startsWith("/transforma/asesor/estadisticas/")
+                        ? true
+                        : false
+                }
+                onClick={(e) => {
+                    if (movil) {
+                        toggleDrawer(e, false);
+                    }
+                }}
+            >
+                <ListItemIcon>
+                    <ReportIcon />
+                </ListItemIcon>
+                <ListItemText primary="Reportar una situación" />
+            </ListItem>
+
+            <ListItem
+                button
+                component={RouterLink}
+                to="/transforma/asesor/empresario/read/all"
+                selected={
+                    location.pathname.startsWith("/transforma/asesor/estadisticas/")
+                        ? true
+                        : false
+                }
+                onClick={(e) => {
+                    if (movil) {
+                        toggleDrawer(e, false);
+                    }
+                }}
+            >
+                <ListItemIcon>
+                    <EngineeringIcon />
+                </ListItemIcon>
+                <ListItemText primary="Admin" />
             </ListItem>
         </List>
     );

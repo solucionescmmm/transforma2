@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, memo } from "react";
+import React, { useState, useEffect, useContext, memo, Fragment } from "react";
 
 //Context
 import { AuthContext } from "../../../common/middlewares/Auth";
@@ -25,14 +25,16 @@ import { Comment as CommentIcon, MoreVert as MoreVertIcon } from "@mui/icons-mat
 
 //Componentes
 import PaperGetRespuestas from "./paperGetRespuestas";
+import ModalAddRespuesta from "./modalAddRespuesta";
 
-const ComentarioAlerta = ({ values }) => {
+const ComentarioAlerta = ({ values, socket }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
     const { strInfoUser } = useContext(AuthContext);
 
     const [openRespuestas, setOpenRespuestas] = useState(false);
+    const [openModalAddRespuesta, setOpenModalAddRespuesta] = useState(false);
     const [anchorEl, setAnchorEl] = useState(false);
 
     const openMenu = Boolean(anchorEl);
@@ -60,6 +62,10 @@ const ComentarioAlerta = ({ values }) => {
         setAnchorEl(null);
     };
 
+    const handleOpenModalAddRespuesta = () => {
+        setOpenModalAddRespuesta(!openModalAddRespuesta);
+    };
+
     useEffect(() => {
         setData({
             intIdComentario: values.intIdComentario || null,
@@ -76,103 +82,126 @@ const ComentarioAlerta = ({ values }) => {
     }, [values]);
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-            }}
-        >
+        <Fragment>
+            <ModalAddRespuesta
+                socket={socket}
+                onClose={handleOpenModalAddRespuesta}
+                open={openModalAddRespuesta}
+                intId={data.intIdComentario}
+            />
+
             <Box
                 sx={{
-                    height: "100%",
                     display: "flex",
-                    marginRight: "15px",
+                    flexDirection: "row",
+                    alignItems: "center",
                 }}
             >
-                <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
-            </Box>
+                <Box
+                    sx={{
+                        height: "100%",
+                        display: "flex",
+                        marginRight: "15px",
+                    }}
+                >
+                    <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
+                </Box>
 
-            <Paper sx={{ padding: "10px", backgroundColor: "#FFC065", width: "90%" }}>
-                <Grid container direction="row" spacing={1}>
-                    <Grid item xs={12}>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <Box sx={{ flexGrow: 1 }}>
-                                <Typography variant="subtitle2" component="p">
-                                    {data.strUsuario}
-                                </Typography>
-                                <Typography sx={{ fontSize: "10px" }}>
-                                    {data.dtFechaCreacion}
-                                </Typography>
+                <Paper sx={{ padding: "10px", backgroundColor: "#FFC065", width: "90%" }}>
+                    <Grid container direction="row" spacing={1}>
+                        <Grid item xs={12}>
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                                <Box sx={{ flexGrow: 1 }}>
+                                    <Typography variant="subtitle2" component="p">
+                                        {data.strUsuario}
+                                    </Typography>
+                                    <Typography sx={{ fontSize: "10px" }}>
+                                        {data.dtFechaCreacion}
+                                    </Typography>
+                                </Box>
+
+                                <Box>
+                                    <Typography sx={{ fontSize: "12px" }}>
+                                        Alerta
+                                    </Typography>
+                                </Box>
+
+                                <Box>
+                                    <IconButton
+                                        size="small"
+                                        onClick={handleOpenMenu}
+                                        disabled={
+                                            strInfoUser.strUsuario !== data.strUsuario
+                                                ? true
+                                                : false
+                                        }
+                                    >
+                                        <MoreVertIcon />
+                                    </IconButton>
+
+                                    <Menu
+                                        anchorEl={anchorEl}
+                                        open={openMenu}
+                                        onClose={handleCloseMenu}
+                                    >
+                                        <MenuItem>Editar</MenuItem>
+                                        <MenuItem>Eliminar</MenuItem>
+                                    </Menu>
+                                </Box>
                             </Box>
-
-                            <Box>
-                                <Typography sx={{ fontSize: "12px" }}>Alerta</Typography>
-                            </Box>
-
-                            <Box>
-                                <IconButton
-                                    size="small"
-                                    onClick={handleOpenMenu}
-                                    disabled={
-                                        strInfoUser.strUsuario !== data.strUsuario
-                                            ? true
-                                            : false
-                                    }
-                                >
-                                    <MoreVertIcon />
-                                </IconButton>
-
-                                <Menu
-                                    anchorEl={anchorEl}
-                                    open={openMenu}
-                                    onClose={handleCloseMenu}
-                                >
-                                    <MenuItem>Editar</MenuItem>
-                                    <MenuItem>Eliminar</MenuItem>
-                                </Menu>
-                            </Box>
-                        </Box>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Typography>{data.srtMensaje}</Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Button
-                            startIcon={<CommentIcon />}
-                            size="small"
-                            sx={{ fontSize: "10px" }}
-                            color="inherit"
-                        >
-                            responder
-                        </Button>
-
-                        <Button
-                            size="small"
-                            sx={{ fontSize: "10px" }}
-                            color="inherit"
-                            onClick={() => handlerChangeOpenCollapse()}
-                            disabled={data.arrRespuestas.length === 0 ? true : false}
-                        >
-                            {openRespuestas ? "Cerrar respuestas" : " Mostrar respuestas"}{" "}
-                            ({data.arrRespuestas.length})
-                        </Button>
-                    </Grid>
-
-                    <Collapse timeout="auto" in={openRespuestas} sx={{ width: "100%" }}>
-                        <Grid container direction="row" spacing={2}>
-                            {data.arrRespuestas.map((e, i) => (
-                                <Grid item xs={12} key={i} sx={{ marginLeft: "25px" }}>
-                                    <PaperGetRespuestas values={e} />
-                                </Grid>
-                            ))}
                         </Grid>
-                    </Collapse>
-                </Grid>
-            </Paper>
-        </Box>
+
+                        <Grid item xs={12}>
+                            <Typography>{data.srtMensaje}</Typography>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Button
+                                startIcon={<CommentIcon />}
+                                size="small"
+                                sx={{ fontSize: "10px" }}
+                                color="inherit"
+                                onClick={() => handleOpenModalAddRespuesta()}
+                            >
+                                responder
+                            </Button>
+
+                            <Button
+                                size="small"
+                                sx={{ fontSize: "10px" }}
+                                color="inherit"
+                                onClick={() => handlerChangeOpenCollapse()}
+                                disabled={data.arrRespuestas.length === 0 ? true : false}
+                            >
+                                {openRespuestas
+                                    ? "Cerrar respuestas"
+                                    : " Mostrar respuestas"}{" "}
+                                ({data.arrRespuestas.length})
+                            </Button>
+                        </Grid>
+
+                        <Collapse
+                            timeout="auto"
+                            in={openRespuestas}
+                            sx={{ width: "100%" }}
+                        >
+                            <Grid container direction="row" spacing={2}>
+                                {data.arrRespuestas.map((e, i) => (
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        key={i}
+                                        sx={{ marginLeft: "25px" }}
+                                    >
+                                        <PaperGetRespuestas values={e} />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Grid>
+                </Paper>
+            </Box>
+        </Fragment>
     );
 };
 

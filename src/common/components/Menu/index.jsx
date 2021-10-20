@@ -8,7 +8,15 @@ import { AbilityContext } from "../../config/Can";
 import defineRulesFor from "../../config/Permissions";
 
 //Componentes de Material UI
-import { Drawer, Box, Typography, Divider, IconButton } from "@mui/material";
+import {
+    Drawer,
+    Box,
+    Typography,
+    Divider,
+    IconButton,
+    useTheme,
+    useMediaQuery,
+} from "@mui/material";
 
 //Estilos de Material UI
 import { makeStyles } from "@mui/styles";
@@ -27,9 +35,8 @@ const menuStyles = makeStyles((theme) => ({
     paper: {
         width: "200px !important",
         overflowX: "hidden",
-        backgroundImage: `url(${BackGroundImg})`,
-        backgroundColor: "#00BAB3",
-        borderRadius: "0 0 250px 0",
+        backgroundColor: "#fff",
+        borderColor: "#ffff",
     },
     bntCloseMenu: {
         marginBottom: "3.5px",
@@ -51,6 +58,12 @@ const Menu = ({ open, toggleDrawer }) => {
     //===============================================================================================================================================
     const { strInfoUser } = useContext(AuthContext);
     const ability = useContext(AbilityContext);
+
+    //===============================================================================================================================================
+    //========================================== Hooks personalizados ===============================================================================
+    //===============================================================================================================================================
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -77,7 +90,7 @@ const Menu = ({ open, toggleDrawer }) => {
             open={open}
             onClose={(e) => toggleDrawer(e, false)}
             PaperProps={{ className: classes.paper }}
-            variant="temporary"
+            variant={isMobile ? "temporary" : "persistent"}
         >
             <Box
                 className={classes.bntCloseMenu}
@@ -87,11 +100,9 @@ const Menu = ({ open, toggleDrawer }) => {
                 }}
             >
                 <IconButton onClick={(e) => toggleDrawer(e, false)} size="large">
-                    <ChevronLeftIcon htmlColor="white" />
+                    <ChevronLeftIcon htmlColor="#00BAB3" />
                 </IconButton>
             </Box>
-
-            <Divider />
 
             <Box
                 className={classes.box}
@@ -104,33 +115,9 @@ const Menu = ({ open, toggleDrawer }) => {
                 }}
             >
                 <Box sx={{ flexGrow: 1, minWidth: "100%" }}>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <img
-                            src={Logo}
-                            alt="Icono choucair"
-                            style={{
-                                width: "60px",
-                                height: "60px",
-                                marginTop: "20px",
-                                backgroundColor: "white",
-                                borderRadius: "50%",
-                            }}
-                        />
-                    </Box>
-
                     <Box>
                         <GetListUser toggleDrawer={toggleDrawer} movil={true} />
                     </Box>
-                </Box>
-                <Box>
-                    <Typography variant="caption">
-                        {process.env.REACT_APP_VERSION}
-                    </Typography>
                 </Box>
             </Box>
         </Drawer>

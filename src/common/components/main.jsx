@@ -61,15 +61,32 @@ const mainStyles = makeStyles((theme) => ({
         width: "30px",
         height: "30px",
     },
-    appBar: {},
-    appBarMenuActive: {},
-
+    appBar: {
+        transition: theme.transitions.create(["margin", "width"], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarMenuActive: {
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - 12rem)`,
+            marginLeft: "12rem",
+            transition: theme.transitions.create(["margin", "width"], {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+        },
+    },
     main: {
         display: "block",
         position: "relative",
         flexGrow: 1,
         top: "80px",
         margin: "0 25px 0 25px",
+        transition: theme.transitions.create("margin", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
         [theme.breakpoints.down("sm")]: {
             margin: "0px",
             paddingRight: "10px",
@@ -79,14 +96,26 @@ const mainStyles = makeStyles((theme) => ({
 
     mainMenuActive: {
         top: "80px",
-        display: "block",
+        display: "flex",
         position: "relative",
         margin: "0 25px 0 25px",
         flexGrow: 1,
         [theme.breakpoints.down("sm")]: {
-            margin: "0px",
+            transition: theme.transitions.create("margin", {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            margin: "0",
             paddingRight: "10px",
             paddingLeft: "10px",
+        },
+
+        [theme.breakpoints.up("sm")]: {
+            transition: theme.transitions.create("margin", {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            marginLeft: "14rem",
         },
     },
 
@@ -102,8 +131,8 @@ const mainStyles = makeStyles((theme) => ({
     },
 
     appColor: {
-        backgroundColor: "#00BAB3",
-        backgroundImage: `url(${BackGroundImg})`,
+        backgroundColor: "#fff",
+        boxShadow: "none"
     },
 }));
 
@@ -181,14 +210,18 @@ const Main = ({ children }) => {
                                         onClick={(e) => toggleDrawer(e, true)}
                                         size="large"
                                     >
-                                        <MenuIcon htmlColor="white" />
+                                        <MenuIcon htmlColor="#00BAB3" />
                                     </IconButton>
                                 ) : null}
                                 <Typography
                                     variant="h6"
-                                    style={{ textOverflow: "ellipsis" }}
+                                    style={{ textOverflow: "ellipsis", color: "#00BAB3" }}
                                 >
-                                    <Link className={classes.link} to="/transforma">
+                                    <Link
+                                        className={classes.link}
+                                        to="/transforma"
+                                        style={{ color: "#00BAB3" }}
+                                    >
                                         Transforma
                                     </Link>
                                 </Typography>
@@ -203,7 +236,7 @@ const Main = ({ children }) => {
                                 <Box className={classes.hiddenElements}>
                                     <Typography
                                         variant="subtitle1"
-                                        sx={{ display: { sm: "none", md: "inherit" } }}
+                                        sx={{ display: { sm: "none", md: "inherit", color: "#00BAB3" } }}
                                     >
                                         {strInfoUser
                                             ? strInfoUser.strUsuario

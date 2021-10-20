@@ -37,7 +37,7 @@ const ModalAddComentario = ({ socket }) => {
         strTipo: "",
         srtMensaje: "",
         strUsuario: "",
-        strUsuarioAsignado: "",
+        arrUsuarioAsignado: [],
         strURLImagenUsuario: "",
     });
 
@@ -76,16 +76,17 @@ const ModalAddComentario = ({ socket }) => {
             strTipo: "",
             srtMensaje: "",
             strUsuario: "",
-            strUsuarioAsignado: "",
+            arrUsuarioAsignado: [],
             strURLImagenUsuario: "",
         });
 
         reset({
+            intIdEmpresario: null,
             btResuelto: false,
             strTipo: "",
             srtMensaje: "",
             strUsuario: "",
-            strUsuarioAsignado: "",
+            arrUsuarioAsignado: [],
             strURLImagenUsuario: "",
         });
 
@@ -118,6 +119,9 @@ const ModalAddComentario = ({ socket }) => {
                     noValidate: "noValidate",
                     onSubmit: handleSubmit(onSubmit),
                 }}
+                
+
+                
             >
                 <DialogTitle>Agregar Comentario</DialogTitle>
 
