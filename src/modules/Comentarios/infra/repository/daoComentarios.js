@@ -1,3 +1,6 @@
+//librerias
+const sql = require("mssql");
+
 //Conexion
 const {conexion} = require("../../../../common/config/confSQL_connectionTransfroma");
 
