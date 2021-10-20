@@ -56,8 +56,14 @@ class clsServer {
         });
 
         io.on("connection", (client) => {
-            client.on("mdlComentarios:setComentario", (data) => {
-                arrComentarios.push({
+            const clsSetComentario = require("../../Comentarios/domain/setComentario.service");
+
+            client.on("mdlComentarios:setComentario", async (data) => {
+                let serviceSetComentario = new clsSetComentario(data);
+
+                let response = await serviceSetComentario.main();
+
+                serviceSetComentario.arrComentarios.push({
                     strTipo: data.strTipo,
                     srtMensaje: data.srtMensaje,
                     dtFechaCreacion: new Date(),
@@ -66,7 +72,7 @@ class clsServer {
                     strURLImagenUsuario: data.strURLImagenUsuario,
                 });
 
-                client.emit("mdlComentarios:setComentario", arrComentarios);
+                client.emit("mdlComentarios:setComentario", response);
             });
 
             client.emit("mdlComentarios:getComentarios", arrComentarios);

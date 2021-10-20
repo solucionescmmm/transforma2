@@ -1,10 +1,14 @@
-//Conexion
-const {conexion} = require("../../../../common/config/confSQL_connectionTransfroma");
+//librerias
+const sql = require("mssql");
 
-class daoComentarios{
-    async setComentario(data){
+//Conexion
+const { conexion } = require("../../../../common/config/confSQL_connectionTransfroma");
+
+class daoComentarios {
+    async setComentario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
+
             let response = await conn.query`
             DECLARE @intId INTEGER;
             
@@ -23,15 +27,15 @@ class daoComentarios{
             SET @intId = SCOPE_IDENTITY();
     
             SELECT * FROM tbl_Comentarios WHERE intId = @intId`;
-    
+
             let result = {
                 error: false,
                 data: response.recordset[0],
                 msg: `El comentario, fue registrado con éxito.`,
             };
-    
+
             sql.close(conexion);
-    
+
             return result;
         } catch (error) {
             let result = {
@@ -40,14 +44,14 @@ class daoComentarios{
                     error.message ||
                     "Error en el metodo setComentario de la clase daoComentarios",
             };
-    
+
             sql.close(conexion);
-    
+
             return result;
         }
-     }
+    }
 
-     async updateComentario(data){
+    async updateComentario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -84,9 +88,9 @@ class daoComentarios{
 
             return result;
         }
-     }
+    }
 
-     async deleteComentario(data){
+    async deleteComentario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -112,9 +116,9 @@ class daoComentarios{
 
             return result;
         }
-     }
+    }
 
-     async getComentario(data){
+    async getComentario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -144,6 +148,6 @@ class daoComentarios{
 
             return result;
         }
-     }
+    }
 }
-module.exports = daoComentarios
+module.exports = daoComentarios;
