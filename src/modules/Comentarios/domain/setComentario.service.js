@@ -22,7 +22,7 @@ class setComentario{
     async #setComentario(){
         let dao = new classInterfaceDAOComentarios();
 
-        let query = await dao.setEmpresarios(this.#objData);
+        let query = await dao.setComentario(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
