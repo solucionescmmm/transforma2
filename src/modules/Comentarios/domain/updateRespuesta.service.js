@@ -1,10 +1,8 @@
-//Librerias
-const validator = require("validator").default;
 
 //class
 const classInterfaceDAOComentarios = require("../infra/conectors/interfaceDaoComentarios")
 
-class updateComentario{
+class updateRespuesta{
     #objData;
     #objResult;
     /**
@@ -15,15 +13,15 @@ class updateComentario{
     }
 
     async main() {
-        await this.#updateComentario()
+        await this.#updateRespuesta()
         return this.#objResult;
     }
 
 
-    async #updateComentario(){
+    async #updateRespuesta(){
         let dao = new classInterfaceDAOComentarios();
 
-        let query = await dao.updateComentario(this.#objData);
+        let query = await dao.updateRespuesta(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -38,4 +36,4 @@ class updateComentario{
     }
 
 }
-module.exports = updateComentario;
+module.exports = updateRespuesta;

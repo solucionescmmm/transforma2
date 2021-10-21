@@ -1,5 +1,3 @@
-//Librerias
-const validator = require("validator").default;
 
 //class
 const classInterfaceDAOComentarios = require("../infra/conectors/interfaceDaoComentarios")
@@ -15,8 +13,15 @@ class setComentario{
     }
 
     async main() {
+        await this.#validations()
         await this.#setComentario()
         return this.#objResult;
+    }
+
+    async #validations(){
+        if (!this.#objData) {
+            throw new Error("Se esperaban parámetros de entrada.");
+        }
     }
 
     async #setComentario(){
