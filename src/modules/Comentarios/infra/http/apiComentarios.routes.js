@@ -25,4 +25,20 @@ routes.get("/transforma/api/comentarios/getComentario", async(req, res)=>{
     await controllerComentarios.getComentario(req, res)
 })
 
+routes.post("/transforma/api/comentarios/setRespuesta", async(req, res)=>{
+    let controllerComentarios = new classController()
+    await controllerComentarios.setRespuesta(req, res)
+})
+
+routes.put("/transforma/api/comentarios/updateRespuesta", async(req, res)=>{
+    let controllerComentarios = new classController()
+    await controllerComentarios.updateRespuesta(req, res)
+})
+
+routes.delete("/transforma/api/comentarios/deleteRespuesta", async(req, res)=>{
+    let controllerComentarios = new classController()
+    await controllerComentarios.deleteRespuesta(req, res)
+})
+
+
 module.exports = routes;
