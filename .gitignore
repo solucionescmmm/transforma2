@@ -30,6 +30,11 @@ package-lock.json
 .eslintcache
 node_modules
 
-uploads/
-!uploads/*.md
+.png
+.jpg
+.jpeg
+.doc
+.xls
+.xlsx
+
 
