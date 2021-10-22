@@ -40,5 +40,4 @@ routes.delete("/transforma/api/comentarios/deleteRespuesta", async(req, res)=>{
     await controllerComentarios.deleteRespuesta(req, res)
 })
 
-
 module.exports = routes;

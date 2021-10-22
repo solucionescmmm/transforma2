@@ -295,7 +295,5 @@ class daoComentarios {
             return result;
         }
      }
-
-    }
 }
 module.exports = daoComentarios;
