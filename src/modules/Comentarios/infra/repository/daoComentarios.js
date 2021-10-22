@@ -123,15 +123,15 @@ class daoComentarios {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            await conn.query`
-            
+            let response = await conn.query`
+
             SELECT 
 
             Comentario.intId,
             Comentario.intIdEmpresario,
             Comentario.strTipo,
             Comentario.strMensaje,
-            Comentario.strUsuario
+            Comentario.strUsuario,
             Comentario.strUsuarioAsignado,
             Comentario.strURLImagenUsuario,
             Comentario.btResuelto,
