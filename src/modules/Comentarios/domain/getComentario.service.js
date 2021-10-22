@@ -30,7 +30,7 @@ const getComentario = async (objParams, strDataUser)=>{
         intIdEmpresario : intIdEmpresario || null,
     };
 
-    let result = await dao.getEmpresario(query);
+    let result = await dao.getComentario(query);
 
     return result
 }

@@ -80,7 +80,7 @@ class ctrl_Comentarios{
             let objParams = req.query; 
             let { strDataUser } = req; 
 
-            let query = new getComentario(objParams, strDataUser)
+            let query = await getComentario(objParams, strDataUser)
             
             if (query.error) {
                 throw new Error(query.msg);
