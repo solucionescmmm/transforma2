@@ -10,22 +10,28 @@ import Sugerencia from "./Sugerencia";
 import Comentario from "./Comentario";
 import Critica from "./Critica";
 
-const PaperGetComentarios = ({ socket }) => {
+const PaperGetComentarios = ({ socket, values }) => {
     const [arrComentarios, setArrComentarios] = useState([]);
 
     useEffect(() => {
-        socket.on("mdlComentarios:getComentarios", (data) => {
-            if (data) {
-                setArrComentarios(data);
+        socket.emit("mdlComentarios:getComentarios", {
+            intIdEmpresario: values?.intIdEmpresario,
+        });
+
+        socket.on("mdlComentarios:getComentarios", (res) => {
+            if (res.data) {
+                setArrComentarios(res.data);
+
+                console.log(res.data)
             }
         });
 
-        socket.on("mdlComentarios:setComentario", (data) => {
-            if (data) {
-                setArrComentarios(data);
+        socket.on("mdlComentarios:setComentario", (res) => {
+            if (res.data) {
+                setArrComentarios(res.data);
             }
         });
-    }, [socket]);
+    }, [socket, values]);
 
     if (arrComentarios.length === 0) {
         return (

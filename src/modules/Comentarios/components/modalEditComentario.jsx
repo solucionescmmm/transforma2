@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 //Context
 import { AuthContext } from "../../../common/middlewares/Auth";
@@ -10,6 +10,7 @@ import { useForm, Controller } from "react-hook-form";
 import {
     Grid,
     TextField,
+    MenuItem,
     Button,
     Dialog,
     DialogTitle,
@@ -21,7 +22,7 @@ import {
 
 import { LoadingButton } from "@mui/lab";
 
-const ModalAddComentario = ({ socket, onClose, open, values }) => {
+const ModalEditComentario = ({ socket, values, onClose, open }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -31,11 +32,13 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        intIdComentario: values?.intIdComentario,
+        intId: values.intIdComentario,
         intIdEmpresario: values?.intIdEmpresario,
+        btResuelto: false,
+        strTipo: "",
         strMensaje: "",
-        dtFechaCreacion: null,
         strUsuario: "",
+        arrUsuarioAsignado: [],
         strURLImagenUsuario: "",
     });
 
@@ -60,28 +63,33 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
     const onSubmit = (data) => {
         setLoading(true);
 
-        console.log(values);
-
-        socket.emit("mdlComentarios:setRespuesta", {
+        socket.emit("mdlComentarios:updateComentario", {
             ...data,
+            intId: values.intIdComentario,
+            intIdEmpresario: values?.intIdEmpresario,
             strUsuario: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
-            intIdEmpresario: values.intIdEmpresario,
         });
 
         setData({
-            intIdComentario: values?.intIdComentario,
+            intId: values.intIdComentario,
+            intIdEmpresario: values?.intIdEmpresario,
+            btResuelto: false,
+            strTipo: "",
             strMensaje: "",
-            dtFechaCreacion: null,
             strUsuario: "",
+            arrUsuarioAsignado: [],
             strURLImagenUsuario: "",
         });
 
         reset({
-            intIdComentario: values?.intIdComentario,
+            intId: values.intIdComentario,
+            intIdEmpresario: values?.intIdEmpresario,
+            btResuelto: false,
+            strTipo: "",
             strMensaje: "",
-            dtFechaCreacion: null,
             strUsuario: "",
+            arrUsuarioAsignado: [],
             strURLImagenUsuario: "",
         });
 
@@ -89,6 +97,24 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
 
         onClose();
     };
+
+    useEffect(() => {
+        setData({
+            intId: values.intIdComentario,
+            intIdEmpresario: values.intIdEmpresario || null,
+            btResuelto:
+                typeof values.btResuelto === "boolean" ? values.btResuelto : false,
+            strTipo: values.strTipo || "",
+            strMensaje: values.strMensaje || "",
+            strUsuario: values.strUsuario || "",
+            arrUsuarioAsignado: values.arrUsuarioAsignado || [],
+            strURLImagenUsuario: values.strURLImagenUsuario || "",
+        });
+    }, [values]);
+
+    useEffect(() => {
+        reset(data);
+    }, [data, reset]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -98,8 +124,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
         <Dialog
             open={open}
             onClose={onClose}
-            maxWidth="sm"
-            fullWidth
+            maxWidth="md"
             fullScreen={bitMobile}
             PaperProps={{
                 component: "form",
@@ -107,11 +132,52 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
                 onSubmit: handleSubmit(onSubmit),
             }}
         >
-            <DialogTitle>Agregar Respuesta</DialogTitle>
+            <DialogTitle>Editar Comentario</DialogTitle>
 
             <DialogContent>
                 <Grid container component="form" direction="row" spacing={2}>
-                    <Grid item xs={12} sx={{ marginTop: "10px" }}>
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strTipo}
+                            name="strTipo"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Tipo de Comentario"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={loading}
+                                    error={errors?.strTipo ? true : false}
+                                    required
+                                    helperText={
+                                        errors?.strTipo?.message ||
+                                        "Seleccione el tipo de comentario."
+                                    }
+                                    fullWidth
+                                    variant="standard"
+                                    select
+                                >
+                                    <MenuItem value="Tarea">Tarea</MenuItem>
+                                    <MenuItem value="Sugerencia">Sugerencia</MenuItem>
+                                    <MenuItem value="Comentario">Comentario</MenuItem>
+                                    <MenuItem value="Alerta">Alerta</MenuItem>
+                                    <MenuItem value="Situación Crítica">
+                                        Situación Crítica
+                                    </MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, seleccione el tipo de comentario",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        Usuario
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strMensaje}
                             name="strMensaje"
@@ -145,7 +211,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
 
             <DialogActions>
                 <LoadingButton loading={loading} type="submit">
-                    Comentar
+                    guardar
                 </LoadingButton>
 
                 <Button onClick={() => onClose()} color="inherit">
@@ -156,4 +222,4 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
     );
 };
 
-export default ModalAddComentario;
+export default ModalEditComentario;

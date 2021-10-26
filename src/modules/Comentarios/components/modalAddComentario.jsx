@@ -22,20 +22,20 @@ import {
 
 import { LoadingButton } from "@mui/lab";
 
-const ModalAddComentario = ({ socket }) => {
+const ModalAddComentario = ({ socket, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
-    const { token, strInfoUser } = useContext(AuthContext);
+    const { strInfoUser } = useContext(AuthContext);
 
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        intIdEmpresario: null,
+        intIdEmpresario: values?.intIdEmpresario,
         btResuelto: false,
         strTipo: "",
-        srtMensaje: "",
+        strMensaje: "",
         strUsuario: "",
         arrUsuarioAsignado: [],
         strURLImagenUsuario: "",
@@ -66,25 +66,26 @@ const ModalAddComentario = ({ socket }) => {
 
         socket.emit("mdlComentarios:setComentario", {
             ...data,
+            intIdEmpresario: values?.intIdEmpresario,
             strUsuario: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
         });
 
         setData({
-            intIdEmpresario: null,
+            intIdEmpresario: values?.intIdEmpresario,
             btResuelto: false,
             strTipo: "",
-            srtMensaje: "",
+            strMensaje: "",
             strUsuario: "",
             arrUsuarioAsignado: [],
             strURLImagenUsuario: "",
         });
 
         reset({
-            intIdEmpresario: null,
+            intIdEmpresario: values?.intIdEmpresario,
             btResuelto: false,
             strTipo: "",
-            srtMensaje: "",
+            strMensaje: "",
             strUsuario: "",
             arrUsuarioAsignado: [],
             strURLImagenUsuario: "",
@@ -119,9 +120,6 @@ const ModalAddComentario = ({ socket }) => {
                     noValidate: "noValidate",
                     onSubmit: handleSubmit(onSubmit),
                 }}
-                
-
-                
             >
                 <DialogTitle>Agregar Comentario</DialogTitle>
 
@@ -171,8 +169,8 @@ const ModalAddComentario = ({ socket }) => {
 
                         <Grid item xs={12}>
                             <Controller
-                                defaultValue={data.srtMensaje}
-                                name="srtMensaje"
+                                defaultValue={data.strMensaje}
+                                name="strMensaje"
                                 render={({ field: { name, value, onChange } }) => (
                                     <TextField
                                         label="Comentario"
@@ -180,10 +178,10 @@ const ModalAddComentario = ({ socket }) => {
                                         value={value}
                                         onChange={(e) => onChange(e)}
                                         disabled={loading}
-                                        error={errors?.srtMensaje ? true : false}
+                                        error={errors?.strMensaje ? true : false}
                                         required
                                         helperText={
-                                            errors?.srtMensaje?.message ||
+                                            errors?.strMensaje?.message ||
                                             "Digite el comentario."
                                         }
                                         fullWidth

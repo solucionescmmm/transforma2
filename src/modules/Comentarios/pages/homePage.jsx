@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 //Librerias
 import io from "socket.io-client";
+import { useParams } from "react-router-dom";
 
 //Componentes de Material UI
 import { Grid } from "@mui/material";
@@ -16,6 +17,11 @@ const Comentarios = () => {
     const [socket, setSocket] = useState();
     const [loading, setLoadig] = useState(true);
     const [error, setError] = useState({ flag: false, msg: "" });
+
+    //===============================================================================================================================================
+    //========================================== Hooks personalizados ===============================================================================
+    //===============================================================================================================================================
+    const { intId } = useParams();
 
     useEffect(() => {
         const newSocket = io(
@@ -56,11 +62,14 @@ const Comentarios = () => {
     return (
         <Grid container direction="row" spacing={3}>
             <Grid item xs={12}>
-                <ModalAddComentario socket={socket} />
+                <ModalAddComentario socket={socket} values={{ intIdEmpresario: intId }} />
             </Grid>
 
             <Grid item xs={12}>
-                <PaperGetComentarios socket={socket} />
+                <PaperGetComentarios
+                    socket={socket}
+                    values={{ intIdEmpresario: intId }}
+                />
             </Grid>
         </Grid>
     );

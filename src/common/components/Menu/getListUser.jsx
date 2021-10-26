@@ -20,7 +20,6 @@ import {
     Equalizer as EqualizerIcon,
     ListAlt as ListAltIcon,
     People as PeopleIcon,
-    Person as PersonIcon,
     Report as ReportIcon,
     Engineering as EngineeringIcon,
 } from "@mui/icons-material";

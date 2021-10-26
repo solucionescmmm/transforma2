@@ -38,9 +38,6 @@ import { makeStyles } from "@mui/styles";
 //Iconos de Material UI
 import { Person as PersonIcon } from "@mui/icons-material";
 
-//Imagenes
-import BackGroundImg from "../../static/img/LoginBackground.svg";
-
 //Componentes
 import MenuDrawer from "./Menu";
 
@@ -132,7 +129,7 @@ const mainStyles = makeStyles((theme) => ({
 
     appColor: {
         backgroundColor: "#fff",
-        boxShadow: "none"
+        boxShadow: "none",
     },
 }));
 
@@ -225,6 +222,13 @@ const Main = ({ children }) => {
                                         Transforma
                                     </Link>
                                 </Typography>
+                                <img
+                                    style={{ marginLeft: "5px" }}
+                                    className={classes.hiddenElements}
+                                    src="https://demismanos.org/wp-content/uploads/2020/07/Recurso-1.png"
+                                    alt="Logo"
+                                    width="80px"
+                                />
                             </Box>
                             <Box
                                 sx={{
@@ -236,7 +240,13 @@ const Main = ({ children }) => {
                                 <Box className={classes.hiddenElements}>
                                     <Typography
                                         variant="subtitle1"
-                                        sx={{ display: { sm: "none", md: "inherit", color: "#00BAB3" } }}
+                                        sx={{
+                                            display: {
+                                                sm: "none",
+                                                md: "inherit",
+                                                color: "#00BAB3",
+                                            },
+                                        }}
                                     >
                                         {strInfoUser
                                             ? strInfoUser.strUsuario

@@ -244,6 +244,19 @@ const DetailsEmpresario = () => {
                                     );
                                 }}
                             </Route>
+
+
+                            <Route path="/diagnosticos/:intId" exact>
+                                {({ location }) => {
+                                    setCurrentTab(location.pathname);
+
+                                    return (
+                                        <div className="animate__animated animate__fadeIn">
+                                            <PerfilEmpresario />
+                                        </div>
+                                    );
+                                }}
+                            </Route>
                         </Switch>
                     </MemoryRouter>
                 </Grid>

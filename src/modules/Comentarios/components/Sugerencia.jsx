@@ -26,6 +26,8 @@ import { Comment as CommentIcon, MoreVert as MoreVertIcon } from "@mui/icons-mat
 //Componentes
 import PaperGetRespuestas from "./paperGetRespuestas";
 import ModalAddRespuesta from "./modalAddRespuesta";
+import ModalDeleteComentario from "./modalDeleteComentario";
+import ModalEditComentario from "./modalEditComentario";
 
 const ComentarioSugerencia = ({ values, socket }) => {
     //===============================================================================================================================================
@@ -35,6 +37,8 @@ const ComentarioSugerencia = ({ values, socket }) => {
 
     const [openRespuestas, setOpenRespuestas] = useState(false);
     const [openModalAddRespuesta, setOpenModalAddRespuesta] = useState(false);
+    const [openModalEditComentario, setOpenModalEditComentario] = useState(false);
+    const [openModalDeleteComentario, setOpenModalDeleteComentario] = useState(false);
     const [anchorEl, setAnchorEl] = useState(false);
 
     const openMenu = Boolean(anchorEl);
@@ -42,7 +46,7 @@ const ComentarioSugerencia = ({ values, socket }) => {
     const [data, setData] = useState({
         intIdComentario: null,
         intIdEmpresario: null,
-        srtMensaje: "",
+        strMensaje: "",
         dtFechaCreacion: null,
         strUsuario: "",
         strUsuarioAsignado: "",
@@ -66,18 +70,27 @@ const ComentarioSugerencia = ({ values, socket }) => {
         setOpenModalAddRespuesta(!openModalAddRespuesta);
     };
 
+    const handleOpenModalDeleteComentario = () => {
+        setOpenModalDeleteComentario(!openModalDeleteComentario);
+    };
+
+    const handleOpenModalEditComentario = () => {
+        setOpenModalEditComentario(!openModalEditComentario);
+    };
+
     useEffect(() => {
         setData({
-            intIdComentario: values.intIdComentario || null,
+            intIdComentario: values.intId || null,
             intIdEmpresario: values.intIdEmpresario || null,
-            srtMensaje: values.srtMensaje || "",
+            strMensaje: values.strMensaje || "",
             dtFechaCreacion: values.dtFechaCreacion
                 ? format(parseISO(values.dtFechaCreacion), "yyyy-MM-dd")
                 : "",
             strUsuario: values.strUsuario || "",
             strUsuarioAsignado: values.strUsuarioAsignado || "",
             strURLImagenUsuario: values.strURLImagenUsuario || "",
-            arrRespuestas: values.arrRespuestas || [],
+            arrRespuestas: values.objRespuesta || [],
+            strTipo: values.strTipo || "",
         });
     }, [values]);
 
@@ -87,7 +100,27 @@ const ComentarioSugerencia = ({ values, socket }) => {
                 socket={socket}
                 onClose={handleOpenModalAddRespuesta}
                 open={openModalAddRespuesta}
-                intId={data.intIdComentario}
+                values={{
+                    intIdComentario: data.intIdComentario,
+                    intIdEmpresario: data.intIdEmpresario,
+                }}
+            />
+
+            <ModalDeleteComentario
+                socket={socket}
+                onClose={handleOpenModalDeleteComentario}
+                open={openModalDeleteComentario}
+                values={{
+                    intId: data.intIdComentario,
+                    intIdEmpresario: data.intIdEmpresario,
+                }}
+            />
+
+            <ModalEditComentario
+                socket={socket}
+                onClose={handleOpenModalEditComentario}
+                open={openModalEditComentario}
+                values={data}
             />
 
             <Box
@@ -144,15 +177,27 @@ const ComentarioSugerencia = ({ values, socket }) => {
                                         open={openMenu}
                                         onClose={handleCloseMenu}
                                     >
-                                        <MenuItem>Editar</MenuItem>
-                                        <MenuItem>Eliminar</MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleOpenModalEditComentario()
+                                            }
+                                        >
+                                            Editar
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleOpenModalDeleteComentario()
+                                            }
+                                        >
+                                            Eliminar
+                                        </MenuItem>
                                     </Menu>
                                 </Box>
                             </Box>
                         </Grid>
 
                         <Grid item xs={12}>
-                            <Typography>{data.srtMensaje}</Typography>
+                            <Typography>{data.strMensaje}</Typography>
                         </Grid>
 
                         <Grid item xs={12}>

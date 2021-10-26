@@ -8,25 +8,13 @@ import { AbilityContext } from "../../config/Can";
 import defineRulesFor from "../../config/Permissions";
 
 //Componentes de Material UI
-import {
-    Drawer,
-    Box,
-    Typography,
-    Divider,
-    IconButton,
-    useTheme,
-    useMediaQuery,
-} from "@mui/material";
+import { Drawer, Box, IconButton, useTheme, useMediaQuery } from "@mui/material";
 
 //Estilos de Material UI
 import { makeStyles } from "@mui/styles";
 
 //Iconos de Material UI
 import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
-
-//Imagenes
-import Logo from "../../../static/img/LogoMenu.svg";
-import BackGroundImg from "../../../static/img/LoginBackground.svg";
 
 //Componentes
 import GetListUser from "./getListUser";
@@ -116,7 +104,7 @@ const Menu = ({ open, toggleDrawer }) => {
             >
                 <Box sx={{ flexGrow: 1, minWidth: "100%" }}>
                     <Box>
-                        <GetListUser toggleDrawer={toggleDrawer} movil={true} />
+                        <GetListUser toggleDrawer={toggleDrawer} movil={isMobile} />
                     </Box>
                 </Box>
             </Box>

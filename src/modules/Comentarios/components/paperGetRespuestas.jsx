@@ -50,9 +50,9 @@ const Comentario = ({ values }) => {
 
     useEffect(() => {
         setData({
-            intIdComentario: values.intIdComentario || null,
-            intIdComentarioPr: values.intIdComentarioPr || "",
-            strComentario: values.strComentario || "",
+            intId: values.intId || null,
+            intIdComentarioPr: values.intIdComentario || "",
+            strComentario: values.strMensaje || "",
             dtFechaCreacion: values.dtFechaCreacion
                 ? format(parseISO(values.dtFechaCreacion), "yyyy-MM-dd")
                 : "",
