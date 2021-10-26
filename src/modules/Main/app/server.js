@@ -43,8 +43,6 @@ class clsServer {
     }
 
     #socket() {
-        let arrComentarios = [];
-
         const io = socketIo(this.#objServer, {
             cors: {
                 origin:
@@ -57,6 +55,9 @@ class clsServer {
 
         io.on("connection", (client) => {
             const clsSetComentario = require("../../Comentarios/domain/setComentario.service");
+            const clsUpdateComentario = require("../../Comentarios/domain/updateComentario.service");
+            const clsDeleteComentario = require("../../Comentarios/domain/deleteComentario.service");
+            const clsSetRespuesta = require("../../Comentarios/domain/setRespuesta.service");
             const serviceGetComentarios = require("../../Comentarios/domain/getComentario.service");
 
             client.on("mdlComentarios:setComentario", async (data) => {
@@ -79,6 +80,56 @@ class clsServer {
                 });
 
                 client.emit("mdlComentarios:getComentarios", response);
+            });
+
+            client.on("mdlComentarios:deleteComentario", async (data) => {
+                let serviceDeleteComentario = new clsDeleteComentario({
+                    intId: data.intId,
+                });
+
+                let responseDelete = await serviceDeleteComentario.main();
+
+                let responseGetData = await serviceGetComentarios({
+                    intIdEmpresario: data.intIdEmpresario,
+                });
+
+                client.emit("mdlComentarios:getComentarios", responseGetData);
+                client.emit("mdlComentarios:deleteComentario", responseDelete);
+            });
+
+            client.on("mdlComentarios:updateComentario", async (data) => {
+                let serviceUpdateComentario = new clsUpdateComentario(data);
+
+                let responseUpdate = await serviceUpdateComentario.main();
+
+                let responseGetData = await serviceGetComentarios({
+                    intIdEmpresario: data.intIdEmpresario,
+                });
+
+                client.emit("mdlComentarios:getComentarios", responseGetData);
+                client.emit("mdlComentarios:updateComentario", responseUpdate);
+            });
+
+            client.on("mdlComentarios:setRespuesta", async (data) => {
+                let serviceSetRespuesta = new clsSetRespuesta(data);
+
+                let responseSetRespuesta = await serviceSetRespuesta.main();
+
+                let responseGetData = await serviceGetComentarios({
+                    intIdEmpresario: data.intIdEmpresario,
+                });
+
+                client.emit("mdlComentarios:getComentarios", responseGetData);
+                client.emit("mdlComentarios:setRespuesta", responseSetRespuesta);
+            });
+
+            client.on("mdlComentarios:deleteRespuesta", async (data) => {
+                let responseGetData = await serviceGetComentarios({
+                    intIdEmpresario: data.intIdEmpresario,
+                });
+
+                client.emit("mdlComentarios:getComentarios", responseGetData);
+                client.emit("mdlComentarios:deleteRespuesta", responseSetRespuesta);
             });
         });
     }
