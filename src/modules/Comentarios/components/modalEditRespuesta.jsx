@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 //Context
 import { AuthContext } from "../../../common/middlewares/Auth";
@@ -21,7 +21,7 @@ import {
 
 import { LoadingButton } from "@mui/lab";
 
-const ModalAddComentario = ({ socket, onClose, open, values }) => {
+const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -31,6 +31,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
+        intId: values?.intId,
         intIdComentario: values?.intIdComentario,
         intIdEmpresario: values?.intIdEmpresario,
         strMensaje: "",
@@ -60,7 +61,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
     const onSubmit = (data) => {
         setLoading(true);
 
-        socket.emit("mdlComentarios:setRespuesta", {
+        socket.emit("mdlComentarios:updateRespuesta", {
             ...data,
             strUsuario: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
@@ -88,6 +89,22 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
         onClose();
     };
 
+    useEffect(() => {
+        setData({
+            intId: values?.intId,
+            intIdComentario: values?.intIdComentario,
+            intIdEmpresario: values?.intIdEmpresario,
+            strMensaje: values.strComentario || "",
+            dtFechaCreacion: values.dtFechaCreacion || null,
+            strUsuario: values.strUsuario || "",
+            strURLImagenUsuario: values.strURLImagenUsuario || "",
+        });
+    }, [values]);
+
+    useEffect(() => {
+        reset(data);
+    }, [data, reset]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -105,7 +122,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
                 onSubmit: handleSubmit(onSubmit),
             }}
         >
-            <DialogTitle>Agregar Respuesta</DialogTitle>
+            <DialogTitle>Editar Respuesta</DialogTitle>
 
             <DialogContent>
                 <Grid container component="form" direction="row" spacing={2}>
@@ -143,7 +160,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
 
             <DialogActions>
                 <LoadingButton loading={loading} type="submit">
-                    responder
+                    guardar
                 </LoadingButton>
 
                 <Button onClick={() => onClose()} color="inherit">
@@ -154,4 +171,4 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
     );
 };
 
-export default ModalAddComentario;
+export default ModalEditRespuesta;

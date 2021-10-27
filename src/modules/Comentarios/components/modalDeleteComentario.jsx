@@ -55,7 +55,7 @@ const ModalDeleteComentario = ({ socket, values, onClose, open }) => {
         <Dialog
             open={open}
             onClose={onClose}
-            maxWidth="md"
+            maxWidth="sm"
             fullScreen={bitMobile}
             PaperProps={{
                 component: "form",
@@ -66,11 +66,12 @@ const ModalDeleteComentario = ({ socket, values, onClose, open }) => {
                 },
             }}
         >
-            <DialogTitle>Eliminar Comentario</DialogTitle>
+            <DialogTitle>¿Está seguro de eliminar este comentario?</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    ¿Está seguro de eliminar este comentario?
+                    Recuerda que, al aceptar, todas las respuestas asociadas a este
+                    comentario serán eliminadas de forma permanente.
                 </DialogContentText>
             </DialogContent>
 

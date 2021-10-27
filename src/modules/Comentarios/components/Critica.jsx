@@ -29,6 +29,20 @@ import ModalAddRespuesta from "./modalAddRespuesta";
 import ModalDeleteComentario from "./modalDeleteComentario";
 import ModalEditComentario from "./modalEditComentario";
 
+//Estilos
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles((theme) => ({
+    avatar: {
+        height: "100%",
+        display: "flex",
+        marginRight: "15px",
+        [theme.breakpoints.down("sm")]: {
+            display: "none",
+        },
+    },
+}));
+
 const ComentarioCritico = ({ values, socket }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
@@ -53,6 +67,8 @@ const ComentarioCritico = ({ values, socket }) => {
         strURLImagenUsuario: "",
         arrRespuestas: [],
     });
+
+    const classes = styles();
 
     const handlerChangeOpenCollapse = () => {
         setOpenRespuestas(!openRespuestas);
@@ -130,13 +146,7 @@ const ComentarioCritico = ({ values, socket }) => {
                     alignItems: "center",
                 }}
             >
-                <Box
-                    sx={{
-                        height: "100%",
-                        display: "flex",
-                        marginRight: "15px",
-                    }}
-                >
+                <Box className={classes.avatar}>
                     <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
                 </Box>
 
@@ -238,7 +248,13 @@ const ComentarioCritico = ({ values, socket }) => {
                                         key={i}
                                         sx={{ marginLeft: "25px" }}
                                     >
-                                        <PaperGetRespuestas values={e} />
+                                        <PaperGetRespuestas
+                                            values={{
+                                                ...e,
+                                                intIdEmpresario: data.intIdEmpresario,
+                                            }}
+                                            socket={socket}
+                                        />
                                     </Grid>
                                 ))}
                             </Grid>

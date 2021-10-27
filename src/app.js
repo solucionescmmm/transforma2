@@ -7,7 +7,13 @@ import Player from "react-lottie-player";
 import { Toaster, ToastBar, toast } from "react-hot-toast";
 
 //Componentes de Material UI
-import { CssBaseline, Typography, useMediaQuery, Button, adaptV4Theme } from "@mui/material";
+import {
+    CssBaseline,
+    Typography,
+    useMediaQuery,
+    Button,
+    adaptV4Theme,
+} from "@mui/material";
 import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 
@@ -39,21 +45,26 @@ const App = () => {
 
     const themeOptions = useMemo(
         () =>
-            createTheme(adaptV4Theme({
-                palette: {
-                    mode: "light",
-                    primary: {
-                        main: "#00BAB3",
-                        dark: "#007c6a",
-                        light: "#0288D1",
-                        contrastText: "#ffff",
+            createTheme(
+                adaptV4Theme(
+                    {
+                        palette: {
+                            mode: "light",
+                            primary: {
+                                main: "#00BAB3",
+                                dark: "#007c6a",
+                                light: "#0288D1",
+                                contrastText: "#ffff",
+                            },
+                            secondary: {
+                                main: "#FF4160",
+                            },
+                            divider: "#BDBDBD",
+                        },
                     },
-                    secondary: {
-                        main: "#FF4160",
-                    },
-                    divider: "#BDBDBD",
-                },
-            }, esES)),
+                    esES
+                )
+            ),
         []
     );
 
@@ -105,7 +116,7 @@ const App = () => {
                         <CssBaseline />
 
                         <Toaster
-                            position="bottom-left"
+                            position="bottom-center"
                             toastOptions={{
                                 style: {
                                     fontFamily: '"Roboto","Helvetica","Arial",sans-serif',

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+//Librerias
+import { toast } from "react-hot-toast";
+
 //Componentes de Material UI
 import { Typography, Grid } from "@mui/material";
 
@@ -19,16 +22,42 @@ const PaperGetComentarios = ({ socket, values }) => {
         });
 
         socket.on("mdlComentarios:getComentarios", (res) => {
-            if (res.data) {
-                setArrComentarios(res.data);
-
-                console.log(res.data)
-            }
+            setArrComentarios(res.data || []);
         });
 
         socket.on("mdlComentarios:setComentario", (res) => {
-            if (res.data) {
-                setArrComentarios(res.data);
+            if (!res.error) {
+                toast.success(res.msg);
+            }
+        });
+
+        socket.on("mdlComentarios:deleteComentario", (res) => {
+            if (!res.error) {
+                toast.success(res.msg);
+            }
+        });
+
+        socket.on("mdlComentarios:updateComentario", (res) => {
+            if (!res.error) {
+                toast.success(res.msg);
+            }
+        });
+
+        socket.on("mdlComentarios:setRespuesta", (res) => {
+            if (!res.error) {
+                toast.success(res.msg);
+            }
+        });
+
+        socket.on("mdlComentarios:deleteRespuesta", (res) => {
+            if (!res.error) {
+                toast.success(res.msg);
+            }
+        });
+
+        socket.on("mdlComentarios:updateRespuesta", (res) => {
+            if (!res.error) {
+                toast.success(res.msg);
             }
         });
     }, [socket, values]);

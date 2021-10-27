@@ -195,7 +195,13 @@ const DetailsEmpresario = () => {
                         initialEntries={[`/comentarios/${intId}`]}
                         initialIndex={0}
                     >
-                        <Tabs value={currentTab} sx={{ marginBottom: "18px" }}>
+                        <Tabs
+                            value={currentTab}
+                            sx={{ marginBottom: "18px" }}
+                            scrollButtons="auto"
+                            allowScrollButtonsMobile
+                            variant="scrollable"
+                        >
                             <Tab
                                 label="Perfil"
                                 value={`/perfil/${intId}`}
@@ -244,7 +250,6 @@ const DetailsEmpresario = () => {
                                     );
                                 }}
                             </Route>
-
 
                             <Route path="/diagnosticos/:intId" exact>
                                 {({ location }) => {
