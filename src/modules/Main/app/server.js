@@ -58,20 +58,21 @@ class clsServer {
             const clsUpdateComentario = require("../../Comentarios/domain/updateComentario.service");
             const clsDeleteComentario = require("../../Comentarios/domain/deleteComentario.service");
             const clsSetRespuesta = require("../../Comentarios/domain/setRespuesta.service");
+            const clsDeleteRespuesta = require("../../Comentarios/domain/deleteRespuesta.service");
+            const clsUpdateRespuesta = require("../../Comentarios/domain/updateRespuesta.service");
             const serviceGetComentarios = require("../../Comentarios/domain/getComentario.service");
 
             client.on("mdlComentarios:setComentario", async (data) => {
                 let serviceSetComentario = new clsSetComentario(data);
 
-                let response = await serviceSetComentario.main();
+                let responseSetComentario = await serviceSetComentario.main();
 
-                if (response.data) {
-                    let response = await serviceGetComentarios({
-                        intIdEmpresario: data.intIdEmpresario,
-                    });
+                let responseGetData = await serviceGetComentarios({
+                    intIdEmpresario: data.intIdEmpresario,
+                });
 
-                    client.emit("mdlComentarios:setComentario", response);
-                }
+                client.emit("mdlComentarios:getComentarios", responseGetData);
+                client.emit("mdlComentarios:setComentario", responseSetComentario);
             });
 
             client.on("mdlComentarios:getComentarios", async (data) => {
@@ -124,12 +125,29 @@ class clsServer {
             });
 
             client.on("mdlComentarios:deleteRespuesta", async (data) => {
+                let serviceDeleteRespuesta = new clsDeleteRespuesta(data);
+
+                let responseDelete = await serviceDeleteRespuesta.main();
+
                 let responseGetData = await serviceGetComentarios({
                     intIdEmpresario: data.intIdEmpresario,
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
-                client.emit("mdlComentarios:deleteRespuesta", responseSetRespuesta);
+                client.emit("mdlComentarios:deleteRespuesta", responseDelete);
+            });
+
+            client.on("mdlComentarios:updateRespuesta", async (data) => {
+                let serviceUpdate = new clsUpdateRespuesta(data);
+
+                let responseUpdate = await serviceUpdate.main();
+
+                let responseGetData = await serviceGetComentarios({
+                    intIdEmpresario: data.intIdEmpresario,
+                });
+
+                client.emit("mdlComentarios:getComentarios", responseGetData);
+                client.emit("mdlComentarios:updateRespuesta", responseUpdate);
             });
         });
     }
