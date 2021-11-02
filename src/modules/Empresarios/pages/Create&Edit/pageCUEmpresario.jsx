@@ -379,6 +379,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 },
 
                                 objInfoEmpresarioPr: {
+                                    intId: data.objEmpresario.intId,
                                     strNombres: data.objEmpresario.strNombres,
                                     strApellidos: data.objEmpresario.strApellidos,
                                     strTipoDocto: data.objEmpresario.strTipoDocto,
