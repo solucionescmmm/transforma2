@@ -86,6 +86,7 @@ const InfoEmpresarioPr = ({
     useEffect(() => {
         if (values) {
             setData({
+                intId: values.intId || null,
                 strNombres: values.strNombres || "",
                 strApellidos: values.strApellidos || "",
                 strTipoDocto: values.strTipoDocto || "",

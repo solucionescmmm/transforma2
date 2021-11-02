@@ -163,6 +163,7 @@ const CUEmpresario = ({ isEdit }) => {
                         (data) => {
                             let newData = {
                                 objEmpresario: {
+                                    intId: data.objInfoEmpresarioPr.intId || null,
                                     strSede: data.objInfoPrincipal.strSede,
                                     strModalidadIngreso:
                                         data.objInfoPrincipal.strModalidadIngreso,
