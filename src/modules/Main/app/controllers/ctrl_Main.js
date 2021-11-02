@@ -25,7 +25,11 @@ class ctrlMain {
 
             let query = await serviceAuthorize(token);
 
-            res.status(200).json(query);
+            if (query.error) {
+                res.status(401).json(query);
+            } else {
+                res.status(200).json(query);
+            }
         } catch (error) {
             let result = {
                 error: true,
