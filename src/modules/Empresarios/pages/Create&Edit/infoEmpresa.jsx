@@ -119,7 +119,7 @@ const InfoEmpresa = ({
                 strTiempoDedicacion: values.strTiempoDedicacion || "",
                 btGeneraEmpleo: values.btGeneraEmpleo || "",
                 intNumeroEmpleados: values.intNumeroEmpleados || "",
-                dblValorVentasMes: values.dblValorVentasMes || "",
+                dblValorVentasMes: values.valorVentasMes || "",
                 arrRequisitoLey: values.arrRequisitoLey || "",
                 strOtrosRequisitosLey: values.strOtrosRequisitosLey || "",
                 arrFormasComercializacion: values.arrFormasComercializacion || [],

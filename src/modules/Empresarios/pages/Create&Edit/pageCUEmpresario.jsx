@@ -416,12 +416,9 @@ const CUEmpresario = ({ isEdit }) => {
                                 },
 
                                 objInfoEmpresa: {
-                                    ...data.objInfoEmpresa[0],
-                                    dtFechaFundacion: data.objInfoEmpresa[0]
-                                        .dtFechaFundacion
-                                        ? parseISO(
-                                              data.objInfoEmpresa[0].dtFechaFundacion
-                                          )
+                                    ...data.objInfoEmpresa,
+                                    dtFechaFundacion: data.objInfoEmpresa.dtFechaFundacion
+                                        ? parseISO(data.objInfoEmpresa.dtFechaFundacion)
                                         : null,
                                 },
 
