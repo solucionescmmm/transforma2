@@ -149,6 +149,21 @@ class clsServer {
                 client.emit("mdlComentarios:getComentarios", responseGetData);
                 client.emit("mdlComentarios:updateRespuesta", responseUpdate);
             });
+
+            client.on("mdlComentarios:checkComentario", async (data) => {
+                let serviceUpdateComentario = new clsUpdateComentario(data);
+
+                let responseUpdate = await serviceUpdateComentario.main();
+
+                let responseGetData = await serviceGetComentarios({
+                    intIdEmpresario: data.intIdEmpresario,
+                });
+
+                console.log(responseGetData);
+
+                client.emit("mdlComentarios:getComentarios", responseGetData);
+                client.emit("mdlComentarios:checkComentario", responseUpdate);
+            });
         });
     }
 }
