@@ -53,7 +53,6 @@ const getEmpresario = async (objParams, strDataUser) => {
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
-                console.log(array[i].objInfoAdicional[0]?.strComoSeEntero)
                 let objEmpresario ={
                     intId: array[i].intId,
                     strNombres: array[i].strNombres,
