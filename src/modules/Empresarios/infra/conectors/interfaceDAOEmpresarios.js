@@ -38,12 +38,6 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
-    async updateEmpresarioSecundario(data) {
-        const dao = new classDaoSql();
-        let result = await dao.updateEmpresarioSecundario(data);
-        return result;
-    }
-
     async updateInfoAdicional(data){
         const dao = new classDaoSql()
         let result = await dao.updateInfoAdicional(data)
