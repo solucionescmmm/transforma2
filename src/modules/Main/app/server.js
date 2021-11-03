@@ -159,8 +159,6 @@ class clsServer {
                     intIdEmpresario: data.intIdEmpresario,
                 });
 
-                console.log(responseGetData);
-
                 client.emit("mdlComentarios:getComentarios", responseGetData);
                 client.emit("mdlComentarios:checkComentario", responseUpdate);
             });

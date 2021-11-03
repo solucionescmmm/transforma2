@@ -62,7 +62,7 @@ class daoComentarios {
             SET strTipo            = COALESCE(${data.strTipo}, strTipo),
                 strMensaje         = COALESCE(${data.strMensaje}, strMensaje),
                 strUsuarioAsignado = COALESCE(${data.strUsuarioAsignado}, strUsuarioAsignado),
-                btResuelto         = COALESCE(${data.btResuelto}, btResuelto),
+                btResuelto         = ${data.btResuelto},
                 dtmActualizacion   = COALESCE(GETDATE(), dtmActualizacion)
 
             WHERE intId = ${data.intId}
@@ -154,22 +154,15 @@ class daoComentarios {
                     let { objRespuesta } = arrNewData[i];
 
                     if (validator.isJSON(objRespuesta)) {
-                        objRespuesta = JSON.parse(
-                            objRespuesta
-                        );
-                        arrNewData[i].objRespuesta =
-                        objRespuesta;
+                        objRespuesta = JSON.parse(objRespuesta);
+                        arrNewData[i].objRespuesta = objRespuesta;
                     }
                 }
             }
 
             let result = {
                 error: false,
-                data: arrNewData
-                    ? arrNewData.length > 0
-                        ? arrNewData
-                        : null
-                    : null,
+                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
             };
 
             sql.close(conexion);
@@ -187,10 +180,9 @@ class daoComentarios {
 
             return result;
         }
+    }
 
-     }
-
-     async setRespuesta(data){
+    async setRespuesta(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -208,15 +200,15 @@ class daoComentarios {
             SET @intId = SCOPE_IDENTITY();
     
             SELECT * FROM tbl_RespuestaComentarios WHERE intId = @intId`;
-    
+
             let result = {
                 error: false,
                 data: response.recordset[0],
                 msg: `La respuesta, fue registrada con éxito.`,
             };
-    
+
             sql.close(conexion);
-    
+
             return result;
         } catch (error) {
             let result = {
@@ -225,14 +217,14 @@ class daoComentarios {
                     error.message ||
                     "Error en el metodo setRespuesta de la clase daoComentarios",
             };
-    
+
             sql.close(conexion);
-    
+
             return result;
         }
-     }
+    }
 
-     async updateRespuesta(data){
+    async updateRespuesta(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -245,15 +237,15 @@ class daoComentarios {
             WHERE intId = ${data.intId}
     
             SELECT * FROM tbl_RespuestaComentarios WHERE intId = ${data.intId}`;
-    
+
             let result = {
                 error: false,
                 data: response.recordset[0],
                 msg: `La respuesta, fue actualizada con éxito.`,
             };
-    
+
             sql.close(conexion);
-    
+
             return result;
         } catch (error) {
             let result = {
@@ -262,14 +254,14 @@ class daoComentarios {
                     error.message ||
                     "Error en el metodo updateRespuesta de la clase daoComentarios",
             };
-    
+
             sql.close(conexion);
-    
+
             return result;
         }
-     }
+    }
 
-     async deleteRespuesta (data){
+    async deleteRespuesta(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -295,6 +287,6 @@ class daoComentarios {
 
             return result;
         }
-     }
+    }
 }
 module.exports = daoComentarios;
