@@ -18,6 +18,8 @@ import {
     IconButton,
     Menu,
     MenuItem,
+    Checkbox,
+    Tooltip,
 } from "@mui/material";
 
 //Iconos
@@ -28,6 +30,7 @@ import PaperGetRespuestas from "./paperGetRespuestas";
 import ModalAddRespuesta from "./modalAddRespuesta";
 import ModalDeleteComentario from "./modalDeleteComentario";
 import ModalEditComentario from "./modalEditComentario";
+import ModalCheckComentario from "./modalCheckComentario";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -53,6 +56,7 @@ const ComentarioCritico = ({ values, socket }) => {
     const [openModalAddRespuesta, setOpenModalAddRespuesta] = useState(false);
     const [openModalEditComentario, setOpenModalEditComentario] = useState(false);
     const [openModalDeleteComentario, setOpenModalDeleteComentario] = useState(false);
+    const [openModalCheckComentario, setOpenModalCheckComentario] = useState(false);
     const [anchorEl, setAnchorEl] = useState(false);
 
     const openMenu = Boolean(anchorEl);
@@ -66,6 +70,7 @@ const ComentarioCritico = ({ values, socket }) => {
         strUsuarioAsignado: "",
         strURLImagenUsuario: "",
         arrRespuestas: [],
+        btResuelto: false,
     });
 
     const classes = styles();
@@ -94,6 +99,10 @@ const ComentarioCritico = ({ values, socket }) => {
         setOpenModalEditComentario(!openModalEditComentario);
     };
 
+    const handleOpenModalCheckComentario = () => {
+        setOpenModalCheckComentario(!openModalCheckComentario);
+    };
+
     useEffect(() => {
         setData({
             intIdComentario: values.intId || null,
@@ -107,6 +116,7 @@ const ComentarioCritico = ({ values, socket }) => {
             strURLImagenUsuario: values.strURLImagenUsuario || "",
             arrRespuestas: values.objRespuesta || [],
             strTipo: values.strTipo || "",
+            btResuelto: values.btResuelto,
         });
     }, [values]);
 
@@ -120,6 +130,13 @@ const ComentarioCritico = ({ values, socket }) => {
                     intIdComentario: data.intIdComentario,
                     intIdEmpresario: data.intIdEmpresario,
                 }}
+            />
+
+            <ModalCheckComentario
+                socket={socket}
+                onClose={handleOpenModalCheckComentario}
+                open={openModalCheckComentario}
+                values={data}
             />
 
             <ModalDeleteComentario
@@ -150,116 +167,144 @@ const ComentarioCritico = ({ values, socket }) => {
                     <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
                 </Box>
 
-                <Paper sx={{ padding: "10px", backgroundColor: "#F16360", width: "90%" }}>
-                    <Grid container direction="row" spacing={1}>
-                        <Grid item xs={12}>
-                            <Box sx={{ display: "flex", alignItems: "center" }}>
-                                <Box sx={{ flexGrow: 1 }}>
-                                    <Typography variant="subtitle2" component="p">
-                                        {data.strUsuario}
-                                    </Typography>
-                                    <Typography sx={{ fontSize: "10px" }}>
-                                        {data.dtFechaCreacion}
-                                    </Typography>
-                                </Box>
+                <Paper sx={{ backgroundColor: "#F4C7C7", width: "90%" }}>
+                    <Box sx={{ display: "flex" }}>
+                        <Box sx={{ flexGrow: 1, padding: "10px" }}>
+                            <Grid container direction="row" spacing={1}>
+                                <Grid item xs={12}>
+                                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                                        <Box sx={{ flexGrow: 1 }}>
+                                            <Typography variant="subtitle2" component="p">
+                                                {data.strUsuario}
+                                            </Typography>
+                                            <Typography sx={{ fontSize: "10px" }}>
+                                                {data.dtFechaCreacion}
+                                            </Typography>
+                                        </Box>
 
-                                <Box>
-                                    <Typography sx={{ fontSize: "12px" }}>
-                                        Crítico
-                                    </Typography>
-                                </Box>
+                                        <Box>
+                                            <Typography sx={{ fontSize: "12px" }}>
+                                                Crítico
+                                            </Typography>
+                                        </Box>
 
-                                <Box>
-                                    <IconButton
+                                        <Box>
+                                            <IconButton
+                                                size="small"
+                                                onClick={handleOpenMenu}
+                                                disabled={
+                                                    strInfoUser.strUsuario !==
+                                                    data.strUsuario
+                                                        ? true
+                                                        : false
+                                                }
+                                            >
+                                                <MoreVertIcon />
+                                            </IconButton>
+
+                                            <Menu
+                                                anchorEl={anchorEl}
+                                                open={openMenu}
+                                                onClose={handleCloseMenu}
+                                            >
+                                                <MenuItem
+                                                    onClick={() =>
+                                                        handleOpenModalEditComentario()
+                                                    }
+                                                >
+                                                    Editar
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={() =>
+                                                        handleOpenModalDeleteComentario()
+                                                    }
+                                                >
+                                                    Eliminar
+                                                </MenuItem>
+                                            </Menu>
+                                        </Box>
+
+                                        <Box>
+                                            <Tooltip title="Marcar como completada">
+                                                <Checkbox
+                                                    size="small"
+                                                    checked={data.btResuelto}
+                                                    onChange={() =>
+                                                        handleOpenModalCheckComentario()
+                                                    }
+                                                />
+                                            </Tooltip>
+                                        </Box>
+                                    </Box>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography>{data.strMensaje}</Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Button
+                                        startIcon={<CommentIcon />}
                                         size="small"
-                                        onClick={handleOpenMenu}
+                                        sx={{ fontSize: "10px" }}
+                                        color="inherit"
+                                        onClick={() => handleOpenModalAddRespuesta()}
+                                    >
+                                        responder
+                                    </Button>
+
+                                    <Button
+                                        size="small"
+                                        sx={{ fontSize: "10px" }}
+                                        color="inherit"
+                                        onClick={() => handlerChangeOpenCollapse()}
                                         disabled={
-                                            strInfoUser.strUsuario !== data.strUsuario
-                                                ? true
-                                                : false
+                                            data.arrRespuestas.length === 0 ? true : false
                                         }
                                     >
-                                        <MoreVertIcon />
-                                    </IconButton>
+                                        {openRespuestas
+                                            ? "Cerrar respuestas"
+                                            : " Mostrar respuestas"}{" "}
+                                        ({data.arrRespuestas.length})
+                                    </Button>
+                                </Grid>
 
-                                    <Menu
-                                        anchorEl={anchorEl}
-                                        open={openMenu}
-                                        onClose={handleCloseMenu}
-                                    >
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleOpenModalEditComentario()
-                                            }
-                                        >
-                                            Editar
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleOpenModalDeleteComentario()
-                                            }
-                                        >
-                                            Eliminar
-                                        </MenuItem>
-                                    </Menu>
-                                </Box>
-                            </Box>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Typography>{data.strMensaje}</Typography>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Button
-                                startIcon={<CommentIcon />}
-                                size="small"
-                                sx={{ fontSize: "10px" }}
-                                color="inherit"
-                                onClick={() => handleOpenModalAddRespuesta()}
-                            >
-                                responder
-                            </Button>
-
-                            <Button
-                                size="small"
-                                sx={{ fontSize: "10px" }}
-                                color="inherit"
-                                onClick={() => handlerChangeOpenCollapse()}
-                                disabled={data.arrRespuestas.length === 0 ? true : false}
-                            >
-                                {openRespuestas
-                                    ? "Cerrar respuestas"
-                                    : " Mostrar respuestas"}{" "}
-                                ({data.arrRespuestas.length})
-                            </Button>
-                        </Grid>
-
-                        <Collapse
-                            timeout="auto"
-                            in={openRespuestas}
-                            sx={{ width: "100%" }}
-                        >
-                            <Grid container direction="row" spacing={2}>
-                                {data.arrRespuestas.map((e, i) => (
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        key={i}
-                                        sx={{ marginLeft: "25px" }}
-                                    >
-                                        <PaperGetRespuestas
-                                            values={{
-                                                ...e,
-                                                intIdEmpresario: data.intIdEmpresario,
-                                            }}
-                                            socket={socket}
-                                        />
+                                <Collapse
+                                    timeout="auto"
+                                    in={openRespuestas}
+                                    sx={{ width: "100%" }}
+                                >
+                                    <Grid container direction="row" spacing={2}>
+                                        {data.arrRespuestas.map((e, i) => (
+                                            <Grid
+                                                item
+                                                xs={12}
+                                                key={i}
+                                                sx={{ marginLeft: "25px" }}
+                                            >
+                                                <PaperGetRespuestas
+                                                    values={{
+                                                        ...e,
+                                                        intIdEmpresario:
+                                                            data.intIdEmpresario,
+                                                    }}
+                                                    socket={socket}
+                                                />
+                                            </Grid>
+                                        ))}
                                     </Grid>
-                                ))}
+                                </Collapse>
                             </Grid>
-                        </Collapse>
-                    </Grid>
+                        </Box>
+
+                        <Box
+                            sx={{
+                                width: "5px",
+                                backgroundColor: "red",
+                                borderRadius: "0px 4px 4px 0px",
+                            }}
+                        ></Box>
+                    </Box>
                 </Paper>
             </Box>
         </Fragment>

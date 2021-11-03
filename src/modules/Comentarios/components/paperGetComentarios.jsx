@@ -60,6 +60,12 @@ const PaperGetComentarios = ({ socket, values }) => {
                 toast.success(res.msg);
             }
         });
+
+        socket.on("mdlComentarios:checkComentario", (res) => {
+            if (!res.error) {
+                toast.success(res.msg);
+            }
+        });
     }, [socket, values]);
 
     if (arrComentarios.length === 0) {

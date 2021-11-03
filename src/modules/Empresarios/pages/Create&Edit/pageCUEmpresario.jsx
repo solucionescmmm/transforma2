@@ -242,10 +242,9 @@ const CUEmpresario = ({ isEdit }) => {
                                         data.objInfoEmpresa.strLugarOperacion,
                                     strDireccionResidencia:
                                         data.objInfoEmpresa.strDireccionResidencia,
-                                    strDepartamento: data.objInfoEmpresa.strDepartamento,
-                                    strCiudad: data.objInfoEmpresa.strCiudad,
-                                    strBarrio: data.objInfoEmpresa.strBarrio,
-                                    strEstrato: data.objInfoEmpresa.strEstrato,
+                                    arrDepartamento: data.objInfoEmpresa.arrDepartamento,
+                                    arrCiudad: data.objInfoEmpresa.arrCiudad,
+                                    arrBarrio: data.objInfoEmpresa.arrBarrio,
                                     strSectorEconomico:
                                         data.objInfoEmpresa.strSectorEconomico,
                                     strCategoriaProducto:
@@ -268,6 +267,9 @@ const CUEmpresario = ({ isEdit }) => {
                                         data.objInfoEmpresa.intNumeroEmpleados,
                                     dblValorVentasMes:
                                         data.objInfoEmpresa.dblValorVentasMes,
+                                    arrRequisitoLey: data.objInfoEmpresa.arrRequisitoLey,
+                                    strOtrosRequisitosLey:
+                                        data.objInfoEmpresa.strOtrosRequisitosLey,
                                     arrFormasComercializacion:
                                         data.objInfoEmpresa.arrFormasComercializacion,
                                     arrMediosDigitales:
@@ -427,6 +429,8 @@ const CUEmpresario = ({ isEdit }) => {
                                 objInfoAdicional: {
                                     ...data.objInfoAdicional,
                                 },
+
+                                arrInfoEmpresarioSec: data.arrEmpresarioSecundario || [],
                             });
                         }
 
