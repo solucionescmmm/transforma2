@@ -71,29 +71,31 @@ const ModalAddComentario = ({ socket, values }) => {
             strURLImagenUsuario: strInfoUser.strURLImagen,
         });
 
-        setData({
-            intIdEmpresario: values?.intIdEmpresario,
-            btResuelto: false,
-            strTipo: "",
-            strMensaje: "",
-            strUsuario: "",
-            arrUsuarioAsignado: [],
-            strURLImagenUsuario: "",
+        socket.on("mdlComentarios:setComentario", () => {
+            handlerChangeOpenModal();
+
+            setLoading(false);
+
+            setData({
+                intIdEmpresario: values?.intIdEmpresario,
+                btResuelto: false,
+                strTipo: "",
+                strMensaje: "",
+                strUsuario: "",
+                arrUsuarioAsignado: [],
+                strURLImagenUsuario: "",
+            });
+
+            reset({
+                intIdEmpresario: values?.intIdEmpresario,
+                btResuelto: false,
+                strTipo: "",
+                strMensaje: "",
+                strUsuario: "",
+                arrUsuarioAsignado: [],
+                strURLImagenUsuario: "",
+            });
         });
-
-        reset({
-            intIdEmpresario: values?.intIdEmpresario,
-            btResuelto: false,
-            strTipo: "",
-            strMensaje: "",
-            strUsuario: "",
-            arrUsuarioAsignado: [],
-            strURLImagenUsuario: "",
-        });
-
-        setLoading(false);
-
-        handlerChangeOpenModal();
     };
 
     const handlerChangeOpenModal = () => {
@@ -111,7 +113,7 @@ const ModalAddComentario = ({ socket, values }) => {
             </Button>
 
             <Dialog
-                open={openModal}
+                open={loading || openModal}
                 onClose={handlerChangeOpenModal}
                 maxWidth="md"
                 fullScreen={bitMobile}
@@ -204,7 +206,11 @@ const ModalAddComentario = ({ socket, values }) => {
                         Comentar
                     </LoadingButton>
 
-                    <Button onClick={() => handlerChangeOpenModal()} color="inherit">
+                    <Button
+                        onClick={() => handlerChangeOpenModal()}
+                        disabled={loading}
+                        color="inherit"
+                    >
                         Cancelar
                     </Button>
                 </DialogActions>

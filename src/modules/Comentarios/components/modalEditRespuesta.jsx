@@ -68,25 +68,27 @@ const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
             intIdEmpresario: values.intIdEmpresario,
         });
 
-        setData({
-            intIdComentario: values?.intIdComentario,
-            strMensaje: "",
-            dtFechaCreacion: null,
-            strUsuario: "",
-            strURLImagenUsuario: "",
+        socket.on("mdlComentarios:updateRespuesta", () => {
+            onClose();
+
+            setData({
+                intIdComentario: values?.intIdComentario,
+                strMensaje: "",
+                dtFechaCreacion: null,
+                strUsuario: "",
+                strURLImagenUsuario: "",
+            });
+
+            reset({
+                intIdComentario: values?.intIdComentario,
+                strMensaje: "",
+                dtFechaCreacion: null,
+                strUsuario: "",
+                strURLImagenUsuario: "",
+            });
+
+            setLoading(false);
         });
-
-        reset({
-            intIdComentario: values?.intIdComentario,
-            strMensaje: "",
-            dtFechaCreacion: null,
-            strUsuario: "",
-            strURLImagenUsuario: "",
-        });
-
-        setLoading(false);
-
-        onClose();
     };
 
     useEffect(() => {
@@ -111,7 +113,7 @@ const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
 
     return (
         <Dialog
-            open={open}
+            open={loading || open}
             onClose={onClose}
             maxWidth="sm"
             fullWidth
@@ -163,7 +165,7 @@ const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
                     guardar
                 </LoadingButton>
 
-                <Button onClick={() => onClose()} color="inherit">
+                <Button onClick={() => onClose()} disabled={loading} color="inherit">
                     Cancelar
                 </Button>
             </DialogActions>

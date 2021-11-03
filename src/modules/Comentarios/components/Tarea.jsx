@@ -300,7 +300,10 @@ const ComentarioTarea = ({ values, socket }) => {
                         <Box
                             sx={{
                                 width: "5px",
-                                backgroundColor: "red",
+                                backgroundColor: (theme) =>
+                                    data.btResuelto === false
+                                        ? theme.palette.error.light
+                                        : theme.palette.success.light,
                                 borderRadius: "0px 4px 4px 0px",
                             }}
                         ></Box>

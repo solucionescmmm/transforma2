@@ -38,7 +38,7 @@ const ModalCheckComentario = ({ socket, values, onClose, open }) => {
         setLoading(true);
 
         socket.emit("mdlComentarios:checkComentario", {
-            intId: values.intId,
+            intId: values.intIdComentario,
             intIdEmpresario: values.intIdEmpresario,
             btResuelto: !values.btResuelto,
             strTipo: values.strTipo,
@@ -48,9 +48,10 @@ const ModalCheckComentario = ({ socket, values, onClose, open }) => {
             strURLImagenUsuario: values.strURLImagenUsuario,
         });
 
-        setLoading(false);
-
-        onClose();
+        socket.on("mdlComentarios:checkComentario", () => {
+            onClose();
+            setLoading(false);
+        });
     };
 
     //===============================================================================================================================================
@@ -59,7 +60,7 @@ const ModalCheckComentario = ({ socket, values, onClose, open }) => {
 
     return (
         <Dialog
-            open={open}
+            open={loading || open}
             onClose={onClose}
             maxWidth="sm"
             fullScreen={bitMobile}
@@ -68,7 +69,7 @@ const ModalCheckComentario = ({ socket, values, onClose, open }) => {
                 noValidate: "noValidate",
                 onSubmit: handleSubmit(onSubmit),
                 style: {
-                    backgroundColor: !loading ? "#FDEDED" : "inherit",
+                    backgroundColor: "#FDEDED",
                 },
             }}
         >
@@ -89,7 +90,7 @@ const ModalCheckComentario = ({ socket, values, onClose, open }) => {
                     si
                 </LoadingButton>
 
-                <Button onClick={() => onClose()} color="inherit">
+                <Button onClick={() => onClose()} disabled={loading} color="inherit">
                     no
                 </Button>
             </DialogActions>

@@ -42,9 +42,10 @@ const ModalDeleteRespuesta = ({ socket, values, onClose, open }) => {
             intIdEmpresario: values.intIdEmpresario,
         });
 
-        setLoading(false);
-
-        onClose();
+        socket.on("mdlComentarios:deleteRespuesta", () => {
+            onClose();
+            setLoading(false);
+        });
     };
 
     //===============================================================================================================================================
@@ -53,7 +54,7 @@ const ModalDeleteRespuesta = ({ socket, values, onClose, open }) => {
 
     return (
         <Dialog
-            open={open}
+            open={loading || open}
             onClose={onClose}
             maxWidth="md"
             fullScreen={bitMobile}
@@ -79,7 +80,7 @@ const ModalDeleteRespuesta = ({ socket, values, onClose, open }) => {
                     si
                 </LoadingButton>
 
-                <Button onClick={() => onClose()} color="inherit">
+                <Button onClick={() => onClose()} disabled={loading} color="inherit">
                     no
                 </Button>
             </DialogActions>

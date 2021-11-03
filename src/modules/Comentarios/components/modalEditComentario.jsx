@@ -71,31 +71,33 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
             strURLImagenUsuario: strInfoUser.strURLImagen,
         });
 
-        setData({
-            intId: values.intIdComentario,
-            intIdEmpresario: values?.intIdEmpresario,
-            btResuelto: false,
-            strTipo: "",
-            strMensaje: "",
-            strUsuario: "",
-            arrUsuarioAsignado: [],
-            strURLImagenUsuario: "",
+        socket.on("mdlComentarios:updateComentario", () => {
+            onClose();
+
+            setData({
+                intId: values.intIdComentario,
+                intIdEmpresario: values?.intIdEmpresario,
+                btResuelto: false,
+                strTipo: "",
+                strMensaje: "",
+                strUsuario: "",
+                arrUsuarioAsignado: [],
+                strURLImagenUsuario: "",
+            });
+
+            reset({
+                intId: values.intIdComentario,
+                intIdEmpresario: values?.intIdEmpresario,
+                btResuelto: false,
+                strTipo: "",
+                strMensaje: "",
+                strUsuario: "",
+                arrUsuarioAsignado: [],
+                strURLImagenUsuario: "",
+            });
+
+            setLoading(false);
         });
-
-        reset({
-            intId: values.intIdComentario,
-            intIdEmpresario: values?.intIdEmpresario,
-            btResuelto: false,
-            strTipo: "",
-            strMensaje: "",
-            strUsuario: "",
-            arrUsuarioAsignado: [],
-            strURLImagenUsuario: "",
-        });
-
-        setLoading(false);
-
-        onClose();
     };
 
     useEffect(() => {
@@ -122,7 +124,7 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
 
     return (
         <Dialog
-            open={open}
+            open={loading || open}
             onClose={onClose}
             maxWidth="md"
             fullScreen={bitMobile}
@@ -214,7 +216,7 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
                     guardar
                 </LoadingButton>
 
-                <Button onClick={() => onClose()} color="inherit">
+                <Button onClick={() => onClose()} disabled={loading} color="inherit">
                     Cancelar
                 </Button>
             </DialogActions>
