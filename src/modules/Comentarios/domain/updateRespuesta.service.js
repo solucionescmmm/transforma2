@@ -13,8 +13,15 @@ class updateRespuesta{
     }
 
     async main() {
+        await this.#validations()
         await this.#updateRespuesta()
         return this.#objResult;
+    }
+
+    async #validations(){
+        if (!this.#objData.intId) {
+            throw new Error("Se esperaba parametro de entrada.")   
+        }
     }
 
 
