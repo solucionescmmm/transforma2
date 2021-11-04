@@ -15,8 +15,15 @@ class updateComentario{
     }
 
     async main() {
+        await this.#validations()
         await this.#updateComentario()
         return this.#objResult;
+    }
+
+    async #validations(){
+        if (!this.#objData.intId) {
+            throw new Error("Se esperaba parametro de entrada.")   
+        }
     }
 
 

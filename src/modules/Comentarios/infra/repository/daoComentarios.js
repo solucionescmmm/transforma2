@@ -62,7 +62,7 @@ class daoComentarios {
             SET strTipo            = COALESCE(${data.strTipo}, strTipo),
                 strMensaje         = COALESCE(${data.strMensaje}, strMensaje),
                 strUsuarioAsignado = COALESCE(${data.strUsuarioAsignado}, strUsuarioAsignado),
-                btResuelto         = ${data.btResuelto},
+                btResuelto         = COALESCE(${data.btResuelto}, btResuelto),
                 dtmActualizacion   = COALESCE(GETDATE(), dtmActualizacion)
 
             WHERE intId = ${data.intId}
