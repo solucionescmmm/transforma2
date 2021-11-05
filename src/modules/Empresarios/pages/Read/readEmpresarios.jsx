@@ -57,7 +57,7 @@ const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
-            title: "",
+            title: "Foto",
             render: (rowData) => (
                 <Avatar
                     alt={rowData.objEmpresario.strNombres + rowData.objEmpresario.strApellidos}
