@@ -643,7 +643,7 @@ const InfoEmpresa = ({
                                 <SelectCategoriaServicio
                                     label="Categoría de los servicios"
                                     name={name}
-                                    vlaue={value}
+                                    value={value}
                                     onChange={(e, value) => {
                                         onChange(value);
 

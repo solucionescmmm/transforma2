@@ -186,7 +186,7 @@ const InfoAdicional = ({
 
                                         setValue(
                                             "objInfoAdicional.arrTemasCapacitacion",
-                                            null
+                                            []
                                         );
                                     }}
                                     select
