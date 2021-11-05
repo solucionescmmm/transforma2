@@ -42,7 +42,7 @@ class daoEmpresarios {
                 ${data.arrCiudad},
                 ${data.strBarrio},
                 ${data.strDireccionResidencia},
-                ${data.strUrlFileFoto},
+                ${data.strURLFileFoto},
                 GETDATE(),
                 ${data.strUsuario}
             )
@@ -85,7 +85,7 @@ class daoEmpresarios {
             (
                 ${data.intIdEmpresario},
                 ${data.strEstadoNegocio},
-                ${data.strCuandoPlaneaComenzar},
+                ${data.strCuandoComienzaEmpresa},
                 ${data.strURLFileLogoEmpresa},
                 ${data.strNombreMarca},
                 ${data.dtFechaFundacion},
@@ -273,7 +273,7 @@ class daoEmpresarios {
                 strCiudad                = COALESCE(${data.arrCiudad}, strCiudad),
                 strBarrio                = COALESCE(${data.strBarrio}, strBarrio),
                 strDireccionResidencia   = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
-                strUrlFileFoto           = COALESCE(${data.strUrlFileFoto}, strUrlFileFoto),
+                strUrlFileFoto           = COALESCE(${data.strURLFileFoto}, strUrlFileFoto),
                 dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuario               = COALESCE(${data.strUsuario}, strUsuario)
 
@@ -312,7 +312,7 @@ class daoEmpresarios {
             UPDATE tbl_InfoEmpresa
 
             SET strEstadoNegocio                  = COALESCE(${data.strEstadoNegocio}, strEstadoNegocio),
-                strCuandoPlaneaComenzar           = COALESCE(${data.strCuandoPlaneaComenzar}, strCuandoPlaneaComenzar),
+                strCuandoPlaneaComenzar           = COALESCE(${data.strCuandoComienzaEmpresa}, strCuandoPlaneaComenzar),
                 strURLFileLogoEmpresa             = COALESCE(${data.strURLFileLogoEmpresa}, strURLFileLogoEmpresa),
                 strNombreMarca                    = COALESCE(${data.strNombreMarca}, strNombreMarca),
                 dtFechaFundacion                  = COALESCE(${data.dtFechaFundacion}, dtFechaFundacion),

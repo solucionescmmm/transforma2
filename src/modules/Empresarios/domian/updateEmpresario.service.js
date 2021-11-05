@@ -63,7 +63,7 @@ class updateEmpresario {
     async #getEmpresario() {
         let dao = new classInterfaceDAOEmpresarios();
         
-
+        console.log(this.#objData)
         let query = await dao.getEmpresario({ intId: this.#objData.objEmpresario.intId });
 
         if (query.error) {
