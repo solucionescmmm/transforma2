@@ -74,7 +74,7 @@ const InfoEmpresa = ({
         btGeneraEmpleo: "",
         intNumeroEmpleados: "",
         dblValorVentasMes: "",
-        arrRequisitoLey: [],
+        arrRequisitosLey: [],
         strOtrosRequisitosLey: "",
         arrFormasComercializacion: [],
         arrMediosDigitales: [],
@@ -123,7 +123,7 @@ const InfoEmpresa = ({
                         : "",
                 intNumeroEmpleados: values.intNumeroEmpleados || "",
                 dblValorVentasMes: values.valorVentasMes || "",
-                arrRequisitoLey: values.arrRequisitoLey || [],
+                arrRequisitosLey: values.arrRequisitosLey || [],
                 strOtrosRequisitosLey: values.strOtrosRequisitosLey || "",
                 arrFormasComercializacion: values.arrFormasComercializacion || [],
                 arrMediosDigitales: values.arrMediosDigitales || [],
@@ -679,17 +679,17 @@ const InfoEmpresa = ({
                                 <DropdownCategoriasSecundarias
                                     label="Categorías secundarias"
                                     name={name}
-                                    vlaue={value}
+                                    value={value}
                                     onChange={(e, value) => onChange(value)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.strCategoriaServicio
+                                        errors?.objInfoEmpresa?.arrCategoriasSecundarias
                                             ? true
                                             : false
                                     }
                                     multiple
                                     helperText={
-                                        errors?.objInfoEmpresa?.strCategoriaServicio
+                                        errors?.objInfoEmpresa?.arrCategoriasSecundarias
                                             ?.message ||
                                         "Selecciona las categorías secundarias en caso de que aplique"
                                     }
@@ -991,23 +991,23 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.arrRequisitoLey}
-                            name="objInfoEmpresa.arrRequisitoLey"
+                            defaultValue={data.arrRequisitosLey}
+                            name="objInfoEmpresa.arrRequisitosLey"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownRequisitosLey
                                     label="Requerimientos legales que cumple"
                                     name={name}
-                                    values={value}
+                                    value={value}
                                     onChange={(e, value) => onChange(value)}
                                     multiple
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.arrRequisitoLey
+                                        errors?.objInfoEmpresa?.arrRequisitosLey
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.arrRequisitoLey
+                                        errors?.objInfoEmpresa?.arrRequisitosLey
                                             ?.message ||
                                         "Selecciona los requerimientos legales que cumple actualmente"
                                     }

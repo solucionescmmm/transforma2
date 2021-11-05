@@ -228,7 +228,7 @@ const InfoAdicional = ({
                                 <DropdownRecibirAsesoria
                                     label="¿En que temas le gustaría recibir asesoría o capacitación y quiere inscribirse?"
                                     name={name}
-                                    vlaue={value}
+                                    value={value}
                                     onChange={(e, value) => onChange(value)}
                                     multiple
                                     disabled={
@@ -268,7 +268,7 @@ const InfoAdicional = ({
                                 <DropdownComoSeEntero
                                     label="¿Cómo conoció De Mis Manos?"
                                     name={name}
-                                    values={value}
+                                    value={value}
                                     onChange={(e, value) => onChange(value)}
                                     multiple
                                     disabled={disabled}
