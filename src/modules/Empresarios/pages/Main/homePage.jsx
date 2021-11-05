@@ -1,29 +1,13 @@
-import React, { useState, useEffect, Fragment, lazy } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
 
 //Librerias
-import {
-    Link as RouterLink,
-    useParams,
-    MemoryRouter,
-    Route,
-    Switch,
-} from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 
 //Componentes de Material UI
-import {
-    Grid,
-    Breadcrumbs,
-    Button,
-    Link,
-    Typography,
-    Tabs,
-    Tab,
-    Box,
-    Avatar,
-} from "@mui/material";
+import { Grid, Breadcrumbs, Button, Link, Typography, Box, Avatar } from "@mui/material";
 
 //Iconos
 import { Home as HomeIcon } from "@mui/icons-material";
@@ -34,12 +18,10 @@ import Loader from "../../../../common/components/Loader";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import PerfilEmpresario from "../Perfil/homePage";
 
 //Componentes
 import ModalDeleteEmpresario from "../../components/modalDeleteEmpresario";
-
-const Comentarios = lazy(() => import("../../../Comentarios/pages/homePage"));
+import TabsRoutes from "./tabs.routes";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -55,6 +37,8 @@ const DetailsEmpresario = () => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
+    const [loading, setLoading] = useState(true);
+
     const [objInteresado, setObjInteresado] = useState({
         objEmpresario: {},
         arrEmpresarioSecundario: [],
@@ -67,8 +51,6 @@ const DetailsEmpresario = () => {
     //===============================================================================================================================================
     const { intId } = useParams();
     const { data } = useGetEmpresarios({ autoload: true, intId });
-
-    const [currentTab, setCurrentTab] = useState(`/comentarios/${intId}`);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -83,14 +65,22 @@ const DetailsEmpresario = () => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
+        setLoading(true);
+
         if (data && data.length > 0) {
             setObjInteresado(data[0]);
+
+            setLoading(false);
         }
     }, [data]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
+    if (loading) {
+        return <Loader />;
+    }
+
     if (!data) {
         return <Loader />;
     }
@@ -191,79 +181,7 @@ const DetailsEmpresario = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <MemoryRouter
-                        initialEntries={[`/comentarios/${intId}`]}
-                        initialIndex={0}
-                    >
-                        <Tabs
-                            value={currentTab}
-                            sx={{ marginBottom: "18px" }}
-                            scrollButtons="auto"
-                            allowScrollButtonsMobile
-                            variant="scrollable"
-                        >
-                            <Tab
-                                label="Perfil"
-                                value={`/perfil/${intId}`}
-                                component={RouterLink}
-                                to={`/perfil/${intId}`}
-                            />
-                            <Tab
-                                label="Comentarios"
-                                value={`/comentarios/${intId}`}
-                                component={RouterLink}
-                                to={`/comentarios/${intId}`}
-                            />
-                            <Tab
-                                label="Diagnósticos"
-                                value={`/diagnosticos`}
-                                component={RouterLink}
-                                to={`/diagnosticos`}
-                            />
-                            <Tab label="Ruta" />
-                            <Tab label="Acompañamiento" />
-                            <Tab label="Indicadores" />
-                            <Tab label="Documentación" />
-                        </Tabs>
-
-                        <Switch>
-                            <Route path="/comentarios/:intId" exact>
-                                {({ location }) => {
-                                    setCurrentTab(location.pathname);
-
-                                    return (
-                                        <div className="animate__animated animate__fadeIn">
-                                            <Comentarios />
-                                        </div>
-                                    );
-                                }}
-                            </Route>
-
-                            <Route path="/perfil/:intId" exact>
-                                {({ location }) => {
-                                    setCurrentTab(location.pathname);
-
-                                    return (
-                                        <div className="animate__animated animate__fadeIn">
-                                            <PerfilEmpresario values={objInteresado} />
-                                        </div>
-                                    );
-                                }}
-                            </Route>
-
-                            <Route path="/diagnosticos/:intId" exact>
-                                {({ location }) => {
-                                    setCurrentTab(location.pathname);
-
-                                    return (
-                                        <div className="animate__animated animate__fadeIn">
-                                            <PerfilEmpresario />
-                                        </div>
-                                    );
-                                }}
-                            </Route>
-                        </Switch>
-                    </MemoryRouter>
+                    <TabsRoutes intId={intId} values={objInteresado} />
                 </Grid>
             </Grid>
         </Fragment>

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 //Componentes de Material UI
 import {
@@ -158,6 +158,28 @@ const ModalMediosVetanProductos = ({
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+    useEffect(() => {
+        if (value) {
+            let prevData = dataCheckbox;
+            let prevValuesCheck = valuesCheck;
+
+            value.forEach((value) => {
+                for (const key in prevData) {
+                    if (Object.hasOwnProperty.call(prevData, key)) {
+                        if (prevData[key].label === value.label) {
+                            prevData[key].checked = true;
+
+                            prevValuesCheck[prevData[key].parent] = value.value;
+                        }
+                    }
+                }
+            });
+
+            setDataCheckbox(prevData);
+            setValuesCheck(prevValuesCheck);
+        }
+    }, [value, dataCheckbox, valuesCheck]);
+
     return (
         <Fragment>
             <FormControl
@@ -181,12 +203,14 @@ const ModalMediosVetanProductos = ({
                     <Input
                         id="chip-components-mediosVentaProductos"
                         name={name}
+                        disabled={disabled}
                         sx={{ flexWrap: "wrap" }}
                         startAdornment={value.map((e, i) => (
                             <Chip
                                 sx={{
                                     maxWidth: "inherit",
                                 }}
+                                disabled={disabled}
                                 key={i}
                                 label={e.value ? `${e.label}: ${e.value}` : `${e.label}`}
                             />
@@ -197,6 +221,7 @@ const ModalMediosVetanProductos = ({
                         id="chip-components-mediosVentaProductos"
                         name={name}
                         placeholder="Haz clic para seleccionar"
+                        disabled={disabled}
                     />
                 )}
 

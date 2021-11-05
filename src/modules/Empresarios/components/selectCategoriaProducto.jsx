@@ -53,7 +53,8 @@ const SelectCategoriaProducto = ({
                                 strCodigo: "CategoriaProducto",
                             });
                         }}
-                        size="large">
+                        size="large"
+                    >
                         <Tooltip title="Refrescar">
                             <RefreshIcon />
                         </Tooltip>
@@ -80,7 +81,8 @@ const SelectCategoriaProducto = ({
                                 strCodigo: "CategoriaProducto",
                             });
                         }}
-                        size="large">
+                        size="large"
+                    >
                         <Tooltip title="Refrescar">
                             <RefreshIcon />
                         </Tooltip>
@@ -110,7 +112,10 @@ const SelectCategoriaProducto = ({
             select
         >
             {data.map((e, i) => (
-                <MenuItem value={e.strCodigoRetorno} key={i}>
+                <MenuItem
+                    value={e.strCodigoRetorno === "Ninguna" ? "" : e.strCodigoRetorno}
+                    key={i}
+                >
                     {e.strCodigoRetorno}
                 </MenuItem>
             ))}

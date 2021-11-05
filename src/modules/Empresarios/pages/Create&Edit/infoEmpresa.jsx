@@ -61,7 +61,7 @@ const InfoEmpresa = ({
         strDireccionResidencia: "",
         arrDepartamento: [],
         arrCiudad: [],
-        arrBarrio: [],
+        strBarrio: "",
         strSectorEconomico: "",
         strCategoriaProducto: "",
         strCategoriaServicio: "",
@@ -105,9 +105,9 @@ const InfoEmpresa = ({
                 dtFechaFundacion: values.dtFechaFundacion || null,
                 strLugarOperacion: values.strLugarOperacion || "",
                 strDireccionResidencia: values.strDireccionResidencia || "",
-                arrDepartamento: values.arrDepartamento || "",
-                arrCiudad: values.arrCiudad || "",
-                arrBarrio: values.arrBarrio || "",
+                arrDepartamento: values.arrDepartamento || [],
+                arrCiudad: values.arrCiudad || [],
+                strBarrio: values.strBarrio || "",
                 strSectorEconomico: values.strSectorEconomico || "",
                 strCategoriaProducto: values.strCategoriaProducto || "",
                 strCategoriaServicio: values.strCategoriaServicio || "",
@@ -120,7 +120,7 @@ const InfoEmpresa = ({
                 btGeneraEmpleo: values.btGeneraEmpleo || "",
                 intNumeroEmpleados: values.intNumeroEmpleados || "",
                 dblValorVentasMes: values.valorVentasMes || "",
-                arrRequisitoLey: values.arrRequisitoLey || "",
+                arrRequisitoLey: values.arrRequisitoLey || [],
                 strOtrosRequisitosLey: values.strOtrosRequisitosLey || "",
                 arrFormasComercializacion: values.arrFormasComercializacion || [],
                 arrMediosDigitales: values.arrMediosDigitales || [],
@@ -228,6 +228,8 @@ const InfoEmpresa = ({
                                             "objInfoEmpresa.strCuandoComienzaEmpresa",
                                             ""
                                         );
+
+                                        setValue("objInfoEmpresa.dtFechaFundacion", null);
                                     }}
                                     select
                                     variant="standard"
@@ -347,7 +349,11 @@ const InfoEmpresa = ({
                                     label="Fecha de fundación"
                                     value={value}
                                     onChange={(date) => onChange(date)}
-                                    disabled={disabled}
+                                    disabled={
+                                        data.strEstadoNegocio === "Idea de negocio"
+                                            ? true
+                                            : disabled
+                                    }
                                     renderInput={(props) => (
                                         <TextField
                                             {...props}
@@ -395,7 +401,7 @@ const InfoEmpresa = ({
                                         );
                                         setValue("objInfoEmpresa.arrDepartamento", "");
                                         setValue("objInfoEmpresa.arrCiudad", "");
-                                        setValue("objInfoEmpresa.arrBarrio", "");
+                                        setValue("objInfoEmpresa.strBarrio", "");
                                     }}
                                     disabled={disabled}
                                     error={
@@ -522,8 +528,8 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.arrBarrio}
-                            name="objInfoEmpresa.arrBarrio"
+                            defaultValue={data.strBarrio}
+                            name="objInfoEmpresa.strBarrio"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Barrio/Corregimiento/Vereda"
@@ -536,10 +542,10 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(e, value) => onChange(value)}
                                     error={
-                                        errors?.objInfoEmpresa?.arrBarrio ? true : false
+                                        errors?.objInfoEmpresa?.strBarrio ? true : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.arrBarrio?.message ||
+                                        errors?.objInfoEmpresa?.strBarrio?.message ||
                                         "Selecciona el barrio/corregimiento/vereda de la empresa"
                                     }
                                     variant="standard"
@@ -593,13 +599,20 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e);
+
                                         handlerChangeData(
                                             "strCategoriaProducto",
                                             e.target.value
                                         );
-                                        setValue("objInfoEmpresa.strOtraCategoria", "");
+
+                                        setValue(
+                                            "objInfoEmpresa.strCategoriaServicio",
+                                            ""
+                                        );
                                     }}
-                                    disabled={disabled}
+                                    disabled={
+                                        data.strCategoriaServicio !== "" ? true : disabled
+                                    }
                                     error={
                                         errors?.objInfoEmpresa?.strCategoriaProducto
                                             ? true
@@ -610,7 +623,6 @@ const InfoEmpresa = ({
                                             ?.message ||
                                         "Selecciona la categoría de los productos"
                                     }
-                                    required
                                 />
                             )}
                             control={control}
@@ -626,8 +638,17 @@ const InfoEmpresa = ({
                                     label="Categoría de los servicios"
                                     name={name}
                                     vlaue={value}
-                                    onChange={(e, value) => onChange(value)}
-                                    disabled={disabled}
+                                    onChange={(e, value) => {
+                                        onChange(value);
+
+                                        setValue(
+                                            "objInfoEmpresa.strCategoriaProducto",
+                                            ""
+                                        );
+                                    }}
+                                    disabled={
+                                        data.strCategoriaProducto !== "" ? true : disabled
+                                    }
                                     error={
                                         errors?.objInfoEmpresa?.strCategoriaServicio
                                             ? true
@@ -835,7 +856,7 @@ const InfoEmpresa = ({
                             name="objInfoEmpresa.btGeneraEmpleo"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿La empresa genera empleo?"
+                                    label="¿La empresa genera empleo para otras personas?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => {

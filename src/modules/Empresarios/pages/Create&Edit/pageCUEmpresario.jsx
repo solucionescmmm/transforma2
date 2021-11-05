@@ -215,7 +215,7 @@ const CUEmpresario = ({ isEdit }) => {
                                     arrDepartamento:
                                         data.objInfoEmpresarioPr.arrDepartamento,
                                     arrCiudad: data.objInfoEmpresarioPr.arrCiudad,
-                                    arrBarrio: data.objInfoEmpresarioPr.arrBarrio,
+                                    strBarrio: data.objInfoEmpresarioPr.strBarrio,
                                     strDireccionResidencia:
                                         data.objInfoEmpresarioPr.strDireccionResidencia,
                                     strURLFileFoto:
@@ -244,7 +244,7 @@ const CUEmpresario = ({ isEdit }) => {
                                         data.objInfoEmpresa.strDireccionResidencia,
                                     arrDepartamento: data.objInfoEmpresa.arrDepartamento,
                                     arrCiudad: data.objInfoEmpresa.arrCiudad,
-                                    arrBarrio: data.objInfoEmpresa.arrBarrio,
+                                    strBarrio: data.objInfoEmpresa.strBarrio,
                                     strSectorEconomico:
                                         data.objInfoEmpresa.strSectorEconomico,
                                     strCategoriaProducto:
@@ -298,6 +298,8 @@ const CUEmpresario = ({ isEdit }) => {
                                         data.objInfoAdicional.strOtrosMediosComunicacion,
                                     btRecibirInfoCMM:
                                         data.objInfoAdicional.btRecibirInfoCMM,
+                                    strURLDocumento:
+                                        data.objInfoAdicional.strURLDocumento,
                                     strRecomendaciones:
                                         data.objInfoAdicional.strRecomendaciones,
                                 },
@@ -411,8 +413,8 @@ const CUEmpresario = ({ isEdit }) => {
                                     strCondicionDiscapacidad:
                                         data.objEmpresario.strCondicionDiscapacidad,
                                     strEstrato: data.objEmpresario.strEstrato,
-                                    strDepartamento: data.objEmpresario.strDepartamento,
-                                    strCiudad: data.objEmpresario.strCiudad,
+                                    arrDepartamento: data.objEmpresario.arrDepartamento,
+                                    arrCiudad: data.objEmpresario.arrCiudad,
                                     strBarrio: data.objEmpresario.strBarrio,
                                     strDireccionResidencia:
                                         data.objEmpresario.strDireccionResidencia,

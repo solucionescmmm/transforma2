@@ -28,7 +28,7 @@ const REmpresarios = lazy(() =>
 );
 
 const DetailsEmpresario = lazy(() =>
-    import("../modules/Empresarios/pages/Details/homePage")
+    import("../modules/Empresarios/pages/Main/homePage")
 );
 
 const CUEmpresario = lazy(() =>

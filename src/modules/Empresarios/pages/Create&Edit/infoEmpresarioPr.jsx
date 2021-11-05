@@ -63,9 +63,9 @@ const InfoEmpresarioPr = ({
         strTitulos: "",
         strCondicionDiscapacidad: "",
         strEstrato: "",
-        arrDepartamento: "",
-        arrCiudad: "",
-        arrBarrio: "",
+        arrDepartamento: [],
+        arrCiudad: [],
+        strBarrio: "",
         strDireccionResidencia: "",
         strURLFileFoto: "",
     });
@@ -103,9 +103,9 @@ const InfoEmpresarioPr = ({
                 strTitulos: values.strTitulos || "",
                 strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
                 strEstrato: values.strEstrato || "",
-                arrDepartamento: values.arrDepartamento || "",
-                arrCiudad: values.arrCiudad || "",
-                arrBarrio: values.arrBarrio || "",
+                arrDepartamento: values.arrDepartamento || [],
+                arrCiudad: values.arrCiudad || [],
+                strBarrio: values.strBarrio || "",
                 strDireccionResidencia: values.strDireccionResidencia || "",
                 strURLFileFoto: values.strURLFileFoto || "",
             });
@@ -794,8 +794,8 @@ const InfoEmpresarioPr = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.arrBarrio}
-                            name="objInfoEmpresarioPr.arrBarrio"
+                            defaultValue={data.strBarrio}
+                            name="objInfoEmpresarioPr.strBarrio"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Barrio/Corregimiento/Vereda"
@@ -804,12 +804,12 @@ const InfoEmpresarioPr = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.arrBarrio
+                                        errors?.objInfoEmpresarioPr?.strBarrio
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.arrBarrio?.message ||
+                                        errors?.objInfoEmpresarioPr?.strBarrio?.message ||
                                         "Selecciona el barrio/corregimiento/vereda de residencia"
                                     }
                                     variant="standard"

@@ -147,13 +147,13 @@ const ModalDireccionResidencia = ({
                 required={required}
                 error={error}
                 fullWidth
-                onClick={() => handleOpenDialog()}
+                onClick={() => (!disabled ? handleOpenDialog() : null)}
             >
                 <FormLabel
                     htmlFor={`txt${name}`}
                     sx={{
                         position: "absolute",
-                        top: "-3px"
+                        top: "-3px",
                     }}
                 >
                     {label}
@@ -163,6 +163,7 @@ const ModalDireccionResidencia = ({
                     name={name}
                     value={value}
                     placeholder="Haz clic para seleccionar"
+                    disabled={disabled}
                 />
                 <FormHelperText
                     sx={{

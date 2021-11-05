@@ -1,4 +1,5 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
 
 //Componentes de Material UI
 import {
@@ -134,6 +135,34 @@ const ModalMediosDigitales = ({
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+    const {
+        control,
+        formState: { errors },
+        handleSubmit,
+    } = useForm({ mode: "onChange" });
+
+    useEffect(() => {
+        if (value) {
+            let prevData = dataCheckbox;
+            let prevValuesCheck = valuesCheck;
+
+            value.forEach((value) => {
+                for (const key in prevData) {
+                    if (Object.hasOwnProperty.call(prevData, key)) {
+                        if (prevData[key].label === value.label) {
+                            prevData[key].checked = true;
+
+                            prevValuesCheck[prevData[key].parent] = value.value;
+                        }
+                    }
+                }
+            });
+
+            setDataCheckbox(prevData);
+            setValuesCheck(prevValuesCheck);
+        }
+    }, [value, dataCheckbox, valuesCheck]);
+
     return (
         <Fragment>
             <FormControl
@@ -157,9 +186,11 @@ const ModalMediosDigitales = ({
                     <Input
                         id="chip-components-mediosDigitales"
                         name={name}
+                        disabled={disabled}
                         sx={{ flexWrap: "wrap" }}
                         startAdornment={value.map((e, i) => (
                             <Chip
+                                disabled={disabled}
                                 key={i}
                                 label={e.value ? `${e.label}: ${e.value}` : `${e.label}`}
                             />
@@ -170,6 +201,7 @@ const ModalMediosDigitales = ({
                         name={name}
                         id="chip-components-mediosDigitales"
                         placeholder="Haz clic para seleccionar"
+                        disabled={disabled}
                     />
                 )}
 
@@ -214,22 +246,43 @@ const ModalMediosDigitales = ({
                                         />
 
                                         {value.checked && value.parent && (
-                                            <TextField
-                                                key={key}
-                                                label="Id"
+                                            <Controller
+                                                defaultValue={valuesCheck[value.parent]}
                                                 name={Object.keys(valuesCheck).find(
                                                     (e) => e === value.parent
                                                 )}
-                                                value={valuesCheck[value.parent]}
-                                                fullWidth
-                                                helperText="Por favor específico la url o nombre del perfil."
-                                                variant="standard"
-                                                onChange={(e) =>
-                                                    handleChangeValuesCheck(
-                                                        e.target.name,
-                                                        e.target.value
-                                                    )
-                                                }
+                                                render={({
+                                                    field: { name, value, onChange },
+                                                }) => (
+                                                    <TextField
+                                                        key={key}
+                                                        label="Id"
+                                                        name={name}
+                                                        value={value}
+                                                        fullWidth
+                                                        helperText={
+                                                            errors[name]?.message ||
+                                                            "Digita la url o nombre del perfil."
+                                                        }
+                                                        variant="standard"
+                                                        onChange={(e) => {
+                                                            handleChangeValuesCheck(
+                                                                e.target.name,
+                                                                e.target.value
+                                                            );
+
+                                                            onChange(e);
+                                                        }}
+                                                        error={
+                                                            errors[name] ? true : false
+                                                        }
+                                                    />
+                                                )}
+                                                control={control}
+                                                rules={{
+                                                    required:
+                                                        "Por favor digita la url o nombre del perfil.",
+                                                }}
                                             />
                                         )}
                                     </Fragment>
@@ -240,7 +293,7 @@ const ModalMediosDigitales = ({
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={() => onSave()} color="primary">
+                    <Button onClick={handleSubmit(onSave)} color="primary">
                         guardar
                     </Button>
 

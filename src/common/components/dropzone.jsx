@@ -8,6 +8,7 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "react-hot-toast";
 import styled from "@emotion/styled";
 import axios from "axios";
+import { FileIcon, defaultStyles } from "react-file-icon";
 
 //Componentes de Material UI
 import {
@@ -50,12 +51,12 @@ const styles = makeStyles((theme) => ({
     file: {
         width: "auto",
         height: "200px",
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down("md")]: {
             height: "100px",
         },
     },
     titleFile: {
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down("md")]: {
             marginTop: "35px",
         },
     },
@@ -256,14 +257,29 @@ const Dropzone = ({
     );
 
     const archivos = files.map((archivo, i) => {
+        let extension = archivo.name
+            .substring(archivo.name.lastIndexOf("."), archivo.name.length)
+            .replace(".", "");
+
         return (
-            <Grid item xs={4}>
-                <Paper key={i} style={{ padding: "10px", marginBottom: "5px" }}>
-                    <img
-                        className={classes.file}
-                        alt="Dropzone-preview-img"
-                        src={archivo.preview}
-                    />
+            <Grid item xs={4} key={i}>
+                <Paper style={{ padding: "10px", marginBottom: "5px" }}>
+                    {extension === "jpeg" ||
+                    extension === "jpg" ||
+                    extension === "png" ? (
+                        <img
+                            className={classes.file}
+                            alt="Dropzone-preview-img"
+                            src={archivo.preview}
+                        />
+                    ) : (
+                        <div style={{ width: "80px", margin: "auto" }}>
+                            <FileIcon
+                                extension={extension}
+                                {...defaultStyles[extension]}
+                            />
+                        </div>
+                    )}
 
                     <Box
                         sx={{
@@ -278,7 +294,8 @@ const Dropzone = ({
                             color="error"
                             onClick={removeFile(archivo)}
                             disabled={disabled || loading}
-                            size="large">
+                            size="large"
+                        >
                             <Tooltip title="Eliminar archivo">
                                 <DeleteIcon />
                             </Tooltip>
@@ -332,7 +349,7 @@ const Dropzone = ({
                     <p>Suelta el archivo</p>
                 ) : (
                     <Fragment>
-                        <p>Selecciona un archivo y arrástralo aquí.</p>
+                        <p>Selecciona un archivo o arrástralo aquí.</p>
                         <Button variant="contained" disabled={disabled || loading}>
                             Seleccionar archivo
                         </Button>

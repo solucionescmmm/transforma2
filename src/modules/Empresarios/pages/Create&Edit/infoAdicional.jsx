@@ -26,8 +26,17 @@ import {
 import DropdownRecibirAsesoria from "../../components/dropdownRecibirAsesoria";
 import DropdownComoSeEntero from "../../components/dropdownComoSeEntero";
 import DropdowMediosComunicacion from "../../components/dropdownMediosComunicacion";
+import Dropzone from "../../../../common/components/dropzone";
 
-const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
+const InfoAdicional = ({
+    disabled,
+    values,
+    errors,
+    control,
+    setValue,
+    clearErrors,
+    setError,
+}) => {
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
@@ -39,6 +48,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
         arrMediosDeComunicacion: [],
         strOtrosMediosComunicacion: "",
         btRecibirInfoCMM: "",
+        strURLDocumento: "",
         strRecomendaciones: "",
     });
 
@@ -66,6 +76,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                 arrMediosDeComunicacion: values.arrMediosDeComunicacion || [],
                 strOtrosMediosComunicacion: values.strOtrosMediosComunicacion || "",
                 btRecibirInfoCMM: values.btRecibirInfoCMM || "",
+                strURLDocumento: values.strURLDocumento || "",
                 strRecomendaciones: values.strRecomendaciones || "",
             });
         }
@@ -140,7 +151,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional
                                             ?.strPrincipalesNecesidades?.message ||
-                                        "Describa cuales son las principales necesidades e intereses de la empresa"
+                                        "Describe cuales son las principales necesidades e intereses de la empresa"
                                     }
                                 />
                             )}
@@ -249,7 +260,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                             name="objInfoAdicional.arrComoSeEntero"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownComoSeEntero
-                                    label="¿Cómo se enteró de la Corporación?"
+                                    label="¿Cómo conoció De Mis Manos?"
                                     name={name}
                                     values={value}
                                     onChange={(e, value) => onChange(value)}
@@ -263,7 +274,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.arrComoSeEntero
                                             ?.message ||
-                                        "Selecciona el cómo se enteró de la corporación"
+                                        "Selecciona el cómo conoció De Mis Manos"
                                     }
                                 />
                             )}
@@ -306,7 +317,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                             name="objInfoAdicional.arrMediosDeComunicacion"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdowMediosComunicacion
-                                    label="¿A través de cuál(es) de los siguientes medios le gustaría que se comunicaran con usted?"
+                                    label="¿Qué canales prefiere para el envío de información??"
                                     name={name}
                                     value={value}
                                     onChange={(e, value) => onChange(value)}
@@ -367,7 +378,14 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     label="¿La persona autoriza a De Mis Manos para el envío de información? "
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e);
+
+                                        handlderChangeData(
+                                            "btRecibirInfoCMM",
+                                            e.target.value
+                                        );
+                                    }}
                                     select
                                     fullWidth
                                     variant="standard"
@@ -399,6 +417,47 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                         />
                     </Grid>
 
+                    {data.btRecibirInfoCMM && (
+                        <Grid item xs={12}>
+                            <Controller
+                                defaultValue={data.strURLDocumento}
+                                name="objInfoAdicional.strURLDocumento"
+                                render={({ field: { name, value, onChange } }) => (
+                                    <Dropzone
+                                        label="Documento de soporte"
+                                        name={name}
+                                        value={value}
+                                        disabled={disabled}
+                                        onChange={onChange}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                        maxFiles={1}
+                                        type="document"
+                                        errors={errors}
+                                        error={
+                                            errors?.objInfoAdicional?.strURLDocumento
+                                                ? true
+                                                : false
+                                        }
+                                        helperText={
+                                            errors?.objInfoAdicional?.strURLDocumento
+                                                ?.message ||
+                                            "Adjunte un documento que soporte el uso de datos personales"
+                                        }
+                                    />
+                                )}
+                                control={control}
+                                rules={{
+                                    validate: (value) => {
+                                        if (value === "" || value === undefined) {
+                                            return "Por favor, adjunte un documento que soporte el uso de datos personales.";
+                                        }
+                                    },
+                                }}
+                            />
+                        </Grid>
+                    )}
+
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strRecomendaciones}
@@ -422,7 +481,7 @@ const InfoAdicional = ({ disabled, values, errors, control, setValue }) => {
                                     helperText={
                                         errors?.objInfoAdicional?.strRecomendaciones
                                             ?.message ||
-                                        "Describa si tiene comentarios positivos, ideas o recomendaciones"
+                                        "Describe si tiene comentarios, ideas o recomendaciones"
                                     }
                                 />
                             )}

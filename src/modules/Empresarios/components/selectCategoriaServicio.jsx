@@ -86,7 +86,10 @@ const SelectCategoriaServicio = ({
             select
         >
             {data.map((e, i) => (
-                <MenuItem value={e.strCodigoRetorno} key={i}>
+                <MenuItem
+                    value={e.strCodigoRetorno === "Ninguna" ? "" : e.strCodigoRetorno}
+                    key={i}
+                >
                     {e.strCodigoRetorno}
                 </MenuItem>
             ))}
