@@ -61,7 +61,7 @@ const ReadSolicitudesUser = () => {
             render: (rowData) => (
                 <Avatar
                     alt={rowData.objEmpresario.strNombres + rowData.objEmpresario.strApellidos}
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strUrlFoto}`}
+                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strURLFileFoto}`}
                 />
             ),
             width: "0%",
