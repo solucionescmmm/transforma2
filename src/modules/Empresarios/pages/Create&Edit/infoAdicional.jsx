@@ -69,13 +69,19 @@ const InfoAdicional = ({
         if (values) {
             setData({
                 strPrincipalesNecesidades: values.strPrincipalesNecesidades || "",
-                btInteresadoProcesoCMM: values.btInteresadoProcesoCMM || "",
+                btInteresadoProcesoCMM:
+                    typeof values.btInteresadoProcesoCMM === "boolean"
+                        ? values.btInteresadoProcesoCMM
+                        : "",
                 arrTemasCapacitacion: values.arrTemasCapacitacion || [],
                 arrComoSeEntero: values.arrComoSeEntero || [],
                 strOtroComoSeEntero: values.strOtroComoSeEntero || "",
                 arrMediosDeComunicacion: values.arrMediosDeComunicacion || [],
                 strOtrosMediosComunicacion: values.strOtrosMediosComunicacion || "",
-                btRecibirInfoCMM: values.btRecibirInfoCMM || "",
+                btRecibirInfoCMM:
+                    typeof values.btRecibirInfoCMM === "boolean"
+                        ? values.btRecibirInfoCMM
+                        : "",
                 strURLDocumento: values.strURLDocumento || "",
                 strRecomendaciones: values.strRecomendaciones || "",
             });

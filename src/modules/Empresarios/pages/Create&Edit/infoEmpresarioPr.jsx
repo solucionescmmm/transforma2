@@ -688,7 +688,7 @@ const InfoEmpresarioPr = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strEstrato}
-                            name="objInfoEmpresa.strEstrato"
+                            name="objInfoEmpresarioPr.strEstrato"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Estrato socioeconómico"
@@ -700,10 +700,10 @@ const InfoEmpresarioPr = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresa?.strEstrato ? true : false
+                                        errors?.objInfoEmpresarioPr?.strEstrato ? true : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strEstrato?.message ||
+                                        errors?.objInfoEmpresarioPr?.strEstrato?.message ||
                                         "Selecciona el estrato socioeconómico de la persona"
                                     }
                                 >

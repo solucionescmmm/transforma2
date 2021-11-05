@@ -117,14 +117,20 @@ const InfoEmpresa = ({
                 strMateriaPrima: values.strMateriaPrima || "",
                 strNombreTecnica: values.strNombreTecnica || "",
                 strTiempoDedicacion: values.strTiempoDedicacion || "",
-                btGeneraEmpleo: values.btGeneraEmpleo || "",
+                btGeneraEmpleo:
+                    typeof values.btGeneraEmpleo === "boolean"
+                        ? values.btGeneraEmpleo
+                        : "",
                 intNumeroEmpleados: values.intNumeroEmpleados || "",
                 dblValorVentasMes: values.valorVentasMes || "",
                 arrRequisitoLey: values.arrRequisitoLey || [],
                 strOtrosRequisitosLey: values.strOtrosRequisitosLey || "",
                 arrFormasComercializacion: values.arrFormasComercializacion || [],
                 arrMediosDigitales: values.arrMediosDigitales || [],
-                btGrupoAsociativo: values.btGrupoAsociativo || "",
+                btGrupoAsociativo:
+                    typeof values.btGrupoAsociativo === "boolean"
+                        ? values.btGrupoAsociativo
+                        : "",
                 strAsociacionUnidadProdIndividual:
                     values.strAsociacionUnidadProdIndividual || "",
             });
@@ -540,7 +546,7 @@ const InfoEmpresa = ({
                                             : disabled
                                     }
                                     value={value}
-                                    onChange={(e, value) => onChange(value)}
+                                    onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoEmpresa?.strBarrio ? true : false
                                     }
@@ -1105,10 +1111,12 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e);
+
                                         handlerChangeData(
                                             "btGrupoAsociativo",
                                             e.target.value
                                         );
+
                                         setValue(
                                             "objInfoEmpresa.strAsociacionUnidadProdIndividual",
                                             ""
