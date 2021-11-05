@@ -140,7 +140,7 @@ const DetailsEmpresario = () => {
                         <Avatar
                             sx={{ width: 120, height: 120, marginRight: "15px" }}
                             alt={`${objInteresado.objEmpresario.strNombres} ${objInteresado.objEmpresario.strApellidos}`}
-                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objEmpresario.strUrlFoto}`}
+                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objEmpresario.strURLFileFoto}`}
                         />
 
                         <Box sx={{ flexGrow: 1 }}>
