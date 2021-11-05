@@ -111,7 +111,7 @@ const InfoEmpresa = ({
                 strSectorEconomico: values.strSectorEconomico || "",
                 strCategoriaProducto: values.strCategoriaProducto || "",
                 strCategoriaServicio: values.strCategoriaServicio || "",
-                arrCategoriasSecundarias: values.arrCategoriasSecundarias || "",
+                arrCategoriasSecundarias: values.arrCategoriasSecundarias || [],
                 strOtraCategoria: values.strOtraCategoria || "",
                 strDescProductosServicios: values.strDescProductosServicios || "",
                 strMateriaPrima: values.strMateriaPrima || "",
