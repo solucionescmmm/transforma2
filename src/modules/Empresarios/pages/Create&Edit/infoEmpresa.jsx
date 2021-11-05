@@ -515,7 +515,7 @@ const InfoEmpresa = ({
                                     error={
                                         errors?.objInfoEmpresa?.arrCiudad ? true : false
                                     }
-                                    arrDepartamento={data.arrDepartamento?.region_name}
+                                    strDepartamento={data.arrDepartamento?.region_name}
                                     helperText={
                                         errors?.objInfoEmpresa?.arrCiudad?.message ||
                                         "Selecciona la ciudad de la empresa"

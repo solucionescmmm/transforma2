@@ -270,7 +270,7 @@ const InfoRegistro = () => {
                                         <b>{e.label}: </b>
                                         {validator.isDate(e.value)
                                             ? format(e.value, "yyyy-MM-dd")
-                                            : e.value}
+                                            : e.value || "No disponible"}
                                     </p>
                                 </Grid>
                             ))}
