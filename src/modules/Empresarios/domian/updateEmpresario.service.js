@@ -81,9 +81,14 @@ class updateEmpresario {
         
         let prevData = this.#objData.objEmpresario;
 
+        let aux_arrDepartamento= JSON.stringify(this.#objData.objEmpresario?.arrDepartamento || "")
+        let aux_arrCiudad= JSON.stringify(this.#objData.objEmpresario?.arrCiudad || "")
+
         let newData = {
             ...prevData,
             strUsuario: this.#objUser.strEmail,
+            arrDepartamento: aux_arrDepartamento,
+            arrCiudad:aux_arrCiudad
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -110,6 +115,8 @@ class updateEmpresario {
         let aux_arrFormasComercializacion = JSON.stringify(this.#objData.objInfoEmpresa?.arrFormasComercializacion ||"")
         let aux_arrMediosDigitales = JSON.stringify(this.#objData.objInfoEmpresa?.arrMediosDigitales||"")
         let aux_arrRequisitoLey = JSON.stringify(this.#objData.objInfoEmpresa?.arrRequisitoLey||"")
+        let aux_arrDepartamento= JSON.stringify(this.#objData.objEmpresario?.arrDepartamento || "")
+        let aux_arrCiudad= JSON.stringify(this.#objData.objEmpresario?.arrCiudad || "")
         
         let newData = {
             ...prevData,
@@ -119,6 +126,8 @@ class updateEmpresario {
             arrFormasComercializacion: aux_arrFormasComercializacion,
             arrMediosDigitales: aux_arrMediosDigitales,
             arrRequisitoLey: aux_arrRequisitoLey,
+            arrDepartamento:aux_arrDepartamento,
+            arrCiudad:aux_arrCiudad
         };
 
         let dao = new classInterfaceDAOEmpresarios();
