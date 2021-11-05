@@ -86,7 +86,7 @@ class setEmpresario {
         let aux_arrCategoriasSecundarias= JSON.stringify(this.#objData.objInfoEmpresa?.arrCategoriasSecundarias || "")
         let aux_arrFormasComercializacion = JSON.stringify(this.#objData.objInfoEmpresa?.arrFormasComercializacion ||"")
         let aux_arrMediosDigitales = JSON.stringify(this.#objData.objInfoEmpresa?.arrMediosDigitales||"")
-        let aux_arrRequisitoLey = JSON.stringify(this.#objData.objInfoEmpresa?.arrRequisitoLey||"")
+        let aux_arrRequisitosLey = JSON.stringify(this.#objData.objInfoEmpresa?.arrRequisitosLey||"")
         let aux_arrDepartamento= JSON.stringify(this.#objData.objInfoEmpresa?.arrDepartamento || "")
         let aux_arrCiudad= JSON.stringify(this.#objData.objInfoEmpresa?.arrCiudad || "")
         
@@ -97,7 +97,7 @@ class setEmpresario {
             arrCategoriasSecundarias: aux_arrCategoriasSecundarias,
             arrFormasComercializacion: aux_arrFormasComercializacion,
             arrMediosDigitales: aux_arrMediosDigitales,
-            arrRequisitoLey: aux_arrRequisitoLey,
+            arrRequisitosLey: aux_arrRequisitosLey,
             arrDepartamento:aux_arrDepartamento,
             arrCiudad:aux_arrCiudad
         };

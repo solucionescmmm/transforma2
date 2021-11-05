@@ -110,7 +110,7 @@ class daoEmpresarios {
                 ${data.arrMediosDigitales},
                 ${data.btGrupoAsociativo},
                 ${data.strAsociacionUnidadProdIndividual},
-                ${data.arrRequisitoLey},
+                ${data.arrRequisitosLey},
                 ${data.strOtrosRequisitos},
                 GETDATE(),
                 ${data.strUsuario}
@@ -337,7 +337,7 @@ class daoEmpresarios {
                 strMediosDigitales                = COALESCE(${data.arrMediosDigitales}, strMediosDigitales),
                 btGrupoAsociativo                 = COALESCE(${data.btGrupoAsociativo}, btGrupoAsociativo),
                 strAsociacionUnidadProdIndividual = COALESCE(${data.strAsociacionUnidadProdIndividual}, strAsociacionUnidadProdIndividual),
-                strRequisitosLey                  = COALESCE(${data.arrRequisitoLey}, strRequisitosLey),
+                strRequisitosLey                  = COALESCE(${data.arrRequisitosLey}, strRequisitosLey),
                 strOtrosRequisitosLey             = COALESCE(${data.strOtrosRequisitosLey}, strOtrosRequisitosLey),
                 dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
