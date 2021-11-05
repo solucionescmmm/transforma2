@@ -291,16 +291,16 @@ const InfoAdicional = ({
                                     label="Otro ¿Cuál?"
                                     name={name}
                                     value={value}
-                                    onChange={(e, value) => onChange(value)}
+                                    onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     fullWidth
                                     error={
-                                        errors?.objInfoAdicional?.arrComoSeEntero
+                                        errors?.objInfoAdicional?.strOtroComoSeEntero
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.arrComoSeEntero
+                                        errors?.objInfoAdicional?.strOtroComoSeEntero
                                             ?.message ||
                                         "Digita, en caso de que aplique otro medio por el cuál se enteró de la corporación"
                                     }
