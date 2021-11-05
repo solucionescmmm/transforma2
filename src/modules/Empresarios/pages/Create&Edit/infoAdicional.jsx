@@ -323,7 +323,7 @@ const InfoAdicional = ({
                             name="objInfoAdicional.arrMediosDeComunicacion"
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdowMediosComunicacion
-                                    label="¿Qué canales prefiere para el envío de información??"
+                                    label="¿Qué canales prefiere para el envío de información?"
                                     name={name}
                                     value={value}
                                     onChange={(e, value) => onChange(value)}
@@ -381,7 +381,7 @@ const InfoAdicional = ({
                             name="objInfoAdicional.btRecibirInfoCMM"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿La persona autoriza a De Mis Manos para el envío de información? "
+                                    label="¿La persona autoriza a De Mis Manos para el envío de información?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => {
@@ -470,7 +470,7 @@ const InfoAdicional = ({
                             name="objInfoAdicional.strRecomendaciones"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Comentarios positivos, ideas y recomendaciones"
+                                    label="Comentarios, ideas y recomendaciones"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}

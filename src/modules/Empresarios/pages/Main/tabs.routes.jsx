@@ -12,18 +12,34 @@ import {
 //Componentes de Material UI
 import { Tabs, Tab } from "@mui/material";
 
+import PageMaintenance from "../../../../common/components/Error/503";
+
 const Comentarios = lazy(() => import("../../../Comentarios/pages/homePage"));
 const PerfilEmpresario = lazy(() => import("../Perfil/homePage"));
-const Registro = lazy(() => import("../Registro/homePage"));
+const InfoRegistro = lazy(() => import("../InfoRegistro/homePage"));
+const Diagnosticos = lazy(() => import("../../../Diagnosticos/pages/homePage"));
+
+const DiagEmpresarial = lazy(() =>
+    import("../../../Diagnosticos/pages/DiagEmpresarial/homePage")
+);
+
+const PageCUDiagEmpr = lazy(() =>
+    import("../../../Diagnosticos/pages/DiagEmpresarial/Create&Edit/pageCUDiagEmpr")
+);
 
 const TabsComponent = ({ intId }) => {
     const routeMatch = useRouteMatch([
         "/perfil/:intId",
         "/registro/:intId",
         "/comentarios/:intId",
+        "/diagnosticos/",
+        "/diagnosticos/diagEmpresarial/",
+        "/diagnosticos/diagEmpresarial/create",
     ]);
 
-    const currentTab = routeMatch?.path;
+    const currentTab = routeMatch?.path.startsWith("/diagnosticos/")
+        ? "/diagnosticos/"
+        : routeMatch?.path;
 
     return (
         <Tabs
@@ -53,9 +69,9 @@ const TabsComponent = ({ intId }) => {
             />
             <Tab
                 label="Diagnósticos"
-                value="/diagnosticos"
+                value="/diagnosticos/"
                 component={RouterLink}
-                to={`/diagnosticos`}
+                to="/diagnosticos/"
             />
             <Tab label="Ruta" />
             <Tab label="Acompañamiento" />
@@ -80,25 +96,57 @@ const TabsRoutes = ({ values, intId }) => {
                     )}
                 />
 
-                <Route path="/registro/:intId" exact>
-                    {({ location }) => {
-                        return (
-                            <div className="animate__animated animate__fadeIn">
-                                <Registro values={values} />
-                            </div>
-                        );
-                    }}
-                </Route>
+                <Route
+                    path="/registro/:intId"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <InfoRegistro values={values} />
+                        </div>
+                    )}
+                />
 
-                <Route path="/comentarios/:intId" exact>
-                    {({ location }) => {
-                        return (
-                            <div className="animate__animated animate__fadeIn">
-                                <Comentarios />
-                            </div>
-                        );
-                    }}
-                </Route>
+                <Route
+                    path="/comentarios/:intId"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <Comentarios />
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <Diagnosticos intId={intId} />
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagEmpresarial/"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <DiagEmpresarial intId={intId} />
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagEmpresarial/create/"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            {/* <PageCUDiagEmpr intId={intId} /> */}
+
+                            <PageMaintenance />
+                        </div>
+                    )}
+                />
             </Switch>
         </MemoryRouter>
     );

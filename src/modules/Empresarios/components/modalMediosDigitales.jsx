@@ -176,6 +176,7 @@ const ModalMediosDigitales = ({
                     sx={{
                         position: "absolute",
                         top: "-3px",
+                        fontSize: "12px"
                     }}
                     htmlFor="chip-components-mediosDigitales"
                 >

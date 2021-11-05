@@ -154,6 +154,7 @@ const ModalDireccionResidencia = ({
                     sx={{
                         position: "absolute",
                         top: "-3px",
+                        fontSize: "12px"
                     }}
                 >
                     {label}
@@ -195,6 +196,7 @@ const ModalDireccionResidencia = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
+
                                             handlerChangeData(
                                                 e.target.name,
                                                 e.target.value
@@ -240,6 +242,7 @@ const ModalDireccionResidencia = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
+
                                             handlerChangeData(
                                                 e.target.name,
                                                 e.target.value
@@ -273,6 +276,7 @@ const ModalDireccionResidencia = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
+
                                             handlerChangeData(
                                                 e.target.name,
                                                 e.target.value
@@ -311,6 +315,7 @@ const ModalDireccionResidencia = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
+
                                             handlerChangeData(
                                                 e.target.name,
                                                 e.target.value
@@ -348,6 +353,7 @@ const ModalDireccionResidencia = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
+
                                             handlerChangeData(
                                                 e.target.name,
                                                 e.target.value
@@ -384,6 +390,7 @@ const ModalDireccionResidencia = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
+
                                             handlerChangeData(
                                                 e.target.name,
                                                 e.target.value
@@ -415,6 +422,7 @@ const ModalDireccionResidencia = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
+
                                             handlerChangeData(
                                                 e.target.name,
                                                 e.target.value
@@ -457,6 +465,7 @@ const ModalDireccionResidencia = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
+
                                             handlerChangeData(
                                                 e.target.name,
                                                 e.target.value
@@ -491,6 +500,7 @@ const ModalDireccionResidencia = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
+                                            
                                             handlerChangeData(
                                                 e.target.name,
                                                 e.target.value

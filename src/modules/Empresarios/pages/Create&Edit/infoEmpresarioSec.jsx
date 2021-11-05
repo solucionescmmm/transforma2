@@ -109,7 +109,7 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control }) =>
                                             "animate__animated animate__bounceOutRight",
                                         exitDone: "animate__bounceOutRight",
                                     }}
-                                    key={e.strId}
+                                    key={e.Id || e.intId}
                                 >
                                     <PaperEmpresarioSec
                                         control={control}
@@ -132,14 +132,16 @@ const InformacionEmpresarioSec = ({ disabled, arrayValues, errors, control }) =>
                             type="button"
                             onClick={() =>
                                 append({
-                                    strId: shortid.generate(),
-                                    strNombresApellidos: "",
-                                    intIdTipoDocto: "",
+                                    Id: shortid.generate(),
+                                    strTipoRelacion: "",
+                                    strNombres: "",
+                                    strApellidos: "",
+                                    strTipoDocto: "",
                                     strNroDocto: "",
                                     strLugarExpedicionDocto: "",
                                     dtFechaExpedicionDocto: null,
                                     dtFechaNacimiento: null,
-                                    intIdSexo: "",
+                                    strGenero: "",
                                     strCelular: "",
                                     strCorreoElectronico: "",
                                 })

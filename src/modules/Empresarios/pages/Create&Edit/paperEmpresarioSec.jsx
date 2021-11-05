@@ -88,7 +88,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
     useEffect(() => {
         if (values) {
             setData({
-                Id: values.intId || values.strId || null,
+                Id: values.intId || null || values.Id,
                 strTipoRelacion: values.strTipoRelacion || "",
                 strNombres: values.strNombres || "",
                 strApellidos: values.strApellidos || "",
