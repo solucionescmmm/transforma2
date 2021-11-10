@@ -12,7 +12,7 @@ import {
 //Componentes de Material UI
 import { Tabs, Tab } from "@mui/material";
 
-import PageMaintenance from "../../../../common/components/Error/503";
+// import PageMaintenance from "../../../../common/components/Error/503";
 
 const Comentarios = lazy(() => import("../../../Comentarios/pages/homePage"));
 const PerfilEmpresario = lazy(() => import("../Perfil/homePage"));
@@ -22,6 +22,8 @@ const Diagnosticos = lazy(() => import("../../../Diagnosticos/pages/homePage"));
 const DiagEmpresarial = lazy(() =>
     import("../../../Diagnosticos/pages/DiagEmpresarial/homePage")
 );
+
+const DiagDesign = lazy(() => import("../../../Diagnosticos/pages/DiagDesign/homePage"));
 
 const PageCUDiagEmpr = lazy(() =>
     import("../../../Diagnosticos/pages/DiagEmpresarial/Create&Edit/pageCUDiagEmpr")
@@ -35,6 +37,7 @@ const TabsComponent = ({ intId }) => {
         "/diagnosticos/",
         "/diagnosticos/diagEmpresarial/",
         "/diagnosticos/diagEmpresarial/create",
+        "/diagnosticos/diagDesign/",
     ]);
 
     const currentTab = routeMatch?.path.startsWith("/diagnosticos/")
@@ -83,7 +86,7 @@ const TabsComponent = ({ intId }) => {
 
 const TabsRoutes = ({ values, intId }) => {
     return (
-        <MemoryRouter initialEntries={[`/comentarios/${intId}`]} initialIndex={0}>
+        <MemoryRouter initialEntries={[`/perfil/${intId}`]} initialIndex={0}>
             <TabsComponent intId={intId} />
             <Switch>
                 <Route
@@ -141,9 +144,21 @@ const TabsRoutes = ({ values, intId }) => {
                     exact
                     component={() => (
                         <div className="animate__animated animate__fadeIn">
-                            {/* <PageCUDiagEmpr intId={intId} /> */}
+                            <PageCUDiagEmpr intId={intId} />
 
-                            <PageMaintenance />
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagDesign/"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <DiagDesign intId={intId} />
+
+                            {/* <PageMaintenance /> */}
                         </div>
                     )}
                 />

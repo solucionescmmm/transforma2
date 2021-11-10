@@ -60,7 +60,10 @@ const ReadSolicitudesUser = () => {
             title: "Foto",
             render: (rowData) => (
                 <Avatar
-                    alt={rowData.objEmpresario.strNombres + rowData.objEmpresario.strApellidos}
+                    alt={
+                        rowData.objEmpresario.strNombres +
+                        rowData.objEmpresario.strApellidos
+                    }
                     src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.objEmpresario.strURLFileFoto}`}
                 />
             ),
@@ -134,12 +137,8 @@ const ReadSolicitudesUser = () => {
                             Inicio
                         </Link>
 
-                        <Typography color="textPrimary">Empresarios</Typography>
+                        <Typography color="textPrimary">Personas Empresarias</Typography>
                     </Breadcrumbs>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <PanelEmpresarios data={data} />
                 </Grid>
 
                 <Grid item xs={12}>
@@ -242,7 +241,7 @@ const ReadSolicitudesUser = () => {
                                 isLoading={data === undefined ? true : false}
                                 data={!data?.error && data ? data : []}
                                 columns={objColumns}
-                                title="Lista de Empresarios"
+                                title="Personas Empresarias"
                                 options={{
                                     grouping: true,
                                     title: true,
@@ -275,26 +274,44 @@ const ReadSolicitudesUser = () => {
                                 }}
                                 components={{
                                     Toolbar: (props) => (
-                                        <div>
+                                        <div
+                                            style={{
+                                                paddingRight: "5px",
+                                                paddingLeft: "5px",
+                                            }}
+                                        >
                                             <MTableToolbar {...props} />
-                                            <Box
-                                                sx={{
-                                                    display: "flex",
-                                                    flexDirection: "row-reverse",
-                                                    padding: "10px",
-                                                }}
-                                            >
-                                                <Button
-                                                    onClick={() =>
-                                                        push(
-                                                            "/transforma/asesor/empresario/create"
-                                                        )
-                                                    }
-                                                    variant="contained"
+
+                                            <Grid container direction="row">
+                                                <Grid item xs={12} md={6}>
+                                                    <PanelEmpresarios data={data} />
+                                                </Grid>
+
+                                                <Grid
+                                                    item
+                                                    xs={12}
+                                                    md={6}
+                                                    sx={{ margin: "auto" }}
                                                 >
-                                                    Agregar persona empresaria
-                                                </Button>
-                                            </Box>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection: "row-reverse",
+                                                        }}
+                                                    >
+                                                        <Button
+                                                            onClick={() =>
+                                                                push(
+                                                                    "/transforma/asesor/empresario/create"
+                                                                )
+                                                            }
+                                                            variant="contained"
+                                                        >
+                                                            Agregar persona empresaria
+                                                        </Button>
+                                                    </Box>
+                                                </Grid>
+                                            </Grid>
                                         </div>
                                     ),
                                 }}

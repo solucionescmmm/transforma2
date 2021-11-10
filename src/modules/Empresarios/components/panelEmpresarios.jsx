@@ -7,7 +7,11 @@ import CountUp from "react-countup";
 import { Paper, Box, Grid, Typography } from "@mui/material";
 
 //Iconos de Material UI
-import { Group as GroupIcon, PersonAdd as PersonAddIcon } from "@mui/icons-material";
+import {
+    Group as GroupIcon,
+    PersonAdd as PersonAddIcon,
+    FilterAlt as FilterAltIcon,
+} from "@mui/icons-material";
 
 //Estilos de Material UI
 import { makeStyles } from "@mui/styles";
@@ -21,6 +25,11 @@ const panelEmpresariosStyles = makeStyles((theme) => ({
     paperActivos: {
         padding: "8px",
         backgroundColor: "#5CB660",
+        color: "white",
+    },
+    paperFiltrados: {
+        padding: "8px",
+        backgroundColor: "#676767",
         color: "white",
     },
 }));
@@ -60,7 +69,7 @@ const PanelEmpresarios = ({ data }) => {
             spacing={2}
             style={{ marginTop: "10px", marginBottom: "15px" }}
         >
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
                 <Paper className={classes.paperTotal}>
                     <Box
                         sx={{
@@ -77,7 +86,7 @@ const PanelEmpresarios = ({ data }) => {
                                     marginRight: "5px",
                                 }}
                             />
-                            <Typography>Registrados</Typography>
+                            <Typography>Registradas</Typography>
                         </Box>
                         <Box>
                             <Typography variant="h6">
@@ -90,7 +99,7 @@ const PanelEmpresarios = ({ data }) => {
                 </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
                 <Paper className={classes.paperActivos}>
                     <Box
                         sx={{
@@ -107,12 +116,42 @@ const PanelEmpresarios = ({ data }) => {
                                     marginRight: "5px",
                                 }}
                             />
-                            <Typography>Activos</Typography>
+                            <Typography>Activas</Typography>
                         </Box>
                         <Box>
                             <Typography variant="h6">
                                 <b>
                                     <CountUp end={count.intActivos} duration={3} />
+                                </b>
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+                <Paper className={classes.paperFiltrados}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Box sx={{ flexGrow: 1 }}>
+                            <FilterAltIcon
+                                sx={{
+                                    float: "left",
+                                    marginRight: "5px",
+                                }}
+                            />
+                            <Typography>Filtradas</Typography>
+                        </Box>
+                        <Box>
+                            <Typography variant="h6">
+                                <b>
+                                    <CountUp end={count.intTotal} duration={3} />
                                 </b>
                             </Typography>
                         </Box>
