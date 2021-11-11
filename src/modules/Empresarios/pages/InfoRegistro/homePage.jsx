@@ -582,13 +582,16 @@ const InfoRegistro = () => {
 
                                             if (key === "arrCategoriasSecundarias") {
                                                 let array = newObjInfoEmpresa[key];
-                                                let text = "";
 
-                                                array.forEach((e) => {
-                                                    text += e.strCodigoRetorno + ", ";
-                                                });
+                                                if (array) {
+                                                    let text = "";
 
-                                                element.value = text;
+                                                    array.forEach((e) => {
+                                                        text += e.strCodigoRetorno + ", ";
+                                                    });
+
+                                                    element.value = text;
+                                                }
                                             }
 
                                             if (key === "dblValorVentasMes") {
@@ -602,36 +605,44 @@ const InfoRegistro = () => {
 
                                             if (key === "arrRequisitosLey") {
                                                 let array = newObjInfoEmpresa[key];
-                                                let text = "";
 
-                                                array.forEach((e) => {
-                                                    text += e.strCodigoRetorno + ", ";
-                                                });
+                                                if (array) {
+                                                    let text = "";
 
-                                                element.value = text;
+                                                    array.forEach((e) => {
+                                                        text += e.strCodigoRetorno + ", ";
+                                                    });
+
+                                                    element.value = text;
+                                                }
                                             }
 
                                             if (key === "arrFormasComercializacion") {
                                                 let array = newObjInfoEmpresa[key];
-                                                let text = "";
 
-                                                array.forEach((e) => {
-                                                    text += e.label + ", ";
-                                                });
+                                                if (array) {
+                                                    let text = "";
 
-                                                element.value = text;
+                                                    array.forEach((e) => {
+                                                        text += e.strCodigoRetorno + ", ";
+                                                    });
+
+                                                    element.value = text;
+                                                }
                                             }
 
                                             if (key === "arrMediosDigitales") {
                                                 let array = newObjInfoEmpresa[key];
-                                                let text = "";
 
-                                                array.forEach((e) => {
-                                                    text +=
-                                                        e.label + ":" + e.value + ", ";
-                                                });
+                                                if (array) {
+                                                    let text = "";
 
-                                                element.value = text;
+                                                    array.forEach((e) => {
+                                                        text += e.strCodigoRetorno + ", ";
+                                                    });
+
+                                                    element.value = text;
+                                                }
                                             }
                                         }
                                     });
@@ -654,35 +665,44 @@ const InfoRegistro = () => {
 
                                             if (key === "arrTemasCapacitacion") {
                                                 let array = newObjInfoAdicional[key];
-                                                let text = "";
 
-                                                array.forEach((e) => {
-                                                    text += e.strCodigoRetorno + ", ";
-                                                });
+                                                if (array) {
+                                                    let text = "";
 
-                                                element.value = text;
+                                                    array.forEach((e) => {
+                                                        text += e.strCodigoRetorno + ", ";
+                                                    });
+
+                                                    element.value = text;
+                                                }
                                             }
 
                                             if (key === "arrComoSeEntero") {
                                                 let array = newObjInfoAdicional[key];
-                                                let text = "";
 
-                                                array.forEach((e) => {
-                                                    text += e.strCodigoRetorno + ", ";
-                                                });
+                                                if (array) {
+                                                    let text = "";
 
-                                                element.value = text;
+                                                    array.forEach((e) => {
+                                                        text += e.strCodigoRetorno + ", ";
+                                                    });
+
+                                                    element.value = text;
+                                                }
                                             }
 
                                             if (key === "arrMediosDeComunicacion") {
                                                 let array = newObjInfoAdicional[key];
-                                                let text = "";
 
-                                                array.forEach((e) => {
-                                                    text += e.strCodigoRetorno + ", ";
-                                                });
+                                                if (array) {
+                                                    let text = "";
 
-                                                element.value = text;
+                                                    array.forEach((e) => {
+                                                        text += e.strCodigoRetorno + ", ";
+                                                    });
+
+                                                    element.value = text;
+                                                }
                                             }
                                         }
                                     });

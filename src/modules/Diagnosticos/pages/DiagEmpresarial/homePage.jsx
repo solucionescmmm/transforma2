@@ -20,9 +20,8 @@ import {
     ManageAccounts as ManageAccountsIcon,
     ChevronLeft as ChevronLeftIcon,
     FactCheck as FactCheckIcon,
-    ListAlt as ListAltIcon
+    ListAlt as ListAltIcon,
 } from "@mui/icons-material";
-
 
 const DiagEmpresarialPage = ({ intId }) => {
     return (
@@ -79,7 +78,10 @@ const DiagEmpresarialPage = ({ intId }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea>
+                    <CardActionArea
+                        component={RouterLink}
+                        to={`/diagnosticos/diagEmpresarial/create`}
+                    >
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
