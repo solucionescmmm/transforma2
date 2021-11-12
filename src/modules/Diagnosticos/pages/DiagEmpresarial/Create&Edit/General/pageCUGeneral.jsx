@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect, useRef, useCallback } from "react";
 
 //Context
-import { AuthContext } from "../../../../../common/middlewares/Auth";
+import { AuthContext } from "../../../../../../common/middlewares/Auth";
 
 //Hooks
-import useGetEmpresarios from "../../../../Empresarios/hooks/useGetEmpresarios";
+import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
 
 //Librerias
 import { Link as RouterLink, Redirect } from "react-router-dom";
@@ -31,8 +31,8 @@ import { LoadingButton } from "@mui/lab";
 import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
 
 //Componentes
-import Loader from "../../../../../common/components/Loader";
-import PageError from "../../../../../common/components/Error";
+import Loader from "../../../../../../common/components/Loader";
+import PageError from "../../../../../../common/components/Error";
 import InfoGeneral from "./infoGeneral";
 import InfoFamiliar from "./infoFamiliar";
 import InfoEmprendimiento from "./infoEmprendimiento";
@@ -79,7 +79,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const PageCUDiagEmpr = ({ intId, isEdit }) => {
+const PageCUGeneral = ({ intId, isEdit }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -663,4 +663,4 @@ const PageCUDiagEmpr = ({ intId, isEdit }) => {
     );
 };
 
-export default PageCUDiagEmpr;
+export default PageCUGeneral;

@@ -27,11 +27,11 @@ import {
 } from "@mui/icons-material";
 
 //Componentes
-import SelectTipoDocumento from "../../../../Empresarios/components/selectTipoDocumento";
-import SelectGenero from "../../../../Empresarios/components/selectGenero";
-import SelectNivelEducativo from "../../../../Empresarios/components/selectNivelEducativo";
-import ModalDireccionResidencia from "../../../../Empresarios/components/modalDireccionResidencia";
-import DropdownLocalizaciones from "../../../../Empresarios/components/dropdownLocalizaciones";
+import SelectTipoDocumento from "../../../../../Empresarios/components/selectTipoDocumento";
+import SelectGenero from "../../../../../Empresarios/components/selectGenero";
+import SelectNivelEducativo from "../../../../../Empresarios/components/selectNivelEducativo";
+import ModalDireccionResidencia from "../../../../../Empresarios/components/modalDireccionResidencia";
+import DropdownLocalizaciones from "../../../../../Empresarios/components/dropdownLocalizaciones";
 
 const InfoGeneral = ({
     disabled,

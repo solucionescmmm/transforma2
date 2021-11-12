@@ -267,7 +267,7 @@ const CUEmpresario = ({ isEdit }) => {
                                         data.objInfoEmpresa.intNumeroEmpleados,
                                     dblValorVentasMes:
                                         data.objInfoEmpresa.dblValorVentasMes,
-                                    arrRequisitoLey: data.objInfoEmpresa.arrRequisitoLey,
+                                    arrRequisitosLey: data.objInfoEmpresa.arrRequisitosLey,
                                     strOtrosRequisitosLey:
                                         data.objInfoEmpresa.strOtrosRequisitosLey,
                                     arrFormasComercializacion:
@@ -424,10 +424,72 @@ const CUEmpresario = ({ isEdit }) => {
                                 },
 
                                 objInfoEmpresa: {
-                                    ...data.objInfoEmpresa,
+                                    strURLFileLogoEmpresa:
+                                        data.objInfoEmpresa.strURLFileLogoEmpresa || null,
+                                    strEstadoNegocio:
+                                        data.objInfoEmpresa.strEstadoNegocio || "",
+                                    strCuandoComienzaEmpresa:
+                                        data.objInfoEmpresa.strCuandoComienzaEmpresa ||
+                                        "",
+                                    strNombreMarca:
+                                        data.objInfoEmpresa.strNombreMarca || "",
                                     dtFechaFundacion: data.objInfoEmpresa.dtFechaFundacion
                                         ? parseISO(data.objInfoEmpresa.dtFechaFundacion)
                                         : null,
+                                    strLugarOperacion:
+                                        data.objInfoEmpresa.strLugarOperacion || "",
+                                    strDireccionResidencia:
+                                        data.objInfoEmpresa.strDireccionResidencia || "",
+                                    arrDepartamento:
+                                        data.objInfoEmpresa.arrDepartamento || [],
+                                    arrCiudad: data.objInfoEmpresa.arrCiudad || [],
+                                    strBarrio: data.objInfoEmpresa.strBarrio || "",
+                                    strSectorEconomico:
+                                        data.objInfoEmpresa.strSectorEconomico || "",
+                                    strCategoriaProducto:
+                                        data.objInfoEmpresa.strCategoriaProducto || "",
+                                    strCategoriaServicio:
+                                        data.objInfoEmpresa.strCategoriaServicio || "",
+                                    arrCategoriasSecundarias:
+                                        data.objInfoEmpresa.arrCategoriasSecundarias ||
+                                        [],
+                                    strOtraCategoria:
+                                        data.objInfoEmpresa.strOtraCategoria || "",
+                                    strDescProductosServicios:
+                                        data.objInfoEmpresa.strDescProductosServicios ||
+                                        "",
+                                    strMateriaPrima:
+                                        data.objInfoEmpresa.strMateriaPrima || "",
+                                    strNombreTecnica:
+                                        data.objInfoEmpresa.strNombreTecnica || "",
+                                    strTiempoDedicacion:
+                                        data.objInfoEmpresa.strTiempoDedicacion || "",
+                                    btGeneraEmpleo:
+                                        typeof data.objInfoEmpresa.btGeneraEmpleo ===
+                                        "boolean"
+                                            ? data.objInfoEmpresa.btGeneraEmpleo
+                                            : "",
+                                    intNumeroEmpleados:
+                                        data.objInfoEmpresa.intNumeroEmpleados || "",
+                                    dblValorVentasMes:
+                                        data.objInfoEmpresa.valorVentasMes || "",
+                                    arrRequisitosLey:
+                                        data.objInfoEmpresa.arrRequisitosLey || [],
+                                    strOtrosRequisitosLey:
+                                        data.objInfoEmpresa.strOtrosRequisitosLey || "",
+                                    arrFormasComercializacion:
+                                        data.objInfoEmpresa.arrFormasComercializacion ||
+                                        [],
+                                    arrMediosDigitales:
+                                        data.objInfoEmpresa.arrMediosDigitales || [],
+                                    btGrupoAsociativo:
+                                        typeof data.objInfoEmpresa.btGrupoAsociativo ===
+                                        "boolean"
+                                            ? data.objInfoEmpresa.btGrupoAsociativo
+                                            : "",
+                                    strAsociacionUnidadProdIndividual:
+                                        data.objInfoEmpresa
+                                            .strAsociacionUnidadProdIndividual || "",
                                 },
 
                                 objInfoAdicional: {

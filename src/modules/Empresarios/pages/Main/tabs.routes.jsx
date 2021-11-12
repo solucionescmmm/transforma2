@@ -25,8 +25,10 @@ const DiagEmpresarial = lazy(() =>
 
 const DiagDesign = lazy(() => import("../../../Diagnosticos/pages/DiagDesign/homePage"));
 
-const PageCUDiagEmpr = lazy(() =>
-    import("../../../Diagnosticos/pages/DiagEmpresarial/Create&Edit/pageCUDiagEmpr")
+const PageCUGeneral = lazy(() =>
+    import(
+        "../../../Diagnosticos/pages/DiagEmpresarial/Create&Edit/General/pageCUGeneral"
+    )
 );
 
 const TabsComponent = ({ intId }) => {
@@ -144,7 +146,7 @@ const TabsRoutes = ({ values, intId }) => {
                     exact
                     component={() => (
                         <div className="animate__animated animate__fadeIn">
-                            <PageCUDiagEmpr intId={intId} />
+                            <PageCUGeneral intId={intId} />
 
                             {/* <PageMaintenance /> */}
                         </div>

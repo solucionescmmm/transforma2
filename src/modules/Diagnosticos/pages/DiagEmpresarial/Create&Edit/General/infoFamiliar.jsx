@@ -23,7 +23,7 @@ import {
 } from "@mui/icons-material";
 
 //Componentes
-import SelectNivelEducativo from "../../../../Empresarios/components/selectNivelEducativo";
+import SelectNivelEducativo from "../../../../../Empresarios/components/selectNivelEducativo";
 
 const InfoFamiliar = ({
     disabled,
