@@ -19,6 +19,7 @@ class setDiagnosticoGeneral{
 
     async main() {
         await this.#validations()
+        await this.#completeData()
         await this.#setDiagnosticoGeneral()
         return this.#objResult;
     }
@@ -39,18 +40,45 @@ class setDiagnosticoGeneral{
         }
     }
 
-
-    async #setDiagnosticoGeneral(){
-        let prevData = this.#objData;
+    async #completeData(){
 
         let newData = {
-            ...prevData,
-            intIdEmpresario:this.#objData.intIdEmpresario,
-            strUsuarioCreacion: this.#objUser.strEmail,
+            //Objeto de Información General
+            intIdEmpresario:this.#objData.objInfoGeneral.intIdEmpresario,
+            dtmFechaSesion:this.#objData.objInfoGeneral.dtmFechaSesion,
+            strLugarSesion:this.#objData.objInfoGeneral.strLugarSesion,
+            strUsuarioCreacion:this.#objData.objInfoGeneral.strUsuarioCreacion,
+            strUsuarioActualizacion:this.#objData.objInfoGeneral.strUsuarioActualizacion,
+
+            //Objeto de Información Familiar
+            btCabezaHogar:this.#objData.objInfoFamiliar.btCabezaHogar,
+            intNumPersonasCargo:this.#objData.objInfoFamiliar.intNumPersonasCargo,
+            intHijos:this.#objData.objInfoFamiliar.intHijos,
+            intHijosEstudiando:this.#objData.objInfoFamiliar.intHijosEstudiando,
+            strMaxNivelEducativoHijos:this.#objData.objInfoFamiliar.strMaxNivelEducativoHijos,
+            strEstadoCivil:this.#objData.objInfoFamiliar.strEstadoCivil,
+            strSituacionVivienda:this.#objData.objInfoFamiliar.strSituacionVivienda,
+            strGrupoVulnerable:this.#objData.objInfoFamiliar.strGrupoVulnerable,
+            strPoblacionEtnica:this.#objData.objInfoFamiliar.strPoblacionEtnica,
+            
+            //Objeto de InfoEmprendimiento
+            dtFechaInicioOperacion:this.#objData.objInfoEmprendimiento.dtFechaInicioOperacion,
+            btRegistroCamaraComercio:this.#objData.objInfoEmprendimiento.btRegistroCamaraComercio,
+            strListadoProdServ:this.#objData.objInfoEmprendimiento.strListadoProdServ,
+            //strPoblacionEtnica:this.#objData.objInfoEmprendimiento.strPoblacionEtnica,
+            //strPoblacionEtnica:this.#objData.objInfoEmprendimiento.strPoblacionEtnica,
         };
+
+        this.#objData = newData
+
+    }
+
+
+    async #setDiagnosticoGeneral(){
+
         let dao = new classInterfaceDAOComentarios();
 
-        let query = await dao.setDiagnosticoGeneral(newData);
+        let query = await dao.setDiagnosticoGeneral(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
