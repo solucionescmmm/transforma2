@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 
 //Librerias
-// import { Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 //Componentes de Material UI
 import {
@@ -12,6 +12,8 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
+    TextField,
+    MenuItem,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -31,7 +33,16 @@ const InfoEmpresa = ({
 }) => {
     const [loading, setLoading] = useState(true);
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState({
+        strHistoriaEmpresa: "",
+        strSuenioEmpresa: "",
+        strEstudioEmprendimiento: "",
+        strExperienciaEmprendimiento: "",
+        strTipoContribuyente: " ",
+        strRut: "",
+        btPresupuestoFamiliar: "",
+        strIngresosDistintos: "",
+    });
 
     const [openCollapese, setOpenCollapse] = useState(false);
 
@@ -96,7 +107,288 @@ const InfoEmpresa = ({
             />
 
             <Collapse in={openCollapese} timeout="auto">
-                <Grid container direction="row" spacing={2}></Grid>
+                <Grid container direction="row" spacing={2}>
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strHistoriaEmpresa}
+                            name="objInfoEmpresa.strHistoriaEmpresa"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Cómo nace la empresa? - Historia"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="outlined"
+                                    multiline
+                                    rows={4}
+                                    error={
+                                        errors?.objInfoEmpresa?.strHistoriaEmpresa
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strHistoriaEmpresa
+                                            ?.message ||
+                                        "Digita con detalle como nace la empresa"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digita con detalle como nace la empresa",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strSuenioEmpresa}
+                            name="objInfoEmpresa.strSuenioEmpresa"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Cómo sueña su empresa?/¿Cómo se ve usted en cinco años?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="outlined"
+                                    multiline
+                                    rows={4}
+                                    error={
+                                        errors?.objInfoEmpresa?.strSuenioEmpresa
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strSuenioEmpresa
+                                            ?.message ||
+                                        "Digita con detalle como sueña la empresa"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digita con detalle como sueña la empresa",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strEstudioEmprendimiento}
+                            name="objInfoEmpresa.strEstudioEmprendimiento"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Tiene estudio o aprendizaje sobre el tema de emprendimiento? "
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    select
+                                    error={
+                                        errors?.objInfoEmpresa?.strEstudioEmprendimiento
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strEstudioEmprendimiento
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                    <MenuItem value="">
+                                        <em>No aplica</em>
+                                    </MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strExperienciaEmprendimiento}
+                            name="objInfoEmpresa.strExperienciaEmprendimiento"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Tiene experiencia en este tipo de emprendimiento?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    select
+                                    error={
+                                        errors?.objInfoEmpresa
+                                            ?.strExperienciaEmprendimiento
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa
+                                            ?.strExperienciaEmprendimiento?.message ||
+                                        "Selecciona una opción"
+                                    }
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                    <MenuItem value="">
+                                        <em>No aplica</em>
+                                    </MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strTipoContribuyente}
+                            name="objInfoEmpresa.strTipoContribuyente"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Tiene experiencia en este tipo de emprendimiento?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    select
+                                    error={
+                                        errors?.objInfoEmpresa?.strTipoContribuyente
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strTipoContribuyente
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strRut}
+                            name="objInfoEmpresa.strRut"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="N° de Identificación del RUT (NIT) - Si aplica"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={errors?.objInfoEmpresa?.strRut ? true : false}
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strRut?.message ||
+                                        "Digita el número del RUT"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.btPresupuestoFamiliar}
+                            name="objInfoEmpresa.btPresupuestoFamiliar"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Los ingresos de esta inicativa son una fuente fundamental para el presupuesto familiar?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    select
+                                    error={
+                                        errors?.objInfoEmpresa?.btPresupuestoFamiliar
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.btPresupuestoFamiliar
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                    <MenuItem value="">
+                                        <em>No aplica</em>
+                                    </MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strIngresosDistintos}
+                            name="objInfoEmpresa.strIngresosDistintos"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Tu familia recibe ingresos por origen de otras fuentes distintas del emprendimiento?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmpresa?.strIngresosDistintos
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strIngresosDistintos
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción",
+                            }}
+                        />
+                    </Grid>
+                </Grid>
             </Collapse>
         </Fragment>
     );

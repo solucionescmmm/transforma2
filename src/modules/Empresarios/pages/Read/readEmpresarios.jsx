@@ -40,6 +40,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import PanelEmpresarios from "../../components/panelEmpresarios";
+import FiltersEmpresarios from "./filter";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -71,9 +72,10 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Nombres y Apellidos",
-            field: "objEmpresario.strNombres",
-            type: "string",
-            defaultSort: "desc",
+            render: (rowData) =>
+                rowData.objEmpresario.strNombres +
+                " " +
+                rowData.objEmpresario.strApellidos,
         },
         {
             title: "Documento",
@@ -245,8 +247,8 @@ const ReadSolicitudesUser = () => {
                                 options={{
                                     grouping: true,
                                     title: true,
-                                    filtering: true,
-                                    search: false,
+                                    filtering: false,
+                                    search: true,
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -283,6 +285,9 @@ const ReadSolicitudesUser = () => {
                                             <MTableToolbar {...props} />
 
                                             <Grid container direction="row">
+                                                <Grid item xs={12}>
+                                                    <FiltersEmpresarios />
+                                                </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <PanelEmpresarios data={data} />
                                                 </Grid>

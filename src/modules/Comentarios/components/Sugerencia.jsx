@@ -150,7 +150,7 @@ const ComentarioSugerencia = ({ values, socket }) => {
                     <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
                 </Box>
 
-                <Paper sx={{ padding: "10px", backgroundColor: "#E5F6FD", width: "90%" }}>
+                <Paper sx={{ padding: "10px", width: "90%" }}>
                     <Grid container direction="row" spacing={1}>
                         <Grid item xs={12}>
                             <Box sx={{ display: "flex", alignItems: "center" }}>

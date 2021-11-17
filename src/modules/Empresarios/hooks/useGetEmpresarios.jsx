@@ -27,7 +27,15 @@ import { toast } from "react-hot-toast";
     function refreshGetData()
  *
  */
-const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
+const useGetEmpresarios = ({
+    autoLoad = true,
+    intId = null,
+    strNombres = null,
+    strApellidos = null,
+    strNroDocto = null,
+    strSede = null,
+    strEstadoVinculacion = null,
+} = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -42,7 +50,15 @@ const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intId }) => {
+        async ({
+            signalSubmitData,
+            intId,
+            strNombres,
+            strApellidos,
+            strNroDocto,
+            strSede,
+            strEstadoVinculacion,
+        }) => {
             return await axios(
                 {
                     method: "GET",
@@ -53,6 +69,11 @@ const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
                     },
                     params: {
                         intId,
+                        strNombres,
+                        strApellidos,
+                        strNroDocto,
+                        strSede,
+                        strEstadoVinculacion,
                     },
                 },
                 {
@@ -90,7 +111,14 @@ const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
         [token]
     );
 
-    const refreshGetData = ({ intId = null } = {}) => {
+    const refreshGetData = ({
+        intId = null,
+        strNombres = null,
+        strApellidos = null,
+        strNroDocto = null,
+        strSede = null,
+        strEstadoVinculacion = null,
+    } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
@@ -98,12 +126,24 @@ const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
         getData({ signalSubmitData, intId });
     };
 
-    const getUniqueData = async ({ intId = null } = {}) => {
+    const getUniqueData = async ({
+        intId = null,
+        strNombres = null,
+        strApellidos = null,
+        strNroDocto = null,
+        strSede = null,
+        strEstadoVinculacion = null,
+    } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
             intId,
             signalSubmitData,
+            strNombres,
+            strApellidos,
+            strNroDocto,
+            strSede,
+            strEstadoVinculacion,
         });
 
         return query;
@@ -116,13 +156,30 @@ const useGetEmpresarios = ({ autoLoad = true, intId = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         if (autoLoad) {
-            getData({ signalSubmitData, intId });
+            getData({
+                signalSubmitData,
+                intId,
+                strNombres,
+                strApellidos,
+                strNroDocto,
+                strSede,
+                strEstadoVinculacion,
+            });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, autoLoad, intId]);
+    }, [
+        getData,
+        autoLoad,
+        intId,
+        strNombres,
+        strApellidos,
+        strNroDocto,
+        strSede,
+        strEstadoVinculacion,
+    ]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================

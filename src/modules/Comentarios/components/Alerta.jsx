@@ -150,7 +150,7 @@ const ComentarioAlerta = ({ values, socket }) => {
                     <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
                 </Box>
 
-                <Paper sx={{ padding: "10px", backgroundColor: "#FFC065", width: "90%" }}>
+                <Paper sx={{ padding: "10px",  width: "90%" }}>
                     <Grid container direction="row" spacing={1}>
                         <Grid item xs={12}>
                             <Box sx={{ display: "flex", alignItems: "center" }}>
