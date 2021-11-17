@@ -572,12 +572,12 @@ const InfoRegistro = () => {
 
                                             if (key === "arrDepartamento") {
                                                 element.value =
-                                                    newObjInfoEmpresa[key].region_name;
+                                                    newObjInfoEmpresa[key]?.region_name;
                                             }
 
                                             if (key === "arrCiudad") {
                                                 element.value =
-                                                    newObjInfoEmpresa[key].city_name;
+                                                    newObjInfoEmpresa[key]?.city_name;
                                             }
 
                                             if (key === "arrCategoriasSecundarias") {
@@ -782,18 +782,23 @@ const InfoRegistro = () => {
                     </Box>
 
                     <Collapse in={openCollapseInfoPrincipal} timeout="auto">
-                        <Grid container direction="row" spacing={1}>
+                        <Grid
+                            container
+                            direction="row"
+                            spacing={1}
+                            sx={{ padding: "15px" }}
+                        >
                             {data.objInfoPrincipal.map((e, i) => (
                                 <Grid item xs={12} md={6} key={i}>
                                     <p
                                         style={{
                                             margin: "0px",
-                                            fontSize: "14px",
+                                            fontSize: "13px",
                                             display: "flex",
                                             alignContent: "center",
                                         }}
                                     >
-                                        <b>{e.label}: </b>
+                                        <b style={{ marginRight: "5px" }}>{e.label}: </b>
                                         {e.value}
                                     </p>
                                 </Grid>
@@ -837,18 +842,23 @@ const InfoRegistro = () => {
                     </Box>
 
                     <Collapse in={openCollapseInfoEmpresarioPr} timeout="auto">
-                        <Grid container direction="row" spacing={1}>
+                        <Grid
+                            container
+                            direction="row"
+                            spacing={1}
+                            sx={{ padding: "15px" }}
+                        >
                             {data.objInfoEmpresarioPr.map((e, i) => (
                                 <Grid item xs={12} md={6} key={i}>
                                     <p
                                         style={{
                                             margin: "0px",
-                                            fontSize: "14px",
+                                            fontSize: "13px",
                                             display: "flex",
                                             alignContent: "center",
                                         }}
                                     >
-                                        <b>{e.label}: </b>
+                                        <b style={{ marginRight: "5px" }}>{e.label}: </b>
                                         {e.value}
                                     </p>
                                 </Grid>
@@ -929,18 +939,23 @@ const InfoRegistro = () => {
                     </Box>
 
                     <Collapse in={openCollapseInfoEmpresa} timeout="auto">
-                        <Grid container direction="row" spacing={1}>
+                        <Grid
+                            container
+                            direction="row"
+                            spacing={1}
+                            sx={{ padding: "15px" }}
+                        >
                             {data.objInfoEmpresa.map((e, i) => (
                                 <Grid item xs={12} md={6} key={i}>
                                     <p
                                         style={{
                                             margin: "0px",
-                                            fontSize: "14px",
+                                            fontSize: "13px",
                                             display: "flex",
                                             alignContent: "center",
                                         }}
                                     >
-                                        <b>{e.label}: </b>
+                                        <b style={{ marginRight: "5px" }}>{e.label}: </b>
                                         {e.value}
                                     </p>
                                 </Grid>
@@ -982,18 +997,23 @@ const InfoRegistro = () => {
                     </Box>
 
                     <Collapse in={openCollapseInfoAdicional} timeout="auto">
-                        <Grid container direction="row" spacing={1}>
+                        <Grid
+                            container
+                            direction="row"
+                            spacing={1}
+                            sx={{ padding: "15px" }}
+                        >
                             {data.objInfoAdicional.map((e, i) => (
                                 <Grid item xs={12} key={i}>
                                     <p
                                         style={{
                                             margin: "0px",
-                                            fontSize: "14px",
+                                            fontSize: "13px",
                                             display: "flex",
                                             alignContent: "center",
                                         }}
                                     >
-                                        <b>{e.label}: </b>
+                                        <b style={{ marginRight: "5px" }}>{e.label}: </b>
                                         {e.value}
                                     </p>
                                 </Grid>
