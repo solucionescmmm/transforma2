@@ -13,6 +13,7 @@ class deleteEmpresario {
         await this.#validations();
         await this.#deleteInfoEmpresa();
         await this.#deleteEmpresarioSecundario();
+        await this.#deleteInfoAdicional()
         await this.#deleteEmpresario();
 
         return this.#objResult;
@@ -52,6 +53,19 @@ class deleteEmpresario {
         if (query.error) {
             throw new Error(
                 "Ha ocurrido un error al momento de eliminar la información de la empresa asociada al empresario"
+            );
+        }
+    }
+
+    async #deleteInfoAdicional() {
+        let dao = new classInterfaceDAOEmpresarios();
+        let query = await dao.deleteInfoAdicional({
+            intId: this.#intIdEmpresario,
+        });
+
+        if (query.error) {
+            throw new Error(
+                "Ha ocurrido un error al momento de eliminar la información de la adicional asociada al empresario"
             );
         }
     }

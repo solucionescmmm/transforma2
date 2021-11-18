@@ -62,7 +62,7 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
-    async deleteInfoAdiconal(data){
+    async deleteInfoAdicional(data){
         const dao = new classDaoSql()
         let result = await dao.deleteInfoAdicional(data);
         return result
