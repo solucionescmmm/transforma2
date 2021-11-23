@@ -645,8 +645,8 @@ const InfoEmpresa = ({
                                     label="Categoría de los servicios"
                                     name={name}
                                     value={value}
-                                    onChange={(e, value) => {
-                                        onChange(value);
+                                    onChange={(e) => {
+                                        onChange(e);
 
                                         setValue(
                                             "objInfoEmpresa.strCategoriaProducto",

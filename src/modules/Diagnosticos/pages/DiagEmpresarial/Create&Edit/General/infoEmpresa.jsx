@@ -40,7 +40,7 @@ const InfoEmpresa = ({
         strExperienciaEmprendimiento: "",
         strTipoContribuyente: " ",
         strRut: "",
-        btPresupuestoFamiliar: "",
+        strPresupuestoFamiliar: "",
         strIngresosDistintos: "",
     });
 
@@ -320,8 +320,8 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.btPresupuestoFamiliar}
-                            name="objInfoEmpresa.btPresupuestoFamiliar"
+                            defaultValue={data.strPresupuestoFamiliar}
+                            name="objInfoEmpresa.strPresupuestoFamiliar"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Los ingresos de esta inicativa son una fuente fundamental para el presupuesto familiar?"
@@ -334,12 +334,12 @@ const InfoEmpresa = ({
                                     variant="standard"
                                     select
                                     error={
-                                        errors?.objInfoEmpresa?.btPresupuestoFamiliar
+                                        errors?.objInfoEmpresa?.strPresupuestoFamiliar
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.btPresupuestoFamiliar
+                                        errors?.objInfoEmpresa?.strPresupuestoFamiliar
                                             ?.message || "Selecciona una opción"
                                     }
                                 >

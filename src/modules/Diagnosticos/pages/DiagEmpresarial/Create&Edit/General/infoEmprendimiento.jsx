@@ -49,7 +49,7 @@ const InfoEmprendimiento = ({
 
     const [data, setData] = useState({
         strUnidadProductiva: "",
-        dtFechaInicioOperacion: null,
+        intAñoInicioOperacion: null,
         strLugarOperacion: "",
         arrDepartamento: [],
         arrCiudad: [],
@@ -60,12 +60,13 @@ const InfoEmprendimiento = ({
         strCorreoElectronico: "",
         btRedesSociales: "",
         arrMediosDigitales: [],
-        btRegistroCamaraComercio: "",
+        strRegistroCamaraComercio: "",
         strTiempoDedicacion: "",
         strSectorEconomico: "",
         strCategoriaProducto: "",
         strCategoriaServicio: "",
         arrCategoriasSecundarias: [],
+        strOtraCategoria: "",
         strListadoProdServ: "",
         btGeneraEmpleo: "",
     });
@@ -87,7 +88,7 @@ const InfoEmprendimiento = ({
         if (values) {
             setData({
                 strUnidadProductiva: values.strUnidadProductiva || "",
-                dtFechaInicioOperacion: values.dtFechaInicioOperacion || null,
+                intAñoInicioOperacion: values.intAñoInicioOperacion || null,
                 strLugarOperacion: values.strLugarOperacion || "",
                 arrDepartamento: values.arrDepartamento || [],
                 arrCiudad: values.arrCiudad || [],
@@ -98,7 +99,7 @@ const InfoEmprendimiento = ({
                 strCorreoElectronico: values.strCorreoElectronico || "",
                 btRedesSociales: values.btRedesSociales || "",
                 arrMediosDigitales: values.arrMediosDigitales || [],
-                btRegistroCamaraComercio: values.btRegistroCamaraComercio || "",
+                strRegistroCamaraComercio: values.strRegistroCamaraComercio || "",
                 strTiempoDedicacion: values.strTiempoDedicacion || "",
                 strSectorEconomico: values.strSectorEconomico || "",
                 strCategoriaProducto: values.strCategoriaProducto || "",
@@ -191,8 +192,8 @@ const InfoEmprendimiento = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.dtFechaInicioOperacion}
-                            name="objInfoEmprendimiento.dtFechaInicioOperacion"
+                            defaultValue={data.intAñoInicioOperacion}
+                            name="objInfoEmprendimiento.intAñoInicioOperacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
                                     label="¿En qué año inició la operación?"
@@ -206,13 +207,13 @@ const InfoEmprendimiento = ({
                                             variant="standard"
                                             error={
                                                 errors?.objInfoEmprendimiento
-                                                    ?.dtFechaInicioOperacion
+                                                    ?.intAñoInicioOperacion
                                                     ? true
                                                     : false
                                             }
                                             helperText={
                                                 errors?.objInfoEmprendimiento
-                                                    ?.dtFechaInicioOperacion?.message ||
+                                                    ?.intAñoInicioOperacion?.message ||
                                                 "Fecha de la última vez que se actualizó el diagnóstico"
                                             }
                                             fullWidth
@@ -641,8 +642,8 @@ const InfoEmprendimiento = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.btRegistroCamaraComercio}
-                            name="objInfoEmprendimiento.btRegistroCamaraComercio"
+                            defaultValue={data.strRegistroCamaraComercio}
+                            name="objInfoEmprendimiento.strRegistroCamaraComercio"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Cuenta con registro en cámara de comercio?"
@@ -656,13 +657,13 @@ const InfoEmprendimiento = ({
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
-                                            ?.btRegistroCamaraComercio
+                                            ?.strRegistroCamaraComercio
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.btRegistroCamaraComercio?.message ||
+                                            ?.strRegistroCamaraComercio?.message ||
                                         "Selecciona si la empresa cuenta con registro en la cámara de comercio"
                                     }
                                 >
@@ -838,6 +839,35 @@ const InfoEmprendimiento = ({
                                         errors?.objInfoEmprendimiento
                                             ?.arrCategoriasSecundarias?.message ||
                                         "Selecciona las categorías secundarias en caso de que aplique"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strOtraCategoria}
+                            name="objInfoEmpresa.strOtraCategoria"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Otra categoría ¿cuál?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmpresa?.strOtraCategoria
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strOtraCategoria
+                                            ?.message ||
+                                        "En caso de que aplique, digita cuál sería la otra categoría del producto o servicio"
                                     }
                                 />
                             )}

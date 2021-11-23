@@ -167,7 +167,7 @@ const ComentarioCritico = ({ values, socket }) => {
                     <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
                 </Box>
 
-                <Paper sx={{ backgroundColor: "#F4C7C7", width: "90%" }}>
+                <Paper sx={{ width: "90%" }}>
                     <Box sx={{ display: "flex" }}>
                         <Box sx={{ flexGrow: 1, padding: "10px" }}>
                             <Grid container direction="row" spacing={1}>

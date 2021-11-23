@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 
 //Librerias
-// import { Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 //Componentes de Material UI
 import {
@@ -12,6 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -19,6 +20,8 @@ import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
+
+import Dropzone from "../../../../../../common/components/dropzone";
 
 const InfoAdicional = ({
     disabled,
@@ -31,7 +34,10 @@ const InfoAdicional = ({
 }) => {
     const [loading, setLoading] = useState(true);
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState({
+        strConclusiones: "",
+        strURLSFotosProducto: "",
+    });
 
     const [openCollapese, setOpenCollapse] = useState(false);
 
@@ -97,7 +103,73 @@ const InfoAdicional = ({
             />
 
             <Collapse in={openCollapese} timeout="auto">
-                <Grid container direction="row" spacing={2}></Grid>
+                <Grid container direction="row" spacing={2}>
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strConclusiones}
+                            name="objInfoAdicional.strConclusiones"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Conclusiones y observaciones"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    multiline
+                                    row={4}
+                                    variant="outlined"
+                                    error={
+                                        errors?.objInfoAdicional?.strConclusiones
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoAdicional?.strConclusiones
+                                            ?.message ||
+                                        "Digita detalladamente tu respuesta"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, digita detalladamente tu respuesta",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strURLSFotosProducto}
+                            name="objInfoAdicional.strURLSFotosProducto"
+                            render={({ field: { name, onChange, value } }) => (
+                                <Dropzone
+                                    label="Registro fotográfico"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(url) => onChange(url)}
+                                    maxFiles={1}
+                                    type="Imagen"
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                    error={
+                                        errors?.objInfoAdicional?.strURLSFotosProducto
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoAdicional?.strURLSFotosProducto
+                                            ?.message ||
+                                        "Selecciona las fotografias del registro del producto"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                </Grid>
             </Collapse>
         </Fragment>
     );
