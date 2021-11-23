@@ -117,7 +117,7 @@ const InfoPerfilEco = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strOperacionesVentas6Meses}
                             name="objInfoPerfilEco.strOperacionesVentas6Meses"
@@ -370,7 +370,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strTipoEmpleoGenerado}
                             name="objInfoPerfilEco.strTipoEmpleoGenerado"
@@ -402,7 +402,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strDlloAcitividadesContratados}
                             name="objInfoPerfilEco.strDlloAcitividadesContratados"
