@@ -45,13 +45,14 @@ class setDiagnosticoGeneral{
         let newData = {
             //Objeto de Información General
             intIdEmpresario:this.#objData.objInfoGeneral.intIdEmpresario,
+            strUbicacionVivienda:this.#objData.objInfoGeneral.strUbicacionVivienda,
             dtmFechaSesion:this.#objData.objInfoGeneral.dtmFechaSesion,
             strLugarSesion:this.#objData.objInfoGeneral.strLugarSesion,
             strUsuarioCreacion:this.#objData.objInfoGeneral.strUsuarioCreacion,
             strUsuarioActualizacion:this.#objData.objInfoGeneral.strUsuarioActualizacion,
 
             //Objeto de Información Familiar
-            btCabezaHogar:this.#objData.objInfoFamiliar.btCabezaHogar,
+            strCabezaHogar:this.#objData.objInfoFamiliar.strCabezaHogar,
             intNumPersonasCargo:this.#objData.objInfoFamiliar.intNumPersonasCargo,
             intHijos:this.#objData.objInfoFamiliar.intHijos,
             intHijosEstudiando:this.#objData.objInfoFamiliar.intHijosEstudiando,
@@ -63,13 +64,42 @@ class setDiagnosticoGeneral{
             
             //Objeto de InfoEmprendimiento
             dtFechaInicioOperacion:this.#objData.objInfoEmprendimiento.dtFechaInicioOperacion,
-            btRegistroCamaraComercio:this.#objData.objInfoEmprendimiento.btRegistroCamaraComercio,
+            strUbicacionUP:this.#objData.objInfoEmprendimiento.strUbicacionUP,
+            strRegistroCamaraComercio:this.#objData.objInfoEmprendimiento.strRegistroCamaraComercio,
             strListadoProdServ:this.#objData.objInfoEmprendimiento.strListadoProdServ,
-            //strPoblacionEtnica:this.#objData.objInfoEmprendimiento.strPoblacionEtnica,
-            //strPoblacionEtnica:this.#objData.objInfoEmprendimiento.strPoblacionEtnica,
+            
+            //Objeto de InfoEmpresa
+            strHistoriaEmpresa:this.#objData.objInfoEmpresa.strHistoriaEmpresa,
+            strSuenioEmpresa:this.#objData.objInfoEmpresa.strSuenioEmpresa,
+            strEstudioEmprendimiento:this.#objData.objInfoEmpresa.strEstudioEmprendimiento,
+            strExperienciaEmprendimiento:this.#objData.objInfoEmpresa.strExperienciaEmprendimiento,
+            strTipoContribuyente:this.#objData.objInfoEmpresa.strTipoContribuyente,
+            strRut:this.#objData.objInfoEmpresa.strRut,
+            strPresupuestoFamiliar:this.#objData.objInfoEmpresa.strPresupuestoFamiliar,
+            strIngresosDistintos:this.#objData.objInfoEmpresa.strIngresosDistintos,
+
+            //Objeto de InfoPerfilEco
+            strOperacionesVentas6Meses:this.#objData.objInfoPerfilEco.strOperacionesVentas6Meses,
+            strEtapaValidacion:this.#objData.objInfoPerfilEco.strEtapaValidacion,
+            strPromedioVentas6Meses:this.#objData.objInfoPerfilEco.strPromedioVentas6Meses,
+            strRangoVentas:this.#objData.objInfoPerfilEco.strRangoVentas,
+            strRangoEmpleados:this.#objData.objInfoPerfilEco.strRangoEmpleados,
+            strTipoEmpleoGenerado:this.#objData.objInfoPerfilEco.strTipoEmpleoGenerado,
+            strDlloAcitividadesContratados:this.#objData.objInfoPerfilEco.strDlloAcitividadesContratados,
+            strPromedioTiempoInvertido:this.#objData.objInfoPerfilEco.strPromedioTiempoInvertido,
+            strRolesEmprendimiento:this.#objData.objInfoPerfilEco.strRolesEmprendimiento,
+            strDiasProduccion:this.#objData.objInfoPerfilEco.strDiasProduccion,
+            strGeneraEmpleoRiesgoPobreza:this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
+            valorGananciasMes:this.#objData.objInfoPerfilEco.valorGananciasMes,
+            strActivos:this.#objData.objInfoPerfilEco.strActivos,
+            ValorActivos:this.#objData.objInfoPerfilEco.ValorActivos,
+
+            //Objeto de InfoAdicional
+            strConclusiones:this.#objData.objInfoAdicional.strConclusiones,
+            strURLSFotosProducto:this.#objData.objInfoAdicional.strURLSFotosProducto,
         };
 
-        this.#objData = newData
+        this.#objData = newData;
 
     }
 

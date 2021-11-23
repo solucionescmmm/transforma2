@@ -65,7 +65,7 @@ class setEmpresario {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setEmpresarios(newData);
-
+        console.log(query)
         if (query.error) {
             throw new Error(query.msg);
         }
@@ -121,9 +121,9 @@ class setEmpresario {
                 intIdEmpresarioPrincipal: this.#intIdEmpresario,
                 strUsuario: this.#objUser.strEmail,
             };
-
+            
             let query = await dao.setEmpresarioSecundario(newData);
-
+            console.log(query)
             if (query.error) {
                 await this.#rollbackTransaction();
             }
@@ -150,7 +150,7 @@ class setEmpresario {
         }
 
         let query = await dao.setInfoAdicional(newData)
-
+        console.log(query)
         if(query.error){
             await this.#rollbackTransaction();
         }
