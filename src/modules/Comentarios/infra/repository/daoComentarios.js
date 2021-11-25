@@ -121,6 +121,7 @@ class daoComentarios {
     }
 
     async getComentario(data) {
+        console.log(object)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -136,6 +137,7 @@ class daoComentarios {
             Comentario.strUsuarioAsignado,
             Comentario.strURLImagenUsuario,
             Comentario.btResuelto,
+            Comentario.dtmActualizacion,
             (
                 SELECT * FROM tbl_RespuestaComentarios Respuesta
                 WHERE Respuesta.intIdComentario = Comentario.intId
