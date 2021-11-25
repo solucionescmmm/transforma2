@@ -22,6 +22,7 @@ class daoComentarios {
                 ${data.strUsuarioAsignado},
                 ${data.strURLImagenUsuario},
                 ${data.btResuelto},
+                GETDATE(),
                 GETDATE()
             )
             
@@ -137,6 +138,7 @@ class daoComentarios {
             Comentario.strURLImagenUsuario,
             Comentario.btResuelto,
             Comentario.dtmActualizacion,
+            Comentario.dtmCreacion,
             (
                 SELECT * FROM tbl_RespuestaComentarios Respuesta
                 WHERE Respuesta.intIdComentario = Comentario.intId
@@ -195,6 +197,7 @@ class daoComentarios {
                 ${data.strMensaje},
                 ${data.strUsuario},
                 ${data.strURLImagenUsuario},
+                GETDATE(),
                 GETDATE()
             )
             
