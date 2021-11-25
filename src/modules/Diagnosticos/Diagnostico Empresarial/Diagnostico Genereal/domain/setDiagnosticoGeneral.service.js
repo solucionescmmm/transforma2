@@ -63,10 +63,9 @@ class setDiagnosticoGeneral{
             strPoblacionEtnica:this.#objData.objInfoFamiliar.strPoblacionEtnica,
             
             //Objeto de InfoEmprendimiento
-            dtFechaInicioOperacion:this.#objData.objInfoEmprendimiento.dtFechaInicioOperacion,
+            intAñoInicioOperacion:this.#objData.objInfoEmprendimiento.intAñoInicioOperacion,
             strUbicacionUP:this.#objData.objInfoEmprendimiento.strUbicacionUP,
             strRegistroCamaraComercio:this.#objData.objInfoEmprendimiento.strRegistroCamaraComercio,
-            strListadoProdServ:this.#objData.objInfoEmprendimiento.strListadoProdServ,
             
             //Objeto de InfoEmpresa
             strHistoriaEmpresa:this.#objData.objInfoEmpresa.strHistoriaEmpresa,
