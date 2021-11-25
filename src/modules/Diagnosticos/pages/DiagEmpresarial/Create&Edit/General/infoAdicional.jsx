@@ -45,13 +45,6 @@ const InfoAdicional = ({
         setOpenCollapse(!openCollapese);
     };
 
-    const handlerChangeData = (name, value) => {
-        setData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
-
     useEffect(() => {
         if (values) {
             setData({});

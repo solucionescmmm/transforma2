@@ -13,7 +13,6 @@ import {
     Tooltip,
     CircularProgress,
     TextField,
-    MenuItem,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -21,6 +20,9 @@ import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
+
+//Componentes
+import SelectListas from "../../../../components/selectLista";
 
 const InfoEmpresa = ({
     disabled,
@@ -48,13 +50,6 @@ const InfoEmpresa = ({
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
-    };
-
-    const handlerChangeData = (name, value) => {
-        setData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
     };
 
     useEffect(() => {
@@ -185,7 +180,7 @@ const InfoEmpresa = ({
                             defaultValue={data.strEstudioEmprendimiento}
                             name="objInfoEmpresa.strEstudioEmprendimiento"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Tiene estudio o aprendizaje sobre el tema de emprendimiento? "
                                     name={name}
                                     value={value}
@@ -194,7 +189,6 @@ const InfoEmpresa = ({
                                     fullWidth
                                     required
                                     variant="standard"
-                                    select
                                     error={
                                         errors?.objInfoEmpresa?.strEstudioEmprendimiento
                                             ? true
@@ -204,13 +198,9 @@ const InfoEmpresa = ({
                                         errors?.objInfoEmpresa?.strEstudioEmprendimiento
                                             ?.message || "Selecciona una opción"
                                     }
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                    <MenuItem value="">
-                                        <em>No aplica</em>
-                                    </MenuItem>
-                                </TextField>
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
                             )}
                             control={control}
                             rules={{
@@ -224,7 +214,7 @@ const InfoEmpresa = ({
                             defaultValue={data.strExperienciaEmprendimiento}
                             name="objInfoEmpresa.strExperienciaEmprendimiento"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Tiene experiencia en este tipo de emprendimiento?"
                                     name={name}
                                     value={value}
@@ -233,7 +223,6 @@ const InfoEmpresa = ({
                                     fullWidth
                                     required
                                     variant="standard"
-                                    select
                                     error={
                                         errors?.objInfoEmpresa
                                             ?.strExperienciaEmprendimiento
@@ -245,13 +234,9 @@ const InfoEmpresa = ({
                                             ?.strExperienciaEmprendimiento?.message ||
                                         "Selecciona una opción"
                                     }
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                    <MenuItem value="">
-                                        <em>No aplica</em>
-                                    </MenuItem>
-                                </TextField>
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
                             )}
                             control={control}
                             rules={{
@@ -265,7 +250,7 @@ const InfoEmpresa = ({
                             defaultValue={data.strTipoContribuyente}
                             name="objInfoEmpresa.strTipoContribuyente"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Tiene experiencia en este tipo de emprendimiento?"
                                     name={name}
                                     value={value}
@@ -284,6 +269,8 @@ const InfoEmpresa = ({
                                         errors?.objInfoEmpresa?.strTipoContribuyente
                                             ?.message || "Selecciona una opción"
                                     }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
                                 />
                             )}
                             control={control}
@@ -299,13 +286,12 @@ const InfoEmpresa = ({
                             name="objInfoEmpresa.strRut"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="N° de Identificación del RUT (NIT) - Si aplica"
+                                    label="N° de Identificación del RUT (NIT)"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
                                     variant="standard"
                                     error={errors?.objInfoEmpresa?.strRut ? true : false}
                                     helperText={
@@ -318,21 +304,18 @@ const InfoEmpresa = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strPresupuestoFamiliar}
                             name="objInfoEmpresa.strPresupuestoFamiliar"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Los ingresos de esta inicativa son una fuente fundamental para el presupuesto familiar?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
-                                    fullWidth
                                     required
-                                    variant="standard"
-                                    select
                                     error={
                                         errors?.objInfoEmpresa?.strPresupuestoFamiliar
                                             ? true
@@ -342,13 +325,9 @@ const InfoEmpresa = ({
                                         errors?.objInfoEmpresa?.strPresupuestoFamiliar
                                             ?.message || "Selecciona una opción"
                                     }
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                    <MenuItem value="">
-                                        <em>No aplica</em>
-                                    </MenuItem>
-                                </TextField>
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
                             )}
                             control={control}
                             rules={{
@@ -357,12 +336,12 @@ const InfoEmpresa = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strIngresosDistintos}
                             name="objInfoEmpresa.strIngresosDistintos"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Tu familia recibe ingresos por origen de otras fuentes distintas del emprendimiento?"
                                     name={name}
                                     value={value}
@@ -380,6 +359,8 @@ const InfoEmpresa = ({
                                         errors?.objInfoEmpresa?.strIngresosDistintos
                                             ?.message || "Selecciona una opción"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="IngresosDistintosFamilia"
                                 />
                             )}
                             control={control}

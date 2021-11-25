@@ -24,6 +24,7 @@ import {
 
 //Componentes
 import SelectNivelEducativo from "../../../../../Empresarios/components/selectNivelEducativo";
+import SelectListas from "../../../../components/selectLista";
 
 const InfoFamiliar = ({
     disabled,
@@ -348,9 +349,9 @@ const InfoFamiliar = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strEstadoCivil}
-                            name="objInfoFamiliar.strEstadoCivil "
+                            name="objInfoFamiliar.strEstadoCivil"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="Estado Civil"
                                     name={name}
                                     value={value}
@@ -367,6 +368,8 @@ const InfoFamiliar = ({
                                         errors?.objInfoFamiliar?.strEstadoCivil
                                             ?.message || "Seleccione, el estado civil"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="EstadoCivil"
                                 />
                             )}
                             control={control}
@@ -376,9 +379,9 @@ const InfoFamiliar = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strSituacionVivienda}
-                            name="objInfoFamiliar.strSituacionVivienda  "
+                            name="objInfoFamiliar.strSituacionVivienda"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="Situación de vivienda"
                                     name={name}
                                     value={value}
@@ -396,6 +399,8 @@ const InfoFamiliar = ({
                                             ?.message ||
                                         "Seleccione, la situación de la vivienda"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="SituacionVivienda"
                                 />
                             )}
                             control={control}
@@ -405,9 +410,9 @@ const InfoFamiliar = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strGrupoVulnerable}
-                            name="objInfoFamiliar.strGrupoVulnerable  "
+                            name="objInfoFamiliar.strGrupoVulnerable"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="Grupo poblacional vulnerable (no preguntar de observación)"
                                     name={name}
                                     value={value}
@@ -425,6 +430,8 @@ const InfoFamiliar = ({
                                             ?.message ||
                                         "Seleccione, si la persona pertenece a algún grupo vulnerable"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="PoblacionVulnerable"
                                 />
                             )}
                             control={control}
@@ -434,9 +441,9 @@ const InfoFamiliar = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strPoblacionEtnica}
-                            name="objInfoFamiliar.strPoblacionEtnica  "
+                            name="objInfoFamiliar.strPoblacionEtnica"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="Población étnica"
                                     name={name}
                                     value={value}
@@ -454,6 +461,8 @@ const InfoFamiliar = ({
                                             ?.message ||
                                         "Seleccione, si la persona pertenece a algúna población étnica"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="PoblacionEtnica"
                                 />
                             )}
                             control={control}

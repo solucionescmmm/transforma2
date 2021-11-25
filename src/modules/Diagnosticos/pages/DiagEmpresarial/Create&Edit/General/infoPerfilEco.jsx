@@ -14,7 +14,6 @@ import {
     Tooltip,
     CircularProgress,
     TextField,
-    MenuItem,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -22,6 +21,9 @@ import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
+
+//Componentes
+import SelectListas from "../../../../components/selectLista";
 
 const InfoPerfilEco = ({
     disabled,
@@ -57,13 +59,6 @@ const InfoPerfilEco = ({
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
-    };
-
-    const handlerChangeData = (name, value) => {
-        setData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
     };
 
     useEffect(() => {
@@ -122,16 +117,14 @@ const InfoPerfilEco = ({
                             defaultValue={data.strOperacionesVentas6Meses}
                             name="objInfoPerfilEco.strOperacionesVentas6Meses"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continúa?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
-                                    fullWidth
                                     required
                                     variant="standard"
-                                    select
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.strOperacionesVentas6Meses
@@ -143,13 +136,9 @@ const InfoPerfilEco = ({
                                             ?.strOperacionesVentas6Meses?.message ||
                                         "Selecciona una opción"
                                     }
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                    <MenuItem value="">
-                                        <em>No aplica</em>
-                                    </MenuItem>
-                                </TextField>
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
                             )}
                             control={control}
                             rules={{
@@ -163,15 +152,13 @@ const InfoPerfilEco = ({
                             defaultValue={data.strEtapaValidacion}
                             name="objInfoPerfilEco.strEtapaValidacion"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿En qué etapa de validación se encuentra tu producto?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
-                                    fullWidth
                                     required
-                                    variant="standard"
                                     error={
                                         errors?.objInfoPerfilEco?.strEtapaValidacion
                                             ? true
@@ -181,6 +168,8 @@ const InfoPerfilEco = ({
                                         errors?.objInfoPerfilEco?.strEtapaValidacion
                                             ?.message || "Selecciona una opción"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="EtapaValidacionProducto"
                                 />
                             )}
                             control={control}
@@ -195,7 +184,7 @@ const InfoPerfilEco = ({
                             defaultValue={data.strPromedioVentas6Meses}
                             name="objInfoPerfilEco.strPromedioVentas6Meses"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="Promedio de ventas de los últimos 6 meses"
                                     name={name}
                                     value={value}
@@ -213,6 +202,8 @@ const InfoPerfilEco = ({
                                         errors?.objInfoPerfilEco?.strPromedioVentas6Meses
                                             ?.message || "Selecciona una opción"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="PromedioVentas6Meses"
                                 />
                             )}
                             control={control}
@@ -267,7 +258,7 @@ const InfoPerfilEco = ({
                             defaultValue={data.strRangoVentas}
                             name="objInfoPerfilEco.strRangoVentas"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="Rango de ventas"
                                     name={name}
                                     value={value}
@@ -285,6 +276,8 @@ const InfoPerfilEco = ({
                                         errors?.objInfoPerfilEco?.strRangoVentas
                                             ?.message || "Selecciona una opción"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="RangoVentas"
                                 />
                             )}
                             control={control}
@@ -343,7 +336,7 @@ const InfoPerfilEco = ({
                             defaultValue={data.strRangoEmpleados}
                             name="objInfoPerfilEco.strRangoEmpleados"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="Rango de empleados"
                                     name={name}
                                     value={value}
@@ -361,6 +354,8 @@ const InfoPerfilEco = ({
                                         errors?.objInfoPerfilEco?.strRangoEmpleados
                                             ?.message || "Selecciona una opción"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="RangoEmpleos"
                                 />
                             )}
                             control={control}
@@ -443,7 +438,7 @@ const InfoPerfilEco = ({
                             defaultValue={data.strPromedioTiempoInvertido}
                             name="objInfoPerfilEco.strPromedioTiempoInvertido"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="En promedio, cuánto tiempo durante el día puede invertir para su emprendimiento entre las diferentes activiades que realiza"
                                     name={name}
                                     value={value}
@@ -463,6 +458,8 @@ const InfoPerfilEco = ({
                                             ?.strPromedioTiempoInvertido?.message ||
                                         "Selecciona una opción"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="PromedioTiempoInvertido"
                                 />
                             )}
                             control={control}
@@ -477,7 +474,7 @@ const InfoPerfilEco = ({
                             defaultValue={data.strRolesEmprendimiento}
                             name="objInfoPerfilEco.strRolesEmprendimiento"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Cuál son tus roles en la operación de tú emprendimiento?"
                                     name={name}
                                     value={value}
@@ -495,6 +492,8 @@ const InfoPerfilEco = ({
                                         errors?.objInfoPerfilEco?.strRolesEmprendimiento
                                             ?.message || "Selecciona una opción"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="RolesOperacion"
                                 />
                             )}
                             control={control}
@@ -509,7 +508,7 @@ const InfoPerfilEco = ({
                             defaultValue={data.strDiasProduccion}
                             name="objInfoPerfilEco.strDiasProduccion"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿En promedio al día cuántas horas dispones para la producción:?"
                                     name={name}
                                     value={value}
@@ -527,6 +526,8 @@ const InfoPerfilEco = ({
                                         errors?.objInfoPerfilEco?.strDiasProduccion
                                             ?.message || "Digita detalladamente"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="PromedioDiaHorasProduccion"
                                 />
                             )}
                             control={control}
@@ -541,7 +542,7 @@ const InfoPerfilEco = ({
                             defaultValue={data.strGeneraEmpleoRiesgoPobreza}
                             name="objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Genera empleo o ingresos para personas que se encuentren en riesgo de pobreza o de exclusión socia?"
                                     name={name}
                                     value={value}
@@ -561,6 +562,8 @@ const InfoPerfilEco = ({
                                             ?.strGeneraEmpleoRiesgoPobreza?.message ||
                                         "Selecciona una opción"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="GeneraEmpleoRiesgoPobreza"
                                 />
                             )}
                             control={control}

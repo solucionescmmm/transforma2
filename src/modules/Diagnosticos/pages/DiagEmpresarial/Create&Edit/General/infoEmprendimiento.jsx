@@ -34,7 +34,9 @@ import ModalMediosDigitales from "../../../../../Empresarios/components/modalMed
 import SelectSectorEconomico from "../../../../../Empresarios/components/selectSectorEconomico";
 import SelectCategoriaServicio from "../../../../../Empresarios/components/selectCategoriaServicio";
 import SelectCategoriaProducto from "../../../../../Empresarios/components/selectCategoriaProducto";
+import SelectTiempoDedicacionEmpresa from "../../../../../Empresarios/components/selectTiempoDedicacionEmpresa";
 import DropdownCategoriasSecundarias from "../../../../../Empresarios/components/dropdownCategoriasSecundarias";
+import SelectListas from "../../../../components/selectLista";
 
 const InfoEmprendimiento = ({
     disabled,
@@ -58,7 +60,7 @@ const InfoEmprendimiento = ({
         strEstrato: "",
         strCelular: "",
         strCorreoElectronico: "",
-        btRedesSociales: "",
+        strRedesSociales: "",
         arrMediosDigitales: [],
         strRegistroCamaraComercio: "",
         strTiempoDedicacion: "",
@@ -97,7 +99,7 @@ const InfoEmprendimiento = ({
                 strEstrato: values.strEstrato || "",
                 strCelular: values.strCelular || "",
                 strCorreoElectronico: values.strCorreoElectronico || "",
-                btRedesSociales: values.btRedesSociales || "",
+                strRedesSociales: values.strRedesSociales || "",
                 arrMediosDigitales: values.arrMediosDigitales || [],
                 strRegistroCamaraComercio: values.strRegistroCamaraComercio || "",
                 strTiempoDedicacion: values.strTiempoDedicacion || "",
@@ -400,7 +402,7 @@ const InfoEmprendimiento = ({
                             defaultValue={data.strUbicacionUP}
                             name="objInfoEmprendimiento.strUbicacionUP"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="Ubicación de la UP (Urbana o Rural)"
                                     name={name}
                                     value={value}
@@ -419,6 +421,8 @@ const InfoEmprendimiento = ({
                                             ?.message ||
                                         "Selecciona la ubicación de la UP (Urbana o Rural)"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="UbicacionViviendaEmpresa"
                                 />
                             )}
                             control={control}
@@ -561,10 +565,10 @@ const InfoEmprendimiento = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.btRedesSociales}
-                            name="objInfoEmprendimiento.btRedesSociales"
+                            defaultValue={data.strRedesSociales}
+                            name="objInfoEmprendimiento.strRedesSociales"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Tiene presencia en redes sociales?"
                                     name={name}
                                     value={value}
@@ -573,7 +577,7 @@ const InfoEmprendimiento = ({
                                         onChange(e);
 
                                         handlerChangeData(
-                                            "btRedesSociales",
+                                            "strRedesSociales",
                                             e.target.value
                                         );
                                     }}
@@ -582,22 +586,18 @@ const InfoEmprendimiento = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmprendimiento?.btRedesSociales
+                                        errors?.objInfoEmprendimiento?.strRedesSociales
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.btRedesSociales
+                                        errors?.objInfoEmprendimiento?.strRedesSociales
                                             ?.message ||
                                         "Selecciona si la empresa tiene presencia en redes sociales"
                                     }
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                    <MenuItem value="">
-                                        <em>No aplica</em>
-                                    </MenuItem>
-                                </TextField>
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
                             )}
                             control={control}
                         />
@@ -613,7 +613,7 @@ const InfoEmprendimiento = ({
                                     name={name}
                                     value={value}
                                     onChange={(value) => onChange(value)}
-                                    disabled={!data.btRedesSociales ? true : disabled}
+                                    disabled={!data.strRedesSociales ? true : disabled}
                                     error={
                                         errors?.objInfoEmprendimiento?.arrMediosDigitales
                                             ? true
@@ -624,13 +624,13 @@ const InfoEmprendimiento = ({
                                             ?.message ||
                                         "Selecciona los medios digitales que utilice y coloque su ID"
                                     }
-                                    required={data.btRedesSociales ? true : false}
+                                    required={data.strRedesSociales ? true : false}
                                 />
                             )}
                             control={control}
                             rules={{
                                 validate: (value) => {
-                                    if (data.btRedesSociales) {
+                                    if (data.strRedesSociales) {
                                         if (value.length === 0) {
                                             return "Por favor, selecciona los medios digitales que utilice y coloque su ID";
                                         }
@@ -645,13 +645,12 @@ const InfoEmprendimiento = ({
                             defaultValue={data.strRegistroCamaraComercio}
                             name="objInfoEmprendimiento.strRegistroCamaraComercio"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Cuenta con registro en cámara de comercio?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
-                                    select
                                     fullWidth
                                     required
                                     variant="standard"
@@ -666,13 +665,9 @@ const InfoEmprendimiento = ({
                                             ?.strRegistroCamaraComercio?.message ||
                                         "Selecciona si la empresa cuenta con registro en la cámara de comercio"
                                     }
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                    <MenuItem value="">
-                                        <em>No aplica</em>
-                                    </MenuItem>
-                                </TextField>
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
                             )}
                             control={control}
                         />
@@ -683,15 +678,13 @@ const InfoEmprendimiento = ({
                             defaultValue={data.strTiempoDedicacion}
                             name="objInfoEmprendimiento.strTiempoDedicacion"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿Cuánto tiempo dedica actualmente a la idea/ unidad productiva / empresa?"
+                                <SelectTiempoDedicacionEmpresa
+                                    label="Tiempo de dedicación actual a la idea o negocio"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
                                     onChange={(e) => onChange(e)}
-                                    fullWidth
+                                    disabled={disabled}
                                     required
-                                    variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento?.strTiempoDedicacion
                                             ? true
@@ -699,12 +692,14 @@ const InfoEmprendimiento = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento?.strTiempoDedicacion
-                                            ?.message ||
-                                        "Selecciona cuanto tiempo dedica a la empresa"
+                                            ?.message || "Selecciona una opción"
                                     }
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción",
+                            }}
                         />
                     </Grid>
 

@@ -61,7 +61,7 @@ const Comentario = ({ values, socket }) => {
         intIdComentario: null,
         intIdEmpresario: null,
         strMensaje: "",
-        dtFechaCreacion: null,
+        dtmActualizacion: null,
         strUsuario: "",
         strUsuarioAsignado: "",
         strURLImagenUsuario: "",
@@ -99,8 +99,8 @@ const Comentario = ({ values, socket }) => {
             intIdComentario: values.intId || null,
             intIdEmpresario: values.intIdEmpresario || null,
             strMensaje: values.strMensaje || "",
-            dtFechaCreacion: values.dtFechaCreacion
-                ? format(parseISO(values.dtFechaCreacion), "yyyy-MM-dd")
+            dtmActualizacion: values.dtmActualizacion
+                ? format(parseISO(values.dtmActualizacion), "yyyy-MM-dd hh:mm")
                 : "",
             strUsuario: values.strUsuario || "",
             strUsuarioAsignado: values.strUsuarioAsignado || "",
@@ -159,7 +159,7 @@ const Comentario = ({ values, socket }) => {
                                         {data.strUsuario}
                                     </Typography>
                                     <Typography sx={{ fontSize: "10px" }}>
-                                        {data.dtFechaCreacion}
+                                        {data.dtmActualizacion}
                                     </Typography>
                                 </Box>
 
