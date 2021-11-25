@@ -121,7 +121,6 @@ class daoComentarios {
     }
 
     async getComentario(data) {
-        console.log(object)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
