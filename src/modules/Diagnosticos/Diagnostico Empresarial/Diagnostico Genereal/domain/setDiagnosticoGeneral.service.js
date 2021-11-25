@@ -7,6 +7,7 @@ const classInterfaceDAOComentarios = require("../infra/conectors/interfaseDAODia
 class setDiagnosticoGeneral{
     #objData;
     #objUser;
+    #intIdEmpresario;
     #objResult;
 
     /**
@@ -41,6 +42,8 @@ class setDiagnosticoGeneral{
     }
 
     async #completeData(){
+
+        this.#intIdEmpresario=this.#objData.objInfoGeneral.intIdEmpresario;
 
         let newData = {
             //Objeto de Información General
@@ -99,6 +102,21 @@ class setDiagnosticoGeneral{
         };
 
         this.#objData = newData;
+
+    }
+
+    async #updateEmpresarioDiagnosticoGeneral(){
+        let dao = new classInterfaceDAOComentarios();
+
+        let objInfoEmpresario= {
+            ...this.#objData.objInfoGeneral,
+            intIdEmpresario:this.#intIdEmpresario,
+        }
+
+        let query = await dao.updateEmpresarioDiagnosticoGeneral(objInfoEmpresario);
+    }
+
+    async #updateEmpresaDiagnosticoGeneral(){
 
     }
 

@@ -159,6 +159,133 @@ class daoDiagnosticoGeneral {
         }
     }
 
+    async updateEmpresarioDiagnosticoGeneral(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_Empresario
+
+            SET strNombres               = COALESCE(${data.strNombres}, strNombres),
+                strApellidos             = COALESCE(${data.strApellidos}, strApellidos),
+                strTipoDocto             = COALESCE(${data.strTipoDocto}, strTipoDocto),
+                strNroDocto              = COALESCE(${data.strNroDocto}, strNroDocto),
+                strLugarExpedicionDocto  = COALESCE(${data.strLugarExpedicionDocto}, strLugarExpedicionDocto),
+                dtFechaExpedicionDocto   = COALESCE(${data.dtFechaExpedicionDocto}, dtFechaExpedicionDocto),
+                dtFechaNacimiento        = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
+                strGenero                = COALESCE(${data.strGenero}, strGenero),
+                strCelular1              = COALESCE(${data.strCelular1}, strCelular1),
+                strCelular2              = COALESCE(${data.strCelular2}, strCelular2),
+                strCorreoElectronico1    = COALESCE(${data.strCorreoElectronico1}, strCorreoElectronico1),
+                strCorreoElectronico2    = COALESCE(${data.strCorreoElectronico2}, strCorreoElectronico2),
+                strNivelEducativo        = COALESCE(${data.strNivelEducativo}, strNivelEducativo),
+                strTitulos               = COALESCE(${data.strTitulos}, strTitulos),
+                strCondicionDiscapacidad = COALESCE(${data.strCondicionDiscapacidad}, strCondicionDiscapacidad),
+                strSede                  = COALESCE(${data.strSede}, strSede),
+                strModalidadIngreso      = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
+                dtFechaVinculacion       = COALESCE(${data.dtFechaVinculacion}, dtFechaVinculacion),
+                strEstadoVinculacion     = COALESCE(${data.strEstadoVinculacion}, strEstadoVinculacion),
+                strTipoVinculacion       = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
+                strEstrato               = COALESCE(${data.strEstrato}, strEstrato),
+                strDepartamento          = COALESCE(${data.arrDepartamento}, strDepartamento),
+                strCiudad                = COALESCE(${data.arrCiudad}, strCiudad),
+                strBarrio                = COALESCE(${data.strBarrio}, strBarrio),
+                strDireccionResidencia   = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
+                strUrlFileFoto           = COALESCE(${data.strURLFileFoto}, strUrlFileFoto),
+                dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuario               = COALESCE(${data.strUsuario}, strUsuario)
+
+            WHERE intId = ${data.intId}
+
+            SELECT * FROM tbl_Empresario WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `La persona ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue actualizada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateEmpresario de la clase daoDiagnosticoGeneral",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateEmpresaDiagnosticoGeneral(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_InfoEmpresa
+
+            SET strEstadoNegocio                  = COALESCE(${data.strEstadoNegocio}, strEstadoNegocio),
+                strCuandoPlaneaComenzar           = COALESCE(${data.strCuandoComienzaEmpresa}, strCuandoPlaneaComenzar),
+                strURLFileLogoEmpresa             = COALESCE(${data.strURLFileLogoEmpresa}, strURLFileLogoEmpresa),
+                strNombreMarca                    = COALESCE(${data.strNombreMarca}, strNombreMarca),
+                dtFechaFundacion                  = COALESCE(${data.dtFechaFundacion}, dtFechaFundacion),
+                strLugarOperacion                 = COALESCE(${data.strLugarOperacion}, strLugarOperacion),
+                strDepartamento                   = COALESCE(${data.arrDepartamento}, strDepartamento),
+                strCiudad                         = COALESCE(${data.arrCiudad}, strCiudad),
+                strBarrio                         = COALESCE(${data.strBarrio}, strBarrio),
+                strDireccionResidencia            = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
+                strSectorEconomico                = COALESCE(${data.strSectorEconomico}, strSectorEconomico),
+                strCategoriaProducto              = COALESCE(${data.strCategoriaProducto}, strCategoriaProducto),
+                strCategoriaServicio              = COALESCE(${data.strCategoriaServicio}, strCategoriaServicio),
+                strCategoriasSecundarias          = COALESCE(${data.arrCategoriasSecundarias}, strCategoriasSecundarias),
+                strOtraCategoria                  = COALESCE(${data.strOtraCategoria}, strOtraCategoria),
+                strDescProductosServicios         = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
+                strMateriaPrima                   = COALESCE(${data.strMateriaPrima}, strMateriaPrima),
+                strNombreTecnica                  = COALESCE(${data.strNombreTecnica}, strNombreTecnica),
+                strTiempoDedicacion               = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
+                btGeneraEmpleo                    = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
+                intNumeroEmpleados                = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
+                valorVentasMes                    = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
+                strFormasComercializacion         = COALESCE(${data.arrFormasComercializacion}, strFormasComercializacion),
+                strMediosDigitales                = COALESCE(${data.arrMediosDigitales}, strMediosDigitales),
+                btGrupoAsociativo                 = COALESCE(${data.btGrupoAsociativo}, btGrupoAsociativo),
+                strAsociacionUnidadProdIndividual = COALESCE(${data.strAsociacionUnidadProdIndividual}, strAsociacionUnidadProdIndividual),
+                strRequisitosLey                  = COALESCE(${data.arrRequisitosLey}, strRequisitosLey),
+                strOtrosRequisitosLey             = COALESCE(${data.strOtrosRequisitosLey}, strOtrosRequisitosLey),
+                dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
+
+            WHERE intIdEmpresario = ${data.intIdEmpresario}
+
+            SELECT * FROM tbl_InfoEmpresa WHERE intIdEmpresario = ${data.intIdEmpresario}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0]
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateEmpresa de la clase daoDiagnosticoGeneral",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async deleteComentario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -178,7 +305,7 @@ class daoDiagnosticoGeneral {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo deleteComentario de la clase daoComentarios",
+                    "Error en el metodo deleteComentario de la clase daoDiagnosticoGeneral",
             };
 
             sql.close(conexion);
@@ -225,7 +352,7 @@ class daoDiagnosticoGeneral {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo getComentario de la clase daoComentarios",
+                    "Error en el metodo getComentario de la clase daoDiagnosticoGeneral",
             };
 
             sql.close(conexion);

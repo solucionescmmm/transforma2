@@ -1,5 +1,6 @@
 //clases
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
+const serviceDeleteComentario = require("../../Comentarios/domain/deleteComentario.service")
 
 class deleteEmpresario {
     #intIdEmpresario;
@@ -15,7 +16,7 @@ class deleteEmpresario {
         await this.#deleteEmpresarioSecundario();
         await this.#deleteInfoAdicional()
         await this.#deleteEmpresario();
-
+        await this.#deleteComentario();
         return this.#objResult;
     }
 
@@ -83,6 +84,18 @@ class deleteEmpresario {
         }
     }
 
+    async #deleteComentario(){
+        let objParams= {
+            intIdEmpresario:this.#intIdEmpresario
+        }
+        
+            let service = new serviceDeleteComentario(objParams)
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+    }
     
 }
 
