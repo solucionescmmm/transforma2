@@ -20,6 +20,8 @@ class setDiagnosticoGeneral{
 
     async main() {
         await this.#validations()
+        await this.#updateEmpresarioDiagnosticoGeneral()
+        await this.#updateEmpresaDiagnosticoGeneral()
         await this.#completeData()
         await this.#setDiagnosticoGeneral()
         return this.#objResult;
@@ -105,22 +107,6 @@ class setDiagnosticoGeneral{
 
     }
 
-    async #updateEmpresarioDiagnosticoGeneral(){
-        let dao = new classInterfaceDAOComentarios();
-
-        let objInfoEmpresario= {
-            ...this.#objData.objInfoGeneral,
-            intIdEmpresario:this.#intIdEmpresario,
-        }
-
-        let query = await dao.updateEmpresarioDiagnosticoGeneral(objInfoEmpresario);
-    }
-
-    async #updateEmpresaDiagnosticoGeneral(){
-
-    }
-
-
     async #setDiagnosticoGeneral(){
 
         let dao = new classInterfaceDAOComentarios();
@@ -138,6 +124,41 @@ class setDiagnosticoGeneral{
             msg: query.msg,
         };
     }
+
+    async #updateEmpresarioDiagnosticoGeneral(){
+        let dao = new classInterfaceDAOComentarios();
+
+        let objInfoEmpresario= {
+            ...this.#objData.objInfoGeneral,
+            intIdEmpresario:this.#intIdEmpresario,
+        }
+
+        let query = await dao.updateEmpresarioDiagnosticoGeneral(objInfoEmpresario);
+        
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+    }
+
+    async #updateEmpresaDiagnosticoGeneral(){
+        let dao = new classInterfaceDAOComentarios();
+
+        let objInfoEmpresa= {
+            ...this.#objData.objInfoEmprendimiento,
+            intIdEmpresario:this.#intIdEmpresario,
+            dblValorVentasMes:this.#objData.objInfoPerfilEco.dblValorVentasMes,
+            intNumeroEmpleados:this.#objData.objInfoPerfilEco.intNumeroEmpleados,
+        }
+
+        let query = await dao.updateEmpresarioDiagnosticoGeneral(objInfoEmpresa);
+        
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+    }
+
+
+    
 
 }
 module.exports = setDiagnosticoGeneral;

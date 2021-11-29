@@ -95,7 +95,7 @@ class daoDiagnosticoGeneral {
 
             UPDATE tbl_DiagnosticoGeneral
 
-            SET btCabezaHogar                                  = COALESCE(${data.btCabezaHogar}, btCabezaHogar),
+            SET strUbicacionVivienda                           = COALESCE(${data.strUbicacionVivienda}, strUbicacionVivienda),
                 intNumPersonasCargo                            = COALESCE(${data.intNumPersonasCargo}, intNumPersonasCargo),
                 intHijos                                       = COALESCE(${data.intHijos}, intHijos),
                 intHijosEstudiando                             = COALESCE(${data.intHijosEstudiando}, intHijosEstudiando),
@@ -180,12 +180,6 @@ class daoDiagnosticoGeneral {
                 strCorreoElectronico2    = COALESCE(${data.strCorreoElectronico2}, strCorreoElectronico2),
                 strNivelEducativo        = COALESCE(${data.strNivelEducativo}, strNivelEducativo),
                 strTitulos               = COALESCE(${data.strTitulos}, strTitulos),
-                strCondicionDiscapacidad = COALESCE(${data.strCondicionDiscapacidad}, strCondicionDiscapacidad),
-                strSede                  = COALESCE(${data.strSede}, strSede),
-                strModalidadIngreso      = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
-                dtFechaVinculacion       = COALESCE(${data.dtFechaVinculacion}, dtFechaVinculacion),
-                strEstadoVinculacion     = COALESCE(${data.strEstadoVinculacion}, strEstadoVinculacion),
-                strTipoVinculacion       = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
                 strEstrato               = COALESCE(${data.strEstrato}, strEstrato),
                 strDepartamento          = COALESCE(${data.arrDepartamento}, strDepartamento),
                 strCiudad                = COALESCE(${data.arrCiudad}, strCiudad),
@@ -229,11 +223,7 @@ class daoDiagnosticoGeneral {
 
             UPDATE tbl_InfoEmpresa
 
-            SET strEstadoNegocio                  = COALESCE(${data.strEstadoNegocio}, strEstadoNegocio),
-                strCuandoPlaneaComenzar           = COALESCE(${data.strCuandoComienzaEmpresa}, strCuandoPlaneaComenzar),
-                strURLFileLogoEmpresa             = COALESCE(${data.strURLFileLogoEmpresa}, strURLFileLogoEmpresa),
-                strNombreMarca                    = COALESCE(${data.strNombreMarca}, strNombreMarca),
-                dtFechaFundacion                  = COALESCE(${data.dtFechaFundacion}, dtFechaFundacion),
+            SET strNombreMarca                    = COALESCE(${data.strUnidadProductiva}, strNombreMarca),
                 strLugarOperacion                 = COALESCE(${data.strLugarOperacion}, strLugarOperacion),
                 strDepartamento                   = COALESCE(${data.arrDepartamento}, strDepartamento),
                 strCiudad                         = COALESCE(${data.arrCiudad}, strCiudad),
@@ -245,18 +235,11 @@ class daoDiagnosticoGeneral {
                 strCategoriasSecundarias          = COALESCE(${data.arrCategoriasSecundarias}, strCategoriasSecundarias),
                 strOtraCategoria                  = COALESCE(${data.strOtraCategoria}, strOtraCategoria),
                 strDescProductosServicios         = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
-                strMateriaPrima                   = COALESCE(${data.strMateriaPrima}, strMateriaPrima),
-                strNombreTecnica                  = COALESCE(${data.strNombreTecnica}, strNombreTecnica),
                 strTiempoDedicacion               = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
                 btGeneraEmpleo                    = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
                 intNumeroEmpleados                = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
                 valorVentasMes                    = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
-                strFormasComercializacion         = COALESCE(${data.arrFormasComercializacion}, strFormasComercializacion),
                 strMediosDigitales                = COALESCE(${data.arrMediosDigitales}, strMediosDigitales),
-                btGrupoAsociativo                 = COALESCE(${data.btGrupoAsociativo}, btGrupoAsociativo),
-                strAsociacionUnidadProdIndividual = COALESCE(${data.strAsociacionUnidadProdIndividual}, strAsociacionUnidadProdIndividual),
-                strRequisitosLey                  = COALESCE(${data.arrRequisitosLey}, strRequisitosLey),
-                strOtrosRequisitosLey             = COALESCE(${data.strOtrosRequisitosLey}, strOtrosRequisitosLey),
                 dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
 
