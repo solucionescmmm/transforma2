@@ -343,7 +343,6 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
                                     variant="standard"
                                     error={
                                         errors?.objInfoPerfilEco?.strRangoEmpleados
@@ -359,9 +358,6 @@ const InfoPerfilEco = ({
                                 />
                             )}
                             control={control}
-                            rules={{
-                                required: "Por favor, selecciona una opción",
-                            }}
                         />
                     </Grid>
 
