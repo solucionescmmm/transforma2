@@ -57,7 +57,6 @@ const InfoEmprendimiento = ({
         arrCiudad: [],
         strBarrio: "",
         strDireccionResidencia: "",
-        strEstrato: "",
         strCelular: "",
         strCorreoElectronico: "",
         strRedesSociales: "",
@@ -96,7 +95,6 @@ const InfoEmprendimiento = ({
                 arrCiudad: values.arrCiudad || [],
                 strBarrio: values.strBarrio || "",
                 strDireccionResidencia: values.strDireccionResidencia || "",
-                strEstrato: values.strEstrato || "",
                 strCelular: values.strCelular || "",
                 strCorreoElectronico: values.strCorreoElectronico || "",
                 strRedesSociales: values.strRedesSociales || "",
@@ -435,54 +433,6 @@ const InfoEmprendimiento = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strEstrato}
-                            name="objInfoEmprendimiento.strEstrato"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Estrato socioeconómico"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    select
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmprendimiento?.strEstrato
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento?.strEstrato
-                                            ?.message ||
-                                        "Selecciona el estrato socioeconómico de la persona"
-                                    }
-                                >
-                                    {(() => {
-                                        let arrItem = [
-                                            { value: 1 },
-                                            { value: 2 },
-                                            { value: 3 },
-                                            { value: 4 },
-                                            { value: 5 },
-                                            { value: 6 },
-                                            { value: "Rural" },
-                                        ];
-
-                                        return arrItem.map((e, i) => (
-                                            <MenuItem key={i} value={e.value}>
-                                                {e.value}
-                                            </MenuItem>
-                                        ));
-                                    })()}
-                                </TextField>
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
                             defaultValue={data.strCelular}
                             name="objInfoEmprendimiento.strCelular"
                             render={({ field: { name, value, onChange } }) => (
@@ -640,7 +590,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strRegistroCamaraComercio}
                             name="objInfoEmprendimiento.strRegistroCamaraComercio"
