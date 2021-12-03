@@ -284,12 +284,14 @@ const InfoFamiliar = ({
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, digíta el número de hijos que están estudiando",
                                 validate: (value) => {
                                     let intHijos = parseInt(data.intHijos);
 
                                     if (intHijos > 0) {
+                                        if (!value) {
+                                            return "Por favor, digíta el número de hijos que están estudiando";
+                                        }
+
                                         if (value < 0) {
                                             return "El valor no puede ser menor a 0";
                                         }

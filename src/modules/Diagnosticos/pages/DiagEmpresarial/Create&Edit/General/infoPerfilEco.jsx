@@ -572,7 +572,7 @@ const InfoPerfilEco = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strActivos}
-                            name="objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza"
+                            name="objInfoPerfilEco.strActivos"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Qué activos tiene la unidad productiva a la fecha?"
@@ -606,15 +606,20 @@ const InfoPerfilEco = ({
                             defaultValue={data.dblValorActivos}
                             name="objInfoPerfilEco.dblValorActivos"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <NumberFormat
                                     label="Valor estimado de los activos"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
                                     fullWidth
-                                    required
                                     variant="standard"
+                                    disabled={disabled}
                                     error={
                                         errors?.objInfoPerfilEco?.dblValorActivos
                                             ? true

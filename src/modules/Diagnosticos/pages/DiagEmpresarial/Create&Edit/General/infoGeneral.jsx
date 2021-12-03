@@ -238,8 +238,8 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            defaultValue={data.dtmFechaSesion}
-                            name="objInfoGeneral.dtmFechaSesion"
+                            defaultValue={data.dtActualizacion}
+                            name="objInfoGeneral.dtActualizacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
                                     label="Fecha de ultima actualización"
@@ -252,12 +252,12 @@ const InfoGeneral = ({
                                             name={name}
                                             variant="standard"
                                             error={
-                                                errors?.objInfoGeneral?.dtmFechaSesion
+                                                errors?.objInfoGeneral?.dtActualizacion
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoGeneral?.dtmFechaSesion
+                                                errors?.objInfoGeneral?.dtActualizacion
                                                     ?.message ||
                                                 "Fecha de la última vez que se actualizó el diagnóstico"
                                             }
@@ -272,8 +272,8 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strLugarSesion}
-                            name="objInfoGeneral.strLugarSesion"
+                            defaultValue={data.strUsuarioCreacion}
+                            name="objInfoGeneral.strUsuarioCreacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Responsable del diagnóstico"
@@ -285,12 +285,13 @@ const InfoGeneral = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strLugarSesion
+                                        errors?.objInfoGeneral?.strUsuarioCreacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strLugarSesion?.message ||
+                                        errors?.objInfoGeneral?.strUsuarioCreacion
+                                            ?.message ||
                                         "Seleccione el responsable del diagnóstico"
                                     }
                                 />
@@ -305,8 +306,8 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strLugarSesion}
-                            name="objInfoGeneral.strLugarSesion"
+                            defaultValue={data.strUsuarioActualizacion}
+                            name="objInfoGeneral.strUsuarioActualizacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Responsable de actualizar la información"
@@ -318,12 +319,12 @@ const InfoGeneral = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strLugarSesion
+                                        errors?.objInfoGeneral?.strUsuarioActualizacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strLugarSesion?.message ||
+                                        errors?.objInfoGeneral?.strUsuarioActualizacion?.message ||
                                         "Persona que estuvo encargada de actualizar la información del diagnóstico en la última fecha"
                                     }
                                 />
