@@ -343,6 +343,8 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                                             : "",
                                 },
                                 objInfoPerfilEco: {
+                                    intNumeroEmpleados:
+                                        data.objInfoEmpresa.intNumeroEmpleados || "",
                                     dblValorVentasMes:
                                         data.objInfoEmpresa.valorVentasMes || "",
                                 },
