@@ -112,6 +112,7 @@ class clsServer {
             });
 
             client.on("mdlComentarios:setRespuesta", async (data) => {
+                console.log(data)
                 let serviceSetRespuesta = new clsSetRespuesta(data);
 
                 let responseSetRespuesta = await serviceSetRespuesta.main();

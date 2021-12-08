@@ -20,10 +20,10 @@ class setDiagnosticoGeneral{
 
     async main() {
         await this.#validations()
-        await this.#updateEmpresarioDiagnosticoGeneral()
-        await this.#updateEmpresaDiagnosticoGeneral()
-        await this.#completeData()
-        await this.#setDiagnosticoGeneral()
+        //await this.#updateEmpresarioDiagnosticoGeneral()
+        //await this.#updateEmpresaDiagnosticoGeneral()
+        //await this.#completeData()
+        //await this.#setDiagnosticoGeneral()
         return this.#objResult;
     }
 
@@ -46,11 +46,11 @@ class setDiagnosticoGeneral{
 
     async #completeData(){
 
-        this.#intIdEmpresario=this.#objData.objInfoGeneral.intIdEmpresario;
+        this.#intIdEmpresario=this.#objData.objInfoGeneral.intId;
 
         let newData = {
             //Objeto de Información General
-            intIdEmpresario:this.#objData.objInfoGeneral.intIdEmpresario,
+            intIdEmpresario:this.#objData.objInfoGeneral.intId,
             strUbicacionVivienda:this.#objData.objInfoGeneral.strUbicacionVivienda,
             dtmFechaSesion:this.#objData.objInfoGeneral.dtmFechaSesion,
             strLugarSesion:this.#objData.objInfoGeneral.strLugarSesion,
