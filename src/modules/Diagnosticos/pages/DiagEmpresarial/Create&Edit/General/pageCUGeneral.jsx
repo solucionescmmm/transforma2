@@ -311,6 +311,41 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                                     strCorreoElectronico2:
                                         data.objEmpresario.strCorreoElectronico2 || "",
                                 },
+                                objInfoEmprendimiento: {
+                                    strUnidadProductiva:
+                                        data.objInfoEmpresa.strNombreMarca,
+                                    strLugarOperacion:
+                                        data.objInfoEmpresa.strLugarOperacion,
+                                    arrDepartamento: data.objInfoEmpresa.arrDepartamento,
+                                    arrCiudad: data.objInfoEmpresa.arrCiudad,
+                                    strBarrio: data.objInfoEmpresa.strBarrio,
+                                    strDireccionResidencia:
+                                        data.objInfoEmpresa.strDireccionResidencia,
+                                    arrMediosDigitales:
+                                        data.objInfoEmpresa.arrMediosDigitales || [],
+                                    strTiempoDedicacion:
+                                        data.objInfoEmpresa.strTiempoDedicacion || "",
+                                    strSectorEconomico:
+                                        data.objInfoEmpresa.strSectorEconomico || "",
+                                    strCategoriaProducto:
+                                        data.objInfoEmpresa.strCategoriaProducto || "",
+                                    strCategoriaServicio:
+                                        data.objInfoEmpresa.strCategoriaServicio || "",
+                                    arrCategoriasSecundarias:
+                                        data.objInfoEmpresa.arrCategoriasSecundarias ||
+                                        [],
+                                    strOtraCategoria:
+                                        data.objInfoEmpresa.strOtraCategoria || "",
+                                    btGeneraEmpleo:
+                                        typeof data.objInfoEmpresa.btGeneraEmpleo ===
+                                        "boolean"
+                                            ? data.objInfoEmpresa.btGeneraEmpleo
+                                            : "",
+                                },
+                                objInfoPerfilEco: {
+                                    dblValorVentasMes:
+                                        data.objInfoEmpresa.valorVentasMes || "",
+                                },
                             });
                         }
 

@@ -234,7 +234,25 @@ const InfoEmprendimiento = ({
                                     label="Lugar de operación de la empresa"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e);
+
+                                        handlerChangeData(
+                                            "strLugarOperacion",
+                                            e.target.value
+                                        );
+
+                                        setValue(
+                                            "objInfoEmprendimiento.strDireccionResidencia",
+                                            ""
+                                        );
+                                        setValue(
+                                            "objInfoEmprendimiento.arrDepartamento",
+                                            ""
+                                        );
+                                        setValue("objInfoEmprendimiento.arrCiudad", "");
+                                        setValue("objInfoEmprendimiento.strBarrio", "");
+                                    }}
                                     disabled={disabled}
                                     error={
                                         errors?.objInfoEmprendimiento?.strLugarOperacion

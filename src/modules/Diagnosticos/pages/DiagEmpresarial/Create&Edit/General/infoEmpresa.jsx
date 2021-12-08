@@ -40,7 +40,7 @@ const InfoEmpresa = ({
         strSuenioEmpresa: "",
         strEstudioEmprendimiento: "",
         strExperienciaEmprendimiento: "",
-        strTipoContribuyente: " ",
+        strTipoContribuyente: "",
         strRut: "",
         strPresupuestoFamiliar: "",
         strIngresosDistintos: "",
@@ -251,7 +251,7 @@ const InfoEmpresa = ({
                             name="objInfoEmpresa.strTipoContribuyente"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
-                                    label="¿Tiene experiencia en este tipo de emprendimiento?"
+                                    label="Tipo de contribuyente"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
