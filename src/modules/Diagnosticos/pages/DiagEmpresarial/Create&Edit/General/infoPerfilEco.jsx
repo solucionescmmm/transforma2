@@ -354,7 +354,7 @@ const InfoPerfilEco = ({
                                             ?.message || "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
-                                    strCodigo="RangoEmpleos"
+                                    strCodigo="RangoEmpleados"
                                 />
                             )}
                             control={control}
