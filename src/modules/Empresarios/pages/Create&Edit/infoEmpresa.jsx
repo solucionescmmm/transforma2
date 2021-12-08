@@ -97,7 +97,6 @@ const InfoEmpresa = ({
 
     useEffect(() => {
         if (values) {
-
             setData({
                 strURLFileLogoEmpresa: values.strURLFileLogoEmpresa || null,
                 strEstadoNegocio: values.strEstadoNegocio || "",
@@ -250,7 +249,7 @@ const InfoEmpresa = ({
                                     }
                                     helperText={
                                         errors?.strEstadoNegocio?.message ||
-                                        "Selecciona una opción."
+                                        "Selecciona una opción"
                                     }
                                 >
                                     <MenuItem value="Idea de negocio">
@@ -1085,6 +1084,7 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(value) => onChange(value)}
                                     disabled={disabled}
+                                    required
                                     error={
                                         errors?.objInfoEmpresa?.arrMediosDigitales
                                             ? true
@@ -1098,6 +1098,10 @@ const InfoEmpresa = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona los medios digitales que utilice y coloque su ID",
+                            }}
                         />
                     </Grid>
 

@@ -464,7 +464,6 @@ const InfoEmprendimiento = ({
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
-                                    required
                                     error={
                                         errors?.objInfoEmprendimiento?.strCelular
                                             ? true
@@ -479,13 +478,13 @@ const InfoEmprendimiento = ({
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, digita el número celular de la empresa",
                                 validate: (value) => {
-                                    let strValue = value.replace(/\s/g, "");
+                                    if (value) {
+                                        let strValue = value.replace(/\s/g, "");
 
-                                    if (!validator.isMobilePhone(strValue, "es-CO")) {
-                                        return "El número ingresado no corresponde a un operador válido en Colombia";
+                                        if (!validator.isMobilePhone(strValue, "es-CO")) {
+                                            return "El número ingresado no corresponde a un operador válido en Colombia";
+                                        }
                                     }
                                 },
                             }}
@@ -551,7 +550,6 @@ const InfoEmprendimiento = ({
                                     }}
                                     select
                                     fullWidth
-                                    required
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento?.strRedesSociales
@@ -581,7 +579,9 @@ const InfoEmprendimiento = ({
                                     name={name}
                                     value={value}
                                     onChange={(value) => onChange(value)}
-                                    disabled={!data.strRedesSociales ? true : disabled}
+                                    disabled={
+                                        data.strRedesSociales === "NO" ? true : disabled
+                                    }
                                     error={
                                         errors?.objInfoEmprendimiento?.arrMediosDigitales
                                             ? true
@@ -598,7 +598,7 @@ const InfoEmprendimiento = ({
                             control={control}
                             rules={{
                                 validate: (value) => {
-                                    if (data.strRedesSociales) {
+                                    if (data.strRedesSociales === "SI") {
                                         if (value.length === 0) {
                                             return "Por favor, selecciona los medios digitales que utilice y coloque su ID";
                                         }

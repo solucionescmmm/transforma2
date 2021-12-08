@@ -669,7 +669,6 @@ const InfoEmpresarioPr = ({
                                             ? true
                                             : false
                                     }
-                                    required
                                     helperText={
                                         errors?.objInfoEmpresarioPr
                                             ?.strCondicionDiscapacidad?.message ||
@@ -678,10 +677,6 @@ const InfoEmpresarioPr = ({
                                 />
                             )}
                             control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona la discapacidad de la persona, en caso de padecer alguna",
-                            }}
                         />
                     </Grid>
 
@@ -696,14 +691,18 @@ const InfoEmpresarioPr = ({
                                     value={value}
                                     disabled={disabled}
                                     select
+                                    required
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strEstrato ? true : false
+                                        errors?.objInfoEmpresarioPr?.strEstrato
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strEstrato?.message ||
+                                        errors?.objInfoEmpresarioPr?.strEstrato
+                                            ?.message ||
                                         "Selecciona el estrato socioeconómico de la persona"
                                     }
                                 >
@@ -727,6 +726,10 @@ const InfoEmpresarioPr = ({
                                 </TextField>
                             )}
                             control={control}
+                            rules={{
+                                require:
+                                    "Por favor, selecciona el estrato socioeconómico de la persona",
+                            }}
                         />
                     </Grid>
 
