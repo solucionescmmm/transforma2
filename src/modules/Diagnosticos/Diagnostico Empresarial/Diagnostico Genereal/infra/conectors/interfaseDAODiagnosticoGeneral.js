@@ -29,7 +29,7 @@ class interfaceDAODiagnosticoGeneral {
 
     async deleteDiagnosticoGeneral(data) {
         const dao = new classDaoSql()
-        let result = await dao.deleteComentario(data)
+        let result = await dao.deleteDiagnosticoGeneral(data)
         return result
     }
 

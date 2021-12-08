@@ -46,6 +46,7 @@ const getEmpresario = async (objParams, strDataUser) => {
 
     let arrayData = await dao.getEmpresario(query);
 
+
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data;
@@ -136,7 +137,7 @@ const getEmpresario = async (objParams, strDataUser) => {
                     objInfoEmpresa,
                     objInfoAdicional,
                     arrEmpresarioSecundario:array[i]?.arrEmpresarioSecundario || undefined,
-                }    
+                }
             }
             let result = {
                 error: false,

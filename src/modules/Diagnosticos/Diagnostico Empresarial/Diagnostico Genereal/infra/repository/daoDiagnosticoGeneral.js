@@ -189,9 +189,9 @@ class daoDiagnosticoGeneral {
                 dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuario               = COALESCE(${data.strUsuario}, strUsuario)
 
-            WHERE intId = ${data.intId}
+            WHERE intId = ${data.intIdEmpresario}
 
-            SELECT * FROM tbl_Empresario WHERE intId = ${data.intId}`;
+            SELECT * FROM tbl_Empresario WHERE intId = ${data.intIdEmpresario}`;
 
             let result = {
                 error: false,
@@ -269,11 +269,11 @@ class daoDiagnosticoGeneral {
         }
     }
 
-    async deleteComentario(data) {
+    async deleteDiagnosticoGeneral(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            await conn.query`DELETE FROM tbl_DiagnosticoGeneral WHERE intId = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_DiagnosticoGeneral WHERE intIdEmpresario = ${data.intId}`;
 
             let result = {
                 error: false,
@@ -288,7 +288,7 @@ class daoDiagnosticoGeneral {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo deleteComentario de la clase daoDiagnosticoGeneral",
+                    "Error en el metodo deleteDiagnosticoGeneral de la clase daoDiagnosticoGeneral",
             };
 
             sql.close(conexion);

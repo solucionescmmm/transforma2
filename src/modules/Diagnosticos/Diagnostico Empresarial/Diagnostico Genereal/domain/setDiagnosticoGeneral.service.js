@@ -28,6 +28,7 @@ class setDiagnosticoGeneral{
     }
 
     async #validations(){
+        console.log(this.#objData)
         if (
             !validator.isEmail(this.#objUser.strEmail, {
                 domain_specific_validation: "cmmmedellin.org",

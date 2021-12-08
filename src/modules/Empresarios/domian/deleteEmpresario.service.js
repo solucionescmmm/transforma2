@@ -2,6 +2,7 @@
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
 const serviceDeleteComentario = require("../../Comentarios/domain/deleteComentario.service")
 
+
 class deleteEmpresario {
     #intIdEmpresario;
     #objResult;
@@ -95,6 +96,10 @@ class deleteEmpresario {
             if (query.error) {
                 throw new Error(query.msg);
             }
+    }
+
+    async #deleteDiagnosticGeneral(){
+
     }
     
 }
