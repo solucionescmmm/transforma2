@@ -131,6 +131,8 @@ class setDiagnosticoGeneral{
 
         let objInfoEmpresario= {
             ...this.#objData.objInfoGeneral,
+            strDepartamento: JSON.stringify(this.#objData.objInfoGeneral?.arrDepartamento || null),
+            strCiudad: JSON.stringify(this.#objData.objInfoGeneral?.arrCiudad || null),
             intIdEmpresario:this.#intIdEmpresario,
         }
 
@@ -147,6 +149,10 @@ class setDiagnosticoGeneral{
         let objInfoEmpresa= {
             ...this.#objData.objInfoEmprendimiento,
             intIdEmpresario:this.#intIdEmpresario,
+            strDepartamento: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrDepartamento || null),
+            strCiudad: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrCiudad || null),
+            strMediosDigitales: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrMediosDigitales || null),
+            strCategoriasSecundarias: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias || null),
             dblValorVentasMes:this.#objData.objInfoPerfilEco.dblValorVentasMes,
             intNumeroEmpleados:this.#objData.objInfoPerfilEco.intNumeroEmpleados,
         }
