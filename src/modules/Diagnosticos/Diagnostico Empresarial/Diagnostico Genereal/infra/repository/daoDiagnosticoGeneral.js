@@ -58,7 +58,7 @@ class daoDiagnosticoGeneral {
                 ${data.dtmFechaSesion},
                 ${data.strUsuarioCreacion},
                 GETDATE(),
-                ${data.strUsuarioActualizacion},
+                ${data.strUsuarioActualizacion}
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -196,7 +196,6 @@ class daoDiagnosticoGeneral {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La persona ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue actualizada con éxito.`,
             };
 
             sql.close(conexion);
@@ -217,6 +216,7 @@ class daoDiagnosticoGeneral {
     }
 
     async updateEmpresaDiagnosticoGeneral(data){
+        console.log(data);
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`

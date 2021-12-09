@@ -110,10 +110,11 @@ class updateEmpresario {
     async #updateEmpresa() {
         let prevData = this.#objData.objInfoEmpresa;
 
+
         let aux_arrCategoriasSecundarias= JSON.stringify(this.#objData.objInfoEmpresa?.arrCategoriasSecundarias || null)
-        let aux_arrFormasComercializacion = JSON.stringify(this.#objData.objInfoEmpresa?.arrFormasComercializacion | null)
-        let aux_arrMediosDigitales = JSON.stringify(this.#objData.objInfoEmpresa?.arrMediosDigitales| null)
-        let aux_arrRequisitosLey = JSON.stringify(this.#objData.objInfoEmpresa?.arrRequisitosLey| null)
+        let aux_arrFormasComercializacion = JSON.stringify(this.#objData.objInfoEmpresa?.arrFormasComercializacion ||null)
+        let aux_arrMediosDigitales = JSON.stringify(this.#objData.objInfoEmpresa?.arrMediosDigitales|| null)
+        let aux_arrRequisitosLey = JSON.stringify(this.#objData.objInfoEmpresa?.arrRequisitosLey|| null)
         let aux_arrDepartamento= JSON.stringify(this.#objData.objEmpresario?.arrDepartamento || null)
         let aux_arrCiudad= JSON.stringify(this.#objData.objEmpresario?.arrCiudad || null)
         

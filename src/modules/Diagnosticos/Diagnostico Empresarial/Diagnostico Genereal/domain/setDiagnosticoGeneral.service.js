@@ -20,15 +20,16 @@ class setDiagnosticoGeneral{
 
     async main() {
         await this.#validations()
-        //await this.#updateEmpresarioDiagnosticoGeneral()
-        //await this.#updateEmpresaDiagnosticoGeneral()
-        //await this.#completeData()
-        //await this.#setDiagnosticoGeneral()
+        await this.#getIntIdEmpresario()
+        await this.#updateEmpresarioDiagnosticoGeneral()
+        await this.#updateEmpresaDiagnosticoGeneral()
+        await this.#completeData()
+        await this.#setDiagnosticoGeneral()
         return this.#objResult;
     }
 
     async #validations(){
-        console.log(this.#objData)
+        //console.log(this.#objData)
         if (
             !validator.isEmail(this.#objUser.strEmail, {
                 domain_specific_validation: "cmmmedellin.org",
@@ -44,9 +45,11 @@ class setDiagnosticoGeneral{
         }
     }
 
-    async #completeData(){
-
+    async #getIntIdEmpresario(){
         this.#intIdEmpresario=this.#objData.objInfoGeneral.intId;
+    }
+
+    async #completeData(){
 
         let newData = {
             //Objeto de Información General
@@ -112,7 +115,7 @@ class setDiagnosticoGeneral{
 
         let dao = new classInterfaceDAOComentarios();
 
-        let query = await dao.setDiagnosticoGeneral(this.#objData);
+        //let query = await dao.setDiagnosticoGeneral(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -131,12 +134,16 @@ class setDiagnosticoGeneral{
 
         let objInfoEmpresario= {
             ...this.#objData.objInfoGeneral,
-            strDepartamento: JSON.stringify(this.#objData.objInfoGeneral?.arrDepartamento || null),
-            strCiudad: JSON.stringify(this.#objData.objInfoGeneral?.arrCiudad || null),
-            intIdEmpresario:this.#intIdEmpresario,
+            arrDepartamento: JSON.stringify(this.#objData.objInfoGeneral?.arrDepartamento || null),
+            arrCiudad: JSON.stringify(this.#objData.objInfoGeneral?.arrCiudad || null),
+            intIdEmpresario:this.#intIdEmpresario
         }
 
+        console.log(objInfoEmpresario)
+
         let query = await dao.updateEmpresarioDiagnosticoGeneral(objInfoEmpresario);
+
+        
         
         if (query.error) {
             throw new Error(query.msg);
@@ -145,19 +152,23 @@ class setDiagnosticoGeneral{
 
     async #updateEmpresaDiagnosticoGeneral(){
         let dao = new classInterfaceDAOComentarios();
+        console.log(this.#objData);
 
         let objInfoEmpresa= {
             ...this.#objData.objInfoEmprendimiento,
             intIdEmpresario:this.#intIdEmpresario,
-            strDepartamento: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrDepartamento || null),
-            strCiudad: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrCiudad || null),
+            arrDepartamento: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrDepartamento || null),
+            arrCiudad: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrCiudad || null),
             strMediosDigitales: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrMediosDigitales || null),
             strCategoriasSecundarias: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias || null),
             dblValorVentasMes:this.#objData.objInfoPerfilEco.dblValorVentasMes,
             intNumeroEmpleados:this.#objData.objInfoPerfilEco.intNumeroEmpleados,
         }
+        
 
         let query = await dao.updateEmpresarioDiagnosticoGeneral(objInfoEmpresa);
+
+        console.log(query);
         
         if (query.error) {
             throw new Error(query.msg);
