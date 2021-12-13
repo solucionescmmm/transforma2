@@ -216,6 +216,7 @@ const ComentarioSugerencia = ({ values, socket }) => {
                                 size="small"
                                 sx={{ fontSize: "10px" }}
                                 color="inherit"
+                                disabled={!data.intIdComentario ? true : false}
                                 onClick={() => handleOpenModalAddRespuesta()}
                             >
                                 responder

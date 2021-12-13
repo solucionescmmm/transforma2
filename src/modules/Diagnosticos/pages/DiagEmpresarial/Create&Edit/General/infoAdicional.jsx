@@ -111,7 +111,7 @@ const InfoAdicional = ({
                                     fullWidth
                                     required
                                     multiline
-                                    row={4}
+                                    minRows={4}
                                     variant="outlined"
                                     error={
                                         errors?.objInfoAdicional?.strConclusiones

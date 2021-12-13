@@ -62,16 +62,17 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
 
         socket.emit("mdlComentarios:setRespuesta", {
             ...data,
+            intIdComentario: values.intIdComentario,
+            intIdEmpresario: values.intIdEmpresario,
             strUsuario: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
-            intIdEmpresario: values.intIdEmpresario,
         });
 
         socket.on("mdlComentarios:setRespuesta", () => {
             onClose();
 
             setData({
-                intIdComentario: values?.intIdComentario,
+                intIdComentario: values.intIdComentario,
                 strMensaje: "",
                 dtFechaCreacion: null,
                 strUsuario: "",
@@ -79,7 +80,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
             });
 
             reset({
-                intIdComentario: values?.intIdComentario,
+                intIdComentario: values.intIdComentario,
                 strMensaje: "",
                 dtFechaCreacion: null,
                 strUsuario: "",

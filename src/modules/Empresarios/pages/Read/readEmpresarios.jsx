@@ -30,7 +30,6 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
-    Refresh as RefreshIcon,
     Home as HomeIcon,
 } from "@mui/icons-material";
 
@@ -114,7 +113,7 @@ const ReadSolicitudesUser = () => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { push } = useHistory();
-    const { data, refreshGetData } = useGetEmpresarios({ autoload: true });
+    const { data, alterData } = useGetEmpresarios({ autoload: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -261,14 +260,6 @@ const ReadSolicitudesUser = () => {
                                     },
                                     maxBodyHeight: "520px",
                                 }}
-                                actions={[
-                                    {
-                                        icon: RefreshIcon,
-                                        tooltip: "Refrescar datos",
-                                        isFreeAction: true,
-                                        onClick: () => refreshGetData(),
-                                    },
-                                ]}
                                 onRowClick={(e, rowData) => {
                                     push(
                                         `/transforma/asesor/empresario/read/${rowData.objEmpresario.intId}`
@@ -285,9 +276,6 @@ const ReadSolicitudesUser = () => {
                                             <MTableToolbar {...props} />
 
                                             <Grid container direction="row">
-                                                <Grid item xs={12}>
-                                                    <FiltersEmpresarios />
-                                                </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <PanelEmpresarios data={data} />
                                                 </Grid>
@@ -304,6 +292,10 @@ const ReadSolicitudesUser = () => {
                                                             flexDirection: "row-reverse",
                                                         }}
                                                     >
+                                                        <FiltersEmpresarios
+                                                            alterData={alterData}
+                                                        />
+
                                                         <Button
                                                             onClick={() =>
                                                                 push(

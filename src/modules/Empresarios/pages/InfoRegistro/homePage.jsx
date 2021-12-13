@@ -481,11 +481,81 @@ const InfoRegistro = () => {
                             ...response.objInfoAdicional,
                         };
 
+                        let newArrEmpresarioSecundario = response.arrEmpresarioSecundario;
+
                         setData((prevState) => {
                             let prevObjInfoPrincipal = prevState.objInfoPrincipal;
                             let prevObjInfoEmpresario = prevState.objInfoEmpresarioPr;
                             let prevObjInfoEmpresa = prevState.objInfoEmpresa;
                             let prevObjInfoAdicional = prevState.objInfoAdicional;
+                            let prevArrEmpresarioSecundario = [];
+
+                            newArrEmpresarioSecundario?.forEach((e) => {
+                                prevArrEmpresarioSecundario.push([
+                                    {
+                                        parent: "strTipoRelacion",
+                                        value: e.strTipoRelacion,
+                                        label: "Tipo de relación con la persona principal",
+                                    },
+                                    {
+                                        parent: "strNombres",
+                                        value: e.strNombres,
+                                        label: "Nombres",
+                                    },
+                                    {
+                                        parent: "strApellidos",
+                                        value: e.strApellidos,
+                                        label: "Apellidos",
+                                    },
+                                    {
+                                        parent: "strTipoDocto",
+                                        value: e.strTipoDocto,
+                                        label: "Tipo de documento",
+                                    },
+                                    {
+                                        parent: "strNroDocto",
+                                        value: e.strNroDocto,
+                                        label: "Número de documento",
+                                    },
+                                    {
+                                        parent: "strLugarExpedicionDocto",
+                                        value: e.strLugarExpedicionDocto,
+                                        label: "Lugar de expedición del documento",
+                                    },
+                                    {
+                                        parent: "dtFechaExpedicionDocto",
+                                        value: validator.isDate(e.dtFechaExpedicionDocto)
+                                            ? format(
+                                                  e.dtFechaExpedicionDocto,
+                                                  "yyyy-MM-dd"
+                                              )
+                                            : "No diligenciado",
+                                        label: "Fecha de expedición del documento",
+                                    },
+                                    {
+                                        parent: "dtFechaNacimiento",
+                                        value: validator.isDate(e.dtFechaNacimiento)
+                                            ? format(e.dtFechaNacimiento, "yyyy-MM-dd")
+                                            : "No diligenciado",
+                                        label: "Fecha de nacimiento",
+                                    },
+                                    {
+                                        parent: "strGenero",
+                                        value: e.strGenero,
+                                        label: "Género",
+                                    },
+                                    {
+                                        parent: "strCelular",
+                                        value: e.strCelular,
+                                        label: "Celular",
+                                    },
+                                    {
+                                        parent: "strCorreoElectronico",
+                                        value: e.strCorreoElectronico,
+                                        label: "Correo electrónico",
+                                    },
+                                ]);
+                            });
 
                             for (const key in newObjInfoPrincipal) {
                                 if (
@@ -500,7 +570,7 @@ const InfoRegistro = () => {
                                                     element.value
                                                 )
                                                     ? format(element.value, "yyyy-MM-dd")
-                                                    : "No disponible";
+                                                    : "No diligenciado";
                                             }
                                         }
                                     });
@@ -523,7 +593,7 @@ const InfoRegistro = () => {
                                                     element.value
                                                 )
                                                     ? format(element.value, "yyyy-MM-dd")
-                                                    : "No disponible";
+                                                    : "No diligenciado";
                                             }
 
                                             if (key === "dtFechaNacimiento") {
@@ -531,7 +601,7 @@ const InfoRegistro = () => {
                                                     element.value
                                                 )
                                                     ? format(element.value, "yyyy-MM-dd")
-                                                    : "No disponible";
+                                                    : "No diligenciado";
                                             }
 
                                             if (key === "arrDepartamento") {
@@ -567,7 +637,7 @@ const InfoRegistro = () => {
                                                     element.value
                                                 )
                                                     ? format(element.value, "yyyy-MM-dd")
-                                                    : "No disponible";
+                                                    : "No diligenciado";
                                             }
 
                                             if (key === "arrDepartamento") {
@@ -638,7 +708,13 @@ const InfoRegistro = () => {
                                                     let text = "";
 
                                                     array.forEach((e) => {
-                                                        text += e.strCodigoRetorno + ", ";
+                                                        if (e.value) {
+                                                            text +=
+                                                                `${e.label}:${e.value}` +
+                                                                ", ";
+                                                        } else {
+                                                            text += e.label + ", ";
+                                                        }
                                                     });
 
                                                     element.value = text;
@@ -711,6 +787,7 @@ const InfoRegistro = () => {
 
                             return {
                                 ...prevState,
+                                arrInfoEmpresarioSec: prevArrEmpresarioSecundario,
                                 objInfoEmpresarioPr: prevObjInfoEmpresario,
                                 objInfoPrincipal: prevObjInfoPrincipal,
                                 objInfoEmpresa: prevObjInfoEmpresa,
@@ -799,7 +876,7 @@ const InfoRegistro = () => {
                                         }}
                                     >
                                         <b style={{ marginRight: "5px" }}>{e.label}: </b>
-                                        {e.value}
+                                        {e.value || "No diligenciado"}
                                     </p>
                                 </Grid>
                             ))}
@@ -859,7 +936,7 @@ const InfoRegistro = () => {
                                         }}
                                     >
                                         <b style={{ marginRight: "5px" }}>{e.label}: </b>
-                                        {e.value}
+                                        {e.value || "No diligenciado"}
                                     </p>
                                 </Grid>
                             ))}
@@ -873,7 +950,7 @@ const InfoRegistro = () => {
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Box sx={{ flexGrow: 1 }}>
                             <Typography>
-                                Información de personas empresarias secundarias
+                                <b>Información de personas empresarias secundarias</b>
                             </Typography>
                         </Box>
 
@@ -902,7 +979,53 @@ const InfoRegistro = () => {
                     </Box>
 
                     <Collapse in={openCollapseInfoEmpresarioSec} timeout="auto">
-                        <Grid container direction="row" spacing={1}></Grid>
+                        <Grid container direction="row" spacing={3}>
+                            {data.arrInfoEmpresarioSec.map((arrObj, index) => (
+                                <Grid item xs={12} key={index} sx={{ padding: "15px" }}>
+                                    <Paper
+                                        style={{
+                                            backgroundColor: "#F6F6F6",
+                                            padding: "15px",
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                width: "100%",
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Box>
+                                                <p>{`Persona empresaria secundaria #${
+                                                    index + 1
+                                                }`}</p>
+                                            </Box>
+                                        </Box>
+
+                                        <Grid container direction="row" spacing={1}>
+                                            {arrObj.map((e, i) => (
+                                                <Grid item xs={12} md={6} key={i}>
+                                                    <p
+                                                        style={{
+                                                            margin: "0px",
+                                                            fontSize: "13px",
+                                                            display: "flex",
+                                                            alignContent: "center",
+                                                        }}
+                                                    >
+                                                        <b style={{ marginRight: "5px" }}>
+                                                            {e.label}:{" "}
+                                                        </b>
+                                                        {e.value || "No diligenciado"}
+                                                    </p>
+                                                </Grid>
+                                            ))}
+                                        </Grid>
+                                    </Paper>
+                                </Grid>
+                            ))}
+                        </Grid>
                     </Collapse>
                 </Paper>
             </Grid>
@@ -956,7 +1079,7 @@ const InfoRegistro = () => {
                                         }}
                                     >
                                         <b style={{ marginRight: "5px" }}>{e.label}: </b>
-                                        {e.value}
+                                        {e.value || "No diligenciado"}
                                     </p>
                                 </Grid>
                             ))}
@@ -1014,7 +1137,7 @@ const InfoRegistro = () => {
                                         }}
                                     >
                                         <b style={{ marginRight: "5px" }}>{e.label}: </b>
-                                        {e.value}
+                                        {e.value || "No diligenciado"}
                                     </p>
                                 </Grid>
                             ))}

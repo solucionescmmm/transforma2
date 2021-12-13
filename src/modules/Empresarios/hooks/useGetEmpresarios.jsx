@@ -13,7 +13,7 @@ import { toast } from "react-hot-toast";
  * @author Santiago Cardona Saldarriaga <scardonas@xelerica.com>
  * @param {{autoLoad: Boolean}} - Parametros de búsqueda:
  * - `autoLoad` Utilice el parámetro en caso de que el hook haga la llamada a la API de forma automatica.
- * @returns {{data: Object, refreshGetData: Function}} Devuelve un objeto con las información de los motivos de no reemplazo y una función para llamar nuevamente a la API
+ * @returns {{data: Object, refreshGetData: Function, alterData: Function}} Devuelve un objeto con las información de los motivos de no reemplazo y una función para llamar nuevamente a la API
  * @example
  * Objeto con los datos
  * {
@@ -111,6 +111,10 @@ const useGetEmpresarios = ({
         [token]
     );
 
+    const alterData = (data) => {
+        setData(data);
+    };
+
     const refreshGetData = ({
         intId = null,
         strNombres = null,
@@ -184,7 +188,7 @@ const useGetEmpresarios = ({
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
     //===============================================================================================================================================
-    return { data, refreshGetData, getUniqueData };
+    return { data, refreshGetData, getUniqueData, alterData };
 };
 
 export default useGetEmpresarios;

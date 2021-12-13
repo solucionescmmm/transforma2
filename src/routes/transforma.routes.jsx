@@ -61,7 +61,10 @@ const RoutesTransforma = ({ path }) => {
                                 path="/transforma/asesor/empresario/read/all"
                                 exact
                                 component={() => (
-                                    <div className="animate__animated animate__fadeIn">
+                                    <div
+                                        className="animate__animated animate__fadeIn"
+                                        style={{ width: "100%" }}
+                                    >
                                         <REmpresarios />
                                     </div>
                                 )}
