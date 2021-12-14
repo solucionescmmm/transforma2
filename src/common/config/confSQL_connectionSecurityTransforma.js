@@ -1,6 +1,4 @@
-//librerias
-//require("dotenv-flow").config();
-/** const conexion = {
+const conexionSecury = {
   user: process.env.DBSECURITYTRANSFORMA_USER,
   password: process.env.DBSECURITYTRANSFORMA_PASS,
   server: process.env.DBSECURITYTRANSFORMA_SERVER,
@@ -12,7 +10,6 @@
     useUTC: false,
   },
   parseJSON: true,
-};*/
+};
 
-
-//module.exports = conexion;
+module.exports = conexionSecury;
