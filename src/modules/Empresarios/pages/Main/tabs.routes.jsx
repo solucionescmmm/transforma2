@@ -31,6 +31,10 @@ const PageCUGeneral = lazy(() =>
     )
 );
 
+const PageCUServicio = lazy(() =>
+    import("../../../Diagnosticos/pages/DiagDesign/Create&Edit/Producto/pageCUServicio")
+);
+
 const TabsComponent = ({ intId }) => {
     const routeMatch = useRouteMatch([
         "/perfil/:intId",
@@ -38,8 +42,9 @@ const TabsComponent = ({ intId }) => {
         "/comentarios/:intId",
         "/diagnosticos/",
         "/diagnosticos/diagEmpresarial/",
-        "/diagnosticos/diagEmpresarial/create",
+        "/diagnosticos/diagEmpresarial/general/create",
         "/diagnosticos/diagDesign/",
+        "/diagnosticos/diagDesign/product/create",
     ]);
 
     const currentTab = routeMatch?.path.startsWith("/diagnosticos/")
@@ -142,7 +147,7 @@ const TabsRoutes = ({ values, intId }) => {
                 />
 
                 <Route
-                    path="/diagnosticos/diagEmpresarial/create/"
+                    path="/diagnosticos/diagEmpresarial/general/create/"
                     exact
                     component={() => (
                         <div className="animate__animated animate__fadeIn">
@@ -159,6 +164,18 @@ const TabsRoutes = ({ values, intId }) => {
                     component={() => (
                         <div className="animate__animated animate__fadeIn">
                             <DiagDesign intId={intId} />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagDesign/product/create"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageCUServicio intId={intId} />
 
                             {/* <PageMaintenance /> */}
                         </div>

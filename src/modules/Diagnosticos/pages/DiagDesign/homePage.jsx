@@ -77,7 +77,10 @@ const DiagDesign = ({ intId }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea>
+                    <CardActionArea
+                        component={RouterLink}
+                        to={`/diagnosticos/diagDesign/product/create`}
+                    >
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>

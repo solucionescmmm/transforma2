@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { matchSorter } from "match-sorter";
 
 //Hooks
-import useGetEmpresarios from "../hooks/useGetEmpresarios";
+import useGetUsers from "../hooks/useGetUsers";
 
 //Componentes de Material UI
 import {
@@ -38,7 +38,7 @@ const filterOptions = (options, { inputValue }) =>
         keys: ["strNombreCompleto", "strApellidos", "strNombres", "strNroDocto"],
     });
 
-const DropdownEmpresarios = ({
+const DropdownUsuarios = ({
     id,
     value,
     name,
@@ -52,27 +52,11 @@ const DropdownEmpresarios = ({
 }) => {
     const [options, setOptions] = useState([]);
 
-    const { data, refreshGetData } = useGetEmpresarios();
+    const { data, refreshGetData } = useGetUsers();
 
     useEffect(() => {
         if (data?.length > 0) {
-            let newArrOptions = [];
-
-            data.forEach((e) => {
-                let { objEmpresario } = e;
-
-                newArrOptions.push({
-                    strURLFileFoto: objEmpresario.strURLFileFoto,
-                    strNombres: objEmpresario.strNombres,
-                    strApellidos: objEmpresario.strApellidos,
-                    strNroDocto: objEmpresario.strNroDocto,
-                    strNombreCompleto:
-                        objEmpresario.strNombres + " " + objEmpresario.strApellidos,
-                    strCorreoElectronico: objEmpresario.strCorreoElectronico1,
-                });
-            });
-
-            setOptions(newArrOptions);
+            setOptions(data);
         }
     }, [data]);
 
@@ -204,4 +188,4 @@ const DropdownEmpresarios = ({
     );
 };
 
-export default DropdownEmpresarios;
+export default DropdownUsuarios;

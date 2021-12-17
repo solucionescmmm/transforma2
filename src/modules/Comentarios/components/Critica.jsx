@@ -301,7 +301,7 @@ const ComentarioCritico = ({ values, socket }) => {
                             sx={{
                                 width: "5px",
                                 backgroundColor: (theme) =>
-                                    data.btResuelto === false
+                                    data.btResuelto === false || data.btResuelto === null
                                         ? theme.palette.error.light
                                         : theme.palette.success.light,
                                 borderRadius: "0px 4px 4px 0px",

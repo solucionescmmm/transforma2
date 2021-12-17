@@ -22,6 +22,9 @@ import {
 
 import { LoadingButton } from "@mui/lab";
 
+// Componentes
+import DropdowUsuarios from "../../../common/components/dropdowUsuarios";
+
 const ModalAddComentario = ({ socket, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
@@ -166,7 +169,24 @@ const ModalAddComentario = ({ socket, values }) => {
                         </Grid>
 
                         <Grid item xs={12} md={6}>
-                            Usuario
+                            <Controller
+                                defaultValue={data.arrUsuarioAsignado}
+                                name="arrUsuarioAsignado"
+                                render={({ field: { name, value, onChange } }) => (
+                                    <DropdowUsuarios
+                                        label="Usuarios"
+                                        multiple
+                                        name={name}
+                                        value={value}
+                                        error={errors?.arrUsuarioAsignado ? true : false}
+                                        helperText={
+                                            errors?.arrUsuarioAsignado?.message ||
+                                            "Seleccione los usuarios para notificar."
+                                        }
+                                    />
+                                )}
+                                control={control}
+                            />
                         </Grid>
 
                         <Grid item xs={12}>

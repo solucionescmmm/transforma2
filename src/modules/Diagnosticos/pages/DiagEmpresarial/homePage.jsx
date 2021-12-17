@@ -80,7 +80,7 @@ const DiagEmpresarialPage = ({ intId }) => {
                 <Card>
                     <CardActionArea
                         component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial/create`}
+                        to={`/diagnosticos/diagEmpresarial/general/create`}
                     >
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>

@@ -167,7 +167,7 @@ const ComentarioTarea = ({ values, socket }) => {
                     <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
                 </Box>
 
-                <Paper sx={{  width: "90%" }}>
+                <Paper sx={{ width: "90%" }}>
                     <Box sx={{ display: "flex" }}>
                         <Box sx={{ flexGrow: 1, padding: "10px" }}>
                             <Grid container direction="row" spacing={1}>
@@ -301,7 +301,7 @@ const ComentarioTarea = ({ values, socket }) => {
                             sx={{
                                 width: "5px",
                                 backgroundColor: (theme) =>
-                                    data.btResuelto === false
+                                    data.btResuelto === false || data.btResuelto === null
                                         ? theme.palette.error.light
                                         : theme.palette.success.light,
                                 borderRadius: "0px 4px 4px 0px",
