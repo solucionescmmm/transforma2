@@ -585,7 +585,9 @@ class daoEmpresarios {
             AND   (Empresario.strSede = ${data.strSede} OR ${data.strSede} IS NULL)
             AND   (Empresario.strEstadoVinculacion = ${data.strEstadoVinculacion} OR ${data.strEstadoVinculacion} IS NULL)
             AND   (Empresario.strTipoVinculacion = ${data.strTipoVinculacion} OR ${data.strTipoVinculacion} IS NULL)
-            AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)`;
+            AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)
+            AND   (Empresario.strCategoriaProducto = ${data.strCategoriaProducto} OR ${data.strCategoriaProducto} IS NULL)
+            AND   (Empresario.strCategoriaServicio = ${data.strCategoriaServicio} OR ${data.strCategoriaServicio} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 

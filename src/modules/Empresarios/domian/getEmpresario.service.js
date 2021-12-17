@@ -42,6 +42,8 @@ const getEmpresario = async (objParams, strDataUser) => {
         strEstadoVinculacion: strEstadoVinculacion || null,
         strTipoVinculacion: strTipoVinculacion || null,
         dtFechaVinculacion: dtFechaVinculacion || null,
+        strCategoriaProducto: strCategoriaProducto || null,
+        strCategoriaServicio:strCategoriaServicio || null,
     };
 
     let arrayData = await dao.getEmpresario(query);

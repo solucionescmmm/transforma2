@@ -35,7 +35,7 @@ class interfaceDAODiagnosticoGeneral {
 
     async getDiagnosticoGeneral(data) {
         const dao = new classDaoSql()
-        let result = await dao.getComentario(data)
+        let result = await dao.getDiagnosticoGeneral(data)
         return result
     }
 }

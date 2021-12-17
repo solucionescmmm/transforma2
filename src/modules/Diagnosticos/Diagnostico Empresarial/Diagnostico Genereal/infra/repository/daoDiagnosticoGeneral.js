@@ -1,6 +1,6 @@
 //Librerias
-const validator = require("validator").default;
 const sql = require("mssql");
+const validator = require("validator").default;
 
 //Conexion
 const { conexion } = require("../../../../../../common/config/confSQL_connectionTransfroma");
@@ -310,17 +310,6 @@ class daoDiagnosticoGeneral {
             AND   (intIdEmpresario = ${data.intIdEmpresario} OR ${data.intIdEmpresario} IS NULL) `;
 
             let arrNewData = response.recordsets[0];
-
-            for (let i = 0; i < arrNewData.length; i++) {
-                if (arrNewData[i].objRespuesta) {
-                    let { objRespuesta } = arrNewData[i];
-
-                    if (validator.isJSON(objRespuesta)) {
-                        objRespuesta = JSON.parse(objRespuesta);
-                        arrNewData[i].objRespuesta = objRespuesta;
-                    }
-                }
-            }
 
             let result = {
                 error: false,
