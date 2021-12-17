@@ -12,4 +12,4 @@ const conexionSecury = {
   parseJSON: true,
 };
 
-module.exports = conexionSecury;
+module.exports = {conexionSecury};
