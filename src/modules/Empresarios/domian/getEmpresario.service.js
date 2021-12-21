@@ -14,6 +14,8 @@ const getEmpresario = async (objParams, strDataUser) => {
         strEstadoVinculacion,
         strTipoVinculacion,
         dtFechaVinculacion,
+        strCategoriaProducto,
+        strCategoriaServicio
     } = objParams;
 
     if (!objParams) {
