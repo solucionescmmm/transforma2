@@ -575,7 +575,9 @@ class daoEmpresarios {
                 FOR JSON PATH
             ) as arrEmpresarioSecundario
 
-            FROM tbl_Empresario Empresario
+            From tbl_empresario Empresario 
+            inner join 
+            tbl_infoempresa Empresa  on Empresario.intid = Empresa.intIdEmpresario
 
             WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)
             AND   (Empresario.strNombres = ${data.strNombres} OR ${data.strNombres} IS NULL)
@@ -586,8 +588,8 @@ class daoEmpresarios {
             AND   (Empresario.strEstadoVinculacion = ${data.strEstadoVinculacion} OR ${data.strEstadoVinculacion} IS NULL)
             AND   (Empresario.strTipoVinculacion = ${data.strTipoVinculacion} OR ${data.strTipoVinculacion} IS NULL)
             AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)
-            AND   (Empresario.strCategoriaProducto = ${data.strCategoriaProducto} OR ${data.strCategoriaProducto} IS NULL)
-            AND   (Empresario.strCategoriaServicio = ${data.strCategoriaServicio} OR ${data.strCategoriaServicio} IS NULL)`;
+            AND   (Empresa.strCategoriaProducto = ${data.strCategoriaProducto} OR ${data.strCategoriaProducto} IS NULL)
+            AND   (Empresa.strCategoriaServicio = ${data.strCategoriaServicio} OR ${data.strCategoriaServicio} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
@@ -642,6 +644,7 @@ class daoEmpresarios {
 
             return result;
         } catch (error) {
+            console.log(error)
             let result = {
                 error: true,
                 msg:
