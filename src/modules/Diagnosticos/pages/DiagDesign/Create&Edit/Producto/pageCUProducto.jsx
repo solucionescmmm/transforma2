@@ -34,6 +34,11 @@ import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
 import Loader from "../../../../../../common/components/Loader";
 import PageError from "../../../../../../common/components/Error";
 import InfoGeneral from "./infoGeneral";
+import InfoProductos from "./infoProductos";
+import InfoCategoria1 from "./infoCategoria1";
+import InfoCategoria2 from "./infoCategoria2";
+import InfoAdicional from "./infoAdicional";
+import InfoNormatividad from "./infoNormatividad";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -74,7 +79,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const PageCUServicio = ({ intId, isEdit }) => {
+const PageCUProducto = ({ intId, isEdit }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -85,6 +90,11 @@ const PageCUServicio = ({ intId, isEdit }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         objInfoGeneral: {},
+        objInfoProductos: {},
+        objInfoCategoria1: {},
+        objInfoCategoria2: {},
+        objInfoNormatividad: {},
+        objInfoAdicional: {},
     });
 
     const [success, setSucces] = useState(false);
@@ -237,6 +247,8 @@ const PageCUServicio = ({ intId, isEdit }) => {
                         if (res.data) {
                             let data = res.data.data[0];
 
+                            console.log(data);
+
                             setData({
                                 objInfoGeneral: {
                                     intId: data.objEmpresario.intId || null,
@@ -286,42 +298,11 @@ const PageCUServicio = ({ intId, isEdit }) => {
                                     strCorreoElectronico2:
                                         data.objEmpresario.strCorreoElectronico2 || "",
                                 },
-                                objInfoEmprendimiento: {
-                                    strUnidadProductiva:
-                                        data.objInfoEmpresa.strNombreMarca,
-                                    strLugarOperacion:
-                                        data.objInfoEmpresa.strLugarOperacion,
-                                    arrDepartamento: data.objInfoEmpresa.arrDepartamento,
-                                    arrCiudad: data.objInfoEmpresa.arrCiudad,
-                                    strBarrio: data.objInfoEmpresa.strBarrio,
-                                    strDireccionResidencia:
-                                        data.objInfoEmpresa.strDireccionResidencia,
-                                    arrMediosDigitales:
-                                        data.objInfoEmpresa.arrMediosDigitales || [],
-                                    strTiempoDedicacion:
-                                        data.objInfoEmpresa.strTiempoDedicacion || "",
-                                    strSectorEconomico:
-                                        data.objInfoEmpresa.strSectorEconomico || "",
-                                    strCategoriaProducto:
-                                        data.objInfoEmpresa.strCategoriaProducto || "",
-                                    strCategoriaServicio:
-                                        data.objInfoEmpresa.strCategoriaServicio || "",
-                                    arrCategoriasSecundarias:
-                                        data.objInfoEmpresa.arrCategoriasSecundarias ||
-                                        [],
-                                    strOtraCategoria:
-                                        data.objInfoEmpresa.strOtraCategoria || "",
-                                    btGeneraEmpleo:
-                                        typeof data.objInfoEmpresa.btGeneraEmpleo ===
-                                        "boolean"
-                                            ? data.objInfoEmpresa.btGeneraEmpleo
-                                            : "",
-                                },
-                                objInfoPerfilEco: {
-                                    intNumeroEmpleados:
-                                        data.objInfoEmpresa.intNumeroEmpleados || "",
-                                    dblValorVentasMes:
-                                        data.objInfoEmpresa.valorVentasMes || "",
+                                objInfoProductos: {
+                                    strNombreTecnica:
+                                        data.objInfoEmpresa.strNombreTecnica || "",
+                                    strMateriaPrima:
+                                        data.objInfoEmpresa.strMateriaPrima || "",
                                 },
                             });
                         }
@@ -472,7 +453,72 @@ const PageCUServicio = ({ intId, isEdit }) => {
                                 />
                             </Grid>
 
-                            {errors.objInfoGeneral && (
+                            <Grid item xs={12}>
+                                <InfoProductos
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoProductos}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <InfoCategoria1
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoCategoria1}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <InfoCategoria2
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoCategoria2}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <InfoNormatividad
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoNormatividad}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <InfoAdicional
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoAdicional}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            {(errors.objInfoGeneral ||
+                                errors.objInfoProductos ||
+                                errors.objInfoCategoria1 ||
+                                errors.objInfoCategoria2 ||
+                                errors.objInfoNormatividad ||
+                                errors.objInfoAdicional) && (
                                 <Grid item xs={12}>
                                     <Alert severity="error">
                                         Lo sentimos, tienes campos pendientes por
@@ -493,9 +539,14 @@ const PageCUServicio = ({ intId, isEdit }) => {
                                         variant="contained"
                                         type="submit"
                                         loading={loading}
+                                        sx={{ marginLeft: "15px" }}
                                     >
                                         {isEdit ? "guardar" : "registrar"}
                                     </LoadingButton>
+
+                                    <Button variant="contained" color="inherit">
+                                        Mostrar resultados
+                                    </Button>
                                 </Box>
                             </Grid>
                         </Grid>
@@ -506,4 +557,4 @@ const PageCUServicio = ({ intId, isEdit }) => {
     );
 };
 
-export default PageCUServicio;
+export default PageCUProducto;

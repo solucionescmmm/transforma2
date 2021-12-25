@@ -56,6 +56,9 @@ const useGetUsers = ({ autoLoad = true } = {}) => {
                     headers: {
                         token,
                     },
+                    params: {
+                        strApp: "Transforma",
+                    },
                 },
                 {
                     cancelToken: signalSubmitData.token,
@@ -63,8 +66,6 @@ const useGetUsers = ({ autoLoad = true } = {}) => {
             )
                 .then((res) => {
                     setData(res.data.data);
-
-                    console.log(res.data.data);
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {

@@ -31,8 +31,12 @@ const PageCUGeneral = lazy(() =>
     )
 );
 
+const PageCUProducto = lazy(() =>
+    import("../../../Diagnosticos/pages/DiagDesign/Create&Edit/Producto/pageCUProducto")
+);
+
 const PageCUServicio = lazy(() =>
-    import("../../../Diagnosticos/pages/DiagDesign/Create&Edit/Producto/pageCUServicio")
+    import("../../../Diagnosticos/pages/DiagDesign/Create&Edit/Servicio/pageCUServicio")
 );
 
 const TabsComponent = ({ intId }) => {
@@ -172,6 +176,18 @@ const TabsRoutes = ({ values, intId }) => {
 
                 <Route
                     path="/diagnosticos/diagDesign/product/create"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageCUProducto intId={intId} />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagDesign/service/create"
                     exact
                     component={() => (
                         <div className="animate__animated animate__fadeIn">

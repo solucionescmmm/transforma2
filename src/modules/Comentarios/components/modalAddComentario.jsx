@@ -18,6 +18,10 @@ import {
     DialogActions,
     useTheme,
     useMediaQuery,
+    FormControl,
+    FormControlLabel,
+    FormHelperText,
+    Checkbox,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -42,6 +46,7 @@ const ModalAddComentario = ({ socket, values }) => {
         strUsuario: "",
         arrUsuarioAsignado: [],
         strURLImagenUsuario: "",
+        bitAlertarTodos: false,
     });
 
     const [openModal, setOpenModal] = useState(false);
@@ -130,7 +135,7 @@ const ModalAddComentario = ({ socket, values }) => {
 
                 <DialogContent>
                     <Grid container component="form" direction="row" spacing={2}>
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12}>
                             <Controller
                                 defaultValue={data.strTipo}
                                 name="strTipo"
@@ -168,27 +173,6 @@ const ModalAddComentario = ({ socket, values }) => {
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
-                            <Controller
-                                defaultValue={data.arrUsuarioAsignado}
-                                name="arrUsuarioAsignado"
-                                render={({ field: { name, value, onChange } }) => (
-                                    <DropdowUsuarios
-                                        label="Usuarios"
-                                        multiple
-                                        name={name}
-                                        value={value}
-                                        error={errors?.arrUsuarioAsignado ? true : false}
-                                        helperText={
-                                            errors?.arrUsuarioAsignado?.message ||
-                                            "Seleccione los usuarios para notificar."
-                                        }
-                                    />
-                                )}
-                                control={control}
-                            />
-                        </Grid>
-
                         <Grid item xs={12}>
                             <Controller
                                 defaultValue={data.strMensaje}
@@ -216,6 +200,55 @@ const ModalAddComentario = ({ socket, values }) => {
                                 rules={{
                                     required: "Por favor, digite el comentario",
                                 }}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Controller
+                                defaultValue={data.bitAlertarTodos}
+                                name="bitAlertarTodos"
+                                render={({ field: { name, value, onChange } }) => (
+                                    <FormControl component="fieldset" variant="standard">
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={value}
+                                                    onChange={(e) =>
+                                                        onChange(e.target.checked)
+                                                    }
+                                                    name={name}
+                                                />
+                                            }
+                                            label="¿Notificar a todos los usuarios?"
+                                        />
+                                        <FormHelperText>
+                                            {errors.bitAlertarTodos?.message ||
+                                                "Selecciona si deseas notificar a todos los usuarios."}
+                                        </FormHelperText>
+                                    </FormControl>
+                                )}
+                                control={control}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Controller
+                                defaultValue={data.arrUsuarioAsignado}
+                                name="arrUsuarioAsignado"
+                                render={({ field: { name, value, onChange } }) => (
+                                    <DropdowUsuarios
+                                        label="Usuarios"
+                                        multiple
+                                        name={name}
+                                        value={value}
+                                        error={errors?.arrUsuarioAsignado ? true : false}
+                                        helperText={
+                                            errors?.arrUsuarioAsignado?.message ||
+                                            "Seleccione los usuarios para notificar."
+                                        }
+                                    />
+                                )}
+                                control={control}
                             />
                         </Grid>
                     </Grid>

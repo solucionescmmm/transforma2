@@ -35,7 +35,7 @@ import {
 //Filtro personalizado
 const filterOptions = (options, { inputValue }) =>
     matchSorter(options, inputValue, {
-        keys: ["strNombreCompleto", "strApellidos", "strNombres", "strNroDocto"],
+        keys: ["strNombre", "strEmail"],
     });
 
 const DropdownUsuarios = ({
@@ -126,33 +126,31 @@ const DropdownUsuarios = ({
                 } else {
                     return (
                         option === value ||
-                        option.strNombreCompleto === value.strNombreCompleto ||
-                        option.strNombres === value.strNombres ||
-                        option.strApellidos === value.strApellidos ||
-                        option.strNroDocto === value.strNroDocto
+                        option.strEmail === value.strEmail ||
+                        option.strNombre === value.strNombre
                     );
                 }
             }}
             getOptionLabel={(option) =>
-                option?.strNombreCompleto || option?.strNombres || option
+                option?.strNombre || option?.strEmail || option
             }
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
-                    if (option.strNombreCompleto) {
+                    if (option.strNombre) {
                         return (
                             <Chip
                                 key={index}
-                                label={option.strNombreCompleto}
+                                label={option.strNombre}
                                 {...getTagProps({ index })}
                             />
                         );
                     }
 
-                    if (option.strNroDocto) {
+                    if (option.strEmail) {
                         return (
                             <Chip
                                 key={index}
-                                label={option.strNroDocto}
+                                label={option.strEmail}
                                 {...getTagProps({ index })}
                             />
                         );
@@ -175,11 +173,11 @@ const DropdownUsuarios = ({
                             />
                         )}
                         <ListItemAvatar>
-                            <Avatar src={option.strURLFileFoto} alt={option.strNombres} />
+                            <Avatar src={option.strURLFileFoto} alt={option.strNombre} />
                         </ListItemAvatar>
                         <ListItemText
-                            primary={option.strNombreCompleto || option.strNroDocto}
-                            secondary={`Doc: ${option.strNroDocto}`}
+                            primary={option.strNombre || option.strEmail}
+                            secondary={`Email: ${option.strEmail}`}
                         />
                     </ListItem>
                 </List>
