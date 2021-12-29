@@ -24,6 +24,7 @@ import {
 
 //Componentes
 import SelectListas from "../../../../components/selectLista";
+import SelectListasNivel from "../../../../components/selectListasNivel";
 
 const InfoCategoria1 = ({
     disabled,
@@ -109,6 +110,13 @@ const InfoCategoria1 = ({
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
+    };
+
+    const handlerChangeData = (key, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [key]: value,
+        }));
     };
 
     useEffect(() => {
@@ -255,7 +263,14 @@ const InfoCategoria1 = ({
                                             label="Funcionalidad"
                                             name={name}
                                             value={value}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+
+                                                handlerChangeData(
+                                                    "strFuncionalidad",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strFuncionalidad
                                                     ? true
@@ -266,6 +281,8 @@ const InfoCategoria1 = ({
                                                     ?.message || "Seleccione una opción"
                                             }
                                             disabled={disabled}
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Funcionalidad"
                                         />
                                     )}
                                     control={control}
@@ -306,10 +323,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strFuncionalidadNivel"
                                     defaultValue={data.strFuncionalidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strFuncionalidad}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -323,6 +341,8 @@ const InfoCategoria1 = ({
                                                 "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Funcionalidad"
                                         />
                                     )}
                                     control={control}
@@ -338,7 +358,13 @@ const InfoCategoria1 = ({
                                             label="Metodología para la creación de producto"
                                             name={name}
                                             value={value}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strMetodologia",
+                                                    e.target.value
+                                                );
+                                            }}
                                             disabled={disabled}
                                             error={
                                                 errors?.objCategoria1?.strMetodologia
@@ -349,6 +375,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strMetodologia
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="MetodologiaCreacionProducto"
                                         />
                                     )}
                                     control={control}
@@ -389,10 +417,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strMetodologiaNivel"
                                     defaultValue={data.strMetodologiaNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strMetodologia}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1?.strMetodologiaNivel
@@ -403,7 +432,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strMetodologiaNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="MetodologiaCreacionProducto"
                                         />
                                     )}
                                     control={control}
@@ -420,7 +450,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strRenovacionPortafolio",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1
                                                     ?.strRenovacionPortafolio
@@ -432,6 +468,8 @@ const InfoCategoria1 = ({
                                                     ?.strRenovacionPortafolio?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="RenovacionPortafolio"
                                         />
                                     )}
                                     control={control}
@@ -473,10 +511,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strRenovacionPortafolioNivel"
                                     defaultValue={data.strRenovacionPortafolioNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strRenovacionPortafolio}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -489,7 +528,8 @@ const InfoCategoria1 = ({
                                                     ?.strRenovacionPortafolioNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="RenovacionPortafolio"
                                         />
                                     )}
                                     control={control}
@@ -506,7 +546,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strSostenibilidad",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strSostenibilidad
                                                     ? true
@@ -516,6 +562,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strSostenibilidad
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Sostenibilidad"
                                         />
                                     )}
                                     control={control}
@@ -556,10 +604,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strSostenibilidadNivel"
                                     defaultValue={data.strSostenibilidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strSostenibilidad}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -572,7 +621,8 @@ const InfoCategoria1 = ({
                                                     ?.strSostenibilidadNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Sostenibilidad"
                                         />
                                     )}
                                     control={control}
@@ -589,7 +639,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strAtributosValor",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strAtributosValor
                                                     ? true
@@ -599,6 +655,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strAtributosValor
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="AtributosValor"
                                         />
                                     )}
                                     control={control}
@@ -639,10 +697,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strAtributosValorNivel"
                                     defaultValue={data.strAtributosValorNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strAtributosValor}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -655,7 +714,8 @@ const InfoCategoria1 = ({
                                                     ?.strAtributosValorNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="AtributosValor"
                                         />
                                     )}
                                     control={control}
@@ -672,7 +732,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strUsoMateriales",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strUsoMateriales
                                                     ? true
@@ -682,6 +748,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strUsoMateriales
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="UsoMateriales"
                                         />
                                     )}
                                     control={control}
@@ -722,10 +790,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strUsoMaterialesNivel"
                                     defaultValue={data.strUsoMaterialesNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strUsoMateriales}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -738,7 +807,8 @@ const InfoCategoria1 = ({
                                                     ?.strUsoMaterialesNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="UsoMateriales"
                                         />
                                     )}
                                     control={control}
@@ -775,7 +845,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strMenajoTecnicaAlim",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1
                                                     ?.strMenajoTecnicaAlim
@@ -787,6 +863,8 @@ const InfoCategoria1 = ({
                                                     ?.strMenajoTecnicaAlim?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ManejoTecnicasPercepcion"
                                         />
                                     )}
                                     control={control}
@@ -828,10 +906,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strMenajoTecnicaAlimNivel"
                                     defaultValue={data.strMenajoTecnicaAlimNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strMenajoTecnicaAlim}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -844,7 +923,8 @@ const InfoCategoria1 = ({
                                                     ?.strMenajoTecnicaAlimNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ManejoTecnicasPercepcion"
                                         />
                                     )}
                                     control={control}
@@ -861,7 +941,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strProcesosPreparacion",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1
                                                     ?.strProcesosPreparacion
@@ -873,6 +959,8 @@ const InfoCategoria1 = ({
                                                     ?.strProcesosPreparacion?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ProcesosPreparacion"
                                         />
                                     )}
                                     control={control}
@@ -914,10 +1002,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strProcesosPreparacionNivel"
                                     defaultValue={data.strProcesosPreparacionNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strProcesosPreparacion}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -930,7 +1019,8 @@ const InfoCategoria1 = ({
                                                     ?.strProcesosPreparacionNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ProcesosPreparacion"
                                         />
                                     )}
                                     control={control}
@@ -947,7 +1037,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strPresentacionApariencia",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1
                                                     ?.strPresentacionApariencia
@@ -959,6 +1055,8 @@ const InfoCategoria1 = ({
                                                     ?.strPresentacionApariencia
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="PresentacionApariencia"
                                         />
                                     )}
                                     control={control}
@@ -1000,10 +1098,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strPresentacionAparienciaNivel"
                                     defaultValue={data.strPresentacionAparienciaNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strPresentacionApariencia}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -1016,7 +1115,8 @@ const InfoCategoria1 = ({
                                                     ?.strPresentacionAparienciaNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="PresentacionApariencia"
                                         />
                                     )}
                                     control={control}
@@ -1033,7 +1133,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strProporcionAlim",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strProporcionAlim
                                                     ? true
@@ -1043,6 +1149,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strProporcionAlim
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ProporcionPercepcion"
                                         />
                                     )}
                                     control={control}
@@ -1083,10 +1191,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strProporcionAlimNivel"
                                     defaultValue={data.strProporcionAlimNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strProporcionAlim}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -1099,7 +1208,8 @@ const InfoCategoria1 = ({
                                                     ?.strProporcionAlimNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ProporcionPercepcion"
                                         />
                                     )}
                                     control={control}
@@ -1116,7 +1226,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strConservacion",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strConservacion
                                                     ? true
@@ -1126,6 +1242,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strConservacion
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Conservacion"
                                         />
                                     )}
                                     control={control}
@@ -1166,10 +1284,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strConservacionNivel"
                                     defaultValue={data.strConservacionNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strConservacion}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -1182,7 +1301,8 @@ const InfoCategoria1 = ({
                                                     ?.strConservacionNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Conservacion"
                                         />
                                     )}
                                     control={control}
@@ -1199,7 +1319,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strInocuidad",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strInocuidad
                                                     ? true
@@ -1209,6 +1335,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strInocuidad
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Inocuidad"
                                         />
                                     )}
                                     control={control}
@@ -1248,10 +1376,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strInocuidadNivel"
                                     defaultValue={data.strInocuidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strInocuidad}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1?.strInocuidadNivel
@@ -1262,7 +1391,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strInocuidadNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Inocuidad"
                                         />
                                     )}
                                     control={control}
@@ -1279,7 +1409,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strEmpaqueEtiquetaAlim",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1
                                                     ?.strEmpaqueEtiquetaAlim
@@ -1291,6 +1427,8 @@ const InfoCategoria1 = ({
                                                     ?.strEmpaqueEtiquetaAlim?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="EmpaqueEnvaseEtiquetaPercepcion"
                                         />
                                     )}
                                     control={control}
@@ -1332,10 +1470,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strEmpaqueEtiquetaAlimNivel"
                                     defaultValue={data.strEmpaqueEtiquetaAlimNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strEmpaqueEtiquetaAlim}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -1348,7 +1487,8 @@ const InfoCategoria1 = ({
                                                     ?.strEmpaqueEtiquetaAlimNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="EmpaqueEnvaseEtiquetaPercepcion"
                                         />
                                     )}
                                     control={control}
@@ -1385,7 +1525,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strMenajoTecnica",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strMenajoTecnica
                                                     ? true
@@ -1395,6 +1541,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strMenajoTecnica
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ManejoTecnicasEstetica"
                                         />
                                     )}
                                     control={control}
@@ -1435,10 +1583,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strMenajoTecnicaNivel"
                                     defaultValue={data.strMenajoTecnicaNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strMenajoTecnica}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -1451,7 +1600,8 @@ const InfoCategoria1 = ({
                                                     ?.strMenajoTecnicaNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ManejoTecnicasEstetica"
                                         />
                                     )}
                                     control={control}
@@ -1468,7 +1618,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strAcabadosFactura",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strAcabadosFactura
                                                     ? true
@@ -1478,6 +1634,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strAcabadosFactura
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="AcabadosFactura"
                                         />
                                     )}
                                     control={control}
@@ -1519,10 +1677,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strAcabadosFacturaNivel"
                                     defaultValue={data.strAcabadosFacturaNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strAcabadosFactura}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -1535,7 +1694,8 @@ const InfoCategoria1 = ({
                                                     ?.strAcabadosFacturaNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="AcabadosFactura"
                                         />
                                     )}
                                     control={control}
@@ -1552,7 +1712,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strDurabilidad",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strDurabilidad
                                                     ? true
@@ -1562,6 +1728,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strDurabilidad
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Durabilidad"
                                         />
                                     )}
                                     control={control}
@@ -1602,10 +1770,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strDurabilidadNivel"
                                     defaultValue={data.strDurabilidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strDurabilidad}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1?.strDurabilidadNivel
@@ -1616,7 +1785,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strDurabilidadNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Durabilidad"
                                         />
                                     )}
                                     control={control}
@@ -1633,7 +1803,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strUsoColores",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strUsoColores
                                                     ? true
@@ -1643,6 +1819,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strUsoColores
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="UsoColores"
                                         />
                                     )}
                                     control={control}
@@ -1683,10 +1861,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strUsoColoresNivel"
                                     defaultValue={data.strUsoColoresNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strUsoColores}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1?.strUsoColoresNivel
@@ -1697,7 +1876,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strUsoColoresNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="UsoColores"
                                         />
                                     )}
                                     control={control}
@@ -1714,7 +1894,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strUsoColores",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strProporcion
                                                     ? true
@@ -1724,6 +1910,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strProporcion
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ProporcionEstetica"
                                         />
                                     )}
                                     control={control}
@@ -1764,10 +1952,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strProporcionNivel"
                                     defaultValue={data.strProporcionNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strProporcion}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1?.strProporcionNivel
@@ -1778,7 +1967,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strProporcionNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ProporcionEstetica"
                                         />
                                     )}
                                     control={control}
@@ -1815,7 +2005,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strRiesgoUso",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strRiesgoUso
                                                     ? true
@@ -1825,6 +2021,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strRiesgoUso
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="RiesgoUso"
                                         />
                                     )}
                                     control={control}
@@ -1864,10 +2062,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strRiesgoUsoNivel"
                                     defaultValue={data.strRiesgoUsoNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strRiesgoUso}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1?.strRiesgoUsoNivel
@@ -1878,7 +2077,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strRiesgoUsoNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="RiesgoUso"
                                         />
                                     )}
                                     control={control}
@@ -1895,7 +2095,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strEmpaqueEtiqueta",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strEmpaqueEtiqueta
                                                     ? true
@@ -1905,6 +2111,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strEmpaqueEtiqueta
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="EmpaqueEnvaseEtiquetaExperiencia"
                                         />
                                     )}
                                     control={control}
@@ -1946,10 +2154,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strEmpaqueEtiquetaNivel"
                                     defaultValue={data.strEmpaqueEtiquetaNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strEmpaqueEtiqueta}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -1962,7 +2171,8 @@ const InfoCategoria1 = ({
                                                     ?.strEmpaqueEtiquetaNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="EmpaqueEnvaseEtiquetaExperiencia"
                                         />
                                     )}
                                     control={control}
@@ -1979,7 +2189,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strUsabilidad",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1?.strUsabilidad
                                                     ? true
@@ -1989,6 +2205,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strUsabilidad
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Usabilidad"
                                         />
                                     )}
                                     control={control}
@@ -2029,10 +2247,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strUsabilidadNivel"
                                     defaultValue={data.strUsabilidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strUsabilidad}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1?.strUsabilidadNivel
@@ -2043,7 +2262,8 @@ const InfoCategoria1 = ({
                                                 errors?.objCategoria1?.strUsabilidadNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="Usabilidad"
                                         />
                                     )}
                                     control={control}
@@ -2060,7 +2280,13 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strDiseñoExperiencia",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria1
                                                     ?.strDiseñoExperiencia
@@ -2072,6 +2298,8 @@ const InfoCategoria1 = ({
                                                     ?.strDiseñoExperiencia?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="DiseñoExperiencia"
                                         />
                                     )}
                                     control={control}
@@ -2113,10 +2341,11 @@ const InfoCategoria1 = ({
                                     name="objCategoria1.strDiseñoExperienciaNivel"
                                     defaultValue={data.strDiseñoExperienciaNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strDiseñoExperiencia}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -2129,7 +2358,8 @@ const InfoCategoria1 = ({
                                                     ?.strDiseñoExperienciaNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="DiseñoExperiencia"
                                         />
                                     )}
                                     control={control}

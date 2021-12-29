@@ -23,6 +23,7 @@ import {
 
 //Componentes
 import SelectListas from "../../../../components/selectLista";
+import SelectListasNivel from "../../../../components/selectListasNivel";
 
 const InfoCategoria2 = ({
     disabled,
@@ -51,6 +52,13 @@ const InfoCategoria2 = ({
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
+    };
+
+    const handlerChangeData = (key, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [key]: value,
+        }));
     };
 
     useEffect(() => {
@@ -139,7 +147,13 @@ const InfoCategoria2 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strLineaGrafica",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria2?.strLineaGrafica
                                                     ? true
@@ -149,6 +163,8 @@ const InfoCategoria2 = ({
                                                 errors?.objCategoria2?.strLineaGrafica
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="LineaGraficaMarca"
                                         />
                                     )}
                                     control={control}
@@ -189,10 +205,11 @@ const InfoCategoria2 = ({
                                     name="objCategoria1.strLineaGraficaNivel"
                                     defaultValue={data.strLineaGraficaNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strLineaGrafica}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -205,7 +222,8 @@ const InfoCategoria2 = ({
                                                     ?.strLineaGraficaNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="LineaGraficaMarca"
                                         />
                                     )}
                                     control={control}
@@ -222,7 +240,13 @@ const InfoCategoria2 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strLineaGrafica",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria2?.strIdentidadMarca
                                                     ? true
@@ -232,6 +256,8 @@ const InfoCategoria2 = ({
                                                 errors?.objCategoria2?.strIdentidadMarca
                                                     ?.message || "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="IdentidadMarca"
                                         />
                                     )}
                                     control={control}
@@ -272,10 +298,11 @@ const InfoCategoria2 = ({
                                     name="objCategoria1.strIdentidadMarcaNivel"
                                     defaultValue={data.strIdentidadMarcaNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strIdentidadMarca}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -288,7 +315,8 @@ const InfoCategoria2 = ({
                                                     ?.strIdentidadMarcaNivel?.message ||
                                                 "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="IdentidadMarca"
                                         />
                                     )}
                                     control={control}
@@ -305,7 +333,13 @@ const InfoCategoria2 = ({
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strComunicacionMarca",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria2
                                                     ?.strComunicacionMarca
@@ -317,6 +351,8 @@ const InfoCategoria2 = ({
                                                     ?.strComunicacionMarca?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ComunicacionMarca"
                                         />
                                     )}
                                     control={control}
@@ -358,7 +394,7 @@ const InfoCategoria2 = ({
                                     name="objCategoria1.strComunicacionMarcaNivel"
                                     defaultValue={data.strComunicacionMarcaNivel}
                                     render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
@@ -374,7 +410,8 @@ const InfoCategoria2 = ({
                                                     ?.strComunicacionMarcaNivel
                                                     ?.message || "Nivel"
                                             }
-                                            disabled
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="ComunicacionMarca"
                                         />
                                     )}
                                     control={control}

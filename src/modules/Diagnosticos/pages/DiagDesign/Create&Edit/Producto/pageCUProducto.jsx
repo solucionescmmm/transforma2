@@ -153,8 +153,10 @@ const PageCUProducto = ({ intId, isEdit }) => {
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${
                         isEdit
-                            ? process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
-                            : process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                            ? process.env
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETPRODUCTO
+                            : process.env
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETPRODUCTO
                     }`,
                     data,
                     transformRequest: [
@@ -183,6 +185,11 @@ const PageCUProducto = ({ intId, isEdit }) => {
                                           )
                                         : null,
                                 },
+                                objInfoProductos: { ...data.objInfoProductos },
+                                objInfoCategoria1: { ...data.objInfoCategoria1 },
+                                objInfoCategoria2: { ...data.objInfoCategoria2 },
+                                objInfoNormatividad: { ...data.objInfoNormatividad },
+                                objInfoAdicional: { ...data.objInfoAdicional },
                             };
 
                             return JSON.stringify(newData);
@@ -246,8 +253,6 @@ const PageCUProducto = ({ intId, isEdit }) => {
 
                         if (res.data) {
                             let data = res.data.data[0];
-
-                            console.log(data);
 
                             setData({
                                 objInfoGeneral: {

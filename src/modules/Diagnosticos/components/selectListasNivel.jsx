@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //Hooks
 import useGetListas from "../hooks/useGetListas";
@@ -6,7 +6,6 @@ import useGetListas from "../hooks/useGetListas";
 //Componentes de Material UI
 import {
     TextField,
-    MenuItem,
     Box,
     CircularProgress,
     Alert,
@@ -18,7 +17,7 @@ import {
 //Iconos
 import { Refresh as RefreshIcon } from "@mui/icons-material";
 
-const SelectListas = ({
+const SelectListasNivel = ({
     label,
     name,
     value,
@@ -29,12 +28,26 @@ const SelectListas = ({
     required,
     strGrupo,
     strCodigo,
-    strType,
+    valueList,
 }) => {
     const { data, refreshGetData } = useGetListas({
         strGrupo,
         strCodigo,
     });
+
+    const [nivel, setNivel] = useState("");
+
+    useEffect(() => {
+        if (data?.length > 0) {
+            const arrFilter = data.filter((e) => e.strCodigoRetorno === valueList);
+
+            setNivel(arrFilter[0]?.strNivel || "");
+        }
+    }, [data, valueList]);
+
+    useEffect(() => {
+        onChange(nivel);
+    }, [nivel, onChange]);
 
     if (data === undefined) {
         return (
@@ -67,7 +80,7 @@ const SelectListas = ({
                 <AlertTitle>
                     <b>Sin datos</b>
                 </AlertTitle>
-                No existen datos de por mostrar del servicio de listas
+                No existen datos de por mostrar del servicio de niveles
             </Alert>
         );
     }
@@ -95,7 +108,7 @@ const SelectListas = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos del listado de listas
+                Ha ocurrido un error al obtener los datos del listado de niveles
             </Alert>
         );
     }
@@ -105,22 +118,14 @@ const SelectListas = ({
             label={label}
             name={name}
             value={value}
-            onChange={onChange}
             helperText={helperText}
             error={error}
-            disabled={disabled}
+            disabled
             required={required}
             variant="standard"
             fullWidth
-            select
-        >
-            {data.map((e, i) => (
-                <MenuItem value={e.strCodigoRetorno} key={i}>
-                    {e.strCodigoRetorno}
-                </MenuItem>
-            ))}
-        </TextField>
+        />
     );
 };
 
-export default SelectListas;
+export default SelectListasNivel;
