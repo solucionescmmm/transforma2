@@ -47,13 +47,21 @@ class setDiagnosticoGeneral{
     }
 
     async #completeData(){
+        
 
         let newData = {
             ...this.#objData.objInfoGeneral,
-            ...this.#objData
+            ...this.#objData.objInfoProductos,
+            ...this.#objData.objInfoCategoria1,
+            ...this.#objData.objInfoCategoria2,
+            ...this.#objData.objInfoNormatividad,
+            ...this.#objData.objInfoAdicional,
         };
 
         this.#objData = newData;
+
+        
+
 
     }
 
@@ -61,7 +69,7 @@ class setDiagnosticoGeneral{
 
         let dao = new classInterfaceDAOComentarios();
 
-        //let query = await dao.setDiagnosticoGeneral(this.#objData);
+        let query = await dao.setDiagnosticoProducto(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);

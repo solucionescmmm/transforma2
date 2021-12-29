@@ -16,6 +16,7 @@ class daoDiagnosticoProducto {
             INSERT INTO tbl_DiagnosticoProductos VALUES
             (
                 ${data.intIdEmpresario},
+                ${data.strCategoriaProductos},
                 ${data.strProductos},
                 ${data.strFuncionalidad},
                 ${data.strFuncionalidadDetalle},
@@ -104,9 +105,6 @@ class daoDiagnosticoProducto {
                 ${data.strUsuarioCreacion},
                 GETDATE(),
                 ${data.strUsuarioActualizacion}
-      ,[strCategoriaProductos]
-      ,[strNombreTecnica]
-      ,[strMateriaPrima]
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -123,6 +121,7 @@ class daoDiagnosticoProducto {
 
             return result;
         } catch (error) {
+            console.log(error)
             let result = {
                 error: true,
                 msg:
