@@ -50,14 +50,7 @@ class setDiagnosticoGeneral{
 
         let newData = {
             ...this.#objData.objInfoGeneral,
-
-            //Objeto de Información General
-            intIdEmpresario:this.#objData.objInfoGeneral.intId,
-            strUbicacionVivienda:this.#objData.objInfoGeneral.strUbicacionVivienda,
-            dtmFechaSesion:this.#objData.objInfoGeneral.dtmFechaSesion,
-            strLugarSesion:this.#objData.objInfoGeneral.strLugarSesion,
-            strUsuarioCreacion:this.#objData.objInfoGeneral.strUsuarioCreacion,
-            strUsuarioActualizacion:this.#objData.objInfoGeneral.strUsuarioActualizacion,
+            ...this.#objData
         };
 
         this.#objData = newData;
