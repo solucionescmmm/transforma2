@@ -1,5 +1,5 @@
 //Class
-const classInterfaceDAOUsuarios = require("../Infra/conectors/interfaceDAOUsuarios");
+const classInterfaceDAOUsuarios = require("../infra/conectors/interfaceDAOUsuarios");
 
 const getUsuarios = async(data) => {
     
