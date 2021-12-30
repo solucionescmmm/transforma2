@@ -1,5 +1,5 @@
 //Class
-const classInterfaceDAODiagnostico = require("../Infra/conectors/interfaseDAODiagnosticoGeneral");
+const classInterfaceDAODiagnostico = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 const validator = require("validator").default;
 
 const getDiagnosticoGeneral = async(objParams, strDataUser) => {
