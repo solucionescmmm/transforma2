@@ -87,7 +87,7 @@ const InfoNormatividad = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objNormatividad ? "#D33030" : "inherit",
+                            color: errors?.objInfoNormatividad ? "#D33030" : "inherit",
                         }}
                     >
                         Normatividad
@@ -109,7 +109,7 @@ const InfoNormatividad = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objNormatividad ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoNormatividad ? "#D33030" : "inherit",
                 }}
             />
 
@@ -117,7 +117,7 @@ const InfoNormatividad = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12}>
                         <Controller
-                            name="objNormatividad.strPermisoFuncionamiento"
+                            name="objInfoNormatividad.strPermisoFuncionamiento"
                             defaultValue={data.strPermisoFuncionamiento}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
@@ -127,12 +127,12 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objNormatividad?.strPermisoFuncionamiento
+                                        errors?.objInfoNormatividad?.strPermisoFuncionamiento
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objNormatividad?.strPermisoFuncionamiento
+                                        errors?.objInfoNormatividad?.strPermisoFuncionamiento
                                             ?.message || "Seleccione una opción"
                                     }
                                 />
@@ -143,7 +143,7 @@ const InfoNormatividad = ({
 
                     <Grid item xs={12}>
                         <Controller
-                            name="objNormatividad.strCertificadosRequeridos"
+                            name="objInfoNormatividad.strCertificadosRequeridos"
                             defaultValue={data.strCertificadosRequeridos}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -153,12 +153,12 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objNormatividad?.strCertificadosRequeridos
+                                        errors?.objInfoNormatividad?.strCertificadosRequeridos
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objNormatividad?.strCertificadosRequeridos
+                                        errors?.objInfoNormatividad?.strCertificadosRequeridos
                                             ?.message ||
                                         "Digite el detalle en caso de que aplique"
                                     }
@@ -172,7 +172,7 @@ const InfoNormatividad = ({
 
                     <Grid item xs={12}>
                         <Controller
-                            name="objNormatividad.strCertificadosActuales"
+                            name="objInfoNormatividad.strCertificadosActuales"
                             defaultValue={data.strCertificadosActuales}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -182,12 +182,12 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objNormatividad?.strCertificadosActuales
+                                        errors?.objInfoNormatividad?.strCertificadosActuales
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objNormatividad?.strCertificadosActuales
+                                        errors?.objInfoNormatividad?.strCertificadosActuales
                                             ?.message ||
                                         "Digite el detalle en caso de que aplique"
                                     }
@@ -201,7 +201,7 @@ const InfoNormatividad = ({
 
                     <Grid item xs={12}>
                         <Controller
-                            name="objNormatividad.strCertificadosActuales"
+                            name="objInfoNormatividad.strCertificadosActuales"
                             defaultValue={data.strCertificadosActuales}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -211,12 +211,12 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objNormatividad?.strCertificadosActuales
+                                        errors?.objInfoNormatividad?.strCertificadosActuales
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objNormatividad?.strCertificadosActuales
+                                        errors?.objInfoNormatividad?.strCertificadosActuales
                                             ?.message ||
                                         "Digite el detalle en caso de que aplique"
                                     }
@@ -230,7 +230,7 @@ const InfoNormatividad = ({
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objNormatividad.strRegistroMarca"
+                            name="objInfoNormatividad.strRegistroMarca"
                             defaultValue={data.strRegistroMarca}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
@@ -240,12 +240,12 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objNormatividad?.strRegistroMarca
+                                        errors?.objInfoNormatividad?.strRegistroMarca
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objNormatividad?.strRegistroMarca
+                                        errors?.objInfoNormatividad?.strRegistroMarca
                                             ?.message || "Seleccione una opción"
                                     }
                                 />
@@ -256,7 +256,7 @@ const InfoNormatividad = ({
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objNormatividad.strPatentesUtilidad"
+                            name="objInfoNormatividad.strPatentesUtilidad"
                             defaultValue={data.strPatentesUtilidad}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
@@ -270,19 +270,19 @@ const InfoNormatividad = ({
                                         handlerChangeData(name, e.target.value);
 
                                         setValue(
-                                            "objNormatividad.strCualPatenteUtilidad",
+                                            "objInfoNormatividad.strCualPatenteUtilidad",
                                             ""
                                         );
 
                                         handlerChangeData("strCualPatenteUtilidad", "");
                                     }}
                                     error={
-                                        errors?.objNormatividad?.strPatentesUtilidad
+                                        errors?.objInfoNormatividad?.strPatentesUtilidad
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objNormatividad?.strPatentesUtilidad
+                                        errors?.objInfoNormatividad?.strPatentesUtilidad
                                             ?.message || "Seleccione una opción"
                                     }
                                 />
@@ -293,7 +293,7 @@ const InfoNormatividad = ({
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objNormatividad.strCualPatenteUtilidad"
+                            name="objInfoNormatividad.strCualPatenteUtilidad"
                             defaultValue={data.strCualPatenteUtilidad}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -303,12 +303,12 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objNormatividad?.strCualPatenteUtilidad
+                                        errors?.objInfoNormatividad?.strCualPatenteUtilidad
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objNormatividad?.strCualPatenteUtilidad
+                                        errors?.objInfoNormatividad?.strCualPatenteUtilidad
                                             ?.message ||
                                         "Digite el detalle en caso de que aplique"
                                     }

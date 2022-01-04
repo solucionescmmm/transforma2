@@ -212,7 +212,7 @@ const InfoCategoria1 = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objCategoria1 ? "#D33030" : "inherit",
+                            color: errors?.objInfoCategoria1 ? "#D33030" : "inherit",
                         }}
                     >
                         Categoría # 1: Diseño Desde lo Físico, lo Técnico y lo Tangible.
@@ -234,7 +234,7 @@ const InfoCategoria1 = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objCategoria1 ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoCategoria1 ? "#D33030" : "inherit",
                 }}
             />
 
@@ -256,7 +256,7 @@ const InfoCategoria1 = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strFuncionalidad"
+                                    name="objInfoCategoria1.strFuncionalidad"
                                     defaultValue={data.strFuncionalidad}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -272,12 +272,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strFuncionalidad
+                                                errors?.objInfoCategoria1?.strFuncionalidad
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strFuncionalidad
+                                                errors?.objInfoCategoria1?.strFuncionalidad
                                                     ?.message || "Seleccione una opción"
                                             }
                                             disabled={disabled}
@@ -291,7 +291,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strFuncionalidadDetalle"
+                                    name="objInfoCategoria1.strFuncionalidadDetalle"
                                     defaultValue={data.strFuncionalidadDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -300,13 +300,13 @@ const InfoCategoria1 = ({
                                             value={value}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strFuncionalidadDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strFuncionalidadDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -320,7 +320,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strFuncionalidadNivel"
+                                    name="objInfoCategoria1.strFuncionalidadNivel"
                                     defaultValue={data.strFuncionalidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -330,13 +330,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strFuncionalidad}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strFuncionalidadNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strFuncionalidadNivel?.message ||
                                                 "Nivel"
                                             }
@@ -351,7 +351,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strMetodologia"
+                                    name="objInfoCategoria1.strMetodologia"
                                     defaultValue={data.strMetodologia}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -367,12 +367,12 @@ const InfoCategoria1 = ({
                                             }}
                                             disabled={disabled}
                                             error={
-                                                errors?.objCategoria1?.strMetodologia
+                                                errors?.objInfoCategoria1?.strMetodologia
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strMetodologia
+                                                errors?.objInfoCategoria1?.strMetodologia
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -385,7 +385,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strMetodologiaDetalle"
+                                    name="objInfoCategoria1.strMetodologiaDetalle"
                                     defaultValue={data.strMetodologiaDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -395,13 +395,13 @@ const InfoCategoria1 = ({
                                             onChange={(e) => onChange(e)}
                                             disabled={disabled}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMetodologiaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMetodologiaDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -414,7 +414,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strMetodologiaNivel"
+                                    name="objInfoCategoria1.strMetodologiaNivel"
                                     defaultValue={data.strMetodologiaNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -424,12 +424,12 @@ const InfoCategoria1 = ({
                                             valueList={data.strMetodologia}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strMetodologiaNivel
+                                                errors?.objInfoCategoria1?.strMetodologiaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strMetodologiaNivel
+                                                errors?.objInfoCategoria1?.strMetodologiaNivel
                                                     ?.message || "Nivel"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -442,7 +442,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strRenovacionPortafolio"
+                                    name="objInfoCategoria1.strRenovacionPortafolio"
                                     defaultValue={data.strRenovacionPortafolio}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -458,13 +458,13 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strRenovacionPortafolio
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strRenovacionPortafolio?.message ||
                                                 "Seleccione una opción"
                                             }
@@ -478,7 +478,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strRenovacionPortafolioDetalle"
+                                    name="objInfoCategoria1.strRenovacionPortafolioDetalle"
                                     defaultValue={data.strRenovacionPortafolioDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -488,13 +488,13 @@ const InfoCategoria1 = ({
                                             onChange={(e) => onChange(e)}
                                             disabled={disabled}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strRenovacionPortafolioDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strRenovacionPortafolioDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
@@ -508,7 +508,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strRenovacionPortafolioNivel"
+                                    name="objInfoCategoria1.strRenovacionPortafolioNivel"
                                     defaultValue={data.strRenovacionPortafolioNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -518,13 +518,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strRenovacionPortafolio}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strRenovacionPortafolioNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strRenovacionPortafolioNivel
                                                     ?.message || "Nivel"
                                             }
@@ -538,7 +538,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strSostenibilidad"
+                                    name="objInfoCategoria1.strSostenibilidad"
                                     defaultValue={data.strSostenibilidad}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -554,12 +554,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strSostenibilidad
+                                                errors?.objInfoCategoria1?.strSostenibilidad
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strSostenibilidad
+                                                errors?.objInfoCategoria1?.strSostenibilidad
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -572,7 +572,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strSostenibilidadDetalle"
+                                    name="objInfoCategoria1.strSostenibilidadDetalle"
                                     defaultValue={data.strSostenibilidadDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -582,13 +582,13 @@ const InfoCategoria1 = ({
                                             onChange={(e) => onChange(e)}
                                             disabled={disabled}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strSostenibilidadDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strSostenibilidadDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -601,7 +601,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strSostenibilidadNivel"
+                                    name="objInfoCategoria1.strSostenibilidadNivel"
                                     defaultValue={data.strSostenibilidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -611,13 +611,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strSostenibilidad}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strSostenibilidadNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strSostenibilidadNivel?.message ||
                                                 "Nivel"
                                             }
@@ -631,7 +631,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strAtributosValor"
+                                    name="objInfoCategoria1.strAtributosValor"
                                     defaultValue={data.strAtributosValor}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -647,12 +647,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strAtributosValor
+                                                errors?.objInfoCategoria1?.strAtributosValor
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strAtributosValor
+                                                errors?.objInfoCategoria1?.strAtributosValor
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -665,7 +665,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strAtributosValorDetalle"
+                                    name="objInfoCategoria1.strAtributosValorDetalle"
                                     defaultValue={data.strAtributosValorDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -675,13 +675,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAtributosValorDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAtributosValorDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -694,7 +694,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strAtributosValorNivel"
+                                    name="objInfoCategoria1.strAtributosValorNivel"
                                     defaultValue={data.strAtributosValorNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -704,13 +704,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strAtributosValor}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAtributosValorNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAtributosValorNivel?.message ||
                                                 "Nivel"
                                             }
@@ -724,7 +724,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strUsoMateriales"
+                                    name="objInfoCategoria1.strUsoMateriales"
                                     defaultValue={data.strUsoMateriales}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -740,12 +740,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strUsoMateriales
+                                                errors?.objInfoCategoria1?.strUsoMateriales
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strUsoMateriales
+                                                errors?.objInfoCategoria1?.strUsoMateriales
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -758,7 +758,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strUsoMaterialesDetalle"
+                                    name="objInfoCategoria1.strUsoMaterialesDetalle"
                                     defaultValue={data.strUsoMaterialesDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -768,13 +768,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAtributosValorDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAtributosValorDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -787,7 +787,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strUsoMaterialesNivel"
+                                    name="objInfoCategoria1.strUsoMaterialesNivel"
                                     defaultValue={data.strUsoMaterialesNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -797,13 +797,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strUsoMateriales}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strUsoMaterialesNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strUsoMaterialesNivel?.message ||
                                                 "Nivel"
                                             }
@@ -837,7 +837,7 @@ const InfoCategoria1 = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strMenajoTecnicaAlim"
+                                    name="objInfoCategoria1.strMenajoTecnicaAlim"
                                     defaultValue={data.strMenajoTecnicaAlim}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -853,13 +853,13 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaAlim
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaAlim?.message ||
                                                 "Seleccione una opción"
                                             }
@@ -873,7 +873,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strMenajoTecnicaAlimDetalle"
+                                    name="objInfoCategoria1.strMenajoTecnicaAlimDetalle"
                                     defaultValue={data.strMenajoTecnicaAlimDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -883,13 +883,13 @@ const InfoCategoria1 = ({
                                             value={value}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaAlimDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaAlimDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
@@ -903,7 +903,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strMenajoTecnicaAlimNivel"
+                                    name="objInfoCategoria1.strMenajoTecnicaAlimNivel"
                                     defaultValue={data.strMenajoTecnicaAlimNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -913,13 +913,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strMenajoTecnicaAlim}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaAlimNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaAlimNivel
                                                     ?.message || "Nivel"
                                             }
@@ -933,7 +933,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strProcesosPreparacion"
+                                    name="objInfoCategoria1.strProcesosPreparacion"
                                     defaultValue={data.strProcesosPreparacion}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -949,13 +949,13 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProcesosPreparacion
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProcesosPreparacion?.message ||
                                                 "Seleccione una opción"
                                             }
@@ -969,7 +969,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strProcesosPreparacionDetalle"
+                                    name="objInfoCategoria1.strProcesosPreparacionDetalle"
                                     defaultValue={data.strProcesosPreparacionDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -979,13 +979,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProcesosPreparacionDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProcesosPreparacionDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
@@ -999,7 +999,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strProcesosPreparacionNivel"
+                                    name="objInfoCategoria1.strProcesosPreparacionNivel"
                                     defaultValue={data.strProcesosPreparacionNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1009,13 +1009,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strProcesosPreparacion}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProcesosPreparacionNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProcesosPreparacionNivel
                                                     ?.message || "Nivel"
                                             }
@@ -1029,7 +1029,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strPresentacionApariencia"
+                                    name="objInfoCategoria1.strPresentacionApariencia"
                                     defaultValue={data.strPresentacionApariencia}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1045,13 +1045,13 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strPresentacionApariencia
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strPresentacionApariencia
                                                     ?.message || "Seleccione una opción"
                                             }
@@ -1065,7 +1065,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strPresentacionAparienciaDetalle"
+                                    name="objInfoCategoria1.strPresentacionAparienciaDetalle"
                                     defaultValue={data.strPresentacionAparienciaDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1075,13 +1075,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strPresentacionAparienciaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strPresentacionAparienciaDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
@@ -1095,7 +1095,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strPresentacionAparienciaNivel"
+                                    name="objInfoCategoria1.strPresentacionAparienciaNivel"
                                     defaultValue={data.strPresentacionAparienciaNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1105,13 +1105,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strPresentacionApariencia}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strPresentacionAparienciaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strPresentacionAparienciaNivel
                                                     ?.message || "Nivel"
                                             }
@@ -1125,7 +1125,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strProporcionAlim"
+                                    name="objInfoCategoria1.strProporcionAlim"
                                     defaultValue={data.strProporcionAlim}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1141,12 +1141,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strProporcionAlim
+                                                errors?.objInfoCategoria1?.strProporcionAlim
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strProporcionAlim
+                                                errors?.objInfoCategoria1?.strProporcionAlim
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1159,7 +1159,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strProporcionAlimDetalle"
+                                    name="objInfoCategoria1.strProporcionAlimDetalle"
                                     defaultValue={data.strProporcionAlimDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1169,13 +1169,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProporcionAlimDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProporcionAlimDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -1188,7 +1188,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strProporcionAlimNivel"
+                                    name="objInfoCategoria1.strProporcionAlimNivel"
                                     defaultValue={data.strProporcionAlimNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1198,13 +1198,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strProporcionAlim}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProporcionAlimNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProporcionAlimNivel?.message ||
                                                 "Nivel"
                                             }
@@ -1218,7 +1218,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strConservacion"
+                                    name="objInfoCategoria1.strConservacion"
                                     defaultValue={data.strConservacion}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1234,12 +1234,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strConservacion
+                                                errors?.objInfoCategoria1?.strConservacion
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strConservacion
+                                                errors?.objInfoCategoria1?.strConservacion
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1252,7 +1252,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strConservacionDetalle"
+                                    name="objInfoCategoria1.strConservacionDetalle"
                                     defaultValue={data.strConservacionDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1262,13 +1262,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strConservacionDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strConservacionDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -1281,7 +1281,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strConservacionNivel"
+                                    name="objInfoCategoria1.strConservacionNivel"
                                     defaultValue={data.strConservacionNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1291,13 +1291,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strConservacion}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strConservacionNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strConservacionNivel?.message ||
                                                 "Nivel"
                                             }
@@ -1311,7 +1311,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strInocuidad"
+                                    name="objInfoCategoria1.strInocuidad"
                                     defaultValue={data.strInocuidad}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1327,12 +1327,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strInocuidad
+                                                errors?.objInfoCategoria1?.strInocuidad
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strInocuidad
+                                                errors?.objInfoCategoria1?.strInocuidad
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1345,7 +1345,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strInocuidadDetalle"
+                                    name="objInfoCategoria1.strInocuidadDetalle"
                                     defaultValue={data.strInocuidadDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1355,12 +1355,12 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strInocuidadDetalle
+                                                errors?.objInfoCategoria1?.strInocuidadDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strInocuidadDetalle
+                                                errors?.objInfoCategoria1?.strInocuidadDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -1373,7 +1373,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strInocuidadNivel"
+                                    name="objInfoCategoria1.strInocuidadNivel"
                                     defaultValue={data.strInocuidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1383,12 +1383,12 @@ const InfoCategoria1 = ({
                                             valueList={data.strInocuidad}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strInocuidadNivel
+                                                errors?.objInfoCategoria1?.strInocuidadNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strInocuidadNivel
+                                                errors?.objInfoCategoria1?.strInocuidadNivel
                                                     ?.message || "Nivel"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1401,7 +1401,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strEmpaqueEtiquetaAlim"
+                                    name="objInfoCategoria1.strEmpaqueEtiquetaAlim"
                                     defaultValue={data.strEmpaqueEtiquetaAlim}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1417,13 +1417,13 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaAlim
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaAlim?.message ||
                                                 "Seleccione una opción"
                                             }
@@ -1437,7 +1437,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strEmpaqueEtiquetaAlimDetalle"
+                                    name="objInfoCategoria1.strEmpaqueEtiquetaAlimDetalle"
                                     defaultValue={data.strEmpaqueEtiquetaAlimDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1447,13 +1447,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaAlimDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaAlimDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
@@ -1467,7 +1467,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strEmpaqueEtiquetaAlimNivel"
+                                    name="objInfoCategoria1.strEmpaqueEtiquetaAlimNivel"
                                     defaultValue={data.strEmpaqueEtiquetaAlimNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1477,13 +1477,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strEmpaqueEtiquetaAlim}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaAlimNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaAlimNivel
                                                     ?.message || "Nivel"
                                             }
@@ -1517,7 +1517,7 @@ const InfoCategoria1 = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strMenajoTecnica"
+                                    name="objInfoCategoria1.strMenajoTecnica"
                                     defaultValue={data.strMenajoTecnica}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1533,12 +1533,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strMenajoTecnica
+                                                errors?.objInfoCategoria1?.strMenajoTecnica
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strMenajoTecnica
+                                                errors?.objInfoCategoria1?.strMenajoTecnica
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1551,7 +1551,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strMenajoTecnicaDetalle"
+                                    name="objInfoCategoria1.strMenajoTecnicaDetalle"
                                     defaultValue={data.strMenajoTecnicaDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1561,13 +1561,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -1580,7 +1580,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strMenajoTecnicaNivel"
+                                    name="objInfoCategoria1.strMenajoTecnicaNivel"
                                     defaultValue={data.strMenajoTecnicaNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1590,13 +1590,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strMenajoTecnica}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strMenajoTecnicaNivel?.message ||
                                                 "Nivel"
                                             }
@@ -1610,7 +1610,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strAcabadosFactura"
+                                    name="objInfoCategoria1.strAcabadosFactura"
                                     defaultValue={data.strAcabadosFactura}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1626,12 +1626,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strAcabadosFactura
+                                                errors?.objInfoCategoria1?.strAcabadosFactura
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strAcabadosFactura
+                                                errors?.objInfoCategoria1?.strAcabadosFactura
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1644,7 +1644,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strAcabadosFacturaDetalle"
+                                    name="objInfoCategoria1.strAcabadosFacturaDetalle"
                                     defaultValue={data.strAcabadosFacturaDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1654,13 +1654,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAcabadosFacturaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAcabadosFacturaDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
@@ -1674,7 +1674,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strAcabadosFacturaNivel"
+                                    name="objInfoCategoria1.strAcabadosFacturaNivel"
                                     defaultValue={data.strAcabadosFacturaNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1684,13 +1684,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strAcabadosFactura}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAcabadosFacturaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strAcabadosFacturaNivel?.message ||
                                                 "Nivel"
                                             }
@@ -1704,7 +1704,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strDurabilidad"
+                                    name="objInfoCategoria1.strDurabilidad"
                                     defaultValue={data.strDurabilidad}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1720,12 +1720,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strDurabilidad
+                                                errors?.objInfoCategoria1?.strDurabilidad
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strDurabilidad
+                                                errors?.objInfoCategoria1?.strDurabilidad
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1738,7 +1738,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strDurabilidadDetalle"
+                                    name="objInfoCategoria1.strDurabilidadDetalle"
                                     defaultValue={data.strDurabilidadDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1748,13 +1748,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strDurabilidadDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strDurabilidadDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -1767,7 +1767,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strDurabilidadNivel"
+                                    name="objInfoCategoria1.strDurabilidadNivel"
                                     defaultValue={data.strDurabilidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1777,12 +1777,12 @@ const InfoCategoria1 = ({
                                             valueList={data.strDurabilidad}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strDurabilidadNivel
+                                                errors?.objInfoCategoria1?.strDurabilidadNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strDurabilidadNivel
+                                                errors?.objInfoCategoria1?.strDurabilidadNivel
                                                     ?.message || "Nivel"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1795,7 +1795,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strUsoColores"
+                                    name="objInfoCategoria1.strUsoColores"
                                     defaultValue={data.strUsoColores}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1811,12 +1811,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strUsoColores
+                                                errors?.objInfoCategoria1?.strUsoColores
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strUsoColores
+                                                errors?.objInfoCategoria1?.strUsoColores
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1829,7 +1829,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strUsoColoresDetalle"
+                                    name="objInfoCategoria1.strUsoColoresDetalle"
                                     defaultValue={data.strUsoColoresDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1839,13 +1839,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strUsoColoresDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strUsoColoresDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -1858,7 +1858,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strUsoColoresNivel"
+                                    name="objInfoCategoria1.strUsoColoresNivel"
                                     defaultValue={data.strUsoColoresNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1868,12 +1868,12 @@ const InfoCategoria1 = ({
                                             valueList={data.strUsoColores}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strUsoColoresNivel
+                                                errors?.objInfoCategoria1?.strUsoColoresNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strUsoColoresNivel
+                                                errors?.objInfoCategoria1?.strUsoColoresNivel
                                                     ?.message || "Nivel"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1886,7 +1886,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strProporcion"
+                                    name="objInfoCategoria1.strProporcion"
                                     defaultValue={data.strProporcion}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -1902,12 +1902,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strProporcion
+                                                errors?.objInfoCategoria1?.strProporcion
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strProporcion
+                                                errors?.objInfoCategoria1?.strProporcion
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1920,7 +1920,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strProporcionDetalle"
+                                    name="objInfoCategoria1.strProporcionDetalle"
                                     defaultValue={data.strProporcionDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -1930,13 +1930,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProporcionDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strProporcionDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -1949,7 +1949,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strProporcionNivel"
+                                    name="objInfoCategoria1.strProporcionNivel"
                                     defaultValue={data.strProporcionNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -1959,12 +1959,12 @@ const InfoCategoria1 = ({
                                             valueList={data.strProporcion}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strProporcionNivel
+                                                errors?.objInfoCategoria1?.strProporcionNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strProporcionNivel
+                                                errors?.objInfoCategoria1?.strProporcionNivel
                                                     ?.message || "Nivel"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -1997,7 +1997,7 @@ const InfoCategoria1 = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strRiesgoUso"
+                                    name="objInfoCategoria1.strRiesgoUso"
                                     defaultValue={data.strRiesgoUso}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -2013,12 +2013,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strRiesgoUso
+                                                errors?.objInfoCategoria1?.strRiesgoUso
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strRiesgoUso
+                                                errors?.objInfoCategoria1?.strRiesgoUso
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -2031,7 +2031,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strRiesgoUsoDetalle"
+                                    name="objInfoCategoria1.strRiesgoUsoDetalle"
                                     defaultValue={data.strRiesgoUsoDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -2041,12 +2041,12 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strRiesgoUsoDetalle
+                                                errors?.objInfoCategoria1?.strRiesgoUsoDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strRiesgoUsoDetalle
+                                                errors?.objInfoCategoria1?.strRiesgoUsoDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -2059,7 +2059,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strRiesgoUsoNivel"
+                                    name="objInfoCategoria1.strRiesgoUsoNivel"
                                     defaultValue={data.strRiesgoUsoNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -2069,12 +2069,12 @@ const InfoCategoria1 = ({
                                             valueList={data.strRiesgoUso}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strRiesgoUsoNivel
+                                                errors?.objInfoCategoria1?.strRiesgoUsoNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strRiesgoUsoNivel
+                                                errors?.objInfoCategoria1?.strRiesgoUsoNivel
                                                     ?.message || "Nivel"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -2087,7 +2087,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strEmpaqueEtiqueta"
+                                    name="objInfoCategoria1.strEmpaqueEtiqueta"
                                     defaultValue={data.strEmpaqueEtiqueta}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -2103,12 +2103,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strEmpaqueEtiqueta
+                                                errors?.objInfoCategoria1?.strEmpaqueEtiqueta
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strEmpaqueEtiqueta
+                                                errors?.objInfoCategoria1?.strEmpaqueEtiqueta
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -2121,7 +2121,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strEmpaqueEtiquetaDetalle"
+                                    name="objInfoCategoria1.strEmpaqueEtiquetaDetalle"
                                     defaultValue={data.strEmpaqueEtiquetaDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -2131,13 +2131,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
@@ -2151,7 +2151,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strEmpaqueEtiquetaNivel"
+                                    name="objInfoCategoria1.strEmpaqueEtiquetaNivel"
                                     defaultValue={data.strEmpaqueEtiquetaNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -2161,13 +2161,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strEmpaqueEtiqueta}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strEmpaqueEtiquetaNivel?.message ||
                                                 "Nivel"
                                             }
@@ -2181,7 +2181,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strUsabilidad"
+                                    name="objInfoCategoria1.strUsabilidad"
                                     defaultValue={data.strUsabilidad}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -2197,12 +2197,12 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1?.strUsabilidad
+                                                errors?.objInfoCategoria1?.strUsabilidad
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strUsabilidad
+                                                errors?.objInfoCategoria1?.strUsabilidad
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -2215,7 +2215,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strUsabilidadDetalle"
+                                    name="objInfoCategoria1.strUsabilidadDetalle"
                                     defaultValue={data.strUsabilidadDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -2225,13 +2225,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strUsabilidadDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strUsabilidadDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -2244,7 +2244,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strUsabilidadNivel"
+                                    name="objInfoCategoria1.strUsabilidadNivel"
                                     defaultValue={data.strUsabilidadNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -2254,12 +2254,12 @@ const InfoCategoria1 = ({
                                             valueList={data.strUsabilidad}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strUsabilidadNivel
+                                                errors?.objInfoCategoria1?.strUsabilidadNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strUsabilidadNivel
+                                                errors?.objInfoCategoria1?.strUsabilidadNivel
                                                     ?.message || "Nivel"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -2272,7 +2272,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strDiseñoExperiencia"
+                                    name="objInfoCategoria1.strDiseñoExperiencia"
                                     defaultValue={data.strDiseñoExperiencia}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -2288,13 +2288,13 @@ const InfoCategoria1 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strDiseñoExperiencia
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strDiseñoExperiencia?.message ||
                                                 "Seleccione una opción"
                                             }
@@ -2308,7 +2308,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria1.strDiseñoExperienciaDetalle"
+                                    name="objInfoCategoria1.strDiseñoExperienciaDetalle"
                                     defaultValue={data.strDiseñoExperienciaDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -2318,13 +2318,13 @@ const InfoCategoria1 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strDiseñoExperienciaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strDiseñoExperienciaDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
@@ -2338,7 +2338,7 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strDiseñoExperienciaNivel"
+                                    name="objInfoCategoria1.strDiseñoExperienciaNivel"
                                     defaultValue={data.strDiseñoExperienciaNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -2348,13 +2348,13 @@ const InfoCategoria1 = ({
                                             valueList={data.strDiseñoExperiencia}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strDiseñoExperienciaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria1
                                                     ?.strDiseñoExperienciaNivel
                                                     ?.message || "Nivel"
                                             }

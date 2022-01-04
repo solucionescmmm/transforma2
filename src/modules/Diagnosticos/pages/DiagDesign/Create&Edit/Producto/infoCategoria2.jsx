@@ -94,7 +94,7 @@ const InfoCategoria2 = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objCategoria2 ? "#D33030" : "inherit",
+                            color: errors?.objInfoCategoria2 ? "#D33030" : "inherit",
                         }}
                     >
                         Categoría # 2: Diseño Desde lo Conceptual, lo Abstracto y lo
@@ -117,7 +117,7 @@ const InfoCategoria2 = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objCategoria2 ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoCategoria2 ? "#D33030" : "inherit",
                 }}
             />
 
@@ -139,7 +139,7 @@ const InfoCategoria2 = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria2.strLineaGrafica"
+                                    name="objInfoCategoria2.strLineaGrafica"
                                     defaultValue={data.strLineaGrafica}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -155,12 +155,12 @@ const InfoCategoria2 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria2?.strLineaGrafica
+                                                errors?.objInfoCategoria2?.strLineaGrafica
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria2?.strLineaGrafica
+                                                errors?.objInfoCategoria2?.strLineaGrafica
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -173,7 +173,7 @@ const InfoCategoria2 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria2.strLineaGraficaDetalle"
+                                    name="objInfoCategoria2.strLineaGraficaDetalle"
                                     defaultValue={data.strLineaGraficaDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -183,13 +183,13 @@ const InfoCategoria2 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria2
+                                                errors?.objInfoCategoria2
                                                     ?.strLineaGraficaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria2
+                                                errors?.objInfoCategoria2
                                                     ?.strLineaGraficaDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -232,7 +232,7 @@ const InfoCategoria2 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria2.strIdentidadMarca"
+                                    name="objInfoCategoria2.strIdentidadMarca"
                                     defaultValue={data.strIdentidadMarca}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -248,12 +248,12 @@ const InfoCategoria2 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria2?.strIdentidadMarca
+                                                errors?.objInfoCategoria2?.strIdentidadMarca
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria2?.strIdentidadMarca
+                                                errors?.objInfoCategoria2?.strIdentidadMarca
                                                     ?.message || "Seleccione una opción"
                                             }
                                             strGrupo="DiagnosticoProducto"
@@ -266,7 +266,7 @@ const InfoCategoria2 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria2.strIdentidadMarcaDetalle"
+                                    name="objInfoCategoria2.strIdentidadMarcaDetalle"
                                     defaultValue={data.strIdentidadMarcaDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -276,13 +276,13 @@ const InfoCategoria2 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria2
+                                                errors?.objInfoCategoria2
                                                     ?.strIdentidadMarcaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria2
+                                                errors?.objInfoCategoria2
                                                     ?.strIdentidadMarcaDetalle?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -325,7 +325,7 @@ const InfoCategoria2 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria2.strComunicacionMarca"
+                                    name="objInfoCategoria2.strComunicacionMarca"
                                     defaultValue={data.strComunicacionMarca}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListas
@@ -341,13 +341,13 @@ const InfoCategoria2 = ({
                                                 );
                                             }}
                                             error={
-                                                errors?.objCategoria2
+                                                errors?.objInfoCategoria2
                                                     ?.strComunicacionMarca
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria2
+                                                errors?.objInfoCategoria2
                                                     ?.strComunicacionMarca?.message ||
                                                 "Seleccione una opción"
                                             }
@@ -361,7 +361,7 @@ const InfoCategoria2 = ({
 
                             <Grid item xs={12} md={5}>
                                 <Controller
-                                    name="objCategoria2.strComunicacionMarcaDetalle"
+                                    name="objInfoCategoria2.strComunicacionMarcaDetalle"
                                     defaultValue={data.strComunicacionMarcaDetalle}
                                     render={({ field: { name, onChange, value } }) => (
                                         <TextField
@@ -371,13 +371,13 @@ const InfoCategoria2 = ({
                                             disabled={disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria2
+                                                errors?.objInfoCategoria2
                                                     ?.strComunicacionMarcaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria2
+                                                errors?.objInfoCategoria2
                                                     ?.strComunicacionMarcaDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
