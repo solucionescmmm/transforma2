@@ -1,5 +1,6 @@
 //Servicios
 const setDiagnosticoProducto = require("../../domain/setDiagnosticoProducto.service")
+const updateDiagnosticoProducto = require("../../domain/updateDiagnosticoProducto.service")
 
 class ctrl_DiagnosticoProducto{
 
@@ -15,6 +16,27 @@ class ctrl_DiagnosticoProducto{
                 throw new Error(query.msg);
             }
 
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async updateDiagnosticoProducto(req, res) {
+        try {
+            let data = req.body;  
+            let { strDataUser } = req;
+
+            let query = await updateDiagnosticoProducto(data, strDataUser);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
             res.status(200).json(query);
         } catch (error) {
             let result = {
@@ -46,7 +68,6 @@ class ctrl_DiagnosticoProducto{
             res.status(400).json(result);
         }
     }
-
 }
 
 module.exports = ctrl_DiagnosticoProducto
