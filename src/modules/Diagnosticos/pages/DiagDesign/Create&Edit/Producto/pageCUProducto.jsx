@@ -1,4 +1,10 @@
-import React, { useState, useContext, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 
 //Context
 import { AuthContext } from "../../../../../../common/middlewares/Auth";
@@ -7,7 +13,10 @@ import { AuthContext } from "../../../../../../common/middlewares/Auth";
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
 
 //Librerias
-import { Link as RouterLink, Redirect } from "react-router-dom";
+import {
+  Link as RouterLink,
+  Redirect,
+} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -15,14 +24,14 @@ import { format, parseISO } from "date-fns";
 
 // Componentes de MUI
 import {
-    Grid,
-    Button,
-    Container,
-    Paper,
-    LinearProgress,
-    Box,
-    Typography,
-    Alert,
+  Grid,
+  Button,
+  Container,
+  Paper,
+  LinearProgress,
+  Box,
+  Typography,
+  Alert,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -44,522 +53,577 @@ import InfoNormatividad from "./infoNormatividad";
 import { makeStyles } from "@mui/styles";
 
 const styles = makeStyles((theme) => ({
-    containerPR: {
-        [theme.breakpoints.down("sm")]: {
-            paddingRigth: "0px",
-            paddingLeft: "0px",
-        },
+  containerPR: {
+    [theme.breakpoints.down("sm")]: {
+      paddingRigth: "0px",
+      paddingLeft: "0px",
     },
-    paper: {
-        position: "relative",
-        borderRadius: "7px",
-    },
-    linearProgress: {
-        position: "absolute",
-        width: "100%",
-        borderRadius: "10px 10px 0 0",
-        padding: 0,
-    },
-    container: {
-        position: "relative",
-        display: "flex",
-        width: "inherit",
-        height: "70vh",
-    },
-    item: {
-        flex: 1,
-        position: "relative",
-    },
-    link: {
-        display: "flex",
-        alignItems: "center",
-    },
-    icon: {
-        marginRight: theme.spacing(0.5),
-    },
+  },
+  paper: {
+    position: "relative",
+    borderRadius: "7px",
+  },
+  linearProgress: {
+    position: "absolute",
+    width: "100%",
+    borderRadius: "10px 10px 0 0",
+    padding: 0,
+  },
+  container: {
+    position: "relative",
+    display: "flex",
+    width: "inherit",
+    height: "70vh",
+  },
+  item: {
+    flex: 1,
+    position: "relative",
+  },
+  link: {
+    display: "flex",
+    alignItems: "center",
+  },
+  icon: {
+    marginRight: theme.spacing(0.5),
+  },
 }));
 
 const PageCUProducto = ({ intId, isEdit }) => {
-    //===============================================================================================================================================
-    //========================================== Context ============================================================================================
-    //===============================================================================================================================================
-    const { token } = useContext(AuthContext);
+  //===============================================================================================================================================
+  //========================================== Context ============================================================================================
+  //===============================================================================================================================================
+  const { token } = useContext(AuthContext);
 
-    //===============================================================================================================================================
-    //========================================== Declaracion de estados =============================================================================
-    //===============================================================================================================================================
-    const [data, setData] = useState({
-        objInfoGeneral: {},
-        objInfoProductos: {},
-        objInfoCategoria1: {},
-        objInfoCategoria2: {},
-        objInfoNormatividad: {},
-        objInfoAdicional: {},
-    });
+  //===============================================================================================================================================
+  //========================================== Declaracion de estados =============================================================================
+  //===============================================================================================================================================
+  const [data, setData] = useState({
+    objInfoGeneral: {},
+    objInfoProductos: {},
+    objInfoCategoria1: {},
+    objInfoCategoria2: {},
+    objInfoNormatividad: {},
+    objInfoAdicional: {},
+  });
 
-    const [success, setSucces] = useState(false);
+  const [success, setSucces] = useState(false);
 
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const [errorGetData, setErrorGetData] = useState({
-        flag: false,
-        msg: "",
-    });
+  const [errorGetData, setErrorGetData] = useState({
+    flag: false,
+    msg: "",
+  });
 
-    const [loadingGetData, setLoadingGetData] = useState(false);
+  const [loadingGetData, setLoadingGetData] =
+    useState(false);
 
-    const [flagSubmit, setFlagSubmit] = useState(false);
+  const [flagSubmit, setFlagSubmit] = useState(false);
 
-    //===============================================================================================================================================
-    //========================================== Hooks personalizados ===============================================================================
-    //===============================================================================================================================================
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-        reset,
-        setError,
-        setValue,
-        clearErrors,
-    } = useForm({ mode: "onChange" });
+  //===============================================================================================================================================
+  //========================================== Hooks personalizados ===============================================================================
+  //===============================================================================================================================================
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    setError,
+    setValue,
+    clearErrors,
+  } = useForm({ mode: "onChange" });
 
-    const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
+  const { getUniqueData } = useGetEmpresarios({
+    autoLoad: false,
+  });
 
-    const refFntGetData = useRef(getUniqueData);
+  const refFntGetData = useRef(getUniqueData);
 
-    //===============================================================================================================================================
-    //========================================== Funciones ==========================================================================================
-    //===============================================================================================================================================
-    const classes = styles();
+  //===============================================================================================================================================
+  //========================================== Funciones ==========================================================================================
+  //===============================================================================================================================================
+  const classes = styles();
 
-    const onSubmit = (data) => {
-        setData((prevState) => ({
-            ...prevState,
-            ...data,
-        }));
+  const onSubmit = (data) => {
+    setData((prevState) => ({
+      ...prevState,
+      ...data,
+    }));
 
-        setFlagSubmit(true);
-    };
+    console.log(data);
 
-    const submitData = useCallback(
-        async (signalSubmitData) => {
-            setLoading(true);
+    setFlagSubmit(true);
+  };
 
-            setFlagSubmit(false);
+  const submitData = useCallback(
+    async (signalSubmitData) => {
+      setLoading(true);
 
-            await axios(
-                {
-                    method: isEdit ? "PUT" : "POST",
-                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
-                            ? process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETPRODUCTO
-                            : process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETPRODUCTO
-                    }`,
-                    data,
-                    transformRequest: [
-                        (data) => {
-                            let newData = {
-                                objInfoGeneral: {
-                                    ...data.objInfoGeneral,
-                                    dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
-                                        ? format(
-                                              data.objInfoGeneral.dtmFechaSesion,
-                                              "yyyy-MM-dd hh:mm:ss"
-                                          )
-                                        : null,
-                                    dtFechaExpedicionDocto: data.objInfoGeneral
-                                        .dtFechaExpedicionDocto
-                                        ? format(
-                                              data.objInfoGeneral.dtFechaExpedicionDocto,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                    dtFechaNacimiento: data.objInfoGeneral
-                                        .dtFechaNacimiento
-                                        ? format(
-                                              data.objInfoGeneral.dtFechaNacimiento,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                },
-                                objInfoProductos: { ...data.objInfoProductos },
-                                objInfoCategoria1: { ...data.objInfoCategoria1 },
-                                objInfoCategoria2: { ...data.objInfoCategoria2 },
-                                objInfoNormatividad: { ...data.objInfoNormatividad },
-                                objInfoAdicional: { ...data.objInfoAdicional },
-                            };
+      setFlagSubmit(false);
 
-                            return JSON.stringify(newData);
-                        },
-                    ],
-                    headers: {
-                        token,
-                        "Content-Type": "application/json;charset=UTF-8",
-                    },
+      await axios(
+        {
+          method: isEdit ? "PUT" : "POST",
+          baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+          url: `${
+            isEdit
+              ? process.env
+                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETPRODUCTO
+              : process.env
+                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETPRODUCTO
+          }`,
+          data,
+          transformRequest: [
+            (data) => {
+              let newData = {
+                objInfoGeneral: {
+                  ...data.objInfoGeneral,
+                  dtmFechaSesion: data.objInfoGeneral
+                    .dtmFechaSesion
+                    ? format(
+                        data.objInfoGeneral.dtmFechaSesion,
+                        "yyyy-MM-dd hh:mm:ss"
+                      )
+                    : null,
+                  dtFechaExpedicionDocto: data
+                    .objInfoGeneral.dtFechaExpedicionDocto
+                    ? format(
+                        data.objInfoGeneral
+                          .dtFechaExpedicionDocto,
+                        "yyyy-MM-dd"
+                      )
+                    : null,
+                  dtFechaNacimiento: data.objInfoGeneral
+                    .dtFechaNacimiento
+                    ? format(
+                        data.objInfoGeneral
+                          .dtFechaNacimiento,
+                        "yyyy-MM-dd"
+                      )
+                    : null,
                 },
-                {
-                    cancelToken: signalSubmitData.token,
-                }
-            )
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
-                    }
+                objInfoProductos: {
+                  ...data.objInfoProductos,
+                },
+                objInfoCategoria1: {
+                  ...data.objInfoCategoria1,
+                },
+                objInfoCategoria2: {
+                  ...data.objInfoCategoria2,
+                },
+                objInfoNormatividad: {
+                  ...data.objInfoNormatividad,
+                },
+                objInfoAdicional: {
+                  ...data.objInfoAdicional,
+                },
+              };
 
-                    toast.success(res.data.msg);
-
-                    setLoading(false);
-                    setSucces(true);
-                })
-                .catch((error) => {
-                    if (!axios.isCancel(error)) {
-                        let msg;
-
-                        if (error.response) {
-                            msg = error.response.data.msg;
-                        } else if (error.request) {
-                            msg = error.message;
-                        } else {
-                            msg = error.message;
-                        }
-
-                        console.error(error);
-                        setLoading(false);
-
-                        toast.error(msg);
-                    }
-                });
+              return JSON.stringify(newData);
+            },
+          ],
+          headers: {
+            token,
+            "Content-Type":
+              "application/json;charset=UTF-8",
+          },
         },
-        [token, data, isEdit]
-    );
+        {
+          cancelToken: signalSubmitData.token,
+        }
+      )
+        .then((res) => {
+          if (res.data.error) {
+            throw new Error(res.data.msg);
+          }
 
-    //===============================================================================================================================================
-    //========================================== useEffects =========================================================================================
-    //===============================================================================================================================================
-    useEffect(() => {
-        if (intId) {
-            setLoadingGetData(true);
+          toast.success(res.data.msg);
 
-            async function getData() {
-                await refFntGetData
-                    .current({ intId })
-                    .then((res) => {
-                        if (res.data.error) {
-                            throw new Error(res.data.msg);
-                        }
+          setLoading(false);
+          setSucces(true);
+        })
+        .catch((error) => {
+          if (!axios.isCancel(error)) {
+            let msg;
 
-                        if (res.data) {
-                            let data = res.data.data[0];
-
-                            setData({
-                                objInfoGeneral: {
-                                    intId: data.objEmpresario.intId || null,
-                                    dtmFechaSesion:
-                                        data.objEmpresario.dtmFechaSesion || null,
-                                    strLugarSesion:
-                                        data.objEmpresario.strLugarSesion || "",
-                                    strUsuarioCreacion:
-                                        data.objEmpresario.strUsuarioCreacion || "",
-                                    dtActualizacion:
-                                        data.objEmpresario.dtActualizacion || null,
-                                    strUsuarioActualizacion:
-                                        data.objEmpresario.strUsuarioActualizacion || "",
-                                    strNombres: data.objEmpresario.strNombres || "",
-                                    strApellidos: data.objEmpresario.strApellidos || "",
-                                    strTipoDocto: data.objEmpresario.strTipoDocto || "",
-                                    strNroDocto: data.objEmpresario.strNroDocto || "",
-                                    strLugarExpedicionDocto:
-                                        data.objEmpresario.strLugarExpedicionDocto || "",
-                                    dtFechaExpedicionDocto: data.objEmpresario
-                                        .dtFechaExpedicionDocto
-                                        ? parseISO(
-                                              data.objEmpresario.dtFechaExpedicionDocto
-                                          )
-                                        : null,
-                                    dtFechaNacimiento: data.objEmpresario
-                                        .dtFechaNacimiento
-                                        ? parseISO(data.objEmpresario.dtFechaNacimiento)
-                                        : null,
-                                    strGenero: data.objEmpresario.strGenero || "",
-                                    strNivelEducativo:
-                                        data.objEmpresario.strNivelEducativo || "",
-                                    strTitulos: data.objEmpresario.strTitulos || "",
-                                    strEstrato: data.objEmpresario.strEstrato || "",
-                                    arrDepartamento:
-                                        data.objEmpresario.arrDepartamento || [],
-                                    arrCiudad: data.objEmpresario.arrCiudad || [],
-                                    strDireccionResidencia:
-                                        data.objEmpresario.strDireccionResidencia || "",
-                                    strBarrio: data.objEmpresario.strBarrio || "",
-                                    strUbicacionVivienda:
-                                        data.objEmpresario.strUbicacionVivienda || "",
-                                    strCelular1: data.objEmpresario.strCelular1 || "",
-                                    strCelular2: data.objEmpresario.strCelular2 || "",
-                                    strCorreoElectronico1:
-                                        data.objEmpresario.strCorreoElectronico1 || "",
-                                    strCorreoElectronico2:
-                                        data.objEmpresario.strCorreoElectronico2 || "",
-                                },
-                                objInfoProductos: {
-                                    strNombreTecnica:
-                                        data.objInfoEmpresa.strNombreTecnica || "",
-                                    strMateriaPrima:
-                                        data.objInfoEmpresa.strMateriaPrima || "",
-                                },
-                            });
-                        }
-
-                        setLoadingGetData(false);
-                        setErrorGetData({ flag: false, msg: "" });
-                    })
-                    .catch((error) => {
-                        setErrorGetData({ flag: true, msg: error.message });
-                        setLoadingGetData(false);
-                    });
+            if (error.response) {
+              msg = error.response.data.msg;
+            } else if (error.request) {
+              msg = error.message;
+            } else {
+              msg = error.message;
             }
 
-            getData();
-        }
-    }, [intId]);
+            console.error(error);
+            setLoading(false);
 
-    useEffect(() => {
-        if (intId) {
-            reset(data);
-        }
-    }, [data, reset, intId]);
+            toast.error(msg);
+          }
+        });
+    },
+    [token, data, isEdit]
+  );
 
-    useEffect(() => {
-        let signalSubmitData = axios.CancelToken.source();
+  //===============================================================================================================================================
+  //========================================== useEffects =========================================================================================
+  //===============================================================================================================================================
+  useEffect(() => {
+    if (intId) {
+      setLoadingGetData(true);
 
-        if (flagSubmit) {
-            submitData(signalSubmitData);
-        }
+      async function getData() {
+        await refFntGetData
+          .current({ intId })
+          .then((res) => {
+            if (res.data.error) {
+              throw new Error(res.data.msg);
+            }
 
-        return () => {
-            signalSubmitData.cancel("Petición abortada.");
-        };
-    }, [flagSubmit, submitData]);
+            if (res.data) {
+              let data = res.data.data[0];
 
-    //===============================================================================================================================================
-    //========================================== Renders ============================================================================================
-    //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/diagnosticos/diagEmpresarial" />;
+              setData({
+                objInfoGeneral: {
+                  intId: data.objEmpresario.intId || null,
+                  dtmFechaSesion:
+                    data.objEmpresario.dtmFechaSesion ||
+                    null,
+                  strLugarSesion:
+                    data.objEmpresario.strLugarSesion || "",
+                  strUsuarioCreacion:
+                    data.objEmpresario.strUsuarioCreacion ||
+                    "",
+                  dtActualizacion:
+                    data.objEmpresario.dtActualizacion ||
+                    null,
+                  strUsuarioActualizacion:
+                    data.objEmpresario
+                      .strUsuarioActualizacion || "",
+                  strNombres:
+                    data.objEmpresario.strNombres || "",
+                  strApellidos:
+                    data.objEmpresario.strApellidos || "",
+                  strTipoDocto:
+                    data.objEmpresario.strTipoDocto || "",
+                  strNroDocto:
+                    data.objEmpresario.strNroDocto || "",
+                  strLugarExpedicionDocto:
+                    data.objEmpresario
+                      .strLugarExpedicionDocto || "",
+                  dtFechaExpedicionDocto: data.objEmpresario
+                    .dtFechaExpedicionDocto
+                    ? parseISO(
+                        data.objEmpresario
+                          .dtFechaExpedicionDocto
+                      )
+                    : null,
+                  dtFechaNacimiento: data.objEmpresario
+                    .dtFechaNacimiento
+                    ? parseISO(
+                        data.objEmpresario.dtFechaNacimiento
+                      )
+                    : null,
+                  strGenero:
+                    data.objEmpresario.strGenero || "",
+                  strNivelEducativo:
+                    data.objEmpresario.strNivelEducativo ||
+                    "",
+                  strTitulos:
+                    data.objEmpresario.strTitulos || "",
+                  strEstrato:
+                    data.objEmpresario.strEstrato || "",
+                  arrDepartamento:
+                    data.objEmpresario.arrDepartamento ||
+                    [],
+                  arrCiudad:
+                    data.objEmpresario.arrCiudad || [],
+                  strDireccionResidencia:
+                    data.objEmpresario
+                      .strDireccionResidencia || "",
+                  strBarrio:
+                    data.objEmpresario.strBarrio || "",
+                  strUbicacionVivienda:
+                    data.objEmpresario
+                      .strUbicacionVivienda || "",
+                  strCelular1:
+                    data.objEmpresario.strCelular1 || "",
+                  strCelular2:
+                    data.objEmpresario.strCelular2 || "",
+                  strCorreoElectronico1:
+                    data.objEmpresario
+                      .strCorreoElectronico1 || "",
+                  strCorreoElectronico2:
+                    data.objEmpresario
+                      .strCorreoElectronico2 || "",
+                },
+                objInfoProductos: {
+                  strNombreTecnica:
+                    data.objInfoEmpresa.strNombreTecnica ||
+                    "",
+                  strMateriaPrima:
+                    data.objInfoEmpresa.strMateriaPrima ||
+                    "",
+                },
+              });
+            }
+
+            setLoadingGetData(false);
+            setErrorGetData({ flag: false, msg: "" });
+          })
+          .catch((error) => {
+            setErrorGetData({
+              flag: true,
+              msg: error.message,
+            });
+            setLoadingGetData(false);
+          });
+      }
+
+      getData();
+    }
+  }, [intId]);
+
+  useEffect(() => {
+    if (intId) {
+      reset(data);
+    }
+  }, [data, reset, intId]);
+
+  useEffect(() => {
+    let signalSubmitData = axios.CancelToken.source();
+
+    if (flagSubmit) {
+      submitData(signalSubmitData);
     }
 
-    if (loadingGetData) {
-        return <Loader />;
-    }
+    return () => {
+      signalSubmitData.cancel("Petición abortada.");
+    };
+  }, [flagSubmit, submitData]);
 
-    if (errorGetData.flag) {
-        return (
-            <PageError
-                severity="error"
-                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
-                title={errorGetData.msg}
-            />
-        );
-    }
+  //===============================================================================================================================================
+  //========================================== Renders ============================================================================================
+  //===============================================================================================================================================
+  if (success) {
+    return <Redirect to="/diagnosticos/diagEmpresarial" />;
+  }
 
-    if (data?.error) {
-        return (
-            <PageError
-                severity="error"
-                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
-                title={data.msg}
-            />
-        );
-    }
+  if (loadingGetData) {
+    return <Loader />;
+  }
 
+  if (errorGetData.flag) {
     return (
-        <Grid
-            container
-            direction="row"
-            spacing={3}
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-        >
-            <Grid item xs={12}>
-                <Button
-                    component={RouterLink}
-                    to={`/diagnosticos/diagDesign/`}
-                    startIcon={<ChevronLeftIcon />}
-                    size="small"
-                    color="inherit"
-                >
-                    Regresar
-                </Button>
-            </Grid>
-
-            <Grid item xs={12}>
-                <Container className={classes.containerPR}>
-                    <Paper className={classes.paper}>
-                        {loading ? (
-                            <LinearProgress className={classes.linearProgress} />
-                        ) : null}
-
-                        <Grid
-                            container
-                            direction="row"
-                            spacing={2}
-                            style={{ padding: "25px" }}
-                        >
-                            <Grid item xs={12}>
-                                <Grid
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        width: "100%",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            flexGrow: 1,
-                                        }}
-                                    >
-                                        <Typography
-                                            align="center"
-                                            style={{
-                                                fontWeight: "bold",
-                                                textTransform: "uppercase",
-                                            }}
-                                            color="primary"
-                                            variant="body1"
-                                        >
-                                            {isEdit
-                                                ? "editar diagnóstico de producto"
-                                                : "registrar diagnóstico de producto"}
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="caption">
-                                    Todos los campos marcados con (*) son obligatorios.
-                                </Typography>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoGeneral
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoGeneral}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoProductos
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoProductos}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoCategoria1
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoCategoria1}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoCategoria2
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoCategoria2}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoNormatividad
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoNormatividad}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoAdicional
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoAdicional}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            {(errors.objInfoGeneral ||
-                                errors.objInfoProductos ||
-                                errors.objInfoCategoria1 ||
-                                errors.objInfoCategoria2 ||
-                                errors.objInfoNormatividad ||
-                                errors.objInfoAdicional) && (
-                                <Grid item xs={12}>
-                                    <Alert severity="error">
-                                        Lo sentimos, tienes campos pendientes por
-                                        diligenciar en el formulario, revisa e intentalo
-                                        nuevamente.
-                                    </Alert>
-                                </Grid>
-                            )}
-
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row-reverse",
-                                    }}
-                                >
-                                    <LoadingButton
-                                        variant="contained"
-                                        type="submit"
-                                        loading={loading}
-                                        sx={{ marginLeft: "15px" }}
-                                    >
-                                        {isEdit ? "guardar" : "registrar"}
-                                    </LoadingButton>
-
-                                    <Button variant="contained" color="inherit">
-                                        Mostrar resultados
-                                    </Button>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                </Container>
-            </Grid>
-        </Grid>
+      <PageError
+        severity="error"
+        msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+        title={errorGetData.msg}
+      />
     );
+  }
+
+  if (data?.error) {
+    return (
+      <PageError
+        severity="error"
+        msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+        title={data.msg}
+      />
+    );
+  }
+
+  return (
+    <Grid
+      container
+      direction="row"
+      spacing={3}
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
+      <Grid item xs={12}>
+        <Button
+          component={RouterLink}
+          to={`/diagnosticos/diagDesign/`}
+          startIcon={<ChevronLeftIcon />}
+          size="small"
+          color="inherit"
+        >
+          Regresar
+        </Button>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Container className={classes.containerPR}>
+          <Paper className={classes.paper}>
+            {loading ? (
+              <LinearProgress
+                className={classes.linearProgress}
+              />
+            ) : null}
+
+            <Grid
+              container
+              direction="row"
+              spacing={2}
+              style={{ padding: "25px" }}
+            >
+              <Grid item xs={12}>
+                <Grid
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                    }}
+                  >
+                    <Typography
+                      align="center"
+                      style={{
+                        fontWeight: "bold",
+                        textTransform: "uppercase",
+                      }}
+                      color="primary"
+                      variant="body1"
+                    >
+                      {isEdit
+                        ? "editar diagnóstico de producto"
+                        : "registrar diagnóstico de producto"}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography variant="caption">
+                  Todos los campos marcados con (*) son
+                  obligatorios.
+                </Typography>
+              </Grid>
+
+              <Grid item xs={12}>
+                <InfoGeneral
+                  control={control}
+                  disabled={loading}
+                  values={data.objInfoGeneral}
+                  errors={errors}
+                  setValue={setValue}
+                  setError={setError}
+                  clearErrors={clearErrors}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <InfoProductos
+                  control={control}
+                  disabled={loading}
+                  values={data.objInfoProductos}
+                  errors={errors}
+                  setValue={setValue}
+                  setError={setError}
+                  clearErrors={clearErrors}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <InfoCategoria1
+                  control={control}
+                  disabled={loading}
+                  values={data.objInfoCategoria1}
+                  errors={errors}
+                  setValue={setValue}
+                  setError={setError}
+                  clearErrors={clearErrors}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <InfoCategoria2
+                  control={control}
+                  disabled={loading}
+                  values={data.objInfoCategoria2}
+                  errors={errors}
+                  setValue={setValue}
+                  setError={setError}
+                  clearErrors={clearErrors}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <InfoNormatividad
+                  control={control}
+                  disabled={loading}
+                  values={data.objInfoNormatividad}
+                  errors={errors}
+                  setValue={setValue}
+                  setError={setError}
+                  clearErrors={clearErrors}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <InfoAdicional
+                  control={control}
+                  disabled={loading}
+                  values={data.objInfoAdicional}
+                  errors={errors}
+                  setValue={setValue}
+                  setError={setError}
+                  clearErrors={clearErrors}
+                />
+              </Grid>
+
+              {(errors.objInfoGeneral ||
+                errors.objInfoProductos ||
+                errors.objInfoCategoria1 ||
+                errors.objInfoCategoria2 ||
+                errors.objInfoNormatividad ||
+                errors.objInfoAdicional) && (
+                <Grid item xs={12}>
+                  <Alert severity="error">
+                    Lo sentimos, tienes campos pendientes
+                    por diligenciar en el formulario, revisa
+                    e intentalo nuevamente.
+                  </Alert>
+                </Grid>
+              )}
+
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row-reverse",
+                  }}
+                >
+                  <LoadingButton
+                    variant="contained"
+                    type="submit"
+                    loading={loading}
+                    sx={{ marginLeft: "15px" }}
+                  >
+                    {isEdit ? "guardar" : "registrar"}
+                  </LoadingButton>
+
+                  <Button
+                    variant="contained"
+                    color="inherit"
+                  >
+                    Mostrar resultados
+                  </Button>
+                </Box>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Container>
+      </Grid>
+    </Grid>
+  );
 };
 
 export default PageCUProducto;

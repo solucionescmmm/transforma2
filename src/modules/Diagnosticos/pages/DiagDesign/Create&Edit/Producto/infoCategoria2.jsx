@@ -202,7 +202,7 @@ const InfoCategoria2 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strLineaGraficaNivel"
+                                    name="objInfoCategoria2.strLineaGraficaNivel"
                                     defaultValue={data.strLineaGraficaNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -212,13 +212,13 @@ const InfoCategoria2 = ({
                                             valueList={data.strLineaGrafica}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria2
                                                     ?.strLineaGraficaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria2
                                                     ?.strLineaGraficaNivel?.message ||
                                                 "Nivel"
                                             }
@@ -295,7 +295,7 @@ const InfoCategoria2 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strIdentidadMarcaNivel"
+                                    name="objInfoCategoria2.strIdentidadMarcaNivel"
                                     defaultValue={data.strIdentidadMarcaNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -305,13 +305,13 @@ const InfoCategoria2 = ({
                                             valueList={data.strIdentidadMarca}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria2
                                                     ?.strIdentidadMarcaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria2
                                                     ?.strIdentidadMarcaNivel?.message ||
                                                 "Nivel"
                                             }
@@ -391,7 +391,7 @@ const InfoCategoria2 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strComunicacionMarcaNivel"
+                                    name="objInfoCategoria2.strComunicacionMarcaNivel"
                                     defaultValue={data.strComunicacionMarcaNivel}
                                     render={({ field: { name, onChange, value } }) => (
                                         <SelectListasNivel
@@ -400,13 +400,13 @@ const InfoCategoria2 = ({
                                             value={value}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria2
                                                     ?.strComunicacionMarcaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoCategoria2
                                                     ?.strComunicacionMarcaNivel
                                                     ?.message || "Nivel"
                                             }
