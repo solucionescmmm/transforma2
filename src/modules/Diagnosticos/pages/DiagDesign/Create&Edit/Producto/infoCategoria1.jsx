@@ -1897,7 +1897,7 @@ const InfoCategoria1 = ({
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
-                                                    "strUsoColores",
+                                                    "strProporcion",
                                                     e.target.value
                                                 );
                                             }}

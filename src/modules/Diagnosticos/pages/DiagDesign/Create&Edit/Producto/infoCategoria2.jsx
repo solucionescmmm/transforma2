@@ -243,7 +243,7 @@ const InfoCategoria2 = ({
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
-                                                    "strLineaGrafica",
+                                                    "strIdentidadMarca",
                                                     e.target.value
                                                 );
                                             }}
