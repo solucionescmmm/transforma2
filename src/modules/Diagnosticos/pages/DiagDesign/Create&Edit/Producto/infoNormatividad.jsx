@@ -61,7 +61,8 @@ const InfoNormatividad = ({
         if (values) {
             setData({
                 strPermisoFuncionamiento: values.strPermisoFuncionamiento || "",
-                strCertificadosRequeridos: values.strCertificadosRequeridos || "",
+                strCertificadosRequeridos:
+                    values.strCertificadosRequeridos || "",
                 strCertificadosActuales: values.strCertificadosActuales || "",
                 strRegistroMarca: values.strRegistroMarca || "",
                 strPatentesUtilidad: values.strPatentesUtilidad || "",
@@ -74,7 +75,12 @@ const InfoNormatividad = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -87,7 +93,9 @@ const InfoNormatividad = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoNormatividad ? "#D33030" : "inherit",
+                            color: errors?.objInfoNormatividad
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Normatividad
@@ -95,13 +103,22 @@ const InfoNormatividad = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -109,7 +126,9 @@ const InfoNormatividad = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoNormatividad ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoNormatividad
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -127,14 +146,18 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoNormatividad?.strPermisoFuncionamiento
+                                        errors?.objInfoNormatividad
+                                            ?.strPermisoFuncionamiento
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoNormatividad?.strPermisoFuncionamiento
+                                        errors?.objInfoNormatividad
+                                            ?.strPermisoFuncionamiento
                                             ?.message || "Seleccione una opción"
                                     }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
                                 />
                             )}
                             control={control}
@@ -153,12 +176,14 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoNormatividad?.strCertificadosRequeridos
+                                        errors?.objInfoNormatividad
+                                            ?.strCertificadosRequeridos
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoNormatividad?.strCertificadosRequeridos
+                                        errors?.objInfoNormatividad
+                                            ?.strCertificadosRequeridos
                                             ?.message ||
                                         "Digite el detalle en caso de que aplique"
                                     }
@@ -182,41 +207,14 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoNormatividad?.strCertificadosActuales
+                                        errors?.objInfoNormatividad
+                                            ?.strCertificadosActuales
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoNormatividad?.strCertificadosActuales
-                                            ?.message ||
-                                        "Digite el detalle en caso de que aplique"
-                                    }
-                                    fullWidth
-                                    variant="standard"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            name="objInfoNormatividad.strCertificadosActuales"
-                            defaultValue={data.strCertificadosActuales}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="¿Cuáles son las certificaciones que tiene actualmente?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoNormatividad?.strCertificadosActuales
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoNormatividad?.strCertificadosActuales
+                                        errors?.objInfoNormatividad
+                                            ?.strCertificadosActuales
                                             ?.message ||
                                         "Digite el detalle en caso de que aplique"
                                     }
@@ -240,14 +238,18 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoNormatividad?.strRegistroMarca
+                                        errors?.objInfoNormatividad
+                                            ?.strRegistroMarca
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoNormatividad?.strRegistroMarca
-                                            ?.message || "Seleccione una opción"
+                                        errors?.objInfoNormatividad
+                                            ?.strRegistroMarca?.message ||
+                                        "Seleccione una opción"
                                     }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
                                 />
                             )}
                             control={control}
@@ -274,16 +276,21 @@ const InfoNormatividad = ({
                                             ""
                                         );
 
-                                        handlerChangeData("strCualPatenteUtilidad", "");
+                                        handlerChangeData(
+                                            "strCualPatenteUtilidad",
+                                            ""
+                                        );
                                     }}
                                     error={
-                                        errors?.objInfoNormatividad?.strPatentesUtilidad
+                                        errors?.objInfoNormatividad
+                                            ?.strPatentesUtilidad
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoNormatividad?.strPatentesUtilidad
-                                            ?.message || "Seleccione una opción"
+                                        errors?.objInfoNormatividad
+                                            ?.strPatentesUtilidad?.message ||
+                                        "Seleccione una opción"
                                     }
                                 />
                             )}
@@ -303,13 +310,14 @@ const InfoNormatividad = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoNormatividad?.strCualPatenteUtilidad
+                                        errors?.objInfoNormatividad
+                                            ?.strCualPatenteUtilidad
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoNormatividad?.strCualPatenteUtilidad
-                                            ?.message ||
+                                        errors?.objInfoNormatividad
+                                            ?.strCualPatenteUtilidad?.message ||
                                         "Digite el detalle en caso de que aplique"
                                     }
                                     fullWidth
