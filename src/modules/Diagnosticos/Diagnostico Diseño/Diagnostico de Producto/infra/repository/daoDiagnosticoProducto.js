@@ -7,7 +7,6 @@ const { conexion } = require("../../../../../../common/config/confSQL_connection
 
 class daoDiagnosticoProducto {
     async setDiagnosticoProducto(data) {
-        console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -122,7 +121,6 @@ class daoDiagnosticoProducto {
 
             return result;
         } catch (error) {
-            console.log(error)
             let result = {
                 error: true,
                 msg:
@@ -235,7 +233,7 @@ class daoDiagnosticoProducto {
                 strUsuarioActualizacion          = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
                 dtmActualizacion                 = COALESCE(GETDATE(), dtmActualizacion)
 
-            WHERE intId = ${data.intId}`;
+                WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,

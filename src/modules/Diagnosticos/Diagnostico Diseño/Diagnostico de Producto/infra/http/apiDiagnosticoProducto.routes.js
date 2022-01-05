@@ -15,4 +15,9 @@ routes.put("/transforma/api/diagnosticos/diagnosticoDisenio/updateDiagnosticoPro
     await controllerDiagnosticoProducto.updateDiagnosticoProducto(req, res);
 });
 
+routes.get("/transforma/api/diagnosticos/diagnosticoDisenio/getDiagnosticoProducto", async (req, res) => {
+    let controllerDiagnosticoProducto = new classController();
+    await controllerDiagnosticoProducto.getDiagnosticoProducto(req, res);
+});
+
 module.exports = routes;

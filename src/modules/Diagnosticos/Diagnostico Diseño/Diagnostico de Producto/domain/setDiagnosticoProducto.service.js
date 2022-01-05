@@ -47,7 +47,7 @@ class setDiagnosticoGeneral{
     }
 
     async #completeData(){
-        
+        console.log(this.#objData)
         let newData = {
             intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
@@ -64,7 +64,7 @@ class setDiagnosticoGeneral{
 
         let dao = new classInterfaceDAOComentarios();
 
-        let query = await dao.setDiagnosticoProducto(this.#objData);
+        //let query = await dao.setDiagnosticoProducto(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
