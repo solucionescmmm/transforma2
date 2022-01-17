@@ -36,6 +36,7 @@ app.use(require("../../Localizaciones/infra/http/apiLocalizaciones.routes"))
 app.use(require("../../Comentarios/infra/http/apiComentarios.routes"))
 app.use(require("../../Diagnosticos/Diagnostico Empresarial/Diagnostico Genereal/infra/http/apiDiagnosticoGeneral.routes"))
 app.use(require("../../Diagnosticos/Diagnostico Diseño/Diagnostico de Producto/infra/http/apiDiagnosticoProducto.routes"))
+app.use(require("../../Diagnosticos/Diagnostico Diseño/Diagnostico de Servicio/infra/http/apiDiagnosticoServicio.routes"))
 app.use(require("../../Usuarios/Infra/http/apiUsuarios.routes"))
 
 module.exports = app;

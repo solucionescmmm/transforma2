@@ -51,9 +51,7 @@ class setDiagnosticoServicio{
         let newData = {
             intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
-            ...this.#objData.objInfoProductos,
-            ...this.#objData.objInfoCategoria1,
-            ...this.#objData.objInfoCategoria2,
+            ...this.#objData.objInfoEvaluacion,
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoAdicional,
         };
