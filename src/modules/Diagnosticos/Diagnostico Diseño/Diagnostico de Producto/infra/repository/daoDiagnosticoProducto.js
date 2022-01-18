@@ -10,7 +10,7 @@ class daoDiagnosticoProducto {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            let response = await conn.query`
+            await conn.query`
             DECLARE @intId INTEGER;
             
             INSERT INTO tbl_DiagnosticoProductos VALUES
@@ -137,7 +137,7 @@ class daoDiagnosticoProducto {
     async updateDiagnosticoProducto(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
+            await conn.query`
 
             UPDATE tbl_DiagnosticoProductos
 
