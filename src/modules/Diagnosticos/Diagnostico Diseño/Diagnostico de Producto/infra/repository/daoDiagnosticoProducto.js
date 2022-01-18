@@ -157,7 +157,6 @@ class daoDiagnosticoProducto {
                 strSostenibilidad                = COALESCE(${data.strSostenibilidad}, strSostenibilidad),
                 strSostenibilidadDetalle         = COALESCE(${data.strSostenibilidadDetalle}, strSostenibilidadDetalle),
                 strSostenibilidadNivel           = COALESCE(${data.strSostenibilidadNivel}, strSostenibilidadNivel),
-                strNucleoFamiliarOtrosIngresos   = COALESCE(${data.strNucleoFamiliarOtrosIngresos}, strNucleoFamiliarOtrosIngresos),
                 strAtributosValor                = COALESCE(${data.strAtributosValor}, strAtributosValor),
                 strAtributosValorDetalle         = COALESCE(${data.strAtributosValorDetalle}, strAtributosValorDetalle),
                 strAtributosValorNivel           = COALESCE(${data.strAtributosValorNivel}, strAtributosValorNivel),
