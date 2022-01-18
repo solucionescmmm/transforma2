@@ -23,7 +23,9 @@ const DiagEmpresarial = lazy(() =>
     import("../../../Diagnosticos/pages/DiagEmpresarial/homePage")
 );
 
-const DiagDesign = lazy(() => import("../../../Diagnosticos/pages/DiagDesign/homePage"));
+const DiagDesign = lazy(() =>
+    import("../../../Diagnosticos/pages/DiagDesign/homePage")
+);
 
 const PageCUGeneral = lazy(() =>
     import(
@@ -32,11 +34,19 @@ const PageCUGeneral = lazy(() =>
 );
 
 const PageCUProducto = lazy(() =>
-    import("../../../Diagnosticos/pages/DiagDesign/Create&Edit/Producto/pageCUProducto")
+    import(
+        "../../../Diagnosticos/pages/DiagDesign/Create&Edit/Producto/pageCUProducto"
+    )
 );
 
 const PageCUServicio = lazy(() =>
-    import("../../../Diagnosticos/pages/DiagDesign/Create&Edit/Servicio/pageCUServicio")
+    import(
+        "../../../Diagnosticos/pages/DiagDesign/Create&Edit/Servicio/pageCUServicio"
+    )
+);
+
+const PageResumenProducto = lazy(() =>
+    import("../../../Diagnosticos/pages/DiagDesign/Read/Producto/homePage")
 );
 
 const TabsComponent = ({ intId }) => {
@@ -49,6 +59,7 @@ const TabsComponent = ({ intId }) => {
         "/diagnosticos/diagEmpresarial/general/create",
         "/diagnosticos/diagDesign/",
         "/diagnosticos/diagDesign/product/create",
+        "/diagnosticos/diagDesign/product/read/:intId",
     ]);
 
     const currentTab = routeMatch?.path.startsWith("/diagnosticos/")
@@ -175,6 +186,18 @@ const TabsRoutes = ({ values, intId }) => {
                 />
 
                 <Route
+                    path="/diagnosticos/diagDesign/product/read/:intId"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageResumenProducto />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
                     path="/diagnosticos/diagDesign/product/create"
                     exact
                     component={() => (
@@ -187,11 +210,35 @@ const TabsRoutes = ({ values, intId }) => {
                 />
 
                 <Route
+                    path="/diagnosticos/diagDesign/product/edit"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageCUProducto intId={intId} isEdit />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
                     path="/diagnosticos/diagDesign/service/create"
                     exact
                     component={() => (
                         <div className="animate__animated animate__fadeIn">
                             <PageCUServicio intId={intId} />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagDesign/service/edit"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageCUServicio intId={intId} isEdit />
 
                             {/* <PageMaintenance /> */}
                         </div>

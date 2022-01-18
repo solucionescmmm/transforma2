@@ -137,7 +137,7 @@ const InfoCategoria2 = ({
 
                     <Grid item xs={12}>
                         <Grid container direction="row" spacing={2}>
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoCategoria2.strLineaGrafica"
                                     defaultValue={data.strLineaGrafica}
@@ -171,7 +171,7 @@ const InfoCategoria2 = ({
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoCategoria2.strLineaGraficaDetalle"
                                     defaultValue={data.strLineaGraficaDetalle}
@@ -194,6 +194,8 @@ const InfoCategoria2 = ({
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -230,7 +232,7 @@ const InfoCategoria2 = ({
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoCategoria2.strIdentidadMarca"
                                     defaultValue={data.strIdentidadMarca}
@@ -264,7 +266,7 @@ const InfoCategoria2 = ({
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoCategoria2.strIdentidadMarcaDetalle"
                                     defaultValue={data.strIdentidadMarcaDetalle}
@@ -287,6 +289,8 @@ const InfoCategoria2 = ({
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -323,7 +327,7 @@ const InfoCategoria2 = ({
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoCategoria2.strComunicacionMarca"
                                     defaultValue={data.strComunicacionMarca}
@@ -359,7 +363,7 @@ const InfoCategoria2 = ({
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoCategoria2.strComunicacionMarcaDetalle"
                                     defaultValue={data.strComunicacionMarcaDetalle}
@@ -383,6 +387,8 @@ const InfoCategoria2 = ({
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}

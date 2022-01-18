@@ -24,6 +24,7 @@ import {
 
 //Componentes
 import SelectListas from "../../../../components/selectLista";
+import SelectListasNivel from "../../../../components/selectListasNivel";
 
 const InfoEvaluacion = ({
     disabled,
@@ -75,28 +76,43 @@ const InfoEvaluacion = ({
         setOpenCollapse(!openCollapese);
     };
 
+    const handlerChangeData = (key, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [key]: value,
+        }));
+    };
+
     useEffect(() => {
         if (values) {
             setData({
                 strServicio: values.strServicio || "",
                 strHerramientasServicio: values.strHerramientasServicio || "",
                 strObjetivoProposito: values.strObjetivoProposito || "",
-                strObjetivoPropositoDetalle: values.strObjetivoPropositoDetalle || "",
-                strObjetivoPropositoNivel: values.strObjetivoPropositoNivel || "",
+                strObjetivoPropositoDetalle:
+                    values.strObjetivoPropositoDetalle || "",
+                strObjetivoPropositoNivel:
+                    values.strObjetivoPropositoNivel || "",
                 strRenovacionPortafolio: values.strRenovacionPortafolio || "",
                 strRenovacionPortafolioDetalle:
                     values.strRenovacionPortafolioDetalle || "",
-                strRenovacionPortafolioNivel: values.strRenovacionPortafolioNivel || "",
+                strRenovacionPortafolioNivel:
+                    values.strRenovacionPortafolioNivel || "",
                 strProcesoInteraccion: values.strProcesoInteraccion || "",
-                strProcesoInteraccionDetalle: values.strProcesoInteraccionDetalle || "",
-                strProcesoInteraccionNivel: values.strProcesoInteraccionNivel || "",
+                strProcesoInteraccionDetalle:
+                    values.strProcesoInteraccionDetalle || "",
+                strProcesoInteraccionNivel:
+                    values.strProcesoInteraccionNivel || "",
                 strPuntosContacto: values.strPuntosContacto || "",
                 strPuntosContactoDetalle: values.strPuntosContactoDetalle || "",
                 strExperienciaDiseñada: values.strExperienciaDiseñada || "",
-                strExperienciaDiseñadaDetalle: values.strExperienciaDiseñadaDetalle || "",
-                strExperienciaDiseñadaNivel: values.strExperienciaDiseñadaNivel || "",
+                strExperienciaDiseñadaDetalle:
+                    values.strExperienciaDiseñadaDetalle || "",
+                strExperienciaDiseñadaNivel:
+                    values.strExperienciaDiseñadaNivel || "",
                 strRecursosServicio: values.strRecursosServicio || "",
-                strRecursosServicioDetalle: values.strRecursosServicioDetalle || "",
+                strRecursosServicioDetalle:
+                    values.strRecursosServicioDetalle || "",
                 strRecursosServicioNivel: values.strRecursosServicioNivel || "",
                 strPostVenta: values.strPostVenta || "",
                 strPostVentaDetalle: values.strPostVentaDetalle || "",
@@ -107,8 +123,10 @@ const InfoEvaluacion = ({
                 strIdentidadMarcaDetalle: values.strIdentidadMarcaDetalle || "",
                 strIdentidadMarcaNivel: values.strIdentidadMarcaNivel || "",
                 strComunicacionMarca: values.strComunicacionMarca || "",
-                strComunicacionMarcaDetalle: values.strComunicacionMarcaDetalle || "",
-                strComunicacionMarcaNivel: values.strComunicacionMarcaNivel || "",
+                strComunicacionMarcaDetalle:
+                    values.strComunicacionMarcaDetalle || "",
+                strComunicacionMarcaNivel:
+                    values.strComunicacionMarcaNivel || "",
             });
         }
 
@@ -117,7 +135,12 @@ const InfoEvaluacion = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -130,7 +153,9 @@ const InfoEvaluacion = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoEvaluacion ? "#D33030" : "inherit",
+                            color: errors?.objInfoEvaluacion
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Servicios evaluados en el diagnóstico
@@ -138,13 +163,22 @@ const InfoEvaluacion = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -152,7 +186,9 @@ const InfoEvaluacion = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoEvaluacion ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoEvaluacion
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -175,7 +211,8 @@ const InfoEvaluacion = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEvaluacion?.strServicio?.message ||
+                                        errors?.objInfoEvaluacion?.strServicio
+                                            ?.message ||
                                         "Digite el detalle en caso de que aplique"
                                     }
                                     variant="outlined"
@@ -200,12 +237,14 @@ const InfoEvaluacion = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoEvaluacion?.strHerramientasServicio
+                                        errors?.objInfoEvaluacion
+                                            ?.strHerramientasServicio
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEvaluacion?.strHerramientasServicio
+                                        errors?.objInfoEvaluacion
+                                            ?.strHerramientasServicio
                                             ?.message ||
                                         "Digite el detalle en caso de que aplique"
                                     }
@@ -237,17 +276,25 @@ const InfoEvaluacion = ({
 
                     <Grid item xs={12}>
                         <Grid container direction="row" spacing={2}>
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoEvaluacion.strObjetivoProposito"
                                     defaultValue={data.strLineaGrafica}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Objetivo o propósito"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strLineaGrafica",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objInfoEvaluacion
                                                     ?.strObjetivoProposito
@@ -256,20 +303,27 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strObjetivoProposito?.message ||
+                                                    ?.strObjetivoProposito
+                                                    ?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="ObjetivoProposito"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoEvaluacion.strObjetivoPropositoDetalle"
-                                    defaultValue={data.strObjetivoPropositoDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    defaultValue={
+                                        data.strObjetivoPropositoDetalle
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -289,6 +343,8 @@ const InfoEvaluacion = ({
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -298,12 +354,17 @@ const InfoEvaluacion = ({
                             <Grid item xs={12} md={2}>
                                 <Controller
                                     name="objCategoria1.strObjetivoPropositoNivel"
-                                    defaultValue={data.strObjetivoPropositoNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    defaultValue={
+                                        data.strObjetivoPropositoNivel
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strLineaGrafica}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -317,23 +378,33 @@ const InfoEvaluacion = ({
                                                     ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="ObjetivoProposito"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoEvaluacion.strRenovacionPortafolio"
                                     defaultValue={data.strRenovacionPortafolio}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Renovación de portafolio"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strRenovacionPortafolio",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objInfoEvaluacion
                                                     ?.strRenovacionPortafolio
@@ -342,20 +413,27 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strRenovacionPortafolio?.message ||
+                                                    ?.strRenovacionPortafolio
+                                                    ?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="RenovacionPortafolio"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoEvaluacion.strRenovacionPortafolioDetalle"
-                                    defaultValue={data.strRenovacionPortafolioDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    defaultValue={
+                                        data.strRenovacionPortafolioDetalle
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -375,6 +453,8 @@ const InfoEvaluacion = ({
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -384,12 +464,19 @@ const InfoEvaluacion = ({
                             <Grid item xs={12} md={2}>
                                 <Controller
                                     name="objCategoria1.strRenovacionPortafolioNivel"
-                                    defaultValue={data.strRenovacionPortafolioNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    defaultValue={
+                                        data.strRenovacionPortafolioNivel
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={
+                                                data.strRenovacionPortafolio
+                                            }
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -403,23 +490,33 @@ const InfoEvaluacion = ({
                                                     ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="RenovacionPortafolio"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoEvaluacion.strProcesoInteraccion"
                                     defaultValue={data.strProcesoInteraccion}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Procesos de interacción"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strProcesoInteraccion",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objInfoEvaluacion
                                                     ?.strProcesoInteraccion
@@ -428,20 +525,27 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strProcesoInteraccion?.message ||
+                                                    ?.strProcesoInteraccion
+                                                    ?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="ProcesosInteraccion"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoEvaluacion.strProcesoInteraccionDetalle"
-                                    defaultValue={data.strProcesoInteraccionDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    defaultValue={
+                                        data.strProcesoInteraccionDetalle
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -461,6 +565,8 @@ const InfoEvaluacion = ({
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -470,12 +576,19 @@ const InfoEvaluacion = ({
                             <Grid item xs={12} md={2}>
                                 <Controller
                                     name="objCategoria1.strProcesoInteraccionNivel"
-                                    defaultValue={data.strProcesoInteraccionNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    defaultValue={
+                                        data.strProcesoInteraccionNivel
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={
+                                                data.strProcesoInteraccion
+                                            }
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -489,23 +602,33 @@ const InfoEvaluacion = ({
                                                     ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="ProcesosInteraccion"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoEvaluacion.strPuntosContacto"
                                     defaultValue={data.strPuntosContacto}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Puntos de contacto"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strPuntosContacto",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objInfoEvaluacion
                                                     ?.strPuntosContacto
@@ -514,20 +637,25 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strPuntosContacto?.message ||
+                                                    ?.strPuntosContacto
+                                                    ?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="PuntosContacto"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoEvaluacion.strPuntosContactoDetalle"
                                     defaultValue={data.strPuntosContactoDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -542,10 +670,13 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strPuntosContactoDetalle?.message ||
+                                                    ?.strPuntosContactoDetalle
+                                                    ?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -556,11 +687,14 @@ const InfoEvaluacion = ({
                                 <Controller
                                     name="objCategoria1.strPuntosContactoNivel"
                                     defaultValue={data.strPuntosContactoNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strPuntosContacto}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -570,10 +704,12 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objCategoria1
-                                                    ?.strPuntosContactoNivel?.message ||
-                                                "Nivel"
+                                                    ?.strPuntosContactoNivel
+                                                    ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="PuntosContacto"
                                         />
                                     )}
                                     control={control}
@@ -600,17 +736,25 @@ const InfoEvaluacion = ({
 
                     <Grid item xs={12}>
                         <Grid container direction="row" spacing={2}>
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoEvaluacion.strExperienciaDiseñada"
                                     defaultValue={data.strExperienciaDiseñada}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Experiencia diseñada"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strExperienciaDiseñada",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objInfoEvaluacion
                                                     ?.strExperienciaDiseñada
@@ -619,20 +763,27 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strExperienciaDiseñada?.message ||
+                                                    ?.strExperienciaDiseñada
+                                                    ?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="ExperienciaDiseñada"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoEvaluacion.strExperienciaDiseñadaDetalle"
-                                    defaultValue={data.strExperienciaDiseñadaDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    defaultValue={
+                                        data.strExperienciaDiseñadaDetalle
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -651,6 +802,8 @@ const InfoEvaluacion = ({
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
+                                            variant="standard"
+                                            multiline
                                             fullWidth
                                         />
                                     )}
@@ -661,12 +814,19 @@ const InfoEvaluacion = ({
                             <Grid item xs={12} md={2}>
                                 <Controller
                                     name="objCategoria1.strExperienciaDiseñadaNivel"
-                                    defaultValue={data.strExperienciaDiseñadaNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    defaultValue={
+                                        data.strExperienciaDiseñadaNivel
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={
+                                                data.strExperienciaDiseñada
+                                            }
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -680,23 +840,33 @@ const InfoEvaluacion = ({
                                                     ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="ExperienciaDiseñada"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoEvaluacion.strRecursosServicio"
                                     defaultValue={data.strRecursosServicio}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Recursos del servicio"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strRecursosServicio",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objInfoEvaluacion
                                                     ?.strRecursosServicio
@@ -705,20 +875,27 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strRecursosServicio?.message ||
+                                                    ?.strRecursosServicio
+                                                    ?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="RecursoServicio"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoEvaluacion.strRecursosServicioDetalle"
-                                    defaultValue={data.strRecursosServicioDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    defaultValue={
+                                        data.strRecursosServicioDetalle
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -738,6 +915,8 @@ const InfoEvaluacion = ({
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -748,11 +927,14 @@ const InfoEvaluacion = ({
                                 <Controller
                                     name="objCategoria1.strRecursosServicioNivel"
                                     defaultValue={data.strRecursosServicioNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strRecursosServicio}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -762,47 +944,63 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objCategoria1
-                                                    ?.strRecursosServicioNivel?.message ||
-                                                "Nivel"
+                                                    ?.strRecursosServicioNivel
+                                                    ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="RecursoServicio"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objInfoEvaluacion.strPostVenta"
                                     defaultValue={data.strPostVenta}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Post venta"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strPostVenta",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
-                                                errors?.objInfoEvaluacion?.strPostVenta
+                                                errors?.objInfoEvaluacion
+                                                    ?.strPostVenta
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEvaluacion?.strPostVenta
-                                                    ?.message || "Seleccione una opción"
+                                                errors?.objInfoEvaluacion
+                                                    ?.strPostVenta?.message ||
+                                                "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="PostVenta"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objInfoEvaluacion.strPostVentaDetalle"
                                     defaultValue={data.strPostVentaDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -817,10 +1015,13 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strPostVentaDetalle?.message ||
+                                                    ?.strPostVentaDetalle
+                                                    ?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -831,22 +1032,29 @@ const InfoEvaluacion = ({
                                 <Controller
                                     name="objCategoria1.strPostVentaNivel"
                                     defaultValue={data.strPostVentaNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strPostVenta}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1?.strPostVentaNivel
+                                                errors?.objCategoria1
+                                                    ?.strPostVentaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1?.strPostVentaNivel
+                                                errors?.objCategoria1
+                                                    ?.strPostVentaNivel
                                                     ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="PostVenta"
                                         />
                                     )}
                                     control={control}
@@ -873,37 +1081,52 @@ const InfoEvaluacion = ({
 
                     <Grid item xs={12}>
                         <Grid container direction="row" spacing={2}>
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objCategoria2.strLineaGrafica"
                                     defaultValue={data.strLineaGrafica}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Línea gráfica de la marca"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strLineaGrafica",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
-                                                errors?.objCategoria2?.strLineaGrafica
+                                                errors?.objCategoria2
+                                                    ?.strLineaGrafica
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria2?.strLineaGrafica
-                                                    ?.message || "Seleccione una opción"
+                                                errors?.objCategoria2
+                                                    ?.strLineaGrafica
+                                                    ?.message ||
+                                                "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="LineaMarca"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objCategoria2.strLineaGraficaDetalle"
                                     defaultValue={data.strLineaGraficaDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -918,10 +1141,13 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objCategoria2
-                                                    ?.strLineaGraficaDetalle?.message ||
+                                                    ?.strLineaGraficaDetalle
+                                                    ?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -932,11 +1158,14 @@ const InfoEvaluacion = ({
                                 <Controller
                                     name="objCategoria1.strLineaGraficaNivel"
                                     defaultValue={data.strLineaGraficaNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strLineaGrafica}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -946,47 +1175,64 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objCategoria1
-                                                    ?.strLineaGraficaNivel?.message ||
-                                                "Nivel"
+                                                    ?.strLineaGraficaNivel
+                                                    ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="LineaMarca"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objCategoria2.strIdentidadMarca"
                                     defaultValue={data.strIdentidadMarca}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Identidad de la marca"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strIdentidadMarca",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
-                                                errors?.objCategoria2?.strIdentidadMarca
+                                                errors?.objCategoria2
+                                                    ?.strIdentidadMarca
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria2?.strIdentidadMarca
-                                                    ?.message || "Seleccione una opción"
+                                                errors?.objCategoria2
+                                                    ?.strIdentidadMarca
+                                                    ?.message ||
+                                                "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="IdentidadMarca"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objCategoria2.strIdentidadMarcaDetalle"
                                     defaultValue={data.strIdentidadMarcaDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -1001,10 +1247,13 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objCategoria2
-                                                    ?.strIdentidadMarcaDetalle?.message ||
+                                                    ?.strIdentidadMarcaDetalle
+                                                    ?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -1015,11 +1264,14 @@ const InfoEvaluacion = ({
                                 <Controller
                                     name="objCategoria1.strIdentidadMarcaNivel"
                                     defaultValue={data.strIdentidadMarcaNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strIdentidadMarca}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -1029,27 +1281,37 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objCategoria1
-                                                    ?.strIdentidadMarcaNivel?.message ||
-                                                "Nivel"
+                                                    ?.strIdentidadMarcaNivel
+                                                    ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="IdentidadMarca"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={7}>
                                 <Controller
                                     name="objCategoria2.strComunicacionMarca"
                                     defaultValue={data.strComunicacionMarca}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <SelectListas
                                             label="Comunicación de la marca"
                                             name={name}
                                             value={value}
                                             disabled={disabled}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strComunicacionMarca",
+                                                    e.target.value
+                                                );
+                                            }}
                                             error={
                                                 errors?.objCategoria2
                                                     ?.strComunicacionMarca
@@ -1058,20 +1320,27 @@ const InfoEvaluacion = ({
                                             }
                                             helperText={
                                                 errors?.objCategoria2
-                                                    ?.strComunicacionMarca?.message ||
+                                                    ?.strComunicacionMarca
+                                                    ?.message ||
                                                 "Seleccione una opción"
                                             }
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="ComunicacionMarca"
                                         />
                                     )}
                                     control={control}
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={5}>
+                            <Grid item xs={12} md={3}>
                                 <Controller
                                     name="objCategoria2.strComunicacionMarcaDetalle"
-                                    defaultValue={data.strComunicacionMarcaDetalle}
-                                    render={({ field: { name, onChange, value } }) => (
+                                    defaultValue={
+                                        data.strComunicacionMarcaDetalle
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
                                         <TextField
                                             label="Detalle"
                                             name={name}
@@ -1091,6 +1360,8 @@ const InfoEvaluacion = ({
                                                 "Digite el detalle en caso de que aplique"
                                             }
                                             fullWidth
+                                            variant="standard"
+                                            multiline
                                         />
                                     )}
                                     control={control}
@@ -1100,12 +1371,19 @@ const InfoEvaluacion = ({
                             <Grid item xs={12} md={2}>
                                 <Controller
                                     name="objCategoria1.strComunicacionMarcaNivel"
-                                    defaultValue={data.strComunicacionMarcaNivel}
-                                    render={({ field: { name, onChange, value } }) => (
-                                        <SelectListas
+                                    defaultValue={
+                                        data.strComunicacionMarcaNivel
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={
+                                                data.strComunicacionMarca
+                                            }
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objCategoria1
@@ -1119,6 +1397,8 @@ const InfoEvaluacion = ({
                                                     ?.message || "Nivel"
                                             }
                                             disabled
+                                            strGrupo="DiagnosticoServicio"
+                                            strCodigo="ComunicacionMarca"
                                         />
                                     )}
                                     control={control}

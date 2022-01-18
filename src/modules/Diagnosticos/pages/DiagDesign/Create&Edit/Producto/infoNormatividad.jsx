@@ -269,7 +269,10 @@ const InfoNormatividad = ({
                                     onChange={(e) => {
                                         onChange(e);
 
-                                        handlerChangeData(name, e.target.value);
+                                        handlerChangeData(
+                                            "strPatentesUtilidad",
+                                            e.target.value
+                                        );
 
                                         setValue(
                                             "objInfoNormatividad.strCualPatenteUtilidad",
@@ -292,6 +295,8 @@ const InfoNormatividad = ({
                                             ?.strPatentesUtilidad?.message ||
                                         "Seleccione una opción"
                                     }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
                                 />
                             )}
                             control={control}
@@ -307,7 +312,12 @@ const InfoNormatividad = ({
                                     label="¿Cuál?"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
+                                    disabled={
+                                        !data.strPatentesUtilidad ||
+                                        data.strPatentesUtilidad === "NO"
+                                            ? true
+                                            : disabled
+                                    }
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoNormatividad

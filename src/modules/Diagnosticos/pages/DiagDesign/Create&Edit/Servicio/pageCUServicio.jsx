@@ -1,10 +1,18 @@
-import React, { useState, useContext, useEffect, useRef, useCallback } from "react";
+import React, {
+    useState,
+    useContext,
+    useEffect,
+    useRef,
+    useCallback,
+    Fragment,
+} from "react";
 
 //Context
 import { AuthContext } from "../../../../../../common/middlewares/Auth";
 
 //Hooks
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
+import useGetDiagnServ from "../../../../hooks/useGetDiagnServ";
 
 //Librerias
 import { Link as RouterLink, Redirect } from "react-router-dom";
@@ -23,6 +31,13 @@ import {
     Box,
     Typography,
     Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    useTheme,
+    useMediaQuery,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -88,7 +103,12 @@ const PageCUServicio = ({ intId, isEdit }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         objInfoGeneral: {},
+        objInfoEvaluacion: {},
+        objInfoNormatividad: {},
+        objInfoAdicional: {},
     });
+
+    const [openModal, setOpenModal] = useState(false);
 
     const [success, setSucces] = useState(false);
 
@@ -116,9 +136,17 @@ const PageCUServicio = ({ intId, isEdit }) => {
         clearErrors,
     } = useForm({ mode: "onChange" });
 
+    const theme = useTheme();
+    const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
 
-    const refFntGetData = useRef(getUniqueData);
+    const { getUniqueData: getUniqueDataServ } = useGetDiagnServ({
+        autoLoad: false,
+    });
+
+    const refFntGetDataEmpresario = useRef(getUniqueData);
+    const refFntGetDataServ = useRef(getUniqueDataServ);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -146,8 +174,10 @@ const PageCUServicio = ({ intId, isEdit }) => {
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${
                         isEdit
-                            ? process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
-                            : process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                            ? process.env
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATESERVICIO
+                            : process.env
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETSERVICIO
                     }`,
                     data,
                     transformRequest: [
@@ -155,26 +185,39 @@ const PageCUServicio = ({ intId, isEdit }) => {
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
-                                    dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
+                                    dtmFechaSesion: data.objInfoGeneral
+                                        .dtmFechaSesion
                                         ? format(
-                                              data.objInfoGeneral.dtmFechaSesion,
+                                              data.objInfoGeneral
+                                                  .dtmFechaSesion,
                                               "yyyy-MM-dd hh:mm:ss"
                                           )
                                         : null,
                                     dtFechaExpedicionDocto: data.objInfoGeneral
                                         .dtFechaExpedicionDocto
                                         ? format(
-                                              data.objInfoGeneral.dtFechaExpedicionDocto,
+                                              data.objInfoGeneral
+                                                  .dtFechaExpedicionDocto,
                                               "yyyy-MM-dd"
                                           )
                                         : null,
                                     dtFechaNacimiento: data.objInfoGeneral
                                         .dtFechaNacimiento
                                         ? format(
-                                              data.objInfoGeneral.dtFechaNacimiento,
+                                              data.objInfoGeneral
+                                                  .dtFechaNacimiento,
                                               "yyyy-MM-dd"
                                           )
                                         : null,
+                                },
+                                objInfoEvaluacion: {
+                                    ...data.objInfoEvaluacion,
+                                },
+                                objInfoNormatividad: {
+                                    ...data.objInfoNormatividad,
+                                },
+                                objInfoAdicional: {
+                                    ...data.objInfoAdicional,
                                 },
                             };
 
@@ -230,7 +273,7 @@ const PageCUServicio = ({ intId, isEdit }) => {
             setLoadingGetData(true);
 
             async function getData() {
-                await refFntGetData
+                await refFntGetDataEmpresario
                     .current({ intId })
                     .then((res) => {
                         if (res.data.error) {
@@ -240,23 +283,69 @@ const PageCUServicio = ({ intId, isEdit }) => {
                         if (res.data) {
                             let data = res.data.data[0];
 
-                            console.log(data);
-
-                            setData({});
+                            setData((prevState) => ({
+                                ...prevState,
+                                objInfoGeneral: {
+                                    intId: data.objEmpresario.intId || null,
+                                    dtmFechaSesion:
+                                        data.objEmpresario.dtmFechaSesion ||
+                                        null,
+                                    strLugarSesion:
+                                        data.objEmpresario.strLugarSesion || "",
+                                    strUsuarioCreacion:
+                                        data.objEmpresario.strUsuarioCreacion ||
+                                        "",
+                                    dtActualizacion:
+                                        data.objEmpresario.dtActualizacion ||
+                                        null,
+                                    strUsuarioActualizacion:
+                                        data.objEmpresario
+                                            .strUsuarioActualizacion || "",
+                                },
+                            }));
                         }
 
-                        setLoadingGetData(false);
                         setErrorGetData({ flag: false, msg: "" });
                     })
                     .catch((error) => {
                         setErrorGetData({ flag: true, msg: error.message });
-                        setLoadingGetData(false);
                     });
+
+                await refFntGetDataServ
+                    .current({ intIdEmpresario: intId })
+                    .then((res) => {
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
+
+                        if (res.data) {
+                            let data = res.data.data[0];
+
+                            setData((prevState) => ({
+                                ...prevState,
+                                ...data,
+                            }));
+
+                            if (!isEdit) {
+                                setOpenModal(true);
+                            }
+                        }
+
+                        setErrorGetData({ flag: false, msg: "" });
+                    })
+                    .catch((error) => {
+                        setErrorGetData({
+                            flag: true,
+                            msg: error.message,
+                        });
+                    });
+
+                setLoadingGetData(false);
             }
 
             getData();
         }
-    }, [intId]);
+    }, [intId, isEdit]);
 
     useEffect(() => {
         if (intId) {
@@ -308,161 +397,205 @@ const PageCUServicio = ({ intId, isEdit }) => {
     }
 
     return (
-        <Grid
-            container
-            direction="row"
-            spacing={3}
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-        >
-            <Grid item xs={12}>
-                <Button
-                    component={RouterLink}
-                    to={`/diagnosticos/diagDesign/`}
-                    startIcon={<ChevronLeftIcon />}
-                    size="small"
-                    color="inherit"
-                >
-                    Regresar
-                </Button>
-            </Grid>
+        <Fragment>
+            <Dialog
+                open={openModal}
+                disableEscapeKeyDown
+                fullScreen={bitMobile}
+            >
+                <DialogTitle>Aviso</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Se ha detectado que la persona empresaria ya cuenta con
+                        un registro del diagnóstico de servicio. ¿Deseas editar
+                        la información o previsualizar el resumen?
+                    </DialogContentText>
+                </DialogContent>
 
-            <Grid item xs={12}>
-                <Container className={classes.containerPR}>
-                    <Paper className={classes.paper}>
-                        {loading ? (
-                            <LinearProgress className={classes.linearProgress} />
-                        ) : null}
+                <DialogActions>
+                    <Button
+                        component={RouterLink}
+                        to={`/diagnosticos/diagDesign/service/read/${data.objInfoGeneral?.intId}`}
+                        color="inherit"
+                    >
+                        ver resumen
+                    </Button>
 
-                        <Grid
-                            container
-                            direction="row"
-                            spacing={2}
-                            style={{ padding: "25px" }}
-                        >
-                            <Grid item xs={12}>
-                                <Grid
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        width: "100%",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Box
+                    <Button
+                        component={RouterLink}
+                        to={`/diagnosticos/diagDesign/service/edit`}
+                    >
+                        editar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Grid
+                container
+                direction="row"
+                spacing={3}
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+            >
+                <Grid item xs={12}>
+                    <Button
+                        component={RouterLink}
+                        to={`/diagnosticos/diagDesign/`}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        Regresar
+                    </Button>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Container className={classes.containerPR}>
+                        <Paper className={classes.paper}>
+                            {loading ? (
+                                <LinearProgress
+                                    className={classes.linearProgress}
+                                />
+                            ) : null}
+
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={2}
+                                style={{ padding: "25px" }}
+                            >
+                                <Grid item xs={12}>
+                                    <Grid
                                         sx={{
-                                            flexGrow: 1,
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            width: "100%",
+                                            justifyContent: "center",
+                                            alignItems: "center",
                                         }}
                                     >
-                                        <Typography
-                                            align="center"
-                                            style={{
-                                                fontWeight: "bold",
-                                                textTransform: "uppercase",
+                                        <Box
+                                            sx={{
+                                                flexGrow: 1,
                                             }}
-                                            color="primary"
-                                            variant="body1"
                                         >
-                                            {isEdit
-                                                ? "editar diagnóstico de servicios"
-                                                : "registrar diagnóstico de servicios"}
-                                        </Typography>
+                                            <Typography
+                                                align="center"
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    textTransform: "uppercase",
+                                                }}
+                                                color="primary"
+                                                variant="body1"
+                                            >
+                                                {isEdit
+                                                    ? "editar diagnóstico de servicios"
+                                                    : "registrar diagnóstico de servicios"}
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography variant="caption">
+                                        Todos los campos marcados con (*) son
+                                        obligatorios.
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoGeneral
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoGeneral}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoEvaluacion
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoEvaluacion}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoNormatividad
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoNormatividad}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoAdicional
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoAdicional}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                {(errors.objInfoGeneral ||
+                                    errors.objInfoEvaluacion ||
+                                    errors.objInfoNormatividad ||
+                                    errors.objInfoAdicional) && (
+                                    <Grid item xs={12}>
+                                        <Alert severity="error">
+                                            Lo sentimos, tienes campos
+                                            pendientes por diligenciar en el
+                                            formulario, revisa e intentalo
+                                            nuevamente.
+                                        </Alert>
+                                    </Grid>
+                                )}
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                        }}
+                                    >
+                                        <LoadingButton
+                                            variant="contained"
+                                            type="submit"
+                                            loading={loading}
+                                            sx={{ marginLeft: "15px" }}
+                                        >
+                                            {isEdit ? "guardar" : "registrar"}
+                                        </LoadingButton>
+
+                                        <Button
+                                            variant="contained"
+                                            color="inherit"
+                                        >
+                                            Mostrar resultados
+                                        </Button>
                                     </Box>
                                 </Grid>
                             </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="caption">
-                                    Todos los campos marcados con (*) son obligatorios.
-                                </Typography>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoGeneral
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoGeneral}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoEvaluacion
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoGeneral}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoNormatividad
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoNormatividad}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoAdicional
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoAdicional}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            {errors.objInfoGeneral && (
-                                <Grid item xs={12}>
-                                    <Alert severity="error">
-                                        Lo sentimos, tienes campos pendientes por
-                                        diligenciar en el formulario, revisa e intentalo
-                                        nuevamente.
-                                    </Alert>
-                                </Grid>
-                            )}
-
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row-reverse",
-                                    }}
-                                >
-                                    <LoadingButton
-                                        variant="contained"
-                                        type="submit"
-                                        loading={loading}
-                                        sx={{ marginLeft: "15px" }}
-                                    >
-                                        {isEdit ? "guardar" : "registrar"}
-                                    </LoadingButton>
-
-                                    <Button variant="contained" color="inherit">
-                                        Mostrar resultados
-                                    </Button>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                </Container>
+                        </Paper>
+                    </Container>
+                </Grid>
             </Grid>
-        </Grid>
+        </Fragment>
     );
 };
 
