@@ -4,7 +4,7 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOComentarios = require("../infra/conectros/interfaseDAODiagnosticoProducto")
 
-class updateDiagnosticoGeneral{
+class updateDiagnosticoProducto{
     #objData;
     #objUser;
     #intIdEmpresario;
@@ -22,7 +22,7 @@ class updateDiagnosticoGeneral{
         await this.#validations()
         await this.#getIntIdEmpresario()
         await this.#completeData()
-        await this.#updateDiagnosticoGeneral()
+        await this.#updateDiagnosticoProducto()
         return this.#objResult;
     }
 
@@ -60,7 +60,7 @@ class updateDiagnosticoGeneral{
         this.#objData = newData;
     }
 
-    async #updateDiagnosticoGeneral(){
+    async #updateDiagnosticoProducto(){
 
         let dao = new classInterfaceDAOComentarios();
 
@@ -78,4 +78,4 @@ class updateDiagnosticoGeneral{
         };
     }
 }
-module.exports = updateDiagnosticoGeneral;
+module.exports = updateDiagnosticoProducto;

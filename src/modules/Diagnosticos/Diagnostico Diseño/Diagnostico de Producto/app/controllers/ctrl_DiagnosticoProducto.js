@@ -33,7 +33,8 @@ class ctrl_DiagnosticoProducto{
             let data = req.body;  
             let { strDataUser } = req;
 
-            let query = await updateDiagnosticoProducto(data, strDataUser);
+            let service = new updateDiagnosticoProducto(data, strDataUser);
+            let query = await service.main();
 
             if (query.error) {
                 throw new Error(query.msg);
