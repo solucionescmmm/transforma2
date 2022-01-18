@@ -1,7 +1,7 @@
 //Servicios
 const setDiagnosticoServicio = require("../../domain/setDiagnosticoServicio.service")
-const updateDiagnosticoServicio = require("../../domain/updateDiagnosticoServicio.service")
-const getDiagnosticoServicio = require("../../domain/getDiagnosticoServicio.service")
+//const updateDiagnosticoServicio = require("../../domain/updateDiagnosticoServicio.service")
+//const getDiagnosticoServicio = require("../../domain/getDiagnosticoServicio.service")
 
 class ctrl_DiagnosticoServicio{
 
