@@ -236,7 +236,6 @@ class daoDiagnosticoProducto {
 
             let result = {
                 error: false,
-                data: response.recordset[0],
                 msg: `El diagnostico de producto, fue actualizado con éxito.`,
             };
 
