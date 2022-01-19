@@ -10,9 +10,6 @@ class updateDiagnosticoProducto{
     #intIdEmpresario;
     #objResult;
 
-    /**
-     * @param {object} data
-     */
      constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
@@ -47,10 +44,9 @@ class updateDiagnosticoProducto{
     }
 
     async #completeData(){
-        
-        console.log(this.#objData)
         let newData = {
             ...this.#objData.objInfoGeneral,
+            strUsuarioActualizacion: this.#objUser.strEmail,
             ...this.#objData.objInfoProductos,
             ...this.#objData.objInfoCategoria1,
             ...this.#objData.objInfoCategoria2,
