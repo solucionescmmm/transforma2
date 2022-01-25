@@ -2,28 +2,28 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOComentarios = require("../infra/conectros/interfaseDAODiagnosticoProducto")
+const classInterfaceDAOComentarios = require("../infra/conectros/interfaseDAODiagnosticoProducto");
 
-class updateDiagnosticoProducto{
+class updateDiagnosticoProducto {
     #objData;
     #objUser;
     #intIdEmpresario;
     #objResult;
 
-     constructor(data, strDataUser) {
+    constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
     }
 
     async main() {
-        await this.#validations()
-        await this.#getIntIdEmpresario()
-        await this.#completeData()
-        await this.#updateDiagnosticoProducto()
+        await this.#validations();
+        await this.#getIntIdEmpresario();
+        await this.#completeData();
+        await this.#updateDiagnosticoProducto();
         return this.#objResult;
     }
 
-    async #validations(){
+    async #validations() {
         if (
             !validator.isEmail(this.#objUser.strEmail, {
                 domain_specific_validation: "cmmmedellin.org",
@@ -39,11 +39,11 @@ class updateDiagnosticoProducto{
         }
     }
 
-    async #getIntIdEmpresario(){
-        this.#intIdEmpresario=this.#objData.objInfoGeneral.intId;
+    async #getIntIdEmpresario() {
+        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
     }
 
-    async #completeData(){
+    async #completeData() {
         let newData = {
             ...this.#objData.objInfoGeneral,
             strUsuarioActualizacion: this.#objUser.strEmail,
@@ -56,8 +56,7 @@ class updateDiagnosticoProducto{
         this.#objData = newData;
     }
 
-    async #updateDiagnosticoProducto(){
-
+    async #updateDiagnosticoProducto() {
         let dao = new classInterfaceDAOComentarios();
 
         let query = await dao.updateDiagnosticoProducto(this.#objData);
@@ -65,7 +64,6 @@ class updateDiagnosticoProducto{
         if (query.error) {
             throw new Error(query.msg);
         }
-
 
         this.#objResult = {
             error: query.error,

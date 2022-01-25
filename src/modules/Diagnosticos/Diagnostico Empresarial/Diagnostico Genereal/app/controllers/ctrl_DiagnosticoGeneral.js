@@ -1,12 +1,11 @@
 //Servicios
-const setDiagnosticoGeneral = require("../../domain/setDiagnosticoGeneral.service")
-const getDiagnosticoGeneral = require("../../domain/getDiagnosticoGeneral.service")
+const setDiagnosticoGeneral = require("../../domain/setDiagnosticoGeneral.service");
+const getDiagnosticoGeneral = require("../../domain/getDiagnosticoGeneral.service");
 
-class ctrl_DiagnosticoGeneral{
-
-    async setDiagnosticoGeneral(req, res){
+class ctrl_DiagnosticoGeneral {
+    async setDiagnosticoGeneral(req, res) {
         try {
-            let data = req.body;  
+            let data = req.body;
             let { strDataUser } = req;
 
             let service = new setDiagnosticoGeneral(data, strDataUser);
@@ -47,7 +46,6 @@ class ctrl_DiagnosticoGeneral{
             res.status(400).json(result);
         }
     }
-
 }
 
-module.exports = ctrl_DiagnosticoGeneral
+module.exports = ctrl_DiagnosticoGeneral;

@@ -1,7 +1,7 @@
 //clases
-const classInterfaceDAOComentarios = require("../infra/conectors/interfaseDAODiagnosticoGeneral")
+const classInterfaceDAOComentarios = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 
-class deleteComentario{
+class deleteComentario {
     #intIdEmpresario;
     #objResult;
 
@@ -22,7 +22,7 @@ class deleteComentario{
         }
     }
 
-    async #deleteDiagnosticoGeneral(){
+    async #deleteDiagnosticoGeneral() {
         let dao = new classInterfaceDAOComentarios();
         let query = await dao.deleteDiagnosticoGeneral({
             intId: this.#intIdEmpresario,
@@ -40,6 +40,5 @@ class deleteComentario{
             msg: query.msg,
         };
     }
-
 }
-module.exports = deleteComentario
+module.exports = deleteComentario;

@@ -1,13 +1,12 @@
 //Servicios
-const setDiagnosticoProducto = require("../../domain/setDiagnosticoProducto.service")
-const updateDiagnosticoProducto = require("../../domain/updateDiagnosticoProducto.service")
-const getDiagnosticoProducto = require("../../domain/getDiagnosticoProducto.service")
+const setDiagnosticoProducto = require("../../domain/setDiagnosticoProducto.service");
+const updateDiagnosticoProducto = require("../../domain/updateDiagnosticoProducto.service");
+const getDiagnosticoProducto = require("../../domain/getDiagnosticoProducto.service");
 
-class ctrl_DiagnosticoProducto{
-
-    async setDiagnosticoProducto(req, res){
+class ctrl_DiagnosticoProducto {
+    async setDiagnosticoProducto(req, res) {
         try {
-            let data = req.body;  
+            let data = req.body;
             let { strDataUser } = req;
 
             let service = new setDiagnosticoProducto(data, strDataUser);
@@ -30,7 +29,7 @@ class ctrl_DiagnosticoProducto{
 
     async updateDiagnosticoProducto(req, res) {
         try {
-            let data = req.body;  
+            let data = req.body;
             let { strDataUser } = req;
 
             let service = new updateDiagnosticoProducto(data, strDataUser);
@@ -72,4 +71,4 @@ class ctrl_DiagnosticoProducto{
     }
 }
 
-module.exports = ctrl_DiagnosticoProducto
+module.exports = ctrl_DiagnosticoProducto;

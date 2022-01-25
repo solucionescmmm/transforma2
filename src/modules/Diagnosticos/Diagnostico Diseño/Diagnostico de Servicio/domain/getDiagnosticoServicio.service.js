@@ -2,19 +2,18 @@
 const classInterfaceDAODiagnostico = require("../infra/repository/daoDiagnosticoServicio");
 const validator = require("validator").default;
 
-const getDiagnosticoServicio = async(objParams, strDataUser) => {
-    let {
-        intId,
-        intIdEmpresario,
-    } = objParams;
+const getDiagnosticoServicio = async (objParams, strDataUser) => {
+    let { intId, intIdEmpresario } = objParams;
 
     if (!intId && !intIdEmpresario) {
         throw new Error("Se esperaban parámetros de búsqueda.");
     }
 
-    if (!validator.isEmail(strDataUser.strEmail, {
+    if (
+        !validator.isEmail(strDataUser.strEmail, {
             domain_specific_validation: "cmmmedellin.org",
-        })) {
+        })
+    ) {
         throw new Error(
             "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
         );
@@ -23,8 +22,8 @@ const getDiagnosticoServicio = async(objParams, strDataUser) => {
     let dao = new classInterfaceDAODiagnostico();
     let query = {
         intId,
-        intIdEmpresario
-    }
+        intIdEmpresario,
+    };
 
     let arrayData = await dao.getDiagnosticoServicio(query);
 
@@ -37,34 +36,45 @@ const getDiagnosticoServicio = async(objParams, strDataUser) => {
             for (let i = 0; i < array.length; i++) {
                 let objInfoGeneral = {
                     intId: array[i].intId,
-                    intIdEmpresario:array[i]?.intIdEmpresario,
+                    intIdEmpresario: array[i]?.intIdEmpresario,
                     strLugarSesion: array[i]?.strLugarSesion,
                     dtmFechaSesion: array[i]?.dtmFechaSesion,
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
-                }
-                  let objInfoEvaluacion = {
+                };
+                let objInfoEvaluacion = {
                     strServicio: array[i]?.strServicio,
                     strHerramientasServicio: array[i]?.strHerramientasServicio,
                     strObjetivoProposito: array[i]?.strObjetivoProposito,
-                    strObjetivoPropositoDetalle: array[i]?.strObjetivoPropositoDetalle,
-                    strObjetivoPropositoNivel: array[i]?.strObjetivoPropositoNivel,
+                    strObjetivoPropositoDetalle:
+                        array[i]?.strObjetivoPropositoDetalle,
+                    strObjetivoPropositoNivel:
+                        array[i]?.strObjetivoPropositoNivel,
                     strRenovacionPortafolio: array[i]?.strRenovacionPortafolio,
-                    strRenovacionPortafolioDetalle: array[i]?.strRenovacionPortafolioDetalle,
-                    strRenovacionPortafolioNivel: array[i]?.strRenovacionPortafolioNivel,
+                    strRenovacionPortafolioDetalle:
+                        array[i]?.strRenovacionPortafolioDetalle,
+                    strRenovacionPortafolioNivel:
+                        array[i]?.strRenovacionPortafolioNivel,
                     strProcesoInteraccion: array[i]?.strProcesoInteraccion,
-                    strProcesoInteraccionDetalle: array[i]?.strProcesoInteraccionDetalle,
-                    strProcesoInteraccionNivel: array[i]?.strProcesoInteraccionNivel,
+                    strProcesoInteraccionDetalle:
+                        array[i]?.strProcesoInteraccionDetalle,
+                    strProcesoInteraccionNivel:
+                        array[i]?.strProcesoInteraccionNivel,
                     strPuntosContacto: array[i]?.strPuntosContacto,
-                    strPuntosContactoDetalle: array[i]?.strPuntosContactoDetalle,
+                    strPuntosContactoDetalle:
+                        array[i]?.strPuntosContactoDetalle,
                     strPuntosContactoNivel: array[i]?.strPuntosContactoNivel,
                     strExperienciaDiseñada: array[i]?.strExperienciaDiseñada,
-                    strExperienciaDiseñadaDetalle: array[i]?.strExperienciaDiseñadaDetalle,
-                    strExperienciaDiseñadaNivel: array[i]?.strExperienciaDiseñadaNivel,
+                    strExperienciaDiseñadaDetalle:
+                        array[i]?.strExperienciaDiseñadaDetalle,
+                    strExperienciaDiseñadaNivel:
+                        array[i]?.strExperienciaDiseñadaNivel,
                     strRecursosServicio: array[i]?.strRecursosServicio,
-                    strRecursosServicioDetalle: array[i]?.strRecursosServicioDetalle,
-                    strRecursosServicioNivel: array[i]?.strRecursosServicioNivel,
+                    strRecursosServicioDetalle:
+                        array[i]?.strRecursosServicioDetalle,
+                    strRecursosServicioNivel:
+                        array[i]?.strRecursosServicioNivel,
                     strPostVenta: array[i]?.strPostVenta,
                     strPostVentaDetalle: array[i]?.strPostVentaDetalle,
                     strPostVentaNivel: array[i]?.strPostVentaNivel,
@@ -72,31 +82,36 @@ const getDiagnosticoServicio = async(objParams, strDataUser) => {
                     strLineaGraficaDetalle: array[i]?.strLineaGraficaDetalle,
                     strLineaGraficaNivel: array[i]?.strLineaGraficaNivel,
                     strIdentidadMarca: array[i]?.strIdentidadMarca,
-                    strIdentidadMarcaDetalle: array[i]?.strIdentidadMarcaDetalle,
+                    strIdentidadMarcaDetalle:
+                        array[i]?.strIdentidadMarcaDetalle,
                     strIdentidadMarcaNivel: array[i]?.strIdentidadMarcaNivel,
                     strComunicacionMarca: array[i]?.strComunicacionMarca,
-                    strComunicacionMarcaDetalle: array[i]?.strComunicacionMarcaDetalle,
-                    strComunicacionMarcaNivel: array[i]?.strComunicacionMarcaNivel
-                  }
-                  let objInfoNormatividad = {
-                    strPermisoFuncionamiento: array[i]?.strPermisoFuncionamiento,
-                    strCertificadosRequeridos: array[i]?.strCertificadosRequeridos,
+                    strComunicacionMarcaDetalle:
+                        array[i]?.strComunicacionMarcaDetalle,
+                    strComunicacionMarcaNivel:
+                        array[i]?.strComunicacionMarcaNivel,
+                };
+                let objInfoNormatividad = {
+                    strPermisoFuncionamiento:
+                        array[i]?.strPermisoFuncionamiento,
+                    strCertificadosRequeridos:
+                        array[i]?.strCertificadosRequeridos,
                     strCertificadosActuales: array[i]?.strCertificadosActuales,
                     strRegistroMarca: array[i]?.strRegistroMarca,
                     strPatentesUtilidad: array[i]?.strPatentesUtilidad,
-                    strCualPatenteUtilidad: array[i]?.strCualPatenteUtilidad
-                  }
-                  let objInfoAdicional= { 
+                    strCualPatenteUtilidad: array[i]?.strCualPatenteUtilidad,
+                };
+                let objInfoAdicional = {
                     strConclusiones: array[i]?.strConclusiones,
-                    strURLSFotos: array[i]?.strURLSFotos
-                }
+                    strURLSFotos: array[i]?.strURLSFotos,
+                };
 
                 data[i] = {
                     objInfoGeneral,
                     objInfoEvaluacion,
                     objInfoNormatividad,
-                    objInfoAdicional
-                }
+                    objInfoAdicional,
+                };
             }
             let result = {
                 error: false,

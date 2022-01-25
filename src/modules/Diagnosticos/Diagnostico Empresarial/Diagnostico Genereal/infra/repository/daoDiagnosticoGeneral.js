@@ -3,7 +3,9 @@ const sql = require("mssql");
 const validator = require("validator").default;
 
 //Conexion
-const { conexion } = require("../../../../../../common/config/confSQL_connectionTransfroma");
+const {
+    conexion,
+} = require("../../../../../../common/config/confSQL_connectionTransfroma");
 
 class daoDiagnosticoGeneral {
     async setDiagnosticoGeneral(data) {
@@ -215,7 +217,7 @@ class daoDiagnosticoGeneral {
         }
     }
 
-    async updateEmpresaDiagnosticoGeneral(data){
+    async updateEmpresaDiagnosticoGeneral(data) {
         console.log(data);
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -249,7 +251,7 @@ class daoDiagnosticoGeneral {
 
             let result = {
                 error: false,
-                data: response.recordset[0]
+                data: response.recordset[0],
             };
 
             sql.close(conexion);
@@ -313,7 +315,11 @@ class daoDiagnosticoGeneral {
 
             let result = {
                 error: false,
-                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
             };
 
             sql.close(conexion);

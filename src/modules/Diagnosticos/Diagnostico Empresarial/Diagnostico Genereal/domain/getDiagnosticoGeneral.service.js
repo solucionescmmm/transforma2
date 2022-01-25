@@ -2,19 +2,18 @@
 const classInterfaceDAODiagnostico = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 const validator = require("validator").default;
 
-const getDiagnosticoGeneral = async(objParams, strDataUser) => {
-    let {
-        intId,
-        intIdEmpresario,
-    } = objParams;
+const getDiagnosticoGeneral = async (objParams, strDataUser) => {
+    let { intId, intIdEmpresario } = objParams;
 
     if (!intId && !intIdEmpresario) {
         throw new Error("Se esperaban parámetros de búsqueda.");
     }
 
-    if (!validator.isEmail(strDataUser.strEmail, {
+    if (
+        !validator.isEmail(strDataUser.strEmail, {
             domain_specific_validation: "cmmmedellin.org",
-        })) {
+        })
+    ) {
         throw new Error(
             "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
         );
@@ -23,8 +22,8 @@ const getDiagnosticoGeneral = async(objParams, strDataUser) => {
     let dao = new classInterfaceDAODiagnostico();
     let query = {
         intId,
-        intIdEmpresario
-    }
+        intIdEmpresario,
+    };
 
     let arrayData = await dao.getDiagnosticoGeneral(query);
 
@@ -37,61 +36,69 @@ const getDiagnosticoGeneral = async(objParams, strDataUser) => {
             for (let i = 0; i < array.length; i++) {
                 let objInfoGeneral = {
                     intId: array[i].intId,
-                    intIdEmpresario:array[i]?.intIdEmpresario,
+                    intIdEmpresario: array[i]?.intIdEmpresario,
                     strUbicacionVivienda: array[i]?.strUbicacionVivienda,
                     strLugarSesion: "Medellin",
                     dtmFechaSesion: "2021-12-16T13:25:00.000Z",
                     strUsuarioCreacion: "Pepito",
                     dtmActualizacion: "2021-12-09T21:34:58.943Z",
-                    strUsuarioActualizacion: ""
-                }
+                    strUsuarioActualizacion: "",
+                };
                 let objInfoFamiliar = {
                     btCabezaHogar: array[i]?.btCabezaHogar,
                     intNumPersonasCargo: array[i]?.intNumPersonasCargo,
                     intHijos: array[i]?.intHijos,
                     intHijosEstudiando: array[i]?.intHijosEstudiando,
-                    strMaxNivelEducativoHijos: array[i]?.strMaxNivelEducativoHijos,
+                    strMaxNivelEducativoHijos:
+                        array[i]?.strMaxNivelEducativoHijos,
                     strEstadoCivil: array[i]?.strEstadoCivil,
                     strSituacionVivienda: array[i]?.strSituacionVivienda,
                     strGrupoVulnerable: array[i]?.strGrupoVulnerable,
-                    strPoblacionEtnica: array[i]?.strPoblacionEtnica
-                }
+                    strPoblacionEtnica: array[i]?.strPoblacionEtnica,
+                };
                 let objInfoEmprendimiento = {
                     intAñoInicioOperacion: array[i]?.intAñoInicioOperacion,
                     strUbicacionUP: array[i]?.strUbicacionUP,
-                    strRegistroCamaraComercio: array[i]?.strRegistroCamaraComercio,
-                }
+                    strRegistroCamaraComercio:
+                        array[i]?.strRegistroCamaraComercio,
+                };
                 let objInfoEmpresa = {
                     strHistoriaEmpresa: array[i]?.strHistoriaEmpresa,
                     strSuenioEmpresa: array[i]?.strSuenioEmpresa,
-                    strEstudioEmprendimiento: array[i]?.strEstudioEmprendimiento,
-                    strExperienciaEmprendimiento: array[i]?.strExperienciaEmprendimiento,
+                    strEstudioEmprendimiento:
+                        array[i]?.strEstudioEmprendimiento,
+                    strExperienciaEmprendimiento:
+                        array[i]?.strExperienciaEmprendimiento,
                     strTipoContribuyente: array[i]?.strTipoContribuyente,
                     strRut: array[i]?.strRut,
                     strPresupuestoFamiliar: array[i]?.strPresupuestoFamiliar,
-                    strIngresosDistintos: array[i]?.strIngresosDistintos
-                }
+                    strIngresosDistintos: array[i]?.strIngresosDistintos,
+                };
                 let objInfoPerfilEco = {
-                    strOperacionesVentas6Meses:array[i]?.strOperacionesVentas6Meses,
+                    strOperacionesVentas6Meses:
+                        array[i]?.strOperacionesVentas6Meses,
                     strEtapaValidacion: array[i]?.strEtapaValidacion,
                     strPromedioVentas6Meses: array[i]?.strPromedioVentas6Meses,
                     strRangoVentas: array[i]?.strRangoVentas,
                     strRangoEmpleados: array[i]?.strRangoEmpleados,
                     strTipoEmpleoGenerado: array[i]?.strTipoEmpleoGenerado,
-                    strDlloAcitividadesContratados:array[i]?.strDlloAcitividadesContratados,
-                    strPromedioTiempoInvertido: array[i]?.strPromedioTiempoInvertido,
+                    strDlloAcitividadesContratados:
+                        array[i]?.strDlloAcitividadesContratados,
+                    strPromedioTiempoInvertido:
+                        array[i]?.strPromedioTiempoInvertido,
                     strRolesEmprendimiento: array[i]?.strRolesEmprendimiento,
                     strDiasProduccion: array[i]?.strDiasProduccion,
-                    strGeneraEmpleoRiesgoPobreza: array[i]?.strGeneraEmpleoRiesgoPobreza,
+                    strGeneraEmpleoRiesgoPobreza:
+                        array[i]?.strGeneraEmpleoRiesgoPobreza,
                     ValorGananciasMes: array[i]?.ValorGananciasMes,
                     strActivos: array[i]?.strActivos,
                     ValorActivos: array[i]?.ValorActivos,
-                    strEtapaDllo:array[i]?.strEtapaDllo,
-                }
-                let objInfoAdicional={
+                    strEtapaDllo: array[i]?.strEtapaDllo,
+                };
+                let objInfoAdicional = {
                     strConclusiones: array[i]?.strConclusiones,
-                    strURLSFotosProducto: array[i]?.strURLSFotosProducto
-                }
+                    strURLSFotosProducto: array[i]?.strURLSFotosProducto,
+                };
 
                 data[i] = {
                     objInfoGeneral,
@@ -99,8 +106,8 @@ const getDiagnosticoGeneral = async(objParams, strDataUser) => {
                     objInfoEmprendimiento,
                     objInfoEmpresa,
                     objInfoPerfilEco,
-                    objInfoAdicional
-                }
+                    objInfoAdicional,
+                };
             }
             let result = {
                 error: false,

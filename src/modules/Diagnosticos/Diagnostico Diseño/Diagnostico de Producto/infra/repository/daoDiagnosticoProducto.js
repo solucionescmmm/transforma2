@@ -3,7 +3,9 @@ const sql = require("mssql");
 const validator = require("validator").default;
 
 //Conexion
-const { conexion } = require("../../../../../../common/config/confSQL_connectionTransfroma");
+const {
+    conexion,
+} = require("../../../../../../common/config/confSQL_connectionTransfroma");
 
 class daoDiagnosticoProducto {
     async setDiagnosticoProducto(data) {
@@ -300,7 +302,11 @@ class daoDiagnosticoProducto {
 
             let result = {
                 error: false,
-                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
             };
 
             sql.close(conexion);
@@ -320,14 +326,14 @@ class daoDiagnosticoProducto {
         }
     }
 
-    async setResultDiagnosticoProducto(data){
+    async setResultDiagnosticoProducto(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
                 .execute("sp_SetResultDiagnosticoProductos");
-            
+
             let result = {
                 error: false,
             };
@@ -347,14 +353,14 @@ class daoDiagnosticoProducto {
         }
     }
 
-    async getResultDiagnosticoAlimentos(data){
+    async getResultDiagnosticoAlimentos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
                 .execute("sp_GetResultDiagnosticoAlimentos");
-            
+
             let result = {
                 error: false,
             };
@@ -374,14 +380,14 @@ class daoDiagnosticoProducto {
         }
     }
 
-    async getResultDiagnosticoNoAlimentos(data){
+    async getResultDiagnosticoNoAlimentos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
                 .execute("sp_GetResultDiagnosticoNoAlimentos");
-            
+
             let result = {
                 error: false,
             };

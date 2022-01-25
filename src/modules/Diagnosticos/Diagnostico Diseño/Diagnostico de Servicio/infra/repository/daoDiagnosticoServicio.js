@@ -3,7 +3,9 @@ const sql = require("mssql");
 const validator = require("validator").default;
 
 //Conexion
-const { conexion } = require("../../../../../../common/config/confSQL_connectionTransfroma");
+const {
+    conexion,
+} = require("../../../../../../common/config/confSQL_connectionTransfroma");
 
 class daoDiagnosticoServicio {
     async setDiagnosticoServicio(data) {
@@ -207,7 +209,11 @@ class daoDiagnosticoServicio {
 
             let result = {
                 error: false,
-                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
             };
 
             sql.close(conexion);
@@ -227,14 +233,14 @@ class daoDiagnosticoServicio {
         }
     }
 
-    async setResultDiagnosticoServicio(data){
+    async setResultDiagnosticoServicio(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
                 .execute("usp_SetResultDiagnosticoServicios");
-            
+
             let result = {
                 error: false,
             };

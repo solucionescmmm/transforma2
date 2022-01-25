@@ -2,9 +2,9 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOProducto = require("../infra/conectros/interfaseDAODiagnosticoProducto")
+const classInterfaceDAOProducto = require("../infra/conectros/interfaseDAODiagnosticoProducto");
 
-class setDiagnosticoProducto{
+class setDiagnosticoProducto {
     #objData;
     #objUser;
     #intIdEmpresario;
@@ -13,21 +13,21 @@ class setDiagnosticoProducto{
     /**
      * @param {object} data
      */
-     constructor(data, strDataUser) {
+    constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
     }
 
     async main() {
-        await this.#validations()
-        await this.#getIntIdEmpresario()
-        await this.#completeData()
-        await this.#setDiagnosticoProducto()
-        await this.#setResultDiagnosticoProducto()
+        await this.#validations();
+        await this.#getIntIdEmpresario();
+        await this.#completeData();
+        await this.#setDiagnosticoProducto();
+        await this.#setResultDiagnosticoProducto();
         return this.#objResult;
     }
 
-    async #validations(){
+    async #validations() {
         if (
             !validator.isEmail(this.#objUser.strEmail, {
                 domain_specific_validation: "cmmmedellin.org",
@@ -43,11 +43,11 @@ class setDiagnosticoProducto{
         }
     }
 
-    async #getIntIdEmpresario(){
-        this.#intIdEmpresario=this.#objData.objInfoGeneral.intId;
+    async #getIntIdEmpresario() {
+        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
     }
 
-    async #completeData(){
+    async #completeData() {
         let newData = {
             intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
@@ -60,8 +60,7 @@ class setDiagnosticoProducto{
         this.#objData = newData;
     }
 
-    async #setDiagnosticoProducto(){
-
+    async #setDiagnosticoProducto() {
         let dao = new classInterfaceDAOProducto();
 
         let query = await dao.setDiagnosticoProducto(this.#objData);
@@ -77,10 +76,12 @@ class setDiagnosticoProducto{
         };
     }
 
-    async #setResultDiagnosticoProducto(){
+    async #setResultDiagnosticoProducto() {
         let dao = new classInterfaceDAOProducto();
 
-        let query = await dao.setResultDiagnosticoProducto({intIdEmpresario: this.#intIdEmpresario});
+        let query = await dao.setResultDiagnosticoProducto({
+            intIdEmpresario: this.#intIdEmpresario,
+        });
 
         if (query.error) {
             throw new Error(query.msg);
