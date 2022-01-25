@@ -23,6 +23,7 @@ class setDiagnosticoServicio{
         await this.#getIntIdEmpresario()
         await this.#completeData()
         await this.#setDiagnosticoServicio()
+        await this.#setResultDiagnosticoServicio()
         return this.#objResult;
     }
 
@@ -73,6 +74,16 @@ class setDiagnosticoServicio{
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #setResultDiagnosticoServicio(){
+        let dao = new classInterfaceDAOServicio();
+
+        let query = await dao.setResultDiagnosticoServicio({intIdEmpresario: this.#intIdEmpresario});
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 }
 module.exports = setDiagnosticoServicio;

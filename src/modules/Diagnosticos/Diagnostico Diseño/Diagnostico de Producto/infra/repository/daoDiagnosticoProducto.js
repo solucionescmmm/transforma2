@@ -319,5 +319,86 @@ class daoDiagnosticoProducto {
             return result;
         }
     }
+
+    async setResultDiagnosticoProducto(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn
+                .request()
+                .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .execute("sp_SetResultDiagnosticoProductos");
+            
+            let result = {
+                error: false,
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setResultDiagnosticoProducto de la clase daoDiagnosticoProducto",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getResultDiagnosticoAlimentos(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn
+                .request()
+                .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .execute("sp_GetResultDiagnosticoAlimentos");
+            
+            let result = {
+                error: false,
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getResultDiagnosticoAlimentos de la clase daoDiagnosticoProducto",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getResultDiagnosticoNoAlimentos(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn
+                .request()
+                .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .execute("sp_GetResultDiagnosticoNoAlimentos");
+            
+            let result = {
+                error: false,
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getResultDiagnosticoNoAlimentos de la clase daoDiagnosticoProducto",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
 }
 module.exports = daoDiagnosticoProducto;

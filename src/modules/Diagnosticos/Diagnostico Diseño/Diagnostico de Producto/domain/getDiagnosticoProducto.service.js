@@ -27,10 +27,14 @@ const getDiagnosticoProducto = async(objParams, strDataUser) => {
     }
 
     let arrayData = await dao.getDiagnosticoProducto(query);
+    let arrayResultAlimentos = await dao.getResultDiagnosticoAlimentos(query)
+    let arrayResultNoAlimentos = await dao.getResultDiagnosticoNoAlimentos(query)
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data;
+            let arrayAlimentos = arrayResultAlimentos.data
+            let arrayNoAlimentos = arrayResultNoAlimentos.data
 
             let data = [];
 
@@ -140,7 +144,7 @@ const getDiagnosticoProducto = async(objParams, strDataUser) => {
                   let objInfoAdicional= { 
                     strConclusiones: array[i]?.strConclusiones,
                     strURLSFotos: array[i]?.strURLSFotos
-                }
+                  }
 
                 data[i] = {
                     objInfoGeneral,

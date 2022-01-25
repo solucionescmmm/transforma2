@@ -23,6 +23,7 @@ class setDiagnosticoProducto{
         await this.#getIntIdEmpresario()
         await this.#completeData()
         await this.#setDiagnosticoProducto()
+        await this.#setResultDiagnosticoProducto()
         return this.#objResult;
     }
 
@@ -47,7 +48,6 @@ class setDiagnosticoProducto{
     }
 
     async #completeData(){
-        console.log(this.#objData)
         let newData = {
             intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
@@ -75,6 +75,16 @@ class setDiagnosticoProducto{
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #setResultDiagnosticoProducto(){
+        let dao = new classInterfaceDAOProducto();
+
+        let query = await dao.setResultDiagnosticoProducto({intIdEmpresario: this.#intIdEmpresario});
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 }
 module.exports = setDiagnosticoProducto;
