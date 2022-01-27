@@ -280,7 +280,7 @@ const PageCUServicio = ({ intId, isEdit }) => {
                             throw new Error(res.data.msg);
                         }
 
-                        if (res.data) {
+                        if (res.data?.data) {
                             let data = res.data.data[0];
 
                             setData((prevState) => ({
@@ -318,7 +318,7 @@ const PageCUServicio = ({ intId, isEdit }) => {
                             throw new Error(res.data.msg);
                         }
 
-                        if (res.data) {
+                        if (res.data?.data) {
                             let data = res.data.data[0];
 
                             setData((prevState) => ({

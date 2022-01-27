@@ -362,7 +362,8 @@ const InfoRegistro = () => {
 
     const [loadingGetData, setLoadingGetData] = useState(false);
 
-    const [openCollapseInfoPrincipal, setOpenCollapseInfoPrincipal] = useState(false);
+    const [openCollapseInfoPrincipal, setOpenCollapseInfoPrincipal] =
+        useState(false);
 
     const [openCollapseInfoEmpresarioPr, setOpenCollapseInfoEmpresarioPr] =
         useState(false);
@@ -370,8 +371,10 @@ const InfoRegistro = () => {
     const [openCollapseInfoEmpresarioSec, setOpenCollapseInfoEmpresarioSec] =
         useState(false);
 
-    const [openCollapseInfoEmpresa, setOpenCollapseInfoEmpresa] = useState(false);
-    const [openCollapseInfoAdicional, setOpenCollapseInfoAdicional] = useState(false);
+    const [openCollapseInfoEmpresa, setOpenCollapseInfoEmpresa] =
+        useState(false);
+    const [openCollapseInfoAdicional, setOpenCollapseInfoAdicional] =
+        useState(false);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -425,69 +428,99 @@ const InfoRegistro = () => {
                             strSede: response.objEmpresario.strSede,
                             strModalidadIngreso:
                                 response.objEmpresario.strModalidadIngreso,
-                            dtFechaVinculacion: response.objEmpresario.dtFechaVinculacion
-                                ? parseISO(response.objEmpresario.dtFechaVinculacion)
+                            dtFechaVinculacion: response.objEmpresario
+                                .dtFechaVinculacion
+                                ? parseISO(
+                                      response.objEmpresario.dtFechaVinculacion
+                                  )
                                 : null,
                             strEstadoVinculacion:
                                 response.objEmpresario.strEstadoVinculacion,
-                            strTipoVinculacion: response.objEmpresario.strTipoVinculacion,
+                            strTipoVinculacion:
+                                response.objEmpresario.strTipoVinculacion,
                         };
 
                         let newObjInfoEmpresarioPr = {
                             intId: response.objEmpresario.intId,
                             strNombres: response.objEmpresario.strNombres || "",
-                            strApellidos: response.objEmpresario.strApellidos || "",
-                            strTipoDocto: response.objEmpresario.strTipoDocto || "",
-                            strNroDocto: response.objEmpresario.strNroDocto || "",
+                            strApellidos:
+                                response.objEmpresario.strApellidos || "",
+                            strTipoDocto:
+                                response.objEmpresario.strTipoDocto || "",
+                            strNroDocto:
+                                response.objEmpresario.strNroDocto || "",
                             strLugarExpedicionDocto:
-                                response.objEmpresario.strLugarExpedicionDocto || "",
+                                response.objEmpresario
+                                    .strLugarExpedicionDocto || "",
                             dtFechaExpedicionDocto: response.objEmpresario
                                 .dtFechaExpedicionDocto
-                                ? parseISO(response.objEmpresario.dtFechaExpedicionDocto)
+                                ? parseISO(
+                                      response.objEmpresario
+                                          .dtFechaExpedicionDocto
+                                  )
                                 : null,
-                            dtFechaNacimiento: response.objEmpresario.dtFechaNacimiento
-                                ? parseISO(response.objEmpresario.dtFechaNacimiento)
+                            dtFechaNacimiento: response.objEmpresario
+                                .dtFechaNacimiento
+                                ? parseISO(
+                                      response.objEmpresario.dtFechaNacimiento
+                                  )
                                 : null,
                             strGenero: response.objEmpresario.strGenero || "",
-                            strCelular1: response.objEmpresario.strCelular1 || "",
-                            strCelular2: response.objEmpresario.strCelular2 || "",
+                            strCelular1:
+                                response.objEmpresario.strCelular1 || "",
+                            strCelular2:
+                                response.objEmpresario.strCelular2 || "",
                             strCorreoElectronico1:
-                                response.objEmpresario.strCorreoElectronico1 || "",
+                                response.objEmpresario.strCorreoElectronico1 ||
+                                "",
                             strCorreoElectronico2:
-                                response.objEmpresario.strCorreoElectronico2 || "",
+                                response.objEmpresario.strCorreoElectronico2 ||
+                                "",
                             strNivelEducativo:
                                 response.objEmpresario.strNivelEducativo || "",
                             strTitulos: response.objEmpresario.strTitulos || "",
                             strCondicionDiscapacidad:
-                                response.objEmpresario.strCondicionDiscapacidad || "",
+                                response.objEmpresario
+                                    .strCondicionDiscapacidad || "",
                             strEstrato: response.objEmpresario.strEstrato || "",
-                            arrDepartamento: response.objEmpresario.arrDepartamento || [],
+                            arrDepartamento:
+                                response.objEmpresario.arrDepartamento || [],
                             arrCiudad: response.objEmpresario.arrCiudad || [],
                             strBarrio: response.objEmpresario.strBarrio || "",
                             strDireccionResidencia:
-                                response.objEmpresario.strDireccionResidencia || "",
-                            strURLFileFoto: response.objEmpresario.strURLFileFoto || "",
+                                response.objEmpresario.strDireccionResidencia ||
+                                "",
+                            strURLFileFoto:
+                                response.objEmpresario.strURLFileFoto || "",
                         };
 
                         let newObjInfoEmpresa = {
                             ...response.objInfoEmpresa,
-                            dtFechaFundacion: response.objInfoEmpresa.dtFechaFundacion
-                                ? parseISO(response.objInfoEmpresa.dtFechaFundacion)
+                            dtFechaFundacion: response.objInfoEmpresa
+                                .dtFechaFundacion
+                                ? parseISO(
+                                      response.objInfoEmpresa.dtFechaFundacion
+                                  )
                                 : null,
-                            dblValorVentasMes: response.objInfoEmpresa.valorVentasMes,
+                            dblValorVentasMes:
+                                response.objInfoEmpresa.valorVentasMes,
                         };
 
                         let newObjInfoAdicional = {
                             ...response.objInfoAdicional,
                         };
 
-                        let newArrEmpresarioSecundario = response.arrEmpresarioSecundario;
+                        let newArrEmpresarioSecundario =
+                            response.arrEmpresarioSecundario;
 
                         setData((prevState) => {
-                            let prevObjInfoPrincipal = prevState.objInfoPrincipal;
-                            let prevObjInfoEmpresario = prevState.objInfoEmpresarioPr;
+                            let prevObjInfoPrincipal =
+                                prevState.objInfoPrincipal;
+                            let prevObjInfoEmpresario =
+                                prevState.objInfoEmpresarioPr;
                             let prevObjInfoEmpresa = prevState.objInfoEmpresa;
-                            let prevObjInfoAdicional = prevState.objInfoAdicional;
+                            let prevObjInfoAdicional =
+                                prevState.objInfoAdicional;
                             let prevArrEmpresarioSecundario = [];
 
                             newArrEmpresarioSecundario?.forEach((e) => {
@@ -524,7 +557,9 @@ const InfoRegistro = () => {
                                     },
                                     {
                                         parent: "dtFechaExpedicionDocto",
-                                        value: validator.isDate(e.dtFechaExpedicionDocto)
+                                        value: validator.isDate(
+                                            e.dtFechaExpedicionDocto
+                                        )
                                             ? format(
                                                   e.dtFechaExpedicionDocto,
                                                   "yyyy-MM-dd"
@@ -534,8 +569,13 @@ const InfoRegistro = () => {
                                     },
                                     {
                                         parent: "dtFechaNacimiento",
-                                        value: validator.isDate(e.dtFechaNacimiento)
-                                            ? format(e.dtFechaNacimiento, "yyyy-MM-dd")
+                                        value: validator.isDate(
+                                            e.dtFechaNacimiento
+                                        )
+                                            ? format(
+                                                  e.dtFechaNacimiento,
+                                                  "yyyy-MM-dd"
+                                              )
                                             : "No diligenciado",
                                         label: "Fecha de nacimiento",
                                     },
@@ -559,18 +599,26 @@ const InfoRegistro = () => {
 
                             for (const key in newObjInfoPrincipal) {
                                 if (
-                                    Object.hasOwnProperty.call(newObjInfoPrincipal, key)
+                                    Object.hasOwnProperty.call(
+                                        newObjInfoPrincipal,
+                                        key
+                                    )
                                 ) {
                                     prevObjInfoPrincipal.forEach((element) => {
                                         if (element.parent === key) {
-                                            element.value = newObjInfoPrincipal[key];
+                                            element.value =
+                                                newObjInfoPrincipal[key];
 
                                             if (key === "dtFechaVinculacion") {
-                                                element.value = validator.isDate(
-                                                    element.value
-                                                )
-                                                    ? format(element.value, "yyyy-MM-dd")
-                                                    : "No diligenciado";
+                                                element.value =
+                                                    validator.isDate(
+                                                        element.value
+                                                    )
+                                                        ? format(
+                                                              element.value,
+                                                              "yyyy-MM-dd"
+                                                          )
+                                                        : "No diligenciado";
                                             }
                                         }
                                     });
@@ -586,22 +634,33 @@ const InfoRegistro = () => {
                                 ) {
                                     prevObjInfoEmpresario.forEach((element) => {
                                         if (element.parent === key) {
-                                            element.value = newObjInfoEmpresarioPr[key];
+                                            element.value =
+                                                newObjInfoEmpresarioPr[key];
 
-                                            if (key === "dtFechaExpedicionDocto") {
-                                                element.value = validator.isDate(
-                                                    element.value
-                                                )
-                                                    ? format(element.value, "yyyy-MM-dd")
-                                                    : "No diligenciado";
+                                            if (
+                                                key === "dtFechaExpedicionDocto"
+                                            ) {
+                                                element.value =
+                                                    validator.isDate(
+                                                        element.value
+                                                    )
+                                                        ? format(
+                                                              element.value,
+                                                              "yyyy-MM-dd"
+                                                          )
+                                                        : "No diligenciado";
                                             }
 
                                             if (key === "dtFechaNacimiento") {
-                                                element.value = validator.isDate(
-                                                    element.value
-                                                )
-                                                    ? format(element.value, "yyyy-MM-dd")
-                                                    : "No diligenciado";
+                                                element.value =
+                                                    validator.isDate(
+                                                        element.value
+                                                    )
+                                                        ? format(
+                                                              element.value,
+                                                              "yyyy-MM-dd"
+                                                          )
+                                                        : "No diligenciado";
                                             }
 
                                             if (key === "arrDepartamento") {
@@ -613,7 +672,9 @@ const InfoRegistro = () => {
 
                                             if (key === "arrCiudad") {
                                                 element.value =
-                                                    newObjInfoEmpresarioPr[key].city_name;
+                                                    newObjInfoEmpresarioPr[
+                                                        key
+                                                    ].city_name;
                                             }
                                         }
                                     });
@@ -621,43 +682,66 @@ const InfoRegistro = () => {
                             }
 
                             for (const key in newObjInfoEmpresa) {
-                                if (Object.hasOwnProperty.call(newObjInfoEmpresa, key)) {
+                                if (
+                                    Object.hasOwnProperty.call(
+                                        newObjInfoEmpresa,
+                                        key
+                                    )
+                                ) {
                                     prevObjInfoEmpresa.forEach((element) => {
                                         if (element.parent === key) {
-                                            element.value = newObjInfoEmpresa[key];
+                                            element.value =
+                                                newObjInfoEmpresa[key];
 
-                                            if (typeof element.value === "boolean") {
+                                            if (
+                                                typeof element.value ===
+                                                "boolean"
+                                            ) {
                                                 element.value = element.value
                                                     ? "Si"
                                                     : "No";
                                             }
 
                                             if (key === "dtFechaFundacion") {
-                                                element.value = validator.isDate(
-                                                    element.value
-                                                )
-                                                    ? format(element.value, "yyyy-MM-dd")
-                                                    : "No diligenciado";
+                                                element.value =
+                                                    validator.isDate(
+                                                        element.value
+                                                    )
+                                                        ? format(
+                                                              element.value,
+                                                              "yyyy-MM-dd"
+                                                          )
+                                                        : "No diligenciado";
                                             }
 
                                             if (key === "arrDepartamento") {
                                                 element.value =
-                                                    newObjInfoEmpresa[key]?.region_name;
+                                                    newObjInfoEmpresa[
+                                                        key
+                                                    ]?.region_name;
                                             }
 
                                             if (key === "arrCiudad") {
                                                 element.value =
-                                                    newObjInfoEmpresa[key]?.city_name;
+                                                    newObjInfoEmpresa[
+                                                        key
+                                                    ]?.city_name;
                                             }
 
-                                            if (key === "arrCategoriasSecundarias") {
-                                                let array = newObjInfoEmpresa[key];
+                                            if (
+                                                key ===
+                                                "arrCategoriasSecundarias"
+                                            ) {
+                                                let array =
+                                                    newObjInfoEmpresa[key];
 
                                                 if (array) {
                                                     let text = "";
 
                                                     array.forEach((e) => {
-                                                        text += e.strCodigoRetorno + ", ";
+                                                        text +=
+                                                            e.strCodigoRetorno +
+                                                            ", ";
                                                     });
 
                                                     element.value = text;
@@ -674,27 +758,36 @@ const InfoRegistro = () => {
                                             }
 
                                             if (key === "arrRequisitosLey") {
-                                                let array = newObjInfoEmpresa[key];
+                                                let array =
+                                                    newObjInfoEmpresa[key];
 
                                                 if (array) {
                                                     let text = "";
 
                                                     array.forEach((e) => {
-                                                        text += e.strCodigoRetorno + ", ";
+                                                        text +=
+                                                            e.strCodigoRetorno +
+                                                            ", ";
                                                     });
 
                                                     element.value = text;
                                                 }
                                             }
 
-                                            if (key === "arrFormasComercializacion") {
-                                                let array = newObjInfoEmpresa[key];
+                                            if (
+                                                key ===
+                                                "arrFormasComercializacion"
+                                            ) {
+                                                let array =
+                                                    newObjInfoEmpresa[key];
 
                                                 if (array) {
                                                     let text = "";
 
                                                     array.forEach((e) => {
-                                                        text += e.strCodigoRetorno + ", ";
+                                                        text +=
+                                                            e.strCodigoRetorno +
+                                                            ", ";
                                                     });
 
                                                     element.value = text;
@@ -702,7 +795,8 @@ const InfoRegistro = () => {
                                             }
 
                                             if (key === "arrMediosDigitales") {
-                                                let array = newObjInfoEmpresa[key];
+                                                let array =
+                                                    newObjInfoEmpresa[key];
 
                                                 if (array) {
                                                     let text = "";
@@ -713,7 +807,8 @@ const InfoRegistro = () => {
                                                                 `${e.label}:${e.value}` +
                                                                 ", ";
                                                         } else {
-                                                            text += e.label + ", ";
+                                                            text +=
+                                                                e.label + ", ";
                                                         }
                                                     });
 
@@ -727,26 +822,38 @@ const InfoRegistro = () => {
 
                             for (const key in newObjInfoAdicional) {
                                 if (
-                                    Object.hasOwnProperty.call(newObjInfoAdicional, key)
+                                    Object.hasOwnProperty.call(
+                                        newObjInfoAdicional,
+                                        key
+                                    )
                                 ) {
                                     prevObjInfoAdicional.forEach((element) => {
                                         if (element.parent === key) {
-                                            element.value = newObjInfoAdicional[key];
+                                            element.value =
+                                                newObjInfoAdicional[key];
 
-                                            if (typeof element.value === "boolean") {
+                                            if (
+                                                typeof element.value ===
+                                                "boolean"
+                                            ) {
                                                 element.value = element.value
                                                     ? "Si"
                                                     : "No";
                                             }
 
-                                            if (key === "arrTemasCapacitacion") {
-                                                let array = newObjInfoAdicional[key];
+                                            if (
+                                                key === "arrTemasCapacitacion"
+                                            ) {
+                                                let array =
+                                                    newObjInfoAdicional[key];
 
                                                 if (array) {
                                                     let text = "";
 
                                                     array.forEach((e) => {
-                                                        text += e.strCodigoRetorno + ", ";
+                                                        text +=
+                                                            e.strCodigoRetorno +
+                                                            ", ";
                                                     });
 
                                                     element.value = text;
@@ -754,27 +861,36 @@ const InfoRegistro = () => {
                                             }
 
                                             if (key === "arrComoSeEntero") {
-                                                let array = newObjInfoAdicional[key];
+                                                let array =
+                                                    newObjInfoAdicional[key];
 
                                                 if (array) {
                                                     let text = "";
 
                                                     array.forEach((e) => {
-                                                        text += e.strCodigoRetorno + ", ";
+                                                        text +=
+                                                            e.strCodigoRetorno +
+                                                            ", ";
                                                     });
 
                                                     element.value = text;
                                                 }
                                             }
 
-                                            if (key === "arrMediosDeComunicacion") {
-                                                let array = newObjInfoAdicional[key];
+                                            if (
+                                                key ===
+                                                "arrMediosDeComunicacion"
+                                            ) {
+                                                let array =
+                                                    newObjInfoAdicional[key];
 
                                                 if (array) {
                                                     let text = "";
 
                                                     array.forEach((e) => {
-                                                        text += e.strCodigoRetorno + ", ";
+                                                        text +=
+                                                            e.strCodigoRetorno +
+                                                            ", ";
                                                     });
 
                                                     element.value = text;
@@ -787,7 +903,8 @@ const InfoRegistro = () => {
 
                             return {
                                 ...prevState,
-                                arrInfoEmpresarioSec: prevArrEmpresarioSecundario,
+                                arrInfoEmpresarioSec:
+                                    prevArrEmpresarioSecundario,
                                 objInfoEmpresarioPr: prevObjInfoEmpresario,
                                 objInfoPrincipal: prevObjInfoPrincipal,
                                 objInfoEmpresa: prevObjInfoEmpresa,
@@ -831,14 +948,16 @@ const InfoRegistro = () => {
                 <Paper sx={{ padding: "10px" }}>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Box sx={{ flexGrow: 1 }}>
-                            <Typography>
+                            <Typography sx={{ color: "#00BBB4" }}>
                                 <b>Información principal</b>
                             </Typography>
                         </Box>
 
                         <Box>
                             <IconButton
-                                onClick={() => handlerChangeOpenCollapseInfoPrincipal()}
+                                onClick={() =>
+                                    handlerChangeOpenCollapseInfoPrincipal()
+                                }
                                 size="large"
                             >
                                 <Tooltip
@@ -875,7 +994,9 @@ const InfoRegistro = () => {
                                             alignContent: "center",
                                         }}
                                     >
-                                        <b style={{ marginRight: "5px" }}>{e.label}: </b>
+                                        <b style={{ marginRight: "5px" }}>
+                                            {e.label}:{" "}
+                                        </b>
                                         {e.value || "No diligenciado"}
                                     </p>
                                 </Grid>
@@ -889,8 +1010,11 @@ const InfoRegistro = () => {
                 <Paper sx={{ padding: "10px" }}>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Box sx={{ flexGrow: 1 }}>
-                            <Typography>
-                                <b>Información de la persona empresaria principal</b>
+                            <Typography sx={{ color: "#00BBB4" }}>
+                                <b>
+                                    Información de la persona empresaria
+                                    principal
+                                </b>
                             </Typography>
                         </Box>
 
@@ -935,7 +1059,9 @@ const InfoRegistro = () => {
                                             alignContent: "center",
                                         }}
                                     >
-                                        <b style={{ marginRight: "5px" }}>{e.label}: </b>
+                                        <b style={{ marginRight: "5px" }}>
+                                            {e.label}:{" "}
+                                        </b>
                                         {e.value || "No diligenciado"}
                                     </p>
                                 </Grid>
@@ -949,8 +1075,11 @@ const InfoRegistro = () => {
                 <Paper sx={{ padding: "10px" }}>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Box sx={{ flexGrow: 1 }}>
-                            <Typography>
-                                <b>Información de personas empresarias secundarias</b>
+                            <Typography sx={{ color: "#00BBB4" }}>
+                                <b>
+                                    Información de personas empresarias
+                                    secundarias
+                                </b>
                             </Typography>
                         </Box>
 
@@ -981,7 +1110,12 @@ const InfoRegistro = () => {
                     <Collapse in={openCollapseInfoEmpresarioSec} timeout="auto">
                         <Grid container direction="row" spacing={3}>
                             {data.arrInfoEmpresarioSec.map((arrObj, index) => (
-                                <Grid item xs={12} key={index} sx={{ padding: "15px" }}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    key={index}
+                                    sx={{ padding: "15px" }}
+                                >
                                     <Paper
                                         style={{
                                             backgroundColor: "#F6F6F6",
@@ -1003,21 +1137,37 @@ const InfoRegistro = () => {
                                             </Box>
                                         </Box>
 
-                                        <Grid container direction="row" spacing={1}>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            spacing={1}
+                                        >
                                             {arrObj.map((e, i) => (
-                                                <Grid item xs={12} md={6} key={i}>
+                                                <Grid
+                                                    item
+                                                    xs={12}
+                                                    md={6}
+                                                    key={i}
+                                                >
                                                     <p
                                                         style={{
                                                             margin: "0px",
                                                             fontSize: "13px",
                                                             display: "flex",
-                                                            alignContent: "center",
+                                                            alignContent:
+                                                                "center",
                                                         }}
                                                     >
-                                                        <b style={{ marginRight: "5px" }}>
+                                                        <b
+                                                            style={{
+                                                                marginRight:
+                                                                    "5px",
+                                                            }}
+                                                        >
                                                             {e.label}:{" "}
                                                         </b>
-                                                        {e.value || "No diligenciado"}
+                                                        {e.value ||
+                                                            "No diligenciado"}
                                                     </p>
                                                 </Grid>
                                             ))}
@@ -1034,14 +1184,16 @@ const InfoRegistro = () => {
                 <Paper sx={{ padding: "10px" }}>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Box sx={{ flexGrow: 1 }}>
-                            <Typography>
+                            <Typography sx={{ color: "#00BBB4" }}>
                                 <b>Información de la empresa</b>
                             </Typography>
                         </Box>
 
                         <Box>
                             <IconButton
-                                onClick={() => handlerChangeOpenCollapseInfoEmpresa()}
+                                onClick={() =>
+                                    handlerChangeOpenCollapseInfoEmpresa()
+                                }
                                 size="large"
                             >
                                 <Tooltip
@@ -1078,7 +1230,9 @@ const InfoRegistro = () => {
                                             alignContent: "center",
                                         }}
                                     >
-                                        <b style={{ marginRight: "5px" }}>{e.label}: </b>
+                                        <b style={{ marginRight: "5px" }}>
+                                            {e.label}:{" "}
+                                        </b>
                                         {e.value || "No diligenciado"}
                                     </p>
                                 </Grid>
@@ -1092,14 +1246,16 @@ const InfoRegistro = () => {
                 <Paper sx={{ padding: "10px" }}>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Box sx={{ flexGrow: 1 }}>
-                            <Typography>
+                            <Typography sx={{ color: "#00BBB4" }}>
                                 <b>Información adicional</b>
                             </Typography>
                         </Box>
 
                         <Box>
                             <IconButton
-                                onClick={() => handlerChangeOpenCollapseInfoAdicional()}
+                                onClick={() =>
+                                    handlerChangeOpenCollapseInfoAdicional()
+                                }
                                 size="large"
                             >
                                 <Tooltip
@@ -1136,7 +1292,9 @@ const InfoRegistro = () => {
                                             alignContent: "center",
                                         }}
                                     >
-                                        <b style={{ marginRight: "5px" }}>{e.label}: </b>
+                                        <b style={{ marginRight: "5px" }}>
+                                            {e.label}:{" "}
+                                        </b>
                                         {e.value || "No diligenciado"}
                                     </p>
                                 </Grid>

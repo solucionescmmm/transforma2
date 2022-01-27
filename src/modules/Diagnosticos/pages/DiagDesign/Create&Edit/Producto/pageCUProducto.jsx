@@ -19,7 +19,7 @@ import { Link as RouterLink, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 // Componentes de MUI
 import {
@@ -299,17 +299,23 @@ const PageCUProducto = ({ intId, isEdit }) => {
                                 ...prevState,
                                 objInfoGeneral: {
                                     intId: data.objEmpresario.intId || null,
-                                    dtmFechaSesion:
-                                        data.objEmpresario.dtmFechaSesion ||
-                                        null,
+                                    dtmFechaSesion: data.objEmpresario
+                                        .dtmFechaSesion
+                                        ? parseISO(
+                                              data.objEmpresario.dtmFechaSesion
+                                          )
+                                        : null,
                                     strLugarSesion:
                                         data.objEmpresario.strLugarSesion || "",
                                     strUsuarioCreacion:
                                         data.objEmpresario.strUsuarioCreacion ||
                                         "",
-                                    dtActualizacion:
-                                        data.objEmpresario.dtActualizacion ||
-                                        null,
+                                    dtActualizacion: data.objEmpresario
+                                        .dtActualizacion
+                                        ? parseISO(
+                                              data.objEmpresario.dtActualizacion
+                                          )
+                                        : null,
                                     strUsuarioActualizacion:
                                         data.objEmpresario
                                             .strUsuarioActualizacion || "",
@@ -347,6 +353,31 @@ const PageCUProducto = ({ intId, isEdit }) => {
                             setData((prevState) => ({
                                 ...prevState,
                                 ...data,
+                                objInfoGeneral: {
+                                    intId: data.objInfoGeneral.intId,
+                                    dtmFechaSesion: data.objInfoGeneral
+                                        .dtmFechaSesion
+                                        ? parseISO(
+                                              data.objInfoGeneral.dtmFechaSesion
+                                          )
+                                        : null,
+                                    strLugarSesion:
+                                        data.objInfoGeneral.strLugarSesion ||
+                                        "",
+                                    strUsuarioCreacion:
+                                        data.objInfoGeneral
+                                            .strUsuarioCreacion || "",
+                                    dtActualizacion: data.objInfoGeneral
+                                        .dtActualizacion
+                                        ? parseISO(
+                                              data.objInfoGeneral
+                                                  .dtActualizacion
+                                          )
+                                        : null,
+                                    strUsuarioActualizacion:
+                                        data.objInfoGeneral
+                                            .strUsuarioActualizacion || "",
+                                },
                             }));
 
                             if (!isEdit) {
@@ -392,7 +423,11 @@ const PageCUProducto = ({ intId, isEdit }) => {
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     if (success) {
-        return <Redirect to="/diagnosticos/diagEmpresarial" />;
+        return (
+            <Redirect
+                to={`/diagnosticos/diagDesign/product/read/${data.objInfoGeneral?.intId}`}
+            />
+        );
     }
 
     if (loadingGetData) {
