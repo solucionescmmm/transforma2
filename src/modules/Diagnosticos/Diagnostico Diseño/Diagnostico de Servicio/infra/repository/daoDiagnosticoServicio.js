@@ -259,5 +259,32 @@ class daoDiagnosticoServicio {
             return result;
         }
     }
+
+    async getResultDiagnosticoServicio(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn
+                .request()
+                .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .execute("sp_GetResultDiagnosticoServicios");
+
+            let result = {
+                error: false,
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getResultDiagnosticoServicio de la clase daoDiagnosticoServicio",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
 }
 module.exports = daoDiagnosticoServicio;

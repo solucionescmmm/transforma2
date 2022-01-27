@@ -31,5 +31,11 @@ class interfaceDAODiagnosticoServicios {
         let result = await dao.setResultDiagnosticoServicio(data);
         return result;
     }
+
+    async getResultDiagnosticoServicio(data) {
+        const dao = new classDaoSql();
+        let result = await dao.getResultDiagnosticoServicio(data);
+        return result;
+    }
 }
 module.exports = interfaceDAODiagnosticoServicios;

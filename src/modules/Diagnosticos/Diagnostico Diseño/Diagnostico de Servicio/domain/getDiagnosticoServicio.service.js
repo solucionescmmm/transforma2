@@ -26,10 +26,12 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
     };
 
     let arrayData = await dao.getDiagnosticoServicio(query);
+    let arrayResultServicios = await dao.getResultDiagnosticoServicio(query)
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data;
+            let arrayServicios = arrayResultServicios.data
 
             let data = [];
 
@@ -106,11 +108,16 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
                     strURLSFotos: array[i]?.strURLSFotos,
                 };
 
+                let objResultServicio ={
+                    arrayServicios
+                }
+
                 data[i] = {
                     objInfoGeneral,
                     objInfoEvaluacion,
                     objInfoNormatividad,
                     objInfoAdicional,
+                    objResultServicio
                 };
             }
             let result = {
