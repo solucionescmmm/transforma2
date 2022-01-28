@@ -36,6 +36,7 @@ const InfoComMercadeo = ({
 
     const [data, setData] = useState({
         strCaractEmpresaComp: "",
+        strCaractEmpresaCompDetalle: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
