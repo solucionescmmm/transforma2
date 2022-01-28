@@ -59,7 +59,8 @@ const ModalResumen = ({ onClose, open, values }) => {
                     producto
                 </Button>
                 <Button
-                    onClick={() => onClose()}
+                    component={RouterLink}
+                    to={`/diagnosticos/diagDesign/product/read/${values.intIdProducto}`}
                     color="primary"
                     disabled={!values?.intIdServicio}
                 >

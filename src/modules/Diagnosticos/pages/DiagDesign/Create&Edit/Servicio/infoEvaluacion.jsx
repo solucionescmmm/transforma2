@@ -51,6 +51,7 @@ const InfoEvaluacion = ({
         strProcesoInteraccionNivel: "",
         strPuntosContacto: "",
         strPuntosContactoDetalle: "",
+        strPuntosContactoNivel: "",
         strExperienciaDiseñada: "",
         strExperienciaDiseñadaDetalle: "",
         strExperienciaDiseñadaNivel: "",
@@ -353,7 +354,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strObjetivoPropositoNivel"
+                                    name="objInfoEvaluacion.strObjetivoPropositoNivel"
                                     defaultValue={
                                         data.strObjetivoPropositoNivel
                                     }
@@ -367,13 +368,13 @@ const InfoEvaluacion = ({
                                             valueList={data.strLineaGrafica}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strObjetivoPropositoNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strObjetivoPropositoNivel
                                                     ?.message || "Nivel"
                                             }
@@ -463,7 +464,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strRenovacionPortafolioNivel"
+                                    name="objInfoEvaluacion.strRenovacionPortafolioNivel"
                                     defaultValue={
                                         data.strRenovacionPortafolioNivel
                                     }
@@ -479,13 +480,13 @@ const InfoEvaluacion = ({
                                             }
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strRenovacionPortafolioNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strRenovacionPortafolioNivel
                                                     ?.message || "Nivel"
                                             }
@@ -575,7 +576,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strProcesoInteraccionNivel"
+                                    name="objInfoEvaluacion.strProcesoInteraccionNivel"
                                     defaultValue={
                                         data.strProcesoInteraccionNivel
                                     }
@@ -591,13 +592,13 @@ const InfoEvaluacion = ({
                                             }
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strProcesoInteraccionNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strProcesoInteraccionNivel
                                                     ?.message || "Nivel"
                                             }
@@ -685,7 +686,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strPuntosContactoNivel"
+                                    name="objInfoEvaluacion.strPuntosContactoNivel"
                                     defaultValue={data.strPuntosContactoNivel}
                                     render={({
                                         field: { name, onChange, value },
@@ -697,13 +698,13 @@ const InfoEvaluacion = ({
                                             valueList={data.strPuntosContacto}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strPuntosContactoNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strPuntosContactoNivel
                                                     ?.message || "Nivel"
                                             }
@@ -813,7 +814,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strExperienciaDiseñadaNivel"
+                                    name="objInfoEvaluacion.strExperienciaDiseñadaNivel"
                                     defaultValue={
                                         data.strExperienciaDiseñadaNivel
                                     }
@@ -829,13 +830,13 @@ const InfoEvaluacion = ({
                                             }
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strExperienciaDiseñadaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strExperienciaDiseñadaNivel
                                                     ?.message || "Nivel"
                                             }
@@ -925,7 +926,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strRecursosServicioNivel"
+                                    name="objInfoEvaluacion.strRecursosServicioNivel"
                                     defaultValue={data.strRecursosServicioNivel}
                                     render={({
                                         field: { name, onChange, value },
@@ -937,13 +938,13 @@ const InfoEvaluacion = ({
                                             valueList={data.strRecursosServicio}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strRecursosServicioNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strRecursosServicioNivel
                                                     ?.message || "Nivel"
                                             }
@@ -1030,7 +1031,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strPostVentaNivel"
+                                    name="objInfoEvaluacion.strPostVentaNivel"
                                     defaultValue={data.strPostVentaNivel}
                                     render={({
                                         field: { name, onChange, value },
@@ -1042,13 +1043,13 @@ const InfoEvaluacion = ({
                                             valueList={data.strPostVenta}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strPostVentaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strPostVentaNivel
                                                     ?.message || "Nivel"
                                             }
@@ -1156,7 +1157,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strLineaGraficaNivel"
+                                    name="objInfoEvaluacion.strLineaGraficaNivel"
                                     defaultValue={data.strLineaGraficaNivel}
                                     render={({
                                         field: { name, onChange, value },
@@ -1168,13 +1169,13 @@ const InfoEvaluacion = ({
                                             valueList={data.strLineaGrafica}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strLineaGraficaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strLineaGraficaNivel
                                                     ?.message || "Nivel"
                                             }
@@ -1262,7 +1263,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strIdentidadMarcaNivel"
+                                    name="objInfoEvaluacion.strIdentidadMarcaNivel"
                                     defaultValue={data.strIdentidadMarcaNivel}
                                     render={({
                                         field: { name, onChange, value },
@@ -1274,13 +1275,13 @@ const InfoEvaluacion = ({
                                             valueList={data.strIdentidadMarca}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strIdentidadMarcaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strIdentidadMarcaNivel
                                                     ?.message || "Nivel"
                                             }
@@ -1370,7 +1371,7 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objCategoria1.strComunicacionMarcaNivel"
+                                    name="objInfoEvaluacion.strComunicacionMarcaNivel"
                                     defaultValue={
                                         data.strComunicacionMarcaNivel
                                     }
@@ -1386,13 +1387,13 @@ const InfoEvaluacion = ({
                                             }
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strComunicacionMarcaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objCategoria1
+                                                errors?.objInfoEvaluacion
                                                     ?.strComunicacionMarcaNivel
                                                     ?.message || "Nivel"
                                             }

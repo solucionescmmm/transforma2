@@ -23,6 +23,7 @@ import {
 } from "@mui/icons-material";
 
 import useGetDiagnProd from "../../hooks/useGetDiagnProd";
+import useGetDiagnServ from "../../hooks/useGetDiagnServ";
 import Loader from "../../../../common/components/Loader";
 import ErrorPage from "../../../../common/components/Error";
 
@@ -46,6 +47,7 @@ const DiagDesign = ({ intId }) => {
     });
 
     const [objProducto, setObjProducto] = useState();
+    const [objServicio, setObjServicio] = useState();
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -55,9 +57,16 @@ const DiagDesign = ({ intId }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { getUniqueData } = useGetDiagnProd({ autoLoad: false });
+    const { getUniqueData: getUniqueDataProd } = useGetDiagnProd({
+        autoLoad: false,
+    });
 
-    const refFntGetData = useRef(getUniqueData);
+    const { getUniqueData: getUniqueDataServ } = useGetDiagnServ({
+        autoLoad: false,
+    });
+
+    const refFntGetDataProd = useRef(getUniqueDataProd);
+    const refFntGetDataServ = useRef(getUniqueDataServ);
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -66,14 +75,14 @@ const DiagDesign = ({ intId }) => {
         setLoadingGetData(true);
 
         async function getData() {
-            await refFntGetData
+            await refFntGetDataProd
                 .current({ intIdEmpresario: intId })
                 .then((res) => {
                     if (res.data.error) {
                         throw new Error(res.data.msg);
                     }
 
-                    if (res.data) {
+                    if (res.data?.data) {
                         let data = res.data.data[0];
 
                         setObjProducto(data);
@@ -81,6 +90,32 @@ const DiagDesign = ({ intId }) => {
                         setObjResumen((prevState) => ({
                             ...prevState,
                             bitResumenProducto: true,
+                        }));
+                    }
+
+                    setLoadingGetData(false);
+                    setErrorGetData({ flag: false, msg: "" });
+                })
+                .catch((error) => {
+                    setErrorGetData({ flag: true, msg: error.message });
+                    setLoadingGetData(false);
+                });
+
+            await refFntGetDataServ
+                .current({ intIdEmpresario: intId })
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    if (res.data?.data) {
+                        let data = res.data.data[0];
+
+                        setObjServicio(data);
+
+                        setObjResumen((prevState) => ({
+                            ...prevState,
+                            bitResumenServicio: true,
                         }));
                     }
 
@@ -117,7 +152,10 @@ const DiagDesign = ({ intId }) => {
             <ModalResumen
                 onClose={handleOpenModalResumen}
                 open={openModalResumen}
-                values={{ intIdProducto: objProducto?.objInfoGeneral?.intId }}
+                values={{
+                    intIdProducto: objProducto?.objInfoGeneral?.intId,
+                    intIdServicio: objServicio?.objInfoGeneral?.intId,
+                }}
             />
 
             <Grid container direction="row" spacing={2}>
