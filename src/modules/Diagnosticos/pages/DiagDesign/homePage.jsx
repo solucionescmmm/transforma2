@@ -93,12 +93,10 @@ const DiagDesign = ({ intId }) => {
                         }));
                     }
 
-                    setLoadingGetData(false);
                     setErrorGetData({ flag: false, msg: "" });
                 })
                 .catch((error) => {
                     setErrorGetData({ flag: true, msg: error.message });
-                    setLoadingGetData(false);
                 });
 
             await refFntGetDataServ
@@ -119,13 +117,13 @@ const DiagDesign = ({ intId }) => {
                         }));
                     }
 
-                    setLoadingGetData(false);
                     setErrorGetData({ flag: false, msg: "" });
                 })
                 .catch((error) => {
                     setErrorGetData({ flag: true, msg: error.message });
-                    setLoadingGetData(false);
                 });
+
+            setLoadingGetData(false);
         }
 
         getData();

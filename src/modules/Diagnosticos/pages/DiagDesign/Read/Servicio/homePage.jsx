@@ -29,8 +29,8 @@ import {
 
 import Loader from "../../../../../../common/components/Loader";
 import ErrorPage from "../../../../../../common/components/Error";
-import useGetDiagnProd from "../../../../hooks/useGetDiagnProd";
-import ModalEditDiagProd from "./modalEdit";
+import useGetDiagnServ from "../../../../hooks/useGetDiagnServ";
+import ModalEditDiagServ from "./modalEdit";
 import ModalPDF from "./modalPDF";
 
 const ResumenProducto = () => {
@@ -145,7 +145,7 @@ const ResumenProducto = () => {
     //===============================================================================================================================================
     const { intId } = useParams();
 
-    const { getUniqueData } = useGetDiagnProd({ autoLoad: false });
+    const { getUniqueData } = useGetDiagnServ({ autoLoad: false });
 
     const refFntGetData = useRef(getUniqueData);
 
@@ -196,6 +196,7 @@ const ResumenProducto = () => {
 
                     if (res.data) {
                         let data = res.data.data[0];
+                        console.log(data)
 
                         setIntIdEmpresario(data.objInfoGeneral.intIdEmpresario);
 
@@ -376,28 +377,26 @@ const ResumenProducto = () => {
                                     )
                                 ) {
                                     if (
-                                        (key === "strFuncionalidad" ||
-                                            key === "strMetodologia" ||
+                                        (key === "strObjetivoProposito" ||
                                             key === "strRenovacionPortafolio" ||
-                                            key === "strSostenibilidad" ||
-                                            key === "strAtributosValor" ||
-                                            key === "strUsoMateriales") &&
-                                            objInfoEvaluacion[key] !== ""
+                                            key === "strProcesoInteraccion" ||
+                                            key === "strPuntosContacto") &&
+                                        objInfoEvaluacion[key] !== ""
                                     ) {
                                         if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
+                                            objInfoEvaluacion[`${key}Nivel`] ===
                                                 "BAJO" ||
-                                            objInfoCategoria1[`${key}Nivel`] ===
+                                            objInfoEvaluacion[`${key}Nivel`] ===
                                                 "MEDIO"
                                         ) {
                                             objInnovacionFortalecer.push({
                                                 parent: key,
-                                                value: objInfoCategoria1[key],
+                                                value: objInfoEvaluacion[key],
                                                 detalle:
-                                                    objInfoCategoria1[
+                                                    objInfoEvaluacion[
                                                         `${key}Detalle`
                                                     ],
-                                                nivel: objInfoCategoria1[
+                                                nivel: objInfoEvaluacion[
                                                     `${key}Nivel`
                                                 ],
                                                 label: getLabel(key),
@@ -405,17 +404,17 @@ const ResumenProducto = () => {
                                         }
 
                                         if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
+                                            objInfoEvaluacion[`${key}Nivel`] ===
                                             "ALTO"
                                         ) {
                                             objInnovacionFortalezas.push({
                                                 parent: key,
-                                                value: objInfoCategoria1[key],
+                                                value: objInfoEvaluacion[key],
                                                 detalle:
-                                                    objInfoCategoria1[
+                                                    objInfoEvaluacion[
                                                         `${key}Detalle`
                                                     ],
-                                                nivel: objInfoCategoria1[
+                                                nivel: objInfoEvaluacion[
                                                     `${key}Nivel`
                                                 ],
                                                 label: getLabel(key),
@@ -424,26 +423,25 @@ const ResumenProducto = () => {
                                     }
 
                                     if (
-                                        (key === "strRiesgoUso" ||
-                                            key === "strEmpaqueEtiqueta" ||
-                                            key === "strUsabilidad" ||
-                                            key === "strDisenioExperiencia") &&
-                                        objInfoCategoria1[key] !== ""
+                                        (key === "strExperienciaDiseñada" ||
+                                            key === "strRecursosServicio" ||
+                                            key === "strPostVenta") &&
+                                        objInfoEvaluacion[key] !== ""
                                     ) {
                                         if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
+                                            objInfoEvaluacion[`${key}Nivel`] ===
                                                 "BAJO" ||
-                                            objInfoCategoria1[`${key}Nivel`] ===
+                                            objInfoEvaluacion[`${key}Nivel`] ===
                                                 "MEDIO"
                                         ) {
                                             objExperienciaFortalecer.push({
                                                 parent: key,
-                                                value: objInfoCategoria1[key],
+                                                value: objInfoEvaluacion[key],
                                                 detalle:
-                                                    objInfoCategoria1[
+                                                    objInfoEvaluacion[
                                                         `${key}Detalle`
                                                     ],
-                                                nivel: objInfoCategoria1[
+                                                nivel: objInfoEvaluacion[
                                                     `${key}Nivel`
                                                 ],
                                                 label: getLabel(key),
@@ -451,53 +449,44 @@ const ResumenProducto = () => {
                                         }
 
                                         if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
+                                            objInfoEvaluacion[`${key}Nivel`] ===
                                             "ALTO"
                                         ) {
                                             objExperienciaFortalezas.push({
                                                 parent: key,
-                                                value: objInfoCategoria1[key],
+                                                value: objInfoEvaluacion[key],
                                                 detalle:
-                                                    objInfoCategoria1[
+                                                    objInfoEvaluacion[
                                                         `${key}Detalle`
                                                     ],
-                                                nivel: objInfoCategoria1[
+                                                nivel: objInfoEvaluacion[
                                                     `${key}Nivel`
                                                 ],
                                                 label: getLabel(key),
                                             });
                                         }
                                     }
-                                }
-                            }
 
-                            for (const key in objInfoCategoria2) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoCategoria2,
-                                        key
-                                    )
-                                ) {
                                     if (
                                         (key === "strLineaGrafica" ||
                                             key === "strIdentidadMarca" ||
                                             key === "strComunicacionMarca") &&
-                                        objInfoCategoria2[key] !== ""
+                                        objInfoEvaluacion[key] !== ""
                                     ) {
                                         if (
-                                            objInfoCategoria2[`${key}Nivel`] ===
+                                            objInfoEvaluacion[`${key}Nivel`] ===
                                                 "BAJO" ||
-                                            objInfoCategoria2[`${key}Nivel`] ===
+                                            objInfoEvaluacion[`${key}Nivel`] ===
                                                 "MEDIO"
                                         ) {
-                                            objMarcaFortalecer.push({
+                                            objExperienciaFortalecer.push({
                                                 parent: key,
-                                                value: objInfoCategoria2[key],
+                                                value: objInfoEvaluacion[key],
                                                 detalle:
-                                                    objInfoCategoria2[
+                                                    objInfoEvaluacion[
                                                         `${key}Detalle`
                                                     ],
-                                                nivel: objInfoCategoria2[
+                                                nivel: objInfoEvaluacion[
                                                     `${key}Nivel`
                                                 ],
                                                 label: getLabel(key),
@@ -505,17 +494,17 @@ const ResumenProducto = () => {
                                         }
 
                                         if (
-                                            objInfoCategoria2[`${key}Nivel`] ===
+                                            objInfoEvaluacion[`${key}Nivel`] ===
                                             "ALTO"
                                         ) {
-                                            objMarcaFortalezas.push({
+                                            objExperienciaFortalezas.push({
                                                 parent: key,
-                                                value: objInfoCategoria2[key],
+                                                value: objInfoEvaluacion[key],
                                                 detalle:
-                                                    objInfoCategoria2[
+                                                    objInfoEvaluacion[
                                                         `${key}Detalle`
                                                     ],
-                                                nivel: objInfoCategoria2[
+                                                nivel: objInfoEvaluacion[
                                                     `${key}Nivel`
                                                 ],
                                                 label: getLabel(key),
@@ -534,30 +523,6 @@ const ResumenProducto = () => {
                             if (objInnovacionFortalezas.length > 0) {
                                 prevInfoFortalezas.push({
                                     objInnovacionFortalezas,
-                                });
-                            }
-
-                            if (objPersepcionFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objPersepcionFortalecer,
-                                });
-                            }
-
-                            if (objPersepcionFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objPersepcionFortalezas,
-                                });
-                            }
-
-                            if (objEsteticaFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objEsteticaFortalecer,
-                                });
-                            }
-
-                            if (objEsteticaFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objEsteticaFortalezas,
                                 });
                             }
 
@@ -588,7 +553,7 @@ const ResumenProducto = () => {
                             return {
                                 ...prevState,
                                 objInfoGeneral: prevInfoGeneral,
-                                objInfoProductos: prevInfoProductos,
+                                objInfoServicios: prevInfoServicios,
                                 objInfoNormatividad: prevInfoNormatividad,
                                 objInfoTemasFortalecer: prevInfoTemasFortalecer,
                                 objInfoFortalezas: prevInfoFortalezas,
@@ -628,7 +593,7 @@ const ResumenProducto = () => {
 
     return (
         <Fragment>
-            <ModalEditDiagProd
+            <ModalEditDiagServ
                 intId={intId}
                 handleOpenDialog={handlerChangeOpenModalEdit}
                 open={openModalEdit}
@@ -757,7 +722,7 @@ const ResumenProducto = () => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>Productos evaluados en el diagnóstico</b>
+                                    <b>Servicios evaluados en el diagnóstico</b>
                                 </Typography>
                             </Box>
 
@@ -792,8 +757,8 @@ const ResumenProducto = () => {
                                 spacing={1}
                                 sx={{ padding: "15px" }}
                             >
-                                {data.objInfoProductos.map((e, i) => (
-                                    <Grid item xs={12} md={6} key={i}>
+                                {data.objInfoServicios.map((e, i) => (
+                                    <Grid item xs={12} key={i}>
                                         <p
                                             style={{
                                                 margin: "0px",
@@ -951,300 +916,6 @@ const ResumenProducto = () => {
                                                                             "flex",
                                                                         alignContent:
                                                                             "center",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            {e.detalle && (
-                                                                <Grid
-                                                                    item
-                                                                    xs={12}
-                                                                    md={2}
-                                                                >
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        <b>
-                                                                            Detalle
-                                                                        </b>
-                                                                    </p>
-
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        {e.detalle ||
-                                                                            "No diligenciado"}
-                                                                    </p>
-                                                                </Grid>
-                                                            )}
-                                                        </Fragment>
-                                                    )
-                                                )}
-                                            </Fragment>
-                                        );
-                                    }
-
-                                    if (e.objPersepcionFortalecer) {
-                                        return (
-                                            <Fragment key={i}>
-                                                <Grid item xs={12}>
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "18px",
-                                                            fontWeight: "bold",
-                                                            color: "#F5B335",
-                                                        }}
-                                                    >
-                                                        Percepción y calidad
-                                                    </Typography>
-                                                </Grid>
-
-                                                {e.objPersepcionFortalecer.map(
-                                                    (e, i) => (
-                                                        <Fragment key={i}>
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={8}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b
-                                                                        style={{
-                                                                            marginRight:
-                                                                                "5px",
-                                                                        }}
-                                                                    >
-                                                                        {
-                                                                            e.label
-                                                                        }
-                                                                        :{" "}
-                                                                    </b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                        maxWidth:
-                                                                            "600px",
-                                                                    }}
-                                                                >
-                                                                    {e.value ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                        maxWidth:
-                                                                            "600px",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            {e.detalle && (
-                                                                <Grid
-                                                                    item
-                                                                    xs={12}
-                                                                    md={2}
-                                                                >
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        <b>
-                                                                            Detalle
-                                                                        </b>
-                                                                    </p>
-
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        {e.detalle ||
-                                                                            "No diligenciado"}
-                                                                    </p>
-                                                                </Grid>
-                                                            )}
-                                                        </Fragment>
-                                                    )
-                                                )}
-                                            </Fragment>
-                                        );
-                                    }
-
-                                    if (e.objEsteticaFortalecer) {
-                                        return (
-                                            <Fragment key={i}>
-                                                <Grid item xs={12}>
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "18px",
-                                                            fontWeight: "bold",
-                                                            color: "#F5B335",
-                                                        }}
-                                                    >
-                                                        Estética
-                                                    </Typography>
-                                                </Grid>
-
-                                                {e.objEsteticaFortalecer.map(
-                                                    (e, i) => (
-                                                        <Fragment key={i}>
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={8}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b
-                                                                        style={{
-                                                                            marginRight:
-                                                                                "5px",
-                                                                        }}
-                                                                    >
-                                                                        {
-                                                                            e.label
-                                                                        }
-                                                                        :{" "}
-                                                                    </b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                        maxWidth:
-                                                                            "600px",
-                                                                    }}
-                                                                >
-                                                                    {e.value ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                        maxWidth:
-                                                                            "600px",
                                                                     }}
                                                                 >
                                                                     {e.nivel ||
@@ -1655,296 +1326,6 @@ const ResumenProducto = () => {
                                                 </Grid>
 
                                                 {e.objInnovacionFortalezas.map(
-                                                    (e, i) => (
-                                                        <Fragment key={i}>
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={8}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b
-                                                                        style={{
-                                                                            marginRight:
-                                                                                "5px",
-                                                                        }}
-                                                                    >
-                                                                        {
-                                                                            e.label
-                                                                        }
-                                                                        :{" "}
-                                                                    </b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                        maxWidth:
-                                                                            "600px",
-                                                                    }}
-                                                                >
-                                                                    {e.value ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            {e.detalle && (
-                                                                <Grid
-                                                                    item
-                                                                    xs={12}
-                                                                    md={2}
-                                                                >
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        <b>
-                                                                            Detalle
-                                                                        </b>
-                                                                    </p>
-
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        {e.detalle ||
-                                                                            "No diligenciado"}
-                                                                    </p>
-                                                                </Grid>
-                                                            )}
-                                                        </Fragment>
-                                                    )
-                                                )}
-                                            </Fragment>
-                                        );
-                                    }
-
-                                    if (e.objPersepcionFortalezas) {
-                                        return (
-                                            <Fragment key={i}>
-                                                <Grid item xs={12}>
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "18px",
-                                                            fontWeight: "bold",
-                                                            color: "#F5B335",
-                                                        }}
-                                                    >
-                                                        Percepción y calidad
-                                                    </Typography>
-                                                </Grid>
-
-                                                {e.objPersepcionFortalezas.map(
-                                                    (e, i) => (
-                                                        <Fragment key={i}>
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={8}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b
-                                                                        style={{
-                                                                            marginRight:
-                                                                                "5px",
-                                                                        }}
-                                                                    >
-                                                                        {
-                                                                            e.label
-                                                                        }
-                                                                        :{" "}
-                                                                    </b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                        maxWidth:
-                                                                            "600px",
-                                                                    }}
-                                                                >
-                                                                    {e.value ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            {e.detalle && (
-                                                                <Grid
-                                                                    item
-                                                                    xs={12}
-                                                                    md={2}
-                                                                >
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        <b>
-                                                                            Detalle
-                                                                        </b>
-                                                                    </p>
-
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        {e.detalle ||
-                                                                            "No diligenciado"}
-                                                                    </p>
-                                                                </Grid>
-                                                            )}
-                                                        </Fragment>
-                                                    )
-                                                )}
-                                            </Fragment>
-                                        );
-                                    }
-
-                                    if (e.objEsteticaFortalezas) {
-                                        return (
-                                            <Fragment key={i}>
-                                                <Grid item xs={12}>
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "18px",
-                                                            fontWeight: "bold",
-                                                            color: "#F5B335",
-                                                        }}
-                                                    >
-                                                        Estética
-                                                    </Typography>
-                                                </Grid>
-
-                                                {e.objEsteticaFortalezas.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
                                                             <Grid

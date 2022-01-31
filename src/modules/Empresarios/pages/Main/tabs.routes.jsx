@@ -49,6 +49,10 @@ const PageResumenProducto = lazy(() =>
     import("../../../Diagnosticos/pages/DiagDesign/Read/Producto/homePage")
 );
 
+const PageResumenServicio = lazy(() =>
+    import("../../../Diagnosticos/pages/DiagDesign/Read/Servicio/homePage")
+);
+
 const TabsComponent = ({ intId }) => {
     const routeMatch = useRouteMatch([
         "/perfil/:intId",
@@ -239,6 +243,18 @@ const TabsRoutes = ({ values, intId }) => {
                     component={() => (
                         <div className="animate__animated animate__fadeIn">
                             <PageCUServicio intId={intId} isEdit />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagDesign/service/read/:intId"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageResumenServicio />
 
                             {/* <PageMaintenance /> */}
                         </div>

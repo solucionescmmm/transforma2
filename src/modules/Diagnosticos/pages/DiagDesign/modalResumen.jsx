@@ -60,7 +60,7 @@ const ModalResumen = ({ onClose, open, values }) => {
                 </Button>
                 <Button
                     component={RouterLink}
-                    to={`/diagnosticos/diagDesign/product/read/${values.intIdProducto}`}
+                    to={`/diagnosticos/diagDesign/service/read/${values.intIdServicio}`}
                     color="primary"
                     disabled={!values?.intIdServicio}
                 >
