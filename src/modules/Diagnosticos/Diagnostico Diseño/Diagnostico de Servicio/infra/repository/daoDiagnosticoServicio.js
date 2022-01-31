@@ -239,7 +239,7 @@ class daoDiagnosticoServicio {
             await conn
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
-                .execute("usp_SetResultDiagnosticoServicios");
+                .execute("sp_SetResultDiagnosticoServicios");
 
             let result = {
                 error: false,
