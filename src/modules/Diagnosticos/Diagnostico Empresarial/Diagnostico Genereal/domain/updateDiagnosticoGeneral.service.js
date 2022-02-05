@@ -1,10 +1,11 @@
+
 //librerias
 const validator = require("validator").default;
 
 //class
 const classInterfaceDAODiagnosticoGeneral = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 
-class setDiagnosticoGeneral {
+class updateDiagnosticoGeneral {
     #objData;
     #objUser;
     #intIdEmpresario;
@@ -21,15 +22,14 @@ class setDiagnosticoGeneral {
     async main() {
         await this.#validations();
         await this.#getIntIdEmpresario();
-        await this.#updateEmpresarioDiagnosticoGeneral();
+       await this.#updateEmpresarioDiagnosticoGeneral();
         await this.#updateEmpresaDiagnosticoGeneral();
         await this.#completeData();
-        await this.#setDiagnosticoGeneral();
+       await this.#updateDiagnosticoGeneral();
         return this.#objResult;
     }
 
     async #validations() {
-        console.log(this.#objData)
         if (
             !validator.isEmail(this.#objUser.strEmail, {
                 domain_specific_validation: "cmmmedellin.org",
@@ -133,10 +133,10 @@ class setDiagnosticoGeneral {
         this.#objData = newData;
     }
 
-    async #setDiagnosticoGeneral() {
+    async #updateDiagnosticoGeneral() {
         let dao = new classInterfaceDAODiagnosticoGeneral();
 
-        let query = await dao.setDiagnosticoGeneral(this.#objData);
+        let query = await dao.updateDiagnosticoGeneral(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -163,6 +163,8 @@ class setDiagnosticoGeneral {
             intIdEmpresario: this.#intIdEmpresario,
         };
 
+        console.log(objInfoEmpresario);
+
         let query = await dao.updateEmpresarioDiagnosticoGeneral(
             objInfoEmpresario
         );
@@ -174,6 +176,7 @@ class setDiagnosticoGeneral {
 
     async #updateEmpresaDiagnosticoGeneral() {
         let dao = new classInterfaceDAODiagnosticoGeneral();
+        console.log(this.#objData);
 
         let objInfoEmpresa = {
             ...this.#objData.objInfoEmprendimiento,
@@ -200,9 +203,11 @@ class setDiagnosticoGeneral {
             objInfoEmpresa
         );
 
+        console.log(query);
+
         if (query.error) {
             throw new Error(query.msg);
         }
     }
 }
-module.exports = setDiagnosticoGeneral;
+module.exports = updateDiagnosticoGeneral;

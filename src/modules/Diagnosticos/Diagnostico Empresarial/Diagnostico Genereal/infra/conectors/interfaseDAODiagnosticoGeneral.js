@@ -10,7 +10,7 @@ class interfaceDAODiagnosticoGeneral {
 
     async updateDiagnosticoGeneral(data) {
         const dao = new classDaoSql();
-        let result = await dao.updateComentario(data);
+        let result = await dao.updateDiagnosticoGeneral(data);
         return result;
     }
 
