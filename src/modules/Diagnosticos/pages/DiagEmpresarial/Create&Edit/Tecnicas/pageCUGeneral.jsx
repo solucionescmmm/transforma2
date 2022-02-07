@@ -42,6 +42,10 @@ import PageError from "../../../../../../common/components/Error";
 import InfoGeneral from "./infoGeneral";
 import InfoComMercadeo from "./infoComMercadeo";
 import InfoComProductivo from "./infoComProductivo";
+import InfoComFinanciero from "./infoComFinanciero";
+import InfoComAdministrativo from "./infoComAdministrativo";
+import InfoComAsociativo from "./infoComAsociativo";
+
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -95,6 +99,9 @@ const PageCUGeneral = ({ intId, isEdit }) => {
         objInfoGeneral: {},
         objInfoComMercadeo: {},
         objInfoComProductivo: {},
+        objInfoComFinanciero: {},
+        objInfoComAdministrativo: {},
+        objInfoComAsociativo: {},
     });
 
     const [success, setSucces] = useState(false);
@@ -512,6 +519,42 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                                     control={control}
                                     disabled={loading}
                                     values={data.objInfoComProductivo}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <InfoComFinanciero
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoComFinanciero}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <InfoComAdministrativo
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoComAdministrativo}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <InfoComAsociativo
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoComAsociativo}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}

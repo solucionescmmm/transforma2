@@ -35,22 +35,26 @@ const InfoComMercadeo = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        strGradoIntervProdServi: "",
-        strGradoIntervProdServiDetalle: "",
-        strProcProdEst: "",
-        strProcProdEstDetalle: "",
-        strDefProcComProv: "",
-        strDefProcComProvDetalle: "",
-        strContrlRegInv: "",
-        strContrlRegInvDetalle: "",
-        strCapProdRespMer: "",
-        strCapProdRespMerDetalle: "",
-        strEstadTecProd: "",
-        strEstadTecProdDetalle: "",
-        strEquipNecDesProdServi: "",
-        strEquipNecDesProdServiDetalle: "",
-        strProcManAmbiProd: "",
-        strProcManAmbiProdDetalle: "",
+        strUniProdGenEmple: "",
+        strUniProdGenEmpleDetalle: "",
+        strEquipTrabEstruct: "",
+        strEquipTrabEstructDetalle: "",
+        strEstrucFormaOrganiza: "",
+        strEstrucFormaOrganizaDetalle: "",
+        strElabPlanTrabActiv: "",
+        strElabPlanTrabActivDetalle: "",
+        strReaEvalPerioEquipTrab: "",
+        strReaEvalPerioEquipTrabDetalle: "",
+        strEmprFormaAcuerNormLab: "",
+        strEmprFormaAcuerNormLabDetalle: "",
+        strEmprFormaReqLey: "",
+        strEmprFormaReqLeyDetalle: "",
+        strPlaneaEstraEmpPlanPlani: "",
+        strPlaneaEstraEmpPlanPlaniDetalle: "",
+        strMidConstCumpliMetObj: "",
+        strMidConstCumpliMetObjDetalle: "",
+        strCueAcompJuri: "",
+        strCueAcompJuriDetalle: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -69,14 +73,16 @@ const InfoComMercadeo = ({
     useEffect(() => {
         if (values) {
             setData({
-                strGradoIntervProdServi: values.strGradoIntervProdServi || "",
-                strProcProdEst: values.strProcProdEst || "",
-                strDefProcComProv: values.strDefProcComProv || "",
-                strContrlRegInv: values.strContrlRegInv || "",
-                strCapProdRespMer: values.strCapProdRespMer || "",
-                strEstadTecProd: values.strEstadTecProd || "",
-                strEquipNecDesProdServi: values.strEquipNecDesProdServi || "",
-                strProcManAmbiProd: values.strProcManAmbiProd || "",
+                strUniProdGenEmple: values.strUniProdGenEmple || "",
+                strEquipTrabEstruct: values.strEquipTrabEstruct || "",
+                strEstrucFormaOrganiza: values.strEstrucFormaOrganiza || "",
+                strElabPlanTrabActiv: values.strElabPlanTrabActiv || "",
+                strReaEvalPerioEquipTrab: values.strReaEvalPerioEquipTrab || "",
+                strEmprFormaAcuerNormLab: values.strEmprFormaAcuerNormLab || "",
+                strEmprFormaReqLey: values.strEmprFormaReqLey || "",
+                strPlaneaEstraEmpPlanPlani: values.strPlaneaEstraEmpPlanPlani || "",
+                strMidConstCumpliMetObj: values.strMidConstCumpliMetObj || "",
+                strCueAcompJuri: values.strCueAcompJuri || "",
             });
         }
 
@@ -103,12 +109,12 @@ const InfoComMercadeo = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoComProductivo
+                            color: errors?.objInfoComAdministrativo
                                 ? "#D33030"
                                 : "inherit",
                         }}
                     >
-                        Componente productivo
+                        Componente financiero
                     </Typography>
                 </Box>
 
@@ -136,7 +142,7 @@ const InfoComMercadeo = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoComProductivo ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoComAdministrativo ? "#D33030" : "inherit",
                 }}
             />
 
@@ -144,23 +150,23 @@ const InfoComMercadeo = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strGradoIntervProdServi"
-                            defaultValue={data.strGradoIntervProdServi}
+                            name="objInfoComAdministrativo.strUniProdGenEmple"
+                            defaultValue={data.strUniProdGenEmple}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Grado de intervención en el producto/servicio"
+                                    label="La unidad productiva genera empleo"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -171,27 +177,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strProcProdEst"
-                            defaultValue={data.strProcProdEst}
+                            name="objInfoComAdministrativo.strEquipTrabEstruct"
+                            defaultValue={data.strEquipTrabEstruct}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Mis procesos productivos están"
+                                    label="Tengo un equipo de trabajo estructurado"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -202,27 +206,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strDefProcComProv"
-                            defaultValue={data.strDefProcComProv}
+                            name="objInfoComAdministrativo.strEstrucFormaOrganiza"
+                            defaultValue={data.strEstrucFormaOrganiza}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Tengo definido los procesos de compra y los proveedores"
+                                    label="Tengo una estructura formal en la organización"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -233,27 +235,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strContrlRegInv"
-                            defaultValue={data.strContrlRegInv}
+                            name="objInfoComAdministrativo.strElabPlanTrabActiv"
+                            defaultValue={data.strElabPlanTrabActiv}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Llevo control y registro de los inventarios"
+                                    label="Elaboro planes de trabajo para organizar las actividades"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -264,27 +264,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strCapProdRespMer"
-                            defaultValue={data.strCapProdRespMer}
+                            name="objInfoComAdministrativo.strReaEvalPerioEquipTrab"
+                            defaultValue={data.strReaEvalPerioEquipTrab}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Mi capacidad de producción y respuesta al mercado es"
+                                    label="Realizo evalución periodica de el equipo de trabajo"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -295,27 +293,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strEstadTecProd"
-                            defaultValue={data.strEstadTecProd}
+                            name="objInfoComAdministrativo.strEmprFormaAcuerNormLab"
+                            defaultValue={data.strEmprFormaAcuerNormLab}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="El estado de la ficha técnica de los productos es"
+                                    label="Mi empresa está formalizada de acuerdo con la normatividad laboral"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -326,27 +322,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strEquipNecDesProdServi"
-                            defaultValue={data.strEquipNecDesProdServi}
+                            name="objInfoComAdministrativo.strEmprFormaReqLey"
+                            defaultValue={data.strEmprFormaReqLey}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Tengo los equipos necesarios para el desarrollo de mis productos/servicio(s)"
+                                    label="Mi empresa está formalizada con los requisitos de ley"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -357,27 +351,83 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strProcManAmbiProd"
-                            defaultValue={data.strProcManAmbiProd}
+                            name="objInfoComAdministrativo.strPlaneaEstraEmpPlanPlani"
+                            defaultValue={data.strPlaneaEstraEmpPlanPlani}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Tengo procesos para el manejo ambiental en la unidad productiva"
+                                    label="Tengo una planeación estratégica para mi empresa, mas que estrategica plan de trabajo, planificación"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComAdministrativo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComAdministrativo.strMidConstCumpliMetObj"
+                            defaultValue={data.strMidConstCumpliMetObj}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Mido constatemente el cumplimiento de mis metas y objetivos"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComAdministrativo.strCueAcompJuri"
+                            defaultValue={data.strCueAcompJuri}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Cuento con acompañamiento jurídico"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComAdministrativo
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }

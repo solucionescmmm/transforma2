@@ -35,22 +35,18 @@ const InfoComMercadeo = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        strGradoIntervProdServi: "",
-        strGradoIntervProdServiDetalle: "",
-        strProcProdEst: "",
-        strProcProdEstDetalle: "",
-        strDefProcComProv: "",
-        strDefProcComProvDetalle: "",
-        strContrlRegInv: "",
-        strContrlRegInvDetalle: "",
-        strCapProdRespMer: "",
-        strCapProdRespMerDetalle: "",
-        strEstadTecProd: "",
-        strEstadTecProdDetalle: "",
-        strEquipNecDesProdServi: "",
-        strEquipNecDesProdServiDetalle: "",
-        strProcManAmbiProd: "",
-        strProcManAmbiProdDetalle: "",
+        strUniProdSosFinan: "",
+        strUniProdSosFinanDetalle: "",
+        strEstrCosUniProdDef: "",
+        strEstrCosUniProdDefDetalle: "",
+        strPrecProdServDef: "",
+        strPrecProdServDefDetalle: "",
+        strDefProcConUniProd: "",
+        strDefProcConUniProdDetalle: "",
+        strElabPresUniProd: "",
+        strElabPresUniProdDetalle: "",
+        strAdminDinUniProd: "",
+        strAdminDinUniProdDetalle: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -69,14 +65,12 @@ const InfoComMercadeo = ({
     useEffect(() => {
         if (values) {
             setData({
-                strGradoIntervProdServi: values.strGradoIntervProdServi || "",
-                strProcProdEst: values.strProcProdEst || "",
-                strDefProcComProv: values.strDefProcComProv || "",
-                strContrlRegInv: values.strContrlRegInv || "",
-                strCapProdRespMer: values.strCapProdRespMer || "",
-                strEstadTecProd: values.strEstadTecProd || "",
-                strEquipNecDesProdServi: values.strEquipNecDesProdServi || "",
-                strProcManAmbiProd: values.strProcManAmbiProd || "",
+                strUniProdSosFinan: values.strUniProdSosFinan || "",
+                strEstrCosUniProdDef: values.strEstrCosUniProdDef || "",
+                strPrecProdServDef: values.strPrecProdServDef || "",
+                strDefProcConUniProd: values.strDefProcConUniProd || "",
+                strElabPresUniProd: values.strElabPresUniProd || "",
+                strAdminDinUniProd: values.strAdminDinUniProd || "",
             });
         }
 
@@ -103,12 +97,12 @@ const InfoComMercadeo = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoComProductivo
+                            color: errors?.objInfoComFinanciero
                                 ? "#D33030"
                                 : "inherit",
                         }}
                     >
-                        Componente productivo
+                        Componente financiero
                     </Typography>
                 </Box>
 
@@ -136,7 +130,7 @@ const InfoComMercadeo = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoComProductivo ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoComFinanciero ? "#D33030" : "inherit",
                 }}
             />
 
@@ -144,23 +138,23 @@ const InfoComMercadeo = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strGradoIntervProdServi"
-                            defaultValue={data.strGradoIntervProdServi}
+                            name="objInfoComFinanciero.strUniProdSosFinan"
+                            defaultValue={data.strUniProdSosFinan}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Grado de intervención en el producto/servicio"
+                                    label="Mi unidad productiva es sostenible financieramente"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -171,27 +165,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strProcProdEst"
-                            defaultValue={data.strProcProdEst}
+                            name="objInfoComFinanciero.strEstrCosUniProdDef"
+                            defaultValue={data.strEstrCosUniProdDef}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Mis procesos productivos están"
+                                    label="La estructura de costos de mi unidad productiva está definida"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -202,27 +194,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strDefProcComProv"
-                            defaultValue={data.strDefProcComProv}
+                            name="objInfoComFinanciero.strPrecProdServDef"
+                            defaultValue={data.strPrecProdServDef}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Tengo definido los procesos de compra y los proveedores"
+                                    label="Los precios de mis productos/servicio(s) están definidos"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -233,27 +223,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strContrlRegInv"
-                            defaultValue={data.strContrlRegInv}
+                            name="objInfoComFinanciero.strDefProcConUniProd"
+                            defaultValue={data.strDefProcConUniProd}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Llevo control y registro de los inventarios"
+                                    label="Tengo definidos los procesos contables de mi unidad productiva"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -264,27 +252,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strCapProdRespMer"
-                            defaultValue={data.strCapProdRespMer}
+                            name="objInfoComFinanciero.strElabPresUniProd"
+                            defaultValue={data.strElabPresUniProd}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Mi capacidad de producción y respuesta al mercado es"
+                                    label="Elaboro un presupuesto para mi unidad productiva"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }
@@ -295,89 +281,25 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            name="objInfoComProductivo.strEstadTecProd"
-                            defaultValue={data.strEstadTecProd}
+                            name="objInfoComFinanciero.strAdminDinUniProd"
+                            defaultValue={data.strAdminDinUniProd}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="El estado de la ficha técnica de los productos es"
+                                    label="Sé como administrar el dinero de mi unidad productiva"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
-                        <Controller
-                            name="objInfoComProductivo.strEquipNecDesProdServi"
-                            defaultValue={data.strEquipNecDesProdServi}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Tengo los equipos necesarios para el desarrollo de mis productos/servicio(s)"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComProductivo
-                                            ?.strProporcion
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
-                        <Controller
-                            name="objInfoComProductivo.strProcManAmbiProd"
-                            defaultValue={data.strProcManAmbiProd}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Tengo procesos para el manejo ambiental en la unidad productiva"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComProductivo
-                                            ?.strProporcion
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComProductivo
+                                        errors?.objInfoComFinanciero
                                             ?.strProporcion?.message ||
                                         "Seleccione una opción"
                                     }

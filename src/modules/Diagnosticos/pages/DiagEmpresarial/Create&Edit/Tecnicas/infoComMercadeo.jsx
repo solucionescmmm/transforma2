@@ -110,7 +110,7 @@ const InfoComMercadeo = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoGeneral
+                            color: errors?.objInfoComMercadeo
                                 ? "#D33030"
                                 : "inherit",
                         }}
@@ -143,7 +143,7 @@ const InfoComMercadeo = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoGeneral ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoComMercadeo ? "#D33030" : "inherit",
                 }}
             />
 
@@ -358,7 +358,7 @@ const InfoComMercadeo = ({
                             defaultValue={data.strNumLugMedComerProd}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="El número de lugares y medios en los que comercializo mis productos es:"
+                                    label="El número de lugares y medios en los que comercializo mis productos es"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -381,7 +381,6 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    
                     <Grid item xs={12} md={4}>
                         <Controller
                             name="objInfoComMercadeo.strPartiRedesEmpreComer"
