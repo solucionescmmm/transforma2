@@ -123,6 +123,7 @@ const ResumenProducto = () => {
         ],
         objInfoTemasFortalecer: [],
         objInfoFortalezas: [],
+        strConclusiones: "",
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
@@ -148,6 +149,9 @@ const ResumenProducto = () => {
     const [openCollapseFortalezas, setOpenCollapseFortalezas] = useState(false);
 
     const [openCollapseInfoNormatividad, setOpenCollapseInfoNormatividad] =
+        useState(false);
+
+    const [openCollapseConclusiones, setOpenCollapseConclusiones] =
         useState(false);
 
     //===============================================================================================================================================
@@ -190,6 +194,10 @@ const ResumenProducto = () => {
         setOpenCollapseInfoNormatividad(!openCollapseInfoNormatividad);
     };
 
+    const handlerChangeOpenCollapseConclusiones = () => {
+        setOpenCollapseConclusiones(!openCollapseConclusiones);
+    };
+
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
@@ -208,6 +216,9 @@ const ResumenProducto = () => {
                         let data = res.data.data[0];
 
                         setIntIdEmpresario(data.objInfoGeneral.intIdEmpresario);
+
+                        const strConclusiones =
+                            data.objInfoAdicional.strConclusiones;
 
                         const objInfoGeneral = {
                             dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
@@ -755,6 +766,7 @@ const ResumenProducto = () => {
                                 objInfoNormatividad: prevInfoNormatividad,
                                 objInfoTemasFortalecer: prevInfoTemasFortalecer,
                                 objInfoFortalezas: prevInfoFortalezas,
+                                strConclusiones
                             };
                         });
                     }
@@ -851,6 +863,13 @@ const ResumenProducto = () => {
                             </Tooltip>
                         </Box>
                     </Box>
+                </Grid>
+
+                
+                <Grid item xs={12}>
+                    <Typography sx={{ color: "#F5B335", textTransform: "uppercase" }} textAlign="center">
+                        <b>resumen diagnóstico de producto</b>
+                    </Typography>
                 </Grid>
 
                 <Grid item xs={12}>
@@ -2605,6 +2624,63 @@ const ResumenProducto = () => {
 
                                     return null;
                                 })}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Conluciones </b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseConclusiones()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseConclusiones
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseConclusiones ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseConclusiones} timeout="auto">
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={1}
+                                sx={{ padding: "15px" }}
+                            >
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "13px",
+                                            display: "flex",
+                                            alignContent: "center",
+                                        }}
+                                    >
+                                        {data.strConclusiones}
+                                    </p>
+                                </Grid>
                             </Grid>
                         </Collapse>
                     </Paper>

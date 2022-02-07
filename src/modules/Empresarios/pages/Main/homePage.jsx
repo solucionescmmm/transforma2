@@ -21,7 +21,7 @@ import { makeStyles } from "@mui/styles";
 
 //Componentes
 import ModalDeleteEmpresario from "../../components/modalDeleteEmpresario";
-import TabsRoutes from "./tabs.routes";
+import TabsRoutes from "../../../../routes/empresarioTabs.routes";
 
 const styles = makeStyles((theme) => ({
     link: {

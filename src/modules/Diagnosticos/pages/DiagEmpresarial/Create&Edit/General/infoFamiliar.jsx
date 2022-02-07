@@ -13,7 +13,6 @@ import {
     Tooltip,
     CircularProgress,
     TextField,
-    MenuItem,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -66,11 +65,14 @@ const InfoFamiliar = ({
         if (values) {
             setData({
                 btCabezaHogar:
-                    typeof values.btCabezaHogar === "boolean" ? values.btCabezaHogar : "",
+                    typeof values.btCabezaHogar === "boolean"
+                        ? values.btCabezaHogar
+                        : "",
                 intNumPersonasCargo: values.intNumPersonasCargo || "",
                 intHijos: values.intHijos || "",
                 intHijosEstudiando: values.intHijosEstudiando || "",
-                strMaxNivelEducativoHijos: values.strMaxNivelEducativoHijos || "",
+                strMaxNivelEducativoHijos:
+                    values.strMaxNivelEducativoHijos || "",
                 strEstadoCivil: values.strEstadoCivil || "",
                 strSituacionVivienda: values.strSituacionVivienda || "",
                 strGrupoVulnerable: values.strGrupoVulnerable || "",
@@ -83,7 +85,12 @@ const InfoFamiliar = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -96,7 +103,9 @@ const InfoFamiliar = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoFamiliar ? "#D33030" : "inherit",
+                            color: errors?.objInfoFamiliar
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Información familiar
@@ -104,13 +113,22 @@ const InfoFamiliar = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -118,7 +136,9 @@ const InfoFamiliar = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoFamiliar ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoFamiliar
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -129,7 +149,7 @@ const InfoFamiliar = ({
                             defaultValue={data.btCabezaHogar}
                             name="objInfoFamiliar.btCabezaHogar"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Es cabeza de hogar?"
                                     name={name}
                                     value={value}
@@ -143,15 +163,13 @@ const InfoFamiliar = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoFamiliar?.btCabezaHogar?.message ||
+                                        errors?.objInfoFamiliar?.btCabezaHogar
+                                            ?.message ||
                                         "Seleccione, si es cabeza de hogar o no"
                                     }
-                                    select
-                                >
-                                    <MenuItem value="">No aplica</MenuItem>
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={true}>No</MenuItem>
-                                </TextField>
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
                             )}
                             control={control}
                         />
@@ -171,13 +189,14 @@ const InfoFamiliar = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoFamiliar?.intNumPersonasCargo
+                                        errors?.objInfoFamiliar
+                                            ?.intNumPersonasCargo
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoFamiliar?.intNumPersonasCargo
-                                            ?.message ||
+                                        errors?.objInfoFamiliar
+                                            ?.intNumPersonasCargo?.message ||
                                         "Digíta el número de personas que dependen económicamente de usted"
                                     }
                                     type="number"
@@ -210,7 +229,10 @@ const InfoFamiliar = ({
                                     onChange={(e) => {
                                         onChange(e);
 
-                                        handlerChangeData("intHijos", e.target.value);
+                                        handlerChangeData(
+                                            "intHijos",
+                                            e.target.value
+                                        );
 
                                         setValue(
                                             "objInfoFamiliar.intHijosEstudiando",
@@ -225,10 +247,13 @@ const InfoFamiliar = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoFamiliar?.intHijos ? true : false
+                                        errors?.objInfoFamiliar?.intHijos
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoFamiliar?.intHijos?.message ||
+                                        errors?.objInfoFamiliar?.intHijos
+                                            ?.message ||
                                         "Digíta el número de hijos"
                                     }
                                     type="number"
@@ -237,7 +262,8 @@ const InfoFamiliar = ({
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digíta el número de hijos",
+                                required:
+                                    "Por favor, digíta el número de hijos",
                                 validate: (value) => {
                                     if (value < 0) {
                                         return "El valor no puede ser menor a 0";
@@ -257,7 +283,8 @@ const InfoFamiliar = ({
                                     name={name}
                                     value={value}
                                     disabled={
-                                        parseInt(data.intHijos) === 0 || !data.intHijos
+                                        parseInt(data.intHijos) === 0 ||
+                                        !data.intHijos
                                             ? true
                                             : disabled
                                     }
@@ -265,18 +292,20 @@ const InfoFamiliar = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoFamiliar?.intHijosEstudiando
+                                        errors?.objInfoFamiliar
+                                            ?.intHijosEstudiando
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoFamiliar?.intHijosEstudiando
-                                            ?.message ||
+                                        errors?.objInfoFamiliar
+                                            ?.intHijosEstudiando?.message ||
                                         "Digíta el número de hijos que están estudiando"
                                     }
                                     type="number"
                                     required={
-                                        parseInt(data.intHijos) === 0 || !data.intHijos
+                                        parseInt(data.intHijos) === 0 ||
+                                        !data.intHijos
                                             ? false
                                             : true
                                     }
@@ -312,22 +341,26 @@ const InfoFamiliar = ({
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     disabled={
-                                        parseInt(data.intHijos) === 0 || !data.intHijos
+                                        parseInt(data.intHijos) === 0 ||
+                                        !data.intHijos
                                             ? true
                                             : disabled
                                     }
                                     error={
-                                        errors?.objInfoFamiliar?.strMaxNivelEducativoHijos
+                                        errors?.objInfoFamiliar
+                                            ?.strMaxNivelEducativoHijos
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoFamiliar?.strMaxNivelEducativoHijos
+                                        errors?.objInfoFamiliar
+                                            ?.strMaxNivelEducativoHijos
                                             ?.message ||
                                         "Selecciona el nivel educativo máximo de los hijos"
                                     }
                                     required={
-                                        parseInt(data.intHijos) === 0 || !data.intHijos
+                                        parseInt(data.intHijos) === 0 ||
+                                        !data.intHijos
                                             ? false
                                             : true
                                     }
@@ -368,7 +401,8 @@ const InfoFamiliar = ({
                                     }
                                     helperText={
                                         errors?.objInfoFamiliar?.strEstadoCivil
-                                            ?.message || "Seleccione, el estado civil"
+                                            ?.message ||
+                                        "Seleccione, el estado civil"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="EstadoCivil"
@@ -392,13 +426,14 @@ const InfoFamiliar = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoFamiliar?.strSituacionVivienda
+                                        errors?.objInfoFamiliar
+                                            ?.strSituacionVivienda
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoFamiliar?.strSituacionVivienda
-                                            ?.message ||
+                                        errors?.objInfoFamiliar
+                                            ?.strSituacionVivienda?.message ||
                                         "Seleccione, la situación de la vivienda"
                                     }
                                     strGrupo="DiagnosticoGeneral"
@@ -423,13 +458,14 @@ const InfoFamiliar = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoFamiliar?.strGrupoVulnerable
+                                        errors?.objInfoFamiliar
+                                            ?.strGrupoVulnerable
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoFamiliar?.strGrupoVulnerable
-                                            ?.message ||
+                                        errors?.objInfoFamiliar
+                                            ?.strGrupoVulnerable?.message ||
                                         "Seleccione, si la persona pertenece a algún grupo vulnerable"
                                     }
                                     strGrupo="DiagnosticoGeneral"
@@ -454,13 +490,14 @@ const InfoFamiliar = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoFamiliar?.strPoblacionEtnica
+                                        errors?.objInfoFamiliar
+                                            ?.strPoblacionEtnica
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoFamiliar?.strPoblacionEtnica
-                                            ?.message ||
+                                        errors?.objInfoFamiliar
+                                            ?.strPoblacionEtnica?.message ||
                                         "Seleccione, si la persona pertenece a algúna población étnica"
                                     }
                                     strGrupo="DiagnosticoGeneral"

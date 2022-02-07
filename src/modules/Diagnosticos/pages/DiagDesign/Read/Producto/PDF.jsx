@@ -8,6 +8,7 @@ import {
     Text,
     Image,
     Document,
+    Font,
     StyleSheet,
 } from "@react-pdf/renderer";
 
@@ -15,11 +16,18 @@ import { Box, CircularProgress } from "@mui/material";
 
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
 
+// Register Font
+Font.register({
+    family: "Roboto",
+    src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+});
+
 const styles = StyleSheet.create({
     page: {
         paddingTop: 35,
         paddingBottom: 65,
         paddingHorizontal: 35,
+        fontFamily: "Roboto",
     },
     section: {
         margin: 10,
@@ -49,6 +57,7 @@ const PDFProduct = ({ intId, values }) => {
     const [htmlInfoProductos, setHtmlInfoProductos] = useState("");
     const [htmlTemasFortalecer, setHtmlTemasFortalecer] = useState("");
     const [htmlFortalezas, setHtmlFortalezas] = useState("");
+    const [htmlConclusiones, setHtmlConclusiones] = useState("");
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -74,6 +83,7 @@ const PDFProduct = ({ intId, values }) => {
         let htmlProductos = "";
         let htmlTemasFortalecer = "";
         let htmlFortalezas = "";
+        let htmlConclusiones = values?.strConclusiones ? `<p class="textObj">${values.strConclusiones}</p>` : ""
 
         values?.objInfoProductos.forEach(
             (e) =>
@@ -433,6 +443,7 @@ const PDFProduct = ({ intId, values }) => {
         setHtmlTemasFortalecer(htmlTemasFortalecer);
         setHtmlInfoProductos(htmlProductos);
         setHtmlFortalezas(htmlFortalezas);
+        setHtmlConclusiones(htmlConclusiones);
 
         setLoading(true);
     }, [values]);
@@ -550,15 +561,36 @@ const PDFProduct = ({ intId, values }) => {
                             <h5 class="pMargin"> <span style="color: #00BBB4">Temas a fortalecer</span></h5>
                             <hr />
 
+                            ${
+                                htmlTemasFortalecer &&
+                                `
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Temas a fortalecer</span></h5>
+                            <hr />
+                            `
+                            }
+
                             ${htmlTemasFortalecer}
 
+                            ${
+                                htmlFortalezas &&
+                                `
                             <h5 class="pMargin"> <span style="color: #00BBB4">Fortalezas</span></h5>
                             <hr />
+                            `
+                            }
 
                             ${htmlFortalezas}
 
+                            ${
+                                htmlConclusiones &&
+                                `
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Conclusiones</span></h5>
+                            <hr />
+                            `
+                            }
 
-                            
+                            ${htmlConclusiones}
+
                         </body>
                         </html>
                       `}

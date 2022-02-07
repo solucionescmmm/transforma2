@@ -37,6 +37,24 @@ const InfoComMercadeo = ({
     const [data, setData] = useState({
         strCaractEmpresaComp: "",
         strCaractEmpresaCompDetalle: "",
+        strAnalizoObjetivoEmpresa: "",
+        strAnalizoObjetivoEmpresaDetalle: "",
+        strAnalizoCompetiEmpresa: "",
+        strAnalizoCompetiEmpresaDetalle: "",
+        strActivIncreVentClient: "",
+        strActivIncreVentClientDetalle: "",
+        strPlanRelFideClient: "",
+        strPlanRelFideClientDetalle: "",
+        strProceComerciEsta: "",
+        strProceComerciEstaDetalle: "",
+        strDefiniPortProd: "",
+        strDefiniPortProdDetalle: "",
+        strNumLugMedComerProd: "",
+        strNumLugMedComerProdDetalle: "",
+        strPartiRedesEmpreComer: "",
+        strPartiRedesEmpreComerDetalle: "",
+        strPreseMedDigital: "",
+        strPreseMedDigitalDetalle: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -54,7 +72,19 @@ const InfoComMercadeo = ({
 
     useEffect(() => {
         if (values) {
-            setData({});
+            setData({
+                strCaractEmpresaComp: values.strCaractEmpresaComp || "",
+                strAnalizoObjetivoEmpresa:
+                    values.strAnalizoObjetivoEmpresa || "",
+                strAnalizoCompetiEmpresa: values.strAnalizoCompetiEmpresa || "",
+                strActivIncreVentClient: values.strActivIncreVentClient || "",
+                strPlanRelFideClient: values.strPlanRelFideClient || "",
+                strProceComerciEsta: values.strProceComerciEsta || "",
+                strDefiniPortProd: values.strDefiniPortProd || "",
+                strNumLugMedComerProd: values.strNumLugMedComerProd || "",
+                strPartiRedesEmpreComer: values.strPartiRedesEmpreComer || "",
+                strPreseMedDigital: values.strPreseMedDigital || "",
+            });
         }
 
         setLoading(false);
@@ -131,13 +161,277 @@ const InfoComMercadeo = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoComMercadeo?.strProporcion
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoComMercadeo?.strProporcion
-                                            ?.message || "Seleccione una opción"
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComMercadeo.strAnalizoObjetivoEmpresa"
+                            defaultValue={data.strAnalizoObjetivoEmpresa}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Conozco y analizo el público objetivo de mi empresa"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComMercadeo.strAnalizoCompetiEmpresa"
+                            defaultValue={data.strAnalizoCompetiEmpresa}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Conozco y analizo los competidores de mi empresa"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComMercadeo.strActivIncreVentClient"
+                            defaultValue={data.strActivIncreVentClient}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Realizo actividades enfocadas en incrementar el nivel de ventas y clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComMercadeo.strPlanRelFideClient"
+                            defaultValue={data.strPlanRelFideClient}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Tengo un plan de relacionamiento y fidelización con mis clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComMercadeo.strProceComerciEsta"
+                            defaultValue={data.strProceComerciEsta}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Mis procesos comerciales están:"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComMercadeo.strDefiniPortProd"
+                            defaultValue={data.strDefiniPortProd}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Tengo definido el portafolio de productos"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComMercadeo.strNumLugMedComerProd"
+                            defaultValue={data.strNumLugMedComerProd}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="El número de lugares y medios en los que comercializo mis productos es:"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComMercadeo.strPartiRedesEmpreComer"
+                            defaultValue={data.strPartiRedesEmpreComer}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Pertenezco y participo en redes empresariales para la comercialización"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoProducto"
+                                    strCodigo="ProporcionEstetica"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            name="objInfoComMercadeo.strPreseMedDigital"
+                            defaultValue={data.strPreseMedDigital}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Tengo presencia en medios digitales"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strProporcion?.message ||
+                                        "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
                                     strCodigo="ProporcionEstetica"

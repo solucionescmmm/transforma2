@@ -14,43 +14,55 @@ import { Tabs, Tab } from "@mui/material";
 
 // import PageMaintenance from "../../../../common/components/Error/503";
 
-const Comentarios = lazy(() => import("../../../Comentarios/pages/homePage"));
-const PerfilEmpresario = lazy(() => import("../Perfil/homePage"));
-const InfoRegistro = lazy(() => import("../InfoRegistro/homePage"));
-const Diagnosticos = lazy(() => import("../../../Diagnosticos/pages/homePage"));
+const Comentarios = lazy(() => import("../modules/Comentarios/pages/homePage"));
+const PerfilEmpresario = lazy(() =>
+    import("../modules/Empresarios/pages/Perfil/homePage")
+);
+const InfoRegistro = lazy(() =>
+    import("../modules/Empresarios/pages/InfoRegistro/homePage")
+);
+const Diagnosticos = lazy(() =>
+    import("../modules/Diagnosticos/pages/homePage")
+);
 
 const DiagEmpresarial = lazy(() =>
-    import("../../../Diagnosticos/pages/DiagEmpresarial/homePage")
+    import("../modules/Diagnosticos/pages/DiagEmpresarial/homePage")
 );
 
 const DiagDesign = lazy(() =>
-    import("../../../Diagnosticos/pages/DiagDesign/homePage")
+    import("../modules/Diagnosticos/pages/DiagDesign/homePage")
 );
 
 const PageCUGeneral = lazy(() =>
     import(
-        "../../../Diagnosticos/pages/DiagEmpresarial/Create&Edit/General/pageCUGeneral"
+        "../modules/Diagnosticos/pages/DiagEmpresarial/Create&Edit/General/pageCUGeneral"
+    )
+);
+
+const PageCUTecnicas = lazy(() =>
+    import(
+        "../modules/Diagnosticos/pages/DiagEmpresarial/Create&Edit/Tecnicas/pageCUGeneral"
     )
 );
 
 const PageCUProducto = lazy(() =>
     import(
-        "../../../Diagnosticos/pages/DiagDesign/Create&Edit/Producto/pageCUProducto"
+        "../modules/Diagnosticos/pages/DiagDesign/Create&Edit/Producto/pageCUProducto"
     )
 );
 
 const PageCUServicio = lazy(() =>
     import(
-        "../../../Diagnosticos/pages/DiagDesign/Create&Edit/Servicio/pageCUServicio"
+        "../modules/Diagnosticos/pages/DiagDesign/Create&Edit/Servicio/pageCUServicio"
     )
 );
 
 const PageResumenProducto = lazy(() =>
-    import("../../../Diagnosticos/pages/DiagDesign/Read/Producto/homePage")
+    import("../modules/Diagnosticos/pages/DiagDesign/Read/Producto/homePage")
 );
 
 const PageResumenServicio = lazy(() =>
-    import("../../../Diagnosticos/pages/DiagDesign/Read/Servicio/homePage")
+    import("../modules/Diagnosticos/pages/DiagDesign/Read/Servicio/homePage")
 );
 
 const TabsComponent = ({ intId }) => {
@@ -61,6 +73,7 @@ const TabsComponent = ({ intId }) => {
         "/diagnosticos/",
         "/diagnosticos/diagEmpresarial/",
         "/diagnosticos/diagEmpresarial/general/create",
+        "/diagnosticos/diagEmpresarial/tecnicas/create",
         "/diagnosticos/diagDesign/",
         "/diagnosticos/diagDesign/product/create",
         "/diagnosticos/diagDesign/product/read/:intId",
@@ -171,6 +184,18 @@ const TabsRoutes = ({ values, intId }) => {
                     component={() => (
                         <div className="animate__animated animate__fadeIn">
                             <PageCUGeneral intId={intId} />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagEmpresarial/tecnicas/create/"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageCUTecnicas intId={intId} />
 
                             {/* <PageMaintenance /> */}
                         </div>
