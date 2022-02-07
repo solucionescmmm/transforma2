@@ -40,10 +40,11 @@ import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
 import Loader from "../../../../../../common/components/Loader";
 import PageError from "../../../../../../common/components/Error";
 import InfoGeneral from "./infoGeneral";
+import InfoComMercadeo from "./infoComMercadeo";
+import InfoComProductivo from "./infoComProductivo";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import InfoComMercadeo from "./infoComMercadeo";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -93,6 +94,7 @@ const PageCUGeneral = ({ intId, isEdit }) => {
     const [data, setData] = useState({
         objInfoGeneral: {},
         objInfoComMercadeo: {},
+        objInfoComProductivo: {},
     });
 
     const [success, setSucces] = useState(false);
@@ -497,7 +499,19 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                                 <InfoComMercadeo
                                     control={control}
                                     disabled={loading}
-                                    values={data.objInfoGeneral}
+                                    values={data.objInfoComMercadeo}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <InfoComProductivo
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoComProductivo}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
