@@ -1,15 +1,15 @@
 //Servicios
-const setDiagnosticoGeneral = require("../../domain/setDiagnosticoGeneral.service");
-const getDiagnosticoGeneral = require("../../domain/getDiagnosticoGeneral.service");
-const updateDiagnosticoGeneral = require ("../../domain/updateDiagnosticoGeneral.service")
+const setDiagnosticoHumana = require("../../domain/setDiagnosticoHumanas.service");
+//const getDiagnosticoHumana = require("../../domain/getDiagnosticoHumana.service");
+//const updateDiagnosticoHumana = require ("../../domain/updateDiagnosticoHumana.service")
 
-class ctrl_DiagnosticoGeneral {
-    async setDiagnosticoGeneral(req, res) {
+class ctrl_DiagnosticoHumana {
+    async setDiagnosticoHumana(req, res) {
         try {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new setDiagnosticoGeneral(data, strDataUser);
+            let service = new setDiagnosticoHumana(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
@@ -27,12 +27,12 @@ class ctrl_DiagnosticoGeneral {
         }
     }
 
-    async getDiagnosticoGeneral(req, res) {
+    async getDiagnosticoHumana(req, res) {
         try {
             let objParams = req.query;
             let { strDataUser } = req;
 
-            let query = await getDiagnosticoGeneral(objParams, strDataUser);
+            let query = await getDiagnosticoHumana(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);
@@ -48,12 +48,12 @@ class ctrl_DiagnosticoGeneral {
         }
     }
 
-    async updateDiagnosticoGeneral(req, res) {
+    async updateDiagnosticoHumana(req, res) {
         try {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new updateDiagnosticoGeneral(data, strDataUser);
+            let service = new updateDiagnosticoHumana(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
@@ -72,4 +72,4 @@ class ctrl_DiagnosticoGeneral {
     }
 }
 
-module.exports = ctrl_DiagnosticoGeneral;
+module.exports = ctrl_DiagnosticoHumana;

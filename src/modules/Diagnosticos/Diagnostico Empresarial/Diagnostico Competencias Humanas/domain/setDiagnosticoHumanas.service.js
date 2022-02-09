@@ -2,9 +2,9 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOServicio = require("../infra/conectors/interfaseDAODiagnosticoServicio");
+const classInterfaceDAOHumanas = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
 
-class setDiagnosticoServicio {
+class setDiagnosticoHumanas {
     #objData;
     #objUser;
     #intIdEmpresario;
@@ -22,8 +22,7 @@ class setDiagnosticoServicio {
         await this.#validations();
         await this.#getIntIdEmpresario();
         await this.#completeData();
-        await this.#setDiagnosticoServicio();
-        await this.#setResultDiagnosticoServicio();
+        await this.#setDiagnosticoHumanas();
         return this.#objResult;
     }
 
@@ -48,7 +47,6 @@ class setDiagnosticoServicio {
     }
 
     async #completeData() {
-        console.log(this.#objData);
         let newData = {
             intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
@@ -59,10 +57,10 @@ class setDiagnosticoServicio {
         this.#objData = newData;
     }
 
-    async #setDiagnosticoServicio() {
-        let dao = new classInterfaceDAOServicio();
+    async #setDiagnosticoHumanas() {
+        let dao = new classInterfaceDAOHumanas();
 
-        let query = await dao.setDiagnosticoServicio(this.#objData);
+        let query = await dao.setDiagnosticoHumanas(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -74,17 +72,5 @@ class setDiagnosticoServicio {
             msg: query.msg,
         };
     }
-
-    async #setResultDiagnosticoServicio() {
-        let dao = new classInterfaceDAOServicio();
-
-        let query = await dao.setResultDiagnosticoServicio({
-            intIdEmpresario: this.#intIdEmpresario,
-        });
-
-        if (query.error) {
-            throw new Error(query.msg);
-        }
-    }
 }
-module.exports = setDiagnosticoServicio;
+module.exports = setDiagnosticoHumanas;

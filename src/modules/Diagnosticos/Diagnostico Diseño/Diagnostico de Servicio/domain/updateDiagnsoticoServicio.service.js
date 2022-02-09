@@ -2,7 +2,7 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOComentarios = require("../infra/conectros/interfaseDAODiagnosticoServicio");
+const classInterfaceDAOComentarios = require("../infra/conectors/interfaseDAODiagnosticoServicio");
 
 class updateDiagnosticoServicio {
     #objData;
