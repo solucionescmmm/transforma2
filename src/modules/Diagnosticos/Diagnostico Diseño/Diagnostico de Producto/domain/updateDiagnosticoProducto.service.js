@@ -2,7 +2,7 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOComentarios = require("../infra/conectros/interfaseDAODiagnosticoProducto");
+const classInterfaceDAOProducto = require("../infra/conectros/interfaseDAODiagnosticoProducto");
 
 class updateDiagnosticoProducto {
     #objData;
@@ -20,6 +20,7 @@ class updateDiagnosticoProducto {
         await this.#getIntIdEmpresario();
         await this.#completeData();
         await this.#updateDiagnosticoProducto();
+        await this.#setResultDiagnosticoProducto()
         return this.#objResult;
     }
 
@@ -57,7 +58,7 @@ class updateDiagnosticoProducto {
     }
 
     async #updateDiagnosticoProducto() {
-        let dao = new classInterfaceDAOComentarios();
+        let dao = new classInterfaceDAOProducto();
 
         let query = await dao.updateDiagnosticoProducto(this.#objData);
 
@@ -70,6 +71,18 @@ class updateDiagnosticoProducto {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #setResultDiagnosticoProducto() {
+        let dao = new classInterfaceDAOProducto();
+
+        let query = await dao.setResultDiagnosticoProducto({
+            intIdEmpresario: this.#intIdEmpresario,
+        });
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 }
 module.exports = updateDiagnosticoProducto;
