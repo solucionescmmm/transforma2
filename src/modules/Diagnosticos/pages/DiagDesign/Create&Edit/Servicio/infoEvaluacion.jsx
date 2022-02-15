@@ -52,9 +52,9 @@ const InfoEvaluacion = ({
         strPuntosContacto: "",
         strPuntosContactoDetalle: "",
         strPuntosContactoNivel: "",
-        strExperienciaDiseñada: "",
-        strExperienciaDiseñadaDetalle: "",
-        strExperienciaDiseñadaNivel: "",
+        strExperienciaDiseniada: "",
+        strExperienciaDiseniadaDetalle: "",
+        strExperienciaDiseniadaNivel: "",
         strRecursosServicio: "",
         strRecursosServicioDetalle: "",
         strRecursosServicioNivel: "",
@@ -106,11 +106,11 @@ const InfoEvaluacion = ({
                     values.strProcesoInteraccionNivel || "",
                 strPuntosContacto: values.strPuntosContacto || "",
                 strPuntosContactoDetalle: values.strPuntosContactoDetalle || "",
-                strExperienciaDiseñada: values.strExperienciaDiseñada || "",
-                strExperienciaDiseñadaDetalle:
-                    values.strExperienciaDiseñadaDetalle || "",
-                strExperienciaDiseñadaNivel:
-                    values.strExperienciaDiseñadaNivel || "",
+                strExperienciaDiseniada: values.strExperienciaDiseniada || "",
+                strExperienciaDiseniadaDetalle:
+                    values.strExperienciaDiseniadaDetalle || "",
+                strExperienciaDiseniadaNivel:
+                    values.strExperienciaDiseniadaNivel || "",
                 strRecursosServicio: values.strRecursosServicio || "",
                 strRecursosServicioDetalle:
                     values.strRecursosServicioDetalle || "",
@@ -739,8 +739,8 @@ const InfoEvaluacion = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12} md={7}>
                                 <Controller
-                                    name="objInfoEvaluacion.strExperienciaDiseñada"
-                                    defaultValue={data.strExperienciaDiseñada}
+                                    name="objInfoEvaluacion.strExperienciaDiseniada"
+                                    defaultValue={data.strExperienciaDiseniada}
                                     render={({
                                         field: { name, onChange, value },
                                     }) => (
@@ -752,19 +752,19 @@ const InfoEvaluacion = ({
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
-                                                    "strExperienciaDiseñada",
+                                                    "strExperienciaDiseniada",
                                                     e.target.value
                                                 );
                                             }}
                                             error={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strExperienciaDiseñada
+                                                    ?.strExperienciaDiseniada
                                                     ? true
                                                     : false
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strExperienciaDiseñada
+                                                    ?.strExperienciaDiseniada
                                                     ?.message ||
                                                 "Seleccione una opción"
                                             }
@@ -778,9 +778,9 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={3}>
                                 <Controller
-                                    name="objInfoEvaluacion.strExperienciaDiseñadaDetalle"
+                                    name="objInfoEvaluacion.strExperienciaDiseniadaDetalle"
                                     defaultValue={
-                                        data.strExperienciaDiseñadaDetalle
+                                        data.strExperienciaDiseniadaDetalle
                                     }
                                     render={({
                                         field: { name, onChange, value },
@@ -793,13 +793,13 @@ const InfoEvaluacion = ({
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strExperienciaDiseñadaDetalle
+                                                    ?.strExperienciaDiseniadaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strExperienciaDiseñadaDetalle
+                                                    ?.strExperienciaDiseniadaDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -814,9 +814,9 @@ const InfoEvaluacion = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objInfoEvaluacion.strExperienciaDiseñadaNivel"
+                                    name="objInfoEvaluacion.strExperienciaDiseniadaNivel"
                                     defaultValue={
-                                        data.strExperienciaDiseñadaNivel
+                                        data.strExperienciaDiseniadaNivel
                                     }
                                     render={({
                                         field: { name, onChange, value },
@@ -826,18 +826,18 @@ const InfoEvaluacion = ({
                                             name={name}
                                             value={value}
                                             valueList={
-                                                data.strExperienciaDiseñada
+                                                data.strExperienciaDiseniada
                                             }
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strExperienciaDiseñadaNivel
+                                                    ?.strExperienciaDiseniadaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
                                                 errors?.objInfoEvaluacion
-                                                    ?.strExperienciaDiseñadaNivel
+                                                    ?.strExperienciaDiseniadaNivel
                                                     ?.message || "Nivel"
                                             }
                                             disabled

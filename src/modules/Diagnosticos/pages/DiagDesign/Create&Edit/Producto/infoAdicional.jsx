@@ -145,7 +145,7 @@ const InfoAdicional = ({
                                     value={value}
                                     disabled={disabled}
                                     onChange={(url) => onChange(url)}
-                                    maxFiles={1}
+                                    maxFiles={10}
                                     type="Imagen"
                                     setError={setError}
                                     clearErrors={clearErrors}

@@ -44,6 +44,32 @@ const styles = StyleSheet.create({
         fontSize: "14px",
         color: "#00BBB4",
     },
+    footerTitle: {
+        textAlign: "center",
+        fontSize: "10px",
+        color: "#00BBB4",
+        marginTop: "55px",
+    },
+    footerContact: {
+        textAlign: "center",
+        fontSize: "10px",
+        color: "#F5B335",
+        marginTop: "10px",
+    },
+    footerPhoneEmail: {
+        textAlign: "center",
+        fontSize: "10px",
+        color: "#F5B335",
+    },
+    pageNumber: {
+        position: "absolute",
+        fontSize: 8,
+        bottom: 30,
+        left: 0,
+        right: 0,
+        textAlign: "center",
+        color: "grey",
+    },
 });
 
 const PDFProduct = ({ intId, values }) => {
@@ -83,7 +109,9 @@ const PDFProduct = ({ intId, values }) => {
         let htmlServicios = "";
         let htmlTemasFortalecer = "";
         let htmlFortalezas = "";
-        let htmlConclusiones = values?.strConclusiones ? `<p class="textObj">${values.strConclusiones}</p>` : ""
+        let htmlConclusiones = values?.strConclusiones
+            ? `<p class="textObj">${values.strConclusiones}</p>`
+            : "";
 
         values?.objInfoServicios.forEach(
             (e) =>
@@ -463,6 +491,30 @@ const PDFProduct = ({ intId, values }) => {
                         </html>
                       `}
                     </Html>
+
+                    <Text style={styles.footerTitle}>
+                        Promovemos la transformación de personas emprendedoras y
+                        empresarias en Colombia, mediante asesoría, formación y
+                        gestión de oportunidades.
+                    </Text>
+
+                    <Text style={styles.footerContact}>Contacto</Text>
+
+                    <Text style={styles.footerContact}>
+                        Email: comunicaciones@cmmmedellin.org
+                    </Text>
+
+                    <Text style={styles.footerPhoneEmail}>
+                        Teléfono: 318 656 65 08
+                    </Text>
+
+                    <Text
+                        style={styles.pageNumber}
+                        render={({ pageNumber, totalPages }) =>
+                            `${pageNumber} / ${totalPages}`
+                        }
+                        fixed
+                    />
                 </Page>
             </Document>
         </PDFViewer>

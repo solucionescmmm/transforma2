@@ -32,6 +32,7 @@ import ErrorPage from "../../../../../../common/components/Error";
 import useGetDiagnServ from "../../../../hooks/useGetDiagnServ";
 import ModalEditDiagServ from "./modalEdit";
 import ModalPDF from "./modalPDF";
+import { ImageViewer } from "../../../../../../common/components/ImageViewer";
 
 const ResumenProducto = () => {
     //===============================================================================================================================================
@@ -145,6 +146,8 @@ const ResumenProducto = () => {
     const [openCollapseConclusiones, setOpenCollapseConclusiones] =
         useState(false);
 
+    const [openCollapseFotos, setOpenCollapseFotos] = useState(false);
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -189,6 +192,10 @@ const ResumenProducto = () => {
         setOpenCollapseConclusiones(!openCollapseConclusiones);
     };
 
+    const handlerChangeOpenCollapseFotos = () => {
+        setOpenCollapseFotos(!openCollapseFotos);
+    };
+
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
@@ -210,6 +217,21 @@ const ResumenProducto = () => {
 
                         const strConclusiones =
                             data.objInfoAdicional.strConclusiones;
+
+                        const arrImagenes =
+                            data.objInfoAdicional?.strURLSFotos?.split(";");
+
+                        let newArrImagenes = [];
+
+                        if (arrImagenes) {
+                            newArrImagenes = arrImagenes.map((url) => {
+                                return {
+                                    src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
+                                    width: 4,
+                                    height: 3,
+                                };
+                            });
+                        }
 
                         const objInfoGeneral = {
                             dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
@@ -569,6 +591,7 @@ const ResumenProducto = () => {
                                 objInfoTemasFortalecer: prevInfoTemasFortalecer,
                                 objInfoFortalezas: prevInfoFortalezas,
                                 strConclusiones,
+                                arrImagenes: newArrImagenes,
                             };
                         });
                     }
@@ -668,7 +691,10 @@ const ResumenProducto = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Typography sx={{ color: "#F5B335", textTransform: "uppercase" }} textAlign="center">
+                    <Typography
+                        sx={{ color: "#F5B335", textTransform: "uppercase" }}
+                        textAlign="center"
+                    >
                         <b>resumen diagnóstico de servicio</b>
                     </Typography>
                 </Grid>
@@ -1846,7 +1872,7 @@ const ResumenProducto = () => {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid id item xs={12}>
                     <Paper sx={{ padding: "10px" }}>
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
@@ -1896,6 +1922,67 @@ const ResumenProducto = () => {
                                         }}
                                     >
                                         {data.strConclusiones}
+                                    </p>
+                                </Grid>
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Registro fotográfico </b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseFotos()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseFotos
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseFotos ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseFotos} timeout="auto">
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={1}
+                                sx={{ padding: "15px" }}
+                            >
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "13px",
+                                            display: "flex",
+                                            alignContent: "center",
+                                        }}
+                                    >
+                                        {data.arrImagenes.length > 0 && (
+                                            <ImageViewer
+                                                images={data.arrImagenes}
+                                            />
+                                        )}
                                     </p>
                                 </Grid>
                             </Grid>

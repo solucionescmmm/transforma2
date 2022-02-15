@@ -1,4 +1,10 @@
-import React, { useCallback, useState, useEffect, useContext, Fragment } from "react";
+import React, {
+    useCallback,
+    useState,
+    useEffect,
+    useContext,
+    Fragment,
+} from "react";
 
 //Context
 import { AuthContext } from "../middlewares/Auth";
@@ -24,7 +30,7 @@ import {
     Grid,
 } from "@mui/material";
 
-import { Delete as DeleteIcon } from "@mui/icons-material";
+import { Delete as DeleteIcon, FileOpenSharp } from "@mui/icons-material";
 
 import { makeStyles } from "@mui/styles";
 
@@ -138,58 +144,69 @@ const Dropzone = ({
                 message: `En este momento se esta cargando el archivo, por favor espere.`,
             });
 
-            const bodyFormData = new FormData();
+            let bitCont = 0;
+            const arrFiles = value ? value.split(";") : [];
 
-            bodyFormData.append("fileFormInteresados", files[0]);
+            files.forEach(async (file) => {
+                const bodyFormData = new FormData();
+                bodyFormData.append("fileFormInteresados", file);
 
-            await axios(
-                {
-                    method: "POST",
-                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_EMPRESARIOS_UPLOADFILE}`,
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        token,
+                await axios(
+                    {
+                        method: "POST",
+                        baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+                        url: `${process.env.REACT_APP_API_TRANSFORMA_EMPRESARIOS_UPLOADFILE}`,
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            token,
+                        },
+                        data: bodyFormData,
                     },
-                    data: bodyFormData,
-                },
-                {
-                    cancelToken: signalSubmitData.token,
-                }
-            )
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
+                    {
+                        cancelToken: signalSubmitData.token,
                     }
-
-                    let url = res.data.data.path;
-
-                    setLoading(false);
-
-                    onChange(url);
-                    clearErrors(name);
-                })
-                .catch((error) => {
-                    if (!axios.isCancel(error)) {
-                        let msg;
-
-                        if (error.response) {
-                            msg = error.response.data.msg;
-                        } else if (error.request) {
-                            msg = error.message;
-                        } else {
-                            msg = error.message;
+                )
+                    .then((res) => {
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
                         }
 
-                        console.error(error);
-                        setLoading(false);
+                        let url = res.data.data.path;
 
-                        toast.error(msg);
-                        setError(name, msg);
-                    }
-                });
+                        arrFiles.push(url);
+                    })
+                    .catch((error) => {
+                        if (!axios.isCancel(error)) {
+                            let msg;
+
+                            if (error.response) {
+                                msg = error.response.data.msg;
+                            } else if (error.request) {
+                                msg = error.message;
+                            } else {
+                                msg = error.message;
+                            }
+
+                            console.error(error);
+                            setLoading(false);
+
+                            toast.error(msg);
+                            setError(name, msg);
+                        }
+                    });
+
+                bitCont++;
+
+                if (bitCont === files.length) {
+                    onChange(
+                        arrFiles.length === 1 ? arrFiles[0] : arrFiles.join(";")
+                    );
+
+                    clearErrors(name);
+                }
+            });
         },
-        [token, files, setError, name, onChange, clearErrors]
+        [token, files, setError, name, onChange, clearErrors, value]
     );
 
     const onDropAccepted = useCallback(
@@ -216,6 +233,12 @@ const Dropzone = ({
         const newFiles = [...files];
         newFiles.splice(newFiles.indexOf(file), 1);
         setFiles(newFiles);
+
+        const arrValues = value.split(";");
+
+        const arrNewValues = arrValues.filter((e) => !e.includes(file.name));
+
+        onChange(arrNewValues.join(";"));
     };
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -248,6 +271,51 @@ const Dropzone = ({
             signalSubmitData.cancel("Petición abortada.");
         };
     }, [flagSubmit, onSubmitFile]);
+
+    useEffect(() => {
+        if (value) {
+            setLoading(true);
+
+            const arrImages = value.split(";");
+
+            const getImagesPreview = async () => {
+                const arrBlobImages = [];
+
+                await arrImages.forEach((url) => {
+                    let type = "";
+
+                    fetch(
+                        `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`
+                    )
+                        .then((res) => {
+                            type = res.headers.get("Content-Type");
+                            return res.blob();
+                        })
+                        .then(async (objBlob) => {
+                            const name =
+                                `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`.match(
+                                    /.*\/(.*)$/
+                                )[1];
+
+                            const file = new File([objBlob], name, { type });
+
+                            Object.assign(file, {
+                                path: name,
+                                preview: URL.createObjectURL(file),
+                            });
+
+                            arrBlobImages.push(file);
+                        });
+                });
+
+                setFiles(arrBlobImages);
+
+                setLoading(false);
+            };
+
+            getImagesPreview();
+        }
+    }, [value]);
 
     useEffect(
         () => () => {
@@ -350,7 +418,10 @@ const Dropzone = ({
                 ) : (
                     <Fragment>
                         <p>Selecciona un archivo o arrástralo aquí.</p>
-                        <Button variant="contained" disabled={disabled || loading}>
+                        <Button
+                            variant="contained"
+                            disabled={disabled || loading}
+                        >
                             Seleccionar archivo
                         </Button>
                     </Fragment>

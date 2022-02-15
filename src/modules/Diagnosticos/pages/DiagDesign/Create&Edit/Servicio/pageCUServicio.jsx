@@ -581,13 +581,6 @@ const PageCUServicio = ({ intId, isEdit }) => {
                                         >
                                             {isEdit ? "guardar" : "registrar"}
                                         </LoadingButton>
-
-                                        <Button
-                                            variant="contained"
-                                            color="inherit"
-                                        >
-                                            Mostrar resultados
-                                        </Button>
                                     </Box>
                                 </Grid>
                             </Grid>
