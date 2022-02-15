@@ -389,7 +389,6 @@ class daoDiagnosticoProducto {
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
                 .execute("sp_GetResultDiagnosticoNoAlimentos");
-            console.log(response);
 
             let result = {
                 error: false,
@@ -402,6 +401,39 @@ class daoDiagnosticoProducto {
                 msg:
                     error.message ||
                     "Error en el metodo getResultDiagnosticoNoAlimentos de la clase daoDiagnosticoProducto",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getIntIdEmpresario(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT intIdEmpresario
+            FROM tbl_DiagnosticoProductos
+
+            WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let result = {
+                error: false,
+                data:  response.recordset[0]
+            };
+            console.log(result);
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getIntIdEmpresario de la clase daoDiagnosticoProducto",
             };
 
             sql.close(conexion);

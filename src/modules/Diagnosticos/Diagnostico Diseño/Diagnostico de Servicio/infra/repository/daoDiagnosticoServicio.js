@@ -288,5 +288,38 @@ class daoDiagnosticoServicio {
             return result;
         }
     }
+
+    async getIntIdEmpresario(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT intIdEmpresario
+            FROM tbl_DiagnosticoServicios
+
+            WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let result = {
+                error: false,
+                data:  response.recordset[0]
+            };
+            console.log(result);
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getIntIdEmpresario de la clase daoDiagnosticoServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
 }
 module.exports = daoDiagnosticoServicio;

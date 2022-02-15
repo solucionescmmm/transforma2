@@ -25,8 +25,10 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
         intIdEmpresario,
     };
 
+    let intIdEmpresarioDiagnostico = await dao.getIntIdEmpresario(query)
+
     let arrayData = await dao.getDiagnosticoServicio(query);
-    let arrayResultServicios = await dao.getResultDiagnosticoServicio(query)
+    let arrayResultServicios = await dao.getResultDiagnosticoServicio(intIdEmpresarioDiagnostico.data)
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {

@@ -25,9 +25,12 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
         intIdEmpresario,
     };
 
+    let intIdEmpresarioDiagnostico = await dao.getIntIdEmpresario(query)
+
+    
     let arrayData = await dao.getDiagnosticoProducto(query);
-    let arrayResultAlimentos = await dao.getResultDiagnosticoAlimentos(query);
-    let arrayResultNoAlimentos = await dao.getResultDiagnosticoNoAlimentos(query);
+    let arrayResultAlimentos = await dao.getResultDiagnosticoAlimentos(intIdEmpresarioDiagnostico.data);
+    let arrayResultNoAlimentos = await dao.getResultDiagnosticoNoAlimentos(intIdEmpresarioDiagnostico.data);
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
