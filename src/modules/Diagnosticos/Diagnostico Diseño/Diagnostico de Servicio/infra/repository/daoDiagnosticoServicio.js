@@ -94,51 +94,51 @@ class daoDiagnosticoServicio {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
 
-            UPDATE tbl_DiagnosticoProductos
+            UPDATE tbl_DiagnosticoServicios
 
-            SET strServicio            = COALESCE(${data.strServicio}, strServicio),
-                strHerramientasServicio          = COALESCE(${data.strHerramientasServicio}, strHerramientasServicio),
-                strObjetivoProposito             = COALESCE(${data.strObjetivoProposito}, strObjetivoProposito),
-                strObjetivoPropositoDetalle      = COALESCE(${data.strObjetivoPropositoDetalle}, strObjetivoPropositoDetalle),
-                strObjetivoPropositoNivel        = COALESCE(${data.strObjetivoPropositoNivel}, strObjetivoPropositoNivel),
-                strRenovacionPortafolio          = COALESCE(${data.strRenovacionPortafolio}, strRenovacionPortafolio),
-                strRenovacionPortafolioDetalle   = COALESCE(${data.strRenovacionPortafolioDetalle}, strRenovacionPortafolioDetalle),
-                strRenovacionPortafolioNivel     = COALESCE(${data.strRenovacionPortafolioNivel}, strRenovacionPortafolioNivel),
-                strProcesoInteraccion            = COALESCE(${data.strProcesoInteraccion}, strProcesoInteraccion),
-                strProcesoInteraccionDetalle     = COALESCE(${data.strProcesoInteraccionDetalle}, strProcesoInteraccionDetalle),
-                strProcesoInteraccionNivel       = COALESCE(${data.strProcesoInteraccionNivel}, strProcesoInteraccionNivel),
-                strPuntosContacto   = COALESCE(${data.strPuntosContacto}, strPuntosContacto),
-                strPuntosContactoDetalle     = COALESCE(${data.strPuntosContactoDetalle}, strPuntosContactoDetalle),
-                strPuntosContactoNivel                = COALESCE(${data.strPuntosContactoNivel}, strPuntosContactoNivel),
+            SET strServicio                    = COALESCE(${data.strServicio}, strServicio),
+                strHerramientasServicio        = COALESCE(${data.strHerramientasServicio}, strHerramientasServicio),
+                strObjetivoProposito           = COALESCE(${data.strObjetivoProposito}, strObjetivoProposito),
+                strObjetivoPropositoDetalle    = COALESCE(${data.strObjetivoPropositoDetalle}, strObjetivoPropositoDetalle),
+                strObjetivoPropositoNivel      = COALESCE(${data.strObjetivoPropositoNivel}, strObjetivoPropositoNivel),
+                strRenovacionPortafolio        = COALESCE(${data.strRenovacionPortafolio}, strRenovacionPortafolio),
+                strRenovacionPortafolioDetalle = COALESCE(${data.strRenovacionPortafolioDetalle}, strRenovacionPortafolioDetalle),
+                strRenovacionPortafolioNivel   = COALESCE(${data.strRenovacionPortafolioNivel}, strRenovacionPortafolioNivel),
+                strProcesoInteraccion          = COALESCE(${data.strProcesoInteraccion}, strProcesoInteraccion),
+                strProcesoInteraccionDetalle   = COALESCE(${data.strProcesoInteraccionDetalle}, strProcesoInteraccionDetalle),
+                strProcesoInteraccionNivel     = COALESCE(${data.strProcesoInteraccionNivel}, strProcesoInteraccionNivel),
+                strPuntosContacto              = COALESCE(${data.strPuntosContacto}, strPuntosContacto),
+                strPuntosContactoDetalle       = COALESCE(${data.strPuntosContactoDetalle}, strPuntosContactoDetalle),
+                strPuntosContactoNivel         = COALESCE(${data.strPuntosContactoNivel}, strPuntosContactoNivel),
                 strExperienciaDiseñada         = COALESCE(${data.strExperienciaDiseñada}, strExperienciaDiseñada),
-                strExperienciaDiseñadaDetalle         = COALESCE(${data.strExperienciaDiseñadaDetalle}, strExperienciaDiseñadaDetalle),
-                strExperienciaDiseñadaNivel         = COALESCE(${data.strExperienciaDiseñadaNivel}, strExperienciaDiseñadaNivel),
-                strRecursosServicio           = COALESCE(${data.strRecursosServicio}, strRecursosServicio),
-                strRecursosServicioDetalle   = COALESCE(${data.strRecursosServicioDetalle}, strRecursosServicioDetalle),
-                strRecursosServicioNivel                = COALESCE(${data.strRecursosServicioNivel}, strRecursosServicioNivel),
-                strPostVenta                  = COALESCE(${data.strPostVenta}, strPostVenta),
-                strPostVentaDetalle                  = COALESCE(${data.strPostVentaDetalle}, strPostVentaDetalle),
-                strPostVentaNivel                  = COALESCE(${data.strPostVentaNivel}, strPostVentaNivel),
-                strLineaGrafica                  = COALESCE(${data.strLineaGrafica}, strLineaGrafica),
-                strLineaGraficaDetalle           = COALESCE(${data.strLineaGraficaDetalle}, strLineaGraficaDetalle),
-                strLineaGraficaNivel             = COALESCE(${data.strLineaGraficaNivel}, strLineaGraficaNivel),
-                strIdentidadMarca                = COALESCE(${data.strIdentidadMarca}, strIdentidadMarca),
-                strIdentidadMarcaDetalle         = COALESCE(${data.strIdentidadMarcaDetalle}, strIdentidadMarcaDetalle),
-                strIdentidadMarcaNivel           = COALESCE(${data.strIdentidadMarcaNivel}, strIdentidadMarcaNivel),
-                strComunicacionMarca             = COALESCE(${data.strComunicacionMarca}, strComunicacionMarca),
-                strComunicacionMarcaDetalle      = COALESCE(${data.strComunicacionMarcaDetalle}, strComunicacionMarcaDetalle),
-                strComunicacionMarcaNivel        = COALESCE(${data.strComunicacionMarcaNivel}, strComunicacionMarcaNivel),
-                strPermisoFuncionamiento         = COALESCE(${data.strPermisoFuncionamiento}, strPermisoFuncionamiento),
-                strCertificadosRequeridos        = COALESCE(${data.strCertificadosRequeridos}, strCertificadosRequeridos),
-                strCertificadosActuales          = COALESCE(${data.strCertificadosActuales}, strCertificadosActuales),
-                strRegistroMarca                 = COALESCE(${data.strRegistroMarca}, strRegistroMarca),
-                strPatentesUtilidad              = COALESCE(${data.strPatentesUtilidad}, strPatentesUtilidad),
-                strCualPatenteUtilidad           = COALESCE(${data.strCualPatenteUtilidad}, strCualPatenteUtilidad),
-                strConclusiones                  = COALESCE(${data.strConclusiones}, strConclusiones),
-                strURLSFotos                     = COALESCE(${data.strURLSFotos}, strURLSFotos),
-                strLugarSesion                   = COALESCE(${data.strLugarSesion}, strLugarSesion),
-                strUsuarioActualizacion          = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
-                dtmActualizacion                 = COALESCE(GETDATE(), dtmActualizacion)
+                strExperienciaDiseñadaDetalle  = COALESCE(${data.strExperienciaDiseñadaDetalle}, strExperienciaDiseñadaDetalle),
+                strExperienciaDiseñadaNivel    = COALESCE(${data.strExperienciaDiseñadaNivel}, strExperienciaDiseñadaNivel),
+                strRecursosServicio            = COALESCE(${data.strRecursosServicio}, strRecursosServicio),
+                strRecursosServicioDetalle     = COALESCE(${data.strRecursosServicioDetalle}, strRecursosServicioDetalle),
+                strRecursosServicioNivel       = COALESCE(${data.strRecursosServicioNivel}, strRecursosServicioNivel),
+                strPostVenta                   = COALESCE(${data.strPostVenta}, strPostVenta),
+                strPostVentaDetalle            = COALESCE(${data.strPostVentaDetalle}, strPostVentaDetalle),
+                strPostVentaNivel              = COALESCE(${data.strPostVentaNivel}, strPostVentaNivel),
+                strLineaGrafica                = COALESCE(${data.strLineaGrafica}, strLineaGrafica),
+                strLineaGraficaDetalle         = COALESCE(${data.strLineaGraficaDetalle}, strLineaGraficaDetalle),
+                strLineaGraficaNivel           = COALESCE(${data.strLineaGraficaNivel}, strLineaGraficaNivel),
+                strIdentidadMarca              = COALESCE(${data.strIdentidadMarca}, strIdentidadMarca),
+                strIdentidadMarcaDetalle       = COALESCE(${data.strIdentidadMarcaDetalle}, strIdentidadMarcaDetalle),
+                strIdentidadMarcaNivel         = COALESCE(${data.strIdentidadMarcaNivel}, strIdentidadMarcaNivel),
+                strComunicacionMarca           = COALESCE(${data.strComunicacionMarca}, strComunicacionMarca),
+                strComunicacionMarcaDetalle    = COALESCE(${data.strComunicacionMarcaDetalle}, strComunicacionMarcaDetalle),
+                strComunicacionMarcaNivel      = COALESCE(${data.strComunicacionMarcaNivel}, strComunicacionMarcaNivel),
+                strPermisoFuncionamiento       = COALESCE(${data.strPermisoFuncionamiento}, strPermisoFuncionamiento),
+                strCertificadosRequeridos      = COALESCE(${data.strCertificadosRequeridos}, strCertificadosRequeridos),
+                strCertificadosActuales        = COALESCE(${data.strCertificadosActuales}, strCertificadosActuales),
+                strRegistroMarca               = COALESCE(${data.strRegistroMarca}, strRegistroMarca),
+                strPatentesUtilidad            = COALESCE(${data.strPatentesUtilidad}, strPatentesUtilidad),
+                strCualPatenteUtilidad         = COALESCE(${data.strCualPatenteUtilidad}, strCualPatenteUtilidad),
+                strConclusiones                = COALESCE(${data.strConclusiones}, strConclusiones),
+                strURLSFotos                   = COALESCE(${data.strURLSFotos}, strURLSFotos),
+                strLugarSesion                 = COALESCE(${data.strLugarSesion}, strLugarSesion),
+                strUsuarioActualizacion        = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion               = COALESCE(GETDATE(), dtmActualizacion)
 
                 WHERE intId = ${data.intId}`;
 
@@ -169,7 +169,7 @@ class daoDiagnosticoServicio {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            await conn.query`DELETE FROM tbl_DiagnosticoProductos WHERE intIdEmpresario = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_DiagnosticoServicios WHERE intIdEmpresario = ${data.intId}`;
 
             let result = {
                 error: false,
