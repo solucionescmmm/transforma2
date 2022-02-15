@@ -108,9 +108,7 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
                     strURLSFotos: array[i]?.strURLSFotos,
                 };
 
-                let objResultServicio ={
-                    arrayServicios
-                }
+                let objResultServicio =arrayServicios    
 
                 data[i] = {
                     objInfoGeneral,

@@ -263,14 +263,16 @@ class daoDiagnosticoServicio {
     async getResultDiagnosticoServicio(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn
+            let response = await conn
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
                 .execute("sp_GetResultDiagnosticoServicios");
 
             let result = {
                 error: false,
+                data: response.recordset[0]
             };
+            console.log(response);
             sql.close(conexion);
             return result;
         } catch (error) {

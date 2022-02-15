@@ -335,8 +335,9 @@ class daoDiagnosticoProducto {
                 .execute("sp_SetResultDiagnosticoProductos");
 
             let result = {
-                error: false,
+                error: false, 
             };
+
             sql.close(conexion);
             return result;
         } catch (error) {
@@ -356,13 +357,14 @@ class daoDiagnosticoProducto {
     async getResultDiagnosticoAlimentos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn
+            let response = await conn
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
                 .execute("sp_GetResultDiagnosticoAlimentos");
 
             let result = {
                 error: false,
+                data: response.recordset[0],
             };
             sql.close(conexion);
             return result;
@@ -383,15 +385,16 @@ class daoDiagnosticoProducto {
     async getResultDiagnosticoNoAlimentos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn
+            let response = await conn
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
                 .execute("sp_GetResultDiagnosticoNoAlimentos");
+            console.log(response);
 
             let result = {
                 error: false,
+                data: response.recordset[0]
             };
-            sql.close(conexion);
             return result;
         } catch (error) {
             let result = {
