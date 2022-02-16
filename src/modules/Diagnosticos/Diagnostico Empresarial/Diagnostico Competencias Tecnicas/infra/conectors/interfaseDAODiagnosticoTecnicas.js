@@ -1,41 +1,29 @@
 //classDao
-const classDaoSql = require("../repository/daoDiagnosticoHumanas");
+const classDaoSql = require("../repository/daoDiagnosticoTecnicas");
 
-class interfaceDAODiagnosticoHumana {
-    async setDiagnosticoHumana(data) {
+class interfaceDAODiagnosticoTecnicas {
+    async setDiagnosticoTecnicas(data) {
         const dao = new classDaoSql();
-        let result = await dao.setDiagnosticoHumana(data);
+        let result = await dao.setDiagnosticoTecnicas(data);
         return result;
     }
 
-    async updateDiagnosticoHumana(data) {
+    async updateDiagnosticoTecnicas(data) {
         const dao = new classDaoSql();
-        let result = await dao.updateDiagnosticoHumana(data);
+        let result = await dao.updateDiagnosticoTecnicas(data);
         return result;
     }
 
-    async updateEmpresarioDiagnosticoHumana(data) {
+    async deleteDiagnosticoTecnicas(data) {
         const dao = new classDaoSql();
-        let result = await dao.updateEmpresarioDiagnosticoHumana(data);
+        let result = await dao.deleteDiagnosticoTecnicas(data);
         return result;
     }
 
-    async updateEmpresaDiagnosticoHumana(data) {
+    async getDiagnosticoTecnicas(data) {
         const dao = new classDaoSql();
-        let result = await dao.updateEmpresaDiagnosticoHumana(data);
-        return result;
-    }
-
-    async deleteDiagnosticoHumana(data) {
-        const dao = new classDaoSql();
-        let result = await dao.deleteDiagnosticoHumana(data);
-        return result;
-    }
-
-    async getDiagnosticoHumana(data) {
-        const dao = new classDaoSql();
-        let result = await dao.getDiagnosticoHumana(data);
+        let result = await dao.getDiagnosticoTecnicas(data);
         return result;
     }
 }
-module.exports = interfaceDAODiagnosticoHumana;
+module.exports = interfaceDAODiagnosticoTecnicas;

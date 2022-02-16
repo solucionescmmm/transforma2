@@ -2,9 +2,9 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOHumanas = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
+const classInterfaceDAOTecnicas = require("../infra/conectors/interfaseDAODiagnosticoTecnicas");
 
-class setDiagnosticoHumanas {
+class setDiagnosticoTecnicas {
     #objData;
     #objUser;
     #intIdEmpresario;
@@ -22,7 +22,7 @@ class setDiagnosticoHumanas {
         await this.#validations();
         await this.#getIntIdEmpresario();
         await this.#completeData();
-        await this.#setDiagnosticoHumanas();
+        await this.#setDiagnosticoTecnicas();
         return this.#objResult;
     }
 
@@ -50,17 +50,19 @@ class setDiagnosticoHumanas {
         let newData = {
             intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
-            ...this.#objData.objInfoEvaluacion,
-            ...this.#objData.objInfoNormatividad,
-            ...this.#objData.objInfoAdicional,
+            ...this.#objData.objInfoComMercadeo,
+            ...this.#objData.objInfoComProductivo,
+            ...this.#objData.objInfoComFinanciero,
+            ...this.#objData.objInfoComAdministrativo,
+            ...this.#objData.objInfoComAsociativo,
         };
         this.#objData = newData;
     }
 
-    async #setDiagnosticoHumanas() {
-        let dao = new classInterfaceDAOHumanas();
+    async #setDiagnosticoTecnicas() {
+        let dao = new classInterfaceDAOTecnicas();
 
-        let query = await dao.setDiagnosticoHumanas(this.#objData);
+        let query = await dao.setDiagnosticoTecnicas(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -73,4 +75,4 @@ class setDiagnosticoHumanas {
         };
     }
 }
-module.exports = setDiagnosticoHumanas;
+module.exports = setDiagnosticoTecnicas;

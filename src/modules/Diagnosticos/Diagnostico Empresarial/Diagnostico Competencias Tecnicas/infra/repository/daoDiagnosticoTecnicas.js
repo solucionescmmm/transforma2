@@ -7,55 +7,57 @@ const {
     conexion,
 } = require("../../../../../../common/config/confSQL_connectionTransfroma");
 
-class daoDiagnosticoHumanas {
-    async setDiagnosticoHumanas(data) {
+class daoDiagnosticoTecnicas {
+    async setDiagnosticoTecnicas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            let response = await conn.query`
+            await conn.query`
             DECLARE @intId INTEGER;
             
-            INSERT INTO tbl_DiagnosticoGeneral VALUES
+            INSERT INTO tbl_DiagnosticoServicios VALUES
             (
                 ${data.intIdEmpresario},
-                ${data.strUbicacionVivienda},
-                ${data.strCabezaHogar},
-                ${data.intNumPersonasCargo},
-                ${data.intHijos},
-                ${data.intHijosEstudiando},
-                ${data.strMaxNivelEducativoHijos},
-                ${data.strEstadoCivil},
-                ${data.strSituacionVivienda},
-                ${data.strGrupoVulnerable},
-                ${data.strPoblacionEtnica},
-                ${data.intAñoInicioOperacion},
-                ${data.strUbicacionUP},
-                ${data.strRegistroCamaraComercio},
-                ${data.strHistoriaEmpresa},
-                ${data.strSuenioEmpresa},
-                ${data.strEstudioEmprendimiento},
-                ${data.strExperienciaEmprendimiento},
-                ${data.strTipoContribuyente},
-                ${data.strRut},
-                ${data.strPresupuestoFamiliar},
-                ${data.strIngresosDistintos},
-                ${data.strOperacionesVentas6Meses},
-                ${data.strEtapaValidacion},
-                ${data.strPromedioVentas6Meses},
-                ${data.strRangoVentas},
-                ${data.strRangoEmpleados},
-                ${data.strTipoEmpleoGenerado},
-                ${data.strDlloAcitividadesContratados},
-                ${data.strPromedioTiempoInvertido},
-                ${data.strRolesEmprendimiento},
-                ${data.strDiasProduccion},
-                ${data.strGeneraEmpleoRiesgoPobreza},
-                ${data.valorGananciasMes},
-                ${data.strActivos},
-                ${data.ValorActivos},
-                null,
+                ${data.strCaractEmpresaComp},
+                ${data.strCaractEmpresaCompDetalle},
+                ${data.strAnalizoObjetivoEmpresa},
+                ${data.strAnalizoObjetivoEmpresaDetalle},
+                ${data.strObjetivoPropositoNivel},
+                ${data.strRenovacionPortafolio},
+                ${data.strRenovacionPortafolioDetalle},
+                ${data.strRenovacionPortafolioNivel},
+                ${data.strProcesoInteraccion},
+                ${data.strProcesoInteraccionDetalle},
+                ${data.strProcesoInteraccionNivel},
+                ${data.strPuntosContacto},
+                ${data.strPuntosContactoDetalle},
+                ${data.strPuntosContactoNivel},
+                ${data.strExperienciaDiseniada},
+                ${data.strExperienciaDiseniadaDetalle},
+                ${data.strExperienciaDiseniadaNivel},
+                ${data.strRecursosServicio},
+                ${data.strRecursosServicioDetalle},
+                ${data.strRecursosServicioNivel},
+                ${data.strPostVenta},
+                ${data.strPostVentaDetalle},
+                ${data.strPostVentaNivel},
+                ${data.strLineaGrafica},
+                ${data.strLineaGraficaDetalle},
+                ${data.strLineaGraficaNivel},
+                ${data.strIdentidadMarca},
+                ${data.strIdentidadMarcaDetalle},
+                ${data.strIdentidadMarcaNivel},
+                ${data.strComunicacionMarca},
+                ${data.strComunicacionMarcaDetalle},
+                ${data.strComunicacionMarcaNivel},
+                ${data.strPermisoFuncionamiento},
+                ${data.strCertificadosRequeridos},
+                ${data.strCertificadosActuales},
+                ${data.strRegistroMarca},
+                ${data.strPatentesUtilidad},
+                ${data.strCualPatenteUtilidad},
                 ${data.strConclusiones},
-                ${data.strURLSFotosProducto},
+                ${data.strURLSFotos},
                 ${data.strLugarSesion},
                 ${data.dtmFechaSesion},
                 ${data.strUsuarioCreacion},
@@ -63,14 +65,11 @@ class daoDiagnosticoHumanas {
                 ${data.strUsuarioActualizacion}
             )
             
-            SET @intId = SCOPE_IDENTITY();
-    
-            SELECT * FROM tbl_DiagnosticoGeneral WHERE intId = @intId`;
+            SET @intId = SCOPE_IDENTITY();`;
 
             let result = {
                 error: false,
-                data: response.recordset[0],
-                msg: `El diagnostico general, fue registrado con éxito.`,
+                msg: `El diagnostico de producto, fue registrado con éxito.`,
             };
 
             sql.close(conexion);
@@ -81,7 +80,7 @@ class daoDiagnosticoHumanas {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setDiagnosticoHumanas de la clase daoDiagnosticoHumanas",
+                    "Error en el metodo setDiagnosticoTecnicas de la clase daoDiagnosticoTecnicas",
             };
 
             sql.close(conexion);
@@ -90,7 +89,7 @@ class daoDiagnosticoHumanas {
         }
     }
 
-    async updateDiagnosticoHumanas(data) {
+    async updateDiagnosticoTecnicas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -156,7 +155,7 @@ class daoDiagnosticoHumanas {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo updateDiagnosticoHumanas de la clase daoDiagnosticoHumanas",
+                    "Error en el metodo updateDiagnosticoTecnicas de la clase daoDiagnosticoTecnicas",
             };
 
             sql.close(conexion);
@@ -165,117 +164,7 @@ class daoDiagnosticoHumanas {
         }
     }
 
-    async updateEmpresarioDiagnosticoHumanas(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
-
-            UPDATE tbl_Empresario
-
-            SET strNombres               = COALESCE(${data.strNombres}, strNombres),
-                strApellidos             = COALESCE(${data.strApellidos}, strApellidos),
-                strTipoDocto             = COALESCE(${data.strTipoDocto}, strTipoDocto),
-                strNroDocto              = COALESCE(${data.strNroDocto}, strNroDocto),
-                strLugarExpedicionDocto  = COALESCE(${data.strLugarExpedicionDocto}, strLugarExpedicionDocto),
-                dtFechaExpedicionDocto   = COALESCE(${data.dtFechaExpedicionDocto}, dtFechaExpedicionDocto),
-                dtFechaNacimiento        = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
-                strGenero                = COALESCE(${data.strGenero}, strGenero),
-                strCelular1              = COALESCE(${data.strCelular1}, strCelular1),
-                strCelular2              = COALESCE(${data.strCelular2}, strCelular2),
-                strCorreoElectronico1    = COALESCE(${data.strCorreoElectronico1}, strCorreoElectronico1),
-                strCorreoElectronico2    = COALESCE(${data.strCorreoElectronico2}, strCorreoElectronico2),
-                strNivelEducativo        = COALESCE(${data.strNivelEducativo}, strNivelEducativo),
-                strTitulos               = COALESCE(${data.strTitulos}, strTitulos),
-                strEstrato               = COALESCE(${data.strEstrato}, strEstrato),
-                strDepartamento          = COALESCE(${data.arrDepartamento}, strDepartamento),
-                strCiudad                = COALESCE(${data.arrCiudad}, strCiudad),
-                strBarrio                = COALESCE(${data.strBarrio}, strBarrio),
-                strDireccionResidencia   = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
-                strUrlFileFoto           = COALESCE(${data.strURLFileFoto}, strUrlFileFoto),
-                dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario               = COALESCE(${data.strUsuario}, strUsuario)
-
-            WHERE intId = ${data.intIdEmpresario}
-
-            SELECT * FROM tbl_Empresario WHERE intId = ${data.intIdEmpresario}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo updateEmpresario de la clase daoDiagnosticoHumanas",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async updateEmpresaDiagnosticoHumanas(data) {
-        console.log(data);
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
-
-            UPDATE tbl_InfoEmpresa
-
-            SET strNombreMarca                    = COALESCE(${data.strUnidadProductiva}, strNombreMarca),
-                strLugarOperacion                 = COALESCE(${data.strLugarOperacion}, strLugarOperacion),
-                strDepartamento                   = COALESCE(${data.arrDepartamento}, strDepartamento),
-                strCiudad                         = COALESCE(${data.arrCiudad}, strCiudad),
-                strBarrio                         = COALESCE(${data.strBarrio}, strBarrio),
-                strDireccionResidencia            = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
-                strSectorEconomico                = COALESCE(${data.strSectorEconomico}, strSectorEconomico),
-                strCategoriaProducto              = COALESCE(${data.strCategoriaProducto}, strCategoriaProducto),
-                strCategoriaServicio              = COALESCE(${data.strCategoriaServicio}, strCategoriaServicio),
-                strCategoriasSecundarias          = COALESCE(${data.arrCategoriasSecundarias}, strCategoriasSecundarias),
-                strOtraCategoria                  = COALESCE(${data.strOtraCategoria}, strOtraCategoria),
-                strDescProductosServicios         = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
-                strTiempoDedicacion               = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
-                btGeneraEmpleo                    = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
-                intNumeroEmpleados                = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
-                valorVentasMes                    = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
-                strMediosDigitales                = COALESCE(${data.arrMediosDigitales}, strMediosDigitales),
-                dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
-
-            WHERE intIdEmpresario = ${data.intIdEmpresario}
-
-            SELECT * FROM tbl_InfoEmpresa WHERE intIdEmpresario = ${data.intIdEmpresario}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo updateEmpresa de la clase daoDiagnosticoHumanas",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async deleteDiagnosticoHumanas(data) {
+    async deleteDiagnosticoTecnicas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -294,7 +183,7 @@ class daoDiagnosticoHumanas {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo deleteDiagnosticoHumanas de la clase daoDiagnosticoHumanas",
+                    "Error en el metodo deleteDiagnosticoTecnicas de la clase daoDiagnosticoTecnicas",
             };
 
             sql.close(conexion);
@@ -303,7 +192,7 @@ class daoDiagnosticoHumanas {
         }
     }
 
-    async getDiagnosticoHumanas(data) {
+    async getDiagnosticoTecnicas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -334,7 +223,7 @@ class daoDiagnosticoHumanas {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo getDiagnosticoHumanas de la clase daoDiagnosticoHumanas",
+                    "Error en el metodo getDiagnosticoTecnicas de la clase daoDiagnosticoTecnicas",
             };
 
             sql.close(conexion);
@@ -343,4 +232,4 @@ class daoDiagnosticoHumanas {
         }
     }
 }
-module.exports = daoDiagnosticoHumanas;
+module.exports = daoDiagnosticoTecnicas;
