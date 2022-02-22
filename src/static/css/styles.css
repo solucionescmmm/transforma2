@@ -1,0 +1,26 @@
+table {
+    font-size: 8px;
+    border-collapse: collapse;
+    width: 100%;
+
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 5px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #00BBB4;
+    color: white;
+  }
+
+  tr:nth-child(even){background-color: #f2f2f2; text-align: left;}

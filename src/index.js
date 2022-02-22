@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./app";
+import "./static/css/styles.css"
 
 //Componentes de Material UI
 import { StyledEngineProvider, createTheme } from "@mui/material/styles";

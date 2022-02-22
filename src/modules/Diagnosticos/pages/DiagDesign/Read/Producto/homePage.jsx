@@ -4,6 +4,7 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 import validator from "validator";
+import html2canvas from "html2canvas";
 
 //Componentes de Mui
 import {
@@ -33,6 +34,7 @@ import useGetDiagnProd from "../../../../hooks/useGetDiagnProd";
 import ModalEditDiagProd from "./modalEdit";
 import ModalPDF from "./modalPDF";
 import { ImageViewer } from "../../../../../../common/components/ImageViewer";
+import ChartBar from "./chartBar";
 
 const ResumenProducto = () => {
     //===============================================================================================================================================
@@ -126,6 +128,8 @@ const ResumenProducto = () => {
         objInfoFortalezas: [],
         strConclusiones: "",
         arrImagenes: [],
+        objResultadoAlimentos: {},
+        objResultadoNoAlimentos: {},
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
@@ -175,7 +179,18 @@ const ResumenProducto = () => {
     };
 
     const handlerChangeOpenModalPDF = () => {
-        setOpenModalPDF(!openModalPDF);
+        const divChart = window.document.getElementById("chart-diag-prod");
+        
+        html2canvas(divChart).then((canvas) => {
+            const img = canvas.toDataURL("image/png");
+
+            setData((prevState) => ({
+                ...prevState,
+                imgChart: img,
+            }));
+
+            setOpenModalPDF(!openModalPDF);
+        });
     };
 
     const handlerChangeOpenCollapseInfoGeneral = () => {
@@ -791,6 +806,10 @@ const ResumenProducto = () => {
                                 objInfoFortalezas: prevInfoFortalezas,
                                 strConclusiones,
                                 arrImagenes: newArrImagenes,
+                                objResultadoNoAlimentos:
+                                    data.objResultadoNoAlimentos,
+                                objResultadoAlimentos:
+                                    data.objResultadoAlimentos,
                             };
                         });
                     }
@@ -896,6 +915,179 @@ const ResumenProducto = () => {
                     >
                         <b>resumen diagnóstico de producto</b>
                     </Typography>
+                </Grid>
+
+                <Grid item xs={12} id="chart-diag-prod">
+                    <Grid container direction="row" spacing={2}>
+                        <Grid item xs={12} md={4}>
+                            <ChartBar
+                                title="RESUMEN DEL DIAGNÓSTICO (No alimentos)"
+                                labels={[
+                                    "Innovación",
+                                    "Estética",
+                                    "Experiencia",
+                                    "Marca",
+                                ]}
+                                values={[
+                                    data.objResultadoNoAlimentos
+                                        .intInnovación || 0,
+                                    data.objResultadoNoAlimentos.intEstética ||
+                                        0,
+                                    data.objResultadoNoAlimentos
+                                        .intExperiencia || 0,
+                                    data.objResultadoNoAlimentos.intMarca || 0,
+                                ]}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} md={4}>
+                            <table style={{ fontSize: "10px" }}>
+                                <caption>
+                                    RESUMEN DEL DIAGNÓSTICO (No alimentos)
+                                </caption>
+                                <tr>
+                                    <th>CRITERIOS</th>
+                                    <th>PUNTAJE</th>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">Marca</td>
+                                    <td
+                                        style={{
+                                            textAlign: "center",
+                                            verticalAlign: "middle",
+                                        }}
+                                    >
+                                        {data.objResultadoNoAlimentos
+                                            ?.intMarca || 0}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">Experiencia</td>
+                                    <td
+                                        style={{
+                                            textAlign: "center",
+                                            verticalAlign: "middle",
+                                        }}
+                                    >
+                                        {data.objResultadoNoAlimentos
+                                            ?.intExperiencia || 0}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">Estética</td>
+                                    <td
+                                        style={{
+                                            textAlign: "center",
+                                            verticalAlign: "middle",
+                                        }}
+                                    >
+                                        {data.objResultadoNoAlimentos
+                                            ?.intEstética || 0}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">Innovación</td>
+                                    <td
+                                        style={{
+                                            textAlign: "center",
+                                            verticalAlign: "middle",
+                                        }}
+                                    >
+                                        {data.objResultadoNoAlimentos
+                                            ?.intInnovación || 0}
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table
+                                style={{ marginTop: "5px", fontSize: "10px" }}
+                            >
+                                <caption>
+                                    RESUMEN DEL DIAGNÓSTICO (Alimentos)
+                                </caption>
+                                <tr>
+                                    <th>CRITERIOS</th>
+                                    <th>PUNTAJE</th>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">Marca</td>
+                                    <td
+                                        style={{
+                                            textAlign: "center",
+                                            verticalAlign: "middle",
+                                        }}
+                                    >
+                                        {data.objResultadoAlimentos?.intMarca ||
+                                            0}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">Experiencia</td>
+                                    <td
+                                        style={{
+                                            textAlign: "center",
+                                            verticalAlign: "middle",
+                                        }}
+                                    >
+                                        {data.objResultadoAlimentos
+                                            ?.intExperiencia || 0}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">Presentación y calidad</td>
+                                    <td
+                                        style={{
+                                            textAlign: "center",
+                                            verticalAlign: "middle",
+                                        }}
+                                    >
+                                        {data.objResultadoAlimentos
+                                            ?.intEstética || 0}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">Innovación</td>
+                                    <td
+                                        style={{
+                                            textAlign: "center",
+                                            verticalAlign: "middle",
+                                        }}
+                                    >
+                                        {data.objResultadoAlimentos
+                                            ?.intInnovación || 0}
+                                    </td>
+                                </tr>
+                            </table>
+                        </Grid>
+
+                        <Grid item xs={12} md={4}>
+                            <ChartBar
+                                title="RESUMEN DEL DIAGNÓSTICO (Alimentos)"
+                                labels={[
+                                    "Innovación",
+                                    "Presentación y calidad",
+                                    "Experiencia",
+                                    "Marca",
+                                ]}
+                                values={[
+                                    data.objResultadoAlimentos.intInnovación ||
+                                        0,
+                                    data.objResultadoAlimentos.intEstética || 0,
+                                    data.objResultadoAlimentos.intExperiencia ||
+                                        0,
+                                    data.objResultadoAlimentos.intMarca || 0,
+                                ]}
+                            />
+                        </Grid>
+                    </Grid>
                 </Grid>
 
                 <Grid item xs={12}>

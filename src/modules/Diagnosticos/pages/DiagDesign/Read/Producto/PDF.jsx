@@ -94,18 +94,13 @@ const PDFProduct = ({ intId, values }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoading(true);
-
         if (data && data.length > 0) {
             setObjEmpresario(data[0]?.objEmpresario);
             setObjEmpresa(data[0]?.objInfoEmpresa);
-            setLoading(false);
         }
     }, [data]);
 
     useEffect(() => {
-        setLoading(true);
-
         let htmlProductos = "";
         let htmlTemasFortalecer = "";
         let htmlFortalezas = "";
@@ -473,7 +468,7 @@ const PDFProduct = ({ intId, values }) => {
         setHtmlFortalezas(htmlFortalezas);
         setHtmlConclusiones(htmlConclusiones);
 
-        setLoading(true);
+        setLoading(false);
     }, [values]);
 
     if (loading || !data) {
@@ -494,13 +489,15 @@ const PDFProduct = ({ intId, values }) => {
 
     return (
         <PDFViewer width="100%" height="100%">
-            <Document>
+            <Document title="Informe_Diagnostico_Producto">
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
                     <Text style={styles.title}>
                         Reporte diagnóstico de producto
                     </Text>
+
+                    <Image source={values?.imgChart} />
 
                     <Html>
                         {`
@@ -551,6 +548,10 @@ const PDFProduct = ({ intId, values }) => {
                             text-align: center;
                             background-color: #00BBB4;
                             color: white;
+                          }
+
+                          .imgChart {
+                             width: 100%; height: 100%
                           }
 
                           tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
