@@ -1,15 +1,15 @@
 //Servicios
-const setDiagnosticoHumana = require("../../domain/setDiagnosticoHumanas.service");
-//const getDiagnosticoHumana = require("../../domain/getDiagnosticoHumana.service");
-//const updateDiagnosticoHumana = require ("../../domain/updateDiagnosticoHumana.service")
+const setDiagnosticoTecnica = require("../../domain/setDiagnosticoTecnicas.service");
+//const getDiagnosticoTecnica = require("../../domain/getDiagnosticoTecnica.service");
+//const updateDiagnosticoTecnica = require ("../../domain/updateDiagnosticoTecnica.service")
 
-class ctrl_DiagnosticoHumana {
-    async setDiagnosticoHumana(req, res) {
+class ctrl_DiagnosticoTecnica {
+    async setDiagnosticoTecnica(req, res) {
         try {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new setDiagnosticoHumana(data, strDataUser);
+            let service = new setDiagnosticoTecnica(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
@@ -27,12 +27,12 @@ class ctrl_DiagnosticoHumana {
         }
     }
 
-    async getDiagnosticoHumana(req, res) {
+    async getDiagnosticoTecnica(req, res) {
         try {
             let objParams = req.query;
             let { strDataUser } = req;
 
-            let query = await getDiagnosticoHumana(objParams, strDataUser);
+            let query = await getDiagnosticoTecnica(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);
@@ -48,12 +48,12 @@ class ctrl_DiagnosticoHumana {
         }
     }
 
-    async updateDiagnosticoHumana(req, res) {
+    async updateDiagnosticoTecnica(req, res) {
         try {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new updateDiagnosticoHumana(data, strDataUser);
+            let service = new updateDiagnosticoTecnica(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
@@ -72,4 +72,4 @@ class ctrl_DiagnosticoHumana {
     }
 }
 
-module.exports = ctrl_DiagnosticoHumana;
+module.exports = ctrl_DiagnosticoTecnica;

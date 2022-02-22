@@ -13,7 +13,7 @@ class daoDiagnosticoTecnicas {
             await conn.query`
             DECLARE @intId INTEGER;
             
-            INSERT INTO tbl_DiagnosticoServicios VALUES
+            INSERT INTO tbl_DiagnosticoCompetenciasTecnicas VALUES
             (
                 ${data.intIdEmpresario},
                 ${data.strCaractEmpresaComp},
@@ -126,7 +126,7 @@ class daoDiagnosticoTecnicas {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
 
-            UPDATE tbl_DiagnosticoGeneral
+            UPDATE tbl_DiagnosticoCompetenciasTecnicas
 
             SET strUbicacionVivienda           = COALESCE(${data.strUbicacionVivienda}, strUbicacionVivienda),
                 strCabezaHogar                 = COALESCE(${data.strCabezaHogar}, strCabezaHogar),
@@ -200,7 +200,7 @@ class daoDiagnosticoTecnicas {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            await conn.query`DELETE FROM tbl_DiagnosticoGeneral WHERE intIdEmpresario = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_DiagnosticoCompetenciasTecnicas WHERE intIdEmpresario = ${data.intId}`;
 
             let result = {
                 error: false,
@@ -231,7 +231,7 @@ class daoDiagnosticoTecnicas {
             let response = await conn.query`
 
             SELECT *
-            FROM tbl_DiagnosticoGeneral
+            FROM tbl_DiagnosticoCompetenciasTecnicas
 
             WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)
             AND   (intIdEmpresario = ${data.intIdEmpresario} OR ${data.intIdEmpresario} IS NULL) `;
