@@ -155,13 +155,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion
+                                            ?.strGradoIntervProdServi
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
+                                            ?.strGradoIntervProdServi?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
@@ -186,13 +186,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion
+                                            ?.strProcProdEst
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
+                                            ?.strProcProdEst?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
@@ -217,13 +217,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion
+                                            ?.strDefProcComProv
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
+                                            ?.strDefProcComProv?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
@@ -248,13 +248,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion
+                                            ?.strContrlRegInv
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
+                                            ?.strContrlRegInv?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
@@ -279,13 +279,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion
+                                            ?.strCapProdRespMer
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
+                                            ?.strCapProdRespMer?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
@@ -310,13 +310,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion
+                                            ?.strEstadTecProd
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
+                                            ?.strEstadTecProd?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
@@ -341,13 +341,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion
+                                            ?.strEquipNecDesProdServi
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
+                                            ?.strEquipNecDesProdServi?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
@@ -372,13 +372,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion
+                                            ?.strProcManAmbiProd
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComProductivo
-                                            ?.strProporcion?.message ||
+                                            ?.strProcManAmbiProd?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"

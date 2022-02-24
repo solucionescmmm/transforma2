@@ -140,13 +140,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComAsociativo
-                                            ?.strProporcion
+                                            ?.strPartReuPerioSociSoli
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComAsociativo
-                                            ?.strProporcion?.message ||
+                                            ?.strPartReuPerioSociSoli?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
@@ -169,13 +169,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComAsociativo
-                                            ?.strProporcion
+                                            ?.strConApliEstOrgSociSoli
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComAsociativo
-                                            ?.strProporcion?.message ||
+                                            ?.strConApliEstOrgSociSoli?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
@@ -198,13 +198,13 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComAsociativo
-                                            ?.strProporcion
+                                            ?.strAsociEmpoOrgAdmin
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoComAsociativo
-                                            ?.strProporcion?.message ||
+                                            ?.strAsociEmpoOrgAdmin?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
