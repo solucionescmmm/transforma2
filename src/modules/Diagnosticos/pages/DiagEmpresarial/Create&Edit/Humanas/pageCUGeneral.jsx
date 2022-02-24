@@ -43,6 +43,7 @@ import InfoGeneral from "./infoGeneral";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
+import InfoEncuestaHumanas from "./infoEncuestaHumanas";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -91,11 +92,7 @@ const PageCUGeneral = ({ intId, isEdit }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         objInfoGeneral: {},
-        objInfoComMercadeo: {},
-        objInfoComProductivo: {},
-        objInfoComFinanciero: {},
-        objInfoComAdministrativo: {},
-        objInfoComAsociativo: {},
+        objInfoEncuestaHumanas: {},
     });
 
     const [success, setSucces] = useState(false);
@@ -190,20 +187,8 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                                           )
                                         : null,
                                 },
-                                objInfoFamiliar: {
-                                    ...data.objInfoFamiliar,
-                                },
-                                objInfoEmprendimiento: {
-                                    ...data.objInfoEmprendimiento,
-                                },
-                                objInfoEmpresa: {
-                                    ...data.objInfoEmpresa,
-                                },
-                                objInfoPerfilEco: {
-                                    ...data.objInfoPerfilEco,
-                                },
-                                objInfoAdicional: {
-                                    ...data.objInfoAdicional,
+                                objInfoEncuestaHumanas: {
+                                    ...data.objInfoEncuestaHumanas,
                                 },
                             };
 
@@ -497,6 +482,28 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                             </Grid>
 
                             {errors.objInfoGeneral && (
+                                <Grid item xs={12}>
+                                    <Alert severity="error">
+                                        Lo sentimos, tienes campos pendientes
+                                        por diligenciar en el formulario, revisa
+                                        e intentalo nuevamente.
+                                    </Alert>
+                                </Grid>
+                            )}
+
+                            <Grid item xs={12}>
+                                <InfoEncuestaHumanas
+                                    control={control}
+                                    disabled={loading}
+                                    values={data.objInfoEncuestaHumanas}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                />
+                            </Grid>
+
+                            {errors.objInfoEncuestaHumanas && (
                                 <Grid item xs={12}>
                                     <Alert severity="error">
                                         Lo sentimos, tienes campos pendientes
