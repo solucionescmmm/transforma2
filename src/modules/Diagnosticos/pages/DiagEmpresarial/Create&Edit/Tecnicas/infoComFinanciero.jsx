@@ -136,7 +136,7 @@ const InfoComMercadeo = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComFinanciero.strUniProdSosFinan"
                             defaultValue={data.strUniProdSosFinan}
@@ -165,7 +165,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComFinanciero.strEstrCosUniProdDef"
                             defaultValue={data.strEstrCosUniProdDef}
@@ -194,7 +194,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComFinanciero.strPrecProdServDef"
                             defaultValue={data.strPrecProdServDef}
@@ -223,7 +223,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComFinanciero.strDefProcConUniProd"
                             defaultValue={data.strDefProcConUniProd}
@@ -252,7 +252,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComFinanciero.strElabPresUniProd"
                             defaultValue={data.strElabPresUniProd}
@@ -281,7 +281,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComFinanciero.strAdminDinUniProd"
                             defaultValue={data.strAdminDinUniProd}

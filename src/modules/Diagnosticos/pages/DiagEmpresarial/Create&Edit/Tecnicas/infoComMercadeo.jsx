@@ -149,7 +149,7 @@ const InfoComMercadeo = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComMercadeo.strCaractEmpresaComp"
                             defaultValue={data.strCaractEmpresaComp}
@@ -178,7 +178,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComMercadeo.strAnalizoObjetivoEmpresa"
                             defaultValue={data.strAnalizoObjetivoEmpresa}
@@ -207,7 +207,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComMercadeo.strAnalizoCompetiEmpresa"
                             defaultValue={data.strAnalizoCompetiEmpresa}
@@ -236,7 +236,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComMercadeo.strActivIncreVentClient"
                             defaultValue={data.strActivIncreVentClient}
@@ -265,7 +265,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComMercadeo.strPlanRelFideClient"
                             defaultValue={data.strPlanRelFideClient}
@@ -294,13 +294,13 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoComMercadeo.strProceComerciEsta"
                             defaultValue={data.strProceComerciEsta}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Mis procesos comerciales están:"
+                                    label="Mis procesos comerciales están"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -323,7 +323,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoComMercadeo.strDefiniPortProd"
                             defaultValue={data.strDefiniPortProd}
@@ -352,7 +352,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComMercadeo.strNumLugMedComerProd"
                             defaultValue={data.strNumLugMedComerProd}
@@ -381,7 +381,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComMercadeo.strPartiRedesEmpreComer"
                             defaultValue={data.strPartiRedesEmpreComer}
@@ -410,7 +410,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComMercadeo.strPreseMedDigital"
                             defaultValue={data.strPreseMedDigital}

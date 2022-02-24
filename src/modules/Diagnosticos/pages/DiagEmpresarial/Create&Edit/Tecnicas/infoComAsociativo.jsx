@@ -127,7 +127,7 @@ const InfoComMercadeo = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAsociativo.strPartReuPerioSociSoli"
                             defaultValue={data.strPartReuPerioSociSoli}
@@ -156,7 +156,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAsociativo.strConApliEstOrgSociSoli"
                             defaultValue={data.strConApliEstOrgSociSoli}
@@ -185,7 +185,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAsociativo.strAsociEmpoOrgAdmin"
                             defaultValue={data.strAsociEmpoOrgAdmin}

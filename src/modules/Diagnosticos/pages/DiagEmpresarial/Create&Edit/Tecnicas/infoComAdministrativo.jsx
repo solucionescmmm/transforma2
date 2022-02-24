@@ -148,7 +148,7 @@ const InfoComMercadeo = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoComAdministrativo.strUniProdGenEmple"
                             defaultValue={data.strUniProdGenEmple}
@@ -177,7 +177,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoComAdministrativo.strEquipTrabEstruct"
                             defaultValue={data.strEquipTrabEstruct}
@@ -206,7 +206,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strEstrucFormaOrganiza"
                             defaultValue={data.strEstrucFormaOrganiza}
@@ -235,7 +235,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strElabPlanTrabActiv"
                             defaultValue={data.strElabPlanTrabActiv}
@@ -264,7 +264,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strReaEvalPerioEquipTrab"
                             defaultValue={data.strReaEvalPerioEquipTrab}
@@ -293,7 +293,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strEmprFormaAcuerNormLab"
                             defaultValue={data.strEmprFormaAcuerNormLab}
@@ -322,7 +322,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strEmprFormaReqLey"
                             defaultValue={data.strEmprFormaReqLey}
@@ -351,7 +351,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strPlaneaEstraEmpPlanPlani"
                             defaultValue={data.strPlaneaEstraEmpPlanPlani}
@@ -380,7 +380,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strMidConstCumpliMetObj"
                             defaultValue={data.strMidConstCumpliMetObj}
@@ -409,7 +409,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strCueAcompJuri"
                             defaultValue={data.strCueAcompJuri}

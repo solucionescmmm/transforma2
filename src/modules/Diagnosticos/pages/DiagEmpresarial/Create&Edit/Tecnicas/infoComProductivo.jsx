@@ -142,7 +142,7 @@ const InfoComMercadeo = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoComProductivo.strGradoIntervProdServi"
                             defaultValue={data.strGradoIntervProdServi}
@@ -171,9 +171,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoComProductivo.strProcProdEst"
                             defaultValue={data.strProcProdEst}
@@ -202,9 +200,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComProductivo.strDefProcComProv"
                             defaultValue={data.strDefProcComProv}
@@ -233,9 +229,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComProductivo.strContrlRegInv"
                             defaultValue={data.strContrlRegInv}
@@ -264,9 +258,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComProductivo.strCapProdRespMer"
                             defaultValue={data.strCapProdRespMer}
@@ -295,9 +287,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComProductivo.strEstadTecProd"
                             defaultValue={data.strEstadTecProd}
@@ -326,9 +316,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComProductivo.strEquipNecDesProdServi"
                             defaultValue={data.strEquipNecDesProdServi}
@@ -357,9 +345,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                </Grid>
-                <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComProductivo.strProcManAmbiProd"
                             defaultValue={data.strProcManAmbiProd}
