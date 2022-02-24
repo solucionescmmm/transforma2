@@ -93,7 +93,7 @@ const InfoComMercadeo = ({
                                 : "inherit",
                         }}
                     >
-                        Componente financiero
+                        Componente Asociativo
                     </Typography>
                 </Box>
 
