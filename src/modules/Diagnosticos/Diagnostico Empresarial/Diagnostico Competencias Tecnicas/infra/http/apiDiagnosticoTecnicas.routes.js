@@ -2,30 +2,30 @@
 const routes = require("express").Router();
 
 //Classes
-const classController = require("../../app/controllers/ctrl_DiagnosticoHumanas");
+const classController = require("../../app/controllers/ctrl_DiagnosticoTecnicas");
 
 //Routes
 routes.post(
-    "/transforma/api/diagnosticos/diagnosticoEmpresarial/setDiagnosticoHumana",
+    "/transforma/api/diagnosticos/diagnosticoEmpresarial/setDiagnosticoTecnica",
     async (req, res) => {
-        let controllerDiagnosticoHumana = new classController();
-        await controllerDiagnosticoHumana.setDiagnosticoHumana(req, res);
+        let controllerDiagnosticoTecnica = new classController();
+        await controllerDiagnosticoTecnica.setDiagnosticoTecnica(req, res);
     }
 );
 
 routes.get(
-    "/transforma/api/diagnosticos/diagnosticoEmpresarial/getDiagnosticoHumana",
+    "/transforma/api/diagnosticos/diagnosticoEmpresarial/getDiagnosticoTecnica",
     async (req, res) => {
-        let controllerDiagnosticoHumana = new classController();
-        await controllerDiagnosticoHumana.getDiagnosticoHumana(req, res);
+        let controllerDiagnosticoTecnica = new classController();
+        await controllerDiagnosticoTecnica.getDiagnosticoTecnica(req, res);
     }
 );
 
 routes.put(
-    "/transforma/api/diagnosticos/diagnosticoEmpresarial/updateDiagnosticoHumana",
+    "/transforma/api/diagnosticos/diagnosticoEmpresarial/updateDiagnosticoTecnica",
     async (req, res) => {
-        let controllerDiagnosticoHumana = new classController();
-        await controllerDiagnosticoHumana(req, res);
+        let controllerDiagnosticoTecnica = new classController();
+        await controllerDiagnosticoTecnica.updateDiagnosticoTecnica(req, res);
     }
 );
 
