@@ -4,6 +4,7 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 import validator from "validator";
+import html2canvas from "html2canvas";
 
 //Componentes de Mui
 import {
@@ -165,7 +166,18 @@ const ResumenProducto = () => {
     };
 
     const handlerChangeOpenModalPDF = () => {
-        setOpenModalPDF(!openModalPDF);
+        const divChart = window.document.getElementById("chart-diag-prod");
+
+        html2canvas(divChart).then((canvas) => {
+            const img = canvas.toDataURL("image/png");
+
+            setData((prevState) => ({
+                ...prevState,
+                imgChart: img,
+            }));
+
+            setOpenModalPDF(!openModalPDF);
+        });
     };
 
     const handlerChangeOpenCollapseInfoGeneral = () => {

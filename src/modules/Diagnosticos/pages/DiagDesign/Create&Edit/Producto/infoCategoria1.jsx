@@ -34,8 +34,13 @@ const InfoCategoria1 = ({
     setValue,
     clearErrors,
     setError,
+    getValues,
 }) => {
     const [loading, setLoading] = useState(true);
+
+    const strCategoriaProductos = getValues(
+        "objInfoProductos.strCategoriaProductos"
+    );
 
     const [data, setData] = useState({
         strFuncionalidad: "",
@@ -953,7 +958,7 @@ const InfoCategoria1 = ({
                                             label="Manejo que tengo de la(s) técnica(s)"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -993,7 +998,7 @@ const InfoCategoria1 = ({
                                         <TextField
                                             label="Detalle"
                                             name={name}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             value={value}
                                             onChange={(e) => onChange(e)}
                                             error={
@@ -1064,7 +1069,7 @@ const InfoCategoria1 = ({
                                             label="Procesos de preparación"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -1105,7 +1110,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -1177,7 +1182,7 @@ const InfoCategoria1 = ({
                                             label="Presentación y apariencia"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -1218,7 +1223,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -1288,7 +1293,7 @@ const InfoCategoria1 = ({
                                             label="Proporción"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -1327,7 +1332,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -1393,7 +1398,7 @@ const InfoCategoria1 = ({
                                             label="Conservación"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -1432,7 +1437,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -1498,7 +1503,7 @@ const InfoCategoria1 = ({
                                             label="Inocuidad"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -1536,7 +1541,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -1602,7 +1607,7 @@ const InfoCategoria1 = ({
                                             label="Empaque, Envase y Etiqueta"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -1643,7 +1648,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "Alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -1733,7 +1738,7 @@ const InfoCategoria1 = ({
                                             label="Manejo que tengo de la(s) técnica(s)"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -1772,7 +1777,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -1838,7 +1843,7 @@ const InfoCategoria1 = ({
                                             label="Acabados y Factura"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -1879,7 +1884,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -1945,7 +1950,7 @@ const InfoCategoria1 = ({
                                             label="Durabilidad"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -1983,7 +1988,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -2049,7 +2054,7 @@ const InfoCategoria1 = ({
                                             label="Uso de los colores"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -2087,7 +2092,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
@@ -2153,7 +2158,7 @@ const InfoCategoria1 = ({
                                             label="Proporción"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
@@ -2191,7 +2196,7 @@ const InfoCategoria1 = ({
                                             label="Detalle"
                                             name={name}
                                             value={value}
-                                            disabled={disabled}
+                                            disabled={strCategoriaProductos !== "No alimentos" ? true : disabled}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1

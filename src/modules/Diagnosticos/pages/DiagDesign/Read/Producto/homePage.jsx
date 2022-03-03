@@ -180,7 +180,7 @@ const ResumenProducto = () => {
 
     const handlerChangeOpenModalPDF = () => {
         const divChart = window.document.getElementById("chart-diag-prod");
-        
+
         html2canvas(divChart).then((canvas) => {
             const img = canvas.toDataURL("image/png");
 
@@ -915,179 +915,6 @@ const ResumenProducto = () => {
                     >
                         <b>resumen diagnóstico de producto</b>
                     </Typography>
-                </Grid>
-
-                <Grid item xs={12} id="chart-diag-prod">
-                    <Grid container direction="row" spacing={2}>
-                        <Grid item xs={12} md={4}>
-                            <ChartBar
-                                title="RESUMEN DEL DIAGNÓSTICO (No alimentos)"
-                                labels={[
-                                    "Innovación",
-                                    "Estética",
-                                    "Experiencia",
-                                    "Marca",
-                                ]}
-                                values={[
-                                    data.objResultadoNoAlimentos
-                                        .intInnovación || 0,
-                                    data.objResultadoNoAlimentos.intEstética ||
-                                        0,
-                                    data.objResultadoNoAlimentos
-                                        .intExperiencia || 0,
-                                    data.objResultadoNoAlimentos.intMarca || 0,
-                                ]}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} md={4}>
-                            <table style={{ fontSize: "10px" }}>
-                                <caption>
-                                    RESUMEN DEL DIAGNÓSTICO (No alimentos)
-                                </caption>
-                                <tr>
-                                    <th>CRITERIOS</th>
-                                    <th>PUNTAJE</th>
-                                </tr>
-
-                                <tr>
-                                    <td width="50%">Marca</td>
-                                    <td
-                                        style={{
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                        }}
-                                    >
-                                        {data.objResultadoNoAlimentos
-                                            ?.intMarca || 0}
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td width="50%">Experiencia</td>
-                                    <td
-                                        style={{
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                        }}
-                                    >
-                                        {data.objResultadoNoAlimentos
-                                            ?.intExperiencia || 0}
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td width="50%">Estética</td>
-                                    <td
-                                        style={{
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                        }}
-                                    >
-                                        {data.objResultadoNoAlimentos
-                                            ?.intEstética || 0}
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td width="50%">Innovación</td>
-                                    <td
-                                        style={{
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                        }}
-                                    >
-                                        {data.objResultadoNoAlimentos
-                                            ?.intInnovación || 0}
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <table
-                                style={{ marginTop: "5px", fontSize: "10px" }}
-                            >
-                                <caption>
-                                    RESUMEN DEL DIAGNÓSTICO (Alimentos)
-                                </caption>
-                                <tr>
-                                    <th>CRITERIOS</th>
-                                    <th>PUNTAJE</th>
-                                </tr>
-
-                                <tr>
-                                    <td width="50%">Marca</td>
-                                    <td
-                                        style={{
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                        }}
-                                    >
-                                        {data.objResultadoAlimentos?.intMarca ||
-                                            0}
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td width="50%">Experiencia</td>
-                                    <td
-                                        style={{
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                        }}
-                                    >
-                                        {data.objResultadoAlimentos
-                                            ?.intExperiencia || 0}
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td width="50%">Presentación y calidad</td>
-                                    <td
-                                        style={{
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                        }}
-                                    >
-                                        {data.objResultadoAlimentos
-                                            ?.intEstética || 0}
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td width="50%">Innovación</td>
-                                    <td
-                                        style={{
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                        }}
-                                    >
-                                        {data.objResultadoAlimentos
-                                            ?.intInnovación || 0}
-                                    </td>
-                                </tr>
-                            </table>
-                        </Grid>
-
-                        <Grid item xs={12} md={4}>
-                            <ChartBar
-                                title="RESUMEN DEL DIAGNÓSTICO (Alimentos)"
-                                labels={[
-                                    "Innovación",
-                                    "Presentación y calidad",
-                                    "Experiencia",
-                                    "Marca",
-                                ]}
-                                values={[
-                                    data.objResultadoAlimentos.intInnovación ||
-                                        0,
-                                    data.objResultadoAlimentos.intEstética || 0,
-                                    data.objResultadoAlimentos.intExperiencia ||
-                                        0,
-                                    data.objResultadoAlimentos.intMarca || 0,
-                                ]}
-                            />
-                        </Grid>
-                    </Grid>
                 </Grid>
 
                 <Grid item xs={12}>
@@ -2852,7 +2679,7 @@ const ResumenProducto = () => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>Conluciones </b>
+                                    <b>Conlusiones </b>
                                 </Typography>
                             </Box>
 
@@ -2963,6 +2790,88 @@ const ResumenProducto = () => {
                             </Grid>
                         </Collapse>
                     </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Grid container direction="row" spacing={2}>
+                        <Grid item xs={12}>
+                            <Typography
+                                sx={{
+                                    color: "#F5B335",
+                                    textTransform: "uppercase",
+                                    marginTop: "25px",
+                                }}
+                                align="center"
+                            >
+                                <b>grafíco de resultados </b>
+                            </Typography>
+                        </Grid>
+
+                        {data.objInfoProductos.strCategoriaProductos ===
+                        "No Alimentos" ? (
+                            <Grid item xs={12} md={4}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <Box sx={{ minWidth: "850px" }} id="chart-diag-prod">
+                                        <ChartBar
+                                            title="RESUMEN DEL DIAGNÓSTICO (No alimentos)"
+                                            labels={[
+                                                "Innovación",
+                                                "Estética",
+                                                "Experiencia",
+                                                "Marca",
+                                            ]}
+                                            values={[
+                                                data.objResultadoNoAlimentos
+                                                    .intInnovación || 0,
+                                                data.objResultadoNoAlimentos
+                                                    .intEstética || 0,
+                                                data.objResultadoNoAlimentos
+                                                    .intExperiencia || 0,
+                                                data.objResultadoNoAlimentos
+                                                    .intMarca || 0,
+                                            ]}
+                                        />
+                                    </Box>
+                                </Box>
+                            </Grid>
+                        ) : (
+                            <Grid item xs={12}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <Box sx={{ minWidth: "850px" }} id="chart-diag-prod">
+                                        <ChartBar
+                                            title="RESUMEN DEL DIAGNÓSTICO (Alimentos)"
+                                            labels={[
+                                                "Innovación",
+                                                "Presentación y calidad",
+                                                "Experiencia",
+                                                "Marca",
+                                            ]}
+                                            values={[
+                                                data.objResultadoAlimentos
+                                                    .intInnovación || 0,
+                                                data.objResultadoAlimentos
+                                                    .intEstética || 0,
+                                                data.objResultadoAlimentos
+                                                    .intExperiencia || 0,
+                                                data.objResultadoAlimentos
+                                                    .intMarca || 0,
+                                            ]}
+                                        />
+                                    </Box>
+                                </Box>
+                            </Grid>
+                        )}
+                    </Grid>
                 </Grid>
             </Grid>
         </Fragment>

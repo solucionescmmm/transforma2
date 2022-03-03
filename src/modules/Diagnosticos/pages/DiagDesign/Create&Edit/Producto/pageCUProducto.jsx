@@ -138,6 +138,7 @@ const PageCUProducto = ({ intId, isEdit }) => {
         setError,
         setValue,
         clearErrors,
+        getValues
     } = useForm({ mode: "onChange" });
 
     const theme = useTheme();
@@ -595,6 +596,7 @@ const PageCUProducto = ({ intId, isEdit }) => {
                                         setValue={setValue}
                                         setError={setError}
                                         clearErrors={clearErrors}
+                                        getValues={getValues}
                                     />
                                 </Grid>
 

@@ -493,12 +493,6 @@ const PDFProduct = ({ intId, values }) => {
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
-                    <Text style={styles.title}>
-                        Reporte diagnóstico de producto
-                    </Text>
-
-                    <Image source={values?.imgChart} />
-
                     <Html>
                         {`
                         <html>
@@ -621,6 +615,12 @@ const PDFProduct = ({ intId, values }) => {
                         </html>
                       `}
                     </Html>
+
+                    <Text style={styles.title}>
+                        Grafíco de resultados
+                    </Text>
+
+                    <Image source={values?.imgChart} />
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y

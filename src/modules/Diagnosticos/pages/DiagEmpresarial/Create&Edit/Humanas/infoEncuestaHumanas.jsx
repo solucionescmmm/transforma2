@@ -173,6 +173,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+                    
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strMotivaciones"
@@ -202,6 +203,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+                    
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strNivelVida"
@@ -231,6 +233,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strRedesApoyoOtros"
@@ -260,6 +263,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strProyectoVidaEmpresa"
@@ -289,6 +293,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+                    
                     <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesAutonomia"
@@ -318,6 +323,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesCapacidad"
@@ -347,6 +353,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesComuniacion"
@@ -376,6 +383,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strProyectoVidaEmprendimiento"
@@ -405,6 +413,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesCreatividad"
@@ -434,6 +443,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strConfianza"
@@ -463,6 +473,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strEquilibrioVida"
@@ -492,7 +503,8 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strRedesApoyoPropia"
                             defaultValue={data.str}

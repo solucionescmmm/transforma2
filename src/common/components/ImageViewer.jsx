@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from "react";
-import ImgsViewer from "react-images-viewer";
+import { Slideable } from "react-slideable";
+import "react-slideable/dist/index.css";
 
-import { ImageList, ImageListItem } from "@mui/material";
+import ImgsViewer from "react-images-viewer";
 
 export const ImageViewer = ({ images }) => {
     const [state, setState] = useState({
@@ -39,22 +40,32 @@ export const ImageViewer = ({ images }) => {
 
     return (
         <Fragment>
-            <ImageList cols={3} variant="masonry" gap={8}>
-                {images.map((img, index) => (
-                    <ImageListItem key={index}>
-                        <img
-                            alt="PICTU"
-                            onClick={() => handleImageClick(index)}
-                            src={img.src}
-                            style={{
-                                maxWidth: "100%",
-                                cursor: "pointer",
-                            }}
-                            loading="lazy"
-                        />
-                    </ImageListItem>
+            <Slideable
+                height={200}
+                width={900}
+                looped={false}
+                swipeable={true}
+                marginBetweenItems={8}
+                itemsPerScrollWidth={{
+                    480: 2,
+                    768: 3,
+                    1200: 4,
+                    max: 5,
+                }}
+                items={images.map((img, index) => (
+                    <img
+                        alt="PICTU"
+                        onClick={() => handleImageClick(index)}
+                        src={img.src}
+                        style={{
+                            maxWidth: "100%",
+                            cursor: "pointer",
+                        }}
+                        key={index}
+                        loading="lazy"
+                    />
                 ))}
-            </ImageList>
+            />
 
             <ImgsViewer
                 imgs={images}
