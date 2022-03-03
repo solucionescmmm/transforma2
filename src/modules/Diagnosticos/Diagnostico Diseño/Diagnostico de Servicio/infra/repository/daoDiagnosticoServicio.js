@@ -92,7 +92,7 @@ class daoDiagnosticoServicio {
     async updateDiagnosticoServicio(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
+            await conn.query`
 
             UPDATE tbl_DiagnosticoServicios
 
@@ -144,8 +144,7 @@ class daoDiagnosticoServicio {
 
             let result = {
                 error: false,
-                data: response.recordset[0],
-                msg: `El diagnostico de producto, fue actualizado con éxito.`,
+                msg: `El diagnostico de servicio, fue actualizado con éxito.`,
             };
 
             sql.close(conexion);
@@ -173,7 +172,7 @@ class daoDiagnosticoServicio {
 
             let result = {
                 error: false,
-                msg: "El diagnostico de producto, fue eliminado con éxito.",
+                msg: "El diagnostico de servicio, fue eliminado con éxito.",
             };
 
             sql.close(conexion);
