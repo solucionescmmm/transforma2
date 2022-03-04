@@ -12,6 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
+    TextField
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -149,8 +150,32 @@ const InfoComMercadeo = ({
                                             ?.strPartReuPerioSociSoli?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="PartReuPerioSociSoli"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComAsociativo.strPartReuPerioSociSoliDetalle"
+                            defaultValue={data.strPartReuPerioSociSoliDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Participo en las reuniones periódicas de la organización social y solidaria (asociación)"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAsociativo
+                                            ?.strPartReuPerioSociSoliDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -178,8 +203,32 @@ const InfoComMercadeo = ({
                                             ?.strConApliEstOrgSociSoli?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="ConApliEstOrgSociSoli"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComAsociativo.strConApliEstOrgSociSoliDetalle"
+                            defaultValue={data.strConApliEstOrgSociSoliDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Conozco y aplico estatutos de la organización social y solidaria"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAsociativo
+                                            ?.strConApliEstOrgSociSoliDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -207,8 +256,32 @@ const InfoComMercadeo = ({
                                             ?.strAsociEmpoOrgAdmin?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="AsociEmpoOrgAdmin"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComAsociativo.strAsociEmpoOrgAdminDetalle"
+                            defaultValue={data.strAsociEmpoOrgAdminDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Los asociados están empoderados y cuentan con órganos de administración y control"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAsociativo
+                                            ?.strAsociEmpoOrgAdminDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}

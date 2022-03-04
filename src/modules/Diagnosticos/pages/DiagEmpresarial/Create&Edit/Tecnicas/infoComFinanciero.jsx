@@ -12,6 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
+    TextField
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -158,8 +159,32 @@ const InfoComMercadeo = ({
                                             ?.strUniProdSosFinan?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="UniProdSosFinan"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComFinanciero.strUniProdSosFinanDetalle"
+                            defaultValue={data.strUniProdSosFinanDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Mi unidad productiva es sostenible financieramente"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComFinanciero
+                                            ?.strUniProdSosFinanDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -187,8 +212,32 @@ const InfoComMercadeo = ({
                                             ?.strEstrCosUniProdDef?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="EstrCosUniProdDef"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComFinanciero.strEstrCosUniProdDefDetalle"
+                            defaultValue={data.strEstrCosUniProdDefDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="La estructura de costos de mi unidad productiva está definida"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComFinanciero
+                                            ?.strEstrCosUniProdDefDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -216,8 +265,32 @@ const InfoComMercadeo = ({
                                             ?.strPrecProdServDef?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="PrecProdServDef"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComFinanciero.strPrecProdServDefDetalle"
+                            defaultValue={data.strPrecProdServDefDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Los precios de mis productos/servicio(s) están definidos"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComFinanciero
+                                            ?.strPrecProdServDefDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -245,8 +318,32 @@ const InfoComMercadeo = ({
                                             ?.strDefProcConUniProd?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="DefProcConUniProd"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComFinanciero.strDefProcConUniProdDetalle"
+                            defaultValue={data.strDefProcConUniProdDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Tengo definidos los procesos contables de mi unidad productiva"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComFinanciero
+                                            ?.strDefProcConUniProdDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -274,8 +371,32 @@ const InfoComMercadeo = ({
                                             ?.strElabPresUniProd?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="ElabPresUniProd"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComFinanciero.strElabPresUniProdDetalle"
+                            defaultValue={data.strElabPresUniProdDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Elaboro un presupuesto para mi unidad productiva"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComFinanciero
+                                            ?.strElabPresUniProdDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -303,8 +424,32 @@ const InfoComMercadeo = ({
                                             ?.strAdminDinUniProd?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="AdminDinUniProd"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComFinanciero.strAdminDinUniProdDetalle"
+                            defaultValue={data.strAdminDinUniProdDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Sé como administrar el dinero de mi unidad productiva"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComFinanciero
+                                            ?.strAdminDinUniProdDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}

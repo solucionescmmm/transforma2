@@ -12,6 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
+    TextField
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -164,7 +165,7 @@ const InfoComMercadeo = ({
                                             ?.strGradoIntervProdServi?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="GradoIntervProdServi"
                                 />
                             )}
@@ -193,8 +194,56 @@ const InfoComMercadeo = ({
                                             ?.strProcProdEst?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="ProcProdEst"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoComProductivo.strGradoIntervProdServiDetalle"
+                            defaultValue={data.strGradoIntervProdServiDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Grado de intervención en el producto/servicio"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComProductivo
+                                            ?.strGradoIntervProdServiDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoComProductivo.strProcProdEstDetalle"
+                            defaultValue={data.strProcProdEstDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Mis procesos productivos están"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComProductivo
+                                            ?.strProcProdEstDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -222,8 +271,32 @@ const InfoComMercadeo = ({
                                             ?.strDefProcComProv?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="DefProcComProv"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComProductivo.strDefProcComProvDetalle"
+                            defaultValue={data.strDefProcComProvDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Tengo definido los procesos de compra y los proveedores"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComProductivo
+                                            ?.strDefProcComProvDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -251,8 +324,32 @@ const InfoComMercadeo = ({
                                             ?.strContrlRegInv?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="ContrlRegInv"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComProductivo.strContrlRegInvDetalle"
+                            defaultValue={data.strContrlRegInvDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Llevo control y registro de los inventarios"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComProductivo
+                                            ?.strContrlRegInvDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -280,8 +377,32 @@ const InfoComMercadeo = ({
                                             ?.strCapProdRespMer?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="CapProdRespMer"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComProductivo.strCapProdRespMerDetalle"
+                            defaultValue={data.strCapProdRespMerDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Mi capacidad de producción y respuesta al mercado es"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComProductivo
+                                            ?.strCapProdRespMerDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -309,8 +430,32 @@ const InfoComMercadeo = ({
                                             ?.strEstadTecProd?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="EstadTecProd"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComProductivo.strEstadTecProdDetalle"
+                            defaultValue={data.strEstadTecProdDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="El estado de la ficha técnica de los productos es"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComProductivo
+                                            ?.strEstadTecProdDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -338,8 +483,32 @@ const InfoComMercadeo = ({
                                             ?.strEquipNecDesProdServi?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="EquipNecDesProdServi"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComProductivo.strEquipNecDesProdServidDetalle"
+                            defaultValue={data.strEquipNecDesProdServidDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Tengo los equipos necesarios para el desarrollo de mis productos/servicio(s)"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComProductivo
+                                            ?.strEquipNecDesProdServidDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -367,8 +536,32 @@ const InfoComMercadeo = ({
                                             ?.strProcManAmbiProd?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
+                                    strGrupo="DiagnosticoTecnico"
                                     strCodigo="ProcManAmbiProd"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComProductivo.strProcManAmbiProdDetalle"
+                            defaultValue={data.strProcManAmbiProdDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Tengo procesos para el manejo ambiental en la unidad productiva"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComProductivo
+                                            ?.strProcManAmbiProdDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}

@@ -12,6 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
+    TextField
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -206,6 +207,54 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoComAdministrativo.strUniProdGenEmpleDetalle"
+                            defaultValue={data.strUniProdGenEmpleDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="La unidad productiva genera empleo"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strUniProdGenEmpleDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoComAdministrativo.strEquipTrabEstructDetalle"
+                            defaultValue={data.strEquipTrabEstructDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Tengo un equipo de trabajo estructurado"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strEquipTrabEstructDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strEstrucFormaOrganiza"
@@ -230,6 +279,30 @@ const InfoComMercadeo = ({
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="EstrucFormaOrganiza"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComAdministrativo.strEstrucFormaOrganizaDetalle"
+                            defaultValue={data.strEstrucFormaOrganizaDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Tengo una estructura formal en la organización"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strEstrucFormaOrganizaDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -266,6 +339,30 @@ const InfoComMercadeo = ({
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <Controller
+                            name="objInfoComAdministrativo.strElabPlanTrabActivDetalle"
+                            defaultValue={data.strElabPlanTrabActivDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Elaboro planes de trabajo para organizar las actividades"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strElabPlanTrabActivDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
                             name="objInfoComAdministrativo.strReaEvalPerioEquipTrab"
                             defaultValue={data.strReaEvalPerioEquipTrab}
                             render={({ field: { name, onChange, value } }) => (
@@ -288,6 +385,30 @@ const InfoComMercadeo = ({
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="ReaEvalPerioEquipTrab"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComAdministrativo.strReaEvalPerioEquipTrabDetalle"
+                            defaultValue={data.strReaEvalPerioEquipTrabDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Realizo evalución periodica de el equipo de trabajo"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strReaEvalPerioEquipTrabDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -324,6 +445,30 @@ const InfoComMercadeo = ({
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <Controller
+                            name="objInfoComAdministrativo.strEmprFormaAcuerNormLabDetalle"
+                            defaultValue={data.strEmprFormaAcuerNormLabDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Mi empresa está formalizada de acuerdo con la normatividad laboral"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strEmprFormaAcuerNormLabDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
                             name="objInfoComAdministrativo.strEmprFormaReqLey"
                             defaultValue={data.strEmprFormaReqLey}
                             render={({ field: { name, onChange, value } }) => (
@@ -346,6 +491,30 @@ const InfoComMercadeo = ({
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="EmprFormaReqLey"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComAdministrativo.strEmprFormaReqLeyDetalle"
+                            defaultValue={data.strEmprFormaReqLeyDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Mi empresa está formalizada con los requisitos de ley"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strEmprFormaReqLeyDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
@@ -382,6 +551,30 @@ const InfoComMercadeo = ({
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <Controller
+                            name="objInfoComAdministrativo.strPlaneaEstraEmpPlanPlaniDetalle"
+                            defaultValue={data.strPlaneaEstraEmpPlanPlaniDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Tengo una planeación estratégica para mi empresa, mas que estrategica plan de trabajo, planificación"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strPlaneaEstraEmpPlanPlaniDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
                             name="objInfoComAdministrativo.strMidConstCumpliMetObj"
                             defaultValue={data.strMidConstCumpliMetObj}
                             render={({ field: { name, onChange, value } }) => (
@@ -411,6 +604,30 @@ const InfoComMercadeo = ({
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <Controller
+                            name="objInfoComAdministrativo.strMidConstCumpliMetObjDetalle"
+                            defaultValue={data.strMidConstCumpliMetObjDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Mido constatemente el cumplimiento de mis metas y objetivos"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strMidConstCumpliMetObjDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
                             name="objInfoComAdministrativo.strCueAcompJuri"
                             defaultValue={data.strCueAcompJuri}
                             render={({ field: { name, onChange, value } }) => (
@@ -433,6 +650,30 @@ const InfoComMercadeo = ({
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="CueAcompJuri"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComAdministrativo.strCueAcompJuriDetalle"
+                            defaultValue={data.strCueAcompJuriDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Cuento con acompañamiento jurídico"
+                                    name={name}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComAdministrativo
+                                            ?.strCueAcompJuriDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
                                 />
                             )}
                             control={control}
