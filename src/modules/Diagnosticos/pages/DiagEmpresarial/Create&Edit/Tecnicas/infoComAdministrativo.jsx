@@ -170,8 +170,8 @@ const InfoComMercadeo = ({
                                             ?.strUniProdGenEmple?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="UniProdGenEmple"
                                 />
                             )}
                             control={control}
@@ -199,8 +199,8 @@ const InfoComMercadeo = ({
                                             ?.strEquipTrabEstruct?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="EquipTrabEstruct"
                                 />
                             )}
                             control={control}
@@ -228,8 +228,8 @@ const InfoComMercadeo = ({
                                             ?.strEstrucFormaOrganiza?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="EstrucFormaOrganiza"
                                 />
                             )}
                             control={control}
@@ -257,8 +257,8 @@ const InfoComMercadeo = ({
                                             ?.strElabPlanTrabActiv?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="ElabPlanTrabActiv"
                                 />
                             )}
                             control={control}
@@ -286,8 +286,8 @@ const InfoComMercadeo = ({
                                             ?.strReaEvalPerioEquipTrab?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="ReaEvalPerioEquipTrab"
                                 />
                             )}
                             control={control}
@@ -315,8 +315,8 @@ const InfoComMercadeo = ({
                                             ?.strEmprFormaAcuerNormLab?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="EmprFormaAcuerNormLab"
                                 />
                             )}
                             control={control}
@@ -344,8 +344,8 @@ const InfoComMercadeo = ({
                                             ?.strEmprFormaReqLey?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="EmprFormaReqLey"
                                 />
                             )}
                             control={control}
@@ -373,8 +373,8 @@ const InfoComMercadeo = ({
                                             ?.strPlaneaEstraEmpPlanPlani?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="PlaneaEstraEmpPlanPlani"
                                 />
                             )}
                             control={control}
@@ -402,8 +402,8 @@ const InfoComMercadeo = ({
                                             ?.strMidConstCumpliMetObj?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="MidConstCumpliMetObj"
                                 />
                             )}
                             control={control}
@@ -431,8 +431,8 @@ const InfoComMercadeo = ({
                                             ?.strCueAcompJuri?.message ||
                                         "Seleccione una opción"
                                     }
-                                    strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="CueAcompJuri"
                                 />
                             )}
                             control={control}

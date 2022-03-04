@@ -150,7 +150,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="PartReuPerioSociSoli"
                                 />
                             )}
                             control={control}
@@ -179,7 +179,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="ConApliEstOrgSociSoli"
                                 />
                             )}
                             control={control}
@@ -208,7 +208,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="AsociEmpoOrgAdmin"
                                 />
                             )}
                             control={control}

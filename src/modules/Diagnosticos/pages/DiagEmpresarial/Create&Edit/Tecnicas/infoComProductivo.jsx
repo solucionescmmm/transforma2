@@ -165,7 +165,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="GradoIntervProdServi"
                                 />
                             )}
                             control={control}
@@ -194,7 +194,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="ProcProdEst"
                                 />
                             )}
                             control={control}
@@ -223,7 +223,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="DefProcComProv"
                                 />
                             )}
                             control={control}
@@ -252,7 +252,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="ContrlRegInv"
                                 />
                             )}
                             control={control}
@@ -281,7 +281,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="CapProdRespMer"
                                 />
                             )}
                             control={control}
@@ -310,7 +310,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="EstadTecProd"
                                 />
                             )}
                             control={control}
@@ -339,7 +339,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="EquipNecDesProdServi"
                                 />
                             )}
                             control={control}
@@ -368,7 +368,7 @@ const InfoComMercadeo = ({
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoProducto"
-                                    strCodigo="ProporcionEstetica"
+                                    strCodigo="ProcManAmbiProd"
                                 />
                             )}
                             control={control}
