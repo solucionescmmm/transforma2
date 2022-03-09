@@ -404,6 +404,7 @@ const InfoCategoria2 = ({
                                             label="Nivel"
                                             name={name}
                                             value={value}
+                                            valueList={data.strComunicacionMarca}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria2
