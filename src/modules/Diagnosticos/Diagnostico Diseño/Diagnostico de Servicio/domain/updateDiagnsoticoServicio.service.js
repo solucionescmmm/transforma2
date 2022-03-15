@@ -2,7 +2,7 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOComentarios = require("../infra/conectors/interfaseDAODiagnosticoServicio");
+const classInterfaceDAOServicio = require("../infra/conectors/interfaseDAODiagnosticoServicio");
 
 class updateDiagnosticoServicio {
     #objData;
@@ -57,7 +57,7 @@ class updateDiagnosticoServicio {
     }
 
     async #updateDiagnosticoServicio() {
-        let dao = new classInterfaceDAOComentarios();
+        let dao = new classInterfaceDAOServicio();
 
         let query = await dao.updateDiagnosticoServicio(this.#objData);
 
