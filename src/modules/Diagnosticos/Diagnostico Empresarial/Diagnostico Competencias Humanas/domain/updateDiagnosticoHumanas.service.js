@@ -48,9 +48,7 @@ class updateDiagnosticoHumanas {
             intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
             strUsuarioActualizacion: this.#objUser.strEmail,
-            ...this.#objData.objInfoEvaluacion,
-            ...this.#objData.objInfoNormatividad,
-            ...this.#objData.objInfoAdicional,
+            ...this.#objData.objInfoEncuestaHumanas,
         };
         this.#objData = newData;
     }
