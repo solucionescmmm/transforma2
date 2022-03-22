@@ -149,6 +149,10 @@ const ResumenProducto = () => {
 
     const [openCollapseFotos, setOpenCollapseFotos] = useState(false);
 
+    
+    const [openCollapseGrafico, setOpenCollapseGrafico] = useState(false);
+
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -206,6 +210,10 @@ const ResumenProducto = () => {
 
     const handlerChangeOpenCollapseFotos = () => {
         setOpenCollapseFotos(!openCollapseFotos);
+    };
+
+    const handlerChangeOpenCollapseGrafico = () => {
+        setOpenCollapseGrafico(!openCollapseGrafico);
     };
 
     //===============================================================================================================================================
@@ -1998,6 +2006,45 @@ const ResumenProducto = () => {
                                     </p>
                                 </Grid>
                             </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Grafíco de resultados</b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseGrafico()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseGrafico
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseGrafico ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseGrafico} timeout="auto">
+
                         </Collapse>
                     </Paper>
                 </Grid>

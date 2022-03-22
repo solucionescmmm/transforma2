@@ -162,6 +162,8 @@ const ResumenProducto = () => {
 
     const [openCollapseFotos, setOpenCollapseFotos] = useState(false);
 
+    const [openCollapseGrafico, setOpenCollapseGrafico] = useState(false);
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -219,6 +221,10 @@ const ResumenProducto = () => {
 
     const handlerChangeOpenCollapseFotos = () => {
         setOpenCollapseFotos(!openCollapseFotos);
+    };
+
+    const handlerChangeOpenCollapseGrafico = () => {
+        setOpenCollapseGrafico(!openCollapseGrafico);
     };
 
     //===============================================================================================================================================
@@ -2793,85 +2799,123 @@ const ResumenProducto = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Grid container direction="row" spacing={2}>
-                        <Grid item xs={12}>
-                            <Typography
-                                sx={{
-                                    color: "#F5B335",
-                                    textTransform: "uppercase",
-                                    marginTop: "25px",
-                                }}
-                                align="center"
-                            >
-                                <b>grafíco de resultados </b>
-                            </Typography>
-                        </Grid>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Grafíco de resultados </b>
+                                </Typography>
+                            </Box>
 
-                        {data.objInfoProductos.strCategoriaProductos ===
-                        "No Alimentos" ? (
-                            <Grid item xs={12} md={4}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                    }}
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseGrafico()
+                                    }
+                                    size="large"
                                 >
-                                    <Box sx={{ minWidth: "850px" }} id="chart-diag-prod">
-                                        <ChartBar
-                                            title="RESUMEN DEL DIAGNÓSTICO (No alimentos)"
-                                            labels={[
-                                                "Innovación",
-                                                "Estética",
-                                                "Experiencia",
-                                                "Marca",
-                                            ]}
-                                            values={[
-                                                data.objResultadoNoAlimentos
-                                                    .intInnovación || 0,
-                                                data.objResultadoNoAlimentos
-                                                    .intEstética || 0,
-                                                data.objResultadoNoAlimentos
-                                                    .intExperiencia || 0,
-                                                data.objResultadoNoAlimentos
-                                                    .intMarca || 0,
-                                            ]}
-                                        />
-                                    </Box>
-                                </Box>
+                                    <Tooltip
+                                        title={
+                                            openCollapseGrafico
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseGrafico ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseGrafico} timeout="auto">
+                            <Grid container direction="row" spacing={2}>
+                                {data.objInfoProductos.strCategoriaProductos ===
+                                "No Alimentos" ? (
+                                    <Grid item xs={12} md={4}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{ minWidth: "850px" }}
+                                                id="chart-diag-prod"
+                                            >
+                                                <ChartBar
+                                                    title="RESUMEN DEL DIAGNÓSTICO (No alimentos)"
+                                                    labels={[
+                                                        "Innovación",
+                                                        "Estética",
+                                                        "Experiencia",
+                                                        "Marca",
+                                                    ]}
+                                                    values={[
+                                                        data
+                                                            .objResultadoNoAlimentos
+                                                            .intInnovación || 0,
+                                                        data
+                                                            .objResultadoNoAlimentos
+                                                            .intEstética || 0,
+                                                        data
+                                                            .objResultadoNoAlimentos
+                                                            .intExperiencia ||
+                                                            0,
+                                                        data
+                                                            .objResultadoNoAlimentos
+                                                            .intMarca || 0,
+                                                    ]}
+                                                />
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                ) : (
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{ minWidth: "850px" }}
+                                                id="chart-diag-prod"
+                                            >
+                                                <ChartBar
+                                                    title="RESUMEN DEL DIAGNÓSTICO (Alimentos)"
+                                                    labels={[
+                                                        "Innovación",
+                                                        "Presentación y calidad",
+                                                        "Experiencia",
+                                                        "Marca",
+                                                    ]}
+                                                    values={[
+                                                        data
+                                                            .objResultadoAlimentos
+                                                            .intInnovación || 0,
+                                                        data
+                                                            .objResultadoAlimentos
+                                                            .intEstética || 0,
+                                                        data
+                                                            .objResultadoAlimentos
+                                                            .intExperiencia ||
+                                                            0,
+                                                        data
+                                                            .objResultadoAlimentos
+                                                            .intMarca || 0,
+                                                    ]}
+                                                />
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                )}
                             </Grid>
-                        ) : (
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <Box sx={{ minWidth: "850px" }} id="chart-diag-prod">
-                                        <ChartBar
-                                            title="RESUMEN DEL DIAGNÓSTICO (Alimentos)"
-                                            labels={[
-                                                "Innovación",
-                                                "Presentación y calidad",
-                                                "Experiencia",
-                                                "Marca",
-                                            ]}
-                                            values={[
-                                                data.objResultadoAlimentos
-                                                    .intInnovación || 0,
-                                                data.objResultadoAlimentos
-                                                    .intEstética || 0,
-                                                data.objResultadoAlimentos
-                                                    .intExperiencia || 0,
-                                                data.objResultadoAlimentos
-                                                    .intMarca || 0,
-                                            ]}
-                                        />
-                                    </Box>
-                                </Box>
-                            </Grid>
-                        )}
-                    </Grid>
+                        </Collapse>
+                    </Paper>
                 </Grid>
             </Grid>
         </Fragment>
