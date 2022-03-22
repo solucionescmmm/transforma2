@@ -50,9 +50,7 @@ class setDiagnosticoHumanas {
         let newData = {
             intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
-            ...this.#objData.objInfoEvaluacion,
-            ...this.#objData.objInfoNormatividad,
-            ...this.#objData.objInfoAdicional,
+            ...this.#objData.objInfoEncuestaHumanas,
         };
         this.#objData = newData;
     }
@@ -60,7 +58,7 @@ class setDiagnosticoHumanas {
     async #setDiagnosticoHumanas() {
         let dao = new classInterfaceDAOHumanas();
 
-        let query = await dao.setDiagnosticoHumanas(this.#objData);
+        let query = await dao.setDiagnosticoHumana(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);

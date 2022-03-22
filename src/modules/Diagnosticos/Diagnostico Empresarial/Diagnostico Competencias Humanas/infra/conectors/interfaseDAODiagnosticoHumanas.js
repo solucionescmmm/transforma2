@@ -10,19 +10,7 @@ class interfaceDAODiagnosticoHumana {
 
     async updateDiagnosticoHumana(data) {
         const dao = new classDaoSql();
-        let result = await dao.updateDiagnosticoHumana(data);
-        return result;
-    }
-
-    async updateEmpresarioDiagnosticoHumana(data) {
-        const dao = new classDaoSql();
-        let result = await dao.updateEmpresarioDiagnosticoHumana(data);
-        return result;
-    }
-
-    async updateEmpresaDiagnosticoHumana(data) {
-        const dao = new classDaoSql();
-        let result = await dao.updateEmpresaDiagnosticoHumana(data);
+        let result = await dao.updateDiagnosticoHumanas(data);
         return result;
     }
 
