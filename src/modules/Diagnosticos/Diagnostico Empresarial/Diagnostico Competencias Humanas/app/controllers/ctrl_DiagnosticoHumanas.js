@@ -1,7 +1,7 @@
 //Servicios
 const setDiagnosticoHumana = require("../../domain/setDiagnosticoHumanas.service");
-//const getDiagnosticoHumana = require("../../domain/getDiagnosticoHumana.service");
-//const updateDiagnosticoHumana = require ("../../domain/updateDiagnosticoHumana.service")
+const getDiagnosticoHumana = require("../../domain/getDiagnosticoHumanas.service");
+const updateDiagnosticoHumana = require ("../../domain/updateDiagnosticoHumanas.service")
 
 class ctrl_DiagnosticoHumana {
     async setDiagnosticoHumana(req, res) {

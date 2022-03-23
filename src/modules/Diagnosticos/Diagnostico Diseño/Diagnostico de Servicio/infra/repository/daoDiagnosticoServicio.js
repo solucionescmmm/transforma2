@@ -90,6 +90,7 @@ class daoDiagnosticoServicio {
     }
 
     async updateDiagnosticoServicio(data) {
+        console.log(data);
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn.query`
