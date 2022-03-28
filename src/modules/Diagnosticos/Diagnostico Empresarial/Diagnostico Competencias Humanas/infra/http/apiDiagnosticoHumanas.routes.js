@@ -25,7 +25,7 @@ routes.put(
     "/transforma/api/diagnosticos/diagnosticoEmpresarial/updateDiagnosticoHumana",
     async (req, res) => {
         let controllerDiagnosticoHumana = new classController();
-        await controllerDiagnosticoHumana(req, res);
+        await controllerDiagnosticoHumana.updateDiagnosticoHumana(req, res);
     }
 );
 
