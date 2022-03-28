@@ -4,6 +4,7 @@ import React, {
     useEffect,
     useRef,
     useCallback,
+    Fragment,
 } from "react";
 
 //Context
@@ -11,6 +12,7 @@ import { AuthContext } from "../../../../../../common/middlewares/Auth";
 
 //Hooks
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
+import useGetDiagnHumano from "../../../../../Diagnosticos/hooks/useGetDiagnHumano";
 
 //Librerias
 import { Link as RouterLink, Redirect } from "react-router-dom";
@@ -29,6 +31,13 @@ import {
     Box,
     Typography,
     Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    useTheme,
+    useMediaQuery,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -95,6 +104,8 @@ const PageCUGeneral = ({ intId, isEdit }) => {
         objInfoEncuestaHumanas: {},
     });
 
+    const [openModal, setOpenModal] = useState(false);
+
     const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
@@ -123,7 +134,15 @@ const PageCUGeneral = ({ intId, isEdit }) => {
 
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
 
+    const { getUniqueData: getUniqueDataHum } = useGetDiagnHumano({
+        autoLoad: false,
+    });
+
     const refFntGetData = useRef(getUniqueData);
+    const refFntGetDataHum = useRef(getUniqueDataHum);
+
+    const theme = useTheme();
+    const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -152,9 +171,9 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEHUMANAS
                             : process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETHUMANAS
                     }`,
                     data,
                     transformRequest: [
@@ -332,18 +351,49 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                             });
                         }
 
-                        setLoadingGetData(false);
                         setErrorGetData({ flag: false, msg: "" });
                     })
                     .catch((error) => {
                         setErrorGetData({ flag: true, msg: error.message });
+                    });
+
+                await refFntGetDataHum
+                    .current({ intIdEmpresario: intId })
+                    .then((res) => {
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
+
+                        if (res.data?.data) {
+                            let data = res.data.data[0];
+
+                            setData((prevState) => ({
+                                ...prevState,
+                                ...data,
+                            }));
+
+                            if (!isEdit) {
+                                setOpenModal(true);
+                            }
+                        }
+
+                        setErrorGetData({ flag: false, msg: "" });
+
+                        setLoadingGetData(false);
+                    })
+                    .catch((error) => {
+                        setErrorGetData({
+                            flag: true,
+                            msg: error.message,
+                        });
+
                         setLoadingGetData(false);
                     });
             }
 
             getData();
         }
-    }, [intId]);
+    }, [intId, isEdit]);
 
     useEffect(() => {
         if (intId) {
@@ -395,145 +445,182 @@ const PageCUGeneral = ({ intId, isEdit }) => {
     }
 
     return (
-        <Grid
-            container
-            direction="row"
-            spacing={3}
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-        >
-            <Grid item xs={12}>
-                <Button
-                    component={RouterLink}
-                    to={`/diagnosticos/diagEmpresarial`}
-                    startIcon={<ChevronLeftIcon />}
-                    size="small"
-                    color="inherit"
-                >
-                    Regresar
-                </Button>
-            </Grid>
+        <Fragment>
+            <Dialog
+                open={openModal}
+                disableEscapeKeyDown
+                fullScreen={bitMobile}
+            >
+                <DialogTitle>Aviso</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Se ha detectado que la persona empresaria ya cuenta con
+                        un registro del diagnóstico de competencias humanas.
+                        ¿Deseas editar la información o previsualizar el
+                        resumen?
+                    </DialogContentText>
+                </DialogContent>
 
-            <Grid item xs={12}>
-                <Container className={classes.containerPR}>
-                    <Paper className={classes.paper}>
-                        {loading ? (
-                            <LinearProgress
-                                className={classes.linearProgress}
-                            />
-                        ) : null}
+                <DialogActions>
+                    <Button
+                        component={RouterLink}
+                        to={`/diagnosticos/diagEmpresarial/humanas/read/${data.objInfoGeneral?.intId}`}
+                        color="inherit"
+                    >
+                        ver resumen
+                    </Button>
 
-                        <Grid
-                            container
-                            direction="row"
-                            spacing={2}
-                            style={{ padding: "25px" }}
-                        >
-                            <Grid item xs={12}>
-                                <Grid
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        width: "100%",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Box
+                    <Button
+                        component={RouterLink}
+                        to={`/diagnosticos/diagEmpresarial/humanas/edit/`}
+                    >
+                        editar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Grid
+                container
+                direction="row"
+                spacing={3}
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+            >
+                <Grid item xs={12}>
+                    <Button
+                        component={RouterLink}
+                        to={`/diagnosticos/diagEmpresarial`}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        Regresar
+                    </Button>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Container className={classes.containerPR}>
+                        <Paper className={classes.paper}>
+                            {loading ? (
+                                <LinearProgress
+                                    className={classes.linearProgress}
+                                />
+                            ) : null}
+
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={2}
+                                style={{ padding: "25px" }}
+                            >
+                                <Grid item xs={12}>
+                                    <Grid
                                         sx={{
-                                            flexGrow: 1,
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            width: "100%",
+                                            justifyContent: "center",
+                                            alignItems: "center",
                                         }}
                                     >
-                                        <Typography
-                                            align="center"
-                                            style={{
-                                                fontWeight: "bold",
-                                                textTransform: "uppercase",
+                                        <Box
+                                            sx={{
+                                                flexGrow: 1,
                                             }}
-                                            color="primary"
-                                            variant="body1"
                                         >
-                                            {isEdit
-                                                ? "editar diagnóstico de competencias humanas"
-                                                : "registrar diagnóstico de competencias humanas"}
-                                        </Typography>
+                                            <Typography
+                                                align="center"
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    textTransform: "uppercase",
+                                                }}
+                                                color="primary"
+                                                variant="body1"
+                                            >
+                                                {isEdit
+                                                    ? "editar diagnóstico de competencias humanas"
+                                                    : "registrar diagnóstico de competencias humanas"}
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography variant="caption">
+                                        Todos los campos marcados con (*) son
+                                        obligatorios.
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoGeneral
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoGeneral}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                {errors.objInfoGeneral && (
+                                    <Grid item xs={12}>
+                                        <Alert severity="error">
+                                            Lo sentimos, tienes campos
+                                            pendientes por diligenciar en el
+                                            formulario, revisa e intentalo
+                                            nuevamente.
+                                        </Alert>
+                                    </Grid>
+                                )}
+
+                                <Grid item xs={12}>
+                                    <InfoEncuestaHumanas
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoEncuestaHumanas}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                {errors.objInfoEncuestaHumanas && (
+                                    <Grid item xs={12}>
+                                        <Alert severity="error">
+                                            Lo sentimos, tienes campos
+                                            pendientes por diligenciar en el
+                                            formulario, revisa e intentalo
+                                            nuevamente.
+                                        </Alert>
+                                    </Grid>
+                                )}
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                        }}
+                                    >
+                                        <LoadingButton
+                                            variant="contained"
+                                            type="submit"
+                                            loading={loading}
+                                        >
+                                            {isEdit ? "guardar" : "registrar"}
+                                        </LoadingButton>
                                     </Box>
                                 </Grid>
                             </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="caption">
-                                    Todos los campos marcados con (*) son
-                                    obligatorios.
-                                </Typography>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoGeneral
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoGeneral}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            {errors.objInfoGeneral && (
-                                <Grid item xs={12}>
-                                    <Alert severity="error">
-                                        Lo sentimos, tienes campos pendientes
-                                        por diligenciar en el formulario, revisa
-                                        e intentalo nuevamente.
-                                    </Alert>
-                                </Grid>
-                            )}
-
-                            <Grid item xs={12}>
-                                <InfoEncuestaHumanas
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoEncuestaHumanas}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            {errors.objInfoEncuestaHumanas && (
-                                <Grid item xs={12}>
-                                    <Alert severity="error">
-                                        Lo sentimos, tienes campos pendientes
-                                        por diligenciar en el formulario, revisa
-                                        e intentalo nuevamente.
-                                    </Alert>
-                                </Grid>
-                            )}
-
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row-reverse",
-                                    }}
-                                >
-                                    <LoadingButton
-                                        variant="contained"
-                                        type="submit"
-                                        loading={loading}
-                                    >
-                                        {isEdit ? "guardar" : "registrar"}
-                                    </LoadingButton>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                </Container>
+                        </Paper>
+                    </Container>
+                </Grid>
             </Grid>
-        </Grid>
+        </Fragment>
     );
 };
 

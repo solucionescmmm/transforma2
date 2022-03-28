@@ -221,6 +221,30 @@ const TabsRoutes = ({ values, intId }) => {
                 />
 
                 <Route
+                    path="/diagnosticos/diagEmpresarial/humanas/edit/"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageCUHumanas intId={intId} isEdit />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagEmpresarial/humanas/read/:intId"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageCUHumanas intId={intId} isEdit />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
                     path="/diagnosticos/diagDesign/"
                     exact
                     component={() => (

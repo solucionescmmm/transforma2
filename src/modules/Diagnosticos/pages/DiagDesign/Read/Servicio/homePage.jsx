@@ -34,6 +34,7 @@ import useGetDiagnServ from "../../../../hooks/useGetDiagnServ";
 import ModalEditDiagServ from "./modalEdit";
 import ModalPDF from "./modalPDF";
 import { ImageViewer } from "../../../../../../common/components/ImageViewer";
+import ChartBar from "./chartBar";
 
 const ResumenProducto = () => {
     //===============================================================================================================================================
@@ -117,6 +118,7 @@ const ResumenProducto = () => {
         objInfoFortalezas: [],
         arrImagenes: [],
         strConclusiones: "",
+        objResultServicio: {},
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
@@ -149,9 +151,7 @@ const ResumenProducto = () => {
 
     const [openCollapseFotos, setOpenCollapseFotos] = useState(false);
 
-    
     const [openCollapseGrafico, setOpenCollapseGrafico] = useState(false);
-
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -170,7 +170,7 @@ const ResumenProducto = () => {
     };
 
     const handlerChangeOpenModalPDF = () => {
-        const divChart = window.document.getElementById("chart-diag-prod");
+        const divChart = window.document.getElementById("chart-diag-serv");
 
         html2canvas(divChart).then((canvas) => {
             const img = canvas.toDataURL("image/png");
@@ -612,6 +612,7 @@ const ResumenProducto = () => {
                                 objInfoFortalezas: prevInfoFortalezas,
                                 strConclusiones,
                                 arrImagenes: newArrImagenes,
+                                objResultServicio: data.objResultServicio,
                             };
                         });
                     }
@@ -645,6 +646,8 @@ const ResumenProducto = () => {
             />
         );
     }
+
+    console.log(data);
 
     return (
         <Fragment>
@@ -2044,7 +2047,38 @@ const ResumenProducto = () => {
                         </Box>
 
                         <Collapse in={openCollapseGrafico} timeout="auto">
-
+                            <Grid container direction="row" spacing={2}>
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{ minWidth: "850px" }}
+                                            id="chart-diag-serv"
+                                        >
+                                            <ChartBar
+                                                title="RESUMEN DEL DIAGNÓSTICO"
+                                                labels={[
+                                                    "Innovación",
+                                                    "Experiencia",
+                                                    "Marca",
+                                                ]}
+                                                values={[
+                                                    data.objResultServicio
+                                                        .intInnovacion || 0,
+                                                    data.objResultServicio
+                                                        .intExperiencia || 0,
+                                                    data.objResultServicio
+                                                        .intMarca || 0,
+                                                ]}
+                                            />
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                            </Grid>
                         </Collapse>
                     </Paper>
                 </Grid>

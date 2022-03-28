@@ -131,7 +131,7 @@ const InfoEmprendimiento = ({
                             color: errors?.objInfoEmprendimiento ? "#D33030" : "inherit",
                         }}
                     >
-                        Información del emprendimiento/unidad productiva/microempresa
+                        Información del emprendimiento
                     </Typography>
                 </Box>
 
@@ -162,7 +162,7 @@ const InfoEmprendimiento = ({
                             name="objInfoEmprendimiento.strUnidadProductiva"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Nombre de la unidad productiva"
+                                    label="Nombre de la empresa"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -178,14 +178,14 @@ const InfoEmprendimiento = ({
                                     helperText={
                                         errors?.objInfoEmprendimiento?.strUnidadProductiva
                                             ?.message ||
-                                        "Digita el nombre de la unidad productiva"
+                                        "Digita el nombre de la empresa"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digita el nombre de la unidad productiva",
+                                    "Por favor, digita el nombre de la empresa",
                             }}
                         />
                     </Grid>
@@ -270,7 +270,7 @@ const InfoEmprendimiento = ({
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona el lugar donde opera la unidad productiva de la empresa",
+                                    "Por favor, selecciona el lugar donde opera la empresa",
                             }}
                         />
                     </Grid>
@@ -647,7 +647,7 @@ const InfoEmprendimiento = ({
                             name="objInfoEmprendimiento.strTiempoDedicacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTiempoDedicacionEmpresa
-                                    label="Tiempo de dedicación actual a la idea o negocio"
+                                    label="Tiempo de dedicación actual a la empresa"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
