@@ -1,5 +1,5 @@
 //Class
-const classInterfaceDAODiagnostico = require("../infra/repository/daoDiagnosticoHumanas");
+const classInterfaceDAODiagnostico = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
 const validator = require("validator").default;
 
 const getDiagnosticoHumanas = async (objParams, strDataUser) => {
@@ -25,7 +25,8 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
         intIdEmpresario,
     };
 
-    //let intIdEmpresarioDiagnostico = await dao.getIntIdEmpresario(query)
+    let intIdEmpresarioDiagnostico = await dao.getIntIdEmpresario(query)
+    let arrayResultDiagnosticoHumanas = await dao.getResultDiagnosticoHumanas(intIdEmpresarioDiagnostico.data);
 
     let arrayData = await dao.getDiagnosticoHumanas(query);
 
@@ -62,9 +63,12 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strRedesApoyoPropia:array[i]?.strRedesApoyoPropia
                 }
 
+                let objResultDiagnosticoHumanas = arrayResultDiagnosticoHumanas
+
                 data[i] = {
                     objInfoGeneral,
                     objInfoEncuestaHumanas,
+                    objResultDiagnosticoHumanas
                 };
             }
             let result = {

@@ -23,6 +23,7 @@ class setDiagnosticoHumanas {
         await this.#getIntIdEmpresario();
         await this.#completeData();
         await this.#setDiagnosticoHumanas();
+        await this.#setResultDiagnosticoHumanas();
         return this.#objResult;
     }
 
@@ -69,6 +70,18 @@ class setDiagnosticoHumanas {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #setResultDiagnosticoHumanas() {
+        let dao = new classInterfaceDAOHumanas();
+
+        let query = await dao.setResultDiagnosticoHumanas({
+            intIdEmpresario: this.#intIdEmpresario,
+        });
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 }
 module.exports = setDiagnosticoHumanas;

@@ -8,7 +8,7 @@ const {
 } = require("../../../../../../common/config/confSQL_connectionTransfroma");
 
 class daoDiagnosticoHumanas {
-    async setDiagnosticoHumana(data) {
+    async setDiagnosticoHumanas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -176,6 +176,93 @@ class daoDiagnosticoHumanas {
                 msg:
                     error.message ||
                     "Error en el metodo getDiagnosticoHumanas de la clase daoDiagnosticoHumanas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async setResultDiagnosticoHumanas(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn
+                .request()
+                .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .execute("sp_SetResultDiagnosticoHumano");
+
+            let result = {
+                error: false, 
+            };
+
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setResultDiagnosticoHumanas de la clase daoDiagnosticoHumanas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getResultDiagnosticoHumanas(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn
+                .request()
+                .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .execute("sp_GetResultDiagnosticoHumano");
+
+            let result = {
+                error: false,
+                data: response.recordset[0]
+            };
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getResultDiagnosticoHumanas de la clase daoDiagnosticoHumanas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getIntIdEmpresario(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT intIdEmpresario
+            FROM tbl_DiagnosticoHumanoSocial
+ 
+            WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let result = {
+                error: false,
+                data:  response.recordset[0]
+            };
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getIntIdEmpresario de la clase daoDiagnosticoHumanas",
             };
 
             sql.close(conexion);

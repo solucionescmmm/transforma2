@@ -2,7 +2,7 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAODiagnosticoHumana = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
+const classInterfaceDAOHumanas = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
 
 class updateDiagnosticoHumanas {
     #objData;
@@ -20,6 +20,7 @@ class updateDiagnosticoHumanas {
         await this.#getIntIdEmpresario();
         await this.#completeData();
         await this.#updateDiagnosticoHumanas();
+        await this.#setResultDiagnosticoHumanas();
         return this.#objResult;
     }
 
@@ -54,7 +55,7 @@ class updateDiagnosticoHumanas {
     }
 
     async #updateDiagnosticoHumanas() {
-        let dao = new classInterfaceDAODiagnosticoHumana();
+        let dao = new classInterfaceDAOHumanas();
 
         let query = await dao.updateDiagnosticoHumana(this.#objData);
 
@@ -67,6 +68,18 @@ class updateDiagnosticoHumanas {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #setResultDiagnosticoHumanas() {
+        let dao = new classInterfaceDAOHumanas();
+
+        let query = await dao.setResultDiagnosticoHumanas({
+            intIdEmpresario: this.#intIdEmpresario,
+        });
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 }
 module.exports = updateDiagnosticoHumanas;

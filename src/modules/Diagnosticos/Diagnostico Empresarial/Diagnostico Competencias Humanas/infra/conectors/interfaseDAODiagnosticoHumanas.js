@@ -4,7 +4,7 @@ const classDaoSql = require("../repository/daoDiagnosticoHumanas");
 class interfaceDAODiagnosticoHumana {
     async setDiagnosticoHumana(data) {
         const dao = new classDaoSql();
-        let result = await dao.setDiagnosticoHumana(data);
+        let result = await dao.setDiagnosticoHumanas(data);
         return result;
     }
 
@@ -24,6 +24,24 @@ class interfaceDAODiagnosticoHumana {
         const dao = new classDaoSql();
         let result = await dao.getDiagnosticoHumana(data);
         return result;
+    }
+
+    async setResultDiagnosticoHumanas(data) {
+        const dao = new classDaoSql();
+        let result = await dao.setResultDiagnosticoHumanas(data);
+        return result;
+    }
+
+    async getResultDiagnosticoHumanas(data) {
+        const dao = new classDaoSql();
+        let result = await dao.getResultDiagnosticoHumanas(data);
+        return result;
+    }
+
+    async getIntIdEmpresario(data){
+        const dao = new classDaoSql()
+        let result = await dao.getIntIdEmpresario(data)
+        return result
     }
 }
 module.exports = interfaceDAODiagnosticoHumana;
