@@ -1,28 +1,28 @@
 //classDao
 const classDaoSql = require("../repository/daoDiagnosticoHumanas");
 
-class interfaceDAODiagnosticoHumana {
-    async setDiagnosticoHumana(data) {
+class interfaceDAODiagnosticoHumanas {
+    async setDiagnosticoHumanas(data) {
         const dao = new classDaoSql();
         let result = await dao.setDiagnosticoHumanas(data);
         return result;
     }
 
-    async updateDiagnosticoHumana(data) {
+    async updateDiagnosticoHumanas(data) {
         const dao = new classDaoSql();
         let result = await dao.updateDiagnosticoHumanas(data);
         return result;
     }
 
-    async deleteDiagnosticoHumana(data) {
+    async deleteDiagnosticoHumanas(data) {
         const dao = new classDaoSql();
-        let result = await dao.deleteDiagnosticoHumana(data);
+        let result = await dao.deleteDiagnosticoHumanas(data);
         return result;
     }
 
-    async getDiagnosticoHumana(data) {
+    async getDiagnosticoHumanas(data) {
         const dao = new classDaoSql();
-        let result = await dao.getDiagnosticoHumana(data);
+        let result = await dao.getDiagnosticoHumanas(data);
         return result;
     }
 
@@ -44,4 +44,4 @@ class interfaceDAODiagnosticoHumana {
         return result
     }
 }
-module.exports = interfaceDAODiagnosticoHumana;
+module.exports = interfaceDAODiagnosticoHumanas;

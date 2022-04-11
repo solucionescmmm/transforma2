@@ -57,7 +57,7 @@ class updateDiagnosticoHumanas {
     async #updateDiagnosticoHumanas() {
         let dao = new classInterfaceDAOHumanas();
 
-        let query = await dao.updateDiagnosticoHumana(this.#objData);
+        let query = await dao.updateDiagnosticoHumanas(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);

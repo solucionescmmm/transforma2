@@ -59,7 +59,7 @@ class setDiagnosticoHumanas {
     async #setDiagnosticoHumanas() {
         let dao = new classInterfaceDAOHumanas();
 
-        let query = await dao.setDiagnosticoHumana(this.#objData);
+        let query = await dao.setDiagnosticoHumanas(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
