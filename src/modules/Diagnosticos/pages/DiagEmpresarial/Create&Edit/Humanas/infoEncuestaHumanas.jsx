@@ -110,7 +110,7 @@ const InfoEncuestaHumanas = ({
                                 : "inherit",
                         }}
                     >
-                        Componente financiero
+                        Componente humano
                     </Typography>
                 </Box>
 

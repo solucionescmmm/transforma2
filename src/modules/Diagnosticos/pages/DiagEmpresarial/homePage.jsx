@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 
 //Librerias
 import { Link as RouterLink } from "react-router-dom";
@@ -23,182 +23,288 @@ import {
     ListAlt as ListAltIcon,
 } from "@mui/icons-material";
 
+// Hooks
+import useGetDiagnHumano from "../../hooks/useGetDiagnHumano";
+
+// Componentes
+import Loader from "../../../../common/components/Loader";
+import ErrorPage from "../../../../common/components/Error";
+
+import ModalResumen from "./modalResumen";
+
 const DiagEmpresarialPage = ({ intId }) => {
+    //===============================================================================================================================================
+    //========================================== Declaracion de estados =============================================================================
+    //===============================================================================================================================================
+    const [loadingGetData, setLoadingGetData] = useState(false);
+
+    const [openModalResumen, setOpenModalResumen] = useState(false);
+
+    const handleOpenModalResumen = () => {
+        setOpenModalResumen(!openModalResumen);
+    };
+
+    const [objResumen, setObjResumen] = useState({
+        bitResumenHumano: false,
+    });
+
+    const [objHum, setObjHum] = useState();
+
+    const [errorGetData, setErrorGetData] = useState({
+        flag: false,
+        msg: "",
+    });
+
+    //===============================================================================================================================================
+    //========================================== Hooks personalizados ===============================================================================
+    //===============================================================================================================================================
+    const { getUniqueData: getUniqueDataHum } = useGetDiagnHumano({
+        autoLoad: false,
+    });
+
+    const refFntGetDataHum = useRef(getUniqueDataHum);
+
+    //===============================================================================================================================================
+    //========================================== useEffects =========================================================================================
+    //===============================================================================================================================================
+    useEffect(() => {
+        setLoadingGetData(true);
+
+        async function getData() {
+            await refFntGetDataHum
+                .current({ intIdEmpresario: intId })
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    if (res.data?.data) {
+                        let data = res.data.data[0];
+
+                        setObjHum(data);
+
+                        setObjResumen((prevState) => ({
+                            ...prevState,
+                            bitResumenHumano: true,
+                        }));
+                    }
+
+                    setErrorGetData({ flag: false, msg: "" });
+                })
+                .catch((error) => {
+                    setErrorGetData({ flag: true, msg: error.message });
+                });
+
+            setLoadingGetData(false);
+        }
+
+        getData();
+    }, [intId]);
+
+    //===============================================================================================================================================
+    //========================================== Renders ============================================================================================
+    //===============================================================================================================================================
+    if (loadingGetData) {
+        return <Loader />;
+    }
+
+    if (errorGetData.flag) {
+        return (
+            <ErrorPage
+                severity="error"
+                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                title={errorGetData.msg}
+            />
+        );
+    }
+
     return (
-        <Grid container direction="row" spacing={2}>
-            <Grid item xs={12}>
-                <Button
-                    component={RouterLink}
-                    to={`/diagnosticos/`}
-                    startIcon={<ChevronLeftIcon />}
-                    size="small"
-                    color="inherit"
-                >
-                    regresar
-                </Button>
-            </Grid>
+        <Fragment>
+            <ModalResumen
+                onClose={handleOpenModalResumen}
+                open={openModalResumen}
+                values={{
+                    intIdHumano: objHum?.objInfoGeneral?.intId,
+                }}
+            />
 
-            <Grid item xs={12} md={2}>
-                <Card>
-                    <CardActionArea>
-                        <CardContent sx={{ padding: "0px" }}>
-                            <Grid container direction="row" spacing={2}>
-                                <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "columns",
-                                            alignContent: "center",
-                                            justifyContent: "center",
-                                            backgroundColor: "#7BDBD8",
-                                            padding: "25px",
-                                        }}
-                                    >
-                                        <Box>
-                                            <ListAltIcon
-                                                htmlColor="#fff"
-                                                sx={{ fontSize: "80px" }}
-                                            />
-                                        </Box>
-                                    </Box>
-
-                                    <Typography
-                                        variant="subtitle2"
-                                        align="center"
-                                        sx={{ padding: "10px" }}
-                                    >
-                                        Resumen
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-            </Grid>
-
-            <Grid item xs={12} md={2}>
-                <Card>
-                    <CardActionArea
+            <Grid container direction="row" spacing={2}>
+                <Grid item xs={12}>
+                    <Button
                         component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial/general/create`}
+                        to={`/diagnosticos/`}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
                     >
-                        <CardContent sx={{ padding: "0px" }}>
-                            <Grid container direction="row" spacing={2}>
-                                <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "columns",
-                                            alignContent: "center",
-                                            justifyContent: "center",
-                                            backgroundColor: "#7BDBD8",
-                                            padding: "25px",
-                                        }}
-                                    >
-                                        <Box>
-                                            <FactCheckIcon
-                                                htmlColor="#fff"
-                                                sx={{ fontSize: "80px" }}
-                                            />
+                        regresar
+                    </Button>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <Card>
+                        <CardActionArea
+                            onClick={() => handleOpenModalResumen()}
+                        >
+                            <CardContent sx={{ padding: "0px" }}>
+                                <Grid container direction="row" spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "columns",
+                                                alignContent: "center",
+                                                justifyContent: "center",
+                                                backgroundColor: "#7BDBD8",
+                                                padding: "25px",
+                                            }}
+                                        >
+                                            <Box>
+                                                <ListAltIcon
+                                                    htmlColor="#fff"
+                                                    sx={{ fontSize: "80px" }}
+                                                />
+                                            </Box>
                                         </Box>
-                                    </Box>
 
-                                    <Typography
-                                        variant="subtitle2"
-                                        align="center"
-                                        sx={{ padding: "10px" }}
-                                    >
-                                        Información general
-                                    </Typography>
+                                        <Typography
+                                            variant="subtitle2"
+                                            align="center"
+                                            sx={{ padding: "10px" }}
+                                        >
+                                            Resumen
+                                        </Typography>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-            </Grid>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
 
-            <Grid item xs={12} md={2}>
-                <Card>
-                    <CardActionArea
-                        component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial/humanas/create`}
-                    >
-                        <CardContent sx={{ padding: "0px" }}>
-                            <Grid container direction="row" spacing={2}>
-                                <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "columns",
-                                            alignContent: "center",
-                                            justifyContent: "center",
-                                            backgroundColor: "#7BDBD8",
-                                            padding: "25px",
-                                        }}
-                                    >
-                                        <Box>
-                                            <PeopleIcon
-                                                htmlColor="#fff"
-                                                sx={{ fontSize: "80px" }}
-                                            />
+                <Grid item xs={12} md={2}>
+                    <Card>
+                        <CardActionArea
+                            component={RouterLink}
+                            to={`/diagnosticos/diagEmpresarial/general/create`}
+                        >
+                            <CardContent sx={{ padding: "0px" }}>
+                                <Grid container direction="row" spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "columns",
+                                                alignContent: "center",
+                                                justifyContent: "center",
+                                                backgroundColor: "#7BDBD8",
+                                                padding: "25px",
+                                            }}
+                                        >
+                                            <Box>
+                                                <FactCheckIcon
+                                                    htmlColor="#fff"
+                                                    sx={{ fontSize: "80px" }}
+                                                />
+                                            </Box>
                                         </Box>
-                                    </Box>
 
-                                    <Typography
-                                        variant="subtitle2"
-                                        align="center"
-                                        sx={{ padding: "10px" }}
-                                    >
-                                        Competencias humanas
-                                    </Typography>
+                                        <Typography
+                                            variant="subtitle2"
+                                            align="center"
+                                            sx={{ padding: "10px" }}
+                                        >
+                                            Información general
+                                        </Typography>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-            </Grid>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
 
-            <Grid item xs={12} md={2}>
-                <Card>
-                    <CardActionArea
-                        component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial/tecnicas/create`}
-                    >
-                        <CardContent sx={{ padding: "0px" }}>
-                            <Grid container direction="row" spacing={2}>
-                                <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "columns",
-                                            alignContent: "center",
-                                            justifyContent: "center",
-                                            backgroundColor: "#7BDBD8",
-                                            padding: "25px",
-                                        }}
-                                    >
-                                        <Box>
-                                            <ManageAccountsIcon
-                                                htmlColor="#fff"
-                                                sx={{ fontSize: "80px" }}
-                                            />
+                <Grid item xs={12} md={2}>
+                    <Card>
+                        <CardActionArea
+                            component={RouterLink}
+                            to={`/diagnosticos/diagEmpresarial/humanas/create`}
+                        >
+                            <CardContent sx={{ padding: "0px" }}>
+                                <Grid container direction="row" spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "columns",
+                                                alignContent: "center",
+                                                justifyContent: "center",
+                                                backgroundColor: "#7BDBD8",
+                                                padding: "25px",
+                                            }}
+                                        >
+                                            <Box>
+                                                <PeopleIcon
+                                                    htmlColor="#fff"
+                                                    sx={{ fontSize: "80px" }}
+                                                />
+                                            </Box>
                                         </Box>
-                                    </Box>
 
-                                    <Typography
-                                        variant="subtitle2"
-                                        align="center"
-                                        sx={{ padding: "10px" }}
-                                    >
-                                        Competencias técnicas
-                                    </Typography>
+                                        <Typography
+                                            variant="subtitle2"
+                                            align="center"
+                                            sx={{ padding: "10px" }}
+                                        >
+                                            Competencias humanas
+                                        </Typography>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <Card>
+                        <CardActionArea
+                            component={RouterLink}
+                            to={`/diagnosticos/diagEmpresarial/tecnicas/create`}
+                        >
+                            <CardContent sx={{ padding: "0px" }}>
+                                <Grid container direction="row" spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "columns",
+                                                alignContent: "center",
+                                                justifyContent: "center",
+                                                backgroundColor: "#7BDBD8",
+                                                padding: "25px",
+                                            }}
+                                        >
+                                            <Box>
+                                                <ManageAccountsIcon
+                                                    htmlColor="#fff"
+                                                    sx={{ fontSize: "80px" }}
+                                                />
+                                            </Box>
+                                        </Box>
+
+                                        <Typography
+                                            variant="subtitle2"
+                                            align="center"
+                                            sx={{ padding: "10px" }}
+                                        >
+                                            Competencias técnicas
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
             </Grid>
-        </Grid>
+        </Fragment>
     );
 };
 

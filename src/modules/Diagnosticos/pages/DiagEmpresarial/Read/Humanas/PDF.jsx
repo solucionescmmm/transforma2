@@ -80,10 +80,7 @@ const PDFProduct = ({ intId, values }) => {
 
     const [objEmpresario, setObjEmpresario] = useState();
     const [objEmpresa, setObjEmpresa] = useState();
-    const [htmlInfoServicios, setHtmlInfoServicios] = useState("");
-    const [htmlTemasFortalecer, setHtmlTemasFortalecer] = useState("");
-    const [htmlFortalezas, setHtmlFortalezas] = useState("");
-    const [htmlConclusiones, setHtmlConclusiones] = useState("");
+    const [htmlInfoEncuestaHumanas, setHtmlInfoEncuestaHumanas] = useState("");
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -106,236 +103,19 @@ const PDFProduct = ({ intId, values }) => {
     useEffect(() => {
         setLoading(true);
 
-        let htmlServicios = "";
-        let htmlTemasFortalecer = "";
-        let htmlFortalezas = "";
-        let htmlConclusiones = values?.strConclusiones
-            ? `<p class="textObj">${values.strConclusiones}</p>`
-            : "";
+        let htmlCompetencias = "";
 
-        values?.objInfoServicios.forEach(
+        values?.objInfoEncuestaHumanas.forEach(
             (e) =>
-                (htmlServicios =
-                    htmlServicios +
+                (htmlCompetencias =
+                    htmlCompetencias +
                     `<p class="textObj">
                 ${e.label}: ${e.value || "No diligenciado"}
             </p>`)
         );
 
-        values?.objInfoTemasFortalecer.forEach((e) => {
-            if (e.objInnovacionFortalecer) {
-                htmlTemasFortalecer =
-                    htmlTemasFortalecer +
-                    ` 
-                        <div>
-                            <p class="title">
-                                Innovación
-                            </p>
-                        </div>
 
-                        <table>
-                            <tr>
-                                <th>Item</th>
-                                <th>Respuesta</th>
-                                <th>Nivel</th>
-                                <th>Detalle</th>
-                            </tr>
-
-                        ${e.objInnovacionFortalecer
-                            .map(
-                                (e) => `
-                            <tr>
-                                <td>${e.label}</td>
-                                <td>${e.value || "No diligenciado"}</td>
-                                <td>${e.nivel || "No diligenciado"}</td>
-                                <td>${e.detalle || ""}</td>
-                            </tr>
-                            `
-                            )
-                            .join("")}
-                        </table>`;
-            }
-
-            if (e.objExperienciaFortalecer) {
-                htmlTemasFortalecer =
-                    htmlTemasFortalecer +
-                    ` 
-                    <div>
-                        <p class="title">
-                        Experiencia
-                        </p>
-                    </div>
-
-                    <table>
-                        <tr>
-                            <th>Item</th>
-                            <th>Respuesta</th>
-                            <th>Nivel</th>
-                            <th>Detalle</th>
-                        </tr>
-
-                    ${e.objExperienciaFortalecer
-                        .map(
-                            (e) => `
-                        <tr>
-                            <td>${e.label}</td>
-                            <td>${e.value || "No diligenciado"}</td>
-                            <td>${e.nivel || "No diligenciado"}</td>
-                            <td>${e.detalle || ""}</td>
-                        </tr>
-                           
-                       
-                        `
-                        )
-                        .join("")}
-                    </table>`;
-            }
-
-            if (e.objMarcaFortalecer) {
-                htmlTemasFortalecer =
-                    htmlTemasFortalecer +
-                    ` 
-                    <div>
-                        <p class="title">
-                        Marca
-                        </p>
-                    </div>
-
-                    <table>
-                        <tr>
-                            <th>Item</th>
-                            <th>Respuesta</th>
-                            <th>Nivel</th>
-                            <th>Detalle</th>
-                        </tr>
-
-                    ${e.objMarcaFortalecer
-                        .map(
-                            (e) => `
-                        <tr>
-                            <td>${e.label}</td>
-                            <td>${e.value || "No diligenciado"}</td>
-                            <td>${e.nivel || "No diligenciado"}</td>
-                            <td>${e.detalle || ""}</td>
-                        </tr>
-                           
-                       
-                        `
-                        )
-                        .join("")}
-                    </table>`;
-            }
-        });
-
-        values?.objInfoFortalezas.forEach((e) => {
-            if (e.objInnovacionFortalezas) {
-                htmlFortalezas =
-                    htmlFortalezas +
-                    ` 
-                        <div>
-                            <p class="title">
-                                Innovación
-                            </p>
-                        </div>
-
-                        <table>
-                            <tr>
-                                <th>Item</th>
-                                <th>Respuesta</th>
-                                <th>Nivel</th>
-                                <th>Detalle</th>
-                            </tr>
-
-                        ${e.objInnovacionFortalezas
-                            .map(
-                                (e) => `
-                            <tr>
-                                <td>${e.label}</td>
-                                <td>${e.value || "No diligenciado"}</td>
-                                <td>${e.nivel || "No diligenciado"}</td>
-                                <td>${e.detalle || ""}</td>
-                            </tr>
-                            `
-                            )
-                            .join("")}
-                        </table>`;
-            }
-
-            if (e.objExperienciaFortalezas) {
-                htmlFortalezas =
-                    htmlFortalezas +
-                    ` 
-                    <div>
-                        <p class="title">
-                        Experiencia
-                        </p>
-                    </div>
-
-                    <table>
-                        <tr>
-                            <th>Item</th>
-                            <th>Respuesta</th>
-                            <th>Nivel</th>
-                            <th>Detalle</th>
-                        </tr>
-
-                    ${e.objExperienciaFortalezas
-                        .map(
-                            (e) => `
-                        <tr>
-                            <td>${e.label}</td>
-                            <td>${e.value || "No diligenciado"}</td>
-                            <td>${e.nivel || "No diligenciado"}</td>
-                            <td>${e.detalle || ""}</td>
-                        </tr>
-                           
-                       
-                        `
-                        )
-                        .join("")}
-                    </table>`;
-            }
-
-            if (e.objMarcaFortalezas) {
-                htmlFortalezas =
-                    htmlFortalezas +
-                    ` 
-                    <div>
-                        <p class="title">
-                        Marca
-                        </p>
-                    </div>
-
-                    <table>
-                        <tr>
-                            <th>Item</th>
-                            <th>Respuesta</th>
-                            <th>Nivel</th>
-                            <th>Detalle</th>
-                        </tr>
-
-                    ${e.objMarcaFortalezas
-                        .map(
-                            (e) => `
-                        <tr>
-                            <td>${e.label}</td>
-                            <td>${e.value || "No diligenciado"}</td>
-                            <td>${e.nivel || "No diligenciado"}</td>
-                            <td>${e.detalle || ""}</td>
-                        </tr>
-                           
-                       
-                        `
-                        )
-                        .join("")}
-                    </table>`;
-            }
-        });
-
-        setHtmlTemasFortalecer(htmlTemasFortalecer);
-        setHtmlInfoServicios(htmlServicios);
-        setHtmlFortalezas(htmlFortalezas);
-        setHtmlConclusiones(htmlConclusiones);
+        setHtmlInfoEncuestaHumanas(htmlCompetencias);
 
         setLoading(true);
     }, [values]);
@@ -363,7 +143,7 @@ const PDFProduct = ({ intId, values }) => {
                     <Image src="/Logo.png" style={styles.image} />
 
                     <Text style={styles.title}>
-                        Reporte diagnóstico de servicio
+                        Reporte diagnóstico de competencias humanas
                     </Text>
 
                     <Html>
@@ -451,42 +231,11 @@ const PDFProduct = ({ intId, values }) => {
                                  ${new Date().toLocaleDateString("es-ES")} 
                             </p>
 
-                            <h5 class="pMargin"> <span style="color: #00BBB4">Servicios evaluados en el diagnóstico </span></h5>
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Competencias Humanas </span></h5>
                             <hr />
 
-                            ${htmlInfoServicios}
-
-                            ${
-                                htmlTemasFortalecer &&
-                                `
-                            <h5 class="pMargin"> <span style="color: #00BBB4">Temas a fortalecer</span></h5>
-                            <hr />
-                            `
-                            }
-
-                            ${htmlTemasFortalecer}
-
-                            ${
-                                htmlFortalezas &&
-                                `
-                            <h5 class="pMargin"> <span style="color: #00BBB4">Fortalezas</span></h5>
-                            <hr />
-                            `
-                            }
-
-                            ${htmlFortalezas}
-
-                            ${
-                                htmlConclusiones &&
-                                `
-                            <h5 class="pMargin"> <span style="color: #00BBB4">Conclusiones</span></h5>
-                            <hr />
-                            `
-                            }
-
-                            ${htmlConclusiones}
-
-                            
+                            ${htmlInfoEncuestaHumanas}
+ 
                         </body>
                         </html>
                       `}

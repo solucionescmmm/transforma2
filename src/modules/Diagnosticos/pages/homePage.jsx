@@ -4,7 +4,14 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 //Componentes de Mui
-import { Card, CardActionArea, CardContent, Grid, Box, Typography } from "@mui/material";
+import {
+    Card,
+    CardActionArea,
+    CardContent,
+    Grid,
+    Box,
+    Typography,
+} from "@mui/material";
 
 // Iconos
 import {
@@ -100,7 +107,10 @@ const Diagnosticos = ({ intId }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea>
+                    <CardActionArea
+                        component={RouterLink}
+                        to={`/diagnosticos/diagComercial/create`}
+                    >
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>

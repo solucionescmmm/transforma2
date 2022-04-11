@@ -39,6 +39,12 @@ const PageCUGeneral = lazy(() =>
     )
 );
 
+const PageCUComercial = lazy(() =>
+    import(
+        "../modules/Diagnosticos/pages/DiagComercial/Create&Edit/pageCUComercial"
+    )
+);
+
 const PageCUTecnicas = lazy(() =>
     import(
         "../modules/Diagnosticos/pages/DiagEmpresarial/Create&Edit/Tecnicas/pageCUGeneral"
@@ -71,6 +77,12 @@ const PageResumenServicio = lazy(() =>
     import("../modules/Diagnosticos/pages/DiagDesign/Read/Servicio/homePage")
 );
 
+const PageResumenDiagHumano = lazy(() =>
+    import(
+        "../modules/Diagnosticos/pages/DiagEmpresarial/Read/Humanas/homePage"
+    )
+);
+
 const TabsComponent = ({ intId }) => {
     const routeMatch = useRouteMatch([
         "/perfil/:intId",
@@ -80,6 +92,11 @@ const TabsComponent = ({ intId }) => {
         "/diagnosticos/diagEmpresarial/",
         "/diagnosticos/diagEmpresarial/general/create",
         "/diagnosticos/diagEmpresarial/tecnicas/create",
+        "/diagnosticos/diagEmpresarial/tecnicas/edit",
+        "/diagnosticos/diagEmpresarial/tecnicas/read/:intId",
+        "/diagnosticos/diagEmpresarial/humanas/create",
+        "/diagnosticos/diagEmpresarial/humanas/edit",
+        "/diagnosticos/diagEmpresarial/humanas/read/:intId",
         "/diagnosticos/diagDesign/",
         "/diagnosticos/diagDesign/product/create",
         "/diagnosticos/diagDesign/product/read/:intId",
@@ -237,7 +254,7 @@ const TabsRoutes = ({ values, intId }) => {
                     exact
                     component={() => (
                         <div className="animate__animated animate__fadeIn">
-                            <PageCUHumanas intId={intId} isEdit />
+                            <PageResumenDiagHumano />
 
                             {/* <PageMaintenance /> */}
                         </div>
@@ -274,6 +291,18 @@ const TabsRoutes = ({ values, intId }) => {
                     component={() => (
                         <div className="animate__animated animate__fadeIn">
                             <PageCUProducto intId={intId} />
+
+                            {/* <PageMaintenance /> */}
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/diagnosticos/diagComercial/create"
+                    exact
+                    component={() => (
+                        <div className="animate__animated animate__fadeIn">
+                            <PageCUComercial intId={intId} />
 
                             {/* <PageMaintenance /> */}
                         </div>

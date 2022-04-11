@@ -30,8 +30,8 @@ import {
 
 import Loader from "../../../../../../common/components/Loader";
 import ErrorPage from "../../../../../../common/components/Error";
-import useGetDiagnServ from "../../../../hooks/useGetDiagnServ";
-import ModalEditDiagServ from "./modalEdit";
+import useGetDiagnHumano from "../../../../hooks/useGetDiagnHumano";
+import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
 import { ImageViewer } from "../../../../../../common/components/ImageViewer";
 import ChartBar from "./chartBar";
@@ -70,6 +70,73 @@ const ResumenHumanas = () => {
                 label: "Responsable de actualizar la información",
             },
         ],
+        objInfoEncuestaHumanas: [
+            {
+                parent: "strTomaDesiciones",
+                value: "",
+                label: "¿Cómo se siente al momento de tomar las decisiones en su emprendimiento?",
+            },
+            {
+                parent: "strMotivaciones",
+                value: "",
+                label: "¿Cuál es tú principal motivación para emprender?",
+            },
+            {
+                parent: "strNivelVida",
+                value: "",
+                label: "¿Desde que inició su empresa hasta hoy, cuánto ha influido en el nivel de vida de su familia(ingresos, salud, educación…)",
+            },
+            {
+                parent: "strRedesApoyoOtros",
+                value: "",
+                label: "¿En quiénes usted ha encontrado apoyo para salir adelante con su emprendimiento?",
+            },
+            {
+                parent: "strProyectoVidaEmpresa",
+                value: "",
+                label: "¿En su momento actual de desarrollo, cuánto diría que su empresa se ha convertido en su proyecto de vida?",
+            },
+            {
+                parent: "strHabilidadesAutonomia",
+                value: "",
+                label: "Autonomía para el manejo de su negocio",
+            },
+            {
+                parent: "strHabilidadesCapacidad",
+                value: "",
+                label: "Capacidad de adaptarse a los cambios",
+            },
+            {
+                parent: "strHabilidadesComuniacion",
+                value: "",
+                label: "Comunicación efectiva con los clientes, con los empleados, los proveedores",
+            },
+            {
+                parent: "strProyectoVidaEmprendimiento",
+                value: "",
+                label: "Consideras que el emprendimiento, te permite cumplir tus aspiraciones y proyectos",
+            },
+            {
+                parent: "strHabilidadesCreatividad",
+                value: "",
+                label: "Creatividad en productos y en procesos productivos",
+            },
+            {
+                parent: "strConfianza",
+                value: "",
+                label: "De acuerdo con las experiencias y el conocimiento adquirido en su actuar empresarial, en la siguiente escala en qué nivel confianza se ubicaría",
+            },
+            {
+                parent: "strEquilibrioVida",
+                value: "",
+                label: "En tú rutina realizas actividades de descanso y esparcimiento (Ejemplos: leer, tocar un instrumento, bailar, compartir con amistades, estudiar, orar, deportivas, entre otros)",
+            },
+            {
+                parent: "strRedesApoyoPropia",
+                value: "",
+                label: "En tú rutina realizas actividades de descanso y esparcimiento (Ejemplos: leer, tocar un instrumento, bailar, compartir con amistades, estudiar, orar, deportivas, entre otros)",
+            },
+        ],
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
@@ -86,12 +153,17 @@ const ResumenHumanas = () => {
     const [openCollapseInfoGeneral, setOpenCollapseInfoGeneral] =
         useState(false);
 
+    const [
+        openCollapseInfoEncuestaHumanas,
+        setOpenCollapseInfoEncuestaHumanas,
+    ] = useState(false);
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { intId } = useParams();
 
-    const { getUniqueData } = useGetDiagnServ({ autoLoad: false });
+    const { getUniqueData } = useGetDiagnHumano({ autoLoad: false });
 
     const refFntGetData = useRef(getUniqueData);
 
@@ -121,6 +193,10 @@ const ResumenHumanas = () => {
         setOpenCollapseInfoGeneral(!openCollapseInfoGeneral);
     };
 
+    const handlerChangeOpenCollapseInfoEncuestaHumanas = () => {
+        setOpenCollapseInfoEncuestaHumanas(!openCollapseInfoEncuestaHumanas);
+    };
+
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
@@ -140,24 +216,6 @@ const ResumenHumanas = () => {
 
                         setIntIdEmpresario(data.objInfoGeneral.intIdEmpresario);
 
-                        const strConclusiones =
-                            data.objInfoAdicional.strConclusiones;
-
-                        const arrImagenes =
-                            data.objInfoAdicional?.strURLSFotos?.split(";");
-
-                        let newArrImagenes = [];
-
-                        if (arrImagenes) {
-                            newArrImagenes = arrImagenes.map((url) => {
-                                return {
-                                    src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
-                                    width: 4,
-                                    height: 3,
-                                };
-                            });
-                        }
-
                         const objInfoGeneral = {
                             dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
                                 ? parseISO(data.objInfoGeneral.dtmFechaSesion)
@@ -174,45 +232,13 @@ const ResumenHumanas = () => {
                                 "",
                         };
 
-                        const objInfoServicios = {
-                            strServicio:
-                                data.objInfoEvaluacion.strServicio || "",
-                            strHerramientasServicio:
-                                data.objInfoEvaluacion
-                                    .strHerramientasServicio || "",
-                        };
-
-                        const objInfoNormatividad = {
-                            strPermisoFuncionamiento:
-                                data.objInfoNormatividad
-                                    .strPermisoFuncionamiento || "",
-                            strCertificadosRequeridos:
-                                data.objInfoNormatividad
-                                    .strCertificadosRequeridos || "",
-                            strCertificadosActuales:
-                                data.objInfoNormatividad
-                                    .strCertificadosActuales || "",
-                            strRegistroMarca:
-                                data.objInfoNormatividad.strRegistroMarca || "",
-                            strPatentesUtilidad:
-                                data.objInfoNormatividad.strPatentesUtilidad ||
-                                "",
-                            strCualPatenteUtilidad:
-                                data.objInfoNormatividad
-                                    .strCualPatenteUtilidad || "",
-                        };
-
-                        const objInfoEvaluacion = data.objInfoEvaluacion;
+                        const objInfoEncuestaHumanas =
+                            data.objInfoEncuestaHumanas;
 
                         setData((prevState) => {
                             let prevInfoGeneral = prevState.objInfoGeneral;
-                            let prevInfoServicios = prevState.objInfoServicios;
-                            let prevInfoNormatividad =
-                                prevState.objInfoNormatividad;
-                            let prevInfoTemasFortalecer =
-                                prevState.objInfoTemasFortalecer;
-                            let prevInfoFortalezas =
-                                prevState.objInfoFortalezas;
+                            let prevInfoEncuestaHumanas =
+                                prevState.objInfoEncuestaHumanas;
 
                             for (const key in objInfoGeneral) {
                                 if (
@@ -251,273 +277,26 @@ const ResumenHumanas = () => {
                                 }
                             }
 
-                            for (const key in objInfoServicios) {
+                            for (const key in objInfoEncuestaHumanas) {
                                 if (
                                     Object.hasOwnProperty.call(
-                                        objInfoServicios,
+                                        objInfoEncuestaHumanas,
                                         key
                                     )
                                 ) {
-                                    prevInfoServicios.forEach((e) => {
+                                    prevInfoEncuestaHumanas.forEach((e) => {
                                         if (e.parent === key) {
-                                            e.value = objInfoServicios[key];
+                                            e.value =
+                                                objInfoEncuestaHumanas[key];
                                         }
                                     });
                                 }
-                            }
-
-                            for (const key in objInfoNormatividad) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoNormatividad,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoNormatividad.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoNormatividad[key];
-                                        }
-                                    });
-                                }
-                            }
-
-                            const objInnovacionFortalecer = [];
-                            const objInnovacionFortalezas = [];
-
-                            const objExperienciaFortalecer = [];
-                            const objExperienciaFortalezas = [];
-
-                            const objMarcaFortalecer = [];
-                            const objMarcaFortalezas = [];
-
-                            const getLabel = (key) => {
-                                switch (key) {
-                                    case "strObjetivoProposito":
-                                        return "Objetivo o propósito";
-
-                                    case "strRenovacionPortafolio":
-                                        return "Renovación de portafolio";
-
-                                    case "strProcesoInteraccion":
-                                        return "Procesos de interacción";
-
-                                    case "strPuntosContacto":
-                                        return "Puntos de contacto";
-
-                                    case "strExperienciaDiseñada":
-                                        return "Experiencia diseñada";
-
-                                    case "strRecursosServicio":
-                                        return "Recursos del servicio";
-
-                                    case "strPostVenta":
-                                        return "Post venta";
-
-                                    case "strLineaGrafica":
-                                        return "Línea gráfica de la marca";
-
-                                    case "strIdentidadMarca":
-                                        return "Identidad de la marca";
-
-                                    case "strComunicacionMarca":
-                                        return "Comunicación de la marca";
-
-                                    default:
-                                        return null;
-                                }
-                            };
-
-                            for (const key in objInfoEvaluacion) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoEvaluacion,
-                                        key
-                                    )
-                                ) {
-                                    if (
-                                        (key === "strObjetivoProposito" ||
-                                            key === "strRenovacionPortafolio" ||
-                                            key === "strProcesoInteraccion" ||
-                                            key === "strPuntosContacto") &&
-                                        objInfoEvaluacion[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objInnovacionFortalecer.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objInnovacionFortalezas.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-
-                                    if (
-                                        (key === "strExperienciaDiseñada" ||
-                                            key === "strRecursosServicio" ||
-                                            key === "strPostVenta") &&
-                                        objInfoEvaluacion[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objExperienciaFortalecer.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objExperienciaFortalezas.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-
-                                    if (
-                                        (key === "strLineaGrafica" ||
-                                            key === "strIdentidadMarca" ||
-                                            key === "strComunicacionMarca") &&
-                                        objInfoEvaluacion[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objExperienciaFortalecer.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objExperienciaFortalezas.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (objInnovacionFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objInnovacionFortalecer,
-                                });
-                            }
-
-                            if (objInnovacionFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objInnovacionFortalezas,
-                                });
-                            }
-
-                            if (objExperienciaFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objExperienciaFortalecer,
-                                });
-                            }
-
-                            if (objExperienciaFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objExperienciaFortalezas,
-                                });
-                            }
-
-                            if (objMarcaFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objMarcaFortalecer,
-                                });
-                            }
-
-                            if (objMarcaFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objMarcaFortalezas,
-                                });
                             }
 
                             return {
                                 ...prevState,
                                 objInfoGeneral: prevInfoGeneral,
-                                objInfoServicios: prevInfoServicios,
-                                objInfoNormatividad: prevInfoNormatividad,
-                                objInfoTemasFortalecer: prevInfoTemasFortalecer,
-                                objInfoFortalezas: prevInfoFortalezas,
-                                strConclusiones,
-                                arrImagenes: newArrImagenes,
-                                objResultServicio: data.objResultServicio,
+                                objInfoEncuestaHumanas: prevInfoEncuestaHumanas,
                             };
                         });
                     }
@@ -554,7 +333,7 @@ const ResumenHumanas = () => {
 
     return (
         <Fragment>
-            <ModalEditDiagServ
+            <ModalEditDiag
                 intId={intId}
                 handleOpenDialog={handlerChangeOpenModalEdit}
                 open={openModalEdit}
@@ -579,7 +358,7 @@ const ResumenHumanas = () => {
                         <Box sx={{ flexGrow: 1 }}>
                             <Button
                                 component={RouterLink}
-                                to={`/diagnosticos/diagDesign`}
+                                to={`/diagnosticos/diagEmpresarial`}
                                 startIcon={<ChevronLeftIcon />}
                                 size="small"
                                 color="inherit"
@@ -678,6 +457,81 @@ const ResumenHumanas = () => {
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Componente humano</b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoEncuestaHumanas()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoEncuestaHumanas
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoEncuestaHumanas ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse
+                            in={openCollapseInfoEncuestaHumanas}
+                            timeout="auto"
+                        >
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={1}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoEncuestaHumanas.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
+                                        </p>
+
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
