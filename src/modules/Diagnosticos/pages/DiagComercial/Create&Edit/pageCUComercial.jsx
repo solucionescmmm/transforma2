@@ -56,6 +56,7 @@ import InfoIntereses from "./infoIntereses";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
+import InfoComunicacion from "./infoComunicacion";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -528,6 +529,15 @@ const PageCUProducto = ({ intId, isEdit }) => {
                                         clearErrors={clearErrors}
                                     />
                                     <InfoMercado
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoGeneral}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                    <InfoComunicacion
                                         control={control}
                                         disabled={loading}
                                         values={data.objInfoGeneral}
