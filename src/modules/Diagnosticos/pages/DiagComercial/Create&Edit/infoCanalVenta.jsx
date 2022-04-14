@@ -177,7 +177,7 @@ const InfoCanalVenta = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoProdServi ? "#D33030" : "inherit",
+                            color: errors?.objInfoCanalVenta ? "#D33030" : "inherit",
                         }}
                     >
                         Información Canales de Venta
@@ -199,7 +199,7 @@ const InfoCanalVenta = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoProdServi ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoCanalVenta ? "#D33030" : "inherit",
                 }}
             />
 
@@ -210,7 +210,7 @@ const InfoCanalVenta = ({
                             variant="caption"
                             style={{
                                 fontWeight: "bold",
-                                color: errors?.objInfoProdServi ? "#D33030" : "inherit",
+                                color: errors?.objInfoCanalVenta ? "#D33030" : "inherit",
                             }}
                         >
                             ¿Qué formas y canales utiliza para vender o promocionar su producto o servicio?
@@ -222,7 +222,7 @@ const InfoCanalVenta = ({
                             variant="caption"
                             style={{
                                 fontWeight: "bold",
-                                color: errors?.objInfoProdServi ? "#D33030" : "inherit",
+                                color: errors?.objInfoCanalVenta ? "#D33030" : "inherit",
                             }}
                         >
                             SI/NO
@@ -235,7 +235,7 @@ const InfoCanalVenta = ({
                             variant="caption"
                             style={{
                                 fontWeight: "bold",
-                                color: errors?.objInfoProdServi ? "#D33030" : "inherit",
+                                color: errors?.objInfoCanalVenta ? "#D33030" : "inherit",
                                 marginBottom: "10px",
                             }}
                         >
@@ -268,7 +268,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strVendeRepreComer"
+                            name="objInfoCanalVenta.strVendeRepreComer"
                             defaultValue={data.strVendeRepreComer}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -277,7 +277,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strVendeRepreComer
                                             ? true
                                             : false
@@ -292,7 +292,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bVendeRepreComer"
+                            name="objInfoCanalVenta.bVendeRepreComer"
                             defaultValue={data.bVendeRepreComer}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -301,7 +301,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVendeRepreComer
                                             ? true
                                             : false
@@ -316,7 +316,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bVendeRepreComerMasRepre"
+                            name="objInfoCanalVenta.bVendeRepreComerMasRepre"
                             defaultValue={data.bVendeRepreComerMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -325,7 +325,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVendeRepreComerMasRepre
                                             ? true
                                             : false
@@ -363,7 +363,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strFerias"
+                            name="objInfoCanalVenta.strFerias"
                             defaultValue={data.strFerias}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -372,7 +372,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strFerias
                                             ? true
                                             : false
@@ -387,7 +387,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bFerias"
+                            name="objInfoCanalVenta.bFerias"
                             defaultValue={data.bFerias}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -396,7 +396,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bFerias
                                             ? true
                                             : false
@@ -411,7 +411,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bFeriasMasRepre"
+                            name="objInfoCanalVenta.bFeriasMasRepre"
                             defaultValue={data.bFeriasMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -420,7 +420,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bFeriasMasRepre
                                             ? true
                                             : false
@@ -458,7 +458,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strMultMarcas"
+                            name="objInfoCanalVenta.strMultMarcas"
                             defaultValue={data.strMultMarcas}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -467,7 +467,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strMultMarcas
                                             ? true
                                             : false
@@ -482,7 +482,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bMultMarcas"
+                            name="objInfoCanalVenta.bMultMarcas"
                             defaultValue={data.bMultMarcas}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -491,7 +491,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bMultMarcas
                                             ? true
                                             : false
@@ -506,7 +506,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bMultMarcasMasRepre"
+                            name="objInfoCanalVenta.bMultMarcasMasRepre"
                             defaultValue={data.bMultMarcasMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -515,7 +515,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bMultMarcasMasRepre
                                             ? true
                                             : false
@@ -553,7 +553,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strVentPersonali"
+                            name="objInfoCanalVenta.strVentPersonali"
                             defaultValue={data.strVentPersonali}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -562,7 +562,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strVentPersonali
                                             ? true
                                             : false
@@ -577,7 +577,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bVentPersonali"
+                            name="objInfoCanalVenta.bVentPersonali"
                             defaultValue={data.bVentPersonali}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -586,7 +586,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentPersonali
                                             ? true
                                             : false
@@ -601,7 +601,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bVentPersonaliMasRepre"
+                            name="objInfoCanalVenta.bVentPersonaliMasRepre"
                             defaultValue={data.bVentPersonaliMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -610,7 +610,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentPersonaliMasRepre
                                             ? true
                                             : false
@@ -648,7 +648,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strVozVozRef"
+                            name="objInfoCanalVenta.strVozVozRef"
                             defaultValue={data.strVozVozRef}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -657,7 +657,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strVozVozRef
                                             ? true
                                             : false
@@ -672,7 +672,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bVozVozRef"
+                            name="objInfoCanalVenta.bVozVozRef"
                             defaultValue={data.bVozVozRef}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -681,7 +681,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVozVozRef
                                             ? true
                                             : false
@@ -696,7 +696,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bVozVozRefMasRepre"
+                            name="objInfoCanalVenta.bVozVozRefMasRepre"
                             defaultValue={data.bVozVozRefMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -705,7 +705,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVozVozRefMasRepre
                                             ? true
                                             : false
@@ -743,7 +743,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strVentDireVivi"
+                            name="objInfoCanalVenta.strVentDireVivi"
                             defaultValue={data.strVentDireVivi}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -752,7 +752,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strVentDireVivi
                                             ? true
                                             : false
@@ -767,7 +767,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bVentDireVivi"
+                            name="objInfoCanalVenta.bVentDireVivi"
                             defaultValue={data.bVentDireVivi}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -776,7 +776,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentDireVivi
                                             ? true
                                             : false
@@ -791,7 +791,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bVentDireViviMasRepre"
+                            name="objInfoCanalVenta.bVentDireViviMasRepre"
                             defaultValue={data.bVentDireViviMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -800,7 +800,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentDireViviMasRepre
                                             ? true
                                             : false
@@ -838,7 +838,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strVentPunVentPro"
+                            name="objInfoCanalVenta.strVentPunVentPro"
                             defaultValue={data.strVentPunVentPro}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -847,7 +847,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strVentPunVentPro
                                             ? true
                                             : false
@@ -862,7 +862,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bVentPunVentPro"
+                            name="objInfoCanalVenta.bVentPunVentPro"
                             defaultValue={data.bVentPunVentPro}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -871,7 +871,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentPunVentPro
                                             ? true
                                             : false
@@ -886,7 +886,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bVentPunVentProMasRepre"
+                            name="objInfoCanalVenta.bVentPunVentProMasRepre"
                             defaultValue={data.bVentPunVentProMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -895,7 +895,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentPunVentProMasRepre
                                             ? true
                                             : false
@@ -933,7 +933,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strVentPorMay"
+                            name="objInfoCanalVenta.strVentPorMay"
                             defaultValue={data.strVentPorMay}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -942,7 +942,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strVentPorMay
                                             ? true
                                             : false
@@ -957,7 +957,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bVentPorMay"
+                            name="objInfoCanalVenta.bVentPorMay"
                             defaultValue={data.bVentPorMay}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -966,7 +966,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentPorMay
                                             ? true
                                             : false
@@ -981,7 +981,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bVentPorMayMasRepre"
+                            name="objInfoCanalVenta.bVentPorMayMasRepre"
                             defaultValue={data.bVentPorMayMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -990,7 +990,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentPorMayMasRepre
                                             ? true
                                             : false
@@ -1028,7 +1028,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strExportaciones"
+                            name="objInfoCanalVenta.strExportaciones"
                             defaultValue={data.strExportaciones}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -1037,7 +1037,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strExportaciones
                                             ? true
                                             : false
@@ -1052,7 +1052,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bExportaciones"
+                            name="objInfoCanalVenta.bExportaciones"
                             defaultValue={data.bExportaciones}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1061,7 +1061,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bExportaciones
                                             ? true
                                             : false
@@ -1076,7 +1076,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bExportacionesMasRepre"
+                            name="objInfoCanalVenta.bExportacionesMasRepre"
                             defaultValue={data.bExportacionesMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1085,7 +1085,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bExportacionesMasRepre
                                             ? true
                                             : false
@@ -1123,7 +1123,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strVentPorCatalog"
+                            name="objInfoCanalVenta.strVentPorCatalog"
                             defaultValue={data.strVentPorCatalog}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -1132,7 +1132,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strVentPorCatalog
                                             ? true
                                             : false
@@ -1147,7 +1147,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bVentPorCatalog"
+                            name="objInfoCanalVenta.bVentPorCatalog"
                             defaultValue={data.bVentPorCatalog}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1156,7 +1156,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentPorCatalog
                                             ? true
                                             : false
@@ -1171,7 +1171,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bVentPorCatalogMasRepre"
+                            name="objInfoCanalVenta.bVentPorCatalogMasRepre"
                             defaultValue={data.bVentPorCatalogMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1180,7 +1180,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bVentPorCatalogMasRepre
                                             ? true
                                             : false
@@ -1218,7 +1218,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strPlataComerElec"
+                            name="objInfoCanalVenta.strPlataComerElec"
                             defaultValue={data.strPlataComerElec}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -1227,7 +1227,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strPlataComerElec
                                             ? true
                                             : false
@@ -1242,7 +1242,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bPlataComerElec"
+                            name="objInfoCanalVenta.bPlataComerElec"
                             defaultValue={data.bPlataComerElec}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1251,7 +1251,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bPlataComerElec
                                             ? true
                                             : false
@@ -1266,7 +1266,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bPlataComerElecMasRepre"
+                            name="objInfoCanalVenta.bPlataComerElecMasRepre"
                             defaultValue={data.bPlataComerElecMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1275,7 +1275,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bPlataComerElecMasRepre
                                             ? true
                                             : false
@@ -1299,7 +1299,7 @@ const InfoCanalVenta = ({
                             variant="caption"
                             style={{
                                 fontWeight: "bold",
-                                color: errors?.objInfoProdServi ? "#D33030" : "inherit",
+                                color: errors?.objInfoCanalVenta ? "#D33030" : "inherit",
                             }}
                         >
                             Medios Digitales
@@ -1311,7 +1311,7 @@ const InfoCanalVenta = ({
                             variant="caption"
                             style={{
                                 fontWeight: "bold",
-                                color: errors?.objInfoProdServi ? "#D33030" : "inherit",
+                                color: errors?.objInfoCanalVenta ? "#D33030" : "inherit",
                             }}
                         >
                             SI/NO
@@ -1324,7 +1324,7 @@ const InfoCanalVenta = ({
                             variant="caption"
                             style={{
                                 fontWeight: "bold",
-                                color: errors?.objInfoProdServi ? "#D33030" : "inherit",
+                                color: errors?.objInfoCanalVenta ? "#D33030" : "inherit",
                                 marginBottom: "10px",
                             }}
                         >
@@ -1357,7 +1357,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strGruContWhatsApp"
+                            name="objInfoCanalVenta.strGruContWhatsApp"
                             defaultValue={data.strGruContWhatsApp}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -1366,7 +1366,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strGruContWhatsApp
                                             ? true
                                             : false
@@ -1381,7 +1381,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bGruContWhatsApp"
+                            name="objInfoCanalVenta.bGruContWhatsApp"
                             defaultValue={data.bGruContWhatsApp}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1390,7 +1390,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bGruContWhatsApp
                                             ? true
                                             : false
@@ -1405,7 +1405,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bGruContWhatsAppMasRepre"
+                            name="objInfoCanalVenta.bGruContWhatsAppMasRepre"
                             defaultValue={data.bGruContWhatsAppMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1414,7 +1414,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bGruContWhatsAppMasRepre
                                             ? true
                                             : false
@@ -1452,7 +1452,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strInstaGram"
+                            name="objInfoCanalVenta.strInstaGram"
                             defaultValue={data.strInstaGram}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -1461,7 +1461,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strInstaGram
                                             ? true
                                             : false
@@ -1476,7 +1476,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bInstaGram"
+                            name="objInfoCanalVenta.bInstaGram"
                             defaultValue={data.bInstaGram}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1485,7 +1485,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bInstaGram
                                             ? true
                                             : false
@@ -1500,7 +1500,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bInstaGramMasRepre"
+                            name="objInfoCanalVenta.bInstaGramMasRepre"
                             defaultValue={data.bInstaGramMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1509,7 +1509,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bInstaGramMasRepre
                                             ? true
                                             : false
@@ -1547,7 +1547,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strFaceBook"
+                            name="objInfoCanalVenta.strFaceBook"
                             defaultValue={data.strFaceBook}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -1556,7 +1556,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strFaceBook
                                             ? true
                                             : false
@@ -1571,7 +1571,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bFaceBook"
+                            name="objInfoCanalVenta.bFaceBook"
                             defaultValue={data.bFaceBook}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1580,7 +1580,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bFaceBook
                                             ? true
                                             : false
@@ -1595,7 +1595,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bFaceBookMasRepre"
+                            name="objInfoCanalVenta.bFaceBookMasRepre"
                             defaultValue={data.bFaceBookMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1604,7 +1604,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bFaceBookMasRepre
                                             ? true
                                             : false
@@ -1642,7 +1642,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strYouTube"
+                            name="objInfoCanalVenta.strYouTube"
                             defaultValue={data.strYouTube}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -1651,7 +1651,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strYouTube
                                             ? true
                                             : false
@@ -1666,7 +1666,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bYouTube"
+                            name="objInfoCanalVenta.bYouTube"
                             defaultValue={data.bYouTube}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1675,7 +1675,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bYouTube
                                             ? true
                                             : false
@@ -1690,7 +1690,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bYouTubeMasRepre"
+                            name="objInfoCanalVenta.bYouTubeMasRepre"
                             defaultValue={data.bYouTubeMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1699,7 +1699,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bYouTubeMasRepre
                                             ? true
                                             : false
@@ -1737,7 +1737,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strPagWebBlog"
+                            name="objInfoCanalVenta.strPagWebBlog"
                             defaultValue={data.strPagWebBlog}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -1746,7 +1746,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strPagWebBlog
                                             ? true
                                             : false
@@ -1761,7 +1761,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bPagWebBlog"
+                            name="objInfoCanalVenta.bPagWebBlog"
                             defaultValue={data.bPagWebBlog}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1770,7 +1770,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bPagWebBlog
                                             ? true
                                             : false
@@ -1785,7 +1785,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bPagWebBlogMasRepre"
+                            name="objInfoCanalVenta.bPagWebBlogMasRepre"
                             defaultValue={data.bPagWebBlogMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1794,7 +1794,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bPagWebBlogMasRepre
                                             ? true
                                             : false
@@ -1832,7 +1832,7 @@ const InfoCanalVenta = ({
 
                     <Grid item xs={6} md={9}>
                         <Controller
-                            name="objInfoProdServi.strOtrosCualEs"
+                            name="objInfoCanalVenta.strOtrosCualEs"
                             defaultValue={data.strOtrosCualEs}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
@@ -1841,7 +1841,7 @@ const InfoCanalVenta = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.strOtrosCualEs
                                             ? true
                                             : false
@@ -1856,7 +1856,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={2} md={1}>
                         <Controller
-                            name="objInfoProdServi.bOtrosCualEs"
+                            name="objInfoCanalVenta.bOtrosCualEs"
                             defaultValue={data.bOtrosCualEs}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1865,7 +1865,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bOtrosCualEs
                                             ? true
                                             : false
@@ -1880,7 +1880,7 @@ const InfoCanalVenta = ({
 
                     <Grid sx={{ textAlign: "center" }} item xs={4} md={2}>
                         <Controller
-                            name="objInfoProdServi.bOtrosCualEsMasRepre"
+                            name="objInfoCanalVenta.bOtrosCualEsMasRepre"
                             defaultValue={data.bOtrosCualEsMasRepre}
                             render={({ field: { name, onChange, value } }) => (
                                 <Checkbox
@@ -1889,7 +1889,7 @@ const InfoCanalVenta = ({
                                     checked={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoProdServi
+                                        errors?.objInfoCanalVenta
                                             ?.bOtrosCualEsMasRepre
                                             ? true
                                             : false
