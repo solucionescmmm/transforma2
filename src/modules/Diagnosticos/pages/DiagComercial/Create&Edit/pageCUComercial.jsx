@@ -49,6 +49,8 @@ import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
 import Loader from "../../../../../common/components/Loader";
 import PageError from "../../../../../common/components/Error";
 import InfoGeneral from "./infoGeneral";
+import InfoProdServi from "./infoProdServi";
+import InfoCanalVenta from "./infoCanalVenta";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -497,6 +499,24 @@ const PageCUProducto = ({ intId, isEdit }) => {
 
                                 <Grid item xs={12}>
                                     <InfoGeneral
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoGeneral}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                    <InfoProdServi
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoGeneral}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                    <InfoCanalVenta
                                         control={control}
                                         disabled={loading}
                                         values={data.objInfoGeneral}
