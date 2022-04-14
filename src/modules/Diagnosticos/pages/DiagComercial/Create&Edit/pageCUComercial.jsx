@@ -52,6 +52,7 @@ import InfoGeneral from "./infoGeneral";
 import InfoProdServi from "./infoProdServi";
 import InfoCanalVenta from "./infoCanalVenta";
 import InfoMercado from "./infoMercado";
+import InfoIntereses from "./infoIntereses";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -527,6 +528,15 @@ const PageCUProducto = ({ intId, isEdit }) => {
                                         clearErrors={clearErrors}
                                     />
                                     <InfoMercado
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoGeneral}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                    <InfoIntereses
                                         control={control}
                                         disabled={loading}
                                         values={data.objInfoGeneral}
