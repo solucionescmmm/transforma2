@@ -114,6 +114,7 @@ class ctrlEmpresarios {
             res.status(400).json(result);
         }
     }
+    
     async deleteEmpresario(req, res){
         try {
             let objParams = req.query;
