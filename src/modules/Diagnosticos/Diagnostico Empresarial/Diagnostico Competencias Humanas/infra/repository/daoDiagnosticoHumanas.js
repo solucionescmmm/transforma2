@@ -219,11 +219,11 @@ class daoDiagnosticoHumanas {
                 .request()
                 .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
                 .execute("sp_GetResultDiagnosticoHumano");
-
             let result = {
                 error: false,
                 data: response.recordset[0]
             };
+
             return result;
         } catch (error) {
             let result = {

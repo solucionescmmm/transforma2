@@ -41,7 +41,7 @@ class updateDiagnosticoHumanas {
     }
 
     async #getIntIdEmpresario() {
-        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
+        this.#intIdEmpresario = this.#objData.objInfoGeneral.intIdEmpresario;
     }
 
     async #completeData() {

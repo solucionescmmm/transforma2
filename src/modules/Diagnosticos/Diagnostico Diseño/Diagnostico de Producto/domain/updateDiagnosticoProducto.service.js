@@ -41,7 +41,13 @@ class updateDiagnosticoProducto {
     }
 
     async #getIntIdEmpresario() {
-        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
+        let dao = new classInterfaceDAOProducto();
+
+        let queryGetIntIdEmpresario = await dao.getIntIdEmpresario({
+            intId:this.#objData.objInfoGeneral.intId
+        })
+        
+        this.#intIdEmpresario = queryGetIntIdEmpresario.data.intIdEmpresario
     }
 
     async #completeData() {

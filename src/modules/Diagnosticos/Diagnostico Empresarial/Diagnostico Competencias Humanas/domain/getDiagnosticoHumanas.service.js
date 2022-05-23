@@ -28,6 +28,7 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
     let intIdEmpresarioDiagnostico = await dao.getIntIdEmpresario(query)
     let arrayResultDiagnosticoHumanas = await dao.getResultDiagnosticoHumanas(intIdEmpresarioDiagnostico.data);
 
+
     let arrayData = await dao.getDiagnosticoHumanas(query);
 
 
@@ -63,7 +64,7 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strRedesApoyoPropia:array[i]?.strRedesApoyoPropia
                 }
 
-                let objResultDiagnosticoHumanas = arrayResultDiagnosticoHumanas
+                let objResultDiagnosticoHumanas = arrayResultDiagnosticoHumanas.data
 
                 data[i] = {
                     objInfoGeneral,
