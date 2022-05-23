@@ -126,7 +126,7 @@ class daoDiagnosticoTecnicas {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
 
-            UPDATE tbl_DiagnosticoServicios
+            UPDATE tbl_DiagnosticoCompetenciasTecnicas
 
             SET strCaractEmpresaComp = COALESCE(${data.strCaractEmpresaComp}, strCaractEmpresaComp),
                 strCaractEmpresaCompDetalle = COALESCE(${data.strCaractEmpresaCompDetalle}, strCaractEmpresaCompDetalle),
@@ -208,7 +208,7 @@ class daoDiagnosticoTecnicas {
 
             WHERE intId = ${data.intId}
 
-            SELECT * FROM tbl_DiagnosticoGeneral WHERE intId = ${data.intId}`;
+            SELECT * FROM tbl_DiagnosticoCompetenciasTecnicas WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
