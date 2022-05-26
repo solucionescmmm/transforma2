@@ -1,5 +1,5 @@
 //clases
-const classInterfaceDAOComentarios = require("../infra/conectors/interfaceDaoComentarios")
+const classInterfaceDAOComentarios = require("../infra/conectors/interfaseDAOAreas")
 
 class deleteComentario{
     #intIdComentario;
