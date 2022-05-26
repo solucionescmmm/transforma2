@@ -10,7 +10,7 @@ const getIdEstados = async (objParams) => {
 
     let dao = new classInterfaceEstados();
 
-    let query = { intId: intId || null };
+    let query = { strNombre };
 
     let result = await dao.getIdEstados(query);
 

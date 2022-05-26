@@ -9,7 +9,7 @@ routes.post(
     "/transforma/api/servicios/maestro/areas/setAreas",
     async (req, res) => {
         let controllerComentarios = new classController();
-        await controllerComentarios.setArea(req, res);
+        await controllerComentarios.setAreas(req, res);
     }
 );
 
@@ -17,7 +17,7 @@ routes.get(
     "/transforma/api/servicios/maestro/areas/getAreas",
     async (req, res) => {
         let controllerComentarios = new classController();
-        await controllerComentarios.getArea(req, res);
+        await controllerComentarios.getAreas(req, res);
     }
 );
 
@@ -25,7 +25,7 @@ routes.put(
     "/transforma/api/servicios/maestro/areas/updateAreas",
     async (req, res) => {
         let controllerComentarios = new classController();
-        await controllerComentarios.updateArea(req, res);
+        await controllerComentarios.updateAreas(req, res);
     }
 );
 
@@ -33,7 +33,7 @@ routes.delete(
     "/transforma/api/servicios/maestro/areas/deleteAreas",
     async (req, res) => {
         let controllerComentarios = new classController();
-        await controllerComentarios.deleteArea(req, res);
+        await controllerComentarios.deleteAreas(req, res);
     }
 );
 

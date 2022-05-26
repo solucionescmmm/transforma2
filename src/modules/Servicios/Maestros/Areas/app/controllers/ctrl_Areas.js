@@ -1,15 +1,16 @@
 //Servicios
-const setArea = require("../../domain/setAreas.service");
-const getArea = require("../../domain/getAreas.service");
-const updateArea = require("../../domain/updateAreas.service");
-const deleteArea = require("../../domain/deleteAreas.service");
+const setAreas = require("../../domain/setAreas.service");
+const getAreas = require("../../domain/getAreas.service");
+const updateAreas = require("../../domain/updateAreas.service");
+const deleteAreas = require("../../domain/deleteAreas.service");
 
 class ctrl_Areas {
-    async setArea(req, res) {
+    async setAreas(req, res) {
         try {
             let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new setArea(data);
+            let service = new setAreas(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
@@ -27,11 +28,11 @@ class ctrl_Areas {
         }
     }
 
-    async updateArea(req, res) {
+    async updateAreas(req, res) {
         try {
             let data = req.body;
 
-            let service = new updateArea(data);
+            let service = new updateAreas(data);
             let query = await service.main();
 
             if (query.error) {
@@ -49,11 +50,11 @@ class ctrl_Areas {
         }
     }
 
-    async deleteArea(req, res) {
+    async deleteAreas(req, res) {
         try {
             let objParams = req.query;
 
-            let service = new deleteArea(objParams);
+            let service = new deleteAreas(objParams);
             let query = await service.main();
 
             if (query.error) {
@@ -71,12 +72,12 @@ class ctrl_Areas {
         }
     }
 
-    async getArea(req, res) {
+    async getAreas(req, res) {
         try {
             let objParams = req.query;
             let { strDataUser } = req;
 
-            let query = await getArea(objParams, strDataUser);
+            let query = await getAreas(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);
