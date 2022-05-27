@@ -22,28 +22,6 @@ class ctrl_Estados {
             res.status(400).json(result);
         }
     }
-
-    async setRespuesta(req, res) {
-        try {
-            let data = req.body;
-
-            let service = new setRespuesta(data);
-            let query = await service.main();
-
-            if (query.error) {
-                throw new Error(query.msg);
-            }
-
-            res.status(200).json(query);
-        } catch (error) {
-            let result = {
-                error: true,
-                msg: error.message,
-            };
-
-            res.status(400).json(result);
-        }
-    }
 }
 
 module.exports = ctrl_Estados;

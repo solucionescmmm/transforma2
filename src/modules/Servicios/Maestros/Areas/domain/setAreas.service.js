@@ -24,8 +24,8 @@ class setAreas {
 
     async main() {
         await this.#validations();
-        await this.#getIdEstado();
-        this.#completeData();
+        //await this.#getIdEstado();
+        //this.#completeData();
         await this.#setAreas();
         return this.#objResult;
     }
