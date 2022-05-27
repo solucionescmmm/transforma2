@@ -4,7 +4,7 @@ const sql = require("mssql");
 //Conexion
 const {
     conexion,
-} = require("../../../../common/config/confSQL_connectionSecurityTransforma");
+} = require("../../../../../../common/config/confSQL_connectionTransfroma");
 class daoSedes {
     async setSedes(data) {
         try {
@@ -125,7 +125,7 @@ class daoSedes {
             let result = {
                 error: false,
                 msg: `Se eliminó exitosamente la sede.`,
-              };
+            };
 
             sql.close(conexion);
 

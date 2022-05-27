@@ -2,9 +2,9 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOAreas = require("../infra/conectors/interfaseDAOAreas");
+const classInterfaceDAOSedes = require("../infra/conectors/interfaceDAOSedes");
 
-class updateAreas {
+class updateSedes {
     //obj info
     #objData;
     #objUser;
@@ -26,7 +26,7 @@ class updateAreas {
         await this.#validations();
         await this.#getIdEstado();
         this.#completeData();
-        await this.#updateAreas();
+        await this.#updateSedes();
         return this.#objResult;
     }
 
@@ -65,10 +65,10 @@ class updateAreas {
         this.#objData = newData;
     }
 
-    async #updateAreas() {
-        let dao = new classInterfaceDAOAreas();
+    async #updateSedes() {
+        let dao = new classInterfaceDAOSedes();
 
-        let query = await dao.updateAreas(this.#objData);
+        let query = await dao.updateSedes(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -81,4 +81,4 @@ class updateAreas {
         };
     }
 }
-module.exports = updateAreas;
+module.exports = updateSedes;

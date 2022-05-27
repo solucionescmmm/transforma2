@@ -1,36 +1,36 @@
 //clases
-const classInterfaceDAOAreas = require("../infra/conectors/interfaseDAOAreas")
+const classInterfaceDAOSedes = require("../infra/conectors/interfaceDAOSedes")
 
-class deleteAreas{
-    #intIdAreas;
+class deleteSedes{
+    #intIdSedes;
     #objResult;
 
     constructor(objParms) {
-        this.#intIdAreas = objParms.intId;
+        this.#intIdSedes = objParms.intId;
     }
 
     async main() {
         await this.#validations();
-        await this.#deleteAreas();
+        await this.#deleteSedes();
 
         return this.#objResult;
     }
 
     async #validations() {
-        if (!this.#intIdAreas) {
+        if (!this.#intIdSedes) {
             throw new Error("Se esperaban parametros de entrada");
         }
     }
 
-    async #deleteAreas(){
-        let dao = new classInterfaceDAOAreas();
-        let query = await dao.deleteAreas({
-            intId: this.#intIdAreas,
+    async #deleteSedes(){
+        let dao = new classInterfaceDAOSedes();
+        let query = await dao.deleteSedes({
+            intId: this.#intIdSedes,
         });
 
         if (query.error) {
             throw new Error(
-                "Ha ocurrido un error al momento de eliminar el Areas"
+                "Ha ocurrido un error al momento de eliminar el Sedes"
             );
         }
 
@@ -42,4 +42,4 @@ class deleteAreas{
     }
 
 }
-module.exports = deleteAreas
+module.exports = deleteSedes
