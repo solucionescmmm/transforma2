@@ -5,16 +5,18 @@ const sql = require("mssql");
 const {
     conexion,
 } = require("../../../../../../common/config/confSQL_connectionTransfroma");
-class daoTipoTarifa {
-    async setTipoTarifa(data) {
+class daoAtributos {
+    async setAtributos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
             DECLARE @intId INTEGER;
             
-            INSERT INTO tbl_TipoTarifa VALUES
+            INSERT INTO tbl_Atributos VALUES
             (
                 ${data.strNombre},
+                ${data.intIdTipoCampo},
+                ${data.strDescripcion},
                 ${data.intIdEstado},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
@@ -24,12 +26,12 @@ class daoTipoTarifa {
             
             SET @intId = SCOPE_IDENTITY();
     
-            SELECT * FROM tbl_TipoTarifa WHERE intId = @intId`;
+            SELECT * FROM tbl_Atributos WHERE intId = @intId`;
 
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El tipo de tarifa, fue agregada con éxito.`,
+                msg: `La sede, fue agregada con éxito.`,
             };
 
             sql.close(conexion);
@@ -40,7 +42,7 @@ class daoTipoTarifa {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setTipoTarifa de la clase daoTipoTarifa",
+                    "Error en el metodo setAtributos de la clase daoAtributos",
             };
 
             sql.close(conexion);
@@ -49,11 +51,11 @@ class daoTipoTarifa {
         }
     }
 
-    async getTipoTarifa(data) {
+    async getAtributos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
-                SELECT * FROM tbl_TipoTarifa 
+                SELECT * FROM tbl_Atributos 
                 WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let result = {
@@ -69,7 +71,7 @@ class daoTipoTarifa {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo getTipoTarifa de la clase daoTipoTarifa",
+                    "Error en el metodo getAtributos de la clase daoAtributos",
             };
 
             sql.close(conexion);
@@ -78,13 +80,15 @@ class daoTipoTarifa {
         }
     }
 
-    async updateTipoTarifa(data) {
+    async updateAtributos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
-                UPDATE tbl_TipoTarifa
+                UPDATE tbl_Atributos
 
                 SET strNombre               = COALESCE(${data.strNombre}, strNombre),
+                    intIdTipoCampo          = COALESCE(${data.intIdTipoCampo}, intIdTipoCampo),
+                    strDescripcion             = COALESCE(${data.strDescripcion}, strDescripcion),
                     intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
@@ -92,12 +96,12 @@ class daoTipoTarifa {
                 WHERE intId = ${data.intId}
                 
                 
-                SELECT * FROM tbl_TipoTarifa WHERE intId = ${data.intId}`;
+                SELECT * FROM tbl_Atributos WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El tipo de tarifa, fue actualizada con éxito.`,
+                msg: `La sede, fue actualizada con éxito.`,
             };
 
             sql.close(conexion);
@@ -108,7 +112,7 @@ class daoTipoTarifa {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo updateTipoTarifa de la clase daoTipoTarifa",
+                    "Error en el metodo updateAtributos de la clase daoAtributos",
             };
 
             sql.close(conexion);
@@ -117,10 +121,10 @@ class daoTipoTarifa {
         }
     }
 
-    async deleteTipoTarifa(data) {
+    async deleteAtributos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn.query`DELETE FROM tbl_TipoTarifa WHERE intId = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_Atributos WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
@@ -135,7 +139,7 @@ class daoTipoTarifa {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo deleteTipoTarifa de la clase daoTipoTarifa",
+                    "Error en el metodo deleteAtributos de la clase daoAtributos",
             };
 
             sql.close(conexion);
@@ -144,4 +148,4 @@ class daoTipoTarifa {
         }
     }
 }
-module.exports = daoTipoTarifa;
+module.exports = daoAtributos;

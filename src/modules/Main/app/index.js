@@ -41,6 +41,8 @@ app.use(require("../../Diagnosticos/Diagnostico Diseño/Diagnostico de Servicio/
 app.use(require("../../Servicios/Maestros/Areas/infra/http/apiAreas.routes"))
 app.use(require("../../Servicios/Maestros/Sedes/infra/http/apiSedes.routes"))
 app.use(require("../../Servicios/Maestros/Estados/infra/http/apiEstados.routes"))
+app.use(require("../../Servicios/Maestros/Tipos de Tarifas/infra/http/apiTipoTarifa.routes"))
+app.use(require("../../Servicios/Maestros/Atributos/infra/http/apiAtributos.routes"))
 app.use(require("../../Usuarios/infra/http/apiUsuarios.routes"))
 
 module.exports = app;
