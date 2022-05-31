@@ -10,9 +10,6 @@ class updateAreas {
     #objUser;
     #objResult;
 
-    //variables
-    #intIdEstado;
-
     /**
      * @param {object} data
      * @param {object} strDataUser
@@ -24,8 +21,6 @@ class updateAreas {
 
     async main() {
         await this.#validations();
-        await this.#getIdEstado();
-        this.#completeData();
         await this.#updateAreas();
         return this.#objResult;
     }
@@ -43,26 +38,6 @@ class updateAreas {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
-    }
-
-    async #getIdEstado() {
-        let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre: this.#objData.strEstado,
-        });
-
-        if (queryGetIdEstado.error) {
-            throw new Error(queryGetIdEstado.msg);
-        }
-
-        this.#intIdEstado = queryGetIdEstado.data.intId;
-    }
-
-    #completeData() {
-        let newData = {
-            ...this.#objData,
-            intiIdEsatdo: this.#intIdEstado,
-        };
-        this.#objData = newData;
     }
 
     async #updateAreas() {
