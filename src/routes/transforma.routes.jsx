@@ -23,6 +23,10 @@ import PageNotFound from "../common/components/Error/404";
 //===============================================================================================================================================
 const Home = lazy(() => import("../modules/Home/homePage"));
 
+const Admin = lazy(() => import("../modules/Admin/pages/Main"));
+
+const AdminLists = lazy(() => import("../modules/Admin/pages/Listas/homePage"));
+
 const REmpresarios = lazy(() =>
     import("../modules/Empresarios/pages/Read/readEmpresarios")
 );
@@ -96,6 +100,26 @@ const RoutesTransforma = ({ path }) => {
                                 component={() => (
                                     <div className="animate__animated animate__fadeIn">
                                         <CUEmpresario isEdit />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/admin/"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <Admin />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/admin/lists"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <AdminLists />
                                     </div>
                                 )}
                             />
