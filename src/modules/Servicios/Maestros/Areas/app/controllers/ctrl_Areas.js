@@ -31,8 +31,9 @@ class ctrl_Areas {
     async updateAreas(req, res) {
         try {
             let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new updateAreas(data);
+            let service = new updateAreas(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
