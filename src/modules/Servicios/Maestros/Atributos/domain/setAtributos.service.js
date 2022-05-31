@@ -4,7 +4,7 @@ const classInterfaceDAOAtributos = require("../infra/conectors/interfaceDAOAtrib
 //Librerias
 const validator = require("validator").default;
 
-class setSede {
+class setAtributos {
     #objData;
     #objUser;
     #objResult;
@@ -18,7 +18,7 @@ class setSede {
 
     async main() {
         await this.#validations();
-        await this.#setSede();
+        await this.#setAtributos();
         return this.#objResult;
     }
 
@@ -38,10 +38,10 @@ class setSede {
         }
     }
 
-    async #setSede() {
+    async #setAtributos() {
         let dao = new classInterfaceDAOAtributos();
 
-        let query = await dao.setSede(this.#objData);
+        let query = await dao.setAtributos(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -54,4 +54,4 @@ class setSede {
         };
     }
 }
-module.exports = setSede;
+module.exports = setAtributos;
