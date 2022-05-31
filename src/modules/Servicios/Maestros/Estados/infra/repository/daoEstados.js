@@ -11,7 +11,8 @@ class daoEstados {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
                 SELECT * FROM tbl_Estados 
-                WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+                WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)
+                ORDER BY intOrden ASC`;
 
             let result = {
                 error: false,
