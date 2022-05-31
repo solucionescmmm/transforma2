@@ -1,6 +1,9 @@
 //class
 const classInterfaceDAOTipoTarifa = require("../infra/conectors/interfaceDAOTipoTarifa");
 
+//Librerias
+const validator = require("validator").default;
+
 class setTipoTarifa {
     #objData;
     #objUser;

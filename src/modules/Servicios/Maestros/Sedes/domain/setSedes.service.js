@@ -1,6 +1,9 @@
 //class
 const classInterfaceDAOSedes = require("../infra/conectors/interfaceDAOSedes");
 
+//Librerias
+const validator = require("validator").default;
+
 class setSede {
     #objData;
     #objUser;

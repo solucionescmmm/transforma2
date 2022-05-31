@@ -1,6 +1,9 @@
 //class
 const classInterfaceDAOAreas = require("../infra/conectors/interfaseDAOAreas");
 
+//Librerias
+const validator = require("validator").default;
+
 //Servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
 

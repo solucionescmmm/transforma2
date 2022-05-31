@@ -1,6 +1,9 @@
 //class
 const classInterfaceDAOAtributos = require("../infra/conectors/interfaceDAOAtributos");
 
+//Librerias
+const validator = require("validator").default;
+
 class setSede {
     #objData;
     #objUser;
