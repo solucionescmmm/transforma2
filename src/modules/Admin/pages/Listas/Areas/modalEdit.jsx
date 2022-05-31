@@ -30,7 +30,7 @@ import { LoadingButton } from "@mui/lab";
 import { makeStyles } from "@mui/styles";
 
 // Componentes
-import SelectEstados from "../../../components/selectEstado"
+import SelectEstados from "../../../components/selectEstado";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -39,7 +39,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCreate = ({ handleOpenDialog, open }) => {
+const ModalCreate = ({ handleOpenDialog, open, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -84,9 +84,9 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
             await axios(
                 {
-                    method: "POST",
+                    method: "PUT",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_AREAS_SETAREA}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_AREAS_UPDATE}`,
                     data: { ...state },
                     headers: {
                         token,
@@ -129,7 +129,11 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     );
 
     const onSubmit = (data) => {
-        setState(data);
+        setState((prevState) => ({
+            ...prevState,
+            ...data,
+        }));
+
         setFlagSubmit(true);
     };
 
@@ -147,6 +151,16 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
             signalSubmitData.cancel("Petición abortada.");
         };
     }, [flagSubmit, submitData]);
+
+    useEffect(() => {
+        if (values) {
+            setState({
+                intId: values.intId,
+                intIdEstado: values.intIdEstado,
+                strNombre: values.strNombre,
+            });
+        }
+    }, [values]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -170,7 +184,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Registrar área</DialogTitle>
+            <DialogTitle>Editar área</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="rorw" spacing={2}>
@@ -238,7 +252,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
             <DialogActions>
                 <LoadingButton color="primary" loading={loading} type="submit">
-                    registrar
+                    guardar
                 </LoadingButton>
 
                 <Button

@@ -36,6 +36,7 @@ import {
 import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 import ModalCreate from "./modalCreate";
+import ModalEdit from "./modalEdit";
 
 const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
@@ -65,6 +66,7 @@ const ReadSolicitudesUser = () => {
     ]);
 
     const [openModalCreate, setOpenModalCreate] = useState(false);
+    const [openModalEdit, setOpenModalEdit] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     const { data } = useGetAreas({ autoLoad: true });
@@ -77,6 +79,10 @@ const ReadSolicitudesUser = () => {
         setOpenModalCreate(!openModalCreate);
     };
 
+    const handlerOpenModalEdit = () => {
+        setOpenModalEdit(!openModalEdit);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -85,6 +91,12 @@ const ReadSolicitudesUser = () => {
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
+            />
+
+            <ModalEdit
+                handleOpenDialog={handlerOpenModalEdit}
+                open={openModalEdit}
+                values={selectedData}
             />
 
             <Grid container direction="row" spacing={2}>
@@ -226,6 +238,7 @@ const ReadSolicitudesUser = () => {
                                             tooltip: "Editar",
                                             onClick: (event, rowData) => {
                                                 setSelectedData(rowData);
+                                                handlerOpenModalEdit();
                                             },
                                             disabled: rowData.intIdEstado === 1,
                                         };
@@ -238,7 +251,7 @@ const ReadSolicitudesUser = () => {
                                                         rowData.intIdEstado ===
                                                         1
                                                             ? "gray"
-                                                            : "danger"
+                                                            : "error"
                                                     }
                                                     fontSize="small"
                                                 />
