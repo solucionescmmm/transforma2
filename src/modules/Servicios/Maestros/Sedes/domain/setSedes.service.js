@@ -41,7 +41,7 @@ class setSede {
     async #setSede() {
         let dao = new classInterfaceDAOSedes();
 
-        let query = await dao.setSede(this.#objData);
+        let query = await dao.setSedes(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
