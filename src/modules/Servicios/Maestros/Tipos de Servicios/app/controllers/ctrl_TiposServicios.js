@@ -1,16 +1,16 @@
 //Servicios
-const setTipoTarifa = require("../../domain/setTipoTarifa.service");
-const getTipoTarifa = require("../../domain/getTipoTarifa.service");
-const updateTipoTarifa = require("../../domain/updateTipoTarifa.service");
-const deleteTipoTarifa = require("../../domain/deleteTipoTarifa.service");
+const setTiposServicios = require("../../domain/setTiposServicios.service");
+const getTiposServicios = require("../../domain/getTiposServicios.service");
+const updateTiposServicios = require("../../domain/updateTiposServicios.service");
+const deleteTiposServicios = require("../../domain/deleteTiposServicios.service");
 
-class ctrl_TipoTarifa {
-    async setTipoTarifa(req, res) {
+class ctrl_TiposServicios {
+    async setTiposServicios(req, res) {
         try {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new setTipoTarifa(data, strDataUser);
+            let service = new setTiposServicios(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
@@ -28,11 +28,11 @@ class ctrl_TipoTarifa {
         }
     }
 
-    async updateTipoTarifa(req, res) {
+    async updateTiposServicios(req, res) {
         try {
             let data = req.body;
 
-            let service = new updateTipoTarifa(data);
+            let service = new updateTiposServicios(data);
             let query = await service.main();
 
             if (query.error) {
@@ -50,11 +50,11 @@ class ctrl_TipoTarifa {
         }
     }
 
-    async deleteTipoTarifa(req, res) {
+    async deleteTiposServicios(req, res) {
         try {
             let objParams = req.query;
 
-            let service = new deleteTipoTarifa(objParams);
+            let service = new deleteTiposServicios(objParams);
             let query = await service.main();
 
             if (query.error) {
@@ -72,12 +72,12 @@ class ctrl_TipoTarifa {
         }
     }
 
-    async getTipoTarifa(req, res) {
+    async getTiposServicios(req, res) {
         try {
             let objParams = req.query;
             let { strDataUser } = req;
 
-            let query = await getTipoTarifa(objParams, strDataUser);
+            let query = await getTiposServicios(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);
@@ -95,4 +95,4 @@ class ctrl_TipoTarifa {
     }
 }
 
-module.exports = ctrl_TipoTarifa;
+module.exports = ctrl_TiposServicios;

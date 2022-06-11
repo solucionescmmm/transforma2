@@ -1,10 +1,10 @@
 //class
-const classInterfaceDAOTipoTarifa = require("../infra/conectors/interfaceDAOTipoTarifa");
+const classInterfaceDAOTiposServicios = require("../infra/conectors/interfaceDAOTiposServicios");
 
 //Librerias
 const validator = require("validator").default;
 
-class updateTipoTarifa {
+class updateTiposServicios {
     #objData;
     #objUser;
     #objResult;
@@ -18,7 +18,7 @@ class updateTipoTarifa {
 
     async main() {
         await this.#validations();
-        await this.#updateTipoTarifa();
+        await this.#updateTiposServicios();
         return this.#objResult;
     }
 
@@ -38,10 +38,10 @@ class updateTipoTarifa {
         }
     }
 
-    async #updateTipoTarifa() {
-        let dao = new classInterfaceDAOTipoTarifa();
+    async #updateTiposServicios() {
+        let dao = new classInterfaceDAOTiposServicios();
 
-        let query = await dao.updateTipoTarifa(this.#objData);
+        let query = await dao.updateTiposServicios(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -54,4 +54,4 @@ class updateTipoTarifa {
         };
     }
 }
-module.exports = updateTipoTarifa;
+module.exports = updateTiposServicios;
