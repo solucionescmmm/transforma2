@@ -8,11 +8,11 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 /**
- * El hook devuelve los datos de tipo campos
+ * El hook devuelve los datos de los tipos de de servicios
  *
  * @author Santiago Cardona Saldarriaga <scardonas@xelerica.com>
  **/
-const useGetCampos = ({ autoLoad = true } = {}) => {
+const useGetTiposServicio = ({ autoLoad = true } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -32,7 +32,7 @@ const useGetCampos = ({ autoLoad = true } = {}) => {
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_ATRIBUTOS_CAMPOS}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_TARIFAS_GET}`,
                     headers: {
                         token,
                     },
@@ -97,4 +97,4 @@ const useGetCampos = ({ autoLoad = true } = {}) => {
     return { data, refreshGetData };
 };
 
-export default useGetCampos;
+export default useGetTiposServicio;

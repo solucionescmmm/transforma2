@@ -85,10 +85,10 @@ const HomePage = () => {
                     fullWidth
                 >
                     <MenuItem value="Áreas">Áreas</MenuItem>
+                    <MenuItem value="Atributos">Atributos</MenuItem>
                     <MenuItem value="Sedes">Sedes</MenuItem>
                     <MenuItem value="Tipos de tarifa">Tipos de tarifa</MenuItem>
-                    <MenuItem value="Tipos de campo">Tipos de campo</MenuItem>
-                    <MenuItem value="Atributos">Atributos</MenuItem>
+                    <MenuItem value="Tipos de servicio">Tipos de servicio</MenuItem>
                 </TextField>
             </Grid>
 

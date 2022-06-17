@@ -4,12 +4,16 @@ import { Alert } from "@mui/material";
 import Areas from "./Areas";
 import Sedes from "./Sedes";
 import Tarifas from "./Tarifas";
-import Campos from "./Campos";
 import Atributos from "./Atributos";
+import TiporServicio from "./TipoServicio";
 
 const Wrapper = ({ type }) => {
     if (type === "Áreas") {
         return <Areas />;
+    }
+
+    if (type === "Atributos") {
+        return <Atributos />;
     }
 
     if (type === "Sedes") {
@@ -20,12 +24,8 @@ const Wrapper = ({ type }) => {
         return <Tarifas />;
     }
 
-    if (type === "Tipos de campo") {
-        return <Campos />;
-    }
-
-    if (type === "Atributos") {
-        return <Atributos />;
+    if (type === "Tipos de servicio") {
+        return <TiporServicio />;
     }
 
     if (type !== "") {

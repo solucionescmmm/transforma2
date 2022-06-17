@@ -22,7 +22,6 @@ import {
     Grid,
     Typography,
     TextField,
-    MenuItem,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -31,7 +30,8 @@ import { LoadingButton } from "@mui/lab";
 import { makeStyles } from "@mui/styles";
 
 // Componentes
-import SelectEstados from "../../../components/selectEstado"
+import SelectEstados from "../../../components/selectEstado";
+import SelectCampos from "../../../components/selectCampos";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -52,6 +52,8 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     const [state, setState] = useState({
         IntIdEstado: "",
         strNombre: "",
+        intIdTipoCampo: "",
+        strDescripcion: "",
     });
 
     const [success, setSucces] = useState(false);
@@ -87,7 +89,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                 {
                     method: "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_AREAS_SETAREA}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_ATRIBUTOS_SET}`,
                     data: { ...state },
                     headers: {
                         token,
@@ -153,7 +155,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     if (success) {
-        return <Redirect to="/transforma/asesor/empresario/read/all" />;
+        return <Redirect to="/transforma/admin/lists/" />;
     }
 
     return (
@@ -171,7 +173,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Registrar área</DialogTitle>
+            <DialogTitle>Registrar atributo</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="rorw" spacing={2}>
@@ -209,6 +211,32 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
                     <Grid item xs={12}>
                         <Controller
+                            defaultValue={state.intIdTipoCampo}
+                            name="intIdTipoCampo"
+                            render={({ field: { onChange, value, name } }) => (
+                                <SelectCampos
+                                    label="Tipo de campo"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={loading}
+                                    required
+                                    error={errors[name] ? true : false}
+                                    helperText={
+                                        errors[name]?.message ||
+                                        "Selecciona una opción"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, seleccione una opción",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
                             defaultValue={state.strNombre}
                             name="strNombre"
                             render={({ field: { onChange, value, name } }) => (
@@ -224,14 +252,42 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                                     error={errors[name] ? true : false}
                                     helperText={
                                         errors[name]?.message ||
-                                        "Digita el nombre del área"
+                                        "Digita el nombre del atributo"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, el nombre del área",
+                                required:
+                                    "Por favor, digita el nombre del atributo",
                             }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={state.strDescripcion}
+                            name="strDescripcion"
+                            render={({ field: { onChange, value, name } }) => (
+                                <TextField
+                                    label="Descripción"
+                                    variant="outlined"
+                                    name={name}
+                                    value={value}
+                                    disabled={loading}
+                                    onChange={(e) => onChange(e)}
+                                    required
+                                    fullWidth
+                                    error={errors[name] ? true : false}
+                                    helperText={
+                                        errors[name]?.message ||
+                                        "Digita el la descripción del campo, en caso de que aplique"
+                                    }
+                                    multiline
+                                    rows={4}
+                                />
+                            )}
+                            control={control}
                         />
                     </Grid>
                 </Grid>

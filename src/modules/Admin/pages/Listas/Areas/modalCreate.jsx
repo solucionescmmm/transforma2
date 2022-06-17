@@ -22,6 +22,7 @@ import {
     Grid,
     Typography,
     TextField,
+    Alert,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -30,7 +31,7 @@ import { LoadingButton } from "@mui/lab";
 import { makeStyles } from "@mui/styles";
 
 // Componentes
-import SelectEstados from "../../../components/selectEstado"
+import SelectEstados from "../../../components/selectEstado";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -69,7 +70,10 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
         control,
         formState: { errors },
         handleSubmit,
+        getValues,
     } = useForm({ mode: "onChange" });
+
+    const intIdEstado = getValues("intIdEstado");
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -189,7 +193,13 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                                     label="Estado"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        setState((prevState) => ({
+                                            ...prevState,
+                                            [e.target.name]: e.target.value,
+                                        }));
+                                    }}
                                     disabled={loading}
                                     required
                                     error={errors[name] ? true : false}
@@ -233,6 +243,15 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                             }}
                         />
                     </Grid>
+
+                    {state.intIdEstado === 1 && (
+                        <Grid item xs={12}>
+                            <Alert severity="warning">
+                                Al seleccionar el estado activo, no podras
+                                editar ni eliminar está información
+                            </Alert>
+                        </Grid>
+                    )}
                 </Grid>
             </DialogContent>
 

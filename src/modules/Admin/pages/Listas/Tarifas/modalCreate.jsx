@@ -11,6 +11,7 @@ import { useForm, Controller } from "react-hook-form";
 
 //Componentes de Material UI
 import {
+    Alert,
     DialogTitle,
     DialogContent,
     DialogActions,
@@ -22,7 +23,6 @@ import {
     Grid,
     Typography,
     TextField,
-    MenuItem,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -87,7 +87,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                 {
                     method: "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_AREAS_SETAREA}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_TARIFAS_SET}`,
                     data: { ...state },
                     headers: {
                         token,
@@ -153,7 +153,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     if (success) {
-        return <Redirect to="/transforma/asesor/empresario/read/all" />;
+        return <Redirect to="/transforma/admin/lists/" />;
     }
 
     return (
@@ -171,7 +171,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Registrar área</DialogTitle>
+            <DialogTitle>Registrar tarifa</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="rorw" spacing={2}>
@@ -190,7 +190,13 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                                     label="Estado"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        setState((prevState) => ({
+                                            ...prevState,
+                                            [e.target.name]: e.target.value,
+                                        }));
+                                    }}
                                     disabled={loading}
                                     required
                                     error={errors[name] ? true : false}
@@ -224,16 +230,25 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                                     error={errors[name] ? true : false}
                                     helperText={
                                         errors[name]?.message ||
-                                        "Digita el nombre del área"
+                                        "Digita el nombre de la tarifa"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, el nombre del área",
+                                required: "Por favor, digita el nombre de la tarifa",
                             }}
                         />
                     </Grid>
+
+                    {state.intIdEstado === 1 && (
+                        <Grid item xs={12}>
+                            <Alert severity="warning">
+                                Al seleccionar el estado activo, no podras
+                                editar ni eliminar está información
+                            </Alert>
+                        </Grid>
+                    )}
                 </Grid>
             </DialogContent>
 

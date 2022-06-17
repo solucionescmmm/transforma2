@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 
 // Hooks
-import useGetAreas from "../../../hooks/useGetAreas";
+import useGetAtributos from "../../../hooks/useGetAtributos";
 
 //Componentes de Material UI
 import { Grid, Box, Button } from "@mui/material";
@@ -29,12 +29,15 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
+    Delete as DeleteIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
 import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 import ModalCreate from "./modalCreate";
+import ModalEdit from "./modalEdit";
+import ModalDelete from "./modalDelete";
 
 const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
@@ -44,38 +47,48 @@ const ReadSolicitudesUser = () => {
         {
             title: "Id",
             field: "intId",
-            type: "number",
+            type: "numeric",
         },
         {
             title: "Nombre",
-            field: "objInfoEmpresa.strNombreMarca",
-            type: "string",
-        },
-        {
-            title: "Tipo de campo",
-            field: "objInfoEmpresa.strNombreMarca",
+            field: "strNombre",
             type: "string",
         },
         {
             title: "Descripción",
-            field: "objInfoEmpresa.strSectorEconomico",
+            field: "strDescripcion",
             type: "string",
         },
         {
             title: "Fecha de creación",
-            field: "objEmpresario.strSede",
-            type: "string",
+            field: "dtmCreacion",
+            type: "date",
+        },
+        {
+            title: "Tipo de campo",
+            field: "intIdTipoCampo",
+            lookup: {
+                1: "BIT",
+                2: "DATE",
+                3: "DATETIME",
+                4: "INT",
+                5: "MONEY",
+                6: "VARCHAR",
+            },
         },
         {
             title: "Estado",
-            field: "objInfoEmpresa.strNombreMarca",
-            type: "string",
+            field: "intIdEstado",
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
     ]);
 
     const [openModalCreate, setOpenModalCreate] = useState(false);
+    const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [selectedData, setSelectedData] = useState();
 
-    const { data } = useGetAreas({ autoLoad: true });
+    const { data } = useGetAtributos({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -85,6 +98,13 @@ const ReadSolicitudesUser = () => {
         setOpenModalCreate(!openModalCreate);
     };
 
+    const handlerOpenModalEdit = () => {
+        setOpenModalEdit(!openModalEdit);
+    };
+
+    const handlerOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -93,6 +113,18 @@ const ReadSolicitudesUser = () => {
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
+            />
+
+            <ModalEdit
+                handleOpenDialog={handlerOpenModalEdit}
+                open={openModalEdit}
+                values={selectedData}
+            />
+
+            <ModalDelete
+                handleOpenDialog={handlerOpenModalDelete}
+                open={openModalDelete}
+                intId={selectedData?.intId}
             />
 
             <Grid container direction="row" spacing={2}>
@@ -215,7 +247,46 @@ const ReadSolicitudesUser = () => {
                                         fontSize: 12,
                                     },
                                     maxBodyHeight: "520px",
+                                    actionsColumnIndex: -1,
                                 }}
+                                actions={[
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <EditIcon
+                                                    color="success"
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            tooltip: "Editar",
+                                            onClick: (event, rowData) => {
+                                                setSelectedData(rowData);
+                                                handlerOpenModalEdit();
+                                            },
+                                        };
+                                    },
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <DeleteIcon
+                                                    color={
+                                                        rowData.intIdEstado ===
+                                                        1
+                                                            ? "gray"
+                                                            : "error"
+                                                    }
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            tooltip: "Eliminar",
+                                            onClick: (event, rowData) => {
+                                                setSelectedData(rowData);
+                                                handlerOpenModalDelete();
+                                            },
+                                            disabled: rowData.intIdEstado === 1,
+                                        };
+                                    },
+                                ]}
                                 components={{
                                     Toolbar: (props) => (
                                         <div

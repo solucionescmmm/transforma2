@@ -1,7 +1,7 @@
 import React from "react";
 
 //Hooks
-import useGetEstados from "../hooks/useGetEstados";
+import useGetAtributos from "../hooks/useGetAtributos";
 
 //Componentes de Material UI
 import {
@@ -18,7 +18,7 @@ import {
 //Iconos
 import { Refresh as RefreshIcon } from "@mui/icons-material";
 
-const SelectEstados = ({
+const SelectAtributos = ({
     label,
     name,
     value,
@@ -28,7 +28,7 @@ const SelectEstados = ({
     disabled,
     required,
 }) => {
-    const { data, refreshGetData } = useGetEstados();
+    const { data, refreshGetData } = useGetAtributos();
 
     if (data === undefined) {
         return (
@@ -63,7 +63,7 @@ const SelectEstados = ({
                 <AlertTitle>
                     <b>Sin datos</b>
                 </AlertTitle>
-                No existen datos por mostrar del servicio de estados
+                No existen datos por mostrar del servicio de tipos de atributos
             </Alert>
         );
     }
@@ -88,7 +88,7 @@ const SelectEstados = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos del listado de estados
+                Ha ocurrido un error al obtener los datos del listado de tipos de atributos
             </Alert>
         );
     }
@@ -116,4 +116,4 @@ const SelectEstados = ({
     );
 };
 
-export default SelectEstados;
+export default SelectAtributos;

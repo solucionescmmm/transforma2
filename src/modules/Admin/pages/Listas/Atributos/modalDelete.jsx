@@ -7,31 +7,28 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useForm, Controller } from "react-hook-form";
 
 //Componentes de Material UI
 import {
-    Alert,
+    Box,
     DialogTitle,
     DialogContent,
     DialogActions,
+    DialogContentText,
     Dialog,
     Button,
     useTheme,
     useMediaQuery,
     LinearProgress,
-    Grid,
-    Typography,
-    TextField,
+    CircularProgress,
+    Alert,
+    AlertTitle,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-
-// Componentes
-import SelectEstados from "../../../components/selectEstado";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -40,7 +37,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCreate = ({ handleOpenDialog, open }) => {
+const ModalDelete = ({ handleOpenDialog, open, intId }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -49,29 +46,21 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [state, setState] = useState({
-        IntIdEstado: "",
-        strNombre: "",
-        objAtributos: {}
-    });
-
     const [success, setSucces] = useState(false);
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
+
+    const [data, setData] = useState({
+        intId: null,
+    });
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-    } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -86,10 +75,12 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
             await axios(
                 {
-                    method: "POST",
+                    method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_SEDES_SET}`,
-                    data: { ...state },
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_ATRIBUTOS_DELETE}`,
+                    params: {
+                        intId: data.intId,
+                    },
                     headers: {
                         token,
                     },
@@ -127,17 +118,22 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                     }
                 });
         },
-        [token, state]
+        [token, data]
     );
-
-    const onSubmit = (data) => {
-        setState(data);
-        setFlagSubmit(true);
-    };
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
+    useEffect(() => {
+        if (intId) {
+            setData({
+                intId,
+            });
+        }
+
+        setLoading(false);
+    }, [intId]);
+
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -157,6 +153,51 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
         return <Redirect to="/transforma/admin/lists/" />;
     }
 
+    if (!data.intId) {
+        return (
+            <Dialog
+                fullScreen={bitMobile}
+                open={open}
+                onClose={handleOpenDialog}
+                PaperProps={{
+                    style: {
+                        backgroundColor: !loading && !data.intId ? "#FDEDED" : "inherit",
+                    },
+                }}
+            >
+                <DialogContent>
+                    {loading ? (
+                        <Box
+                            sx={{
+                                width: "100%",
+                                height: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <CircularProgress />
+                        </Box>
+                    ) : (
+                        <Alert severity="error">
+                            <AlertTitle>
+                                <b>No se encontro el identificador del atributo</b>
+                            </AlertTitle>
+                            Ha ocurrido un error al momento de seleccionar los datos, por
+                            favor escala al área de TI para mayor información.
+                        </Alert>
+                    )}
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={() => handleOpenDialog()} color="inherit">
+                        cerrar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    }
+
     return (
         <Dialog
             fullScreen={bitMobile}
@@ -164,106 +205,34 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
             onClose={handleOpenDialog}
             fullWidth
             PaperProps={{
-                component: "form",
-                noValidate: true,
-                onSubmit: handleSubmit(onSubmit),
+                style: {
+                    backgroundColor: "#FDEDED",
+                },
             }}
         >
-            {loading ? (
-                <LinearProgress className={classes.linearProgress} />
-            ) : null}
-            <DialogTitle>Registrar tipo de servicio</DialogTitle>
+            {loading ? <LinearProgress className={classes.linearProgress} /> : null}
+            <DialogTitle>{`¿Deseas eliminar el atributo seleccionado?`}</DialogTitle>
 
             <DialogContent>
-                <Grid container direction="rorw" spacing={2}>
-                    <Grid item xs={12}>
-                        <Typography variant="caption">
-                            Todos los elementos marcados con *, son obligatorios
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={state.IntIdEstado}
-                            name="intIdEstado"
-                            render={({ field: { onChange, value, name } }) => (
-                                <SelectEstados
-                                    label="Estado"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => {
-                                        onChange(e);
-                                        setState((prevState) => ({
-                                            ...prevState,
-                                            [e.target.name]: e.target.value,
-                                        }));
-                                    }}
-                                    disabled={loading}
-                                    required
-                                    error={errors[name] ? true : false}
-                                    helperText={
-                                        errors[name]?.message ||
-                                        "Selecciona una opción"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, selecciona una opción",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={state.strNombre}
-                            name="strNombre"
-                            render={({ field: { onChange, value, name } }) => (
-                                <TextField
-                                    label="Nombre"
-                                    variant="standard"
-                                    name={name}
-                                    value={value}
-                                    disabled={loading}
-                                    onChange={(e) => onChange(e)}
-                                    required
-                                    fullWidth
-                                    error={errors[name] ? true : false}
-                                    helperText={
-                                        errors[name]?.message ||
-                                        "Digita el nombre de la sede"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, digita el nombre de la sede",
-                            }}
-                        />
-                    </Grid>
-
-                    {state.intIdEstado === 1 && (
-                        <Grid item xs={12}>
-                            <Alert severity="warning">
-                                Al seleccionar el estado activo, no podras
-                                editar ni eliminar está información
-                            </Alert>
-                        </Grid>
-                    )}
-                </Grid>
+                <DialogContentText>
+                    El proceso es irreversible y no podrás recuperar la información.
+                </DialogContentText>
             </DialogContent>
 
             <DialogActions>
-                <LoadingButton color="primary" loading={loading} type="submit">
-                    registrar
+                <LoadingButton
+                    color="error"
+                    loading={loading}
+                    type="button"
+                    onClick={() => setFlagSubmit(true)}
+                >
+                    aceptar
                 </LoadingButton>
 
                 <Button
                     onClick={() => handleOpenDialog()}
                     color="inherit"
                     disabled={loading}
-                    type="button"
                 >
                     cancelar
                 </Button>
@@ -272,4 +241,4 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     );
 };
 
-export default ModalCreate;
+export default ModalDelete;

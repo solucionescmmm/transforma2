@@ -1,7 +1,7 @@
 import React from "react";
 
 //Hooks
-import useGetEstados from "../hooks/useGetEstados";
+import useGetCampos from "../hooks/useGetCampos";
 
 //Componentes de Material UI
 import {
@@ -18,7 +18,7 @@ import {
 //Iconos
 import { Refresh as RefreshIcon } from "@mui/icons-material";
 
-const SelectEstados = ({
+const SelectCampos = ({
     label,
     name,
     value,
@@ -28,7 +28,7 @@ const SelectEstados = ({
     disabled,
     required,
 }) => {
-    const { data, refreshGetData } = useGetEstados();
+    const { data, refreshGetData } = useGetCampos();
 
     if (data === undefined) {
         return (
@@ -63,7 +63,7 @@ const SelectEstados = ({
                 <AlertTitle>
                     <b>Sin datos</b>
                 </AlertTitle>
-                No existen datos por mostrar del servicio de estados
+                No existen datos por mostrar del servicio de tipos de campos
             </Alert>
         );
     }
@@ -116,4 +116,4 @@ const SelectEstados = ({
     );
 };
 
-export default SelectEstados;
+export default SelectCampos;

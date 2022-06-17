@@ -37,6 +37,7 @@ import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 import ModalCreate from "./modalCreate";
 import ModalEdit from "./modalEdit";
+import ModalDelete from "./modalDelete";
 
 const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
@@ -46,7 +47,7 @@ const ReadSolicitudesUser = () => {
         {
             title: "Id",
             field: "intId",
-            type: "number",
+            type: "numeric",
         },
         {
             title: "Nombre",
@@ -61,12 +62,13 @@ const ReadSolicitudesUser = () => {
         {
             title: "Estado",
             field: "intIdEstado",
-            type: "string",
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" }
         },
     ]);
 
     const [openModalCreate, setOpenModalCreate] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     const { data } = useGetAreas({ autoLoad: true });
@@ -83,6 +85,10 @@ const ReadSolicitudesUser = () => {
         setOpenModalEdit(!openModalEdit);
     };
 
+    const handlerOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -91,6 +97,12 @@ const ReadSolicitudesUser = () => {
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
+            />
+
+            <ModalDelete
+                handleOpenDialog={handlerOpenModalDelete}
+                open={openModalDelete}
+                intId={selectedData?.intId}
             />
 
             <ModalEdit
@@ -226,12 +238,7 @@ const ReadSolicitudesUser = () => {
                                         return {
                                             icon: () => (
                                                 <EditIcon
-                                                    color={
-                                                        rowData.intIdEstado ===
-                                                        1
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
+                                                    color="success"
                                                     fontSize="small"
                                                 />
                                             ),
@@ -240,7 +247,6 @@ const ReadSolicitudesUser = () => {
                                                 setSelectedData(rowData);
                                                 handlerOpenModalEdit();
                                             },
-                                            disabled: rowData.intIdEstado === 1,
                                         };
                                     },
                                     (rowData) => {
@@ -259,6 +265,7 @@ const ReadSolicitudesUser = () => {
                                             tooltip: "Eliminar",
                                             onClick: (event, rowData) => {
                                                 setSelectedData(rowData);
+                                                handlerOpenModalDelete();
                                             },
                                             disabled: rowData.intIdEstado === 1,
                                         };

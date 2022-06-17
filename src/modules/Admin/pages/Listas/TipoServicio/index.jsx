@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 
 // Hooks
-import useGetAreas from "../../../hooks/useGetAreas";
+import useGetTiposServicio from "../../../hooks/useGetTiposServicio";
 
 //Componentes de Material UI
 import { Grid, Box, Button } from "@mui/material";
@@ -29,48 +29,49 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
+    Delete as DeleteIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
 import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 import ModalCreate from "./modalCreate";
+import ModalEdit from "./modalEdit";
+import ModalDelete from "./modalDelete";
 
-const ReadSolicitudesUser = () => {
+const Read = () => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
             title: "Id",
-            field: "objEmpresario.strNroDocto",
-            type: "number",
+            field: "intId",
+            type: "numeric",
         },
         {
             title: "Nombre",
-            field: "objInfoEmpresa.strNombreMarca",
-            type: "string",
-        },
-        {
-            title: "Descripción",
-            field: "objInfoEmpresa.strNombreMarca",
+            field: "strNombre",
             type: "string",
         },
         {
             title: "Fecha de creación",
-            field: "objEmpresario.strSede",
-            type: "string",
+            field: "dtmCreacion",
+            type: "date",
         },
         {
             title: "Estado",
-            field: "objInfoEmpresa.strSectorEconomico",
-            type: "string",
+            field: "intIdEstado",
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" }
         },
     ]);
 
     const [openModalCreate, setOpenModalCreate] = useState(false);
+    const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [selectedData, setSelectedData] = useState();
 
-    const { data } = useGetAreas({ autoLoad: true });
+    const { data } = useGetTiposServicio({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -78,6 +79,14 @@ const ReadSolicitudesUser = () => {
 
     const handlerOpenModalCreate = () => {
         setOpenModalCreate(!openModalCreate);
+    };
+
+    const handlerOpenModalEdit = () => {
+        setOpenModalEdit(!openModalEdit);
+    };
+
+    const handlerOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
     };
 
     //===============================================================================================================================================
@@ -88,6 +97,18 @@ const ReadSolicitudesUser = () => {
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
+            />
+
+            <ModalDelete
+                handleOpenDialog={handlerOpenModalDelete}
+                open={openModalDelete}
+                intId={selectedData?.intId}
+            />
+
+            <ModalEdit
+                handleOpenDialog={handlerOpenModalEdit}
+                open={openModalEdit}
+                values={selectedData}
             />
 
             <Grid container direction="row" spacing={2}>
@@ -193,7 +214,7 @@ const ReadSolicitudesUser = () => {
                                 isLoading={!data}
                                 data={data || []}
                                 columns={objColumns}
-                                title="Lista de campos"
+                                title="Lista de tipos de servicio"
                                 options={{
                                     grouping: true,
                                     title: true,
@@ -210,7 +231,46 @@ const ReadSolicitudesUser = () => {
                                         fontSize: 12,
                                     },
                                     maxBodyHeight: "520px",
+                                    actionsColumnIndex: -1,
                                 }}
+                                actions={[
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <EditIcon
+                                                    color="success"
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            tooltip: "Editar",
+                                            onClick: (event, rowData) => {
+                                                setSelectedData(rowData);
+                                                handlerOpenModalEdit();
+                                            },
+                                        };
+                                    },
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <DeleteIcon
+                                                    color={
+                                                        rowData.intIdEstado ===
+                                                        1
+                                                            ? "gray"
+                                                            : "error"
+                                                    }
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            tooltip: "Eliminar",
+                                            onClick: (event, rowData) => {
+                                                setSelectedData(rowData);
+                                                handlerOpenModalDelete();
+                                            },
+                                            disabled: rowData.intIdEstado === 1,
+                                        };
+                                    },
+                                ]}
                                 components={{
                                     Toolbar: (props) => (
                                         <div
@@ -238,7 +298,7 @@ const ReadSolicitudesUser = () => {
                                                                 handlerOpenModalCreate()
                                                             }
                                                         >
-                                                            Agregar campo
+                                                            Agregar tipo de servicio
                                                         </Button>
                                                     </Box>
                                                 </Grid>
@@ -255,4 +315,4 @@ const ReadSolicitudesUser = () => {
     );
 };
 
-export default ReadSolicitudesUser;
+export default Read;

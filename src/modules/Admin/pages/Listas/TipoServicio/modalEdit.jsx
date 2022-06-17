@@ -40,7 +40,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCreate = ({ handleOpenDialog, open }) => {
+const ModalCreate = ({ handleOpenDialog, open, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -50,9 +50,8 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [state, setState] = useState({
-        IntIdEstado: "",
+        intIdEstado: "",
         strNombre: "",
-        objAtributos: {}
     });
 
     const [success, setSucces] = useState(false);
@@ -86,9 +85,9 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
             await axios(
                 {
-                    method: "POST",
+                    method: "PUT",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_SEDES_SET}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_SEDES_UPDATE}`,
                     data: { ...state },
                     headers: {
                         token,
@@ -131,7 +130,11 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     );
 
     const onSubmit = (data) => {
-        setState(data);
+        setState((prevState) => ({
+            ...prevState,
+            ...data,
+        }));
+
         setFlagSubmit(true);
     };
 
@@ -149,6 +152,16 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
             signalSubmitData.cancel("Petición abortada.");
         };
     }, [flagSubmit, submitData]);
+
+    useEffect(() => {
+        if (values) {
+            setState({
+                intId: values.intId,
+                intIdEstado: values.intIdEstado,
+                strNombre: values.strNombre,
+            });
+        }
+    }, [values]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -172,7 +185,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Registrar tipo de servicio</DialogTitle>
+            <DialogTitle>Editar sede</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="rorw" spacing={2}>
@@ -184,7 +197,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={state.IntIdEstado}
+                            defaultValue={state.intIdEstado}
                             name="intIdEstado"
                             render={({ field: { onChange, value, name } }) => (
                                 <SelectEstados
@@ -224,7 +237,9 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                                     variant="standard"
                                     name={name}
                                     value={value}
-                                    disabled={loading}
+                                    disabled={
+                                        state.intIdEstado === 1 ? true : loading
+                                    }
                                     onChange={(e) => onChange(e)}
                                     required
                                     fullWidth
@@ -256,7 +271,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
             <DialogActions>
                 <LoadingButton color="primary" loading={loading} type="submit">
-                    registrar
+                    guardar
                 </LoadingButton>
 
                 <Button

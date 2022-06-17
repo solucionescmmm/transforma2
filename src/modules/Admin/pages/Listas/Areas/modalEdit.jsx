@@ -11,6 +11,7 @@ import { useForm, Controller } from "react-hook-form";
 
 //Componentes de Material UI
 import {
+    Alert,
     DialogTitle,
     DialogContent,
     DialogActions,
@@ -203,7 +204,13 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
                                     label="Estado"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        setState((prevState) => ({
+                                            ...prevState,
+                                            [e.target.name]: e.target.value,
+                                        }));
+                                    }}
                                     disabled={loading}
                                     required
                                     error={errors[name] ? true : false}
@@ -230,7 +237,9 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
                                     variant="standard"
                                     name={name}
                                     value={value}
-                                    disabled={loading}
+                                    disabled={
+                                        state.intIdEstado === 1 ? true : loading
+                                    }
                                     onChange={(e) => onChange(e)}
                                     required
                                     fullWidth
@@ -247,6 +256,15 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
                             }}
                         />
                     </Grid>
+
+                    {state.intIdEstado === 1 && (
+                        <Grid item xs={12}>
+                            <Alert severity="warning">
+                                Al seleccionar el estado activo, no podras
+                                editar ni eliminar está información
+                            </Alert>
+                        </Grid>
+                    )}
                 </Grid>
             </DialogContent>
 
