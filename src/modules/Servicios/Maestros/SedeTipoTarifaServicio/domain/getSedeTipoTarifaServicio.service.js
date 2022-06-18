@@ -1,9 +1,9 @@
 //Librerias
 const validator = require("validator").default;
 //Clases
-const classInterfaceTipoTarifa = require("../infra/conectors/interfaceDAOTipoTarifa");
+const classInterfaceSedeTipoTarifaServicio = require("../infra/conectors/interfaceDAOSedeTipoTarifaServicio");
 
-const getTipoTarifa = async (objParams, strDataUser) => {
+const getSedeTipoTarifaServicio = async (objParams, strDataUser) => {
     let = { intId } = objParams;
 
     if (
@@ -16,14 +16,14 @@ const getTipoTarifa = async (objParams, strDataUser) => {
         );
     }
 
-    let dao = new classInterfaceTipoTarifa();
+    let dao = new classInterfaceSedeTipoTarifaServicio();
 
     let query = {
         intId: intId || null,
     };
 
-    let result = await dao.getTipoTarifa(query);
+    let result = await dao.getSedeTipoTarifaServicio(query);
 
     return result;
 };
-module.exports = getTipoTarifa;
+module.exports = getSedeTipoTarifaServicio;

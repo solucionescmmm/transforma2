@@ -1,16 +1,16 @@
 //Servicios
-const setTipoServicios = require("../../domain/setTipoServicios.service");
-const getTipoServicios = require("../../domain/getTipoServicios.service");
-const updateTipoServicios = require("../../domain/updateTipoServicios.service");
-const deleteTipoServicios = require("../../domain/deleteTipoServicios.service");
+const setSedeTipoTarifaServicio = require("../../domain/setSedeTipoTarifaServicio.service");
+const getSedeTipoTarifaServicio = require("../../domain/getSedeTipoTarifaServicio.service");
+const updateSedeTipoTarifaServicio = require("../../domain/updateSedeTipoTarifaServicio.service");
+const deleteSedeTipoTarifaServicio = require("../../domain/deleteSedeTipoTarifaServicio.service");
 
-class ctrl_TipoServicios {
-    async setTipoServicios(req, res) {
+class ctrl_SedeTipoTarifaServicio {
+    async setSedeTipoTarifaServicio(req, res) {
         try {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new setTipoServicios(data, strDataUser);
+            let service = new setSedeTipoTarifaServicio(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
@@ -28,11 +28,11 @@ class ctrl_TipoServicios {
         }
     }
 
-    async updateTipoServicios(req, res) {
+    async updateSedeTipoTarifaServicio(req, res) {
         try {
             let data = req.body;
 
-            let service = new updateTipoServicios(data);
+            let service = new updateSedeTipoTarifaServicio(data);
             let query = await service.main();
 
             if (query.error) {
@@ -50,11 +50,11 @@ class ctrl_TipoServicios {
         }
     }
 
-    async deleteTipoServicios(req, res) {
+    async deleteSedeTipoTarifaServicio(req, res) {
         try {
             let objParams = req.query;
 
-            let service = new deleteTipoServicios(objParams);
+            let service = new deleteSedeTipoTarifaServicio(objParams);
             let query = await service.main();
 
             if (query.error) {
@@ -72,12 +72,12 @@ class ctrl_TipoServicios {
         }
     }
 
-    async getTipoServicios(req, res) {
+    async getSedeTipoTarifaServicio(req, res) {
         try {
             let objParams = req.query;
             let { strDataUser } = req;
 
-            let query = await getTipoServicios(objParams, strDataUser);
+            let query = await getSedeTipoTarifaServicio(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);
@@ -95,4 +95,4 @@ class ctrl_TipoServicios {
     }
 }
 
-module.exports = ctrl_TipoServicios;
+module.exports = ctrl_SedeTipoTarifaServicio;
