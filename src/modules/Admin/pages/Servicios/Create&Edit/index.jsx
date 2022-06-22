@@ -37,6 +37,7 @@ import InfoPrincipal from "./infoPrincipal";
 import InfoModulos from "./infoModulos";
 import InfoSedesTarifa from "./infoSedesTarifa";
 import InfoResponsables from "./infoResponsables";
+import InfoAtributo from "./infoAtributos";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -85,6 +86,7 @@ const CreateEdit = ({ isEdit }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         objInfoPrincipal: {},
+        arrAtributos: [],
         arrModulos: [],
         arrSedesTarifas: [],
         arrResponsables: [],
@@ -102,6 +104,8 @@ const CreateEdit = ({ isEdit }) => {
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
+
+    const [objTipoServicio, setObjTipoServicio] = useState();
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
@@ -132,6 +136,11 @@ const CreateEdit = ({ isEdit }) => {
         }));
 
         setFlagSubmit(true);
+    };
+
+    const handleChangeTipoServicio = (data) => {
+        console.log(data);
+        setObjTipoServicio(data);
     };
 
     const submitData = useCallback(
@@ -326,6 +335,25 @@ const CreateEdit = ({ isEdit }) => {
                                     setError={setError}
                                     clearErrors={clearErrors}
                                     onChangeModules={setBitModulo}
+                                    onChangeTipoServicio={
+                                        handleChangeTipoServicio
+                                    }
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <InfoAtributo
+                                    control={control}
+                                    values={objTipoServicio?.arrAtributos}
+                                    disabled={loading}
+                                    errors={errors}
+                                    setValue={setValue}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                    onChangeModules={setBitModulo}
+                                    onChangeTipoServicio={
+                                        handleChangeTipoServicio
+                                    }
                                 />
                             </Grid>
 

@@ -54,6 +54,8 @@ const PaperAtributo = ({
         intIdEstado: "",
     });
 
+    const [initialState, setInitialState] = useState();
+
     const [loading, setLoading] = useState(true);
     const [openCollapese, setOpenCollapse] = useState(true);
     const [openModalDelete, setOpenModalDelete] = useState(false);
@@ -85,6 +87,8 @@ const PaperAtributo = ({
                 intIdAtributo: values.intIdAtributo,
                 intIdEstado: values.intIdEstado || values.IdEstado,
             });
+
+            setInitialState(values.intIdEstado);
         }
 
         setLoading(false);
@@ -258,6 +262,53 @@ const PaperAtributo = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12}>
                                 <Controller
+                                    name={`arrAtributos[${index}].intIdEstado`}
+                                    defaultValue={data.intIdEstado}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <SelectEstados
+                                            label="Estado"
+                                            name={name}
+                                            value={value}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                setData((prevState) => ({
+                                                    ...prevState,
+                                                    intIdEstado: e.target.value,
+                                                }));
+                                            }}
+                                            disabled={disabled}
+                                            required
+                                            error={
+                                                !!errors?.arrAtributos?.[index]
+                                                    ?.intIdEstado
+                                            }
+                                            helperText={
+                                                errors?.arrAtributos?.[index]
+                                                    ?.intIdEstado?.message ||
+                                                "Selecciona una opción"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, selecciona una opción",
+
+                                        validate: (value) => {
+                                            if (initialState === 1) {
+                                                if (value === 2) {
+                                                    return "No puedes pasar de un estado activo a borrador";
+                                                }
+                                            }
+                                        },
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Controller
                                     name={`arrAtributos[${index}].intIdAtributo`}
                                     defaultValue={data.intIdAtributo}
                                     render={({
@@ -288,46 +339,6 @@ const PaperAtributo = ({
                                     rules={{
                                         required:
                                             "Por favor, selecciona el tipo de atributo",
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Controller
-                                    name={`arrAtributos[${index}].intIdEstado`}
-                                    defaultValue={data.intIdEstado}
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <SelectEstados
-                                            label="Estado"
-                                            name={name}
-                                            value={value}
-                                            onChange={(e) => {
-                                                onChange(e);
-                                                setData((prevState) => ({
-                                                    ...prevState,
-                                                    intIdEstado: e.target.value,
-                                                }));
-                                            }}
-                                            disabled={loading}
-                                            required
-                                            error={
-                                                !!errors?.arrAtributos?.[
-                                                    index
-                                                ]?.intIdEstado
-                                            }
-                                            helperText={
-                                                errors?.arrAtributos?.[index]
-                                                    ?.intIdEstado?.message ||
-                                                "Selecciona una opción"
-                                            }
-                                        />
-                                    )}
-                                    control={control}
-                                    rules={{
-                                        required:
-                                            "Por favor, selecciona una opción",
                                     }}
                                 />
                             </Grid>

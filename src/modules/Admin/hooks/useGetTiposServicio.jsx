@@ -12,7 +12,7 @@ import { toast } from "react-hot-toast";
  *
  * @author Santiago Cardona Saldarriaga <scardonas@xelerica.com>
  **/
-const useGetTiposServicio = ({ autoLoad = true } = {}) => {
+const useGetTiposServicio = ({ autoLoad = true, intId = null } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -27,14 +27,17 @@ const useGetTiposServicio = ({ autoLoad = true } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData }) => {
-            await axios(
+        async ({ signalSubmitData, intId }) => {
+            return await axios(
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${process.env.REACT_APP_API_TRANSFORMA_TIPOSERVICIO_GET}`,
                     headers: {
                         token,
+                    },
+                    params: {
+                        intId,
                     },
                 },
                 {
@@ -43,6 +46,8 @@ const useGetTiposServicio = ({ autoLoad = true } = {}) => {
             )
                 .then((res) => {
                     setData(res.data.data);
+
+                    return res;
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -62,18 +67,31 @@ const useGetTiposServicio = ({ autoLoad = true } = {}) => {
                             error: true,
                             msg,
                         });
+
+                        return error;
                     }
                 });
         },
         [token]
     );
 
-    const refreshGetData = () => {
+    const refreshGetData = ({ intId = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData });
+        getData({ signalSubmitData, intId });
+    };
+
+    const getUniqueData = async ({ intId = null } = {}) => {
+        let signalSubmitData = axios.CancelToken.source();
+
+        let query = await getData({
+            intId,
+            signalSubmitData,
+        });
+
+        return query;
     };
 
     //===============================================================================================================================================
@@ -94,7 +112,7 @@ const useGetTiposServicio = ({ autoLoad = true } = {}) => {
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
     //===============================================================================================================================================
-    return { data, refreshGetData };
+    return { data, refreshGetData, getUniqueData};
 };
 
 export default useGetTiposServicio;
