@@ -32,7 +32,7 @@ const useGetTiposServicio = ({ autoLoad = true } = {}) => {
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_TARIFAS_GET}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_TIPOSERVICIO_GET}`,
                     headers: {
                         token,
                     },

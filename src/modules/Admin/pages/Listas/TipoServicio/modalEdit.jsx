@@ -88,6 +88,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
         control,
         formState: { errors },
         getValues,
+        reset,
         handleSubmit,
     } = useForm({ mode: "onChange" });
 
@@ -188,17 +189,21 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                 arrAtributos: values.arrAtributos,
             });
 
-            if (values.arrAtributos?.length > 0) {
-                values.arrAtributos.forEach((a) => {
-                    append({
-                        id: shortid.generate(),
-                        intIdAtributo: a.intIdAtributo,
-                        intIdEstado: a.intIdEstado,
-                    });
-                });
-            }
+            const arrAtributos = values.arrAtributos.map((a) => {
+                return {
+                    id: a.id || shortid.generate(),
+                    intIdAtributo: a.intIdAtributo,
+                    intIdEstado: a.intIdEstado || a.IdEstado,
+                };
+            });
+
+            reset({
+                intIdEstado: values.intIdEstado,
+                strNombre: values.strNombre,
+                arrAtributos: arrAtributos,
+            });
         }
-    }, [values, append]);
+    }, [values, reset]);
 
     useEffect(() => {
         if (fields.length === 0) {
@@ -284,7 +289,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                 {loading ? (
                     <LinearProgress className={classes.linearProgress} />
                 ) : null}
-                <DialogTitle>Registrar tipo de servicio</DialogTitle>
+                <DialogTitle>Editar tipo de servicio</DialogTitle>
 
                 <DialogContent>
                     <Grid container direction="row" spacing={2}>
@@ -456,7 +461,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                         loading={loading}
                         type="submit"
                     >
-                        editar
+                        guardar
                     </LoadingButton>
 
                     <Button

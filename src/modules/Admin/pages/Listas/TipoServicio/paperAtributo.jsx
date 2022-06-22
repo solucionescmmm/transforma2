@@ -83,7 +83,7 @@ const PaperAtributo = ({
             setData({
                 id: values.id,
                 intIdAtributo: values.intIdAtributo,
-                intIdEstado: values.intIdEstado,
+                intIdEstado: values.intIdEstado || values.IdEstado,
             });
         }
 
