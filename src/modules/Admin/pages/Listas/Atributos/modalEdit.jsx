@@ -226,9 +226,12 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                 required: "Por favor, selecciona una opción",
 
                                 validate: (value) => {
-                                    if (initialState === 1) {
+                                    if (
+                                        initialState === 1 ||
+                                        initialState === 3
+                                    ) {
                                         if (value === 2) {
-                                            return "No puedes pasar de un estado activo a borrador";
+                                            return "No puedes pasar de un estado activo o inactivo al estado 'En borrador'";
                                         }
                                     }
                                 },
@@ -247,7 +250,9 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     disabled={
-                                        initialState === 1 ? true : loading
+                                        initialState === 1 || initialState === 3
+                                            ? true
+                                            : loading
                                     }
                                     required
                                     error={errors[name] ? true : false}
@@ -275,7 +280,9 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                     name={name}
                                     value={value}
                                     disabled={
-                                        initialState === 1 ? true : loading
+                                        initialState === 1 || initialState === 3
+                                            ? true
+                                            : loading
                                     }
                                     onChange={(e) => onChange(e)}
                                     required
@@ -306,7 +313,9 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                     name={name}
                                     value={value}
                                     disabled={
-                                        initialState === 1 ? true : loading
+                                        initialState === 1 || initialState === 3
+                                            ? true
+                                            : loading
                                     }
                                     onChange={(e) => onChange(e)}
                                     required

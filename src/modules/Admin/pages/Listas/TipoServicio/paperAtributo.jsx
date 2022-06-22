@@ -297,9 +297,12 @@ const PaperAtributo = ({
                                             "Por favor, selecciona una opción",
 
                                         validate: (value) => {
-                                            if (initialState === 1) {
+                                            if (
+                                                initialState === 1 ||
+                                                initialState === 3
+                                            ) {
                                                 if (value === 2) {
-                                                    return "No puedes pasar de un estado activo a borrador";
+                                                    return "No puedes pasar de un estado activo o inactivo al estado 'En borrador'";
                                                 }
                                             }
                                         },
