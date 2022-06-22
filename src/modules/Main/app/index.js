@@ -44,6 +44,7 @@ app.use(require("../../Servicios/Maestros/Estados/infra/http/apiEstados.routes")
 app.use(require("../../Servicios/Maestros/Tipos de Tarifas/infra/http/apiTipoTarifa.routes"))
 app.use(require("../../Servicios/Maestros/Atributos/infra/http/apiAtributos.routes"))
 app.use(require("../../Servicios/Maestros/Tipos de Campos/infra/http/apiTipoCampos.routes"))
+app.use(require("../../Servicios/Maestros/Tipos de Servicios/infra/http/apiTiposServicios.routes"))
 app.use(require("../../Servicios/Modulo/Servicio/infra/http/apiServicios.routes"))
 app.use(require("../../Usuarios/infra/http/apiUsuarios.routes"))
 
