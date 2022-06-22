@@ -54,6 +54,8 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
         strNombre: "",
     });
 
+    const [initialState, setInitialState] = useState();
+
     const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
@@ -160,6 +162,8 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
                 intIdEstado: values.intIdEstado,
                 strNombre: values.strNombre,
             });
+
+            setInitialState(values.intIdEstado);
         }
     }, [values]);
 
@@ -223,6 +227,17 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
                             control={control}
                             rules={{
                                 required: "Por favor, selecciona una opción",
+
+                                validate: (value) => {
+                                    if (
+                                        initialState === 1 ||
+                                        initialState === 3
+                                    ) {
+                                        if (value === 2) {
+                                            return "No puedes pasar de un estado activo o inactivo al estado 'En borrador'";
+                                        }
+                                    }
+                                },
                             }}
                         />
                     </Grid>
@@ -238,7 +253,9 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
                                     name={name}
                                     value={value}
                                     disabled={
-                                        state.intIdEstado === 1 ? true : loading
+                                        initialState === 1 || initialState === 3
+                                            ? true
+                                            : loading
                                     }
                                     onChange={(e) => onChange(e)}
                                     required
@@ -252,7 +269,8 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el nombre de la tarifa",
+                                required:
+                                    "Por favor, digita el nombre de la tarifa",
                             }}
                         />
                     </Grid>

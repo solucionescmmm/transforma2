@@ -3,6 +3,9 @@ import React, { useState, useEffect, Fragment } from "react";
 //Librerias
 import { Controller } from "react-hook-form";
 
+// Hooks
+import useGetTiposServicio from "../../../hooks/useGetTiposServicio";
+
 //Componentes de Material UI
 import {
     Grid,
@@ -35,6 +38,7 @@ const InfoPrincipal = ({
     control,
     setValue,
     onChangeModules,
+    onChangeTipoServicio,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -49,6 +53,10 @@ const InfoPrincipal = ({
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
+
+    const { getUniqueData: getDataTipoServicio } = useGetTiposServicio({
+        autoLoad: false,
+    });
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
@@ -69,6 +77,14 @@ const InfoPrincipal = ({
 
         setLoading(false);
     }, [values]);
+
+    const fntGetData = async (intIdTipoServicio) => {
+        const response = await getDataTipoServicio({
+            intId: intIdTipoServicio,
+        });
+
+        onChangeTipoServicio(response.data.data[0]);
+    };
 
     if (loading) {
         return (
@@ -131,7 +147,7 @@ const InfoPrincipal = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoPrincipal.intIdEstado"
                             defaultValue={data.intIdEstado}
@@ -147,7 +163,7 @@ const InfoPrincipal = ({
                                             intIdEstado: e.target.value,
                                         }));
                                     }}
-                                    disabled={loading}
+                                    disabled={disabled}
                                     required
                                     error={
                                         !!errors.objInfoPrincipal?.intIdEstado
@@ -165,6 +181,50 @@ const InfoPrincipal = ({
                         />
                     </Grid>
 
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoPrincipal.bitModulos"
+                            defaultValue={data.bitModulos}
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿El servicio contiene módulos?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        onChangeModules(e.target.value);
+                                        setValue("arrModulos", []);
+                                    }}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoPrincipal?.bitModulos
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal?.bitModulos
+                                            ?.message ||
+                                        "Selecciona si el servicio contiene módulos"
+                                    }
+                                    select
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                </TextField>
+                            )}
+                            rules={{
+                                validate: (value) => {
+                                    if (value === "") {
+                                        return "Por favor, selecciona si el servicio contiene módulos";
+                                    }
+                                },
+                            }}
+                            control={control}
+                        />
+                    </Grid>
+
                     <Grid item xs={12}>
                         <Controller
                             name="objInfoPrincipal.intIdTipoServicio"
@@ -174,8 +234,11 @@ const InfoPrincipal = ({
                                     label="Tipo de servicio"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={loading}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        fntGetData(e.target.value);
+                                    }}
+                                    disabled={disabled}
                                     required
                                     error={
                                         errors?.objInfoPrincipal
@@ -210,7 +273,7 @@ const InfoPrincipal = ({
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     variant="standard"
-                                    disabled={loading}
+                                    disabled={disabled}
                                     error={
                                         errors?.objInfoPrincipal?.strNombre
                                             ? true
@@ -242,8 +305,10 @@ const InfoPrincipal = ({
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    variant="standard"
-                                    disabled={loading}
+                                    multiline
+                                    rows={4}
+                                    variant="outlined"
+                                    disabled={disabled}
                                     error={
                                         errors?.objInfoPrincipal?.strDescripcion
                                             ? true
@@ -259,124 +324,6 @@ const InfoPrincipal = ({
                             rules={{
                                 required:
                                     "Por favor, digita la descripción del servicio",
-                            }}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                        <Controller
-                            defaultValue={data.dtFechaInicio}
-                            name="objInfoPrincipal.dtFechaInicio"
-                            render={({ field: { name, onChange, value } }) => (
-                                <DatePicker
-                                    label="Fecha de vinculación"
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(date) => onChange(date)}
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            fullWidth
-                                            required
-                                            variant="standard"
-                                            error={
-                                                errors?.objInfoPrincipal
-                                                    ?.dtFechaInicio
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoPrincipal
-                                                    ?.dtFechaInicio?.message ||
-                                                "Selecciona la fecha de inicio"
-                                            }
-                                        />
-                                    )}
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona la fecha de inicio",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                        <Controller
-                            name="objInfoPrincipal.intTiempo"
-                            defaultValue={data.intTiempo}
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Tiempo en semanas"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    type="number"
-                                    variant="standard"
-                                    disabled={loading}
-                                    error={
-                                        errors?.objInfoPrincipal?.intTiempo
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPrincipal?.intTiempo
-                                            ?.message ||
-                                        "Digita el tiempo en semanas"
-                                    }
-                                />
-                            )}
-                            rules={{
-                                required:
-                                    "Por favor, digita el tiempo en semanas",
-                            }}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                        <Controller
-                            name="objInfoPrincipal.bitModulos"
-                            defaultValue={data.bitModulos}
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿El servicio contiene módulos?"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => {
-                                        onChange(e);
-                                        onChangeModules(e.target.value);
-                                        setValue("arrModulos", []);
-                                    }}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={loading}
-                                    error={
-                                        errors?.objInfoPrincipal?.bitModulos
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPrincipal?.bitModulos
-                                            ?.message ||
-                                        "Selecciona si el servicio contiene módulos"
-                                    }
-                                    select
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                </TextField>
-                            )}
-                            rules={{
-                                validate: (value) => {
-                                    if (value === "") {
-                                        return "Por favor, selecciona si el servicio contiene módulos";
-                                    }
-                                },
                             }}
                             control={control}
                         />

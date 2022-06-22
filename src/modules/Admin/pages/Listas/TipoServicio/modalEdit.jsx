@@ -68,6 +68,8 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
         arrAtributos: [],
     });
 
+    const [initialState, setInitialState] = useState();
+
     const [formData, setFormData] = useState();
 
     const [success, setSucces] = useState(false);
@@ -188,6 +190,8 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                 strNombre: values.strNombre,
                 arrAtributos: values.arrAtributos,
             });
+
+            setInitialState(values.intIdEstado);
 
             const arrAtributos = values.arrAtributos.map((a) => {
                 return {
@@ -331,6 +335,17 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                 rules={{
                                     required:
                                         "Por favor, selecciona una opción",
+
+                                    validate: (value) => {
+                                        if (
+                                            initialState === 1 ||
+                                            initialState === 3
+                                        ) {
+                                            if (value === 2) {
+                                                return "No puedes pasar de un estado activo o inactivo al estado 'En borrador'";
+                                            }
+                                        }
+                                    },
                                 }}
                             />
                         </Grid>
@@ -347,7 +362,12 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                         variant="standard"
                                         name={name}
                                         value={value}
-                                        disabled={loading}
+                                        disabled={
+                                            initialState === 1 ||
+                                            initialState === 3
+                                                ? true
+                                                : loading
+                                        }
                                         onChange={(e) => onChange(e)}
                                         required
                                         fullWidth
@@ -401,7 +421,12 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                             index={i}
                                             values={e}
                                             errors={errors}
-                                            disabled={loading}
+                                            disabled={
+                                                initialState === 1 ||
+                                                initialState === 3
+                                                    ? true
+                                                    : loading
+                                            }
                                             remove={remove}
                                             length={fields.length}
                                         />
@@ -413,7 +438,11 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                         <Grid item xs={12}>
                             <Button
                                 color="secondary"
-                                disabled={loading}
+                                disabled={
+                                    initialState === 1 || initialState === 3
+                                        ? true
+                                        : loading
+                                }
                                 fullWidth
                                 type="button"
                                 onClick={() =>

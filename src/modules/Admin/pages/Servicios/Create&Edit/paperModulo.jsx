@@ -339,7 +339,7 @@ const PaperModulo = ({
 
                             <Grid item xs={12}>
                                 <Controller
-                                    name={`arrAtributos[${index}].strNombre`}
+                                    name={`arrModulos[${index}].strNombre`}
                                     defaultValue={data.strNombre}
                                     render={({
                                         field: { name, value, onChange },
