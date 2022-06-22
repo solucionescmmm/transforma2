@@ -54,7 +54,7 @@ class setServicios {
             throw new Error(query.msg);
         }
 
-        this.#intIdServicio = query.data.intIdServicio;
+        this.#intIdServicio = query.data.intId;
 
         this.#objResult = {
             error: query.error,

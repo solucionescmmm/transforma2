@@ -64,6 +64,14 @@ class updateServicios {
     }
 
     async #updateModuloServicios() {
+        let queryModuloServicios = await dao.deleteModuloServicios({
+            intIdServicio: this.#intIdServicio,
+        });
+
+        if (queryModuloServicios.error) {
+            throw new Error(queryModuloServicios.msg);
+        }
+
         if (this.#objData.objInfoPrincipal.bitModulos) {
             if (this.#objData.arrModulos.length > 0) {
                 let array = this.#objData.arrModulos;
@@ -71,7 +79,7 @@ class updateServicios {
                 for (let i = 0; i < array.length; i++) {
                     let dao = new classInterfaceDAOServicios();
 
-                    let query = await dao.updateModuloServicios({
+                    let query = await dao.setModuloServicios({
                         ...array[i],
                         intIdServicio: this.#intIdServicio,
                         strResponsables: JSON.stringify(
@@ -90,13 +98,21 @@ class updateServicios {
     }
 
     async #updateSedeTipoTarifaServicio() {
+        let querySedeTipoTarifaServicio =
+            await dao.deleteSedeTipoTarifaServicio({
+                intIdServicio: this.#intIdServicio,
+            });
+
+        if (querySedeTipoTarifaServicio.error) {
+            throw new Error(querySedeTipoTarifaServicio.msg);
+        }
         if (this.#objData.arrSedesTarifas.length > 0) {
             let array = this.#objData.arrSedesTarifas;
 
             for (let i = 0; i < array.length; i++) {
                 let dao = new classInterfaceDAOServicios();
 
-                let query = await dao.updateSedeTipoTarifaServicio({
+                let query = await dao.setSedeTipoTarifaServicio({
                     ...array[i],
                     intIdServicio: this.#intIdServicio,
                     strUsuarioActualizacion: this.#objUser.strEmail,
@@ -111,13 +127,21 @@ class updateServicios {
     }
 
     async #updateAreasServicios() {
+        let queryAreasServicios = await dao.deleteAreasServicios({
+            intIdServicio: this.#intIdServicio,
+        });
+
+        if (queryAreasServicios.error) {
+            throw new Error(queryAreasServicios.msg);
+        }
+
         if (this.#objData.arrResponsables.length > 0) {
             let array = this.#objData.arrResponsables;
 
             for (let i = 0; i < array.length; i++) {
                 let dao = new classInterfaceDAOServicios();
 
-                let query = await dao.updateAreasServicios({
+                let query = await dao.setAreasServicios({
                     ...array[i],
                     intIdServicio: this.#intIdServicio,
                     strUsuarioActualizacion: this.#objUser.strEmail,

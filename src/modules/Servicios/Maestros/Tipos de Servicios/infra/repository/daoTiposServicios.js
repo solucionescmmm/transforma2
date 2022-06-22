@@ -30,7 +30,7 @@ class daoTiposServicios {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El tipo de tarifa, fue agregada con éxito.`,
+                msg: `El tipo de servicio, fue agregado con éxito.`,
             };
 
             sql.close(conexion);
@@ -46,6 +46,35 @@ class daoTiposServicios {
 
             sql.close(conexion);
 
+            return result;
+        }
+    }
+
+    async setAtributosTiposServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn
+                .request()
+                .input("p_intIdAtributo", sql.VarChar, data.intIdAtributo)
+                .input("p_intIdTipoServicio", sql.VarChar, data.intIdTipoServicio)
+                .input("p_intIdEstado", sql.VarChar, data.intIdEstado)
+                .input("p_strUsuario", sql.VarChar, data.strUsuarioCreacion)
+                .output("P_bitError", sql.Bit)
+                .output("P_strMsg ", sql.VarChar)
+                .execute("sp_setAtributosTipoServicio");
+            let result = {
+                error: false,
+                data: response.recordsets[0] ? response.recordsets[0][0] : null,
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message ?
+                    error.message : "Error en el metodo getInfoBasica de la clase daoPerfil",
+            };
+            sql.close(conexion);
             return result;
         }
     }

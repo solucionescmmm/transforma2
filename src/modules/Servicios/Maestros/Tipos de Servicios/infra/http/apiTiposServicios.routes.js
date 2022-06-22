@@ -8,32 +8,32 @@ const classController = require("../../app/controllers/ctrl_TiposServicios");
 routes.post(
     "/transforma/api/servicios/maestro/tiposervicio/setTiposServicios",
     async (req, res) => {
-        let controllerComentarios = new classController();
-        await controllerComentarios.setTiposServicios(req, res);
+        let controllerTipoServicio = new classController();
+        await controllerTipoServicio.setTiposServicios(req, res);
     }
 );
 
 routes.get(
     "/transforma/api/servicios/maestro/tiposervicio/getTiposServicios",
     async (req, res) => {
-        let controllerComentarios = new classController();
-        await controllerComentarios.getTiposServicios(req, res);
+        let controllerTipoServicio = new classController();
+        await controllerTipoServicio.getTiposServicios(req, res);
     }
 );
 
 routes.put(
     "/transforma/api/servicios/maestro/tiposervicio/updateTiposServicios",
     async (req, res) => {
-        let controllerComentarios = new classController();
-        await controllerComentarios.updateTiposServicios(req, res);
+        let controllerTipoServicio = new classController();
+        await controllerTipoServicio.updateTiposServicios(req, res);
     }
 );
 
 routes.delete(
     "/transforma/api/servicios/maestro/tiposervicio/deleteTiposServicios",
     async (req, res) => {
-        let controllerComentarios = new classController();
-        await controllerComentarios.deleteTiposServicios(req, res);
+        let controllerTipoServicio = new classController();
+        await controllerTipoServicio.deleteTiposServicios(req, res);
     }
 );
 
