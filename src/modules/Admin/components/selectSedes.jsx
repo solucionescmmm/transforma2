@@ -108,9 +108,11 @@ const SelectSedes = ({
             select
         >
             {data.map((e, i) => (
-                <MenuItem value={e.intId} key={i}>
-                    {e.strNombre}
-                </MenuItem>
+                e.intIdEstado === 1 ? (
+                    <MenuItem value={e.intId} key={i}>
+                        {e.strNombre}
+                    </MenuItem>
+                ) : null
             ))}
         </TextField>
     );
