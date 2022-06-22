@@ -31,8 +31,9 @@ class ctrl_TiposServicios {
     async updateTiposServicios(req, res) {
         try {
             let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new updateTiposServicios(data);
+            let service = new updateTiposServicios(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {

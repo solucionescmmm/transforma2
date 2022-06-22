@@ -167,6 +167,36 @@ class daoTiposServicios {
         }
     }
 
+    async updateAtributosTiposServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn
+                .request()
+                .input("p_intIdAtributoTipoServicio", sql.VarChar, data.intIdAtributoTipoServicio)
+                .input("p_intIdAtributo", sql.VarChar, data.intIdAtributo)
+                .input("p_intIdTipoServicio", sql.VarChar, data.intIdTipoServicio)
+                .input("p_intIdEstado", sql.VarChar, data.intIdEstado)
+                .input("p_strUsuario", sql.VarChar, data.strUsuarioCreacion)
+                .output("P_bitError", sql.Bit)
+                .output("P_strMsg", sql.VarChar)
+                .execute("sp_UpdateAtributosTipoServicio");
+            let result = {
+                error: false,
+                data: response.recordsets[0] ? response.recordsets[0][0] : null,
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message ?
+                    error.message : "Error en el metodo setAtributosTiposServicios de la clase daoTiposServicios",
+            };
+            sql.close(conexion);
+            return result;
+        }
+    }
+
     async deleteTiposServicios(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();

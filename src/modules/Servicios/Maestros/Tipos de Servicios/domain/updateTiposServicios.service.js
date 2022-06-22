@@ -8,10 +8,11 @@ class updateTiposServicios {
     #objData;
     #objUser;
     #objResult;
+    #intIdTipoServicio;
     /**
      * @param {object} data
      */
-    constructor(data) {
+    constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
     }
@@ -19,6 +20,7 @@ class updateTiposServicios {
     async main() {
         await this.#validations();
         await this.#updateTiposServicios();
+        await this.#updateAtributosTiposServicios();
         return this.#objResult;
     }
 
@@ -32,7 +34,7 @@ class updateTiposServicios {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
-        
+
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
@@ -43,6 +45,8 @@ class updateTiposServicios {
 
         let query = await dao.updateTiposServicios(this.#objData);
 
+        this.#intIdTipoServicio = query.data.intId;
+
         if (query.error) {
             throw new Error(query.msg);
         }
@@ -52,6 +56,25 @@ class updateTiposServicios {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #updateAtributosTiposServicios() {
+        if (this.#objData.arrAtributos.length > 0) {
+            let array = this.#objData.arrAtributos;
+            for (let i = 0; i < array.length; i++) {
+                let dao = new classInterfaceDAOTiposServicios();
+
+                let query = await dao.updateAtributosTiposServicios({
+                    ...array[i],
+                    intIdTipoServicio: this.#intIdTipoServicio,
+                    strUsuarioCreacion: this.#objUser.strEmail,
+                });
+
+                if (query.error) {
+                    throw new Error(query.msg);
+                }
+            }
+        }
     }
 }
 module.exports = updateTiposServicios;

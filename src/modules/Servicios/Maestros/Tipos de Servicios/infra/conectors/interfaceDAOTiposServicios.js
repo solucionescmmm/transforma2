@@ -31,6 +31,12 @@ class interfaceDAOTiposServicios {
         return result;
     }
 
+    async updateAtributosTiposServicios(data) {
+        let dao = new classDAO();
+        let result = await dao.updateAtributosTiposServicios(data);
+        return result;
+    }
+
     async deleteTiposServicios(data) {
         let dao = new classDAO();
         let result = await dao.deleteTiposServicios(data);
