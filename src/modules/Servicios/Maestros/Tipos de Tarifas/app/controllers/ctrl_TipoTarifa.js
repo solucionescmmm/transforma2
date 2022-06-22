@@ -31,8 +31,9 @@ class ctrl_TipoTarifa {
     async updateTipoTarifa(req, res) {
         try {
             let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new updateTipoTarifa(data);
+            let service = new updateTipoTarifa(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
