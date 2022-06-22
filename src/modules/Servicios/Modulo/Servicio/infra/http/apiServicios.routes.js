@@ -9,23 +9,23 @@ routes.post(
     "/transforma/api/servicios/modulo/setServicio",
     async (req, res) => {
         let controllerServicios = new classController();
-        await controllerServicios.setSedeTipoTarifaServicio(req, res);
+        await controllerServicios.setServicio(req, res);
     }
 );
 
 routes.get(
-    "/transforma/api/servicios/maestro/sedetipotarifaservicio/getSedeTipoTarifaServicio",
+    "/transforma/api/servicios/modulo/getServicio",
     async (req, res) => {
         let controllerServicios = new classController();
-        await controllerServicios.getSedeTipoTarifaServicio(req, res);
+        await controllerServicios.getServicio(req, res);
     }
 );
 
 routes.put(
-    "/transforma/api/servicios/maestro/sedetipotarifaservicio/updateSedeTipoTarifaServicio",
+    "/transforma/api/servicios/modulo/updateServicio",
     async (req, res) => {
         let controllerServicios = new classController();
-        await controllerServicios.updateSedeTipoTarifaServicio(req, res);
+        await controllerServicios.updateServicio(req, res);
     }
 );
 

@@ -1,5 +1,6 @@
 //librerias
 const sql = require("mssql");
+const validator = require("validator").default;
 
 //Conexion
 const {
@@ -73,7 +74,7 @@ class daoServicios {
             
             SET @intId = SCOPE_IDENTITY();
     
-            SELECT * FROM tbl_Servicios WHERE intId = @intId`;
+            SELECT * FROM tbl_modulos_Servicio WHERE intId = @intId`;
 
             let result = {
                 error: false,
@@ -135,7 +136,7 @@ class daoServicios {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setSedeTipoTarifaServicio de la clase daoSedeTipoTarifaServicio",
+                    "Error en el metodo setSedeTipoTarifaServicio de la clase daoServicios",
             };
 
             sql.close(conexion);
@@ -179,7 +180,265 @@ class daoServicios {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setAreasServicios de la clase daoAreasServicios",
+                    "Error en el metodo setAreasServicios de la clase daoServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+            SELECT 
+            
+            Servicio.intId,
+            Servicio.intIdTipoServicio,
+            Servicio.strDescripcion,
+            Servicio.btModulos,
+            Servicio.intIdEstado,
+            Estado.strNombre as strEstado,
+            Servicio.dtmCreacion,
+            Servicio.strUsuarioCreacion,
+            Servicio.dtmActualizacion,
+            Servicio.strUsuarioActualizacion,
+            (
+                SELECT * FROM tbl_modulos_Servicio ModuloServicio
+                WHERE ModuloServicio.intIdServicio = Servicio.intId
+                FOR JSON PATH
+            ) as arrModulos,
+            (
+                SELECT * FROM tbl_Sede_TipoTarifa_Servicio SedeTipoTarifa
+                WHERE SedeTipoTarifa.intIdServicio = Servicio.intId
+                FOR JSON PATH
+            ) as arrSedesTarifas,
+            (
+                SELECT * FROM tbl_Area_Servicios AreaServicio
+                WHERE AreaServicio.intIdServicio = Servicio.intId
+                FOR JSON PATH
+            ) as arrResponsables
+            FROM tbl_Servicios Servicio
+
+            INNER JOIN tbl_Estados Estado on Estado.intId = Servicio.intIdEstado
+
+            WHERE (Servicio.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].arrModulos) {
+                    let { arrModulos } = arrNewData[i];
+
+                    if (validator.isJSON(arrModulos)) {
+                        arrModulos = JSON.parse(arrModulos);
+                        arrNewData[i].arrModulos = arrModulos;
+                    }
+                }
+                if (arrNewData[i].arrSedesTarifas) {
+                    let { arrSedesTarifas } = arrNewData[i];
+
+                    if (validator.isJSON(arrSedesTarifas)) {
+                        arrSedesTarifas = JSON.parse(arrSedesTarifas);
+                        arrNewData[i].arrSedesTarifas = arrSedesTarifas;
+                    }
+                }
+                if (arrNewData[i].arrResponsables) {
+                    let { arrResponsables } = arrNewData[i];
+
+                    if (validator.isJSON(arrResponsables)) {
+                        arrResponsables = JSON.parse(arrResponsables);
+                        arrNewData[i].arrResponsables = arrResponsables;
+                    }
+                }
+            }
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getServicios de la clase daoServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                UPDATE tbl_Servicios
+
+                SET intIdTipoServicio       = COALESCE(${data.intIdTipoServicio}, intIdTipoServicio),
+                    strDescripcion          = COALESCE(${data.strDescripcion}, strDescripcion),
+                    btModulos               = COALESCE(${data.btModulos}, btModulos),
+                    intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
+                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+                WHERE intId = ${data.intId}
+                
+                
+                SELECT * FROM tbl_Servicios WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El servicio, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateServicios de la clase daoServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateModuloServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                UPDATE tbl_modulos_Servicio
+
+                SET intIdServicio           = COALESCE(${data.intIdServicio}, intIdServicio),
+                    strNombre               = COALESCE(${data.strNombre}, strNombre),
+                    intHoras                = COALESCE(${data.intHoras}, intHoras),
+                    strEntregables          = COALESCE(${data.strEntregables}, strEntregables),
+                    strResponsables         = COALESCE(${data.strResponsables}, strResponsables),
+                    intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
+                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+                WHERE intId = ${data.intId}
+                
+                
+                SELECT * FROM tbl_modulos_Servicio WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El modulo del servicio, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateModuloServicios de la clase daoServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateSedeTipoTarifaServicio(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                UPDATE tbl_Sede_TipoTarifa_Servicio
+
+                SET intIdSede               = COALESCE(${data.intIdSede}, intIdSede),
+                    intIdTipoTarifa         = COALESCE(${data.intIdTipoTarifa}, intIdTipoTarifa),
+                    intIdServicio           = COALESCE(${data.intIdServicio}, intIdServicio),
+                    Valor                   = COALESCE(${data.dblValor}, Valor),
+                    intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
+                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+                WHERE intId = ${data.intId}
+                
+                
+                SELECT * FROM tbl_Sede_TipoTarifa_Servicio WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `la tarifa del servicio, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateSedeTipoTarifaServicio de la clase daoServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateAreasServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                UPDATE tbl_Area_Servicios
+
+                SET intIdServicio           = COALESCE(${data.intIdServicio}, intIdServicio),
+                    intIdArea               = COALESCE(${data.intIdArea}, intIdArea),
+                    intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
+                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+                WHERE intId = ${data.intId}
+                
+                
+                SELECT * FROM tbl_Area_Servicios WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `la tarifa del servicio, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateAreasServicios de la clase daoServicios",
             };
 
             sql.close(conexion);
@@ -220,8 +479,7 @@ class daoServicios {
     async deleteModuloServicios(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response =
-                await conn.query`
+            let response = await conn.query`
                 DELETE FROM tbl_modulos_Servicio 
                 WHERE intIdServicio = ${data.intIdServicio}`;
 
