@@ -20,7 +20,9 @@ import {
     CorporateFare as CorporateFareIcon,
     Home as HomeIcon,
     VerifiedUser as VerifiedUserIcon,
+    BusinessCenter as BusinessCenterIcon
 } from "@mui/icons-material";
+
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -103,6 +105,47 @@ const HomePage = () => {
                                         sx={{ padding: "10px" }}
                                     >
                                         Gestión de tablas maestras
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+                <Card>
+                    <CardActionArea
+                        component={RouterLink}
+                        to={`/transforma/admin/services/`}
+                    >
+                        <CardContent sx={{ padding: "0px" }}>
+                            <Grid container direction="row" spacing={2}>
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "columns",
+                                            alignContent: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "#7BDBD8",
+                                            padding: "25px",
+                                        }}
+                                    >
+                                        <Box>
+                                            <BusinessCenterIcon
+                                                htmlColor="#fff"
+                                                sx={{ fontSize: "80px" }}
+                                            />
+                                        </Box>
+                                    </Box>
+
+                                    <Typography
+                                        variant="subtitle2"
+                                        align="center"
+                                        sx={{ padding: "10px" }}
+                                    >
+                                        Gestión de servicios
                                     </Typography>
                                 </Grid>
                             </Grid>

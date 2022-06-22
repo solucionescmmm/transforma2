@@ -50,7 +50,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [state, setState] = useState({
-        IntIdEstado: "",
+        intIdEstado: "",
         strNombre: "",
     });
 
@@ -183,7 +183,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={state.IntIdEstado}
+                            defaultValue={state.intIdEstado}
                             name="intIdEstado"
                             render={({ field: { onChange, value, name } }) => (
                                 <SelectEstados

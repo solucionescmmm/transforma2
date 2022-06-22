@@ -23,6 +23,7 @@ import {
     Button,
     useTheme,
     useMediaQuery,
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -33,24 +34,24 @@ import {
 } from "@mui/icons-material";
 
 //Componentes
-import SelectAtributos from "../../../components/selectAtributos";
+import SelectAreas from "../../../components/selectAreas";
 import SelectEstados from "../../../components/selectEstado";
 
-const PaperAtributo = ({
+const PaperResponsables = ({
     values,
     index,
     control,
     disabled,
     errors,
     remove,
-    length,
+    size,
 }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
         id: "",
-        intIdAtributo: "",
+        intIdArea: "",
         intIdEstado: "",
     });
 
@@ -82,8 +83,10 @@ const PaperAtributo = ({
         if (values) {
             setData({
                 id: values.id,
-                intIdAtributo: values.intIdAtributo,
+                intIdSede: values.intIdSede,
+                intIdTipoTarifa: values.intIdTipoTarifa,
                 intIdEstado: values.intIdEstado,
+                dblValor: values.dblValor,
             });
         }
 
@@ -129,7 +132,7 @@ const PaperAtributo = ({
                             <b>Se esperaba un identificador</b>
                         </AlertTitle>
                         Ha ocurrido un error al renderizar el formulario de
-                        atributos
+                        responsables del servicio
                     </Alert>
                 </Box>
 
@@ -176,7 +179,7 @@ const PaperAtributo = ({
                         },
                     }}
                 >
-                    <DialogTitle>{`¿Deseas eliminar el atributo #${
+                    <DialogTitle>{`¿Deseas eliminar el responsable del servicio #${
                         index + 1
                     }?`}</DialogTitle>
 
@@ -229,7 +232,7 @@ const PaperAtributo = ({
                                 flexGrow: 1,
                             }}
                         >
-                            <p>{`Atributo #${index + 1}`}</p>
+                            <p>{`Responsable del servicio #${index + 1}`}</p>
                         </Box>
 
                         <Box>
@@ -258,43 +261,43 @@ const PaperAtributo = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12}>
                                 <Controller
-                                    name={`arrAtributos[${index}].intIdAtributo`}
-                                    defaultValue={data.intIdAtributo}
+                                    name={`arrResponsables[${index}].intIdArea`}
+                                    defaultValue={data.intIdArea}
                                     render={({
                                         field: { name, value, onChange },
                                     }) => (
-                                        <SelectAtributos
-                                            label="Tipo de atributo"
+                                        <SelectAreas
+                                            label="Área"
                                             name={name}
                                             value={value}
-                                            onChange={(e) => onChange(e)}
-                                            disabled={disabled}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                            }}
+                                            disabled={loading}
                                             required
                                             error={
-                                                !!errors
-                                                    ?.arrInfoEmpresarioSec?.[
+                                                !!errors?.arrResponsables?.[
                                                     index
-                                                ]?.strTipoRelacion
+                                                ]?.intIdArea
                                             }
                                             helperText={
-                                                errors?.arrInfoEmpresarioSec?.[
-                                                    index
-                                                ]?.strTipoRelacion?.message ||
-                                                "Selecciona el tipo de atributo"
+                                                errors?.arrResponsables?.[index]
+                                                    ?.intIdArea?.message ||
+                                                "Selecciona una opción"
                                             }
                                         />
                                     )}
                                     control={control}
                                     rules={{
                                         required:
-                                            "Por favor, selecciona el tipo de atributo",
+                                            "Por favor, selecciona una opción",
                                     }}
                                 />
                             </Grid>
 
                             <Grid item xs={12}>
                                 <Controller
-                                    name={`arrAtributos[${index}].intIdEstado`}
+                                    name={`arrResponsables[${index}].intIdEstado`}
                                     defaultValue={data.intIdEstado}
                                     render={({
                                         field: { name, value, onChange },
@@ -313,12 +316,12 @@ const PaperAtributo = ({
                                             disabled={loading}
                                             required
                                             error={
-                                                !!errors?.arrAtributos?.[
+                                                !!errors?.arrResponsables?.[
                                                     index
                                                 ]?.intIdEstado
                                             }
                                             helperText={
-                                                errors?.arrAtributos?.[index]
+                                                errors?.arrResponsables?.[index]
                                                     ?.intIdEstado?.message ||
                                                 "Selecciona una opción"
                                             }
@@ -351,7 +354,7 @@ const PaperAtributo = ({
                     color="error"
                     onClick={() => handlerChangeOpenModalDelete()}
                     size="large"
-                    disabled={length === 1 ? true : disabled}
+                    disabled={size === 1 ? true : disabled}
                 >
                     <Tooltip title="Eliminar">
                         <DeleteIcon />
@@ -362,4 +365,4 @@ const PaperAtributo = ({
     );
 };
 
-export default PaperAtributo;
+export default PaperResponsables;

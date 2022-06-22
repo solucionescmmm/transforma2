@@ -27,6 +27,12 @@ const Admin = lazy(() => import("../modules/Admin/pages/Main"));
 
 const AdminLists = lazy(() => import("../modules/Admin/pages/Listas/homePage"));
 
+const AdminServices = lazy(() => import("../modules/Admin/pages/Servicios"));
+
+const AdminServicesCreate = lazy(() =>
+    import("../modules/Admin/pages/Servicios/Create&Edit")
+);
+
 const REmpresarios = lazy(() =>
     import("../modules/Empresarios/pages/Read/readEmpresarios")
 );
@@ -120,6 +126,36 @@ const RoutesTransforma = ({ path }) => {
                                 component={() => (
                                     <div className="animate__animated animate__fadeIn">
                                         <AdminLists />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/admin/services"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <AdminServices />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/admin/services/create"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <AdminServicesCreate />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/admin/services/edit/:intId"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <AdminServicesCreate isEdit />
                                     </div>
                                 )}
                             />

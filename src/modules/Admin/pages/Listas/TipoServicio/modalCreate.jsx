@@ -45,7 +45,6 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PaperAtributo from "./paperAtributo";
 import ModalPreview from "./modalPreview";
 import useGetAtributos from "../../../hooks/useGetAtributos";
-import Loader from "../../../../../common/components/Loader";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -115,7 +114,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                 {
                     method: "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_SEDES_SET}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_TIPOSERVICIO_SET}`,
                     data: { ...state },
                     headers: {
                         token,
@@ -183,7 +182,11 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
     useEffect(() => {
         if (fields.length === 0) {
-            append({ id: shortid.generate(), intIdAtributo: "" });
+            append({
+                id: shortid.generate(),
+                intIdAtributo: "",
+                intIdEstado: "",
+            });
         }
     }, [fields, append]);
 
@@ -392,6 +395,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                                     append({
                                         id: shortid.generate(),
                                         intIdAtributo: "",
+                                        intIdEstado: "",
                                     })
                                 }
                             >

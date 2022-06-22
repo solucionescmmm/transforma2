@@ -50,7 +50,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [state, setState] = useState({
-        IntIdEstado: "",
+        intIdEstado: "",
         strNombre: "",
         intIdTipoCampo: "",
         strDescripcion: "",
@@ -158,7 +158,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
         if (values) {
             setState({
                 intId: values.intId,
-                IntIdEstado: values.IntIdEstado,
+                intIdEstado: values.intIdEstado,
                 strNombre: values.strNombre,
                 intIdTipoCampo: values.intIdTipoCampo,
                 strDescripcion: values.strDescripcion,
@@ -200,7 +200,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={state.IntIdEstado}
+                            defaultValue={state.intIdEstado}
                             name="intIdEstado"
                             render={({ field: { onChange, value, name } }) => (
                                 <SelectEstados

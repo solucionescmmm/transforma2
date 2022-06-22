@@ -23,6 +23,7 @@ import {
     Button,
     useTheme,
     useMediaQuery,
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -33,25 +34,28 @@ import {
 } from "@mui/icons-material";
 
 //Componentes
-import SelectAtributos from "../../../components/selectAtributos";
 import SelectEstados from "../../../components/selectEstado";
+import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 
-const PaperAtributo = ({
+const PaperModulo = ({
     values,
     index,
     control,
     disabled,
     errors,
     remove,
-    length,
+    size,
 }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
         id: "",
-        intIdAtributo: "",
         intIdEstado: "",
+        intHoras: "",
+        strNombre: "",
+        arrResponsables: [],
+        strEntregables: " ",
     });
 
     const [loading, setLoading] = useState(true);
@@ -82,8 +86,11 @@ const PaperAtributo = ({
         if (values) {
             setData({
                 id: values.id,
-                intIdAtributo: values.intIdAtributo,
                 intIdEstado: values.intIdEstado,
+                intHoras: values.intHoras,
+                strNombre: values.strNombre,
+                arrResponsables: values.arrResponsables,
+                strEntregables: values.strEntregables,
             });
         }
 
@@ -129,7 +136,7 @@ const PaperAtributo = ({
                             <b>Se esperaba un identificador</b>
                         </AlertTitle>
                         Ha ocurrido un error al renderizar el formulario de
-                        atributos
+                        módulos
                     </Alert>
                 </Box>
 
@@ -176,7 +183,7 @@ const PaperAtributo = ({
                         },
                     }}
                 >
-                    <DialogTitle>{`¿Deseas eliminar el atributo #${
+                    <DialogTitle>{`¿Deseas eliminar el módulo #${
                         index + 1
                     }?`}</DialogTitle>
 
@@ -229,7 +236,7 @@ const PaperAtributo = ({
                                 flexGrow: 1,
                             }}
                         >
-                            <p>{`Atributo #${index + 1}`}</p>
+                            <p>{`Módulo #${index + 1}`}</p>
                         </Box>
 
                         <Box>
@@ -256,45 +263,9 @@ const PaperAtributo = ({
 
                     <Collapse in={openCollapese} timeout="auto">
                         <Grid container direction="row" spacing={2}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={6}>
                                 <Controller
-                                    name={`arrAtributos[${index}].intIdAtributo`}
-                                    defaultValue={data.intIdAtributo}
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <SelectAtributos
-                                            label="Tipo de atributo"
-                                            name={name}
-                                            value={value}
-                                            onChange={(e) => onChange(e)}
-                                            disabled={disabled}
-                                            required
-                                            error={
-                                                !!errors
-                                                    ?.arrInfoEmpresarioSec?.[
-                                                    index
-                                                ]?.strTipoRelacion
-                                            }
-                                            helperText={
-                                                errors?.arrInfoEmpresarioSec?.[
-                                                    index
-                                                ]?.strTipoRelacion?.message ||
-                                                "Selecciona el tipo de atributo"
-                                            }
-                                        />
-                                    )}
-                                    control={control}
-                                    rules={{
-                                        required:
-                                            "Por favor, selecciona el tipo de atributo",
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Controller
-                                    name={`arrAtributos[${index}].intIdEstado`}
+                                    name={`arrModulos[${index}].intIdEstado`}
                                     defaultValue={data.intIdEstado}
                                     render={({
                                         field: { name, value, onChange },
@@ -313,12 +284,11 @@ const PaperAtributo = ({
                                             disabled={loading}
                                             required
                                             error={
-                                                !!errors?.arrAtributos?.[
-                                                    index
-                                                ]?.intIdEstado
+                                                !!errors?.arrModulos?.[index]
+                                                    ?.intIdEstado
                                             }
                                             helperText={
-                                                errors?.arrAtributos?.[index]
+                                                errors?.arrModulos?.[index]
                                                     ?.intIdEstado?.message ||
                                                 "Selecciona una opción"
                                             }
@@ -328,6 +298,155 @@ const PaperAtributo = ({
                                     rules={{
                                         required:
                                             "Por favor, selecciona una opción",
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} md={6}>
+                                <Controller
+                                    name={`arrModulos[${index}].intHoras`}
+                                    defaultValue={data.intHoras}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <TextField
+                                            label="Duración en horas"
+                                            name={name}
+                                            value={value}
+                                            disabled={disabled}
+                                            onChange={(e) => onChange(e)}
+                                            fullWidth
+                                            variant="standard"
+                                            required
+                                            error={
+                                                !!errors?.arrModulos?.[index]
+                                                    ?.intHoras
+                                            }
+                                            helperText={
+                                                errors?.arrModulos?.[index]
+                                                    ?.intHoras?.message ||
+                                                "Digita la duración del módulo"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, digita la duración del módulo",
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Controller
+                                    name={`arrAtributos[${index}].strNombre`}
+                                    defaultValue={data.strNombre}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <TextField
+                                            label="Nombre del módulo"
+                                            name={name}
+                                            value={value}
+                                            disabled={disabled}
+                                            onChange={(e) => onChange(e)}
+                                            fullWidth
+                                            variant="standard"
+                                            required
+                                            error={
+                                                !!errors?.arrModulos?.[index]
+                                                    ?.strNombre
+                                            }
+                                            helperText={
+                                                errors?.arrModulos?.[index]
+                                                    ?.strNombre?.message ||
+                                                "Digita el nombre del módulo"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, digita el nombre del módulo",
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Controller
+                                    name={`arrModulos[${index}].arrResponsables`}
+                                    defaultValue={data.arrResponsables}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <DropdownUsuarios
+                                            label="Responsables"
+                                            multiple
+                                            name={name}
+                                            value={value}
+                                            disabled={disabled}
+                                            onChange={(e, value) =>
+                                                onChange(value)
+                                            }
+                                            fullWidth
+                                            variant="standard"
+                                            required
+                                            error={
+                                                !!errors?.arrModulos?.[index]
+                                                    ?.arrResponsables
+                                            }
+                                            helperText={
+                                                errors?.arrModulos?.[index]
+                                                    ?.arrResponsables
+                                                    ?.message ||
+                                                "Selecciona los responsables del módulo"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        validate: (value) => {
+                                            if (value?.length === 0) {
+                                                return "Por favor, selecciona los responsables del módulo";
+                                            }
+                                        },
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Controller
+                                    name={`arrModulos[${index}].strEntregables`}
+                                    defaultValue={data.strEntregables}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <TextField
+                                            label="Entregables del módulo"
+                                            name={name}
+                                            value={value}
+                                            disabled={disabled}
+                                            onChange={(e) => onChange(e)}
+                                            fullWidth
+                                            variant="outlined"
+                                            multiline
+                                            rows={4}
+                                            required
+                                            error={
+                                                !!errors?.arrModulos?.[index]
+                                                    ?.strEntregables
+                                            }
+                                            helperText={
+                                                errors?.arrModulos?.[index]
+                                                    ?.strEntregables?.message ||
+                                                "Digita los entregables del módulo"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, digita los entregables del módulo",
                                     }}
                                 />
                             </Grid>
@@ -351,7 +470,7 @@ const PaperAtributo = ({
                     color="error"
                     onClick={() => handlerChangeOpenModalDelete()}
                     size="large"
-                    disabled={length === 1 ? true : disabled}
+                    disabled={size === 1 ? true : disabled}
                 >
                     <Tooltip title="Eliminar">
                         <DeleteIcon />
@@ -362,4 +481,4 @@ const PaperAtributo = ({
     );
 };
 
-export default PaperAtributo;
+export default PaperModulo;

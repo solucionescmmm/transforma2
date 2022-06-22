@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, {
+    useState,
+    useEffect,
+    useCallback,
+    useContext,
+    Fragment,
+} from "react";
 
 //Context
 import { AuthContext } from "../../../../../common/middlewares/Auth";
@@ -7,7 +13,8 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
+import shortid from "shortid";
 
 //Componentes de Material UI
 import {
@@ -23,6 +30,8 @@ import {
     Grid,
     Typography,
     TextField,
+    Box,
+    CircularProgress,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -32,6 +41,10 @@ import { makeStyles } from "@mui/styles";
 
 // Componentes
 import SelectEstados from "../../../components/selectEstado";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import PaperAtributo from "./paperAtributo";
+import ModalPreview from "./modalPreview";
+import useGetAtributos from "../../../hooks/useGetAtributos";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -40,7 +53,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCreate = ({ handleOpenDialog, open, values }) => {
+const ModalEdit = ({ handleOpenDialog, open, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -52,13 +65,18 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
     const [state, setState] = useState({
         intIdEstado: "",
         strNombre: "",
+        arrAtributos: [],
     });
+
+    const [formData, setFormData] = useState();
 
     const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
+
+    const [openModalPreview, setOpenModalPreview] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -69,8 +87,17 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
     const {
         control,
         formState: { errors },
+        getValues,
         handleSubmit,
     } = useForm({ mode: "onChange" });
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "arrAtributos",
+        keyName: "id",
+    });
+
+    const { data } = useGetAtributos({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -87,7 +114,7 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
                 {
                     method: "PUT",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_SEDES_UPDATE}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_SEDES_SET}`,
                     data: { ...state },
                     headers: {
                         token,
@@ -130,12 +157,12 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
     );
 
     const onSubmit = (data) => {
-        setState((prevState) => ({
-            ...prevState,
-            ...data,
-        }));
-
+        setState(data);
         setFlagSubmit(true);
+    };
+
+    const handlerChangeOpenModalPreview = () => {
+        setOpenModalPreview(!openModalPreview);
     };
 
     //===============================================================================================================================================
@@ -156,12 +183,32 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
     useEffect(() => {
         if (values) {
             setState({
-                intId: values.intId,
                 intIdEstado: values.intIdEstado,
                 strNombre: values.strNombre,
+                arrAtributos: values.arrAtributos,
+            });
+
+            if (values.arrAtributos?.length > 0) {
+                values.arrAtributos.forEach((a) => {
+                    append({
+                        id: shortid.generate(),
+                        intIdAtributo: a.intIdAtributo,
+                        intIdEstado: a.intIdEstado,
+                    });
+                });
+            }
+        }
+    }, [values, append]);
+
+    useEffect(() => {
+        if (fields.length === 0) {
+            append({
+                id: shortid.generate(),
+                intIdAtributo: "",
+                intIdEstado: "",
             });
         }
-    }, [values]);
+    }, [fields, append]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -170,121 +217,260 @@ const ModalCreate = ({ handleOpenDialog, open, values }) => {
         return <Redirect to="/transforma/admin/lists/" />;
     }
 
+    if (!data) {
+        return (
+            <Dialog
+                fullScreen={bitMobile}
+                open={loading ? true : open}
+                onClose={handleOpenDialog}
+                maxWidth="lg"
+                fullWidth
+                PaperProps={{
+                    component: "form",
+                    noValidate: true,
+                    onSubmit: handleSubmit(onSubmit),
+                }}
+            >
+                <DialogTitle>Editar tipo de servicio</DialogTitle>
+
+                <DialogContent>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            height: "100%",
+                            width: "100%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <CircularProgress />
+                    </Box>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button
+                        onClick={() => handleOpenDialog()}
+                        color="inherit"
+                        type="button"
+                    >
+                        cancelar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    }
+
     return (
-        <Dialog
-            fullScreen={bitMobile}
-            open={loading ? true : open}
-            onClose={handleOpenDialog}
-            fullWidth
-            PaperProps={{
-                component: "form",
-                noValidate: true,
-                onSubmit: handleSubmit(onSubmit),
-            }}
-        >
-            {loading ? (
-                <LinearProgress className={classes.linearProgress} />
-            ) : null}
-            <DialogTitle>Editar sede</DialogTitle>
+        <Fragment>
+            <ModalPreview
+                handleOpenDialog={handlerChangeOpenModalPreview}
+                open={openModalPreview}
+                values={formData}
+                dataAttributes={data}
+            />
 
-            <DialogContent>
-                <Grid container direction="rorw" spacing={2}>
-                    <Grid item xs={12}>
-                        <Typography variant="caption">
-                            Todos los elementos marcados con *, son obligatorios
-                        </Typography>
-                    </Grid>
+            <Dialog
+                fullScreen={bitMobile}
+                open={loading ? true : open}
+                onClose={handleOpenDialog}
+                maxWidth="lg"
+                fullWidth
+                PaperProps={{
+                    component: "form",
+                    noValidate: true,
+                    onSubmit: handleSubmit(onSubmit),
+                }}
+            >
+                {loading ? (
+                    <LinearProgress className={classes.linearProgress} />
+                ) : null}
+                <DialogTitle>Registrar tipo de servicio</DialogTitle>
 
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={state.intIdEstado}
-                            name="intIdEstado"
-                            render={({ field: { onChange, value, name } }) => (
-                                <SelectEstados
-                                    label="Estado"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => {
-                                        onChange(e);
-                                        setState((prevState) => ({
-                                            ...prevState,
-                                            [e.target.name]: e.target.value,
-                                        }));
-                                    }}
-                                    disabled={loading}
-                                    required
-                                    error={errors[name] ? true : false}
-                                    helperText={
-                                        errors[name]?.message ||
-                                        "Selecciona una opción"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, selecciona una opción",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={state.strNombre}
-                            name="strNombre"
-                            render={({ field: { onChange, value, name } }) => (
-                                <TextField
-                                    label="Nombre"
-                                    variant="standard"
-                                    name={name}
-                                    value={value}
-                                    disabled={
-                                        state.intIdEstado === 1 ? true : loading
-                                    }
-                                    onChange={(e) => onChange(e)}
-                                    required
-                                    fullWidth
-                                    error={errors[name] ? true : false}
-                                    helperText={
-                                        errors[name]?.message ||
-                                        "Digita el nombre de la sede"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, digita el nombre de la sede",
-                            }}
-                        />
-                    </Grid>
-
-                    {state.intIdEstado === 1 && (
+                <DialogContent>
+                    <Grid container direction="row" spacing={2}>
                         <Grid item xs={12}>
-                            <Alert severity="warning">
-                                Al seleccionar el estado activo, no podras
-                                editar ni eliminar está información
-                            </Alert>
+                            <Typography variant="caption">
+                                Todos los elementos marcados con *, son
+                                obligatorios
+                            </Typography>
                         </Grid>
-                    )}
-                </Grid>
-            </DialogContent>
 
-            <DialogActions>
-                <LoadingButton color="primary" loading={loading} type="submit">
-                    guardar
-                </LoadingButton>
+                        <Grid item xs={12}>
+                            <Controller
+                                defaultValue={state.intIdEstado}
+                                name="intIdEstado"
+                                render={({
+                                    field: { onChange, value, name },
+                                }) => (
+                                    <SelectEstados
+                                        label="Estado"
+                                        name={name}
+                                        value={value}
+                                        onChange={(e) => {
+                                            onChange(e);
+                                            setState((prevState) => ({
+                                                ...prevState,
+                                                [e.target.name]: e.target.value,
+                                            }));
+                                        }}
+                                        disabled={loading}
+                                        required
+                                        error={errors[name] ? true : false}
+                                        helperText={
+                                            errors[name]?.message ||
+                                            "Selecciona una opción"
+                                        }
+                                    />
+                                )}
+                                control={control}
+                                rules={{
+                                    required:
+                                        "Por favor, selecciona una opción",
+                                }}
+                            />
+                        </Grid>
 
-                <Button
-                    onClick={() => handleOpenDialog()}
-                    color="inherit"
-                    disabled={loading}
-                    type="button"
-                >
-                    cancelar
-                </Button>
-            </DialogActions>
-        </Dialog>
+                        <Grid item xs={12}>
+                            <Controller
+                                defaultValue={state.strNombre}
+                                name="strNombre"
+                                render={({
+                                    field: { onChange, value, name },
+                                }) => (
+                                    <TextField
+                                        label="Nombre"
+                                        variant="standard"
+                                        name={name}
+                                        value={value}
+                                        disabled={loading}
+                                        onChange={(e) => onChange(e)}
+                                        required
+                                        fullWidth
+                                        error={errors[name] ? true : false}
+                                        helperText={
+                                            errors[name]?.message ||
+                                            "Digita el nombre de la sede"
+                                        }
+                                    />
+                                )}
+                                control={control}
+                                rules={{
+                                    required:
+                                        "Por favor, digita el nombre de la sede",
+                                }}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Typography
+                                style={{
+                                    fontWeight: "bold",
+                                    color: errors?.arrAtributos
+                                        ? "#D33030"
+                                        : "inherit",
+                                }}
+                            >
+                                Atributos
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TransitionGroup>
+                                {fields.map((e, i) => (
+                                    <CSSTransition
+                                        timeout={800}
+                                        classNames={{
+                                            enter: "animate__animated",
+                                            enterActive:
+                                                "animate__animated animate__bounceInLeft",
+                                            enterDone: "animate__bounceInLeft",
+                                            exit: "animate__animated",
+                                            exitActive:
+                                                "animate__animated animate__bounceOutRight",
+                                            exitDone: "animate__bounceOutRight",
+                                        }}
+                                        key={e.id}
+                                    >
+                                        <PaperAtributo
+                                            control={control}
+                                            index={i}
+                                            values={e}
+                                            errors={errors}
+                                            disabled={loading}
+                                            remove={remove}
+                                            length={fields.length}
+                                        />
+                                    </CSSTransition>
+                                ))}
+                            </TransitionGroup>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Button
+                                color="secondary"
+                                disabled={loading}
+                                fullWidth
+                                type="button"
+                                onClick={() =>
+                                    append({
+                                        id: shortid.generate(),
+                                        intIdAtributo: "",
+                                        intIdEstado: "",
+                                    })
+                                }
+                            >
+                                Agregar atributo
+                            </Button>
+                        </Grid>
+
+                        {state.intIdEstado === 1 && (
+                            <Grid item xs={12}>
+                                <Alert severity="warning">
+                                    Al seleccionar el estado activo, no podras
+                                    editar ni eliminar está información
+                                </Alert>
+                            </Grid>
+                        )}
+                    </Grid>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button
+                        onClick={() => {
+                            setFormData(getValues());
+                            handlerChangeOpenModalPreview();
+                        }}
+                        color="primary"
+                        disabled={loading}
+                        type="button"
+                        sx={{
+                            flexGrow: 1,
+                            justifyContent: "left",
+                        }}
+                    >
+                        previsualizar formulario
+                    </Button>
+
+                    <LoadingButton
+                        color="primary"
+                        loading={loading}
+                        type="submit"
+                    >
+                        editar
+                    </LoadingButton>
+
+                    <Button
+                        onClick={() => handleOpenDialog()}
+                        color="inherit"
+                        disabled={loading}
+                        type="button"
+                    >
+                        cancelar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </Fragment>
     );
 };
 
-export default ModalCreate;
+export default ModalEdit;

@@ -23,6 +23,7 @@ import {
     Button,
     useTheme,
     useMediaQuery,
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -33,25 +34,29 @@ import {
 } from "@mui/icons-material";
 
 //Componentes
-import SelectAtributos from "../../../components/selectAtributos";
+import SelectSedes from "../../../components/selectSedes";
 import SelectEstados from "../../../components/selectEstado";
+import SelectTipoTarifas from "../../../components/selectTipoTarifa";
+import NumberFormat from "react-number-format";
 
-const PaperAtributo = ({
+const PaperSedesTarifa = ({
     values,
     index,
     control,
     disabled,
     errors,
     remove,
-    length,
+    size,
 }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
         id: "",
-        intIdAtributo: "",
+        intIdSede: "",
+        intIdTipoTarifa: "",
         intIdEstado: "",
+        dblValor: "",
     });
 
     const [loading, setLoading] = useState(true);
@@ -82,8 +87,10 @@ const PaperAtributo = ({
         if (values) {
             setData({
                 id: values.id,
-                intIdAtributo: values.intIdAtributo,
+                intIdSede: values.intIdSede,
+                intIdTipoTarifa: values.intIdTipoTarifa,
                 intIdEstado: values.intIdEstado,
+                dblValor: values.dblValor,
             });
         }
 
@@ -129,7 +136,7 @@ const PaperAtributo = ({
                             <b>Se esperaba un identificador</b>
                         </AlertTitle>
                         Ha ocurrido un error al renderizar el formulario de
-                        atributos
+                        sedes y tarifas
                     </Alert>
                 </Box>
 
@@ -176,7 +183,7 @@ const PaperAtributo = ({
                         },
                     }}
                 >
-                    <DialogTitle>{`¿Deseas eliminar el atributo #${
+                    <DialogTitle>{`¿Deseas eliminar la sede y tarifa #${
                         index + 1
                     }?`}</DialogTitle>
 
@@ -229,7 +236,7 @@ const PaperAtributo = ({
                                 flexGrow: 1,
                             }}
                         >
-                            <p>{`Atributo #${index + 1}`}</p>
+                            <p>{`Sede y tarifa #${index + 1}`}</p>
                         </Box>
 
                         <Box>
@@ -258,43 +265,80 @@ const PaperAtributo = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12}>
                                 <Controller
-                                    name={`arrAtributos[${index}].intIdAtributo`}
-                                    defaultValue={data.intIdAtributo}
+                                    name={`arrSedesTarifas[${index}].intIdSede`}
+                                    defaultValue={data.intIdSede}
                                     render={({
                                         field: { name, value, onChange },
                                     }) => (
-                                        <SelectAtributos
-                                            label="Tipo de atributo"
+                                        <SelectSedes
+                                            label="Sede"
                                             name={name}
                                             value={value}
-                                            onChange={(e) => onChange(e)}
-                                            disabled={disabled}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                            }}
+                                            disabled={loading}
                                             required
                                             error={
-                                                !!errors
-                                                    ?.arrInfoEmpresarioSec?.[
+                                                !!errors?.arrSedesTarifas?.[
                                                     index
-                                                ]?.strTipoRelacion
+                                                ]?.intIdSede
                                             }
                                             helperText={
-                                                errors?.arrInfoEmpresarioSec?.[
-                                                    index
-                                                ]?.strTipoRelacion?.message ||
-                                                "Selecciona el tipo de atributo"
+                                                errors?.arrSedesTarifas?.[index]
+                                                    ?.intIdSede?.message ||
+                                                "Selecciona una opción"
                                             }
                                         />
                                     )}
                                     control={control}
                                     rules={{
                                         required:
-                                            "Por favor, selecciona el tipo de atributo",
+                                            "Por favor, selecciona una opción",
                                     }}
                                 />
                             </Grid>
 
                             <Grid item xs={12}>
                                 <Controller
-                                    name={`arrAtributos[${index}].intIdEstado`}
+                                    name={`arrSedesTarifas[${index}].intIdTipoTarifa`}
+                                    defaultValue={data.intIdTipoTarifa}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <SelectTipoTarifas
+                                            label="Tipo de tarifa"
+                                            name={name}
+                                            value={value}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                            }}
+                                            disabled={loading}
+                                            required
+                                            error={
+                                                !!errors?.arrSedesTarifas?.[
+                                                    index
+                                                ]?.intIdTipoTarifa
+                                            }
+                                            helperText={
+                                                errors?.arrSedesTarifas?.[index]
+                                                    ?.intIdTipoTarifa
+                                                    ?.message ||
+                                                "Selecciona una opción"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, selecciona una opción",
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} md={6}>
+                                <Controller
+                                    name={`arrSedesTarifas[${index}].intIdEstado`}
                                     defaultValue={data.intIdEstado}
                                     render={({
                                         field: { name, value, onChange },
@@ -313,12 +357,12 @@ const PaperAtributo = ({
                                             disabled={loading}
                                             required
                                             error={
-                                                !!errors?.arrAtributos?.[
+                                                !!errors?.arrSedesTarifas?.[
                                                     index
                                                 ]?.intIdEstado
                                             }
                                             helperText={
-                                                errors?.arrAtributos?.[index]
+                                                errors?.arrSedesTarifas?.[index]
                                                     ?.intIdEstado?.message ||
                                                 "Selecciona una opción"
                                             }
@@ -328,6 +372,47 @@ const PaperAtributo = ({
                                     rules={{
                                         required:
                                             "Por favor, selecciona una opción",
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} md={6}>
+                                <Controller
+                                    defaultValue={data.dblValor}
+                                    name={`arrSedesTarifas[${index}].dblValor`}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <NumberFormat
+                                            label="Valor"
+                                            name={name}
+                                            value={value}
+                                            onValueChange={(v) => {
+                                                onChange(v.floatValue);
+                                            }}
+                                            thousandSeparator={true}
+                                            allowNegative={false}
+                                            prefix={"$"}
+                                            customInput={TextField}
+                                            fullWidth
+                                            variant="standard"
+                                            disabled={disabled}
+                                            required
+                                            error={
+                                                !!errors?.arrSedesTarifas?.[
+                                                    index
+                                                ]?.dblValor
+                                            }
+                                            helperText={
+                                                errors?.arrSedesTarifas?.[index]
+                                                    ?.dblValor?.message ||
+                                                "Digita el valor"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required: "Por favor, digita el valor",
                                     }}
                                 />
                             </Grid>
@@ -351,7 +436,7 @@ const PaperAtributo = ({
                     color="error"
                     onClick={() => handlerChangeOpenModalDelete()}
                     size="large"
-                    disabled={length === 1 ? true : disabled}
+                    disabled={size === 1 ? true : disabled}
                 >
                     <Tooltip title="Eliminar">
                         <DeleteIcon />
@@ -362,4 +447,4 @@ const PaperAtributo = ({
     );
 };
 
-export default PaperAtributo;
+export default PaperSedesTarifa;
