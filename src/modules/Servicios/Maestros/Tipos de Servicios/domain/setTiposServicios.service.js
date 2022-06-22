@@ -12,7 +12,7 @@ class setTiposServicios {
     /**
      * @param {object} data
      */
-    constructor(data) {
+    constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
     }
