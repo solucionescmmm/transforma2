@@ -60,7 +60,7 @@ class daoTiposServicios {
                 .input("p_intIdEstado", sql.VarChar, data.intIdEstado)
                 .input("p_strUsuario", sql.VarChar, data.strUsuarioCreacion)
                 .output("P_bitError", sql.Bit)
-                .output("P_strMsg ", sql.VarChar)
+                .output("P_strMsg", sql.VarChar)
                 .execute("sp_setAtributosTipoServicio");
             let result = {
                 error: false,
@@ -72,7 +72,7 @@ class daoTiposServicios {
             let result = {
                 error: true,
                 msg: error.message ?
-                    error.message : "Error en el metodo getInfoBasica de la clase daoPerfil",
+                    error.message : "Error en el metodo setAtributosTiposServicios de la clase daoTiposServicios",
             };
             sql.close(conexion);
             return result;
@@ -83,27 +83,46 @@ class daoTiposServicios {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
-                SELECT * FROM tbl_TiposServicios 
+                SELECT * FROM tbl_TiposServicios
                 WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
-
+                
             let result = {
                 error: false,
                 data: response.recordsets[0],
             };
-
             sql.close(conexion);
-
             return result;
         } catch (error) {
             let result = {
                 error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo getTiposServicios de la clase daoTiposServicios",
+                msg: error.message ?
+                    error.message : "Error en el metodo getTiposServicios de la clase daoTiposServicios",
             };
-
             sql.close(conexion);
+            return result;
+        }
+    }
 
+    async getAtributosTiposServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn
+                .request()
+                .input("p_intIdTipoServicio", sql.VarChar, data.intIdTipoServicio)
+                .execute("sp_getAtributosTipoServicio");
+            let result = {
+                error: false,
+                data: response.recordsets[0],
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message ?
+                    error.message : "Error en el metodo getTiposServicios de la clase daoTiposServicios",
+            };
+            sql.close(conexion);
             return result;
         }
     }

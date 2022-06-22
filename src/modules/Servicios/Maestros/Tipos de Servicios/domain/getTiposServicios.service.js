@@ -22,8 +22,34 @@ const getTiposServicios = async (objParams, strDataUser) => {
         intId: intId || null,
     };
 
-    let result = await dao.getTiposServicios(query);
+    let arrayData = await dao.getTiposServicios(query);
 
-    return result;
+
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data;
+            
+            let data = [];
+
+            for (let i = 0; i < array.length; i++) {
+                let arrayAtributos = await dao.getAtributosTiposServicios({
+                    intIdTipoServicio : array[i]?.intId
+                })
+
+                data[i]={
+                    ...array[i],
+                    arrAtributos:arrayAtributos?.data
+                }
+            }
+            let result = {
+                error: false,
+                data,
+            };
+
+            return result;
+        }
+    }
+
+    return arrayData;
 };
 module.exports = getTiposServicios;
