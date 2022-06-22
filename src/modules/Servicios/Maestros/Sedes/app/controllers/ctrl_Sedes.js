@@ -31,8 +31,9 @@ class ctrl_Sedes {
     async updateSedes(req, res) {
         try {
             let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new updateSedes(data);
+            let service = new updateSedes(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {

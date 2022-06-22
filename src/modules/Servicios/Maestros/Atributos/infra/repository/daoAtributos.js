@@ -128,7 +128,7 @@ class daoAtributos {
 
             let result = {
                 error: false,
-                msg: `Se eliminó exitosamente la sede.`,
+                msg: `Se eliminó exitosamente el atributo.`,
             };
 
             sql.close(conexion);

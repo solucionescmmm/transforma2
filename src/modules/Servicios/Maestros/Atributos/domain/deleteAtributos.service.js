@@ -5,14 +5,13 @@ class deleteAtributos{
     #intIdAtributos;
     #objResult;
 
-    constructor(objParms) {
-        this.#intIdAtributos = objParms.intId;
+    constructor(objParams) {
+        this.#intIdAtributos = objParams.intId;
     }
 
     async main() {
         await this.#validations();
         await this.#deleteAtributos();
-
         return this.#objResult;
     }
 
@@ -27,6 +26,8 @@ class deleteAtributos{
         let query = await dao.deleteAtributos({
             intId: this.#intIdAtributos,
         });
+
+        console.log(query)
 
         if (query.error) {
             throw new Error(
