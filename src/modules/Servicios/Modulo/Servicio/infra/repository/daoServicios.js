@@ -65,7 +65,6 @@ class daoServicios {
                 ${data.intHoras},
                 ${data.strEntregables},
                 ${data.strResponsables},
-                ${data.intIdEstado},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 GETDATE(),
@@ -111,7 +110,6 @@ class daoServicios {
                 ${data.intIdTipoTarifa},
                 ${data.intIdServicio},
                 ${data.dblValor},
-                ${data.intIdEstado},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 GETDATE(),
@@ -155,7 +153,6 @@ class daoServicios {
             (
                 ${data.intIdServicio},
                 ${data.intIdArea},
-                ${data.intIdEstado},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 GETDATE(),
@@ -333,7 +330,6 @@ class daoServicios {
                     intHoras                = COALESCE(${data.intHoras}, intHoras),
                     strEntregables          = COALESCE(${data.strEntregables}, strEntregables),
                     strResponsables         = COALESCE(${data.strResponsables}, strResponsables),
-                    intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 
@@ -375,7 +371,6 @@ class daoServicios {
                     intIdTipoTarifa         = COALESCE(${data.intIdTipoTarifa}, intIdTipoTarifa),
                     intIdServicio           = COALESCE(${data.intIdServicio}, intIdServicio),
                     Valor                   = COALESCE(${data.dblValor}, Valor),
-                    intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 
@@ -415,7 +410,6 @@ class daoServicios {
 
                 SET intIdServicio           = COALESCE(${data.intIdServicio}, intIdServicio),
                     intIdArea               = COALESCE(${data.intIdArea}, intIdArea),
-                    intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 

@@ -50,7 +50,7 @@ class setTiposServicios {
 
     async #getIdEstado() {
         let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre: "Activo",
+            strNombre: "En borrador",
         });
 
         if (queryGetIdEstado.error) {
