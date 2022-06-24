@@ -27,8 +27,8 @@ class setAreas {
 
     async main() {
         await this.#validations();
-        //await this.#getIdEstado();
-        //this.#completeData();
+        await this.#getIdEstado();
+        this.#completeData();
         await this.#setAreas();
         return this.#objResult;
     }
@@ -50,7 +50,7 @@ class setAreas {
 
     async #getIdEstado() {
         let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre: this.#objData.strEstado,
+            strNombre: "En borrador",
         });
 
         if (queryGetIdEstado.error) {
@@ -63,7 +63,7 @@ class setAreas {
     #completeData() {
         let newData = {
             ...this.#objData,
-            intiIdEsatdo: this.#intIdEstado,
+            intIdEstado: this.#intIdEstado,
         };
         this.#objData = newData;
     }

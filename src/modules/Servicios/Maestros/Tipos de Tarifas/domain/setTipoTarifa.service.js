@@ -4,10 +4,16 @@ const classInterfaceDAOTipoTarifa = require("../infra/conectors/interfaceDAOTipo
 //Librerias
 const validator = require("validator").default;
 
+//Servicios
+const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
 class setTipoTarifa {
     #objData;
     #objUser;
     #objResult;
+
+    //variables
+    #intIdEstado;
     /**
      * @param {object} data
      */
@@ -18,6 +24,8 @@ class setTipoTarifa {
 
     async main() {
         await this.#validations();
+        await this.#getIdEstado();
+        this.#completeData();
         await this.#setTipoTarifa();
         return this.#objResult;
     }
@@ -36,6 +44,28 @@ class setTipoTarifa {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+    }
+
+    async #getIdEstado() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "En borrador",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstado = queryGetIdEstado.data.intId;
+    }
+
+    #completeData() {
+        let newData = {
+            ...this.#objData,
+            intIdEstado: this.#intIdEstado,
+        };
+        this.#objData = newData;
+
+        console.log(this.#objData);
     }
 
     async #setTipoTarifa() {

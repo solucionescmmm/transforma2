@@ -4,10 +4,16 @@ const classInterfaceDAOSedes = require("../infra/conectors/interfaceDAOSedes");
 //Librerias
 const validator = require("validator").default;
 
+//Servicios
+const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
 class setSede {
     #objData;
     #objUser;
     #objResult;
+
+     //variables
+     #intIdEstado;
     /**
      * @param {object} data
      */
@@ -18,6 +24,8 @@ class setSede {
 
     async main() {
         await this.#validations();
+        await this.#getIdEstado();
+        this.#completeData();
         await this.#setSede();
         return this.#objResult;
     }
@@ -36,6 +44,26 @@ class setSede {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+    }
+    async #getIdEstado() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "En borrador",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstado = queryGetIdEstado.data.intId;
+    }
+
+    #completeData() {
+        let newData = {
+            ...this.#objData,
+            intIdEstado: this.#intIdEstado,
+            s
+        };
+        this.#objData = newData;
     }
 
     async #setSede() {

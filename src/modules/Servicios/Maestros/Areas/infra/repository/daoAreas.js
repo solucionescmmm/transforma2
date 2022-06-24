@@ -124,7 +124,7 @@ class daoAreas {
 
             let result = {
                 error: false,
-                msg: `Se eliminó exitosamente la sede.`,
+                msg: `Se eliminó exitosamente el área.`,
             };
 
             sql.close(conexion);

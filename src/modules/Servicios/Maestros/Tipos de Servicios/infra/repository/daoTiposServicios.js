@@ -200,7 +200,9 @@ class daoTiposServicios {
     async deleteTiposServicios(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn.query`DELETE FROM tbl_TiposServicios WHERE intId = ${data.intId}`;
+            await conn.query`
+            DELETE FROM tbl_Atributos_TipoServicios WHERE intIdTipoServicio = ${data.intId}
+            DELETE FROM tbl_TiposServicios WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,

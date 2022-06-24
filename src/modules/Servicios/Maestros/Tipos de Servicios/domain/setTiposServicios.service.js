@@ -4,10 +4,16 @@ const classInterfaceDAOTiposServicios = require("../infra/conectors/interfaceDAO
 //Librerias
 const validator = require("validator").default;
 
+//Servicios
+const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
 class setTiposServicios {
     #objData;
     #objUser;
     #objResult;
+
+    //variables
+    #intIdEstado;
     #intIdTipoServicio;
     /**
      * @param {object} data
@@ -19,6 +25,8 @@ class setTiposServicios {
 
     async main() {
         await this.#validations();
+        await this.#getIdEstado();
+        this.#completeData();
         await this.#setTiposServicios();
         await this.#setAtributosTiposServicios();
         return this.#objResult;
@@ -38,6 +46,28 @@ class setTiposServicios {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+    }
+
+    async #getIdEstado() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "Activo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstado = queryGetIdEstado.data.intId;
+    }
+
+    #completeData() {
+        let newData = {
+            ...this.#objData,
+            intIdEstado: this.#intIdEstado,
+        };
+        this.#objData = newData;
+
+        console.log(this.#objData);
     }
 
     async #setTiposServicios() {
@@ -68,6 +98,7 @@ class setTiposServicios {
                     ...array[i],
                     intIdTipoServicio: this.#intIdTipoServicio,
                     strUsuarioCreacion: this.#objUser.strEmail,
+                    intIdEstado: this.#intIdEstado,
                 });
 
                 if (query.error) {

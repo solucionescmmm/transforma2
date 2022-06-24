@@ -4,10 +4,16 @@ const classInterfaceDAOAtributos = require("../infra/conectors/interfaceDAOAtrib
 //Librerias
 const validator = require("validator").default;
 
+//Servicios
+const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
 class setAtributos {
     #objData;
     #objUser;
     #objResult;
+
+    //variables
+    #intIdEstado;
     /**
      * @param {object} data
      */
@@ -18,6 +24,8 @@ class setAtributos {
 
     async main() {
         await this.#validations();
+        await this.#getIdEstado();
+        this.#completeData();
         await this.#setAtributos();
         return this.#objResult;
     }
@@ -36,6 +44,26 @@ class setAtributos {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+    }
+
+    async #getIdEstado() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "Activo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstado = queryGetIdEstado.data.intId;
+    }
+
+    #completeData() {
+        let newData = {
+            ...this.#objData,
+            intIdEstado: this.#intIdEstado,
+        };
+        this.#objData = newData;
     }
 
     async #setAtributos() {

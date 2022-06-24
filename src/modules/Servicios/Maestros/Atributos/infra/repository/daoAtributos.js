@@ -31,7 +31,7 @@ class daoAtributos {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La sede, fue agregada con éxito.`,
+                msg: `El atributo, fue agregada con éxito.`,
             };
 
             sql.close(conexion);
