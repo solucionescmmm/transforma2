@@ -64,8 +64,6 @@ class setTipoTarifa {
             intIdEstado: this.#intIdEstado,
         };
         this.#objData = newData;
-
-        console.log(this.#objData);
     }
 
     async #setTipoTarifa() {

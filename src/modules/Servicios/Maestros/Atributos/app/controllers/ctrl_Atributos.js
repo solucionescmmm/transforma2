@@ -31,8 +31,9 @@ class ctrl_Atributos {
     async updateAtributos(req, res) {
         try {
             let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new updateAtributos(data);
+            let service = new updateAtributos(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {

@@ -4,10 +4,16 @@ const classInterfaceDAOTipoTarifa = require("../infra/conectors/interfaceDAOTipo
 //Librerias
 const validator = require("validator").default;
 
+//Servicios
+const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
 class updateTipoTarifa {
     #objData;
     #objUser;
     #objResult;
+
+     //variables
+     #intIdEstado;
     /**
      * @param {object} data
      */
@@ -18,6 +24,10 @@ class updateTipoTarifa {
 
     async main() {
         await this.#validations();
+        if (typeof this.#objData.bitActivar !== "undefined") {
+            await this.#getIdEstado();
+            this.#completeData();
+        }
         await this.#updateTipoTarifa();
         return this.#objResult;
     }
@@ -36,6 +46,28 @@ class updateTipoTarifa {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+    }
+
+    async #getIdEstado() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre:
+                this.#objData.bitActivar === true ? "Activo" : "Inactivo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstado = queryGetIdEstado.data.intId;
+    }
+
+    #completeData() {
+        let newData = {
+            ...this.#objData,
+            intiIdEsatdo: this.#intIdEstado,
+            strUsuarioActualizacion: this.#objUser.strEmail,
+        };
+        this.#objData = newData;
     }
 
     async #updateTipoTarifa() {
