@@ -50,8 +50,11 @@ const ReadSolicitudesUser = () => {
             render: (rowData) => (
                 <Switch
                     checked={rowData.intIdEstado === 1 ? true : false}
-                    disabled={rowData.intIdEstado === 1}
                     size="small"
+                    onClick={() => {
+                        setSelectedData(rowData);
+                        handlerOpenModalState();
+                    }}
                 />
             ),
             width: "5%",
@@ -147,7 +150,7 @@ const ReadSolicitudesUser = () => {
             <ModalState
                 handleOpenDialog={handlerOpenModalState}
                 open={openModalState}
-                intId={selectedData?.intId}
+                values={selectedData}
             />
 
             <Grid container direction="row" spacing={2}>

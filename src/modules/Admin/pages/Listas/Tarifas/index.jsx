@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react";
 import useGetTarifas from "../../../hooks/useGetTarifas";
 
 //Componentes de Material UI
-import { Grid, Box, Button } from "@mui/material";
+import { Grid, Box, Button, Switch } from "@mui/material";
 
 import {
     ThemeProvider,
@@ -38,12 +38,27 @@ import { MTableToolbar } from "@material-table/core";
 import ModalCreate from "./modalCreate";
 import ModalEdit from "./modalEdit";
 import ModalDelete from "./modalDelete";
+import ModalState from "./modalState"
 
 const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [objColumns] = useState([
+        {
+            title: "",
+            render: (rowData) => (
+                <Switch
+                    checked={rowData.intIdEstado === 1 ? true : false}
+                    size="small"
+                    onClick={() => {
+                        setSelectedData(rowData);
+                        handlerOpenModalState();
+                    }}
+                />
+            ),
+            width: "5%",
+        },
         {
             title: "Id",
             field: "intId",
@@ -62,12 +77,13 @@ const ReadSolicitudesUser = () => {
         {
             title: "Estado",
             field: "intIdEstado",
-            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" }
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
     ]);
 
     const [openModalCreate, setOpenModalCreate] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalState, setOpenModalState] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
@@ -89,6 +105,10 @@ const ReadSolicitudesUser = () => {
         setOpenModalDelete(!openModalDelete);
     };
 
+    const handlerOpenModalState = () => {
+        setOpenModalState(!openModalState);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -108,6 +128,12 @@ const ReadSolicitudesUser = () => {
             <ModalEdit
                 handleOpenDialog={handlerOpenModalEdit}
                 open={openModalEdit}
+                values={selectedData}
+            />
+
+            <ModalState
+                handleOpenDialog={handlerOpenModalState}
+                open={openModalState}
                 values={selectedData}
             />
 

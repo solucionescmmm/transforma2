@@ -30,7 +30,6 @@ import { LoadingButton } from "@mui/lab";
 import { makeStyles } from "@mui/styles";
 
 // Componentes
-import SelectEstados from "../../../components/selectEstado";
 import SelectCampos from "../../../components/selectCampos";
 
 const modalRejectStyles = makeStyles(() => ({
@@ -181,32 +180,6 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                         <Typography variant="caption">
                             Todos los elementos marcados con *, son obligatorios
                         </Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={state.intIdEstado}
-                            name="intIdEstado"
-                            render={({ field: { onChange, value, name } }) => (
-                                <SelectEstados
-                                    label="Estado"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={loading}
-                                    required
-                                    error={errors[name] ? true : false}
-                                    helperText={
-                                        errors[name]?.message ||
-                                        "Selecciona una opción"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, selecciona una opción",
-                            }}
-                        />
                     </Grid>
 
                     <Grid item xs={12}>

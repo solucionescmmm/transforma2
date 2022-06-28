@@ -30,9 +30,6 @@ import { LoadingButton } from "@mui/lab";
 //Estilos
 import { makeStyles } from "@mui/styles";
 
-// Componentes
-import SelectEstados from "../../../components/selectEstado"
-
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
         position: "absolute",
@@ -183,38 +180,6 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={state.intIdEstado}
-                            name="intIdEstado"
-                            render={({ field: { onChange, value, name } }) => (
-                                <SelectEstados
-                                    label="Estado"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => {
-                                        onChange(e);
-                                        setState((prevState) => ({
-                                            ...prevState,
-                                            [e.target.name]: e.target.value,
-                                        }));
-                                    }}
-                                    disabled={loading}
-                                    required
-                                    error={errors[name] ? true : false}
-                                    helperText={
-                                        errors[name]?.message ||
-                                        "Selecciona una opción"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, selecciona una opción",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
                             defaultValue={state.strNombre}
                             name="strNombre"
                             render={({ field: { onChange, value, name } }) => (
@@ -236,7 +201,8 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el nombre de la tarifa",
+                                required:
+                                    "Por favor, digita el nombre de la tarifa",
                             }}
                         />
                     </Grid>

@@ -37,7 +37,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalState = ({ handleOpenDialog, open, intId }) => {
+const ModalState = ({ handleOpenDialog, open, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -54,6 +54,7 @@ const ModalState = ({ handleOpenDialog, open, intId }) => {
 
     const [data, setData] = useState({
         intId: null,
+        intIdEstado: "",
     });
 
     //===============================================================================================================================================
@@ -75,11 +76,12 @@ const ModalState = ({ handleOpenDialog, open, intId }) => {
 
             await axios(
                 {
-                    method: "DELETE",
+                    method: "PUT",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_AREAS_DELETE}`,
-                    params: {
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_AREAS_UPDATE}`,
+                    data: {
                         intId: data.intId,
+                        bitActivar: data.intIdEstado === 1 ? false : true,
                     },
                     headers: {
                         token,
@@ -125,14 +127,15 @@ const ModalState = ({ handleOpenDialog, open, intId }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (intId) {
+        if (values) {
             setData({
-                intId,
+                intId: values.intId,
+                intIdEstado: values.intIdEstado,
             });
         }
 
         setLoading(false);
-    }, [intId]);
+    }, [values]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -206,23 +209,21 @@ const ModalState = ({ handleOpenDialog, open, intId }) => {
             open={loading ? true : open}
             onClose={handleOpenDialog}
             fullWidth
-            PaperProps={{
-                style: {
-                    backgroundColor:
-                        !loading && !data.intId ? "#FDEDED" : "inherit",
-                },
-            }}
         >
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas activar el registro seleccionado?`}</DialogTitle>
+            <DialogTitle>
+                {data.intIdEstado === 1
+                    ? "¿Deseas desactivar el registro seleccionado?"
+                    : "¿Deseas activar el registro seleccionado?"}
+            </DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    El proceso es irreversible, una vez habilitado, los cambios
-                    efectuados estarán disponibles en todo el sistema sin
-                    posibilidad de ser eliminado o inactivado.
+                    {data.intIdEstado === 1
+                        ? "Al desactivar el registro, dejara de listarse en el sistema y en los servicios"
+                        : "Al activar el registro, se listara de forma automaticamente en todo el sistema"}
                 </DialogContentText>
             </DialogContent>
 

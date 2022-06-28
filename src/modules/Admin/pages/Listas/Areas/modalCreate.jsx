@@ -30,9 +30,6 @@ import { LoadingButton } from "@mui/lab";
 //Estilos
 import { makeStyles } from "@mui/styles";
 
-// Componentes
-import SelectEstados from "../../../components/selectEstado";
-
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
         position: "absolute",
