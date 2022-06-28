@@ -61,7 +61,6 @@ class setSede {
         let newData = {
             ...this.#objData,
             intIdEstado: this.#intIdEstado,
-            s
         };
         this.#objData = newData;
     }

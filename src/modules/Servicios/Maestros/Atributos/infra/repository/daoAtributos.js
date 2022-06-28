@@ -101,7 +101,7 @@ class daoAtributos {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La sede, fue actualizada con éxito.`,
+                msg: `El atributo, fue actualizado con éxito.`,
             };
 
             sql.close(conexion);

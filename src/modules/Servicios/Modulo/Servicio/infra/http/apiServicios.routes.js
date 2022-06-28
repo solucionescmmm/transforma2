@@ -30,10 +30,10 @@ routes.put(
 );
 
 routes.delete(
-    "/transforma/api/servicios/maestro/sedetipotarifaservicio/deleteSedeTipoTarifaServicio",
+    "/transforma/api/servicios/modulo/deleteServicio",
     async (req, res) => {
         let controllerServicios = new classController();
-        await controllerServicios.deleteSedeTipoTarifaServicio(req, res);
+        await controllerServicios.deleteServicio(req, res);
     }
 );
 

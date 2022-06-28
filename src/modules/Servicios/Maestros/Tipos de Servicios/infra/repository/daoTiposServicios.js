@@ -225,5 +225,34 @@ class daoTiposServicios {
             return result;
         }
     }
+
+    async deleteAtributoTiposServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn.query`
+            DELETE FROM tbl_Atributos_TipoServicios WHERE intIdTipoServicio = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: `Se eliminó exitosamente el tipo servicio.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteTiposServicios de la clase daoTiposServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
 }
 module.exports = daoTiposServicios;

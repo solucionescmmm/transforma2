@@ -42,6 +42,12 @@ class interfaceDAOTiposServicios {
         let result = await dao.deleteTiposServicios(data);
         return result;
     }
+
+    async deleteAtributoTiposServicios(data) {
+        let dao = new classDAO();
+        let result = await dao.deleteAtributoTiposServicios(data);
+        return result;
+    }
 }
 
 module.exports = interfaceDAOTiposServicios;

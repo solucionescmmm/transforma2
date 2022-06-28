@@ -30,12 +30,14 @@ const getTiposServicios = async (objParams, strDataUser) => {
             let array = arrayData.data;
             
             let data = [];
+            
 
             for (let i = 0; i < array.length; i++) {
+                
                 let arrayAtributos = await dao.getAtributosTiposServicios({
                     intIdTipoServicio : array[i]?.intId
                 })
-
+                
                 data[i]={
                     ...array[i],
                     arrAtributos:arrayAtributos?.data

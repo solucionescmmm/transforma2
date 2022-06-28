@@ -64,6 +64,8 @@ class updateServicios {
     }
 
     async #updateModuloServicios() {
+        let dao = new classInterfaceDAOServicios();
+
         let queryModuloServicios = await dao.deleteModuloServicios({
             intIdServicio: this.#intIdServicio,
         });
@@ -98,8 +100,10 @@ class updateServicios {
     }
 
     async #updateSedeTipoTarifaServicio() {
+        let dao = new classInterfaceDAOServicios();
+
         let querySedeTipoTarifaServicio =
-            await dao.deleteSedeTipoTarifaServicio({
+            await dao.deleteSedeTipoTarifaServicios({
                 intIdServicio: this.#intIdServicio,
             });
 
@@ -127,7 +131,9 @@ class updateServicios {
     }
 
     async #updateAreasServicios() {
-        let queryAreasServicios = await dao.deleteAreasServicios({
+        let dao = new classInterfaceDAOServicios();
+
+        let queryAreasServicios = await dao.deleteAreaServicios({
             intIdServicio: this.#intIdServicio,
         });
 
@@ -158,54 +164,20 @@ class updateServicios {
     async #rollbackTransaction() {
         let dao = new classInterfaceDAOServicios();
 
-        let queryModuloServicios = await dao.deleteModuloServicios({
-            intIdServicio: this.#intIdServicio,
-        });
-
-        let querySedeTipoTarifaServicio =
-            await dao.deleteSedeTipoTarifaServicio({
-                intIdServicio: this.#intIdServicio,
-            });
-
-        let queryAreasServicios = await dao.deleteAreasServicios({
-            intIdServicio: this.#intIdServicio,
-        });
-
         let queryServicios = await dao.deleteServicios({
             intId: this.#intIdServicio,
         });
 
-        if (queryModuloServicios.error) {
-            this.#objResult = {
-                error: true,
-                msg: queryModuloServicios.msg,
-            };
-        }
-
-        if (querySedeTipoTarifaServicio.error) {
-            this.#objResult = {
-                error: true,
-                msg: querySedeTipoTarifaServicio.msg,
-            };
-        }
-
-        if (queryAreasServicios.error) {
-            this.#objResult = {
-                error: true,
-                msg: queryAreasServicios.msg,
-            };
-        }
-
         if (queryServicios.error) {
             this.#objResult = {
                 error: true,
-                msg: queryAreasServicios.msg,
+                msg: queryServicios.msg,
             };
         }
 
         this.#objResult = {
             error: true,
-            msg: "El registro del servicio ha fallado, se devolvieron los cambios efectuados en el sistema, por favor contacta al área de TI para más información.",
+            msg: "La actulización del servicio ha fallado, se devolvieron los cambios efectuados en el sistema, por favor contacta al área de TI para más información.",
         };
     }
 }

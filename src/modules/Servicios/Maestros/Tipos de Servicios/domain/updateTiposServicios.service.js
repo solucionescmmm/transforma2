@@ -26,12 +26,13 @@ class updateTiposServicios {
 
     async main() {
         await this.#validations();
-        if (typeof this.#objData.bitActivar !== "undefined") {
-            await this.#getIdEstado();
-            this.#completeData();
-        }
+        await this.#getIdEstado();
+        this.#completeData();
         await this.#updateTiposServicios();
         await this.#updateAtributosTiposServicios();
+        if (this.#objData.bitActivar === true) {
+            await this.#updateActivarAtributosTiposServicios()
+        }
         return this.#objResult;
     }
 
@@ -54,7 +55,11 @@ class updateTiposServicios {
     async #getIdEstado() {
         let queryGetIdEstado = await serviceGetIdEstado({
             strNombre:
-                this.#objData.bitActivar === true ? "Activo" : "Inactivo",
+                this.#objData.bitActivar === true
+                    ? "Activo"
+                    : this.#objData.bitActivar === false
+                    ? "Inactivo"
+                    : "En borrador",
         });
 
         if (queryGetIdEstado.error) {
@@ -67,7 +72,7 @@ class updateTiposServicios {
     #completeData() {
         let newData = {
             ...this.#objData,
-            intiIdEsatdo: this.#intIdEstado,
+            intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
         this.#objData = newData;
@@ -92,6 +97,36 @@ class updateTiposServicios {
     }
 
     async #updateAtributosTiposServicios() {
+        let dao = new classInterfaceDAOTiposServicios();
+
+        let queryModuloServicios = await dao.deleteAtributoTiposServicios({
+            intId: this.#objData.intId,
+        });
+
+        if (queryModuloServicios.error) {
+            throw new Error(queryModuloServicios.msg);
+        }
+
+        if (this.#objData.arrAtributos.length > 0) {
+            let array = this.#objData.arrAtributos;
+            for (let i = 0; i < array.length; i++) {
+                let dao = new classInterfaceDAOTiposServicios();
+
+                let query = await dao.setAtributosTiposServicios({
+                    ...array[i],
+                    intIdTipoServicio: this.#intIdTipoServicio,
+                    intIdEstado: this.#intIdEstado,
+                    strUsuarioCreacion: this.#objUser.strEmail,
+                });
+
+                if (query.error) {
+                    throw new Error(query.msg);
+                }
+            }
+        }
+    }
+
+    async #updateActivarAtributosTiposServicios() {
         if (this.#objData.arrAtributos.length > 0) {
             let array = this.#objData.arrAtributos;
             for (let i = 0; i < array.length; i++) {
@@ -100,7 +135,7 @@ class updateTiposServicios {
                 let query = await dao.updateAtributosTiposServicios({
                     ...array[i],
                     intIdTipoServicio: this.#intIdTipoServicio,
-                    intiIdEsatdo: this.#intIdEstado,
+                    intIdEstado: this.#intIdEstado,
                     strUsuarioCreacion: this.#objUser.strEmail,
                 });
 
