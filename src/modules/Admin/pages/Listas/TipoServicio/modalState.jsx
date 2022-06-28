@@ -83,6 +83,7 @@ const ModalState = ({ handleOpenDialog, open, values }) => {
                     data: {
                         intId: data.intId,
                         bitActivar: data.intIdEstado === 1 ? false : true,
+                        arrAtributos: data.arrAtributos,
                     },
                     headers: {
                         token,
