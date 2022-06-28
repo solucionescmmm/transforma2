@@ -18,7 +18,7 @@ class daoServicios {
                 ${data.strNombre},
                 ${data.intIdTipoServicio},
                 ${data.strDescripcion},
-                ${data.btModulos},
+                ${data.bitModulos},
                 ${data.intIdEstado},
                 GETDATE(),
                 ${data.strUsuarioCreacion},

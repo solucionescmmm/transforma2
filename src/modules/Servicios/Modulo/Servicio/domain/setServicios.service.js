@@ -96,7 +96,7 @@ class setServicios {
                         ...array[i],
                         intIdServicio: this.#intIdServicio,
                         strResponsables: JSON.stringify(
-                            array[i]?.strResponsables
+                            array[i]?.arrResponsables
                         ),
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
