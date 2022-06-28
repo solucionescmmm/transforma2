@@ -88,7 +88,7 @@ class daoAtributos {
 
                 SET strNombre               = COALESCE(${data.strNombre}, strNombre),
                     intIdTipoCampo          = COALESCE(${data.intIdTipoCampo}, intIdTipoCampo),
-                    strDescripcion             = COALESCE(${data.strDescripcion}, strDescripcion),
+                    strDescripcion          = COALESCE(${data.strDescripcion}, strDescripcion),
                     intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)

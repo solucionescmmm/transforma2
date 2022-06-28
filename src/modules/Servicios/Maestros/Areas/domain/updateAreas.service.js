@@ -4,11 +4,17 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOAreas = require("../infra/conectors/interfaseDAOAreas");
 
+//Servicios
+const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
 class updateAreas {
     //obj info
     #objData;
     #objUser;
     #objResult;
+
+    //variables
+    #intIdEstado;
 
     /**
      * @param {object} data
@@ -21,6 +27,10 @@ class updateAreas {
 
     async main() {
         await this.#validations();
+        if (typeof this.#objData.bitActivar !== "undefined") {
+            await this.#getIdEstado();
+            this.#completeData();
+        }
         await this.#updateAreas();
         return this.#objResult;
     }
@@ -38,6 +48,28 @@ class updateAreas {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+    }
+
+    async #getIdEstado() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre:
+                this.#objData.bitActivar === true ? "Activo" : "Inactivo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstado = queryGetIdEstado.data.intId;
+    }
+
+    #completeData() {
+        let newData = {
+            ...this.#objData,
+            intIdEstado: this.#intIdEstado,
+            strUsuarioActualizacion: this.#objUser.strEmail,
+        };
+        this.#objData = newData;
     }
 
     async #updateAreas() {

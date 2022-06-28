@@ -97,7 +97,7 @@ class daoAreas {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La sede, fue actualizada con éxito.`,
+                msg: `El área, fue actualizada con éxito.`,
             };
 
             sql.close(conexion);

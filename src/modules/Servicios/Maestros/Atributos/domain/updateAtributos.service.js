@@ -4,6 +4,9 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOAtributos = require("../infra/conectors/interfaceDAOAtributos");
 
+//Servicios
+const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
 class updateAtributos {
     //obj info
     #objData;
@@ -24,8 +27,10 @@ class updateAtributos {
 
     async main() {
         await this.#validations();
-        await this.#getIdEstado();
-        this.#completeData();
+        if (typeof this.#objData.bitActivar !== "undefined") {
+            await this.#getIdEstado();
+            this.#completeData();
+        }
         await this.#updateAtributos();
         return this.#objResult;
     }
@@ -47,7 +52,8 @@ class updateAtributos {
 
     async #getIdEstado() {
         let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre: this.#objData.strEstado,
+            strNombre:
+                this.#objData.bitActivar === true ? "Activo" : "Inactivo",
         });
 
         if (queryGetIdEstado.error) {
