@@ -195,6 +195,7 @@ class daoServicios {
             
             Servicio.intId,
             Servicio.intIdTipoServicio,
+            Servicio.strNombre,
             Servicio.strDescripcion,
             Servicio.btModulos,
             Servicio.intIdEstado,
