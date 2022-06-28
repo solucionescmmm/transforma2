@@ -40,44 +40,7 @@ import ModalEdit from "./modalEdit";
 import ModalDelete from "./modalDelete";
 import ModalState from "./modalState";
 
-const ReadSolicitudesUser = () => {
-    //===============================================================================================================================================
-    //========================================== Declaracion de estados =============================================================================
-    //===============================================================================================================================================
-    const [objColumns] = useState([
-        {
-            title: "",
-            render: (rowData) => (
-                <Switch
-                    checked={rowData.intIdEstado === 1 ? true : false}
-                    disabled={rowData.intIdEstado === 1}
-                    size="small"
-                />
-            ),
-            width: "5%",
-        },
-        {
-            title: "Id",
-            field: "intId",
-            type: "numeric",
-        },
-        {
-            title: "Nombre",
-            field: "strNombre",
-            type: "string",
-        },
-        {
-            title: "Fecha de creación",
-            field: "dtmCreacion",
-            type: "date",
-        },
-        {
-            title: "Estado",
-            field: "intIdEstado",
-            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
-        },
-    ]);
-
+const ReadListAreas = () => {
     const [openModalCreate, setOpenModalCreate] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
@@ -107,6 +70,46 @@ const ReadSolicitudesUser = () => {
     };
 
     //===============================================================================================================================================
+    //========================================== Declaracion de estados =============================================================================
+    //===============================================================================================================================================
+    const [objColumns] = useState([
+        {
+            title: "",
+            render: (rowData) => (
+                <Switch
+                    checked={rowData.intIdEstado === 1 ? true : false}
+                    size="small"
+                    onClick={() => {
+                        setSelectedData(rowData);
+                        handlerOpenModalState();
+                    }}
+                />
+            ),
+            width: "5%",
+        },
+        {
+            title: "Id",
+            field: "intId",
+            type: "numeric",
+        },
+        {
+            title: "Nombre",
+            field: "strNombre",
+            type: "string",
+        },
+        {
+            title: "Fecha de creación",
+            field: "dtmCreacion",
+            type: "date",
+        },
+        {
+            title: "Estado",
+            field: "intIdEstado",
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
+        },
+    ]);
+
+    //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
@@ -125,7 +128,7 @@ const ReadSolicitudesUser = () => {
             <ModalState
                 handleOpenDialog={handlerOpenModalState}
                 open={openModalState}
-                intId={selectedData?.intId}
+                values={selectedData}
             />
 
             <ModalEdit
@@ -352,4 +355,4 @@ const ReadSolicitudesUser = () => {
     );
 };
 
-export default ReadSolicitudesUser;
+export default ReadListAreas;
