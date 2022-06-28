@@ -56,7 +56,6 @@ const InfoResponsables = ({ disabled, values, errors, control }) => {
             append({
                 id: shortid.generate(),
                 intIdArea: "",
-                intIdEstado: "",
             });
         }
     }, [fields, append]);
@@ -163,7 +162,6 @@ const InfoResponsables = ({ disabled, values, errors, control }) => {
                                 append({
                                     id: shortid.generate(),
                                     intIdArea: "",
-                                    intIdEstado: "",
                                 })
                             }
                         >

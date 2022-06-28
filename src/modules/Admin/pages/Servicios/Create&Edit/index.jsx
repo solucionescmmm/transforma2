@@ -139,7 +139,6 @@ const CreateEdit = ({ isEdit }) => {
     };
 
     const handleChangeTipoServicio = (data) => {
-        console.log(data);
         setObjTipoServicio(data);
     };
 
@@ -157,8 +156,7 @@ const CreateEdit = ({ isEdit }) => {
                         isEdit
                             ? process.env
                                   .REACT_APP_API_TRANSFORMA_SERVICIO_UPDATE
-                            : process.env
-                                  .REACT_APP_API_TRANSFORMA_SERVICIO_SET
+                            : process.env.REACT_APP_API_TRANSFORMA_SERVICIO_SET
                     }`,
                     data,
                     headers: {

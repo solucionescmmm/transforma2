@@ -55,7 +55,6 @@ const InfoModulos = ({ disabled, values, errors, control }) => {
         if (fields.length === 0) {
             append({
                 id: shortid.generate(),
-                intIdEstado: "",
                 intHoras: "",
                 strNombre: "",
                 arrResponsables: [],
@@ -161,7 +160,6 @@ const InfoModulos = ({ disabled, values, errors, control }) => {
                             onClick={() =>
                                 append({
                                     id: shortid.generate(),
-                                    intIdEstado: "",
                                     intHoras: "",
                                     strNombre: "",
                                     arrResponsables: [],

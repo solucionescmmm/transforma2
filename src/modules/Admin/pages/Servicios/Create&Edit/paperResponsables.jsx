@@ -80,9 +80,7 @@ const PaperResponsables = ({
         if (values) {
             setData({
                 id: values.id,
-                intIdSede: values.intIdSede,
-                intIdTipoTarifa: values.intIdTipoTarifa,
-                dblValor: values.dblValor,
+                intIdArea: values.intIdArea,
             });
         }
 

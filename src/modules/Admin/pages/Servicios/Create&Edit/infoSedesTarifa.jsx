@@ -57,7 +57,6 @@ const InfoSedesTarifa = ({ disabled, values, errors, control }) => {
                 id: shortid.generate(),
                 intIdSede: "",
                 intIdTipoTarifa: "",
-                intIdEstado: "",
                 dblValor: "",
             });
         }
@@ -166,7 +165,6 @@ const InfoSedesTarifa = ({ disabled, values, errors, control }) => {
                                     id: shortid.generate(),
                                     intIdSede: "",
                                     intIdTipoTarifa: "",
-                                    intIdEstado: "",
                                     dblValor: "",
                                 })
                             }
