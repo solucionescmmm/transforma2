@@ -34,7 +34,6 @@ import {
 
 //Componentes
 import SelectAtributos from "../../../components/selectAtributos";
-import SelectEstados from "../../../components/selectEstado";
 
 const PaperAtributo = ({
     values,
@@ -260,56 +259,6 @@ const PaperAtributo = ({
 
                     <Collapse in={openCollapese} timeout="auto">
                         <Grid container direction="row" spacing={2}>
-                            <Grid item xs={12}>
-                                <Controller
-                                    name={`arrAtributos[${index}].intIdEstado`}
-                                    defaultValue={data.intIdEstado}
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <SelectEstados
-                                            label="Estado"
-                                            name={name}
-                                            value={value}
-                                            onChange={(e) => {
-                                                onChange(e);
-                                                setData((prevState) => ({
-                                                    ...prevState,
-                                                    intIdEstado: e.target.value,
-                                                }));
-                                            }}
-                                            disabled={disabled}
-                                            required
-                                            error={
-                                                !!errors?.arrAtributos?.[index]
-                                                    ?.intIdEstado
-                                            }
-                                            helperText={
-                                                errors?.arrAtributos?.[index]
-                                                    ?.intIdEstado?.message ||
-                                                "Selecciona una opción"
-                                            }
-                                        />
-                                    )}
-                                    control={control}
-                                    rules={{
-                                        required:
-                                            "Por favor, selecciona una opción",
-
-                                        validate: (value) => {
-                                            if (
-                                                initialState === 1 ||
-                                                initialState === 3
-                                            ) {
-                                                if (value === 2) {
-                                                    return "No puedes pasar de un estado activo o inactivo al estado 'En borrador'";
-                                                }
-                                            }
-                                        },
-                                    }}
-                                />
-                            </Grid>
-
                             <Grid item xs={12}>
                                 <Controller
                                     name={`arrAtributos[${index}].intIdAtributo`}

@@ -264,8 +264,15 @@ const Read = () => {
                                         return {
                                             icon: () => (
                                                 <EditIcon
-                                                    color="success"
                                                     fontSize="small"
+                                                    color={
+                                                        rowData.intIdEstado ===
+                                                            1 ||
+                                                        rowData.intIdEstado ===
+                                                            3
+                                                            ? "gray"
+                                                            : "success"
+                                                    }
                                                 />
                                             ),
                                             tooltip: "Editar",
@@ -273,6 +280,9 @@ const Read = () => {
                                                 setSelectedData(rowData);
                                                 handlerOpenModalEdit();
                                             },
+                                            disabled:
+                                                rowData.intIdEstado === 1 ||
+                                                rowData.intIdEstado === 3,
                                         };
                                     },
                                     (rowData) => {

@@ -350,10 +350,6 @@ const CreateEdit = ({ isEdit }) => {
                                     setValue={setValue}
                                     setError={setError}
                                     clearErrors={clearErrors}
-                                    onChangeModules={setBitModulo}
-                                    onChangeTipoServicio={
-                                        handleChangeTipoServicio
-                                    }
                                 />
                             </Grid>
 

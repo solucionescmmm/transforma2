@@ -19,8 +19,6 @@ import {
     MenuItem,
 } from "@mui/material";
 
-import { DatePicker } from "@mui/lab";
-
 //Iconos de Material UI
 import {
     ExpandLess as ExpandLessIcon,
@@ -29,7 +27,6 @@ import {
 
 //Componentes
 import SelectTipoServicio from "../../../components/selectTipoServicio";
-import SelectEstados from "../../../components/selectEstado";
 
 const InfoPrincipal = ({
     disabled,
@@ -147,41 +144,7 @@ const InfoPrincipal = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            name="objInfoPrincipal.intIdEstado"
-                            defaultValue={data.intIdEstado}
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectEstados
-                                    label="Estado"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => {
-                                        onChange(e);
-                                        setData((prevState) => ({
-                                            ...prevState,
-                                            intIdEstado: e.target.value,
-                                        }));
-                                    }}
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        !!errors.objInfoPrincipal?.intIdEstado
-                                    }
-                                    helperText={
-                                        errors.objInfoPrincipal?.intIdEstado
-                                            ?.message || "Selecciona una opción"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, selecciona una opción",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoPrincipal.bitModulos"
                             defaultValue={data.bitModulos}

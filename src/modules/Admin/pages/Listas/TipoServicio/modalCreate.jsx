@@ -40,7 +40,6 @@ import { LoadingButton } from "@mui/lab";
 import { makeStyles } from "@mui/styles";
 
 // Componentes
-import SelectEstados from "../../../components/selectEstado";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PaperAtributo from "./paperAtributo";
 import ModalPreview from "./modalPreview";
@@ -273,41 +272,6 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                                 Todos los elementos marcados con *, son
                                 obligatorios
                             </Typography>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Controller
-                                defaultValue={state.intIdEstado}
-                                name="intIdEstado"
-                                render={({
-                                    field: { onChange, value, name },
-                                }) => (
-                                    <SelectEstados
-                                        label="Estado"
-                                        name={name}
-                                        value={value}
-                                        onChange={(e) => {
-                                            onChange(e);
-                                            setState((prevState) => ({
-                                                ...prevState,
-                                                [e.target.name]: e.target.value,
-                                            }));
-                                        }}
-                                        disabled={loading}
-                                        required
-                                        error={errors[name] ? true : false}
-                                        helperText={
-                                            errors[name]?.message ||
-                                            "Selecciona una opción"
-                                        }
-                                    />
-                                )}
-                                control={control}
-                                rules={{
-                                    required:
-                                        "Por favor, selecciona una opción",
-                                }}
-                            />
                         </Grid>
 
                         <Grid item xs={12}>

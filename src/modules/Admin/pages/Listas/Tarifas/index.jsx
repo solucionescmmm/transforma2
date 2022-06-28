@@ -38,7 +38,7 @@ import { MTableToolbar } from "@material-table/core";
 import ModalCreate from "./modalCreate";
 import ModalEdit from "./modalEdit";
 import ModalDelete from "./modalDelete";
-import ModalState from "./modalState"
+import ModalState from "./modalState";
 
 const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
@@ -264,8 +264,15 @@ const ReadSolicitudesUser = () => {
                                         return {
                                             icon: () => (
                                                 <EditIcon
-                                                    color="success"
                                                     fontSize="small"
+                                                    color={
+                                                        rowData.intIdEstado ===
+                                                            1 ||
+                                                        rowData.intIdEstado ===
+                                                            3
+                                                            ? "gray"
+                                                            : "success"
+                                                    }
                                                 />
                                             ),
                                             tooltip: "Editar",
@@ -273,6 +280,9 @@ const ReadSolicitudesUser = () => {
                                                 setSelectedData(rowData);
                                                 handlerOpenModalEdit();
                                             },
+                                            disabled:
+                                                rowData.intIdEstado === 1 ||
+                                                rowData.intIdEstado === 3,
                                         };
                                     },
                                     (rowData) => {
