@@ -50,10 +50,7 @@ const PaperAtributo = ({
     const [data, setData] = useState({
         id: "",
         intIdAtributo: "",
-        intIdEstado: "",
     });
-
-    const [initialState, setInitialState] = useState();
 
     const [loading, setLoading] = useState(true);
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -84,10 +81,9 @@ const PaperAtributo = ({
             setData({
                 id: values.id,
                 intIdAtributo: values.intIdAtributo,
-                intIdEstado: values.intIdEstado || values.IdEstado,
+                intIdAtributoTipoServicio:
+                    values.intIdAtributoTipoServicio || undefined,
             });
-
-            setInitialState(values.intIdEstado);
         }
 
         setLoading(false);
@@ -294,16 +290,6 @@ const PaperAtributo = ({
                                     }}
                                 />
                             </Grid>
-
-                            {data.intIdEstado === 1 && (
-                                <Grid item xs={12}>
-                                    <Alert severity="warning">
-                                        Al seleccionar el estado activo, no
-                                        podras editar ni eliminar está
-                                        información
-                                    </Alert>
-                                </Grid>
-                            )}
                         </Grid>
                     </Collapse>
                 </Paper>

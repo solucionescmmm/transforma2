@@ -197,6 +197,8 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
             const arrAtributos = values.arrAtributos.map((a) => {
                 return {
                     id: a.id || shortid.generate(),
+                    intIdAtributoTipoServicio:
+                        a.intIdAtributoTipoServicio || undefined,
                     intIdAtributo: a.intIdAtributo,
                 };
             });
