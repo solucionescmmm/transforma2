@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react";
 import useGetAreas from "../../../hooks/useGetAreas";
 
 //Componentes de Material UI
-import { Grid, Box, Button } from "@mui/material";
+import { Grid, Box, Button, Switch } from "@mui/material";
 
 import {
     ThemeProvider,
@@ -38,12 +38,24 @@ import { MTableToolbar } from "@material-table/core";
 import ModalCreate from "./modalCreate";
 import ModalEdit from "./modalEdit";
 import ModalDelete from "./modalDelete";
+import ModalState from "./modalState";
 
 const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [objColumns] = useState([
+        {
+            title: "",
+            render: (rowData) => (
+                <Switch
+                    checked={rowData.intIdEstado === 1 ? true : false}
+                    disabled={rowData.intIdEstado === 1}
+                    size="small"
+                />
+            ),
+            width: "5%",
+        },
         {
             title: "Id",
             field: "intId",
@@ -62,13 +74,14 @@ const ReadSolicitudesUser = () => {
         {
             title: "Estado",
             field: "intIdEstado",
-            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" }
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
     ]);
 
     const [openModalCreate, setOpenModalCreate] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     const { data } = useGetAreas({ autoLoad: true });
@@ -89,6 +102,10 @@ const ReadSolicitudesUser = () => {
         setOpenModalDelete(!openModalDelete);
     };
 
+    const handlerOpenModalState = () => {
+        setOpenModalState(!openModalState);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -102,6 +119,12 @@ const ReadSolicitudesUser = () => {
             <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
+                intId={selectedData?.intId}
+            />
+
+            <ModalState
+                handleOpenDialog={handlerOpenModalState}
+                open={openModalState}
                 intId={selectedData?.intId}
             />
 
@@ -238,7 +261,14 @@ const ReadSolicitudesUser = () => {
                                         return {
                                             icon: () => (
                                                 <EditIcon
-                                                    color="success"
+                                                    color={
+                                                        rowData.intIdEstado ===
+                                                            1 ||
+                                                        rowData.intIdEstado ===
+                                                            3
+                                                            ? "gray"
+                                                            : "success"
+                                                    }
                                                     fontSize="small"
                                                 />
                                             ),
@@ -247,6 +277,9 @@ const ReadSolicitudesUser = () => {
                                                 setSelectedData(rowData);
                                                 handlerOpenModalEdit();
                                             },
+                                            disabled:
+                                                rowData.intIdEstado === 1 ||
+                                                rowData.intIdEstado === 3,
                                         };
                                     },
                                     (rowData) => {
@@ -255,7 +288,9 @@ const ReadSolicitudesUser = () => {
                                                 <DeleteIcon
                                                     color={
                                                         rowData.intIdEstado ===
-                                                        1
+                                                            1 ||
+                                                        rowData.intIdEstado ===
+                                                            3
                                                             ? "gray"
                                                             : "error"
                                                     }
@@ -267,7 +302,9 @@ const ReadSolicitudesUser = () => {
                                                 setSelectedData(rowData);
                                                 handlerOpenModalDelete();
                                             },
-                                            disabled: rowData.intIdEstado === 1,
+                                            disabled:
+                                                rowData.intIdEstado === 1 ||
+                                                rowData.intIdEstado === 3,
                                         };
                                     },
                                 ]}
