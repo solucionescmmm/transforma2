@@ -26,7 +26,7 @@ import { useFieldArray } from "react-hook-form";
 //Componentes
 import PaperModulo from "./paperModulo";
 
-const InfoModulos = ({ disabled, values, errors, control }) => {
+const InfoModulos = ({ disabled, values, errors, control, isEdit }) => {
     const { fields, append, remove } = useFieldArray({
         control,
         name: "arrModulos",
@@ -42,26 +42,30 @@ const InfoModulos = ({ disabled, values, errors, control }) => {
     };
 
     useEffect(() => {
-        if (values.length > 0) {
-            for (let i = 0; i < values.length; i++) {
-                append({ ...values[i], id: shortid.generate() });
+        if (!isEdit) {
+            if (values.length > 0) {
+                for (let i = 0; i < values.length; i++) {
+                    append({ ...values[i], id: shortid.generate() });
+                }
             }
         }
 
         setLoading(false);
-    }, [values, append]);
+    }, [values, append, isEdit]);
 
     useEffect(() => {
-        if (fields.length === 0) {
-            append({
-                id: shortid.generate(),
-                intHoras: "",
-                strNombre: "",
-                arrResponsables: [],
-                strEntregables: "",
-            });
+        if (!isEdit) {
+            if (values.length === 0 && fields.length === 0) {
+                append({
+                    id: shortid.generate(),
+                    intHoras: "",
+                    strNombre: "",
+                    arrResponsables: [],
+                    strEntregables: "",
+                });
+            }
         }
-    }, [fields, append]);
+    }, [fields, append, values, isEdit]);
 
     if (loading) {
         return (

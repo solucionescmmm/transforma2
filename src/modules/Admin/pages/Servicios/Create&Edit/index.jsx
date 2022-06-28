@@ -1,7 +1,10 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 //Context
 import { AuthContext } from "../../../../../common/middlewares/Auth";
+
+// Hooks
+import useGetServicios from "../../../hooks/useGetServicios";
 
 // Librerias
 import axios from "axios";
@@ -124,6 +127,10 @@ const CreateEdit = ({ isEdit }) => {
 
     const { intId } = useParams();
 
+    const { getUniqueData } = useGetServicios({ autoLoad: false });
+
+    const refFntGetData = useRef(getUniqueData);
+
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
@@ -203,6 +210,43 @@ const CreateEdit = ({ isEdit }) => {
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
+    useEffect(() => {
+        if (isEdit) {
+            setLoadingGetData(true);
+
+            async function getData() {
+                await refFntGetData
+                    .current({ intId })
+                    .then((res) => {
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
+
+                        if (res.data) {
+                            let data = res.data.data[0];
+
+                            setData({ ...data });
+                        }
+
+                        setLoadingGetData(false);
+                        setErrorGetData({ flag: false, msg: "" });
+                    })
+                    .catch((error) => {
+                        setErrorGetData({ flag: true, msg: error.message });
+                        setLoadingGetData(false);
+                    });
+            }
+
+            getData();
+        }
+    }, [isEdit, intId]);
+
+    useEffect(() => {
+        if (isEdit) {
+            reset(data);
+        }
+    }, [data, reset, isEdit]);
+
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -355,6 +399,7 @@ const CreateEdit = ({ isEdit }) => {
                                 <Grid item xs={12}>
                                     <InfoModulos
                                         control={control}
+                                        isEdit={isEdit}
                                         values={data.arrModulos}
                                         disabled={loading}
                                         errors={errors}
@@ -369,6 +414,7 @@ const CreateEdit = ({ isEdit }) => {
                                 <InfoSedesTarifa
                                     control={control}
                                     values={data.arrModulos}
+                                    isEdit={isEdit}
                                     disabled={loading}
                                     errors={errors}
                                     setValue={setValue}
@@ -382,6 +428,7 @@ const CreateEdit = ({ isEdit }) => {
                                     control={control}
                                     values={data.arrModulos}
                                     disabled={loading}
+                                    isEdit={isEdit}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}

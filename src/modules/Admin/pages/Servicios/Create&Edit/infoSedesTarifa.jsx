@@ -26,7 +26,7 @@ import { useFieldArray } from "react-hook-form";
 //Componentes
 import PaperSedesTarifa from "./paperSedesTarifa";
 
-const InfoSedesTarifa = ({ disabled, values, errors, control }) => {
+const InfoSedesTarifa = ({ disabled, values, errors, control, isEdit }) => {
     const { fields, append, remove } = useFieldArray({
         control,
         name: "arrSedesTarifas",
@@ -42,25 +42,31 @@ const InfoSedesTarifa = ({ disabled, values, errors, control }) => {
     };
 
     useEffect(() => {
-        if (values.length > 0) {
-            for (let i = 0; i < values.length; i++) {
-                append({ ...values[i], id: shortid.generate() });
+        if (!isEdit) {
+            if (values.length > 0) {
+                for (let i = 0; i < values.length; i++) {
+                    append({ ...values[i], id: shortid.generate() });
+                }
+            }
+        }
+        setLoading(false);
+        // eslint-disable-next-line
+    }, [values, isEdit]);
+
+    useEffect(() => {
+        if (!isEdit) {
+            if (values.length === 0 && fields.length === 0) {
+                append({
+                    id: shortid.generate(),
+                    intIdSede: "",
+                    intIdTipoTarifa: "",
+                    dblValor: "",
+                });
             }
         }
 
-        setLoading(false);
-    }, [values, append]);
-
-    useEffect(() => {
-        if (fields.length === 0) {
-            append({
-                id: shortid.generate(),
-                intIdSede: "",
-                intIdTipoTarifa: "",
-                dblValor: "",
-            });
-        }
-    }, [fields, append]);
+        // eslint-disable-next-line
+    }, [values, isEdit]);
 
     if (loading) {
         return (

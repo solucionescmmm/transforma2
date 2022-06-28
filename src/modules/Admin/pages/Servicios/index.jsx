@@ -84,12 +84,12 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Id",
-            field: "intId",
+            field: "objInfoPrincipal.intId",
             type: "numeric",
         },
         {
             title: "Nombre",
-            field: "strNombre",
+            field: "objInfoPrincipal.strNombre",
             type: "string",
         },
         {
@@ -99,17 +99,17 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Fecha de creación",
-            field: "dtmCreacion",
+            field: "objInfoPrincipal.dtmCreacion",
             type: "date",
         },
         {
             title: "Responsable",
-            field: "strNombre",
+            field: "objInfoPrincipal.strUsuarioCreacion",
             type: "string",
         },
         {
             title: "Estado",
-            field: "intIdEstado",
+            field: "objInfoPrincipal.intIdEstado",
             lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
     ]);
@@ -285,7 +285,9 @@ const ReadSolicitudesUser = () => {
                                         groupedBy: "Datos agrupados por: ",
                                     },
                                 }}
-                                isLoading={typeof data ==="undefined" ? true : false}
+                                isLoading={
+                                    typeof data === "undefined" ? true : false
+                                }
                                 data={data || []}
                                 columns={objColumns}
                                 title="Lista de servicios"
@@ -313,10 +315,11 @@ const ReadSolicitudesUser = () => {
                                             icon: () => (
                                                 <EditIcon
                                                     color={
-                                                        rowData.intIdEstado ===
+                                                        rowData.objInfoPrincipal
+                                                            .intIdEstado ===
                                                             1 ||
-                                                        rowData.intIdEstado ===
-                                                            3
+                                                        rowData.objInfoPrincipal
+                                                            .intIdEstado === 3
                                                             ? "gray"
                                                             : "success"
                                                     }
@@ -326,12 +329,14 @@ const ReadSolicitudesUser = () => {
                                             tooltip: "Editar",
                                             onClick: (event, rowData) => {
                                                 push(
-                                                    `/transforma/admin/services/edit/${rowData.intId}`
+                                                    `/transforma/admin/services/edit/${rowData.objInfoPrincipal.intId}`
                                                 );
                                             },
                                             disabled:
-                                                rowData.intIdEstado === 1 ||
-                                                rowData.intIdEstado === 3,
+                                                rowData.objInfoPrincipal
+                                                    .intIdEstado === 1 ||
+                                                rowData.objInfoPrincipal
+                                                    .intIdEstado === 3,
                                         };
                                     },
                                     (rowData) => {
@@ -339,10 +344,11 @@ const ReadSolicitudesUser = () => {
                                             icon: () => (
                                                 <DeleteIcon
                                                     color={
-                                                        rowData.intIdEstado ===
+                                                        rowData.objInfoPrincipal
+                                                            .intIdEstado ===
                                                             1 ||
-                                                        rowData.intIdEstado ===
-                                                            3
+                                                        rowData.objInfoPrincipal
+                                                            .intIdEstado === 3
                                                             ? "gray"
                                                             : "error"
                                                     }
@@ -355,8 +361,10 @@ const ReadSolicitudesUser = () => {
                                                 handlerOpenModalDelete();
                                             },
                                             disabled:
-                                                rowData.intIdEstado === 1 ||
-                                                rowData.intIdEstado === 3,
+                                                rowData.objInfoPrincipal
+                                                    .intIdEstado === 1 ||
+                                                rowData.objInfoPrincipal
+                                                    .intIdEstado === 3,
                                         };
                                     },
                                 ]}
