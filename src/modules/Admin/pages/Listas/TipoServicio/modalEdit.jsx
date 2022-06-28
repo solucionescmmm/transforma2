@@ -157,7 +157,10 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
     );
 
     const onSubmit = (data) => {
-        setState(data);
+        setState((prevState) => ({
+            ...prevState,
+            ...data,
+        }));
         setFlagSubmit(true);
     };
 
