@@ -183,6 +183,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
     useEffect(() => {
         if (values) {
             setState({
+                intId: values.intId,
                 intIdEstado: values.intIdEstado,
                 strNombre: values.strNombre,
                 arrAtributos: values.arrAtributos,
@@ -194,7 +195,6 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                 return {
                     id: a.id || shortid.generate(),
                     intIdAtributo: a.intIdAtributo,
-                    intIdEstado: a.intIdEstado || a.IdEstado,
                 };
             });
 
@@ -211,7 +211,6 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
             append({
                 id: shortid.generate(),
                 intIdAtributo: "",
-                intIdEstado: "",
             });
         }
     }, [fields, append]);
@@ -400,7 +399,6 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                     append({
                                         id: shortid.generate(),
                                         intIdAtributo: "",
-                                        intIdEstado: "",
                                     })
                                 }
                             >
