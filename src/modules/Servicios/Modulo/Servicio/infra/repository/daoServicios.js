@@ -210,7 +210,9 @@ class daoServicios {
                 FOR JSON PATH
             ) as arrModulos,
             (
-                SELECT * FROM tbl_Sede_TipoTarifa_Servicio SedeTipoTarifa
+                SELECT 
+                *,
+                Valor as dblValor FROM tbl_Sede_TipoTarifa_Servicio SedeTipoTarifa
                 WHERE SedeTipoTarifa.intIdServicio = Servicio.intId
                 FOR JSON PATH
             ) as arrSedesTarifas,
