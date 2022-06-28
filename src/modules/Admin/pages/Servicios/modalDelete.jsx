@@ -77,7 +77,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId }) => {
                 {
                     method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_ATRIBUTOS_DELETE}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_SERVICIO_DELETE}`,
                     params: {
                         intId: data.intId,
                     },
@@ -150,7 +150,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId }) => {
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     if (success) {
-        return <Redirect to="/transforma/admin/lists/" />;
+        return <Redirect to="/transforma/admin/services/" />;
     }
 
     if (!data.intId) {
@@ -183,7 +183,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId }) => {
                         <Alert severity="error">
                             <AlertTitle>
                                 <b>
-                                    No se encontro el identificador del atributo
+                                    No se encontro el identificador del servicio
                                 </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
@@ -217,7 +217,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar el atributo seleccionado?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas eliminar el servicio seleccionado?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>

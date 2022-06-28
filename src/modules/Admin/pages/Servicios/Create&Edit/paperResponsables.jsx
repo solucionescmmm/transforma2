@@ -23,7 +23,6 @@ import {
     Button,
     useTheme,
     useMediaQuery,
-    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -35,7 +34,6 @@ import {
 
 //Componentes
 import SelectAreas from "../../../components/selectAreas";
-import SelectEstados from "../../../components/selectEstado";
 
 const PaperResponsables = ({
     values,
@@ -52,7 +50,6 @@ const PaperResponsables = ({
     const [data, setData] = useState({
         id: "",
         intIdArea: "",
-        intIdEstado: "",
     });
 
     const [loading, setLoading] = useState(true);
@@ -85,7 +82,6 @@ const PaperResponsables = ({
                 id: values.id,
                 intIdSede: values.intIdSede,
                 intIdTipoTarifa: values.intIdTipoTarifa,
-                intIdEstado: values.intIdEstado,
                 dblValor: values.dblValor,
             });
         }
@@ -294,56 +290,6 @@ const PaperResponsables = ({
                                     }}
                                 />
                             </Grid>
-
-                            <Grid item xs={12}>
-                                <Controller
-                                    name={`arrResponsables[${index}].intIdEstado`}
-                                    defaultValue={data.intIdEstado}
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <SelectEstados
-                                            label="Estado"
-                                            name={name}
-                                            value={value}
-                                            onChange={(e) => {
-                                                onChange(e);
-                                                setData((prevState) => ({
-                                                    ...prevState,
-                                                    intIdEstado: e.target.value,
-                                                }));
-                                            }}
-                                            disabled={loading}
-                                            required
-                                            error={
-                                                !!errors?.arrResponsables?.[
-                                                    index
-                                                ]?.intIdEstado
-                                            }
-                                            helperText={
-                                                errors?.arrResponsables?.[index]
-                                                    ?.intIdEstado?.message ||
-                                                "Selecciona una opción"
-                                            }
-                                        />
-                                    )}
-                                    control={control}
-                                    rules={{
-                                        required:
-                                            "Por favor, selecciona una opción",
-                                    }}
-                                />
-                            </Grid>
-
-                            {data.intIdEstado === 1 && (
-                                <Grid item xs={12}>
-                                    <Alert severity="warning">
-                                        Al seleccionar el estado activo, no
-                                        podras editar ni eliminar está
-                                        información
-                                    </Alert>
-                                </Grid>
-                            )}
                         </Grid>
                     </Collapse>
                 </Paper>

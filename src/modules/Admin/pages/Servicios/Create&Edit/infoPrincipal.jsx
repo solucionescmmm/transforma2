@@ -40,7 +40,6 @@ const InfoPrincipal = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        intIdEstado: "",
         intIdTipoServicio: "",
         strNombre: "",
         strDescripcion: "",
@@ -62,7 +61,6 @@ const InfoPrincipal = ({
     useEffect(() => {
         if (Object.keys(values).length > 0) {
             setData({
-                intIdEstado: values.intIdEstado,
                 intIdTipoServicio: values.intIdTipoServicio,
                 strNombre: values.strNombre,
                 strDescripcion: values.strDescripcion,

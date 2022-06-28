@@ -168,6 +168,7 @@ const ModalPreview = ({ values, handleOpenDialog, open, dataAttributes }) => {
                                                     ?.at(0)?.intIdTipoCampo ||
                                                 ""
                                             }
+                                            helperText="Digita o selecciona una opción"
                                         />
                                     </Grid>
                                 ))}

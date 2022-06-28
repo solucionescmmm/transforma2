@@ -49,7 +49,6 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [state, setState] = useState({
-        intIdEstado: "",
         strNombre: "",
         intIdTipoCampo: "",
         strDescripcion: "",
@@ -159,7 +158,6 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
         if (values) {
             setState({
                 intId: values.intId,
-                intIdEstado: values.intIdEstado,
                 strNombre: values.strNombre,
                 intIdTipoCampo: values.intIdTipoCampo,
                 strDescripcion: values.strDescripcion,

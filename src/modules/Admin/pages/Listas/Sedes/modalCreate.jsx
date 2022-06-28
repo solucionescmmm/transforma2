@@ -11,7 +11,6 @@ import { useForm, Controller } from "react-hook-form";
 
 //Componentes de Material UI
 import {
-    Alert,
     DialogTitle,
     DialogContent,
     DialogActions,
@@ -47,7 +46,6 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [state, setState] = useState({
-        intIdEstado: "",
         strNombre: "",
         objAtributos: {},
     });
@@ -207,15 +205,6 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                             }}
                         />
                     </Grid>
-
-                    {state.intIdEstado === 1 && (
-                        <Grid item xs={12}>
-                            <Alert severity="warning">
-                                Al seleccionar el estado activo, no podras
-                                editar ni eliminar está información
-                            </Alert>
-                        </Grid>
-                    )}
                 </Grid>
             </DialogContent>
 

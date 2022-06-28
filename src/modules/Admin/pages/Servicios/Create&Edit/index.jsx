@@ -156,9 +156,9 @@ const CreateEdit = ({ isEdit }) => {
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATEREGISTRO
+                                  .REACT_APP_API_TRANSFORMA_SERVICIO_UPDATE
                             : process.env
-                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_SETREGISTRO
+                                  .REACT_APP_API_TRANSFORMA_SERVICIO_SET
                     }`,
                     data,
                     headers: {
@@ -221,7 +221,7 @@ const CreateEdit = ({ isEdit }) => {
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     if (success) {
-        return <Redirect to="/transforma/asesor/empresario/read/all" />;
+        return <Redirect to="/transforma/admin/services/" />;
     }
 
     if (loadingGetData) {

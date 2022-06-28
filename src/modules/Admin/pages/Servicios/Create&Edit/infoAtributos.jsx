@@ -42,6 +42,8 @@ const InfoAtributos = ({ disabled, values, errors, control }) => {
     };
 
     useEffect(() => {
+        setLoading(true);
+
         if (values?.length > 0) {
             for (let i = 0; i < values.length; i++) {
                 append({ ...values[i], id: shortid.generate() });
@@ -167,16 +169,36 @@ const InfoAtributos = ({ disabled, values, errors, control }) => {
                     {fields.map((e, index) => (
                         <Grid item xs={12} key={e.id}>
                             <Controller
-                                name={`arrModulos[${index}].intIdEstado`}
+                                name={`arrAtributos[${index}].${e.strNombreAtributo}`}
                                 render={({
                                     field: { name, onChange, value },
                                 }) => (
                                     <ReturnTypeInput
+                                        name={name}
+                                        required
+                                        onChange={(e) => onChange(e)}
+                                        value={value}
                                         type={e.intIdTipoCampo}
+                                        helperText={
+                                            errors?.arrAtributos?.[index]?.[
+                                                e.strNombreAtributo
+                                            ]?.message ||
+                                            "Digita o selecciona una opción"
+                                        }
+                                        error={
+                                            !!errors?.arrAtributos?.[index]?.[
+                                                e.strNombreAtributo
+                                            ]
+                                        }
                                         label={e.strNombreAtributo}
+                                        disabled={disabled}
                                     />
                                 )}
                                 control={control}
+                                rules={{
+                                    required:
+                                        "Por favor, digita o selecciona una opción",
+                                }}
                             />
                         </Grid>
                     ))}

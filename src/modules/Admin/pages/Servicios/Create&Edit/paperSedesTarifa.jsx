@@ -35,7 +35,6 @@ import {
 
 //Componentes
 import SelectSedes from "../../../components/selectSedes";
-import SelectEstados from "../../../components/selectEstado";
 import SelectTipoTarifas from "../../../components/selectTipoTarifa";
 import NumberFormat from "react-number-format";
 
@@ -55,7 +54,6 @@ const PaperSedesTarifa = ({
         id: "",
         intIdSede: "",
         intIdTipoTarifa: "",
-        intIdEstado: "",
         dblValor: "",
     });
 
@@ -89,7 +87,6 @@ const PaperSedesTarifa = ({
                 id: values.id,
                 intIdSede: values.intIdSede,
                 intIdTipoTarifa: values.intIdTipoTarifa,
-                intIdEstado: values.intIdEstado,
                 dblValor: values.dblValor,
             });
         }
@@ -336,47 +333,7 @@ const PaperSedesTarifa = ({
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={6}>
-                                <Controller
-                                    name={`arrSedesTarifas[${index}].intIdEstado`}
-                                    defaultValue={data.intIdEstado}
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <SelectEstados
-                                            label="Estado"
-                                            name={name}
-                                            value={value}
-                                            onChange={(e) => {
-                                                onChange(e);
-                                                setData((prevState) => ({
-                                                    ...prevState,
-                                                    intIdEstado: e.target.value,
-                                                }));
-                                            }}
-                                            disabled={loading}
-                                            required
-                                            error={
-                                                !!errors?.arrSedesTarifas?.[
-                                                    index
-                                                ]?.intIdEstado
-                                            }
-                                            helperText={
-                                                errors?.arrSedesTarifas?.[index]
-                                                    ?.intIdEstado?.message ||
-                                                "Selecciona una opción"
-                                            }
-                                        />
-                                    )}
-                                    control={control}
-                                    rules={{
-                                        required:
-                                            "Por favor, selecciona una opción",
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={12}>
                                 <Controller
                                     defaultValue={data.dblValor}
                                     name={`arrSedesTarifas[${index}].dblValor`}
@@ -416,16 +373,6 @@ const PaperSedesTarifa = ({
                                     }}
                                 />
                             </Grid>
-
-                            {data.intIdEstado === 1 && (
-                                <Grid item xs={12}>
-                                    <Alert severity="warning">
-                                        Al seleccionar el estado activo, no
-                                        podras editar ni eliminar está
-                                        información
-                                    </Alert>
-                                </Grid>
-                            )}
                         </Grid>
                     </Collapse>
                 </Paper>

@@ -2,13 +2,29 @@ import { DatePicker, DateTimePicker } from "@mui/lab";
 import { Alert, MenuItem, TextField } from "@mui/material";
 import NumberFormat from "react-number-format";
 
-const ReturnTypeInput = ({ type, label, helperText }) => {
+const ReturnTypeInput = ({
+    required,
+    disabled,
+    type,
+    label,
+    helperText,
+    name,
+    value,
+    onChange,
+    error,
+}) => {
     if (type === 1) {
         return (
             <TextField
+                required={required}
+                onChange={onChange}
+                disabled={disabled}
+                name={name}
                 label={label}
                 variant="standard"
                 helperText={helperText}
+                value={value}
+                error={error}
                 fullWidth
                 select
             >
@@ -22,10 +38,16 @@ const ReturnTypeInput = ({ type, label, helperText }) => {
         return (
             <DatePicker
                 label={label}
-                value={null}
+                value={value}
+                disabled={disabled}
+                onChange={(date) => onChange(date)}
                 renderInput={(params) => (
                     <TextField
                         {...params}
+                        name={name}
+                        required={required}
+                        error={error}
+                        value={value}
                         variant="standard"
                         helperText={helperText}
                         fullWidth
@@ -39,10 +61,16 @@ const ReturnTypeInput = ({ type, label, helperText }) => {
         return (
             <DateTimePicker
                 label={label}
-                value={null}
+                value={value}
+                disabled={disabled}
+                onChange={(date) => onChange(date)}
                 renderInput={(params) => (
                     <TextField
                         {...params}
+                        name={name}
+                        required={required}
+                        error={error}
+                        value={value}
                         variant="standard"
                         helperText={helperText}
                         fullWidth
@@ -55,6 +83,12 @@ const ReturnTypeInput = ({ type, label, helperText }) => {
     if (type === 4) {
         return (
             <TextField
+                onChange={onChange}
+                required={required}
+                error={error}
+                name={name}
+                disabled={disabled}
+                value={value}
                 label={label}
                 type="number"
                 helperText={helperText}
@@ -67,7 +101,15 @@ const ReturnTypeInput = ({ type, label, helperText }) => {
     if (type === 5) {
         return (
             <NumberFormat
+                onValueChange={(v) => {
+                    onChange(v.floatValue);
+                }}
+                error={error}
+                disabled={disabled}
                 label={label}
+                name={name}
+                required={required}
+                value={value}
                 helperText={helperText}
                 customInput={TextField}
                 fullWidth
@@ -82,6 +124,11 @@ const ReturnTypeInput = ({ type, label, helperText }) => {
     if (type === 6) {
         return (
             <TextField
+                onChange={onChange}
+                disabled={disabled}
+                name={name}
+                value={value}
+                required={required}
                 label={label}
                 helperText={helperText}
                 fullWidth

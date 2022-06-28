@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 
 // Hooks
-import useGetAreas from "../../hooks/useGetAreas";
+import useGetServicios from "../../hooks/useGetServicios";
 
 //Componentes de Material UI
 import {
@@ -14,6 +14,7 @@ import {
     Typography,
     Link,
     Breadcrumbs,
+    Switch,
 } from "@mui/material";
 
 import {
@@ -47,6 +48,7 @@ import {
 import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 import ModalDelete from "./modalDelete";
+import ModalState from "./modalState";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -66,6 +68,20 @@ const ReadSolicitudesUser = () => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [objColumns] = useState([
+        {
+            title: "",
+            render: (rowData) => (
+                <Switch
+                    checked={rowData.intIdEstado === 1 ? true : false}
+                    size="small"
+                    onClick={() => {
+                        setSelectedData(rowData);
+                        handlerOpenModalState();
+                    }}
+                />
+            ),
+            width: "5%",
+        },
         {
             title: "Id",
             field: "intId",
@@ -99,9 +115,10 @@ const ReadSolicitudesUser = () => {
     ]);
 
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
-    const { data } = useGetAreas({ autoLoad: true });
+    const { data } = useGetServicios({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -114,6 +131,10 @@ const ReadSolicitudesUser = () => {
         setOpenModalDelete(!openModalDelete);
     };
 
+    const handlerOpenModalState = () => {
+        setOpenModalState(!openModalState);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -123,6 +144,12 @@ const ReadSolicitudesUser = () => {
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
                 intId={selectedData?.intId}
+            />
+
+            <ModalState
+                handleOpenDialog={handlerOpenModalState}
+                open={openModalState}
+                values={selectedData}
             />
 
             <Grid container direction="row" spacing={2}>
@@ -285,7 +312,14 @@ const ReadSolicitudesUser = () => {
                                         return {
                                             icon: () => (
                                                 <EditIcon
-                                                    color="success"
+                                                    color={
+                                                        rowData.intIdEstado ===
+                                                            1 ||
+                                                        rowData.intIdEstado ===
+                                                            3
+                                                            ? "gray"
+                                                            : "success"
+                                                    }
                                                     fontSize="small"
                                                 />
                                             ),
@@ -295,6 +329,9 @@ const ReadSolicitudesUser = () => {
                                                     `/transforma/admin/services/edit/${rowData.intId}`
                                                 );
                                             },
+                                            disabled:
+                                                rowData.intIdEstado === 1 ||
+                                                rowData.intIdEstado === 3,
                                         };
                                     },
                                     (rowData) => {
@@ -303,7 +340,9 @@ const ReadSolicitudesUser = () => {
                                                 <DeleteIcon
                                                     color={
                                                         rowData.intIdEstado ===
-                                                        1
+                                                            1 ||
+                                                        rowData.intIdEstado ===
+                                                            3
                                                             ? "gray"
                                                             : "error"
                                                     }
@@ -315,7 +354,9 @@ const ReadSolicitudesUser = () => {
                                                 setSelectedData(rowData);
                                                 handlerOpenModalDelete();
                                             },
-                                            disabled: rowData.intIdEstado === 1,
+                                            disabled:
+                                                rowData.intIdEstado === 1 ||
+                                                rowData.intIdEstado === 3,
                                         };
                                     },
                                 ]}

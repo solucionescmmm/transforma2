@@ -34,7 +34,6 @@ import {
 } from "@mui/icons-material";
 
 //Componentes
-import SelectEstados from "../../../components/selectEstado";
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 
 const PaperModulo = ({
@@ -51,7 +50,6 @@ const PaperModulo = ({
     //===============================================================================================================================================
     const [data, setData] = useState({
         id: "",
-        intIdEstado: "",
         intHoras: "",
         strNombre: "",
         arrResponsables: [],
@@ -86,7 +84,6 @@ const PaperModulo = ({
         if (values) {
             setData({
                 id: values.id,
-                intIdEstado: values.intIdEstado,
                 intHoras: values.intHoras,
                 strNombre: values.strNombre,
                 arrResponsables: values.arrResponsables,
@@ -263,46 +260,7 @@ const PaperModulo = ({
 
                     <Collapse in={openCollapese} timeout="auto">
                         <Grid container direction="row" spacing={2}>
-                            <Grid item xs={12} md={6}>
-                                <Controller
-                                    name={`arrModulos[${index}].intIdEstado`}
-                                    defaultValue={data.intIdEstado}
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <SelectEstados
-                                            label="Estado"
-                                            name={name}
-                                            value={value}
-                                            onChange={(e) => {
-                                                onChange(e);
-                                                setData((prevState) => ({
-                                                    ...prevState,
-                                                    intIdEstado: e.target.value,
-                                                }));
-                                            }}
-                                            disabled={loading}
-                                            required
-                                            error={
-                                                !!errors?.arrModulos?.[index]
-                                                    ?.intIdEstado
-                                            }
-                                            helperText={
-                                                errors?.arrModulos?.[index]
-                                                    ?.intIdEstado?.message ||
-                                                "Selecciona una opción"
-                                            }
-                                        />
-                                    )}
-                                    control={control}
-                                    rules={{
-                                        required:
-                                            "Por favor, selecciona una opción",
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={12}>
                                 <Controller
                                     name={`arrModulos[${index}].intHoras`}
                                     defaultValue={data.intHoras}
@@ -450,16 +408,6 @@ const PaperModulo = ({
                                     }}
                                 />
                             </Grid>
-
-                            {data.intIdEstado === 1 && (
-                                <Grid item xs={12}>
-                                    <Alert severity="warning">
-                                        Al seleccionar el estado activo, no
-                                        podras editar ni eliminar está
-                                        información
-                                    </Alert>
-                                </Grid>
-                            )}
                         </Grid>
                     </Collapse>
                 </Paper>
