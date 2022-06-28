@@ -72,24 +72,6 @@ class interfaceDAOServicios {
         let result = await dao.deleteServicios(data);
         return result;
     }
-
-    async deleteModuloServicios(data) {
-        let dao = new classDAO();
-        let result = await dao.deleteModuloServicios(data);
-        return result;
-    }
-
-    async deleteSedeTipoTarifaServicio(data) {
-        let dao = new classDAO();
-        let result = await dao.deleteSedeTipoTarifaServicio(data);
-        return result;
-    }
-
-    async deleteAreasServicios(data) {
-        let dao = new classDAO();
-        let result = await dao.deleteAreasServicios(data);
-        return result;
-    }
 }
 
 module.exports = interfaceDAOServicios;

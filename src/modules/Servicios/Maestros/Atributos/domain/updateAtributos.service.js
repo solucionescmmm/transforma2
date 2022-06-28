@@ -67,6 +67,7 @@ class updateAtributos {
         let newData = {
             ...this.#objData,
             intiIdEsatdo: this.#intIdEstado,
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
         this.#objData = newData;
     }

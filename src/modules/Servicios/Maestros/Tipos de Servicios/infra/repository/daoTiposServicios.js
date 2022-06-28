@@ -147,7 +147,7 @@ class daoTiposServicios {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El tipo de tarifa, fue actualizada con éxito.`,
+                msg: `El tipo servicio, fue actualizado con éxito.`,
             };
 
             sql.close(conexion);
@@ -206,7 +206,7 @@ class daoTiposServicios {
 
             let result = {
                 error: false,
-                msg: `Se eliminó exitosamente la sede.`,
+                msg: `Se eliminó exitosamente el tipo servicio.`,
             };
 
             sql.close(conexion);

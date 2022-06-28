@@ -15,6 +15,7 @@ class daoServicios {
             
             INSERT INTO tbl_Servicios VALUES
             (
+                ${data.strNombre},
                 ${data.intIdTipoServicio},
                 ${data.strDescripcion},
                 ${data.btModulos},
@@ -202,6 +203,7 @@ class daoServicios {
             Servicio.strUsuarioCreacion,
             Servicio.dtmActualizacion,
             Servicio.strUsuarioActualizacion,
+            TipoServicio.strNombre as strNombreTipoServicio,
             (
                 SELECT * FROM tbl_modulos_Servicio ModuloServicio
                 WHERE ModuloServicio.intIdServicio = Servicio.intId
@@ -220,6 +222,7 @@ class daoServicios {
             FROM tbl_Servicios Servicio
 
             INNER JOIN tbl_Estados Estado on Estado.intId = Servicio.intIdEstado
+            INNER JOIN tbl_TiposServicios TipoServicio on TipoServicio.intId = Servicio.intIdTipoServicio
 
             WHERE (Servicio.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
@@ -445,7 +448,11 @@ class daoServicios {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response =
-                await conn.query`DELETE FROM tbl_Servicios WHERE intId = ${data.intId}`;
+                await conn.query`
+                DELETE FROM tbl_Area_Servicios WHERE intIdServicio = ${data.intId}
+                DELETE FROM tbl_Sede_TipoTarifa_Servicio WHERE intIdServicio = ${data.intId}
+                DELETE FROM tbl_modulos_Servicio WHERE intIdServicio = ${data.intId}
+                DELETE FROM tbl_Servicios WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
@@ -462,96 +469,6 @@ class daoServicios {
                 msg:
                     error.message ||
                     "Error en el metodo deleteServicios de la clase daoServicios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async deleteModuloServicios(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
-                DELETE FROM tbl_modulos_Servicio 
-                WHERE intIdServicio = ${data.intIdServicio}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-                msg: `El modulo de servicio, fue eliminado con éxito.`,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo deleteModuloServicios de la clase daoServicios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async deleteSedeTipoTarifaServicio(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
-            DELETE FROM tbl_Sede_TipoTarifa_Servicio
-            WHERE intIdServicio = ${data.intIdServicio}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-                msg: `El modulo de servicio, fue eliminado con éxito.`,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo deleteSedeTipoTarifaServicio de la clase daoServicios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async deleteAreasServicios(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
-            DELETE FROM tbl_Area_Servicios
-            WHERE intIdServicio = ${data.intIdServicio}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-                msg: `El area del servicio, fue eliminado con éxito.`,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo deleteAreasServicios de la clase daoServicios",
             };
 
             sql.close(conexion);

@@ -4,11 +4,18 @@ const classInterfaceDAOServicios = require("../infra/conectors/interfaceDAOServi
 //Librerias
 const validator = require("validator").default;
 
+//Servicios
+const serviceGetIdEstado = require("../../../Maestros/Estados/domain/getIdEstado.service");
+
 class setServicios {
     #objData;
     #objUser;
     #objResult;
     #intIdServicio;
+
+    //variables
+    #intIdEstado;
+
     /**
      * @param {object} data
      */
@@ -19,6 +26,7 @@ class setServicios {
 
     async main() {
         await this.#validations();
+        await this.#getIdEstado();
         await this.#setServicios();
         await this.#setModuloServicios();
         await this.#setSedeTipoTarifaServicio();
@@ -42,11 +50,24 @@ class setServicios {
         }
     }
 
+    async #getIdEstado() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "En borrador",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstado = queryGetIdEstado.data.intId;
+    }
+
     async #setServicios() {
         let dao = new classInterfaceDAOServicios();
 
         let query = await dao.setServicios({
             ...this.#objData.objInfoPrincipal,
+            intIdEstado: this.#intIdEstado,
             strUsuarioCreacion: this.#objUser.strEmail,
         });
 
@@ -134,48 +155,14 @@ class setServicios {
     async #rollbackTransaction() {
         let dao = new classInterfaceDAOServicios();
 
-        let queryModuloServicios = await dao.deleteModuloServicios({
-            intIdServicio: this.#intIdServicio,
-        });
-
-        let querySedeTipoTarifaServicio =
-            await dao.deleteSedeTipoTarifaServicio({
-                intIdServicio: this.#intIdServicio,
-            });
-
-        let queryAreasServicios = await dao.deleteAreasServicios({
-            intIdServicio: this.#intIdServicio,
-        });
-
         let queryServicios = await dao.deleteServicios({
             intId: this.#intIdServicio,
         });
 
-        if (queryModuloServicios.error) {
-            this.#objResult = {
-                error: true,
-                msg: queryModuloServicios.msg,
-            };
-        }
-
-        if (querySedeTipoTarifaServicio.error) {
-            this.#objResult = {
-                error: true,
-                msg: querySedeTipoTarifaServicio.msg,
-            };
-        }
-
-        if (queryAreasServicios.error) {
-            this.#objResult = {
-                error: true,
-                msg: queryAreasServicios.msg,
-            };
-        }
-
         if (queryServicios.error) {
             this.#objResult = {
                 error: true,
-                msg: queryAreasServicios.msg,
+                msg: queryServicios.msg,
             };
         }
 

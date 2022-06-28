@@ -4,6 +4,9 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOSedes = require("../infra/conectors/interfaceDAOSedes");
 
+//Servicios
+const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
 class updateSedes {
     //obj info
     #objData;
@@ -24,8 +27,10 @@ class updateSedes {
 
     async main() {
         await this.#validations();
-        await this.#getIdEstado();
-        this.#completeData();
+        if (typeof this.#objData.bitActivar !== "undefined") {
+            await this.#getIdEstado();
+            this.#completeData();
+        }
         await this.#updateSedes();
         return this.#objResult;
     }
@@ -47,7 +52,8 @@ class updateSedes {
 
     async #getIdEstado() {
         let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre: this.#objData.strEstado,
+            strNombre:
+                this.#objData.bitActivar === true ? "Activo" : "Inactivo",
         });
 
         if (queryGetIdEstado.error) {
@@ -61,6 +67,7 @@ class updateSedes {
         let newData = {
             ...this.#objData,
             intiIdEsatdo: this.#intIdEstado,
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
         this.#objData = newData;
     }
