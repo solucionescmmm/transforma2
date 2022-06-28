@@ -94,7 +94,7 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Tipo de servicio",
-            field: "strNombre",
+            field: "objInfoPrincipal.strNombreTipoServicio",
             type: "string",
         },
         {
