@@ -285,7 +285,7 @@ const ReadSolicitudesUser = () => {
                                         groupedBy: "Datos agrupados por: ",
                                     },
                                 }}
-                                isLoading={!data}
+                                isLoading={typeof data ==="undefined" ? true : false}
                                 data={data || []}
                                 columns={objColumns}
                                 title="Lista de servicios"
