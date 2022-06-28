@@ -55,6 +55,7 @@ const ModalState = ({ handleOpenDialog, open, values }) => {
     const [data, setData] = useState({
         intId: null,
         intIdEstado: "",
+        arrAtributos: [],
     });
 
     //===============================================================================================================================================
@@ -131,6 +132,7 @@ const ModalState = ({ handleOpenDialog, open, values }) => {
             setData({
                 intId: values.intId,
                 intIdEstado: values.intIdEstado,
+                arrAtributos: values.arrAtributos,
             });
         }
 
