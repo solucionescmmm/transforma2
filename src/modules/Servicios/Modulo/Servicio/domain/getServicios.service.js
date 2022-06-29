@@ -38,7 +38,6 @@ const getEmpresario = async (objParams, strDataUser) => {
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
-                console.log(array);
                 let objInfoPrincipal ={
                     intId: array[i].intId,
                     intIdTipoServicio: array[i].intIdTipoServicio,
@@ -64,6 +63,7 @@ const getEmpresario = async (objParams, strDataUser) => {
                 error: false,
                 data,
             };
+            console.log(result);
         
             return result;
         }

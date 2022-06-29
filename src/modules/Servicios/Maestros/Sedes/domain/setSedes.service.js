@@ -6,6 +6,7 @@ const validator = require("validator").default;
 
 //Servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const getSedes = require("./getSedes.service");
 
 class setSede {
     #objData;
@@ -43,6 +44,20 @@ class setSede {
         
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        let queryGetSedes = await getSedes({}, this.#objUser);
+
+        if (queryGetSedes.error) {
+            throw new Error(queryGetSedes.msg);
+        }
+
+        let arraySedes = queryGetSedes.data;
+
+        for (let i = 0; i < arraySedes.length; i++) {
+            if (this.#objData.strNombre === arraySedes[i].strNombre) {
+                throw new Error("El nombre de esta sede ya existe.");
+            }
         }
     }
     async #getIdEstado() {

@@ -6,6 +6,7 @@ const validator = require("validator").default;
 
 //Servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const getTipoServicios = require("./getTiposServicios.service");
 
 class setTiposServicios {
     #objData;
@@ -46,6 +47,20 @@ class setTiposServicios {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+
+        let queryGetTipoServicios = await getTipoServicios({}, this.#objUser);
+
+        if (queryGetTipoServicios.error) {
+            throw new Error(queryGetTipoServicios.msg);
+        }
+
+        let arrayTipoServicios = queryGetTipoServicios.data;
+
+        for (let i = 0; i < arrayTipoServicios.length; i++) {
+            if (this.#objData.strNombre === arrayTipoServicios[i].strNombre) {
+                throw new Error("El nombre de este tipo servicio ya existe.");
+            }
+        }
     }
 
     async #getIdEstado() {
@@ -66,8 +81,6 @@ class setTiposServicios {
             intIdEstado: this.#intIdEstado,
         };
         this.#objData = newData;
-
-        console.log(this.#objData);
     }
 
     async #setTiposServicios() {

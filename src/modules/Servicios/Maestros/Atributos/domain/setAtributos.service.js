@@ -6,6 +6,7 @@ const validator = require("validator").default;
 
 //Servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const getAtributos = require("./getAtributos.service");
 
 class setAtributos {
     #objData;
@@ -43,6 +44,20 @@ class setAtributos {
         
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        let queryGetAtributos = await getAtributos({}, this.#objUser);
+
+        if (queryGetAtributos.error) {
+            throw new Error(queryGetAtributos.msg);
+        }
+
+        let arrayAtributos = queryGetAtributos.data;
+
+        for (let i = 0; i < arrayAtributos.length; i++) {
+            if (this.#objData.strNombre === arrayAtributos[i].strNombre) {
+                throw new Error("El nombre de este atributo ya existe.");
+            }
         }
     }
 

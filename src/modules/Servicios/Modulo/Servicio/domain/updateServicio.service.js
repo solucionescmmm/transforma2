@@ -4,11 +4,18 @@ const classInterfaceDAOServicios = require("../infra/conectors/interfaceDAOServi
 //Librerias
 const validator = require("validator").default;
 
+//Servicios
+const serviceGetIdEstado = require("../../../Maestros/Estados/domain/getIdEstado.service");
+const getServicios = require("./getServicios.service");
+
 class updateServicios {
     #objData;
     #objUser;
     #objResult;
     #intIdServicio;
+
+    //variables
+    #intIdEstado;
     /**
      * @param {object} data
      */
@@ -19,6 +26,9 @@ class updateServicios {
 
     async main() {
         await this.#validations();
+        if (typeof this.#objData.bitActivar !== "undefined") {
+            await this.#getIdEstado();
+        }
         await this.#updateServicios();
         await this.#updateModuloServicios();
         await this.#updateSedeTipoTarifaServicio();
@@ -40,6 +50,39 @@ class updateServicios {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+
+        let queryGetServicios = await getServicios({}, this.#objUser);
+
+        if (queryGetServicios.error) {
+            throw new Error(queryGetServicios.msg);
+        }
+
+        let arrayServicios = queryGetServicios.data;
+
+        if (arrayServicios?.length > 0 ) {
+            for (let i = 0; i < arrayServicios.length; i++) {
+                if (
+                    this.#objData.objInfoPrincipal.strNombre ===
+                    arrayServicios[i].objInfoPrincipal.strNombre
+                ) {
+                    throw new Error(
+                        "El nombre de este servicio ya existe."
+                    );
+                }
+            }
+        }
+    }
+
+    async #getIdEstado() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: this.#objData.bitActivar === true ? "Activo" : "Inactivo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
     async #updateServicios() {
@@ -47,6 +90,7 @@ class updateServicios {
 
         let query = await dao.updateServicios({
             ...this.#objData.objInfoPrincipal,
+            intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
         });
 

@@ -6,6 +6,7 @@ const validator = require("validator").default;
 
 //Servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const getAreas = require("./getAreas.service");
 
 class setAreas {
     //obj info
@@ -15,7 +16,7 @@ class setAreas {
 
     //variables
     #intIdEstado;
-    
+
     /**
      * @param {object} data
      * @param {object} strDataUser
@@ -45,6 +46,20 @@ class setAreas {
         }
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        let queryGetAreas = await getAreas({}, this.#objUser);
+
+        if (queryGetAreas.error) {
+            throw new Error(queryGetAreas.msg);
+        }
+
+        let arrayAreas = queryGetAreas.data;
+
+        for (let i = 0; i < arrayAreas.length; i++) {
+            if (this.#objData.strNombre === arrayAreas[i].strNombre) {
+                throw new Error("El nombre de esta área ya existe.");
+            }
         }
     }
 

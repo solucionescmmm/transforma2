@@ -6,6 +6,7 @@ const validator = require("validator").default;
 
 //Servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const getTipoTarifa = require("./getTipoTarifa.service");
 
 class updateTipoTarifa {
     #objData;
@@ -45,6 +46,20 @@ class updateTipoTarifa {
         
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        let queryGetTipoTarifa = await getTipoTarifa({}, this.#objUser);
+
+        if (queryGetTipoTarifa.error) {
+            throw new Error(queryGetTipoTarifa.msg);
+        }
+
+        let arrayTipoTarifa = queryGetTipoTarifa.data;
+
+        for (let i = 0; i < arrayTipoTarifa.length; i++) {
+            if (this.#objData.strNombre === arrayTipoTarifa[i].strNombre) {
+                throw new Error("El nombre de este tipo tarifa ya existe.");
+            }
         }
     }
 

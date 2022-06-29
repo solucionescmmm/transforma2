@@ -6,6 +6,8 @@ const classInterfaceDAOAreas = require("../infra/conectors/interfaseDAOAreas");
 
 //Servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const getAreas = require("./getAreas.service");
+
 
 class updateAreas {
     //obj info
@@ -45,8 +47,23 @@ class updateAreas {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
+
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        let queryGetAreas = await getAreas({}, this.#objUser);
+
+        if (queryGetAreas.error) {
+            throw new Error(queryGetAreas.msg);
+        }
+
+        let arrayAreas = queryGetAreas.data;
+
+        for (let i = 0; i < arrayAreas.length; i++) {
+            if (this.#objData.strNombre === arrayAreas[i].strNombre) {
+                throw new Error("El nombre de esta área ya existe.");
+            }
         }
     }
 

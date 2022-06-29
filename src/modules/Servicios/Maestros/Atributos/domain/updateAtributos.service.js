@@ -6,6 +6,7 @@ const classInterfaceDAOAtributos = require("../infra/conectors/interfaceDAOAtrib
 
 //Servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const getAtributos = require("./getAtributos.service");
 
 class updateAtributos {
     //obj info
@@ -45,8 +46,23 @@ class updateAtributos {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
+
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        let queryGetAtributos = await getAtributos({}, this.#objUser);
+
+        if (queryGetAtributos.error) {
+            throw new Error(queryGetAtributos.msg);
+        }
+
+        let arrayAtributos = queryGetAtributos.data;
+
+        for (let i = 0; i < arrayAtributos.length; i++) {
+            if (this.#objData.strNombre === arrayAtributos[i].strNombre) {
+                throw new Error("El nombre de este atributo ya existe.");
+            }
         }
     }
 

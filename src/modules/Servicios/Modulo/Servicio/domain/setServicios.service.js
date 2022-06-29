@@ -6,6 +6,7 @@ const validator = require("validator").default;
 
 //Servicios
 const serviceGetIdEstado = require("../../../Maestros/Estados/domain/getIdEstado.service");
+const getServicios = require("./getServicios.service");
 
 class setServicios {
     #objData;
@@ -47,6 +48,27 @@ class setServicios {
 
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        let queryGetServicios = await getServicios({}, this.#objUser);
+
+        if (queryGetServicios.error) {
+            throw new Error(queryGetServicios.msg);
+        }
+
+        let arrayServicios = queryGetServicios.data;
+
+        if (arrayServicios?.length > 0 ) {
+            for (let i = 0; i < arrayServicios.length; i++) {
+                if (
+                    this.#objData.objInfoPrincipal.strNombre ===
+                    arrayServicios[i].objInfoPrincipal.strNombre
+                ) {
+                    throw new Error(
+                        "El nombre de este servicio ya existe."
+                    );
+                }
+            }
         }
     }
 
