@@ -127,7 +127,9 @@ const CreateEdit = ({ isEdit }) => {
 
     const { intId } = useParams();
 
-    const { getUniqueData } = useGetServicios({ autoLoad: false });
+    const { getUniqueData, data: dataServicios } = useGetServicios({
+        autoLoad: true,
+    });
 
     const refFntGetData = useRef(getUniqueData);
 
@@ -266,7 +268,7 @@ const CreateEdit = ({ isEdit }) => {
         return <Redirect to="/transforma/admin/services/" />;
     }
 
-    if (loadingGetData) {
+    if (loadingGetData && typeof dataServicios !== "undefined") {
         return <Loader />;
     }
 
@@ -380,6 +382,7 @@ const CreateEdit = ({ isEdit }) => {
                                     onChangeTipoServicio={
                                         handleChangeTipoServicio
                                     }
+                                    data={dataServicios}
                                 />
                             </Grid>
 

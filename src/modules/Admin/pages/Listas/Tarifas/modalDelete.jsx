@@ -5,7 +5,6 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 //Librerias
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 //Componentes de Material UI
@@ -37,7 +36,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalDelete = ({ handleOpenDialog, open, intId }) => {
+const ModalDelete = ({ handleOpenDialog, open, intId, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -146,13 +145,19 @@ const ModalDelete = ({ handleOpenDialog, open, intId }) => {
         };
     }, [flagSubmit, submitData]);
 
+    useEffect(() => {
+        if (success) {
+            refresh();
+            handleOpenDialog();
+
+            setSucces(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [success]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/transforma/admin/lists/" />;
-    }
-
     if (!data.intId) {
         return (
             <Dialog
@@ -161,7 +166,8 @@ const ModalDelete = ({ handleOpenDialog, open, intId }) => {
                 onClose={handleOpenDialog}
                 PaperProps={{
                     style: {
-                        backgroundColor: !loading && !data.intId ? "#FDEDED" : "inherit",
+                        backgroundColor:
+                            !loading && !data.intId ? "#FDEDED" : "inherit",
                     },
                 }}
             >
@@ -181,10 +187,13 @@ const ModalDelete = ({ handleOpenDialog, open, intId }) => {
                     ) : (
                         <Alert severity="error">
                             <AlertTitle>
-                                <b>No se encontro el identificador de la tarifa</b>
+                                <b>
+                                    No se encontro el identificador de la tarifa
+                                </b>
                             </AlertTitle>
-                            Ha ocurrido un error al momento de seleccionar los datos, por
-                            favor escala al área de TI para mayor información.
+                            Ha ocurrido un error al momento de seleccionar los
+                            datos, por favor escala al área de TI para mayor
+                            información.
                         </Alert>
                     )}
                 </DialogContent>
@@ -210,12 +219,15 @@ const ModalDelete = ({ handleOpenDialog, open, intId }) => {
                 },
             }}
         >
-            {loading ? <LinearProgress className={classes.linearProgress} /> : null}
+            {loading ? (
+                <LinearProgress className={classes.linearProgress} />
+            ) : null}
             <DialogTitle>{`¿Deseas eliminar la tarifa seleccionada?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    El proceso es irreversible y no podrás recuperar la información.
+                    El proceso es irreversible y no podrás recuperar la
+                    información.
                 </DialogContentText>
             </DialogContent>
 

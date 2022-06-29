@@ -5,7 +5,6 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 //Librerias
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 //Componentes de Material UI
@@ -37,7 +36,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalDelete = ({ handleOpenDialog, open, intId }) => {
+const ModalDelete = ({ handleOpenDialog, open, intId, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -146,13 +145,19 @@ const ModalDelete = ({ handleOpenDialog, open, intId }) => {
         };
     }, [flagSubmit, submitData]);
 
+    useEffect(() => {
+        if (success) {
+            refresh();
+            handleOpenDialog();
+
+            setSucces(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [success]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/transforma/admin/lists/" />;
-    }
-
     if (!data.intId) {
         return (
             <Dialog

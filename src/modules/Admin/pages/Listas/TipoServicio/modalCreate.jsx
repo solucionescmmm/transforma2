@@ -11,7 +11,6 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 //Librerias
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import shortid from "shortid";
@@ -51,7 +50,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCreate = ({ handleOpenDialog, open }) => {
+const ModalCreate = ({ handleOpenDialog, open, data, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -94,7 +93,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
         keyName: "id",
     });
 
-    const { data } = useGetAtributos({ autoLoad: true });
+    const { data: dataAtributos } = useGetAtributos({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -187,14 +186,20 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
         }
     }, [fields, append]);
 
+    useEffect(() => {
+        if (success) {
+            refresh();
+            handleOpenDialog();
+
+            setSucces(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [success]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/transforma/admin/lists/" />;
-    }
-
-    if (!data) {
+    if (!dataAtributos) {
         return (
             <Dialog
                 fullScreen={bitMobile}
@@ -243,7 +248,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                 handleOpenDialog={handlerChangeOpenModalPreview}
                 open={openModalPreview}
                 values={formData}
-                dataAttributes={data}
+                dataAttributes={dataAtributos}
             />
 
             <Dialog
@@ -291,14 +296,25 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                                         error={errors[name] ? true : false}
                                         helperText={
                                             errors[name]?.message ||
-                                            "Digita el nombre de la sede"
+                                            "Digita el nombre del tipo de servicio"
                                         }
                                     />
                                 )}
                                 control={control}
                                 rules={{
                                     required:
-                                        "Por favor, digita el nombre de la sede",
+                                        "Por favor, digita el nombre del tipo de servicio",
+                                    validate: (value) => {
+                                        if (
+                                            data?.find(
+                                                (a) =>
+                                                    a.strNombre.toLowerCase() ===
+                                                    value.toLowerCase()
+                                            )
+                                        ) {
+                                            return `Ya existe un tipo de servicio registrado como ${value}`;
+                                        }
+                                    },
                                 }}
                             />
                         </Grid>
@@ -341,6 +357,7 @@ const ModalCreate = ({ handleOpenDialog, open }) => {
                                             disabled={loading}
                                             remove={remove}
                                             length={fields.length}
+                                            getValues={getValues}
                                         />
                                     </CSSTransition>
                                 ))}

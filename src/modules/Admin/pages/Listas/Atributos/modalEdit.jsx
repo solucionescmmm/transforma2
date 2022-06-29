@@ -5,7 +5,6 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 //Librerias
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useForm, Controller } from "react-hook-form";
 
@@ -39,7 +38,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalEdit = ({ handleOpenDialog, open, values }) => {
+const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -167,13 +166,19 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
         }
     }, [values]);
 
+    useEffect(() => {
+        if (success) {
+            refresh();
+            handleOpenDialog();
+
+            setSucces(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [success]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/transforma/admin/lists/" />;
-    }
-
     return (
         <Dialog
             fullScreen={bitMobile}
@@ -258,6 +263,17 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                             rules={{
                                 required:
                                     "Por favor, digita el nombre del atributo",
+                                validate: (value) => {
+                                    if (
+                                        data?.find(
+                                            (a) =>
+                                                a.strNombre.toLowerCase() ===
+                                                value.toLowerCase()
+                                        )
+                                    ) {
+                                        return `Ya existe un atributo registrado como ${value}`;
+                                    }
+                                },
                             }}
                         />
                     </Grid>

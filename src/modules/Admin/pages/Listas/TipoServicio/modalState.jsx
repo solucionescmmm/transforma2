@@ -5,7 +5,6 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 //Librerias
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 //Componentes de Material UI
@@ -37,7 +36,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalState = ({ handleOpenDialog, open, values }) => {
+const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -152,13 +151,19 @@ const ModalState = ({ handleOpenDialog, open, values }) => {
         };
     }, [flagSubmit, submitData]);
 
+    useEffect(() => {
+        if (success) {
+            refresh();
+            handleOpenDialog();
+
+            setSucces(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [success]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/transforma/admin/lists/" />;
-    }
-
     if (!data.intId) {
         return (
             <Dialog
@@ -225,8 +230,8 @@ const ModalState = ({ handleOpenDialog, open, values }) => {
             <DialogContent>
                 <DialogContentText>
                     {data.intIdEstado === 1
-                        ? "Al desactivar el registro, dejara de listarse en el sistema y en los servicios"
-                        : "Al activar el registro, se listara de forma automaticamente en todo el sistema"}
+                        ? "Al desactivar el registro, dejará de listarse en el sistema y en los servicios"
+                        : "Al activar el registro, se listará de forma automática en todo el sistema"}
                 </DialogContentText>
             </DialogContent>
 

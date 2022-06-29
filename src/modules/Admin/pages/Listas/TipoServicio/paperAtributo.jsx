@@ -37,6 +37,7 @@ import SelectAtributos from "../../../components/selectAtributos";
 
 const PaperAtributo = ({
     values,
+    getValues,
     index,
     control,
     disabled,
@@ -47,7 +48,7 @@ const PaperAtributo = ({
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [data, setData] = useState({
+    const [state, setState] = useState({
         id: "",
         intIdAtributo: "",
     });
@@ -78,7 +79,7 @@ const PaperAtributo = ({
     //===============================================================================================================================================
     useEffect(() => {
         if (values) {
-            setData({
+            setState({
                 id: values.id,
                 intIdAtributo: values.intIdAtributo,
                 intIdAtributoTipoServicio:
@@ -105,7 +106,7 @@ const PaperAtributo = ({
         );
     }
 
-    if (!data.id) {
+    if (!state.id) {
         return (
             <Box
                 sx={{
@@ -258,7 +259,7 @@ const PaperAtributo = ({
                             <Grid item xs={12}>
                                 <Controller
                                     name={`arrAtributos[${index}].intIdAtributo`}
-                                    defaultValue={data.intIdAtributo}
+                                    defaultValue={state.intIdAtributo}
                                     render={({
                                         field: { name, value, onChange },
                                     }) => (
@@ -266,19 +267,18 @@ const PaperAtributo = ({
                                             label="Tipo de atributo"
                                             name={name}
                                             value={value}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                            }}
                                             disabled={disabled}
                                             required
                                             error={
-                                                !!errors
-                                                    ?.arrInfoEmpresarioSec?.[
-                                                    index
-                                                ]?.strTipoRelacion
+                                                !!errors?.arrAtributos?.[index]
+                                                    ?.intIdAtributo
                                             }
                                             helperText={
-                                                errors?.arrInfoEmpresarioSec?.[
-                                                    index
-                                                ]?.strTipoRelacion?.message ||
+                                                errors?.arrAtributos?.[index]
+                                                    ?.intIdAtributo?.message ||
                                                 "Selecciona el tipo de atributo"
                                             }
                                         />
@@ -287,6 +287,25 @@ const PaperAtributo = ({
                                     rules={{
                                         required:
                                             "Por favor, selecciona el tipo de atributo",
+
+                                        validate: (value) => {
+                                            const array =
+                                                getValues("arrAtributos");
+
+                                            if (array?.length > 1) {
+                                                array.splice(index, 1);
+
+                                                if (
+                                                    array.find(
+                                                        (a) =>
+                                                            a.intIdAtributo ===
+                                                            value
+                                                    )
+                                                ) {
+                                                    return "Este atributo ya fue seleccionado";
+                                                }
+                                            }
+                                        },
                                     }}
                                 />
                             </Grid>

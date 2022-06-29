@@ -87,7 +87,7 @@ const Read = () => {
     const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
-    const { data } = useGetTiposServicio({ autoLoad: true });
+    const { data, refreshGetData } = useGetTiposServicio({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -117,24 +117,30 @@ const Read = () => {
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
+                data={data}
+                refresh={refreshGetData}
             />
 
             <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
                 intId={selectedData?.intId}
+                refresh={refreshGetData}
             />
 
             <ModalEdit
                 handleOpenDialog={handlerOpenModalEdit}
                 open={openModalEdit}
                 values={selectedData}
+                data={data}
+                refresh={refreshGetData}
             />
 
             <ModalState
                 handleOpenDialog={handlerOpenModalState}
                 open={openModalState}
                 values={selectedData}
+                refresh={refreshGetData}
             />
 
             <Grid container direction="row" spacing={2}>

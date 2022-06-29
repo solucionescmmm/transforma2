@@ -29,6 +29,7 @@ import {
 import SelectTipoServicio from "../../../components/selectTipoServicio";
 
 const InfoPrincipal = ({
+    data: dataServicios,
     disabled,
     values,
     errors,
@@ -250,6 +251,18 @@ const InfoPrincipal = ({
                             rules={{
                                 required:
                                     "Por favor, digita el nombre del servicio",
+
+                                validate: (value) => {
+                                    if (
+                                        dataServicios?.find(
+                                            (a) =>
+                                                a.objInfoPrincipal.strNombre.toLowerCase() ===
+                                                value.toLowerCase()
+                                        )
+                                    ) {
+                                        return `Ya existe un servicio registrado como ${value}`;
+                                    }
+                                },
                             }}
                             control={control}
                         />

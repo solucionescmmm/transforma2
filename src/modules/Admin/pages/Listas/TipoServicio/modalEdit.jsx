@@ -11,7 +11,6 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 //Librerias
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import shortid from "shortid";
@@ -51,7 +50,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalEdit = ({ handleOpenDialog, open, values }) => {
+const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -97,7 +96,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
         keyName: "id",
     });
 
-    const { data } = useGetAtributos({ autoLoad: true });
+    const { data: dataAtributos } = useGetAtributos({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -212,22 +211,28 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
     }, [values, reset]);
 
     useEffect(() => {
-        if (fields.length === 0) {
+        if (values?.length === 0 && fields.length === 0) {
             append({
                 id: shortid.generate(),
                 intIdAtributo: "",
             });
         }
-    }, [fields, append]);
+    }, [fields, append, values]);
+
+    useEffect(() => {
+        if (success) {
+            refresh();
+            handleOpenDialog();
+
+            setSucces(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [success]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/transforma/admin/lists/" />;
-    }
-
-    if (!data) {
+    if (!dataAtributos) {
         return (
             <Dialog
                 fullScreen={bitMobile}
@@ -276,7 +281,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                 handleOpenDialog={handlerChangeOpenModalPreview}
                 open={openModalPreview}
                 values={formData}
-                dataAttributes={data}
+                dataAttributes={dataAtributos}
             />
 
             <Dialog
@@ -337,6 +342,17 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                 rules={{
                                     required:
                                         "Por favor, digita el nombre de la sede",
+                                    validate: (value) => {
+                                        if (
+                                            data?.find(
+                                                (a) =>
+                                                    a.strNombre.toLowerCase() ===
+                                                    value.toLowerCase()
+                                            )
+                                        ) {
+                                            return `Ya existe un tipo de servicio registrado como ${value}`;
+                                        }
+                                    },
                                 }}
                             />
                         </Grid>
@@ -384,6 +400,7 @@ const ModalEdit = ({ handleOpenDialog, open, values }) => {
                                             }
                                             remove={remove}
                                             length={fields.length}
+                                            getValues={getValues}
                                         />
                                     </CSSTransition>
                                 ))}

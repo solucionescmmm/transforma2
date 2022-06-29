@@ -47,7 +47,7 @@ const ReadListAreas = () => {
     const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
-    const { data } = useGetAreas({ autoLoad: true });
+    const { data, refreshGetData } = useGetAreas({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -117,24 +117,30 @@ const ReadListAreas = () => {
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
+                data={data}
+                refresh={refreshGetData}
             />
 
             <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
                 intId={selectedData?.intId}
+                refresh={refreshGetData}
             />
 
             <ModalState
                 handleOpenDialog={handlerOpenModalState}
                 open={openModalState}
                 values={selectedData}
+                refresh={refreshGetData}
             />
 
             <ModalEdit
                 handleOpenDialog={handlerOpenModalEdit}
                 open={openModalEdit}
                 values={selectedData}
+                data={data}
+                refresh={refreshGetData}
             />
 
             <Grid container direction="row" spacing={2}>

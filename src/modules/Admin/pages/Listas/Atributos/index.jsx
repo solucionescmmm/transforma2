@@ -104,7 +104,7 @@ const ReadSolicitudesUser = () => {
     const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
-    const { data } = useGetAtributos({ autoLoad: true });
+    const { data, refreshGetData } = useGetAtributos({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -133,24 +133,30 @@ const ReadSolicitudesUser = () => {
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
+                data={data}
+                refresh={refreshGetData}
             />
 
             <ModalEdit
                 handleOpenDialog={handlerOpenModalEdit}
                 open={openModalEdit}
                 values={selectedData}
+                data={data}
+                refresh={refreshGetData}
             />
 
             <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
                 intId={selectedData?.intId}
+                refresh={refreshGetData}
             />
 
             <ModalState
                 handleOpenDialog={handlerOpenModalState}
                 open={openModalState}
                 values={selectedData}
+                refresh={refreshGetData}
             />
 
             <Grid container direction="row" spacing={2}>
