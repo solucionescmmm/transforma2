@@ -261,6 +261,8 @@ const CreateEdit = ({ isEdit }) => {
                         if (res.data) {
                             let data = res.data.data[0];
 
+                            console.log(data);
+
                             const arrAtributos = data.arrAtributos;
 
                             for (let i = 0; i < arrAtributos.length; i++) {
@@ -269,8 +271,10 @@ const CreateEdit = ({ isEdit }) => {
 
                             const arrModulos = data.arrModulos;
 
-                            for (let i = 0; i < arrModulos.length; i++) {
-                                arrModulos[i].id = shortid.generate();
+                            if (arrModulos) {
+                                for (let i = 0; i < arrModulos.length; i++) {
+                                    arrModulos[i].id = shortid.generate();
+                                }
                             }
 
                             const arrSedesTarifas = data.arrSedesTarifas;
