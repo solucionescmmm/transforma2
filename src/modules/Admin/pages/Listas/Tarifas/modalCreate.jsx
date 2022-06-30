@@ -147,7 +147,9 @@ const ModalCreate = ({ handleOpenDialog, open, refresh, data }) => {
         if (success) {
             refresh();
             handleOpenDialog();
-
+            setState({
+                strNombre: "",
+            });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

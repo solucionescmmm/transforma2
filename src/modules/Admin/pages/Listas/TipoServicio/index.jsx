@@ -297,7 +297,9 @@ const Read = () => {
                                                 <DeleteIcon
                                                     color={
                                                         rowData.intIdEstado ===
-                                                        1
+                                                            1 ||
+                                                        rowData.intIdEstado ===
+                                                            3
                                                             ? "gray"
                                                             : "error"
                                                     }
@@ -309,7 +311,9 @@ const Read = () => {
                                                 setSelectedData(rowData);
                                                 handlerOpenModalDelete();
                                             },
-                                            disabled: rowData.intIdEstado === 1,
+                                            disabled:
+                                                rowData.intIdEstado === 1 ||
+                                                rowData.intIdEstado === 3,
                                         };
                                     },
                                 ]}

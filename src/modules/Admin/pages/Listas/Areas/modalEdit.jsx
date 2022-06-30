@@ -65,6 +65,7 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
         control,
         formState: { errors },
         handleSubmit,
+        reset,
     } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
@@ -154,7 +155,13 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
                 intId: values.intId,
                 strNombre: values.strNombre,
             });
+
+            reset({
+                intId: values.intId,
+                strNombre: values.strNombre,
+            });
         }
+        // eslint-disable-next-line
     }, [values]);
 
     useEffect(() => {

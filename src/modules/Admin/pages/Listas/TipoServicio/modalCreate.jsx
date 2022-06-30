@@ -191,6 +191,10 @@ const ModalCreate = ({ handleOpenDialog, open, data, refresh }) => {
         if (success) {
             refresh();
             handleOpenDialog();
+            setState({
+                strNombre: "",
+                arrAtributos: [],
+            })
 
             setSucces(false);
         }

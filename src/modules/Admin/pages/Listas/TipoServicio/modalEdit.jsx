@@ -65,8 +65,6 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
         arrAtributos: [],
     });
 
-    const [initialState, setInitialState] = useState();
-
     const [formData, setFormData] = useState();
 
     const [success, setSucces] = useState(false);
@@ -185,25 +183,22 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
 
     useEffect(() => {
         if (values) {
-            setState({
-                intId: values.intId,
-                intIdEstado: values.intIdEstado,
-                strNombre: values.strNombre,
-                arrAtributos: values.arrAtributos,
-            });
-
-            setInitialState(values.intIdEstado);
-
             const arrAtributos = values.arrAtributos.map((a) => {
                 return {
                     id: a.id || shortid.generate(),
-                    intIdAtributoTipoServicio:
-                        a.intIdAtributoTipoServicio || undefined,
                     intIdAtributo: a.intIdAtributo,
                 };
             });
 
+            setState({
+                intId: values.intId,
+                intIdEstado: values.intIdEstado,
+                strNombre: values.strNombre,
+                arrAtributos: arrAtributos,
+            });
+
             reset({
+                intId: values.intId,
                 intIdEstado: values.intIdEstado,
                 strNombre: values.strNombre,
                 arrAtributos: arrAtributos,
@@ -325,12 +320,7 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
                                         variant="standard"
                                         name={name}
                                         value={value}
-                                        disabled={
-                                            initialState === 1 ||
-                                            initialState === 3
-                                                ? true
-                                                : loading
-                                        }
+                                        disabled={loading}
                                         onChange={(e) => onChange(e)}
                                         required
                                         fullWidth
@@ -350,7 +340,8 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
                                             data?.find(
                                                 (a) =>
                                                     a.strNombre.toLowerCase() ===
-                                                    value.toLowerCase() && a.intId !== state.intId
+                                                        value.toLowerCase() &&
+                                                    a.intId !== state.intId
                                             )
                                         ) {
                                             return `Ya existe un tipo de servicio registrado como ${value}`;

@@ -476,6 +476,9 @@ const CreateEdit = ({ isEdit }) => {
                                     setValue={setValue}
                                     setError={setError}
                                     clearErrors={clearErrors}
+                                    fields={arrRE}
+                                    append={apRE}
+                                    remove={rmRE}
                                 />
                             </Grid>
 

@@ -70,6 +70,7 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
         control,
         formState: { errors },
         handleSubmit,
+        reset,
     } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
@@ -160,7 +161,16 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
                 intIdTipoCampo: values.intIdTipoCampo,
                 strDescripcion: values.strDescripcion,
             });
+
+            reset({
+                intId: values.intId,
+                strNombre: values.strNombre,
+                intIdTipoCampo: values.intIdTipoCampo,
+                strDescripcion: values.strDescripcion,
+            });
         }
+
+        // eslint-disable-next-line
     }, [values]);
 
     useEffect(() => {
