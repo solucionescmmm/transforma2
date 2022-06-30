@@ -72,7 +72,11 @@ const ReadSolicitudesUser = () => {
             title: "",
             render: (rowData) => (
                 <Switch
-                    checked={rowData.objInfoPrincipal.intIdEstado === 1 ? true : false}
+                    checked={
+                        rowData.objInfoPrincipal.intIdEstado === 1
+                            ? true
+                            : false
+                    }
                     size="small"
                     onClick={() => {
                         setSelectedData(rowData);
@@ -86,6 +90,12 @@ const ReadSolicitudesUser = () => {
             title: "Id",
             field: "objInfoPrincipal.intId",
             type: "numeric",
+            width: "5%",
+        },
+        {
+            title: "Estado",
+            field: "objInfoPrincipal.intIdEstado",
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
         {
             title: "Nombre",
@@ -106,11 +116,6 @@ const ReadSolicitudesUser = () => {
             title: "Responsable",
             field: "objInfoPrincipal.strUsuarioCreacion",
             type: "string",
-        },
-        {
-            title: "Estado",
-            field: "objInfoPrincipal.intIdEstado",
-            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
     ]);
 

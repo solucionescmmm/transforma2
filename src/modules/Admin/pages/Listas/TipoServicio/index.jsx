@@ -63,6 +63,12 @@ const Read = () => {
             title: "Id",
             field: "intId",
             type: "numeric",
+            width: "5%",
+        },
+        {
+            title: "Estado",
+            field: "intIdEstado",
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
         {
             title: "Nombre",
@@ -74,11 +80,7 @@ const Read = () => {
             field: "dtmCreacion",
             type: "date",
         },
-        {
-            title: "Estado",
-            field: "intIdEstado",
-            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
-        },
+        
     ]);
 
     const [openModalCreate, setOpenModalCreate] = useState(false);

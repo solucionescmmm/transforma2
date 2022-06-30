@@ -91,6 +91,12 @@ const ReadListAreas = () => {
             title: "Id",
             field: "intId",
             type: "numeric",
+            width: "5%",
+        },
+        {
+            title: "Estado",
+            field: "intIdEstado",
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
         {
             title: "Nombre",
@@ -101,11 +107,6 @@ const ReadListAreas = () => {
             title: "Fecha de creación",
             field: "dtmCreacion",
             type: "date",
-        },
-        {
-            title: "Estado",
-            field: "intIdEstado",
-            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
     ]);
 

@@ -63,6 +63,12 @@ const ReadSolicitudesUser = () => {
             title: "Id",
             field: "intId",
             type: "numeric",
+            width: "5%",
+        },
+        {
+            title: "Estado",
+            field: "intIdEstado",
+            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
         {
             title: "Nombre",
@@ -90,11 +96,6 @@ const ReadSolicitudesUser = () => {
                 5: "MONEY",
                 6: "VARCHAR",
             },
-        },
-        {
-            title: "Estado",
-            field: "intIdEstado",
-            lookup: { 1: "Activo", 2: "En borrador", 3: "Inactivo" },
         },
     ]);
 
