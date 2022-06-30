@@ -264,7 +264,6 @@ const ModalCreate = ({ handleOpenDialog, open, refresh, data }) => {
                                     value={value}
                                     disabled={loading}
                                     onChange={(e) => onChange(e)}
-                                    required
                                     fullWidth
                                     error={errors[name] ? true : false}
                                     helperText={

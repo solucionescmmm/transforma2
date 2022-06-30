@@ -45,10 +45,9 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [state, setState] = useState({
+        intId: "",
         strNombre: "",
     });
-
-    const [initialState, setInitialState] = useState();
 
     const [success, setSucces] = useState(false);
 
@@ -155,8 +154,6 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
                 intId: values.intId,
                 strNombre: values.strNombre,
             });
-
-            setInitialState(values.intIdEstado);
         }
     }, [values]);
 
@@ -208,11 +205,7 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
                                     variant="standard"
                                     name={name}
                                     value={value}
-                                    disabled={
-                                        initialState === 1 || initialState === 3
-                                            ? true
-                                            : loading
-                                    }
+                                    disabled={loading}
                                     onChange={(e) => onChange(e)}
                                     required
                                     fullWidth
@@ -231,7 +224,8 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
                                         data?.find(
                                             (a) =>
                                                 a.strNombre.toLowerCase() ===
-                                                value.toLowerCase()
+                                                    value.toLowerCase() &&
+                                                a.intId !== state.intId
                                         )
                                     ) {
                                         return `Ya existe un área registrada como ${value}`;

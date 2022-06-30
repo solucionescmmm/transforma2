@@ -181,10 +181,11 @@ const ModalCreate = ({ handleOpenDialog, open, data, refresh }) => {
             append({
                 id: shortid.generate(),
                 intIdAtributo: "",
-                intIdEstado: "",
             });
         }
-    }, [fields, append]);
+
+        // eslint-disable-next-line
+    }, [fields]);
 
     useEffect(() => {
         if (success) {
@@ -207,11 +208,6 @@ const ModalCreate = ({ handleOpenDialog, open, data, refresh }) => {
                 onClose={handleOpenDialog}
                 maxWidth="lg"
                 fullWidth
-                PaperProps={{
-                    component: "form",
-                    noValidate: true,
-                    onSubmit: handleSubmit(onSubmit),
-                }}
             >
                 <DialogTitle>Registrar tipo de servicio</DialogTitle>
 
@@ -293,9 +289,9 @@ const ModalCreate = ({ handleOpenDialog, open, data, refresh }) => {
                                         onChange={(e) => onChange(e)}
                                         required
                                         fullWidth
-                                        error={errors[name] ? true : false}
+                                        error={errors?.[name] ? true : false}
                                         helperText={
-                                            errors[name]?.message ||
+                                            errors?.[name]?.message ||
                                             "Digita el nombre del tipo de servicio"
                                         }
                                     />
@@ -374,7 +370,6 @@ const ModalCreate = ({ handleOpenDialog, open, data, refresh }) => {
                                     append({
                                         id: shortid.generate(),
                                         intIdAtributo: "",
-                                        intIdEstado: "",
                                     })
                                 }
                             >

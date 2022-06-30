@@ -60,6 +60,7 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [state, setState] = useState({
+        intId: "",
         strNombre: "",
         arrAtributos: [],
     });
@@ -217,7 +218,9 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
                 intIdAtributo: "",
             });
         }
-    }, [fields, append, values]);
+
+        // eslint-disable-next-line
+    }, [values]);
 
     useEffect(() => {
         if (success) {
@@ -347,7 +350,7 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
                                             data?.find(
                                                 (a) =>
                                                     a.strNombre.toLowerCase() ===
-                                                    value.toLowerCase()
+                                                    value.toLowerCase() && a.intId !== state.intId
                                             )
                                         ) {
                                             return `Ya existe un tipo de servicio registrado como ${value}`;
@@ -392,15 +395,11 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
                                             index={i}
                                             values={e}
                                             errors={errors}
-                                            disabled={
-                                                initialState === 1 ||
-                                                initialState === 3
-                                                    ? true
-                                                    : loading
-                                            }
+                                            disabled={loading}
                                             remove={remove}
                                             length={fields.length}
                                             getValues={getValues}
+                                            isEdit
                                         />
                                     </CSSTransition>
                                 ))}
@@ -410,11 +409,7 @@ const ModalEdit = ({ handleOpenDialog, open, values, refresh, data }) => {
                         <Grid item xs={12}>
                             <Button
                                 color="secondary"
-                                disabled={
-                                    initialState === 1 || initialState === 3
-                                        ? true
-                                        : loading
-                                }
+                                disabled={loading}
                                 fullWidth
                                 type="button"
                                 onClick={() =>

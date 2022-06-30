@@ -78,12 +78,12 @@ const PaperAtributo = ({
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
+        setLoading(true);
+
         if (values) {
             setState({
                 id: values.id,
                 intIdAtributo: values.intIdAtributo,
-                intIdAtributoTipoServicio:
-                    values.intIdAtributoTipoServicio || undefined,
             });
         }
 
@@ -267,14 +267,14 @@ const PaperAtributo = ({
                                             label="Tipo de atributo"
                                             name={name}
                                             value={value}
-                                            onChange={(e) => {
-                                                onChange(e);
-                                            }}
+                                            onChange={(e) => onChange(e)}
                                             disabled={disabled}
                                             required
                                             error={
-                                                !!errors?.arrAtributos?.[index]
+                                                errors?.arrAtributos?.[index]
                                                     ?.intIdAtributo
+                                                    ? true
+                                                    : false
                                             }
                                             helperText={
                                                 errors?.arrAtributos?.[index]
@@ -289,17 +289,15 @@ const PaperAtributo = ({
                                             "Por favor, selecciona el tipo de atributo",
 
                                         validate: (value) => {
-                                            const array =
-                                                getValues("arrAtributos");
+                                            const x = getValues("arrAtributos");
 
-                                            if (array?.length > 1) {
-                                                array.splice(index, 1);
-
+                                            if (x?.length > 1) {
                                                 if (
-                                                    array.find(
-                                                        (a) =>
+                                                    x.find(
+                                                        (a, i) =>
                                                             a.intIdAtributo ===
-                                                            value
+                                                                Number(value) &&
+                                                            index !== i
                                                     )
                                                 ) {
                                                     return "Este atributo ya fue seleccionado";

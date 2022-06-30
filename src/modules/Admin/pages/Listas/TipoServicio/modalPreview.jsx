@@ -30,8 +30,6 @@ import ReturnTypeInput from "../../../components/returnTypeInput";
 const ModalPreview = ({ values, handleOpenDialog, open, dataAttributes }) => {
     const [state, setState] = useState({ strNombre: "", arrAtributos: [] });
 
-    console.log(dataAttributes);
-
     const [openCollapese, setOpenCollapse] = useState(true);
 
     const handlerChangeOpenCollapse = () => {
