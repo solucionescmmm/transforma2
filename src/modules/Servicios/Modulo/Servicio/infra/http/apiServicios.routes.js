@@ -21,6 +21,14 @@ routes.get(
     }
 );
 
+routes.get(
+    "/transforma/api/servicios/modulo/getServiciosActivos",
+    async (req, res) => {
+        let controllerServicios = new classController();
+        await controllerServicios.getServiciosActivos(req, res);
+    }
+);
+
 routes.put(
     "/transforma/api/servicios/modulo/updateServicio",
     async (req, res) => {

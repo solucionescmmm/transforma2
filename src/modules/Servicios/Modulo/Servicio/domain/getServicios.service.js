@@ -63,7 +63,6 @@ const getEmpresario = async (objParams, strDataUser) => {
                 error: false,
                 data,
             };
-            console.log(result);
         
             return result;
         }

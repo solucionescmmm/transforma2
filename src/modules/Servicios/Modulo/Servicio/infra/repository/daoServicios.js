@@ -145,7 +145,6 @@ class daoServicios {
     }
 
     async setAreasServicios(data) {
-        console.log(data);
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -164,6 +163,41 @@ class daoServicios {
             SET @intId = SCOPE_IDENTITY();
     
             SELECT * FROM tbl_Area_Servicios WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El área responsable de servicio, fue agregada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setAreasServicios de la clase daoServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async setResultServicios(data){
+        console.log(data);
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            INSERT tbl_Result_TipoServicio_Servicio ([${data.objPropiedad}])
+            VALUES (${data.valuePropiedad})
+            WHERE intIdServicio = ${data.intIdServicio}`;
+
+            console.log(response);
 
             let result = {
                 error: false,
@@ -281,6 +315,31 @@ class daoServicios {
 
             sql.close(conexion);
 
+            return result;
+        }
+    }
+
+    async getServiciosActivos(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn
+                .request()
+                .input("pstrNombreMaestro", sql.VarChar, data.strNombreMaestro)
+                .input("pintIdMaestro", sql.VarChar, data.intIdMaestro)
+                .execute("sp_getServiciosActivos");
+            let result = {
+                error: false,
+                data: response.recordsets[0] ? response.recordsets[0][0] : null,
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message ?
+                    error.message : "Error en el metodo getServiciosActivos de la clase daoServicios",
+            };
+            sql.close(conexion);
             return result;
         }
     }

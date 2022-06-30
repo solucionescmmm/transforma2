@@ -25,6 +25,12 @@ class interfaceDAOServicios {
         return result;
     }
 
+    async setResultServicios(data) {
+        let dao = new classDAO();
+        let result = await dao.setResultServicios(data);
+        return result;
+    }
+
     async getServicios(data){
         let dao = new classDAO()
         let result = dao.getServicios(data)
@@ -58,6 +64,12 @@ class interfaceDAOServicios {
     async getServicios(data) {
         let dao = new classDAO();
         let result = await dao.getServicios(data);
+        return result;
+    }
+
+    async getServiciosActivos(data) {
+        let dao = new classDAO();
+        let result = await dao.getServiciosActivos(data);
         return result;
     }
 
