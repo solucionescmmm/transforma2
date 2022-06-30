@@ -183,7 +183,6 @@ const PaperAtributo = ({
                             backgroundColor: "#FDEDED",
                         },
                     }}
-                    
                 >
                     <DialogTitle>{`¿Deseas eliminar el atributo #${
                         index + 1
@@ -208,7 +207,10 @@ const PaperAtributo = ({
                         <Button
                             onClick={() => {
                                 handlerChangeOpenModalDelete();
-                                remove(index);
+
+                                setTimeout(() => {
+                                    remove(index);
+                                }, 1000);
                             }}
                             color="error"
                         >
