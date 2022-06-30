@@ -86,13 +86,19 @@ const PaperResponsables = ({
             });
         }
 
+        if (!values.id) {
+            remove(index);
+        }
+
         setLoading(false);
+
+        // eslint-disable-next-line
     }, [values]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (loading) {
+    if (loading || !data.id) {
         return (
             <Box
                 display="flex"
@@ -137,6 +143,7 @@ const PaperResponsables = ({
                         color="error"
                         onClick={() => remove(index)}
                         size="large"
+                        type="button"
                     >
                         <Tooltip title="Eliminar">
                             <DeleteIcon />
@@ -191,6 +198,7 @@ const PaperResponsables = ({
                         <Button
                             onClick={() => handlerChangeOpenModalDelete()}
                             color="inherit"
+                            type="button"
                         >
                             cancelar
                         </Button>
@@ -201,6 +209,7 @@ const PaperResponsables = ({
                                 handlerChangeOpenModalDelete();
                             }}
                             color="error"
+                            type="button"
                         >
                             Aceptar
                         </Button>
@@ -300,9 +309,10 @@ const PaperResponsables = ({
                     color="error"
                     onClick={() => handlerChangeOpenModalDelete()}
                     size="large"
+                    type="button"
                     disabled={size === 1 ? true : disabled}
                 >
-                    <Tooltip title="Eliminar">
+                    <Tooltip title="Eliminar" >
                         <DeleteIcon />
                     </Tooltip>
                 </IconButton>

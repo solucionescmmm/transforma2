@@ -46,7 +46,6 @@ const InfoSedesTarifa = ({
         setLoading(true);
 
         if (fields.length === 0) {
-            console.log("entro aca");
             append({
                 id: shortid.generate(),
                 intIdSede: "",
@@ -59,21 +58,6 @@ const InfoSedesTarifa = ({
 
         // eslint-disable-next-line
     }, [fields]);
-
-    useEffect(() => {
-        setLoading(true);
-
-        if (values?.length > 0 && fields.length === 0) {
-            console.log(values);
-
-            for (let i = 0; i < values.length; i++) {
-                append({ ...values[i], id: shortid.generate() });
-            }
-        }
-
-        setLoading(false);
-        // eslint-disable-next-line
-    }, [values, fields]);
 
     if (loading) {
         return (

@@ -42,21 +42,7 @@ const InfoResponsables = ({
     };
 
     useEffect(() => {
-        setLoading(true);
-
-        if (values?.length > 0 && fields.length === 0) {
-            for (let i = 0; i < values.length; i++) {
-                append({ ...values[i], id: shortid.generate() });
-            }
-        }
-
-        setLoading(false);
-
-        // eslint-disable-next-line
-    }, [values]);
-
-    useEffect(() => {
-        if (values?.length === 0 && fields.length === 0) {
+        if (fields.length === 0) {
             append({
                 id: shortid.generate(),
                 intIdArea: "",

@@ -81,7 +81,7 @@ const PaperModulo = ({
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoading(true); 
+        setLoading(true);
 
         if (values) {
             setData({
@@ -93,13 +93,19 @@ const PaperModulo = ({
             });
         }
 
+        if (!values.id) {
+            remove(index);
+        }
+
         setLoading(false);
+
+        // eslint-disable-next-line
     }, [values]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (loading) {
+    if (loading || !data.id) {
         return (
             <Box
                 display="flex"
@@ -144,6 +150,7 @@ const PaperModulo = ({
                         color="error"
                         onClick={() => remove(index)}
                         size="large"
+                        type="button"
                     >
                         <Tooltip title="Eliminar">
                             <DeleteIcon />
@@ -198,6 +205,7 @@ const PaperModulo = ({
                         <Button
                             onClick={() => handlerChangeOpenModalDelete()}
                             color="inherit"
+                            type="button"
                         >
                             cancelar
                         </Button>
@@ -207,6 +215,7 @@ const PaperModulo = ({
                                 remove(index);
                                 handlerChangeOpenModalDelete();
                             }}
+                            type="button"
                             color="error"
                         >
                             Aceptar
@@ -421,6 +430,7 @@ const PaperModulo = ({
                     onClick={() => handlerChangeOpenModalDelete()}
                     size="large"
                     disabled={size === 1 ? true : disabled}
+                    type="button"
                 >
                     <Tooltip title="Eliminar">
                         <DeleteIcon />

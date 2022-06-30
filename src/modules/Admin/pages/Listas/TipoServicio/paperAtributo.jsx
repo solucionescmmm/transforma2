@@ -87,13 +87,19 @@ const PaperAtributo = ({
             });
         }
 
+        if (!values.id) {
+            remove(index);
+        }
+
         setLoading(false);
+
+        // eslint-disable-next-line
     }, [values]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (loading) {
+    if (loading || !state.id) {
         return (
             <Box
                 display="flex"
@@ -138,6 +144,7 @@ const PaperAtributo = ({
                         color="error"
                         onClick={() => remove(index)}
                         size="large"
+                        type="button"
                     >
                         <Tooltip title="Eliminar">
                             <DeleteIcon />
@@ -175,6 +182,7 @@ const PaperAtributo = ({
                             backgroundColor: "#FDEDED",
                         },
                     }}
+                    
                 >
                     <DialogTitle>{`¿Deseas eliminar el atributo #${
                         index + 1
@@ -198,8 +206,8 @@ const PaperAtributo = ({
 
                         <Button
                             onClick={() => {
-                                remove(index);
                                 handlerChangeOpenModalDelete();
+                                remove(index);
                             }}
                             color="error"
                         >
@@ -317,6 +325,7 @@ const PaperAtributo = ({
                     color="error"
                     onClick={() => handlerChangeOpenModalDelete()}
                     size="large"
+                    type="button"
                     disabled={length === 1 ? true : disabled}
                 >
                     <Tooltip title="Eliminar">

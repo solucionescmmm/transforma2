@@ -41,6 +41,7 @@ import InfoModulos from "./infoModulos";
 import InfoSedesTarifa from "./infoSedesTarifa";
 import InfoResponsables from "./infoResponsables";
 import InfoAtributo from "./infoAtributos";
+import shortid from "shortid";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -175,10 +176,7 @@ const CreateEdit = ({ isEdit }) => {
     const classes = styles();
 
     const onSubmit = (data) => {
-        setData((prevState) => ({
-            ...prevState,
-            ...data,
-        }));
+        setData(data);
 
         setFlagSubmit(true);
     };
@@ -263,8 +261,45 @@ const CreateEdit = ({ isEdit }) => {
                         if (res.data) {
                             let data = res.data.data[0];
 
-                            setData({ ...data });
-                            reset(data);
+                            const arrAtributos = data.arrAtributos;
+
+                            for (let i = 0; i < arrAtributos.length; i++) {
+                                arrAtributos[i].id = shortid.generate();
+                            }
+
+                            const arrModulos = data.arrModulos;
+
+                            for (let i = 0; i < arrModulos.length; i++) {
+                                arrModulos[i].id = shortid.generate();
+                            }
+
+                            const arrSedesTarifas = data.arrSedesTarifas;
+
+                            for (let i = 0; i < arrSedesTarifas.length; i++) {
+                                arrSedesTarifas[i].id = shortid.generate();
+                            }
+
+                            const arrResponsables = data.arrResponsables;
+
+                            for (let i = 0; i < arrResponsables.length; i++) {
+                                arrResponsables[i].id = shortid.generate();
+                            }
+
+                            setData({
+                                ...data,
+                                arrAtributos,
+                                arrModulos,
+                                arrSedesTarifas,
+                                arrResponsables,
+                            });
+
+                            reset({
+                                ...data,
+                                arrAtributos,
+                                arrModulos,
+                                arrSedesTarifas,
+                                arrResponsables,
+                            });
                         }
 
                         setLoadingGetData(false);

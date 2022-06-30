@@ -93,13 +93,19 @@ const PaperSedesTarifa = ({
             });
         }
 
+        if (!values.id) {
+            remove(index);
+        }
+
         setLoading(false);
+
+        // eslint-disable-next-line
     }, [values]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (loading) {
+    if (loading || !data.id) {
         return (
             <Box
                 display="flex"
@@ -144,6 +150,7 @@ const PaperSedesTarifa = ({
                         color="error"
                         onClick={() => remove(index)}
                         size="large"
+                        type="button"
                     >
                         <Tooltip title="Eliminar">
                             <DeleteIcon />
@@ -196,6 +203,7 @@ const PaperSedesTarifa = ({
 
                     <DialogActions>
                         <Button
+                            type="button"
                             onClick={() => handlerChangeOpenModalDelete()}
                             color="inherit"
                         >
@@ -208,6 +216,7 @@ const PaperSedesTarifa = ({
                                 handlerChangeOpenModalDelete();
                             }}
                             color="error"
+                            type="button"
                         >
                             Aceptar
                         </Button>
@@ -386,6 +395,7 @@ const PaperSedesTarifa = ({
                     onClick={() => handlerChangeOpenModalDelete()}
                     size="large"
                     disabled={size === 1 ? true : disabled}
+                    type="button"
                 >
                     <Tooltip title="Eliminar">
                         <DeleteIcon />
