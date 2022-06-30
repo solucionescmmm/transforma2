@@ -30,7 +30,9 @@ class updateTiposServicios {
         await this.#getIdEstado();
         this.#completeData();
         await this.#updateTiposServicios();
-        await this.#updateAtributosTiposServicios();
+        if (typeof this.#objData.bitActivar !== "undefined") {
+            await this.#updateAtributosTiposServicios();
+        }
         if (this.#objData.bitActivar === true) {
             await this.#updateActivarAtributosTiposServicios();
         }
