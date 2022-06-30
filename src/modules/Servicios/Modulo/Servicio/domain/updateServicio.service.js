@@ -31,6 +31,7 @@ class updateServicios {
             await this.#updateServicios();
             return this.#objResult;
         }else{
+            //console.log(this.#objData);
             await this.#updateServicios();
             await this.#updateModuloServicios();
             await this.#updateSedeTipoTarifaServicio();
@@ -92,6 +93,8 @@ class updateServicios {
     async #updateServicios() {
         let dao = new classInterfaceDAOServicios();
 
+        console.log(this.#objData.objInfoPrincipal);
+
         let query = await dao.updateServicios({
             ...this.#objData.objInfoPrincipal,
             intId:this.#objData.intId,
@@ -103,7 +106,7 @@ class updateServicios {
             throw new Error(query.msg);
         }
 
-        this.#intIdServicio = query.data.intIdServicio;
+        this.#intIdServicio = query.data.intId;
 
         this.#objResult = {
             error: query.error,
