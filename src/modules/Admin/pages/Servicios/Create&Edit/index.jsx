@@ -124,6 +124,7 @@ const CreateEdit = ({ isEdit }) => {
         setError,
         setValue,
         clearErrors,
+        getValues,
     } = useForm({ mode: "onChange" });
 
     const {
@@ -176,7 +177,21 @@ const CreateEdit = ({ isEdit }) => {
     const classes = styles();
 
     const onSubmit = (data) => {
-        setData(data);
+        const arrModulos =
+            data.arrModulos.filter((m) => m.intHoras !== "") || [];
+
+        const arrSedesTarifas =
+            data.arrSedesTarifas.filter((s) => s.intIdSede !== "") || [];
+
+        const arrResponsables =
+            data.arrResponsables.filter((r) => r.intIdArea !== "") || [];
+
+        setData({
+            ...data,
+            arrModulos,
+            arrSedesTarifas,
+            arrResponsables,
+        });
 
         setFlagSubmit(true);
     };
@@ -518,6 +533,7 @@ const CreateEdit = ({ isEdit }) => {
                                     fields={arrRE}
                                     append={apRE}
                                     remove={rmRE}
+                                    getValues={getValues}
                                 />
                             </Grid>
 

@@ -36,6 +36,7 @@ import {
 import SelectAreas from "../../../components/selectAreas";
 
 const PaperResponsables = ({
+    getValues,
     values,
     index,
     control,
@@ -297,6 +298,20 @@ const PaperResponsables = ({
                                     rules={{
                                         required:
                                             "Por favor, selecciona una opción",
+                                        validate: (value) => {
+                                            const x =
+                                                getValues("arrResponsables");
+
+                                            if (
+                                                x.find(
+                                                    (x, i) =>
+                                                        x.intIdArea === value &&
+                                                        i !== index
+                                                )
+                                            ) {
+                                                return "El área ya se encuentra seleccionada";
+                                            }
+                                        },
                                     }}
                                 />
                             </Grid>
@@ -313,7 +328,7 @@ const PaperResponsables = ({
                     type="button"
                     disabled={size === 1 ? true : disabled}
                 >
-                    <Tooltip title="Eliminar" >
+                    <Tooltip title="Eliminar">
                         <DeleteIcon />
                     </Tooltip>
                 </IconButton>

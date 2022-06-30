@@ -25,6 +25,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PaperResponsable from "./paperResponsables";
 
 const InfoResponsables = ({
+    getValues,
     disabled,
     values,
     errors,
@@ -142,6 +143,7 @@ const InfoResponsables = ({
                                         disabled={disabled}
                                         remove={remove}
                                         size={fields.length}
+                                        getValues={getValues}
                                     />
                                 </CSSTransition>
                             ))}

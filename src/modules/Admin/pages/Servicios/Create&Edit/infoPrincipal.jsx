@@ -154,51 +154,6 @@ const InfoPrincipal = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12}>
                         <Controller
-                            name="objInfoPrincipal.bitModulos"
-                            defaultValue={data.bitModulos}
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿El servicio contiene módulos?"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => {
-                                        onChange(e);
-                                        onChangeModules(e.target.value);
-                                        setValue("arrModulos", []);
-                                    }}
-                                    required
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoPrincipal?.bitModulos
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPrincipal?.bitModulos
-                                            ?.message ||
-                                        "Selecciona si el servicio contiene módulos"
-                                    }
-                                    select
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                </TextField>
-                            )}
-                            rules={{
-                                validate: (value) => {
-                                    if (value === "") {
-                                        return "Por favor, selecciona si el servicio contiene módulos";
-                                    }
-                                },
-                            }}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
                             name="objInfoPrincipal.intIdTipoServicio"
                             defaultValue={data.intIdTipoServicio}
                             render={({ field: { name, onChange, value } }) => (
@@ -324,6 +279,51 @@ const InfoPrincipal = ({
                             rules={{
                                 required:
                                     "Por favor, digita la descripción del servicio",
+                            }}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            name="objInfoPrincipal.bitModulos"
+                            defaultValue={data.bitModulos}
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿El servicio contiene módulos?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        onChangeModules(e.target.value);
+                                        setValue("arrModulos", []);
+                                    }}
+                                    required
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoPrincipal?.bitModulos
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal?.bitModulos
+                                            ?.message ||
+                                        "Selecciona si el servicio contiene módulos"
+                                    }
+                                    select
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                </TextField>
+                            )}
+                            rules={{
+                                validate: (value) => {
+                                    if (value === "") {
+                                        return "Por favor, selecciona si el servicio contiene módulos";
+                                    }
+                                },
                             }}
                             control={control}
                         />
