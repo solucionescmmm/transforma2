@@ -60,8 +60,12 @@ class updateAtributos {
         let arrayAtributos = queryGetAtributos.data;
 
         for (let i = 0; i < arrayAtributos.length; i++) {
+            let strNombreRepetido = 0;
             if (this.#objData.strNombre === arrayAtributos[i].strNombre) {
-                throw new Error("El nombre de este atributo ya existe.");
+                strNombreRepetido++;
+            }
+            if (strNombreRepetido === 2) {
+                throw new Error("El nombre de esta áreas ya existe.");
             }
         }
     }
