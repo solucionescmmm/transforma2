@@ -64,6 +64,7 @@ const ModalCreate = ({ handleOpenDialog, open, refresh, data }) => {
         control,
         formState: { errors },
         handleSubmit,
+        reset,
     } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
@@ -148,6 +149,10 @@ const ModalCreate = ({ handleOpenDialog, open, refresh, data }) => {
             refresh();
             handleOpenDialog();
             setState({
+                strNombre: "",
+            });
+
+            reset({
                 strNombre: "",
             });
             setSucces(false);

@@ -3,6 +3,9 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 //Context
 import { AuthContext } from "../../../../../common/middlewares/Auth";
 
+// Hooks
+import useGetMessage from "../../../hooks/useGetMessage";
+
 //Librerias
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -61,6 +64,11 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
     //===============================================================================================================================================
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+    const { data: message } = useGetMessage({
+        strNombreMaestro: "Area",
+        intIdMaestro: values.intId,
+    });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -227,7 +235,8 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
             <DialogContent>
                 <DialogContentText>
                     {data.intIdEstado === 1
-                        ? "Al desactivar el registro, dejará de listarse en el sistema y en los servicios"
+                        ? message ||
+                          "Al desactivar el registro, dejará de listarse en el sistema y en los servicios"
                         : "Al activar el registro, se listará de forma automática en todo el sistema"}
                 </DialogContentText>
             </DialogContent>

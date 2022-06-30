@@ -261,12 +261,12 @@ const CreateEdit = ({ isEdit }) => {
                         if (res.data) {
                             let data = res.data.data[0];
 
-                            console.log(data);
-
                             const arrAtributos = data.arrAtributos;
 
-                            for (let i = 0; i < arrAtributos.length; i++) {
-                                arrAtributos[i].id = shortid.generate();
+                            if (arrAtributos) {
+                                for (let i = 0; i < arrAtributos.length; i++) {
+                                    arrAtributos[i].id = shortid.generate();
+                                }
                             }
 
                             const arrModulos = data.arrModulos;
@@ -291,16 +291,16 @@ const CreateEdit = ({ isEdit }) => {
 
                             setData({
                                 ...data,
-                                arrAtributos,
-                                arrModulos,
+                                arrAtributos: arrAtributos | [],
+                                arrModulos: arrModulos || [],
                                 arrSedesTarifas,
                                 arrResponsables,
                             });
 
                             reset({
                                 ...data,
-                                arrAtributos,
-                                arrModulos,
+                                arrAtributos: arrAtributos || [],
+                                arrModulos: arrModulos || [],
                                 arrSedesTarifas,
                                 arrResponsables,
                             });

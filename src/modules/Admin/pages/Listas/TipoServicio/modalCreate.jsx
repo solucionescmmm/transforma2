@@ -85,6 +85,7 @@ const ModalCreate = ({ handleOpenDialog, open, data, refresh }) => {
         formState: { errors },
         getValues,
         handleSubmit,
+        reset,
     } = useForm({ mode: "onChange" });
 
     const { fields, append, remove } = useFieldArray({
@@ -194,7 +195,12 @@ const ModalCreate = ({ handleOpenDialog, open, data, refresh }) => {
             setState({
                 strNombre: "",
                 arrAtributos: [],
-            })
+            });
+
+            reset({
+                strNombre: "",
+                arrAtributos: [],
+            });
 
             setSucces(false);
         }

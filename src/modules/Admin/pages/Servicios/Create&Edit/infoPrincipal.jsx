@@ -74,9 +74,13 @@ const InfoPrincipal = ({
                 intTiempo: values.intTiempo,
                 bitModulos: values.bitModulos,
             });
+
+            fntGetData(values.intIdTipoServicio);
         }
 
         setLoading(false);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values]);
 
     const fntGetData = async (intIdTipoServicio) => {
@@ -266,7 +270,8 @@ const InfoPrincipal = ({
                                                 (a) =>
                                                     a.objInfoPrincipal.strNombre.toLowerCase() ===
                                                         value.toLowerCase() &&
-                                                    a.intId !== data.intId
+                                                    a.objInfoPrincipal.intId !==
+                                                        data.intId
                                             )
                                         ) {
                                             return `Ya existe un servicio registrado como ${value}`;
