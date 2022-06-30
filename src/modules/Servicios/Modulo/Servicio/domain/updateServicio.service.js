@@ -106,7 +106,7 @@ class updateServicios {
             throw new Error(query.msg);
         }
 
-        this.#intIdServicio = query.data.intId;
+        this.#intIdServicio = query.intId;
 
         this.#objResult = {
             error: query.error,
