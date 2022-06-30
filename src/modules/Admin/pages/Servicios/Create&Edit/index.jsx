@@ -10,7 +10,7 @@ import useGetServicios from "../../../hooks/useGetServicios";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Redirect, useParams, Link as RouterLink } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -125,6 +125,42 @@ const CreateEdit = ({ isEdit }) => {
         clearErrors,
     } = useForm({ mode: "onChange" });
 
+    const {
+        fields: arrST,
+        append: apST,
+        remove: rmST,
+    } = useFieldArray({
+        control,
+        name: "arrSedesTarifas",
+        keyName: "id",
+    });
+
+    const { fields: arrAT, append: apAT } = useFieldArray({
+        control,
+        name: "arrAtributos",
+        keyName: "id",
+    });
+
+    const {
+        fields: arrMO,
+        append: apMO,
+        remove: rmMO,
+    } = useFieldArray({
+        control,
+        name: "arrModulos",
+        keyName: "id",
+    });
+
+    const {
+        fields: arrRE,
+        append: apRE,
+        remove: rmRE,
+    } = useFieldArray({
+        control,
+        name: "arrResponsables",
+        keyName: "id",
+    });
+
     const { intId } = useParams();
 
     const { getUniqueData, data: dataServicios } = useGetServicios({
@@ -228,6 +264,7 @@ const CreateEdit = ({ isEdit }) => {
                             let data = res.data.data[0];
 
                             setData({ ...data });
+                            reset(data);
                         }
 
                         setLoadingGetData(false);
@@ -241,13 +278,9 @@ const CreateEdit = ({ isEdit }) => {
 
             getData();
         }
-    }, [isEdit, intId]);
 
-    useEffect(() => {
-        if (isEdit) {
-            reset(data);
-        }
-    }, [data, reset, isEdit]);
+        // eslint-disable-next-line
+    }, [isEdit, intId]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -371,6 +404,7 @@ const CreateEdit = ({ isEdit }) => {
 
                             <Grid item xs={12}>
                                 <InfoPrincipal
+                                    isEdit={isEdit}
                                     control={control}
                                     values={data.objInfoPrincipal}
                                     disabled={loading}
@@ -395,6 +429,8 @@ const CreateEdit = ({ isEdit }) => {
                                     setValue={setValue}
                                     setError={setError}
                                     clearErrors={clearErrors}
+                                    append={apAT}
+                                    fields={arrAT}
                                 />
                             </Grid>
 
@@ -402,13 +438,15 @@ const CreateEdit = ({ isEdit }) => {
                                 <Grid item xs={12}>
                                     <InfoModulos
                                         control={control}
-                                        isEdit={isEdit}
                                         values={data.arrModulos}
                                         disabled={loading}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
                                         clearErrors={clearErrors}
+                                        fields={arrMO}
+                                        append={apMO}
+                                        remove={rmMO}
                                     />
                                 </Grid>
                             )}
@@ -417,12 +455,14 @@ const CreateEdit = ({ isEdit }) => {
                                 <InfoSedesTarifa
                                     control={control}
                                     values={data.arrModulos}
-                                    isEdit={isEdit}
                                     disabled={loading}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
                                     clearErrors={clearErrors}
+                                    fields={arrST}
+                                    append={apST}
+                                    remove={rmST}
                                 />
                             </Grid>
 

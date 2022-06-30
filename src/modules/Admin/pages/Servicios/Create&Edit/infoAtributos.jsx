@@ -21,18 +21,19 @@ import {
     ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 
-import { Controller, useFieldArray } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 // Componentes
 import ReturnTypeInput from "../../../components/returnTypeInput";
 
-const InfoAtributos = ({ disabled, values, errors, control }) => {
-    const { fields, append } = useFieldArray({
-        control,
-        name: "arrAtributos",
-        keyName: "id",
-    });
-
+const InfoAtributos = ({
+    disabled,
+    values,
+    errors,
+    control,
+    append,
+    fields,
+}) => {
     const [loading, setLoading] = useState(true);
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -44,14 +45,16 @@ const InfoAtributos = ({ disabled, values, errors, control }) => {
     useEffect(() => {
         setLoading(true);
 
-        if (values?.length > 0) {
+        if (values?.length > 0 && fields.length === 0) {
             for (let i = 0; i < values.length; i++) {
                 append({ ...values[i], id: shortid.generate() });
             }
         }
 
         setLoading(false);
-    }, [values, append]);
+
+        // eslint-disable-next-line
+    }, [values]);
 
     if (loading) {
         return (

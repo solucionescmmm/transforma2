@@ -21,18 +21,19 @@ import {
     ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { useFieldArray } from "react-hook-form";
 
 //Componentes
 import PaperSedesTarifa from "./paperSedesTarifa";
 
-const InfoSedesTarifa = ({ disabled, values, errors, control, isEdit }) => {
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "arrSedesTarifas",
-        keyName: "id",
-    });
-
+const InfoSedesTarifa = ({
+    disabled,
+    values,
+    errors,
+    control,
+    fields,
+    append,
+    remove,
+}) => {
     const [loading, setLoading] = useState(true);
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -42,31 +43,37 @@ const InfoSedesTarifa = ({ disabled, values, errors, control, isEdit }) => {
     };
 
     useEffect(() => {
-        if (!isEdit) {
-            if (values.length > 0) {
-                for (let i = 0; i < values.length; i++) {
-                    append({ ...values[i], id: shortid.generate() });
-                }
-            }
+        setLoading(true);
+
+        if (fields.length === 0) {
+            console.log("entro aca");
+            append({
+                id: shortid.generate(),
+                intIdSede: "",
+                intIdTipoTarifa: "",
+                dblValor: "",
+            });
         }
+
         setLoading(false);
+
         // eslint-disable-next-line
-    }, [values, isEdit]);
+    }, [fields]);
 
     useEffect(() => {
-        if (!isEdit) {
-            if (values.length === 0 && fields.length === 0) {
-                append({
-                    id: shortid.generate(),
-                    intIdSede: "",
-                    intIdTipoTarifa: "",
-                    dblValor: "",
-                });
+        setLoading(true);
+
+        if (values?.length > 0 && fields.length === 0) {
+            console.log(values);
+
+            for (let i = 0; i < values.length; i++) {
+                append({ ...values[i], id: shortid.generate() });
             }
         }
 
+        setLoading(false);
         // eslint-disable-next-line
-    }, [values, isEdit]);
+    }, [values, fields]);
 
     if (loading) {
         return (

@@ -21,18 +21,19 @@ import {
     ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { useFieldArray } from "react-hook-form";
 
 //Componentes
 import PaperModulo from "./paperModulo";
 
-const InfoModulos = ({ disabled, values, errors, control, isEdit }) => {
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "arrModulos",
-        keyName: "id",
-    });
-
+const InfoModulos = ({
+    disabled,
+    values,
+    errors,
+    control,
+    fields,
+    append,
+    remove,
+}) => {
     const [loading, setLoading] = useState(true);
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -42,30 +43,35 @@ const InfoModulos = ({ disabled, values, errors, control, isEdit }) => {
     };
 
     useEffect(() => {
-        if (!isEdit) {
-            if (values.length > 0) {
-                for (let i = 0; i < values.length; i++) {
-                    append({ ...values[i], id: shortid.generate() });
-                }
+        setLoading(true);
+
+        if (values?.length > 0 && fields.length === 0) {
+            for (let i = 0; i < values.length; i++) {
+                append({ ...values[i], id: shortid.generate() });
             }
         }
 
         setLoading(false);
-    }, [values, append, isEdit]);
+
+        // eslint-disable-next-line
+    }, [values]);
 
     useEffect(() => {
-        if (!isEdit) {
-            if (values.length === 0 && fields.length === 0) {
-                append({
-                    id: shortid.generate(),
-                    intHoras: "",
-                    strNombre: "",
-                    arrResponsables: [],
-                    strEntregables: "",
-                });
-            }
+        setLoading(true);
+
+        if (values?.length === 0 && fields.length === 0) {
+            append({
+                id: shortid.generate(),
+                intHoras: "",
+                strNombre: "",
+                arrResponsables: [],
+                strEntregables: "",
+            });
         }
-    }, [fields, append, values, isEdit]);
+
+        setLoading(false);
+        // eslint-disable-next-line
+    }, [fields]);
 
     if (loading) {
         return (

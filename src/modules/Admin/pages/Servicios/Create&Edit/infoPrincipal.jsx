@@ -30,6 +30,7 @@ import SelectTipoServicio from "../../../components/selectTipoServicio";
 
 const InfoPrincipal = ({
     data: dataServicios,
+    isEdit,
     disabled,
     values,
     errors,
@@ -41,6 +42,7 @@ const InfoPrincipal = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
+        intId: "",
         intIdTipoServicio: "",
         strNombre: "",
         strDescripcion: "",
@@ -60,8 +62,11 @@ const InfoPrincipal = ({
     };
 
     useEffect(() => {
+        setLoading(true);
+
         if (Object.keys(values).length > 0) {
             setData({
+                intId: values.intId,
                 intIdTipoServicio: values.intIdTipoServicio,
                 strNombre: values.strNombre,
                 strDescripcion: values.strDescripcion,
@@ -157,6 +162,7 @@ const InfoPrincipal = ({
                                         onChangeModules(e.target.value);
                                         setValue("arrModulos", []);
                                     }}
+                                    required
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
@@ -231,6 +237,7 @@ const InfoPrincipal = ({
                                 <TextField
                                     label="Nombre del servicio"
                                     name={name}
+                                    required
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
@@ -253,14 +260,27 @@ const InfoPrincipal = ({
                                     "Por favor, digita el nombre del servicio",
 
                                 validate: (value) => {
-                                    if (
-                                        dataServicios?.find(
-                                            (a) =>
-                                                a.objInfoPrincipal.strNombre.toLowerCase() ===
-                                                value.toLowerCase()
-                                        )
-                                    ) {
-                                        return `Ya existe un servicio registrado como ${value}`;
+                                    if (isEdit) {
+                                        if (
+                                            dataServicios?.find(
+                                                (a) =>
+                                                    a.objInfoPrincipal.strNombre.toLowerCase() ===
+                                                        value.toLowerCase() &&
+                                                    a.intId !== data.intId
+                                            )
+                                        ) {
+                                            return `Ya existe un servicio registrado como ${value}`;
+                                        }
+                                    } else {
+                                        if (
+                                            dataServicios?.find(
+                                                (a) =>
+                                                    a.objInfoPrincipal.strNombre.toLowerCase() ===
+                                                    value.toLowerCase()
+                                            )
+                                        ) {
+                                            return `Ya existe un servicio registrado como ${value}`;
+                                        }
                                     }
                                 },
                             }}
@@ -277,6 +297,7 @@ const InfoPrincipal = ({
                                     label="Descripción del servicio"
                                     name={name}
                                     value={value}
+                                    required
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     multiline
