@@ -61,13 +61,11 @@ class updateServicios {
 
         if (arrayServicios?.length > 0 ) {
             for (let i = 0; i < arrayServicios.length; i++) {
-                if (
-                    this.#objData.objInfoPrincipal.strNombre ===
-                    arrayServicios[i].objInfoPrincipal.strNombre
-                ) {
-                    throw new Error(
-                        "El nombre de este servicio ya existe."
-                    );
+                if (this.#objData.strNombre === arrayTipoTarifa[i].strNombre) {
+                    strNombreRepetido++;
+                }
+                if (strNombreRepetido === 2) {
+                    throw new Error("El nombre de esta áreas ya existe.");
                 }
             }
         }

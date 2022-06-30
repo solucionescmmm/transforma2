@@ -61,8 +61,12 @@ class updateAreas {
         let arrayAreas = queryGetAreas.data;
 
         for (let i = 0; i < arrayAreas.length; i++) {
+            let strNombreRepetido = 0;
             if (this.#objData.strNombre === arrayAreas[i].strNombre) {
-                throw new Error("El nombre de esta área ya existe.");
+                strNombreRepetido++;
+            }
+            if (strNombreRepetido === 2) {
+                throw new Error("El nombre de esta áreas ya existe.");
             }
         }
     }

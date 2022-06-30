@@ -60,8 +60,12 @@ class updateSedes {
         let arraySedes = queryGetSedes.data;
 
         for (let i = 0; i < arraySedes.length; i++) {
+            let strNombreRepetido = 0;
             if (this.#objData.strNombre === arraySedes[i].strNombre) {
-                throw new Error("El nombre de esta sede ya existe.");
+                strNombreRepetido++;
+            }
+            if (strNombreRepetido === 2) {
+                throw new Error("El nombre de esta áreas ya existe.");
             }
         }
     }

@@ -32,7 +32,7 @@ class updateTiposServicios {
         await this.#updateTiposServicios();
         await this.#updateAtributosTiposServicios();
         if (this.#objData.bitActivar === true) {
-            await this.#updateActivarAtributosTiposServicios()
+            await this.#updateActivarAtributosTiposServicios();
         }
         return this.#objResult;
     }
@@ -61,7 +61,11 @@ class updateTiposServicios {
         let arrayTipoServicios = queryGetTipoServicios.data;
 
         for (let i = 0; i < arrayTipoServicios.length; i++) {
+            let strNombreRepetido = 0;
             if (this.#objData.strNombre === arrayTipoServicios[i].strNombre) {
+                strNombreRepetido++;
+            }
+            if (strNombreRepetido === 2) {
                 throw new Error("El nombre de este tipo servicio ya existe.");
             }
         }
