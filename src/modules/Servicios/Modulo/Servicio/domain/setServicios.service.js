@@ -26,6 +26,7 @@ class setServicios {
     }
 
     async main() {
+        //console.log(this.#objData);
         await this.#validations();
         await this.#getIdEstado();
         await this.#setServicios();
@@ -58,15 +59,13 @@ class setServicios {
 
         let arrayServicios = queryGetServicios.data;
 
-        if (arrayServicios?.length > 0 ) {
+        if (arrayServicios?.length > 0) {
             for (let i = 0; i < arrayServicios.length; i++) {
                 if (
                     this.#objData.objInfoPrincipal.strNombre ===
                     arrayServicios[i].objInfoPrincipal.strNombre
                 ) {
-                    throw new Error(
-                        "El nombre de este servicio ya existe."
-                    );
+                    throw new Error("El nombre de este servicio ya existe.");
                 }
             }
         }
@@ -112,14 +111,39 @@ class setServicios {
                 let array = this.#objData.arrModulos;
 
                 for (let i = 0; i < array.length; i++) {
+                    if (array[i].intHoras !== "") {
+                        let dao = new classInterfaceDAOServicios();
+
+                        let query = await dao.setModuloServicios({
+                            ...array[i],
+                            intIdServicio: this.#intIdServicio,
+                            strResponsables: JSON.stringify(
+                                array[i]?.arrResponsables
+                            ),
+                            strUsuarioCreacion: this.#objUser.strEmail,
+                        });
+
+                        if (query.error) {
+                            await this.#rollbackTransaction();
+                            throw new Error(query.msg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    async #setSedeTipoTarifaServicio() {
+        if (this.#objData.arrSedesTarifas.length > 0) {
+            let array = this.#objData.arrSedesTarifas;
+
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].intIdSede !== "") {
                     let dao = new classInterfaceDAOServicios();
 
-                    let query = await dao.setModuloServicios({
+                    let query = await dao.setSedeTipoTarifaServicio({
                         ...array[i],
                         intIdServicio: this.#intIdServicio,
-                        strResponsables: JSON.stringify(
-                            array[i]?.arrResponsables
-                        ),
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 
@@ -132,43 +156,24 @@ class setServicios {
         }
     }
 
-    async #setSedeTipoTarifaServicio() {
-        if (this.#objData.arrSedesTarifas.length > 0) {
-            let array = this.#objData.arrSedesTarifas;
-
-            for (let i = 0; i < array.length; i++) {
-                let dao = new classInterfaceDAOServicios();
-
-                let query = await dao.setSedeTipoTarifaServicio({
-                    ...array[i],
-                    intIdServicio: this.#intIdServicio,
-                    strUsuarioCreacion: this.#objUser.strEmail,
-                });
-
-                if (query.error) {
-                    await this.#rollbackTransaction();
-                    throw new Error(query.msg);
-                }
-            }
-        }
-    }
-
     async #setAreasServicios() {
         if (this.#objData.arrResponsables.length > 0) {
             let array = this.#objData.arrResponsables;
 
             for (let i = 0; i < array.length; i++) {
-                let dao = new classInterfaceDAOServicios();
+                if (array[i].intIdAreas !== "") {
+                    let dao = new classInterfaceDAOServicios();
 
-                let query = await dao.setAreasServicios({
-                    ...array[i],
-                    intIdServicio: this.#intIdServicio,
-                    strUsuarioCreacion: this.#objUser.strEmail,
-                });
+                    let query = await dao.setAreasServicios({
+                        ...array[i],
+                        intIdServicio: this.#intIdServicio,
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
 
-                if (query.error) {
-                    await this.#rollbackTransaction();
-                    throw new Error(query.msg);
+                    if (query.error) {
+                        await this.#rollbackTransaction();
+                        throw new Error(query.msg);
+                    }
                 }
             }
         }
