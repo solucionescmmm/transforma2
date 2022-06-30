@@ -61,7 +61,7 @@ class updateServicios {
 
         if (arrayServicios?.length > 0 ) {
             for (let i = 0; i < arrayServicios.length; i++) {
-                if (this.#objData.strNombre === arrayTipoTarifa[i].strNombre) {
+                if (this.#objData.strNombre === arrayServicios[i].strNombre) {
                     strNombreRepetido++;
                 }
                 if (strNombreRepetido === 2) {
