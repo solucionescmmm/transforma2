@@ -243,8 +243,7 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
             <DialogContent>
                 <DialogContentText>
                     {data.intIdEstado === 1
-                        ? message ||
-                          "Al desactivar el registro, dejará de listarse en el sistema y en los servicios"
+                        ? "Al desactivar el registro, dejará de listarse en el sistema y en los servicios"
                         : "Al activar el registro, se listará de forma automática en todo el sistema"}
                 </DialogContentText>
             </DialogContent>

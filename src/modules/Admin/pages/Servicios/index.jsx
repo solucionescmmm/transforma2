@@ -72,7 +72,7 @@ const ReadSolicitudesUser = () => {
             title: "",
             render: (rowData) => (
                 <Switch
-                    checked={rowData.intIdEstado === 1 ? true : false}
+                    checked={rowData.objInfoPrincipal.intIdEstado === 1 ? true : false}
                     size="small"
                     onClick={() => {
                         setSelectedData(rowData);
