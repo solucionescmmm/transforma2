@@ -27,6 +27,9 @@ class daoServicios {
             )
             
             SET @intId = SCOPE_IDENTITY();
+
+            INSERT INTO tbl_Result_TipoServicio_Servicio (intIdTipoServicio, intIdServicio, dtmCreacion, strUsuarioCreacion)
+            VALUES (${data.intIdTipoServicio}, @intId, GETDATE(), ${data.strUsuarioCreacion})
     
             SELECT * FROM tbl_Servicios WHERE intId = @intId`;
 
@@ -190,24 +193,51 @@ class daoServicios {
     async setResultServicios(data){
         console.log(data);
         try {
+
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
-
-            INSERT tbl_Result_TipoServicio_Servicio ([${data.objPropiedad}])
-            VALUES (${data.valuePropiedad})
-            WHERE intIdServicio = ${data.intIdServicio}`;
-
-            console.log(response);
+            let response = await conn
+                .request()
+                .input("intIdServicio", sql.VarChar, data.intIdServicio)
+                .input("intIdAtributo", sql.VarChar, data.intIdAtributo)
+                .input("strResultAtributo", sql.VarChar, data.strResultAtributo)
+                .execute("sp_updateResultTipoServicioAtributos");
 
             let result = {
                 error: false,
-                data: response.recordset[0],
-                msg: `El área responsable de servicio, fue agregada con éxito.`,
+                data: response.recordsets[0] ? response.recordsets[0][0] : null,
             };
 
             sql.close(conexion);
 
             return result;
+
+            // let conn = await new sql.ConnectionPool(conexion).connect();
+
+            // console.log(`UPDATE tbl_Result_TipoServicio_Servicio
+
+            // SET ${data.objPropiedad} = ${data.valuePropiedad},
+            //     dtmCreacion            = COALESCE(GETDATE(), dtmCreacion),
+            //     strUsuarioCreacion     = COALESCE(${data.strUsuarioCreacion},strUsuarioCreacion)
+            // WHERE intIdServicio = ${data.intIdServicio}`)
+
+            // let response = await conn.query`
+            // UPDATE tbl_Result_TipoServicio_Servicio
+
+            // SET ${data.objPropiedad} = '${data.valuePropiedad}',
+            //     dtmCreacion            = COALESCE(GETDATE(), dtmCreacion),
+            //     strUsuarioCreacion     = COALESCE(${data.strUsuarioCreacion},strUsuarioCreacion)
+            // WHERE intIdServicio = ${data.intIdServicio}
+            
+            // SELECT * FROM tbl_Result_TipoServicio_Servicio WHERE intIdServicio = ${data.intIdServicio}`;
+            // let result = {
+            //     error: false,
+            //     data:response.recordset[0],
+            //     msg: `El resultado del servicio, fue agregado con éxito.`,
+            // };
+
+            // sql.close(conexion);
+
+            // return result;
         } catch (error) {
             let result = {
                 error: true,
@@ -256,7 +286,12 @@ class daoServicios {
                 SELECT * FROM tbl_Area_Servicios AreaServicio
                 WHERE AreaServicio.intIdServicio = Servicio.intId
                 FOR JSON PATH
-            ) as arrResponsables
+            ) as arrResponsables,
+            (
+                SELECT * FROM tbl_Result_TipoServicio_Servicio ResultadoServicio
+                WHERE ResultadoServicio.intIdServicio = Servicio.intId
+                FOR JSON PATH  
+            )as arrAtributos
             FROM tbl_Servicios Servicio
 
             INNER JOIN tbl_Estados Estado on Estado.intId = Servicio.intIdEstado
@@ -329,7 +364,7 @@ class daoServicios {
                 .execute("sp_getServiciosActivos");
             let result = {
                 error: false,
-                data: response.recordsets[0] ? response.recordsets[0][0] : null,
+                data:response.recordsets[0],
             };
             sql.close(conexion);
             return result;
@@ -510,7 +545,8 @@ class daoServicios {
     async deleteServicios(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
+            await conn.query`
+                DELETE FROM tbl_Result_TipoServicio_Servicio WHERE intIdServicio = ${data.intId}
                 DELETE FROM tbl_Area_Servicios WHERE intIdServicio = ${data.intId}
                 DELETE FROM tbl_Sede_TipoTarifa_Servicio WHERE intIdServicio = ${data.intId}
                 DELETE FROM tbl_modulos_Servicio WHERE intIdServicio = ${data.intId}
@@ -518,7 +554,6 @@ class daoServicios {
 
             let result = {
                 error: false,
-                data: response.recordset[0],
                 msg: `El servicio, fue eliminado con éxito.`,
             };
 

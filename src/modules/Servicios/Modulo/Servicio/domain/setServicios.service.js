@@ -26,13 +26,13 @@ class setServicios {
     }
 
     async main() {
-        //console.log(this.#objData);
         await this.#validations();
         await this.#getIdEstado();
         await this.#setServicios();
         await this.#setModuloServicios();
         await this.#setSedeTipoTarifaServicio();
         await this.#setAreasServicios();
+        await this.#setResultServcio();
         return this.#objResult;
     }
 
@@ -174,6 +174,27 @@ class setServicios {
                         await this.#rollbackTransaction();
                         throw new Error(query.msg);
                     }
+                }
+            }
+        }
+    }
+
+    async #setResultServcio() {
+        if (this.#objData.arrAtributos.length > 0) {
+            let array = this.#objData.arrAtributos;
+
+            for (let i = 0; i < array.length; i++) {
+                let dao = new classInterfaceDAOServicios();
+
+                let query = await dao.setResultServicios({
+                    intIdServicio: this.#intIdServicio,
+                    intIdAtributo: array[i].intIdAtributo,
+                    strResultAtributo: array[i]?.[array[i].strNombreAtributo],
+                });
+
+                if (query.error) {
+                    await this.#rollbackTransaction();
+                    throw new Error(query.msg);
                 }
             }
         }

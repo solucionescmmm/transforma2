@@ -28,12 +28,15 @@ class updateServicios {
         await this.#validations();
         if (typeof this.#objData.bitActivar !== "undefined") {
             await this.#getIdEstado();
+            await this.#updateServicios();
+            return this.#objResult;
+        }else{
+            await this.#updateServicios();
+            await this.#updateModuloServicios();
+            await this.#updateSedeTipoTarifaServicio();
+            await this.#updateAreasServicios();
+            return this.#objResult;
         }
-        await this.#updateServicios();
-        await this.#updateModuloServicios();
-        await this.#updateSedeTipoTarifaServicio();
-        await this.#updateAreasServicios();
-        return this.#objResult;
     }
 
     async #validations() {
@@ -51,23 +54,25 @@ class updateServicios {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
-        let queryGetServicios = await getServicios({}, this.#objUser);
+        if (typeof this.#objData.bitActivar === "undefined") {
+            let queryGetServicios = await getServicios({}, this.#objUser);
 
-        if (queryGetServicios.error) {
-            throw new Error(queryGetServicios.msg);
-        }
-
-        let arrayServicios = queryGetServicios.data;
-
-        if (arrayServicios?.length > 0 ) {
-            for (let i = 0; i < arrayServicios.length; i++) {
-                if (this.#objData.objInfoPrincipal.strNombre === arrayServicios[i].objInfoPrincipal.strNombre) {
-                    strNombreRepetido++;
-                }
-                if (strNombreRepetido === 2) {
-                    throw new Error("El nombre de esta áreas ya existe.");
-                }
+            if (queryGetServicios.error) {
+                throw new Error(queryGetServicios.msg);
             }
+    
+            let arrayServicios = queryGetServicios.data;
+    
+            if (arrayServicios?.length > 0 ) {
+                for (let i = 0; i < arrayServicios.length; i++) {
+                    if (this.#objData.objInfoPrincipal.strNombre === arrayServicios[i].objInfoPrincipal.strNombre) {
+                        strNombreRepetido++;
+                    }
+                    if (strNombreRepetido === 2) {
+                        throw new Error("El nombre de esta áreas ya existe.");
+                    }
+                }
+            } 
         }
     }
 
@@ -88,6 +93,7 @@ class updateServicios {
 
         let query = await dao.updateServicios({
             ...this.#objData.objInfoPrincipal,
+            intId:this.#objData.intId,
             intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
         });
