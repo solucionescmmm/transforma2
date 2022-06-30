@@ -65,6 +65,7 @@ class updateServicios {
     
             if (arrayServicios?.length > 0 ) {
                 for (let i = 0; i < arrayServicios.length; i++) {
+                    let strNombreRepetido =0
                     if (this.#objData.objInfoPrincipal.strNombre === arrayServicios[i].objInfoPrincipal.strNombre) {
                         strNombreRepetido++;
                     }
