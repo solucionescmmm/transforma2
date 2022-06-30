@@ -79,6 +79,7 @@ class setTiposServicios {
         let newData = {
             ...this.#objData,
             intIdEstado: this.#intIdEstado,
+            strUsuarioCreacion:this.#objUser.strEmail,
         };
         this.#objData = newData;
     }
