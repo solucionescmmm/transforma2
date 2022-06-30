@@ -95,6 +95,7 @@ const PaperSedesTarifa = ({
 
         if (!values.id) {
             remove(index);
+            setOpenModalDelete(!openModalDelete);
         }
 
         setLoading(false);

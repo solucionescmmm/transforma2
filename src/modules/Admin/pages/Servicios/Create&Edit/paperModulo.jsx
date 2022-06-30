@@ -95,6 +95,7 @@ const PaperModulo = ({
 
         if (!values.id) {
             remove(index);
+            setOpenModalDelete(!openModalDelete);
         }
 
         setLoading(false);

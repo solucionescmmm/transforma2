@@ -88,6 +88,7 @@ const PaperAtributo = ({
         }
 
         if (!values.id) {
+            setOpenModalDelete(!openModalDelete);
             remove(index);
         }
 

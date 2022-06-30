@@ -42,12 +42,16 @@ const InfoResponsables = ({
     };
 
     useEffect(() => {
+        setLoading(true);
+
         if (fields.length === 0) {
             append({
                 id: shortid.generate(),
                 intIdArea: "",
             });
         }
+
+        setLoading(false);
 
         // eslint-disable-next-line
     }, [fields]);
