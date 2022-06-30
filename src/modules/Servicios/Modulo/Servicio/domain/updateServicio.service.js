@@ -105,8 +105,10 @@ class updateServicios {
         if (query.error) {
             throw new Error(query.msg);
         }
+        console.log(query);
 
         this.#intIdServicio = query.intId;
+        console.log(this.#intIdServicio);
 
         this.#objResult = {
             error: query.error,
@@ -119,7 +121,7 @@ class updateServicios {
         let dao = new classInterfaceDAOServicios();
 
         let queryModuloServicios = await dao.deleteModuloServicios({
-            intIdServicio: this.#intIdServicio,
+            intId: this.#intIdServicio,
         });
 
         if (queryModuloServicios.error) {
@@ -135,7 +137,6 @@ class updateServicios {
 
                     let query = await dao.setModuloServicios({
                         ...array[i],
-                        intIdServicio: this.#intIdServicio,
                         strResponsables: JSON.stringify(
                             array[i]?.strResponsables
                         ),
@@ -156,7 +157,7 @@ class updateServicios {
 
         let querySedeTipoTarifaServicio =
             await dao.deleteSedeTipoTarifaServicios({
-                intIdServicio: this.#intIdServicio,
+                intId: this.#intIdServicio,
             });
 
         if (querySedeTipoTarifaServicio.error) {
@@ -170,7 +171,6 @@ class updateServicios {
 
                 let query = await dao.setSedeTipoTarifaServicio({
                     ...array[i],
-                    intIdServicio: this.#intIdServicio,
                     strUsuarioActualizacion: this.#objUser.strEmail,
                 });
 
@@ -186,12 +186,14 @@ class updateServicios {
         let dao = new classInterfaceDAOServicios();
 
         let queryAreasServicios = await dao.deleteAreaServicios({
-            intIdServicio: this.#intIdServicio,
+            intId: this.#intIdServicio,
         });
 
         if (queryAreasServicios.error) {
             throw new Error(queryAreasServicios.msg);
         }
+
+        console.log(this.#objData.arrResponsables);
 
         if (this.#objData.arrResponsables.length > 0) {
             let array = this.#objData.arrResponsables;
@@ -201,7 +203,6 @@ class updateServicios {
 
                 let query = await dao.setAreasServicios({
                     ...array[i],
-                    intIdServicio: this.#intIdServicio,
                     strUsuarioActualizacion: this.#objUser.strEmail,
                 });
 
