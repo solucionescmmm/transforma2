@@ -63,9 +63,10 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const { data: message } = useGetMessage({
+    const { data: message, refreshGetData } = useGetMessage({
         strNombreMaestro: "Servicio",
-        intIdMaestro: values.intId,
+        intIdMaestro: values?.intId,
+        autoLoad: false,
     });
 
     //===============================================================================================================================================
@@ -137,9 +138,15 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
                 intId: values.intId,
                 intIdEstado: values.intIdEstado,
             });
+
+            refreshGetData({
+                strNombreMaestro: "Servicio",
+                intIdMaestro: values?.intId,
+            });
         }
 
         setLoading(false);
+        // eslint-disable-next-line
     }, [values]);
 
     useEffect(() => {

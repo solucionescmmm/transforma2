@@ -150,7 +150,7 @@ const ReadSolicitudesUser = () => {
             <ModalState
                 handleOpenDialog={handlerOpenModalState}
                 open={openModalState}
-                values={selectedData}
+                values={selectedData.objInfoPrincipal}
                 refresh={refreshGetData}
             />
 
