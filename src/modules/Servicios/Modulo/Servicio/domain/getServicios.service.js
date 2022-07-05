@@ -52,11 +52,32 @@ const getEmpresario = async (objParams, strDataUser) => {
                     dtmActualizacion:array[i].dtmActualizacion,
                     strUsuarioActualizacion:array[i].strUsuarioActualizacion,
                 }
+                
+                let queryAtributos = await dao.getAtributosTiposServicios({
+                    intIdTipoServicio: array[i].intIdTipoServicio
+                })
+
+                let arrAtributos = queryAtributos.data
+
+                let objResultAtributos = array[i].objResultAtributos
+
+                for (const prop in objResultAtributos) {
+                    for (let j = 0; j < arrAtributos.length; j++) {
+                        if (prop === arrAtributos[j].strNombreAtributo) {
+                            arrAtributos[j]={
+                                ...arrAtributos[j],
+                                [prop]:objResultAtributos[prop]
+                            }
+                        }
+                    }
+                }
+
                 data[i] ={
                     objInfoPrincipal,
                     arrModulos:array[i]?.arrModulos||[],
                     arrSedesTarifas:array[i]?.arrSedesTarifas||[],
                     arrResponsables:array[i]?.arrResponsables||[],
+                    arrAtributos
                 }
             }
             let result = {

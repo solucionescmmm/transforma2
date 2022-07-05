@@ -67,6 +67,12 @@ class interfaceDAOServicios {
         return result;
     }
 
+    async getAtributosTiposServicios(data) {
+        let dao = new classDAO();
+        let result = await dao.getAtributosTiposServicios(data);
+        return result;
+    }
+
     async getServiciosActivos(data) {
         let dao = new classDAO();
         let result = await dao.getServiciosActivos(data);

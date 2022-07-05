@@ -6,6 +6,7 @@ const validator = require("validator").default;
 const {
     conexion,
 } = require("../../../../../../common/config/confSQL_connectionTransfroma");
+
 class daoServicios {
     async setServicios(data) {
         try {
@@ -191,7 +192,6 @@ class daoServicios {
     }
 
     async setResultServicios(data){
-        console.log(data);
         try {
 
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -210,34 +210,6 @@ class daoServicios {
             sql.close(conexion);
 
             return result;
-
-            // let conn = await new sql.ConnectionPool(conexion).connect();
-
-            // console.log(`UPDATE tbl_Result_TipoServicio_Servicio
-
-            // SET ${data.objPropiedad} = ${data.valuePropiedad},
-            //     dtmCreacion            = COALESCE(GETDATE(), dtmCreacion),
-            //     strUsuarioCreacion     = COALESCE(${data.strUsuarioCreacion},strUsuarioCreacion)
-            // WHERE intIdServicio = ${data.intIdServicio}`)
-
-            // let response = await conn.query`
-            // UPDATE tbl_Result_TipoServicio_Servicio
-
-            // SET ${data.objPropiedad} = '${data.valuePropiedad}',
-            //     dtmCreacion            = COALESCE(GETDATE(), dtmCreacion),
-            //     strUsuarioCreacion     = COALESCE(${data.strUsuarioCreacion},strUsuarioCreacion)
-            // WHERE intIdServicio = ${data.intIdServicio}
-            
-            // SELECT * FROM tbl_Result_TipoServicio_Servicio WHERE intIdServicio = ${data.intIdServicio}`;
-            // let result = {
-            //     error: false,
-            //     data:response.recordset[0],
-            //     msg: `El resultado del servicio, fue agregado con éxito.`,
-            // };
-
-            // sql.close(conexion);
-
-            // return result;
         } catch (error) {
             let result = {
                 error: true,
@@ -291,7 +263,7 @@ class daoServicios {
                 SELECT * FROM tbl_Result_TipoServicio_Servicio ResultadoServicio
                 WHERE ResultadoServicio.intIdServicio = Servicio.intId
                 FOR JSON PATH  
-            )as arrAtributos
+            )as objResultAtributos
             FROM tbl_Servicios Servicio
 
             INNER JOIN tbl_Estados Estado on Estado.intId = Servicio.intIdEstado
@@ -326,6 +298,15 @@ class daoServicios {
                         arrNewData[i].arrResponsables = arrResponsables;
                     }
                 }
+
+                if (arrNewData[i].objResultAtributos) {
+                    let { objResultAtributos } = arrNewData[i];
+
+                    if (validator.isJSON(objResultAtributos)) {
+                        objResultAtributos = JSON.parse(objResultAtributos);
+                        arrNewData[i].objResultAtributos = objResultAtributos[0];
+                    }
+                }
             }
 
             let result = {
@@ -350,6 +331,32 @@ class daoServicios {
 
             sql.close(conexion);
 
+            return result;
+        }
+    }
+
+
+
+    async getAtributosTiposServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn
+                .request()
+                .input("p_intIdTipoServicio", sql.VarChar, data.intIdTipoServicio)
+                .execute("sp_getAtributosTipoServicio");
+            let result = {
+                error: false,
+                data: response.recordsets[0],
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message ?
+                    error.message : "Error en el metodo getTiposServicios de la clase daoServicios",
+            };
+            sql.close(conexion);
             return result;
         }
     }
