@@ -280,7 +280,7 @@ const PaperResponsables = ({
                                             onChange={(e) => {
                                                 onChange(e);
                                             }}
-                                            disabled={loading}
+                                            disabled={disabled}
                                             required
                                             error={
                                                 !!errors?.arrResponsables?.[

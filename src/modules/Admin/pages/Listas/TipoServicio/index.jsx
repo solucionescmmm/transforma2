@@ -30,6 +30,7 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
     Delete as DeleteIcon,
+    RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -39,6 +40,8 @@ import ModalCreate from "./modalCreate";
 import ModalEdit from "./modalEdit";
 import ModalDelete from "./modalDelete";
 import ModalState from "./modalState";
+import ModalPreview from "./modalPreview";
+import useGetAtributos from "../../../hooks/useGetAtributos";
 
 const Read = () => {
     //===============================================================================================================================================
@@ -80,16 +83,17 @@ const Read = () => {
             field: "dtmCreacion",
             type: "date",
         },
-        
     ]);
 
     const [openModalCreate, setOpenModalCreate] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalState, setOpenModalState] = useState(false);
+    const [openModalPreview, setOpenModalPreview] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     const { data, refreshGetData } = useGetTiposServicio({ autoLoad: true });
+    const { data: dataAtributos } = useGetAtributos({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -109,6 +113,10 @@ const Read = () => {
 
     const handlerOpenModalState = () => {
         setOpenModalState(!openModalState);
+    };
+
+    const handlerOpenModalPreview = () => {
+        setOpenModalPreview(!openModalPreview);
     };
 
     //===============================================================================================================================================
@@ -143,6 +151,13 @@ const Read = () => {
                 open={openModalState}
                 values={selectedData}
                 refresh={refreshGetData}
+            />
+
+            <ModalPreview
+                handleOpenDialog={handlerOpenModalPreview}
+                open={openModalPreview}
+                values={selectedData}
+                dataAttributes={dataAtributos}
             />
 
             <Grid container direction="row" spacing={2}>
@@ -245,7 +260,7 @@ const Read = () => {
                                         groupedBy: "Datos agrupados por: ",
                                     },
                                 }}
-                                isLoading={!data}
+                                isLoading={!data || !dataAtributos}
                                 data={data || []}
                                 columns={objColumns}
                                 title="Lista de tipos de servicio"
@@ -286,6 +301,7 @@ const Read = () => {
                                             tooltip: "Editar",
                                             onClick: (event, rowData) => {
                                                 setSelectedData(rowData);
+
                                                 handlerOpenModalEdit();
                                             },
                                             disabled:
@@ -316,6 +332,22 @@ const Read = () => {
                                             disabled:
                                                 rowData.intIdEstado === 1 ||
                                                 rowData.intIdEstado === 3,
+                                        };
+                                    },
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <RemoveRedEyeIcon
+                                                    color="gray"
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            tooltip: "Previsualizar",
+                                            onClick: (event, rowData) => {
+                                                setSelectedData(rowData);
+                                                console.log(rowData);
+                                                handlerOpenModalPreview();
+                                            },
                                         };
                                     },
                                 ]}

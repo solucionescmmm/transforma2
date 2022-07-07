@@ -160,6 +160,16 @@ const RoutesTransforma = ({ path }) => {
                                 )}
                             />
 
+                            <Route
+                                path="/transforma/admin/services/preview/:intId"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <AdminServicesCreate isPreview />
+                                    </div>
+                                )}
+                            />
+
                             <Route path="*" component={PageNotFound} />
                         </Switch>
                     </Suspense>

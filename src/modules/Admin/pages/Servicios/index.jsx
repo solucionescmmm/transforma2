@@ -42,6 +42,7 @@ import {
     AddBox as AddBoxIcon,
     Delete as DeleteIcon,
     Home as HomeIcon,
+    RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -372,6 +373,22 @@ const ReadSolicitudesUser = () => {
                                                     .intIdEstado === 1 ||
                                                 rowData.objInfoPrincipal
                                                     .intIdEstado === 3,
+                                        };
+                                    },
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <RemoveRedEyeIcon
+                                                    color="gray"
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            tooltip: "Previsualizar",
+                                            onClick: (event, rowData) => {
+                                                push(
+                                                    `/transforma/admin/services/preview/${rowData.objInfoPrincipal.intId}`
+                                                );
+                                            },
                                         };
                                     },
                                 ]}

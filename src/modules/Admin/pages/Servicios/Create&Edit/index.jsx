@@ -20,6 +20,7 @@ import {
     Alert,
     Box,
     Breadcrumbs,
+    Button,
     Container,
     Grid,
     LinearProgress,
@@ -31,7 +32,10 @@ import {
 import { LoadingButton } from "@mui/lab";
 
 //Iconos
-import { Home as HomeIcon } from "@mui/icons-material";
+import {
+    Home as HomeIcon,
+    ChevronLeft as ChevronLeftIcon,
+} from "@mui/icons-material";
 
 // Componentes
 import PageError from "../../../../../common/components/Error";
@@ -79,7 +83,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CreateEdit = ({ isEdit }) => {
+const CreateEdit = ({ isEdit, isPreview }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -262,7 +266,7 @@ const CreateEdit = ({ isEdit }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (isEdit) {
+        if (isEdit || isPreview) {
             setLoadingGetData(true);
 
             async function getData() {
@@ -332,9 +336,8 @@ const CreateEdit = ({ isEdit }) => {
 
             getData();
         }
-
         // eslint-disable-next-line
-    }, [isEdit, intId]);
+    }, [isEdit, intId, isPreview]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -347,6 +350,8 @@ const CreateEdit = ({ isEdit }) => {
             signalSubmitData.cancel("Petición abortada.");
         };
     }, [flagSubmit, submitData]);
+
+    console.log(isPreview);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -400,9 +405,25 @@ const CreateEdit = ({ isEdit }) => {
                     </Link>
 
                     <Typography color="textPrimary" className={classes.link}>
-                        {isEdit ? "Editar servicio" : "Registrar servicio"}
+                        {isEdit
+                            ? "Editar servicio"
+                            : isPreview
+                            ? "Previsualizar servicio"
+                            : "Registrar servicio"}
                     </Typography>
                 </Breadcrumbs>
+            </Grid>
+
+            <Grid item xs={12}>
+                <Button
+                    component={RouterLink}
+                    to={`/transforma/admin/services/`}
+                    startIcon={<ChevronLeftIcon />}
+                    size="small"
+                    color="inherit"
+                >
+                    Regresar
+                </Button>
             </Grid>
 
             <Grid item xs={12}>
@@ -443,6 +464,8 @@ const CreateEdit = ({ isEdit }) => {
                                         >
                                             {isEdit
                                                 ? "EDITAR SERVICIO"
+                                                : isPreview
+                                                ? "PREVISUALIZAR SERVICIO"
                                                 : "REGISTRAR SERVICIO"}
                                         </Typography>
                                     </Box>
@@ -461,7 +484,7 @@ const CreateEdit = ({ isEdit }) => {
                                     isEdit={isEdit}
                                     control={control}
                                     values={data.objInfoPrincipal}
-                                    disabled={loading}
+                                    disabled={isPreview ? true : loading}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -478,7 +501,7 @@ const CreateEdit = ({ isEdit }) => {
                                 <InfoAtributo
                                     control={control}
                                     values={objTipoServicio?.arrAtributos}
-                                    disabled={loading}
+                                    disabled={isPreview ? true : loading}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -493,7 +516,7 @@ const CreateEdit = ({ isEdit }) => {
                                     <InfoModulos
                                         control={control}
                                         values={data.arrModulos}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -509,7 +532,7 @@ const CreateEdit = ({ isEdit }) => {
                                 <InfoSedesTarifa
                                     control={control}
                                     values={data.arrModulos}
-                                    disabled={loading}
+                                    disabled={isPreview ? true : loading}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -524,7 +547,7 @@ const CreateEdit = ({ isEdit }) => {
                                 <InfoResponsables
                                     control={control}
                                     values={data.arrModulos}
-                                    disabled={loading}
+                                    disabled={isPreview ? true : loading}
                                     isEdit={isEdit}
                                     errors={errors}
                                     setValue={setValue}
@@ -561,8 +584,13 @@ const CreateEdit = ({ isEdit }) => {
                                         variant="contained"
                                         type="submit"
                                         loading={loading}
+                                        disabled={isPreview}
                                     >
-                                        {isEdit ? "guardar" : "registrar"}
+                                        {isEdit
+                                            ? "guardar"
+                                            : isPreview
+                                            ? "No disponible"
+                                            : "registrar"}
                                     </LoadingButton>
                                 </Box>
                             </Grid>

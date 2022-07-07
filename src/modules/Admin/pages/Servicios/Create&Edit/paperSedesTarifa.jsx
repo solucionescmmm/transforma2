@@ -286,7 +286,7 @@ const PaperSedesTarifa = ({
                                             onChange={(e) => {
                                                 onChange(e);
                                             }}
-                                            disabled={loading}
+                                            disabled={disabled}
                                             required
                                             error={
                                                 !!errors?.arrSedesTarifas?.[
@@ -322,7 +322,7 @@ const PaperSedesTarifa = ({
                                             onChange={(e) => {
                                                 onChange(e);
                                             }}
-                                            disabled={loading}
+                                            disabled={disabled}
                                             required
                                             error={
                                                 !!errors?.arrSedesTarifas?.[

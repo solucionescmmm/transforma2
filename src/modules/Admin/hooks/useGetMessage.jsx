@@ -47,7 +47,9 @@ const useGetMessage = ({
                 }
             )
                 .then((res) => {
-                    setData(res.data.data);
+                    const strMsg = res.data.data?.at(0).strMensaje;
+
+                    setData(strMsg || "");
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -88,13 +90,13 @@ const useGetMessage = ({
         let signalSubmitData = axios.CancelToken.source();
 
         if (autoLoad) {
-            getData({ signalSubmitData });
+            getData({ signalSubmitData, strNombreMaestro, intIdMaestro });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, autoLoad]);
+    }, [getData, autoLoad, strNombreMaestro, intIdMaestro]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
