@@ -197,9 +197,9 @@ class daoServicios {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn
                 .request()
-                .input("intIdServicio", sql.VarChar, data.intIdServicio)
-                .input("intIdAtributo", sql.VarChar, data.intIdAtributo)
-                .input("strResultAtributo", sql.VarChar, data.strResultAtributo)
+                .input("intIdServicio", sql.NVarChar, data.intIdServicio)
+                .input("intIdAtributo", sql.NVarChar, data.intIdAtributo)
+                .input("strResultAtributo", sql.NVarChar, data.strResultAtributo)
                 .execute("sp_updateResultTipoServicioAtributos");
 
             let result = {
