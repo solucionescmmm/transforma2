@@ -61,10 +61,7 @@ class setServicios {
 
         if (arrayServicios?.length > 0) {
             for (let i = 0; i < arrayServicios.length; i++) {
-                if (
-                    this.#objData.objInfoPrincipal.strNombre ===
-                    arrayServicios[i].objInfoPrincipal.strNombre
-                ) {
+                if (this.#objData.objInfoPrincipal.strNombre.trim() === arrayServicios[i].objInfoPrincipal.strNombre.trim()) {
                     throw new Error("El nombre de este servicio ya existe.");
                 }
             }

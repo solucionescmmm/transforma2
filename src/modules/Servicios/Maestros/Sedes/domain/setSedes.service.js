@@ -55,7 +55,7 @@ class setSede {
         let arraySedes = queryGetSedes.data;
 
         for (let i = 0; i < arraySedes.length; i++) {
-            if (this.#objData.strNombre === arraySedes[i].strNombre) {
+            if (this.#objData.strNombre.trim() === arraySedes[i].strNombre.trim()) {
                 throw new Error("El nombre de esta sede ya existe.");
             }
         }

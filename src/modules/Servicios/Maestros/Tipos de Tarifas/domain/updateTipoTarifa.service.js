@@ -58,7 +58,7 @@ class updateTipoTarifa {
 
         for (let i = 0; i < arrayTipoTarifa.length; i++) {
             let strNombreRepetido = 0;
-            if (this.#objData.strNombre === arrayTipoTarifa[i].strNombre) {
+            if (this.#objData.strNombre.trim() === arrayTipoTarifa[i].strNombre.trim()) {
                 strNombreRepetido++;
             }
             if (strNombreRepetido === 2) {

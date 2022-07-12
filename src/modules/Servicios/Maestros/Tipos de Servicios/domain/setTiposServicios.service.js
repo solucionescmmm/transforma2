@@ -57,7 +57,7 @@ class setTiposServicios {
         let arrayTipoServicios = queryGetTipoServicios.data;
 
         for (let i = 0; i < arrayTipoServicios.length; i++) {
-            if (this.#objData.strNombre === arrayTipoServicios[i].strNombre) {
+            if (this.#objData.strNombre.trim() === arrayTipoServicios[i].strNombre.trim()) {
                 throw new Error("El nombre de este tipo servicio ya existe.");
             }
         }

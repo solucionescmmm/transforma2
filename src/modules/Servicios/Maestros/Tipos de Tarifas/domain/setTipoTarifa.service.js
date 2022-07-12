@@ -56,7 +56,7 @@ class setTipoTarifa {
         let arrayTipoTarifa = queryGetTipoTarifa.data;
 
         for (let i = 0; i < arrayTipoTarifa.length; i++) {
-            if (this.#objData.strNombre === arrayTipoTarifa[i].strNombre) {
+            if (this.#objData.strNombre.trim() === arrayTipoTarifa[i].strNombre.trim()) {
                 throw new Error("El nombre de este tipo tarifa ya existe.");
             }
         }

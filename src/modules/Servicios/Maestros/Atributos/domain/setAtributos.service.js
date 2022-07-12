@@ -55,7 +55,7 @@ class setAtributos {
         let arrayAtributos = queryGetAtributos.data;
 
         for (let i = 0; i < arrayAtributos.length; i++) {
-            if (this.#objData.strNombre === arrayAtributos[i].strNombre) {
+            if (this.#objData.strNombre.trim() === arrayAtributos[i].strNombre.trim()) {
                 throw new Error("El nombre de este atributo ya existe.");
             }
         }

@@ -62,7 +62,7 @@ class updateTiposServicios {
 
         for (let i = 0; i < arrayTipoServicios.length; i++) {
             let strNombreRepetido = 0;
-            if (this.#objData.strNombre === arrayTipoServicios[i].strNombre) {
+            if (this.#objData.strNombre.trim() === arrayTipoServicios[i].strNombre.trim()) {
                 strNombreRepetido++;
             }
             if (strNombreRepetido === 2) {

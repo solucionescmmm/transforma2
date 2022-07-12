@@ -56,8 +56,9 @@ class setAreas {
 
         let arrayAreas = queryGetAreas.data;
 
+        
         for (let i = 0; i < arrayAreas.length; i++) {
-            if (this.#objData.strNombre === arrayAreas[i].strNombre) {
+            if (this.#objData.strNombre.trim() === arrayAreas[i].strNombre.trim()) {
                 throw new Error("El nombre de esta área ya existe.");
             }
         }

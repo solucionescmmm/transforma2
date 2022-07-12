@@ -61,7 +61,7 @@ class updateAtributos {
 
         for (let i = 0; i < arrayAtributos.length; i++) {
             let strNombreRepetido = 0;
-            if (this.#objData.strNombre === arrayAtributos[i].strNombre) {
+            if (this.#objData.strNombre.trim() === arrayAtributos[i].strNombre.trim()) {
                 strNombreRepetido++;
             }
             if (strNombreRepetido === 2) {
