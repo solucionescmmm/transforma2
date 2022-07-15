@@ -192,13 +192,13 @@ class daoServicios {
     }
 
     async setResultServicios(data){
+        console.log(data)
         try {
-
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn
                 .request()
-                .input("intIdServicio", sql.NVarChar, data.intIdServicio)
-                .input("intIdAtributo", sql.NVarChar, data.intIdAtributo)
+                .input("strIdServicio", sql.NVarChar, data.intIdServicio)
+                .input("strIdAtributo", sql.NVarChar, data.intIdAtributo)
                 .input("strResultAtributo", sql.NVarChar, data.strResultAtributo)
                 .execute("sp_updateResultTipoServicioAtributos");
 
