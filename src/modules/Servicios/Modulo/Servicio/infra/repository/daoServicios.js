@@ -334,8 +334,6 @@ class daoServicios {
         }
     }
 
-
-
     async getAtributosTiposServicios(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -638,6 +636,33 @@ class daoServicios {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn.query`DELETE FROM tbl_Area_Servicios WHERE intIdServicio = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: `El servicio, fue eliminado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteAreaServicios de la clase daoServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteResultadoServicios(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn.query`DELETE FROM tbl_Result_TipoServicio_Servicio WHERE intIdServicio = ${data.intId}`;
 
             let result = {
                 error: false,

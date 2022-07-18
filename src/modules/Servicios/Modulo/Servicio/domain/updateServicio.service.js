@@ -188,8 +188,6 @@ class updateServicios {
             throw new Error(queryAreasServicios.msg);
         }
 
-        console.log(this.#objData.arrResponsables);
-
         if (this.#objData.arrResponsables.length > 0) {
             let array = this.#objData.arrResponsables;
 
@@ -210,6 +208,17 @@ class updateServicios {
     }
 
     async #updateResultServcio() {
+
+        let dao = new classInterfaceDAOServicios();
+
+        let queryResultadoServicios = await dao.deleteResultadoServicios({
+            intId: this.#intIdServicio,
+        });
+
+        if (queryResultadoServicios.error) {
+            throw new Error(queryResultadoServicios.msg);
+        }
+        
         if (this.#objData.arrAtributos.length > 0) {
             let array = this.#objData.arrAtributos;
 
