@@ -31,11 +31,11 @@ class updateServicios {
             await this.#updateServicios();
             return this.#objResult;
         }else{
-            //console.log(this.#objData);
             await this.#updateServicios();
             await this.#updateModuloServicios();
             await this.#updateSedeTipoTarifaServicio();
             await this.#updateAreasServicios();
+            await this.#updateResultServcio();
             return this.#objResult;
         }
     }
@@ -93,11 +93,8 @@ class updateServicios {
     async #updateServicios() {
         let dao = new classInterfaceDAOServicios();
 
-        console.log(this.#objData.objInfoPrincipal);
-
         let query = await dao.updateServicios({
             ...this.#objData.objInfoPrincipal,
-            intId:this.#objData.intId,
             intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
         });
@@ -105,10 +102,8 @@ class updateServicios {
         if (query.error) {
             throw new Error(query.msg);
         }
-        console.log(query);
 
-        this.#intIdServicio = query.intId;
-        console.log(this.#intIdServicio);
+        this.#intIdServicio = query.data.intId;
 
         this.#objResult = {
             error: query.error,
@@ -204,6 +199,27 @@ class updateServicios {
                 let query = await dao.setAreasServicios({
                     ...array[i],
                     strUsuarioActualizacion: this.#objUser.strEmail,
+                });
+
+                if (query.error) {
+                    await this.#rollbackTransaction();
+                    throw new Error(query.msg);
+                }
+            }
+        }
+    }
+
+    async #updateResultServcio() {
+        if (this.#objData.arrAtributos.length > 0) {
+            let array = this.#objData.arrAtributos;
+
+            for (let i = 0; i < array.length; i++) {
+                let dao = new classInterfaceDAOServicios();
+
+                let query = await dao.setResultServicios({
+                    intIdServicio: this.#intIdServicio,
+                    intIdAtributo: array[i].intIdAtributo,
+                    strResultAtributo: array[i]?.[array[i].strNombreAtributo],
                 });
 
                 if (query.error) {
