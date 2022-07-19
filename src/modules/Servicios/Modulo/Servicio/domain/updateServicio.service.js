@@ -86,6 +86,7 @@ class updateServicios {
         if (queryGetIdEstado.error) {
             throw new Error(queryGetIdEstado.msg);
         }
+        console.log(queryGetIdEstado)
 
         this.#intIdEstado = queryGetIdEstado.data.intId;
     }
@@ -95,6 +96,7 @@ class updateServicios {
 
         let query = await dao.updateServicios({
             ...this.#objData.objInfoPrincipal,
+            intId: this.#objData.intId,
             intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
         });
