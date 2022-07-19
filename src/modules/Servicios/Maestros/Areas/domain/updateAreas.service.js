@@ -62,7 +62,7 @@ class updateAreas {
 
         for (let i = 0; i < arrayAreas.length; i++) {
             let strNombreRepetido = 0;
-            if (this.#objData.strNombre.trim() === arrayAreas[i].strNombre.trim()) {
+            if (this.#objData.strNombre?.trim() === arrayAreas[i].strNombre?.trim()) {
                 strNombreRepetido++;
             }
             if (strNombreRepetido === 2) {

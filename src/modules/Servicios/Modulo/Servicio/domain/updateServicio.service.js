@@ -67,7 +67,7 @@ class updateServicios {
             if (arrayServicios?.length > 0 ) {
                 for (let i = 0; i < arrayServicios.length; i++) {
                     let strNombreRepetido =0
-                    if (this.#objData.objInfoPrincipal.strNombre.trim() === arrayServicios[i].objInfoPrincipal.strNombre.trim()) {
+                    if (this.#objData.objInfoPrincipal.strNombre?.trim() === arrayServicios[i].objInfoPrincipal.strNombre?.trim()) {
                         strNombreRepetido++;
                     }
                     if (strNombreRepetido === 2) {
@@ -218,7 +218,7 @@ class updateServicios {
         if (queryResultadoServicios.error) {
             throw new Error(queryResultadoServicios.msg);
         }
-        
+
         if (this.#objData.arrAtributos.length > 0) {
             let array = this.#objData.arrAtributos;
 

@@ -61,7 +61,7 @@ class updateSedes {
 
         for (let i = 0; i < arraySedes.length; i++) {
             let strNombreRepetido = 0;
-            if (this.#objData.strNombre.trim() === arraySedes[i].strNombre.trim()) {
+            if (this.#objData.strNombre?.trim() === arraySedes[i].strNombre?.trim()) {
                 strNombreRepetido++;
             }
             if (strNombreRepetido === 2) {
