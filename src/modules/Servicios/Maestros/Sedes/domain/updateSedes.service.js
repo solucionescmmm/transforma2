@@ -5,7 +5,7 @@ const validator = require("validator").default;
 const classInterfaceDAOSedes = require("../infra/conectors/interfaceDAOSedes");
 
 //Servicios
-const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const serviceGetIdEstado = require("../../../../Estados/domain/getIdEstado.service");
 const getSedes = require("./getSedes.service");
 
 class updateSedes {

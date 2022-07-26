@@ -5,7 +5,7 @@ const classInterfaceDAOTipoTarifa = require("../infra/conectors/interfaceDAOTipo
 const validator = require("validator").default;
 
 //Servicios
-const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const serviceGetIdEstado = require("../../../../Estados/domain/getIdEstado.service");
 const getTipoTarifa = require("./getTipoTarifa.service");
 
 

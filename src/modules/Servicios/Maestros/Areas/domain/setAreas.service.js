@@ -5,7 +5,7 @@ const classInterfaceDAOAreas = require("../infra/conectors/interfaseDAOAreas");
 const validator = require("validator").default;
 
 //Servicios
-const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const serviceGetIdEstado = require("../../../../Estados/domain/getIdEstado.service");
 const getAreas = require("./getAreas.service");
 
 class setAreas {
