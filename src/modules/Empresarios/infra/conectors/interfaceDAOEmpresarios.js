@@ -13,16 +13,21 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
-
-    async setEmpresarioSecundario(data) {
-        const dao = new classDaoSql();
-        let result = await dao.setEmpresarioSecundrio(data);
-        return result;
-    }
-
     async setInfoAdicional(data){
         const dao = new classDaoSql();
         let result = await dao.setInfoAdicional(data);
+        return result
+    }
+
+    async setIdea(data){
+        const dao = new classDaoSql();
+        let result = await dao.setIdea(data);
+        return result
+    }
+
+    async setIdeaEmpresario(data){
+        const dao = new classDaoSql();
+        let result = await dao.setIdeaEmpresario(data);
         return result
     }
 
@@ -77,6 +82,12 @@ class interfaceDAOEmpresarios {
     async getNroDocumentoEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.getNroDocumentoEmpresario(data);
+        return result;
+    }
+
+    async getIdTipoEmpresario(data){
+        const dao = new classDaoSql();
+        let result = await dao.getIdTipoEmpresario(data);
         return result;
     }
 }

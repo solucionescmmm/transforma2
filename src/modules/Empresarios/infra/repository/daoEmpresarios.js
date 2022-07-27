@@ -74,6 +74,96 @@ class daoEmpresarios {
         }
     }
 
+    async setIdea(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+            DECLARE @intId INTEGER;
+            
+            INSERT INTO tbl_Idea VALUES
+            (
+                ${data.strNombre},
+                ${data.intIdEstado},
+                GETDATE(),
+                ${data.strUsuarioCreacion},
+                GETDATE(),
+                NULL
+            )
+            
+            SET @intId = SCOPE_IDENTITY();
+    
+            SELECT * FROM tbl_Idea WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `La idea, fue agregada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setIdea de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async setIdeaEmpresario(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+            DECLARE @intId INTEGER;
+            
+            INSERT INTO tbl_Idea_Empresario VALUES
+            (
+                ${data.intIdIdea},
+                ${data.intIdEmpresario},
+                ${data.intIdTipoEmpresario},
+                ${data.dtFechaInicio},
+                ${data.dtFechaFin},
+                ${data.intIdEstado},
+                GETDATE(),
+                ${data.strUsuarioCreacion},
+                GETDATE(),
+                NULL
+            )
+            
+            SET @intId = SCOPE_IDENTITY();
+    
+            SELECT * FROM tbl_Idea_Empresario WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `La idea, fue agregada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setIdeaEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async setEmpresa(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -135,56 +225,6 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo setEmpresa de la clase daoEmpresarios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async setEmpresarioSecundrio(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            let response = await conn.query`
-            DECLARE @intId INTEGER;
-            
-            INSERT INTO tbl_EmpresarioSecundario VALUES
-            (
-                ${data.intIdEmpresarioPrincipal},
-                ${data.strTipoRelacion},
-                ${data.strNombres},
-                ${data.strApellidos},
-                ${data.strTipoDocto},
-                ${data.strNroDocto},
-                ${data.strLugarExpedicionDocto},
-                ${data.dtFechaExpedicionDocto},
-                ${data.dtFechaNacimiento},
-                ${data.strGenero},
-                ${data.strCelular},
-                ${data.strCorreoElectronico},
-                GETDATE(),
-                ${data.strUsuario}
-            )
-            SET @intId = SCOPE_IDENTITY();
-
-            SELECT * FROM tbl_EmpresarioSecundario WHERE intId = @intId`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0]
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo setEmpresarioSecundario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
@@ -560,24 +600,12 @@ class daoEmpresarios {
             Empresario.strDireccionResidencia,
             Empresario.strUrlFileFoto,
             (
-                SELECT * FROM tbl_InfoEmpresa Empresa
-                WHERE Empresa.intIdEmpresario = Empresario.intId
-                FOR JSON PATH
-            ) as objInfoEmpresa,
-            (
                 SELECT * FROM tbl_InfoAdicional Adicional
                 WHERE Adicional.intIdEmpresario = Empresario.IntId
                 FOR JSON PATH
-            ) as objInfoAdicional,
-            (
-                SELECT * FROM tbl_EmpresarioSecundario EmpresarioSec
-                WHERE EmpresarioSec.intIdEmpresarioPrincipal = Empresario.intId
-                FOR JSON PATH
-            ) as arrEmpresarioSecundario
+            ) as objInfoAdicional
 
-            From tbl_empresario Empresario 
-            inner join 
-            tbl_infoempresa Empresa  on Empresario.intid = Empresa.intIdEmpresario
+            From tbl_empresario Empresario
 
             WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)
             AND   (Empresario.strNombres = ${data.strNombres} OR ${data.strNombres} IS NULL)
@@ -587,24 +615,11 @@ class daoEmpresarios {
             AND   (Empresario.strSede = ${data.strSede} OR ${data.strSede} IS NULL)
             AND   (Empresario.strEstadoVinculacion = ${data.strEstadoVinculacion} OR ${data.strEstadoVinculacion} IS NULL)
             AND   (Empresario.strTipoVinculacion = ${data.strTipoVinculacion} OR ${data.strTipoVinculacion} IS NULL)
-            AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)
-            AND   (Empresa.strCategoriaProducto = ${data.strCategoriaProducto} OR ${data.strCategoriaProducto} IS NULL)
-            AND   (Empresa.strCategoriaServicio = ${data.strCategoriaServicio} OR ${data.strCategoriaServicio} IS NULL)`;
+            AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
             for (let i = 0; i < arrNewData.length; i++) {
-                if (arrNewData[i].arrEmpresarioSecundario) {
-                    let { arrEmpresarioSecundario } = arrNewData[i];
-
-                    if (validator.isJSON(arrEmpresarioSecundario)) {
-                        arrEmpresarioSecundario = JSON.parse(
-                            arrEmpresarioSecundario
-                        );
-                        arrNewData[i].arrEmpresarioSecundario =
-                            arrEmpresarioSecundario;
-                    }
-                }
                 if (arrNewData[i].objInfoEmpresa) {
                     let { objInfoEmpresa } = arrNewData[i];
                     
@@ -679,6 +694,35 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo getNroDocumentoEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getIdTipoEmpresario(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                SELECT intId FROM tbl_TipoEmpresario
+                WHERE (strNombre = ${data.strNombre})`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getIdTipoEmpresario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
