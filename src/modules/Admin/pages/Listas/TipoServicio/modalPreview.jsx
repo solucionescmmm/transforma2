@@ -173,48 +173,6 @@ const ModalPreview = ({ values, handleOpenDialog, open, dataAttributes }) => {
                             </Grid>
                         </Collapse>
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <Box sx={{ flexGrow: 1 }}>
-                                <Typography
-                                    style={{
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    Información de los módulos
-                                </Typography>
-                            </Box>
-                        </Box>
-
-                        <hr />
-
-                        <Alert severity="warning">
-                            Los módulos no están disponibles en el modo
-                            previsualización
-                        </Alert>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <Box sx={{ flexGrow: 1 }}>
-                                <Typography
-                                    style={{
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    Responsables del servicio
-                                </Typography>
-                            </Box>
-                        </Box>
-
-                        <hr />
-
-                        <Alert severity="warning">
-                            Los responsables del servicio no están disponibles
-                            en el modo previsualización
-                        </Alert>
-                    </Grid>
                 </Grid>
             </DialogContent>
 

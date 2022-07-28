@@ -161,9 +161,9 @@ const InfoPrincipal = ({
                                     label="Tipo de servicio"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => {
+                                    onChange={async (e) => {
                                         onChange(e);
-                                        fntGetData(e.target.value);
+                                        await fntGetData(e.target.value);
                                     }}
                                     disabled={disabled}
                                     required

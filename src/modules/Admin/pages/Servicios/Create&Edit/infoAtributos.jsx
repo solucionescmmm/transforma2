@@ -46,7 +46,6 @@ const InfoAtributos = ({
         setLoading(true);
 
         if (values?.length > 0 && fields.length === 0) {
-
             for (let i = 0; i < values.length; i++) {
                 append({ ...values[i], id: shortid.generate() });
             }
@@ -200,8 +199,11 @@ const InfoAtributos = ({
                                 )}
                                 control={control}
                                 rules={{
-                                    required:
-                                        "Por favor, digita o selecciona una opción",
+                                    validate: (value) => {
+                                        if (value === "") {
+                                            return "Por favor, digita o selecciona una opción";
+                                        }
+                                    },
                                 }}
                             />
                         </Grid>
