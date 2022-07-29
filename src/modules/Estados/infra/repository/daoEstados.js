@@ -4,7 +4,7 @@ const sql = require("mssql");
 //Conexion
 const {
     conexion,
-} = require("../../../../../../common/config/confSQL_connectionTransfroma");
+} = require("../../../../common/config/confSQL_connectionTransfroma");
 class daoEstados {
     async getEstados(data) {
         try {
