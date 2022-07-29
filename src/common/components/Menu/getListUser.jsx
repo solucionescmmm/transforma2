@@ -105,7 +105,7 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                 <ListItemIcon>
                     <PeopleIcon />
                 </ListItemIcon>
-                <ListItemText primary="Personas Empresarias" />
+                <ListItemText primary="Personas Iniciativas" />
             </ListItem>
 
             <ListItem

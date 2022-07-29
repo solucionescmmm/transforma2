@@ -88,7 +88,7 @@ const InfoPrincipal = ({
             intId: intIdTipoServicio,
         });
 
-        onChangeTipoServicio(response.data.data[0]);
+       await onChangeTipoServicio(response.data.data[0]);
     };
 
     if (loading) {
@@ -161,9 +161,9 @@ const InfoPrincipal = ({
                                     label="Tipo de servicio"
                                     name={name}
                                     value={value}
-                                    onChange={async (e) => {
+                                    onChange={(e) => {
                                         onChange(e);
-                                        await fntGetData(e.target.value);
+                                        fntGetData(e.target.value);
                                     }}
                                     disabled={disabled}
                                     required

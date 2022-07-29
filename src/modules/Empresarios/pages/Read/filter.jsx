@@ -221,7 +221,7 @@ const FiltersEmpresarios = ({ alterData }) => {
                 maxWidth="md"
                 fullWidth
             >
-                <DialogTitle>Buscar persona empresaria</DialogTitle>
+                <DialogTitle>Buscar persona iniciativa</DialogTitle>
 
                 <DialogContent>
                     <Grid container direction="row" spacing={2}>
@@ -233,7 +233,7 @@ const FiltersEmpresarios = ({ alterData }) => {
                                     handlerChangeOptions("strEmpresario", value)
                                 }
                                 disabled={loading}
-                                label="Persona empresaria"
+                                label="Persona"
                                 helperText="Puedes filtar a la persona por sus nombres, apellidos o documento de identificación"
                             />
                         </Grid>

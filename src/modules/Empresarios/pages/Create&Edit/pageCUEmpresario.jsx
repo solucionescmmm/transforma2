@@ -633,8 +633,8 @@ const CUEmpresario = ({ isEdit }) => {
                                             variant="h6"
                                         >
                                             {isEdit
-                                                ? "EDITAR PERSONA EMPRESARIA"
-                                                : "REGISTRAR PERSONA EMPRESARIA"}
+                                                ? "EDITAR PERSONA INICIATIVA"
+                                                : "REGISTRAR PERSONA INICIATIVA"}
                                         </Typography>
                                     </Box>
 
@@ -683,7 +683,7 @@ const CUEmpresario = ({ isEdit }) => {
                                     clearErrors={clearErrors}
                                 />
                             </Grid>
-
+{/* 
                             <Grid item xs={12}>
                                 <InfoEmpresarioSec
                                     control={control}
@@ -694,7 +694,7 @@ const CUEmpresario = ({ isEdit }) => {
                                     setError={setError}
                                     clearErrors={clearErrors}
                                 />
-                            </Grid>
+                            </Grid> */}
 
                             <Grid item xs={12}>
                                 <InfoEmpresa

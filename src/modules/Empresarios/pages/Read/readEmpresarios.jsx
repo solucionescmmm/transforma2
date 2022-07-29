@@ -70,19 +70,19 @@ const ReadSolicitudesUser = () => {
             width: "0%",
         },
         {
-            title: "Nombres y Apellidos",
+            title: "Representante",
             render: (rowData) =>
                 rowData.objEmpresario.strNombres +
                 " " +
                 rowData.objEmpresario.strApellidos,
         },
         {
-            title: "Documento",
+            title: "Documento del representante",
             field: "objEmpresario.strNroDocto",
             type: "string",
         },
         {
-            title: "Empresa",
+            title: "Iniciativa",
             field: "objInfoEmpresa.strNombreMarca",
             type: "string",
         },
@@ -92,13 +92,7 @@ const ReadSolicitudesUser = () => {
             type: "string",
         },
         {
-            title: "Categoría",
-            field: "objInfoEmpresa.strSectorEconomico",
-            type: "string",
-        },
-
-        {
-            title: "Fecha de vinculación",
+            title: "Fecha de registro",
             field: "objEmpresario.dtFechaVinculacion",
             type: "date",
         },
@@ -138,7 +132,7 @@ const ReadSolicitudesUser = () => {
                             Inicio
                         </Link>
 
-                        <Typography color="textPrimary">Personas Empresarias</Typography>
+                        <Typography color="textPrimary">Personas Iniciativas</Typography>
                     </Breadcrumbs>
                 </Grid>
 
@@ -242,7 +236,7 @@ const ReadSolicitudesUser = () => {
                                 isLoading={data === undefined ? true : false}
                                 data={!data?.error && data ? data : []}
                                 columns={objColumns}
-                                title="Personas Empresarias"
+                                title="Personas Iniciativas"
                                 options={{
                                     grouping: true,
                                     title: true,
@@ -304,7 +298,7 @@ const ReadSolicitudesUser = () => {
                                                             }
                                                             variant="contained"
                                                         >
-                                                            Agregar persona empresaria
+                                                            Agregar iniciativa
                                                         </Button>
                                                     </Box>
                                                 </Grid>

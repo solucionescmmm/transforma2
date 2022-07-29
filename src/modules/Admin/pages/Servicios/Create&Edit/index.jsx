@@ -207,7 +207,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
             arr.push({ ...data[i], id: shortid.generate() });
         }
 
-        reset({ arrAT: arr });
+        setValue("arrAtributos", arr);
         setObjTipoServicio(data);
     };
 
