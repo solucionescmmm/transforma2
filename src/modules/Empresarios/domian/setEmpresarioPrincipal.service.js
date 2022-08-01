@@ -8,7 +8,7 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
 const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service");
 
-class setEmpresario {
+class setEmpresarioPrincipal {
     //Objetos
     #objData;
     #objUser;
@@ -77,9 +77,7 @@ class setEmpresario {
 
     async #getIdTipoEmpresario() {
         let queryGetIdTipoEmpresario = await serviceGetIdTipoServicio({
-            strNombre: this.#objData.objEmpresario.bitRepresentante
-                ? "Principal"
-                : "Secundario",
+            strNombre: "Principal",
         });
 
         if (queryGetIdTipoEmpresario.error) {
@@ -272,4 +270,4 @@ class setEmpresario {
     }
 }
 
-module.exports = setEmpresario;
+module.exports = setEmpresarioPrincipal;
