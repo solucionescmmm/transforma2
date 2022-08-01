@@ -6,7 +6,7 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 
 //servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
-const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service")
+const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service");
 
 class setEmpresario {
     //Objetos
@@ -29,20 +29,13 @@ class setEmpresario {
 
     async main() {
         await this.#validations();
-        if (this.#objData.objEmpresario.bitRepresentante) {
-            await this.#getIdEstado();
-            await this.#getIdTipoEmpresario();
-            await this.#setEmpresario();
-            await this.#setIdea();
-            await this.#setIdeaEmpresario();
-            await this.#setEmpresa();
-            await this.#setInfoAdicional();
-        } else {
-            await this.#getIdEstado();
-            await this.#getIdTipoEmpresario();
-            await this.#setEmpresario();
-            await this.#setIdeaEmpresario();
-        }
+        await this.#getIdEstado();
+        await this.#getIdTipoEmpresario();
+        await this.#setEmpresario();
+        await this.#setIdea();
+        await this.#setIdeaEmpresario();
+        await this.#setEmpresa();
+        await this.#setInfoAdicional();
 
         return this.#objResult;
     }
@@ -84,7 +77,9 @@ class setEmpresario {
 
     async #getIdTipoEmpresario() {
         let queryGetIdTipoEmpresario = await serviceGetIdTipoServicio({
-            strNombre: this.#objData.objEmpresario.bitRepresentante ? "Principal": "Secundario",
+            strNombre: this.#objData.objEmpresario.bitRepresentante
+                ? "Principal"
+                : "Secundario",
         });
 
         if (queryGetIdTipoEmpresario.error) {
@@ -128,8 +123,8 @@ class setEmpresario {
         };
     }
 
-    async #setIdea(){
-        let prevData = this.#objData.objEmpresario;
+    async #setIdea() {
+        let prevData = this.#objData.objIdea;
 
         let newData = {
             ...prevData,
@@ -151,14 +146,13 @@ class setEmpresario {
         }
     }
 
-    async #setIdeaEmpresario(){
-
+    async #setIdeaEmpresario() {
         let newData = {
             intIdIdea: this.#intIdIdea,
             intIdEmpresario: this.#intIdEmpresario,
-            intIdTipoEmpresario:this.#intIdTipoEmpresario,
+            intIdTipoEmpresario: this.#intIdTipoEmpresario,
             dtFechaInicio: new Date(),
-            intIdEstado:this.#intIdEstado,
+            intIdEstado: this.#intIdEstado,
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 

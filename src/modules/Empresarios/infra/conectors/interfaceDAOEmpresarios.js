@@ -37,6 +37,12 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
+    async updateIdea(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateIdea(data);
+        return result;
+    }
+
     async updateEmpresa(data) {
         const dao = new classDaoSql();
         let result = await dao.updateEmpresa(data);

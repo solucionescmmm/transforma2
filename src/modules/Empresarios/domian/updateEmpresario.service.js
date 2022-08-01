@@ -22,10 +22,14 @@ class updateEmpresario {
     async main() {
         await this.#getEmpresario();
         await this.#validations();
-        await this.#updateEmpresario();
-        await this.#updateEmpresa();
-        await this.#updateEmpresarioSecundario();
-        await this.#updateInfoAdicional();
+        if (this.#objData.objEmpresario.bitRepresentante) {
+            await this.#updateEmpresario();
+            await this.#updateIdea();
+            await this.#updateEmpresa();
+            await this.#updateInfoAdicional();
+        } else {
+            await this.#updateEmpresario();
+        }
 
         return this.#objResult;
     }
@@ -77,7 +81,6 @@ class updateEmpresario {
     }
 
     async #updateEmpresario() {
-        
         let prevData = this.#objData.objEmpresario;
 
         let aux_arrDepartamento= JSON.stringify(this.#objData.objEmpresario?.arrDepartamento || null)
@@ -98,7 +101,6 @@ class updateEmpresario {
             await this.#rollbackTransaction();
             throw new Error(query.msg);
         }
-        console.log(this.#objData);
 
         this.#objResult = {
             error: query.error,
@@ -107,9 +109,12 @@ class updateEmpresario {
         };
     }
 
+    async #updateIdea(){
+
+    }
+
     async #updateEmpresa() {
         let prevData = this.#objData.objInfoEmpresa;
-
 
         let aux_arrCategoriasSecundarias= JSON.stringify(this.#objData.objInfoEmpresa?.arrCategoriasSecundarias || null)
         let aux_arrFormasComercializacion = JSON.stringify(this.#objData.objInfoEmpresa?.arrFormasComercializacion ||null)
@@ -137,34 +142,6 @@ class updateEmpresario {
         if (query.error) {
             await this.#rollbackTransaction();
         }
-    }
-
-    async #updateEmpresarioSecundario() {
-        let dao = new classInterfaceDAOEmpresarios();
-
-            let queryDeleteEmpresarioSecundario = await dao.deleteEmpresarioSecundario({
-                intId : this.#intIdEmpresarioActual
-            })
-            if (queryDeleteEmpresarioSecundario.error) {
-                throw new Error(queryDeleteEmpresarioSecundario.msg);
-            }
-
-            for (let i = 0; i < this.#objData.arrEmpresarioSecundario.length; i++) {
-                let prevData = this.#objData.arrEmpresarioSecundario[i];
-
-                let newData = {
-                    ...prevData,
-                    intIdEmpresarioPrincipal: this.#intIdEmpresarioActual,
-                    strUsuario: this.#objUser.strEmail,
-                };
-
-                let query = await dao.setEmpresarioSecundario(newData);
-
-                if (query.error) {
-                    await this.#rollbackTransaction();
-                }
-            }
-        
     }
 
     async #updateInfoAdicional(){

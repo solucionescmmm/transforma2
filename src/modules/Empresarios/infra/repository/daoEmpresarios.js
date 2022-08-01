@@ -344,6 +344,45 @@ class daoEmpresarios {
         }
     }
 
+    async updateIdea(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_Idea
+
+            SET strNombre               = COALESCE(${data.strNombre}, strNombre),
+                intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+            WHERE intId = ${data.intId}
+
+            SELECT * FROM tbl_Idea WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `La persona ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue actualizada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateEmpresa(data){
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -501,34 +540,6 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo deleteInfoEmpresa de la clase daoEmpresarios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async deleteEmpresarioSecundario(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            await conn.query`DELETE FROM tbl_EmpresarioSecundario WHERE intIdEmpresarioPrincipal = ${data.intId}`;
-
-            let result = {
-                error: false,
-                msg: "La información del empresario secundario fue eliminada con éxito.",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo deleteEmpresarioSecundario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);

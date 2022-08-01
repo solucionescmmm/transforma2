@@ -1,5 +1,5 @@
 //Classes
-const classSetEmpresario = require("../../domian/setEmpresario.service");
+const classSetEmpresario = require("../../domian/setEmpresarioPrincipal.service");
 const classUpdateEmpresario = require("../../domian/updateEmpresario.service")
 const classDaleteEmpresario = require("../../domian/deleteEmpresario.service")
 
