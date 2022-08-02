@@ -125,14 +125,6 @@ class updateEmpresarioSecundario {
             throw new Error(rollEmpresario.msg);
         }
 
-        if (rollEmpresa.error) {
-            throw new Error(rollEmpresa.msg);
-        }
-
-        if (rollAdicional.error) {
-            throw new Error(rollAdicional.msg);
-        }
-
         this.#objResult = {
             error: true,
             msg: query.error
