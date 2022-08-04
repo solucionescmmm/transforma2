@@ -61,6 +61,18 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
+    async deleteIdea(data) {
+        const dao = new classDaoSql();
+        let result = await dao.deleteIdea(data);
+        return result;
+    }
+
+    async deleteIdeaEmpresario(data) {
+        const dao = new classDaoSql();
+        let result = await dao.deleteIdeaEmpresario(data);
+        return result;
+    }
+
     async deleteInfoEmpresa(data) {
         const dao = new classDaoSql();
         let result = await dao.deleteInfoEmpresa(data);

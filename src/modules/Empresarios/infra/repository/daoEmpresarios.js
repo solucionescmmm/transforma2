@@ -128,6 +128,7 @@ class daoEmpresarios {
                 ${data.intIdIdea},
                 ${data.intIdEmpresario},
                 ${data.intIdTipoEmpresario},
+                ${data.strTipoRelacionPrincipal},
                 ${data.dtFechaInicio},
                 ${data.dtFechaFin},
                 ${data.intIdEstado},
@@ -173,7 +174,7 @@ class daoEmpresarios {
             
             INSERT INTO tbl_InfoEmpresa VALUES
             (
-                ${data.intIdEmpresario},
+                ${data.intIdIdea},
                 ${data.strEstadoNegocio},
                 ${data.strCuandoComienzaEmpresa},
                 ${data.strURLFileLogoEmpresa},
@@ -203,7 +204,9 @@ class daoEmpresarios {
                 ${data.arrRequisitosLey},
                 ${data.strOtrosRequisitos},
                 GETDATE(),
-                ${data.strUsuario}
+                ${data.strUsuarioCreacion},
+                GETDATE(),
+                NULL
             )
 
             SET @intId = SCOPE_IDENTITY();
@@ -520,6 +523,62 @@ class daoEmpresarios {
         }
     }
 
+    async deleteIdea(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`DELETE FROM tbl_Idea WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: "El empresario fue eliminado con éxito.",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteIdeaEmpresario(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`DELETE FROM tbl_Idea_Empresario WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: "El empresario fue eliminado con éxito.",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async deleteInfoEmpresa(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -581,56 +640,54 @@ class daoEmpresarios {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
             let response = await conn.query`
-            SELECT 
             
-            Empresario.intId,
-            Empresario.strNombres,
-            Empresario.strApellidos,
-            Empresario.strTipoDocto,
-            Empresario.strNroDocto,
-            Empresario.strLugarExpedicionDocto,
-            Empresario.dtFechaExpedicionDocto,
-            Empresario.dtFechaNacimiento,
-            Empresario.strGenero,
-            Empresario.strCelular1,
-            Empresario.strCelular2,
-            Empresario.strCorreoElectronico1,
-            Empresario.strCorreoElectronico2,
-            Empresario.strNivelEducativo,
-            Empresario.strTitulos,
-            Empresario.strCondicionDiscapacidad,
-            Empresario.strSede,
-            Empresario.strModalidadIngreso,
-            Empresario.dtFechaVinculacion,
-            Empresario.strEstadoVinculacion,
-            Empresario.strTipoVinculacion,
-            Empresario.strEstrato,
-            Empresario.strDepartamento,
-            Empresario.strCiudad,
-            Empresario.strBarrio,
-            Empresario.strDireccionResidencia,
-            Empresario.strUrlFileFoto,
+            SELECT
+            Idea.intId,
+            Idea.strNombre,
+            Idea.intIdEstado,
+            Idea.dtmCreacion,
+            Idea.strUsuarioCreacion,
+            Idea.dtmActualizacion,
+            Idea.strUsuarioActualizacion,
+            (
+                SELECT * FROM tbl_Empresario Empresario
+                WHERE Empresario.intId = IdeaEmpresario.intIdEmpresario
+                FOR JSON PATH
+            ) as objInfoEmpresario,
+            (
+                SELECT * FROM tbl_InfoEmpresa Empresa
+                WHERE Empresa.intIdIdea = Idea.intId
+                FOR JSON PATH
+            ) as objInfoEmpresa,
             (
                 SELECT * FROM tbl_InfoAdicional Adicional
-                WHERE Adicional.intIdEmpresario = Empresario.IntId
+                WHERE Adicional.intIdEmpresario = IdeaEmpresario.intIdEmpresario
                 FOR JSON PATH
             ) as objInfoAdicional
 
-            From tbl_empresario Empresario
-
-            WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (Empresario.strNombres = ${data.strNombres} OR ${data.strNombres} IS NULL)
-            AND   (Empresario.strApellidos = ${data.strApellidos} OR ${data.strApellidos} IS NULL)
-            AND   (Empresario.strNroDocto = ${data.strNroDocto} OR ${data.strNroDocto} IS NULL)
-            AND   (Empresario.strCorreoElectronico1 = ${data.strCorreoElectronico} OR ${data.strCorreoElectronico} IS NULL)
-            AND   (Empresario.strSede = ${data.strSede} OR ${data.strSede} IS NULL)
-            AND   (Empresario.strEstadoVinculacion = ${data.strEstadoVinculacion} OR ${data.strEstadoVinculacion} IS NULL)
-            AND   (Empresario.strTipoVinculacion = ${data.strTipoVinculacion} OR ${data.strTipoVinculacion} IS NULL)
-            AND   (Empresario.dtFechaVinculacion = ${data.dtFechaVinculacion} OR ${data.dtFechaVinculacion} IS NULL)`;
+            FROM tbl_Idea Idea
+            INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdIdea = Idea.intId
+            
+            WHERE (Idea.intId = ${data.intId} OR ${data.intId} IS NULL)
+            
+            
+            `;
 
             let arrNewData = response.recordsets[0];
 
             for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].objInfoEmpresario) {
+                    let { objInfoEmpresario } = arrNewData[i];
+                    
+
+                    if (validator.isJSON(objInfoEmpresario)) {
+                        objInfoEmpresario = JSON.parse(
+                            objInfoEmpresario
+                        );
+                        arrNewData[i].objInfoEmpresario =
+                        objInfoEmpresario;
+                    }
+                }
                 if (arrNewData[i].objInfoEmpresa) {
                     let { objInfoEmpresa } = arrNewData[i];
                     
@@ -670,7 +727,6 @@ class daoEmpresarios {
 
             return result;
         } catch (error) {
-            console.log(error)
             let result = {
                 error: true,
                 msg:

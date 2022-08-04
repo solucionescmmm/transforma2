@@ -18,6 +18,7 @@ class setEmpresarioPrincipal {
     #intIdEmpresario;
     #intIdTipoEmpresario;
     #intIdIdea;
+    #intIdIdeaEmpresario;
     #intIdEstado;
     /**
      * @param {object} data
@@ -122,24 +123,30 @@ class setEmpresarioPrincipal {
     }
 
     async #setIdea() {
+        let newData
         if (this.#objData?.objInfoEmpresa?.strEstadoNegocio === "Idea de negocio") {
-
-            let newData = {
-                ...prevData,
+            newData = {
                 strNombre:`Idea de ${this.#objData.objEmpresario.strNombres} ${this.#objData.objEmpresario.strApellidos}`,
+                intIdEstado:this.#intIdEstado,
+                strUsuarioCreacion: this.#objUser.strEmail,
+            };  
+        }else{
+            newData = {
+                strNombre:this.#objData.objInfoEmpresa?.strNombreMarca,
+                intIdEstado:this.#intIdEstado,
                 strUsuarioCreacion: this.#objUser.strEmail,
             };
-    
-            let dao = new classInterfaceDAOEmpresarios();
-    
-            let query = await dao.setIdea(newData);
-    
-            this.#intIdIdea = query.data.intId;
-    
-            if (query.error) {
-                await this.#rollbackTransaction();
-            }
-        } 
+        }
+
+        let dao = new classInterfaceDAOEmpresarios();
+
+        let query = await dao.setIdea(newData);
+        
+        this.#intIdIdea = query.data.intId;
+
+        if (query.error) {
+            await this.#rollbackTransaction();
+        }
     }
 
     async #setIdeaEmpresario() {
@@ -155,6 +162,10 @@ class setEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setIdeaEmpresario(newData);
+
+        
+
+        this.#intIdIdeaEmpresario = query.data.intId;
 
         if (query.error) {
             await this.#rollbackTransaction();
@@ -185,7 +196,7 @@ class setEmpresarioPrincipal {
 
         let newData = {
             ...prevData,
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdIdea: this.#intIdIdea,
             strUsuario: this.#objUser.strEmail,
             arrCategoriasSecundarias: aux_arrCategoriasSecundarias,
             arrFormasComercializacion: aux_arrFormasComercializacion,
@@ -193,12 +204,13 @@ class setEmpresarioPrincipal {
             arrRequisitosLey: aux_arrRequisitosLey,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad,
+            strUsuarioCreacion: this.#objUser.strEmail,
         };
 
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setEmpresa(newData);
-
+        
         if (query.error) {
             await this.#rollbackTransaction();
         }
@@ -229,7 +241,7 @@ class setEmpresarioPrincipal {
         };
 
         let query = await dao.setInfoAdicional(newData);
-
+        
         if (query.error) {
             await this.#rollbackTransaction();
         }
@@ -238,6 +250,14 @@ class setEmpresarioPrincipal {
     async #rollbackTransaction() {
         let dao = new classInterfaceDAOEmpresarios();
 
+        let queryIdeaEmpresario = await dao.deleteIdeaEmpresario({
+            intId:this.#intIdIdeaEmpresario
+        })
+
+        let queryIdea =await dao.deleteIdea({
+            intId:this.#intIdIdea
+        })
+
         let queryEmpresa = await dao.deleteInfoEmpresa({
             intId: this.#intIdEmpresario,
         });
@@ -245,6 +265,14 @@ class setEmpresarioPrincipal {
         let query = await dao.deleteEmpresario({
             intId: this.#intIdEmpresario,
         });
+
+        if (queryIdeaEmpresario.error) {
+            throw new Error(queryIdeaEmpresario.msg)
+        }
+
+        if (queryIdea.error) {
+            throw new Error(queryIdea.msg)
+        }
 
         if (queryEmpresa.error) {
             this.#objResult = {
