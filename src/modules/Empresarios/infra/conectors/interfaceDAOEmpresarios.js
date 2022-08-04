@@ -31,6 +31,12 @@ class interfaceDAOEmpresarios {
         return result
     }
 
+    async setHistorico(data){
+        const dao = new classDaoSql();
+        let result = await dao.setHistorico(data);
+        return result
+    }
+
     async updateEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.updateEmpresario(data);

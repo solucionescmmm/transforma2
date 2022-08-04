@@ -7,6 +7,7 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 //servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
 const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service");
+const serviceGetIdFuenteHistorico = require("../../Main/domain/getIdFuenteHistoricos.service")
 
 class setEmpresarioPrincipal {
     //Objetos
@@ -16,10 +17,12 @@ class setEmpresarioPrincipal {
 
     //Variables
     #intIdEmpresario;
+    #intIdEmpresa;
     #intIdTipoEmpresario;
     #intIdIdea;
     #intIdIdeaEmpresario;
     #intIdEstado;
+    #intIdFuenteHistorico;
     /**
      * @param {object} data
      */
@@ -32,11 +35,15 @@ class setEmpresarioPrincipal {
         await this.#validations();
         await this.#getIdEstado();
         await this.#getIdTipoEmpresario();
+        await this.#getIdFuenteHistorico();
         await this.#setEmpresario();
         await this.#setIdea();
         await this.#setIdeaEmpresario();
         await this.#setEmpresa();
         await this.#setInfoAdicional();
+        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio") {
+            await this.#setHistorico()
+        }
 
         return this.#objResult;
     }
@@ -86,6 +93,18 @@ class setEmpresarioPrincipal {
         }
 
         this.#intIdTipoEmpresario = queryGetIdTipoEmpresario.data.intId;
+    }
+
+    async #getIdFuenteHistorico() {
+        let queryGetIdFuenteHistorico = await serviceGetIdFuenteHistorico({
+            strNombre: "Prediagnóstico",
+        });
+
+        if (queryGetIdFuenteHistorico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdFuenteHistorico = queryGetIdFuenteHistorico.data.intId;
     }
 
     async #setEmpresario() {
@@ -210,6 +229,8 @@ class setEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setEmpresa(newData);
+
+        this.#intIdEmpresa = query.data.intId
         
         if (query.error) {
             await this.#rollbackTransaction();
@@ -242,6 +263,25 @@ class setEmpresarioPrincipal {
 
         let query = await dao.setInfoAdicional(newData);
         
+        if (query.error) {
+            await this.#rollbackTransaction();
+        }
+    }
+
+    async #setHistorico(){
+        let newData = {
+            intIdIdea:this.#intIdIdea,
+            intNumeroEmpleados:this.#objData.objInfoEmpresa.intNumeroEmpleados,
+            ValorVentas:this.#objData.objInfoEmpresa.valorVentasMes,
+            intIdFuenteHistorico: this.#intIdFuenteHistorico,
+            intIdFuenteDato:this.#intIdEmpresa
+        };
+    
+        let dao = new classInterfaceDAOEmpresarios();
+
+        let query = await dao.setHistorico(newData);
+    
+
         if (query.error) {
             await this.#rollbackTransaction();
         }

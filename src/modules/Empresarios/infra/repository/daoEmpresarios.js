@@ -284,6 +284,48 @@ class daoEmpresarios {
         }
     }
 
+    async setHistorico(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            DECLARE @intId INTEGER;
+            
+            INSERT INTO tbl_Historicos VALUES
+            (
+                ${data.intIdIdea},
+                ${data.intNumeroEmpleados},
+                ${data.ValorVentas},
+                ${data.intIdFuenteHistorico},
+                ${data.intIdFuenteDato},
+                GETDATE()
+            )
+            SET @intId = SCOPE_IDENTITY();
+
+            SELECT * FROM tbl_InfoAdicional WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0]
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setInfoAdicional de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
