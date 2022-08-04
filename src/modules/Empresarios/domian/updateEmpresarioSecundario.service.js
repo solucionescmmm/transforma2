@@ -22,9 +22,6 @@ class updateEmpresarioSecundario {
         await this.#getEmpresario();
         await this.#validations();
         await this.#updateEmpresario();
-        await this.#updateIdea();
-        await this.#updateEmpresa();
-        await this.#updateInfoAdicional();
 
         return this.#objResult;
     }
