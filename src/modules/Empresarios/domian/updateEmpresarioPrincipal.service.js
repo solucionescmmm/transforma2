@@ -217,9 +217,8 @@ class updateEmpresarioPrincipal {
             arrRequisitoLey: aux_arrRequisitoLey,
         };
 
-        let rollEmpresario = await dao.updateEmpresario(
-            this.#objEmpresarioActual.objEmpresario
-        );
+        let rollEmpresario = await dao.updateEmpresario(objDataEmpresario);
+        
         let aux_arrCategoriasSecundarias = JSON.stringify(
             this.#objEmpresarioActual.objInfoEmpresa
                 ?.arrCategoriasSecundarias || null
@@ -243,6 +242,8 @@ class updateEmpresarioPrincipal {
 
         let objDataEmpresa = {
             ...prevData.objInfoEmpresa,
+            arrDepartamento: aux_arrDepartamento,
+            arrCiudad: aux_arrCiudad,
             arrCategoriasSecundarias: aux_arrCategoriasSecundarias,
             arrFormasComercializacion: aux_arrFormasComercializacion,
             arrMediosDigitales: aux_arrMediosDigitales,
@@ -270,28 +271,6 @@ class updateEmpresarioPrincipal {
         };
 
         let rollAdicional = await dao.updateInfoAdicional(objDataAdicional);
-
-        let queryDeleteEmpresarioSecundario =
-            await dao.deleteEmpresarioSecundario({
-                intId: this.#intIdEmpresarioActual,
-            });
-        if (queryDeleteEmpresarioSecundario.error) {
-            throw new Error(queryDeleteEmpresarioSecundario.msg);
-        }
-
-        for (
-            let i = 0;
-            i < this.#objEmpresarioActual.arrEmpresarioSecundario.length;
-            i++
-        ) {
-            let rollEmpresarioSecundario = await dao.setEmpresarioSecundario(
-                this.#objEmpresarioActual.arrEmpresarioSecundario[i]
-            );
-
-            if (rollEmpresarioSecundario.error) {
-                throw new Error(rollEmpresarioSecundario.msg);
-            }
-        }
 
         if (rollEmpresario.error) {
             throw new Error(rollEmpresario.msg);
