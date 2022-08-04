@@ -173,117 +173,6 @@ const Coco = () => {
                                             align="center"
                                             sx={{ padding: "10px" }}
                                         >
-                                            Ventas
-                                        </Typography>
-
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
-                                                justifyContent: "center",
-                                            }}
-                                        >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
-                                            </Box>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardActionArea>
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row" spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Typography
-                                            variant="subtitle2"
-                                            align="center"
-                                            sx={{ padding: "10px" }}
-                                        >
-                                            Costos
-                                        </Typography>
-
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
-                                                justifyContent: "center",
-                                            }}
-                                        >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
-                                            </Box>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardActionArea>
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row" spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Typography
-                                            variant="subtitle2"
-                                            align="center"
-                                            sx={{ padding: "10px" }}
-                                        >
-                                            Utilidades
-                                        </Typography>
-
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
-                                                justifyContent: "center",
-                                            }}
-                                        >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
-                                            </Box>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardActionArea>
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row" spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Typography
-                                            variant="subtitle2"
-                                            align="center"
-                                            sx={{ padding: "10px" }}
-                                        >
                                             Personas
                                         </Typography>
 
@@ -310,7 +199,6 @@ const Coco = () => {
                     </Card>
                 </Grid>
 
-                
                 <Grid item xs={12} md={4}>
                     <Card>
                         <CardActionArea>
@@ -348,7 +236,6 @@ const Coco = () => {
                     </Card>
                 </Grid>
 
-                   
                 <Grid item xs={12} md={4}>
                     <Card>
                         <CardActionArea>
@@ -386,7 +273,6 @@ const Coco = () => {
                     </Card>
                 </Grid>
 
-                     
                 <Grid item xs={12} md={4}>
                     <Card>
                         <CardActionArea>
@@ -473,6 +359,43 @@ const Coco = () => {
                                             sx={{ padding: "10px" }}
                                         >
                                             Tareas
+                                        </Typography>
+
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "columns",
+                                                alignContent: "center",
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            <Box>
+                                                <Skeleton
+                                                    variant="rectangular"
+                                                    width={800}
+                                                    height={118}
+                                                />
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                    <Card>
+                        <CardActionArea>
+                            <CardContent sx={{ padding: "0px" }}>
+                                <Grid container direction="row" spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Typography
+                                            variant="subtitle2"
+                                            align="center"
+                                            sx={{ padding: "10px" }}
+                                        >
+                                            Historicos
                                         </Typography>
 
                                         <Box
