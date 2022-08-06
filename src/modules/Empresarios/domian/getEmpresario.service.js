@@ -50,7 +50,7 @@ const getEmpresario = async (objParams, strDataUser) => {
 
     let arrayData = await dao.getEmpresario(query);
 
-
+    console.log(arrayData);
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data;
@@ -142,6 +142,13 @@ const getEmpresario = async (objParams, strDataUser) => {
                     strUsuario:array[i]?.objInfoAdicional[0]?.strUsuario,
                 }
                 data[i] ={
+                    intId:array[i]?.intId,
+                    strNombre:array[i]?.strNombre,
+                    intIdEstado:array[i]?.intIdEstado,
+                    dtmCreacion:array[i]?.dtmCreacion,
+                    strUsuarioCreacion:array[i]?.strUsuarioCreacion,
+                    dtmActualizacion:array[i]?.dtmActualizacion,
+                    strUsuarioActualizacion:array[i]?.strUsuarioActualizacion,
                     objEmpresario,
                     objInfoEmpresa,
                     objInfoAdicional,
