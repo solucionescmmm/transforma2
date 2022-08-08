@@ -61,8 +61,8 @@ const ReadSolicitudesUser = () => {
             render: (rowData) => (
                 <Avatar
                     alt={
-                        rowData.objEmpresario.strNombres +
-                        rowData.objEmpresario.strApellidos
+                        rowData.objEmpresario[0].strNombres +
+                        rowData.objEmpresario[0].strApellidos
                     }
                     src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.objEmpresario.strURLFileFoto}`}
                 />
@@ -72,13 +72,13 @@ const ReadSolicitudesUser = () => {
         {
             title: "Representante",
             render: (rowData) =>
-                rowData.objEmpresario.strNombres +
+                rowData.objEmpresario[0].strNombres +
                 " " +
-                rowData.objEmpresario.strApellidos,
+                rowData.objEmpresario[0].strApellidos,
         },
         {
             title: "Documento del representante",
-            field: "objEmpresario.strNroDocto",
+            field: "objEmpresario[0].strNroDocto",
             type: "string",
         },
         {
@@ -88,17 +88,17 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Sede",
-            field: "objEmpresario.strSede",
+            field: "objEmpresario[0].strSede",
             type: "string",
         },
         {
             title: "Fecha de registro",
-            field: "objEmpresario.dtFechaVinculacion",
+            field: "objEmpresario[0].dtFechaVinculacion",
             type: "date",
         },
         {
             title: "Estado",
-            field: "objEmpresario.strEstadoVinculacion",
+            field: "objEmpresario[0].strEstadoVinculacion",
             type: "string",
         },
     ]);
@@ -256,7 +256,7 @@ const ReadSolicitudesUser = () => {
                                 }}
                                 onRowClick={(e, rowData) => {
                                     push(
-                                        `/transforma/asesor/empresario/read/${rowData.objEmpresario.intId}`
+                                        `/transforma/asesor/empresario/read/${rowData.intId}`
                                     );
                                 }}
                                 components={{
