@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 
 //Librerias
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link as RouterLink, useParams, useHistory} from "react-router-dom";
 
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
@@ -68,6 +68,7 @@ const Coco = () => {
     //===============================================================================================================================================
     const { intId } = useParams();
     const { data } = useGetEmpresarios({ autoload: true, intId });
+    const location = useHistory();
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -235,7 +236,7 @@ const Coco = () => {
                             </Box>
 
                             <Box sx={{ margin: "auto" }}>
-                                <Button variant="contained">Editar</Button>
+                                <Button variant="contained" onClick={() => location.push(`/transforma/asesor/empresario/edit/${intId}`)}>Editar</Button>
                             </Box>
                         </Paper>
                     </Grid>
@@ -367,7 +368,7 @@ const Coco = () => {
                         </Box>
 
                         <Box sx={{ margin: "auto" }}>
-                            <Button variant="contained">Editar</Button>
+                            <Button variant="contained" onClick={() => location.push(`/transforma/asesor/empresario/edit/${intId}`)}>Editar</Button>
                         </Box>
                     </Paper>
                 </Grid>
