@@ -27,6 +27,14 @@ const PageCUComercial = lazy(() =>
     )
 );
 
+const Personas = lazy(() =>
+    import("../modules/Empresarios/pages/PersonasSecundarias/read")
+);
+
+const PersonasCreate = lazy(() =>
+    import("../modules/Empresarios/pages/PersonasSecundarias/create&Edit")
+);
+
 const CocoRoutes = ({ route, onChange }) => {
     if (route === "Personas") {
         return (
@@ -42,7 +50,26 @@ const CocoRoutes = ({ route, onChange }) => {
                     </Button>
                 </Grid>
 
-                <Grid>Personas</Grid>
+                <Personas onChange={onChange} />
+            </Grid>
+        );
+    }
+
+    if (route === "PersonasCreate") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChange("Personas")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <PersonasCreate onChange={onChange} />
             </Grid>
         );
     }

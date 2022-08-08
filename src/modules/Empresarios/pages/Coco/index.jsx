@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 
 //Librerias
-import { Link as RouterLink, useParams, useHistory} from "react-router-dom";
+import { Link as RouterLink, useParams, useHistory } from "react-router-dom";
 
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
@@ -24,17 +24,14 @@ import {
 
 //Iconos
 import { Home as HomeIcon } from "@mui/icons-material";
-import TeamIcon from "../../../../static/img/icons/team.png"
-import DocumentIcon from "../../../../static/img/icons/document.png"
-import RouteIcon from "../../../../static/img/icons/route.png"
-import PlannerIcon from "../../../../static/img/icons/planner.png"
-import CommentsIcon from "../../../../static/img/icons/comments.png"
-import NotesIcon from "../../../../static/img/icons/notes.png"
-import GrowthIcon from "../../../../static/img/icons/growth.png"
-import FoldersIcon from "../../../../static/img/icons/folders.png"
-
-
-
+import TeamIcon from "../../../../static/img/icons/team.png";
+import DocumentIcon from "../../../../static/img/icons/document.png";
+import RouteIcon from "../../../../static/img/icons/route.png";
+import PlannerIcon from "../../../../static/img/icons/planner.png";
+import CommentsIcon from "../../../../static/img/icons/comments.png";
+import NotesIcon from "../../../../static/img/icons/notes.png";
+import GrowthIcon from "../../../../static/img/icons/growth.png";
+import FoldersIcon from "../../../../static/img/icons/folders.png";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -171,7 +168,7 @@ const Coco = () => {
                                 sx={{
                                     display: "flex",
                                     flexDirection: "column",
-                                    marginRight: "200px",
+                                    marginRight: "180px",
                                 }}
                             >
                                 <Typography>
@@ -193,7 +190,7 @@ const Coco = () => {
                                 sx={{
                                     display: "flex",
                                     flexDirection: "column",
-                                    marginRight: "200px",
+                                    marginRight: "180px",
                                 }}
                             >
                                 <Typography>
@@ -236,7 +233,16 @@ const Coco = () => {
                             </Box>
 
                             <Box sx={{ margin: "auto" }}>
-                                <Button variant="contained" onClick={() => location.push(`/transforma/asesor/empresario/edit/${intId}`)}>Editar</Button>
+                                <Button
+                                    variant="contained"
+                                    onClick={() =>
+                                        location.push(
+                                            `/transforma/asesor/empresario/edit/${intId}`
+                                        )
+                                    }
+                                >
+                                    Editar
+                                </Button>
                             </Box>
                         </Paper>
                     </Grid>
@@ -307,7 +313,7 @@ const Coco = () => {
                             sx={{
                                 display: "flex",
                                 flexDirection: "column",
-                                marginRight: "200px",
+                                marginRight: "180px",
                             }}
                         >
                             <Typography>
@@ -329,7 +335,7 @@ const Coco = () => {
                             sx={{
                                 display: "flex",
                                 flexDirection: "column",
-                                marginRight: "200px",
+                                marginRight: "180px",
                             }}
                         >
                             <Typography>
@@ -368,13 +374,27 @@ const Coco = () => {
                         </Box>
 
                         <Box sx={{ margin: "auto" }}>
-                            <Button variant="contained" onClick={() => location.push(`/transforma/asesor/empresario/edit/${intId}`)}>Editar</Button>
+                            <Button
+                                variant="contained"
+                                onClick={() =>
+                                    location.push(
+                                        `/transforma/asesor/empresario/edit/${intId}`
+                                    )
+                                }
+                            >
+                                Editar
+                            </Button>
                         </Box>
                     </Paper>
                 </Grid>
             </Grid>
 
-            <Grid container direction="row" spacing={2} sx={{marginBottom: "15px"}}>
+            <Grid
+                container
+                direction="row"
+                spacing={2}
+                sx={{ marginBottom: "15px" }}
+            >
                 <Grid item xs={12} md={4}>
                     <Card sx={{ position: "relative" }}>
                         <CardActionArea onClick={() => setRoute("Personas")}>
@@ -400,7 +420,6 @@ const Coco = () => {
                                                 <b style={{ fontSize: 16 }}>
                                                     Personas
                                                 </b>
-
                                             </p>
                                             <img
                                                 src={TeamIcon}
@@ -420,12 +439,19 @@ const Coco = () => {
                                                 justifyContent: "center",
                                             }}
                                         >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
+                                            <Box
+                                                sx={{
+                                                    width: 800,
+                                                    height: 118,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <p>
+                                                    No existen registros de personas
+                                                    secundarias
+                                                </p>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -437,7 +463,9 @@ const Coco = () => {
 
                 <Grid item xs={12} md={4}>
                     <Card>
-                        <CardActionArea onClick={() => setRoute("Diagnosticos")}>
+                        <CardActionArea
+                            onClick={() => setRoute("Diagnosticos")}
+                        >
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
                                     <Grid
@@ -460,8 +488,6 @@ const Coco = () => {
                                                 <b style={{ fontSize: 16 }}>
                                                     Diagnósticos
                                                 </b>
-
-                                                
                                             </p>
                                             <img
                                                 src={DocumentIcon}
@@ -521,8 +547,6 @@ const Coco = () => {
                                                 <b style={{ fontSize: 16 }}>
                                                     Rutas
                                                 </b>
-
-                                                
                                             </p>
                                             <img
                                                 src={RouteIcon}
@@ -582,8 +606,6 @@ const Coco = () => {
                                                 <b style={{ fontSize: 16 }}>
                                                     Eventos
                                                 </b>
-
-                                              
                                             </p>
                                             <img
                                                 src={PlannerIcon}
@@ -620,7 +642,7 @@ const Coco = () => {
 
                 <Grid item xs={12} md={4}>
                     <Card>
-                        <CardActionArea  onClick={() => setRoute("Comentarios")}>
+                        <CardActionArea onClick={() => setRoute("Comentarios")}>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
                                     <Grid
@@ -643,8 +665,6 @@ const Coco = () => {
                                                 <b style={{ fontSize: 16 }}>
                                                     Comentarios
                                                 </b>
-
-                                             
                                             </p>
                                             <img
                                                 src={CommentsIcon}
@@ -664,12 +684,16 @@ const Coco = () => {
                                                 justifyContent: "center",
                                             }}
                                         >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
+                                            <Box
+                                                sx={{
+                                                    width: 800,
+                                                    height: 118,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <p>No hay comentarios nuevos</p>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -683,7 +707,7 @@ const Coco = () => {
                     <Card>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
-                            <Grid container direction="row">
+                                <Grid container direction="row">
                                     <Grid
                                         item
                                         xs={12}
@@ -704,8 +728,6 @@ const Coco = () => {
                                                 <b style={{ fontSize: 16 }}>
                                                     Tareas
                                                 </b>
-
-                                            
                                             </p>
                                             <img
                                                 src={NotesIcon}
@@ -744,7 +766,7 @@ const Coco = () => {
                     <Card>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
-                            <Grid container direction="row">
+                                <Grid container direction="row">
                                     <Grid
                                         item
                                         xs={12}
@@ -765,8 +787,6 @@ const Coco = () => {
                                                 <b style={{ fontSize: 16 }}>
                                                     Historicos
                                                 </b>
-
-                                              
                                             </p>
                                             <img
                                                 src={GrowthIcon}
@@ -805,7 +825,7 @@ const Coco = () => {
                     <Card>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
-                            <Grid container direction="row">
+                                <Grid container direction="row">
                                     <Grid
                                         item
                                         xs={12}
@@ -826,8 +846,6 @@ const Coco = () => {
                                                 <b style={{ fontSize: 16 }}>
                                                     Documentos
                                                 </b>
-
-                                              
                                             </p>
                                             <img
                                                 src={FoldersIcon}
