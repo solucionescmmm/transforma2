@@ -24,6 +24,17 @@ import {
 
 //Iconos
 import { Home as HomeIcon } from "@mui/icons-material";
+import TeamIcon from "../../../../static/img/icons/team.png"
+import DocumentIcon from "../../../../static/img/icons/document.png"
+import RouteIcon from "../../../../static/img/icons/route.png"
+import PlannerIcon from "../../../../static/img/icons/planner.png"
+import CommentsIcon from "../../../../static/img/icons/comments.png"
+import NotesIcon from "../../../../static/img/icons/notes.png"
+import GrowthIcon from "../../../../static/img/icons/growth.png"
+import FoldersIcon from "../../../../static/img/icons/folders.png"
+
+
+
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -362,7 +373,7 @@ const Coco = () => {
                 </Grid>
             </Grid>
 
-            <Grid container direction="row" spacing={2}>
+            <Grid container direction="row" spacing={2} sx={{marginBottom: "15px"}}>
                 <Grid item xs={12} md={4}>
                     <Card sx={{ position: "relative" }}>
                         <CardActionArea onClick={() => setRoute("Personas")}>
@@ -389,17 +400,11 @@ const Coco = () => {
                                                     Personas
                                                 </b>
 
-                                                <p>
-                                                    Desde esté espacio, puedes
-                                                    agregar o gestionar las
-                                                    personas involucradas en la
-                                                    idea de negocio{" "}
-                                                </p>
                                             </p>
                                             <img
-                                                src="https://cdn-icons-png.flaticon.com/512/476/476863.png"
+                                                src={TeamIcon}
                                                 alt="icono"
-                                                width={100}
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -431,7 +436,7 @@ const Coco = () => {
 
                 <Grid item xs={12} md={4}>
                     <Card>
-                        <CardActionArea>
+                        <CardActionArea onClick={() => setRoute("Diagnosticos")}>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
                                     <Grid
@@ -455,16 +460,12 @@ const Coco = () => {
                                                     Diagnósticos
                                                 </b>
 
-                                                <p>
-                                                    Desde esté espacio, puedes
-                                                    gestionar los diagnósticos
-                                                    de la idea de negocio
-                                                </p>
+                                                
                                             </p>
                                             <img
-                                                src="https://cdn-icons.flaticon.com/png/512/3131/premium/3131675.png?token=exp=1659921899~hmac=20041810240a1a2a1130fb1e55bb86e3"
+                                                src={DocumentIcon}
                                                 alt="icono"
-                                                width={100}
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -520,16 +521,12 @@ const Coco = () => {
                                                     Rutas
                                                 </b>
 
-                                                <p>
-                                                    Desde esté espacio, puedes
-                                                    gestionar las rutas de la
-                                                    idea de negocio
-                                                </p>
+                                                
                                             </p>
                                             <img
-                                                src="https://cdn-icons.flaticon.com/png/512/3121/premium/3121325.png?token=exp=1659921976~hmac=e1268ce97a74ffd6833784afa31eb11a"
+                                                src={RouteIcon}
                                                 alt="icono"
-                                                width={100}
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -585,18 +582,12 @@ const Coco = () => {
                                                     Eventos
                                                 </b>
 
-                                                <p>
-                                                    Desde esté espacio, puedes
-                                                    revisar los eventos en los
-                                                    que ha participado las
-                                                    personas de la idea de
-                                                    negocio
-                                                </p>
+                                              
                                             </p>
                                             <img
-                                                src="https://cdn-icons.flaticon.com/png/512/3277/premium/3277487.png?token=exp=1659926877~hmac=cbab87ee74b35afb47ff0a2b3d81157b"
+                                                src={PlannerIcon}
                                                 alt="icono"
-                                                width={100}
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -628,7 +619,7 @@ const Coco = () => {
 
                 <Grid item xs={12} md={4}>
                     <Card>
-                        <CardActionArea>
+                        <CardActionArea  onClick={() => setRoute("Comentarios")}>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
                                     <Grid
@@ -652,16 +643,12 @@ const Coco = () => {
                                                     Comentarios
                                                 </b>
 
-                                                <p>
-                                                    Desde esté espacio, puedes
-                                                    revisar los comentarios
-                                                    asociados a la idea de negocio
-                                                </p>
+                                             
                                             </p>
                                             <img
-                                                src="https://cdn-icons-png.flaticon.com/512/1017/1017470.png"
+                                                src={CommentsIcon}
                                                 alt="icono"
-                                                width={100}
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -717,16 +704,12 @@ const Coco = () => {
                                                     Tareas
                                                 </b>
 
-                                                <p>
-                                                    Desde esté espacio, puedes
-                                                    revisar los comentarios
-                                                    asociados a la idea de negocio
-                                                </p>
+                                            
                                             </p>
                                             <img
-                                                src="https://cdn-icons-png.flaticon.com/512/752/752326.png"
+                                                src={NotesIcon}
                                                 alt="icono"
-                                                width={100}
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -782,14 +765,73 @@ const Coco = () => {
                                                     Historicos
                                                 </b>
 
-                                                <p>
-                                                    Desde esté espacio, puedes revisar los datos historicos asociados a la idea de negocio
-                                                </p>
+                                              
                                             </p>
                                             <img
-                                                src="https://cdn-icons-png.flaticon.com/512/8188/8188675.png"
+                                                src={GrowthIcon}
                                                 alt="icono"
-                                                width={100}
+                                                width={80}
+                                                style={{}}
+                                            />
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "columns",
+                                                alignContent: "center",
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            <Box>
+                                                <Skeleton
+                                                    variant="rectangular"
+                                                    width={800}
+                                                    height={118}
+                                                />
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                    <Card>
+                        <CardActionArea>
+                            <CardContent sx={{ padding: "0px" }}>
+                            <Grid container direction="row">
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        sx={{
+                                            backgroundColor: "#00BAB3",
+                                            color: "white",
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="subtitle2"
+                                            sx={{
+                                                padding: "10px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <p style={{ flexGrow: 1 }}>
+                                                <b style={{ fontSize: 16 }}>
+                                                    Documentos
+                                                </b>
+
+                                              
+                                            </p>
+                                            <img
+                                                src={FoldersIcon}
+                                                alt="icono"
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>

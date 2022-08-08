@@ -71,7 +71,7 @@ const PaperGetComentarios = ({ socket, values }) => {
     if (arrComentarios.length === 0) {
         return (
             <Typography align="center">
-                La persona empresaria todavia no ha recibido comentarios
+               todavia no se han recibido comentarios
             </Typography>
         );
     }

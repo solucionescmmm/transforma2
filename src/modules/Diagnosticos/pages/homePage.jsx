@@ -1,8 +1,5 @@
 import React from "react";
 
-//Librerias
-import { Link as RouterLink } from "react-router-dom";
-
 //Componentes de Mui
 import {
     Card,
@@ -20,15 +17,12 @@ import {
     Architecture as ArchitectureIcon,
 } from "@mui/icons-material";
 
-const Diagnosticos = ({ intId }) => {
+const Diagnosticos = ({ onChange }) => {
     return (
         <Grid container direction="row" spacing={2}>
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea
-                        component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial/`}
-                    >
+                    <CardActionArea onClick={() => onChange("DiagEmpresarial")}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
@@ -66,10 +60,7 @@ const Diagnosticos = ({ intId }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea
-                        component={RouterLink}
-                        to={`/diagnosticos/diagDesign/`}
-                    >
+                    <CardActionArea onClick={() => onChange("DiagDesign")}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
@@ -107,10 +98,7 @@ const Diagnosticos = ({ intId }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea
-                        component={RouterLink}
-                        to={`/diagnosticos/diagComercial/create`}
-                    >
+                    <CardActionArea onClick={() => onChange("DiagComercial")}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
