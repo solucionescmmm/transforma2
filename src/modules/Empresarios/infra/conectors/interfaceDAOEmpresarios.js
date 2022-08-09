@@ -97,9 +97,9 @@ class interfaceDAOEmpresarios {
         return result
     }
 
-    async getEmpresario(data) {
+    async getIdeaEmpresario(data) {
         const dao = new classDaoSql();
-        let result = await dao.getEmpresario(data);
+        let result = await dao.getIdeaEmpresario(data);
         return result;
     }
 

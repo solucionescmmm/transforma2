@@ -677,7 +677,7 @@ class daoEmpresarios {
         }
     }
 
-    async getEmpresario(data) {
+    async getIdeaEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -691,6 +691,13 @@ class daoEmpresarios {
             Idea.strUsuarioCreacion,
             Idea.dtmActualizacion,
             Idea.strUsuarioActualizacion,
+            (
+                SELECT *,
+                Tipo.strNombre as strTipoEmpresario 
+                FROM tbl_Idea_Empresario IdeaEmpresario 
+                WHERE IdeaEmpresario.intIdIdea = Idea.intId
+                FOR JSON PATH
+            ) as objInfoIdeaEmpresario,
             (
                 SELECT * FROM tbl_Empresario Empresario
                 WHERE Empresario.intId = IdeaEmpresario.intIdEmpresario
@@ -709,15 +716,25 @@ class daoEmpresarios {
 
             FROM tbl_Idea Idea
             INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdIdea = Idea.intId
+            INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario 
             
-            WHERE (Idea.intId = ${data.intId} OR ${data.intId} IS NULL)
-            
-            
-            `;
+            WHERE (Idea.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
             for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].objInfoIdeaEmpresario) {
+                    let { objInfoIdeaEmpresario } = arrNewData[i];
+                    
+
+                    if (validator.isJSON(objInfoIdeaEmpresario)) {
+                        objInfoIdeaEmpresario = JSON.parse(
+                            objInfoIdeaEmpresario
+                        );
+                        arrNewData[i].objInfoIdeaEmpresario =
+                        objInfoIdeaEmpresario;
+                    }
+                }
                 if (arrNewData[i].objInfoEmpresario) {
                     let { objInfoEmpresario } = arrNewData[i];
                     
@@ -774,6 +791,94 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo deleteEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getEmpresario(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            
+            SELECT
+            Idea.intId,
+            Idea.strNombre,
+            Idea.intIdEstado,
+            Idea.dtmCreacion,
+            Idea.strUsuarioCreacion,
+            Idea.dtmActualizacion,
+            Idea.strUsuarioActualizacion,
+            (
+                SELECT *,
+                Tipo.strNombre as strTipoEmpresario 
+                FROM tbl_Idea_Empresario IdeaEmpresario 
+                WHERE IdeaEmpresario.intIdIdea = Idea.intId
+                FOR JSON PATH
+            ) as objInfoIdeaEmpresario,
+            (
+                SELECT * FROM tbl_Empresario Empresario
+                WHERE Empresario.intId = IdeaEmpresario.intIdEmpresario
+                FOR JSON PATH
+            ) as objInfoEmpresario
+
+            FROM tbl_Idea Idea
+            INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdIdea = Idea.intId
+            INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario 
+            
+            WHERE (Idea.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].objInfoIdeaEmpresario) {
+                    let { objInfoIdeaEmpresario } = arrNewData[i];
+                    
+
+                    if (validator.isJSON(objInfoIdeaEmpresario)) {
+                        objInfoIdeaEmpresario = JSON.parse(
+                            objInfoIdeaEmpresario
+                        );
+                        arrNewData[i].objInfoIdeaEmpresario =
+                        objInfoIdeaEmpresario;
+                    }
+                }
+                if (arrNewData[i].objInfoEmpresario) {
+                    let { objInfoEmpresario } = arrNewData[i];
+                    
+
+                    if (validator.isJSON(objInfoEmpresario)) {
+                        objInfoEmpresario = JSON.parse(
+                            objInfoEmpresario
+                        );
+                        arrNewData[i].objInfoEmpresario =
+                        objInfoEmpresario;
+                    }
+                }
+            }
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEmpresario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);

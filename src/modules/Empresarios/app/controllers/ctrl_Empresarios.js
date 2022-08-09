@@ -6,7 +6,7 @@ const updateEmpresarioSecundario = require("../../domian/updateEmpresarioSecunda
 const classDaleteEmpresario = require("../../domian/deleteEmpresario.service")
 
 //servicios
-const getEmpresario = require("../../domian/getEmpresario.service");
+const getIdeaEmpresario = require("../../domian/getIdeaEmpresario.service");
 const uploadFile = require("../functions/uploadFile");
 
 class ctrlEmpresarios {
@@ -144,12 +144,12 @@ class ctrlEmpresarios {
         }
     }
 
-    async getEmpresario(req, res) {
+    async getIdeaEmpresario(req, res) {
         try {
             let objParams = req.query;
             let { strDataUser } = req;
 
-            let query = await getEmpresario(objParams, strDataUser);
+            let query = await getIdeaEmpresario(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);

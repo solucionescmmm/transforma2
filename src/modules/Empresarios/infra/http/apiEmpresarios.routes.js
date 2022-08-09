@@ -30,9 +30,9 @@ routes.post("/transforma/api/Interesados/uploadFile", async (req, res) => {
     await controllerEmpresarios.uploadFileEmpresario(req, res);
 });
 
-routes.get("/transforma/api/Interesados/getData", async (req, res) => {
+routes.get("/transforma/api/Empresario/getIdeaEmpresario", async (req, res) => {
     let controllerEmpresarios = new classController();
-    await controllerEmpresarios.getEmpresario(req, res);
+    await controllerEmpresarios.getIdeaEmpresario(req, res);
 });
 
 routes.delete("/transforma/api/Interesados/delete",async(req, res)=>{
