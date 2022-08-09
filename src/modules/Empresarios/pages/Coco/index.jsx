@@ -154,8 +154,8 @@ const Coco = () => {
                         >
                             <Avatar
                                 sx={{
-                                    width: 80,
-                                    height: 80,
+                                    width: 50,
+                                    height: 50,
                                     marginTop: "-50px",
                                     display: "flex",
                                     marginRight: "80px",
@@ -299,8 +299,8 @@ const Coco = () => {
                     >
                         <Avatar
                             sx={{
-                                width: 80,
-                                height: 80,
+                                width: 50,
+                                height: 50,
                                 marginTop: "-50px",
                                 display: "flex",
                                 marginRight: "80px",
@@ -404,8 +404,7 @@ const Coco = () => {
                                         item
                                         xs={12}
                                         sx={{
-                                            backgroundColor: "#00BAB3",
-                                            color: "white",
+                                            color: "#00BAB3",
                                         }}
                                     >
                                         <Typography
@@ -424,7 +423,7 @@ const Coco = () => {
                                             <img
                                                 src={TeamIcon}
                                                 alt="icono"
-                                                width={80}
+                                                width={50}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -449,8 +448,8 @@ const Coco = () => {
                                                 }}
                                             >
                                                 <p>
-                                                    No existen registros de personas
-                                                    secundarias
+                                                    No existen registros de
+                                                    personas secundarias
                                                 </p>
                                             </Box>
                                         </Box>
@@ -472,8 +471,8 @@ const Coco = () => {
                                         item
                                         xs={12}
                                         sx={{
-                                            backgroundColor: "#00BAB3",
-                                            color: "white",
+                                            color: "#00BAB3",
+                                   
                                         }}
                                     >
                                         <Typography
@@ -492,7 +491,7 @@ const Coco = () => {
                                             <img
                                                 src={DocumentIcon}
                                                 alt="icono"
-                                                width={80}
+                                                width={50}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -531,8 +530,8 @@ const Coco = () => {
                                         item
                                         xs={12}
                                         sx={{
-                                            backgroundColor: "#00BAB3",
-                                            color: "white",
+                                            color: "#00BAB3",
+                                     
                                         }}
                                     >
                                         <Typography
@@ -551,7 +550,7 @@ const Coco = () => {
                                             <img
                                                 src={RouteIcon}
                                                 alt="icono"
-                                                width={80}
+                                                width={50}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -590,8 +589,8 @@ const Coco = () => {
                                         item
                                         xs={12}
                                         sx={{
-                                            backgroundColor: "#00BAB3",
-                                            color: "white",
+                                            color: "#00BAB3",
+                                       
                                         }}
                                     >
                                         <Typography
@@ -610,7 +609,7 @@ const Coco = () => {
                                             <img
                                                 src={PlannerIcon}
                                                 alt="icono"
-                                                width={80}
+                                                width={50}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -649,8 +648,8 @@ const Coco = () => {
                                         item
                                         xs={12}
                                         sx={{
-                                            backgroundColor: "#00BAB3",
-                                            color: "white",
+                                            color: "#00BAB3",
+                                
                                         }}
                                     >
                                         <Typography
@@ -669,7 +668,7 @@ const Coco = () => {
                                             <img
                                                 src={CommentsIcon}
                                                 alt="icono"
-                                                width={80}
+                                                width={50}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -712,8 +711,8 @@ const Coco = () => {
                                         item
                                         xs={12}
                                         sx={{
-                                            backgroundColor: "#00BAB3",
-                                            color: "white",
+                                            color: "#00BAB3",
+                                      
                                         }}
                                     >
                                         <Typography
@@ -732,7 +731,7 @@ const Coco = () => {
                                             <img
                                                 src={NotesIcon}
                                                 alt="icono"
-                                                width={80}
+                                                width={50}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -771,8 +770,8 @@ const Coco = () => {
                                         item
                                         xs={12}
                                         sx={{
-                                            backgroundColor: "#00BAB3",
-                                            color: "white",
+                                            color: "#00BAB3",
+                                       
                                         }}
                                     >
                                         <Typography
@@ -791,7 +790,7 @@ const Coco = () => {
                                             <img
                                                 src={GrowthIcon}
                                                 alt="icono"
-                                                width={80}
+                                                width={50}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -830,8 +829,8 @@ const Coco = () => {
                                         item
                                         xs={12}
                                         sx={{
-                                            backgroundColor: "#00BAB3",
-                                            color: "white",
+                                            color: "#00BAB3",
+                                    
                                         }}
                                     >
                                         <Typography
@@ -850,7 +849,7 @@ const Coco = () => {
                                             <img
                                                 src={FoldersIcon}
                                                 alt="icono"
-                                                width={80}
+                                                width={50}
                                                 style={{}}
                                             />
                                         </Typography>
