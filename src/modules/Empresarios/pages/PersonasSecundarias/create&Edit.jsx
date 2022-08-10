@@ -12,9 +12,10 @@ import {
 
 import validator from "validator";
 
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AuthContext } from "../../../../common/middlewares/Auth";
+import axios from "axios";
 
 // Componentes
 import SelectTipoDocumento from "../../components/selectTipoDocumento";
@@ -29,6 +30,8 @@ import DropdownLocalizaciones from "../../components/dropdownLocalizaciones";
 import { makeStyles } from "@mui/styles";
 import { DatePicker, LoadingButton } from "@mui/lab";
 import NumberFormat from "react-number-format";
+import { format } from "date-fns";
+import toast from "react-hot-toast";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -129,6 +132,7 @@ const CreateEditPersonasSec = ({ isEdit }) => {
         handleSubmit,
         setError,
         clearErrors,
+        reset,
     } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
@@ -144,6 +148,83 @@ const CreateEditPersonasSec = ({ isEdit }) => {
 
         setFlagSubmit(true);
     };
+
+    const submitData = useCallback(
+        async (signalSubmitData) => {
+            setLoading(true);
+
+            setFlagSubmit(false);
+
+            await axios(
+                {
+                    method: isEdit ? "PUT" : "POST",
+                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+                    url: `${
+                        isEdit
+                            ? process.env
+                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATEREGISTRO
+                            : process.env
+                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
+                    }`,
+                    data,
+                    headers: {
+                        token,
+                        "Content-Type": "application/json;charset=UTF-8",
+                    },
+                },
+                {
+                    cancelToken: signalSubmitData.token,
+                }
+            )
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    toast.success(res.data.msg);
+
+                    setLoading(false);
+                    setSucces(true);
+                })
+                .catch((error) => {
+                    if (!axios.isCancel(error)) {
+                        let msg;
+
+                        if (error.response) {
+                            msg = error.response.data.msg;
+                        } else if (error.request) {
+                            msg = error.message;
+                        } else {
+                            msg = error.message;
+                        }
+
+                        console.error(error);
+                        setLoading(false);
+
+                        toast.error(msg);
+                    }
+                });
+        },
+        [token, data, isEdit]
+    );
+
+    useEffect(() => {
+        if (isEdit) {
+            reset(data);
+        }
+    }, [data, reset, isEdit]);
+
+    useEffect(() => {
+        let signalSubmitData = axios.CancelToken.source();
+
+        if (flagSubmit) {
+            submitData(signalSubmitData);
+        }
+
+        return () => {
+            signalSubmitData.cancel("Petición abortada.");
+        };
+    }, [flagSubmit, submitData]);
 
     return (
         <Container className={classes.containerPR}>

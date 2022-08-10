@@ -35,7 +35,7 @@ const PersonasCreate = lazy(() =>
     import("../modules/Empresarios/pages/PersonasSecundarias/create&Edit")
 );
 
-const CocoRoutes = ({ route, onChange }) => {
+const CocoRoutes = ({ route, onChange, intId }) => {
     if (route === "Personas") {
         return (
             <Grid container direction="row" spacing={3}>
@@ -50,7 +50,7 @@ const CocoRoutes = ({ route, onChange }) => {
                     </Button>
                 </Grid>
 
-                <Personas onChange={onChange} />
+                <Personas onChange={onChange} intId={intId} />
             </Grid>
         );
     }

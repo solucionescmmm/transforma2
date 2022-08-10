@@ -249,7 +249,11 @@ const Coco = () => {
                         </Paper>
                     </Grid>
                 </Grid>
-                <Routes route={route} onChange={(value) => setRoute(value)} />
+                <Routes
+                    route={route}
+                    onChange={(value) => setRoute(value)}
+                    intId={intId}
+                />
             </Fragment>
         );
     }
@@ -444,7 +448,7 @@ const Coco = () => {
                                                 sx={{
                                                     width: 800,
                                                     height: 118,
-                                                    paddingLeft: "10px"
+                                                    paddingLeft: "10px",
                                                 }}
                                             >
                                                 <CardPersonas intId={intId} />

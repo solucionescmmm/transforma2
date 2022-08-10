@@ -3,9 +3,6 @@ import React, { Fragment, useState } from "react";
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
 
-//Librerias
-import { useHistory } from "react-router-dom";
-
 //Componentes de Material UI
 import { Grid, Avatar, Box, Button } from "@mui/material";
 
@@ -40,7 +37,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 
-const ReadPersonaSecundaria = ({ onChange }) => {
+const ReadPersonaSecundaria = ({ onChange, intId }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -49,11 +46,8 @@ const ReadPersonaSecundaria = ({ onChange }) => {
             title: "Foto",
             render: (rowData) => (
                 <Avatar
-                    alt={
-                        rowData.objEmpresario[0].strNombres +
-                        rowData.objEmpresario[0].strApellidos
-                    }
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.objEmpresario.strURLFileFoto}`}
+                    alt={rowData.strNombres + rowData.strApellidos}
+                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strURLFileFoto}`}
                 />
             ),
             width: "0%",
@@ -61,23 +55,26 @@ const ReadPersonaSecundaria = ({ onChange }) => {
         {
             title: "Persona",
             render: (rowData) =>
-                rowData.objEmpresario[0].strNombres +
-                " " +
-                rowData.objEmpresario[0].strApellidos,
+                rowData.strNombres + " " + rowData.strApellidos,
         },
         {
             title: "Documento de identidad",
-            field: "objEmpresario[0].strNroDocto",
+            field: "strNroDocto",
             type: "string",
         },
         {
             title: "Fecha de registro",
-            field: "objEmpresario[0].dtFechaVinculacion",
+            field: "dtFechaVinculacion",
             type: "date",
         },
         {
             title: "Estado",
-            field: "objEmpresario[0].strEstadoVinculacion",
+            field: "strEstadoVinculacion",
+            type: "string",
+        },
+        {
+            title: "Tipo",
+            field: "strTipoEmpresario",
             type: "string",
         },
     ]);
@@ -85,8 +82,7 @@ const ReadPersonaSecundaria = ({ onChange }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { push } = useHistory();
-    const { data } = useGetEmpresarios({ autoload: true });
+    const { data } = useGetEmpresarios({ autoload: true, intId });
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -194,7 +190,11 @@ const ReadPersonaSecundaria = ({ onChange }) => {
                                     },
                                 }}
                                 isLoading={data === undefined ? true : false}
-                                data={!data?.error && data ? data : []}
+                                data={
+                                    !data?.error && data
+                                        ? data[0].objEmpresario
+                                        : []
+                                }
                                 columns={objColumns}
                                 title="Personas secundarias"
                                 options={{
@@ -248,7 +248,9 @@ const ReadPersonaSecundaria = ({ onChange }) => {
                                                     >
                                                         <Button
                                                             onClick={() =>
-                                                                onChange("PersonasCreate")
+                                                                onChange(
+                                                                    "PersonasCreate"
+                                                                )
                                                             }
                                                             variant="contained"
                                                         >
