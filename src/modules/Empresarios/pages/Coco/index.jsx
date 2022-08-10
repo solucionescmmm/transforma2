@@ -40,6 +40,7 @@ import ErrorPage from "../../../../common/components/Error";
 
 // Componentes
 import Routes from "../../../../routes/coco.routes";
+import CardPersonas from "./cardPersonas";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -113,7 +114,7 @@ const Coco = () => {
                     container
                     direction="row"
                     spacing={2}
-                    sx={{ minWidth: "80vw", marginBottom: "80px" }}
+                    sx={{ minWidth: "80vw", marginBottom: "50px" }}
                 >
                     <Grid item xs={12}>
                         <Breadcrumbs aria-label="breadcrumb">
@@ -151,12 +152,13 @@ const Coco = () => {
                                 display: "flex",
                                 justifyContent: "space-around",
                             }}
+                            elevation={0}
                         >
                             <Avatar
                                 sx={{
                                     width: 50,
                                     height: 50,
-                                    marginTop: "-50px",
+
                                     display: "flex",
                                     marginRight: "80px",
                                 }}
@@ -296,12 +298,13 @@ const Coco = () => {
                             display: "flex",
                             justifyContent: "space-around",
                         }}
+                        elevation={0}
                     >
                         <Avatar
                             sx={{
                                 width: 50,
                                 height: 50,
-                                marginTop: "-50px",
+
                                 display: "flex",
                                 marginRight: "80px",
                             }}
@@ -396,7 +399,7 @@ const Coco = () => {
                 sx={{ marginBottom: "15px" }}
             >
                 <Grid item xs={12} md={4}>
-                    <Card sx={{ position: "relative" }}>
+                    <Card elevation={0}>
                         <CardActionArea onClick={() => setRoute("Personas")}>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
@@ -423,8 +426,68 @@ const Coco = () => {
                                             <img
                                                 src={TeamIcon}
                                                 alt="icono"
-                                                width={50}
-                                                style={{}}
+                                                width={40}
+                                            />
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "columns",
+                                                alignContent: "center",
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    width: 800,
+                                                    height: 118,
+                                                    paddingLeft: "10px"
+                                                }}
+                                            >
+                                                <CardPersonas intId={intId} />
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                    <Card elevation={0}>
+                        <CardActionArea
+                            onClick={() => setRoute("Diagnosticos")}
+                        >
+                            <CardContent sx={{ padding: "0px" }}>
+                                <Grid container direction="row">
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        sx={{
+                                            color: "#00BAB3",
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="subtitle2"
+                                            sx={{
+                                                padding: "10px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <p style={{ flexGrow: 1 }}>
+                                                <b style={{ fontSize: 16 }}>
+                                                    Diagnósticos
+                                                </b>
+                                            </p>
+                                            <img
+                                                src={DocumentIcon}
+                                                alt="icono"
+                                                width={40}
                                             />
                                         </Typography>
                                     </Grid>
@@ -449,7 +512,7 @@ const Coco = () => {
                                             >
                                                 <p>
                                                     No existen registros de
-                                                    personas secundarias
+                                                    dianósticos
                                                 </p>
                                             </Box>
                                         </Box>
@@ -461,68 +524,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardActionArea
-                            onClick={() => setRoute("Diagnosticos")}
-                        >
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row">
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        sx={{
-                                            color: "#00BAB3",
-                                   
-                                        }}
-                                    >
-                                        <Typography
-                                            variant="subtitle2"
-                                            sx={{
-                                                padding: "10px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <p style={{ flexGrow: 1 }}>
-                                                <b style={{ fontSize: 16 }}>
-                                                    Diagnósticos
-                                                </b>
-                                            </p>
-                                            <img
-                                                src={DocumentIcon}
-                                                alt="icono"
-                                                width={50}
-                                                style={{}}
-                                            />
-                                        </Typography>
-                                    </Grid>
-
-                                    <Grid item xs={12}>
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
-                                                justifyContent: "center",
-                                            }}
-                                        >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
-                                            </Box>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-
-                <Grid item xs={12} md={4}>
-                    <Card>
+                    <Card elevation={0}>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
@@ -531,7 +533,6 @@ const Coco = () => {
                                         xs={12}
                                         sx={{
                                             color: "#00BAB3",
-                                     
                                         }}
                                     >
                                         <Typography
@@ -550,8 +551,7 @@ const Coco = () => {
                                             <img
                                                 src={RouteIcon}
                                                 alt="icono"
-                                                width={50}
-                                                style={{}}
+                                                width={40}
                                             />
                                         </Typography>
                                     </Grid>
@@ -565,12 +565,18 @@ const Coco = () => {
                                                 justifyContent: "center",
                                             }}
                                         >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
+                                            <Box
+                                                sx={{
+                                                    width: 800,
+                                                    height: 118,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <p>
+                                                    No existen rutas registradas
+                                                </p>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -581,7 +587,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card>
+                    <Card elevation={0}>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
@@ -590,7 +596,6 @@ const Coco = () => {
                                         xs={12}
                                         sx={{
                                             color: "#00BAB3",
-                                       
                                         }}
                                     >
                                         <Typography
@@ -624,12 +629,20 @@ const Coco = () => {
                                                 justifyContent: "center",
                                             }}
                                         >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
+                                            <Box
+                                                sx={{
+                                                    width: 800,
+                                                    height: 118,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <p>
+                                                    No existen eventos asociados
+                                                    a las personas de está
+                                                    iniciativa
+                                                </p>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -640,7 +653,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card>
+                    <Card elevation={0}>
                         <CardActionArea onClick={() => setRoute("Comentarios")}>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
@@ -649,7 +662,6 @@ const Coco = () => {
                                         xs={12}
                                         sx={{
                                             color: "#00BAB3",
-                                
                                         }}
                                     >
                                         <Typography
@@ -668,8 +680,7 @@ const Coco = () => {
                                             <img
                                                 src={CommentsIcon}
                                                 alt="icono"
-                                                width={50}
-                                                style={{}}
+                                                width={40}
                                             />
                                         </Typography>
                                     </Grid>
@@ -703,7 +714,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card>
+                    <Card elevation={0}>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
@@ -712,7 +723,6 @@ const Coco = () => {
                                         xs={12}
                                         sx={{
                                             color: "#00BAB3",
-                                      
                                         }}
                                     >
                                         <Typography
@@ -746,12 +756,16 @@ const Coco = () => {
                                                 justifyContent: "center",
                                             }}
                                         >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
+                                            <Box
+                                                sx={{
+                                                    width: 800,
+                                                    height: 118,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <p>No existen nuevas tareas</p>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -762,7 +776,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card>
+                    <Card elevation={0}>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
@@ -771,66 +785,6 @@ const Coco = () => {
                                         xs={12}
                                         sx={{
                                             color: "#00BAB3",
-                                       
-                                        }}
-                                    >
-                                        <Typography
-                                            variant="subtitle2"
-                                            sx={{
-                                                padding: "10px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <p style={{ flexGrow: 1 }}>
-                                                <b style={{ fontSize: 16 }}>
-                                                    Historicos
-                                                </b>
-                                            </p>
-                                            <img
-                                                src={GrowthIcon}
-                                                alt="icono"
-                                                width={50}
-                                                style={{}}
-                                            />
-                                        </Typography>
-                                    </Grid>
-
-                                    <Grid item xs={12}>
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
-                                                justifyContent: "center",
-                                            }}
-                                        >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
-                                            </Box>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardActionArea>
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row">
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        sx={{
-                                            color: "#00BAB3",
-                                    
                                         }}
                                     >
                                         <Typography
@@ -864,12 +818,18 @@ const Coco = () => {
                                                 justifyContent: "center",
                                             }}
                                         >
-                                            <Box>
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={800}
-                                                    height={118}
-                                                />
+                                            <Box
+                                                sx={{
+                                                    width: 800,
+                                                    height: 118,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <p>
+                                                    Se encontraron 0 documentos
+                                                </p>
                                             </Box>
                                         </Box>
                                     </Grid>
