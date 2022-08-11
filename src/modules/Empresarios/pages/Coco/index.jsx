@@ -621,6 +621,9 @@ const Coco = () => {
                                             onClick={() =>
                                                 setRoute("PersonasCreate")
                                             }
+                                            sx={{
+                                                fontSize: "11px",
+                                            }}
                                         >
                                             Agregar personas
                                         </Button>
@@ -631,6 +634,9 @@ const Coco = () => {
                                             onClick={() =>
                                                 setRoute("PersonasCreate")
                                             }
+                                            sx={{
+                                                fontSize: "11px",
+                                            }}
                                         >
                                             Reemplazar representante
                                         </Button>
@@ -713,6 +719,9 @@ const Coco = () => {
                                             onClick={() =>
                                                 setRoute("Diagnosticos")
                                             }
+                                            sx={{
+                                                fontSize: "11px",
+                                            }}
                                         >
                                             Agregar diagnóstico
                                         </Button>
@@ -790,6 +799,9 @@ const Coco = () => {
                                             size="small"
                                             variant="contained"
                                             onClick={() => setRoute("")}
+                                            sx={{
+                                                fontSize: "11px",
+                                            }}
                                         >
                                             Agregar ruta
                                         </Button>
