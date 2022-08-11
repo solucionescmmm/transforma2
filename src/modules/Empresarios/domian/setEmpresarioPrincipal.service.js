@@ -7,7 +7,8 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 //servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
 const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service");
-const serviceGetIdFuenteHistorico = require("../../Main/domain/getIdFuenteHistoricos.service")
+const serviceGetIdFuenteHistorico = require("../../Historicos/domain/getIdFuenteHistoricos.service")
+const serviceSetHistorico = require("../../Historicos/domain/setHistorico.service")
 
 class setEmpresarioPrincipal {
     //Objetos
@@ -269,7 +270,7 @@ class setEmpresarioPrincipal {
     }
 
     async #setHistorico(){
-        let newData = {
+        let data = {
             intIdIdea:this.#intIdIdea,
             intNumeroEmpleados:this.#objData.objInfoEmpresa.intNumeroEmpleados,
             ValorVentas:this.#objData.objInfoEmpresa.valorVentasMes,
@@ -277,9 +278,9 @@ class setEmpresarioPrincipal {
             intIdFuenteDato:this.#intIdEmpresa
         };
     
-        let dao = new classInterfaceDAOEmpresarios();
+        let service = new serviceSetHistorico();
 
-        let query = await dao.setHistorico(newData);
+        let query = await service.main(data);
     
 
         if (query.error) {

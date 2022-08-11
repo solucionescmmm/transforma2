@@ -1,14 +1,14 @@
 //Interface
-const classInterfaceMain = require("../infra/conectors/interfaceDAOMain");
+const classInterfaceDAOHistoricos = require("../infra/conectors/interfaceDAOHistoricos");
 
-const getIdFuenteHistoricos = async (objParams) => {
+const getIdFuenteHistorico = async (objParams) => {
     let = { strNombre } = objParams;
 
     if (!strNombre) {
         throw new Error("Se esperaban parametros de entrada.")
     }
 
-    let dao = new classInterfaceMain();
+    let dao = new classInterfaceDAOHistoricos();
 
     let query = { strNombre };
 
@@ -16,4 +16,4 @@ const getIdFuenteHistoricos = async (objParams) => {
 
     return result;
 };
-module.exports = getIdFuenteHistoricos;
+module.exports = getIdFuenteHistorico;
