@@ -50,6 +50,7 @@ const CardPersonas = ({ intId }) => {
                             flexGrow: 1,
                             display: "flex",
                             alignItems: "center",
+                            fontSize: "12px",
                         }}
                     >
                         <Avatar
@@ -60,6 +61,9 @@ const CardPersonas = ({ intId }) => {
                             }}
                         />
                         {p.strNombres} {p.strApellidos}
+                    </p>
+                    <p style={{ fontSize: "12px", paddingRight: "5px" }}>
+                        {p.strTipoEmpresario}
                     </p>
                 </Box>
             ))}

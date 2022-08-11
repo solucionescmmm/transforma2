@@ -443,7 +443,7 @@ const Coco = () => {
                                                 height: 118,
                                             }}
                                         >
-                                            <CardGrafica />
+                                            <CardGrafica intIdIdea={intId} />
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -494,7 +494,7 @@ const Coco = () => {
                                                 height: 118,
                                             }}
                                         >
-                                            <CardGrafica />
+                                            <CardGrafica intIdIdea={intId} />
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -545,7 +545,7 @@ const Coco = () => {
                                                 height: 118,
                                             }}
                                         >
-                                            <CardGrafica />
+                                            <CardGrafica intIdIdea={intId} />
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -555,7 +555,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0}>
+                    <Card elevation={1}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -572,6 +572,7 @@ const Coco = () => {
                                             display: "flex",
                                             alignItems: "center",
                                         }}
+                                        onClick={() => setRoute("Personas")}
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
@@ -613,6 +614,7 @@ const Coco = () => {
                                             display: "flex",
                                             flexDirection: "row-reverse",
                                             gap: 1,
+                                            paddingRight: "5px"
                                         }}
                                     >
                                         <Button
@@ -648,7 +650,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0}>
+                    <Card elevation={1}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -711,6 +713,7 @@ const Coco = () => {
                                             display: "flex",
                                             flexDirection: "row-reverse",
                                             gap: 1,
+                                            paddingRight: "5px"
                                         }}
                                     >
                                         <Button
@@ -733,7 +736,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0}>
+                    <Card elevation={1}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -793,6 +796,7 @@ const Coco = () => {
                                             display: "flex",
                                             flexDirection: "row-reverse",
                                             gap: 1,
+                                            paddingRight: "5px"
                                         }}
                                     >
                                         <Button
@@ -813,7 +817,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0}>
+                    <Card elevation={1}>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
@@ -879,7 +883,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0}>
+                    <Card elevation={1}>
                         <CardActionArea onClick={() => setRoute("Comentarios")}>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
@@ -940,7 +944,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0}>
+                    <Card elevation={1}>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
@@ -1002,7 +1006,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0}>
+                    <Card elevation={1}>
                         <CardActionArea>
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row">
