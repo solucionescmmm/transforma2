@@ -1,10 +1,8 @@
-import { Avatar, Box, CircularProgress, IconButton } from "@mui/material";
+import { Avatar, Box, CircularProgress } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
-
-import { Edit as EditIcon } from "@mui/icons-material";
 
 const CardPersonas = ({ intId }) => {
     //===============================================================================================================================================
@@ -45,7 +43,7 @@ const CardPersonas = ({ intId }) => {
 
     return (
         <div>
-            {arrPersonas.map((p) => (
+            {arrPersonas.slice(0, 5).map((p) => (
                 <Box sx={{ display: "flex" }}>
                     <p
                         style={{

@@ -244,6 +244,7 @@ const ReadPersonaSecundaria = ({ onChange, intId }) => {
                                                                 "row-reverse",
                                                             marginBottom:
                                                                 "10px",
+                                                            gap: 1,
                                                         }}
                                                     >
                                                         <Button
@@ -255,6 +256,11 @@ const ReadPersonaSecundaria = ({ onChange, intId }) => {
                                                             variant="contained"
                                                         >
                                                             Agregar persona
+                                                        </Button>
+
+                                                        <Button variant="contained">
+                                                            reemplazar
+                                                            representante
                                                         </Button>
                                                     </Box>
                                                 </Grid>

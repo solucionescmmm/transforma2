@@ -19,7 +19,6 @@ import {
     Card,
     CardActionArea,
     CardContent,
-    Skeleton,
 } from "@mui/material";
 
 //Iconos
@@ -30,7 +29,6 @@ import RouteIcon from "../../../../static/img/icons/route.png";
 import PlannerIcon from "../../../../static/img/icons/planner.png";
 import CommentsIcon from "../../../../static/img/icons/comments.png";
 import NotesIcon from "../../../../static/img/icons/notes.png";
-import GrowthIcon from "../../../../static/img/icons/growth.png";
 import FoldersIcon from "../../../../static/img/icons/folders.png";
 
 //Estilos
@@ -41,6 +39,7 @@ import ErrorPage from "../../../../common/components/Error";
 // Componentes
 import Routes from "../../../../routes/coco.routes";
 import CardPersonas from "./cardPersonas";
+import CardGrafica from "./cardGrafica";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -404,189 +403,400 @@ const Coco = () => {
             >
                 <Grid item xs={12} md={4}>
                     <Card elevation={0}>
-                        <CardActionArea onClick={() => setRoute("Personas")}>
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row">
-                                    <Grid
-                                        item
-                                        xs={12}
+                        <CardContent sx={{ padding: "0px" }}>
+                            <Grid container direction="row">
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{
+                                        color: "#00BAB3",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="subtitle2"
                                         sx={{
-                                            color: "#00BAB3",
+                                            padding: "10px",
+                                            display: "flex",
+                                            alignItems: "center",
                                         }}
                                     >
-                                        <Typography
-                                            variant="subtitle2"
-                                            sx={{
-                                                padding: "10px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <p style={{ flexGrow: 1 }}>
-                                                <b style={{ fontSize: 16 }}>
-                                                    Personas
-                                                </b>
-                                            </p>
-                                            <img
-                                                src={TeamIcon}
-                                                alt="icono"
-                                                width={40}
-                                            />
-                                        </Typography>
-                                    </Grid>
+                                        <p style={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: 16 }}>
+                                                Ventas
+                                            </b>
+                                        </p>
+                                    </Typography>
+                                </Grid>
 
-                                    <Grid item xs={12}>
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "columns",
+                                            alignContent: "center",
+                                            justifyContent: "center",
+                                        }}
+                                    >
                                         <Box
                                             sx={{
-                                                display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
-                                                justifyContent: "center",
+                                                width: 290,
+                                                height: 118,
                                             }}
                                         >
-                                            <Box
-                                                sx={{
-                                                    width: 800,
-                                                    height: 118,
-                                                    paddingLeft: "10px",
-                                                }}
-                                            >
-                                                <CardPersonas intId={intId} />
-                                            </Box>
+                                            <CardGrafica />
                                         </Box>
-                                    </Grid>
+                                    </Box>
                                 </Grid>
-                            </CardContent>
-                        </CardActionArea>
+                            </Grid>
+                        </CardContent>
                     </Card>
                 </Grid>
 
                 <Grid item xs={12} md={4}>
                     <Card elevation={0}>
-                        <CardActionArea
-                            onClick={() => setRoute("Diagnosticos")}
-                        >
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row">
-                                    <Grid
-                                        item
-                                        xs={12}
+                        <CardContent sx={{ padding: "0px" }}>
+                            <Grid container direction="row">
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{
+                                        color: "#00BAB3",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="subtitle2"
                                         sx={{
-                                            color: "#00BAB3",
+                                            padding: "10px",
+                                            display: "flex",
+                                            alignItems: "center",
                                         }}
                                     >
-                                        <Typography
-                                            variant="subtitle2"
-                                            sx={{
-                                                padding: "10px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <p style={{ flexGrow: 1 }}>
-                                                <b style={{ fontSize: 16 }}>
-                                                    Diagnósticos
-                                                </b>
-                                            </p>
-                                            <img
-                                                src={DocumentIcon}
-                                                alt="icono"
-                                                width={40}
-                                            />
-                                        </Typography>
-                                    </Grid>
+                                        <p style={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: 16 }}>
+                                                Empleados
+                                            </b>
+                                        </p>
+                                    </Typography>
+                                </Grid>
 
-                                    <Grid item xs={12}>
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "columns",
+                                            alignContent: "center",
+                                            justifyContent: "center",
+                                        }}
+                                    >
                                         <Box
                                             sx={{
-                                                display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
-                                                justifyContent: "center",
+                                                width: 290,
+                                                height: 118,
                                             }}
                                         >
-                                            <Box
-                                                sx={{
-                                                    width: 800,
-                                                    height: 118,
-                                                    display: "flex",
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                }}
-                                            >
-                                                <p>
-                                                    No existen registros de
-                                                    dianósticos
-                                                </p>
-                                            </Box>
+                                            <CardGrafica />
                                         </Box>
-                                    </Grid>
+                                    </Box>
                                 </Grid>
-                            </CardContent>
-                        </CardActionArea>
+                            </Grid>
+                        </CardContent>
                     </Card>
                 </Grid>
 
                 <Grid item xs={12} md={4}>
                     <Card elevation={0}>
-                        <CardActionArea>
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row">
-                                    <Grid
-                                        item
-                                        xs={12}
+                        <CardContent sx={{ padding: "0px" }}>
+                            <Grid container direction="row">
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{
+                                        color: "#00BAB3",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="subtitle2"
                                         sx={{
-                                            color: "#00BAB3",
+                                            padding: "10px",
+                                            display: "flex",
+                                            alignItems: "center",
                                         }}
                                     >
-                                        <Typography
-                                            variant="subtitle2"
+                                        <p style={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: 16 }}>
+                                                Etapa desarrollo
+                                            </b>
+                                        </p>
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "columns",
+                                            alignContent: "center",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        <Box
                                             sx={{
-                                                padding: "10px",
+                                                width: 290,
+                                                height: 118,
+                                            }}
+                                        >
+                                            <CardGrafica />
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                    <Card elevation={0}>
+                        <CardContent sx={{ padding: "0px" }}>
+                            <Grid container direction="row">
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{
+                                        color: "#00BAB3",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="subtitle2"
+                                        sx={{
+                                            padding: "10px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <p style={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: 16 }}>
+                                                Personas
+                                            </b>
+                                        </p>
+                                        <img
+                                            src={TeamIcon}
+                                            alt="icono"
+                                            width={40}
+                                        />
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "columns",
+                                            alignContent: "center",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                width: 800,
+                                                height: 118,
+                                                paddingLeft: "10px",
+                                            }}
+                                        >
+                                            <CardPersonas intId={intId} />
+                                        </Box>
+                                    </Box>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                            gap: 1,
+                                        }}
+                                    >
+                                        <Button
+                                            size="small"
+                                            variant="contained"
+                                            onClick={() =>
+                                                setRoute("PersonasCreate")
+                                            }
+                                        >
+                                            Agregar personas
+                                        </Button>
+
+                                        <Button
+                                            size="small"
+                                            variant="contained"
+                                            onClick={() =>
+                                                setRoute("PersonasCreate")
+                                            }
+                                        >
+                                            Reemplazar representante
+                                        </Button>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                    <Card elevation={0}>
+                        <CardContent sx={{ padding: "0px" }}>
+                            <Grid container direction="row">
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{
+                                        color: "#00BAB3",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="subtitle2"
+                                        sx={{
+                                            padding: "10px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <p style={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: 16 }}>
+                                                Diagnósticos
+                                            </b>
+                                        </p>
+                                        <img
+                                            src={DocumentIcon}
+                                            alt="icono"
+                                            width={40}
+                                        />
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "columns",
+                                            alignContent: "center",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                width: 800,
+                                                height: 118,
                                                 display: "flex",
+                                                justifyContent: "center",
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <p style={{ flexGrow: 1 }}>
-                                                <b style={{ fontSize: 16 }}>
-                                                    Rutas
-                                                </b>
+                                            <p>
+                                                No existen registros de
+                                                dianósticos
                                             </p>
-                                            <img
-                                                src={RouteIcon}
-                                                alt="icono"
-                                                width={40}
-                                            />
-                                        </Typography>
-                                    </Grid>
+                                        </Box>
+                                    </Box>
+                                </Grid>
 
-                                    <Grid item xs={12}>
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                            gap: 1,
+                                        }}
+                                    >
+                                        <Button
+                                            size="small"
+                                            variant="contained"
+                                            onClick={() =>
+                                                setRoute("Diagnosticos")
+                                            }
+                                        >
+                                            Agregar diagnóstico
+                                        </Button>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                    <Card elevation={0}>
+                        <CardContent sx={{ padding: "0px" }}>
+                            <Grid container direction="row">
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{
+                                        color: "#00BAB3",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="subtitle2"
+                                        sx={{
+                                            padding: "10px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <p style={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: 16 }}>
+                                                Rutas
+                                            </b>
+                                        </p>
+                                        <img
+                                            src={RouteIcon}
+                                            alt="icono"
+                                            width={40}
+                                        />
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "columns",
+                                            alignContent: "center",
+                                            justifyContent: "center",
+                                        }}
+                                    >
                                         <Box
                                             sx={{
+                                                width: 800,
+                                                height: 118,
                                                 display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
                                                 justifyContent: "center",
+                                                alignItems: "center",
                                             }}
                                         >
-                                            <Box
-                                                sx={{
-                                                    width: 800,
-                                                    height: 118,
-                                                    display: "flex",
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                }}
-                                            >
-                                                <p>
-                                                    No existen rutas registradas
-                                                </p>
-                                            </Box>
+                                            <p>No existen rutas registradas</p>
                                         </Box>
-                                    </Grid>
+                                    </Box>
                                 </Grid>
-                            </CardContent>
-                        </CardActionArea>
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                            gap: 1,
+                                        }}
+                                    >
+                                        <Button
+                                            size="small"
+                                            variant="contained"
+                                            onClick={() => setRoute("")}
+                                        >
+                                            Agregar ruta
+                                        </Button>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
                     </Card>
                 </Grid>
 
