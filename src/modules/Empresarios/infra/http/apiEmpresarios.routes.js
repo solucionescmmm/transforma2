@@ -35,6 +35,11 @@ routes.get("/transforma/api/Empresario/getIdeaEmpresario", async (req, res) => {
     await controllerEmpresarios.getIdeaEmpresario(req, res);
 });
 
+routes.get("/transforma/api/Empresario/getEmpresario", async (req, res) => {
+    let controllerEmpresarios = new classController();
+    await controllerEmpresarios.getEmpresario(req, res);
+});
+
 routes.delete("/transforma/api/Interesados/delete",async(req, res)=>{
     let controllerEmpresarios = new classController();
     await controllerEmpresarios.deleteEmpresario(req, res)

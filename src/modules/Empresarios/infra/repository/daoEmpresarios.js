@@ -764,60 +764,46 @@ class daoEmpresarios {
             let response = await conn.query`
             
             SELECT
-            Idea.intId,
-            Idea.strNombre,
-            Idea.intIdEstado,
-            Idea.dtmCreacion,
-            Idea.strUsuarioCreacion,
-            Idea.dtmActualizacion,
-            Idea.strUsuarioActualizacion,
-            (
-                SELECT *,
-                Tipo.strNombre as strTipoEmpresario 
-                FROM tbl_Idea_Empresario IdeaEmpresario 
-                WHERE IdeaEmpresario.intIdIdea = Idea.intId
-                FOR JSON PATH
-            ) as objInfoIdeaEmpresario,
-            (
-                SELECT * FROM tbl_Empresario Empresario
-                WHERE Empresario.intId = IdeaEmpresario.intIdEmpresario
-                FOR JSON PATH
-            ) as objInfoEmpresario
+            Empresario.intId,
+            Empresario.strNombres,
+            Empresario.strApellidos,
+            Empresario.strTipoDocto,
+            Empresario.strNroDocto,
+            Empresario.strLugarExpedicionDocto,
+            Empresario.dtFechaExpedicionDocto,
+            Empresario.dtFechaNacimiento,
+            Empresario.strNacionalidad,
+            Empresario.strGenero,
+            Empresario.strCelular1,
+            Empresario.strCelular2,
+            Empresario.strCorreoElectronico1,
+            Empresario.strCorreoElectronico2,
+            Empresario.strNivelEducativo,
+            Empresario.strTitulos,
+            Empresario.strCondicionDiscapacidad,
+            Empresario.strSede,
+            Empresario.strModalidadIngreso,
+            Empresario.dtFechaVinculacion,
+            Empresario.strEstadoVinculacion,
+            Empresario.strTipoVinculacion,
+            Empresario.strEstrato,
+            Empresario.strDepartamento,
+            Empresario.strCiudad,
+            Empresario.strBarrio,
+            Empresario.strDireccionResidencia,
+            Empresario.strUrlFileFoto,
+            Empresario.dtmActualizacion,
+            Empresario.strUsuario,
+            Tipo.strNombre as strTipoEmpresario
 
-            FROM tbl_Idea Idea
-            INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdIdea = Idea.intId
+            FROM tbl_Empresario Empresario
+
+            LEFT JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
             INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario 
             
-            WHERE (Idea.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+            WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
-
-            for (let i = 0; i < arrNewData.length; i++) {
-                if (arrNewData[i].objInfoIdeaEmpresario) {
-                    let { objInfoIdeaEmpresario } = arrNewData[i];
-                    
-
-                    if (validator.isJSON(objInfoIdeaEmpresario)) {
-                        objInfoIdeaEmpresario = JSON.parse(
-                            objInfoIdeaEmpresario
-                        );
-                        arrNewData[i].objInfoIdeaEmpresario =
-                        objInfoIdeaEmpresario;
-                    }
-                }
-                if (arrNewData[i].objInfoEmpresario) {
-                    let { objInfoEmpresario } = arrNewData[i];
-                    
-
-                    if (validator.isJSON(objInfoEmpresario)) {
-                        objInfoEmpresario = JSON.parse(
-                            objInfoEmpresario
-                        );
-                        arrNewData[i].objInfoEmpresario =
-                        objInfoEmpresario;
-                    }
-                }
-            }
 
             let result = {
                 error: false,
