@@ -274,6 +274,7 @@ class setEmpresarioPrincipal {
             intIdIdea:this.#intIdIdea,
             intNumeroEmpleados:this.#objData.objInfoEmpresa.intNumeroEmpleados,
             ValorVentas:this.#objData.objInfoEmpresa.valorVentasMes,
+            strTiempoDedicacionAdmin:this.#objData.objInfoEmpresa.strTiempoDedicacion,
             intIdFuenteHistorico: this.#intIdFuenteHistorico,
             intIdFuenteDato:this.#intIdEmpresa
         };
