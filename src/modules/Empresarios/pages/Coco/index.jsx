@@ -23,13 +23,13 @@ import {
 
 //Iconos
 import { Home as HomeIcon } from "@mui/icons-material";
-import TeamIcon from "../../../../static/img/icons/team.png";
-import DocumentIcon from "../../../../static/img/icons/document.png";
-import RouteIcon from "../../../../static/img/icons/route.png";
-import PlannerIcon from "../../../../static/img/icons/planner.png";
-import CommentsIcon from "../../../../static/img/icons/comments.png";
-import NotesIcon from "../../../../static/img/icons/notes.png";
-import FoldersIcon from "../../../../static/img/icons/folders.png";
+import TeamIcon from "../../../../static/img/icons/Personas.png";
+import DocumentIcon from "../../../../static/img/icons/Diagnosticos.png";
+import RouteIcon from "../../../../static/img/icons/Rutas.png";
+import PlannerIcon from "../../../../static/img/icons/Eventos.png";
+import CommentsIcon from "../../../../static/img/icons/Comentarios.png";
+import NotesIcon from "../../../../static/img/icons/tareas.png";
+import FoldersIcon from "../../../../static/img/icons/Documentos.png";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -174,6 +174,17 @@ const Coco = () => {
                             >
                                 <Typography>
                                     <span style={{ color: "#00BAB3" }}>
+                                        Representante:
+                                    </span>
+                                    {objInteresado?.objEmpresario?.[0]
+                                        ?.strNombres +
+                                        " " +
+                                        objInteresado?.objEmpresario?.[0]
+                                            ?.strApellidos || ""}
+                                </Typography>
+
+                                <Typography>
+                                    <span style={{ color: "#00BAB3" }}>
                                         Nombre de la iniciativa:
                                     </span>
                                     {objInteresado?.objInfoEmpresa
@@ -196,6 +207,14 @@ const Coco = () => {
                             >
                                 <Typography>
                                     <span style={{ color: "#00BAB3" }}>
+                                        Teléfono:
+                                    </span>
+                                    {objInteresado?.objEmpresario?.[0]
+                                        ?.strCelular1 || ""}
+                                </Typography>
+
+                                <Typography>
+                                    <span style={{ color: "#00BAB3" }}>
                                         Estado:
                                     </span>
                                     {objInteresado?.objEmpresario?.[0]
@@ -216,6 +235,14 @@ const Coco = () => {
                                     flexDirection: "column",
                                 }}
                             >
+                                <Typography>
+                                    <span style={{ color: "#00BAB3" }}>
+                                        Correo:
+                                    </span>
+                                    {objInteresado?.objEmpresario?.[0]
+                                        ?.strCorreo || ""}
+                                </Typography>
+
                                 <Typography>
                                     <span style={{ color: "#00BAB3" }}>
                                         Sede:
@@ -324,6 +351,16 @@ const Coco = () => {
                         >
                             <Typography>
                                 <span style={{ color: "#00BAB3" }}>
+                                    Representante:
+                                </span>
+                                {objInteresado?.objEmpresario?.[0]?.strNombres +
+                                    " " +
+                                    objInteresado?.objEmpresario?.[0]
+                                        ?.strApellidos || ""}
+                            </Typography>
+
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
                                     Nombre de la iniciativa:
                                 </span>
                                 {objInteresado?.objInfoEmpresa
@@ -346,6 +383,14 @@ const Coco = () => {
                         >
                             <Typography>
                                 <span style={{ color: "#00BAB3" }}>
+                                    Teléfono:
+                                </span>
+                                {objInteresado?.objEmpresario?.[0]
+                                    ?.strCelular1 || ""}
+                            </Typography>
+
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
                                     Estado:
                                 </span>
                                 {objInteresado?.objEmpresario?.[0]
@@ -364,6 +409,14 @@ const Coco = () => {
                                 flexDirection: "column",
                             }}
                         >
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
+                                    Correo:
+                                </span>
+                                {objInteresado?.objEmpresario?.[0]?.strCorreo ||
+                                    ""}
+                            </Typography>
+
                             <Typography>
                                 <span style={{ color: "#00BAB3" }}>Sede:</span>
                                 {objInteresado?.objEmpresario?.[0]?.strSede ||
@@ -582,7 +635,7 @@ const Coco = () => {
                                         <img
                                             src={TeamIcon}
                                             alt="icono"
-                                            width={40}
+                                            width={80}
                                         />
                                     </Typography>
                                 </Grid>
@@ -614,7 +667,7 @@ const Coco = () => {
                                             display: "flex",
                                             flexDirection: "row-reverse",
                                             gap: 1,
-                                            paddingRight: "5px"
+                                            paddingRight: "5px",
                                         }}
                                     >
                                         <Button
@@ -676,7 +729,7 @@ const Coco = () => {
                                         <img
                                             src={DocumentIcon}
                                             alt="icono"
-                                            width={40}
+                                            width={80}
                                         />
                                     </Typography>
                                 </Grid>
@@ -713,7 +766,7 @@ const Coco = () => {
                                             display: "flex",
                                             flexDirection: "row-reverse",
                                             gap: 1,
-                                            paddingRight: "5px"
+                                            paddingRight: "5px",
                                         }}
                                     >
                                         <Button
@@ -762,7 +815,7 @@ const Coco = () => {
                                         <img
                                             src={RouteIcon}
                                             alt="icono"
-                                            width={40}
+                                            width={80}
                                         />
                                     </Typography>
                                 </Grid>
@@ -796,7 +849,7 @@ const Coco = () => {
                                             display: "flex",
                                             flexDirection: "row-reverse",
                                             gap: 1,
-                                            paddingRight: "5px"
+                                            paddingRight: "5px",
                                         }}
                                     >
                                         <Button
@@ -844,7 +897,7 @@ const Coco = () => {
                                             <img
                                                 src={PlannerIcon}
                                                 alt="icono"
-                                                width={50}
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -874,6 +927,29 @@ const Coco = () => {
                                                     iniciativa
                                                 </p>
                                             </Box>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row-reverse",
+                                                gap: 1,
+                                                paddingRight: "5px",
+                                                marginBottom: "20px",
+                                            }}
+                                        >
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                onClick={() => setRoute("")}
+                                                sx={{
+                                                    fontSize: "11px",
+                                                }}
+                                            >
+                                                Agregar eventos
+                                            </Button>
                                         </Box>
                                     </Grid>
                                 </Grid>
@@ -910,7 +986,7 @@ const Coco = () => {
                                             <img
                                                 src={CommentsIcon}
                                                 alt="icono"
-                                                width={40}
+                                                width={80}
                                             />
                                         </Typography>
                                     </Grid>
@@ -935,6 +1011,29 @@ const Coco = () => {
                                             >
                                                 <p>No hay comentarios nuevos</p>
                                             </Box>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row-reverse",
+                                                gap: 1,
+                                                paddingRight: "5px",
+                                                marginBottom: "20px",
+                                            }}
+                                        >
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                onClick={() => setRoute("")}
+                                                sx={{
+                                                    fontSize: "11px",
+                                                }}
+                                            >
+                                                Agregar comentario
+                                            </Button>
                                         </Box>
                                     </Grid>
                                 </Grid>
@@ -971,7 +1070,7 @@ const Coco = () => {
                                             <img
                                                 src={NotesIcon}
                                                 alt="icono"
-                                                width={50}
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -997,6 +1096,29 @@ const Coco = () => {
                                             >
                                                 <p>No existen nuevas tareas</p>
                                             </Box>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row-reverse",
+                                                gap: 1,
+                                                paddingRight: "5px",
+                                                marginBottom: "20px",
+                                            }}
+                                        >
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                onClick={() => setRoute("")}
+                                                sx={{
+                                                    fontSize: "11px",
+                                                }}
+                                            >
+                                                Agregar tarea
+                                            </Button>
                                         </Box>
                                     </Grid>
                                 </Grid>
@@ -1033,7 +1155,7 @@ const Coco = () => {
                                             <img
                                                 src={FoldersIcon}
                                                 alt="icono"
-                                                width={50}
+                                                width={80}
                                                 style={{}}
                                             />
                                         </Typography>
@@ -1061,6 +1183,29 @@ const Coco = () => {
                                                     Se encontraron 0 documentos
                                                 </p>
                                             </Box>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row-reverse",
+                                                gap: 1,
+                                                paddingRight: "5px",
+                                                marginBottom: "20px",
+                                            }}
+                                        >
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                onClick={() => setRoute("")}
+                                                sx={{
+                                                    fontSize: "11px",
+                                                }}
+                                            >
+                                                Agregar documento
+                                            </Button>
                                         </Box>
                                     </Grid>
                                 </Grid>
