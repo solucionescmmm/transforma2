@@ -609,6 +609,91 @@ const Coco = () => {
 
                 <Grid item xs={12} md={4}>
                     <Card elevation={1}>
+                        <CardActionArea>
+                            <CardContent sx={{ padding: "0px" }}>
+                                <Grid container direction="row">
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        sx={{
+                                            color: "#00BAB3",
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="subtitle2"
+                                            sx={{
+                                                padding: "10px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <p style={{ flexGrow: 1 }}>
+                                                <b style={{ fontSize: 16 }}>
+                                                    Tareas
+                                                </b>
+                                            </p>
+                                            <img
+                                                src={NotesIcon}
+                                                alt="icono"
+                                                width={80}
+                                                style={{}}
+                                            />
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "columns",
+                                                alignContent: "center",
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    width: 800,
+                                                    height: 118,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <p>No existen nuevas tareas</p>
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row-reverse",
+                                                gap: 1,
+                                                paddingRight: "5px",
+                                                marginBottom: "20px",
+                                            }}
+                                        >
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                onClick={() => setRoute("")}
+                                                sx={{
+                                                    fontSize: "11px",
+                                                }}
+                                            >
+                                                Agregar tarea
+                                            </Button>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                    <Card elevation={1}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -625,15 +710,14 @@ const Coco = () => {
                                             display: "flex",
                                             alignItems: "center",
                                         }}
-                                        onClick={() => setRoute("Personas")}
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
-                                                Personas
+                                                Rutas
                                             </b>
                                         </p>
                                         <img
-                                            src={TeamIcon}
+                                            src={RouteIcon}
                                             alt="icono"
                                             width={80}
                                         />
@@ -653,10 +737,12 @@ const Coco = () => {
                                             sx={{
                                                 width: 800,
                                                 height: 118,
-                                                paddingLeft: "10px",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
                                             }}
                                         >
-                                            <CardPersonas intId={intId} />
+                                            <p>No existen rutas registradas</p>
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -673,27 +759,12 @@ const Coco = () => {
                                         <Button
                                             size="small"
                                             variant="contained"
-                                            onClick={() =>
-                                                setRoute("PersonasCreate")
-                                            }
+                                            onClick={() => setRoute("")}
                                             sx={{
                                                 fontSize: "11px",
                                             }}
                                         >
-                                            Agregar personas
-                                        </Button>
-
-                                        <Button
-                                            size="small"
-                                            variant="contained"
-                                            onClick={() =>
-                                                setRoute("PersonasCreate")
-                                            }
-                                            sx={{
-                                                fontSize: "11px",
-                                            }}
-                                        >
-                                            Reemplazar representante
+                                            Agregar ruta
                                         </Button>
                                     </Box>
                                 </Grid>
@@ -790,85 +861,88 @@ const Coco = () => {
 
                 <Grid item xs={12} md={4}>
                     <Card elevation={1}>
-                        <CardContent sx={{ padding: "0px" }}>
-                            <Grid container direction="row">
-                                <Grid
-                                    item
-                                    xs={12}
-                                    sx={{
-                                        color: "#00BAB3",
-                                    }}
-                                >
-                                    <Typography
-                                        variant="subtitle2"
+                        <CardActionArea onClick={() => setRoute("Comentarios")}>
+                            <CardContent sx={{ padding: "0px" }}>
+                                <Grid container direction="row">
+                                    <Grid
+                                        item
+                                        xs={12}
                                         sx={{
-                                            padding: "10px",
-                                            display: "flex",
-                                            alignItems: "center",
+                                            color: "#00BAB3",
                                         }}
                                     >
-                                        <p style={{ flexGrow: 1 }}>
-                                            <b style={{ fontSize: 16 }}>
-                                                Rutas
-                                            </b>
-                                        </p>
-                                        <img
-                                            src={RouteIcon}
-                                            alt="icono"
-                                            width={80}
-                                        />
-                                    </Typography>
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "columns",
-                                            alignContent: "center",
-                                            justifyContent: "center",
-                                        }}
-                                    >
-                                        <Box
+                                        <Typography
+                                            variant="subtitle2"
                                             sx={{
-                                                width: 800,
-                                                height: 118,
+                                                padding: "10px",
                                                 display: "flex",
-                                                justifyContent: "center",
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <p>No existen rutas registradas</p>
-                                        </Box>
-                                    </Box>
-                                </Grid>
+                                            <p style={{ flexGrow: 1 }}>
+                                                <b style={{ fontSize: 16 }}>
+                                                    Comentarios
+                                                </b>
+                                            </p>
+                                            <img
+                                                src={CommentsIcon}
+                                                alt="icono"
+                                                width={80}
+                                            />
+                                        </Typography>
+                                    </Grid>
 
-                                <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "row-reverse",
-                                            gap: 1,
-                                            paddingRight: "5px",
-                                        }}
-                                    >
-                                        <Button
-                                            size="small"
-                                            variant="contained"
-                                            onClick={() => setRoute("")}
+                                    <Grid item xs={12}>
+                                        <Box
                                             sx={{
-                                                fontSize: "11px",
+                                                display: "flex",
+                                                flexDirection: "columns",
+                                                alignContent: "center",
+                                                justifyContent: "center",
                                             }}
                                         >
-                                            Agregar ruta
-                                        </Button>
-                                    </Box>
+                                            <Box
+                                                sx={{
+                                                    width: 800,
+                                                    height: 118,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <p>No hay comentarios nuevos</p>
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row-reverse",
+                                                gap: 1,
+                                                paddingRight: "5px",
+                                                marginBottom: "20px",
+                                            }}
+                                        >
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                onClick={() => setRoute("")}
+                                                sx={{
+                                                    fontSize: "11px",
+                                                }}
+                                            >
+                                                Agregar comentario
+                                            </Button>
+                                        </Box>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </CardContent>
+                            </CardContent>
+                        </CardActionArea>
                     </Card>
                 </Grid>
-
+  
                 <Grid item xs={12} md={4}>
                     <Card elevation={1}>
                         <CardActionArea>
@@ -960,170 +1034,96 @@ const Coco = () => {
 
                 <Grid item xs={12} md={4}>
                     <Card elevation={1}>
-                        <CardActionArea onClick={() => setRoute("Comentarios")}>
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row">
-                                    <Grid
-                                        item
-                                        xs={12}
+                        <CardContent sx={{ padding: "0px" }}>
+                            <Grid container direction="row">
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{
+                                        color: "#00BAB3",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="subtitle2"
                                         sx={{
-                                            color: "#00BAB3",
+                                            padding: "10px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                        }}
+                                        onClick={() => setRoute("Personas")}
+                                    >
+                                        <p style={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: 16 }}>
+                                                Personas
+                                            </b>
+                                        </p>
+                                        <img
+                                            src={TeamIcon}
+                                            alt="icono"
+                                            width={80}
+                                        />
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "columns",
+                                            alignContent: "center",
+                                            justifyContent: "center",
                                         }}
                                     >
-                                        <Typography
-                                            variant="subtitle2"
-                                            sx={{
-                                                padding: "10px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <p style={{ flexGrow: 1 }}>
-                                                <b style={{ fontSize: 16 }}>
-                                                    Comentarios
-                                                </b>
-                                            </p>
-                                            <img
-                                                src={CommentsIcon}
-                                                alt="icono"
-                                                width={80}
-                                            />
-                                        </Typography>
-                                    </Grid>
-
-                                    <Grid item xs={12}>
                                         <Box
                                             sx={{
-                                                display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
-                                                justifyContent: "center",
+                                                width: 800,
+                                                height: 118,
+                                                paddingLeft: "10px",
                                             }}
                                         >
-                                            <Box
-                                                sx={{
-                                                    width: 800,
-                                                    height: 118,
-                                                    display: "flex",
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                }}
-                                            >
-                                                <p>No hay comentarios nuevos</p>
-                                            </Box>
+                                            <CardPersonas intId={intId} />
                                         </Box>
-                                    </Grid>
-
-                                    <Grid item xs={12}>
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "row-reverse",
-                                                gap: 1,
-                                                paddingRight: "5px",
-                                                marginBottom: "20px",
-                                            }}
-                                        >
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                onClick={() => setRoute("")}
-                                                sx={{
-                                                    fontSize: "11px",
-                                                }}
-                                            >
-                                                Agregar comentario
-                                            </Button>
-                                        </Box>
-                                    </Grid>
+                                    </Box>
                                 </Grid>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
 
-                <Grid item xs={12} md={4}>
-                    <Card elevation={1}>
-                        <CardActionArea>
-                            <CardContent sx={{ padding: "0px" }}>
-                                <Grid container direction="row">
-                                    <Grid
-                                        item
-                                        xs={12}
+                                <Grid item xs={12}>
+                                    <Box
                                         sx={{
-                                            color: "#00BAB3",
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                            gap: 1,
+                                            paddingRight: "5px",
                                         }}
                                     >
-                                        <Typography
-                                            variant="subtitle2"
+                                        <Button
+                                            size="small"
+                                            variant="contained"
+                                            onClick={() =>
+                                                setRoute("PersonasCreate")
+                                            }
                                             sx={{
-                                                padding: "10px",
-                                                display: "flex",
-                                                alignItems: "center",
+                                                fontSize: "11px",
                                             }}
                                         >
-                                            <p style={{ flexGrow: 1 }}>
-                                                <b style={{ fontSize: 16 }}>
-                                                    Tareas
-                                                </b>
-                                            </p>
-                                            <img
-                                                src={NotesIcon}
-                                                alt="icono"
-                                                width={80}
-                                                style={{}}
-                                            />
-                                        </Typography>
-                                    </Grid>
+                                            Agregar personas
+                                        </Button>
 
-                                    <Grid item xs={12}>
-                                        <Box
+                                        <Button
+                                            size="small"
+                                            variant="contained"
+                                            onClick={() =>
+                                                setRoute("PersonasCreate")
+                                            }
                                             sx={{
-                                                display: "flex",
-                                                flexDirection: "columns",
-                                                alignContent: "center",
-                                                justifyContent: "center",
+                                                fontSize: "11px",
                                             }}
                                         >
-                                            <Box
-                                                sx={{
-                                                    width: 800,
-                                                    height: 118,
-                                                    display: "flex",
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                }}
-                                            >
-                                                <p>No existen nuevas tareas</p>
-                                            </Box>
-                                        </Box>
-                                    </Grid>
-
-                                    <Grid item xs={12}>
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "row-reverse",
-                                                gap: 1,
-                                                paddingRight: "5px",
-                                                marginBottom: "20px",
-                                            }}
-                                        >
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                onClick={() => setRoute("")}
-                                                sx={{
-                                                    fontSize: "11px",
-                                                }}
-                                            >
-                                                Agregar tarea
-                                            </Button>
-                                        </Box>
-                                    </Grid>
+                                            Reemplazar representante
+                                        </Button>
+                                    </Box>
                                 </Grid>
-                            </CardContent>
-                        </CardActionArea>
+                            </Grid>
+                        </CardContent>
                     </Card>
                 </Grid>
 
