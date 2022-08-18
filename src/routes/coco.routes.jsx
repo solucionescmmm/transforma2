@@ -35,6 +35,12 @@ const PersonasCreate = lazy(() =>
     import("../modules/Empresarios/pages/PersonasSecundarias/create&Edit")
 );
 
+const Tareas = lazy(() => import("../modules/Empresarios/pages/Tareas"));
+
+const CreateTareas = lazy(() =>
+    import("../modules/Empresarios/pages/Tareas/create&Edit")
+);
+
 const CocoRoutes = ({ route, onChange, intId }) => {
     if (route === "Personas") {
         return (
@@ -184,6 +190,44 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                 </Grid>
 
                 <Comentarios onChange={onChange} />
+            </Grid>
+        );
+    }
+
+    if (route === "Tareas") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChange("")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <Tareas onChange={onChange} />
+            </Grid>
+        );
+    }
+
+    if (route === "CreateTareas") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChange("")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <CreateTareas />
             </Grid>
         );
     }

@@ -677,7 +677,7 @@ const Coco = () => {
                                             <Button
                                                 size="small"
                                                 variant="contained"
-                                                onClick={() => setRoute("")}
+                                                onClick={() => setRoute("Tareas")}
                                                 sx={{
                                                     fontSize: "11px",
                                                 }}
