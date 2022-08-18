@@ -5,13 +5,16 @@ const validator = require("validator").default;
 const classInterfaceDAOComentarios = require("../infra/conectors/interfaceDaoComentarios")
 
 class updateComentario{
+    //obj info
     #objData;
+    #objUser;
     #objResult;
     /**
      * @param {object} data
      */
-    constructor(data) {
+     constructor(data, strDataUser) {
         this.#objData = data;
+        this.#objUser = strDataUser;
     }
 
     async main() {
@@ -21,6 +24,15 @@ class updateComentario{
     }
 
     async #validations(){
+        if (
+            !validator.isEmail(this.#objUser.strEmail, {
+                domain_specific_validation: "cmmmedellin.org",
+            })
+        ) {
+            throw new Error(
+                "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
+            );
+        }
         if (!this.#objData.intId) {
             throw new Error("Se esperaba parametro de entrada.")   
         }

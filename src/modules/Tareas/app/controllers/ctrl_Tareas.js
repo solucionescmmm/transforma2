@@ -1,16 +1,16 @@
 //Servicios
-const setTarea = require("../../domain/setTarea.service")
-const updateTarea = require("../../domain/updateTarea.service")
-const deleteTarea = require("../../domain/deleteTarea.service")
-const getTarea = require("../../domain/getTarea.service")
+const setTarea = require("../../domain/setTarea.service");
+const getTarea = require("../../domain/getTarea.service");
+const updateTarea = require("../../domain/updateTarea.service");
+const deleteTarea = require("../../domain/deleteTarea.service");
 
-
-class ctrl_Tareas{
-    async setTarea(req, res){
+class ctrl_Tarea {
+    async setTarea(req, res) {
         try {
-            let data = req.body;  
+            let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new setTarea(data)
+            let service = new setTarea(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
@@ -28,11 +28,12 @@ class ctrl_Tareas{
         }
     }
 
-    async updateTarea(req, res){
+    async updateTarea(req, res) {
         try {
-            let data = req.body;  
+            let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new updateTarea(data)
+            let service = new updateTarea(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
@@ -50,11 +51,11 @@ class ctrl_Tareas{
         }
     }
 
-    async deleteTarea(req, res){
+    async deleteTarea(req, res) {
         try {
-            let objParams = req.query;  
+            let objParams = req.query;
 
-            let service = new deleteTarea(objParams)
+            let service = new deleteTarea(objParams);
             let query = await service.main();
 
             if (query.error) {
@@ -72,13 +73,13 @@ class ctrl_Tareas{
         }
     }
 
-    async getTarea(req, res){
+    async getTarea(req, res) {
         try {
-            let objParams = req.query; 
-            let { strDataUser } = req; 
+            let objParams = req.query;
+            let { strDataUser } = req;
 
-            let query = await getTarea(objParams, strDataUser)
-            
+            let query = await getTarea(objParams, strDataUser);
+
             if (query.error) {
                 throw new Error(query.msg);
             }
@@ -95,4 +96,4 @@ class ctrl_Tareas{
     }
 }
 
-module.exports = ctrl_Tareas
+module.exports = ctrl_Tarea;

@@ -1,12 +1,11 @@
-//Librerias
-const validator = require("validator").default;
+
 //Clases
 const classInterfaceTareas = require("../infra/conectors/interfaceDaoTareas");
 
 const  getTarea = async (objParams) => {
-    let = { intId, intIdEmpresario } = objParams;
+    let = { intId, intIdIdea } = objParams;
 
-    if (!objParams) {
+    if (!intIdIdea) {
         throw new Error("Se esperaban parámetros de búsqueda.");
     }
 
@@ -14,7 +13,7 @@ const  getTarea = async (objParams) => {
 
     let query = {
         intId: intId || null,
-        intIdEmpresario: intIdEmpresario || null,
+        intIdIdea: intIdIdea || null,
     };
 
     let result = await dao.getTarea(query);

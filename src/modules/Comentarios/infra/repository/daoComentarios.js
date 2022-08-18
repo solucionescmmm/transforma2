@@ -15,15 +15,13 @@ class daoComentarios {
             
             INSERT INTO tbl_Comentarios VALUES
             (
-                ${data.intIdEmpresario},
-                ${data.strTipo},
+                ${data.intIdIdea},
                 ${data.strMensaje},
-                ${data.strUsuario},
-                ${data.strUsuarioAsignado},
                 ${data.strURLImagenUsuario},
-                ${data.btResuelto},
                 GETDATE(),
-                GETDATE()
+                ${data.strUsuarioCreacion},
+                NULL,
+                NULL
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -60,11 +58,9 @@ class daoComentarios {
 
             UPDATE tbl_Comentarios
 
-            SET strTipo            = COALESCE(${data.strTipo}, strTipo),
-                strMensaje         = COALESCE(${data.strMensaje}, strMensaje),
-                strUsuarioAsignado = COALESCE(${data.strUsuarioAsignado}, strUsuarioAsignado),
-                btResuelto         = COALESCE(${data.btResuelto}, btResuelto),
-                dtmActualizacion   = COALESCE(GETDATE(), dtmActualizacion)
+            SET strMensaje              = COALESCE(${data.strMensaje}, strMensaje),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
 
             WHERE intId = ${data.intId}
 
@@ -130,15 +126,13 @@ class daoComentarios {
             SELECT 
 
             Comentario.intId,
-            Comentario.intIdEmpresario,
-            Comentario.strTipo,
+            Comentario.intIdIdea,
             Comentario.strMensaje,
-            Comentario.strUsuario,
-            Comentario.strUsuarioAsignado,
             Comentario.strURLImagenUsuario,
-            Comentario.btResuelto,
-            Comentario.dtmActualizacion,
             Comentario.dtmCreacion,
+            Comentario.strUsuarioCreacion,
+            Comentario.dtmActualizacion,
+            Comentario.strUsuarioActualizacion,
             (
                 SELECT * FROM tbl_RespuestaComentarios Respuesta
                 WHERE Respuesta.intIdComentario = Comentario.intId
@@ -148,7 +142,7 @@ class daoComentarios {
             FROM tbl_Comentarios Comentario
 
             WHERE (Comentario.intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (Comentario.intIdEmpresario = ${data.intIdEmpresario} OR ${data.intIdEmpresario} IS NULL) `;
+            AND   (Comentario.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL) `;
 
             let arrNewData = response.recordsets[0];
 
@@ -195,10 +189,11 @@ class daoComentarios {
             (
                 ${data.intIdComentario},
                 ${data.strMensaje},
-                ${data.strUsuario},
                 ${data.strURLImagenUsuario},
                 GETDATE(),
-                GETDATE()
+                ${data.strUsuarioCreacion},
+                NULL,
+                NULL
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -235,8 +230,9 @@ class daoComentarios {
 
             UPDATE tbl_RespuestaComentarios
 
-            SET strMensaje         = COALESCE(${data.strMensaje}, strMensaje),
-                dtmActualizacion   = COALESCE(GETDATE(), dtmActualizacion)
+            SET strMensaje              = COALESCE(${data.strMensaje}, strMensaje),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
             WHERE intId = ${data.intId}
     

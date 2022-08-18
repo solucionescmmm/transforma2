@@ -17,10 +17,10 @@ class daoTareas {
             (
                 ${data.intIdIdea},
                 ${data.strTarea},
-                ${data.intIdEstadoTarea},
                 ${data.strObservaciones},
                 ${data.strResponsable},
                 ${data.dtFechaFinTentativa},
+                ${data.btFinalizada},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
@@ -140,6 +140,39 @@ class daoTareas {
             AND   (Tarea.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL) `;
 
             let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getTarea de la clase daoTareas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getIdEstadoTarea(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT intId FROM tbl_Tareas
+            WHERE (strNombre = ${data.strNombre})`;
+
+            let arrNewData = response.recordset[0];
 
             let result = {
                 error: false,

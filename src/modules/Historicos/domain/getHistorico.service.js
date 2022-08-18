@@ -28,6 +28,8 @@ const getHistorico = async (objParams, strDataUser) => {
 
     let arrayData = await dao.getHistorico(query);
 
+    console.log(arrayData)
+
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data
@@ -48,7 +50,8 @@ const getHistorico = async (objParams, strDataUser) => {
                 })
 
                 arrEtapaDllo.push({
-                    ValorVentas: array[i]?.intEtapaDllo,
+                    intEtapaDlloFecha: array[i]?.intEtapaDlloFecha,
+                    strClasificacionFecha:array[i]?.strClasificacionFecha,
                     dtmCreacion:array[i]?.dtmCreacion
                 })
             }

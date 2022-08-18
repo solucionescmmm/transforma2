@@ -1,31 +1,44 @@
-
+//Librerias
+const validator = require("validator").default;
 //class
-const classInterfaceDAOComentarios = require("../infra/conectors/interfaceDaoComentarios")
+const classInterfaceDAOComentarios = require("../infra/conectors/interfaceDaoComentarios");
 
-class updateRespuesta{
+class updateRespuesta {
+    //obj info
     #objData;
+    #objUser;
     #objResult;
     /**
      * @param {object} data
      */
-    constructor(data) {
+    constructor(data, strDataUser) {
         this.#objData = data;
+        this.#objUser = strDataUser;
     }
 
     async main() {
-        await this.#validations()
-        await this.#updateRespuesta()
+        await this.#validations();
+        await this.#updateRespuesta();
         return this.#objResult;
     }
 
-    async #validations(){
+    async #validations() {
+        if (
+            !validator.isEmail(this.#objUser.strEmail, {
+                domain_specific_validation: "cmmmedellin.org",
+            })
+        ) {
+            throw new Error(
+                "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
+            );
+        }
+
         if (!this.#objData.intId) {
-            throw new Error("Se esperaba parametro de entrada.")   
+            throw new Error("Se esperaba parametro de entrada.");
         }
     }
 
-
-    async #updateRespuesta(){
+    async #updateRespuesta() {
         let dao = new classInterfaceDAOComentarios();
 
         let query = await dao.updateRespuesta(this.#objData);
@@ -34,13 +47,11 @@ class updateRespuesta{
             throw new Error(query.msg);
         }
 
-
         this.#objResult = {
             error: query.error,
             data: query.data,
             msg: query.msg,
         };
     }
-
 }
 module.exports = updateRespuesta;

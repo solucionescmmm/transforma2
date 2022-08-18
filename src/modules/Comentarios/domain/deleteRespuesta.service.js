@@ -1,11 +1,17 @@
-const classInterfaceDAOComentarios = require("../infra/conectors/interfaceDaoComentarios")
+//Librerias
+const validator = require("validator").default;
 
-class deleteRespuesta{
+//clases
+const classInterfaceDAOComentarios = require("../infra/conectors/interfaceDaoComentarios");
+
+class deleteRespuesta {
+    #objUser;
     #intIdRespuesta;
     #objResult;
 
-    constructor(objParms) {
+    constructor(objParms, strDataUser) {
         this.#intIdRespuesta = objParms.intId;
+        this.#objUser = strDataUser;
     }
 
     async main() {
@@ -16,12 +22,22 @@ class deleteRespuesta{
     }
 
     async #validations() {
+        if (
+            !validator.isEmail(this.#objUser.strEmail, {
+                domain_specific_validation: "cmmmedellin.org",
+            })
+        ) {
+            throw new Error(
+                "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
+            );
+        }
+
         if (!this.#intIdRespuesta) {
             throw new Error("Se esperaban parametros de entrada");
         }
     }
 
-    async #deleteRespuesta(){
+    async #deleteRespuesta() {
         let dao = new classInterfaceDAOComentarios();
         let query = await dao.deleteRespuesta({
             intId: this.#intIdRespuesta,
@@ -39,6 +55,5 @@ class deleteRespuesta{
             msg: query.msg,
         };
     }
-
 }
-module.exports = deleteRespuesta
+module.exports = deleteRespuesta;
