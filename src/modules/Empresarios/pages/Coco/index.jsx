@@ -710,7 +710,7 @@ const Coco = () => {
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
-                                                Rutas
+                                                Acompañamientos
                                             </b>
                                         </p>
                                         <img
@@ -739,7 +739,7 @@ const Coco = () => {
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <p>No existen rutas registradas</p>
+                                            <p>No existen acompañamientos registrados</p>
                                         </Box>
                                     </Box>
                                 </Grid>
