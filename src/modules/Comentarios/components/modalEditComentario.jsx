@@ -10,7 +10,6 @@ import { useForm, Controller } from "react-hook-form";
 import {
     Grid,
     TextField,
-    MenuItem,
     Button,
     Dialog,
     DialogTitle,
@@ -18,6 +17,7 @@ import {
     DialogActions,
     useTheme,
     useMediaQuery,
+    Typography,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -33,12 +33,9 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         intId: values.intIdComentario,
-        intIdEmpresario: values?.intIdEmpresario,
-        btResuelto: false,
-        strTipo: "",
+        intIdIdea: values?.intIdIdea,
         strMensaje: "",
-        strUsuario: "",
-        arrUsuarioAsignado: [],
+        strUsuarioCreacion: "",
         strURLImagenUsuario: "",
     });
 
@@ -66,8 +63,8 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
         socket.emit("mdlComentarios:updateComentario", {
             ...data,
             intId: values.intIdComentario,
-            intIdEmpresario: values?.intIdEmpresario,
-            strUsuario: strInfoUser.strUsuario,
+            intIdIdea: values?.intIdIdea,
+            strUsuarioCreacion: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
         });
 
@@ -76,23 +73,17 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
 
             setData({
                 intId: values.intIdComentario,
-                intIdEmpresario: values?.intIdEmpresario,
-                btResuelto: false,
-                strTipo: "",
+                intIdIdea: values?.intIdIdea,
                 strMensaje: "",
-                strUsuario: "",
-                arrUsuarioAsignado: [],
+                strUsuarioCreacion: "",
                 strURLImagenUsuario: "",
             });
 
             reset({
                 intId: values.intIdComentario,
-                intIdEmpresario: values?.intIdEmpresario,
-                btResuelto: false,
-                strTipo: "",
+                intIdIdea: values?.intIdIdea,
                 strMensaje: "",
-                strUsuario: "",
-                arrUsuarioAsignado: [],
+                strUsuarioCreacion: "",
                 strURLImagenUsuario: "",
             });
 
@@ -103,13 +94,9 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
     useEffect(() => {
         setData({
             intId: values.intIdComentario,
-            intIdEmpresario: values.intIdEmpresario || null,
-            btResuelto:
-                typeof values.btResuelto === "boolean" ? values.btResuelto : false,
-            strTipo: values.strTipo || "",
+            intIdIdea: values.intIdIdea || null,
             strMensaje: values.strMensaje || "",
-            strUsuario: values.strUsuario || "",
-            arrUsuarioAsignado: values.arrUsuarioAsignado || [],
+            strUsuarioCreacion: values.strUsuarioCreacion || "",
             strURLImagenUsuario: values.strURLImagenUsuario || "",
         });
     }, [values]);
@@ -137,46 +124,17 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
             <DialogTitle>Editar Comentario</DialogTitle>
 
             <DialogContent>
-                <Grid container component="form" direction="row" spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strTipo}
-                            name="strTipo"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Tipo de Comentario"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={loading}
-                                    error={errors?.strTipo ? true : false}
-                                    required
-                                    helperText={
-                                        errors?.strTipo?.message ||
-                                        "Seleccione el tipo de comentario."
-                                    }
-                                    fullWidth
-                                    variant="standard"
-                                    select
-                                >
-                                    <MenuItem value="Tarea">Tarea</MenuItem>
-                                    <MenuItem value="Sugerencia">Sugerencia</MenuItem>
-                                    <MenuItem value="Comentario">Comentario</MenuItem>
-                                    <MenuItem value="Alerta">Alerta</MenuItem>
-                                    <MenuItem value="Situación Crítica">
-                                        Situación Crítica
-                                    </MenuItem>
-                                </TextField>
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, seleccione el tipo de comentario",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        Usuario
+                <Grid
+                    container
+                    component="form"
+                    direction="row"
+                    spacing={2}
+                    sx={{ minWidth: "500px" }}
+                >
+                    <Grid item xs={12}>
+                        <Typography variant="caption">
+                            Todos los campos marcados con (*) son obligatorios.
+                        </Typography>
                     </Grid>
 
                     <Grid item xs={12}>
@@ -216,7 +174,11 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
                     guardar
                 </LoadingButton>
 
-                <Button onClick={() => onClose()} disabled={loading} color="inherit">
+                <Button
+                    onClick={() => onClose()}
+                    disabled={loading}
+                    color="inherit"
+                >
                     Cancelar
                 </Button>
             </DialogActions>

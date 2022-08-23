@@ -194,6 +194,25 @@ const CocoRoutes = ({ route, onChange, intId }) => {
         );
     }
 
+    if (route === "CreateComentarios") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChange("")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <Comentarios onChange={onChange} openModalCreate={true} />
+            </Grid>
+        );
+    }
+
     if (route === "Tareas") {
         return (
             <Grid container direction="row" spacing={3}>

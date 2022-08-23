@@ -10,7 +10,6 @@ import { useForm, Controller } from "react-hook-form";
 import {
     Grid,
     TextField,
-    MenuItem,
     Button,
     Dialog,
     DialogTitle,
@@ -18,18 +17,12 @@ import {
     DialogActions,
     useTheme,
     useMediaQuery,
-    FormControl,
-    FormControlLabel,
-    FormHelperText,
-    Checkbox,
+    Typography,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
-// Componentes
-import DropdowUsuarios from "../../../common/components/dropdowUsuarios";
-
-const ModalAddComentario = ({ socket, values }) => {
+const ModalAddComentario = ({ socket, values, openModalCreate }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -39,17 +32,13 @@ const ModalAddComentario = ({ socket, values }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        intIdEmpresario: values?.intIdEmpresario,
-        btResuelto: false,
-        strTipo: "",
+        intIdIdea: values?.intIdIdea,
         strMensaje: "",
-        strUsuario: "",
-        arrUsuarioAsignado: [],
+        strUsuarioCreacion: "",
         strURLImagenUsuario: "",
-        bitAlertarTodos: false,
     });
 
-    const [openModal, setOpenModal] = useState(false);
+    const [openModal, setOpenModal] = useState(!!openModalCreate);
 
     const [loading, setLoading] = useState(false);
 
@@ -74,8 +63,8 @@ const ModalAddComentario = ({ socket, values }) => {
 
         socket.emit("mdlComentarios:setComentario", {
             ...data,
-            intIdEmpresario: values?.intIdEmpresario,
-            strUsuario: strInfoUser.strUsuario,
+            intIdIdea: values?.intIdIdea,
+            strUsuarioCreacion: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
         });
 
@@ -85,22 +74,16 @@ const ModalAddComentario = ({ socket, values }) => {
             setLoading(false);
 
             setData({
-                intIdEmpresario: values?.intIdEmpresario,
-                btResuelto: false,
-                strTipo: "",
+                intIdIdea: values?.intIdIdea,
                 strMensaje: "",
-                strUsuario: "",
-                arrUsuarioAsignado: [],
+                strUsuarioCreacion: "",
                 strURLImagenUsuario: "",
             });
 
             reset({
-                intIdEmpresario: values?.intIdEmpresario,
-                btResuelto: false,
-                strTipo: "",
+                intIdIdea: values?.intIdIdea,
                 strMensaje: "",
-                strUsuario: "",
-                arrUsuarioAsignado: [],
+                strUsuarioCreacion: "",
                 strURLImagenUsuario: "",
             });
         });
@@ -123,7 +106,7 @@ const ModalAddComentario = ({ socket, values }) => {
             <Dialog
                 open={loading || openModal}
                 onClose={handlerChangeOpenModal}
-                maxWidth="md"
+                maxWidth="lg"
                 fullScreen={bitMobile}
                 PaperProps={{
                     component: "form",
@@ -134,57 +117,36 @@ const ModalAddComentario = ({ socket, values }) => {
                 <DialogTitle>Agregar Comentario</DialogTitle>
 
                 <DialogContent>
-                    <Grid container component="form" direction="row" spacing={2}>
+                    <Grid
+                        container
+                        component="form"
+                        direction="row"
+                        spacing={2}
+                        sx={{ minWidth: "500px" }}
+                    >
                         <Grid item xs={12}>
-                            <Controller
-                                defaultValue={data.strTipo}
-                                name="strTipo"
-                                render={({ field: { name, value, onChange } }) => (
-                                    <TextField
-                                        label="Tipo de Comentario"
-                                        name={name}
-                                        value={value}
-                                        onChange={(e) => onChange(e)}
-                                        disabled={loading}
-                                        error={errors?.strTipo ? true : false}
-                                        required
-                                        helperText={
-                                            errors?.strTipo?.message ||
-                                            "Seleccione el tipo de comentario."
-                                        }
-                                        fullWidth
-                                        variant="standard"
-                                        select
-                                    >
-                                        <MenuItem value="Tarea">Tarea</MenuItem>
-                                        <MenuItem value="Sugerencia">Sugerencia</MenuItem>
-                                        <MenuItem value="Comentario">Comentario</MenuItem>
-                                        <MenuItem value="Alerta">Alerta</MenuItem>
-                                        <MenuItem value="Situación Crítica">
-                                            Situación Crítica
-                                        </MenuItem>
-                                    </TextField>
-                                )}
-                                control={control}
-                                rules={{
-                                    required:
-                                        "Por favor, seleccione el tipo de comentario",
-                                }}
-                            />
+                            <Typography variant="caption">
+                                Todos los campos marcados con (*) son
+                                obligatorios.
+                            </Typography>
                         </Grid>
 
                         <Grid item xs={12}>
                             <Controller
                                 defaultValue={data.strMensaje}
                                 name="strMensaje"
-                                render={({ field: { name, value, onChange } }) => (
+                                render={({
+                                    field: { name, value, onChange },
+                                }) => (
                                     <TextField
                                         label="Comentario"
                                         name={name}
                                         value={value}
                                         onChange={(e) => onChange(e)}
                                         disabled={loading}
-                                        error={errors?.strMensaje ? true : false}
+                                        error={
+                                            errors?.strMensaje ? true : false
+                                        }
                                         required
                                         helperText={
                                             errors?.strMensaje?.message ||
@@ -200,55 +162,6 @@ const ModalAddComentario = ({ socket, values }) => {
                                 rules={{
                                     required: "Por favor, digite el comentario",
                                 }}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Controller
-                                defaultValue={data.bitAlertarTodos}
-                                name="bitAlertarTodos"
-                                render={({ field: { name, value, onChange } }) => (
-                                    <FormControl component="fieldset" variant="standard">
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    checked={value}
-                                                    onChange={(e) =>
-                                                        onChange(e.target.checked)
-                                                    }
-                                                    name={name}
-                                                />
-                                            }
-                                            label="¿Notificar a todos los usuarios?"
-                                        />
-                                        <FormHelperText>
-                                            {errors.bitAlertarTodos?.message ||
-                                                "Selecciona si deseas notificar a todos los usuarios."}
-                                        </FormHelperText>
-                                    </FormControl>
-                                )}
-                                control={control}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Controller
-                                defaultValue={data.arrUsuarioAsignado}
-                                name="arrUsuarioAsignado"
-                                render={({ field: { name, value, onChange } }) => (
-                                    <DropdowUsuarios
-                                        label="Usuarios"
-                                        multiple
-                                        name={name}
-                                        value={value}
-                                        error={errors?.arrUsuarioAsignado ? true : false}
-                                        helperText={
-                                            errors?.arrUsuarioAsignado?.message ||
-                                            "Seleccione los usuarios para notificar."
-                                        }
-                                    />
-                                )}
-                                control={control}
                             />
                         </Grid>
                     </Grid>

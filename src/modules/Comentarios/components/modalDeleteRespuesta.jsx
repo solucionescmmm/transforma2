@@ -39,7 +39,6 @@ const ModalDeleteRespuesta = ({ socket, values, onClose, open }) => {
 
         socket.emit("mdlComentarios:deleteRespuesta", {
             intId: values.intId,
-            intIdEmpresario: values.intIdEmpresario,
         });
 
         socket.on("mdlComentarios:deleteRespuesta", () => {

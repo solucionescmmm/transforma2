@@ -13,7 +13,7 @@ import Loader from "../../../common/components/Loader";
 import ModalAddComentario from "../components/modalAddComentario";
 import PaperGetComentarios from "../components/paperGetComentarios";
 
-const Comentarios = () => {
+const Comentarios = ({openModalCreate}) => {
     const [socket, setSocket] = useState();
     const [loading, setLoadig] = useState(true);
     const [error, setError] = useState({ flag: false, msg: "" });
@@ -62,13 +62,13 @@ const Comentarios = () => {
     return (
         <Grid container direction="row" spacing={3}>
             <Grid item xs={12}>
-                <ModalAddComentario socket={socket} values={{ intIdEmpresario: intId }} />
+                <ModalAddComentario socket={socket} values={{ intIdIdea: intId }} openModalCreate={openModalCreate} />
             </Grid>
 
             <Grid item xs={12}>
                 <PaperGetComentarios
                     socket={socket}
-                    values={{ intIdEmpresario: intId }}
+                    values={{ intIdIdea: intId }}
                 />
             </Grid>
         </Grid>

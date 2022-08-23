@@ -33,7 +33,6 @@ const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
     const [data, setData] = useState({
         intId: values?.intId,
         intIdComentario: values?.intIdComentario,
-        intIdEmpresario: values?.intIdEmpresario,
         strMensaje: "",
         dtFechaCreacion: null,
         strUsuario: "",
@@ -96,9 +95,9 @@ const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
             intId: values?.intId,
             intIdComentario: values?.intIdComentario,
             intIdEmpresario: values?.intIdEmpresario,
-            strMensaje: values.strComentario || "",
-            dtFechaCreacion: values.dtFechaCreacion || null,
-            strUsuario: values.strUsuario || "",
+            strMensaje: values.strMensaje || "",
+            dtFechaCreacion: values.dtmCreacion || null,
+            strUsuario: values.strUsuarioCreacion || "",
             strURLImagenUsuario: values.strURLImagenUsuario || "",
         });
     }, [values]);

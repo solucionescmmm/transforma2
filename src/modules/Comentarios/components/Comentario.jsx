@@ -21,7 +21,10 @@ import {
 } from "@mui/material";
 
 //Iconos
-import { Comment as CommentIcon, MoreVert as MoreVertIcon } from "@mui/icons-material";
+import {
+    Comment as CommentIcon,
+    MoreVert as MoreVertIcon,
+} from "@mui/icons-material";
 
 //Componentes
 import PaperGetRespuestas from "./paperGetRespuestas";
@@ -51,19 +54,20 @@ const Comentario = ({ values, socket }) => {
 
     const [openRespuestas, setOpenRespuestas] = useState(false);
     const [openModalAddRespuesta, setOpenModalAddRespuesta] = useState(false);
-    const [openModalEditComentario, setOpenModalEditComentario] = useState(false);
-    const [openModalDeleteComentario, setOpenModalDeleteComentario] = useState(false);
+    const [openModalEditComentario, setOpenModalEditComentario] =
+        useState(false);
+    const [openModalDeleteComentario, setOpenModalDeleteComentario] =
+        useState(false);
     const [anchorEl, setAnchorEl] = useState(false);
 
     const openMenu = Boolean(anchorEl);
 
     const [data, setData] = useState({
         intIdComentario: null,
-        intIdEmpresario: null,
+        intIdIdea: null,
         strMensaje: "",
-        dtmActualizacion: null,
-        strUsuario: "",
-        strUsuarioAsignado: "",
+        dtmCreacion: null,
+        strUsuarioCreacion: "",
         strURLImagenUsuario: "",
         arrRespuestas: [],
     });
@@ -97,16 +101,15 @@ const Comentario = ({ values, socket }) => {
     useEffect(() => {
         setData({
             intIdComentario: values.intId || null,
-            intIdEmpresario: values.intIdEmpresario || null,
+            intIdIdea: values.intIdIdea || null,
             strMensaje: values.strMensaje || "",
-            dtmActualizacion: values.dtmActualizacion
-                ? format(parseISO(values.dtmActualizacion), "yyyy-MM-dd hh:mm")
+            dtmCreacion: values.dtmCreacion
+                ? format(parseISO(values.dtmCreacion), "yyyy-MM-dd hh:mm")
                 : "",
-            strUsuario: values.strUsuario || "",
-            strUsuarioAsignado: values.strUsuarioAsignado || "",
+            strUsuarioCreacion: values.strUsuarioCreacion || "",
+
             strURLImagenUsuario: values.strURLImagenUsuario || "",
             arrRespuestas: values.objRespuesta || [],
-            strTipo: values.strTipo || "",
         });
     }, [values]);
 
@@ -118,7 +121,7 @@ const Comentario = ({ values, socket }) => {
                 open={openModalAddRespuesta}
                 values={{
                     intIdComentario: data.intIdComentario,
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 }}
             />
 
@@ -128,7 +131,7 @@ const Comentario = ({ values, socket }) => {
                 open={openModalDeleteComentario}
                 values={{
                     intId: data.intIdComentario,
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 }}
             />
 
@@ -147,7 +150,10 @@ const Comentario = ({ values, socket }) => {
                 }}
             >
                 <Box className={classes.avatar}>
-                    <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
+                    <Avatar
+                        alt={data.strUsuario}
+                        src={data.strURLImagenUsuario}
+                    />
                 </Box>
 
                 <Paper sx={{ padding: "10px", width: "90%" }}>
@@ -155,11 +161,14 @@ const Comentario = ({ values, socket }) => {
                         <Grid item xs={12}>
                             <Box sx={{ display: "flex", alignItems: "center" }}>
                                 <Box sx={{ flexGrow: 1 }}>
-                                    <Typography variant="subtitle2" component="p">
-                                        {data.strUsuario}
+                                    <Typography
+                                        variant="subtitle2"
+                                        component="p"
+                                    >
+                                        {data.strUsuarioCreacion}
                                     </Typography>
                                     <Typography sx={{ fontSize: "10px" }}>
-                                        {data.dtmActualizacion}
+                                        {data.dtmCreacion}
                                     </Typography>
                                 </Box>
 
@@ -168,7 +177,8 @@ const Comentario = ({ values, socket }) => {
                                         size="small"
                                         onClick={handleOpenMenu}
                                         disabled={
-                                            strInfoUser.strUsuario !== data.strUsuario
+                                            strInfoUser.strUsuario !==
+                                            data.strUsuarioCreacion
                                                 ? true
                                                 : false
                                         }
@@ -220,7 +230,11 @@ const Comentario = ({ values, socket }) => {
                                 sx={{ fontSize: "10px" }}
                                 color="inherit"
                                 onClick={() => handlerChangeOpenCollapse()}
-                                disabled={data.arrRespuestas.length === 0 ? true : false}
+                                disabled={
+                                    data.arrRespuestas.length === 0
+                                        ? true
+                                        : false
+                                }
                             >
                                 {openRespuestas
                                     ? "Cerrar respuestas"
@@ -245,7 +259,8 @@ const Comentario = ({ values, socket }) => {
                                         <PaperGetRespuestas
                                             values={{
                                                 ...e,
-                                                intIdEmpresario: data.intIdEmpresario,
+                                                intIdIdea:
+                                                    data.intIdIdea,
                                             }}
                                             socket={socket}
                                         />

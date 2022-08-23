@@ -32,10 +32,10 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         intIdComentario: values?.intIdComentario,
-        intIdEmpresario: values?.intIdEmpresario,
+        intIdIdea: values?.intIdIdea,
         strMensaje: "",
-        dtFechaCreacion: null,
-        strUsuario: "",
+        dtmCreacion: null,
+        strUsuarioCreacion: "",
         strURLImagenUsuario: "",
     });
 
@@ -63,8 +63,8 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
         socket.emit("mdlComentarios:setRespuesta", {
             ...data,
             intIdComentario: values.intIdComentario,
-            intIdEmpresario: values.intIdEmpresario,
-            strUsuario: strInfoUser.strUsuario,
+            intIdIdea: values.intIdIdea,
+            strUsuarioCreacion: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
         });
 
@@ -73,17 +73,19 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
 
             setData({
                 intIdComentario: values.intIdComentario,
+                intIdIdea: values?.intIdIdea,
                 strMensaje: "",
-                dtFechaCreacion: null,
-                strUsuario: "",
+                dtmCreacion: null,
+                strUsuarioCreacion: "",
                 strURLImagenUsuario: "",
             });
 
             reset({
                 intIdComentario: values.intIdComentario,
+                intIdIdea: values?.intIdIdea,
                 strMensaje: "",
-                dtFechaCreacion: null,
-                strUsuario: "",
+                dtmCreacion: null,
+                strUsuarioCreacion: "",
                 strURLImagenUsuario: "",
             });
 
@@ -149,7 +151,11 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
                     responder
                 </LoadingButton>
 
-                <Button onClick={() => onClose()} disabled={loading} color="inherit">
+                <Button
+                    onClick={() => onClose()}
+                    disabled={loading}
+                    color="inherit"
+                >
                     Cancelar
                 </Button>
             </DialogActions>

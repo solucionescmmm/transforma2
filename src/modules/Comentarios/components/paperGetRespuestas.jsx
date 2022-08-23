@@ -54,12 +54,10 @@ const PaperGetRespuestas = ({ values, socket }) => {
 
     const [data, setData] = useState({
         intId: null,
-        intIdEmpresario: null,
         intIdComentario: null,
-        intIdComentarioPr: "",
-        strComentario: "",
-        dtFechaCreacion: null,
-        strUsuario: "",
+        strMensaje: "",
+        dtmCreacion: null,
+        strUsuarioCreacion: "",
         strURLImagenUsuario: "",
     });
 
@@ -84,13 +82,12 @@ const PaperGetRespuestas = ({ values, socket }) => {
     useEffect(() => {
         setData({
             intId: values.intId || null,
-            intIdEmpresario: values.intIdEmpresario || null,
             intIdComentarioPr: values.intIdComentario || "",
-            strComentario: values.strMensaje || "",
-            dtFechaCreacion: values.dtFechaCreacion
-                ? format(parseISO(values.dtFechaCreacion), "yyyy-MM-dd")
+            strMensaje: values.strMensaje || "",
+            dtmCreacion: values.dtmCreacion
+                ? format(parseISO(values.dtmCreacion), "yyyy-MM-dd")
                 : "",
-            strUsuario: values.strUsuario || "",
+            strUsuarioCreacion: values.strUsuarioCreacion || "",
             strURLImagenUsuario: values.strURLImagenUsuario || "",
         });
     }, [values]);
@@ -103,7 +100,6 @@ const PaperGetRespuestas = ({ values, socket }) => {
                 open={openModalDelete}
                 values={{
                     intId: data.intId,
-                    intIdEmpresario: data.intIdEmpresario,
                 }}
             />
 
@@ -123,7 +119,10 @@ const PaperGetRespuestas = ({ values, socket }) => {
                 }}
             >
                 <Box className={classes.avatar}>
-                    <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
+                    <Avatar
+                        alt={data.strUsuarioCreacion}
+                        src={data.strURLImagenUsuario}
+                    />
                 </Box>
 
                 <Paper sx={{ padding: "10px", width: "90%" }}>
@@ -131,11 +130,14 @@ const PaperGetRespuestas = ({ values, socket }) => {
                         <Grid item xs={12}>
                             <Box sx={{ display: "flex" }}>
                                 <Box sx={{ flexGrow: 1 }}>
-                                    <Typography variant="subtitle2" component="p">
-                                        {data.strUsuario}
+                                    <Typography
+                                        variant="subtitle2"
+                                        component="p"
+                                    >
+                                        {data.strUsuarioCreacion}
                                     </Typography>
                                     <Typography sx={{ fontSize: "10px" }}>
-                                        {data.dtFechaCreacion}
+                                        {data.dtmCreacion}
                                     </Typography>
                                 </Box>
 
@@ -144,7 +146,8 @@ const PaperGetRespuestas = ({ values, socket }) => {
                                         size="small"
                                         onClick={handleOpenMenu}
                                         disabled={
-                                            strInfoUser.strUsuario !== data.strUsuario
+                                            strInfoUser.strUsuario !==
+                                            data.strUsuarioCreacion
                                                 ? true
                                                 : false
                                         }
@@ -157,10 +160,18 @@ const PaperGetRespuestas = ({ values, socket }) => {
                                         open={openMenu}
                                         onClose={handleCloseMenu}
                                     >
-                                        <MenuItem onClick={() => handleOpenModalUpdate()}>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleOpenModalUpdate()
+                                            }
+                                        >
                                             Editar
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleOpenModalDelete()}>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleOpenModalDelete()
+                                            }
+                                        >
                                             Eliminar
                                         </MenuItem>
                                     </Menu>
@@ -176,7 +187,7 @@ const PaperGetRespuestas = ({ values, socket }) => {
                                     overflow: "hidden",
                                 }}
                             >
-                                {data.strComentario}
+                                {data.strMensaje}
                             </Typography>
                         </Grid>
                     </Grid>

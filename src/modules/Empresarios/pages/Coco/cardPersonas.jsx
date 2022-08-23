@@ -42,7 +42,7 @@ const CardPersonas = ({ intId }) => {
     }
 
     return (
-        <div>
+        <div style={{padding: "0px 5px"}}>
             {arrPersonas.slice(0, 5).map((p) => (
                 <Box sx={{ display: "flex" }}>
                     <p

@@ -18,7 +18,7 @@ const PaperGetComentarios = ({ socket, values }) => {
 
     useEffect(() => {
         socket.emit("mdlComentarios:getComentarios", {
-            intIdEmpresario: values?.intIdEmpresario,
+            intIdIdea: values?.intIdIdea,
         });
 
         socket.on("mdlComentarios:getComentarios", (res) => {
@@ -78,7 +78,9 @@ const PaperGetComentarios = ({ socket, values }) => {
 
     return (
         <Grid container direction="row" spacing={2} sx={{ paddingBottom: "15px" }}>
-            {arrComentarios.map((e, i) => {
+            {arrComentarios.slice(0).reverse().map((e, i) => {
+                debugger
+                
                 if (e.strTipo === "Tarea") {
                     return (
                         <Grid item xs={12} key={i}>
@@ -119,7 +121,11 @@ const PaperGetComentarios = ({ socket, values }) => {
                     );
                 }
 
-                return null;
+                return (
+                    <Grid item xs={12} key={i}>
+                        <Comentario values={e} socket={socket} />
+                    </Grid>
+                );
             })}
         </Grid>
     );
