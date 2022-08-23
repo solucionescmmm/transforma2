@@ -211,15 +211,6 @@ class updateServicios {
 
     async #updateResultServcio() {
 
-        let dao = new classInterfaceDAOServicios();
-
-        let queryResultadoServicios = await dao.deleteResultadoServicios({
-            intId: this.#intIdServicio,
-        });
-
-        if (queryResultadoServicios.error) {
-            throw new Error(queryResultadoServicios.msg);
-        }
 
         if (this.#objData.arrAtributos.length > 0) {
             let array = this.#objData.arrAtributos;
