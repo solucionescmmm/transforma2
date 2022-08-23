@@ -39,9 +39,13 @@ class setComentario{
     }
 
     async #setComentario(){
+        let newData = {
+            ...this.#objData,
+            strUsuarioCreacion:this.#objUser.strEmail
+        }
         let dao = new classInterfaceDAOComentarios();
 
-        let query = await dao.setComentario(this.#objData);
+        let query = await dao.setComentario(newData);
 
         if (query.error) {
             throw new Error(query.msg);

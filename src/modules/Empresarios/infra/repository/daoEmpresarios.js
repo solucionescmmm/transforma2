@@ -495,6 +495,45 @@ class daoEmpresarios {
         }
     }
 
+    async updateInactivarEmpresario(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_Idea_Empresario
+
+            SET dtFechaFin              = COALESCE(GETDATE(), dtFechaFin),
+                intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
+
+            WHERE (intIdEmpresario = ${data.intIdEmpresario} AND intIdIdea = ${data.intIdIdea})
+ 
+            SELECT * FROM tbl_Empresario WHERE intId = ${data.intIdEmpresario}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg:`El empresario ${response.recordset[0].strNombre} fue inactivado con exito.`
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateInfoAdicional de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async deleteEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();

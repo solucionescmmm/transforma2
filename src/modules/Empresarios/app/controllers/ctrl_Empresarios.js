@@ -3,6 +3,7 @@ const setEmpresarioPrincipal = require("../../domian/setEmpresarioPrincipal.serv
 const setEmpresarioSecundario = require("../../domian/setEmpresarioSecundario.service")
 const updateEmpresarioPrincipal = require("../../domian/updateEmpresarioPrincipal.service")
 const updateEmpresarioSecundario = require("../../domian/updateEmpresarioSecundario.service")
+const updeteInactivarEmpresario = require("../../domian/updateInactivarEmpresario.service")
 const classDaleteEmpresario = require("../../domian/deleteEmpresario.service")
 
 //servicios
@@ -127,6 +128,30 @@ class ctrlEmpresarios {
             let { strDataUser } = req;
 
             let service = new updateEmpresarioSecundario(data, strDataUser);
+
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async updeteInactivarEmpresario(req, res){
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new updeteInactivarEmpresario(data, strDataUser);
 
             let query = await service.main();
 

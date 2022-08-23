@@ -25,6 +25,11 @@ routes.put("/transforma/api/Empresario/updateEmpresarioSecundario", async(req, r
     await controllerEmpresarios.updateEmpresarioSecundario(req, res);
 })
 
+routes.put("/transforma/api/Empresario/updeteInactivarEmpresario", async(req, res)=>{
+    let controllerEmpresarios = new classController();
+    await controllerEmpresarios.updeteInactivarEmpresario(req, res);
+})
+
 routes.post("/transforma/api/Interesados/uploadFile", async (req, res) => {
     let controllerEmpresarios = new classController();
     await controllerEmpresarios.uploadFileEmpresario(req, res);

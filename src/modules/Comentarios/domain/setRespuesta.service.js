@@ -39,9 +39,13 @@ class setRespuesta{
     }
 
     async #setRespuesta(){
+        let newData = {
+            ...this.#objData,
+            strUsuarioCreacion:this.#objUser.strEmail
+        }
         let dao = new classInterfaceDAOComentarios();
 
-        let query = await dao.setRespuesta(this.#objData);
+        let query = await dao.setRespuesta(newData);
 
         if (query.error) {
             throw new Error(query.msg);
