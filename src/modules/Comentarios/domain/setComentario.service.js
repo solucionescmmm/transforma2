@@ -24,15 +24,7 @@ class setComentario{
     }
 
     async #validations(){
-        if (
-            !validator.isEmail(this.#objUser.strEmail, {
-                domain_specific_validation: "cmmmedellin.org",
-            })
-        ) {
-            throw new Error(
-                "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
-            );
-        }
+
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
@@ -41,7 +33,7 @@ class setComentario{
     async #setComentario(){
         let newData = {
             ...this.#objData,
-            strUsuarioCreacion:this.#objUser.strEmail
+            strUsuarioCreacion:this.#objData.strUsuarioCreacion
         }
         let dao = new classInterfaceDAOComentarios();
 
