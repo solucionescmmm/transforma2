@@ -10,6 +10,11 @@ routes.post("/transforma/api/Tareas/setTarea", async (req, res) => {
     await controllerTareas.setTarea(req, res);
 });
 
+routes.post("/transforma/api/Tareas/setFinalizarTarea", async (req, res) => {
+    let controllerTareas = new classController();
+    await controllerTareas.setFinalizarTarea(req, res);
+});
+
 routes.put("/transforma/api/Tareas/updateTarea", async (req, res)=>{
     let controllerTareas = new classController()
     await controllerTareas.updateTarea(req, res)

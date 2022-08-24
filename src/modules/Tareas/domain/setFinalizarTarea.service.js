@@ -4,7 +4,7 @@ const classInterfaceDAOTareas = require("../infra/conectors/interfaceDaoTareas")
 //Librerias
 const validator = require("validator").default;
 
-class updateTarea {
+class setFinalizarTarea {
     //obj info
     #objData;
     #objUser;
@@ -22,7 +22,7 @@ class updateTarea {
     async main() {
         await this.#validations();
         await this.#completeData();
-        await this.#updateTarea();
+        await this.#setFinalizarTarea();
         return this.#objResult;
     }
 
@@ -44,14 +44,13 @@ class updateTarea {
     async #completeData() {
         let newData = {
             ...this.#objData,
-            btFinalizada: 0,
+            btFinalizada: 1,
             strUsuarioActualizacion:this.#objUser.strEmail,
-            strResponsable: JSON.stringify(this.#objData?.strResponsable)
         };
         this.#objData = newData;
     }
 
-    async #updateTarea() {
+    async #setFinalizarTarea() {
         let dao = new classInterfaceDAOTareas();
 
         let query = await dao.updateTarea(this.#objData);
@@ -67,4 +66,4 @@ class updateTarea {
         };
     }
 }
-module.exports = updateTarea;
+module.exports = setFinalizarTarea;

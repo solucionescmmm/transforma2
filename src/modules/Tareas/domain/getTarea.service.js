@@ -1,8 +1,10 @@
+//Librerias
+const validator = require("validator").default;
 
 //Clases
 const classInterfaceTareas = require("../infra/conectors/interfaceDaoTareas");
 
-const  getTarea = async (objParams) => {
+const getTarea = async (objParams) => {
     let = { intId, intIdIdea } = objParams;
 
     if (!intIdIdea) {
@@ -16,8 +18,36 @@ const  getTarea = async (objParams) => {
         intIdIdea: intIdIdea || null,
     };
 
-    let result = await dao.getTarea(query);
+    let arrayData = await dao.getTarea(query);
+    
 
-    return result;
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data;
+            let data = [];
+
+            for (let i = 0; i < array.length; i++) {
+                let { strResponsable } = array[i];
+
+                if (validator.isJSON(strResponsable)) {
+                    strResponsable = JSON.parse(strResponsable);
+                }
+                data[i] = {
+                    ...array[i],
+                    strResponsable,
+                };
+
+                
+            }
+            let result = {
+                error: false,
+                data
+            };
+
+            return result;
+        }
+    }
+
+    return arrayData;
 };
 module.exports = getTarea;

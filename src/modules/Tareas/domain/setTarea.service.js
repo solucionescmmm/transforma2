@@ -4,10 +4,7 @@ const classInterfaceDAOTareas = require("../infra/conectors/interfaceDaoTareas")
 //Librerias
 const validator = require("validator").default;
 
-//Servicios
-const serviceGetIdEstadoTarea = require("./getIdEstadoTarea.service");
-
-class setTareas {
+class setTarea {
     //obj info
     #objData;
     #objUser;
@@ -24,8 +21,8 @@ class setTareas {
 
     async main() {
         await this.#validations();
-        this.#completeData();
-        await this.#setTareas();
+        await this.#completeData();
+        await this.#setTarea();
         return this.#objResult;
     }
 
@@ -44,16 +41,17 @@ class setTareas {
         }
     }
 
-    #completeData() {
+    async #completeData() {
         let newData = {
             ...this.#objData,
             btFinalizada: 0,
             strUsuarioCreacion:this.#objUser.strEmail,
+            strResponsable: JSON.stringify(this.#objData?.strResponsable)
         };
         this.#objData = newData;
     }
 
-    async #setTareas() {
+    async #setTarea() {
         let dao = new classInterfaceDAOTareas();
 
         let query = await dao.setTarea(this.#objData);
@@ -69,4 +67,4 @@ class setTareas {
         };
     }
 }
-module.exports = setTareas;
+module.exports = setTarea;

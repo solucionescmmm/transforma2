@@ -62,11 +62,11 @@ class daoTareas {
             UPDATE tbl_Tareas
 
             SET strTarea                = COALESCE(${data.strTarea}, strTarea),
-                intIdEstadoTarea        = COALESCE(${data.intIdEstadoTarea}, intIdEstadoTarea),
+                btFinalizada            = COALESCE(${data.btFinalizada}, btFinalizada),
                 strObservaciones        = COALESCE(${data.strObservaciones}, strObservaciones),
                 strResponsable          = COALESCE(${data.strResponsable}, strResponsable),
                 dtFechaFinTentativa     = COALESCE(${data.strRespondtFechaFinTentativasable}, dtFechaFinTentativa),
-                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion }, strUsuarioActualizacion ),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion ),
                 dtmFechaActualizacion   = COALESCE(GETDATE(), dtmFechaActualizacion)
 
             WHERE intId = ${data.intId}
@@ -140,39 +140,6 @@ class daoTareas {
             AND   (Tarea.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL) `;
 
             let arrNewData = response.recordsets[0];
-
-            let result = {
-                error: false,
-                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo getTarea de la clase daoTareas",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async getIdEstadoTarea(data){
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            let response = await conn.query`
-
-            SELECT intId FROM tbl_Tareas
-            WHERE (strNombre = ${data.strNombre})`;
-
-            let arrNewData = response.recordset[0];
 
             let result = {
                 error: false,

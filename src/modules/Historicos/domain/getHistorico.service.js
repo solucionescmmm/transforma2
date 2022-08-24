@@ -28,8 +28,6 @@ const getHistorico = async (objParams, strDataUser) => {
 
     let arrayData = await dao.getHistorico(query);
 
-    console.log(arrayData)
-
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data
