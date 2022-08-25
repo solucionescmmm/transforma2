@@ -1,3 +1,23 @@
+import React, {
+    useCallback,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
+
+// Context
+import { AuthContext } from "../../../../common/middlewares/Auth";
+
+// Hooks
+import useGetTareas from "../../hooks/useGetTareas";
+
+// Librerias
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Controller, useForm } from "react-hook-form";
+
+// MUI
 import {
     Container,
     Grid,
@@ -8,16 +28,15 @@ import {
     TextField,
 } from "@mui/material";
 
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { AuthContext } from "../../../../common/middlewares/Auth";
-import axios from "axios";
+import { DatePicker, LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import { DatePicker, LoadingButton } from "@mui/lab";
-import toast from "react-hot-toast";
+
+// Componentes
 import DropdownUsuarios from "../../../../common/components/dropdowUsuarios";
+import Loader from "../../../../common/components/Loader";
+import PageError from "../../../../common/components/Error";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -56,20 +75,23 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CreateEditPersonasSec = ({ isEdit }) => {
+const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
-    const { token } = useContext(AuthContext);
+    const { token, strInfoUser } = useContext(AuthContext);
 
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
+        intId,
         strTarea: "",
+        intIdIdea,
         strObservaciones: "",
         strResponsable: [],
         dtFechaFinTentativa: null,
+        strUsuarioCreacion: strInfoUser.strUsuario,
     });
 
     const [success, setSucces] = useState(false);
@@ -94,6 +116,10 @@ const CreateEditPersonasSec = ({ isEdit }) => {
         handleSubmit,
         reset,
     } = useForm({ mode: "onChange" });
+
+    const { getUniqueData } = useGetTareas({ autoLoad: false });
+
+    const refFntGetData = useRef(getUniqueData);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -168,6 +194,47 @@ const CreateEditPersonasSec = ({ isEdit }) => {
 
     useEffect(() => {
         if (isEdit) {
+            setLoadingGetData(true);
+
+            async function getData() {
+                await refFntGetData
+                    .current({ intId, intIdIdea })
+                    .then((res) => {
+                        console.log(res);
+
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
+
+                        if (res.data.data) {
+                            let data = res.data.data[0];
+
+                            setData({
+                                intId,
+                                strTarea: data.strTarea,
+                                intIdIdea,
+                                strObservaciones: data.strObservaciones,
+                                strResponsable: data.strResponsable || [],
+                                dtFechaFinTentativa: data.dtFechaFinTentativa,   
+                                strUsuarioCreacion: strInfoUser.strUsuario,
+                            });
+                        }
+
+                        setLoadingGetData(false);
+                        setErrorGetData({ flag: false, msg: "" });
+                    })
+                    .catch((error) => {
+                        setErrorGetData({ flag: true, msg: error.message });
+                        setLoadingGetData(false);
+                    });
+            }
+
+            getData();
+        }
+    }, [isEdit, intId, intIdIdea, strInfoUser]);
+
+    useEffect(() => {
+        if (isEdit) {
             reset(data);
         }
     }, [data, reset, isEdit]);
@@ -183,6 +250,27 @@ const CreateEditPersonasSec = ({ isEdit }) => {
             signalSubmitData.cancel("Petición abortada.");
         };
     }, [flagSubmit, submitData]);
+
+    //===============================================================================================================================================
+    //========================================== Renders ============================================================================================
+    //===============================================================================================================================================
+    if (success) {
+        onChangeRoute("Tareas");
+    }
+
+    if (loadingGetData) {
+        return <Loader />;
+    }
+
+    if (errorGetData.flag) {
+        return (
+            <PageError
+                severity="error"
+                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                title={errorGetData.msg}
+            />
+        );
+    }
 
     return (
         <Container className={classes.containerPR}>
@@ -250,9 +338,7 @@ const CreateEditPersonasSec = ({ isEdit }) => {
                                     fullWidth
                                     variant="standard"
                                     required
-                                    error={
-                                        !!errors?.strResponsable
-                                    }
+                                    error={!!errors?.strResponsable}
                                     helperText={
                                         errors?.strResponsable?.message ||
                                         "Selecciona los responsables de la tarea"
@@ -402,4 +488,4 @@ const CreateEditPersonasSec = ({ isEdit }) => {
     );
 };
 
-export default CreateEditPersonasSec;
+export default CreateEditTareas;

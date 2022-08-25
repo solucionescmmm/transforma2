@@ -253,6 +253,9 @@ const ReadSolicitudesUser = () => {
                                         fontSize: 12,
                                     },
                                     maxBodyHeight: "520px",
+                                    paging:true,
+                                    pageSizeOptions:[20,100,200,500], 
+                                    pageSize: 20,
                                 }}
                                 onRowClick={(e, rowData) => {
                                     push(

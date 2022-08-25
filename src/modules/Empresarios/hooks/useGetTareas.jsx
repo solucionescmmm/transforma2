@@ -33,7 +33,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData({strGrupo, strCodigo})
  *
  */
-const useGetTareas = ({ intIdIdea = null,  autoLoad = true } = {}) => {
+const useGetTareas = ({ intIdIdea = null, autoLoad = true } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -48,8 +48,8 @@ const useGetTareas = ({ intIdIdea = null,  autoLoad = true } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intIdIdea }) => {
-            await axios(
+        async ({ signalSubmitData, intIdIdea, intId }) => {
+            return await axios(
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
@@ -58,7 +58,8 @@ const useGetTareas = ({ intIdIdea = null,  autoLoad = true } = {}) => {
                         token,
                     },
                     params: {
-                        intIdIdea
+                        intId,
+                        intIdIdea,
                     },
                 },
                 {
@@ -67,6 +68,8 @@ const useGetTareas = ({ intIdIdea = null,  autoLoad = true } = {}) => {
             )
                 .then((res) => {
                     setData(res.data.data);
+
+                    return res;
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -86,18 +89,32 @@ const useGetTareas = ({ intIdIdea = null,  autoLoad = true } = {}) => {
                             error: true,
                             msg,
                         });
+
+                        return error;
                     }
                 });
         },
         [token]
     );
 
-    const refreshGetData = ({ strGrupo = null, strCodigo = null } = {}) => {
+    const refreshGetData = ({ intIdIdea = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, strGrupo, strCodigo });
+        getData({ signalSubmitData, intIdIdea });
+    };
+
+    const getUniqueData = async ({ intIdIdea = null, intId = null } = {}) => {
+        let signalSubmitData = axios.CancelToken.source();
+
+        let query = await getData({
+            intIdIdea,
+            intId,
+            signalSubmitData
+        });
+
+        return query;
     };
 
     //===============================================================================================================================================
@@ -118,7 +135,7 @@ const useGetTareas = ({ intIdIdea = null,  autoLoad = true } = {}) => {
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
     //===============================================================================================================================================
-    return { data, refreshGetData };
+    return { data, refreshGetData, getUniqueData };
 };
 
 export default useGetTareas;

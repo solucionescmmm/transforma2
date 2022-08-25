@@ -53,14 +53,6 @@ const styles = makeStyles((theme) => ({
 
 const Coco = () => {
     //===============================================================================================================================================
-    //========================================== Declaracion de estados =============================================================================
-    //===============================================================================================================================================
-    const [loading, setLoading] = useState(false);
-    const [route, setRoute] = useState("");
-
-    const [objInteresado, setObjInteresado] = useState({});
-
-    //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { intId } = useParams();
@@ -68,9 +60,32 @@ const Coco = () => {
     const location = useHistory();
 
     //===============================================================================================================================================
+    //========================================== Declaracion de estados =============================================================================
+    //===============================================================================================================================================
+    const [loading, setLoading] = useState(false);
+    const [route, setRoute] = useState({
+        location: "Inicio",
+        params: {
+            intIdIdea: intId,
+        },
+    });
+
+    const [objInteresado, setObjInteresado] = useState({});
+
+    //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = styles();
+
+    const onChangeRoute = (location, params) => {
+        setRoute((prevState) => ({
+            location: location || prevState.location || "Inicio",
+            params: {
+                ...params,
+                intIdIdea: intId,
+            },
+        }));
+    };
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -106,7 +121,7 @@ const Coco = () => {
         );
     }
 
-    if (route) {
+    if (route.location !== "Inicio") {
         return (
             <Fragment>
                 <Grid
@@ -277,8 +292,7 @@ const Coco = () => {
                 </Grid>
                 <Routes
                     route={route}
-                    onChange={(value) => setRoute(value)}
-                    intId={intId}
+                    onChangeRoute={onChangeRoute}
                 />
             </Fragment>
         );
@@ -608,7 +622,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0} sx={{border: "1px solid #BDBDBD"}}>
+                    <Card elevation={0} sx={{ border: "1px solid #BDBDBD" }}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -625,6 +639,7 @@ const Coco = () => {
                                             display: "flex",
                                             alignItems: "center",
                                         }}
+                                        onClick={() => onChangeRoute("Tareas")}
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
@@ -675,7 +690,9 @@ const Coco = () => {
                                         <Button
                                             size="small"
                                             variant="contained"
-                                            onClick={() => setRoute("Tareas")}
+                                            onClick={() =>
+                                                onChangeRoute("CreateTareas")
+                                            }
                                             sx={{
                                                 fontSize: "11px",
                                             }}
@@ -690,7 +707,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0} sx={{border: "1px solid #BDBDBD"}}>
+                    <Card elevation={0} sx={{ border: "1px solid #BDBDBD" }}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -739,7 +756,10 @@ const Coco = () => {
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <p>No existen acompañamientos registrados</p>
+                                            <p>
+                                                No existen acompañamientos
+                                                registrados
+                                            </p>
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -756,7 +776,7 @@ const Coco = () => {
                                         <Button
                                             size="small"
                                             variant="contained"
-                                            onClick={() => setRoute("")}
+                                            onClick={() => onChangeRoute("")}
                                             sx={{
                                                 fontSize: "11px",
                                             }}
@@ -771,7 +791,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0} sx={{border: "1px solid #BDBDBD"}}>
+                    <Card elevation={0} sx={{ border: "1px solid #BDBDBD" }}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -841,7 +861,7 @@ const Coco = () => {
                                             size="small"
                                             variant="contained"
                                             onClick={() =>
-                                                setRoute("Diagnosticos")
+                                                onChangeRoute("Diagnosticos")
                                             }
                                             sx={{
                                                 fontSize: "11px",
@@ -857,7 +877,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0} sx={{border: "1px solid #BDBDBD"}}>
+                    <Card elevation={0} sx={{ border: "1px solid #BDBDBD" }}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -874,7 +894,9 @@ const Coco = () => {
                                             display: "flex",
                                             alignItems: "center",
                                         }}
-                                        onClick={() => setRoute("Comentarios")}
+                                        onClick={() =>
+                                            onChangeRoute("Comentarios")
+                                        }
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
@@ -924,7 +946,11 @@ const Coco = () => {
                                         <Button
                                             size="small"
                                             variant="contained"
-                                            onClick={() => setRoute("CreateComentarios")}
+                                            onClick={() =>
+                                                onChangeRoute(
+                                                    "CreateComentarios"
+                                                )
+                                            }
                                             sx={{
                                                 fontSize: "11px",
                                             }}
@@ -939,7 +965,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0} sx={{border: "1px solid #BDBDBD"}}>
+                    <Card elevation={0} sx={{ border: "1px solid #BDBDBD" }}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -956,7 +982,9 @@ const Coco = () => {
                                             display: "flex",
                                             alignItems: "center",
                                         }}
-                                        onClick={() => setRoute("Personas")}
+                                        onClick={() =>
+                                            onChangeRoute("Personas")
+                                        }
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
@@ -1005,7 +1033,7 @@ const Coco = () => {
                                             size="small"
                                             variant="contained"
                                             onClick={() =>
-                                                setRoute("PersonasCreate")
+                                                onChangeRoute("PersonasCreate")
                                             }
                                             sx={{
                                                 fontSize: "11px",
@@ -1018,7 +1046,7 @@ const Coco = () => {
                                             size="small"
                                             variant="contained"
                                             onClick={() =>
-                                                setRoute("PersonasCreate")
+                                                onChangeRoute("PersonasCreate")
                                             }
                                             sx={{
                                                 fontSize: "11px",
@@ -1034,7 +1062,7 @@ const Coco = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Card elevation={0} sx={{border: "1px solid #BDBDBD"}}>
+                    <Card elevation={0} sx={{ border: "1px solid #BDBDBD" }}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row">
                                 <Grid
@@ -1101,7 +1129,7 @@ const Coco = () => {
                                         <Button
                                             size="small"
                                             variant="contained"
-                                            onClick={() => setRoute("")}
+                                            onClick={() => onChangeRoute("")}
                                             sx={{
                                                 fontSize: "11px",
                                             }}

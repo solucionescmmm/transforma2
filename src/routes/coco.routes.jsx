@@ -41,13 +41,13 @@ const CreateTareas = lazy(() =>
     import("../modules/Empresarios/pages/Tareas/create&Edit")
 );
 
-const CocoRoutes = ({ route, onChange, intId }) => {
-    if (route === "Personas") {
+const CocoRoutes = ({ route, onChangeRoute }) => {
+    if (route.location === "Personas") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("")}
+                        onClick={() => onChangeRoute("Inicio")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -56,17 +56,20 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <Personas onChange={onChange} intId={intId} />
+                <Personas
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                />
             </Grid>
         );
     }
 
-    if (route === "PersonasCreate") {
+    if (route.location === "PersonasCreate") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("Personas")}
+                        onClick={() => onChangeRoute("Personas")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -75,17 +78,17 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <PersonasCreate onChange={onChange} />
+                <PersonasCreate onChangeRoute={onChangeRoute} />
             </Grid>
         );
     }
 
-    if (route === "Diagnosticos") {
+    if (route.location === "Diagnosticos") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("")}
+                        onClick={() => onChangeRoute("Inicio")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -94,17 +97,17 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <Diagnosticos onChange={onChange} />
+                <Diagnosticos onChangeRoute={onChangeRoute} />
             </Grid>
         );
     }
 
-    if (route === "DiagEmpresarial") {
+    if (route.location === "DiagEmpresarial") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("Diagnosticos")}
+                        onClick={() => onChangeRoute("Diagnosticos")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -113,17 +116,17 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <DiagEmpresarial onChange={onChange} />
+                <DiagEmpresarial onChangeRoute={onChangeRoute} />
             </Grid>
         );
     }
 
-    if (route === "DiagDesign") {
+    if (route.location === "DiagDesign") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("Diagnosticos")}
+                        onClick={() => onChangeRoute("Diagnosticos")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -132,17 +135,17 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <DiagDesign onChange={onChange} />
+                <DiagDesign onChangeRoute={onChangeRoute} />
             </Grid>
         );
     }
 
-    if (route === "DiagComercial") {
+    if (route.location === "DiagComercial") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("Diagnosticos")}
+                        onClick={() => onChangeRoute("Diagnosticos")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -151,17 +154,17 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <PageCUComercial onChange={onChange} />
+                <PageCUComercial onChangeRoute={onChangeRoute} />
             </Grid>
         );
     }
 
-    if (route === "Rutas") {
+    if (route.location === "Rutas") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("")}
+                        onClick={() => onChangeRoute("Inicio")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -175,12 +178,12 @@ const CocoRoutes = ({ route, onChange, intId }) => {
         );
     }
 
-    if (route === "Comentarios") {
+    if (route.location === "Comentarios") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("")}
+                        onClick={() => onChangeRoute("Inicio")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -189,17 +192,17 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <Comentarios onChange={onChange} />
+                <Comentarios onChangeRoute={onChangeRoute} />
             </Grid>
         );
     }
 
-    if (route === "CreateComentarios") {
+    if (route.location === "CreateComentarios") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("")}
+                        onClick={() => onChangeRoute("Inicio")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -208,17 +211,20 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <Comentarios onChange={onChange} openModalCreate={true} />
+                <Comentarios
+                    onChangeRoute={onChangeRoute}
+                    openModalCreate={true}
+                />
             </Grid>
         );
     }
 
-    if (route === "Tareas") {
+    if (route.location === "Tareas") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("")}
+                        onClick={() => onChangeRoute("Inicio")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -227,17 +233,20 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <Tareas onChange={onChange} />
+                <Tareas
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                />
             </Grid>
         );
     }
 
-    if (route === "CreateTareas") {
+    if (route.location === "CreateTareas") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChange("")}
+                        onClick={() => onChangeRoute("Tareas")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -246,7 +255,34 @@ const CocoRoutes = ({ route, onChange, intId }) => {
                     </Button>
                 </Grid>
 
-                <CreateTareas />
+                <CreateTareas
+                    intIdIdea={route.params.intIdIdea}
+                    onChangeRoute={onChangeRoute}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "EditTareas") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Tareas")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <CreateTareas
+                    isEdit
+                    intId={route.params.intId}
+                    intIdIdea={route.params.intIdIdea}
+                    onChangeRoute={onChangeRoute}
+                />
             </Grid>
         );
     }

@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react";
 import useGetTareas from "../../hooks/useGetTareas";
 
 //Componentes de Material UI
-import { Grid, Avatar, Box, Button } from "@mui/material";
+import { Grid, Avatar, Box, Button, Switch, Checkbox } from "@mui/material";
 
 import {
     ThemeProvider,
@@ -29,6 +29,7 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
+    Delete as DeleteIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -36,40 +37,37 @@ import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 
 //Componentes
+import ModalDelete from "./modalDelete";
 
-const ReadTareas = ({ onChange, intId }) => {
+const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
-            title: "Foto",
+            title: "¿Finalizado?",
             render: (rowData) => (
-                <Avatar
-                    alt={rowData.strResponsable}
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strURLFileFoto}`}
+                <Checkbox
+                    checked={rowData.btFinalizado === 1 ? true : false}
+                    size="small"
                 />
             ),
-            width: "0%",
+            width: "5%",
         },
         {
-            title: "Responsable",
-            render: (rowData) => rowData.strResponsable,
+            title: "Responsables",
+            render: (rowData) => {
+                let strResponsables = rowData.strResponsable.map((r) => {
+                    return r.strNombre;
+                });
+
+                return <p>{strResponsables.toString()}</p>;
+            },
         },
         {
             title: "Tarea",
             field: "strTarea",
             type: "string",
-        },
-        {
-            title: "Observaciones",
-            field: "strObservaciones",
-            type: "string",
-        },
-        {
-            title: "¿Finalizado?",
-            field: "btFinalizada",
-            type: "boolean",
         },
         {
             title: "Fecha fin tentativa",
@@ -78,16 +76,35 @@ const ReadTareas = ({ onChange, intId }) => {
         },
     ]);
 
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [selectedData, setSelectedData] = useState();
+
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data } = useGetTareas({ autoload: true, intId });
+    const { data, refreshGetData } = useGetTareas({ autoload: true, intIdIdea: intIdIdea });
+
+    //===============================================================================================================================================
+    //========================================== Funciones ==========================================================================================
+    //===============================================================================================================================================
+    const handlerOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
         <Fragment>
+            <ModalDelete
+                handleOpenDialog={handlerOpenModalDelete}
+                open={openModalDelete}
+                intId={selectedData?.intId}
+                refresh={refreshGetData}
+                intIdIdea={intIdIdea}
+            />
+
             <Grid container direction="row" spacing={2}>
                 <Grid item xs={12}>
                     <StyledEngineProvider injectFirst>
@@ -189,11 +206,7 @@ const ReadTareas = ({ onChange, intId }) => {
                                     },
                                 }}
                                 isLoading={data === undefined ? true : false}
-                                data={
-                                    !data?.error && data
-                                        ? data[0].objEmpresario
-                                        : []
-                                }
+                                data={data || []}
                                 columns={objColumns}
                                 title="Tareas"
                                 options={{
@@ -211,8 +224,78 @@ const ReadTareas = ({ onChange, intId }) => {
                                     detailPanelColumnStylele: {
                                         fontSize: 12,
                                     },
+                                    actionsColumnIndex: -1,
+                                    paging: true,
+                                    pageSizeOptions: [20, 100, 200, 500],
+                                    pageSize: 20,
                                     maxBodyHeight: "520px",
                                 }}
+                                actions={[
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <EditIcon
+                                                    color={
+                                                        rowData.btFinalizado ===
+                                                        1
+                                                            ? "gray"
+                                                            : "success"
+                                                    }
+                                                    fontSize="small"
+                                                    onClick={() =>
+                                                        onChangeRoute(
+                                                            "EditTareas",
+                                                            {
+                                                                intId: rowData.intId,
+                                                            }
+                                                        )
+                                                    }
+                                                />
+                                            ),
+                                            tooltip: "Editar",
+
+                                            disabled:
+                                                rowData.btFinalizado === 1,
+                                        };
+                                    },
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <DeleteIcon
+                                                    color={
+                                                        rowData.btFinalizado ===
+                                                        1
+                                                            ? "gray"
+                                                            : "error"
+                                                    }
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            onClick: (event, rowData) => {
+                                                setSelectedData(rowData);
+                                                handlerOpenModalDelete();
+                                            },
+                                            tooltip: "Eliminar",
+                                            disabled:
+                                                rowData.btFinalizado === 1,
+                                        };
+                                    },
+                                ]}
+                                detailPanel={[
+                                    {
+                                        tooltip: "Observaciones",
+                                        render: ({ rowData }) => {
+                                            return (
+                                                <p>
+                                                    <span>
+                                                        <b>Obeservaciones: </b>
+                                                    </span>
+                                                    {rowData.strObservaciones}
+                                                </p>
+                                            );
+                                        },
+                                    },
+                                ]}
                                 components={{
                                     Toolbar: (props) => (
                                         <div
@@ -248,7 +331,7 @@ const ReadTareas = ({ onChange, intId }) => {
                                                     >
                                                         <Button
                                                             onClick={() =>
-                                                                onChange(
+                                                                onChangeRoute(
                                                                     "CreateTareas"
                                                                 )
                                                             }
