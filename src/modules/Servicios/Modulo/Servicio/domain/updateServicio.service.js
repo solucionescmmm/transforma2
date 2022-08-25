@@ -135,9 +135,10 @@ class updateServicios {
                     let query = await dao.setModuloServicios({
                         ...array[i],
                         strResponsables: JSON.stringify(
-                            array[i]?.strResponsables
+                            array[i]?.arrResponsables
                         ),
                         strUsuarioActualizacion: this.#objUser.strEmail,
+                        intIdServicio: this.#intIdServicio
                     });
 
                     if (query.error) {
@@ -210,8 +211,6 @@ class updateServicios {
     }
 
     async #updateResultServcio() {
-
-
         if (this.#objData.arrAtributos.length > 0) {
             let array = this.#objData.arrAtributos;
 

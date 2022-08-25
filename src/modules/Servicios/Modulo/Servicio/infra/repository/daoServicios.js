@@ -391,7 +391,7 @@ class daoServicios {
 
                 SET intIdTipoServicio       = COALESCE(${data.intIdTipoServicio}, intIdTipoServicio),
                     strDescripcion          = COALESCE(${data.strDescripcion}, strDescripcion),
-                    btModulos               = COALESCE(${data.btModulos}, btModulos),
+                    btModulos               = COALESCE(${data.bitModulos}, btModulos),
                     intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
