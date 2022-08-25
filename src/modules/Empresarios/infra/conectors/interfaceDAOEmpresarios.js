@@ -67,6 +67,12 @@ class interfaceDAOEmpresarios {
         return result
     }
 
+    async updateFechaFinEmpresario(data){
+        const dao = new classDaoSql()
+        let result = await dao.updateFechaFinEmpresario(data)
+        return result
+    }
+
     async deleteEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.deleteEmpresario(data);
@@ -124,6 +130,12 @@ class interfaceDAOEmpresarios {
     async getIdTipoEmpresario(data){
         const dao = new classDaoSql();
         let result = await dao.getIdTipoEmpresario(data);
+        return result;
+    }
+
+    async getIdEmpresarioPrincipal(data){
+        const dao = new classDaoSql();
+        let result = await dao.getIdEmpresarioPrincipal(data);
         return result;
     }
 }

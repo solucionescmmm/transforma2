@@ -1,6 +1,7 @@
 //Classes
 const setEmpresarioPrincipal = require("../../domian/setEmpresarioPrincipal.service");
 const setEmpresarioSecundario = require("../../domian/setEmpresarioSecundario.service")
+const setCambioEmpresarioPrincipal = require("../../domian/setCambioEmpresarioPrincipal.service")
 const updateEmpresarioPrincipal = require("../../domian/updateEmpresarioPrincipal.service")
 const updateEmpresarioSecundario = require("../../domian/updateEmpresarioSecundario.service")
 const updeteInactivarEmpresario = require("../../domian/updateInactivarEmpresario.service")
@@ -80,6 +81,30 @@ class ctrlEmpresarios {
             let { strDataUser } = req;
 
             let service = new setEmpresarioSecundario(data, strDataUser);
+
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async setCambioEmpresarioPrincipal(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new setCambioEmpresarioPrincipal(data, strDataUser);
 
             let query = await service.main();
 
