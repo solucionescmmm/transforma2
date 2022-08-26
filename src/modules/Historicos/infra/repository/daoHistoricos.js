@@ -20,8 +20,9 @@ class daoHistoricos {
                 ${data.ValorVentas},
                 ${data.strTiempoDedicacionAdmin},
                 ${data.intIdFuenteHistorico},
-                null,
-                null,
+                NULL,
+                NULL,
+                NULL,
                 ${data.intIdFuenteDato},
                 GETDATE()
             )
