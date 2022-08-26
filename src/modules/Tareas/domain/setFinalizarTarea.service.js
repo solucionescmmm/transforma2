@@ -44,7 +44,7 @@ class setFinalizarTarea {
     async #completeData() {
         let newData = {
             ...this.#objData,
-            btFinalizada: 1,
+            btFinalizada: this.#objData.btFinalizada === true ? 1 : 0,
             strUsuarioActualizacion:this.#objUser.strEmail,
         };
         this.#objData = newData;
