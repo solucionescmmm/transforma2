@@ -38,6 +38,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import ModalDelete from "./modalDelete";
+import ModalState from "./modalState";
 
 const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
     //===============================================================================================================================================
@@ -48,8 +49,12 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
             title: "¿Finalizado?",
             render: (rowData) => (
                 <Checkbox
-                    checked={rowData.btFinalizado === 1 ? true : false}
+                    checked={rowData.btFinalizada}
                     size="small"
+                    onChange={() => {
+                        setSelectedData(rowData);
+                        handlerOpenModalState();
+                    }}
                 />
             ),
             width: "5%",
@@ -77,19 +82,26 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
     ]);
 
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
-
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data, refreshGetData } = useGetTareas({ autoload: true, intIdIdea: intIdIdea });
+    const { data, refreshGetData } = useGetTareas({
+        autoload: true,
+        intIdIdea: intIdIdea,
+    });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const handlerOpenModalDelete = () => {
         setOpenModalDelete(!openModalDelete);
+    };
+
+    const handlerOpenModalState = () => {
+        setOpenModalState(!openModalState);
     };
 
     //===============================================================================================================================================
@@ -103,6 +115,14 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
                 intId={selectedData?.intId}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
+            />
+
+            <ModalState
+                handleOpenDialog={handlerOpenModalState}
+                open={openModalState}
+                values={selectedData}
+                intIdIdea={intIdIdea}
+                refresh={refreshGetData}
             />
 
             <Grid container direction="row" spacing={2}>

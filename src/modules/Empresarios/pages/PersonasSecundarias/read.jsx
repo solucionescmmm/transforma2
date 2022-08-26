@@ -37,7 +37,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 
-const ReadPersonaSecundaria = ({ onChange, intId }) => {
+const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -249,7 +249,7 @@ const ReadPersonaSecundaria = ({ onChange, intId }) => {
                                                     >
                                                         <Button
                                                             onClick={() =>
-                                                                onChange(
+                                                                onChangeRoute(
                                                                     "PersonasCreate"
                                                                 )
                                                             }

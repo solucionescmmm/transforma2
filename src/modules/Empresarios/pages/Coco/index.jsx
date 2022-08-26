@@ -40,6 +40,8 @@ import ErrorPage from "../../../../common/components/Error";
 import Routes from "../../../../routes/coco.routes";
 import CardPersonas from "./cardPersonas";
 import CardGrafica from "./cardGrafica";
+import CardTareas from "./cardTareas";
+import CardComentarios from "./cardComentarios";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -673,7 +675,7 @@ const Coco = () => {
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <p>No existen nuevas tareas</p>
+                                          <CardTareas intIdIdea={intId} />
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -929,7 +931,7 @@ const Coco = () => {
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <p>No hay comentarios nuevos</p>
+                                         <CardComentarios intIdIdea={intId} />
                                         </Box>
                                     </Box>
                                 </Grid>

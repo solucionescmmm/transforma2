@@ -5,7 +5,6 @@ import {
     Paper,
     Box,
     Typography,
-    Alert,
     TextField,
     MenuItem,
 } from "@mui/material";
@@ -30,7 +29,6 @@ import DropdownLocalizaciones from "../../components/dropdownLocalizaciones";
 import { makeStyles } from "@mui/styles";
 import { DatePicker, LoadingButton } from "@mui/lab";
 import NumberFormat from "react-number-format";
-import { format } from "date-fns";
 import toast from "react-hot-toast";
 
 const styles = makeStyles((theme) => ({
@@ -1039,16 +1037,6 @@ const CreateEditPersonasSec = ({ isEdit }) => {
                             control={control}
                         />
                     </Grid>
-
-                    {errors && (
-                        <Grid item xs={12}>
-                            <Alert severity="error">
-                                Lo sentimos, tienes campos pendientes por
-                                diligenciar en el formulario, revisa e intentalo
-                                nuevamente.
-                            </Alert>
-                        </Grid>
-                    )}
 
                     <Grid item xs={12}>
                         <Box

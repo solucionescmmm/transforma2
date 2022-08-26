@@ -441,6 +441,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                             {...props}
                                             name={name}
                                             fullWidth
+                                            required
                                             variant="standard"
                                             error={
                                                 errors?.objInfoEmpresarioPr
