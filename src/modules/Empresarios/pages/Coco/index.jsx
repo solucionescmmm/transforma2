@@ -670,9 +670,8 @@ const Coco = () => {
                                             sx={{
                                                 width: 800,
                                                 height: 118,
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
+                                                paddingLeft: "10px",
+                                                
                                             }}
                                         >
                                           <CardTareas intIdIdea={intId} />
@@ -687,6 +686,7 @@ const Coco = () => {
                                             flexDirection: "row-reverse",
                                             gap: 1,
                                             paddingRight: "5px",
+                                            
                                         }}
                                     >
                                         <Button

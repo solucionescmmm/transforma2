@@ -36,6 +36,7 @@ const InfoAdicional = ({
     setValue,
     clearErrors,
     setError,
+    isEdit
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -64,6 +65,12 @@ const InfoAdicional = ({
             [name]: value,
         }));
     };
+
+    useEffect(() => {
+        if (isEdit) {
+            setOpenCollapse(true);
+        }
+    }, [isEdit]);
 
     useEffect(() => {
         if (values) {

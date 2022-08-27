@@ -43,6 +43,7 @@ const InfoEmpresarioPr = ({
     control,
     setError,
     clearErrors,
+    isEdit
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -82,6 +83,12 @@ const InfoEmpresarioPr = ({
             [name]: value,
         }));
     };
+
+    useEffect(() => {
+        if (isEdit) {
+            setOpenCollapse(true);
+        }
+    }, [isEdit]);
 
     useEffect(() => {
         if (values) {

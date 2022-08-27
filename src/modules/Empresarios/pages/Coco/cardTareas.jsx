@@ -4,6 +4,9 @@ import { useEffect } from "react";
 
 import useGetTareas from "../../hooks/useGetTareas";
 
+// Iconos
+import {ListAlt as ListAltIcon} from "@mui/icons-material"
+
 const CardTareas = ({ intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -42,12 +45,31 @@ const CardTareas = ({ intIdIdea }) => {
     }
 
     return (
-        <div style={{ padding: "0px 5px" }}>
-            {arrTareas.filter((t) => t.bitFinalizado === false).length > 0
-                ? `Existen ${
-                      arrTareas.filter((t) => t.bitFinalizado === false).length
-                  } tareas sin finalizar`
-                : "No existen nuevas tareas por finalizar"}
+        <div style={{padding: "0px 5px"}}>
+            {arrTareas.slice(0, 5).map((p) => (
+                <Box sx={{ display: "flex" }}>
+                    <p
+                        style={{
+                            flexGrow: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            fontSize: "12px",
+                        }}
+                    >
+                        <ListAltIcon
+                            sx={{
+                                width: "20px",
+                                height: "20px",
+                                marginRight: "5px",
+                            }}
+                        />
+                        {p.strTarea}
+                    </p>
+                    <p style={{ fontSize: "12px", paddingRight: "5px" }}>
+                        {p.btFinalizada === true ? "Completada" : "Sin completar"}
+                    </p>
+                </Box>
+            ))}
         </div>
     );
 };

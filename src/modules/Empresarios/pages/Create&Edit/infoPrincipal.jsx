@@ -29,7 +29,7 @@ import SelectEstadoVinculacion from "../../components/selectEstadoVinculacion";
 import SelectSedes from "../../components/selectSedes";
 import SelectTipoVinculacion from "../../components/selectTipoVinculacion";
 
-const InfoPrincipal = ({ disabled, values, errors, control }) => {
+const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
@@ -47,6 +47,12 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
     };
 
     useEffect(() => {
+        if (isEdit) {
+            setOpenCollapse(true);
+        }
+    }, [isEdit]);
+
+    useEffect(() => {
         if (values) {
             setData({
                 strSede: values.strSede || "",
@@ -62,7 +68,12 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -75,7 +86,9 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoPrincipal ? "#D33030" : "inherit",
+                            color: errors?.objInfoPrincipal
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Información principal
@@ -83,13 +96,22 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -97,7 +119,9 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoPrincipal ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoPrincipal
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -116,11 +140,13 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.strSede ? true : false
+                                        errors?.objInfoPrincipal?.strSede
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strSede?.message ||
-                                        "Selecciona la sede"
+                                        errors?.objInfoPrincipal?.strSede
+                                            ?.message || "Selecciona la sede"
                                     }
                                 />
                             )}
@@ -141,13 +167,14 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                     name={name}
                                     value={value}
                                     error={
-                                        errors?.objInfoPrincipal?.strModalidadIngreso
+                                        errors?.objInfoPrincipal
+                                            ?.strModalidadIngreso
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strModalidadIngreso
-                                            ?.message ||
+                                        errors?.objInfoPrincipal
+                                            ?.strModalidadIngreso?.message ||
                                         "Selecciona la modalidad de ingreso"
                                     }
                                     onChange={(e) => onChange(e)}
@@ -188,7 +215,8 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                             }
                                             helperText={
                                                 errors?.objInfoPrincipal
-                                                    ?.dtFechaVinculacion?.message ||
+                                                    ?.dtFechaVinculacion
+                                                    ?.message ||
                                                 "Selecciona la fecha de vinculación"
                                             }
                                         />
@@ -216,13 +244,14 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.strEstadoVinculacion
+                                        errors?.objInfoPrincipal
+                                            ?.strEstadoVinculacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strEstadoVinculacion
-                                            ?.message ||
+                                        errors?.objInfoPrincipal
+                                            ?.strEstadoVinculacion?.message ||
                                         "Selecciona el estado de vinculación"
                                     }
                                 />
@@ -248,20 +277,22 @@ const InfoPrincipal = ({ disabled, values, errors, control }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.strTipoVinculacion
+                                        errors?.objInfoPrincipal
+                                            ?.strTipoVinculacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strTipoVinculacion
-                                            ?.message ||
+                                        errors?.objInfoPrincipal
+                                            ?.strTipoVinculacion?.message ||
                                         "Selecciona el tipo de vinculación"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona el tipo de vinculación",
+                                required:
+                                    "Por favor, selecciona el tipo de vinculación",
                             }}
                         />
                     </Grid>
