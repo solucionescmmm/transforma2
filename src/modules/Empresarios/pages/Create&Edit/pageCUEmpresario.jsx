@@ -430,7 +430,6 @@ const CUEmpresario = ({ isEdit }) => {
                         }
 
                         if (res.data) {
-                            debugger
                             let data = res.data.data[0];
                             const objEmprPrincipal = data.objEmpresario.find(
                                 (p) => p.strTipoEmpresario === "Principal"
