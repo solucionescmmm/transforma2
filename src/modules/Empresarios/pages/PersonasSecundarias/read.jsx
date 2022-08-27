@@ -202,8 +202,8 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
                                             icon: () => (
                                                 <EditIcon
                                                     color={
-                                                        rowData.btFinalizado ===
-                                                        1
+                                                        rowData.strTipoEmpresario ===
+                                                        "Principal"
                                                             ? "gray"
                                                             : "success"
                                                     }
@@ -221,7 +221,7 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
                                             tooltip: "Editar",
 
                                             disabled:
-                                                rowData.btFinalizado === 1,
+                                                rowData.strTipoEmpresario === "Principal",
                                         };
                                     },
                                     (rowData) => {
@@ -229,8 +229,8 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
                                             icon: () => (
                                                 <DeleteIcon
                                                     color={
-                                                        rowData.btFinalizado ===
-                                                        1
+                                                        rowData.strTipoEmpresario ===
+                                                        "Principal"
                                                             ? "gray"
                                                             : "error"
                                                     }
@@ -243,7 +243,7 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
                                             },
                                             tooltip: "Eliminar",
                                             disabled:
-                                                rowData.btFinalizado === 1,
+                                                rowData.strTipoEmpresario === "Principal",
                                         };
                                     },
                                 ]}
@@ -265,6 +265,10 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
                                         fontSize: 12,
                                     },
                                     maxBodyHeight: "520px",
+                                    actionsColumnIndex: -1,
+                                    paging: true,
+                                    pageSizeOptions: [20, 100, 200, 500],
+                                    pageSize: 20,
                                 }}
                                 components={{
                                     Toolbar: (props) => (

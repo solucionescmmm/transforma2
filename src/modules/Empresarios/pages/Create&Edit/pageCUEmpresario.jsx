@@ -175,7 +175,7 @@ const CUEmpresario = ({ isEdit }) => {
                     transformRequest: [
                         (data) => {
                             let newData = {
-                                intIdIdea: data.intId,
+                                intIdIdea: data.intIdIdea,
                                 objIdeaEmpresario: data.objIdeaEmpresario,
                                 objEmpresario: {
                                     intId: data.objInfoEmpresarioPr.intId,
