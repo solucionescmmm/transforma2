@@ -75,6 +75,7 @@ const InfoAdicional = ({
     useEffect(() => {
         if (values) {
             setData({
+                intId: values.intId,
                 strPrincipalesNecesidades: values.strPrincipalesNecesidades || "",
                 btInteresadoProcesoCMM:
                     typeof values.btInteresadoProcesoCMM === "boolean"

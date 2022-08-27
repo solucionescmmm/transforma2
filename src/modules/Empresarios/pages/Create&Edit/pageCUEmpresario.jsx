@@ -265,6 +265,7 @@ const CUEmpresario = ({ isEdit }) => {
                                     data.arrInfoEmpresarioSec,
 
                                 objInfoEmpresa: {
+                                    intId: data.objInfoEmpresa.intId,
                                     strURLFileLogoEmpresa:
                                         data.objInfoEmpresa
                                             .strURLFileLogoEmpresa,
@@ -338,6 +339,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 },
 
                                 objInfoAdicional: {
+                                    intId: data.objInfoAdicional.intId,
                                     strPrincipalesNecesidades:
                                         data.objInfoAdicional
                                             .strPrincipalesNecesidades,
@@ -428,6 +430,7 @@ const CUEmpresario = ({ isEdit }) => {
                         }
 
                         if (res.data) {
+                            debugger
                             let data = res.data.data[0];
                             const objEmprPrincipal = data.objEmpresario.find(
                                 (p) => p.strTipoEmpresario === "Principal"
@@ -513,6 +516,7 @@ const CUEmpresario = ({ isEdit }) => {
                                 },
 
                                 objInfoEmpresa: {
+                                    intId: data.objInfoEmpresa.intId,
                                     strURLFileLogoEmpresa:
                                         data.objInfoEmpresa
                                             .strURLFileLogoEmpresa || null,

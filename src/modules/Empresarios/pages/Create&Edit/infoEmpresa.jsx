@@ -105,6 +105,7 @@ const InfoEmpresa = ({
     useEffect(() => {
         if (values) {
             setData({
+                intId: values.intId,
                 strURLFileLogoEmpresa: values.strURLFileLogoEmpresa || null,
                 strEstadoNegocio: values.strEstadoNegocio || "",
                 strCuandoComienzaEmpresa: values.strCuandoComienzaEmpresa || "",
