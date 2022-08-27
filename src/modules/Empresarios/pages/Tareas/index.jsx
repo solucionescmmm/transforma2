@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react";
 import useGetTareas from "../../hooks/useGetTareas";
 
 //Componentes de Material UI
-import { Grid, Avatar, Box, Button, Switch, Checkbox } from "@mui/material";
+import { Grid, Box, Button, Checkbox } from "@mui/material";
 
 import {
     ThemeProvider,

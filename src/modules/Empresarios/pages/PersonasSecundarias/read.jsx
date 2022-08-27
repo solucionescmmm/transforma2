@@ -29,6 +29,7 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
+    Delete as DeleteIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -195,6 +196,57 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
                                         ? data[0].objEmpresario
                                         : []
                                 }
+                                actions={[
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <EditIcon
+                                                    color={
+                                                        rowData.btFinalizado ===
+                                                        1
+                                                            ? "gray"
+                                                            : "success"
+                                                    }
+                                                    fontSize="small"
+                                                    onClick={() =>
+                                                        onChangeRoute(
+                                                            "EditTareas",
+                                                            {
+                                                                intId: rowData.intId,
+                                                            }
+                                                        )
+                                                    }
+                                                />
+                                            ),
+                                            tooltip: "Editar",
+
+                                            disabled:
+                                                rowData.btFinalizado === 1,
+                                        };
+                                    },
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <DeleteIcon
+                                                    color={
+                                                        rowData.btFinalizado ===
+                                                        1
+                                                            ? "gray"
+                                                            : "error"
+                                                    }
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            onClick: (event, rowData) => {
+                                                // setSelectedData(rowData);
+                                                // handlerOpenModalDelete();
+                                            },
+                                            tooltip: "Eliminar",
+                                            disabled:
+                                                rowData.btFinalizado === 1,
+                                        };
+                                    },
+                                ]}
                                 columns={objColumns}
                                 title="Personas secundarias"
                                 options={{
