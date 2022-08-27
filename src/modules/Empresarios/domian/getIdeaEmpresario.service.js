@@ -39,6 +39,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                 let arrayEmpresario = array[i].objInfoEmpresario
                 let arrayIdeaEmpresario = array[i].objInfoIdeaEmpresario
                 let objEmpresario = []
+                let objInfoPrincipal = {}
                 
                 for (let j = 0; j < arrayEmpresario.length; j++) {
                     for (let k = 0; k < arrayIdeaEmpresario.length; k++) {
@@ -49,6 +50,15 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                                 arrCiudad:JSON.parse(arrayEmpresario[j]?.strCiudad||null),
                                 strTipoEmpresario:arrayIdeaEmpresario[k].strTipoEmpresario
                             }) 
+                        }
+                        if (arrayIdeaEmpresario[k].strTipoEmpresario === "Principal") {
+                            objInfoPrincipal ={
+                                strSede:arrayEmpresario[j].strSede,
+                                strModalidadIngreso:arrayEmpresario[j].strModalidadIngreso,
+                                dtFechaVinculacion:arrayEmpresario[j].dtFechaVinculacion,
+                                strEstadoVinculacion:arrayEmpresario[j].strEstadoVinculacion,
+                                strTipoVinculacion:arrayEmpresario[j].strTipoVinculacion
+                            }
                         }
                     }
                 }
@@ -111,6 +121,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                     dtmActualizacion:array[i]?.dtmActualizacion,
                     strUsuarioActualizacion:array[i]?.strUsuarioActualizacion,
                     objIdeaEmpresario:array[i]?.objInfoIdeaEmpresario,
+                    objInfoPrincipal,
                     objEmpresario,
                     objInfoEmpresa,
                     objInfoAdicional,
