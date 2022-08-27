@@ -432,6 +432,8 @@ const CUEmpresario = ({ isEdit }) => {
                             );
 
                             setData({
+                                intIdIdea: data.intId,
+                                objIdeaEmpresario: data.objIdeaEmpresario,
                                 objInfoPrincipal: {
                                     strSede: objEmprPrincipal.strSede || "",
                                     strModalidadIngreso:
