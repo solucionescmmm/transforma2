@@ -131,14 +131,13 @@ const DropdownEmpresarios = ({
                 } else {
                     return (
                         option === value ||
-                        option.strNombres === value.strNombres ||
+                        option.strNombres + " " + option.strApellidos ===
+                            value.strNombres + " " + value.strApellidos ||
                         option.strNroDocto === value.strNroDocto
                     );
                 }
             }}
-            getOptionLabel={(option) =>
-                option?.strNombres || option?.strEmail || option
-            }
+            getOptionLabel={(option) => option?.strNombres + " " + option?.strApellidos + `(${option?.strNroDocto})` || option}
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
                     if (option.strNombres) {

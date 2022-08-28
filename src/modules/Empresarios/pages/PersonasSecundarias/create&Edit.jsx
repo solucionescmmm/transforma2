@@ -102,7 +102,7 @@ const CreateEditPersonasSec = ({ isEdit, values }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         btExite: "",
-        objEmpresario: "",
+        objEmpresario: null,
         intIdIdea: intId,
         strNombres: "",
         strApellidos: "",
@@ -339,7 +339,9 @@ const CreateEditPersonasSec = ({ isEdit, values }) => {
                                         disabled={loading}
                                         name={name}
                                         value={value}
-                                        onChange={(value) => onChange(value)}
+                                        onChange={(target, values) => {
+                                            onChange(values);
+                                        }}
                                         required
                                         helperText={
                                             errors?.objEmpresario?.message ||
