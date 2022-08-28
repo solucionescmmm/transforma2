@@ -131,7 +131,7 @@ const DropdownEmpresarios = ({
                 } else {
                     return (
                         option === value ||
-                        option.strNombres === value.strNombre ||
+                        option.strNombres === value.strNombres ||
                         option.strNroDocto === value.strNroDocto
                     );
                 }
