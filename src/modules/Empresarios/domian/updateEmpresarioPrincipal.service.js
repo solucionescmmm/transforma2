@@ -4,27 +4,43 @@ const validator = require("validator").default;
 //CLases
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
 
+//Servicios
+const serviceUpdateHistorico = require("../../Historicos/domain/updateHistorico.service")
+const serviceGetIdFuenteHistorico = require("../../Historicos/domain/getIdFuenteHistoricos.service")
+const servicegetIdeaEmpresario = require("./getIdeaEmpresario.service")
+
 class updateEmpresarioPrincipal {
+
+    //objects
     #objData;
     #objUser;
-    #objEmpresarioActual;
-    #intIdEmpresarioActual;
+    #objIdeaEmpresarioActual;
     #objResult;
+
+    //variables
+    #intIdIdea;
+    #intIdFuenteHistorico;
     /**
      * @param {object} data
      */
     constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
+        this.#intIdIdea = data.intIdIdea
     }
 
     async main() {
-        await this.#getEmpresario();
+        console.log(this.#objData)
+        await this.#getIdeaEmpresario();
+        await this.#getIdFuenteHistorico();
         await this.#validations();
         await this.#updateEmpresario();
         await this.#updateIdea();
         await this.#updateEmpresa();
         await this.#updateInfoAdicional();
+        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio") {
+           await this.#setHistorico()
+        }
 
         return this.#objResult;
     }
@@ -43,7 +59,7 @@ class updateEmpresarioPrincipal {
         let btMismaCedula = false;
         if (
             this.#objData.objEmpresario.strNroDocto ===
-            this.#objEmpresarioActual.strNroDocto
+            this.#objIdeaEmpresarioActual.objEmpresario[0].strNroDocto
         ) {
             btMismaCedula = true;
         }
@@ -63,11 +79,9 @@ class updateEmpresarioPrincipal {
         }
     }
 
-    async #getEmpresario() {
-        let dao = new classInterfaceDAOEmpresarios();
-
-        let query = await dao.getEmpresario({
-            intId: this.#objData.objEmpresario.intId,
+    async #getIdeaEmpresario() {
+        let query = await servicegetIdeaEmpresario({
+            intId: this.#intIdIdea
         });
 
         if (query.error) {
@@ -77,8 +91,19 @@ class updateEmpresarioPrincipal {
         if (!query.data) {
             throw new Error(`El empresario no existe`);
         }
-        this.#objEmpresarioActual = query.data[0];
-        this.#intIdEmpresarioActual = query.data[0].intId;
+        this.#objIdeaEmpresarioActual = query.data[0];
+    }
+
+    async #getIdFuenteHistorico() {
+        let queryGetIdFuenteHistorico = await serviceGetIdFuenteHistorico({
+            strNombre: "Prediagnóstico",
+        });
+
+        if (queryGetIdFuenteHistorico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdFuenteHistorico = queryGetIdFuenteHistorico.data.intId;
     }
 
     async #updateEmpresario() {
@@ -93,9 +118,9 @@ class updateEmpresarioPrincipal {
 
         let newData = {
             ...prevData,
-            strUsuario: this.#objUser.strEmail,
+            strUsuarioActualizacion: this.#objUser.strEmail,
             arrDepartamento: aux_arrDepartamento,
-            arrCiudad: aux_arrCiudad,
+            arrCiudad: aux_arrCiudad
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -115,11 +140,10 @@ class updateEmpresarioPrincipal {
     }
 
     async #updateIdea() {
-        let prevData = this.#objData.objIdea;
-
         let newData = {
-            ...prevData,
             strUsuarioActualizacion: this.#objUser.strEmail,
+            strNombre:this.#objData.objInfoEmpresa?.strNombreMarca,
+            intId : this.#intIdIdea
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -155,7 +179,6 @@ class updateEmpresarioPrincipal {
 
         let newData = {
             ...prevData,
-            intIdEmpresario: this.#intIdEmpresarioActual,
             strUsuario: this.#objUser.strEmail,
             arrCategoriasSecundarias: aux_arrCategoriasSecundarias,
             arrFormasComercializacion: aux_arrFormasComercializacion,
@@ -191,7 +214,6 @@ class updateEmpresarioPrincipal {
 
         let newData = {
             ...prevData,
-            intIdEmpresario: this.#intIdEmpresarioActual,
             strUsuario: this.#objUser.strEmail,
             arrTemasCapacitacion: aux_arrTemasCapacitacion,
             arrComoSeEntero: aux_arrComoSeEntero,
@@ -205,39 +227,51 @@ class updateEmpresarioPrincipal {
         }
     }
 
+    async #setHistorico(){
+        let data = {
+            intIdIdea:this.#intIdIdea,
+            intNumeroEmpleados:parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10),
+            ValorVentas:this.#objData.objInfoEmpresa.dblValorVentasMes,
+            strTiempoDedicacionAdmin:this.#objData.objInfoEmpresa.strTiempoDedicacion,
+            intIdFuenteHistorico: this.#intIdFuenteHistorico
+        };
+    
+        let service = new serviceUpdateHistorico(data);
+
+        let query = await service.main();
+
+        if (query.error) {
+            await this.#rollbackTransaction();
+        }
+    }
+
     async #rollbackTransaction() {
         let dao = new classInterfaceDAOEmpresarios();
-        let prevData = this.#objEmpresarioActual;
+        let prevData = this.#objIdeaEmpresarioActual;
 
-        let objDataEmpresario = {
-            ...prevData.objEmpresario,
-            arrCategoriasSecundarias: aux_arrCategoriasSecundarias,
-            arrFormasComercializacion: aux_arrFormasComercializacion,
-            arrMediosDigitales: aux_arrMediosDigitales,
-            arrRequisitoLey: aux_arrRequisitoLey,
-        };
+        let objDataEmpresario = this.#objIdeaEmpresarioActual.objEmpresario[0]
 
         let rollEmpresario = await dao.updateEmpresario(objDataEmpresario);
         
         let aux_arrCategoriasSecundarias = JSON.stringify(
-            this.#objEmpresarioActual.objInfoEmpresa
+            this.#objIdeaEmpresarioActual.objInfoEmpresa
                 ?.arrCategoriasSecundarias || null
         );
         let aux_arrFormasComercializacion = JSON.stringify(
-            this.#objEmpresarioActual.objInfoEmpresa
+            this.#objIdeaEmpresarioActual.objInfoEmpresa
                 ?.arrFormasComercializacion || null
         );
         let aux_arrMediosDigitales = JSON.stringify(
-            this.#objEmpresarioActual.objInfoEmpresa?.arrMediosDigitales || null
+            this.#objIdeaEmpresarioActual.objInfoEmpresa?.arrMediosDigitales || null
         );
         let aux_arrRequisitoLey = JSON.stringify(
-            this.#objEmpresarioActual.objInfoEmpresa?.arrRequisitoLey || null
+            this.#objIdeaEmpresarioActual.objInfoEmpresa?.arrRequisitoLey || null
         );
         let aux_arrDepartamento = JSON.stringify(
-            this.#objEmpresarioActual.objInfoEmpresa?.arrDepartamento || null
+            this.#objIdeaEmpresarioActual.objInfoEmpresa?.arrDepartamento || null
         );
         let aux_arrCiudad = JSON.stringify(
-            this.#objData.objEmpresarioActual?.arrCiudad || null
+            this.#objData.objIdeaEmpresarioActual?.arrCiudad || null
         );
 
         let objDataEmpresa = {
@@ -252,14 +286,14 @@ class updateEmpresarioPrincipal {
         let rollEmpresa = await dao.updateEmpresa(objDataEmpresa);
 
         let aux_arrTemasCapacitacion = JSON.stringify(
-            this.#objEmpresarioActual.objInfoAdicional?.arrTemasCapacitacion ||
+            this.#objIdeaEmpresarioActual.objInfoAdicional?.arrTemasCapacitacion ||
                 null
         );
         let aux_arrComoSeEntero = JSON.stringify(
-            this.#objEmpresarioActual.objInfoAdicional?.arrComoSeEntero || null
+            this.#objIdeaEmpresarioActual.objInfoAdicional?.arrComoSeEntero || null
         );
         let aux_arrMediosDeComunicacion = JSON.stringify(
-            this.#objEmpresarioActual.objInfoAdicional
+            this.#objIdeaEmpresarioActual.objInfoAdicional
                 ?.arrMediosDeComunicacion || null
         );
 

@@ -8,6 +8,12 @@ class interfaceDAOHistoricos {
         return result;
     }
 
+    async updateHistorico(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateHistorico(data);
+        return result;
+    }
+
     async getHistorico(data) {
         const dao = new classDaoSql()
         let result = await dao.getHistorico(data)

@@ -422,11 +422,11 @@ class daoEmpresarios {
                 strRequisitosLey                  = COALESCE(${data.arrRequisitosLey}, strRequisitosLey),
                 strOtrosRequisitosLey             = COALESCE(${data.strOtrosRequisitosLey}, strOtrosRequisitosLey),
                 dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
+                strUsuarioActualizacion           = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
-            WHERE intIdEmpresario = ${data.intIdEmpresario}
+            WHERE intId = ${data.intId}
 
-            SELECT * FROM tbl_InfoEmpresa WHERE intIdEmpresario = ${data.intIdEmpresario}`;
+            SELECT * FROM tbl_InfoEmpresa WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
@@ -469,9 +469,9 @@ class daoEmpresarios {
                 dtmActualizacion           = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuario                 = COALESCE(${data.strUsuario}, strUsuario)
 
-            WHERE intIdEmpresario = ${data.intIdEmpresario}
+            WHERE intId = ${data.intId}
 
-            SELECT * FROM tbl_InfoAdicional WHERE intIdEmpresario = ${data.intIdEmpresario}`;
+            SELECT * FROM tbl_InfoAdicional WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,

@@ -52,6 +52,41 @@ class daoHistoricos {
         }
     }
 
+    async updateHistorico(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn.query`
+
+            UPDATE tbl_Historicos
+
+            SET intNumeroEmpleados       = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
+                ValorVentas              = COALESCE(${data.ValorVentas}, ValorVentas),
+                strTiempoDedicacionAdmin = COALESCE(${data.strTiempoDedicacionAdmin}, strTiempoDedicacionAdmin),
+
+            WHERE (intIdIdea = ${data.intIdIdea} AND intIdFuenteHistorico = ${data.intIdFuenteHistorico})`;
+
+            let result = {
+                error: false,
+                msg:"Se actualizo correctamente el historico",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateInfoAdicional de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getHistorico(data){
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();

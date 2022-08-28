@@ -41,7 +41,7 @@ class updateInactivarEmpresario {
         }
 
         let queryGetIntIdTipoEmpresario = await serviceGetIdTipoEmpresario({
-            strNombre: "Primario",
+            strNombre: "Principal",
         });
 
         if (queryGetIntIdTipoEmpresario.error) {
@@ -74,11 +74,11 @@ class updateInactivarEmpresario {
             ...this.#objData,
             intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
+            dtFechaFin: new Date(),
         };
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.updateInactivarEmpresario(newData);
-        
 
         this.#objResult = {
             error: query.error,
