@@ -27,11 +27,12 @@ class setEmpresarioSecundario {
     }
 
     async main() {
-        await this.#validations();
-        await this.#getIdEstado();
-        await this.#getIdTipoEmpresario();
-        await this.#setEmpresario();
-        await this.#setIdeaEmpresario()
+        console.log(this.#objData)
+        //await this.#validations();
+        //await this.#getIdEstado();
+        //await this.#getIdTipoEmpresario();
+        //await this.#setEmpresario();
+        //await this.#setIdeaEmpresario()
 
         return this.#objResult;
     }
