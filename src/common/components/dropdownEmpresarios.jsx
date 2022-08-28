@@ -35,7 +35,7 @@ import {
 //Filtro personalizado
 const filterOptions = (options, { inputValue }) =>
     matchSorter(options, inputValue, {
-        keys: ["strNombre", "strApellidos", "strEmail", "strNroDocto"],
+        keys: ["strNombre", "strApellidos", "strNroDocto"],
     });
 
 const DropdownEmpresarios = ({
@@ -131,7 +131,6 @@ const DropdownEmpresarios = ({
                 } else {
                     return (
                         option === value ||
-                        option.strEmail === value.strEmail ||
                         option.strNombres === value.strNombre ||
                         option.strNroDocto === value.strNroDocto
                     );
@@ -151,16 +150,6 @@ const DropdownEmpresarios = ({
                                     " " +
                                     option.strApellidos
                                 }
-                                {...getTagProps({ index })}
-                            />
-                        );
-                    }
-
-                    if (option.strEmail) {
-                        return (
-                            <Chip
-                                key={index}
-                                label={option.strEmail}
                                 {...getTagProps({ index })}
                             />
                         );
@@ -196,8 +185,7 @@ const DropdownEmpresarios = ({
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                option.strNombres + " " + option.strApellidos ||
-                                option.strEmail
+                                option.strNombres + " " + option.strApellidos
                             }
                             secondary={`Documento: ${option.strNroDocto}`}
                         />
