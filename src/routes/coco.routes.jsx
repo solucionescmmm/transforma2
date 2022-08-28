@@ -83,6 +83,25 @@ const CocoRoutes = ({ route, onChangeRoute }) => {
         );
     }
 
+    if (route.location === "PersonasEdit") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Personas")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <PersonasCreate isEdit onChangeRoute={onChangeRoute} values={route.params} />
+            </Grid>
+        );
+    }
+
     if (route.location === "Diagnosticos") {
         return (
             <Grid container direction="row" spacing={3}>

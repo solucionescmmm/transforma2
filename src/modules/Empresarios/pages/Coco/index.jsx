@@ -292,10 +292,7 @@ const Coco = () => {
                         </Paper>
                     </Grid>
                 </Grid>
-                <Routes
-                    route={route}
-                    onChangeRoute={onChangeRoute}
-                />
+                <Routes route={route} onChangeRoute={onChangeRoute} />
             </Fragment>
         );
     }
@@ -671,10 +668,9 @@ const Coco = () => {
                                                 width: 800,
                                                 height: 118,
                                                 paddingLeft: "10px",
-                                                
                                             }}
                                         >
-                                          <CardTareas intIdIdea={intId} />
+                                            <CardTareas intIdIdea={intId} />
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -686,7 +682,6 @@ const Coco = () => {
                                             flexDirection: "row-reverse",
                                             gap: 1,
                                             paddingRight: "5px",
-                                            
                                         }}
                                     >
                                         <Button
@@ -931,7 +926,9 @@ const Coco = () => {
                                                 alignItems: "center",
                                             }}
                                         >
-                                         <CardComentarios intIdIdea={intId} />
+                                            <CardComentarios
+                                                intIdIdea={intId}
+                                            />
                                         </Box>
                                     </Box>
                                 </Grid>

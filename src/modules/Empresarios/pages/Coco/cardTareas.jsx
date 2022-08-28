@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import useGetTareas from "../../hooks/useGetTareas";
 
 // Iconos
-import {ListAlt as ListAltIcon} from "@mui/icons-material"
+import { ListAlt as ListAltIcon } from "@mui/icons-material";
 
 const CardTareas = ({ intIdIdea }) => {
     //===============================================================================================================================================
@@ -30,7 +30,7 @@ const CardTareas = ({ intIdIdea }) => {
         setIsLoading(false);
     }, [data]);
 
-    if (isLoading || !data) {
+    if (isLoading) {
         return (
             <Box
                 sx={{
@@ -39,13 +39,32 @@ const CardTareas = ({ intIdIdea }) => {
                     alignItems: "center",
                 }}
             >
-                <CircularProgress />;
+                <CircularProgress />
             </Box>
         );
     }
 
+    if (arrTareas.length === 0) {
+        return (
+            <div
+                style={{
+                    padding: "0px 5px",
+                    textAlign: "center",
+                    margin: "auto",
+                    width: 800,
+                    height: 118,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                No existen nuevas tareas
+            </div>
+        );
+    }
+
     return (
-        <div style={{padding: "0px 5px"}}>
+        <div style={{ padding: "0px 5px" }}>
             {arrTareas.slice(0, 5).map((p) => (
                 <Box sx={{ display: "flex" }}>
                     <p
@@ -66,7 +85,9 @@ const CardTareas = ({ intIdIdea }) => {
                         {p.strTarea}
                     </p>
                     <p style={{ fontSize: "12px", paddingRight: "5px" }}>
-                        {p.btFinalizada === true ? "Completada" : "Sin completar"}
+                        {p.btFinalizada === true
+                            ? "Completada"
+                            : "Sin completar"}
                     </p>
                 </Box>
             ))}
