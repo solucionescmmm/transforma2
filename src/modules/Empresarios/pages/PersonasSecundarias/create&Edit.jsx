@@ -76,7 +76,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CreateEditPersonasSec = ({ isEdit, values }) => {
+const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -101,7 +101,7 @@ const CreateEditPersonasSec = ({ isEdit, values }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        btExite: "",
+        btExiste: "",
         objEmpresario: null,
         intIdIdea: intId,
         strNombres: "",
@@ -127,7 +127,7 @@ const CreateEditPersonasSec = ({ isEdit, values }) => {
         strURLFileFoto: "",
     });
 
-    const watchbtExite = watch("btExite");
+    const watchbtExiste = watch("btExiste");
 
     const handlerChangeData = (name, value) => {
         setData((prevState) => ({
@@ -240,6 +240,10 @@ const CreateEditPersonasSec = ({ isEdit, values }) => {
         };
     }, [flagSubmit, submitData]);
 
+    if (success) {
+        onChangeRoute("Personas");
+    }
+
     return (
         <Container className={classes.containerPR}>
             <Paper className={classes.paper}>
@@ -293,8 +297,8 @@ const CreateEditPersonasSec = ({ isEdit, values }) => {
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.btExite}
-                            name="btExite"
+                            defaultValue={data.btExiste}
+                            name="btExiste"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿La persona ya se encuentra registrada?"
@@ -325,7 +329,7 @@ const CreateEditPersonasSec = ({ isEdit, values }) => {
                         />
                     </Grid>
 
-                    {(data.btExite || watchbtExite) === true && (
+                    {(data.btExiste || watchbtExiste) === true && (
                         <Grid item xs={12}>
                             <Controller
                                 defaultValue={data.objEmpresario}
@@ -358,7 +362,7 @@ const CreateEditPersonasSec = ({ isEdit, values }) => {
                         </Grid>
                     )}
 
-                    {(data.btExite || watchbtExite) === false && (
+                    {(data.btExiste || watchbtExiste) === false && (
                         <Fragment>
                             <Grid item xs={12} md={6}>
                                 <Controller
