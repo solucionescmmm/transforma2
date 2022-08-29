@@ -145,7 +145,7 @@ class daoEmpresarios {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La idea, fue agregada con éxito.`,
+                msg: `El empresario, fue agregado con éxito a la idea. `,
             };
 
             sql.close(conexion);

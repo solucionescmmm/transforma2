@@ -30,7 +30,6 @@ class setCambioEmpresarioPrincipal {
     }
 
     async main() {
-        console.log(this.#objData)
         await this.#validations();
         await this.#getIdEstado();
         await this.#getIdTipoEmpresarioPrincipal();
@@ -195,6 +194,12 @@ class setCambioEmpresarioPrincipal {
         if (query.error) {
             await this.#rollbackTransaction();
         }
+
+        this.#objResult = {
+            error: query.error,
+            data: query.data,
+            msg: "Se realizo el cambio de empresario principal exitosamente.",
+        };
     }
 
     async #rollbackTransaction() {
