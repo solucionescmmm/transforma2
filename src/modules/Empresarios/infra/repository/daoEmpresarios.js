@@ -727,15 +727,52 @@ class daoEmpresarios {
             Idea.dtmActualizacion,
             Idea.strUsuarioActualizacion,
             (
-                SELECT *,
-                Tipo.strNombre as strTipoEmpresario 
+                SELECT *
                 FROM tbl_Idea_Empresario IdeaEmpresario 
                 WHERE IdeaEmpresario.intIdIdea = Idea.intId
                 FOR JSON PATH
             ) as objInfoIdeaEmpresario,
             (
-                SELECT * FROM tbl_Empresario Empresario
-                WHERE Empresario.intId = IdeaEmpresario.intIdEmpresario
+                SELECT
+                Empresario.intId,
+                Empresario.strNombres,
+                Empresario.strApellidos,
+                Empresario.strTipoDocto,
+                Empresario.strNroDocto,
+                Empresario.strLugarExpedicionDocto,
+                Empresario.dtFechaExpedicionDocto,
+                Empresario.dtFechaNacimiento,
+                Empresario.strNacionalidad,
+                Empresario.strGenero,
+                Empresario.strCelular1,
+                Empresario.strCelular2,
+                Empresario.strCorreoElectronico1,
+                Empresario.strCorreoElectronico2,
+                Empresario.strNivelEducativo,
+                Empresario.strTitulos,
+                Empresario.strCondicionDiscapacidad,
+                Empresario.strSede,
+                Empresario.strModalidadIngreso,
+                Empresario.dtFechaVinculacion,
+                Empresario.strEstadoVinculacion,
+                Empresario.strTipoVinculacion,
+                Empresario.strEstrato,
+                Empresario.strDepartamento,
+                Empresario.strCiudad,
+                Empresario.strBarrio,
+                Empresario.strDireccionResidencia,
+                Empresario.strUrlFileFoto,
+                Empresario.dtmActualizacion,
+                Empresario.strUsuario,
+                IdeaEmpresario.intIdTipoEmpresario,
+                Tipo.strNombre as strTipoEmpresario
+
+                FROM tbl_Empresario Empresario
+
+                INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
+                INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
+
+                WHERE IdeaEmpresario.intIdIdea = Idea.intId
                 FOR JSON PATH
             ) as objInfoEmpresario,
             (
@@ -744,14 +781,13 @@ class daoEmpresarios {
                 FOR JSON PATH
             ) as objInfoEmpresa,
             (
-                SELECT * FROM tbl_InfoAdicional Adicional
-                WHERE Adicional.intIdEmpresario = IdeaEmpresario.intIdEmpresario
+                SELECT * 
+                FROM tbl_InfoAdicional Adicional
+                WHERE Adicional.intIdIdea = Idea.intId
                 FOR JSON PATH
             ) as objInfoAdicional
 
             FROM tbl_Idea Idea
-            INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdIdea = Idea.intId
-            INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario 
             
             WHERE (Idea.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
@@ -771,8 +807,7 @@ class daoEmpresarios {
                     }
                 }
                 if (arrNewData[i].objInfoEmpresario) {
-                    let { objInfoEmpresario } = arrNewData[i];
-                    
+                    let { objInfoEmpresario } = arrNewData[i];                    
 
                     if (validator.isJSON(objInfoEmpresario)) {
                         objInfoEmpresario = JSON.parse(
@@ -871,11 +906,12 @@ class daoEmpresarios {
             Empresario.strUrlFileFoto,
             Empresario.dtmActualizacion,
             Empresario.strUsuario,
+            IdeaEmpresario.intIdTipoEmpresario,
             Tipo.strNombre as strTipoEmpresario
 
             FROM tbl_Empresario Empresario
 
-            LEFT JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
+            INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
             INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario 
             
             WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)`;

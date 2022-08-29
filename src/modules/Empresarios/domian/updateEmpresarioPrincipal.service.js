@@ -39,7 +39,7 @@ class updateEmpresarioPrincipal {
         await this.#updateEmpresa();
         await this.#updateInfoAdicional();
         if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio") {
-           await this.#setHistorico()
+           await this.#updateHistorico()
         }
 
         return this.#objResult;
@@ -227,7 +227,7 @@ class updateEmpresarioPrincipal {
         }
     }
 
-    async #setHistorico(){
+    async #updateHistorico(){
         let data = {
             intIdIdea:this.#intIdIdea,
             intNumeroEmpleados:parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10),

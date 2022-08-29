@@ -24,22 +24,30 @@ class setEmpresarioSecundario {
     constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
+        if (this.#objData.btExiste === true) {
+            this.#intIdEmpresario = this.#objData.objEmpresario.intId
+        }
     }
 
     async main() {
-        console.log(this.#objData)
-        //await this.#validations();
-        //await this.#getIdEstado();
-        //await this.#getIdTipoEmpresario();
-        //await this.#setEmpresario();
-        //await this.#setIdeaEmpresario()
+        await this.#getIdTipoEmpresario();
+        await this.#getIdEstado();
+        await this.#validations();
+        if (this.#objData.btExiste === true) {
+            await this.#setIdeaEmpresario()
+            this.#objResult = {
+                error: false,
+                msg: "El empresario se registro exitosamente en la idea.",
+            };
+        } else {
+            await this.#setEmpresario();
+            await this.#setIdeaEmpresario()
+        }
 
         return this.#objResult;
     }
 
     async #validations() {
-        let dao = new classInterfaceDAOEmpresarios();
-
         if (
             !validator.isEmail(this.#objUser.strEmail, {
                 domain_specific_validation: "cmmmedellin.org",
@@ -49,14 +57,18 @@ class setEmpresarioSecundario {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
-        let queryGetNroDoctoEmpresario = await dao.getNroDocumentoEmpresario({
-            strNroDocto: this.#objData.strNroDocto,
-        });
+        if (this.#objData.btExiste === false) {
+            let dao = new classInterfaceDAOEmpresarios();
+            let queryGetNroDoctoEmpresario =
+                await dao.getNroDocumentoEmpresario({
+                    strNroDocto: this.#objData.strNroDocto,
+                });
 
-        if (queryGetNroDoctoEmpresario.data) {
-            throw new Error(
-                `Este número de documento ${queryGetNroDoctoEmpresario.data.strNroDocto}, ya exite y esta asociado a un Interesado`
-            );
+            if (queryGetNroDoctoEmpresario.data) {
+                throw new Error(
+                    `Este número de documento ${queryGetNroDoctoEmpresario.data.strNroDocto}, ya exite y esta asociado a un Interesado`
+                );
+            }
         }
     }
 
@@ -87,18 +99,11 @@ class setEmpresarioSecundario {
     async #setEmpresario() {
         let prevData = this.#objData;
 
-        let aux_arrDepartamento = JSON.stringify(
-            this.#objData?.arrDepartamento || null
-        );
-        let aux_arrCiudad = JSON.stringify(
-            this.#objData?.arrCiudad || null
-        );
-
         let newData = {
             ...prevData,
             strUsuario: this.#objUser.strEmail,
-            arrDepartamento: aux_arrDepartamento,
-            arrCiudad: aux_arrCiudad,
+            arrDepartamento: JSON.stringify( this.#objData?.arrDepartamento || null ),
+            arrCiudad: JSON.stringify(this.#objData?.arrCiudad || null),
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -132,11 +137,7 @@ class setEmpresarioSecundario {
 
         let query = await dao.setIdeaEmpresario(newData);
 
-        if (query.error) {
-            throw new Error(query.msg);
-        }
-
-        if (query.error) {
+        if (query.error && this.#objData.btExiste === false) {
             await this.#rollbackTransaction();
         }
     }

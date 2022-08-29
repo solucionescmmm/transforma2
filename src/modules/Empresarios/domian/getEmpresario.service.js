@@ -26,8 +26,30 @@ const getEmpresario = async (objParams, strDataUser) => {
         intId: intId || null,
     };
 
-    let data = await dao.getEmpresario(query)
+    let arrayData = await dao.getEmpresario(query)
 
-    return data;
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data
+
+            for (let i = 0; i < array.length; i++) {
+                array[i] = {
+                    ...array[i],
+                    arrDepartamento:JSON.parse(array[i]?.strDepartamento||null),
+                    arrCiudad:JSON.parse(array[i]?.strCiudad||null),
+                }
+            }
+            let result = {
+                error: false,
+                data : array,
+            };
+
+            
+
+            return result;
+        }
+    }
+    
+    return arrayData;
 };
 module.exports = getEmpresario;
