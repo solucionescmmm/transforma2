@@ -539,14 +539,18 @@ class daoEmpresarios {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
 
-            UPDATE tbl_Idea_Empresario
+            UPDATE IdeaEmpresario
 
             SET dtFechaFin              = COALESCE(${data.dtFechaFin}, dtFechaFin),
                 intIdEstado              = COALESCE(${data.intIdEstado}, intIdEstado),
                 dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
-            WHERE (intIdEmpresario = ${data.intIdEmpresario} AND intIdIdea = ${data.intIdIdea})
+            FROM tbl_Idea_Empresario IdeaEmpresario
+
+            INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+
+            WHERE (intIdEmpresario = ${data.intIdEmpresario} AND intIdIdea = ${data.intIdIdea} AND Estados.strNombre = 'Activo' )
  
             SELECT * FROM tbl_Empresario WHERE intId = ${data.intIdEmpresario}`;
 
