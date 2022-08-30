@@ -542,6 +542,7 @@ class daoEmpresarios {
             UPDATE tbl_Idea_Empresario
 
             SET dtFechaFin              = COALESCE(${data.dtFechaFin}, dtFechaFin),
+                intIdEstado              = COALESCE(${data.intIdEstado}, intIdEstado),
                 dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 

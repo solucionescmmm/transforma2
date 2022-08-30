@@ -20,7 +20,8 @@ class setCambioEmpresarioPrincipal {
     #intIdTipoEmpresarioPrincipal;
     #intIdTipoEmpresarioSecundario;
     #intIdEmpresarioPrincipal
-    #intIdEstado;
+    #intIdEstadoActivo;
+    #intIdEstadoInactivo;
     /**
      * @param {object} data
      */
@@ -30,8 +31,10 @@ class setCambioEmpresarioPrincipal {
     }
 
     async main() {
+        console.log(this.#objData)
         await this.#validations();
-        await this.#getIdEstado();
+        await this.#getIdEstadoActivo();
+        await this.#getIdEstadoInactivo();
         await this.#getIdTipoEmpresarioPrincipal();
         await this.#getIdTipoEmpresarioSecundario();
         await this.#getIdEmpresarioPrincipal();
@@ -59,7 +62,7 @@ class setCambioEmpresarioPrincipal {
         
     }
 
-    async #getIdEstado() {
+    async #getIdEstadoActivo() {
         let queryGetIdEstado = await serviceGetIdEstado({
             strNombre: "Activo",
         });
@@ -68,7 +71,19 @@ class setCambioEmpresarioPrincipal {
             throw new Error(queryGetIdEstado.msg);
         }
 
-        this.#intIdEstado = queryGetIdEstado.data.intId;
+        this.#intIdEstadoActivo = queryGetIdEstado.data.intId;
+    }
+
+    async #getIdEstadoInactivo() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "Inactivo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstadoInactivo = queryGetIdEstado.data.intId;
     }
 
     async #getIdTipoEmpresarioPrincipal() {
@@ -105,13 +120,14 @@ class setCambioEmpresarioPrincipal {
             throw new Error(query.msg);
         }
 
-        this.#intIdEmpresarioPrincipal = queryGetIdEmpresarioPrincipal.data.intId;
+        this.#intIdEmpresarioPrincipal = queryGetIdEmpresarioPrincipal.data.intIdEmpresario;
     }
 
     async #updateEmpresarioPrincipal(){
         let newData = {
             intIdIdea: this.#objData.intIdIdea,
             intIdEmpresario: this.#intIdEmpresarioPrincipal,
+            intIdEstado:this.#intIdEstadoInactivo,
             dtFechaFin: new Date(),
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
@@ -133,6 +149,7 @@ class setCambioEmpresarioPrincipal {
         let newData = {
             intIdIdea: this.#objData.intIdIdea,
             intIdEmpresario: this.#objData.intIdEmpresario,
+            intIdEstado:this.#intIdEstadoInactivo,
             dtFechaFin: new Date(),
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
@@ -156,7 +173,7 @@ class setCambioEmpresarioPrincipal {
             intIdEmpresario: this.#objData.intIdEmpresario,
             intIdTipoEmpresario: this.#intIdTipoEmpresarioPrincipal,
             dtFechaInicio: new Date(),
-            intIdEstado: this.#intIdEstado,
+            intIdEstado: this.#intIdEstadoActivo,
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 
@@ -179,7 +196,7 @@ class setCambioEmpresarioPrincipal {
             intIdEmpresario: this.#intIdEmpresarioPrincipal,
             intIdTipoEmpresario: this.#intIdTipoEmpresarioSecundario,
             dtFechaInicio: new Date(),
-            intIdEstado: this.#intIdEstado,
+            intIdEstado: this.#intIdEstadoActivo,
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 
