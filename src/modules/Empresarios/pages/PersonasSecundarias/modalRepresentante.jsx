@@ -173,7 +173,6 @@ const ModalRepresentante = ({
         const objEmpresario = getValues("objEmpresario");
 
         if (objEmpresario) {
-            debugger;
             setData((prevState) => ({
                 ...prevState,
                 intIdIdea,
