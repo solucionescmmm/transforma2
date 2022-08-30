@@ -58,10 +58,10 @@ const DropdownEmpresarios = ({
     });
 
     useEffect(() => {
-        if (data?.length > 0) {
+        if (data?.length > 0 && !defaultOptions) {
             setOptions(data);
         }
-    }, [data]);
+    }, [data, defaultOptions]);
 
     useEffect(() => {
         if (defaultOptions) {
@@ -69,7 +69,7 @@ const DropdownEmpresarios = ({
         }
     }, [defaultOptions]);
 
-    if (!data) {
+    if (!data && !defaultOptions) {
         return (
             <Box
                 display="flex"
@@ -82,7 +82,7 @@ const DropdownEmpresarios = ({
         );
     }
 
-    if (data.error) {
+    if (data?.error) {
         return (
             <Alert
                 severity="error"

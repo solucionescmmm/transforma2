@@ -27,7 +27,6 @@ import { LoadingButton } from "@mui/lab";
 import { makeStyles } from "@mui/styles";
 import { Controller, useForm } from "react-hook-form";
 import DropdownEmpresarios from "../../../../common/components/dropdownEmpresarios";
-import { useParams } from "react-router-dom";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -144,6 +143,8 @@ const ModalRepresentante = ({
 
         setFlagSubmit(true);
     };
+
+    console.log(arrEmpresarios);
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================

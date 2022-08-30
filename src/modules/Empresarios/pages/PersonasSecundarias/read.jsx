@@ -29,7 +29,6 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
-    Delete as DeleteIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -102,7 +101,6 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId, openModalRe }) => {
         // eslint-disable-next-line
     }, [openModalRe]);
 
-
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -112,7 +110,9 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId, openModalRe }) => {
                 handleOpenDialog={handleOpenDialogRepresentante}
                 open={openModalRepresentante}
                 refresh={refreshGetData}
-                arrEmpresarios={data?.objEmpresario}
+                arrEmpresarios={data?.[0]?.objEmpresario.filter(
+                    (p) => p.strTipoEmpresario !== "Principal"
+                )}
                 intIdIdea={intId}
             />
 
