@@ -1045,7 +1045,7 @@ const Coco = () => {
                                             size="small"
                                             variant="contained"
                                             onClick={() =>
-                                                onChangeRoute("PersonasCreate")
+                                                onChangeRoute("PersonasRe")
                                             }
                                             sx={{
                                                 fontSize: "11px",

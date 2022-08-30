@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useCallback, Fragment } from "react";
+import React, {
+    useState,
+    useEffect,
+    useContext,
+    useCallback,
+    Fragment,
+} from "react";
 
 // Estilos
 import "react-date-range/dist/styles.css"; // main css file
@@ -38,7 +44,7 @@ import SelectEstadoVinculacion from "../../components/selectEstadoVinculacion";
 import SelectCategoriaProducto from "../../components/selectCategoriaProducto";
 import SelectCategoriaServicio from "../../components/selectCategoriaServicio";
 
-const FiltersEmpresarios = ({ alterData }) => {
+const FiltersEmpresarios = ({ alterData, openModalRe }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -110,8 +116,10 @@ const FiltersEmpresarios = ({ alterData }) => {
                 options.strEstadoVinculacion !== ""
                     ? options.strEstadoVinculacion
                     : undefined,
-            strProducto: options.strProducto !== "" ? options.strProducto : undefined,
-            strServicio: options.strServicio !== "" ? options.strServicio : undefined,
+            strProducto:
+                options.strProducto !== "" ? options.strProducto : undefined,
+            strServicio:
+                options.strServicio !== "" ? options.strServicio : undefined,
         });
 
         localStorage.setItem(
@@ -182,7 +190,9 @@ const FiltersEmpresarios = ({ alterData }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        const options = localStorage.getItem("Mdl_Empresarios_Read_filterOptions");
+        const options = localStorage.getItem(
+            "Mdl_Empresarios_Read_filterOptions"
+        );
 
         if (options) {
             setOptions(JSON.parse(options));
@@ -243,7 +253,10 @@ const FiltersEmpresarios = ({ alterData }) => {
                                 name="strSede"
                                 value={options.strSede}
                                 onChange={(e) =>
-                                    handlerChangeOptions(e.target.name, e.target.value)
+                                    handlerChangeOptions(
+                                        e.target.name,
+                                        e.target.value
+                                    )
                                 }
                                 disabled={loading}
                                 label="Sede"
@@ -257,7 +270,10 @@ const FiltersEmpresarios = ({ alterData }) => {
                                 disabled={loading}
                                 value={options.strEstadoVinculacion}
                                 onChange={(e) =>
-                                    handlerChangeOptions(e.target.name, e.target.value)
+                                    handlerChangeOptions(
+                                        e.target.name,
+                                        e.target.value
+                                    )
                                 }
                                 label="Estado de vinculación"
                                 helperText="Filtrar por estado de vinculación"
@@ -269,7 +285,10 @@ const FiltersEmpresarios = ({ alterData }) => {
                                 name="strProducto"
                                 value={options.strProducto}
                                 onChange={(e) =>
-                                    handlerChangeOptions(e.target.name, e.target.value)
+                                    handlerChangeOptions(
+                                        e.target.name,
+                                        e.target.value
+                                    )
                                 }
                                 disabled={loading}
                                 label="Producto"
@@ -282,7 +301,10 @@ const FiltersEmpresarios = ({ alterData }) => {
                                 name="strServicio"
                                 value={options.strServicio}
                                 onChange={(e) =>
-                                    handlerChangeOptions(e.target.name, e.target.value)
+                                    handlerChangeOptions(
+                                        e.target.name,
+                                        e.target.value
+                                    )
                                 }
                                 disabled={loading}
                                 label="Servicio"
@@ -309,7 +331,9 @@ const FiltersEmpresarios = ({ alterData }) => {
                                     <DateRange
                                         editableDateInputs={true}
                                         onChange={(item) =>
-                                            setDtFechaVinculacion([item.selection])
+                                            setDtFechaVinculacion([
+                                                item.selection,
+                                            ])
                                         }
                                         moveRangeOnFirstSelection={false}
                                         ranges={dtFechaVinculacion}

@@ -223,6 +223,38 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
     );
 
     useEffect(() => {
+        if (isEdit && values) {
+            setData({
+                btExiste: false,
+                objEmpresario: null,
+                intIdIdea: intId,
+                strNombres: values.strNombres || "",
+                strApellidos: values.strApellidos || "",
+                strTipoDocto: values.strTipoDocto || "",
+                strNroDocto: values.strNroDocto || "",
+                strLugarExpedicionDocto: values.strLugarExpedicionDocto || null,
+                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto || null,
+                dtFechaNacimiento: values.dtFechaNacimiento || null,
+                strGenero: values.strGenero || "",
+                strCelular1: values.strCelular1 || "",
+                strCelular2: values.strCelular2 || "",
+                strCorreoElectronico1: values.strCorreoElectronico1 || "",
+                strCorreoElectronico2: values.strCorreoElectronico2 || "",
+                strNivelEducativo: values.strNivelEducativo || "",
+                strTitulos: values.strTitulos || "",
+                strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
+                strEstrato: values.strEstrato || "",
+                arrDepartamento: values.arrDepartamento || [],
+                arrCiudad: values.arrCiudad || [],
+                strBarrio: values.strBarrio || "",
+                strDireccionResidencia: values.strDireccionResidencia || "",
+                strURLFileFoto: values.strURLFileFoto || "",
+            });
+        }
+        // eslint-disable-next-line
+    }, [values, isEdit]);
+
+    useEffect(() => {
         if (isEdit) {
             reset(data);
         }
@@ -295,39 +327,48 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                         </Typography>
                     </Grid>
 
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.btExiste}
-                            name="btExiste"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿La persona ya se encuentra registrada?"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    required
-                                    disabled={loading}
-                                    fullWidth
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmpresarioPr?.strNombres
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmpresarioPr?.strNombres
-                                            ?.message ||
-                                        "Selecciona una opción para buscar y seleccionar una persona existente"
-                                    }
-                                    select
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                </TextField>
-                            )}
-                            control={control}
-                        />
-                    </Grid>
+                    {!isEdit && (
+                        <Fragment>
+                            <Grid item xs={12}>
+                                <Controller
+                                    defaultValue={data.btExiste}
+                                    name="btExiste"
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <TextField
+                                            label="¿La persona ya se encuentra registrada?"
+                                            name={name}
+                                            value={value}
+                                            onChange={(e) => onChange(e)}
+                                            required
+                                            disabled={loading}
+                                            fullWidth
+                                            variant="standard"
+                                            error={
+                                                errors?.objInfoEmpresarioPr
+                                                    ?.strNombres
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.objInfoEmpresarioPr
+                                                    ?.strNombres?.message ||
+                                                "Selecciona una opción para buscar y seleccionar una persona existente"
+                                            }
+                                            select
+                                        >
+                                            <MenuItem value={true}>Sí</MenuItem>
+                                            <MenuItem value={false}>
+                                                No
+                                            </MenuItem>
+                                        </TextField>
+                                    )}
+                                    control={control}
+                                />
+                            </Grid>
+                        </Fragment>
+                    )}
 
                     {(data.btExiste || watchbtExiste) === true && (
                         <Grid item xs={12}>

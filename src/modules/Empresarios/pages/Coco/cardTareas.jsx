@@ -64,7 +64,13 @@ const CardTareas = ({ intIdIdea }) => {
     }
 
     return (
-        <div style={{ padding: "0px 5px" }}>
+        <div
+            style={{
+                padding: "0px 5px",
+                maxHeight: "100px",
+                overflowY: "scroll",
+            }}
+        >
             {arrTareas.slice(0, 5).map((p) => (
                 <Box sx={{ display: "flex" }}>
                     <p

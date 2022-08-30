@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
@@ -35,10 +35,11 @@ import {
 //Table Material UI
 import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
+import ModalRepresentante from "./modalRepresentante";
 
 //Componentes
 
-const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
+const ReadPersonaSecundaria = ({ onChangeRoute, intId, openModalRe }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -80,16 +81,41 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
         },
     ]);
 
+    const [openModalRepresentante, setModalRepresentante] = useState(false);
+
+    const handleOpenDialogRepresentante = () => {
+        setModalRepresentante(!openModalRepresentante);
+    };
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data } = useGetEmpresarios({ autoload: true, intId });
+    const { data, refreshGetData } = useGetEmpresarios({
+        autoload: true,
+        intId,
+    });
+
+    useEffect(() => {
+        if (openModalRe) {
+            handleOpenDialogRepresentante();
+        }
+        // eslint-disable-next-line
+    }, [openModalRe]);
+
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
         <Fragment>
+            <ModalRepresentante
+                handleOpenDialog={handleOpenDialogRepresentante}
+                open={openModalRepresentante}
+                refresh={refreshGetData}
+                arrEmpresarios={data?.objEmpresario}
+                intIdIdea={intId}
+            />
+
             <Grid container direction="row" spacing={2}>
                 <Grid item xs={12}>
                     <StyledEngineProvider injectFirst>
@@ -210,40 +236,16 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
                                                     fontSize="small"
                                                     onClick={() =>
                                                         onChangeRoute(
-                                                            "EditTareas",
-                                                            {
-                                                                intId: rowData.intId,
-                                                            }
+                                                            "PersonasEdit",
+                                                            rowData
                                                         )
                                                     }
                                                 />
                                             ),
                                             tooltip: "Editar",
-
                                             disabled:
-                                                rowData.strTipoEmpresario === "Principal",
-                                        };
-                                    },
-                                    (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.strTipoEmpresario ===
-                                                        "Principal"
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            onClick: (event, rowData) => {
-                                                // setSelectedData(rowData);
-                                                // handlerOpenModalDelete();
-                                            },
-                                            tooltip: "Eliminar",
-                                            disabled:
-                                                rowData.strTipoEmpresario === "Principal",
+                                                rowData.strTipoEmpresario ===
+                                                "Principal",
                                         };
                                     },
                                 ]}
@@ -314,7 +316,12 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId }) => {
                                                             Agregar persona
                                                         </Button>
 
-                                                        <Button variant="contained">
+                                                        <Button
+                                                            variant="contained"
+                                                            onClick={() =>
+                                                                handleOpenDialogRepresentante()
+                                                            }
+                                                        >
                                                             reemplazar
                                                             representante
                                                         </Button>

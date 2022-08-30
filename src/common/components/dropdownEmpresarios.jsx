@@ -49,16 +49,25 @@ const DropdownEmpresarios = ({
     label,
     multiple,
     required,
+    defaultOptions,
 }) => {
     const [options, setOptions] = useState([]);
 
-    const { data, refreshGetData } = useGetEmpresarios();
+    const { data, refreshGetData } = useGetEmpresarios({
+        autoLoad: defaultOptions ? false : true,
+    });
 
     useEffect(() => {
         if (data?.length > 0) {
             setOptions(data);
         }
     }, [data]);
+
+    useEffect(() => {
+        if (defaultOptions) {
+            setOptions(defaultOptions);
+        }
+    }, [defaultOptions]);
 
     if (!data) {
         return (
@@ -137,7 +146,12 @@ const DropdownEmpresarios = ({
                     );
                 }
             }}
-            getOptionLabel={(option) => option?.strNombres + " " + option?.strApellidos + `(${option?.strNroDocto})` || option}
+            getOptionLabel={(option) =>
+                option?.strNombres +
+                    " " +
+                    option?.strApellidos +
+                    `(${option?.strNroDocto})` || option
+            }
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
                     if (option.strNombres) {

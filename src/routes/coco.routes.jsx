@@ -59,6 +59,30 @@ const CocoRoutes = ({ route, onChangeRoute }) => {
                 <Personas
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
+                    openModalRe={route.params.openModalRe}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "PersonasRe") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Inicio")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <Personas
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    openModalRe={true}
                 />
             </Grid>
         );

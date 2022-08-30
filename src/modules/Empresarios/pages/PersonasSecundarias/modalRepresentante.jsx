@@ -9,25 +9,25 @@ import { toast } from "react-hot-toast";
 
 //Componentes de Material UI
 import {
-    Box,
     DialogTitle,
     DialogContent,
     DialogActions,
-    DialogContentText,
     Dialog,
     Button,
     useTheme,
     useMediaQuery,
     LinearProgress,
-    CircularProgress,
-    Alert,
-    AlertTitle,
+    Grid,
+    Typography,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
+import { Controller, useForm } from "react-hook-form";
+import DropdownEmpresarios from "../../../../common/components/dropdownEmpresarios";
+import { useParams } from "react-router-dom";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -36,7 +36,13 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalRepresentante = ({ handleOpenDialog, open, refresh, intIdIdea,  }) => {
+const ModalRepresentante = ({
+    handleOpenDialog,
+    open,
+    refresh,
+    intIdIdea,
+    arrEmpresarios,
+}) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -47,12 +53,14 @@ const ModalRepresentante = ({ handleOpenDialog, open, refresh, intIdIdea,  }) =>
     //===============================================================================================================================================
     const [success, setSucces] = useState(false);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        intId: null,
+        intIdIdea,
+        objEmpresario: null,
+        intIdEmpresario: null,
     });
 
     //===============================================================================================================================================
@@ -60,6 +68,16 @@ const ModalRepresentante = ({ handleOpenDialog, open, refresh, intIdIdea,  }) =>
     //===============================================================================================================================================
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+    const {
+        control,
+        formState: { errors },
+        handleSubmit,
+        watch,
+        getValues,
+    } = useForm({ mode: "onChange" });
+
+    const watchObjEmpresario = watch("objEmpresario");
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -74,12 +92,10 @@ const ModalRepresentante = ({ handleOpenDialog, open, refresh, intIdIdea,  }) =>
 
             await axios(
                 {
-                    method: "DELETE",
+                    method: "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_TAREAS_DELETE}`,
-                    params: {
-                        intId: data.intId,
-                    },
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_EMPRESARIOS_RE}`,
+                    data,
                     headers: {
                         token,
                     },
@@ -120,19 +136,18 @@ const ModalRepresentante = ({ handleOpenDialog, open, refresh, intIdIdea,  }) =>
         [token, data]
     );
 
+    const onSubmit = (data) => {
+        setData((prevState) => ({
+            ...prevState,
+            ...data,
+        }));
+
+        setFlagSubmit(true);
+    };
+
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
-    useEffect(() => {
-        if (intId) {
-            setData({
-                intId,
-            });
-        }
-
-        setLoading(false);
-    }, [intId]);
-
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -147,7 +162,7 @@ const ModalRepresentante = ({ handleOpenDialog, open, refresh, intIdIdea,  }) =>
 
     useEffect(() => {
         if (success) {
-            refresh({intIdIdea});
+            refresh({ intIdIdea });
             handleOpenDialog();
 
             setSucces(false);
@@ -155,58 +170,21 @@ const ModalRepresentante = ({ handleOpenDialog, open, refresh, intIdIdea,  }) =>
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [success]);
 
+    useEffect(() => {
+        const objEmpresario = getValues("objEmpresario");
+
+        if (objEmpresario) {
+            setData((prevState) => ({
+                ...prevState,
+                intIdEmpresario: objEmpresario.intId,
+            }));
+        }
+        // eslint-disable-next-line
+    }, [watchObjEmpresario]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (!data.intId) {
-        return (
-            <Dialog
-                fullScreen={bitMobile}
-                open={open}
-                onClose={handleOpenDialog}
-                PaperProps={{
-                    style: {
-                        backgroundColor:
-                            !loading && !data.intId ? "#FDEDED" : "inherit",
-                    },
-                }}
-            >
-                <DialogContent>
-                    {loading ? (
-                        <Box
-                            sx={{
-                                width: "100%",
-                                height: "100%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                        >
-                            <CircularProgress />
-                        </Box>
-                    ) : (
-                        <Alert severity="error">
-                            <AlertTitle>
-                                <b>
-                                    No se encontro el identificador de la tarea
-                                </b>
-                            </AlertTitle>
-                            Ha ocurrido un error al momento de seleccionar los
-                            datos, por favor escala al área de TI para mayor
-                            información.
-                        </Alert>
-                    )}
-                </DialogContent>
-
-                <DialogActions>
-                    <Button onClick={() => handleOpenDialog()} color="inherit">
-                        cerrar
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        );
-    }
-
     return (
         <Dialog
             fullScreen={bitMobile}
@@ -217,18 +195,53 @@ const ModalRepresentante = ({ handleOpenDialog, open, refresh, intIdIdea,  }) =>
                 style: {
                     backgroundColor: "#FDEDED",
                 },
+                component: "form",
+                noValidate: "noValidate",
+                onSubmit: handleSubmit(onSubmit),
             }}
         >
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar la tarea seleccionada?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas reeplazar el representante actual?`}</DialogTitle>
 
             <DialogContent>
-                <DialogContentText>
-                    El proceso es irreversible y no podrás recuperar la
-                    información.
-                </DialogContentText>
+                <Grid container direction="row">
+                    <Grid item xs={12}>
+                        <Typography variant="caption">
+                            Todos los campos marcados con (*) son obligatorios.
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.objEmpresario}
+                            name="objEmpresario"
+                            control={control}
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownEmpresarios
+                                    label="Persona empresaria"
+                                    disabled={loading}
+                                    name={name}
+                                    value={value}
+                                    onChange={(target, values) => {
+                                        onChange(values);
+                                    }}
+                                    required
+                                    helperText={
+                                        errors?.objEmpresario?.message ||
+                                        "Selecciona una persona"
+                                    }
+                                    defaultOptions={arrEmpresarios}
+                                    error={!!errors?.objEmpresario}
+                                />
+                            )}
+                            rules={{
+                                required: "Por favor selecciona a una persona",
+                            }}
+                        />
+                    </Grid>
+                </Grid>
             </DialogContent>
 
             <DialogActions>
