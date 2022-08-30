@@ -38,7 +38,7 @@ import ModalRepresentante from "./modalRepresentante";
 
 //Componentes
 
-const ReadPersonaSecundaria = ({ onChangeRoute, intId, openModalRe }) => {
+const ReadPersonaSecundaria = ({ onChangeRoute, openModalRe, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -91,7 +91,7 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId, openModalRe }) => {
     //===============================================================================================================================================
     const { data, refreshGetData } = useGetEmpresarios({
         autoload: true,
-        intId,
+        intId: intIdIdea,
     });
 
     useEffect(() => {
@@ -113,7 +113,7 @@ const ReadPersonaSecundaria = ({ onChangeRoute, intId, openModalRe }) => {
                 arrEmpresarios={data?.[0]?.objEmpresario.filter(
                     (p) => p.strTipoEmpresario !== "Principal"
                 )}
-                intIdIdea={intId}
+                intIdIdea={intIdIdea}
             />
 
             <Grid container direction="row" spacing={2}>

@@ -144,8 +144,6 @@ const ModalRepresentante = ({
         setFlagSubmit(true);
     };
 
-    console.log(arrEmpresarios);
-
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
@@ -175,8 +173,10 @@ const ModalRepresentante = ({
         const objEmpresario = getValues("objEmpresario");
 
         if (objEmpresario) {
+            debugger;
             setData((prevState) => ({
                 ...prevState,
+                intIdIdea,
                 intIdEmpresario: objEmpresario.intId,
             }));
         }
@@ -246,18 +246,14 @@ const ModalRepresentante = ({
             </DialogContent>
 
             <DialogActions>
-                <LoadingButton
-                    color="error"
-                    loading={loading}
-                    type="button"
-                    onClick={() => setFlagSubmit(true)}
-                >
+                <LoadingButton color="error" loading={loading} type="submit">
                     aceptar
                 </LoadingButton>
 
                 <Button
                     onClick={() => handleOpenDialog()}
                     color="inherit"
+                    type="button"
                     disabled={loading}
                 >
                     cancelar
