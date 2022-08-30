@@ -253,7 +253,7 @@ class setEmpresarioPrincipal {
 
         let newData = {
             ...prevData,
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdIdea: this.#intIdIdea,
             strUsuario: this.#objUser.strEmail,
             arrTemasCapacitacion: aux_arrTemasCapacitacion,
             arrComoSeEntero: aux_arrComoSeEntero,

@@ -37,27 +37,25 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
 
             for (let i = 0; i < array.length; i++) {
                 let arrayEmpresario = array[i].objInfoEmpresario
-                let arrayIdeaEmpresario = array[i].objInfoIdeaEmpresario
                 let objEmpresario = []
                 let objInfoPrincipal = {}
                 
                 for (let j = 0; j < arrayEmpresario.length; j++) {
+                    objEmpresario.push({
+                        ...arrayEmpresario[j],
+                        arrDepartamento:JSON.parse(arrayEmpresario[j]?.strDepartamento||null),
+                        arrCiudad:JSON.parse(arrayEmpresario[j]?.strCiudad||null),
+                    }) 
                         
-                            objEmpresario.push({
-                                ...arrayEmpresario[j],
-                                arrDepartamento:JSON.parse(arrayEmpresario[j]?.strDepartamento||null),
-                                arrCiudad:JSON.parse(arrayEmpresario[j]?.strCiudad||null),
-                            }) 
-                        
-                        if (arrayEmpresario[j].strTipoEmpresario === "Principal") {
-                            objInfoPrincipal ={
-                                strSede:arrayEmpresario[j].strSede,
-                                strModalidadIngreso:arrayEmpresario[j].strModalidadIngreso,
-                                dtFechaVinculacion:arrayEmpresario[j].dtFechaVinculacion,
-                                strEstadoVinculacion:arrayEmpresario[j].strEstadoVinculacion,
-                                strTipoVinculacion:arrayEmpresario[j].strTipoVinculacion
-                            }
+                    if (arrayEmpresario[j].strTipoEmpresario === "Principal") {
+                        objInfoPrincipal ={
+                            strSede:arrayEmpresario[j].strSede,
+                            strModalidadIngreso:arrayEmpresario[j].strModalidadIngreso,
+                            dtFechaVinculacion:arrayEmpresario[j].dtFechaVinculacion,
+                            strEstadoVinculacion:arrayEmpresario[j].strEstadoVinculacion,
+                            strTipoVinculacion:arrayEmpresario[j].strTipoVinculacion
                         }
+                    }
                     
                 }
 
@@ -134,7 +132,6 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
             return result;
         }
     }
-
     return arrayData;
 };
 module.exports = getIdeaEmpresario;
