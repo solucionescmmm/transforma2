@@ -1019,8 +1019,12 @@ class daoEmpresarios {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
-                SELECT intIdEmpresario FROM tbl_Idea_Empresario
-                WHERE (intIdIdea = ${data.intIdIdea} AND intIdTipoEmpresario = ${data.intIdTipoEmpresario})`;
+                SELECT intIdEmpresario 
+                FROM tbl_Idea_Empresario IdeaEmpresario
+
+                INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+
+                WHERE (intIdIdea = ${data.intIdIdea} AND intIdTipoEmpresario = ${data.intIdTipoEmpresario} AND Estados.strNombre = 'Activo')`;
 
             let result = {
                 error: false,
