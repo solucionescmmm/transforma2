@@ -61,7 +61,7 @@ class daoHistoricos {
 
             SET intNumeroEmpleados       = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
                 ValorVentas              = COALESCE(${data.ValorVentas}, ValorVentas),
-                strTiempoDedicacionAdmin = COALESCE(${data.strTiempoDedicacionAdmin}, strTiempoDedicacionAdmin),
+                strTiempoDedicacionAdmin = COALESCE(${data.strTiempoDedicacionAdmin}, strTiempoDedicacionAdmin)
 
             WHERE (intIdIdea = ${data.intIdIdea} AND intIdFuenteHistorico = ${data.intIdFuenteHistorico})`;
 

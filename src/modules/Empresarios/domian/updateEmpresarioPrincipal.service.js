@@ -30,7 +30,6 @@ class updateEmpresarioPrincipal {
     }
 
     async main() {
-        console.log(this.#objData)
         await this.#getIdeaEmpresario();
         await this.#getIdFuenteHistorico();
         await this.#validations();
@@ -82,7 +81,7 @@ class updateEmpresarioPrincipal {
     async #getIdeaEmpresario() {
         let query = await servicegetIdeaEmpresario({
             intId: this.#intIdIdea
-        });
+        }, this.#objUser);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -126,7 +125,7 @@ class updateEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.updateEmpresario(newData);
-
+        
         if (query.error) {
             await this.#rollbackTransaction();
             throw new Error(query.msg);

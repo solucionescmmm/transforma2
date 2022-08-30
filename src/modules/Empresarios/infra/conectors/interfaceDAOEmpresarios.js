@@ -138,5 +138,11 @@ class interfaceDAOEmpresarios {
         let result = await dao.getIdEmpresarioPrincipal(data);
         return result;
     }
+
+    async getEmpresarioIdea(data){
+        const dao = new classDaoSql();
+        let result = await dao.getEmpresarioIdea(data);
+        return result;
+    }
 }
 module.exports = interfaceDAOEmpresarios;

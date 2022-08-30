@@ -366,7 +366,7 @@ class daoEmpresarios {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La persona ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue actualizada con éxito.`,
+                msg: `La Idea, fue actualizada con éxito.`,
             };
 
             sql.close(conexion);
@@ -905,14 +905,9 @@ class daoEmpresarios {
             Empresario.strDireccionResidencia,
             Empresario.strUrlFileFoto,
             Empresario.dtmActualizacion,
-            Empresario.strUsuario,
-            IdeaEmpresario.intIdTipoEmpresario,
-            Tipo.strNombre as strTipoEmpresario
+            Empresario.strUsuario
 
             FROM tbl_Empresario Empresario
-
-            INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
-            INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario 
             
             WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
@@ -1023,6 +1018,48 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo getIdTipoEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getEmpresarioIdea(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            
+            SELECT 
+
+            *
+
+            FROM tbl_Idea_Empresario
+            
+            WHERE intIdIdea = ${data.intId}`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEmpresario de la clase daoEmpresarios",
             };
 
             sql.close(conexion);

@@ -25,7 +25,7 @@ class setEmpresarioSecundario {
         this.#objData = data;
         this.#objUser = strDataUser;
         if (this.#objData.btExiste === true) {
-            this.#intIdEmpresario = this.#objData.objEmpresario.intId
+            this.#intIdEmpresario = this.#objData.objEmpresario.intId;
         }
     }
 
@@ -34,14 +34,14 @@ class setEmpresarioSecundario {
         await this.#getIdEstado();
         await this.#validations();
         if (this.#objData.btExiste === true) {
-            await this.#setIdeaEmpresario()
+            await this.#setIdeaEmpresario();
             this.#objResult = {
                 error: false,
                 msg: "El empresario se registro exitosamente en la idea.",
             };
         } else {
             await this.#setEmpresario();
-            await this.#setIdeaEmpresario()
+            await this.#setIdeaEmpresario();
         }
 
         return this.#objResult;
@@ -68,6 +68,23 @@ class setEmpresarioSecundario {
                 throw new Error(
                     `Este número de documento ${queryGetNroDoctoEmpresario.data.strNroDocto}, ya exite y esta asociado a un Interesado`
                 );
+            }
+        }
+
+        if (this.#objData.btExiste === true) {
+            let dao = new classInterfaceDAOEmpresarios();
+            let queryGetEmpresarioIdea = await dao.getEmpresarioIdea({
+                intId:this.#objData.intIdIdea,
+            });
+
+            let array = queryGetEmpresarioIdea.data;
+
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].intIdEmpresario === this.#intIdEmpresario && this.#intIdEstado === array[i].intIdEstado) {
+                    throw new Error(
+                        `Este empresario ya esta registrado en esta idea.`
+                    );
+                }
             }
         }
     }
@@ -102,7 +119,9 @@ class setEmpresarioSecundario {
         let newData = {
             ...prevData,
             strUsuario: this.#objUser.strEmail,
-            arrDepartamento: JSON.stringify( this.#objData?.arrDepartamento || null ),
+            arrDepartamento: JSON.stringify(
+                this.#objData?.arrDepartamento || null
+            ),
             arrCiudad: JSON.stringify(this.#objData?.arrCiudad || null),
         };
 
