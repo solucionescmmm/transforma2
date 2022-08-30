@@ -245,7 +245,7 @@ class daoEmpresarios {
             
             INSERT INTO tbl_InfoAdicional VALUES
             (
-                ${data.intIdEmpresario},
+                ${data.intIdIdea},
                 ${data.strPrincipalesNecesidades},
                 ${data.btInteresadoProcesoCMM},
                 ${data.arrTemasCapacitacion},
