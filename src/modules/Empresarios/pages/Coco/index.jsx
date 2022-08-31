@@ -17,7 +17,6 @@ import {
     Box,
     Button,
     Card,
-    CardActionArea,
     CardContent,
 } from "@mui/material";
 
@@ -26,7 +25,6 @@ import { Home as HomeIcon } from "@mui/icons-material";
 import TeamIcon from "../../../../static/img/icons/Personas.png";
 import DocumentIcon from "../../../../static/img/icons/Diagnosticos.png";
 import RouteIcon from "../../../../static/img/icons/Rutas.png";
-import PlannerIcon from "../../../../static/img/icons/Eventos.png";
 import CommentsIcon from "../../../../static/img/icons/Comentarios.png";
 import NotesIcon from "../../../../static/img/icons/tareas.png";
 import FoldersIcon from "../../../../static/img/icons/Documentos.png";

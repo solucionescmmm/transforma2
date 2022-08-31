@@ -248,7 +248,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                 arrCiudad: values.arrCiudad || [],
                 strBarrio: values.strBarrio || "",
                 strDireccionResidencia: values.strDireccionResidencia || "",
-                strURLFileFoto: values.strURLFileFoto || "",
+                strURLFileFoto: values.strUrlFileFoto || "",
             });
         }
         // eslint-disable-next-line

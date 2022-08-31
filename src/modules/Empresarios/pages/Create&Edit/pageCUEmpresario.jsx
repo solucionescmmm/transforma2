@@ -612,6 +612,7 @@ const CUEmpresario = ({ isEdit }) => {
 
                                 objInfoAdicional: {
                                     ...data.objInfoAdicional,
+                                    strURLDocumento: data.objInfoAdicional.strUrlDocumento
                                 },
 
                                 arrInfoEmpresarioSec:

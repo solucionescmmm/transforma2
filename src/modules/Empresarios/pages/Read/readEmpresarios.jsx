@@ -112,10 +112,7 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Iniciativa",
-            render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strNombreMarca,
+            field: "strNombre",
             type: "string",
         },
         {
