@@ -139,6 +139,8 @@ class daoEmpresarios {
             )
             
             SET @intId = SCOPE_IDENTITY();
+
+            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
     
             SELECT * FROM tbl_Idea_Empresario WHERE intId = @intId`;
 
