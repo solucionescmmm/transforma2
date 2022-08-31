@@ -146,13 +146,12 @@ class daoEmpresarios {
             SET @intId = SCOPE_IDENTITY();
 
             EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
-    
-            SELECT * FROM tbl_Idea_Empresario WHERE intId = @intId`;
+            `;
 
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El empresario, fue agregado con éxito a la idea. `,
+                msg: `El empresario, fue agregado con éxito a la idea.`,
             };
 
             sql.close(conexion);
@@ -223,7 +222,7 @@ class daoEmpresarios {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La empresa #${response.recordset[0].intId} fue registrada con éxito, para el empresario #${response.recordset[0].intIdEmpresario}.`,
+                msg: `La empresa #${response.recordset[0].intId} fue registrada con éxito, para el empresario #${response.recordset[0].intIdIdea}.`,
             };
 
             sql.close(conexion);
