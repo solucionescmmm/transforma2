@@ -7,9 +7,21 @@ import useGetEmpresarios from "../../hooks/useGetEmpresarios";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 
 //Componentes de Material UI
-import { Grid, Breadcrumbs, Link, Typography, Avatar, Box, Button } from "@mui/material";
+import {
+    Grid,
+    Breadcrumbs,
+    Link,
+    Typography,
+    Avatar,
+    Box,
+    Button,
+} from "@mui/material";
 
-import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
+import {
+    ThemeProvider,
+    StyledEngineProvider,
+    createTheme,
+} from "@mui/material/styles";
 
 import { makeStyles } from "@mui/styles";
 
@@ -61,10 +73,20 @@ const ReadSolicitudesUser = () => {
             render: (rowData) => (
                 <Avatar
                     alt={
-                        rowData.objEmpresario[0].strNombres +
-                        rowData.objEmpresario[0].strApellidos
+                        rowData.objEmpresario
+                            ?.filter((p) => p.strTipoEmpresario === "Principal")
+                            ?.at(0)?.strNombres +
+                        rowData.objEmpresario
+                            ?.filter((p) => p.strTipoEmpresario === "Principal")
+                            ?.at(0)?.strApellidos
                     }
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.objEmpresario.strURLFileFoto}`}
+                    src={`${process.env.REACT_APP_API_BACK_PROT}://${
+                        process.env.REACT_APP_API_BACK_HOST
+                    }${process.env.REACT_APP_API_BACK_PORT}${
+                        rowData.objEmpresario
+                            .filter((p) => p.strTipoEmpresario === "Principal")
+                            ?.at(0)?.strUrlFileFoto
+                    }`}
                 />
             ),
             width: "0%",
@@ -72,33 +94,52 @@ const ReadSolicitudesUser = () => {
         {
             title: "Representante",
             render: (rowData) =>
-                rowData.objEmpresario[0].strNombres +
+                rowData.objEmpresario
+                    .filter((p) => p.strTipoEmpresario === "Principal")
+                    ?.at(0)?.strNombres +
                 " " +
-                rowData.objEmpresario[0].strApellidos,
+                rowData.objEmpresario
+                    .filter((p) => p.strTipoEmpresario === "Principal")
+                    ?.at(0)?.strApellidos,
         },
         {
             title: "Documento del representante",
-            field: "objEmpresario[0].strNroDocto",
+            render: (rowData) =>
+                rowData.objEmpresario
+                    .filter((p) => p.strTipoEmpresario === "Principal")
+                    ?.at(0)?.strNroDocto,
             type: "string",
         },
         {
             title: "Iniciativa",
-            field: "objInfoEmpresa.strNombreMarca",
+            render: (rowData) =>
+                rowData.objEmpresario
+                    .filter((p) => p.strTipoEmpresario === "Principal")
+                    ?.at(0)?.strNombreMarca,
             type: "string",
         },
         {
             title: "Sede",
-            field: "objEmpresario[0].strSede",
+            render: (rowData) =>
+                rowData.objEmpresario
+                    .filter((p) => p.strTipoEmpresario === "Principal")
+                    ?.at(0)?.strSede,
             type: "string",
         },
         {
             title: "Fecha de registro",
-            field: "objEmpresario[0].dtFechaVinculacion",
+            render: (rowData) =>
+                rowData.objEmpresario
+                    .filter((p) => p.strTipoEmpresario === "Principal")
+                    ?.at(0)?.dtFechaVinculacion,
             type: "date",
         },
         {
-            title: "Estado",
-            field: "objEmpresario[0].strEstadoVinculacion",
+            title: "Estado Vinculación",
+            render: (rowData) =>
+                rowData.objEmpresario
+                    .filter((p) => p.strTipoEmpresario === "Principal")
+                    ?.at(0)?.strEstadoVinculacion,
             type: "string",
         },
     ]);
@@ -132,7 +173,9 @@ const ReadSolicitudesUser = () => {
                             Inicio
                         </Link>
 
-                        <Typography color="textPrimary">Personas Iniciativas</Typography>
+                        <Typography color="textPrimary">
+                            Personas Iniciativas
+                        </Typography>
                     </Breadcrumbs>
                 </Grid>
 
@@ -195,7 +238,8 @@ const ReadSolicitudesUser = () => {
                                 localization={{
                                     pagination: {
                                         labelRowsSelect: "filas",
-                                        labelDisplayedRows: "{from}-{to} de {count}",
+                                        labelDisplayedRows:
+                                            "{from}-{to} de {count}",
                                         firstTooltip: "Primera página",
                                         previousTooltip: "Página anterior",
                                         nextTooltip: "Siguiente página",
@@ -203,7 +247,8 @@ const ReadSolicitudesUser = () => {
                                         labelRowsPerPage: "Filas por página:",
                                     },
                                     toolbar: {
-                                        nRowsSelected: "{0} filas seleccionadas",
+                                        nRowsSelected:
+                                            "{0} filas seleccionadas",
                                         searchTooltip: "Buscar",
                                         searchPlaceholder: "Buscar",
                                     },
@@ -274,7 +319,9 @@ const ReadSolicitudesUser = () => {
 
                                             <Grid container direction="row">
                                                 <Grid item xs={12} md={6}>
-                                                    <PanelEmpresarios data={data} />
+                                                    <PanelEmpresarios
+                                                        data={data}
+                                                    />
                                                 </Grid>
 
                                                 <Grid
@@ -286,11 +333,14 @@ const ReadSolicitudesUser = () => {
                                                     <Box
                                                         sx={{
                                                             display: "flex",
-                                                            flexDirection: "row-reverse",
+                                                            flexDirection:
+                                                                "row-reverse",
                                                         }}
                                                     >
                                                         <FiltersEmpresarios
-                                                            alterData={alterData}
+                                                            alterData={
+                                                                alterData
+                                                            }
                                                         />
 
                                                         <Button

@@ -53,7 +53,7 @@ const ReadPersonaSecundaria = ({
             render: (rowData) => (
                 <Avatar
                     alt={rowData.strNombres + rowData.strApellidos}
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strURLFileFoto}`}
+                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strUrlFileFoto}`}
                 />
             ),
             width: "0%",
