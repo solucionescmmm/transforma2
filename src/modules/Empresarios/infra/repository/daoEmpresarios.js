@@ -84,6 +84,11 @@ class daoEmpresarios {
             (
                 ${data.strNombre},
                 ${data.intIdEstado},
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                NULL,
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 GETDATE(),
@@ -363,6 +368,8 @@ class daoEmpresarios {
 
             WHERE intId = ${data.intId}
 
+            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intId}
+
             SELECT * FROM tbl_Idea WHERE intId = ${data.intId}`;
 
             let result = {
@@ -472,6 +479,8 @@ class daoEmpresarios {
                 strUsuario                 = COALESCE(${data.strUsuario}, strUsuario)
 
             WHERE intId = ${data.intId}
+
+            
 
             SELECT * FROM tbl_InfoAdicional WHERE intId = ${data.intId}`;
 
