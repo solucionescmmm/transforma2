@@ -41,7 +41,7 @@ const CreateTareas = lazy(() =>
     import("../modules/Empresarios/pages/Tareas/create&Edit")
 );
 
-const CocoRoutes = ({ route, onChangeRoute }) => {
+const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
     if (route.location === "Personas") {
         return (
             <Grid container direction="row" spacing={3}>
@@ -60,6 +60,7 @@ const CocoRoutes = ({ route, onChangeRoute }) => {
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
                     openModalRe={route.params.openModalRe}
+                    refreshGlobal={refreshGlobal}
                 />
             </Grid>
         );
@@ -83,6 +84,7 @@ const CocoRoutes = ({ route, onChangeRoute }) => {
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
                     openModalRe={true}
+                    refreshGlobal={refreshGlobal}
                 />
             </Grid>
         );

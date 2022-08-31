@@ -84,5 +84,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "chartjs-adapter-moment": "^1.0.0",
+        "moment": "^2.29.4"
     }
 }

@@ -17,7 +17,6 @@ import {
     Box,
     Button,
     Card,
-    CardActionArea,
     CardContent,
 } from "@mui/material";
 
@@ -26,7 +25,6 @@ import { Home as HomeIcon } from "@mui/icons-material";
 import TeamIcon from "../../../../static/img/icons/Personas.png";
 import DocumentIcon from "../../../../static/img/icons/Diagnosticos.png";
 import RouteIcon from "../../../../static/img/icons/Rutas.png";
-import PlannerIcon from "../../../../static/img/icons/Eventos.png";
 import CommentsIcon from "../../../../static/img/icons/Comentarios.png";
 import NotesIcon from "../../../../static/img/icons/tareas.png";
 import FoldersIcon from "../../../../static/img/icons/Documentos.png";
@@ -58,7 +56,7 @@ const Coco = () => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { intId } = useParams();
-    const { data } = useGetEmpresarios({ autoload: true, intId });
+    const { data, refreshGetData } = useGetEmpresarios({ autoload: true, intId });
     const location = useHistory();
 
     //===============================================================================================================================================
@@ -178,9 +176,9 @@ const Coco = () => {
                                     display: "flex",
                                     marginRight: "80px",
                                 }}
-                            >
-                                E
-                            </Avatar>
+                                alt="logo"
+                                src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objInfoEmpresa.strURLFileLogoEmpresa}`}
+                            />
 
                             <Box
                                 sx={{
@@ -193,10 +191,21 @@ const Coco = () => {
                                     <span style={{ color: "#00BAB3" }}>
                                         Representante:
                                     </span>
-                                    {objInteresado?.objEmpresario?.[0]
-                                        ?.strNombres +
+                                    {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)?.strNombres +
                                         " " +
-                                        objInteresado?.objEmpresario?.[0]
+                                        objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
                                             ?.strApellidos || ""}
                                 </Typography>
 
@@ -226,7 +235,13 @@ const Coco = () => {
                                     <span style={{ color: "#00BAB3" }}>
                                         Teléfono:
                                     </span>
-                                    {objInteresado?.objEmpresario?.[0]
+                                    {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
                                         ?.strCelular1 || ""}
                                 </Typography>
 
@@ -234,7 +249,13 @@ const Coco = () => {
                                     <span style={{ color: "#00BAB3" }}>
                                         Estado:
                                     </span>
-                                    {objInteresado?.objEmpresario?.[0]
+                                    {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
                                         ?.strEstadoVinculacion || ""}
                                 </Typography>
 
@@ -256,15 +277,27 @@ const Coco = () => {
                                     <span style={{ color: "#00BAB3" }}>
                                         Correo:
                                     </span>
-                                    {objInteresado?.objEmpresario?.[0]
-                                        ?.strCorreo || ""}
+                                    {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
+                                        ?.strCorreoElectronico1 || ""}
                                 </Typography>
 
                                 <Typography>
                                     <span style={{ color: "#00BAB3" }}>
                                         Sede:
                                     </span>
-                                    {objInteresado?.objEmpresario?.[0]
+                                    {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
                                         ?.strSede || ""}
                                 </Typography>
 
@@ -272,7 +305,13 @@ const Coco = () => {
                                     <span style={{ color: "#00BAB3" }}>
                                         Fecha de vinculación:
                                     </span>
-                                    {objInteresado?.objEmpresario?.[0]
+                                    {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
                                         ?.dtFechaVinculacion || ""}
                                 </Typography>
                             </Box>
@@ -292,7 +331,7 @@ const Coco = () => {
                         </Paper>
                     </Grid>
                 </Grid>
-                <Routes route={route} onChangeRoute={onChangeRoute} />
+                <Routes route={route} onChangeRoute={onChangeRoute} refreshGlobal={refreshGetData} />
             </Fragment>
         );
     }
@@ -351,9 +390,9 @@ const Coco = () => {
                                 display: "flex",
                                 marginRight: "80px",
                             }}
-                        >
-                            E
-                        </Avatar>
+                            alt="logo"
+                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objInfoEmpresa.strURLFileLogoEmpresa}`}
+                        />
 
                         <Box
                             sx={{
@@ -366,9 +405,21 @@ const Coco = () => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Representante:
                                 </span>
-                                {objInteresado?.objEmpresario?.[0]?.strNombres +
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)?.strNombres +
                                     " " +
-                                    objInteresado?.objEmpresario?.[0]
+                                    objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
                                         ?.strApellidos || ""}
                             </Typography>
 
@@ -398,7 +449,13 @@ const Coco = () => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Teléfono:
                                 </span>
-                                {objInteresado?.objEmpresario?.[0]
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
                                     ?.strCelular1 || ""}
                             </Typography>
 
@@ -406,7 +463,13 @@ const Coco = () => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Estado:
                                 </span>
-                                {objInteresado?.objEmpresario?.[0]
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
                                     ?.strEstadoVinculacion || ""}
                             </Typography>
 
@@ -426,13 +489,25 @@ const Coco = () => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Correo:
                                 </span>
-                                {objInteresado?.objEmpresario?.[0]?.strCorreo ||
-                                    ""}
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
+                                    ?.strCorreoElectronico1 || ""}
                             </Typography>
 
                             <Typography>
                                 <span style={{ color: "#00BAB3" }}>Sede:</span>
-                                {objInteresado?.objEmpresario?.[0]?.strSede ||
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)?.strSede ||
                                     ""}
                             </Typography>
 
@@ -440,7 +515,13 @@ const Coco = () => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Fecha de vinculación:
                                 </span>
-                                {objInteresado?.objEmpresario?.[0]
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
                                     ?.dtFechaVinculacion || ""}
                             </Typography>
                         </Box>
@@ -481,7 +562,7 @@ const Coco = () => {
                                     <Typography
                                         variant="subtitle2"
                                         sx={{
-                                            padding: "10px",
+                                            padding: "1px",
                                             display: "flex",
                                             alignItems: "center",
                                         }}
@@ -509,7 +590,7 @@ const Coco = () => {
                                                 height: 118,
                                             }}
                                         >
-                                            <CardGrafica intIdIdea={intId} />
+                                            <CardGrafica intIdIdea={intId} type="Ventas" />
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -532,7 +613,7 @@ const Coco = () => {
                                     <Typography
                                         variant="subtitle2"
                                         sx={{
-                                            padding: "10px",
+                                            padding: "1px",
                                             display: "flex",
                                             alignItems: "center",
                                         }}
@@ -560,7 +641,7 @@ const Coco = () => {
                                                 height: 118,
                                             }}
                                         >
-                                            <CardGrafica intIdIdea={intId} />
+                                            <CardGrafica intIdIdea={intId} type="Empleados" />
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -583,7 +664,7 @@ const Coco = () => {
                                     <Typography
                                         variant="subtitle2"
                                         sx={{
-                                            padding: "10px",
+                                            padding: "1px",
                                             display: "flex",
                                             alignItems: "center",
                                         }}
@@ -611,7 +692,7 @@ const Coco = () => {
                                                 height: 118,
                                             }}
                                         >
-                                            <CardGrafica intIdIdea={intId} />
+                                            <CardGrafica intIdIdea={intId} type="Desarrollo" />
                                         </Box>
                                     </Box>
                                 </Grid>

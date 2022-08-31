@@ -38,7 +38,12 @@ import ModalRepresentante from "./modalRepresentante";
 
 //Componentes
 
-const ReadPersonaSecundaria = ({ onChangeRoute, openModalRe, intIdIdea }) => {
+const ReadPersonaSecundaria = ({
+    onChangeRoute,
+    openModalRe,
+    intIdIdea,
+    refreshGlobal,
+}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -48,7 +53,7 @@ const ReadPersonaSecundaria = ({ onChangeRoute, openModalRe, intIdIdea }) => {
             render: (rowData) => (
                 <Avatar
                     alt={rowData.strNombres + rowData.strApellidos}
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strURLFileFoto}`}
+                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData.strUrlFileFoto}`}
                 />
             ),
             width: "0%",
@@ -86,6 +91,11 @@ const ReadPersonaSecundaria = ({ onChangeRoute, openModalRe, intIdIdea }) => {
         setModalRepresentante(!openModalRepresentante);
     };
 
+    const refresh = ({ intIdIdea }) => {
+        refreshGetData({ intIdIdea });
+        refreshGlobal({ intId:intIdIdea });
+    };
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -109,7 +119,7 @@ const ReadPersonaSecundaria = ({ onChangeRoute, openModalRe, intIdIdea }) => {
             <ModalRepresentante
                 handleOpenDialog={handleOpenDialogRepresentante}
                 open={openModalRepresentante}
-                refresh={refreshGetData}
+                refresh={refresh}
                 arrEmpresarios={data?.[0]?.objEmpresario.filter(
                     (p) => p.strTipoEmpresario !== "Principal"
                 )}

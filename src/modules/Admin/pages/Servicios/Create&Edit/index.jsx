@@ -296,10 +296,23 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                             }
 
                             const arrModulos = data.arrModulos;
+                            const newArrModulos = [];
 
                             if (arrModulos) {
+                                setBitModulo(true);
+
                                 for (let i = 0; i < arrModulos.length; i++) {
-                                    arrModulos[i].id = shortid.generate();
+                                    newArrModulos.push({
+                                        id: shortid.generate(),
+                                        intHoras: arrModulos[i].intDuracion,
+                                        strNombre:
+                                            arrModulos[i].strNombreModulo,
+                                        arrResponsables: JSON.parse(
+                                            arrModulos[i].strResponsables
+                                        ),
+                                        strEntregables:
+                                            arrModulos[i].strEntregables,
+                                    });
                                 }
                             }
 
@@ -318,7 +331,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                             setData({
                                 ...data,
                                 arrAtributos: arrAtributos | [],
-                                arrModulos: arrModulos || [],
+                                arrModulos: newArrModulos || [],
                                 arrSedesTarifas,
                                 arrResponsables,
                             });
@@ -326,7 +339,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                             reset({
                                 ...data,
                                 arrAtributos: arrAtributos || [],
-                                arrModulos: arrModulos || [],
+                                arrModulos: newArrModulos || [],
                                 arrSedesTarifas,
                                 arrResponsables,
                             });
@@ -489,6 +502,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                             <Grid item xs={12}>
                                 <InfoPrincipal
                                     isEdit={isEdit}
+                                    isPreview={isPreview}
                                     control={control}
                                     values={data.objInfoPrincipal}
                                     disabled={isPreview ? true : loading}
@@ -515,12 +529,15 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     clearErrors={clearErrors}
                                     append={apAT}
                                     fields={arrAT}
+                                    isEdit={isEdit}
+                                    isPreview={isPreview}
                                 />
                             </Grid>
 
                             {bitModulo && (
                                 <Grid item xs={12}>
                                     <InfoModulos
+                                        isEdit={isEdit}
                                         control={control}
                                         values={data.arrModulos}
                                         disabled={isPreview ? true : loading}
@@ -531,12 +548,14 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                         fields={arrMO}
                                         append={apMO}
                                         remove={rmMO}
+                                        isPreview={isPreview}
                                     />
                                 </Grid>
                             )}
 
                             <Grid item xs={12}>
                                 <InfoSedesTarifa
+                                    isEdit={isEdit}
                                     control={control}
                                     values={data.arrModulos}
                                     disabled={isPreview ? true : loading}
@@ -547,15 +566,16 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     fields={arrST}
                                     append={apST}
                                     remove={rmST}
+                                    isPreview={isPreview}
                                 />
                             </Grid>
 
                             <Grid item xs={12}>
                                 <InfoResponsables
+                                    isEdit={isEdit}
                                     control={control}
                                     values={data.arrModulos}
                                     disabled={isPreview ? true : loading}
-                                    isEdit={isEdit}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -564,6 +584,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     append={apRE}
                                     remove={rmRE}
                                     getValues={getValues}
+                                    isPreview={isPreview}
                                 />
                             </Grid>
 
