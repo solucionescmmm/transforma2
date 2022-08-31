@@ -38,6 +38,7 @@ const InfoPrincipal = ({
     setValue,
     onChangeModules,
     onChangeTipoServicio,
+    isPreview,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -60,6 +61,13 @@ const InfoPrincipal = ({
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
     };
+
+    useEffect(() => {
+        if (isEdit || isPreview) {
+            handlerChangeOpenCollapse();
+        }
+         // eslint-disable-next-line
+    }, [isEdit, isPreview]);
 
     useEffect(() => {
         setLoading(true);
@@ -88,7 +96,7 @@ const InfoPrincipal = ({
             intId: intIdTipoServicio,
         });
 
-       await onChangeTipoServicio(response.data.data[0]);
+        await onChangeTipoServicio(response.data.data[0]);
     };
 
     if (loading) {

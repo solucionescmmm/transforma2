@@ -9,6 +9,8 @@ import {
     Tooltip,
     Legend,
     PointElement,
+    TimeScale,
+    TimeSeriesScale,
 } from "chart.js";
 
 import { Line } from "react-chartjs-2";
@@ -19,6 +21,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../../../common/middlewares/Auth";
 import { Box } from "@mui/system";
 import { CircularProgress } from "@mui/material";
+import "chartjs-adapter-moment";
 
 ChartJS.register(
     CategoryScale,
@@ -27,10 +30,12 @@ ChartJS.register(
     PointElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    TimeScale,
+    TimeSeriesScale
 );
 
-const CardGrafica = ({ intIdIdea }) => {
+const CardGrafica = ({ intIdIdea, type }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [state, setState] = useState([]);
 
@@ -105,21 +110,13 @@ const CardGrafica = ({ intIdIdea }) => {
     }, [getData, intIdIdea]);
 
     const options = {
-        indexAxis: "y",
-        elements: {
-            bar: {
-                borderWidth: 2,
-            },
-        },
-        responsive: true,
-        plugins: {
-            legend: {
-                position: "top",
-            },
-            title: {
-                display: true,
-                text: "",
-            },
+        scales: {
+            xAxes: [
+                {
+                    type: "time",
+                    distribution: "linear",
+                },
+            ],
         },
     };
 
@@ -147,6 +144,133 @@ const CardGrafica = ({ intIdIdea }) => {
                 <CircularProgress />
             </Box>
         );
+    }
+
+    if (type === "Desarrollo") {
+        const { arrEtapaDllo } = state;
+
+        const ejeX = [];
+        const ejeY = [];
+
+        arrEtapaDllo?.forEach((v) => {
+            ejeX.push({
+                x: v.dtmCreacion,
+                y: v.intEtapaDlloFecha,
+                t: v.strClasificacionFecha,
+            });
+
+            ejeY.push(v.dtmCreacion);
+        });
+
+        const options = {
+            scales: {
+                x: {
+                    type: "time",
+                    time: {
+                        tooltipFormat: "YYYY MM DD",
+                    },
+                },
+            },
+        };
+
+        const data = {
+            labels: ejeY,
+            datasets: [
+                {
+                    label: "Etapa de desarrollo",
+                    data: ejeX,
+                    borderColor: "rgb(255, 99, 132)",
+                    backgroundColor: "rgba(255, 99, 132, 0.5)",
+                    borderWidth: 1,
+                },
+            ],
+        };
+
+        return <Line options={options} data={data} />;
+    }
+
+    if (type === "Empleados") {
+        const { arrNumeroEmpleados } = state;
+
+        const ejeX = [];
+        const ejeY = [];
+
+        arrNumeroEmpleados?.forEach((v) => {
+            ejeX.push({
+                x: v.dtmCreacion,
+                y: v.intNumeroEmpleados,
+            });
+
+            ejeY.push(v.dtmCreacion);
+        });
+
+        const options = {
+            scales: {
+                x: {
+                    type: "time",
+                    time: {
+                        tooltipFormat: "YYYY MM DD",
+                    },
+                },
+            },
+        };
+
+        const data = {
+            labels: ejeY,
+            datasets: [
+                {
+                    label: "Empleados",
+                    data: ejeX,
+                    borderColor: "rgb(255, 99, 132)",
+                    backgroundColor: "rgba(255, 99, 132, 0.5)",
+                    borderWidth: 1,
+                },
+            ],
+        };
+
+        return <Line options={options} data={data} />;
+    }
+
+    if (type === "Ventas") {
+        const { arrValorVentas } = state;
+
+        const ejeX = [];
+        const ejeY = [];
+
+        arrValorVentas?.forEach((v) => {
+            ejeX.push({
+                x: v.dtmCreacion,
+                y: v.ValorVentas,
+            });
+
+            ejeY.push(v.dtmCreacion);
+        });
+
+        const options = {
+            scales: {
+                x: {
+                    type: "time",
+                    time: {
+                        tooltipFormat: "YYYY MM DD",
+                    },
+                },
+            },
+        };
+
+        const data = {
+            labels: ejeY,
+            datasets: [
+                {
+                    label: "Ventas",
+                    data: ejeX,
+                    borderColor: "rgb(255, 99, 132)",
+                    backgroundColor: "rgba(255, 99, 132, 0.5)",
+                    borderWidth: 1,
+                },
+            ],
+        };
+
+        return <Line options={options} data={data} />;
     }
 
     return <Line options={options} data={data} />;

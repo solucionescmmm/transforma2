@@ -346,13 +346,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strNombres
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strNombres?.message ||
                                                 "Selecciona una opción para buscar y seleccionar una persona existente"
                                             }
@@ -422,13 +422,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strNombres
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strNombres?.message ||
                                                 "Digíta el nombre o nombres de la persona"
                                             }
@@ -469,13 +469,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strApellidos
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strApellidos?.message ||
                                                 "Digíta los apellidos de la persona"
                                             }
@@ -513,13 +513,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             required
                                             disabled={loading}
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strTipoDocto
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strTipoDocto?.message ||
                                                 "Selecciona el tipo de documento"
                                             }
@@ -556,7 +556,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strNroDocto?.message ||
                                                 "Digita el número de documento"
                                             }
@@ -586,13 +586,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strLugarExpedicionDocto
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strLugarExpedicionDocto
                                                     ?.message ||
                                                 "Digita el lugar de expedición del documento"
@@ -623,14 +623,14 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                     variant="standard"
                                                     error={
                                                         errors
-                                                            ?.objInfoEmpresarioPr
+                                                            
                                                             ?.dtFechaExpedicionDocto
                                                             ? true
                                                             : false
                                                     }
                                                     helperText={
                                                         errors
-                                                            ?.objInfoEmpresarioPr
+                                                            
                                                             ?.dtFechaExpedicionDocto
                                                             ?.message ||
                                                         "Selecciona la fecha de expedición del documento"
@@ -663,14 +663,14 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                     variant="standard"
                                                     error={
                                                         errors
-                                                            ?.objInfoEmpresarioPr
+                                                            
                                                             ?.dtFechaNacimiento
                                                             ? true
                                                             : false
                                                     }
                                                     helperText={
                                                         errors
-                                                            ?.objInfoEmpresarioPr
+                                                            
                                                             ?.dtFechaNacimiento
                                                             ?.message ||
                                                         "Selecciona la fecha de nacimiento"
@@ -698,13 +698,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             disabled={loading}
                                             required
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strGenero
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strGenero?.message ||
                                                 "Selecciona el género de la persona"
                                             }
@@ -737,13 +737,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             disabled={loading}
                                             required
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strCelular1
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strCelular1?.message ||
                                                 "Digita el número celular de la persona"
                                             }
@@ -790,13 +790,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             variant="standard"
                                             disabled={loading}
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strCelular2
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strCelular2?.message ||
                                                 "Digita el número celular de la persona"
                                             }
@@ -841,14 +841,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             variant="standard"
                                             disabled={loading}
                                             error={
-                                                errors?.objInfoEmpresarioPr
-                                                    ?.strCorreoElectronico1
+                                                errors?.strCorreoElectronico1
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
-                                                    ?.strCorreoElectronico1
+                                                errors?.strCorreoElectronico1
                                                     ?.message ||
                                                 "Digita el correo electrónico de la persona"
                                             }
@@ -883,13 +881,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             variant="standard"
                                             disabled={loading}
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strCorreoElectronico2
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strCorreoElectronico2
                                                     ?.message ||
                                                 "Digita el correo electrónico alterno de la persona"
@@ -923,13 +921,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             onChange={(e) => onChange(e)}
                                             disabled={loading}
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strNivelEducativo
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strNivelEducativo
                                                     ?.message ||
                                                 "Selecciona el nivel educativo de la persona"
@@ -956,13 +954,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strTitulos
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strTitulos?.message ||
                                                 "Digita los títulos o título del empresario, en caso de poseer alguno"
                                             }
@@ -986,13 +984,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             onChange={(e) => onChange(e)}
                                             disabled={loading}
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strCondicionDiscapacidad
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strCondicionDiscapacidad
                                                     ?.message ||
                                                 "Selecciona la discapacidad de la persona, en caso de padecer alguna"
@@ -1021,13 +1019,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strEstrato
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strEstrato?.message ||
                                                 "Selecciona el estrato socioeconómico de la persona"
                                             }
@@ -1083,13 +1081,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                 );
                                             }}
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.arrDepartamento
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.arrDepartamento
                                                     ?.message ||
                                                 "Selecciona el departamento de residencia"
@@ -1121,7 +1119,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                 );
                                             }}
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.arrCiudad
                                                     ? true
                                                     : false
@@ -1131,7 +1129,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                     ?.region_name
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.arrCiudad?.message ||
                                                 "Selecciona la ciudad de residencia"
                                             }
@@ -1155,13 +1153,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             disabled={loading}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strBarrio
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strBarrio?.message ||
                                                 "Selecciona el barrio/corregimiento/vereda de residencia"
                                             }
@@ -1189,13 +1187,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strDireccionResidencia
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strDireccionResidencia
                                                     ?.message ||
                                                 "Digita la dirección de residencia de la persona"
@@ -1225,13 +1223,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             type="Imagen"
                                             errors={errors}
                                             error={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strURLFileFoto
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors?.objInfoEmpresarioPr
+                                                errors
                                                     ?.strURLFileFoto?.message ||
                                                 "Selecciona una foto de la persona"
                                             }

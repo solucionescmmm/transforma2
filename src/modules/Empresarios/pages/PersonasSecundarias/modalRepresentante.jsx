@@ -161,9 +161,9 @@ const ModalRepresentante = ({
 
     useEffect(() => {
         if (success) {
-            refresh({ intIdIdea });
             handleOpenDialog();
-
+            refresh({ intIdIdea });
+           
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

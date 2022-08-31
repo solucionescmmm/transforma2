@@ -92,7 +92,9 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                 component={RouterLink}
                 to="/transforma/asesor/empresario/read/all"
                 selected={
-                    location.pathname.startsWith("/transforma/asesor/empresario/")
+                    location.pathname.startsWith(
+                        "/transforma/asesor/empresario/"
+                    )
                         ? true
                         : false
                 }
@@ -109,19 +111,20 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
             </ListItem>
 
             <ListItem
-                button
-                component={RouterLink}
-                to="/transforma/asesor/empresario/read/all"
-                selected={
-                    location.pathname.startsWith("/transforma/asesor/actividades/")
-                        ? true
-                        : false
-                }
-                onClick={(e) => {
-                    if (movil) {
-                        toggleDrawer(e, false);
-                    }
-                }}
+                // component={RouterLink}
+                // to=""
+                // selected={
+                //     location.pathname.startsWith(
+                //         "/transforma/asesor/actividades/"
+                //     )
+                //         ? true
+                //         : false
+                // }
+                // onClick={(e) => {
+                //     if (movil) {
+                //         toggleDrawer(e, false);
+                //     }
+                // }}
             >
                 <ListItemIcon>
                     <ListAltIcon />
@@ -130,19 +133,21 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
             </ListItem>
 
             <ListItem
-                button
-                component={RouterLink}
-                to="/transforma/asesor/empresario/read/all"
-                selected={
-                    location.pathname.startsWith("/transforma/asesor/estadisticas/")
-                        ? true
-                        : false
-                }
-                onClick={(e) => {
-                    if (movil) {
-                        toggleDrawer(e, false);
-                    }
-                }}
+                // button
+                // component={RouterLink}
+                // to="/transforma/asesor/empresario/read/all"
+                // selected={
+                //     location.pathname.startsWith(
+                //         "/transforma/asesor/estadisticas/"
+                //     )
+                //         ? true
+                //         : false
+                // }
+                // onClick={(e) => {
+                //     if (movil) {
+                //         toggleDrawer(e, false);
+                //     }
+                // }}
             >
                 <ListItemIcon>
                     <EqualizerIcon />
@@ -153,19 +158,21 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
             <Divider />
 
             <ListItem
-                button
-                component={RouterLink}
-                to="/transforma/asesor/empresario/read/all"
-                selected={
-                    location.pathname.startsWith("/transforma/asesor/estadisticas/")
-                        ? true
-                        : false
-                }
-                onClick={(e) => {
-                    if (movil) {
-                        toggleDrawer(e, false);
-                    }
-                }}
+                // button
+                // component={RouterLink}
+                // to="/transforma/asesor/empresario/read/all"
+                // selected={
+                //     location.pathname.startsWith(
+                //         "/transforma/asesor/estadisticas/"
+                //     )
+                //         ? true
+                //         : false
+                // }
+                // onClick={(e) => {
+                //     if (movil) {
+                //         toggleDrawer(e, false);
+                //     }
+                // }}
             >
                 <ListItemIcon>
                     <ReportIcon />

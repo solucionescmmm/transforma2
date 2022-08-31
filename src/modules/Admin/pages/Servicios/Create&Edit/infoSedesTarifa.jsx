@@ -33,6 +33,8 @@ const InfoSedesTarifa = ({
     fields,
     append,
     remove,
+    isEdit,
+    isPreview,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -41,6 +43,13 @@ const InfoSedesTarifa = ({
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
     };
+
+    useEffect(() => {
+        if (isEdit || isPreview) {
+            handlerChangeOpenCollapse();
+        }
+        // eslint-disable-next-line
+    }, [isEdit, isPreview]);
 
     useEffect(() => {
         setLoading(true);

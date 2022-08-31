@@ -256,8 +256,8 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
                                             icon: () => (
                                                 <EditIcon
                                                     color={
-                                                        rowData.btFinalizado ===
-                                                        1
+                                                        rowData.btFinalizada ===
+                                                        true
                                                             ? "gray"
                                                             : "success"
                                                     }
@@ -275,7 +275,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
                                             tooltip: "Editar",
 
                                             disabled:
-                                                rowData.btFinalizado === 1,
+                                                rowData.btFinalizada === true,
                                         };
                                     },
                                     (rowData) => {
@@ -283,8 +283,8 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
                                             icon: () => (
                                                 <DeleteIcon
                                                     color={
-                                                        rowData.btFinalizado ===
-                                                        1
+                                                        rowData.btFinalizada ===
+                                                        true
                                                             ? "gray"
                                                             : "error"
                                                     }
@@ -297,7 +297,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
                                             },
                                             tooltip: "Eliminar",
                                             disabled:
-                                                rowData.btFinalizado === 1,
+                                                rowData.btFinalizada === true,
                                         };
                                     },
                                 ]}

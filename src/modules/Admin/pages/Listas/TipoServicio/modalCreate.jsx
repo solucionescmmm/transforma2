@@ -190,19 +190,29 @@ const ModalCreate = ({ handleOpenDialog, open, data, refresh }) => {
 
     useEffect(() => {
         if (success) {
-            refresh();
             handleOpenDialog();
             setState({
                 strNombre: "",
-                arrAtributos: [],
+                arrAtributos: [
+                    {
+                        id: shortid.generate(),
+                        intIdAtributo: "",
+                    },
+                ],
             });
 
             reset({
                 strNombre: "",
-                arrAtributos: [],
+                arrAtributos: [
+                    {
+                        id: shortid.generate(),
+                        intIdAtributo: "",
+                    },
+                ],
             });
 
             setSucces(false);
+            refresh();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [success]);
