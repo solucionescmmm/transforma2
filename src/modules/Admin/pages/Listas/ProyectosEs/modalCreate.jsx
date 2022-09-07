@@ -35,7 +35,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
+const ModalCreate = ({ handleOpenDialog, open, refresh, data }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -45,7 +45,6 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [state, setState] = useState({
-        intId: "",
         strNombre: "",
     });
 
@@ -81,9 +80,9 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
 
             await axios(
                 {
-                    method: "PUT",
+                    method: "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_AREAS_UPDATE}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_PROYECTOS_ES_SET}`,
                     data: { ...state },
                     headers: {
                         token,
@@ -126,11 +125,7 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
     );
 
     const onSubmit = (data) => {
-        setState((prevState) => ({
-            ...prevState,
-            ...data,
-        }));
-
+        setState(data);
         setFlagSubmit(true);
     };
 
@@ -150,24 +145,14 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
     }, [flagSubmit, submitData]);
 
     useEffect(() => {
-        if (values) {
-            setState({
-                intId: values.intId,
-                strNombre: values.strNombre,
-            });
-
-            reset({
-                intId: values.intId,
-                strNombre: values.strNombre,
-            });
-        }
-        // eslint-disable-next-line
-    }, [values]);
-
-    useEffect(() => {
         if (success) {
             refresh();
             handleOpenDialog();
+            setState({
+                strNombre: "",
+            });
+
+            reset({ strNombre: "" });
 
             setSucces(false);
         }
@@ -192,7 +177,7 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Editar área</DialogTitle>
+            <DialogTitle>Registrar proyecto especial</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="rorw" spacing={2}>
@@ -219,23 +204,22 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
                                     error={errors[name] ? true : false}
                                     helperText={
                                         errors[name]?.message ||
-                                        "Digita el nombre del área"
+                                        "Digita el nombre del proyecto"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el nombre del área",
+                                required: "Por favor, digita el nombre del proyecto",
                                 validate: (value) => {
                                     if (
                                         data?.find(
                                             (a) =>
                                                 a.strNombre.toLowerCase() ===
-                                                    value.toLowerCase() &&
-                                                a.intId !== state.intId
+                                                value.toLowerCase()
                                         )
                                     ) {
-                                        return `Ya existe un área registrada como ${value}`;
+                                        return `Ya existe un proyecto registrado como ${value}`;
                                     }
                                 },
                             }}
@@ -246,7 +230,7 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
 
             <DialogActions>
                 <LoadingButton color="primary" loading={loading} type="submit">
-                    guardar
+                    registrar
                 </LoadingButton>
 
                 <Button

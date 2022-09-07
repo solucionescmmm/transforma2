@@ -27,6 +27,7 @@ import {
 
 //Componentes
 import SelectTipoServicio from "../../../components/selectTipoServicio";
+import SelectProyectoEs from "../../../components/selectProyectoEs";
 
 const InfoPrincipal = ({
     data: dataServicios,
@@ -39,6 +40,7 @@ const InfoPrincipal = ({
     onChangeModules,
     onChangeTipoServicio,
     isPreview,
+    watch,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -49,6 +51,8 @@ const InfoPrincipal = ({
         strDescripcion: "",
         dtFechaInicio: null,
         intTiempo: "",
+        intIdProyectoEs: "",
+        bitProyectoEs: "",
         bitModulos: "",
     });
 
@@ -66,7 +70,7 @@ const InfoPrincipal = ({
         if (isEdit || isPreview) {
             handlerChangeOpenCollapse();
         }
-         // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [isEdit, isPreview]);
 
     useEffect(() => {
@@ -80,6 +84,7 @@ const InfoPrincipal = ({
                 strDescripcion: values.strDescripcion,
                 dtFechaInicio: values.dtFechaInicio,
                 intTiempo: values.intTiempo,
+                bitProyectoEs: values.bitProyectoEs,
                 bitModulos: values.bitModulos,
             });
 
@@ -98,6 +103,8 @@ const InfoPrincipal = ({
 
         await onChangeTipoServicio(response.data.data[0]);
     };
+
+    const watchBitProyectoEs = watch("objInfoPrincipal.bitProyectoEs");
 
     if (loading) {
         return (
@@ -291,6 +298,95 @@ const InfoPrincipal = ({
                             control={control}
                         />
                     </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            name="objInfoPrincipal.bitProyectoEs"
+                            defaultValue={data.bitProyectoEs}
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿El servicio contiene un proyecto especial?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                        onChangeModules(e.target.value);
+                                        setValue("arrModulos", []);
+                                    }}
+                                    required
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoPrincipal?.bitProyectoEs
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal?.bitProyectoEs
+                                            ?.message ||
+                                        "Selecciona si el servicio contiene un proyecto especial"
+                                    }
+                                    select
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                </TextField>
+                            )}
+                            rules={{
+                                validate: (value) => {
+                                    if (value === "") {
+                                        return "Por favor, selecciona si el servicio contiene un proyecto especial";
+                                    }
+                                },
+                            }}
+                            control={control}
+                        />
+                    </Grid>
+
+                    {watchBitProyectoEs && (
+                        <Grid item xs={12}>
+                            <Controller
+                                name="objInfoPrincipal.intIdProyectoEs"
+                                defaultValue={data.intIdProyectoEs}
+                                render={({
+                                    field: { name, value, onChange },
+                                }) => (
+                                    <SelectProyectoEs
+                                        label="Proyecto especial"
+                                        name={name}
+                                        value={value}
+                                        onChange={(e) => {
+                                            onChange(e);
+                                            onChangeModules(e.target.value);
+                                            setValue("arrModulos", []);
+                                        }}
+                                        required
+                                        disabled={disabled}
+                                        error={
+                                            errors?.objInfoPrincipal
+                                                ?.bitProyectoEs
+                                                ? true
+                                                : false
+                                        }
+                                        helperText={
+                                            errors?.objInfoPrincipal
+                                                ?.bitProyectoEs?.message ||
+                                            "Selecciona si el servicio contiene un proyecto especial"
+                                        }
+                                    />
+                                )}
+                                rules={{
+                                    validate: (value) => {
+                                        if (value === "") {
+                                            return "Por favor, selecciona si el servicio contiene un proyecto especial";
+                                        }
+                                    },
+                                }}
+                                control={control}
+                            />
+                        </Grid>
+                    )}
 
                     <Grid item xs={12}>
                         <Controller

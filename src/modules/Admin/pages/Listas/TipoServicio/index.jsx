@@ -281,6 +281,9 @@ const Read = () => {
                                     },
                                     maxBodyHeight: "520px",
                                     actionsColumnIndex: -1,
+                                    paging:true,
+                                    pageSizeOptions:[20,100,200,500], 
+                                    pageSize: 20,
                                 }}
                                 actions={[
                                     (rowData) => {

@@ -6,21 +6,22 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 //Librerias
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useForm, Controller } from "react-hook-form";
 
 //Componentes de Material UI
 import {
+    Box,
     DialogTitle,
     DialogContent,
     DialogActions,
+    DialogContentText,
     Dialog,
     Button,
     useTheme,
     useMediaQuery,
     LinearProgress,
-    Grid,
-    Typography,
-    TextField,
+    CircularProgress,
+    Alert,
+    AlertTitle,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -35,7 +36,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
+const ModalDelete = ({ handleOpenDialog, open, intId, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -44,29 +45,21 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [state, setState] = useState({
-        intId: "",
-        strNombre: "",
-    });
-
     const [success, setSucces] = useState(false);
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
+
+    const [data, setData] = useState({
+        intId: null,
+    });
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-        reset,
-    } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -81,10 +74,12 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
 
             await axios(
                 {
-                    method: "PUT",
+                    method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_AREAS_UPDATE}`,
-                    data: { ...state },
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_PROYECTOS_ES_DELETE}`,
+                    params: {
+                        intId: data.intId,
+                    },
                     headers: {
                         token,
                     },
@@ -122,21 +117,22 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
                     }
                 });
         },
-        [token, state]
+        [token, data]
     );
-
-    const onSubmit = (data) => {
-        setState((prevState) => ({
-            ...prevState,
-            ...data,
-        }));
-
-        setFlagSubmit(true);
-    };
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
+    useEffect(() => {
+        if (intId) {
+            setData({
+                intId,
+            });
+        }
+
+        setLoading(false);
+    }, [intId]);
+
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -148,21 +144,6 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
             signalSubmitData.cancel("Petición abortada.");
         };
     }, [flagSubmit, submitData]);
-
-    useEffect(() => {
-        if (values) {
-            setState({
-                intId: values.intId,
-                strNombre: values.strNombre,
-            });
-
-            reset({
-                intId: values.intId,
-                strNombre: values.strNombre,
-            });
-        }
-        // eslint-disable-next-line
-    }, [values]);
 
     useEffect(() => {
         if (success) {
@@ -177,6 +158,51 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
+    if (!data.intId) {
+        return (
+            <Dialog
+                fullScreen={bitMobile}
+                open={open}
+                onClose={handleOpenDialog}
+                PaperProps={{
+                    style: {
+                        backgroundColor: !loading && !data.intId ? "#FDEDED" : "inherit",
+                    },
+                }}
+            >
+                <DialogContent>
+                    {loading ? (
+                        <Box
+                            sx={{
+                                width: "100%",
+                                height: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <CircularProgress />
+                        </Box>
+                    ) : (
+                        <Alert severity="error">
+                            <AlertTitle>
+                                <b>No se encontro el identificador del área</b>
+                            </AlertTitle>
+                            Ha ocurrido un error al momento de seleccionar los datos, por
+                            favor escala al área de TI para mayor información.
+                        </Alert>
+                    )}
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={() => handleOpenDialog()} color="inherit">
+                        cerrar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    }
+
     return (
         <Dialog
             fullScreen={bitMobile}
@@ -184,76 +210,34 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
             onClose={handleOpenDialog}
             fullWidth
             PaperProps={{
-                component: "form",
-                noValidate: true,
-                onSubmit: handleSubmit(onSubmit),
+                style: {
+                    backgroundColor: "#FDEDED",
+                },
             }}
         >
-            {loading ? (
-                <LinearProgress className={classes.linearProgress} />
-            ) : null}
-            <DialogTitle>Editar área</DialogTitle>
+            {loading ? <LinearProgress className={classes.linearProgress} /> : null}
+            <DialogTitle>{`¿Deseas eliminar el área seleccionada?`}</DialogTitle>
 
             <DialogContent>
-                <Grid container direction="rorw" spacing={2}>
-                    <Grid item xs={12}>
-                        <Typography variant="caption">
-                            Todos los elementos marcados con *, son obligatorios
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={state.strNombre}
-                            name="strNombre"
-                            render={({ field: { onChange, value, name } }) => (
-                                <TextField
-                                    label="Nombre"
-                                    variant="standard"
-                                    name={name}
-                                    value={value}
-                                    disabled={loading}
-                                    onChange={(e) => onChange(e)}
-                                    required
-                                    fullWidth
-                                    error={errors[name] ? true : false}
-                                    helperText={
-                                        errors[name]?.message ||
-                                        "Digita el nombre del área"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, digita el nombre del área",
-                                validate: (value) => {
-                                    if (
-                                        data?.find(
-                                            (a) =>
-                                                a.strNombre.toLowerCase() ===
-                                                    value.toLowerCase() &&
-                                                a.intId !== state.intId
-                                        )
-                                    ) {
-                                        return `Ya existe un área registrada como ${value}`;
-                                    }
-                                },
-                            }}
-                        />
-                    </Grid>
-                </Grid>
+                <DialogContentText>
+                    El proceso es irreversible y no podrás recuperar la información.
+                </DialogContentText>
             </DialogContent>
 
             <DialogActions>
-                <LoadingButton color="primary" loading={loading} type="submit">
-                    guardar
+                <LoadingButton
+                    color="error"
+                    loading={loading}
+                    type="button"
+                    onClick={() => setFlagSubmit(true)}
+                >
+                    aceptar
                 </LoadingButton>
 
                 <Button
                     onClick={() => handleOpenDialog()}
                     color="inherit"
                     disabled={loading}
-                    type="button"
                 >
                     cancelar
                 </Button>
@@ -262,4 +246,4 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
     );
 };
 
-export default ModalCreate;
+export default ModalDelete;

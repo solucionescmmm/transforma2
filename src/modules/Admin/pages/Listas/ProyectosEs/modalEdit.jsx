@@ -83,7 +83,7 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
                 {
                     method: "PUT",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_AREAS_UPDATE}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_PROYECTOS_ES_PUT}`,
                     data: { ...state },
                     headers: {
                         token,
@@ -192,7 +192,7 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Editar área</DialogTitle>
+            <DialogTitle>Editar proyecto</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="rorw" spacing={2}>
@@ -219,13 +219,13 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
                                     error={errors[name] ? true : false}
                                     helperText={
                                         errors[name]?.message ||
-                                        "Digita el nombre del área"
+                                        "Digita el nombre del proyecto"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el nombre del área",
+                                required: "Por favor, digita el nombre del proyecto",
                                 validate: (value) => {
                                     if (
                                         data?.find(
@@ -235,7 +235,7 @@ const ModalCreate = ({ handleOpenDialog, open, values, refresh, data }) => {
                                                 a.intId !== state.intId
                                         )
                                     ) {
-                                        return `Ya existe un área registrada como ${value}`;
+                                        return `Ya existe un proyecto registrado como ${value}`;
                                     }
                                 },
                             }}

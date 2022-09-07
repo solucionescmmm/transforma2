@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 
 // Hooks
-import useGetAtributos from "../../../hooks/useGetAtributos";
+import useGetProyectosEs from "../../../hooks/useGetProyectosEs";
 
 //Componentes de Material UI
 import { Grid, Box, Button, Switch } from "@mui/material";
@@ -40,7 +40,35 @@ import ModalEdit from "./modalEdit";
 import ModalDelete from "./modalDelete";
 import ModalState from "./modalState";
 
-const ReadSolicitudesUser = () => {
+const ReadProyectosEs = () => {
+    const [openModalCreate, setOpenModalCreate] = useState(false);
+    const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalState, setOpenModalState] = useState(false);
+    const [selectedData, setSelectedData] = useState();
+
+    const { data, refreshGetData } = useGetProyectosEs({ autoLoad: true });
+
+    //===============================================================================================================================================
+    //========================================== Funciones ==========================================================================================
+    //===============================================================================================================================================
+
+    const handlerOpenModalCreate = () => {
+        setOpenModalCreate(!openModalCreate);
+    };
+
+    const handlerOpenModalEdit = () => {
+        setOpenModalEdit(!openModalEdit);
+    };
+
+    const handlerOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
+
+    const handlerOpenModalState = () => {
+        setOpenModalState(!openModalState);
+    };
+
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -76,56 +104,12 @@ const ReadSolicitudesUser = () => {
             type: "string",
         },
         {
-            title: "Descripción",
-            field: "strDescripcion",
-            type: "string",
-        },
-        {
             title: "Fecha de creación",
             field: "dtmCreacion",
             type: "date",
         },
-        {
-            title: "Tipo de campo",
-            field: "intIdTipoCampo",
-            lookup: {
-                1: "BIT",
-                2: "DATE",
-                3: "DATETIME",
-                4: "INT",
-                5: "MONEY",
-                6: "VARCHAR",
-            },
-        },
     ]);
 
-    const [openModalCreate, setOpenModalCreate] = useState(false);
-    const [openModalEdit, setOpenModalEdit] = useState(false);
-    const [openModalDelete, setOpenModalDelete] = useState(false);
-    const [openModalState, setOpenModalState] = useState(false);
-    const [selectedData, setSelectedData] = useState();
-
-    const { data, refreshGetData } = useGetAtributos({ autoLoad: true });
-
-    //===============================================================================================================================================
-    //========================================== Funciones ==========================================================================================
-    //===============================================================================================================================================
-
-    const handlerOpenModalCreate = () => {
-        setOpenModalCreate(!openModalCreate);
-    };
-
-    const handlerOpenModalEdit = () => {
-        setOpenModalEdit(!openModalEdit);
-    };
-
-    const handlerOpenModalDelete = () => {
-        setOpenModalDelete(!openModalDelete);
-    };
-
-    const handlerOpenModalState = () => {
-        setOpenModalState(!openModalState);
-    };
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -134,14 +118,6 @@ const ReadSolicitudesUser = () => {
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
-                data={data}
-                refresh={refreshGetData}
-            />
-
-            <ModalEdit
-                handleOpenDialog={handlerOpenModalEdit}
-                open={openModalEdit}
-                values={selectedData}
                 data={data}
                 refresh={refreshGetData}
             />
@@ -157,6 +133,14 @@ const ReadSolicitudesUser = () => {
                 handleOpenDialog={handlerOpenModalState}
                 open={openModalState}
                 values={selectedData}
+                refresh={refreshGetData}
+            />
+
+            <ModalEdit
+                handleOpenDialog={handlerOpenModalEdit}
+                open={openModalEdit}
+                values={selectedData}
+                data={data}
                 refresh={refreshGetData}
             />
 
@@ -263,7 +247,7 @@ const ReadSolicitudesUser = () => {
                                 isLoading={!data}
                                 data={data || []}
                                 columns={objColumns}
-                                title="Lista de atributos"
+                                title="Lista de proyectos especiales"
                                 options={{
                                     grouping: true,
                                     title: true,
@@ -290,7 +274,6 @@ const ReadSolicitudesUser = () => {
                                         return {
                                             icon: () => (
                                                 <EditIcon
-                                                    fontSize="small"
                                                     color={
                                                         rowData.intIdEstado ===
                                                             1 ||
@@ -299,6 +282,7 @@ const ReadSolicitudesUser = () => {
                                                             ? "gray"
                                                             : "success"
                                                     }
+                                                    fontSize="small"
                                                 />
                                             ),
                                             tooltip: "Editar",
@@ -364,7 +348,7 @@ const ReadSolicitudesUser = () => {
                                                                 handlerOpenModalCreate()
                                                             }
                                                         >
-                                                            Agregar atributo
+                                                            Agregar proyecto
                                                         </Button>
                                                     </Box>
                                                 </Grid>
@@ -381,4 +365,4 @@ const ReadSolicitudesUser = () => {
     );
 };
 
-export default ReadSolicitudesUser;
+export default ReadProyectosEs;

@@ -6,6 +6,7 @@ import Sedes from "./Sedes";
 import Tarifas from "./Tarifas";
 import Atributos from "./Atributos";
 import TiporServicio from "./TipoServicio";
+import ProyectosEs from "./ProyectosEs";
 
 const Wrapper = ({ type }) => {
     if (type === "Áreas") {
@@ -26,6 +27,10 @@ const Wrapper = ({ type }) => {
 
     if (type === "Tipos de servicio") {
         return <TiporServicio />;
+    }
+
+    if (type === "Proyectos especiales") {
+        return <ProyectosEs />;
     }
 
     if (type !== "") {

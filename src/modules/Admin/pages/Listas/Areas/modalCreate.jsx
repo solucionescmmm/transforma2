@@ -210,7 +210,7 @@ const ModalCreate = ({ handleOpenDialog, open, refresh, data }) => {
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, el nombre del área",
+                                required: "Por favor, digita el nombre del área",
                                 validate: (value) => {
                                     if (
                                         data?.find(

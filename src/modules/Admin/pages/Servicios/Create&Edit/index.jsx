@@ -129,6 +129,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
         setValue,
         clearErrors,
         getValues,
+        watch
     } = useForm({ mode: "onChange" });
 
     const {
@@ -515,6 +516,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                         handleChangeTipoServicio
                                     }
                                     data={dataServicios}
+                                    watch={watch}
                                 />
                             </Grid>
 

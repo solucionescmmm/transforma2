@@ -89,6 +89,7 @@ const HomePage = () => {
                     <MenuItem value="Sedes">Sedes</MenuItem>
                     <MenuItem value="Tipos de tarifa">Tipos de tarifa</MenuItem>
                     <MenuItem value="Tipos de servicio">Tipos de servicio</MenuItem>
+                    <MenuItem value="Proyectos especiales">Proyectos especiales</MenuItem>
                 </TextField>
             </Grid>
 
