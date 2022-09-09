@@ -161,6 +161,7 @@ class setEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setIdea(newData);
+
         
         this.#intIdIdea = query.data.intId;
 
@@ -182,6 +183,9 @@ class setEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setIdeaEmpresario(newData);
+
+        console.log(query, "IdeaEmpresario")
+
 
         this.#intIdIdeaEmpresario = query.data.intId;
 
@@ -228,6 +232,8 @@ class setEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setEmpresa(newData);
+        console.log(query)
+
 
         this.#intIdEmpresa = query.data.intId
         
@@ -261,6 +267,9 @@ class setEmpresarioPrincipal {
         };
 
         let query = await dao.setInfoAdicional(newData);
+
+        console.log(query)
+
         
         if (query.error) {
             await this.#rollbackTransaction();
@@ -280,6 +289,9 @@ class setEmpresarioPrincipal {
         let service = new serviceSetHistorico(data);
 
         let query = await service.main();
+
+        console.log(query)
+
 
         if (query.error) {
             await this.#rollbackTransaction();
