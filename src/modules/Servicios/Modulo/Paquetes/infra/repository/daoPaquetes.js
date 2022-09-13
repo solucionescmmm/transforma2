@@ -278,9 +278,8 @@ class daoPaquetes {
             let response = await conn.query`    
                 UPDATE tbl_Paquetes
 
-                SET intIdTipoPaquete       = COALESCE(${data.intIdTipoPaquete}, intIdTipoPaquete),
+                SET strNombre              = COALESCE(${data.strNombre}, strNombre),
                     strDescripcion          = COALESCE(${data.strDescripcion}, strDescripcion),
-                    btModulos               = COALESCE(${data.bitModulos}, btModulos),
                     intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
@@ -293,7 +292,7 @@ class daoPaquetes {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El servicio, fue actualizado con éxito.`,
+                msg: `El paquete, fue actualizado con éxito.`,
             };
 
             sql.close(conexion);
@@ -305,128 +304,6 @@ class daoPaquetes {
                 msg:
                     error.message ||
                     "Error en el metodo updatePaquetes de la clase daoPaquetes",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async updateServiciosPaquetes(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`    
-                UPDATE tbl_modulos_Paquete
-
-                SET intIdPaquete           = COALESCE(${data.intIdPaquete}, intIdPaquete),
-                    strNombre               = COALESCE(${data.strNombre}, strNombre),
-                    intHoras                = COALESCE(${data.intHoras}, intHoras),
-                    strEntregables          = COALESCE(${data.strEntregables}, strEntregables),
-                    strResponsables         = COALESCE(${data.strResponsables}, strResponsables),
-                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
-                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
-
-                WHERE intId = ${data.intId}
-                
-                
-                SELECT * FROM tbl_modulos_Paquete WHERE intId = ${data.intId}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-                msg: `El modulo del servicio, fue actualizado con éxito.`,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo updateServiciosPaquetes de la clase daoPaquetes",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async updateSedeTipoTarifaPaquete(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`    
-                UPDATE tbl_Sede_TipoTarifa_Paquete
-
-                SET intIdSede               = COALESCE(${data.intIdSede}, intIdSede),
-                    intIdTipoTarifa         = COALESCE(${data.intIdTipoTarifa}, intIdTipoTarifa),
-                    intIdPaquete           = COALESCE(${data.intIdPaquete}, intIdPaquete),
-                    Valor                   = COALESCE(${data.dblValor}, Valor),
-                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
-                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
-
-                WHERE intId = ${data.intId}
-                
-                
-                SELECT * FROM tbl_Sede_TipoTarifa_Paquete WHERE intId = ${data.intId}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-                msg: `la tarifa del servicio, fue actualizado con éxito.`,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo updateSedeTipoTarifaPaquete de la clase daoPaquetes",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async updateAreasPaquetes(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`    
-                UPDATE tbl_Area_Paquetes
-
-                SET intIdPaquete           = COALESCE(${data.intIdPaquete}, intIdPaquete),
-                    intIdArea               = COALESCE(${data.intIdArea}, intIdArea),
-                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
-                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
-
-                WHERE intId = ${data.intId}
-                
-                
-                SELECT * FROM tbl_Area_Paquetes WHERE intId = ${data.intId}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-                msg: `la tarifa del servicio, fue actualizado con éxito.`,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo updateAreasPaquetes de la clase daoPaquetes",
             };
 
             sql.close(conexion);
@@ -470,7 +347,7 @@ class daoPaquetes {
     async deleteServiciosPaquetes(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn.query`DELETE FROM tbl_modulos_Paquete WHERE intIdPaquete = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_Paquetes_Servicios WHERE intIdPaquete = ${data.intId}`;
 
             let result = {
                 error: false,
@@ -497,7 +374,7 @@ class daoPaquetes {
     async deleteSedeTipoTarifaPaquetes(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn.query`DELETE FROM tbl_Sede_TipoTarifa_Paquete WHERE intIdPaquete = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_Sede_TipoTarifa_Paquetes WHERE intIdPaquete = ${data.intId}`;
 
             let result = {
                 error: false,
@@ -513,60 +390,6 @@ class daoPaquetes {
                 msg:
                     error.message ||
                     "Error en el metodo deleteSedeTipoTarifaPaquetes de la clase daoPaquetes",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async deleteAreaPaquetes(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn.query`DELETE FROM tbl_Area_Paquetes WHERE intIdPaquete = ${data.intId}`;
-
-            let result = {
-                error: false,
-                msg: `El servicio, fue eliminado con éxito.`,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo deleteAreaPaquetes de la clase daoPaquetes",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async deleteResultadoPaquetes(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn.query`DELETE FROM tbl_Result_TipoPaquete_Paquete WHERE intIdPaquete = ${data.intId}`;
-
-            let result = {
-                error: false,
-                msg: `El servicio, fue eliminado con éxito.`,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo deleteAreaPaquetes de la clase daoPaquetes",
             };
 
             sql.close(conexion);

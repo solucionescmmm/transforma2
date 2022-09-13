@@ -12,7 +12,7 @@ class updatePaquetes {
     #objData;
     #objUser;
     #objResult;
-    #intIdServicio;
+    #intIdPaquete;
 
     //variables
     #intIdEstado;
@@ -30,12 +30,10 @@ class updatePaquetes {
             await this.#getIdEstado();
             await this.#updatePaquetes();
             return this.#objResult;
-        }else{
+        } else {
             await this.#updatePaquetes();
-            await this.#updateModuloPaquetes();
+            await this.#updateServiciosPaquetes();
             await this.#updateSedeTipoTarifaServicio();
-            await this.#updateAreasPaquetes();
-            await this.#updateResultServcio();
             return this.#objResult;
         }
     }
@@ -61,26 +59,30 @@ class updatePaquetes {
             if (queryGetPaquetes.error) {
                 throw new Error(queryGetPaquetes.msg);
             }
-    
+
             let arrayPaquetes = queryGetPaquetes.data;
-    
-            if (arrayPaquetes?.length > 0 ) {
+
+            if (arrayPaquetes?.length > 0) {
                 for (let i = 0; i < arrayPaquetes.length; i++) {
-                    let strNombreRepetido =0
-                    if (this.#objData.objInfoPrincipal.strNombre?.trim() === arrayPaquetes[i].objInfoPrincipal.strNombre?.trim()) {
+                    let strNombreRepetido = 0;
+                    if (
+                        this.#objData.objInfoPrincipal.strNombre?.trim() ===
+                        arrayPaquetes[i].objInfoPrincipal.strNombre?.trim()
+                    ) {
                         strNombreRepetido++;
                     }
                     if (strNombreRepetido === 2) {
                         throw new Error("El nombre de esta áreas ya existe.");
                     }
                 }
-            } 
+            }
         }
     }
 
     async #getIdEstado() {
         let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre: this.#objData.bitActivar === true ? "Activo" : "Inactivo",
+            strNombre:
+                this.#objData.bitActivar === true ? "Activo" : "Inactivo",
         });
 
         if (queryGetIdEstado.error) {
@@ -93,7 +95,6 @@ class updatePaquetes {
     async #updatePaquetes() {
         let dao = new classInterfaceDAOPaquetes();
 
-
         let query = await dao.updatePaquetes({
             intId: this.#objData.intId,
             ...this.#objData.objInfoPrincipal,
@@ -105,7 +106,7 @@ class updatePaquetes {
             throw new Error(query.msg);
         }
 
-        this.#intIdServicio = query.data.intId;
+        this.#intIdPaquete = query.data.intId;
 
         this.#objResult = {
             error: query.error,
@@ -114,12 +115,12 @@ class updatePaquetes {
         };
     }
 
-    async #updateModuloPaquetes() {
+    async #updateServiciosPaquetes() {
         let dao = new classInterfaceDAOPaquetes();
 
-        let queryModuloPaquetes = await dao.deleteModuloPaquetes({
-            intId: this.#intIdServicio,
-        });
+        let queryModuloPaquetes = await dao.deleteServiciosPaquetes({
+            intId: this.#intIdPaquete,
+        }); 
 
         if (queryModuloPaquetes.error) {
             throw new Error(queryModuloPaquetes.msg);
@@ -132,13 +133,10 @@ class updatePaquetes {
                 for (let i = 0; i < array.length; i++) {
                     let dao = new classInterfaceDAOPaquetes();
 
-                    let query = await dao.setModuloPaquetes({
+                    let query = await dao.setServiciosPaquetes({
                         ...array[i],
-                        strResponsables: JSON.stringify(
-                            array[i]?.arrResponsables
-                        ),
+                        intIdPaquete: this.#intIdPaquete,
                         strUsuarioActualizacion: this.#objUser.strEmail,
-                        intIdServicio: this.#intIdServicio
                     });
 
                     if (query.error) {
@@ -155,7 +153,7 @@ class updatePaquetes {
 
         let querySedeTipoTarifaServicio =
             await dao.deleteSedeTipoTarifaPaquetes({
-                intId: this.#intIdServicio,
+                intId: this.#intIdPaquete,
             });
 
         if (querySedeTipoTarifaServicio.error) {
@@ -167,60 +165,9 @@ class updatePaquetes {
             for (let i = 0; i < array.length; i++) {
                 let dao = new classInterfaceDAOPaquetes();
 
-                let query = await dao.setSedeTipoTarifaServicio({
+                let query = await dao.setSedeTipoTarifaPaquete({
                     ...array[i],
                     strUsuarioActualizacion: this.#objUser.strEmail,
-                });
-
-                if (query.error) {
-                    await this.#rollbackTransaction();
-                    throw new Error(query.msg);
-                }
-            }
-        }
-    }
-
-    async #updateAreasPaquetes() {
-        let dao = new classInterfaceDAOPaquetes();
-
-        let queryAreasPaquetes = await dao.deleteAreaPaquetes({
-            intId: this.#intIdServicio,
-        });
-
-        if (queryAreasPaquetes.error) {
-            throw new Error(queryAreasPaquetes.msg);
-        }
-
-        if (this.#objData.arrResponsables.length > 0) {
-            let array = this.#objData.arrResponsables;
-
-            for (let i = 0; i < array.length; i++) {
-                let dao = new classInterfaceDAOPaquetes();
-
-                let query = await dao.setAreasPaquetes({
-                    ...array[i],
-                    strUsuarioActualizacion: this.#objUser.strEmail,
-                });
-
-                if (query.error) {
-                    await this.#rollbackTransaction();
-                    throw new Error(query.msg);
-                }
-            }
-        }
-    }
-
-    async #updateResultServcio() {
-        if (this.#objData.arrAtributos.length > 0) {
-            let array = this.#objData.arrAtributos;
-
-            for (let i = 0; i < array.length; i++) {
-                let dao = new classInterfaceDAOPaquetes();
-
-                let query = await dao.setResultPaquetes({
-                    intIdServicio: this.#intIdServicio,
-                    intIdAtributo: array[i].intIdAtributo,
-                    strResultAtributo: array[i]?.[array[i].strNombreAtributo],
                 });
 
                 if (query.error) {
@@ -235,7 +182,7 @@ class updatePaquetes {
         let dao = new classInterfaceDAOPaquetes();
 
         let queryPaquetes = await dao.deletePaquetes({
-            intId: this.#intIdServicio,
+            intId: this.#intIdPaquete,
         });
 
         if (queryPaquetes.error) {

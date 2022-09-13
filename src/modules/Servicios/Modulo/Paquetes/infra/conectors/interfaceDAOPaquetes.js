@@ -79,27 +79,15 @@ class interfaceDAOPaquetes {
         return result;
     }
 
-    async deleteModuloPaquetes(data) {
+    async deleteServiciosPaquetes(data) {
         let dao = new classDAO();
-        let result = await dao.deleteModuloPaquetes(data);
+        let result = await dao.deleteServiciosPaquetes(data);
         return result;
     }
 
     async deleteSedeTipoTarifaPaquetes(data) {
         let dao = new classDAO();
         let result = await dao.deleteSedeTipoTarifaPaquetes(data);
-        return result;
-    }
-
-    async deleteAreaPaquetes(data) {
-        let dao = new classDAO();
-        let result = await dao.deleteAreaPaquetes(data);
-        return result;
-    }
-
-    async deleteResultadoPaquetes(data) {
-        let dao = new classDAO();
-        let result = await dao.deleteResultadoPaquetes(data);
         return result;
     }
 }
