@@ -49,21 +49,24 @@ class setPaquetes {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
-        //let queryGetPaquetes = await getPaquetes({}, this.#objUser);
-//
-        //if (queryGetPaquetes.error) {
-        //    throw new Error(queryGetPaquetes.msg);
-        //}
-//
-        //let arrayPaquetes = queryGetPaquetes.data;
-//
-        //if (arrayPaquetes?.length > 0) {
-        //    for (let i = 0; i < arrayPaquetes.length; i++) {
-        //        if (this.#objData.objInfoPrincipal.strNombre.trim() === arrayPaquetes[i].objInfoPrincipal.strNombre.trim()) {
-        //            throw new Error("El nombre de este servicio ya existe.");
-        //        }
-        //    }
-        //}
+        let queryGetPaquetes = await getPaquetes({}, this.#objUser);
+
+        if (queryGetPaquetes.error) {
+            throw new Error(queryGetPaquetes.msg);
+        }
+
+        let arrayPaquetes = queryGetPaquetes.data;
+
+        if (arrayPaquetes?.length > 0) {
+            for (let i = 0; i < arrayPaquetes.length; i++) {
+                if (
+                    this.#objData.objInfoPrincipal.strNombre.trim() ===
+                    arrayPaquetes[i].objInfoPrincipal.strNombre.trim()
+                ) {
+                    throw new Error("El nombre de este servicio ya existe.");
+                }
+            }
+        }
     }
 
     async #getIdEstado() {
