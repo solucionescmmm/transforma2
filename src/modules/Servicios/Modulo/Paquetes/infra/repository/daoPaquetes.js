@@ -177,14 +177,6 @@ class daoPaquetes {
             let arrNewData = response.recordsets[0];
 
             for (let i = 0; i < arrNewData.length; i++) {
-                if (arrNewData[i].arrModulos) {
-                    let { arrModulos } = arrNewData[i];
-
-                    if (validator.isJSON(arrModulos)) {
-                        arrModulos = JSON.parse(arrModulos);
-                        arrNewData[i].arrModulos = arrModulos;
-                    }
-                }
                 if (arrNewData[i].arrSedesTarifas) {
                     let { arrSedesTarifas } = arrNewData[i];
 
@@ -193,22 +185,12 @@ class daoPaquetes {
                         arrNewData[i].arrSedesTarifas = arrSedesTarifas;
                     }
                 }
-                if (arrNewData[i].arrResponsables) {
-                    let { arrResponsables } = arrNewData[i];
+                if (arrNewData[i].arrServicios) {
+                    let { arrServicios } = arrNewData[i];
 
-                    if (validator.isJSON(arrResponsables)) {
-                        arrResponsables = JSON.parse(arrResponsables);
-                        arrNewData[i].arrResponsables = arrResponsables;
-                    }
-                }
-
-                if (arrNewData[i].objResultAtributos) {
-                    let { objResultAtributos } = arrNewData[i];
-
-                    if (validator.isJSON(objResultAtributos)) {
-                        objResultAtributos = JSON.parse(objResultAtributos);
-                        arrNewData[i].objResultAtributos =
-                            objResultAtributos[0];
+                    if (validator.isJSON(arrServicios)) {
+                        arrServicios = JSON.parse(arrServicios);
+                        arrNewData[i].arrServicios = arrServicios;
                     }
                 }
             }
