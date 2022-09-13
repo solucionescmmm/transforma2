@@ -50,6 +50,7 @@ app.use(require("../../Servicios/Maestros/Tipos de Campos/infra/http/apiTipoCamp
 app.use(require("../../Servicios/Maestros/Tipos de Servicios/infra/http/apiTiposServicios.routes"))
 app.use(require("../../Servicios/Maestros/ProyectosEspeciales/infra/http/apiProyectosEspeciales.routes"))
 app.use(require("../../Servicios/Modulo/Servicio/infra/http/apiServicios.routes"))
+app.use(require("../../Servicios/Modulo/Paquetes/infra/http/apiPaquetes.routes"))
 app.use(require("../../Usuarios/infra/http/apiUsuarios.routes"))
 
 

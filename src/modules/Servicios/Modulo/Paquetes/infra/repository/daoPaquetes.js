@@ -147,17 +147,14 @@ class daoPaquetes {
             SELECT 
             
             Paquete.intId,
-            Paquete.intIdTipoPaquete,
             Paquete.strNombre,
             Paquete.strDescripcion,
-            Paquete.btModulos,
             Paquete.intIdEstado,
             Estado.strNombre as strEstado,
             Paquete.dtmCreacion,
             Paquete.strUsuarioCreacion,
             Paquete.dtmActualizacion,
             Paquete.strUsuarioActualizacion,
-            TipoPaquete.strNombre as strNombreTipoPaquete,
             (
                 SELECT * FROM tbl_Paquetes_Servicios ServiciosPaquete
                 WHERE ServiciosPaquete.intIdPaquete = Paquete.intId
@@ -166,20 +163,11 @@ class daoPaquetes {
             (
                 SELECT 
                 *,
-                Valor as dblValor FROM tbl_Sede_TipoTarifa_Paquete SedeTipoTarifa
+                Valor as dblValor FROM tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa
                 WHERE SedeTipoTarifa.intIdPaquete = Paquete.intId
                 FOR JSON PATH
-            ) as arrSedesTarifas,
-            (
-                SELECT * FROM tbl_Area_Paquetes AreaPaquete
-                WHERE AreaPaquete.intIdPaquete = Paquete.intId
-                FOR JSON PATH
-            ) as arrResponsables,
-            (
-                SELECT * FROM tbl_Result_TipoPaquete_Paquete ResultadoPaquete
-                WHERE ResultadoPaquete.intIdPaquete = Paquete.intId
-                FOR JSON PATH  
-            )as objResultAtributos
+            ) as arrSedesTarifas
+
             FROM tbl_Paquetes Paquete
 
             INNER JOIN tbl_Estados Estado on Estado.intId = Paquete.intIdEstado

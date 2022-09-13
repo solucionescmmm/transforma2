@@ -31,8 +31,6 @@ class setPaquetes {
         await this.#setPaquetes();
         await this.#setServiciosPaquetes();
         await this.#setSedeTipoTarifaPaquete();
-        await this.#setAreasPaquetes();
-        await this.#setResultServcio();
         return this.#objResult;
     }
 
