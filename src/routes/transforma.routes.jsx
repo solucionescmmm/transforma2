@@ -33,6 +33,12 @@ const AdminServicesCreate = lazy(() =>
     import("../modules/Admin/pages/Servicios/Create&Edit")
 );
 
+const AdminPaquetes = lazy(() => import("../modules/Admin/pages/Paquetes/"));
+
+const AdminPaquetesCreate = lazy(() =>
+    import("../modules/Admin/pages/Paquetes/Create&Edit")
+);
+
 const REmpresarios = lazy(() =>
     import("../modules/Empresarios/pages/Read/readEmpresarios")
 );
@@ -166,6 +172,46 @@ const RoutesTransforma = ({ path }) => {
                                 component={() => (
                                     <div className="animate__animated animate__fadeIn">
                                         <AdminServicesCreate isPreview />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/admin/paquetes"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <AdminPaquetes />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/admin/paquetes/create"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <AdminPaquetesCreate />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/admin/paquetes/edit/:intId"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <AdminPaquetesCreate isEdit />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/admin/paquetes/preview/:intId"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <AdminPaquetesCreate isPreview />
                                     </div>
                                 )}
                             />
