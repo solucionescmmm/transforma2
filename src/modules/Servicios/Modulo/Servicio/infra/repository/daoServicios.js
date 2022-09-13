@@ -20,6 +20,7 @@ class daoServicios {
                 ${data.intIdTipoServicio},
                 ${data.strDescripcion},
                 ${data.bitModulos},
+                ${data.intIdProyectosEspeciales},
                 ${data.intIdEstado},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
@@ -389,12 +390,13 @@ class daoServicios {
             let response = await conn.query`    
                 UPDATE tbl_Servicios
 
-                SET intIdTipoServicio       = COALESCE(${data.intIdTipoServicio}, intIdTipoServicio),
-                    strDescripcion          = COALESCE(${data.strDescripcion}, strDescripcion),
-                    btModulos               = COALESCE(${data.bitModulos}, btModulos),
-                    intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
-                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
-                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+                SET intIdTipoServicio        = COALESCE(${data.intIdTipoServicio}, intIdTipoServicio),
+                    strDescripcion           = COALESCE(${data.strDescripcion}, strDescripcion),
+                    btModulos                = COALESCE(${data.bitModulos}, btModulos),
+                    intIdProyectosEspeciales = COALESCE(${data.intIdProyectosEspeciales}, intIdProyectosEspeciales),
+                    intIdEstado              = COALESCE(${data.intIdEstado}, intIdEstado),
+                    dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
+                    strUsuarioActualizacion  = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 
                 WHERE intId = ${data.intId}
                 

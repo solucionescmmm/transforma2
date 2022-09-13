@@ -98,6 +98,10 @@ class updateServicios {
             intId: this.#objData.intId,
             ...this.#objData.objInfoPrincipal,
             intIdEstado: this.#intIdEstado,
+            intIdProyectosEspeciales:
+                this.#objData.objInfoPrincipal.bitProyectoEs === true
+                    ? this.#objData.objInfoPrincipal.intIdProyectoEs
+                    : null,
             strUsuarioActualizacion: this.#objUser.strEmail,
         });
 
