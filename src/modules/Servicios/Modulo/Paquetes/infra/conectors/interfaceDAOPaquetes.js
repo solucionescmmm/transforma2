@@ -19,6 +19,12 @@ class interfaceDAOPaquetes {
         return result;
     }
 
+    async setAreasPaquetes(data) {
+        let dao = new classDAO();
+        let result = await dao.setAreasPaquetes(data);
+        return result;
+    }
+
     async getPaquetes(data){
         let dao = new classDAO()
         let result = dao.getPaquetes(data)

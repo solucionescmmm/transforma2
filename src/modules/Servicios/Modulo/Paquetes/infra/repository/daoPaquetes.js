@@ -86,7 +86,7 @@ class daoPaquetes {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setAreasPaquetes de la clase daoPaquetes",
+                    "Error en el metodo setServiciosPaquetes de la clase daoPaquetes",
             };
 
             sql.close(conexion);
@@ -132,6 +132,49 @@ class daoPaquetes {
                 msg:
                     error.message ||
                     "Error en el metodo setSedeTipoTarifaPaquete de la clase daoPaquetes",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async setAreasPaquetes(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+            DECLARE @intId INTEGER;
+            
+            INSERT INTO tbl_Area_Paquetes VALUES
+            (
+                ${data.intIdPaquete},
+                ${data.intIdArea},
+                GETDATE(),
+                ${data.strUsuarioCreacion},
+                GETDATE(),
+                NULL
+            )
+            
+            SET @intId = SCOPE_IDENTITY();
+    
+            SELECT * FROM tbl_Area_Paquetes WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El area asociado al paquete, fue agregada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setAreasPaquetes de la clase daoPaquetes",
             };
 
             sql.close(conexion);

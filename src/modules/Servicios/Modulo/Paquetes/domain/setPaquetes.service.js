@@ -30,9 +30,10 @@ class setPaquetes {
         await this.#getIdEstado();
         await this.#setPaquetes();
         await this.#setServiciosPaquetes();
-        await this.#setSedeTipoTarifaPaquete();
+        await this.#setSedeTipoTarifaPaquetes();
+        await this.#setAreasPaquetes();
         return this.#objResult;
-    }
+    } 
 
     async #validations() {
         if (
@@ -104,31 +105,27 @@ class setPaquetes {
     }
 
     async #setServiciosPaquetes() {
-        if (this.#objData.objInfoPrincipal.bitModulos) {
-            if (this.#objData.arrServicios.length > 0) {
-                let array = this.#objData.arrServicios;
+        if (this.#objData.objInfoPrincipal.arrServicios.length > 0) {
+            let array = this.#objData.objInfoPrincipal.arrServicios;
 
-                for (let i = 0; i < array.length; i++) {
-                    if (array[i].intHoras !== "") {
-                        let dao = new classInterfaceDAOPaquetes();
+            for (let i = 0; i < array.length; i++) {
+                let dao = new classInterfaceDAOPaquetes();
 
-                        let query = await dao.setServiciosPaquetes({
-                            ...array[i],
-                            intIdPaquete: this.#intIdPaquete,
-                            strUsuarioCreacion: this.#objUser.strEmail,
-                        });
+                let query = await dao.setServiciosPaquetes({
+                    ...array[i],
+                    intIdPaquete: this.#intIdPaquete,
+                    strUsuarioCreacion: this.#objUser.strEmail,
+                });
 
-                        if (query.error) {
-                            await this.#rollbackTransaction();
-                            throw new Error(query.msg);
-                        }
-                    }
+                if (query.error) {
+                    await this.#rollbackTransaction();
+                    throw new Error(query.msg);
                 }
             }
         }
     }
 
-    async #setSedeTipoTarifaPaquete() {
+    async #setSedeTipoTarifaPaquetes() {
         if (this.#objData.arrSedesTarifas.length > 0) {
             let array = this.#objData.arrSedesTarifas;
 
@@ -137,6 +134,29 @@ class setPaquetes {
                     let dao = new classInterfaceDAOPaquetes();
 
                     let query = await dao.setSedeTipoTarifaPaquete({
+                        ...array[i],
+                        intIdPaquete: this.#intIdPaquete,
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
+
+                    if (query.error) {
+                        await this.#rollbackTransaction();
+                        throw new Error(query.msg);
+                    }
+                }
+            }
+        }
+    }
+
+    async #setAreasPaquetes() {
+        if (this.#objData.arrResponsables.length > 0) {
+            let array = this.#objData.arrResponsables;
+
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].intIdSede !== "") {
+                    let dao = new classInterfaceDAOPaquetes();
+
+                    let query = await dao.setAreasPaquetes({
                         ...array[i],
                         intIdPaquete: this.#intIdPaquete,
                         strUsuarioCreacion: this.#objUser.strEmail,
