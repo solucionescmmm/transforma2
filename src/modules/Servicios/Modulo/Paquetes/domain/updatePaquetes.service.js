@@ -34,6 +34,7 @@ class updatePaquetes {
             await this.#updatePaquetes();
             await this.#updateServiciosPaquetes();
             await this.#updateSedeTipoTarifaServicio();
+            await this.#updateAreasServicio();
             return this.#objResult;
         }
     }
@@ -120,29 +121,27 @@ class updatePaquetes {
 
         let queryModuloPaquetes = await dao.deleteServiciosPaquetes({
             intId: this.#intIdPaquete,
-        }); 
+        });
 
         if (queryModuloPaquetes.error) {
             throw new Error(queryModuloPaquetes.msg);
         }
 
-        if (this.#objData.objInfoPrincipal.bitModulos) {
-            if (this.#objData.arrModulos.length > 0) {
-                let array = this.#objData.arrModulos;
+        if (this.#objData.arrModulos.length > 0) {
+            let array = this.#objData.arrModulos;
 
-                for (let i = 0; i < array.length; i++) {
-                    let dao = new classInterfaceDAOPaquetes();
+            for (let i = 0; i < array.length; i++) {
+                let dao = new classInterfaceDAOPaquetes();
 
-                    let query = await dao.setServiciosPaquetes({
-                        ...array[i],
-                        intIdPaquete: this.#intIdPaquete,
-                        strUsuarioActualizacion: this.#objUser.strEmail,
-                    });
+                let query = await dao.setServiciosPaquetes({
+                    ...array[i],
+                    intIdPaquete: this.#intIdPaquete,
+                    strUsuarioActualizacion: this.#objUser.strEmail,
+                });
 
-                    if (query.error) {
-                        await this.#rollbackTransaction();
-                        throw new Error(query.msg);
-                    }
+                if (query.error) {
+                    await this.#rollbackTransaction();
+                    throw new Error(query.msg);
                 }
             }
         }
@@ -166,6 +165,36 @@ class updatePaquetes {
                 let dao = new classInterfaceDAOPaquetes();
 
                 let query = await dao.setSedeTipoTarifaPaquete({
+                    ...array[i],
+                    strUsuarioActualizacion: this.#objUser.strEmail,
+                });
+
+                if (query.error) {
+                    await this.#rollbackTransaction();
+                    throw new Error(query.msg);
+                }
+            }
+        }
+    }
+
+    async #updateAreasServicio() {
+        let dao = new classInterfaceDAOPaquetes();
+
+        let querySedeTipoTarifaServicio = await dao.deleteAreasPaquetes({
+            intId: this.#intIdPaquete,
+        });
+
+        if (querySedeTipoTarifaServicio.error) {
+            throw new Error(querySedeTipoTarifaServicio.msg);
+        }
+
+        if (this.#objData.arrResponsables.length > 0) {
+            let array = this.#objData.arrResponsables;
+
+            for (let i = 0; i < array.length; i++) {
+                let dao = new classInterfaceDAOPaquetes();
+
+                let query = await dao.setAreasPaquetes({
                     ...array[i],
                     strUsuarioActualizacion: this.#objUser.strEmail,
                 });

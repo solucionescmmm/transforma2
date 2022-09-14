@@ -209,7 +209,12 @@ class daoPaquetes {
                 Valor as dblValor FROM tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa
                 WHERE SedeTipoTarifa.intIdPaquete = Paquete.intId
                 FOR JSON PATH
-            ) as arrSedesTarifas
+            ) as arrSedesTarifas,
+            (
+                SELECT * FROM tbl_Area_Paquetes AreasPaquete
+                WHERE AreasPaquete.intIdPaquete = Paquete.intId
+                FOR JSON PATH
+            ) as arrResponsables
 
             FROM tbl_Paquetes Paquete
 
@@ -226,6 +231,14 @@ class daoPaquetes {
                     if (validator.isJSON(arrSedesTarifas)) {
                         arrSedesTarifas = JSON.parse(arrSedesTarifas);
                         arrNewData[i].arrSedesTarifas = arrSedesTarifas;
+                    }
+                }
+                if (arrNewData[i].arrResponsables) {
+                    let { arrResponsables } = arrNewData[i];
+
+                    if (validator.isJSON(arrResponsables)) {
+                        arrResponsables = JSON.parse(arrResponsables);
+                        arrNewData[i].arrResponsables = arrResponsables;
                     }
                 }
                 if (arrNewData[i].arrServicios) {
@@ -260,31 +273,6 @@ class daoPaquetes {
 
             sql.close(conexion);
 
-            return result;
-        }
-    }
-
-    async getAtributosTiposPaquetes(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn
-                .request()
-                .input("p_intIdTipoPaquete", sql.VarChar, data.intIdTipoPaquete)
-                .execute("sp_getAtributosTipoPaquete");
-            let result = {
-                error: false,
-                data: response.recordsets[0],
-            };
-            sql.close(conexion);
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg: error.message
-                    ? error.message
-                    : "Error en el metodo getTiposPaquetes de la clase daoPaquetes",
-            };
-            sql.close(conexion);
             return result;
         }
     }
@@ -433,6 +421,33 @@ class daoPaquetes {
                 msg:
                     error.message ||
                     "Error en el metodo deleteSedeTipoTarifaPaquetes de la clase daoPaquetes",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteAreasPaquetes(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn.query`DELETE FROM tbl_Area_Paquetes WHERE intIdPaquete = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: `El servicio, fue eliminado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteAreasPaquetes de la clase daoPaquetes",
             };
 
             sql.close(conexion);

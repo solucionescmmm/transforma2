@@ -45,11 +45,12 @@ const getPaquetes = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i].strUsuarioCreacion,
                     dtmActualizacion: array[i].dtmActualizacion,
                     strUsuarioActualizacion: array[i].strUsuarioActualizacion,
+                    arrServicios: array[i]?.arrServicios || [],
                 };
 
                 data[i] = {
                     objInfoPrincipal,
-                    arrServicios: array[i]?.arrServicios || [],
+                    arrResponsables: array[i]?.arrResponsables || [],
                     arrSedesTarifas: array[i]?.arrSedesTarifas || [],
                 };
             }

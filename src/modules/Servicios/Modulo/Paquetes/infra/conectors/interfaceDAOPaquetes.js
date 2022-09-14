@@ -96,6 +96,12 @@ class interfaceDAOPaquetes {
         let result = await dao.deleteSedeTipoTarifaPaquetes(data);
         return result;
     }
+
+    async deleteAreasPaquetes(data) {
+        let dao = new classDAO();
+        let result = await dao.deleteAreasPaquetes(data);
+        return result;
+    }
 }
 
 module.exports = interfaceDAOPaquetes;
