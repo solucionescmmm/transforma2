@@ -41,6 +41,9 @@ const CreateTareas = lazy(() =>
     import("../modules/Empresarios/pages/Tareas/create&Edit")
 );
 
+const Documentos = lazy(() => import("../modules/Empresarios/pages/Documentos"));
+
+
 const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
     if (route.location === "Personas") {
         return (
@@ -327,6 +330,28 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     intId={route.params.intId}
                     intIdIdea={route.params.intIdIdea}
                     onChangeRoute={onChangeRoute}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "Documentos") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Tareas")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <Documentos
+                      onChangeRoute={onChangeRoute}
+                      intIdIdea={route.params.intIdIdea}
                 />
             </Grid>
         );

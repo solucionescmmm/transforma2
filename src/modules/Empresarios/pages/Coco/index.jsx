@@ -1159,6 +1159,9 @@ const Coco = () => {
                                             display: "flex",
                                             alignItems: "center",
                                         }}
+                                        onClick={() =>
+                                            onChangeRoute("Documentos")
+                                        }
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
@@ -1209,7 +1212,7 @@ const Coco = () => {
                                         <Button
                                             size="small"
                                             variant="contained"
-                                            onClick={() => onChangeRoute("")}
+                                            onClick={() => onChangeRoute("Documentos")}
                                             sx={{
                                                 fontSize: "11px",
                                             }}

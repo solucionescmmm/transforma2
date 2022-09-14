@@ -12,6 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -24,6 +25,7 @@ import {
 import DropdownServicios from "../../../components/dropdownServicios";
 
 const InfoPrincipal = ({
+    data: dataPaquetes,
     isEdit,
     disabled,
     values,
@@ -127,6 +129,102 @@ const InfoPrincipal = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
+                    <Grid item xs={12}>
+                        <Controller
+                            name="objInfoPrincipal.strNombre"
+                            defaultValue={data.strNombre}
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Nombre del paquete"
+                                    name={name}
+                                    required
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoPrincipal?.strNombre
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal?.strNombre
+                                            ?.message ||
+                                        "Digita el nombre del paquete"
+                                    }
+                                />
+                            )}
+                            rules={{
+                                required:
+                                    "Por favor, digita el nombre del servicio",
+
+                                validate: (value) => {
+                                    if (isEdit) {
+                                        if (
+                                            dataPaquetes?.find(
+                                                (a) =>
+                                                    a.objInfoPrincipal.strNombre.toLowerCase() ===
+                                                        value.toLowerCase() &&
+                                                    a.objInfoPrincipal.intId !==
+                                                        data.intId
+                                            )
+                                        ) {
+                                            return `Ya existe un paquete registrado como ${value}`;
+                                        }
+                                    } else {
+                                        if (
+                                            dataPaquetes?.find(
+                                                (a) =>
+                                                    a.objInfoPrincipal.strNombre.toLowerCase() ===
+                                                    value.toLowerCase()
+                                            )
+                                        ) {
+                                            return `Ya existe un paquete registrado como ${value}`;
+                                        }
+                                    }
+                                },
+                            }}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            name="objInfoPrincipal.strDescripcion"
+                            defaultValue={data.strDescripcion}
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Descripción del paquete"
+                                    name={name}
+                                    value={value}
+                                    required
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    multiline
+                                    rows={4}
+                                    variant="outlined"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoPrincipal?.strDescripcion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal?.strDescripcion
+                                            ?.message ||
+                                        "Digita la descripción del paquete"
+                                    }
+                                />
+                            )}
+                            rules={{
+                                required:
+                                    "Por favor, digita la descripción del paquete",
+                            }}
+                            control={control}
+                        />
+                    </Grid>
+
                     <Grid item xs={12}>
                         <Controller
                             name="objInfoPrincipal.intIdServicio"

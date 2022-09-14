@@ -4,7 +4,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 // Hooks
-import useGetServicios from "../../../hooks/useGetServicios";
+import useGetPaquetes from "../../../hooks/useGetPaquetes";
 
 // Librerias
 import axios from "axios";
@@ -148,7 +148,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
 
     const { intId } = useParams();
 
-    const { getUniqueData, data: dataServicios } = useGetServicios({
+    const { getUniqueData, data: dataPaquetes } = useGetPaquetes({
         autoLoad: true,
     });
 
@@ -175,7 +175,6 @@ const CreateEdit = ({ isEdit, isPreview }) => {
         setFlagSubmit(true);
     };
 
-
     const submitData = useCallback(
         async (signalSubmitData) => {
             setLoading(true);
@@ -189,8 +188,8 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_SERVICIO_UPDATE
-                            : process.env.REACT_APP_API_TRANSFORMA_SERVICIO_SET
+                                  .REACT_APP_API_TRANSFORMA_PAQUETES_UPDATE
+                            : process.env.REACT_APP_API_TRANSFORMA_PAQUETES_SET
                     }`,
                     data,
                     headers: {
@@ -451,6 +450,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     setError={setError}
                                     clearErrors={clearErrors}
                                     watch={watch}
+                                    data={dataPaquetes}
                                 />
                             </Grid>
 
