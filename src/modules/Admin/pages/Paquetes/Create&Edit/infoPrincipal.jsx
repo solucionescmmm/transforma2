@@ -37,7 +37,7 @@ const InfoPrincipal = ({
 
     const [data, setData] = useState({
         intId: "",
-        intIdServicio: [],
+        arrServicios: [],
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -227,8 +227,8 @@ const InfoPrincipal = ({
 
                     <Grid item xs={12}>
                         <Controller
-                            name="objInfoPrincipal.intIdServicio"
-                            defaultValue={data.intIdServicio}
+                            name="objInfoPrincipal.arrServicios"
+                            defaultValue={data.arrServicios}
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownServicios
                                     multiple
@@ -239,12 +239,12 @@ const InfoPrincipal = ({
                                     onChange={(_, value) => onChange(value)}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.intIdServicio
+                                        errors?.objInfoPrincipal?.arrServicios
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.intIdServicio
+                                        errors?.objInfoPrincipal?.arrServicios
                                             ?.message ||
                                         "Selecciona uno o varios servicios"
                                     }

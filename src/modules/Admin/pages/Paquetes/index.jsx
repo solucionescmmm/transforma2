@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 
 // Hooks
-import useGetServicios from "../../hooks/useGetServicios";
+import useGetPaquetes from "../../hooks/useGetPaquetes";
 
 //Componentes de Material UI
 import {
@@ -124,7 +124,7 @@ const ReadPaquetes = () => {
     const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
-    const { data, refreshGetData } = useGetServicios({ autoLoad: true });
+    const { data, refreshGetData } = useGetPaquetes({ autoLoad: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
