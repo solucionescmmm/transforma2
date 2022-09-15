@@ -64,7 +64,7 @@ class setPaquetes {
                     this.#objData.objInfoPrincipal.strNombre.trim() ===
                     arrayPaquetes[i].objInfoPrincipal.strNombre.trim()
                 ) {
-                    throw new Error("El nombre de este servicio ya existe.");
+                    throw new Error("El nombre de este paquete ya existe.");
                 }
             }
         }
@@ -114,12 +114,12 @@ class setPaquetes {
                 let query = await dao.setServiciosPaquetes({
                     ...array[i],
                     intIdPaquete: this.#intIdPaquete,
+                    intIdServicio: array[i].objInfoPrincipal.intId,
                     strUsuarioCreacion: this.#objUser.strEmail,
                 });
 
                 if (query.error) {
-                    await this.#rollbackTransaction();
-                    throw new Error(query.msg);
+                    await this.#rollbackTransaction(); 
                 }
             }
         }
@@ -130,7 +130,7 @@ class setPaquetes {
             let array = this.#objData.arrSedesTarifas;
 
             for (let i = 0; i < array.length; i++) {
-                if (array[i].intIdSede !== "") {
+                
                     let dao = new classInterfaceDAOPaquetes();
 
                     let query = await dao.setSedeTipoTarifaPaquete({
@@ -141,9 +141,8 @@ class setPaquetes {
 
                     if (query.error) {
                         await this.#rollbackTransaction();
-                        throw new Error(query.msg);
                     }
-                }
+                
             }
         }
     }
@@ -153,7 +152,7 @@ class setPaquetes {
             let array = this.#objData.arrResponsables;
 
             for (let i = 0; i < array.length; i++) {
-                if (array[i].intIdSede !== "") {
+                
                     let dao = new classInterfaceDAOPaquetes();
 
                     let query = await dao.setAreasPaquetes({
@@ -164,9 +163,8 @@ class setPaquetes {
 
                     if (query.error) {
                         await this.#rollbackTransaction();
-                        throw new Error(query.msg);
                     }
-                }
+                
             }
         }
     }

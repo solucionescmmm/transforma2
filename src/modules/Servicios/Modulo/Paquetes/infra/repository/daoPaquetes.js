@@ -347,15 +347,14 @@ class daoPaquetes {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn.query`
-                DELETE FROM tbl_Result_TipoPaquete_Paquete WHERE intIdPaquete = ${data.intId}
                 DELETE FROM tbl_Area_Paquetes WHERE intIdPaquete = ${data.intId}
-                DELETE FROM tbl_Sede_TipoTarifa_Paquete WHERE intIdPaquete = ${data.intId}
-                DELETE FROM tbl_modulos_Paquete WHERE intIdPaquete = ${data.intId}
+                DELETE FROM tbl_Sede_TipoTarifa_Paquetes WHERE intIdPaquete = ${data.intId}
+                DELETE FROM tbl_Paquetes_Servicios WHERE intIdPaquete = ${data.intId}
                 DELETE FROM tbl_Paquetes WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
-                msg: `El servicio, fue eliminado con éxito.`,
+                msg: `El paquete, fue eliminado con éxito.`,
             };
 
             sql.close(conexion);
