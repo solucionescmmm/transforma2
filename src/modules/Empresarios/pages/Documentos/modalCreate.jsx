@@ -22,13 +22,13 @@ import {
     CircularProgress,
     Alert,
     AlertTitle,
+    Grid,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import useGetMessage from "../../hooks/useGetMessage";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -37,7 +37,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
+const ModalCreate = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -54,7 +54,6 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
 
     const [data, setData] = useState({
         intId: null,
-        intIdEstado: "",
     });
 
     //===============================================================================================================================================
@@ -62,12 +61,6 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
     //===============================================================================================================================================
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-    const { data: message, refreshGetData } = useGetMessage({
-        strNombreMaestro: "Servicio",
-        intIdMaestro: values?.intId,
-        autoLoad: false,
-    });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -82,12 +75,11 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
 
             await axios(
                 {
-                    method: "PUT",
+                    method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_PAQUETES_UPDATE}`,
-                    data: {
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_TAREAS_DELETE}`,
+                    params: {
                         intId: data.intId,
-                        bitActivar: data.intIdEstado === 1 ? false : true,
                     },
                     headers: {
                         token,
@@ -133,21 +125,14 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (values) {
+        if (intId) {
             setData({
-                intId: values.intId,
-                intIdEstado: values.intIdEstado,
-            });
-
-            refreshGetData({
-                strNombreMaestro: "Servicio",
-                intIdMaestro: values?.intId,
+                intId,
             });
         }
 
         setLoading(false);
-        // eslint-disable-next-line
-    }, [values]);
+    }, [intId]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -163,7 +148,7 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
 
     useEffect(() => {
         if (success) {
-            refresh();
+            refresh({intIdIdea});
             handleOpenDialog();
 
             setSucces(false);
@@ -203,7 +188,9 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
                     ) : (
                         <Alert severity="error">
                             <AlertTitle>
-                                <b>No se encontro el identificador del área</b>
+                                <b>
+                                    No se encontro el identificador de la tarea
+                                </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
                             datos, por favor escala al área de TI para mayor
@@ -227,24 +214,23 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
             open={loading ? true : open}
             onClose={handleOpenDialog}
             fullWidth
+            PaperProps={{
+                style: {
+                    backgroundColor: "#FDEDED",
+                },
+            }}
         >
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>
-                {data.intIdEstado === 1
-                    ? "¿Deseas desactivar el registro seleccionado?"
-                    : "¿Deseas activar el registro seleccionado?"}
-            </DialogTitle>
+            <DialogTitle>{`¿Deseas eliminar la tarea seleccionada?`}</DialogTitle>
 
             <DialogContent>
-                <DialogContentText>
-                    {data.intIdEstado === 1
-                        ? message
-                            ? message
-                            : "Al desactivar el registro, dejará de listarse en el sistema y en los servicios"
-                        : "Al activar el registro, se listará de forma automática en todo el sistema"}
-                </DialogContentText>
+                <Grid container direction="row">
+                    <Grid item xs={12}>
+                        
+                    </Grid>
+                </Grid>
             </DialogContent>
 
             <DialogActions>
@@ -269,4 +255,4 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
     );
 };
 
-export default ModalState;
+export default ModalCreate;
