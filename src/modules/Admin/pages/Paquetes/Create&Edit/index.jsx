@@ -273,7 +273,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
 
                             setData({
                                 ...data,
-                                arrAtributos: arrAtributos | [],
+                                arrAtributos: arrAtributos || [],
                                 arrSedesTarifas,
                                 arrResponsables,
                             });

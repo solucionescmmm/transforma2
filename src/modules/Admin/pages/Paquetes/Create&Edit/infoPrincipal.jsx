@@ -38,6 +38,8 @@ const InfoPrincipal = ({
     const [data, setData] = useState({
         intId: "",
         arrServicios: [],
+        strNombre: "",
+        strDescripcion: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -59,7 +61,9 @@ const InfoPrincipal = ({
         if (Object.keys(values).length > 0) {
             setData({
                 intId: values.intId,
-                intIdServicio: values.intIdServicio || [],
+                arrServicios: values.arrServicios || [],
+                strNombre: values.strNombre,
+                strDescripcion: values.strDescripcion,
             });
         }
 

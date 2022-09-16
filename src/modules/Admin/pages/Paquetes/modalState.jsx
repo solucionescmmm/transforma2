@@ -84,7 +84,7 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
                 {
                     method: "PUT",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_SERVICIO_UPDATE}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_PROYECTOS_ES_PUT}`,
                     data: {
                         intId: data.intId,
                         bitActivar: data.intIdEstado === 1 ? false : true,
