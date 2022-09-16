@@ -3,6 +3,9 @@ const validator = require("validator").default;
 //Clases
 const classInterfaceDAOPaquetes = require("../infra/conectors/interfaceDAOPaquetes");
 
+//Servicios
+const ServiceGetServicio = require("../../Servicio/domain/getServicios.service");
+
 const getPaquetes = async (objParams, strDataUser) => {
     let { intId } = objParams;
 
@@ -35,6 +38,21 @@ const getPaquetes = async (objParams, strDataUser) => {
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
+                let arrServicios = [];
+                let arrayDataServicios = array[i]?.arrServicios;
+
+                for (let j = 0; j < arrayDataServicios.length; j++) {
+                    let queryGetServicios = await ServiceGetServicio(
+                        { intId: arrayDataServicios[j].intIdServicio },
+                        strDataUser
+                    );
+
+                    if (queryGetServicios.error) {
+                        throw new Error(queryGetServicios.msg);
+                    }
+
+                    arrServicios.push(queryGetServicios.data[0]);
+                }
                 let objInfoPrincipal = {
                     intId: array[i].intId,
                     strNombre: array[i].strNombre,
@@ -45,7 +63,7 @@ const getPaquetes = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i].strUsuarioCreacion,
                     dtmActualizacion: array[i].dtmActualizacion,
                     strUsuarioActualizacion: array[i].strUsuarioActualizacion,
-                    arrServicios: array[i]?.arrServicios || [],
+                    arrServicios,
                 };
 
                 data[i] = {
