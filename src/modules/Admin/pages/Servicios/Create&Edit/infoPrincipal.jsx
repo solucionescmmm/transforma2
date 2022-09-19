@@ -56,7 +56,7 @@ const InfoPrincipal = ({
         bitModulos: "",
     });
 
-    const [openCollapese, setOpenCollapse] = useState(false);
+    const [openCollapese, setOpenCollapse] = useState(true);
 
     const { getUniqueData: getDataTipoServicio } = useGetTiposServicio({
         autoLoad: false,
@@ -65,13 +65,6 @@ const InfoPrincipal = ({
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
     };
-
-    useEffect(() => {
-        if (isEdit || isPreview) {
-            handlerChangeOpenCollapse();
-        }
-        // eslint-disable-next-line
-    }, [isEdit, isPreview]);
 
     useEffect(() => {
         setLoading(true);
@@ -180,7 +173,9 @@ const InfoPrincipal = ({
                                         onChange(e);
                                         fntGetData(e.target.value);
                                     }}
-                                    disabled={disabled}
+                                    disabled={
+                                        isEdit || isPreview ? true : disabled
+                                    }
                                     required
                                     error={
                                         errors?.objInfoPrincipal

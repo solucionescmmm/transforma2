@@ -188,7 +188,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh }) => {
                         <Alert severity="error">
                             <AlertTitle>
                                 <b>
-                                    No se encontro el identificador del servicio
+                                    No se encontro el identificador del paquete
                                 </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
@@ -222,7 +222,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar el servicio seleccionado?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas eliminar el paquete seleccionado?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>

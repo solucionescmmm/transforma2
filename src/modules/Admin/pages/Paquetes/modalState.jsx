@@ -64,7 +64,7 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const { data: message, refreshGetData } = useGetMessage({
-        strNombreMaestro: "Servicio",
+        strNombreMaestro: "Paquete",
         intIdMaestro: values?.intId,
         autoLoad: false,
     });

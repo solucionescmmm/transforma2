@@ -159,177 +159,169 @@ const Coco = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Paper
+                    <Paper
+                        sx={{
+                            padding: "15px",
+                            marginTop: "30px",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            gap: "30px"
+                        }}
+                        elevation={0}
+                    >
+                        <Avatar
                             sx={{
-                                padding: "15px",
-                                marginTop: "30px",
-                                display: "flex",
-                                justifyContent: "space-around",
+                                width: 50,
+                                height: 50,
                             }}
-                            elevation={0}
+                            alt="logo"
+                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objInfoEmpresa.strURLFileLogoEmpresa}`}
+                        />
+
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                            }}
                         >
-                            <Avatar
-                                sx={{
-                                    width: 50,
-                                    height: 50,
-
-                                    display: "flex",
-                                    marginRight: "80px",
-                                }}
-                                alt="logo"
-                                src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objInfoEmpresa.strURLFileLogoEmpresa}`}
-                            />
-
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    marginRight: "180px",
-                                }}
-                            >
-                                <Typography>
-                                    <span style={{ color: "#00BAB3" }}>
-                                        Representante:
-                                    </span>
-                                    {objInteresado?.objEmpresario
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
+                                    Representante:
+                                </span>
+                                {objInteresado?.objEmpresario
                                         ?.filter(
                                             (p) =>
                                                 p.strTipoEmpresario ===
                                                 "Principal"
                                         )
                                         ?.at(0)?.strNombres +
-                                        " " +
-                                        objInteresado?.objEmpresario
+                                    " " +
+                                    objInteresado?.objEmpresario
                                         ?.filter(
                                             (p) =>
                                                 p.strTipoEmpresario ===
                                                 "Principal"
                                         )
                                         ?.at(0)
-                                            ?.strApellidos || ""}
-                                </Typography>
+                                        ?.strApellidos || ""}
+                            </Typography>
 
-                                <Typography>
-                                    <span style={{ color: "#00BAB3" }}>
-                                        Nombre de la iniciativa:
-                                    </span>
-                                    {objInteresado?.objInfoEmpresa
-                                        ?.strNombreMarca || ""}
-                                </Typography>
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
+                                    Nombre de la iniciativa:
+                                </span>
+                                {objInteresado?.objInfoEmpresa
+                                    ?.strNombreMarca || ""}
+                            </Typography>
 
-                                <Typography>
-                                    <span style={{ color: "#00BAB3" }}>
-                                        Categoría:
-                                    </span>
-                                </Typography>
-                            </Box>
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
+                                    Categoría:
+                                </span>
+                            </Typography>
+                        </Box>
 
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    marginRight: "180px",
-                                }}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                            }}
+                        >
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
+                                    Teléfono:
+                                </span>
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
+                                    ?.strCelular1 || ""}
+                            </Typography>
+
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
+                                    Estado:
+                                </span>
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
+                                    ?.strEstadoVinculacion || ""}
+                            </Typography>
+
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>NIT:</span>
+                            </Typography>
+                        </Box>
+
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexGrow: "1",
+                                flexDirection: "column",
+                            }}
+                        >
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
+                                    Correo:
+                                </span>
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
+                                    ?.strCorreoElectronico1 || ""}
+                            </Typography>
+
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>Sede:</span>
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)?.strSede ||
+                                    ""}
+                            </Typography>
+
+                            <Typography>
+                                <span style={{ color: "#00BAB3" }}>
+                                    Fecha de vinculación:
+                                </span>
+                                {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)
+                                    ?.dtFechaVinculacion || ""}
+                            </Typography>
+                        </Box>
+
+                        <Box sx={{ margin: "auto" }}>
+                            <Button
+                                variant="contained"
+                                onClick={() =>
+                                    location.push(
+                                        `/transforma/asesor/empresario/edit/${intId}`
+                                    )
+                                }
                             >
-                                <Typography>
-                                    <span style={{ color: "#00BAB3" }}>
-                                        Teléfono:
-                                    </span>
-                                    {objInteresado?.objEmpresario
-                                        ?.filter(
-                                            (p) =>
-                                                p.strTipoEmpresario ===
-                                                "Principal"
-                                        )
-                                        ?.at(0)
-                                        ?.strCelular1 || ""}
-                                </Typography>
-
-                                <Typography>
-                                    <span style={{ color: "#00BAB3" }}>
-                                        Estado:
-                                    </span>
-                                    {objInteresado?.objEmpresario
-                                        ?.filter(
-                                            (p) =>
-                                                p.strTipoEmpresario ===
-                                                "Principal"
-                                        )
-                                        ?.at(0)
-                                        ?.strEstadoVinculacion || ""}
-                                </Typography>
-
-                                <Typography>
-                                    <span style={{ color: "#00BAB3" }}>
-                                        NIT:
-                                    </span>
-                                </Typography>
-                            </Box>
-
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexGrow: "1",
-                                    flexDirection: "column",
-                                }}
-                            >
-                                <Typography>
-                                    <span style={{ color: "#00BAB3" }}>
-                                        Correo:
-                                    </span>
-                                    {objInteresado?.objEmpresario
-                                        ?.filter(
-                                            (p) =>
-                                                p.strTipoEmpresario ===
-                                                "Principal"
-                                        )
-                                        ?.at(0)
-                                        ?.strCorreoElectronico1 || ""}
-                                </Typography>
-
-                                <Typography>
-                                    <span style={{ color: "#00BAB3" }}>
-                                        Sede:
-                                    </span>
-                                    {objInteresado?.objEmpresario
-                                        ?.filter(
-                                            (p) =>
-                                                p.strTipoEmpresario ===
-                                                "Principal"
-                                        )
-                                        ?.at(0)
-                                        ?.strSede || ""}
-                                </Typography>
-
-                                <Typography>
-                                    <span style={{ color: "#00BAB3" }}>
-                                        Fecha de vinculación:
-                                    </span>
-                                    {objInteresado?.objEmpresario
-                                        ?.filter(
-                                            (p) =>
-                                                p.strTipoEmpresario ===
-                                                "Principal"
-                                        )
-                                        ?.at(0)
-                                        ?.dtFechaVinculacion || ""}
-                                </Typography>
-                            </Box>
-
-                            <Box sx={{ margin: "auto" }}>
-                                <Button
-                                    variant="contained"
-                                    onClick={() =>
-                                        location.push(
-                                            `/transforma/asesor/empresario/edit/${intId}`
-                                        )
-                                    }
-                                >
-                                    Editar
-                                </Button>
-                            </Box>
-                        </Paper>
-                    </Grid>
+                                Editar
+                            </Button>
+                        </Box>
+                    </Paper>
+                </Grid>
                 </Grid>
                 <Routes route={route} onChangeRoute={onChangeRoute} refreshGlobal={refreshGetData} />
             </Fragment>
@@ -378,7 +370,8 @@ const Coco = () => {
                             padding: "15px",
                             marginTop: "30px",
                             display: "flex",
-                            justifyContent: "space-around",
+                            justifyContent: "space-between",
+                            gap: "30px"
                         }}
                         elevation={0}
                     >
@@ -386,9 +379,6 @@ const Coco = () => {
                             sx={{
                                 width: 50,
                                 height: 50,
-
-                                display: "flex",
-                                marginRight: "80px",
                             }}
                             alt="logo"
                             src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objInfoEmpresa.strURLFileLogoEmpresa}`}
@@ -398,7 +388,6 @@ const Coco = () => {
                             sx={{
                                 display: "flex",
                                 flexDirection: "column",
-                                marginRight: "180px",
                             }}
                         >
                             <Typography>
@@ -442,7 +431,6 @@ const Coco = () => {
                             sx={{
                                 display: "flex",
                                 flexDirection: "column",
-                                marginRight: "180px",
                             }}
                         >
                             <Typography>

@@ -23,12 +23,17 @@ import {
     Alert,
     AlertTitle,
     Grid,
+    TextField,
+    Typography,
 } from "@mui/material";
+
+import Dropzone from "../../../../common/components/dropzone";
 
 import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
+import { Controller, useForm } from "react-hook-form";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -37,7 +42,15 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCreate = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
+const ModalCreate = ({
+    handleOpenDialog,
+    open,
+    refresh,
+    intIdIdea,
+    intId,
+    values,
+    isEdit,
+}) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -53,7 +66,11 @@ const ModalCreate = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
+        intIdIdea,
         intId: null,
+        strNombre: "",
+        strObservaciones: "",
+        strUrlDocumento: "",
     });
 
     //===============================================================================================================================================
@@ -61,6 +78,14 @@ const ModalCreate = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
     //===============================================================================================================================================
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+    const {
+        control,
+        formState: { errors },
+        handleSubmit,
+        setError,
+        clearErrors,
+    } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -75,12 +100,10 @@ const ModalCreate = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
 
             await axios(
                 {
-                    method: "DELETE",
+                    method: "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_TAREAS_DELETE}`,
-                    params: {
-                        intId: data.intId,
-                    },
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_DOCUMENTOS_SET}`,
+                    data,
                     headers: {
                         token,
                     },
@@ -124,15 +147,26 @@ const ModalCreate = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
+    const onSubmit = (data) => {
+        alert("llego aca");
+        setData((prevState) => ({
+            ...prevState,
+            ...data,
+        }));
+
+        setFlagSubmit(true);
+    };
+
     useEffect(() => {
-        if (intId) {
-            setData({
+        if (isEdit) {
+            setData((prevState) => ({
+                ...prevState,
                 intId,
-            });
+            }));
         }
 
         setLoading(false);
-    }, [intId]);
+    }, [intId, isEdit]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -148,7 +182,7 @@ const ModalCreate = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
 
     useEffect(() => {
         if (success) {
-            refresh({intIdIdea});
+            refresh({ intIdIdea });
             handleOpenDialog();
 
             setSucces(false);
@@ -159,55 +193,6 @@ const ModalCreate = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (!data.intId) {
-        return (
-            <Dialog
-                fullScreen={bitMobile}
-                open={open}
-                onClose={handleOpenDialog}
-                PaperProps={{
-                    style: {
-                        backgroundColor:
-                            !loading && !data.intId ? "#FDEDED" : "inherit",
-                    },
-                }}
-            >
-                <DialogContent>
-                    {loading ? (
-                        <Box
-                            sx={{
-                                width: "100%",
-                                height: "100%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                        >
-                            <CircularProgress />
-                        </Box>
-                    ) : (
-                        <Alert severity="error">
-                            <AlertTitle>
-                                <b>
-                                    No se encontro el identificador de la tarea
-                                </b>
-                            </AlertTitle>
-                            Ha ocurrido un error al momento de seleccionar los
-                            datos, por favor escala al área de TI para mayor
-                            información.
-                        </Alert>
-                    )}
-                </DialogContent>
-
-                <DialogActions>
-                    <Button onClick={() => handleOpenDialog()} color="inherit">
-                        cerrar
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        );
-    }
-
     return (
         <Dialog
             fullScreen={bitMobile}
@@ -215,37 +200,124 @@ const ModalCreate = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
             onClose={handleOpenDialog}
             fullWidth
             PaperProps={{
-                style: {
-                    backgroundColor: "#FDEDED",
-                },
+                noValidate: "noValidate",
+                component: "form",
+                onSubmit: handleSubmit(onSubmit),
             }}
         >
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar la tarea seleccionada?`}</DialogTitle>
+            <DialogTitle>
+                {isEdit ? "Editar documento" : "Registrar documento"}
+            </DialogTitle>
 
             <DialogContent>
                 <Grid container direction="row">
                     <Grid item xs={12}>
-                        
+                        <Typography variant="caption">
+                            Todos los campos marcados con (*) son obligatorios.
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            name="strNombre"
+                            defaultValue={data.strNombre}
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Nombre del paquete"
+                                    name={name}
+                                    required
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={loading}
+                                    error={errors?.strNombre ? true : false}
+                                    helperText={
+                                        errors?.strNombre?.message ||
+                                        "Digita el nombre del documento"
+                                    }
+                                />
+                            )}
+                            rules={{
+                                required:
+                                    "Por favor, digita el nombre del documento",
+                            }}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            name="strObservaciones"
+                            defaultValue={data.strObservaciones}
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Observaciones"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={loading}
+                                    error={
+                                        errors?.strObservaciones ? true : false
+                                    }
+                                    helperText={
+                                        errors?.strObservaciones?.message ||
+                                        "Digita las observaciones"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strUrlDocumento}
+                            name="strUrlDocumento"
+                            render={({ field: { name, onChange, value } }) => (
+                                <Dropzone
+                                    label="Documento"
+                                    name={name}
+                                    value={value}
+                                    disabled={loading}
+                                    onChange={(url) => onChange(url)}
+                                    maxFiles={1}
+                                    required
+                                    type=""
+                                    setError={setError}
+                                    clearErrors={clearErrors}
+                                    error={
+                                        errors?.strUrlDocumento ? true : false
+                                    }
+                                    helperText={
+                                        errors?.strUrlDocumento?.message ||
+                                        "Selecciona el documento"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona un documento",
+                            }}
+                        />
                     </Grid>
                 </Grid>
             </DialogContent>
 
             <DialogActions>
-                <LoadingButton
-                    color="error"
-                    loading={loading}
-                    type="button"
-                    onClick={() => setFlagSubmit(true)}
-                >
-                    aceptar
+                <LoadingButton color="primary" loading={loading} type="submit">
+                    registrar
                 </LoadingButton>
 
                 <Button
                     onClick={() => handleOpenDialog()}
                     color="inherit"
+                    type="button"
                     disabled={loading}
                 >
                     cancelar

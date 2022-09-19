@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 
 //Hooks
-import useGetTareas from "../../hooks/useGetTareas";
+import useGetDocumentos from "../../hooks/useGetDocumentos";
 
 //Componentes de Material UI
 import { Grid, Box, Button } from "@mui/material";
@@ -38,6 +38,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import ModalDelete from "./modalDelete";
+import ModalCreate from "./modalCreate";
 
 const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
     //===============================================================================================================================================
@@ -61,13 +62,14 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
         },
     ]);
 
+    const [openModalCreate, setOpenModalCreate] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data, refreshGetData } = useGetTareas({
+    const { data, refreshGetData } = useGetDocumentos({
         autoload: true,
         intIdIdea: intIdIdea,
     });
@@ -79,6 +81,9 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
         setOpenModalDelete(!openModalDelete);
     };
 
+    const handlerOpenModalCreate = () => {
+        setOpenModalCreate(!openModalCreate);
+    };
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -88,6 +93,14 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
             <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
+                intId={selectedData?.intId}
+                refresh={refreshGetData}
+                intIdIdea={intIdIdea}
+            />
+
+            <ModalCreate
+                handleOpenDialog={handlerOpenModalCreate}
+                open={openModalCreate}
                 intId={selectedData?.intId}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
@@ -194,7 +207,7 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
                                     },
                                 }}
                                 isLoading={data === undefined ? true : false}
-                                data={[]}
+                                data={data}
                                 columns={objColumns}
                                 title="Documentos"
                                 options={{
@@ -304,9 +317,7 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
                                                     >
                                                         <Button
                                                             onClick={() =>
-                                                                onChangeRoute(
-                                                                    "CreateTareas"
-                                                                )
+                                                                handlerOpenModalCreate()
                                                             }
                                                             variant="contained"
                                                         >

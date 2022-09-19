@@ -392,6 +392,7 @@ const Dropzone = ({
                 style={{ borderColor: error ? "#D64342" : "gray" }}
             >
                 <input {...getInputProps()} />
+
                 {loading ? (
                     <Box
                         display="flex"

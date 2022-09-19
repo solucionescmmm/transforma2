@@ -38,18 +38,11 @@ const InfoModulos = ({
 }) => {
     const [loading, setLoading] = useState(true);
 
-    const [openCollapese, setOpenCollapse] = useState(false);
+    const [openCollapese, setOpenCollapse] = useState(true);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
     };
-
-    useEffect(() => {
-        if (isEdit || isPreview) {
-            handlerChangeOpenCollapse();
-        }
-         // eslint-disable-next-line
-    }, [isEdit, isPreview]);
 
     useEffect(() => {
         setLoading(true);
