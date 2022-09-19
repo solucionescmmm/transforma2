@@ -68,6 +68,10 @@ class setPaquetes {
                 }
             }
         }
+
+        if (this.#objData.objInfoPrincipal.arrServicios.length === 0) {
+            throw new Error("El paquete no puede tener un solo servicio asociado.")
+        }
     }
 
     async #getIdEstado() {
