@@ -340,7 +340,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChangeRoute("Tareas")}
+                        onClick={() => onChangeRoute("Inicio")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"

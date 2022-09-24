@@ -76,7 +76,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
                 {
                     method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_TAREAS_DELETE}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_DOCUMENTOS_DELETE}`,
                     params: {
                         intId: data.intId,
                     },
@@ -188,7 +188,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
                         <Alert severity="error">
                             <AlertTitle>
                                 <b>
-                                    No se encontro el identificador de la tarea
+                                    No se encontro el identificador del documento
                                 </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los

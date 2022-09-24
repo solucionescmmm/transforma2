@@ -100,9 +100,11 @@ const ModalCreate = ({
 
             await axios(
                 {
-                    method: "POST",
+                    method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_DOCUMENTOS_SET}`,
+                    url: isEdit
+                        ? `${process.env.REACT_APP_API_TRANSFORMA_DOCUMENTOS_UPDATE}`
+                        : `${process.env.REACT_APP_API_TRANSFORMA_DOCUMENTOS_SET}`,
                     data,
                     headers: {
                         token,
@@ -141,14 +143,13 @@ const ModalCreate = ({
                     }
                 });
         },
-        [token, data]
+        [token, data, isEdit]
     );
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     const onSubmit = (data) => {
-        alert("llego aca");
         setData((prevState) => ({
             ...prevState,
             ...data,
@@ -226,7 +227,7 @@ const ModalCreate = ({
                             defaultValue={data.strNombre}
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Nombre del paquete"
+                                    label="Nombre del documento"
                                     name={name}
                                     required
                                     value={value}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
     useCallback,
     useState,
@@ -30,7 +31,7 @@ import {
     Grid,
 } from "@mui/material";
 
-import { Delete as DeleteIcon, FileOpenSharp } from "@mui/icons-material";
+import { Delete as DeleteIcon } from "@mui/icons-material";
 
 import { makeStyles } from "@mui/styles";
 
@@ -108,6 +109,18 @@ const Dropzone = ({
                 file.name.length
             );
 
+            if (files.length > maxFiles) {
+                setError(name, {
+                    type: "imagen-no-valida",
+                    message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+                });
+
+                return {
+                    code: "imagen-no-valida",
+                    message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+                };
+            }
+
             if (type === "Imagen") {
                 if (
                     extension !== ".jpeg" &&
@@ -130,7 +143,7 @@ const Dropzone = ({
 
             return null;
         },
-        [setError, name, type]
+        [setError, name, type, files, maxFiles]
     );
 
     const onSubmitFile = useCallback(
@@ -174,6 +187,7 @@ const Dropzone = ({
                         let url = res.data.data.path;
 
                         arrFiles.push(url);
+                        setLoading(false);
                     })
                     .catch((error) => {
                         if (!axios.isCancel(error)) {
@@ -247,13 +261,21 @@ const Dropzone = ({
         disabled,
         validator,
         onDrop: (acceptedFiles) => {
-            setFiles(
-                acceptedFiles.map((file) =>
+            if (acceptedFiles.length > 0) {
+                const newArrFiles = files.length > 0 ? [...files] : [];
+
+                const arrFiles = acceptedFiles.map((file) =>
                     Object.assign(file, {
                         preview: URL.createObjectURL(file),
                     })
-                )
-            );
+                );
+
+                arrFiles.forEach((file) => {
+                    newArrFiles.push(file);
+                });
+
+                setFiles(newArrFiles);
+            }
         },
     });
 
@@ -277,7 +299,6 @@ const Dropzone = ({
             setLoading(true);
 
             const arrImages = value.split(";");
-
             const getImagesPreview = async () => {
                 const arrBlobImages = [];
 
@@ -308,13 +329,16 @@ const Dropzone = ({
                         });
                 });
 
-                setFiles(arrBlobImages);
+                if (arrBlobImages > 0) {
+                    setFiles(arrBlobImages);
+                }
 
                 setLoading(false);
             };
 
             getImagesPreview();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     useEffect(
@@ -323,6 +347,15 @@ const Dropzone = ({
         },
         [files]
     );
+
+    useEffect(() => {
+        if (files.length > maxFiles) {
+            setError(name, {
+                type: "imagen-no-valida",
+                message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+            });
+        }
+    }, [files, maxFiles]);
 
     const archivos = files.map((archivo, i) => {
         let extension = archivo.name
