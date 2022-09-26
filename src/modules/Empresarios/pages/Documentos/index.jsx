@@ -47,7 +47,7 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
     const [objColumns] = useState([
         {
             title: "Nombre",
-            field: "strTarea",
+            field: "strNombre",
             type: "string",
         },
         {
@@ -57,8 +57,19 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
         },
         {
             title: "Url documento",
-            field: "dtFechaFinTentativa",
-            type: "date",
+            field: "strUrlDocumento",
+            render: (rowdata) => {
+                return (
+                    <a
+                        href={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowdata.strUrlDocumento}`}
+                        alt=""
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Abrir
+                    </a>
+                );
+            },
         },
     ]);
 
@@ -102,8 +113,10 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
                 intId={selectedData?.intId}
+                isEdit={selectedData}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
+                values={selectedData}
             />
 
             <Grid container direction="row" spacing={2}>
@@ -243,14 +256,10 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
                                                             : "success"
                                                     }
                                                     fontSize="small"
-                                                    onClick={() =>
-                                                        onChangeRoute(
-                                                            "EditTareas",
-                                                            {
-                                                                intId: rowData.intId,
-                                                            }
-                                                        )
-                                                    }
+                                                    onClick={() => {
+                                                        setSelectedData(rowData);
+                                                        handlerOpenModalCreate();
+                                                    }}
                                                 />
                                             ),
                                             tooltip: "Editar",

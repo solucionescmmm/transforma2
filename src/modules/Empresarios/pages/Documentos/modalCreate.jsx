@@ -85,6 +85,7 @@ const ModalCreate = ({
         handleSubmit,
         setError,
         clearErrors,
+        reset,
     } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
@@ -159,15 +160,28 @@ const ModalCreate = ({
     };
 
     useEffect(() => {
+        console.log(values);
+        console.log(isEdit);
         if (isEdit) {
             setData((prevState) => ({
                 ...prevState,
                 intId,
+                strNombre: values.strNombre,
+                strObservaciones: values.strObservaciones,
+                strUrlDocumento: values.strUrlDocumento,
             }));
+
+            reset({
+                intId,
+                strNombre: values.strNombre,
+                strObservaciones: values.strObservaciones,
+                strUrlDocumento: values.strUrlDocumento,
+            });
         }
 
         setLoading(false);
-    }, [intId, isEdit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [intId, isEdit, values]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -312,7 +326,7 @@ const ModalCreate = ({
 
             <DialogActions>
                 <LoadingButton color="primary" loading={loading} type="submit">
-                    registrar
+                    {isEdit ? "editar" : "registrar"}
                 </LoadingButton>
 
                 <Button
