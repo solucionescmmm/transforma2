@@ -19,34 +19,6 @@ const getDocumento = async (objParams) => {
     };
 
     let arrayData = await dao.getDocumento(query);
-    
-
-    if (!arrayData.error && arrayData.data) {
-        if (arrayData.data.length > 0) {
-            let array = arrayData.data;
-            let data = [];
-
-            for (let i = 0; i < array.length; i++) {
-                let { strResponsable } = array[i];
-
-                if (validator.isJSON(strResponsable)) {
-                    strResponsable = JSON.parse(strResponsable);
-                }
-                data[i] = {
-                    ...array[i],
-                    strResponsable,
-                };
-
-                
-            }
-            let result = {
-                error: false,
-                data
-            };
-
-            return result;
-        }
-    }
 
     return arrayData;
 };
