@@ -62,8 +62,8 @@ class daoDocumento {
             SET strNombre               = COALESCE(${data.strNombre}, strNombre),
                 strObservaciones        = COALESCE(${data.strObservaciones}, strObservaciones),
                 strUrlDocumento         = COALESCE(${data.strUrlDocumento}, strUrlDocumento),
-                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion ),
-                dtmFechaActualizacion   = COALESCE(GETDATE(), dtmFechaActualizacion)
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
 
             WHERE intId = ${data.intId}
 

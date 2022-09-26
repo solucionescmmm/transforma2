@@ -44,7 +44,6 @@ class updateDocumento {
     async #completeData() {
         let newData = {
             ...this.#objData,
-            btFinalizada: 0,
             strUsuarioActualizacion:this.#objUser.strEmail,
         };
         this.#objData = newData;
