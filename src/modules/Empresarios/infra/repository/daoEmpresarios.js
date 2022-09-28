@@ -74,7 +74,7 @@ class daoEmpresarios {
         }
     }
 
-    async setIdea(data){
+    async setIdea(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -122,7 +122,7 @@ class daoEmpresarios {
         }
     }
 
-    async setIdeaEmpresario(data){
+    async setIdeaEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -245,7 +245,7 @@ class daoEmpresarios {
         }
     }
 
-    async setInfoAdicional(data){
+    async setInfoAdicional(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -273,7 +273,7 @@ class daoEmpresarios {
 
             let result = {
                 error: false,
-                data: response.recordset[0]
+                data: response.recordset[0],
             };
 
             sql.close(conexion);
@@ -397,7 +397,7 @@ class daoEmpresarios {
         }
     }
 
-    async updateEmpresa(data){
+    async updateEmpresa(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -441,7 +441,7 @@ class daoEmpresarios {
 
             let result = {
                 error: false,
-                data: response.recordset[0]
+                data: response.recordset[0],
             };
 
             sql.close(conexion);
@@ -461,7 +461,7 @@ class daoEmpresarios {
         }
     }
 
-    async updateInfoAdicional(data){
+    async updateInfoAdicional(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -508,7 +508,7 @@ class daoEmpresarios {
         }
     }
 
-    async updateInactivarEmpresario(data){
+    async updateInactivarEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -527,7 +527,7 @@ class daoEmpresarios {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg:`El empresario ${response.recordset[0].strNombre} fue inactivado con exito.`
+                msg: `El empresario ${response.recordset[0].strNombre} fue inactivado con exito.`,
             };
 
             sql.close(conexion);
@@ -547,7 +547,7 @@ class daoEmpresarios {
         }
     }
 
-    async updateFechaFinEmpresario(data){
+    async updateFechaFinEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -570,7 +570,7 @@ class daoEmpresarios {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg:`El empresario ${response.recordset[0].strNombre} fue inactivado con exito.`
+                msg: `El empresario ${response.recordset[0].strNombre} fue inactivado con exito.`,
             };
 
             sql.close(conexion);
@@ -827,49 +827,37 @@ class daoEmpresarios {
             for (let i = 0; i < arrNewData.length; i++) {
                 if (arrNewData[i].objInfoIdeaEmpresario) {
                     let { objInfoIdeaEmpresario } = arrNewData[i];
-                    
 
                     if (validator.isJSON(objInfoIdeaEmpresario)) {
                         objInfoIdeaEmpresario = JSON.parse(
                             objInfoIdeaEmpresario
                         );
                         arrNewData[i].objInfoIdeaEmpresario =
-                        objInfoIdeaEmpresario;
+                            objInfoIdeaEmpresario;
                     }
                 }
                 if (arrNewData[i].objInfoEmpresario) {
-                    let { objInfoEmpresario } = arrNewData[i];                    
+                    let { objInfoEmpresario } = arrNewData[i];
 
                     if (validator.isJSON(objInfoEmpresario)) {
-                        objInfoEmpresario = JSON.parse(
-                            objInfoEmpresario
-                        );
-                        arrNewData[i].objInfoEmpresario =
-                        objInfoEmpresario;
+                        objInfoEmpresario = JSON.parse(objInfoEmpresario);
+                        arrNewData[i].objInfoEmpresario = objInfoEmpresario;
                     }
                 }
                 if (arrNewData[i].objInfoEmpresa) {
                     let { objInfoEmpresa } = arrNewData[i];
-                    
 
                     if (validator.isJSON(objInfoEmpresa)) {
-                        objInfoEmpresa = JSON.parse(
-                            objInfoEmpresa
-                        );
-                        arrNewData[i].objInfoEmpresa =
-                        objInfoEmpresa;
+                        objInfoEmpresa = JSON.parse(objInfoEmpresa);
+                        arrNewData[i].objInfoEmpresa = objInfoEmpresa;
                     }
                 }
                 if (arrNewData[i].objInfoAdicional) {
                     let { objInfoAdicional } = arrNewData[i];
-                    
 
                     if (validator.isJSON(objInfoAdicional)) {
-                        objInfoAdicional = JSON.parse(
-                            objInfoAdicional
-                        );
-                        arrNewData[i].objInfoAdicional =
-                        objInfoAdicional;
+                        objInfoAdicional = JSON.parse(objInfoAdicional);
+                        arrNewData[i].objInfoAdicional = objInfoAdicional;
                     }
                 }
             }
@@ -936,13 +924,55 @@ class daoEmpresarios {
             Empresario.strDireccionResidencia,
             Empresario.strUrlFileFoto,
             Empresario.dtmActualizacion,
-            Empresario.strUsuario
+            Empresario.strUsuario,
+            (
+                SELECT 
+                IdeaEmpresario.intIdIdea,
+                IdeaEmpresario.intIdEmpresario,
+                IdeaEmpresario.intIdTipoEmpresario,
+                IdeaEmpresario.intIdEstado,
+                Tipo.strNombre as strTipoEmpresario,
+                Idea.strNombre as strNombreIdea
+
+                FROM tbl_Idea_Empresario IdeaEmpresario
+
+                INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+                INNER JOIN tbl_Idea Idea ON Idea.intId = IdeaEmpresario.intIdIdea
+                INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
+
+                WHERE IdeaEmpresario.intIdEmpresario = Empresario.intId AND Estados.strNombre = 'Activo' AND Tipo.strNombre = 'Principal'
+                FOR JSON PATH
+            ) as objInfoIdeaEmpresario
 
             FROM tbl_Empresario Empresario
             
             WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
+
+            console.log(arrNewData);
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].objInfoIdeaEmpresario) {
+                    let { objInfoIdeaEmpresario } = arrNewData[i];
+
+                    if (validator.isJSON(objInfoIdeaEmpresario)) {
+                        objInfoIdeaEmpresario = JSON.parse(
+                            objInfoIdeaEmpresario
+                        );
+                        arrNewData[i].objInfoIdeaEmpresario =
+                            objInfoIdeaEmpresario;
+                    }
+                }
+                if (arrNewData[i].objInfoIdea) {
+                    let { objInfoIdea } = arrNewData[i];
+
+                    if (validator.isJSON(objInfoIdea)) {
+                        objInfoIdea = JSON.parse(objInfoIdea);
+                        arrNewData[i].objInfoIdea = objInfoIdea;
+                    }
+                }
+            }
 
             let result = {
                 error: false,
@@ -1028,7 +1058,7 @@ class daoEmpresarios {
         }
     }
 
-    async getIdEmpresarioPrincipal(data){
+    async getIdEmpresarioPrincipal(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
@@ -1061,7 +1091,7 @@ class daoEmpresarios {
         }
     }
 
-    async getEmpresarioIdea(data){
+    async getEmpresarioIdea(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
