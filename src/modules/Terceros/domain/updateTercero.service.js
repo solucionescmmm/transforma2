@@ -1,14 +1,20 @@
 //class
-const classInterfaceDAODocumento = require("../infra/conectors/interfaceDaoDocumento");
+const classInterfaceDAOTercero = require("../infra/conectors/interfaceDaoTercero");
 
 //Librerias
 const validator = require("validator").default;
 
-class setDocumento {
+//Servicios
+const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
+class updateTercero {
     //obj info
     #objData;
     #objUser;
     #objResult;
+
+    //Variables
+     #intIdEstado
 
     /**
      * @param {object} data
@@ -21,8 +27,9 @@ class setDocumento {
 
     async main() {
         await this.#validations();
+        await this.#getIdEstado();
         await this.#completeData();
-        await this.#setDocumento();
+        await this.#updateTercero();
         return this.#objResult;
     }
 
@@ -41,18 +48,33 @@ class setDocumento {
         }
     }
 
+    async #getIdEstado() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "Activo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstado = queryGetIdEstado.data.intId;
+    }
+
     async #completeData() {
         let newData = {
             ...this.#objData,
+            intIdEstado: this.#intIdEstado,
+            strDepartamento: JSON.stringify(this.#objData?.arrDepartamento || null),
+            strCiudad: JSON.stringify(this.#objData?.arrCiudad || null),
             strUsuarioCreacion:this.#objUser.strEmail,
         };
         this.#objData = newData;
     }
 
-    async #setDocumento() {
-        let dao = new classInterfaceDAODocumento();
+    async #updateTercero() {
+        let dao = new classInterfaceDAOTercero();
 
-        let query = await dao.setDocumento(this.#objData);
+        let query = await dao.updateTercero(this.#objData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -65,4 +87,4 @@ class setDocumento {
         };
     }
 }
-module.exports = setDocumento;
+module.exports = updateTercero;
