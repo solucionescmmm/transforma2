@@ -41,8 +41,9 @@ const CreateTareas = lazy(() =>
     import("../modules/Empresarios/pages/Tareas/create&Edit")
 );
 
-const Documentos = lazy(() => import("../modules/Empresarios/pages/Documentos"));
-
+const Documentos = lazy(() =>
+    import("../modules/Empresarios/pages/Documentos")
+);
 
 const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
     if (route.location === "Personas") {
@@ -126,7 +127,11 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     </Button>
                 </Grid>
 
-                <PersonasCreate isEdit onChangeRoute={onChangeRoute} values={route.params} />
+                <PersonasCreate
+                    isEdit
+                    onChangeRoute={onChangeRoute}
+                    values={route.params}
+                />
             </Grid>
         );
     }
@@ -350,8 +355,31 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 </Grid>
 
                 <Documentos
-                      onChangeRoute={onChangeRoute}
-                      intIdIdea={route.params.intIdIdea}
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "CreateDocumentos") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Inicio")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <Documentos
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    openModalCreateRoute={true}
                 />
             </Grid>
         );

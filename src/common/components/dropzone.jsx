@@ -146,82 +146,79 @@ const Dropzone = ({
         [setError, name, type, files, maxFiles]
     );
 
-    const onSubmitFile = useCallback(
-        async (signalSubmitData) => {
-            setLoading(true);
+    const onSubmitFile = useCallback(async (signalSubmitData) => {
+        setLoading(true);
 
-            setFlagSubmit(false);
+        setFlagSubmit(false);
 
-            setError(name, {
-                type: "cargando-archivo",
-                message: `En este momento se esta cargando el archivo, por favor espere.`,
-            });
+        setError(name, {
+            type: "cargando-archivo",
+            message: `En este momento se esta cargando el archivo, por favor espere.`,
+        });
 
-            let bitCont = 0;
-            const arrFiles = value ? value.split(";") : [];
+        let bitCont = 0;
+        const arrFiles = value ? value.split(";") : [];
 
-            files.forEach(async (file) => {
-                const bodyFormData = new FormData();
-                bodyFormData.append("fileFormInteresados", file);
+        files.forEach(async (file) => {
+            const bodyFormData = new FormData();
+            bodyFormData.append("fileFormInteresados", file);
 
-                await axios(
-                    {
-                        method: "POST",
-                        baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                        url: `${process.env.REACT_APP_API_TRANSFORMA_EMPRESARIOS_UPLOADFILE}`,
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                            token,
-                        },
-                        data: bodyFormData,
+            await axios(
+                {
+                    method: "POST",
+                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_EMPRESARIOS_UPLOADFILE}`,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        token,
                     },
-                    {
-                        cancelToken: signalSubmitData.token,
-                    }
-                )
-                    .then((res) => {
-                        if (res.data.error) {
-                            throw new Error(res.data.msg);
-                        }
-
-                        let url = res.data.data.path;
-
-                        arrFiles.push(url);
-                        setLoading(false);
-                    })
-                    .catch((error) => {
-                        if (!axios.isCancel(error)) {
-                            let msg;
-
-                            if (error.response) {
-                                msg = error.response.data.msg;
-                            } else if (error.request) {
-                                msg = error.message;
-                            } else {
-                                msg = error.message;
-                            }
-
-                            console.error(error);
-                            setLoading(false);
-
-                            toast.error(msg);
-                            setError(name, msg);
-                        }
-                    });
-
-                bitCont++;
-
-                if (bitCont === files.length) {
-                    onChange(
-                        arrFiles.length === 1 ? arrFiles[0] : arrFiles.join(";")
-                    );
-
-                    clearErrors(name);
+                    data: bodyFormData,
+                },
+                {
+                    cancelToken: signalSubmitData.token,
                 }
-            });
-        },
-        [token, files, setError, name, onChange, clearErrors, value]
-    );
+            )
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    let url = res.data.data.path;
+
+                    arrFiles.push(url);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    if (!axios.isCancel(error)) {
+                        let msg;
+
+                        if (error.response) {
+                            msg = error.response.data.msg;
+                        } else if (error.request) {
+                            msg = error.message;
+                        } else {
+                            msg = error.message;
+                        }
+
+                        console.error(error);
+                        setLoading(false);
+
+                        toast.error(msg);
+                        setError(name, msg);
+                    }
+                });
+
+            bitCont++;
+
+            if (bitCont === files.length) {
+                onChange(
+                    arrFiles.length === 1 ? arrFiles[0] : arrFiles.join(";")
+                );
+
+                clearErrors(name);
+            }
+        });
+    }, []);
 
     const onDropAccepted = useCallback(
         (files) => {
@@ -302,10 +299,11 @@ const Dropzone = ({
             const getImagesPreview = async () => {
                 const arrBlobImages = [];
 
-                await arrImages.forEach((url) => {
+                for (let i = 0; i < arrImages.length; i++) {
+                    const url = arrImages[i];
                     let type = "";
 
-                    fetch(
+                    const result = await fetch(
                         `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`
                     )
                         .then((res) => {
@@ -325,11 +323,13 @@ const Dropzone = ({
                                 preview: URL.createObjectURL(file),
                             });
 
-                            arrBlobImages.push(file);
+                            return file;
                         });
-                });
 
-                if (arrBlobImages > 0) {
+                    arrBlobImages.push(result);
+                }
+
+                if (arrBlobImages.length > 0) {
                     setFiles(arrBlobImages);
                 }
 
@@ -372,6 +372,9 @@ const Dropzone = ({
                             className={classes.file}
                             alt="Dropzone-preview-img"
                             src={archivo.preview}
+                            onLoad={() => {
+                                URL.revokeObjectURL(archivo.preview);
+                            }}
                         />
                     ) : (
                         <div style={{ width: "80px", margin: "auto" }}>

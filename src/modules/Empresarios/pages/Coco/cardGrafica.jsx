@@ -152,7 +152,8 @@ const CardGrafica = ({ intIdIdea, type }) => {
         const ejeX = [];
         const ejeY = [];
 
-        arrEtapaDllo?.forEach((v) => {
+        arrEtapaDllo?.forEach((v, i) => {
+            console.log(v)
             ejeX.push({
                 x: v.dtmCreacion,
                 y: v.intEtapaDlloFecha,
@@ -166,9 +167,15 @@ const CardGrafica = ({ intIdIdea, type }) => {
             scales: {
                 x: {
                     type: "time",
-                    time: {
-                        tooltipFormat: "YYYY MM DD",
-                    },
+                    // time: {
+                    //     tooltipFormat: "YYYY MM DD",
+                    // },
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, ticks) {
+                            return index;
+                        }
+                    }
                 },
             },
         };
@@ -208,9 +215,15 @@ const CardGrafica = ({ intIdIdea, type }) => {
             scales: {
                 x: {
                     type: "time",
-                    time: {
-                        tooltipFormat: "YYYY MM DD",
-                    },
+                    // time: {
+                    //     tooltipFormat: "YYYY MM DD",
+                    // },
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, ticks) {
+                            return index;
+                        }
+                    }
                 },
             },
         };
@@ -250,9 +263,12 @@ const CardGrafica = ({ intIdIdea, type }) => {
             scales: {
                 x: {
                     type: "time",
-                    time: {
-                        tooltipFormat: "YYYY MM DD",
-                    },
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, ticks) {
+                            return index;
+                        }
+                    }
                 },
             },
         };

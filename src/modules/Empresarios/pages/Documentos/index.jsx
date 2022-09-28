@@ -40,7 +40,7 @@ import { MTableToolbar } from "@material-table/core";
 import ModalDelete from "./modalDelete";
 import ModalCreate from "./modalCreate";
 
-const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
+const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -73,7 +73,7 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea }) => {
         },
     ]);
 
-    const [openModalCreate, setOpenModalCreate] = useState(false);
+    const [openModalCreate, setOpenModalCreate] = useState(openModalCreateRoute);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
