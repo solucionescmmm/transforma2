@@ -1,6 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
+    Alert,
+    Avatar,
     Breadcrumbs,
     Button,
+    CircularProgress,
     Container,
     Grid,
     Link,
@@ -17,7 +21,14 @@ import {
 } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+
+// Componentes
+import CUEmpresario from "./pageCUEmpresario";
+import useGetEmpresarios from "../../../../common/hooks/useGetEmpresarios";
+import axios from "axios";
+import PageError from "../../../../common/components/Error";
+import { parseISO } from "date-fns";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -55,8 +66,19 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const SearchEmpresario = () => {
+const SearchEmpresario = ({ isEdit }) => {
     const [documento, setDocumento] = useState("");
+    const [hiddenSearch, setHiddenSearch] = useState(false);
+    const [data, setData] = useState();
+    const [flagGetdata, setFlagGetData] = useState(false);
+
+    const [errorGetData, setErrorGetData] = useState({
+        flag: false,
+        msg: "",
+    });
+
+    const [loadingGetData, setLoadingGetData] = useState(false);
+
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
@@ -67,6 +89,129 @@ const SearchEmpresario = () => {
     const handleChangeDocumento = (value) => {
         setDocumento(value);
     };
+
+    const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
+
+    const refFntGetData = useRef(getUniqueData);
+
+    async function getData() {
+        setLoadingGetData(true);
+
+        await refFntGetData
+            .current({ strDocumento: documento })
+            .then((res) => {
+                if (res.data.error) {
+                    throw new Error(res.data.msg);
+                }
+
+                if (res.data?.data?.[0]) {
+                    let data = res.data.data?.[0];
+                    const objEmprPrincipal = data;
+
+                    setData({
+                        intIdIdea: data.objInfoIdeaEmpresario.intIdIdea,
+                        objIdeaEmpresario: data.objInfoIdeaEmpresario,
+                        objInfoPrincipal: {},
+                        objInfoEmpresarioPr: {
+                            intId: objEmprPrincipal.intId,
+                            strNombres: objEmprPrincipal.strNombres || "",
+                            strApellidos: objEmprPrincipal.strApellidos || "",
+                            strTipoDocto: objEmprPrincipal.strTipoDocto || "",
+                            strNroDocto: objEmprPrincipal.strNroDocto || "",
+                            strLugarExpedicionDocto:
+                                objEmprPrincipal.strLugarExpedicionDocto || "",
+                            dtFechaExpedicionDocto:
+                                objEmprPrincipal.dtFechaExpedicionDocto
+                                    ? parseISO(
+                                          objEmprPrincipal.dtFechaExpedicionDocto
+                                      )
+                                    : null,
+                            dtFechaNacimiento:
+                                objEmprPrincipal.dtFechaNacimiento
+                                    ? parseISO(
+                                          objEmprPrincipal.dtFechaNacimiento
+                                      )
+                                    : null,
+                            strGenero: objEmprPrincipal.strGenero || "",
+                            strCelular1: objEmprPrincipal.strCelular1 || "",
+                            strCelular2: objEmprPrincipal.strCelular2 || "",
+                            strCorreoElectronico1:
+                                objEmprPrincipal.strCorreoElectronico1 || "",
+                            strCorreoElectronico2:
+                                objEmprPrincipal.strCorreoElectronico2 || "",
+                            strNivelEducativo:
+                                objEmprPrincipal.strNivelEducativo || "",
+                            strTitulos: objEmprPrincipal.strTitulos || "",
+                            strCondicionDiscapacidad:
+                                objEmprPrincipal.strCondicionDiscapacidad || "",
+                            strEstrato: objEmprPrincipal.strEstrato || "",
+                            arrDepartamento:
+                                objEmprPrincipal.arrDepartamento || [],
+                            arrCiudad: objEmprPrincipal.arrCiudad || [],
+                            strBarrio: objEmprPrincipal.strBarrio || "",
+                            strDireccionResidencia:
+                                objEmprPrincipal.strDireccionResidencia || "",
+                            strURLFileFoto:
+                                objEmprPrincipal.strURLFileFoto || "",
+                        },
+                        objInfoEmpresa: {},
+                        objInfoAdicional: {},
+                        arrInfoEmpresarioSec: [],
+                    });
+                }
+
+                setLoadingGetData(false);
+                setErrorGetData({ flag: false, msg: "" });
+                setFlagGetData(false);
+            })
+            .catch((error) => {
+                setErrorGetData({ flag: true, msg: error.message });
+                setLoadingGetData(false);
+                setFlagGetData(false);
+            });
+    }
+
+    useEffect(() => {
+        let signalSubmitData = axios.CancelToken.source();
+
+        if (flagGetdata) {
+            getData(signalSubmitData);
+        }
+
+        return () => {
+            signalSubmitData.cancel("Petición abortada.");
+        };
+    }, [flagGetdata]);
+
+    if (errorGetData.flag) {
+        return (
+            <PageError
+                severity="error"
+                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                title={errorGetData.msg}
+            />
+        );
+    }
+
+    if (data?.error) {
+        return (
+            <PageError
+                severity="error"
+                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                title={data.msg}
+            />
+        );
+    }
+
+    if (hiddenSearch || isEdit) {
+        return (
+            <CUEmpresario
+                values={data}
+                isEdit={isEdit}
+                resetSearch={setHiddenSearch}
+            />
+        );
+    }
 
     return (
         <Grid container direction="row" spacing={3}>
@@ -143,26 +288,171 @@ const SearchEmpresario = () => {
                                 </Box>
                             </Grid>
 
-                            <Grid item xs={10}>
+                            <Grid item xs={9} md={11}>
                                 <TextField
                                     name="documento"
                                     label="Documento"
                                     helperText="Digita el documento de la persona"
                                     fullWidth
+                                    variant="standard"
                                     value={documento}
+                                    disabled={loadingGetData}
                                     onChange={(e) =>
                                         handleChangeDocumento(e.target.value)
                                     }
                                 />
                             </Grid>
 
-                            <Grid item xs={2}>
-                                <Button variant="contained" size="small">
+                            <Grid item xs={3} md={1}>
+                                <Button
+                                    variant="contained"
+                                    size="small"
+                                    style={{ marginTop: "15px" }}
+                                    fullWidth
+                                    disabled={loadingGetData}
+                                    onClick={() => setFlagGetData(true)}
+                                >
                                     Buscar
                                 </Button>
                             </Grid>
 
-                            
+                            <Grid item xs={12}>
+                                {data && !loadingGetData && (
+                                    <Alert severity="warning">
+                                        Se encontro un registro con los
+                                        siguientes datos:
+                                        <Avatar
+                                            style={{ margin: "10px" }}
+                                            alt={
+                                                data.objInfoEmpresarioPr
+                                                    .strNombres
+                                            }
+                                            sx={{ width: 80, height: 80 }}
+                                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${data.objInfoEmpresarioPr.strURLFileFoto}`}
+                                        />
+                                        <p>
+                                            <b>Nombre: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .strNombres
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>Apellidos: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .strApellidos
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>
+                                                {
+                                                    data.objInfoEmpresarioPr
+                                                        .strTipoDocto
+                                                }
+                                                :{" "}
+                                            </b>{" "}
+                                            {`${data.objInfoEmpresarioPr.strNroDocto} - (${data.objInfoEmpresarioPr.strLugarExpedicionDocto})`}
+                                        </p>
+                                        <p>
+                                            <b>Departamento: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .arrDepartamento.region_name
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>Ciudad: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .arrCiudad.city_name
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>Dirección de residencia: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .strDireccionResidencia
+                                            }{" "}
+                                        </p>
+                                        <table>
+                                            <tr style={{fontSize: "12px"}}>
+                                                <th>Iniciativa</th>
+                                                <th>Rol</th>
+                                            </tr>
+                                            {data.objIdeaEmpresario.map(
+                                                (x) => (
+                                                    <tr style={{fontSize: "12px"}} key={x.intIdIdea}>
+                                                        <td>
+                                                            {x.strNombreIdea}
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                x.strTipoEmpresario
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            )}
+                                        </table>
+                                        <p style={{ marginTop: "15px" }}>
+                                            <b>Nota importante: </b>
+                                            La información de la persona sera
+                                            precargada y podra ser editata, sin
+                                            embargo no podra ser asociada
+                                            nuevamente a la misma iniciativa.
+                                            ¿Deseas asociar a la persona en una
+                                            nueva iniciativa?
+                                        </p>
+                                    </Alert>
+                                )}
+
+                                {loadingGetData && (
+                                    <Box
+                                        display="flex"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        height="100%"
+                                        width="100%"
+                                    >
+                                        <CircularProgress size={30} />
+                                    </Box>
+                                )}
+
+                                {!documento && (
+                                    <Alert severity="info">
+                                        Por favor digita el documento para
+                                        proceder a la busqueda de la persona
+                                    </Alert>
+                                )}
+
+                                {!data && documento && !loadingGetData && (
+                                    <Alert severity="info">
+                                        No se ha encontrado registros asociados
+                                        al documento digitado
+                                    </Alert>
+                                )}
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row-reverse",
+                                    }}
+                                >
+                                    <Button
+                                        variant="contained"
+                                        type="submit"
+                                        disabled={loadingGetData}
+                                        onClick={() => setHiddenSearch(true)}
+                                    >
+                                        {data
+                                            ? "Adicionar a Nueva Iniciativa"
+                                            : "nuevo registro"}
+                                    </Button>
+                                </Box>
+                            </Grid>
                         </Grid>
                     </Paper>
                 </Container>

@@ -48,7 +48,7 @@ const DetailsEmpresario = lazy(() =>
 );
 
 const CUEmpresario = lazy(() =>
-    import("../modules/Empresarios/pages/Create&Edit/pageCUEmpresario")
+    import("../modules/Empresarios/pages/Create&Edit")
 );
 
 const RoutesTransforma = ({ path }) => {

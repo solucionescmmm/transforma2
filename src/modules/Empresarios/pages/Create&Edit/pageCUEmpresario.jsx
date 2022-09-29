@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
     useState,
     useCallback,
@@ -89,7 +90,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CUEmpresario = ({ isEdit }) => {
+const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -612,7 +613,8 @@ const CUEmpresario = ({ isEdit }) => {
 
                                 objInfoAdicional: {
                                     ...data.objInfoAdicional,
-                                    strURLDocumento: data.objInfoAdicional.strUrlDocumento
+                                    strURLDocumento:
+                                        data.objInfoAdicional.strUrlDocumento,
                                 },
 
                                 arrInfoEmpresarioSec:
@@ -632,6 +634,13 @@ const CUEmpresario = ({ isEdit }) => {
             getData();
         }
     }, [isEdit, intId]);
+
+    useEffect(() => {
+        if (values) {
+            setData(values);
+            reset(values);
+        }
+    }, [values]);
 
     useEffect(() => {
         if (isEdit) {
@@ -877,6 +886,7 @@ const CUEmpresario = ({ isEdit }) => {
                                     sx={{
                                         display: "flex",
                                         flexDirection: "row-reverse",
+                                        gap: 1
                                     }}
                                 >
                                     <LoadingButton
@@ -886,6 +896,13 @@ const CUEmpresario = ({ isEdit }) => {
                                     >
                                         {isEdit ? "guardar" : "registrar"}
                                     </LoadingButton>
+
+                                    <Button
+                                        
+                                        onClick={() => resetSearch(false)}
+                                    >
+                                        Nueva busqueda
+                                    </Button>
                                 </Box>
                             </Grid>
                         </Grid>

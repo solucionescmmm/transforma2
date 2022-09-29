@@ -32,7 +32,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData()
  *
  */
-const useGetUsers = ({ autoLoad = true } = {}) => {
+const useGetUsers = ({ autoLoad = true, strDocumento = null } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -47,14 +47,17 @@ const useGetUsers = ({ autoLoad = true } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData }) => {
-            await axios(
+        async ({ signalSubmitData, strDocumento }) => {
+            return await axios(
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${process.env.REACT_APP_API_TRANSFORMA_EMPRESARIOS_GET}`,
                     headers: {
                         token,
+                    },
+                    params: {
+                        strDocumento,
                     },
                 },
                 {
@@ -63,6 +66,8 @@ const useGetUsers = ({ autoLoad = true } = {}) => {
             )
                 .then((res) => {
                     setData(res.data.data);
+
+                    return res;
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -82,6 +87,8 @@ const useGetUsers = ({ autoLoad = true } = {}) => {
                             error: true,
                             msg,
                         });
+
+                        return error;
                     }
                 });
         },
@@ -94,6 +101,17 @@ const useGetUsers = ({ autoLoad = true } = {}) => {
         setData();
 
         getData({ signalSubmitData });
+    };
+
+    const getUniqueData = async ({ strDocumento = null } = {}) => {
+        let signalSubmitData = axios.CancelToken.source();
+
+        let query = await getData({
+            strDocumento,
+            signalSubmitData,
+        });
+
+        return query;
     };
 
     //===============================================================================================================================================
@@ -114,7 +132,7 @@ const useGetUsers = ({ autoLoad = true } = {}) => {
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
     //===============================================================================================================================================
-    return { data, refreshGetData };
+    return { data, refreshGetData, getUniqueData };
 };
 
 export default useGetUsers;
