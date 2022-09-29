@@ -951,8 +951,6 @@ class daoEmpresarios {
 
             let arrNewData = response.recordsets[0];
 
-            console.log(arrNewData);
-
             for (let i = 0; i < arrNewData.length; i++) {
                 if (arrNewData[i].objInfoIdeaEmpresario) {
                     let { objInfoIdeaEmpresario } = arrNewData[i];
