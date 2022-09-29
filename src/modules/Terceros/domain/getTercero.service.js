@@ -5,21 +5,37 @@ const validator = require("validator").default;
 const classInterfaceTercero = require("../infra/conectors/interfaceDaoTercero");
 
 const getTercero = async (objParams) => {
-    let = { intId, intIdIdea } = objParams;
-
-    if (!intIdIdea) {
-        throw new Error("Se esperaban parámetros de búsqueda.");
-    }
+    let = { intId, strDocumento } = objParams;
 
     let dao = new classInterfaceTercero();
 
     let query = {
         intId: intId || null,
-        intIdIdea: intIdIdea || null,
+        strDocumento: strDocumento || null,
     };
 
     let arrayData = await dao.getTercero(query);
 
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data
+
+            for (let i = 0; i < array.length; i++) {
+                array[i] = {
+                    ...array[i],
+                    arrDepartamento:JSON.parse(array[i]?.strDepartamento||null),
+                    arrCiudad:JSON.parse(array[i]?.strCiudad||null),
+                }
+            }
+            let result = {
+                error: false,
+                data : array,
+            };
+
+            return result;
+        }
+    }
+    
     return arrayData;
 };
 module.exports = getTercero;

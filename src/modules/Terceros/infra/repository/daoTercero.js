@@ -154,7 +154,8 @@ class daoTercero {
             
             FROM tbl_Terceros Tercero
 
-            WHERE (Tercero.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+            WHERE (Tercero.intId = ${data.intId} OR ${data.intId} IS NULL)
+            AND   (Tercero.strNroDocto = ${data.strDocumento} OR ${data.strDocumento} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
