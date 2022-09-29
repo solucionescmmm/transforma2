@@ -1,5 +1,5 @@
 //class
-const classInterfaceDAOTercero = require("../infra/conectors/interfaceDaoTercero");
+const classInterfaceDAOTercero = require("../infra/conectors/interfaceDAOTercero");
 
 //Librerias
 const validator = require("validator").default;

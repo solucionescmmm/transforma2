@@ -2,7 +2,7 @@
 const validator = require("validator").default;
 
 //Clases
-const classInterfaceTercero = require("../infra/conectors/interfaceDaoTercero");
+const classInterfaceTercero = require("../infra/conectors/interfaceDAOTercero");
 
 const getTercero = async (objParams) => {
     let = { intId, strDocumento } = objParams;

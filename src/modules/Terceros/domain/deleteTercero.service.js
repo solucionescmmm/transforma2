@@ -1,5 +1,5 @@
 //clases
-const classInterfaceDAOTercero = require("../infra/conectors/interfaceDaoTercero")
+const classInterfaceDAOTercero = require("../infra/conectors/interfaceDAOTercero")
 
 class deleteTercero{
     #intIdTercero;
