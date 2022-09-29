@@ -30,12 +30,11 @@ app.use(
 
 //router
 app.use(require("../infra/http/apiMain.routes"));
-app.use(require("../../Listas/Infra/http/apiListas.routes"));
 app.use(require("../../Empresarios/infra/http/apiEmpresarios.routes"));
 app.use(require("../../Historicos/infra/http/apiHistoricos.routes"))
+app.use(require("../../Listas/Infra/http/apiListas.routes"));
 app.use(require("../../Localizaciones/infra/http/apiLocalizaciones.routes"))
 app.use(require("../../Comentarios/infra/http/apiComentarios.routes"))
-app.use(require("../../Tareas/infra/http/apiTareas.routes"))
 app.use(require("../../Diagnosticos/Diagnostico Empresarial/Diagnostico Genereal/infra/http/apiDiagnosticoGeneral.routes"))
 app.use(require("../../Diagnosticos/Diagnostico Empresarial/Diagnostico Competencias Humanas/infra/http/apiDiagnosticoHumanas.routes"))
 app.use(require("../../Diagnosticos/Diagnostico Diseño/Diagnostico de Producto/infra/http/apiDiagnosticoProducto.routes"))
@@ -51,6 +50,8 @@ app.use(require("../../Servicios/Maestros/Tipos de Servicios/infra/http/apiTipos
 app.use(require("../../Servicios/Maestros/ProyectosEspeciales/infra/http/apiProyectosEspeciales.routes"))
 app.use(require("../../Servicios/Modulo/Servicio/infra/http/apiServicios.routes"))
 app.use(require("../../Servicios/Modulo/Paquetes/infra/http/apiPaquetes.routes"))
+app.use(require("../../Tareas/infra/http/apiTareas.routes"))
+app.use(require("../../Terceros/infra/http/apiTercero.routes"))
 app.use(require("../../Usuarios/infra/http/apiUsuarios.routes"))
 
 

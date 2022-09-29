@@ -1,5 +1,4 @@
 //Librerias
-const validator = require("validator").default;
 const sql = require("mssql");
 
 //Conexion
