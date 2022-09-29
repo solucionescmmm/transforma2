@@ -4,7 +4,7 @@ const validator = require("validator").default;
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
 
 const getEmpresario = async (objParams, strDataUser) => {
-    let { intId } = objParams;
+    let { intId, strDocumento } = objParams;
 
     if (!objParams) {
         throw new Error("Se esperaban parámetros de búsqueda.");
@@ -24,6 +24,7 @@ const getEmpresario = async (objParams, strDataUser) => {
 
     let query = {
         intId: intId || null,
+        strDocumento : strDocumento || null
     };
 
     let arrayData = await dao.getEmpresario(query)

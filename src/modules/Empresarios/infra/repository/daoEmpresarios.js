@@ -946,7 +946,8 @@ class daoEmpresarios {
 
             FROM tbl_Empresario Empresario
             
-            WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+            WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)
+            AND   (Empresario.strNroDocto = ${data.strDocumento} OR ${data.strDocumento} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
