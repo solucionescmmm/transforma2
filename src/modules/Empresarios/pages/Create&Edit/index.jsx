@@ -88,6 +88,7 @@ const SearchEmpresario = ({ isEdit }) => {
     const { goBack } = useHistory();
 
     const handleChangeDocumento = (value) => {
+        setSendData();
         setDocumento(value);
     };
 
@@ -159,18 +160,20 @@ const SearchEmpresario = ({ isEdit }) => {
                         objInfoAdicional: {},
                         arrInfoEmpresarioSec: [],
                     });
+                } else {
+                    setData();
+                    setSendData(false);
                 }
 
                 setLoadingGetData(false);
                 setErrorGetData({ flag: false, msg: "" });
                 setFlagGetData(false);
-                setSendData();
             })
             .catch((error) => {
                 setErrorGetData({ flag: true, msg: error.message });
                 setLoadingGetData(false);
                 setFlagGetData(false);
-                setSendData();
+                setSendData(false);
             });
     }
 
@@ -443,7 +446,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                     </Alert>
                                 )}
 
-                                {!data && sendData && (
+                                {!data && sendData === false && documento && (
                                     <Alert severity="info">
                                         No se ha encontrado registros asociados
                                         al documento digitado
