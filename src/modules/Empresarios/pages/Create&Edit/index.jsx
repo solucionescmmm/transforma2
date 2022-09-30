@@ -154,7 +154,7 @@ const SearchEmpresario = ({ isEdit }) => {
                             strDireccionResidencia:
                                 objEmprPrincipal.strDireccionResidencia || "",
                             strURLFileFoto:
-                                objEmprPrincipal.strURLFileFoto || "",
+                                objEmprPrincipal.strUrlFileFoto || "",
                         },
                         objInfoEmpresa: {},
                         objInfoAdicional: {},
@@ -453,7 +453,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                     </Alert>
                                 )}
 
-                                <div style={{ width: "10000px" }}></div>
+                                <div style={{ width: "500px" }}></div>
                             </Grid>
 
                             <Grid item xs={12}>
