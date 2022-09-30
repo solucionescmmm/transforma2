@@ -71,6 +71,7 @@ const SearchEmpresario = ({ isEdit }) => {
     const [hiddenSearch, setHiddenSearch] = useState(false);
     const [data, setData] = useState();
     const [flagGetdata, setFlagGetData] = useState(false);
+    const [sendData, setSendData] = useState();
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -98,7 +99,7 @@ const SearchEmpresario = ({ isEdit }) => {
         setLoadingGetData(true);
 
         await refFntGetData
-            .current({ strDocumento: documento })
+            .current({ strDocumento: sendData })
             .then((res) => {
                 if (res.data.error) {
                     throw new Error(res.data.msg);
@@ -109,7 +110,7 @@ const SearchEmpresario = ({ isEdit }) => {
                     const objEmprPrincipal = data;
 
                     setData({
-                        intIdIdea: data.objInfoIdeaEmpresario.intIdIdea,
+                        intIdIdea: data.objInfoIdeaEmpresario?.intIdIdea,
                         objIdeaEmpresario: data.objInfoIdeaEmpresario,
                         objInfoPrincipal: {},
                         objInfoEmpresarioPr: {
@@ -163,11 +164,13 @@ const SearchEmpresario = ({ isEdit }) => {
                 setLoadingGetData(false);
                 setErrorGetData({ flag: false, msg: "" });
                 setFlagGetData(false);
+                setSendData();
             })
             .catch((error) => {
                 setErrorGetData({ flag: true, msg: error.message });
                 setLoadingGetData(false);
                 setFlagGetData(false);
+                setSendData();
             });
     }
 
@@ -310,7 +313,10 @@ const SearchEmpresario = ({ isEdit }) => {
                                     style={{ marginTop: "15px" }}
                                     fullWidth
                                     disabled={loadingGetData}
-                                    onClick={() => setFlagGetData(true)}
+                                    onClick={() => {
+                                        setSendData(documento);
+                                        setFlagGetData(true);
+                                    }}
                                 >
                                     Buscar
                                 </Button>
@@ -375,34 +381,45 @@ const SearchEmpresario = ({ isEdit }) => {
                                                     .strDireccionResidencia
                                             }{" "}
                                         </p>
-                                        <table>
-                                            <tr style={{fontSize: "12px"}}>
-                                                <th>Iniciativa</th>
-                                                <th>Rol</th>
-                                            </tr>
-                                            {data.objIdeaEmpresario.map(
-                                                (x) => (
-                                                    <tr style={{fontSize: "12px"}} key={x.intIdIdea}>
-                                                        <td>
-                                                            {x.strNombreIdea}
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                x.strTipoEmpresario
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </table>
+                                        {data.objIdeaEmpresario && (
+                                            <table>
+                                                <tr
+                                                    style={{ fontSize: "12px" }}
+                                                >
+                                                    <th>Iniciativa</th>
+                                                    <th>Rol</th>
+                                                </tr>
+                                                {data.objIdeaEmpresario.map(
+                                                    (x) => (
+                                                        <tr
+                                                            style={{
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                            key={x.intIdIdea}
+                                                        >
+                                                            <td>
+                                                                {
+                                                                    x.strNombreIdea
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    x.strTipoEmpresario
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )}
+                                            </table>
+                                        )}
                                         <p style={{ marginTop: "15px" }}>
                                             <b>Nota importante: </b>
-                                            La información de la persona sera
-                                            precargada y podra ser editata, sin
-                                            embargo no podra ser asociada
-                                            nuevamente a la misma iniciativa.
-                                            ¿Deseas asociar a la persona en una
-                                            nueva iniciativa?
+                                            La información de la persona será
+                                            precargada y podrá ser editada, sin
+                                            embargo, en caso de estar registrado
+                                            en una iniciativa, no podrá ser
+                                            asociada nuevamente a la misma.
                                         </p>
                                     </Alert>
                                 )}
@@ -426,12 +443,14 @@ const SearchEmpresario = ({ isEdit }) => {
                                     </Alert>
                                 )}
 
-                                {!data && documento && !loadingGetData && (
+                                {!data && sendData && (
                                     <Alert severity="info">
                                         No se ha encontrado registros asociados
                                         al documento digitado
                                     </Alert>
                                 )}
+
+                                <div style={{ width: "10000px" }}></div>
                             </Grid>
 
                             <Grid item xs={12}>
