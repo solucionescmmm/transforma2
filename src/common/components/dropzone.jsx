@@ -102,123 +102,132 @@ const Dropzone = ({
     //===============================================================================================================================================
     const classes = styles();
 
-    const validator = useCallback(
-        (file) => {
-            const extension = file.name.substring(
-                file.name.lastIndexOf("."),
-                file.name.length
-            );
+    const validator = useCallback((file) => {
+        const extension = file.name.substring(
+            file.name.lastIndexOf("."),
+            file.name.length
+        );
 
-            if (files.length > maxFiles) {
+        if (files.length > maxFiles) {
+            setError(name, {
+                type: "imagen-no-valida",
+                message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+            });
+
+            return {
+                code: "imagen-no-valida",
+                message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+            };
+        }
+
+        if (type === "Imagen") {
+            if (
+                extension !== ".jpeg" &&
+                extension !== ".jpg" &&
+                extension !== ".png"
+            ) {
                 setError(name, {
                     type: "imagen-no-valida",
-                    message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+                    message:
+                        "Solo se permiten imagenes de tipo jpg, jpeg o png, por favor revisa e intenta nuevamente",
                 });
 
                 return {
                     code: "imagen-no-valida",
-                    message: `Solo se permite subir un maximo de ${maxFiles} archivos, por favor revisa e intenta nuevamente.`,
+                    message:
+                        "Solo se permiten imagenes de tipo jpg, jpeg o png, por favor revisa e intenta nuevamente",
                 };
             }
+        }
 
-            if (type === "Imagen") {
-                if (
-                    extension !== ".jpeg" &&
-                    extension !== ".jpg" &&
-                    extension !== ".png"
-                ) {
-                    setError(name, {
-                        type: "imagen-no-valida",
-                        message:
-                            "Solo se permiten imagenes de tipo jpg, jpeg o png, por favor revisa e intenta nuevamente",
-                    });
+        return null;
+    }, []);
 
-                    return {
-                        code: "imagen-no-valida",
-                        message:
-                            "Solo se permiten imagenes de tipo jpg, jpeg o png, por favor revisa e intenta nuevamente",
-                    };
-                }
-            }
+    const onSubmitFile = useCallback(
+        async (signalSubmitData) => {
+            setLoading(true);
 
-            return null;
-        },
-        [setError, name, type, files, maxFiles]
-    );
+            setFlagSubmit(false);
 
-    const onSubmitFile = useCallback(async (signalSubmitData) => {
-        setLoading(true);
+            setError(name, {
+                type: "cargando-archivo",
+                message: `En este momento se esta cargando el archivo, por favor espere.`,
+            });
 
-        setFlagSubmit(false);
+            let bitCont = 0;
+            const arrFiles = value ? value.split(";") : [];
 
-        setError(name, {
-            type: "cargando-archivo",
-            message: `En este momento se esta cargando el archivo, por favor espere.`,
-        });
-
-        let bitCont = 0;
-        const arrFiles = value ? value.split(";") : [];
-
-        files.forEach(async (file) => {
-            const bodyFormData = new FormData();
-            bodyFormData.append("fileFormInteresados", file);
-
-            await axios(
-                {
-                    method: "POST",
-                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_EMPRESARIOS_UPLOADFILE}`,
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        token,
-                    },
-                    data: bodyFormData,
-                },
-                {
-                    cancelToken: signalSubmitData.token,
-                }
-            )
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
-                    }
-
-                    let url = res.data.data.path;
-
-                    arrFiles.push(url);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    if (!axios.isCancel(error)) {
-                        let msg;
-
-                        if (error.response) {
-                            msg = error.response.data.msg;
-                        } else if (error.request) {
-                            msg = error.message;
-                        } else {
-                            msg = error.message;
-                        }
-
-                        console.error(error);
-                        setLoading(false);
-
-                        toast.error(msg);
-                        setError(name, msg);
-                    }
+            if (files.length === 0) {
+                setError(name, {
+                    type: "error-carga",
+                    message: `Ha ocurrido un error al leer el archivo.`,
                 });
 
-            bitCont++;
-
-            if (bitCont === files.length) {
-                onChange(
-                    arrFiles.length === 1 ? arrFiles[0] : arrFiles.join(";")
-                );
-
-                clearErrors(name);
+                setLoading(false);
             }
-        });
-    }, []);
+
+            files.forEach(async (file) => {
+                const bodyFormData = new FormData();
+                bodyFormData.append("fileFormInteresados", file);
+
+                await axios(
+                    {
+                        method: "POST",
+                        baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+                        url: `${process.env.REACT_APP_API_TRANSFORMA_EMPRESARIOS_UPLOADFILE}`,
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            token,
+                        },
+                        data: bodyFormData,
+                    },
+                    {
+                        cancelToken: signalSubmitData.token,
+                    }
+                )
+                    .then((res) => {
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
+
+                        let url = res.data.data.path;
+
+                        arrFiles.push(url);
+                        setLoading(false);
+                    })
+                    .catch((error) => {
+                        if (!axios.isCancel(error)) {
+                            let msg;
+
+                            if (error.response) {
+                                msg = error.response.data.msg;
+                            } else if (error.request) {
+                                msg = error.message;
+                            } else {
+                                msg = error.message;
+                            }
+
+                            console.error(error);
+                            setLoading(false);
+
+                            toast.error(msg);
+                            setError(name, msg);
+                        }
+                    });
+
+                bitCont++;
+
+                if (bitCont === files.length) {
+                    onChange(
+                        arrFiles.length === 1 ? arrFiles[0] : arrFiles.join(";")
+                    );
+
+                    clearErrors(name);
+                }
+            });
+        },
+        [files]
+    );
 
     const onDropAccepted = useCallback(
         (files) => {
@@ -270,6 +279,8 @@ const Dropzone = ({
                 arrFiles.forEach((file) => {
                     newArrFiles.push(file);
                 });
+
+                console.log(newArrFiles);
 
                 setFiles(newArrFiles);
             }
@@ -375,6 +386,7 @@ const Dropzone = ({
                             onLoad={() => {
                                 URL.revokeObjectURL(archivo.preview);
                             }}
+                            style={{ maxWidth: "150px" }}
                         />
                     ) : (
                         <div style={{ width: "80px", margin: "auto" }}>
