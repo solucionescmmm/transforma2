@@ -512,7 +512,7 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                         objEmprPrincipal.strDireccionResidencia ||
                                         "",
                                     strURLFileFoto:
-                                        objEmprPrincipal.strURLFileFoto || "",
+                                        objEmprPrincipal.strUrlFileFoto || "",
                                 },
 
                                 objInfoEmpresa: {
