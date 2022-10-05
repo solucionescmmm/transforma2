@@ -7,7 +7,7 @@ const classInterfaceDAOPaquetes = require("../infra/conectors/interfaceDAOPaquet
 const ServiceGetServicio = require("../../Servicio/domain/getServicios.service");
 
 const getPaquetes = async (objParams, strDataUser) => {
-    let { intId } = objParams;
+    let { intId, strNombre } = objParams;
 
     if (!objParams) {
         throw new Error("Se esperaban parámetros de búsqueda.");
@@ -27,6 +27,7 @@ const getPaquetes = async (objParams, strDataUser) => {
 
     let query = {
         intId: intId || null,
+        strNombre: strNombre || null,
     };
 
     let arrayData = await dao.getPaquetes(query);
@@ -41,9 +42,9 @@ const getPaquetes = async (objParams, strDataUser) => {
                 let arrServicios = [];
                 let arrayDataServicios = array[i]?.arrServicios;
 
-                for (let j = 0; j < arrayDataServicios.length; j++) {
+                for (let j = 0; j < arrayDataServicios?.length; j++) {
                     let queryGetServicios = await ServiceGetServicio(
-                        { intId: arrayDataServicios[j].intIdServicio },
+                        { intId: arrayDataServicios[j].intIdServicio},
                         strDataUser
                     );
 

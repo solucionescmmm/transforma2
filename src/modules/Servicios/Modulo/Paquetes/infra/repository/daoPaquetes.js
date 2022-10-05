@@ -220,7 +220,8 @@ class daoPaquetes {
 
             INNER JOIN tbl_Estados Estado on Estado.intId = Paquete.intIdEstado
 
-            WHERE (Paquete.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+            WHERE (Paquete.intId = ${data.intId} OR ${data.intId} IS NULL)
+            AND   (Paquete.strNombre = ${data.strNombre} OR ${data.strNombre} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 

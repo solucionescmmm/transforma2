@@ -55,32 +55,39 @@ class updatePaquetes {
         }
 
         if (typeof this.#objData.bitActivar === "undefined") {
-            let queryGetPaquetes = await getPaquetes({}, this.#objUser);
+            let queryGetPaquetes = await getPaquetes(
+                { strNombre: this.#objData.objInfoPrincipal.strNombre },
+                this.#objUser
+            );
 
             if (queryGetPaquetes.error) {
                 throw new Error(queryGetPaquetes.msg);
             }
 
-            let arrayPaquetes = queryGetPaquetes.data;
+            if (queryGetPaquetes.data) {
+                let arrayPaquetes = queryGetPaquetes.data;
 
-            if (arrayPaquetes?.length > 0) {
-                for (let i = 0; i < arrayPaquetes.length; i++) {
-                    let strNombreRepetido = 0;
-                    if (
-                        this.#objData.objInfoPrincipal.strNombre?.trim() ===
-                        arrayPaquetes[i].objInfoPrincipal.strNombre?.trim()
-                    ) {
-                        strNombreRepetido++;
-                    }
-                    if (strNombreRepetido === 2) {
-                        throw new Error("El nombre de esta áreas ya existe.");
+                if (arrayPaquetes?.length > 0) {
+                    for (let i = 0; i < arrayPaquetes.length; i++) {
+                        let strNombreRepetido = 0;
+                        if (
+                            this.#objData.objInfoPrincipal.strNombre?.trim() ===
+                            arrayPaquetes[i].objInfoPrincipal.strNombre?.trim()
+                        ) {
+                            strNombreRepetido++;
+                        }
+                        if (strNombreRepetido === 2) {
+                            throw new Error("El nombre de este paquete ya existe.");
+                        }
                     }
                 }
             }
         }
-        
-        if (this.#objData.objInfoPrincipal.arrServicios.length === 0) {
-            throw new Error("El paquete no puede tener un solo servicio asociado.")
+
+        if (this.#objData.objInfoPrincipal.arrServicios.length <= 1) {
+            throw new Error(
+                "El paquete no puede tener un solo servicio asociado."
+            );
         }
     }
 

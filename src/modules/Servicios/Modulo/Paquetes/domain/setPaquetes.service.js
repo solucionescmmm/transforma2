@@ -33,7 +33,7 @@ class setPaquetes {
         await this.#setSedeTipoTarifaPaquetes();
         await this.#setAreasPaquetes();
         return this.#objResult;
-    } 
+    }
 
     async #validations() {
         if (
@@ -50,27 +50,34 @@ class setPaquetes {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
-        let queryGetPaquetes = await getPaquetes({}, this.#objUser);
+        let queryGetPaquetes = await getPaquetes(
+            { strNombre: this.#objData.objInfoPrincipal.strNombre },
+            this.#objUser
+        );
 
         if (queryGetPaquetes.error) {
             throw new Error(queryGetPaquetes.msg);
         }
 
-        let arrayPaquetes = queryGetPaquetes.data;
+        if (queryGetPaquetes.data) {
+            let arrayPaquetes = queryGetPaquetes.data;
 
-        if (arrayPaquetes?.length > 0) {
-            for (let i = 0; i < arrayPaquetes.length; i++) {
-                if (
-                    this.#objData.objInfoPrincipal.strNombre.trim() ===
-                    arrayPaquetes[i].objInfoPrincipal.strNombre.trim()
-                ) {
-                    throw new Error("El nombre de este paquete ya existe.");
+            if (arrayPaquetes?.length > 0) {
+                for (let i = 0; i < arrayPaquetes.length; i++) {
+                    if (
+                        this.#objData.objInfoPrincipal.strNombre.trim() ===
+                        arrayPaquetes[i].objInfoPrincipal.strNombre.trim()
+                    ) {
+                        throw new Error("El nombre de este paquete ya existe.");
+                    }
                 }
             }
         }
 
-        if (this.#objData.objInfoPrincipal.arrServicios.length === 0) {
-            throw new Error("El paquete no puede tener un solo servicio asociado.")
+        if (this.#objData.objInfoPrincipal.arrServicios.length <= 1) {
+            throw new Error(
+                "El paquete no puede tener un solo servicio asociado."
+            );
         }
     }
 
@@ -123,7 +130,7 @@ class setPaquetes {
                 });
 
                 if (query.error) {
-                    await this.#rollbackTransaction(); 
+                    await this.#rollbackTransaction();
                 }
             }
         }
@@ -134,19 +141,17 @@ class setPaquetes {
             let array = this.#objData.arrSedesTarifas;
 
             for (let i = 0; i < array.length; i++) {
-                
-                    let dao = new classInterfaceDAOPaquetes();
+                let dao = new classInterfaceDAOPaquetes();
 
-                    let query = await dao.setSedeTipoTarifaPaquete({
-                        ...array[i],
-                        intIdPaquete: this.#intIdPaquete,
-                        strUsuarioCreacion: this.#objUser.strEmail,
-                    });
+                let query = await dao.setSedeTipoTarifaPaquete({
+                    ...array[i],
+                    intIdPaquete: this.#intIdPaquete,
+                    strUsuarioCreacion: this.#objUser.strEmail,
+                });
 
-                    if (query.error) {
-                        await this.#rollbackTransaction();
-                    }
-                
+                if (query.error) {
+                    await this.#rollbackTransaction();
+                }
             }
         }
     }
@@ -156,19 +161,17 @@ class setPaquetes {
             let array = this.#objData.arrResponsables;
 
             for (let i = 0; i < array.length; i++) {
-                
-                    let dao = new classInterfaceDAOPaquetes();
+                let dao = new classInterfaceDAOPaquetes();
 
-                    let query = await dao.setAreasPaquetes({
-                        ...array[i],
-                        intIdPaquete: this.#intIdPaquete,
-                        strUsuarioCreacion: this.#objUser.strEmail,
-                    });
+                let query = await dao.setAreasPaquetes({
+                    ...array[i],
+                    intIdPaquete: this.#intIdPaquete,
+                    strUsuarioCreacion: this.#objUser.strEmail,
+                });
 
-                    if (query.error) {
-                        await this.#rollbackTransaction();
-                    }
-                
+                if (query.error) {
+                    await this.#rollbackTransaction();
+                }
             }
         }
     }
