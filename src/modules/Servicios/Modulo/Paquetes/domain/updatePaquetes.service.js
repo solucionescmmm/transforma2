@@ -152,7 +152,7 @@ class updatePaquetes {
                 });
 
                 if (query.error) {
-                    //await this.#rollbackTransaction();
+                    await this.#rollbackTransaction();
                     throw new Error(query.msg);
                 }
             }
@@ -182,7 +182,7 @@ class updatePaquetes {
                 });
 
                 if (query.error) {
-                    //await this.#rollbackTransaction();
+                    await this.#rollbackTransaction();
                     throw new Error(query.msg);
                 }
             }
@@ -212,7 +212,7 @@ class updatePaquetes {
                 });
 
                 if (query.error) {
-                    //await this.#rollbackTransaction();
+                    await this.#rollbackTransaction();
                     throw new Error(query.msg);
                 }
             }
