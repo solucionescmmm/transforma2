@@ -84,7 +84,7 @@ class updatePaquetes {
             }
         }
 
-        if (this.#objData.objInfoPrincipal.arrServicios.length <= 1) {
+        if (this.#objData.objInfoPrincipal.arrServicios?.length <= 1) {
             throw new Error(
                 "El paquete no puede tener un solo servicio asociado."
             );
@@ -108,7 +108,7 @@ class updatePaquetes {
         let dao = new classInterfaceDAOPaquetes();
 
         let query = await dao.updatePaquetes({
-            intId: this.#objData.intId,
+            intId: this.#objData.objInfoPrincipal.intId,
             ...this.#objData.objInfoPrincipal,
             intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
@@ -138,8 +138,8 @@ class updatePaquetes {
             throw new Error(queryModuloPaquetes.msg);
         }
 
-        if (this.#objData.arrModulos.length > 0) {
-            let array = this.#objData.arrModulos;
+        if (this.#objData.objInfoPrincipal.arrServicios.length > 0) {
+            let array = this.#objData.objInfoPrincipal.arrServicios;
 
             for (let i = 0; i < array.length; i++) {
                 let dao = new classInterfaceDAOPaquetes();
@@ -147,11 +147,12 @@ class updatePaquetes {
                 let query = await dao.setServiciosPaquetes({
                     ...array[i],
                     intIdPaquete: this.#intIdPaquete,
+                    intIdServicio: array[i].objInfoPrincipal.intId,
                     strUsuarioActualizacion: this.#objUser.strEmail,
                 });
 
                 if (query.error) {
-                    await this.#rollbackTransaction();
+                    //await this.#rollbackTransaction();
                     throw new Error(query.msg);
                 }
             }
@@ -181,7 +182,7 @@ class updatePaquetes {
                 });
 
                 if (query.error) {
-                    await this.#rollbackTransaction();
+                    //await this.#rollbackTransaction();
                     throw new Error(query.msg);
                 }
             }
@@ -211,7 +212,7 @@ class updatePaquetes {
                 });
 
                 if (query.error) {
-                    await this.#rollbackTransaction();
+                    //await this.#rollbackTransaction();
                     throw new Error(query.msg);
                 }
             }
