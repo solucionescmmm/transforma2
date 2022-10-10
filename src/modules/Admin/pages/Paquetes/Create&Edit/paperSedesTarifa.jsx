@@ -39,6 +39,8 @@ import SelectTipoTarifas from "../../../components/selectTipoTarifa";
 import NumberFormat from "react-number-format";
 
 const PaperSedesTarifa = ({
+    array,
+    getValues,
     values,
     index,
     control,
@@ -304,6 +306,42 @@ const PaperSedesTarifa = ({
                                     rules={{
                                         required:
                                             "Por favor, selecciona una opción",
+                                        validate: () => {
+                                            const arrSedesTarifa = array;
+
+                                            if (arrSedesTarifa.length > 1) {
+                                                for (
+                                                    let i = 0;
+                                                    i < arrSedesTarifa.length;
+                                                    i++
+                                                ) {
+                                                    if (i !== index) {
+                                                        const {
+                                                            intIdSede,
+                                                            intIdTipoTarifa,
+                                                        } = arrSedesTarifa[i];
+
+                                                        const intIdSedeAct =
+                                                            getValues(
+                                                                `arrSedesTarifas[${index}].intIdSede`
+                                                            );
+                                                        const intIdTipoTarifaAct =
+                                                            getValues(
+                                                                `arrSedesTarifas[${index}].intIdTipoTarifa`
+                                                            );
+
+                                                        if (
+                                                            intIdSede ===
+                                                                intIdSedeAct &&
+                                                            intIdTipoTarifa ===
+                                                                intIdTipoTarifaAct
+                                                        ) {
+                                                            return "Ya existe esta combinacion de sede y tarifa, por favor verifica e intenta nuevamente";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
                                     }}
                                 />
                             </Grid>
@@ -341,6 +379,42 @@ const PaperSedesTarifa = ({
                                     rules={{
                                         required:
                                             "Por favor, selecciona una opción",
+                                        validate: () => {
+                                            const arrSedesTarifa = array;
+
+                                            if (arrSedesTarifa.length > 1) {
+                                                for (
+                                                    let i = 0;
+                                                    i < arrSedesTarifa.length;
+                                                    i++
+                                                ) {
+                                                    if (i !== index) {
+                                                        const {
+                                                            intIdSede,
+                                                            intIdTipoTarifa,
+                                                        } = arrSedesTarifa[i];
+
+                                                        const intIdSedeAct =
+                                                            getValues(
+                                                                `arrSedesTarifas[${index}].intIdSede`
+                                                            );
+                                                        const intIdTipoTarifaAct =
+                                                            getValues(
+                                                                `arrSedesTarifas[${index}].intIdTipoTarifa`
+                                                            );
+
+                                                        if (
+                                                            intIdSede ===
+                                                                intIdSedeAct &&
+                                                            intIdTipoTarifa ===
+                                                                intIdTipoTarifaAct
+                                                        ) {
+                                                            return "Ya existe esta combinacion de sede y tarifa, por favor verifica e intenta nuevamente";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
                                     }}
                                 />
                             </Grid>

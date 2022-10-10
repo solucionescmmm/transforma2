@@ -35,6 +35,7 @@ const InfoModulos = ({
     remove,
     isEdit,
     isPreview,
+    bitModulos
 }) => {
     const [loading, setLoading] = useState(true);
 

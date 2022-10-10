@@ -299,7 +299,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                             const arrModulos = data.arrModulos;
                             const newArrModulos = [];
 
-                            if (arrModulos) {
+                            if (arrModulos?.length > 0) {
                                 setBitModulo(true);
 
                                 for (let i = 0; i < arrModulos.length; i++) {
@@ -372,7 +372,6 @@ const CreateEdit = ({ isEdit, isPreview }) => {
         };
     }, [flagSubmit, submitData]);
 
-    console.log(isPreview);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -564,6 +563,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
+                                    getValues={getValues}
                                     clearErrors={clearErrors}
                                     fields={arrST}
                                     append={apST}

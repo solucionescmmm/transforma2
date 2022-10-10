@@ -35,6 +35,7 @@ const InfoSedesTarifa = ({
     remove,
     isEdit,
     isPreview,
+    getValues,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -141,12 +142,14 @@ const InfoSedesTarifa = ({
                                 >
                                     <PaperSedesTarifa
                                         control={control}
+                                        array={fields}
                                         index={i}
                                         values={e}
                                         errors={errors}
                                         disabled={disabled}
                                         remove={remove}
                                         size={fields.length}
+                                        getValues={getValues}
                                     />
                                 </CSSTransition>
                             ))}

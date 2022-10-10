@@ -107,6 +107,8 @@ const CreateEdit = ({ isEdit, isPreview }) => {
         msg: "",
     });
 
+    const [errorLength, setErrorLength] = useState(false);
+
     const [loadingGetData, setLoadingGetData] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
@@ -166,12 +168,18 @@ const CreateEdit = ({ isEdit, isPreview }) => {
         const arrResponsables =
             data.arrResponsables.filter((r) => r.intIdArea !== "") || [];
 
+        if (arrSedesTarifas.length === 1) {
+            setErrorLength(true);
+            return;
+        }
+
         setData({
             ...data,
             arrSedesTarifas,
             arrResponsables,
         });
 
+        setErrorLength(false);
         setFlagSubmit(true);
     };
 
@@ -463,6 +471,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
+                                    getValues={getValues}
                                     clearErrors={clearErrors}
                                     fields={arrST}
                                     append={apST}
@@ -497,6 +506,15 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                         Lo sentimos, tienes campos pendientes
                                         por diligenciar en el formulario, revisa
                                         e intentalo nuevamente.
+                                    </Alert>
+                                </Grid>
+                            )}
+
+                            {errorLength && (
+                                <Grid item xs={12}>
+                                    <Alert severity="error">
+                                        Lo sentimos, debe existir mas de una
+                                        sede y tarifa para crear un paquete
                                     </Alert>
                                 </Grid>
                             )}

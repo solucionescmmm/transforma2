@@ -32,6 +32,7 @@ const InfoSedesTarifa = ({
     control,
     fields,
     append,
+    getValues,
     remove,
     isEdit,
     isPreview,
@@ -140,6 +141,8 @@ const InfoSedesTarifa = ({
                                     key={e.id}
                                 >
                                     <PaperSedesTarifa
+                                        getValues={getValues}
+                                        array={fields}
                                         control={control}
                                         index={i}
                                         values={e}
