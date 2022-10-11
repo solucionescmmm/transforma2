@@ -355,8 +355,6 @@ const InfoPrincipal = ({
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e);
-                                            onChangeModules(e.target.value);
-                                            setValue("arrModulos", []);
                                         }}
                                         required
                                         disabled={disabled}
