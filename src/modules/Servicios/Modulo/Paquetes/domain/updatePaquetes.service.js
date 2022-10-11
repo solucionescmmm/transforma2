@@ -6,10 +6,11 @@ const validator = require("validator").default;
 
 //Servicios
 const serviceGetIdEstado = require("../../../../Estados/domain/getIdEstado.service");
-const getPaquetes = require("./getPaquetes.service");
+const serviceGetPaquetes = require("./getPaquetes.service");
 
 class updatePaquetes {
     #objData;
+    #objDataPaqueteAnterior;
     #objUser;
     #objResult;
     #intIdPaquete;
@@ -31,6 +32,7 @@ class updatePaquetes {
             await this.#updatePaquetes();
             return this.#objResult;
         } else {
+            await this.#getDataPaquete();
             await this.#updatePaquetes();
             await this.#updateServiciosPaquetes();
             await this.#updateSedeTipoTarifaServicio();
@@ -77,14 +79,16 @@ class updatePaquetes {
                             strNombreRepetido++;
                         }
                         if (strNombreRepetido === 2) {
-                            throw new Error("El nombre de este paquete ya existe.");
+                            throw new Error(
+                                "El nombre de este paquete ya existe."
+                            );
                         }
                     }
                 }
             }
         }
 
-        if (this.#objData.objInfoPrincipal.arrServicios.length <= 1) {
+        if (this.#objData.objInfoPrincipal.arrServicios?.length <= 1) {
             throw new Error(
                 "El paquete no puede tener un solo servicio asociado."
             );
@@ -104,11 +108,24 @@ class updatePaquetes {
         this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
+    async #getDataPaquete() {
+        let query = await serviceGetPaquetes(
+            { intId: this.#objData.objInfoPrincipal.intId },
+            this.#objUser
+        );
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#objDataPaqueteAnterior = query.data[0];
+    }
+
     async #updatePaquetes() {
         let dao = new classInterfaceDAOPaquetes();
 
         let query = await dao.updatePaquetes({
-            intId: this.#objData.intId,
+            intId: this.#objData.objInfoPrincipal.intId,
             ...this.#objData.objInfoPrincipal,
             intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
@@ -138,8 +155,8 @@ class updatePaquetes {
             throw new Error(queryModuloPaquetes.msg);
         }
 
-        if (this.#objData.arrModulos.length > 0) {
-            let array = this.#objData.arrModulos;
+        if (this.#objData.objInfoPrincipal.arrServicios.length > 0) {
+            let array = this.#objData.objInfoPrincipal.arrServicios;
 
             for (let i = 0; i < array.length; i++) {
                 let dao = new classInterfaceDAOPaquetes();
@@ -147,6 +164,7 @@ class updatePaquetes {
                 let query = await dao.setServiciosPaquetes({
                     ...array[i],
                     intIdPaquete: this.#intIdPaquete,
+                    intIdServicio: array[i].objInfoPrincipal.intId,
                     strUsuarioActualizacion: this.#objUser.strEmail,
                 });
 
@@ -219,17 +237,12 @@ class updatePaquetes {
     }
 
     async #rollbackTransaction() {
-        let dao = new classInterfaceDAOPaquetes();
 
-        let queryPaquetes = await dao.deletePaquetes({
-            intId: this.#intIdPaquete,
-        });
+        let service = new updatePaquetes(this.#objDataPaqueteAnterior, this.#objUser);
+        let query = await service.main();
 
-        if (queryPaquetes.error) {
-            this.#objResult = {
-                error: true,
-                msg: queryPaquetes.msg,
-            };
+        if (query.error) {
+            throw new Error(query.msg);
         }
 
         this.#objResult = {
