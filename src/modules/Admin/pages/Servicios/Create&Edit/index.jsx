@@ -129,7 +129,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
         setValue,
         clearErrors,
         getValues,
-        watch
+        watch,
     } = useForm({ mode: "onChange" });
 
     const {
@@ -208,6 +208,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
             arr.push({ ...data[i], id: shortid.generate() });
         }
 
+        
         setValue("arrAtributos", arr);
         setObjTipoServicio(data);
     };
@@ -371,7 +372,6 @@ const CreateEdit = ({ isEdit, isPreview }) => {
             signalSubmitData.cancel("Petición abortada.");
         };
     }, [flagSubmit, submitData]);
-
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================

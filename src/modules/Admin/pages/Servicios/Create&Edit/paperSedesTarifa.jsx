@@ -306,8 +306,9 @@ const PaperSedesTarifa = ({
                                     rules={{
                                         required:
                                             "Por favor, selecciona una opción",
-                                        validate: () => {
-                                            const arrSedesTarifa = array;
+                                        validate: (value) => {
+                                            const arrSedesTarifa =
+                                                getValues("arrSedesTarifas");
 
                                             if (arrSedesTarifa.length > 1) {
                                                 for (
@@ -322,9 +323,7 @@ const PaperSedesTarifa = ({
                                                         } = arrSedesTarifa[i];
 
                                                         const intIdSedeAct =
-                                                            getValues(
-                                                                `arrSedesTarifas[${index}].intIdSede`
-                                                            );
+                                                            value;
                                                         const intIdTipoTarifaAct =
                                                             getValues(
                                                                 `arrSedesTarifas[${index}].intIdTipoTarifa`
@@ -379,8 +378,9 @@ const PaperSedesTarifa = ({
                                     rules={{
                                         required:
                                             "Por favor, selecciona una opción",
-                                        validate: () => {
-                                            const arrSedesTarifa = array;
+                                        validate: (value) => {
+                                            const arrSedesTarifa =
+                                                getValues("arrSedesTarifas");
 
                                             if (arrSedesTarifa.length > 1) {
                                                 for (
@@ -389,6 +389,8 @@ const PaperSedesTarifa = ({
                                                     i++
                                                 ) {
                                                     if (i !== index) {
+                                                        debugger;
+
                                                         const {
                                                             intIdSede,
                                                             intIdTipoTarifa,
@@ -399,9 +401,7 @@ const PaperSedesTarifa = ({
                                                                 `arrSedesTarifas[${index}].intIdSede`
                                                             );
                                                         const intIdTipoTarifaAct =
-                                                            getValues(
-                                                                `arrSedesTarifas[${index}].intIdTipoTarifa`
-                                                            );
+                                                            value;
 
                                                         if (
                                                             intIdSede ===
