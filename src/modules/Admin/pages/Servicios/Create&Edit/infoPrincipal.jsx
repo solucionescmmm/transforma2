@@ -78,8 +78,9 @@ const InfoPrincipal = ({
                 strDescripcion: values.strDescripcion,
                 dtFechaInicio: values.dtFechaInicio,
                 intTiempo: values.intTiempo,
-                bitProyectoEs: values.bitProyectoEs,
+                bitProyectoEs: values.intIdProyectoEs ? true : false,
                 bitModulos: values.bitModulos,
+                intIdProyectoEs: values.intIdProyectoEs,
             });
 
             fntGetData(values.intIdTipoServicio);
