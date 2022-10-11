@@ -236,6 +236,8 @@ class daoServicios {
             Servicio.strDescripcion,
             Servicio.btModulos,
             Servicio.intIdEstado,
+            Servicio.intIdProyectosEspeciales,
+            Especiales.strNombre as strProyecto,
             Estado.strNombre as strEstado,
             Servicio.dtmCreacion,
             Servicio.strUsuarioCreacion,
@@ -267,11 +269,14 @@ class daoServicios {
             FROM tbl_Servicios Servicio
 
             INNER JOIN tbl_Estados Estado on Estado.intId = Servicio.intIdEstado
+            LEFT JOIN tbl_ProyectosEspeciales Especiales on Especiales.intId = Servicio.intIdProyectosEspeciales
             INNER JOIN tbl_TiposServicios TipoServicio on TipoServicio.intId = Servicio.intIdTipoServicio
 
             WHERE (Servicio.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
+
+            //console.log(response);
 
             for (let i = 0; i < arrNewData.length; i++) {
                 if (arrNewData[i].arrModulos) {

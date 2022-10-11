@@ -51,7 +51,7 @@ class setPaquetes {
         }
 
         let queryGetPaquetes = await getPaquetes(
-            { strNombre: this.#objData.objInfoPrincipal.strNombre },
+            { strNombre: this.#objData.objInfoPrincipal.strNombre.trim() },
             this.#objUser
         );
 

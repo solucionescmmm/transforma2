@@ -28,7 +28,7 @@ class updateServicios {
         await this.#validations();
         if (typeof this.#objData.bitActivar !== "undefined") {
             await this.#getIdEstado();
-            await this.#updateServicios();
+            await this.#updateServiciosActivar();
             return this.#objResult;
         }else{
             await this.#updateServicios();
@@ -90,9 +90,32 @@ class updateServicios {
         this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
-    async #updateServicios() {
+    async #updateServiciosActivar() {
         let dao = new classInterfaceDAOServicios();
 
+
+        let query = await dao.updateServicios({
+            intId: this.#objData.intId,
+            ...this.#objData.objInfoPrincipal,
+            intIdEstado: this.#intIdEstado,
+            strUsuarioActualizacion: this.#objUser.strEmail,
+        });
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdServicio = query.data.intId;
+
+        this.#objResult = {
+            error: query.error,
+            data: query.data,
+            msg: query.msg,
+        };
+    }
+
+    async #updateServicios() {
+        let dao = new classInterfaceDAOServicios();
 
         let query = await dao.updateServicios({
             intId: this.#objData.intId,

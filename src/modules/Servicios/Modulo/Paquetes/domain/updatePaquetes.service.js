@@ -56,7 +56,7 @@ class updatePaquetes {
 
         if (typeof this.#objData.bitActivar === "undefined") {
             let queryGetPaquetes = await getPaquetes(
-                { strNombre: this.#objData.objInfoPrincipal.strNombre },
+                { strNombre: this.#objData.objInfoPrincipal.strNombre.trim() },
                 this.#objUser
             );
 
