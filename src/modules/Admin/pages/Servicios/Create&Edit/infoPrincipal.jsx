@@ -40,6 +40,7 @@ const InfoPrincipal = ({
     onChangeModules,
     onChangeTipoServicio,
     isPreview,
+    disabledMod,
     watch,
 }) => {
     const [loading, setLoading] = useState(true);
@@ -305,8 +306,8 @@ const InfoPrincipal = ({
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e);
-                                        onChangeModules(e.target.value);
-                                        setValue("arrModulos", []);
+                                        // onChangeModules(e.target.value);
+                                        // setValue("arrModulos", []);
                                     }}
                                     required
                                     fullWidth

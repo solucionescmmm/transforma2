@@ -516,6 +516,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     }
                                     data={dataServicios}
                                     watch={watch}
+                                    disabledMod
                                 />
                             </Grid>
 
