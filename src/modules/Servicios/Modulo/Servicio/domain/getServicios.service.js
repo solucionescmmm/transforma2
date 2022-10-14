@@ -59,6 +59,10 @@ const getEmpresario = async (objParams, strDataUser) => {
                     intIdTipoServicio: array[i].intIdTipoServicio
                 })
 
+                if (queryAtributos.error) {
+                    throw new Error(queryAtributos.msg)
+                }
+
                 let arrAtributos = queryAtributos.data
 
                 let objResultAtributos = array[i].objResultAtributos
@@ -81,6 +85,7 @@ const getEmpresario = async (objParams, strDataUser) => {
                     arrResponsables:array[i]?.arrResponsables||[],
                     arrAtributos
                 }
+                
             }
             let result = {
                 error: false,
