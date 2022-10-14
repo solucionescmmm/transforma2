@@ -35,7 +35,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCreateDiagnostico = ({
+const ModalCreate = ({
     handleOpenDialog,
     open,
     refresh,
@@ -238,4 +238,4 @@ const ModalCreateDiagnostico = ({
     );
 };
 
-export default ModalCreateDiagnostico;
+export default ModalCreate;

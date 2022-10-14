@@ -45,6 +45,11 @@ const Documentos = lazy(() =>
     import("../modules/Empresarios/pages/Documentos")
 );
 
+
+const DiagnosticosCoco= lazy(() =>
+    import("../modules/Empresarios/pages/Diagnosticos")
+);
+
 const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
     if (route.location === "Personas") {
         return (
@@ -377,6 +382,51 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 </Grid>
 
                 <Documentos
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    openModalCreateRoute={true}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagnosticoCoco") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Inicio")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagnosticosCoco
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "CreateDiagnosticoCoco") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Inicio")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagnosticosCoco
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
                     openModalCreateRoute={true}

@@ -41,7 +41,6 @@ import CardGrafica from "./cardGrafica";
 import CardTareas from "./cardTareas";
 import CardComentarios from "./cardComentarios";
 import CardDocumentos from "./cardDocumentos";
-import ModalCreateDiagnostico from "./modalCreateDiagnostico";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -76,8 +75,6 @@ const Coco = () => {
     });
 
     const [objInteresado, setObjInteresado] = useState({});
-    const [openModalDiag, setOpenModalDiag] = useState(false);
-
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
@@ -92,11 +89,6 @@ const Coco = () => {
             },
         }));
     };
-
-    const handlerChangeOpenModalDiag = () => {
-        setOpenModalDiag(!openModalDiag);
-    };
-
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
@@ -342,12 +334,6 @@ const Coco = () => {
 
     return (
         <Fragment>
-            <ModalCreateDiagnostico
-                handleOpenDialog={handlerChangeOpenModalDiag}
-                open={openModalDiag}
-                intIdIdea={intId}
-            />
-
             <Grid
                 container
                 direction="row"
@@ -889,6 +875,7 @@ const Coco = () => {
                                             display: "flex",
                                             alignItems: "center",
                                         }}
+                                        onClick={() => onChangeRoute("DiagnosticoCoco")}
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
@@ -942,7 +929,7 @@ const Coco = () => {
                                             size="small"
                                             variant="contained"
                                             onClick={() =>
-                                                handlerChangeOpenModalDiag()
+                                                onChangeRoute("CreateDiagnosticoCoco")
                                             }
                                             sx={{
                                                 fontSize: "11px",
