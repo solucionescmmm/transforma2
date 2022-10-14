@@ -41,6 +41,7 @@ import CardGrafica from "./cardGrafica";
 import CardTareas from "./cardTareas";
 import CardComentarios from "./cardComentarios";
 import CardDocumentos from "./cardDocumentos";
+import ModalCreateDiagnostico from "./modalCreateDiagnostico";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -75,6 +76,7 @@ const Coco = () => {
     });
 
     const [objInteresado, setObjInteresado] = useState({});
+    const [openModalDiag, setOpenModalDiag] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -89,6 +91,10 @@ const Coco = () => {
                 intIdIdea: intId,
             },
         }));
+    };
+
+    const handlerChangeOpenModalDiag = () => {
+        setOpenModalDiag(!openModalDiag);
     };
 
     //===============================================================================================================================================
@@ -336,6 +342,12 @@ const Coco = () => {
 
     return (
         <Fragment>
+            <ModalCreateDiagnostico
+                handleOpenDialog={handlerChangeOpenModalDiag}
+                open={openModalDiag}
+                intIdIdea={intId}
+            />
+
             <Grid
                 container
                 direction="row"
@@ -930,7 +942,7 @@ const Coco = () => {
                                             size="small"
                                             variant="contained"
                                             onClick={() =>
-                                                onChangeRoute("Diagnosticos")
+                                                handlerChangeOpenModalDiag()
                                             }
                                             sx={{
                                                 fontSize: "11px",
@@ -1202,7 +1214,9 @@ const Coco = () => {
                                             size="small"
                                             variant="contained"
                                             onClick={() =>
-                                                onChangeRoute("CreateDocumentos")
+                                                onChangeRoute(
+                                                    "CreateDocumentos"
+                                                )
                                             }
                                             sx={{
                                                 fontSize: "11px",
