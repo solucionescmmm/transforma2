@@ -53,9 +53,28 @@ class daoDiagnosticos {
     async getDiagnosticos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`    
-                SELECT * FROM tbl_Diagnosticos 
-                WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+            let response = await conn.query`
+            
+            SELECT 
+
+            Diagnostico.intId,
+            Diagnostico.intIdIdea,
+            Diagnostico.intIdTipoDiagnostico,
+            Diagnostico.intIdEstadoDiagnostico,
+            Diagnostico.dtmCreacion,
+            Diagnostico.strUsuarioCreacion,
+            Diagnostico.dtmActualizacion,
+            Diagnostico.strUsuarioActualizacion,
+            Tipo.strNombre as strTipoDiagnostico,
+            Estado.strNombre as strEstadoDiagnostico
+            
+            FROM tbl_Diagnostico Diagnostico
+
+            INNER JOIN tbl_TipoDiagnostico Tipo ON Tipo.intId = Diagnostico.intIdTipoDiagnostico
+            INNER JOIN tbl_EstadoDiagnostico Estado ON Estado.intId = Diagnostico.intIdEstadoDiagnostico
+
+            WHERE (Diagnostico.intId = ${data.intId} OR ${data.intId} IS NULL)
+            AND   (Diagnostico.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL) `;
 
             let result = {
                 error: false,

@@ -6,6 +6,10 @@ const classInterfaceDiagnosticos = require("../infra/conectors/interfaseDAODiagn
 const getDiagnosticos = async (objParams, strDataUser) => {
     let = { intId, intIdIdea } = objParams;
 
+    if (!intIdIdea) {
+        throw new Error("Se esperaban parámetros de búsqueda.");
+    }
+
     if (
         !validator.isEmail(strDataUser.strEmail, {
             domain_specific_validation: "cmmmedellin.org",
@@ -14,10 +18,6 @@ const getDiagnosticos = async (objParams, strDataUser) => {
         throw new Error(
             "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
         );
-    }
-
-    if (!intIdIdea) {
-        throw new Error("Se esperaban parametros de entrada.");
     }
 
     let dao = new classInterfaceDiagnosticos();
