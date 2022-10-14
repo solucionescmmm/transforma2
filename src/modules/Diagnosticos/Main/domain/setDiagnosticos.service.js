@@ -5,7 +5,7 @@ const classInterfaceDAODiagnosticos = require("../infra/conectors/interfaseDAODi
 const validator = require("validator").default;
 
 //Servicios
-const serviceGetIdEstado = require("./getIdEstadoDiagnosticos.service");
+const serviceGetIdEstadoDiagnostico = require("./getIdEstadoDiagnosticos.service");
 
 class setDiagnosticos {
     //obj info
@@ -26,6 +26,7 @@ class setDiagnosticos {
     }
 
     async main() {
+        console.log(this.#objData, this.#objUser);
         await this.#validations();
         await this.#getIdEstado();
         this.#completeData();
@@ -49,15 +50,16 @@ class setDiagnosticos {
     }
 
     async #getIdEstado() {
-        let queryGetIdEstado = await serviceGetIdEstado({
+        let queryGetIdEstado = await serviceGetIdEstadoDiagnostico({
             strNombre: "En borrador",
-        });
+        },this.#objUser);
+
 
         if (queryGetIdEstado.error) {
             throw new Error(queryGetIdEstado.msg);
         }
 
-        this.#intIdEstado = queryGetIdEstado.data.intId;
+        this.#intIdEstado = queryGetIdEstado.data[0].intId;
     }
 
     #completeData() {
