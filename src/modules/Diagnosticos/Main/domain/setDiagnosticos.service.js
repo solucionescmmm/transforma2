@@ -14,7 +14,7 @@ class setDiagnosticos {
     #objResult;
 
     //variables
-    #intIdEstado;
+    #intIdEstadoDiagnostico;
 
     /**
      * @param {object} data
@@ -26,7 +26,6 @@ class setDiagnosticos {
     }
 
     async main() {
-        console.log(this.#objData, this.#objUser);
         await this.#validations();
         await this.#getIdEstado();
         this.#completeData();
@@ -59,13 +58,13 @@ class setDiagnosticos {
             throw new Error(queryGetIdEstado.msg);
         }
 
-        this.#intIdEstado = queryGetIdEstado.data[0].intId;
+        this.#intIdEstadoDiagnostico = queryGetIdEstado.data[0].intId;
     }
 
     #completeData() {
         let newData = {
             ...this.#objData,
-            intIdEstado: this.#intIdEstado,
+            intIdEstadoDiagnostico: this.#intIdEstadoDiagnostico,
             strUsuarioCreacion:this.#objUser.strEmail,
         };
         this.#objData = newData;
