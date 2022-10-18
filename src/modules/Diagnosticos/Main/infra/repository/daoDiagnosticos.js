@@ -74,11 +74,19 @@ class daoDiagnosticos {
             INNER JOIN tbl_EstadoDiagnostico Estado ON Estado.intId = Diagnostico.intIdEstadoDiagnostico
 
             WHERE (Diagnostico.intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (Diagnostico.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL) `;
+            AND   (Diagnostico.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL)
+            AND   (Diagnostico.intIdTipoDiagnostico = ${data.intIdTipoDiagnostico} OR ${data.intIdTipoDiagnostico} IS NULL)
+            AND   (Diagnostico.intIdEstadoDiagnostico = ${data.intIdEstadoDiagnostico} OR ${data.intIdEstadoDiagnostico} IS NULL) `;
+
+            let arrNewData = response.recordsets[0];
 
             let result = {
                 error: false,
-                data: response.recordsets[0],
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
             };
 
             sql.close(conexion);
@@ -103,7 +111,8 @@ class daoDiagnosticos {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
                 SELECT * FROM tbl_TipoDiagnostico 
-                WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+                WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)
+                AND   (strNombre = ${data.strNombre} OR ${data.strNombre} IS NULL)`;
 
             let result = {
                 error: false,
@@ -165,7 +174,7 @@ class daoDiagnosticos {
 
             let result = {
                 error: false,
-                data: response.recordsets[0],
+                data: response.recordset[0],
             };
 
             sql.close(conexion);

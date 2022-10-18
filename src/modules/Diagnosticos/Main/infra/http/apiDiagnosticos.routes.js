@@ -37,6 +37,14 @@ routes.get(
     }
 );
 
+routes.get(
+    "/transforma/api/Diagnosticos/main/getIdEstadoDiagnosticos",
+    async (req, res) => {
+        let controllerComentarios = new classController();
+        await controllerComentarios.getIdEstadoDiagnosticos(req, res);
+    }
+);
+
 routes.put(
     "/transforma/api/Diagnosticos/main/updateDiagnosticos",
     async (req, res) => {

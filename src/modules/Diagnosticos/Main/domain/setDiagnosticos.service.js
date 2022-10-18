@@ -5,7 +5,9 @@ const classInterfaceDAODiagnosticos = require("../infra/conectors/interfaseDAODi
 const validator = require("validator").default;
 
 //Servicios
-const serviceGetIdEstadoDiagnostico = require("./getIdEstadoDiagnosticos.service");
+const serviceGetIdEstadoDiagnosticos = require("./getIdEstadoDiagnosticos.service");
+const serviceGetTipoDiagnosticos = require("./getTipoDiagnosticos.service");
+const serviceGetDiagnosticos = require("./getDiagnosticos.service");
 
 class setDiagnosticos {
     //obj info
@@ -46,26 +48,87 @@ class setDiagnosticos {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+
+        let queryGetTipoDiagnosticos = await serviceGetTipoDiagnosticos(
+            {
+                strNombre: "Normal",
+            },
+            this.#objUser
+        );
+
+        if (queryGetTipoDiagnosticos.error) {
+            throw new Error(queryGetTipoDiagnosticos.msg);
+        }
+
+        let intIdTipoDiagnostico = queryGetTipoDiagnosticos.data[0].intId;
+
+        if (this.#objData.intIdTipoDiagnostico === intIdTipoDiagnostico) {
+            let queryGetIdEstadoEnBorrador = await serviceGetIdEstadoDiagnosticos({
+                strNombre: "En borrador",
+            },this.#objUser)
+
+            if (queryGetIdEstadoEnBorrador.error) {
+                throw new Error(queryGetIdEstadoEnBorrador.msg)
+            }
+
+            let queryGetIdEstadoEnProceso= await serviceGetIdEstadoDiagnosticos({
+                strNombre: "En Proceso",
+            },this.#objUser)
+
+            if (queryGetIdEstadoEnProceso.error) {
+                throw new Error(queryGetIdEstadoEnProceso.msg)
+            }
+
+            let intIdEstadoDiagnosticoEnBorrador = queryGetIdEstadoEnBorrador.data.intId
+            let intIdEstadoDiagnosticoEnProceso = queryGetIdEstadoEnProceso.data.intId
+
+            let queryGetDiagnosticos = await serviceGetDiagnosticos(
+                {
+                    intIdIdea:this.#objData.intIdIdea,
+                    intIdTipoDiagnostico: intIdTipoDiagnostico,
+                    intIdEstadoDiagnostico: intIdEstadoDiagnosticoEnBorrador
+                },
+                this.#objUser
+            )
+
+            queryGetDiagnosticos = await serviceGetDiagnosticos(
+                {
+                    intIdIdea:this.#objData.intIdIdea,
+                    intIdTipoDiagnostico: intIdTipoDiagnostico,
+                    intIdEstadoDiagnostico: intIdEstadoDiagnosticoEnProceso
+                },
+                this.#objUser
+            )
+            if (queryGetDiagnosticos.error) {
+                throw new Error(queryGetDiagnosticos.msg);
+            }
+
+            if (queryGetDiagnosticos.data) {
+                throw new Error("Ya existe un diagnostico de tipo Normal en estado en borrador o en proceso.")
+            }
+        }
     }
 
     async #getIdEstado() {
-        let queryGetIdEstado = await serviceGetIdEstadoDiagnostico({
-            strNombre: "En borrador",
-        },this.#objUser);
-
+        let queryGetIdEstado = await serviceGetIdEstadoDiagnosticos(
+            {
+                strNombre: "En borrador",
+            },
+            this.#objUser
+        );
 
         if (queryGetIdEstado.error) {
             throw new Error(queryGetIdEstado.msg);
         }
 
-        this.#intIdEstadoDiagnostico = queryGetIdEstado.data[0].intId;
+        this.#intIdEstadoDiagnostico = queryGetIdEstado.data.intId;
     }
 
     #completeData() {
         let newData = {
             ...this.#objData,
             intIdEstadoDiagnostico: this.#intIdEstadoDiagnostico,
-            strUsuarioCreacion:this.#objUser.strEmail,
+            strUsuarioCreacion: this.#objUser.strEmail,
         };
         this.#objData = newData;
     }

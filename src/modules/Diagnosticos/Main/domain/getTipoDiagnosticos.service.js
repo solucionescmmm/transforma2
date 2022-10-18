@@ -4,7 +4,7 @@ const validator = require("validator").default;
 const classInterfaceDiagnosticos = require("../infra/conectors/interfaseDAODiagnosticos");
 
 const getTipoDiagnosticos = async (objParams, strDataUser) => {
-    let = { intId } = objParams;
+    let = { intId, strNombre } = objParams;
 
     if (
         !validator.isEmail(strDataUser.strEmail, {
@@ -20,6 +20,7 @@ const getTipoDiagnosticos = async (objParams, strDataUser) => {
 
     let query = {
         intId: intId || null,
+        strNombre: strNombre || null,
     };
 
     let result = await dao.getTipoDiagnosticos(query);
