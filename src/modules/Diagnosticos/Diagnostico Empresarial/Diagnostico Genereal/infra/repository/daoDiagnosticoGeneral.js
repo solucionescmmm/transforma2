@@ -17,7 +17,9 @@ class daoDiagnosticoGeneral {
             
             INSERT INTO tbl_DiagnosticoGeneral VALUES
             (
+                ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
+                ${data.intIdTipoEmpresario},
                 ${data.strUbicacionVivienda},
                 ${data.strCabezaHogar},
                 ${data.intNumPersonasCargo},

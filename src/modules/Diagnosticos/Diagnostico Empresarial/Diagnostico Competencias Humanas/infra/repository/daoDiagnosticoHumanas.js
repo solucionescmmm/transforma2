@@ -17,6 +17,7 @@ class daoDiagnosticoHumanas {
             
             INSERT INTO tbl_DiagnosticoHumanoSocial VALUES
             (
+                ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.strTomaDesiciones},
                 ${data.strMotivaciones},

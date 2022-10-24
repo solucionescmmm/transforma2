@@ -17,6 +17,7 @@ class daoDiagnosticoProducto {
             
             INSERT INTO tbl_DiagnosticoProductos VALUES
             (
+                ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.strCategoriaProductos},
                 ${data.strProductos},
