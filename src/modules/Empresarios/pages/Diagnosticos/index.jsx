@@ -319,6 +319,9 @@ const ReadDiagnosticos = ({
                                         </div>
                                     ),
                                 }}
+                                onRowClick={(e, rowData) => {
+                                    onChangeRoute("Diagnosticos", rowData.intId)
+                                }}
                             />
                         </ThemeProvider>
                     </StyledEngineProvider>

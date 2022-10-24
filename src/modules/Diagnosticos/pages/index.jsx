@@ -17,12 +17,12 @@ import {
     Architecture as ArchitectureIcon,
 } from "@mui/icons-material";
 
-const Diagnosticos = ({ onChange }) => {
+const Diagnosticos = ({ onChangeRoute }) => {
     return (
         <Grid container direction="row" spacing={2}>
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea onClick={() => onChange("DiagEmpresarial")}>
+                    <CardActionArea onClick={() => onChangeRoute("DiagEmpresarial")}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
@@ -60,7 +60,7 @@ const Diagnosticos = ({ onChange }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea onClick={() => onChange("DiagDesign")}>
+                    <CardActionArea onClick={() => onChangeRoute("DiagDesign")}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
@@ -98,7 +98,7 @@ const Diagnosticos = ({ onChange }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea onClick={() => onChange("DiagComercial")}>
+                    <CardActionArea onClick={() => onChangeRoute("DiagComercial")}>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>

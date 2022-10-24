@@ -9,9 +9,7 @@ import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material";
 // Componentes
 const Comentarios = lazy(() => import("../modules/Comentarios/pages/homePage"));
 
-const Diagnosticos = lazy(() =>
-    import("../modules/Diagnosticos/pages/homePage")
-);
+const Diagnosticos = lazy(() => import("../modules/Diagnosticos/pages"));
 
 const DiagEmpresarial = lazy(() =>
     import("../modules/Diagnosticos/pages/DiagEmpresarial/homePage")
@@ -45,8 +43,7 @@ const Documentos = lazy(() =>
     import("../modules/Empresarios/pages/Documentos")
 );
 
-
-const DiagnosticosCoco= lazy(() =>
+const DiagnosticosCoco = lazy(() =>
     import("../modules/Empresarios/pages/Diagnosticos")
 );
 
