@@ -1,9 +1,9 @@
 //Class
-const classInterfaceDAODiagnostico = require("../infra/repository/daoDiagnosticoProducto");
+const classInterfaceDAODiagnostico = require("../infra/conectros/interfaseDAODiagnosticoProducto");
 const validator = require("validator").default;
 
 const getDiagnosticoProducto = async (objParams, strDataUser) => {
-    let { intId, intIdEmpresario } = objParams;
+    let { intId, intIdEmpresario, intIdDiagnostico } = objParams;
 
     if (!intId && !intIdEmpresario) {
         throw new Error("Se esperaban parámetros de búsqueda.");
@@ -23,7 +23,8 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
     let query = {
         intId,
         intIdEmpresario,
-    };
+        intIdDiagnostico
+    };    
 
     let intIdEmpresarioDiagnostico = await dao.getIntIdEmpresario(query)
 
