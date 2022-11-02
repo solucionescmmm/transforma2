@@ -37,6 +37,8 @@ import { toast } from "react-hot-toast";
 const useGetDiagnHumano = ({
     intId = null,
     intIdEmpresario = null,
+    intIdDiagnostico = null,
+    intIdIdea = null,
     autoLoad = true,
 } = {}) => {
     //===============================================================================================================================================
@@ -53,7 +55,13 @@ const useGetDiagnHumano = ({
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intId, intIdEmpresario }) => {
+        async ({
+            signalSubmitData,
+            intId,
+            intIdEmpresario,
+            intIdDiagnostico,
+            intIdIdea,
+        }) => {
             return await axios(
                 {
                     method: "GET",
@@ -65,6 +73,8 @@ const useGetDiagnHumano = ({
                     params: {
                         intIdEmpresario,
                         intId,
+                        intIdDiagnostico,
+                        intIdIdea,
                     },
                 },
                 {
@@ -102,17 +112,30 @@ const useGetDiagnHumano = ({
         [token]
     );
 
-    const refreshGetData = ({ intId = null, intIdEmpresario = null } = {}) => {
+    const refreshGetData = ({
+        intId = null,
+        intIdEmpresario = null,
+        intIdDiagnostico = null,
+        intIdIdea = null,
+    } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, intId, intIdEmpresario });
+        getData({
+            signalSubmitData,
+            intId,
+            intIdEmpresario,
+            intIdIdea,
+            intIdDiagnostico,
+        });
     };
 
     const getUniqueData = async ({
         intId = null,
         intIdEmpresario = null,
+        intIdDiagnostico = null,
+        intIdIdea = null,
     } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -120,6 +143,8 @@ const useGetDiagnHumano = ({
             signalSubmitData,
             intId,
             intIdEmpresario,
+            intIdDiagnostico,
+            intIdIdea,
         });
 
         return query;
@@ -132,13 +157,26 @@ const useGetDiagnHumano = ({
         let signalSubmitData = axios.CancelToken.source();
 
         if (autoLoad) {
-            getData({ signalSubmitData, intId, intIdEmpresario });
+            getData({
+                signalSubmitData,
+                intId,
+                intIdEmpresario,
+                intIdDiagnostico,
+                intIdIdea,
+            });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, intIdEmpresario, intId, autoLoad]);
+    }, [
+        getData,
+        intIdEmpresario,
+        intId,
+        autoLoad,
+        intIdDiagnostico,
+        intIdIdea,
+    ]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================

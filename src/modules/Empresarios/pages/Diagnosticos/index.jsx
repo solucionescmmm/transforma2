@@ -320,7 +320,10 @@ const ReadDiagnosticos = ({
                                     ),
                                 }}
                                 onRowClick={(e, rowData) => {
-                                    onChangeRoute("Diagnosticos", rowData.intId)
+                                    onChangeRoute("Diagnosticos", {
+                                        intIdDiagnostico: rowData.intId,
+                                        intIdIdea
+                                    });
                                 }}
                             />
                         </ThemeProvider>

@@ -11,14 +11,12 @@ import {
     Grid,
     Box,
     Typography,
-    Button,
 } from "@mui/material";
 
 // Iconos
 import {
     People as PeopleIcon,
     ManageAccounts as ManageAccountsIcon,
-    ChevronLeft as ChevronLeftIcon,
     FactCheck as FactCheckIcon,
     ListAlt as ListAltIcon,
 } from "@mui/icons-material";
@@ -32,7 +30,12 @@ import ErrorPage from "../../../../common/components/Error";
 
 import ModalResumen from "./modalResumen";
 
-const DiagEmpresarialPage = ({ intId }) => {
+const DiagEmpresarialPage = ({
+    intId,
+    intIdIdea,
+    onChangeRoute,
+    intIdDiagnostico,
+}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -60,6 +63,8 @@ const DiagEmpresarialPage = ({ intId }) => {
     //===============================================================================================================================================
     const { getUniqueData: getUniqueDataHum } = useGetDiagnHumano({
         autoLoad: false,
+        intIdDiagnostico,
+        intIdIdea,
     });
 
     const refFntGetDataHum = useRef(getUniqueDataHum);
@@ -72,7 +77,9 @@ const DiagEmpresarialPage = ({ intId }) => {
 
         async function getData() {
             await refFntGetDataHum
-                .current({ intIdEmpresario: intId })
+                .current({
+                    intIdDiagnostico,
+                })
                 .then((res) => {
                     if (res.data.error) {
                         throw new Error(res.data.msg);
@@ -99,7 +106,7 @@ const DiagEmpresarialPage = ({ intId }) => {
         }
 
         getData();
-    }, [intId]);
+    }, [intIdDiagnostico]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -129,18 +136,6 @@ const DiagEmpresarialPage = ({ intId }) => {
             />
 
             <Grid container direction="row" spacing={2}>
-                <Grid item xs={12}>
-                    <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/`}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
-
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
@@ -184,8 +179,12 @@ const DiagEmpresarialPage = ({ intId }) => {
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
-                            component={RouterLink}
-                            to={`/diagnosticos/diagEmpresarial/general/create`}
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarialCreate", {
+                                    intIdIdea,
+                                    intIdDiagnostico,
+                                })
+                            }
                         >
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row" spacing={2}>

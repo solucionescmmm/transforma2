@@ -15,6 +15,10 @@ const DiagEmpresarial = lazy(() =>
     import("../modules/Diagnosticos/pages/DiagEmpresarial/homePage")
 );
 
+const DiagEmpresarialCreate = lazy(() =>
+    import("../modules/Diagnosticos/pages/DiagEmpresarial/Create&Edit/General/pageCUGeneral")
+);
+
 const DiagDesign = lazy(() =>
     import("../modules/Diagnosticos/pages/DiagDesign/homePage")
 );
@@ -143,7 +147,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChangeRoute("Inicio")}
+                        onClick={() => onChangeRoute("DiagnosticoCoco")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -152,7 +156,11 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     </Button>
                 </Grid>
 
-                <Diagnosticos onChangeRoute={onChangeRoute} />
+                <Diagnosticos
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
             </Grid>
         );
     }
@@ -162,7 +170,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChangeRoute("Diagnosticos")}
+                        onClick={() =>
+                            onChangeRoute("Diagnosticos", { ...route.params })
+                        }
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -171,17 +181,49 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     </Button>
                 </Grid>
 
-                <DiagEmpresarial onChangeRoute={onChangeRoute} />
+                <DiagEmpresarial
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
             </Grid>
         );
     }
+
+    if (route.location === "DiagEmpresarialCreate") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagEmpresarial", { ...route.params })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagEmpresarialCreate
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
 
     if (route.location === "DiagDesign") {
         return (
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChangeRoute("Diagnosticos")}
+                        onClick={() =>
+                            onChangeRoute("Diagnosticos", { ...route.params })
+                        }
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -200,7 +242,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChangeRoute("Diagnosticos")}
+                        onClick={() =>
+                            onChangeRoute("Diagnosticos", { ...route.params })
+                        }
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"

@@ -17,12 +17,19 @@ import {
     Architecture as ArchitectureIcon,
 } from "@mui/icons-material";
 
-const Diagnosticos = ({ onChangeRoute }) => {
+const Diagnosticos = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     return (
         <Grid container direction="row" spacing={2}>
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea onClick={() => onChangeRoute("DiagEmpresarial")}>
+                    <CardActionArea
+                        onClick={() =>
+                            onChangeRoute("DiagEmpresarial", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            })
+                        }
+                    >
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
@@ -60,7 +67,14 @@ const Diagnosticos = ({ onChangeRoute }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea onClick={() => onChangeRoute("DiagDesign")}>
+                    <CardActionArea
+                        onClick={() =>
+                            onChangeRoute("DiagDesign", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            })
+                        }
+                    >
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
@@ -98,7 +112,14 @@ const Diagnosticos = ({ onChangeRoute }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea onClick={() => onChangeRoute("DiagComercial")}>
+                    <CardActionArea
+                        onClick={() =>
+                            onChangeRoute("DiagComercial", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            })
+                        }
+                    >
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
