@@ -272,7 +272,6 @@ class daoDiagnosticoTecnicas {
             FROM tbl_DiagnosticoCompetenciasTecnicas
 
             WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (intIdEmpresario = ${data.intIdEmpresario} OR ${data.intIdEmpresario} IS NULL)
             AND   (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL) `;
 
             let arrNewData = response.recordsets[0];
