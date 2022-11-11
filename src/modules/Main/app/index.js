@@ -42,6 +42,7 @@ app.use(require("../../Diagnosticos/Diagnostico Empresarial/Diagnostico Genereal
 app.use(require("../../Diagnosticos/Main/infra/http/apiDiagnosticos.routes"))
 app.use(require("../../Document/infra/http/apiDocumento.routes"))
 app.use(require("../../Estados/infra/http/apiEstados.routes"))
+app.use(require("../../Rutas/infra/http/apiRutas.routes"))
 app.use(require("../../Servicios/Maestros/Areas/infra/http/apiAreas.routes"))
 app.use(require("../../Servicios/Maestros/Sedes/infra/http/apiSedes.routes"))
 app.use(require("../../Servicios/Maestros/Tipos de Tarifas/infra/http/apiTipoTarifa.routes"))
