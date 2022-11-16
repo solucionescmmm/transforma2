@@ -16,7 +16,9 @@ const DiagEmpresarial = lazy(() =>
 );
 
 const DiagEmpresarialCreate = lazy(() =>
-    import("../modules/Diagnosticos/pages/DiagEmpresarial/Create&Edit/General/pageCUGeneral")
+    import(
+        "../modules/Diagnosticos/pages/DiagEmpresarial/Create&Edit/General/pageCUGeneral"
+    )
 );
 
 const DiagDesign = lazy(() =>
@@ -49,6 +51,12 @@ const Documentos = lazy(() =>
 
 const DiagnosticosCoco = lazy(() =>
     import("../modules/Empresarios/pages/Diagnosticos")
+);
+
+const Rutas = lazy(() => import("../modules/Empresarios/pages/Rutas"));
+
+const CreateRutas = lazy(() =>
+    import("../modules/Empresarios/pages/Rutas/Create&Edit")
 );
 
 const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
@@ -196,7 +204,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid item xs={12}>
                     <Button
                         onClick={() =>
-                            onChangeRoute("DiagEmpresarial", { ...route.params })
+                            onChangeRoute("DiagEmpresarial", {
+                                ...route.params,
+                            })
                         }
                         startIcon={<ChevronLeftIcon />}
                         size="small"
@@ -214,7 +224,6 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             </Grid>
         );
     }
-
 
     if (route.location === "DiagDesign") {
         return (
@@ -272,7 +281,32 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     </Button>
                 </Grid>
 
-                <Grid>Rutas</Grid>
+                <Rutas
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "CreateRutas") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Inicio")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <CreateRutas
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                />
             </Grid>
         );
     }
