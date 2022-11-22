@@ -17,6 +17,7 @@ class daoDiagnosticoProducto {
             
             INSERT INTO tbl_DiagnosticoProductos VALUES
             (
+                ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.strCategoriaProductos},
                 ${data.strProductos},
@@ -296,7 +297,7 @@ class daoDiagnosticoProducto {
             FROM tbl_DiagnosticoProductos
 
             WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (intIdEmpresario = ${data.intIdEmpresario} OR ${data.intIdEmpresario} IS NULL) `;
+            AND   (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 

@@ -1,11 +1,11 @@
 //Class
-const classInterfaceDAODiagnostico = require("../infra/repository/daoDiagnosticoTecnicas");
+const classInterfaceDAODiagnostico = require("../infra/conectors/interfaseDAODiagnosticoTecnicas");
 const validator = require("validator").default;
 
 const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
-    let { intId, intIdEmpresario } = objParams;
+    let { intId, intIdDiagnostico } = objParams;
 
-    if (!intId && !intIdEmpresario) {
+    if (!intIdDiagnostico) {
         throw new Error("Se esperaban parámetros de búsqueda.");
     }
 
@@ -22,7 +22,7 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
     let dao = new classInterfaceDAODiagnostico();
     let query = {
         intId,
-        intIdEmpresario,
+        intIdDiagnostico
     };
 
     //let intIdEmpresarioDiagnostico = await dao.getIntIdEmpresario(query)
@@ -39,6 +39,7 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
             for (let i = 0; i < array.length; i++) {
                 let objInfoGeneral = {
                     intId: array[i].intId,
+                    intIdDiagnostico:array[i]?.intIdDiagnostico,
                     intIdEmpresario: array[i]?.intIdEmpresario,
                     strLugarSesion: array[i]?.strLugarSesion,
                     dtmFechaSesion: array[i]?.dtmFechaSesion,
