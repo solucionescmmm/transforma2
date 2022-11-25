@@ -25,6 +25,24 @@ class interfaceDAORutas {
         return query;
     }
 
+    async setObjetivosFases(data) {
+        let dao = new classDAO();
+        let query = await dao.setObjetivosFases(data);
+        return query;
+    }
+
+    async setObjetivosPaquetesFases(data) {
+        let dao = new classDAO();
+        let query = await dao.setObjetivosPaquetesFases(data);
+        return query;
+    }
+
+    async setObjetivosServiciosFases(data) {
+        let dao = new classDAO();
+        let query = await dao.setObjetivosServiciosFases(data);
+        return query;
+    }
+
     async getRutas(data) {
         let dao = new classDAO();
         let query = await dao.getRutas(data);

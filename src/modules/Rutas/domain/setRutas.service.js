@@ -50,23 +50,6 @@ class setRutas {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
-
-        let queryGetRutas = await getRutas({}, this.#objUser);
-
-        if (queryGetRutas.error) {
-            throw new Error(queryGetRutas.msg);
-        }
-
-        let arrayRutas = queryGetRutas.data;
-
-        for (let i = 0; i < arrayRutas.length; i++) {
-            if (
-                this.#objData.strNombre.trim() ===
-                arrayRutas[i].strNombre.trim()
-            ) {
-                throw new Error("El nombre de esta área ya existe.");
-            }
-        }
     }
 
     async #getIdEstado() {
@@ -132,16 +115,58 @@ class setRutas {
 
             this.#intIdFase = query.data[0].intId;
 
+            let arrObjetivos = objDataFase[i].arrObjetivos;
+
+            if (arrObjetivos.length > 0) {
+                for (let j = 0; j < arrObjetivos.length; j++) {
+                    let objDataObjetivos = arrObjetivos[i];
+
+                    let query = await dao.setObjetivosFases({
+                        ...objDataObjetivos,
+                        intIdFase: this.#intIdFase,
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
+
+                    if (query.error) {
+                        throw new Error(query.msg);
+                    }
+                }
+            }
+
             let arrPaquetes = objDataFase[i].arrPaquetes;
 
             if (arrPaquetes.length > 0) {
                 for (let j = 0; j < arrPaquetes.length; j++) {
-                    let objDataPaquete = arrPaquetes[i];
+                    let objDataPaquete = arrPaquetes[j];
 
-                    await this.#setPaquetesFases(objDataPaquete);
+                    let query = await dao.setPaquetesFases({
+                        ...objDataPaquete,
+                        intIdFase: this.#intIdFase,
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
 
-                    if (objDataPaquete.bitProyectosPaquete) {
-                        
+                    if (query.error) {
+                        throw new Error(query.msg);
+                    }
+
+                    let intIdPaqueteFase = query.data[0].intId;
+
+                    let arrObjetivosPaquete = objDataPaquete[j].arrObjetivos;
+
+                    if (arrObjetivosPaquete?.length > 0) {
+                        for (let k = 0; k < arrObjetivosPaquete.length; k++) {
+                            let objDataObjetivoPaquete = arrObjetivosPaquete[k];
+
+                            let query = await dao.setObjetivosPaquetesFases({
+                                ...objDataObjetivoPaquete,
+                                intIdPaquetes_Fases: intIdPaqueteFase,
+                                strUsuarioCreacion: this.#objUser.strEmail,
+                            });
+
+                            if (query.error) {
+                                throw new Error(query.msg);
+                            }
+                        }
                     }
                 }
             }
@@ -164,20 +189,6 @@ class setRutas {
                     }
                 }
             }
-        }
-    }
-
-    async #setPaquetesFases(data) {
-        let dao = new classInterfaceDAORutas();
-
-        let query = await dao.setPaquetesFases({
-            ...data,
-            intIdFase: this.#intIdFase,
-            strUsuarioCreacion: this.#objUser.strEmail,
-        });
-
-        if (query.error) {
-            throw new Error(query.msg);
         }
     }
 }
