@@ -171,6 +171,9 @@ class setRutas {
                 }
             }
 
+
+            
+
             let arrServicios = objDataFase[i].arrPaquetes;
 
             if (arrPaquetes.length > 0) {
