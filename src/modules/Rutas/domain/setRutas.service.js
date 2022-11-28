@@ -6,7 +6,6 @@ const validator = require("validator").default;
 
 //Servicios
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
-const getRutas = require("./getRutas.service");
 
 class setRutas {
     //obj info
@@ -171,24 +170,40 @@ class setRutas {
                 }
             }
 
+            let arrServicio = objDataFase[i].arrServicio;
 
-            
+            if (arrServicio.length > 0) {
+                for (let j = 0; j < arrServicio.length; j++) {
+                    let objDataServicio = arrServicio[j];
 
-            let arrServicios = objDataFase[i].arrPaquetes;
-
-            if (arrPaquetes.length > 0) {
-                for (let j = 0; j < arrPaquetes.length; j++) {
-                    let objDataPaquete = arrPaquetes[i];
-
-                    let query = await dao.setFases({
-                        ...objDataPaquete,
+                    let query = await dao.setServiciosFases({
+                        ...objDataServicio,
                         intIdFase: this.#intIdFase,
-                        intIdEstadoFase: this.#intIdEstado,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 
                     if (query.error) {
                         throw new Error(query.msg);
+                    }
+
+                    let intIdServicioFase = query.data[0].intId;
+
+                    let arrObjetivosServicio = objDataServicio[j].arrObjetivos;
+
+                    if (arrObjetivosServicio?.length > 0) {
+                        for (let k = 0; k < arrObjetivosServicio.length; k++) {
+                            let objDataObjetivoPaquete = arrObjetivosServicio[k];
+
+                            let query = await dao.setObjetivosServiciosFases({
+                                ...objDataObjetivoPaquete,
+                                intIdServicio_Fases: intIdServicioFase,
+                                strUsuarioCreacion: this.#objUser.strEmail,
+                            });
+
+                            if (query.error) {
+                                throw new Error(query.msg);
+                            }
+                        }
                     }
                 }
             }
