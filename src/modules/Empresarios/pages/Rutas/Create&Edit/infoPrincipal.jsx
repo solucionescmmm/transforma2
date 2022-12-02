@@ -13,7 +13,6 @@ import {
     Tooltip,
     CircularProgress,
     TextField,
-    MenuItem,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -24,6 +23,7 @@ import {
 
 //Componentes
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
+import SelectEstado from "../../../../Admin/components/selectEstado";
 
 const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
     const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
         strCodigoDoc: "",
     });
 
-    const [openCollapese, setOpenCollapse] = useState(false);
+    const [openCollapese, setOpenCollapse] = useState(true);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
@@ -128,9 +128,8 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                             defaultValue={data.intEstado}
                             name="objInfoPrincipal.intEstado"
                             render={({ field: { name, onChange, value } }) => (
-                                <TextField
+                                <SelectEstado
                                     label="Estado"
-                                    variant="standard"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -141,13 +140,18 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                             ? true
                                             : false
                                     }
-                                    fullWidth
-                                    select
-                                >
-                                    <MenuItem>En borrador</MenuItem>
-                                </TextField>
+                                    helperText={
+                                        errors?.objInfoPrincipal?.intEstado
+                                            ?.message ||
+                                        "Selecciona el estado de la ruta"
+                                    }
+                                />
                             )}
                             control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona el estado de la ruta",
+                            }}
                         />
                     </Grid>
 

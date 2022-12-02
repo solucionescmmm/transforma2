@@ -27,7 +27,7 @@ import {
 //Componentes
 import PaperFase from "./paperFase";
 
-const InfoFases = ({ disabled, arrayValues, errors, control }) => {
+const InfoFases = ({ disabled, setValue, arrayValues, errors, control }) => {
     const { fields, append, remove } = useFieldArray({
         control,
         name: "arrInfoFases",
@@ -35,7 +35,7 @@ const InfoFases = ({ disabled, arrayValues, errors, control }) => {
 
     const [loading, setLoading] = useState(true);
 
-    const [openCollapese, setOpenCollapse] = useState(false);
+    const [openCollapese, setOpenCollapse] = useState(true);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
@@ -56,6 +56,7 @@ const InfoFases = ({ disabled, arrayValues, errors, control }) => {
                     strObservaciones: "",
                     arrObjetivos: [],
                     arrPaquetes: [],
+                    arrServicios: [],
                 });
             }
         }
@@ -142,6 +143,7 @@ const InfoFases = ({ disabled, arrayValues, errors, control }) => {
                                         control={control}
                                         index={i}
                                         values={e}
+                                        setValue={setValue}
                                         errors={errors}
                                         disabled={disabled}
                                         remove={remove}

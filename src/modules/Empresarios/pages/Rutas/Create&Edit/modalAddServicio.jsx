@@ -19,7 +19,7 @@ import { LoadingButton } from "@mui/lab";
 //Estilos
 import { makeStyles } from "@mui/styles";
 import { Controller, useForm } from "react-hook-form";
-import DropdownPaquetes from "../../../../Admin/components/dropdownPaquetes";
+import DropdownServicios from "../../../../Admin/components/dropdownServicios";
 import DropdownObjetivos from "../components/dropdownObjetivos";
 
 const modalRejectStyles = makeStyles(() => ({
@@ -29,7 +29,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
+const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -42,7 +42,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        objPaquete: null,
+        objServicio: null,
         arrObjetivos: [],
     });
 
@@ -97,8 +97,8 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     useEffect(() => {
         if (success) {
             handleOpenDialog();
-            setData({ objPaquete: null, arrObjetivos: [] });
-            reset({ objPaquete: null, arrObjetivos: [] });
+            setData({ objServicio: null, arrObjetivos: [] });
+            reset({ objServicio: null, arrObjetivos: [] });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,7 +117,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Añadir paquete a la fase #{intFase}</DialogTitle>
+            <DialogTitle>Añadir servicio a la fase #{intFase}</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="row" spacing={1}>
@@ -129,25 +129,25 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
 
                     <Grid item xs={12}>
                         <Controller
-                            name="objPaquete"
-                            defaultValue={data.objPaquete}
+                            name="objServicio"
+                            defaultValue={data.objServicio}
                             render={({ field: { name, value, onChange } }) => (
-                                <DropdownPaquetes
-                                    label="Paquete"
+                                <DropdownServicios
+                                    label="Servicio"
                                     name={name}
                                     required
                                     value={value}
                                     onChange={(e, value) => onChange(value)}
                                     disabled={loading}
-                                    error={errors?.objPaquete ? true : false}
+                                    error={errors?.objServicio ? true : false}
                                     helperText={
-                                        errors?.objPaquete?.message ||
-                                        "Selecciona el paquete"
+                                        errors?.objServicio?.message ||
+                                        "Selecciona el servicio"
                                     }
                                 />
                             )}
                             rules={{
-                                required: "Por favor, selcciona el paquete",
+                                required: "Por favor, selcciona el servicio",
                             }}
                             control={control}
                         />
@@ -206,4 +206,4 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     );
 };
 
-export default ModalAddPaquete;
+export default ModalAddServicio;

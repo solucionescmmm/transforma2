@@ -38,7 +38,7 @@ import { Box } from "@mui/system";
 
 //Componentes
 import InfoPrincipal from "./infoPrincipal";
-import InfoFases from "./infoFases"
+import InfoFases from "./infoFases";
 import Loader from "../../../../../common/components/Loader";
 import PageError from "../../../../../common/components/Error";
 
@@ -643,6 +643,7 @@ const CURuta = ({ isEdit, values, isRep, resetSearch }) => {
         };
     }, [flagSubmit, submitData]);
 
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -682,6 +683,9 @@ const CURuta = ({ isEdit, values, isRep, resetSearch }) => {
             component="form"
             onSubmit={handleSubmit(onSubmit)}
             noValidate
+            sx={{
+                marginTop: "10px",
+            }}
         >
             <Grid item xs={12}>
                 <Container className={classes.containerPR}>

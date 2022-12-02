@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 
 //Librerias
 import { Controller } from "react-hook-form";
+import NumberFormat from "react-number-format";
 
 //Componentes de Material UI
 import {
@@ -23,7 +24,6 @@ import {
     Button,
     useTheme,
     useMediaQuery,
-    MenuItem,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -38,12 +38,16 @@ import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 import ModalAddObjetivo from "./modalAddObjetivo";
 import shortid from "shortid";
 import ModalAddPaquete from "./modalAddPaquete";
+import ModalAddServicio from "./modalAddServicio";
+import SelectEstados from "../../../../Admin/components/selectEstado";
+import DropdownTipoTarifa from "../../../../Admin/components/dropdownTipoTarifa";
 
 const PaperFase = ({
     values,
     index,
     control,
     disabled,
+    setValue,
     errors,
     remove,
     length,
@@ -59,6 +63,10 @@ const PaperFase = ({
         strObservaciones: "",
         arrObjetivos: [],
         arrPaquetes: [],
+        arrServicios: [],
+        objTarifa: "",
+        dblValorRef: "",
+        dblValorFase: "",
     });
 
     const [loading, setLoading] = useState(true);
@@ -66,6 +74,7 @@ const PaperFase = ({
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalAddObjetivo, setOpenModalAddObjetivo] = useState(false);
     const [openModalAddPaquete, setOpenModalAddPaquete] = useState(false);
+    const [openModalAddServicio, setOpenModalAddServicio] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -92,6 +101,10 @@ const PaperFase = ({
         setOpenModalAddPaquete(!openModalAddPaquete);
     };
 
+    const handlerChangeOpenModalAddServicio = () => {
+        setOpenModalAddServicio(!openModalAddServicio);
+    };
+
     const handlerChangeObjetivo = (value) => {
         const newArrObjetivos = [...data.arrObjetivos];
 
@@ -99,6 +112,8 @@ const PaperFase = ({
             strId: shortid.generate(),
             strObjetivo: value,
         });
+
+        setValue(`arrInfoFases[${index}].arrObjetivos`, newArrObjetivos);
 
         setData((prevState) => ({
             ...prevState,
@@ -115,9 +130,28 @@ const PaperFase = ({
             arrObjetivos: value.arrObjetivos,
         });
 
+        setValue(`arrInfoFases[${index}].arrPaquetes`, newArrPaquetes);
+
         setData((prevState) => ({
             ...prevState,
             arrPaquetes: newArrPaquetes,
+        }));
+    };
+
+    const handlerChangeServicio = (value) => {
+        const newArrServicios = [...data.arrServicios];
+
+        newArrServicios.push({
+            strId: shortid.generate(),
+            objServicio: value.objServicio,
+            arrObjetivos: value.arrObjetivos,
+        });
+
+        setValue(`arrInfoFases[${index}].arrServicios`, newArrServicios);
+
+        setData((prevState) => ({
+            ...prevState,
+            arrServicios: newArrServicios,
         }));
     };
 
@@ -134,6 +168,10 @@ const PaperFase = ({
                 strObservaciones: values.strObservaciones || "",
                 arrObjetivos: values.arrObjetivos || [],
                 arrPaquetes: values.arrPaquetes || [],
+                arrServicios: values.arrServicios || [],
+                objTarifa: values.objTarifa || "",
+                dblValorRef: values.dblValorRef || "",
+                dblValorFase: values.dblValorFase || "",
             });
         }
 
@@ -145,6 +183,42 @@ const PaperFase = ({
         setLoading(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values]);
+
+    useEffect(() => {
+        let dblValorRef = 0;
+
+        for (let i = 0; i < data.arrPaquetes.length; i++) {
+            const {
+                objPaquete: { arrSedesTarifas },
+            } = data.arrPaquetes[i];
+
+            for (let j = 0; j < arrSedesTarifas.length; j++) {
+                const { Valor } = arrSedesTarifas[j];
+
+                dblValorRef += Valor;
+            }
+        }
+
+        for (let i = 0; i < data.arrServicios.length; i++) {
+            const {
+                objServicio: { arrSedesTarifas },
+            } = data.arrServicios[i];
+
+            for (let j = 0; j < arrSedesTarifas.length; j++) {
+                const { Valor } = arrSedesTarifas[j];
+
+                dblValorRef += Valor;
+            }
+        }
+
+        setValue(`arrInfoFases[${index}].dblValorRef`, dblValorRef);
+
+        setData((prevState) => ({
+            ...prevState,
+            dblValorRef,
+        }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data.arrServicios, data.arrPaquetes]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -216,6 +290,13 @@ const PaperFase = ({
                 open={openModalAddPaquete}
                 handleOpenDialog={handlerChangeOpenModalAddPaquete}
                 onChange={handlerChangePaquete}
+                values={{ arrObjetivos: data.arrObjetivos, intFase: index + 1 }}
+            />
+
+            <ModalAddServicio
+                open={openModalAddServicio}
+                handleOpenDialog={handlerChangeOpenModalAddServicio}
+                onChange={handlerChangeServicio}
                 values={{ arrObjetivos: data.arrObjetivos, intFase: index + 1 }}
             />
 
@@ -335,26 +416,31 @@ const PaperFase = ({
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
-                                            <TextField
+                                            <SelectEstados
                                                 label="Estado"
-                                                variant="standard"
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
                                                 disabled={disabled}
                                                 required
                                                 error={
-                                                    !!errors?.arrInfoFases?.[
-                                                        index
-                                                    ]?.intEstado
+                                                    errors?.objInfoPrincipal
+                                                        ?.intEstado
+                                                        ? true
+                                                        : false
                                                 }
-                                                fullWidth
-                                                select
-                                            >
-                                                <MenuItem>En borrador</MenuItem>
-                                            </TextField>
+                                                helperText={
+                                                    errors?.objInfoPrincipal
+                                                        ?.intEstado?.message ||
+                                                    "Selecciona el estado de la fase"
+                                                }
+                                            />
                                         )}
                                         control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, selecciona el estado de la fase",
+                                        }}
                                     />
                                 </Grid>
 
@@ -592,6 +678,234 @@ const PaperFase = ({
                                             </Box>
                                         </Fragment>
                                     ))}
+                                </Grid>
+
+                                <hr
+                                    style={{
+                                        width: "100%",
+                                    }}
+                                />
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                        }}
+                                    >
+                                        <Box sx={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: "14px" }}>
+                                                Servicios
+                                            </b>
+                                        </Box>
+
+                                        <Box>
+                                            <Button
+                                                size="small"
+                                                style={{ fontSize: "13px" }}
+                                                onClick={() =>
+                                                    handlerChangeOpenModalAddServicio()
+                                                }
+                                            >
+                                                Adicionar servicio
+                                            </Button>
+                                        </Box>
+                                    </Box>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    {data.arrServicios.map(
+                                        (servicio, index) => (
+                                            <Fragment>
+                                                <Box
+                                                    key={servicio.strId}
+                                                    style={{
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        fontSize: "14px",
+                                                    }}
+                                                >
+                                                    <p
+                                                        style={{
+                                                            paddingRight:
+                                                                "30px",
+                                                        }}
+                                                    >
+                                                        Servicio {index + 1}
+                                                    </p>
+                                                    <p>
+                                                        Nombre:{" "}
+                                                        {
+                                                            servicio.objServicio
+                                                                .objInfoPrincipal
+                                                                .strNombre
+                                                        }
+                                                    </p>
+                                                </Box>
+
+                                                <Box
+                                                    key={servicio.strId}
+                                                    style={{
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        fontSize: "14px",
+                                                        marginLeft: "94.5px",
+                                                    }}
+                                                >
+                                                    {servicio.arrObjetivos.map(
+                                                        (objetivo, index) => (
+                                                            <Box
+                                                                key={
+                                                                    objetivo.strId
+                                                                }
+                                                                style={{
+                                                                    display:
+                                                                        "flex",
+                                                                    flexDirection:
+                                                                        "row",
+                                                                    fontSize:
+                                                                        "14px",
+                                                                }}
+                                                            >
+                                                                <p
+                                                                    style={{
+                                                                        paddingRight:
+                                                                            "30px",
+                                                                    }}
+                                                                >
+                                                                    Objetivo{" "}
+                                                                    {index + 1}
+                                                                </p>
+                                                                <p>
+                                                                    {
+                                                                        objetivo.strObjetivo
+                                                                    }
+                                                                </p>
+                                                            </Box>
+                                                        )
+                                                    )}
+                                                </Box>
+                                            </Fragment>
+                                        )
+                                    )}
+                                </Grid>
+
+                                <hr
+                                    style={{
+                                        width: "100%",
+                                    }}
+                                />
+
+                                <Grid item xs="12">
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                        }}
+                                    >
+                                        <Box sx={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: "14px" }}>
+                                                Valor Fase
+                                            </b>
+                                        </Box>
+                                    </Box>
+                                </Grid>
+
+                                <Grid item xs="12">
+                                    <Controller
+                                        defaultValue={data.objTarifa}
+                                        name={`arrInfoFases[${index}].objTarifa`}
+                                        render={({
+                                            field: { name, value, onChange },
+                                        }) => (
+                                            <DropdownTipoTarifa
+                                                label="Tipo de tarifa"
+                                                name={name}
+                                                value={value}
+                                                onChange={(_, value) =>
+                                                    onChange(value)
+                                                }
+                                                disabled={disabled}
+                                                error={
+                                                    !!errors?.arrInfoFases?.[
+                                                        index
+                                                    ].objTarifa
+                                                }
+                                                helperText={
+                                                    errors?.arrInfoFases?.[
+                                                        index
+                                                    ].objTarifa?.message ||
+                                                    "Selecciona el tipo de tarifa"
+                                                }
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, selecciona el tipo de tarifa",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <NumberFormat
+                                        label="Valor"
+                                        value={data.dblValorRef}
+                                        thousandSeparator={true}
+                                        allowNegative={false}
+                                        prefix={"$"}
+                                        customInput={TextField}
+                                        fullWidth
+                                        variant="standard"
+                                        disabled
+                                        required
+                                        helperText={
+                                            "Valor de referencia de la fase"
+                                        }
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.dblValorFase}
+                                        name={`arrInfoFases[${index}].strObservaciones`}
+                                        render={({
+                                            field: { name, value, onChange },
+                                        }) => (
+                                            <NumberFormat
+                                                label="Valor fase"
+                                                name={name}
+                                                value={value}
+                                                onValueChange={(v) => {
+                                                    onChange(v.floatValue);
+                                                }}
+                                                thousandSeparator={true}
+                                                allowNegative={false}
+                                                prefix={"$"}
+                                                customInput={TextField}
+                                                fullWidth
+                                                variant="standard"
+                                                disabled={disabled}
+                                                required
+                                                error={
+                                                    !!errors?.arrInfoFases?.[
+                                                        index
+                                                    ]?.dblValorFase
+                                                }
+                                                helperText={
+                                                    errors?.arrInfoFases?.[
+                                                        index
+                                                    ]?.dblValorFase?.message ||
+                                                    "Digita el valor de la fase"
+                                                }
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, digita el valor de la fase",
+                                        }}
+                                    />
                                 </Grid>
                             </Grid>
                         </Collapse>
