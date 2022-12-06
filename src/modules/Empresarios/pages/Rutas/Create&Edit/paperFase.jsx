@@ -868,7 +868,7 @@ const PaperFase = ({
                                 <Grid item xs={12}>
                                     <Controller
                                         defaultValue={data.dblValorFase}
-                                        name={`arrInfoFases[${index}].strObservaciones`}
+                                        name={`arrInfoFases[${index}].dblValorFase`}
                                         render={({
                                             field: { name, value, onChange },
                                         }) => (
