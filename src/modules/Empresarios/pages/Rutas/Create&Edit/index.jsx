@@ -78,7 +78,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CURuta = ({ isEdit, values, isRep, resetSearch }) => {
+const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -159,7 +159,7 @@ const CURuta = ({ isEdit, values, isRep, resetSearch }) => {
                             const newData = {
                                 objInfoPrincipal: {
                                     ...data.objInfoPrincipal,
-                                    intIdIdea: intId,
+                                    intIdIdea,
                                 },
                                 ...data,
                             };
