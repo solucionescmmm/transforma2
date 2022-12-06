@@ -157,6 +157,10 @@ const CURuta = ({ isEdit, values, isRep, resetSearch }) => {
                     transformRequest: [
                         (data) => {
                             const newData = {
+                                objInfoPrincipal: {
+                                    ...data.objInfoPrincipal,
+                                    intIdIdea: intId,
+                                },
                                 ...data,
                             };
 
