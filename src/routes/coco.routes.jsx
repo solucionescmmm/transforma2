@@ -311,6 +311,32 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         );
     }
 
+    
+    if (route.location === "EditRuta") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Inicio")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <CreateRutas
+                    isEdit
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intId={route.params.intId}
+                    values={route.params}
+                />
+            </Grid>
+        );
+    }
+
     if (route.location === "Comentarios") {
         return (
             <Grid container direction="row" spacing={3}>

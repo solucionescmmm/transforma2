@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 
 //Hooks
-import useGetTareas from "../../hooks/useGetTareas";
+import useGetRutas from "../../hooks/useGetRutas";
 
 //Componentes de Material UI
 import { Grid, Box, Button } from "@mui/material";
@@ -46,7 +46,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     const [objColumns] = useState([
         {
             title: "Estado",
-            field: "strEstado",
+            field: "strEstadoRuta",
             width: "5%",
         },
         {
@@ -56,27 +56,30 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
         },
         {
             title: "Valor Total",
-            field: "strValorTotal",
+            field: "valorTotalRuta",
             type: "string",
         },
         {
             title: "Total Fases",
-            field: "intFases",
-            type: "string",
+            render: (rowData) => {
+                let intFases = rowData.arrFasesRutas?.length
+
+                return <p>{intFases?.toString()}</p>;
+            },
         },
         {
             title: "Fecha Creación",
-            field: "dtFechaCreacion",
+            field: "dtmCreacion",
             type: "date",
         },
         {
             title: "Responsables",
             render: (rowData) => {
-                let strResponsables = rowData.strResponsable.map((r) => {
+                let strResponsables = rowData.strResponsable?.map((r) => {
                     return r.strNombre;
                 });
 
-                return <p>{strResponsables.toString()}</p>;
+                return <p>{strResponsables?.toString()}</p>;
             },
         },
     ]);
@@ -87,7 +90,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data, refreshGetData } = useGetTareas({
+    const { data, refreshGetData } = useGetRutas({
         autoload: true,
         intIdIdea: intIdIdea,
     });
@@ -251,9 +254,11 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                     fontSize="small"
                                                     onClick={() =>
                                                         onChangeRoute(
-                                                            "EditTareas",
+                                                            "EditRuta",
                                                             {
                                                                 intId: rowData.intId,
+                                                                intIdIdea,
+                                                                ...rowData
                                                             }
                                                         )
                                                     }
