@@ -4,7 +4,7 @@ const validator = require("validator").default;
 const classInterfaceRutas = require("../infra/conectors/interfaseDAORutas");
 
 const getRutas = async (objParams, strDataUser) => {
-    let = { intId } = objParams;
+    let = { intId, intIdIdea } = objParams;
 
     if (
         !validator.isEmail(strDataUser.strEmail, {
@@ -16,10 +16,15 @@ const getRutas = async (objParams, strDataUser) => {
         );
     }
 
+    if (!intIdIdea) {
+        throw new Error("Se esperaban parametros de entrada")
+    }
+
     let dao = new classInterfaceRutas();
 
     let query = {
         intId: intId || null,
+        intIdIdea : intIdIdea,
     };
 
     let result = await dao.getRutas(query);

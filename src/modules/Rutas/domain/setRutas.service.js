@@ -28,12 +28,13 @@ class setRutas {
     }
 
     async main() {
-        await this.#validations();
-        await this.#getIdEstado();
-        this.#completeData();
-        await this.#setRutas();
-        await this.#setFases();
-        return this.#objResult;
+        console.log(this.#objData);
+        //await this.#validations();
+        //await this.#getIdEstado();
+        //this.#completeData();
+        //await this.#setRutas();
+        //await this.#setFases();
+        //return this.#objResult;
     }
 
     async #validations() {

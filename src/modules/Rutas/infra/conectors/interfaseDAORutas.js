@@ -72,6 +72,12 @@ class interfaceDAORutas {
         let query = await dao.deleteRutas(data);
         return query;
     }
+
+    async deleteFases(data) {
+        let dao = new classDAO();
+        let query = await dao.deleteFases(data);
+        return query;
+    }
 }
 
 module.exports = interfaceDAORutas;

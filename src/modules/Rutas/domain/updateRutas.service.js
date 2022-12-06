@@ -8,7 +8,6 @@ const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas");
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
 const getRutas = require("./getRutas.service");
 
-
 class updateRutas {
     //obj info
     #objData;
@@ -95,6 +94,8 @@ class updateRutas {
     async #setFases() {
         let dao = new classInterfaceDAORutas();
         let arrayFases = this.#objData.arrFases;
+
+        await dao.deleteFases({ intIdRuta: this.#intIdRuta });
 
         if (arrayFases.length <= 0) {
             throw new Error("El array de las fases esta vacio.");
@@ -194,7 +195,8 @@ class updateRutas {
 
                     if (arrObjetivosServicio?.length > 0) {
                         for (let k = 0; k < arrObjetivosServicio.length; k++) {
-                            let objDataObjetivoPaquete = arrObjetivosServicio[k];
+                            let objDataObjetivoPaquete =
+                                arrObjetivosServicio[k];
 
                             let query = await dao.setObjetivosServiciosFases({
                                 ...objDataObjetivoPaquete,

@@ -1,6 +1,9 @@
 //clases
 const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas")
 
+//Servicios
+const serviceGetRutas = require("./getRutas.service")
+
 class deleteRutas{
     #intIdRutas;
     #objResult;
