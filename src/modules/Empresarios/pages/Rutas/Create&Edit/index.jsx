@@ -14,11 +14,10 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 import useGetEmpresarios from "../../../hooks/useGetEmpresarios";
 
 //Librerias
-import { Redirect, useParams } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
 
 //Componentes de Material UI
 import {
@@ -118,8 +117,6 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
         clearErrors,
     } = useForm({ mode: "onChange" });
 
-    const { intId } = useParams();
-
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
 
     const refFntGetData = useRef(getUniqueData);
@@ -157,11 +154,11 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
                     transformRequest: [
                         (data) => {
                             const newData = {
+                                ...data,
                                 objInfoPrincipal: {
                                     ...data.objInfoPrincipal,
                                     intIdIdea,
                                 },
-                                ...data,
                             };
 
                             return JSON.stringify(newData);
