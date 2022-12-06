@@ -455,7 +455,7 @@ const PaperFase = ({
                                                 label="Responsable"
                                                 name={name}
                                                 value={value}
-                                                onChange={(e) => onChange(e)}
+                                                onChange={(_, value) => onChange(value)}
                                                 disabled={disabled}
                                                 required
                                                 error={
