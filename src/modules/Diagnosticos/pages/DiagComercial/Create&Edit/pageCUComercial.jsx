@@ -128,7 +128,6 @@ const PageCUProducto = ({ intId, isEdit }) => {
         setError,
         setValue,
         clearErrors,
-        getValues
     } = useForm({ mode: "onChange" });
 
     const theme = useTheme();
@@ -393,6 +392,7 @@ const PageCUProducto = ({ intId, isEdit }) => {
                 open={openModal}
                 disableEscapeKeyDown
                 fullScreen={bitMobile}
+                onClose={setOpenModal(!openModal)}
             >
                 <DialogTitle>Aviso</DialogTitle>
                 <DialogContent>

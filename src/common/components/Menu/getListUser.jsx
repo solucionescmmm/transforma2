@@ -20,6 +20,7 @@ import {
     Equalizer as EqualizerIcon,
     ListAlt as ListAltIcon,
     People as PeopleIcon,
+    SupervisedUserCircle as SupervisedUserCircle,
     Report as ReportIcon,
     Engineering as EngineeringIcon,
 } from "@mui/icons-material";
@@ -108,6 +109,29 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                     <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Personas Iniciativas" />
+            </ListItem>
+
+            <ListItem
+                button
+                component={RouterLink}
+                to="/transforma/asesor/terceros/read/all"
+                selected={
+                    location.pathname.startsWith(
+                        "/transforma/asesor/terceros/"
+                    )
+                        ? true
+                        : false
+                }
+                onClick={(e) => {
+                    if (movil) {
+                        toggleDrawer(e, false);
+                    }
+                }}
+            >
+                <ListItemIcon>
+                    <SupervisedUserCircle />
+                </ListItemIcon>
+                <ListItemText primary="Terceros" />
             </ListItem>
 
             <ListItem

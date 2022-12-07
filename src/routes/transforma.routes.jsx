@@ -43,6 +43,8 @@ const REmpresarios = lazy(() =>
     import("../modules/Empresarios/pages/Read/readEmpresarios")
 );
 
+const RTerceros = lazy(() => import("../modules/Terceros"));
+
 const DetailsEmpresario = lazy(() =>
     import("../modules/Empresarios/pages/Coco/index")
 );
@@ -50,6 +52,8 @@ const DetailsEmpresario = lazy(() =>
 const CUEmpresario = lazy(() =>
     import("../modules/Empresarios/pages/Create&Edit")
 );
+
+const CUTercero = lazy(() => import("../modules/Terceros/Create&Edit"));
 
 const RoutesTransforma = ({ path }) => {
     //===============================================================================================================================================
@@ -82,6 +86,29 @@ const RoutesTransforma = ({ path }) => {
                                         style={{ width: "100%" }}
                                     >
                                         <REmpresarios />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/asesor/terceros/read/all"
+                                exact
+                                component={() => (
+                                    <div
+                                        className="animate__animated animate__fadeIn"
+                                        style={{ width: "100%" }}
+                                    >
+                                        <RTerceros />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/asesor/terceros/create"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <CUTercero />
                                     </div>
                                 )}
                             />

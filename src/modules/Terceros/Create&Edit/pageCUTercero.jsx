@@ -1,48 +1,55 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
     useState,
-    useContext,
-    useEffect,
-    useRef,
     useCallback,
+    useEffect,
+    useContext,
+    useRef,
 } from "react";
 
 //Context
-import { AuthContext } from "../../../../../../common/middlewares/Auth";
+import { AuthContext } from "../../../common/middlewares/Auth";
 
 //Hooks
-import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
+import useGetEmpresarios from "../../Empresarios/hooks/useGetEmpresarios";
+import { useHistory } from "react-router-dom";
 
 //Librerias
+import { Link as RouterLink, Redirect, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import { parseISO } from "date-fns";
 
-// Componentes de MUI
+//Componentes de Material UI
 import {
-    Grid,
-    Container,
-    Paper,
-    LinearProgress,
-    Box,
     Typography,
+    Grid,
+    Paper,
+    Breadcrumbs,
+    Link,
+    LinearProgress,
+    Container,
     Alert,
+    Button,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
-//Componentes
-import Loader from "../../../../../../common/components/Loader";
-import PageError from "../../../../../../common/components/Error";
-import InfoGeneral from "./infoGeneral";
-import InfoFamiliar from "./infoFamiliar";
-import InfoEmprendimiento from "./infoEmprendimiento";
-import InfoEmpresa from "./infoEmpresa";
-import InfoPerfilEco from "./infoPerfilEco";
-import InfoAdicional from "./infoAdicional";
+//Iconos
+import {
+    Home as HomeIcon,
+    ChevronLeft as ChevronLeftIcon,
+} from "@mui/icons-material";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/system";
+
+//Componentes
+import InfoPrincipal from "./infoPrincipal";
+import Loader from "../../../common/components/Loader";
+import PageError from "../../../common/components/Error";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -80,12 +87,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const PageCUGeneral = ({
-    isEdit,
-    intIdIdea,
-    intIdDiagnostico,
-    onChangeRoute,
-}) => {
+const CUTercero = ({ isEdit, values, resetSearch }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -95,13 +97,10 @@ const PageCUGeneral = ({
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        objInfoGeneral: {},
-        objInfoFamiliar: {},
-        objInfoEmprendimiento: {},
-        objInfoEmpresa: {},
-        objInfoPerfilEco: {},
-        objInfoAdicional: {},
+        objInfoPrincipal: {},
     });
+
+    const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
@@ -127,9 +126,13 @@ const PageCUGeneral = ({
         clearErrors,
     } = useForm({ mode: "onChange" });
 
+    const { intId } = useParams();
+
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
 
     const refFntGetData = useRef(getUniqueData);
+
+    const { goBack } = useHistory();
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -158,56 +161,16 @@ const PageCUGeneral = ({
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATEREGISTRO
                             : process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_SETREGISTRO
                     }`,
                     data,
                     transformRequest: [
                         (data) => {
                             let newData = {
-                                objInfoGeneral: {
-                                    ...data.objInfoGeneral,
-                                    dtmFechaSesion: data.objInfoGeneral
-                                        .dtmFechaSesion
-                                        ? format(
-                                              data.objInfoGeneral
-                                                  .dtmFechaSesion,
-                                              "yyyy-MM-dd hh:mm:ss"
-                                          )
-                                        : null,
-                                    dtFechaExpedicionDocto: data.objInfoGeneral
-                                        .dtFechaExpedicionDocto
-                                        ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaExpedicionDocto,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                    dtFechaNacimiento: data.objInfoGeneral
-                                        .dtFechaNacimiento
-                                        ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaNacimiento,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                },
-                                objInfoFamiliar: {
-                                    ...data.objInfoFamiliar,
-                                },
-                                objInfoEmprendimiento: {
-                                    ...data.objInfoEmprendimiento,
-                                },
-                                objInfoEmpresa: {
-                                    ...data.objInfoEmpresa,
-                                },
-                                objInfoPerfilEco: {
-                                    ...data.objInfoPerfilEco,
-                                },
-                                objInfoAdicional: {
-                                    ...data.objInfoAdicional,
-                                },
+                                intIdIdea: data.intIdIdea,
+                                ...data,
                             };
 
                             return JSON.stringify(newData);
@@ -230,6 +193,7 @@ const PageCUGeneral = ({
                     toast.success(res.data.msg);
 
                     setLoading(false);
+                    setSucces(true);
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -257,34 +221,47 @@ const PageCUGeneral = ({
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (intIdIdea) {
+        if (isEdit) {
             setLoadingGetData(true);
 
             async function getData() {
                 await refFntGetData
-                    .current({ intId: intIdIdea })
+                    .current({ intId })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
                         }
 
-                        if (res.data?.data?.[0]) {
-                            let data = res.data.data?.[0];
+                        if (res.data) {
+                            let data = res.data.data[0];
                             const objEmprPrincipal = data.objEmpresario.find(
-                                (emp) => emp.strTipoEmpresario === "Principal"
+                                (p) => p.strTipoEmpresario === "Principal"
                             );
 
                             setData({
-                                intIdIdea: intIdIdea,
-                                intIdDiagnostico,
-                                objIdeaEmpresario: data.objInfoIdeaEmpresario,
-                                objInfoGeneral: {
+                                intIdIdea: data.intId,
+                                objIdeaEmpresario: data.objIdeaEmpresario,
+                                objInfoPrincipal: {
+                                    strSede: objEmprPrincipal.strSede || "",
+                                    strModalidadIngreso:
+                                        objEmprPrincipal.strModalidadIngreso ||
+                                        "",
+                                    dtFechaVinculacion:
+                                        objEmprPrincipal.dtFechaVinculacion
+                                            ? parseISO(
+                                                  objEmprPrincipal.dtFechaVinculacion
+                                              )
+                                            : null,
+                                    strEstadoVinculacion:
+                                        objEmprPrincipal.strEstadoVinculacion ||
+                                        "",
+                                    strTipoVinculacion:
+                                        objEmprPrincipal.strTipoVinculacion ||
+                                        "",
+                                },
+
+                                objInfoEmpresarioPr: {
                                     intId: objEmprPrincipal.intId,
-                                    dtmFechaSesion: null,
-                                    strLugarSesion: "",
-                                    strUsuarioCreacion: "",
-                                    dtActualizacion: null,
-                                    strUsuarioActualizacion: "",
                                     strNombres:
                                         objEmprPrincipal.strNombres || "",
                                     strApellidos:
@@ -309,21 +286,6 @@ const PageCUGeneral = ({
                                               )
                                             : null,
                                     strGenero: objEmprPrincipal.strGenero || "",
-                                    strNivelEducativo:
-                                        objEmprPrincipal.strNivelEducativo ||
-                                        "",
-                                    strTitulos:
-                                        objEmprPrincipal.strTitulos || "",
-                                    strEstrato:
-                                        objEmprPrincipal.strEstrato || "",
-                                    arrDepartamento:
-                                        objEmprPrincipal.arrDepartamento || [],
-                                    arrCiudad: objEmprPrincipal.arrCiudad || [],
-                                    strDireccionResidencia:
-                                        objEmprPrincipal.strDireccionResidencia ||
-                                        "",
-                                    strBarrio: objEmprPrincipal.strBarrio || "",
-                                    strUbicacionVivienda: "",
                                     strCelular1:
                                         objEmprPrincipal.strCelular1 || "",
                                     strCelular2:
@@ -334,30 +296,61 @@ const PageCUGeneral = ({
                                     strCorreoElectronico2:
                                         objEmprPrincipal.strCorreoElectronico2 ||
                                         "",
-                                },
-                                objInfoEmprendimiento: {
-                                    strUnidadProductiva:
-                                        data.objInfoEmpresa.strNombreMarca,
-                                    strLugarOperacion:
-                                        data.objInfoEmpresa.strLugarOperacion,
+                                    strNivelEducativo:
+                                        objEmprPrincipal.strNivelEducativo ||
+                                        "",
+                                    strTitulos:
+                                        objEmprPrincipal.strTitulos || "",
+                                    strCondicionDiscapacidad:
+                                        objEmprPrincipal.strCondicionDiscapacidad ||
+                                        "",
+                                    strEstrato:
+                                        objEmprPrincipal.strEstrato || "",
                                     arrDepartamento:
-                                        data.objInfoEmpresa.arrDepartamento,
-                                    arrCiudad: data.objInfoEmpresa.arrCiudad,
-                                    strBarrio: data.objInfoEmpresa.strBarrio,
+                                        objEmprPrincipal.arrDepartamento || [],
+                                    arrCiudad: objEmprPrincipal.arrCiudad || [],
+                                    strBarrio: objEmprPrincipal.strBarrio || "",
+                                    strDireccionResidencia:
+                                        objEmprPrincipal.strDireccionResidencia ||
+                                        "",
+                                    strURLFileFoto:
+                                        objEmprPrincipal.strUrlFileFoto || "",
+                                },
+
+                                objInfoEmpresa: {
+                                    intId: data.objInfoEmpresa.intId,
+                                    strURLFileLogoEmpresa:
+                                        data.objInfoEmpresa
+                                            .strURLFileLogoEmpresa || null,
+                                    strEstadoNegocio:
+                                        data.objInfoEmpresa.strEstadoNegocio ||
+                                        "",
+                                    strCuandoComienzaEmpresa:
+                                        data.objInfoEmpresa
+                                            .strCuandoComienzaEmpresa || "",
+                                    strNombreMarca:
+                                        data.objInfoEmpresa.strNombreMarca ||
+                                        "",
+                                    dtFechaFundacion: data.objInfoEmpresa
+                                        .dtFechaFundacion
+                                        ? parseISO(
+                                              data.objInfoEmpresa
+                                                  .dtFechaFundacion
+                                          )
+                                        : null,
+                                    strLugarOperacion:
+                                        data.objInfoEmpresa.strLugarOperacion ||
+                                        "",
                                     strDireccionResidencia:
                                         data.objInfoEmpresa
-                                            .strDireccionResidencia,
-                                    strRedesSociales:
-                                        data.objInfoEmpresa.arrMediosDigitales
-                                            ?.length > 0
-                                            ? "Sí"
-                                            : "No",
-                                    arrMediosDigitales:
-                                        data.objInfoEmpresa
-                                            .arrMediosDigitales || [],
-                                    strTiempoDedicacion:
-                                        data.objInfoEmpresa
-                                            .strTiempoDedicacion || "",
+                                            .strDireccionResidencia || "",
+                                    arrDepartamento:
+                                        data.objInfoEmpresa.arrDepartamento ||
+                                        [],
+                                    arrCiudad:
+                                        data.objInfoEmpresa.arrCiudad || [],
+                                    strBarrio:
+                                        data.objInfoEmpresa.strBarrio || "",
                                     strSectorEconomico:
                                         data.objInfoEmpresa
                                             .strSectorEconomico || "",
@@ -373,20 +366,61 @@ const PageCUGeneral = ({
                                     strOtraCategoria:
                                         data.objInfoEmpresa.strOtraCategoria ||
                                         "",
+                                    strDescProductosServicios:
+                                        data.objInfoEmpresa
+                                            .strDescProductosServicios || "",
+                                    strMateriaPrima:
+                                        data.objInfoEmpresa.strMateriaPrima ||
+                                        "",
+                                    strNombreTecnica:
+                                        data.objInfoEmpresa.strNombreTecnica ||
+                                        "",
+                                    strTiempoDedicacion:
+                                        data.objInfoEmpresa
+                                            .strTiempoDedicacion || "",
                                     btGeneraEmpleo:
                                         typeof data.objInfoEmpresa
                                             .btGeneraEmpleo === "boolean"
                                             ? data.objInfoEmpresa.btGeneraEmpleo
                                             : "",
+                                    intNumeroEmpleados:
+                                        data.objInfoEmpresa
+                                            .intNumeroEmpleados || "",
+                                    dblValorVentasMes:
+                                        data.objInfoEmpresa.valorVentasMes ||
+                                        "",
+                                    arrRequisitosLey:
+                                        data.objInfoEmpresa.arrRequisitosLey ||
+                                        [],
+                                    strOtrosRequisitosLey:
+                                        data.objInfoEmpresa
+                                            .strOtrosRequisitosLey || "",
+                                    arrFormasComercializacion:
+                                        data.objInfoEmpresa
+                                            .arrFormasComercializacion || [],
+                                    arrMediosDigitales:
+                                        data.objInfoEmpresa
+                                            .arrMediosDigitales || [],
+                                    btGrupoAsociativo:
+                                        typeof data.objInfoEmpresa
+                                            .btGrupoAsociativo === "boolean"
+                                            ? data.objInfoEmpresa
+                                                  .btGrupoAsociativo
+                                            : "",
+                                    strAsociacionUnidadProdIndividual:
+                                        data.objInfoEmpresa
+                                            .strAsociacionUnidadProdIndividual ||
+                                        "",
                                 },
-                                objInfoPerfilEco: {
-                                    // intNumeroEmpleados:
-                                    //     data.objInfoEmpresa
-                                    //         .intNumeroEmpleados || "",
-                                    // dblValorVentasMes:
-                                    //     data.objInfoEmpresa.valorVentasMes ||
-                                    //     "",
+
+                                objInfoAdicional: {
+                                    ...data.objInfoAdicional,
+                                    strURLDocumento:
+                                        data.objInfoAdicional.strUrlDocumento,
                                 },
+
+                                arrInfoEmpresarioSec:
+                                    data.arrEmpresarioSecundario || [],
                             });
                         }
 
@@ -401,13 +435,20 @@ const PageCUGeneral = ({
 
             getData();
         }
-    }, [intIdIdea, intIdDiagnostico]);
+    }, [isEdit, intId]);
 
     useEffect(() => {
-        if (intIdIdea) {
+        if (values) {
+            setData(values);
+            reset(values);
+        }
+    }, [values]);
+
+    useEffect(() => {
+        if (isEdit) {
             reset(data);
         }
-    }, [data, reset, intIdIdea]);
+    }, [data, reset, isEdit]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -424,6 +465,10 @@ const PageCUGeneral = ({
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
+    if (success) {
+        return <Redirect to="/transforma/asesor/empresario/read/all" />;
+    }
+
     if (loadingGetData) {
         return <Loader />;
     }
@@ -432,7 +477,7 @@ const PageCUGeneral = ({
         return (
             <PageError
                 severity="error"
-                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                msg="Ha ocurrido un error al obtener los datos de la persona seleccionada, por favor escala al área de TI para más información."
                 title={errorGetData.msg}
             />
         );
@@ -442,7 +487,7 @@ const PageCUGeneral = ({
         return (
             <PageError
                 severity="error"
-                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                msg="Ha ocurrido un error al obtener los datos de la persona seleccionada, por favor escala al área de TI para más información."
                 title={data.msg}
             />
         );
@@ -455,9 +500,46 @@ const PageCUGeneral = ({
             spacing={3}
             component="form"
             onSubmit={handleSubmit(onSubmit)}
-            sx={{ marginTop: "10px" }}
             noValidate
         >
+            <Grid item xs={12}>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Link
+                        color="inherit"
+                        component={RouterLink}
+                        to="/transforma"
+                        className={classes.link}
+                    >
+                        <HomeIcon className={classes.icon} />
+                        Inicio
+                    </Link>
+
+                    <Link
+                        color="inherit"
+                        component={RouterLink}
+                        to="/transforma/asesor/empresario/read/all"
+                        className={classes.link}
+                    >
+                        Empresarios
+                    </Link>
+
+                    <Typography color="textPrimary" className={classes.link}>
+                        {isEdit ? "Edición" : "Registro"}
+                    </Typography>
+                </Breadcrumbs>
+            </Grid>
+
+            <Grid item xs={12}>
+                <Button
+                    onClick={() => goBack()}
+                    startIcon={<ChevronLeftIcon />}
+                    size="small"
+                    color="inherit"
+                >
+                    regresar
+                </Button>
+            </Grid>
+
             <Grid item xs={12}>
                 <Container className={classes.containerPR}>
                     <Paper className={classes.paper}>
@@ -474,7 +556,7 @@ const PageCUGeneral = ({
                             style={{ padding: "25px" }}
                         >
                             <Grid item xs={12}>
-                                <Grid
+                                <Box
                                     sx={{
                                         display: "flex",
                                         flexDirection: "row",
@@ -490,19 +572,16 @@ const PageCUGeneral = ({
                                     >
                                         <Typography
                                             align="center"
-                                            style={{
-                                                fontWeight: "bold",
-                                                textTransform: "uppercase",
-                                            }}
+                                            style={{ fontWeight: "bold" }}
                                             color="primary"
-                                            variant="body1"
+                                            variant="h6"
                                         >
                                             {isEdit
-                                                ? "editar diagnóstico empresarial"
-                                                : "registrar diagnóstico empresarial"}
+                                                ? "EDITAR PERSONA EXTERNA"
+                                                : "REGISTRAR PERSONA EXTERNA"}
                                         </Typography>
                                     </Box>
-                                </Grid>
+                                </Box>
                             </Grid>
 
                             <Grid item xs={12}>
@@ -513,83 +592,19 @@ const PageCUGeneral = ({
                             </Grid>
 
                             <Grid item xs={12}>
-                                <InfoGeneral
+                                <InfoPrincipal
                                     control={control}
+                                    values={data.objInfoPrincipal}
                                     disabled={loading}
-                                    values={data.objInfoGeneral}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
                                     clearErrors={clearErrors}
+                                    isEdit={isEdit}
                                 />
                             </Grid>
 
-                            <Grid item xs={12}>
-                                <InfoFamiliar
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoEmprendimiento
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoEmpresa
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoPerfilEco
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoAdicional
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            {(errors.objInfoGeneral ||
-                                errors.objInfoFamiliar ||
-                                errors.objInfoEmprendimiento ||
-                                errors.objInfoEmpresa ||
-                                errors.objInfoPerfilEco ||
-                                errors.objInfoAdicional) && (
+                            {errors.objInfoPrincipal && (
                                 <Grid item xs={12}>
                                     <Alert severity="error">
                                         Lo sentimos, tienes campos pendientes
@@ -604,6 +619,7 @@ const PageCUGeneral = ({
                                     sx={{
                                         display: "flex",
                                         flexDirection: "row-reverse",
+                                        gap: 1,
                                     }}
                                 >
                                     <LoadingButton
@@ -613,6 +629,10 @@ const PageCUGeneral = ({
                                     >
                                         {isEdit ? "guardar" : "registrar"}
                                     </LoadingButton>
+
+                                    <Button onClick={() => resetSearch(false)}>
+                                        Nueva busqueda
+                                    </Button>
                                 </Box>
                             </Grid>
                         </Grid>
@@ -623,4 +643,4 @@ const PageCUGeneral = ({
     );
 };
 
-export default PageCUGeneral;
+export default CUTercero;
