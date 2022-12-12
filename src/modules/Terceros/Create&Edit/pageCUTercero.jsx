@@ -161,9 +161,9 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATEREGISTRO
+                                  .REACT_APP_API_TRANSFORMA_TERCEROS_UPDATE
                             : process.env
-                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_SETREGISTRO
+                                  .REACT_APP_API_TRANSFORMA_TERCEROS_SET
                     }`,
                     data,
                     transformRequest: [
