@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 
 //Hooks
-import useGetEmpresarios from "../Empresarios/hooks/useGetEmpresarios";
+import useGetTerceros from "./hook/useGetTerceros";
 
 //Librerias
 import { Link as RouterLink, useHistory } from "react-router-dom";
@@ -12,7 +12,6 @@ import {
     Breadcrumbs,
     Link,
     Typography,
-    Avatar,
     Box,
     Button,
 } from "@mui/material";
@@ -68,74 +67,34 @@ const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
-            title: "Foto",
-            render: (rowData) => (
-                <Avatar
-                    alt={
-                        rowData.objEmpresario
-                            ?.filter((p) => p.strTipoEmpresario === "Principal")
-                            ?.at(0)?.strNombres +
-                        rowData.objEmpresario
-                            ?.filter((p) => p.strTipoEmpresario === "Principal")
-                            ?.at(0)?.strApellidos
-                    }
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${
-                        process.env.REACT_APP_API_BACK_HOST
-                    }${process.env.REACT_APP_API_BACK_PORT}${
-                        rowData.objEmpresario
-                            .filter((p) => p.strTipoEmpresario === "Principal")
-                            ?.at(0)?.strUrlFileFoto
-                    }`}
-                />
-            ),
-            width: "0%",
-        },
-        {
-            title: "Representante",
+            title: "Nombres y Apellidos",
             render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strNombres +
+                rowData?.strNombres +
                 " " +
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strApellidos,
+                rowData?.strApellidos,
         },
         {
-            title: "Documento del representante",
+            title: "Tipo de documento del tercero",
             render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strNroDocto,
+                rowData?.strTipoDocto,
             type: "string",
         },
         {
-            title: "Iniciativa",
-            field: "strNombre",
+            title: "Documento del tercero",
+            render: (rowData) =>
+                rowData?.strNroDocto,
             type: "string",
         },
         {
-            title: "Sede",
+            title: "Email del tercero",
             render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strSede,
+                rowData?.strCorreoElectronico,
             type: "string",
         },
         {
-            title: "Fecha de registro",
+            title: "Numero celular del tercero",
             render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.dtFechaVinculacion,
-            type: "date",
-        },
-        {
-            title: "Estado Vinculación",
-            render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strEstadoVinculacion,
+                rowData?.strCelular,
             type: "string",
         },
     ]);
@@ -144,7 +103,7 @@ const ReadSolicitudesUser = () => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { push } = useHistory();
-    const { data, alterData } = useGetEmpresarios({ autoload: true });
+    const { data } = useGetTerceros({ autoload: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
