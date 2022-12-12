@@ -147,12 +147,32 @@ class daoTercero {
 
             SELECT 
 
-            *
+            Tercero.intId,
+            Tercero.intIdEstado,
+            Tercero.strNombres,
+            Tercero.strApellidos,
+            Tercero.strTipoDocto,
+            Tercero.strNroDocto,
+            Tercero.strCorreoElectronico,
+            Tercero.strCelular,
+            Tercero.strEstrato,
+            Tercero.strDepartamento,
+            Tercero.strCiudad,
+            Tercero.dtmCreacion,
+            Tercero.strUsuarioCreacion,
+            Tercero.dtmActualizacion,
+            Tercero.strUsuarioActualizacion,
+            Estado.strNombre as strEstado
             
             FROM tbl_Terceros Tercero
 
+            INNER JOIN tbl_Estados Estado on Estado.intId = Tercero.intIdEstado
+
             WHERE (Tercero.intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (Tercero.strNroDocto = ${data.strDocumento} OR ${data.strDocumento} IS NULL)`;
+            AND   (Tercero.strNroDocto = ${data.strNroDocto} OR ${data.strNroDocto} IS NULL)
+            AND   (Tercero.strNombres = ${data.strNombres} OR ${data.strNombres} IS NULL)
+            AND   (Tercero.strApellidos = ${data.strApellidos} OR ${data.strApellidos} IS NULL)
+            AND   (Estado.strNombre = 'Activo')`;
 
             let arrNewData = response.recordsets[0];
 
