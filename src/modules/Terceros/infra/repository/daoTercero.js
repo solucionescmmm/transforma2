@@ -6,6 +6,7 @@ const { conexion } = require("../../../../common/config/confSQL_connectionTransf
 
 class daoTercero {
     async setTercero(data) {
+        console.log(data);
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -19,15 +20,11 @@ class daoTercero {
                 ${data.strApellidos},
                 ${data.strTipoDocto},
                 ${data.strNroDocto},
-                ${data.dtFechaNacimiento},
-                ${data.strNacionalidad},
-                ${data.strGenero},
-                ${data.strCorreoElectronico},
-                ${data.strCelular},
+                ${data.strCorreoElectronico1},
+                ${data.strCelular1},
                 ${data.strEstrato},
                 ${data.strDepartamento},
                 ${data.strCiudad},
-                ${data.strDireccionResidencia},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
@@ -59,6 +56,7 @@ class daoTercero {
 
             return result;
         }
+        
     }
 
     async updateTercero(data) {

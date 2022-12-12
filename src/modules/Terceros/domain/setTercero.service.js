@@ -62,10 +62,10 @@ class setTercero {
 
     async #completeData() {
         let newData = {
-            ...this.#objData,
+            ...this.#objData.objInfoEmpresarioPr,
             intIdEstado: this.#intIdEstado,
-            strDepartamento: JSON.stringify(this.#objData?.arrDepartamento || null),
-            strCiudad: JSON.stringify(this.#objData?.arrCiudad || null),
+            strDepartamento: JSON.stringify(this.#objData.objInfoEmpresarioPr?.arrDepartamento || null),
+            strCiudad: JSON.stringify(this.#objData.objInfoEmpresarioPr?.arrCiudad || null),
             strUsuarioCreacion:this.#objUser.strEmail,
         };
         this.#objData = newData;
