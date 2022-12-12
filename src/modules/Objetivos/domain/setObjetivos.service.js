@@ -75,7 +75,7 @@ class setObjetivos {
 
     async #getIdEstado() {
         let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre: "En borrador",
+            strNombre: "Activo",
         });
 
         if (queryGetIdEstado.error) {
