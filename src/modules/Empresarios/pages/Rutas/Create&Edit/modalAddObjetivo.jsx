@@ -12,14 +12,15 @@ import {
     LinearProgress,
     Grid,
     Typography,
-    TextField,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
 //Estilos
-import { makeStyles } from "@mui/styles";
 import { Controller, useForm } from "react-hook-form";
+import DropdownObjetivos2 from "../components/dropdownObjetivosv2";
+
+import { makeStyles } from "@mui/styles";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -64,7 +65,7 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
         setLoading(true);
 
         setTimeout(() => {
-            onChange(data.strObjetivo);
+            onChange(data.strObjetivo?.strNombre);
             setFlagSubmit(false);
             setLoading(false);
             setSucces(true);
@@ -128,12 +129,12 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
                             name="strObjetivo"
                             defaultValue={data.strObjetivo}
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <DropdownObjetivos2
                                     label="Objetivo"
                                     name={name}
                                     required
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e, value) => onChange(value)}
                                     disabled={loading}
                                     error={errors?.strObjetivo ? true : false}
                                     helperText={
