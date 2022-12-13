@@ -45,6 +45,11 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
+            title: "intId",
+            field: "objInfoPrincipal.intId",
+            width: "5%",
+        },
+        {
             title: "Estado",
             field: "strEstadoRuta",
             width: "5%",
@@ -110,7 +115,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
             <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
-                intId={selectedData?.intId}
+                intId={selectedData?.objInfoPrincipal?.intId}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
             />

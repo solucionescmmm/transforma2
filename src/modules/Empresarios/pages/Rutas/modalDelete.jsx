@@ -37,6 +37,7 @@ const modalRejectStyles = makeStyles(() => ({
 }));
 
 const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
+    console.log(intId);
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -76,9 +77,10 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
                 {
                     method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_TAREAS_DELETE}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_RUTAS_DELETE}`,
                     params: {
                         intId: data.intId,
+                        intIdIdea,
                     },
                     headers: {
                         token,
@@ -117,7 +119,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
                     }
                 });
         },
-        [token, data]
+        [token, data, intIdIdea]
     );
 
     //===============================================================================================================================================
@@ -147,7 +149,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
 
     useEffect(() => {
         if (success) {
-            refresh({intIdIdea});
+            refresh({ intIdIdea });
             handleOpenDialog();
 
             setSucces(false);
@@ -188,7 +190,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
                         <Alert severity="error">
                             <AlertTitle>
                                 <b>
-                                    No se encontro el identificador de la tarea
+                                    No se encontro el identificador de la ruta
                                 </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
@@ -222,7 +224,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar la tarea seleccionada?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas eliminar la ruta seleccionada?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
