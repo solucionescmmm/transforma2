@@ -65,7 +65,7 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
         setLoading(true);
 
         setTimeout(() => {
-            onChange(data.strObjetivo?.strNombre);
+            onChange(data.strObjetivo);
             setFlagSubmit(false);
             setLoading(false);
             setSucces(true);

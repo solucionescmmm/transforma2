@@ -110,7 +110,8 @@ const PaperFase = ({
 
         newArrObjetivos.push({
             strId: shortid.generate(),
-            strObjetivo: value,
+            strObjetivo: value.strNombre,
+            intId: value.intId
         });
 
         setValue(`arrInfoFases[${index}].arrObjetivos`, newArrObjetivos);
@@ -466,7 +467,7 @@ const PaperFase = ({
                                                 helperText={
                                                     errors?.arrInfoFases?.[
                                                         index
-                                                    ]?.strResponsable.message ||
+                                                    ]?.strResponsable?.message ||
                                                     "Selecciona el responsable"
                                                 }
                                             />
