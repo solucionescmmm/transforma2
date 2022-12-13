@@ -36,6 +36,7 @@ const InfoFases = ({
     fields,
     append,
     remove,
+    isEdit
 }) => {
     const [loading, setLoading] = useState(false);
 
@@ -154,6 +155,7 @@ const InfoFases = ({
                                         values={e}
                                         setValue={setValue}
                                         errors={errors}
+                                        isEdit={isEdit}
                                         disabled={disabled}
                                         remove={remove}
                                         length={fields.length}

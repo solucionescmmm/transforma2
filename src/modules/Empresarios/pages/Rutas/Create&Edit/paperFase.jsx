@@ -29,6 +29,7 @@ import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
     Delete as DeleteIcon,
+    Edit as EditIcon,
 } from "@mui/icons-material";
 
 //Componentes
@@ -39,6 +40,8 @@ import ModalAddPaquete from "./modalAddPaquete";
 import ModalAddServicio from "./modalAddServicio";
 import SelectEstados from "../../../../Admin/components/selectEstado";
 import DropdownTipoTarifa from "../../../../Admin/components/dropdownTipoTarifa";
+import ModalEditObjetivo from "./modalEditObjetivo";
+import ModalDeleteObjetivo from "./modalDeleteObjetivo";
 
 const PaperFase = ({
     values,
@@ -49,6 +52,7 @@ const PaperFase = ({
     errors,
     remove,
     length,
+    isEdit,
 }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -70,8 +74,13 @@ const PaperFase = ({
     const [openCollapese, setOpenCollapse] = useState(true);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalAddObjetivo, setOpenModalAddObjetivo] = useState(false);
+    const [openModalEditObjetivo, setOpenModalEditObjetivo] = useState(false);
+    const [openModalDeleteObjetivo, setOpenModalDeleteObjetivo] =
+        useState(false);
     const [openModalAddPaquete, setOpenModalAddPaquete] = useState(false);
     const [openModalAddServicio, setOpenModalAddServicio] = useState(false);
+
+    const [valueObjetivo, setValueObjetivo] = useState();
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -94,6 +103,14 @@ const PaperFase = ({
         setOpenModalAddObjetivo(!openModalAddObjetivo);
     };
 
+    const handlerChangeOpenModalEditObjetivo = () => {
+        setOpenModalEditObjetivo(!openModalEditObjetivo);
+    };
+
+    const handlerChangeOpenModalDeleteObjetivo = () => {
+        setOpenModalDeleteObjetivo(!openModalDeleteObjetivo);
+    };
+
     const handlerChangeOpenModalAddPaquete = () => {
         setOpenModalAddPaquete(!openModalAddPaquete);
     };
@@ -102,14 +119,28 @@ const PaperFase = ({
         setOpenModalAddServicio(!openModalAddServicio);
     };
 
-    const handlerChangeObjetivo = (value) => {
+    const handlerChangeObjetivo = (value, mode) => {
         const newArrObjetivos = [...data.arrObjetivos];
 
-        newArrObjetivos.push({
-            strId: shortid.generate(),
-            strObjetivo: value.strNombre,
-            intId: value.intId,
-        });
+        if (mode.type === "register") {
+            newArrObjetivos.push({
+                strId: shortid.generate(),
+                strObjetivo: value.strNombre,
+                intId: value.intId,
+            });
+        }
+
+        if (mode.type === "edit") {
+            newArrObjetivos[mode.index] = {
+                strId: value.strId,
+                strObjetivo: value.strNombre,
+                intId: value.intId,
+            };
+        }
+
+        if (mode.type === "delete") {
+            newArrObjetivos.splice(mode.index, 1);
+        }
 
         setValue(`arrInfoFases[${index}].arrObjetivos`, newArrObjetivos);
 
@@ -214,6 +245,20 @@ const PaperFase = ({
                 open={openModalAddObjetivo}
                 handleOpenDialog={handlerChangeOpenModalAddObjetivo}
                 onChange={handlerChangeObjetivo}
+            />
+
+            <ModalEditObjetivo
+                open={openModalEditObjetivo}
+                handleOpenDialog={handlerChangeOpenModalEditObjetivo}
+                onChange={handlerChangeObjetivo}
+                values={valueObjetivo}
+            />
+
+            <ModalDeleteObjetivo
+                open={openModalDeleteObjetivo}
+                handleOpenDialog={handlerChangeOpenModalDeleteObjetivo}
+                onChange={handlerChangeObjetivo}
+                values={valueObjetivo}
             />
 
             <ModalAddPaquete
@@ -339,40 +384,49 @@ const PaperFase = ({
 
                         <Collapse in={openCollapese} timeout="auto">
                             <Grid container direction="row" spacing={2}>
-                                <Grid item xs={12}>
-                                    <Controller
-                                        defaultValue={data.intEstado}
-                                        name={`arrInfoFases[${index}].intEstado`}
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <SelectEstados
-                                                label="Estado"
-                                                name={name}
-                                                value={value}
-                                                onChange={(e) => onChange(e)}
-                                                disabled={disabled}
-                                                required
-                                                error={
-                                                    errors?.objInfoPrincipal
-                                                        ?.intEstado
-                                                        ? true
-                                                        : false
-                                                }
-                                                helperText={
-                                                    errors?.objInfoPrincipal
-                                                        ?.intEstado?.message ||
-                                                    "Selecciona el estado de la fase"
-                                                }
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona el estado de la fase",
-                                        }}
-                                    />
-                                </Grid>
+                                {isEdit && (
+                                    <Grid item xs={12}>
+                                        <Controller
+                                            defaultValue={data.intEstado}
+                                            name={`arrInfoFases[${index}].intEstado`}
+                                            render={({
+                                                field: {
+                                                    name,
+                                                    onChange,
+                                                    value,
+                                                },
+                                            }) => (
+                                                <SelectEstados
+                                                    label="Estado"
+                                                    name={name}
+                                                    value={value}
+                                                    onChange={(e) =>
+                                                        onChange(e)
+                                                    }
+                                                    disabled={disabled}
+                                                    required
+                                                    error={
+                                                        errors?.objInfoPrincipal
+                                                            ?.intEstado
+                                                            ? true
+                                                            : false
+                                                    }
+                                                    helperText={
+                                                        errors?.objInfoPrincipal
+                                                            ?.intEstado
+                                                            ?.message ||
+                                                        "Selecciona el estado de la fase"
+                                                    }
+                                                />
+                                            )}
+                                            control={control}
+                                            rules={{
+                                                required:
+                                                    "Por favor, selecciona el estado de la fase",
+                                            }}
+                                        />
+                                    </Grid>
+                                )}
 
                                 <Grid item xs={12}>
                                     <Controller
@@ -494,16 +548,47 @@ const PaperFase = ({
                                                     display: "flex",
                                                     flexDirection: "row",
                                                     fontSize: "14px",
+                                                    gap: 1,
+                                                    alignItems: "center",
                                                 }}
                                             >
-                                                <p
-                                                    style={{
-                                                        paddingRight: "30px",
+                                                <Box sx={{ flexGrow: 1 }}>
+                                                    <p
+                                                        style={{
+                                                            paddingRight:
+                                                                "30px",
+                                                        }}
+                                                    >
+                                                        Objetivo {index + 1}
+                                                    </p>
+                                                    <p>
+                                                        {objetivo.strObjetivo}
+                                                    </p>
+                                                </Box>
+
+                                                <EditIcon
+                                                    htmlColor="green"
+                                                    fontSize="small"
+                                                    onClick={() => {
+                                                        setValueObjetivo({
+                                                            value: objetivo,
+                                                            index,
+                                                        });
+                                                        handlerChangeOpenModalEditObjetivo();
                                                     }}
-                                                >
-                                                    Objetivo {index + 1}
-                                                </p>
-                                                <p>{objetivo.strObjetivo}</p>
+                                                />
+
+                                                <DeleteIcon
+                                                    color="error"
+                                                    fontSize="small"
+                                                    onClick={() => {
+                                                        setValueObjetivo({
+                                                            value: objetivo,
+                                                            index,
+                                                        });
+                                                        handlerChangeOpenModalDeleteObjetivo();
+                                                    }}
+                                                />
                                             </Box>
                                         )
                                     )}

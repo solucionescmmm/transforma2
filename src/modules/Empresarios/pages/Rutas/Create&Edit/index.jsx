@@ -109,7 +109,7 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
     //===============================================================================================================================================
     const {
         control,
-        formState: { errors, isDirty },
+        formState: { errors },
         handleSubmit,
         reset,
         setError,
@@ -608,6 +608,7 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
                                     fields={fields}
                                     append={append}
                                     remove={remove}
+                    
                                 />
                             </Grid>
 

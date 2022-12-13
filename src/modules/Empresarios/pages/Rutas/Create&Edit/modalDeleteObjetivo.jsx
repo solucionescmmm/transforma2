@@ -10,16 +10,12 @@ import {
     useTheme,
     useMediaQuery,
     LinearProgress,
-    Grid,
-    Typography,
+    DialogContentText,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
 //Estilos
-import { Controller, useForm } from "react-hook-form";
-import DropdownObjetivos2 from "../components/dropdownObjetivosv2";
-
 import { makeStyles } from "@mui/styles";
 
 const modalRejectStyles = makeStyles(() => ({
@@ -29,7 +25,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
+const ModalDeleteObjetivo = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -39,22 +35,11 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
-    const [data, setData] = useState({
-        strObjetivo: "",
-    });
-
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-        reset,
-    } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -65,23 +50,18 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
         setLoading(true);
 
         setTimeout(() => {
-            onChange(data.strObjetivo, { type: "register" });
+            onChange(null, { type: "delete", index: values?.index });
             setFlagSubmit(false);
             setLoading(false);
             setSucces(true);
         }, 1000);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data]);
+    }, []);
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
-    const onSubmit = (data) => {
-        setData((prevState) => ({
-            ...prevState,
-            ...data,
-        }));
-
+    const onSubmit = () => {
         setFlagSubmit(true);
     };
 
@@ -94,8 +74,6 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
     useEffect(() => {
         if (success) {
             handleOpenDialog();
-            setData({ strObjetivo: "" });
-            reset({ strObjetivo: "" });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,46 +88,24 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
             open={loading ? true : open}
             onClose={handleOpenDialog}
             fullWidth
+            PaperProps={{
+                style: {
+                    backgroundColor: "#FDEDED",
+                },
+            }}
         >
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Añadir objetivo</DialogTitle>
+            <DialogTitle>
+                ¿Deseas eliminar el objetivo seleccionado?
+            </DialogTitle>
 
             <DialogContent>
-                <Grid container direction="row" spacing={1}>
-                    <Grid item xs={12}>
-                        <Typography variant="caption">
-                            Todos los campos marcados con (*) son obligatorios.
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            name="strObjetivo"
-                            defaultValue={data.strObjetivo}
-                            render={({ field: { name, value, onChange } }) => (
-                                <DropdownObjetivos2
-                                    label="Objetivo"
-                                    name={name}
-                                    required
-                                    value={value}
-                                    onChange={(e, value) => onChange(value)}
-                                    disabled={loading}
-                                    error={errors?.strObjetivo ? true : false}
-                                    helperText={
-                                        errors?.strObjetivo?.message ||
-                                        "Selecciona el objetivo"
-                                    }
-                                />
-                            )}
-                            rules={{
-                                required: "Por favor, selecciona el objetivo",
-                            }}
-                            control={control}
-                        />
-                    </Grid>
-                </Grid>
+                <DialogContentText>
+                    El proceso es irreversible y no podrás recuperar la
+                    información.
+                </DialogContentText>
             </DialogContent>
 
             <DialogActions>
@@ -157,9 +113,9 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
                     color="primary"
                     loading={loading}
                     type="button"
-                    onClick={handleSubmit(onSubmit)}
+                    onClick={onSubmit}
                 >
-                    añadir
+                    aceptar
                 </LoadingButton>
 
                 <Button
@@ -175,4 +131,4 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
     );
 };
 
-export default ModalAddObjetivo;
+export default ModalDeleteObjetivo;
