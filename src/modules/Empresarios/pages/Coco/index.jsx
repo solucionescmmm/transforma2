@@ -41,6 +41,8 @@ import CardGrafica from "./cardGrafica";
 import CardTareas from "./cardTareas";
 import CardComentarios from "./cardComentarios";
 import CardDocumentos from "./cardDocumentos";
+import CardRutas from "./cardRutas";
+import CardDiagnosticos from "./cardDiagnosticos";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -791,6 +793,7 @@ const Coco = () => {
                                             display: "flex",
                                             alignItems: "center",
                                         }}
+                                        onClick={() => onChangeRoute("Rutas")}
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
@@ -818,15 +821,10 @@ const Coco = () => {
                                             sx={{
                                                 width: 800,
                                                 height: 118,
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
+                                                paddingLeft: "10px",
                                             }}
                                         >
-                                            <p>
-                                                No existen acompañamientos
-                                                registrados
-                                            </p>
+                                            <CardRutas intIdIdea={intId} />
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -843,7 +841,9 @@ const Coco = () => {
                                         <Button
                                             size="small"
                                             variant="contained"
-                                            onClick={() => onChangeRoute("Rutas")}
+                                            onClick={() =>
+                                                onChangeRoute("CreateRutas")
+                                            }
                                             sx={{
                                                 fontSize: "11px",
                                             }}
@@ -875,7 +875,9 @@ const Coco = () => {
                                             display: "flex",
                                             alignItems: "center",
                                         }}
-                                        onClick={() => onChangeRoute("DiagnosticoCoco")}
+                                        onClick={() =>
+                                            onChangeRoute("DiagnosticoCoco")
+                                        }
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
@@ -903,15 +905,12 @@ const Coco = () => {
                                             sx={{
                                                 width: 800,
                                                 height: 118,
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
+                                                paddingLeft: "10px",
                                             }}
                                         >
-                                            <p>
-                                                No existen registros de
-                                                dianósticos
-                                            </p>
+                                            <CardDiagnosticos
+                                                intIdIdea={intId}
+                                            />
                                         </Box>
                                     </Box>
                                 </Grid>
@@ -929,7 +928,9 @@ const Coco = () => {
                                             size="small"
                                             variant="contained"
                                             onClick={() =>
-                                                onChangeRoute("CreateDiagnosticoCoco")
+                                                onChangeRoute(
+                                                    "CreateDiagnosticoCoco"
+                                                )
                                             }
                                             sx={{
                                                 fontSize: "11px",

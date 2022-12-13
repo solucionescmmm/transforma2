@@ -573,8 +573,6 @@ const PaperFase = ({
                                             <Box
                                                 key={paquete.strId}
                                                 style={{
-                                                    display: "flex",
-                                                    flexDirection: "row",
                                                     fontSize: "14px",
                                                     marginLeft: "94.5px",
                                                 }}
@@ -679,8 +677,6 @@ const PaperFase = ({
                                                 <Box
                                                     key={servicio.strId}
                                                     style={{
-                                                        display: "flex",
-                                                        flexDirection: "row",
                                                         fontSize: "14px",
                                                         marginLeft: "94.5px",
                                                     }}

@@ -141,10 +141,6 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
                                         errors?.strObjetivo?.message ||
                                         "Digita el objetivo"
                                     }
-                                    variant="outlined"
-                                    multiline
-                                    rows={4}
-                                    fullWidth
                                 />
                             )}
                             rules={{
