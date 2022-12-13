@@ -29,13 +29,13 @@ class setRutas {
     }
 
     async main() {
-        console.log(this.#objData);
-        await this.#deleteCache();
-        await this.#validations();
-        await this.#getIdEstado();
-        await this.#setRutas();
-        await this.#setFases();
-        return this.#objResult;
+        console.log(this.#objData.arrInfoFases);
+       await this.#deleteCache();
+       await this.#validations();
+       await this.#getIdEstado();
+       await this.#setRutas();
+       await this.#setFases();
+       return this.#objResult;
     }
 
     async #deleteCache() {
@@ -114,7 +114,7 @@ class setRutas {
                     intIdReferenciaTipoTarifa: objDataFase.objTarifa.intId,
                     valorReferenciaTotalFase: objDataFase.dblValorRef,
                     valorTotalFase: objDataFase.dblValorFase,
-                    strResponsables: JSON.stringify(
+                    strResponsable: JSON.stringify(
                         objDataFase.strResponsable || null
                     ),
                     strObservaciones: objDataFase.strObservaciones,

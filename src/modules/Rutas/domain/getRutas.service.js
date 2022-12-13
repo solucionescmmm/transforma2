@@ -121,6 +121,7 @@ const getRutas = async (objParams, strDataUser) => {
 
                     arrInfoFases[j] = {
                         ...objInfoFases,
+                        strResponsable:JSON.parse(objInfoFases?.strResponsable || null),
                         arrPaquetes,
                         arrServicios,
                         objTarifa,

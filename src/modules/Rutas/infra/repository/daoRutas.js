@@ -72,7 +72,7 @@ class daoRutas {
                 ${data.intIdReferenciaTipoTarifa},
                 ${data.valorReferenciaTotalFase},
                 ${data.valorTotalFase},
-                ${data.strResponsables},
+                ${data.strResponsable},
                 ${data.strObservaciones},
                 ${data.intIdMotivoCancelacion},
                 GETDATE(),
@@ -387,9 +387,12 @@ class daoRutas {
                             FasesObjPaquetes.dtmCreacion,
                             FasesObjPaquetes.strUsuarioCreacion,
                             FasesObjPaquetes.dtmActualizacion,
-                            FasesObjPaquetes.strUsuarioActualizacion
+                            FasesObjPaquetes.strUsuarioActualizacion,
+                            Objetivo.strNombre
                             
                             FROM tbl_Objetivos_Paquetes_Fases FasesObjPaquetes
+
+                            INNER JOIN tbl_Objetivos Objetivo on Objetivo.intId = FasesObjPaquetes.intIdObjetivo
         
                             WHERE FasesObjPaquetes.intIdPaquetes_Fases = FasesPaquetes.intId 
                             FOR JSON PATH
@@ -420,9 +423,12 @@ class daoRutas {
                             FasesObjServicios.dtmCreacion,
                             FasesObjServicios.strUsuarioCreacion,
                             FasesObjServicios.dtmActualizacion,
-                            FasesObjServicios.strUsuarioActualizacion
+                            FasesObjServicios.strUsuarioActualizacion,
+                            Objetivo.strNombre
                             
                             FROM tbl_Objetivos_Servicios_Fases FasesObjServicios
+
+                            INNER JOIN tbl_Objetivos Objetivo on Objetivo.intId = FasesObjServicios.intIdObjetivo
         
                             WHERE FasesObjServicios.intIdServicios_Fases = FasesServicios.intId 
                             FOR JSON PATH
@@ -551,7 +557,7 @@ class daoRutas {
         }
     }
 
-    async getEstadosRutasFases(data) {
+    async getEstadosRutas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
