@@ -39,8 +39,7 @@ class setRutas {
     }
 
     async #deleteCache() {
-        let key = ["/transforma/api/rutas/getRutas?intIdIdea=26"];
-        await apiCache.clear(key);
+        await apiCache.clear();
     }
 
     async #validations() {

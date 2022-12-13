@@ -14,13 +14,13 @@ class deleteRutas {
     #objResult;
 
     constructor(objParms, strDataUser) {
-        console.log(objParms);
         this.#intIdRutas = objParms.intId;
         this.#intIdIdea = objParms.intIdIdea;
         this.#objUser = strDataUser;
     }
 
     async main() {
+        await this.#deleteCache();
         await this.#getIdEstado();
         await this.#getRuta();
         await this.#validations();
@@ -38,6 +38,10 @@ class deleteRutas {
                 "No se puede eliminar la ruta, al tener una o mas fases en un estado diferente al En Borrador."
             );
         }
+    }
+
+    async #deleteCache() {
+        await apiCache.clear();
     }
 
     async #getRuta() {
