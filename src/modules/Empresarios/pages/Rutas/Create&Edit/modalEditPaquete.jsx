@@ -19,7 +19,7 @@ import { LoadingButton } from "@mui/lab";
 //Estilos
 import { makeStyles } from "@mui/styles";
 import { Controller, useForm } from "react-hook-form";
-import DropdownServicios from "../../../../Admin/components/dropdownServicios";
+import DropdownPaquetes from "../../../../Admin/components/dropdownPaquetes";
 import DropdownObjetivos from "../components/dropdownObjetivos";
 
 const modalRejectStyles = makeStyles(() => ({
@@ -29,11 +29,11 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
+const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const { arrObjetivos, intFase } = values;
+    const { intFase } = values;
 
     const [success, setSucces] = useState(false);
 
@@ -42,8 +42,8 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        objServicio: null,
-        arrObjetivos: [],
+        objPaquete: values?.value ? values.value?.objPaquete : null,
+        arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
     });
 
     //===============================================================================================================================================
@@ -56,7 +56,6 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
         control,
         formState: { errors },
         handleSubmit,
-        reset,
     } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
@@ -68,7 +67,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
         setLoading(true);
 
         setTimeout(() => {
-            onChange(data, { type: "register" });
+            onChange(data, { type: "edit", index: values?.index });
             setFlagSubmit(false);
             setLoading(false);
             setSucces(true);
@@ -97,12 +96,17 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     useEffect(() => {
         if (success) {
             handleOpenDialog();
-            setData({ objServicio: null, arrObjetivos: [] });
-            reset({ objServicio: null, arrObjetivos: [] });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [success]);
+
+    useEffect(() => {
+        setData({
+            objPaquete: values?.value ? values.value?.objPaquete : null,
+            arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
+        });
+    }, [values]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -117,7 +121,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Añadir servicio a la fase #{intFase}</DialogTitle>
+            <DialogTitle>Editar paquete de la fase #{intFase}</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="row" spacing={1}>
@@ -129,25 +133,25 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
 
                     <Grid item xs={12}>
                         <Controller
-                            name="objServicio"
-                            defaultValue={data.objServicio}
+                            name="objPaquete"
+                            defaultValue={data.objPaquete}
                             render={({ field: { name, value, onChange } }) => (
-                                <DropdownServicios
-                                    label="Servicio"
+                                <DropdownPaquetes
+                                    label="Paquete"
                                     name={name}
                                     required
                                     value={value}
                                     onChange={(e, value) => onChange(value)}
                                     disabled={loading}
-                                    error={errors?.objServicio ? true : false}
+                                    error={errors?.objPaquete ? true : false}
                                     helperText={
-                                        errors?.objServicio?.message ||
-                                        "Selecciona el servicio"
+                                        errors?.objPaquete?.message ||
+                                        "Selecciona el paquete"
                                     }
                                 />
                             )}
                             rules={{
-                                required: "Por favor, selcciona el servicio",
+                                required: "Por favor, selcciona el paquete",
                             }}
                             control={control}
                         />
@@ -170,7 +174,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                         errors?.arrObjetivos?.message ||
                                         "Selecciona los objetivos"
                                     }
-                                    data={arrObjetivos}
+                                    data={values?.value.arrObjetivos || []}
                                     multiple
                                 />
                             )}
@@ -190,7 +194,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                     type="button"
                     onClick={handleSubmit(onSubmit)}
                 >
-                    añadir
+                    guardar
                 </LoadingButton>
 
                 <Button
@@ -206,4 +210,4 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     );
 };
 
-export default ModalAddServicio;
+export default ModalEditPaquete;

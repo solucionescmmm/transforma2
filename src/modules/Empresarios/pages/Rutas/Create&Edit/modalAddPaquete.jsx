@@ -68,7 +68,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
         setLoading(true);
 
         setTimeout(() => {
-            onChange(data);
+            onChange(data, { type: "register" });
             setFlagSubmit(false);
             setLoading(false);
             setSucces(true);

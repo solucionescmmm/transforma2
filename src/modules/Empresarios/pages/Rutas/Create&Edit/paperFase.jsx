@@ -42,6 +42,10 @@ import SelectEstados from "../../../../Admin/components/selectEstado";
 import DropdownTipoTarifa from "../../../../Admin/components/dropdownTipoTarifa";
 import ModalEditObjetivo from "./modalEditObjetivo";
 import ModalDeleteObjetivo from "./modalDeleteObjetivo";
+import ModalEditPaquete from "./modalEditPaquete";
+import ModalDeletePaquete from "./modalDeletePaquete";
+import ModalEditServicio from "./modalEditServicio";
+import ModalDeleteServicio from "./modalDeleteServicio";
 
 const PaperFase = ({
     values,
@@ -78,9 +82,16 @@ const PaperFase = ({
     const [openModalDeleteObjetivo, setOpenModalDeleteObjetivo] =
         useState(false);
     const [openModalAddPaquete, setOpenModalAddPaquete] = useState(false);
+    const [openModalEditPaquete, setOpenModalEditPaquete] = useState(false);
+    const [openModalDeletePaquete, setOpenModalDeletePaquete] = useState(false);
     const [openModalAddServicio, setOpenModalAddServicio] = useState(false);
+    const [openModalEditServicio, setOpenModalEditServicio] = useState(false);
+    const [openModalDeleteServicio, setOpenModalDeleteServicio] =
+        useState(false);
 
     const [valueObjetivo, setValueObjetivo] = useState();
+    const [valuePaquete, setValuePaquete] = useState();
+    const [valueServicio, setValueServicio] = useState();
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -115,8 +126,24 @@ const PaperFase = ({
         setOpenModalAddPaquete(!openModalAddPaquete);
     };
 
+    const handlerChangeOpenModalEditPaquete = () => {
+        setOpenModalEditPaquete(!openModalEditPaquete);
+    };
+
+    const handlerChangeOpenModalDeletePaquete = () => {
+        setOpenModalDeletePaquete(!openModalDeletePaquete);
+    };
+
     const handlerChangeOpenModalAddServicio = () => {
         setOpenModalAddServicio(!openModalAddServicio);
+    };
+
+    const handlerChangeOpenModalEditServicio = () => {
+        setOpenModalEditServicio(!openModalEditServicio);
+    };
+
+    const handlerChangeOpenModalDeleteServicio = () => {
+        setOpenModalDeleteServicio(!openModalDeleteServicio);
     };
 
     const handlerChangeObjetivo = (value, mode) => {
@@ -150,14 +177,28 @@ const PaperFase = ({
         }));
     };
 
-    const handlerChangePaquete = (value) => {
+    const handlerChangePaquete = (value, mode) => {
         const newArrPaquetes = [...data.arrPaquetes];
 
-        newArrPaquetes.push({
-            strId: shortid.generate(),
-            objPaquete: value.objPaquete,
-            arrObjetivos: value.arrObjetivos,
-        });
+        if (mode.type === "register") {
+            newArrPaquetes.push({
+                strId: shortid.generate(),
+                objPaquete: value.objPaquete,
+                arrObjetivos: value.arrObjetivos,
+            });
+        }
+
+        if (mode.type === "edit") {
+            newArrPaquetes[mode.index] = {
+                strId: value.strId,
+                objPaquete: value.objPaquete,
+                arrObjetivos: value.arrObjetivos,
+            };
+        }
+
+        if (mode.type === "delete") {
+            newArrPaquetes.splice(mode.index, 1);
+        }
 
         setValue(`arrInfoFases[${index}].arrPaquetes`, newArrPaquetes);
 
@@ -167,14 +208,28 @@ const PaperFase = ({
         }));
     };
 
-    const handlerChangeServicio = (value) => {
+    const handlerChangeServicio = (value, mode) => {
         const newArrServicios = [...data.arrServicios];
 
-        newArrServicios.push({
-            strId: shortid.generate(),
-            objServicio: value.objServicio,
-            arrObjetivos: value.arrObjetivos,
-        });
+        if (mode.type === "register") {
+            newArrServicios.push({
+                strId: shortid.generate(),
+                objServicio: value.objServicio,
+                arrObjetivos: value.arrObjetivos,
+            });
+        }
+
+        if (mode.type === "edit") {
+            newArrServicios[mode.index] = {
+                strId: value.strId,
+                objServicio: value.objServicio,
+                arrObjetivos: value.arrObjetivos,
+            };
+        }
+
+        if (mode.type === "delete") {
+            newArrServicios.splice(mode.index, 1);
+        }
 
         setValue(`arrInfoFases[${index}].arrServicios`, newArrServicios);
 
@@ -268,11 +323,39 @@ const PaperFase = ({
                 values={{ arrObjetivos: data.arrObjetivos, intFase: index + 1 }}
             />
 
+            <ModalEditPaquete
+                open={openModalEditPaquete}
+                handleOpenDialog={handlerChangeOpenModalEditPaquete}
+                onChange={handlerChangePaquete}
+                values={{ ...valuePaquete, intFase: index + 1 }}
+            />
+
+            <ModalDeletePaquete
+                open={openModalDeletePaquete}
+                handleOpenDialog={handlerChangeOpenModalDeletePaquete}
+                onChange={handlerChangePaquete}
+                values={valuePaquete}
+            />
+
             <ModalAddServicio
                 open={openModalAddServicio}
                 handleOpenDialog={handlerChangeOpenModalAddServicio}
                 onChange={handlerChangeServicio}
                 values={{ arrObjetivos: data.arrObjetivos, intFase: index + 1 }}
+            />
+
+            <ModalEditServicio
+                open={openModalEditServicio}
+                handleOpenDialog={handlerChangeOpenModalEditServicio}
+                onChange={handlerChangeServicio}
+                values={{ ...valueServicio, intFase: index + 1 }}
+            />
+
+            <ModalDeleteServicio
+                open={openModalDeleteServicio}
+                handleOpenDialog={handlerChangeOpenModalDeleteServicio}
+                onChange={handlerChangeServicio}
+                values={valueServicio}
             />
 
             <Box
@@ -629,30 +712,59 @@ const PaperFase = ({
 
                                 <Grid item xs={12}>
                                     {data.arrPaquetes.map((paquete, index) => (
-                                        <Fragment>
+                                        <Fragment key={paquete.strId}>
                                             <Box
                                                 key={paquete.strId}
                                                 style={{
                                                     display: "flex",
                                                     flexDirection: "row",
                                                     fontSize: "14px",
+                                                    alignItems: "center",
+                                                    gap: 1,
                                                 }}
                                             >
-                                                <p
-                                                    style={{
-                                                        paddingRight: "30px",
+                                                <Box sx={{ flexGrow: 1 }}>
+                                                    <p
+                                                        style={{
+                                                            paddingRight:
+                                                                "30px",
+                                                        }}
+                                                    >
+                                                        Paquete {index + 1}
+                                                    </p>
+                                                    <p>
+                                                        Nombre:{" "}
+                                                        {
+                                                            paquete.objPaquete
+                                                                .objInfoPrincipal
+                                                                .strNombre
+                                                        }
+                                                    </p>
+                                                </Box>
+
+                                                <EditIcon
+                                                    htmlColor="green"
+                                                    fontSize="small"
+                                                    onClick={() => {
+                                                        setValuePaquete({
+                                                            value: paquete,
+                                                            index,
+                                                        });
+                                                        handlerChangeOpenModalEditPaquete();
                                                     }}
-                                                >
-                                                    Paquete {index + 1}
-                                                </p>
-                                                <p>
-                                                    Nombre:{" "}
-                                                    {
-                                                        paquete.objPaquete
-                                                            .objInfoPrincipal
-                                                            .strNombre
-                                                    }
-                                                </p>
+                                                />
+
+                                                <DeleteIcon
+                                                    color="error"
+                                                    fontSize="small"
+                                                    onClick={() => {
+                                                        setValuePaquete({
+                                                            value: paquete,
+                                                            index,
+                                                        });
+                                                        handlerChangeOpenModalDeletePaquete();
+                                                    }}
+                                                />
                                             </Box>
 
                                             <Box
@@ -732,7 +844,7 @@ const PaperFase = ({
                                 <Grid item xs={12}>
                                     {data.arrServicios.map(
                                         (servicio, index) => (
-                                            <Fragment>
+                                            <Fragment key={servicio.strId}>
                                                 <Box
                                                     key={servicio.strId}
                                                     style={{
@@ -741,22 +853,49 @@ const PaperFase = ({
                                                         fontSize: "14px",
                                                     }}
                                                 >
-                                                    <p
-                                                        style={{
-                                                            paddingRight:
-                                                                "30px",
+                                                    <Box sx={{ flexGrow: 1 }}>
+                                                        <p
+                                                            style={{
+                                                                paddingRight:
+                                                                    "30px",
+                                                            }}
+                                                        >
+                                                            Servicio {index + 1}
+                                                        </p>
+                                                        <p>
+                                                            Nombre:{" "}
+                                                            {
+                                                                servicio
+                                                                    .objServicio
+                                                                    .objInfoPrincipal
+                                                                    .strNombre
+                                                            }
+                                                        </p>
+                                                    </Box>
+
+                                                    <EditIcon
+                                                        htmlColor="green"
+                                                        fontSize="small"
+                                                        onClick={() => {
+                                                            setValueServicio({
+                                                                value: servicio,
+                                                                index,
+                                                            });
+                                                            handlerChangeOpenModalEditServicio();
                                                         }}
-                                                    >
-                                                        Servicio {index + 1}
-                                                    </p>
-                                                    <p>
-                                                        Nombre:{" "}
-                                                        {
-                                                            servicio.objServicio
-                                                                .objInfoPrincipal
-                                                                .strNombre
-                                                        }
-                                                    </p>
+                                                    />
+
+                                                    <DeleteIcon
+                                                        color="error"
+                                                        fontSize="small"
+                                                        onClick={() => {
+                                                            setValueServicio({
+                                                                value: servicio,
+                                                                index,
+                                                            });
+                                                            handlerChangeOpenModalDeleteServicio();
+                                                        }}
+                                                    />
                                                 </Box>
 
                                                 <Box

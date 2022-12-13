@@ -10,17 +10,13 @@ import {
     useTheme,
     useMediaQuery,
     LinearProgress,
-    Grid,
-    Typography,
+    DialogContentText,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import { Controller, useForm } from "react-hook-form";
-import DropdownServicios from "../../../../Admin/components/dropdownServicios";
-import DropdownObjetivos from "../components/dropdownObjetivos";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -29,35 +25,21 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
+const ModalDeletePaquete = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const { arrObjetivos, intFase } = values;
-
     const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
-    const [data, setData] = useState({
-        objServicio: null,
-        arrObjetivos: [],
-    });
-
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-        reset,
-    } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -68,23 +50,18 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
         setLoading(true);
 
         setTimeout(() => {
-            onChange(data, { type: "register" });
+            onChange(null, { type: "delete", index: values?.index });
             setFlagSubmit(false);
             setLoading(false);
             setSucces(true);
         }, 1000);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data]);
+    }, []);
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
-    const onSubmit = (data) => {
-        setData((prevState) => ({
-            ...prevState,
-            ...data,
-        }));
-
+    const onSubmit = () => {
         setFlagSubmit(true);
     };
 
@@ -97,8 +74,6 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     useEffect(() => {
         if (success) {
             handleOpenDialog();
-            setData({ objServicio: null, arrObjetivos: [] });
-            reset({ objServicio: null, arrObjetivos: [] });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,74 +88,24 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
             open={loading ? true : open}
             onClose={handleOpenDialog}
             fullWidth
+            PaperProps={{
+                style: {
+                    backgroundColor: "#FDEDED",
+                },
+            }}
         >
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Añadir servicio a la fase #{intFase}</DialogTitle>
+            <DialogTitle>
+                ¿Deseas eliminar el paquete seleccionado?
+            </DialogTitle>
 
             <DialogContent>
-                <Grid container direction="row" spacing={1}>
-                    <Grid item xs={12}>
-                        <Typography variant="caption">
-                            Todos los campos marcados con (*) son obligatorios.
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            name="objServicio"
-                            defaultValue={data.objServicio}
-                            render={({ field: { name, value, onChange } }) => (
-                                <DropdownServicios
-                                    label="Servicio"
-                                    name={name}
-                                    required
-                                    value={value}
-                                    onChange={(e, value) => onChange(value)}
-                                    disabled={loading}
-                                    error={errors?.objServicio ? true : false}
-                                    helperText={
-                                        errors?.objServicio?.message ||
-                                        "Selecciona el servicio"
-                                    }
-                                />
-                            )}
-                            rules={{
-                                required: "Por favor, selcciona el servicio",
-                            }}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            name="arrObjetivos"
-                            defaultValue={data.arrObjetivos}
-                            render={({ field: { name, value, onChange } }) => (
-                                <DropdownObjetivos
-                                    label="Objetivos"
-                                    name={name}
-                                    required
-                                    value={value}
-                                    onChange={(e, value) => onChange(value)}
-                                    disabled={loading}
-                                    error={errors?.arrObjetivos ? true : false}
-                                    helperText={
-                                        errors?.arrObjetivos?.message ||
-                                        "Selecciona los objetivos"
-                                    }
-                                    data={arrObjetivos}
-                                    multiple
-                                />
-                            )}
-                            rules={{
-                                required: "Por favor, selecciona los objetivos",
-                            }}
-                            control={control}
-                        />
-                    </Grid>
-                </Grid>
+                <DialogContentText>
+                    El proceso es irreversible y no podrás recuperar la
+                    información.
+                </DialogContentText>
             </DialogContent>
 
             <DialogActions>
@@ -188,9 +113,9 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                     color="primary"
                     loading={loading}
                     type="button"
-                    onClick={handleSubmit(onSubmit)}
+                    onClick={onSubmit}
                 >
-                    añadir
+                    aceptar
                 </LoadingButton>
 
                 <Button
@@ -206,4 +131,4 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     );
 };
 
-export default ModalAddServicio;
+export default ModalDeletePaquete;

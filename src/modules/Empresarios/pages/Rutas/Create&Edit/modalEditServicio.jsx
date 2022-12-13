@@ -29,11 +29,11 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
+const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const { arrObjetivos, intFase } = values;
+    const { intFase } = values;
 
     const [success, setSucces] = useState(false);
 
@@ -42,8 +42,8 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        objServicio: null,
-        arrObjetivos: [],
+        objServicio: values?.value ? values.value?.objServicio : null,
+        arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
     });
 
     //===============================================================================================================================================
@@ -68,7 +68,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
         setLoading(true);
 
         setTimeout(() => {
-            onChange(data, { type: "register" });
+            onChange(data, { type: "edit", index: values.index });
             setFlagSubmit(false);
             setLoading(false);
             setSucces(true);
@@ -104,6 +104,13 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [success]);
 
+    useEffect(() => {
+        setData({
+            objServicio: values?.value ? values.value?.objServicio : null,
+            arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
+        });
+    }, [values]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -117,7 +124,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Añadir servicio a la fase #{intFase}</DialogTitle>
+            <DialogTitle>Editar servicio de la fase #{intFase}</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="row" spacing={1}>
@@ -170,7 +177,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                         errors?.arrObjetivos?.message ||
                                         "Selecciona los objetivos"
                                     }
-                                    data={arrObjetivos}
+                                    data={values?.value.arrObjetivos || []}
                                     multiple
                                 />
                             )}
@@ -190,7 +197,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                     type="button"
                     onClick={handleSubmit(onSubmit)}
                 >
-                    añadir
+                    guardar
                 </LoadingButton>
 
                 <Button
@@ -206,4 +213,4 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     );
 };
 
-export default ModalAddServicio;
+export default ModalEditServicio;
