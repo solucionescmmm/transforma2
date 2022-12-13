@@ -447,9 +447,13 @@ class daoRutas {
                         FasesObjetivos.btCumplio,
                         FasesObjetivos.strObservacionesCumplimiento,
                         FasesObjetivos.dtmCreacion,
-                        FasesObjetivos.strUsuarioCreacion
-                        
+                        FasesObjetivos.strUsuarioCreacion,
+                        Objetivo.strNombre
+
                         FROM tbl_Objetivos_Fases FasesObjetivos
+
+                        INNER JOIN tbl_Objetivos Objetivo on Objetivo.intId = FasesObjetivos.intIdObjetivo
+
                         WHERE FasesObjetivos.intIdFase = Fases.intId 
                         FOR JSON PATH
                     )as arrObjetivos
