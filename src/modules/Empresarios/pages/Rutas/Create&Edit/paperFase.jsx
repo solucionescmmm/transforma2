@@ -63,7 +63,7 @@ const PaperFase = ({
     //===============================================================================================================================================
     const [data, setData] = useState({
         Id: values.Id || values.strId || values.intId || null,
-        intEstado: values.intEstado || values.intIdEstadoFase || "" ,
+        intEstado: values.intEstado || values.intIdEstadoFase || "",
         intDiagnostico: values.intDiagnostico || "",
         strResponsable: values.strResponsable || "",
         strObservaciones: values.strObservaciones || "",
@@ -489,15 +489,15 @@ const PaperFase = ({
                                                     disabled={disabled}
                                                     required
                                                     error={
-                                                        errors?.objInfoPrincipal
-                                                            ?.intEstado
-                                                            ? true
-                                                            : false
+                                                        !!errors
+                                                            ?.arrInfoFases?.[
+                                                            index
+                                                        ]?.intEstado
                                                     }
                                                     helperText={
-                                                        errors?.objInfoPrincipal
-                                                            ?.intEstado
-                                                            ?.message ||
+                                                        errors?.arrInfoFases?.[
+                                                            index
+                                                        ]?.intEstado?.message ||
                                                         "Selecciona el estado de la fase"
                                                     }
                                                 />
@@ -626,7 +626,10 @@ const PaperFase = ({
                                     {data.arrObjetivos.map(
                                         (objetivo, index) => (
                                             <Box
-                                                key={objetivo.strId || objetivo.intId}
+                                                key={
+                                                    objetivo.strId ||
+                                                    objetivo.intId
+                                                }
                                                 style={{
                                                     display: "flex",
                                                     flexDirection: "row",
@@ -645,7 +648,8 @@ const PaperFase = ({
                                                         Objetivo {index + 1}
                                                     </p>
                                                     <p>
-                                                        {objetivo.strObjetivo || objetivo.strNombre}
+                                                        {objetivo.strObjetivo ||
+                                                            objetivo.strNombre}
                                                     </p>
                                                 </Box>
 
@@ -712,7 +716,13 @@ const PaperFase = ({
 
                                 <Grid item xs={12}>
                                     {data.arrPaquetes.map((paquete, index) => (
-                                        <Fragment key={paquete.strId || paquete.intId || index}>
+                                        <Fragment
+                                            key={
+                                                paquete.strId ||
+                                                paquete.intId ||
+                                                index
+                                            }
+                                        >
                                             <Box
                                                 key={paquete.strId}
                                                 style={{
@@ -777,7 +787,11 @@ const PaperFase = ({
                                                 {paquete.arrObjetivos.map(
                                                     (objetivo, index) => (
                                                         <Box
-                                                            key={objetivo.strId || objetivo.intId || index}
+                                                            key={
+                                                                objetivo.strId ||
+                                                                objetivo.intId ||
+                                                                index
+                                                            }
                                                             style={{
                                                                 display: "flex",
                                                                 flexDirection:
@@ -796,9 +810,8 @@ const PaperFase = ({
                                                                 {index + 1}
                                                             </p>
                                                             <p>
-                                                                {
-                                                                    objetivo.strObjetivo
-                                                                }
+                                                                {objetivo.strObjetivo ||
+                                                                    objetivo.strNombre}
                                                             </p>
                                                         </Box>
                                                     )
@@ -844,9 +857,18 @@ const PaperFase = ({
                                 <Grid item xs={12}>
                                     {data.arrServicios.map(
                                         (servicio, index) => (
-                                            <Fragment key={servicio.strId || servicio.intId || index}>
+                                            <Fragment
+                                                key={
+                                                    servicio.strId ||
+                                                    servicio.intId ||
+                                                    index
+                                                }
+                                            >
                                                 <Box
-                                                    key={servicio.strId || servicio.intId}
+                                                    key={
+                                                        servicio.strId ||
+                                                        servicio.intId
+                                                    }
                                                     style={{
                                                         display: "flex",
                                                         flexDirection: "row",
@@ -908,7 +930,9 @@ const PaperFase = ({
                                                         (objetivo, index) => (
                                                             <Box
                                                                 key={
-                                                                    objetivo.strId || objetivo.intId || index
+                                                                    objetivo.strId ||
+                                                                    objetivo.intId ||
+                                                                    index
                                                                 }
                                                                 style={{
                                                                     display:
@@ -929,9 +953,8 @@ const PaperFase = ({
                                                                     {index + 1}
                                                                 </p>
                                                                 <p>
-                                                                    {
-                                                                        objetivo.strObjetivo
-                                                                    }
+                                                                    {objetivo.strObjetivo ||
+                                                                        objetivo.strNombre}
                                                                 </p>
                                                             </Box>
                                                         )

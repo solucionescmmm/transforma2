@@ -88,10 +88,10 @@ const CardRutas = ({ intIdIdea }) => {
                                 marginRight: "5px",
                             }}
                         />
-                        {p.strNombre}
+                        {p.objInfoPrincipal.strNombre}
                     </p>
                     <p style={{ fontSize: "12px", paddingRight: "5px" }}>
-                        {p.strEstadoRuta}
+                        {p.objInfoPrincipal.strEstadoRuta}
                     </p>
                 </Box>
             ))}
