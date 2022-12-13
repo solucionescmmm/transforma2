@@ -626,7 +626,7 @@ const PaperFase = ({
                                     {data.arrObjetivos.map(
                                         (objetivo, index) => (
                                             <Box
-                                                key={objetivo.strId}
+                                                key={objetivo.strId || objetivo.intId}
                                                 style={{
                                                     display: "flex",
                                                     flexDirection: "row",
@@ -712,7 +712,7 @@ const PaperFase = ({
 
                                 <Grid item xs={12}>
                                     {data.arrPaquetes.map((paquete, index) => (
-                                        <Fragment key={paquete.strId}>
+                                        <Fragment key={paquete.strId || paquete.intId || index}>
                                             <Box
                                                 key={paquete.strId}
                                                 style={{
@@ -777,7 +777,7 @@ const PaperFase = ({
                                                 {paquete.arrObjetivos.map(
                                                     (objetivo, index) => (
                                                         <Box
-                                                            key={objetivo.strId}
+                                                            key={objetivo.strId || objetivo.intId || index}
                                                             style={{
                                                                 display: "flex",
                                                                 flexDirection:
@@ -844,9 +844,9 @@ const PaperFase = ({
                                 <Grid item xs={12}>
                                     {data.arrServicios.map(
                                         (servicio, index) => (
-                                            <Fragment key={servicio.strId}>
+                                            <Fragment key={servicio.strId || servicio.intId || index}>
                                                 <Box
-                                                    key={servicio.strId}
+                                                    key={servicio.strId || servicio.intId}
                                                     style={{
                                                         display: "flex",
                                                         flexDirection: "row",
@@ -899,7 +899,6 @@ const PaperFase = ({
                                                 </Box>
 
                                                 <Box
-                                                    key={servicio.strId}
                                                     style={{
                                                         fontSize: "14px",
                                                         marginLeft: "94.5px",
@@ -909,7 +908,7 @@ const PaperFase = ({
                                                         (objetivo, index) => (
                                                             <Box
                                                                 key={
-                                                                    objetivo.strId
+                                                                    objetivo.strId || objetivo.intId || index
                                                                 }
                                                                 style={{
                                                                     display:

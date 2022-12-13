@@ -14,7 +14,6 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 import useGetEmpresarios from "../../../hooks/useGetEmpresarios";
 
 //Librerias
-import { Redirect } from "react-router-dom";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -77,7 +76,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
+const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -94,13 +93,6 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
     const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
-
-    const [errorGetData, setErrorGetData] = useState({
-        flag: false,
-        msg: "",
-    });
-
-    const [loadingGetData, setLoadingGetData] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
@@ -126,10 +118,6 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
     });
 
     const [valorTotalRuta, setValorTotalRuta] = useState(0);
-
-    const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
-
-    const refFntGetData = useRef(getUniqueData);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -219,222 +207,11 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
-    // useEffect(() => {
-    //     if (isEdit) {
-    //         setLoadingGetData(true);
-
-    //         async function getData() {
-    //             await refFntGetData
-    //                 .current({ intId })
-    //                 .then((res) => {
-    //                     if (res.data.error) {
-    //                         throw new Error(res.data.msg);
-    //                     }
-
-    //                     if (res.data) {
-    //                         let data = res.data.data[0];
-    //                         const objEmprPrincipal = data.objEmpresario.find(
-    //                             (p) => p.strTipoEmpresario === "Principal"
-    //                         );
-
-    //                         setData({
-    //                             intIdIdea: data.intId,
-    //                             objIdeaEmpresario: data.objIdeaEmpresario,
-    //                             objInfoPrincipal: {
-    //                                 strSede: objEmprPrincipal.strSede || "",
-    //                                 strModalidadIngreso:
-    //                                     objEmprPrincipal.strModalidadIngreso ||
-    //                                     "",
-    //                                 dtFechaVinculacion:
-    //                                     objEmprPrincipal.dtFechaVinculacion
-    //                                         ? parseISO(
-    //                                               objEmprPrincipal.dtFechaVinculacion
-    //                                           )
-    //                                         : null,
-    //                                 strEstadoVinculacion:
-    //                                     objEmprPrincipal.strEstadoVinculacion ||
-    //                                     "",
-    //                                 strTipoVinculacion:
-    //                                     objEmprPrincipal.strTipoVinculacion ||
-    //                                     "",
-    //                             },
-
-    //                             objInfoEmpresarioPr: {
-    //                                 intId: objEmprPrincipal.intId,
-    //                                 strNombres:
-    //                                     objEmprPrincipal.strNombres || "",
-    //                                 strApellidos:
-    //                                     objEmprPrincipal.strApellidos || "",
-    //                                 strTipoDocto:
-    //                                     objEmprPrincipal.strTipoDocto || "",
-    //                                 strNroDocto:
-    //                                     objEmprPrincipal.strNroDocto || "",
-    //                                 strLugarExpedicionDocto:
-    //                                     objEmprPrincipal.strLugarExpedicionDocto ||
-    //                                     "",
-    //                                 dtFechaExpedicionDocto:
-    //                                     objEmprPrincipal.dtFechaExpedicionDocto
-    //                                         ? parseISO(
-    //                                               objEmprPrincipal.dtFechaExpedicionDocto
-    //                                           )
-    //                                         : null,
-    //                                 dtFechaNacimiento:
-    //                                     objEmprPrincipal.dtFechaNacimiento
-    //                                         ? parseISO(
-    //                                               objEmprPrincipal.dtFechaNacimiento
-    //                                           )
-    //                                         : null,
-    //                                 strGenero: objEmprPrincipal.strGenero || "",
-    //                                 strCelular1:
-    //                                     objEmprPrincipal.strCelular1 || "",
-    //                                 strCelular2:
-    //                                     objEmprPrincipal.strCelular2 || "",
-    //                                 strCorreoElectronico1:
-    //                                     objEmprPrincipal.strCorreoElectronico1 ||
-    //                                     "",
-    //                                 strCorreoElectronico2:
-    //                                     objEmprPrincipal.strCorreoElectronico2 ||
-    //                                     "",
-    //                                 strNivelEducativo:
-    //                                     objEmprPrincipal.strNivelEducativo ||
-    //                                     "",
-    //                                 strTitulos:
-    //                                     objEmprPrincipal.strTitulos || "",
-    //                                 strCondicionDiscapacidad:
-    //                                     objEmprPrincipal.strCondicionDiscapacidad ||
-    //                                     "",
-    //                                 strEstrato:
-    //                                     objEmprPrincipal.strEstrato || "",
-    //                                 arrDepartamento:
-    //                                     objEmprPrincipal.arrDepartamento || [],
-    //                                 arrCiudad: objEmprPrincipal.arrCiudad || [],
-    //                                 strBarrio: objEmprPrincipal.strBarrio || "",
-    //                                 strDireccionResidencia:
-    //                                     objEmprPrincipal.strDireccionResidencia ||
-    //                                     "",
-    //                                 strURLFileFoto:
-    //                                     objEmprPrincipal.strUrlFileFoto || "",
-    //                             },
-
-    //                             objInfoEmpresa: {
-    //                                 intId: data.objInfoEmpresa.intId,
-    //                                 strURLFileLogoEmpresa:
-    //                                     data.objInfoEmpresa
-    //                                         .strURLFileLogoEmpresa || null,
-    //                                 strEstadoNegocio:
-    //                                     data.objInfoEmpresa.strEstadoNegocio ||
-    //                                     "",
-    //                                 strCuandoComienzaEmpresa:
-    //                                     data.objInfoEmpresa
-    //                                         .strCuandoComienzaEmpresa || "",
-    //                                 strNombreMarca:
-    //                                     data.objInfoEmpresa.strNombreMarca ||
-    //                                     "",
-    //                                 dtFechaFundacion: data.objInfoEmpresa
-    //                                     .dtFechaFundacion
-    //                                     ? parseISO(
-    //                                           data.objInfoEmpresa
-    //                                               .dtFechaFundacion
-    //                                       )
-    //                                     : null,
-    //                                 strLugarOperacion:
-    //                                     data.objInfoEmpresa.strLugarOperacion ||
-    //                                     "",
-    //                                 strDireccionResidencia:
-    //                                     data.objInfoEmpresa
-    //                                         .strDireccionResidencia || "",
-    //                                 arrDepartamento:
-    //                                     data.objInfoEmpresa.arrDepartamento ||
-    //                                     [],
-    //                                 arrCiudad:
-    //                                     data.objInfoEmpresa.arrCiudad || [],
-    //                                 strBarrio:
-    //                                     data.objInfoEmpresa.strBarrio || "",
-    //                                 strSectorEconomico:
-    //                                     data.objInfoEmpresa
-    //                                         .strSectorEconomico || "",
-    //                                 strCategoriaProducto:
-    //                                     data.objInfoEmpresa
-    //                                         .strCategoriaProducto || "",
-    //                                 strCategoriaServicio:
-    //                                     data.objInfoEmpresa
-    //                                         .strCategoriaServicio || "",
-    //                                 arrCategoriasSecundarias:
-    //                                     data.objInfoEmpresa
-    //                                         .arrCategoriasSecundarias || [],
-    //                                 strOtraCategoria:
-    //                                     data.objInfoEmpresa.strOtraCategoria ||
-    //                                     "",
-    //                                 strDescProductosServicios:
-    //                                     data.objInfoEmpresa
-    //                                         .strDescProductosServicios || "",
-    //                                 strMateriaPrima:
-    //                                     data.objInfoEmpresa.strMateriaPrima ||
-    //                                     "",
-    //                                 strNombreTecnica:
-    //                                     data.objInfoEmpresa.strNombreTecnica ||
-    //                                     "",
-    //                                 strTiempoDedicacion:
-    //                                     data.objInfoEmpresa
-    //                                         .strTiempoDedicacion || "",
-    //                                 btGeneraEmpleo:
-    //                                     typeof data.objInfoEmpresa
-    //                                         .btGeneraEmpleo === "boolean"
-    //                                         ? data.objInfoEmpresa.btGeneraEmpleo
-    //                                         : "",
-    //                                 intNumeroEmpleados:
-    //                                     data.objInfoEmpresa
-    //                                         .intNumeroEmpleados || "",
-    //                                 dblValorVentasMes:
-    //                                     data.objInfoEmpresa.valorVentasMes ||
-    //                                     "",
-    //                                 arrRequisitosLey:
-    //                                     data.objInfoEmpresa.arrRequisitosLey ||
-    //                                     [],
-    //                                 strOtrosRequisitosLey:
-    //                                     data.objInfoEmpresa
-    //                                         .strOtrosRequisitosLey || "",
-    //                                 arrFormasComercializacion:
-    //                                     data.objInfoEmpresa
-    //                                         .arrFormasComercializacion || [],
-    //                                 arrMediosDigitales:
-    //                                     data.objInfoEmpresa
-    //                                         .arrMediosDigitales || [],
-    //                                 btGrupoAsociativo:
-    //                                     typeof data.objInfoEmpresa
-    //                                         .btGrupoAsociativo === "boolean"
-    //                                         ? data.objInfoEmpresa
-    //                                               .btGrupoAsociativo
-    //                                         : "",
-    //                                 strAsociacionUnidadProdIndividual:
-    //                                     data.objInfoEmpresa
-    //                                         .strAsociacionUnidadProdIndividual ||
-    //                                     "",
-    //                             },
-
-    //                             objInfoAdicional: {
-    //                                 ...data.objInfoAdicional,
-    //                                 strURLDocumento:
-    //                                     data.objInfoAdicional.strUrlDocumento,
-    //                             },
-
-    //                             arrInfoEmpresarioSec:
-    //                                 data.arrEmpresarioSecundario || [],
-    //                         });
-    //                     }
-
-    //                     setLoadingGetData(false);
-    //                     setErrorGetData({ flag: false, msg: "" });
-    //                 })
-    //                 .catch((error) => {
-    //                     setErrorGetData({ flag: true, msg: error.message });
-    //                     setLoadingGetData(false);
-    //                 });
-    //         }
-
-    //         getData();
-    //     }
-    // }, [isEdit, intId]);
+    useEffect(() => {
+        if (isEdit && values) {
+            setData({ ...values });
+        }
+    }, [isEdit, values]);
 
     useEffect(() => {
         const subscription = watch((value) => {
@@ -492,21 +269,7 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     if (success) {
-        return <Redirect to="/transforma/asesor/empresario/read/all" />;
-    }
-
-    if (loadingGetData) {
-        return <Loader />;
-    }
-
-    if (errorGetData.flag) {
-        return (
-            <PageError
-                severity="error"
-                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
-                title={errorGetData.msg}
-            />
-        );
+        onChangeRoute("Rutas");
     }
 
     if (data?.error) {
@@ -608,7 +371,6 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
                                     fields={fields}
                                     append={append}
                                     remove={remove}
-                    
                                 />
                             </Grid>
 
