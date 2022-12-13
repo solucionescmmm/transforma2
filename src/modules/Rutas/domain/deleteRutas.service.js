@@ -2,7 +2,6 @@
 const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas");
 
 //Servicios
-const serviceGetRutas = require("./getRutas.service");
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
 
 class deleteRutas {
@@ -11,20 +10,21 @@ class deleteRutas {
     #intIdEstado;
 
     #objDataRuta;
+    #objUser;
     #objResult;
 
-    constructor(objParms) {
+    constructor(objParms, strDataUser) {
+        console.log(objParms);
         this.#intIdRutas = objParms.intId;
         this.#intIdIdea = objParms.intIdIdea;
+        this.#objUser = strDataUser;
     }
 
     async main() {
-        await this.#validations();
         await this.#getIdEstado();
         await this.#getRuta();
-        await this.#validateData();
+        await this.#validations();
         await this.#deleteRutas();
-
         return this.#objResult;
     }
 
@@ -32,13 +32,24 @@ class deleteRutas {
         if (!this.#intIdRutas) {
             throw new Error("Se esperaban parametros de entrada");
         }
+
+        if (!this.#validateData()) {
+            throw new Error(
+                "No se puede eliminar la ruta, al tener una o mas fases en un estado diferente al En Borrador."
+            );
+        }
     }
 
     async #getRuta() {
-        let queryGetRuta = await serviceGetRutas({
-            intId: this.#intIdRutas,
-            intIdIdea: this.#intIdIdea,
-        });
+        let dao = new classInterfaceDAORutas();
+
+        let queryGetRuta = await dao.getEstadoFase(
+            {
+                intId: this.#intIdRutas,
+                intIdIdea: this.#intIdIdea,
+            },
+            this.#objUser
+        );
 
         if (queryGetRuta.error) {
             throw new Error(queryGetRuta.msg);
@@ -59,32 +70,46 @@ class deleteRutas {
         this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
-    async #validateData() {
-        let array = this.#objDataRuta.arrInfoFases;
+    #validateData() {
+        let array = this.#objDataRuta.arrFasesRutas;
+        let conuntFases = 0;
 
         if (array?.length > 0) {
             for (let i = 0; i < array.length; i++) {
+                let objDataFase = array[i];
+                if (objDataFase.intIdEstadoFase === this.#intIdEstado) {
+                    conuntFases = conuntFases + 1;
+                }
             }
+        }
+
+        if (conuntFases === array.length) {
+            return true;
+        } else {
+            return false;
         }
     }
 
     async #deleteRutas() {
-        let dao = new classInterfaceDAORutas();
-        let query = await dao.deleteRutas({
-            intId: this.#intIdRutas,
-        });
+        if (this.#validateData()) {
+            let dao = new classInterfaceDAORutas();
+            let query = await dao.deleteRutas({
+                intId: this.#intIdRutas,
+            });
 
-        if (query.error) {
-            throw new Error(
-                "Ha ocurrido un error al momento de eliminar el Rutas"
-            );
+            if (query.error) {
+                throw new Error(
+                    "Ha ocurrido un error al momento de eliminar el Rutas"
+                );
+            }
+
+            this.#objResult = {
+                error: query.error,
+                data: query.data,
+                msg: query.msg,
+            };
+            
         }
-
-        this.#objResult = {
-            error: query.error,
-            data: query.data,
-            msg: query.msg,
-        };
     }
 }
 module.exports = deleteRutas;

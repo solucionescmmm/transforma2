@@ -22,7 +22,7 @@ app.use(morgan((process.env.NODE_ENV = "development" ? "dev" : "common")));
 app.use(helmet());
 app.use(compression({ level: 9 }));
 app.use("/transforma/api", authToken);
-app.use(apicache.middleware(process.env.CACHE_DURATION))
+//app.use(apicache.middleware(process.env.CACHE_DURATION))
 
 //Static
 app.use(

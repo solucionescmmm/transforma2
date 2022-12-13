@@ -15,7 +15,7 @@ routes.post(
 );
 
 routes.get(
-    "/transforma/api/rutas/getRutas", cache(),
+    "/transforma/api/rutas/getRutas",
     async (req, res) => {
         let controllerComentarios = new classController();
         await controllerComentarios.getRutas(req, res);

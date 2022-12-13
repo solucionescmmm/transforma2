@@ -48,6 +48,12 @@ class interfaceDAORutas {
         let query = await dao.getRutas(data);
         return query;
     }
+    
+    async getEstadoFase(data) {
+        let dao = new classDAO();
+        let query = await dao.getEstadoFase(data);
+        return query;
+    }
 
     async getEstadosRutas(data) {
         let dao = new classDAO();

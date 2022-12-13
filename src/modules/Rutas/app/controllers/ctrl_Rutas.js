@@ -98,8 +98,9 @@ class ctrl_Rutas {
     async deleteRutas(req, res) {
         try {
             let objParams = req.query;
+            let { strDataUser } = req;
 
-            let service = new deleteRutas(objParams);
+            let service = new deleteRutas(objParams, strDataUser);
             let query = await service.main();
 
             if (query.error) {

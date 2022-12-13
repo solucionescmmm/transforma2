@@ -50,6 +50,35 @@ class updateRutas {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+        let dao = new classInterfaceDAORutas();
+
+        let queryGetRuta = await dao.getEstadoFase(
+            {
+                intId: this.#objData.objInfoPrincipal.intId,
+                intIdIdea: this.#objData.objInfoPrincipal.intIdIdea
+            },
+            this.#objUser
+        );
+
+        if (queryGetRuta.error) {
+            throw new Error(queryGetRuta.msg);
+        }
+
+        let array = queryGetRuta.data[0].arrFasesRutas;
+        let conuntFases = 0;
+
+        if (array?.length > 0) {
+            for (let i = 0; i < array.length; i++) {
+                let objDataFase = array[i];
+                if (objDataFase.intIdEstadoFase === this.#intIdEstado) {
+                    conuntFases = conuntFases + 1;
+                }
+            }
+        }
+
+        if (conuntFases !== array.length) {
+            return true;
+        } 
     }
 
     async #getIdEstado() {

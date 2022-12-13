@@ -494,6 +494,63 @@ class daoRutas {
         }
     }
 
+    async getEstadoFase(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                SELECT 
+
+                Rutas.intId,
+                (
+                    SELECT 
+                    Fases.intId,
+                    Fases.intIdEstadoFase
+                    FROM tbl_Fases Fases
+                    WHERE Fases.intIdRuta = Rutas.intId 
+                    FOR JSON PATH
+                )as arrFasesRutas
+                
+                FROM tbl_Rutas Rutas
+
+                INNER JOIN tbl_EstadoRuta_Fase EstadosRutas on EstadosRutas.intId = Rutas.intIdEstadoRuta
+
+                WHERE (Rutas.intIdIdea = ${data.intIdIdea})
+                AND   (Rutas.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                let { arrFasesRutas } = arrNewData[i];
+
+                if (validator.isJSON(arrFasesRutas)) {
+                    arrFasesRutas = JSON.parse(arrFasesRutas);
+                    arrNewData[i].arrFasesRutas = arrFasesRutas;
+                }
+                
+            }
+
+            let result = {
+                error: false,
+                data: response.recordsets[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getRutas de la clase daoRutas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getEstadosRutasFases(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -600,7 +657,6 @@ class daoRutas {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn.query`
-            DELETE FROM tbl_Rutas WHERE intId = ${data.intId}
             DELETE FROM tbl_Fases WHERE intIdRuta = ${data.intId}`;
 
             let result = {
