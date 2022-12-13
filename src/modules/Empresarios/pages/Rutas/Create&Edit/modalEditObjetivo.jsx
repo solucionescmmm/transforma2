@@ -29,7 +29,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
+const ModalEditObjetivo = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -40,7 +40,12 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        strObjetivo: "",
+        strObjetivo: values
+            ? {
+                  ...values.value,
+                  strNombre: values.value.strObjetivo,
+              }
+            : "",
     });
 
     //===============================================================================================================================================
@@ -53,7 +58,6 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
         control,
         formState: { errors },
         handleSubmit,
-        reset,
     } = useForm({ mode: "onChange" });
 
     //===============================================================================================================================================
@@ -65,7 +69,7 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
         setLoading(true);
 
         setTimeout(() => {
-            onChange(data.strObjetivo, { type: "register" });
+            onChange(data.strObjetivo, { type: "edit", index: values.index });
             setFlagSubmit(false);
             setLoading(false);
             setSucces(true);
@@ -94,8 +98,6 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
     useEffect(() => {
         if (success) {
             handleOpenDialog();
-            setData({ strObjetivo: "" });
-            reset({ strObjetivo: "" });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,7 +116,7 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Añadir objetivo</DialogTitle>
+            <DialogTitle>Editar objetivo</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="row" spacing={1}>
@@ -159,7 +161,7 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
                     type="button"
                     onClick={handleSubmit(onSubmit)}
                 >
-                    añadir
+                    guardar
                 </LoadingButton>
 
                 <Button
@@ -175,4 +177,4 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
     );
 };
 
-export default ModalAddObjetivo;
+export default ModalEditObjetivo;

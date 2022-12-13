@@ -123,37 +123,41 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.intEstado}
-                            name="objInfoPrincipal.intEstado"
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectEstado
-                                    label="Estado"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoPrincipal?.intEstado
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPrincipal?.intEstado
-                                            ?.message ||
-                                        "Selecciona el estado de la ruta"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona el estado de la ruta",
-                            }}
-                        />
-                    </Grid>
+                    {isEdit && (
+                        <Grid item xs={12}>
+                            <Controller
+                                defaultValue={data.intEstado}
+                                name="objInfoPrincipal.intEstado"
+                                render={({
+                                    field: { name, onChange, value },
+                                }) => (
+                                    <SelectEstado
+                                        label="Estado"
+                                        name={name}
+                                        value={value}
+                                        onChange={(e) => onChange(e)}
+                                        disabled={disabled}
+                                        required
+                                        error={
+                                            errors?.objInfoPrincipal?.intEstado
+                                                ? true
+                                                : false
+                                        }
+                                        helperText={
+                                            errors?.objInfoPrincipal?.intEstado
+                                                ?.message ||
+                                            "Selecciona el estado de la ruta"
+                                        }
+                                    />
+                                )}
+                                control={control}
+                                rules={{
+                                    required:
+                                        "Por favor, selecciona el estado de la ruta",
+                                }}
+                            />
+                        </Grid>
+                    )}
 
                     <Grid item xs={12}>
                         <Controller
