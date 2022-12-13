@@ -255,11 +255,6 @@ const ReadSolicitudesUser = () => {
                                     pageSizeOptions: [20, 100, 200, 500],
                                     pageSize: 20,
                                 }}
-                                onRowClick={(e, rowData) => {
-                                    push(
-                                        `/transforma/asesor/tercero/read/${rowData.intId}`
-                                    );
-                                }}
                                 components={{
                                     Toolbar: (props) => (
                                         <div
