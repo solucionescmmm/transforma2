@@ -3,7 +3,7 @@ const classInterfaceDAOObjetivos = require("../infra/conectors/interfaseDAOObjet
 
 //Librerias
 const validator = require("validator").default;
-
+const apiCache = require("apicache-plus");
 //Servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
 const getObjetivos = require("./getObjetivos.service");
@@ -27,6 +27,7 @@ class setObjetivos {
     }
 
     async main() {
+        await apiCache.clear()
         await this.#validations();
         await this.#getIdEstado();
         this.#completeData();
