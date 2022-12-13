@@ -45,46 +45,39 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
-            title: "intId",
-            field: "objInfoPrincipal.intId",
-            width: "5%",
-        },
-        {
             title: "Estado",
-            field: "strEstadoRuta",
+            field: "objInfoPrincipal.strEstadoRuta",
             width: "5%",
         },
         {
             title: "Nombre",
-            field: "strNombre",
+            field: "objInfoPrincipal.strNombre",
             type: "string",
         },
         {
             title: "Valor Total",
-            field: "valorTotalRuta",
+            field: "objInfoPrincipal.valorTotalRuta",
             type: "string",
         },
         {
             title: "Total Fases",
             render: (rowData) => {
-                let intFases = rowData.arrFasesRutas?.length
+                let intFases = rowData.arrInfoFases?.length
 
                 return <p>{intFases?.toString()}</p>;
             },
         },
         {
             title: "Fecha Creación",
-            field: "dtmCreacion",
+            field: "objInfoPrincipal.dtmCreacion",
             type: "date",
         },
         {
-            title: "Responsables",
+            title: "Responsable",
             render: (rowData) => {
-                let strResponsables = rowData.strResponsable?.map((r) => {
-                    return r.strNombre;
-                });
+                let strResponsables = rowData?.objInfoPrincipal?.strResponsable
 
-                return <p>{strResponsables?.toString()}</p>;
+                return <p>{strResponsables?.strNombre}</p>;
             },
         },
     ]);
