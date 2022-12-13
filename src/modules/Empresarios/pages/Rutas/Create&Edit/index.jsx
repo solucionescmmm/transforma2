@@ -4,14 +4,10 @@ import React, {
     useCallback,
     useEffect,
     useContext,
-    useRef,
 } from "react";
 
 //Context
 import { AuthContext } from "../../../../../common/middlewares/Auth";
-
-//Hooks
-import useGetEmpresarios from "../../../hooks/useGetEmpresarios";
 
 //Librerias
 import { useFieldArray, useForm } from "react-hook-form";
@@ -37,7 +33,6 @@ import { Box } from "@mui/system";
 //Componentes
 import InfoPrincipal from "./infoPrincipal";
 import InfoFases from "./infoFases";
-import Loader from "../../../../../common/components/Loader";
 import PageError from "../../../../../common/components/Error";
 
 const styles = makeStyles((theme) => ({

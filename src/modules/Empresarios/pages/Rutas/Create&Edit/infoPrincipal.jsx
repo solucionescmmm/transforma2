@@ -23,7 +23,7 @@ import {
 
 //Componentes
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
-import SelectEstado from "../../../../Admin/components/selectEstado";
+import SelectEstadosRutas from "../components/selectEstadosRutas";
 
 const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
     const [loading, setLoading] = useState(true);
@@ -52,7 +52,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
         if (values) {
             setData({
                 strNombre: values.strNombre || "",
-                intEstado: values.intEstado || "",
+                intEstado: values.intEstado || values.intIdEstadoRuta || "",
                 strResponsable: values.strResponsable || "",
                 strObservaciones: values.strObservaciones || "",
                 strCodigoDoc: values.strCodigoDoc || "",
@@ -131,7 +131,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                 render={({
                                     field: { name, onChange, value },
                                 }) => (
-                                    <SelectEstado
+                                    <SelectEstadosRutas
                                         label="Estado"
                                         name={name}
                                         value={value}

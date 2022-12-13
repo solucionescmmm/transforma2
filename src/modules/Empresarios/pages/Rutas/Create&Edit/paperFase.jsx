@@ -38,7 +38,6 @@ import ModalAddObjetivo from "./modalAddObjetivo";
 import shortid from "shortid";
 import ModalAddPaquete from "./modalAddPaquete";
 import ModalAddServicio from "./modalAddServicio";
-import SelectEstados from "../../../../Admin/components/selectEstado";
 import DropdownTipoTarifa from "../../../../Admin/components/dropdownTipoTarifa";
 import ModalEditObjetivo from "./modalEditObjetivo";
 import ModalDeleteObjetivo from "./modalDeleteObjetivo";
@@ -46,6 +45,7 @@ import ModalEditPaquete from "./modalEditPaquete";
 import ModalDeletePaquete from "./modalDeletePaquete";
 import ModalEditServicio from "./modalEditServicio";
 import ModalDeleteServicio from "./modalDeleteServicio";
+import SelectEstadosRutas from "../components/selectEstadosRutas";
 
 const PaperFase = ({
     values,
@@ -63,7 +63,7 @@ const PaperFase = ({
     //===============================================================================================================================================
     const [data, setData] = useState({
         Id: values.Id || values.strId || values.intId || null,
-        intEstado: values.intEstado || "",
+        intEstado: values.intEstado || values.intIdEstadoFase || "" ,
         intDiagnostico: values.intDiagnostico || "",
         strResponsable: values.strResponsable || "",
         strObservaciones: values.strObservaciones || "",
@@ -479,7 +479,7 @@ const PaperFase = ({
                                                     value,
                                                 },
                                             }) => (
-                                                <SelectEstados
+                                                <SelectEstadosRutas
                                                     label="Estado"
                                                     name={name}
                                                     value={value}
@@ -645,7 +645,7 @@ const PaperFase = ({
                                                         Objetivo {index + 1}
                                                     </p>
                                                     <p>
-                                                        {objetivo.strObjetivo}
+                                                        {objetivo.strObjetivo || objetivo.strNombre}
                                                     </p>
                                                 </Box>
 
