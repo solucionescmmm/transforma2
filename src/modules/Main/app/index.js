@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const apicache = require("apicache-plus")
 
 //Librerias adicionales
 const cors = require("cors");
@@ -21,6 +22,7 @@ app.use(morgan((process.env.NODE_ENV = "development" ? "dev" : "common")));
 app.use(helmet());
 app.use(compression({ level: 9 }));
 app.use("/transforma/api", authToken);
+app.use(apicache.middleware(process.env.CACHE_DURATION))
 
 //Static
 app.use(

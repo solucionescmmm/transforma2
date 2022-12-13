@@ -21,7 +21,7 @@ class daoRutas {
                 ${data.intIdEstadoRuta},
                 ${data.valorTotalRuta},
                 ${data.intIdDoctoPropuesta},
-                ${data.strResponsables},
+                ${data.strResponsable},
                 ${data.strObservaciones},
                 ${data.intIdMotivoCancelacion},
                 GETDATE(),
@@ -152,6 +152,7 @@ class daoRutas {
     }
 
     async setServiciosFases(data) {
+        
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -195,6 +196,7 @@ class daoRutas {
     }
 
     async setObjetivosFases(data) {
+
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -207,9 +209,7 @@ class daoRutas {
                 ${data.btCumplio},
                 ${data.strObservacionesCumplimiento},
                 GETDATE(),
-                ${data.strUsuarioCreacion},
-                NULL,
-                NULL
+                ${data.strUsuarioCreacion}
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -350,7 +350,22 @@ class daoRutas {
                 Rutas.strUsuarioActualizacion,
                 EstadosRutas.strNombre as strEstadoRuta,
                 (
-                    SELECT *, 
+                    SELECT 
+                    Fases.intId,
+                    Fases.intIdRuta,
+                    Fases.strNombre,
+                    Fases.intIdDiagnostico,
+                    Fases.intIdEstadoFase,
+                    Fases.intIdReferenciaTipoTarifa as intIdTarifa,
+                    Fases.valorReferenciaTotalFase as dblValorRef,
+                    Fases.valorTotalFase as dblValorFase,
+                    Fases.strResponsables as strResponsable,
+                    Fases.strObservaciones,
+                    Fases.intIdMotivoCancelacion,
+                    Fases.dtmCreacion,
+                    Fases.strUsuarioCreacion,
+                    Fases.dtmActualizacion,
+                    Fases.strUsuarioActualizacion,
                     EstadosRutas.strNombre as strEstadoFase,
                     (
                         SELECT 
@@ -383,7 +398,7 @@ class daoRutas {
                         FROM tbl_Paquetes_Fases FasesPaquetes
                         WHERE FasesPaquetes.intIdFase = Fases.intId 
                         FOR JSON PATH
-                    )as arrFasesPaquetes,
+                    )as arrPaquetes,
                     (
                         SELECT 
                         
@@ -416,7 +431,7 @@ class daoRutas {
                         FROM tbl_Servicios_Fases FasesServicios
                         WHERE FasesServicios.intIdFase = Fases.intId 
                         FOR JSON PATH
-                    )as arrFasesServicios,
+                    )as arrServicios,
                     (
                         SELECT 
     
@@ -431,7 +446,7 @@ class daoRutas {
                         FROM tbl_Objetivos_Fases FasesObjetivos
                         WHERE FasesObjetivos.intIdFase = Fases.intId 
                         FOR JSON PATH
-                    )as arrFasesObjetivos
+                    )as arrObjetivos
 
                     FROM tbl_Fases Fases
                     WHERE Fases.intIdRuta = Rutas.intId 
@@ -508,7 +523,7 @@ class daoRutas {
         }
     }
 
-    async getIdEstadoRutasFases(data) {
+    async getIdEstadoRutas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    

@@ -1,5 +1,6 @@
 //librerias
 const routes = require("express").Router();
+const cache = require("apicache-plus")
 
 //Classes
 const classController = require("../../app/controllers/ctrl_Rutas");
@@ -14,7 +15,7 @@ routes.post(
 );
 
 routes.get(
-    "/transforma/api/rutas/getRutas",
+    "/transforma/api/rutas/getRutas", cache(),
     async (req, res) => {
         let controllerComentarios = new classController();
         await controllerComentarios.getRutas(req, res);
