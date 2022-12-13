@@ -14,8 +14,6 @@ import {
     CircularProgress,
     TextField,
     Tooltip,
-    Alert,
-    AlertTitle,
     DialogTitle,
     DialogContent,
     DialogActions,
@@ -56,20 +54,19 @@ const PaperFase = ({
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        Id: null,
-        intEstado: "",
-        intDiagnostico: "",
-        strResponsable: "",
-        strObservaciones: "",
-        arrObjetivos: [],
-        arrPaquetes: [],
-        arrServicios: [],
-        objTarifa: "",
-        dblValorRef: "",
-        dblValorFase: "",
+        Id: values.Id || values.strId || values.intId || null,
+        intEstado: values.intEstado || "",
+        intDiagnostico: values.intDiagnostico || "",
+        strResponsable: values.strResponsable || "",
+        strObservaciones: values.strObservaciones || "",
+        arrObjetivos: values.arrObjetivos || [],
+        arrPaquetes: values.arrPaquetes || [],
+        arrServicios: values.arrServicios || [],
+        objTarifa: values.objTarifa || "",
+        dblValorRef: values.dblValorRef || "",
+        dblValorFase: values.dblValorFase || "",
     });
 
-    const [loading, setLoading] = useState(true);
     const [openCollapese, setOpenCollapse] = useState(true);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalAddObjetivo, setOpenModalAddObjetivo] = useState(false);
@@ -111,7 +108,7 @@ const PaperFase = ({
         newArrObjetivos.push({
             strId: shortid.generate(),
             strObjetivo: value.strNombre,
-            intId: value.intId
+            intId: value.intId,
         });
 
         setValue(`arrInfoFases[${index}].arrObjetivos`, newArrObjetivos);
@@ -158,33 +155,7 @@ const PaperFase = ({
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
-    //===============================================================================================================================================
-    useEffect(() => {
-        if (values) {
-            setData({
-                Id: values.intId || null || values.Id || values.strId,
-                intEstado: values.intEstado || "",
-                intDiagnostico: values.intDiagnostico || "",
-                strResponsable: values.strResponsable || "",
-                strObservaciones: values.strObservaciones || "",
-                arrObjetivos: values.arrObjetivos || [],
-                arrPaquetes: values.arrPaquetes || [],
-                arrServicios: values.arrServicios || [],
-                objTarifa: values.objTarifa || "",
-                dblValorRef: values.dblValorRef || "",
-                dblValorFase: values.dblValorFase || "",
-            });
-        }
-
-        if (!values.id) {
-            remove(index);
-            setOpenModalDelete(!openModalDelete);
-        }
-
-        setLoading(false);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [values]);
-
+    // //===============================================================================================================================================
     useEffect(() => {
         let dblValorRef = 0;
 
@@ -224,7 +195,7 @@ const PaperFase = ({
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (loading) {
+    if (!data.Id) {
         return (
             <Box
                 display="flex"
@@ -233,48 +204,6 @@ const PaperFase = ({
                 height="100%"
             >
                 <CircularProgress size={30} />
-            </Box>
-        );
-    }
-
-    if (!data.Id) {
-        return (
-            <Box
-                sx={{
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: {
-                        xs: "column",
-                        md: "row",
-                    },
-                    alignItems: {
-                        xs: "flex-end",
-                        md: "center",
-                    },
-                    marginBottom: "15px",
-                }}
-            >
-                <Box sx={{ flexGrow: 1 }}>
-                    <Alert severity="error" style={{ marginBottom: "15px" }}>
-                        <AlertTitle>
-                            <b>Se esperaba un identificador</b>
-                        </AlertTitle>
-                        Ha ocurrido un error al renderizar el formulario de
-                        fases.
-                    </Alert>
-                </Box>
-
-                <Box>
-                    <IconButton
-                        color="error"
-                        onClick={() => remove(index)}
-                        size="large"
-                    >
-                        <Tooltip title="Eliminar">
-                            <DeleteIcon />
-                        </Tooltip>
-                    </IconButton>
-                </Box>
             </Box>
         );
     }
@@ -456,7 +385,9 @@ const PaperFase = ({
                                                 label="Responsable"
                                                 name={name}
                                                 value={value}
-                                                onChange={(_, value) => onChange(value)}
+                                                onChange={(_, value) =>
+                                                    onChange(value)
+                                                }
                                                 disabled={disabled}
                                                 required
                                                 error={
@@ -467,7 +398,8 @@ const PaperFase = ({
                                                 helperText={
                                                     errors?.arrInfoFases?.[
                                                         index
-                                                    ]?.strResponsable?.message ||
+                                                    ]?.strResponsable
+                                                        ?.message ||
                                                     "Selecciona el responsable"
                                                 }
                                             />
@@ -830,7 +762,7 @@ const PaperFase = ({
                                                 error={
                                                     !!errors?.arrInfoFases?.[
                                                         index
-                                                    ].objTarifa
+                                                    ]?.objTarifa
                                                 }
                                                 helperText={
                                                     errors?.arrInfoFases?.[

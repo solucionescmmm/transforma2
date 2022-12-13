@@ -27,13 +27,17 @@ import {
 //Componentes
 import PaperFase from "./paperFase";
 
-const InfoFases = ({ disabled, setValue, arrayValues, errors, control }) => {
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "arrInfoFases",
-    });
-
-    const [loading, setLoading] = useState(true);
+const InfoFases = ({
+    disabled,
+    setValue,
+    arrayValues,
+    errors,
+    control,
+    fields,
+    append,
+    remove,
+}) => {
+    const [loading, setLoading] = useState(false);
 
     const [openCollapese, setOpenCollapse] = useState(true);
 
@@ -42,14 +46,16 @@ const InfoFases = ({ disabled, setValue, arrayValues, errors, control }) => {
     };
 
     useEffect(() => {
-        if (arrayValues) {
+        setLoading(true);
+
+        if (arrayValues?.length > 0) {
             for (let i = 0; i < arrayValues.length; i++) {
-                append({ ...arrayValues[i], strId: shortid.generate() });
+                append({ ...arrayValues[i], Id: shortid.generate() });
             }
         } else {
             if (fields.length === 0) {
                 append({
-                    strId: shortid.generate(),
+                    Id: shortid.generate(),
                     intEstado: "",
                     intDiagnostico: "",
                     strResponsable: "",
@@ -57,6 +63,9 @@ const InfoFases = ({ disabled, setValue, arrayValues, errors, control }) => {
                     arrObjetivos: [],
                     arrPaquetes: [],
                     arrServicios: [],
+                    objTarifa: "",
+                    dblValorRef: "",
+                    dblValorFase: "",
                 });
             }
         }
@@ -163,6 +172,16 @@ const InfoFases = ({ disabled, setValue, arrayValues, errors, control }) => {
                             onClick={() =>
                                 append({
                                     Id: shortid.generate(),
+                                    intEstado: "",
+                                    intDiagnostico: "",
+                                    strResponsable: "",
+                                    strObservaciones: "",
+                                    arrObjetivos: [],
+                                    arrPaquetes: [],
+                                    arrServicios: [],
+                                    objTarifa: "",
+                                    dblValorRef: "",
+                                    dblValorFase: "",
                                 })
                             }
                         >

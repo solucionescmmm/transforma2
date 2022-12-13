@@ -15,7 +15,7 @@ import useGetEmpresarios from "../../../hooks/useGetEmpresarios";
 
 //Librerias
 import { Redirect } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 
@@ -109,13 +109,23 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
     //===============================================================================================================================================
     const {
         control,
-        formState: { errors },
+        formState: { errors, isDirty },
         handleSubmit,
         reset,
         setError,
         setValue,
+        getValues,
         clearErrors,
+        watch,
     } = useForm({ mode: "onChange" });
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "arrInfoFases",
+        keyName: "Id",
+    });
+
+    const [valorTotalRuta, setValorTotalRuta] = useState(0);
 
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
 
@@ -158,6 +168,7 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
                                 objInfoPrincipal: {
                                     ...data.objInfoPrincipal,
                                     intIdIdea,
+                                    valorTotalRuta,
                                 },
                             };
 
@@ -426,6 +437,33 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
     // }, [isEdit, intId]);
 
     useEffect(() => {
+        const subscription = watch((value) => {
+            const watchArrInfoFases = value.arrInfoFases;
+
+            if (watchArrInfoFases) {
+                watchArrInfoFases.forEach((e, index) => {
+                    if (e.dblValorRef === undefined)
+                        watchArrInfoFases.splice(index, 1);
+                });
+
+                let cont = 0;
+
+                for (let index = 0; index < watchArrInfoFases.length; index++) {
+                    const dblValorFase = getValues(
+                        `arrInfoFases[${index}].dblValorFase`
+                    );
+
+                    if (dblValorFase) cont += dblValorFase;
+                }
+
+                setValorTotalRuta(cont);
+            }
+        });
+
+        return () => subscription.unsubscribe();
+    }, [watch]);
+
+    useEffect(() => {
         if (values) {
             setData(values);
             reset(values);
@@ -567,6 +605,9 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
                                     setError={setError}
                                     clearErrors={clearErrors}
                                     isEdit={isEdit}
+                                    fields={fields}
+                                    append={append}
+                                    remove={remove}
                                 />
                             </Grid>
 
@@ -585,10 +626,17 @@ const CURuta = ({ isEdit, values, isRep, resetSearch, intIdIdea }) => {
                                 <Box
                                     sx={{
                                         display: "flex",
-                                        flexDirection: "row-reverse",
+                                        flexDirection: "row",
                                         gap: 1,
                                     }}
                                 >
+                                    <p style={{ flexGrow: 1 }}>
+                                        Valor total de la ruta:{" "}
+                                        {new Intl.NumberFormat("es-ES", {
+                                            style: "currency",
+                                            currency: "COP",
+                                        }).format(valorTotalRuta)}
+                                    </p>
                                     <LoadingButton
                                         variant="contained"
                                         type="submit"
