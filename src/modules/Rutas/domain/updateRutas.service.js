@@ -1,5 +1,6 @@
 //Librerias
 const validator = require("validator").default;
+const apiCache = require("apicache-plus");
 
 //class
 const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas");
@@ -29,6 +30,7 @@ class updateRutas {
     }
 
     async main() {
+        
         await this.#deleteCache();
         await this.#validations();
         await this.#getIdEstado();
@@ -158,7 +160,7 @@ class updateRutas {
                     intIdReferenciaTipoTarifa: objDataFase.objTarifa.intId,
                     valorReferenciaTotalFase: objDataFase.dblValorRef,
                     valorTotalFase: objDataFase.dblValorFase,
-                    strResponsables: JSON.stringify(
+                    strResponsable: JSON.stringify(
                         objDataFase.strResponsable || null
                     ),
                     strObservaciones: objDataFase.strObservaciones,
