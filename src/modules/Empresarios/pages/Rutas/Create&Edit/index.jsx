@@ -1,10 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {
-    useState,
-    useCallback,
-    useEffect,
-    useContext,
-} from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 
 //Context
 import { AuthContext } from "../../../../../common/middlewares/Auth";
@@ -204,7 +199,13 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     useEffect(() => {
         if (isEdit && values) {
-            setData({ ...values });
+            setData({
+                ...values,
+                objInfoPrincipal: {
+                    ...values.objInfoPrincipal,
+                    intEstado: values.intIdEstadoRuta,
+                },
+            });
         }
     }, [isEdit, values]);
 

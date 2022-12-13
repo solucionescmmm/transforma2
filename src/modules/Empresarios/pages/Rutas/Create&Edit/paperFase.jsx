@@ -1024,7 +1024,7 @@ const PaperFase = ({
 
                                 <Grid item xs={12}>
                                     <NumberFormat
-                                        label="Valor"
+                                        label="Valor de referencia"
                                         value={data.dblValorRef}
                                         thousandSeparator={true}
                                         allowNegative={false}
