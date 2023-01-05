@@ -192,14 +192,18 @@ class daoServicios {
         }
     }
 
-    async setResultServicios(data){
+    async setResultServicios(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn
                 .request()
                 .input("strIdServicio", sql.NVarChar, data.intIdServicio)
                 .input("strIdAtributo", sql.NVarChar, data.intIdAtributo)
-                .input("strResultAtributo", sql.NVarChar, data.strResultAtributo)
+                .input(
+                    "strResultAtributo",
+                    sql.NVarChar,
+                    data.strResultAtributo
+                )
                 .execute("sp_updateResultTipoServicioAtributos");
 
             let result = {
@@ -227,55 +231,106 @@ class daoServicios {
     async getServicios(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`    
-            SELECT 
-            
-            Servicio.intId,
-            Servicio.intIdTipoServicio,
-            Servicio.strNombre,
-            Servicio.strDescripcion,
-            Servicio.btModulos,
-            Servicio.intIdEstado,
-            Servicio.intIdProyectosEspeciales,
-            Especiales.strNombre as strProyecto,
-            Estado.strNombre as strEstado,
-            Servicio.dtmCreacion,
-            Servicio.strUsuarioCreacion,
-            Servicio.dtmActualizacion,
-            Servicio.strUsuarioActualizacion,
-            TipoServicio.strNombre as strNombreTipoServicio,
-            (
-                SELECT * FROM tbl_modulos_Servicio ModuloServicio
-                WHERE ModuloServicio.intIdServicio = Servicio.intId
-                FOR JSON PATH
-            ) as arrModulos,
-            (
-                SELECT 
-                *,
-                Valor as dblValor FROM tbl_Sede_TipoTarifa_Servicio SedeTipoTarifa
-                WHERE SedeTipoTarifa.intIdServicio = Servicio.intId
-                FOR JSON PATH
-            ) as arrSedesTarifas,
-            (
-                SELECT * FROM tbl_Area_Servicios AreaServicio
-                WHERE AreaServicio.intIdServicio = Servicio.intId
-                FOR JSON PATH
-            ) as arrResponsables,
-            (
-                SELECT * FROM tbl_Result_TipoServicio_Servicio ResultadoServicio
-                WHERE ResultadoServicio.intIdServicio = Servicio.intId
-                FOR JSON PATH  
-            )as objResultAtributos
-            FROM tbl_Servicios Servicio
+            let response;
+            if (data.intIdTipoTarifa) {
+                response = await conn.query`    
+                    SELECT 
 
-            INNER JOIN tbl_Estados Estado on Estado.intId = Servicio.intIdEstado
-            LEFT JOIN tbl_ProyectosEspeciales Especiales on Especiales.intId = Servicio.intIdProyectosEspeciales
-            INNER JOIN tbl_TiposServicios TipoServicio on TipoServicio.intId = Servicio.intIdTipoServicio
+                    Servicio.intId,
+                    Servicio.intIdTipoServicio,
+                    Servicio.strNombre,
+                    Servicio.strDescripcion,
+                    Servicio.btModulos,
+                    Servicio.intIdEstado,
+                    Servicio.intIdProyectosEspeciales,
+                    Especiales.strNombre as strProyecto,
+                    Estado.strNombre as strEstado,
+                    Servicio.dtmCreacion,
+                    Servicio.strUsuarioCreacion,
+                    Servicio.dtmActualizacion,
+                    Servicio.strUsuarioActualizacion,
+                    TipoServicio.strNombre as strNombreTipoServicio,
+                    (
+                        SELECT * FROM tbl_modulos_Servicio ModuloServicio
+                        WHERE ModuloServicio.intIdServicio = Servicio.intId
+                        FOR JSON PATH
+                    ) as arrModulos,
+                    (
+                        SELECT 
+                        *,
+                        Valor as dblValor FROM tbl_Sede_TipoTarifa_Servicio SedeTipoTarifa
+                        WHERE SedeTipoTarifa.intIdServicio = Servicio.intId
+                        FOR JSON PATH
+                    ) as arrSedesTarifas,
+                    (
+                        SELECT * FROM tbl_Area_Servicios AreaServicio
+                        WHERE AreaServicio.intIdServicio = Servicio.intId
+                        FOR JSON PATH
+                    ) as arrResponsables,
+                    (
+                        SELECT * FROM tbl_Result_TipoServicio_Servicio ResultadoServicio
+                        WHERE ResultadoServicio.intIdServicio = Servicio.intId
+                        FOR JSON PATH  
+                    )as objResultAtributos
+                    FROM tbl_Servicios Servicio
+                    
+                    INNER JOIN tbl_Sede_TipoTarifa_Servicio SedeTipoTarifa ON Servicio.intId = SedeTipoTarifa.intIdServicio
+                    INNER JOIN tbl_Estados Estado ON Estado.intId = Servicio.intIdEstado
+                    LEFT JOIN tbl_ProyectosEspeciales Especiales ON Especiales.intId = Servicio.intIdProyectosEspeciales
+                    INNER JOIN tbl_TiposServicios TipoServicio ON TipoServicio.intId = Servicio.intIdTipoServicio
+                    
+                    WHERE (Servicio.intId = ${data.intId} OR ${data.intId} IS NULL)
+                    AND   (SedeTipoTarifa.intIdTipoTarifa = ${data.intIdTipoTarifa})`;
+            }else{
+                response = await conn.query`    
+                    SELECT 
 
-            WHERE (Servicio.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+                    Servicio.intId,
+                    Servicio.intIdTipoServicio,
+                    Servicio.strNombre,
+                    Servicio.strDescripcion,
+                    Servicio.btModulos,
+                    Servicio.intIdEstado,
+                    Servicio.intIdProyectosEspeciales,
+                    Especiales.strNombre as strProyecto,
+                    Estado.strNombre as strEstado,
+                    Servicio.dtmCreacion,
+                    Servicio.strUsuarioCreacion,
+                    Servicio.dtmActualizacion,
+                    Servicio.strUsuarioActualizacion,
+                    TipoServicio.strNombre as strNombreTipoServicio,
+                    (
+                        SELECT * FROM tbl_modulos_Servicio ModuloServicio
+                        WHERE ModuloServicio.intIdServicio = Servicio.intId
+                        FOR JSON PATH
+                    ) as arrModulos,
+                    (
+                        SELECT 
+                        *,
+                        Valor as dblValor FROM tbl_Sede_TipoTarifa_Servicio SedeTipoTarifa
+                        WHERE SedeTipoTarifa.intIdServicio = Servicio.intId
+                        FOR JSON PATH
+                    ) as arrSedesTarifas,
+                    (
+                        SELECT * FROM tbl_Area_Servicios AreaServicio
+                        WHERE AreaServicio.intIdServicio = Servicio.intId
+                        FOR JSON PATH
+                    ) as arrResponsables,
+                    (
+                        SELECT * FROM tbl_Result_TipoServicio_Servicio ResultadoServicio
+                        WHERE ResultadoServicio.intIdServicio = Servicio.intId
+                        FOR JSON PATH  
+                    )as objResultAtributos
+                    FROM tbl_Servicios Servicio
+
+                    INNER JOIN tbl_Estados Estado ON Estado.intId = Servicio.intIdEstado
+                    LEFT JOIN tbl_ProyectosEspeciales Especiales ON Especiales.intId = Servicio.intIdProyectosEspeciales
+                    INNER JOIN tbl_TiposServicios TipoServicio ON TipoServicio.intId = Servicio.intIdTipoServicio
+                    
+                    WHERE (Servicio.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+            }
 
             let arrNewData = response.recordsets[0];
-
 
             for (let i = 0; i < arrNewData.length; i++) {
                 if (arrNewData[i].arrModulos) {
@@ -308,7 +363,8 @@ class daoServicios {
 
                     if (validator.isJSON(objResultAtributos)) {
                         objResultAtributos = JSON.parse(objResultAtributos);
-                        arrNewData[i].objResultAtributos = objResultAtributos[0];
+                        arrNewData[i].objResultAtributos =
+                            objResultAtributos[0];
                     }
                 }
             }
@@ -344,7 +400,11 @@ class daoServicios {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn
                 .request()
-                .input("p_intIdTipoServicio", sql.VarChar, data.intIdTipoServicio)
+                .input(
+                    "p_intIdTipoServicio",
+                    sql.VarChar,
+                    data.intIdTipoServicio
+                )
                 .execute("sp_getAtributosTipoServicio");
             let result = {
                 error: false,
@@ -355,8 +415,9 @@ class daoServicios {
         } catch (error) {
             let result = {
                 error: true,
-                msg: error.message ?
-                    error.message : "Error en el metodo getTiposServicios de la clase daoServicios",
+                msg: error.message
+                    ? error.message
+                    : "Error en el metodo getTiposServicios de la clase daoServicios",
             };
             sql.close(conexion);
             return result;
@@ -373,15 +434,16 @@ class daoServicios {
                 .execute("sp_getServiciosActivos");
             let result = {
                 error: false,
-                data:response.recordsets[0],
+                data: response.recordsets[0],
             };
             sql.close(conexion);
             return result;
         } catch (error) {
             let result = {
                 error: true,
-                msg: error.message ?
-                    error.message : "Error en el metodo getServiciosActivos de la clase daoServicios",
+                msg: error.message
+                    ? error.message
+                    : "Error en el metodo getServiciosActivos de la clase daoServicios",
             };
             sql.close(conexion);
             return result;

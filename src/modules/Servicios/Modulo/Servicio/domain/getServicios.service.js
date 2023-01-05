@@ -5,7 +5,8 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOSer
 
 const getEmpresario = async (objParams, strDataUser) => {
     let {
-        intId
+        intId,
+        intIdTipoTarifa
     } = objParams;
     
     if (!objParams) {
@@ -26,6 +27,7 @@ const getEmpresario = async (objParams, strDataUser) => {
 
     let query = {
         intId: intId || null,
+        intIdTipoTarifa: intIdTipoTarifa || null
     };
 
     let arrayData = await dao.getServicios(query);

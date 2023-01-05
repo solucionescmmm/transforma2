@@ -186,42 +186,84 @@ class daoPaquetes {
     async getPaquetes(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`    
-            SELECT 
-            
-            Paquete.intId,
-            Paquete.strNombre,
-            Paquete.strDescripcion,
-            Paquete.intIdEstado,
-            Estado.strNombre as strEstado,
-            Paquete.dtmCreacion,
-            Paquete.strUsuarioCreacion,
-            Paquete.dtmActualizacion,
-            Paquete.strUsuarioActualizacion,
-            (
-                SELECT * FROM tbl_Paquetes_Servicios ServiciosPaquete
-                WHERE ServiciosPaquete.intIdPaquete = Paquete.intId
-                FOR JSON PATH
-            ) as arrServicios,
-            (
-                SELECT 
-                *,
-                Valor as dblValor FROM tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa
-                WHERE SedeTipoTarifa.intIdPaquete = Paquete.intId
-                FOR JSON PATH
-            ) as arrSedesTarifas,
-            (
-                SELECT * FROM tbl_Area_Paquetes AreasPaquete
-                WHERE AreasPaquete.intIdPaquete = Paquete.intId
-                FOR JSON PATH
-            ) as arrResponsables
+            let response;
+            if (data.intIdTipoTarifa) {
+                response = await conn.query`    
+                    SELECT 
 
-            FROM tbl_Paquetes Paquete
+                    Paquete.intId,
+                    Paquete.strNombre,
+                    Paquete.strDescripcion,
+                    Paquete.intIdEstado,
+                    Estado.strNombre as strEstado,
+                    Paquete.dtmCreacion,
+                    Paquete.strUsuarioCreacion,
+                    Paquete.dtmActualizacion,
+                    Paquete.strUsuarioActualizacion,
+                    (
+                        SELECT * FROM tbl_Paquetes_Servicios ServiciosPaquete
+                        WHERE ServiciosPaquete.intIdPaquete = Paquete.intId
+                        FOR JSON PATH
+                    ) as arrServicios,
+                    (
+                        SELECT 
+                        *,
+                        Valor as dblValor FROM tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa
+                        WHERE SedeTipoTarifa.intIdPaquete = Paquete.intId
+                        FOR JSON PATH
+                    ) as arrSedesTarifas,
+                    (
+                        SELECT * FROM tbl_Area_Paquetes AreasPaquete
+                        WHERE AreasPaquete.intIdPaquete = Paquete.intId
+                        FOR JSON PATH
+                    ) as arrResponsables
+                    
+                    FROM tbl_Paquetes Paquete
+                    
+                    INNER JOIN tbl_Estados Estado on Estado.intId = Paquete.intIdEstado
+                    INNER JOIN tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa ON Paquete.intId = SedeTipoTarifa.intIdPaquete
+                    
+                    WHERE (Paquete.intId = ${data.intId} OR ${data.intId} IS NULL)
+                    AND   (Paquete.strNombre = ${data.strNombre} OR ${data.strNombre} IS NULL)
+                    AND   (SedeTipoTarifa.intIdTipoTarifa = ${data.intIdTipoTarifa})`;
+            } else {
+                response = await conn.query`    
+                    SELECT 
 
-            INNER JOIN tbl_Estados Estado on Estado.intId = Paquete.intIdEstado
-
-            WHERE (Paquete.intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (Paquete.strNombre = ${data.strNombre} OR ${data.strNombre} IS NULL)`;
+                    Paquete.intId,
+                    Paquete.strNombre,
+                    Paquete.strDescripcion,
+                    Paquete.intIdEstado,
+                    Estado.strNombre as strEstado,
+                    Paquete.dtmCreacion,
+                    Paquete.strUsuarioCreacion,
+                    Paquete.dtmActualizacion,
+                    Paquete.strUsuarioActualizacion,
+                    (
+                        SELECT * FROM tbl_Paquetes_Servicios ServiciosPaquete
+                        WHERE ServiciosPaquete.intIdPaquete = Paquete.intId
+                        FOR JSON PATH
+                    ) as arrServicios,
+                    (
+                        SELECT 
+                        *,
+                        Valor as dblValor FROM tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa
+                        WHERE SedeTipoTarifa.intIdPaquete = Paquete.intId
+                        FOR JSON PATH
+                    ) as arrSedesTarifas,
+                    (
+                        SELECT * FROM tbl_Area_Paquetes AreasPaquete
+                        WHERE AreasPaquete.intIdPaquete = Paquete.intId
+                        FOR JSON PATH
+                    ) as arrResponsables
+                    
+                    FROM tbl_Paquetes Paquete
+                    
+                    INNER JOIN tbl_Estados Estado on Estado.intId = Paquete.intIdEstado
+                    
+                    WHERE (Paquete.intId = ${data.intId} OR ${data.intId} IS NULL)
+                    AND   (Paquete.strNombre = ${data.strNombre} OR ${data.strNombre} IS NULL)`;
+            }
 
             let arrNewData = response.recordsets[0];
 
