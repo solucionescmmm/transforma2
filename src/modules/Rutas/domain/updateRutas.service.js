@@ -30,10 +30,9 @@ class updateRutas {
     }
 
     async main() {
-        
+        await this.#getIdEstado();
         await this.#deleteCache();
         await this.#validations();
-        await this.#getIdEstado();
         await this.#deleteRuta();
         await this.#setRutas();
         await this.#setFases();
@@ -181,7 +180,7 @@ class updateRutas {
                         let objDataObjetivos = arrObjetivos[j];
 
                         let query = await dao.setObjetivosFases({
-                            intIdObjetivo: objDataObjetivos.intId,
+                            intIdObjetivo: objDataObjetivos.intIdObjetivo,
                             intIdFase: this.#intIdFase,
                             btCumplio: null,
                             strObservacionesCumplimiento: "",
@@ -228,7 +227,7 @@ class updateRutas {
                                 let query = await dao.setObjetivosPaquetesFases(
                                     {
                                         intIdObjetivo:
-                                            objDataObjetivoPaquete.intId,
+                                            objDataObjetivoPaquete.intIdObjetivo,
                                         intIdPaquetes_Fases: intIdPaqueteFase,
                                         btCumplio: false,
                                         strObservacionesCumplimiento: "",
@@ -279,7 +278,7 @@ class updateRutas {
                                 let query =
                                     await dao.setObjetivosServiciosFases({
                                         intIdObjetivo:
-                                            objDataObjetivoServicio.intId,
+                                            objDataObjetivoServicio.intIdObjetivo,
                                         intIdServicios_Fases: intIdServicioFase,
                                         btCumplio: false,
                                         strObservacionesCumplimiento: "",
