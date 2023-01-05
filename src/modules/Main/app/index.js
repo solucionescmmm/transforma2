@@ -23,6 +23,8 @@ app.use(helmet());
 app.use(compression({ level: 9 }));
 app.use("/transforma/api", authToken);
 app.use(apicache.middleware(process.env.CACHE_DURATION))
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb',extended: true}));
 
 //Static
 app.use(
