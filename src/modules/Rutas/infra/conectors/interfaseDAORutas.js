@@ -73,6 +73,30 @@ class interfaceDAORutas {
         return query;
     }
 
+    async checkPaqueteFase(data) {
+        let dao = new classDAO();
+        let query = await dao.checkPaqueteFase(data);
+        return query;
+    }
+
+    async checkServicioFase(data) {
+        let dao = new classDAO();
+        let query = await dao.checkServicioFase(data);
+        return query;
+    }
+
+    async checkPaqueteObjetivoFase(data) {
+        let dao = new classDAO();
+        let query = await dao.checkPaqueteObjetivoFase(data);
+        return query;
+    }
+
+    async checkServicioObjetivoFase(data) {
+        let dao = new classDAO();
+        let query = await dao.checkServicioObjetivoFase(data);
+        return query;
+    }
+
     async deleteRutas(data) {
         let dao = new classDAO();
         let query = await dao.deleteRutas(data);

@@ -8,40 +8,56 @@ const classController = require("../../app/controllers/ctrl_Rutas");
 routes.post(
     "/transforma/api/rutas/setRutas",
     async (req, res) => {
-        let controllerComentarios = new classController();
-        await controllerComentarios.setRutas(req, res);
+        let controllerRutas = new classController();
+        await controllerRutas.setRutas(req, res);
     }
 );
 
 routes.get(
     "/transforma/api/rutas/getRutas",
     async (req, res) => {
-        let controllerComentarios = new classController();
-        await controllerComentarios.getRutas(req, res);
+        let controllerRutas = new classController();
+        await controllerRutas.getRutas(req, res);
     }
 );
 
 routes.get(
     "/transforma/api/rutas/getEstadosRutas",
     async (req, res) => {
-        let controllerComentarios = new classController();
-        await controllerComentarios.getEstadosRutas(req, res);
+        let controllerRutas = new classController();
+        await controllerRutas.getEstadosRutas(req, res);
     }
 );
 
 routes.put(
     "/transforma/api/rutas/updateRutas",
     async (req, res) => {
-        let controllerComentarios = new classController();
-        await controllerComentarios.updateRutas(req, res);
+        let controllerRutas = new classController();
+        await controllerRutas.updateRutas(req, res);
+    }
+);
+
+routes.put(
+    "/transforma/api/rutas/checkPaqueteFase",
+    async (req, res) => {
+        let controllerRutas = new classController();
+        await controllerRutas.checkPaqueteFase(req, res);
+    }
+);
+
+routes.put(
+    "/transforma/api/rutas/checkServicioFase",
+    async (req, res) => {
+        let controllerRutas = new classController();
+        await controllerRutas.checkServicioFase(req, res);
     }
 );
 
 routes.delete(
     "/transforma/api/rutas/deleteRutas",
     async (req, res) => {
-        let controllerComentarios = new classController();
-        await controllerComentarios.deleteRutas(req, res);
+        let controllerRutas = new classController();
+        await controllerRutas.deleteRutas(req, res);
     }
 );
 

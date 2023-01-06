@@ -662,6 +662,152 @@ class daoRutas {
         }
     }
 
+    async checkPaqueteFase(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+            UPDATE tbl_Paquetes_Fases
+
+            SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+            WHERE intId = ${data.intId}
+            
+            
+            SELECT * FROM tbl_Paquetes_Fases WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El Paquete, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateRutas de la clase daoRutas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async checkServicioFase(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+            UPDATE tbl_Servicios_Fases
+
+            SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+            WHERE intId = ${data.intId}
+            
+            
+            SELECT * FROM tbl_Servicios_Fases WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El Servicio, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateRutas de la clase daoRutas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async checkPaqueteObjetivoFase(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn.query`    
+            UPDATE tbl_Objetivos_Paquetes_Fases
+
+            SET btCumplio                    = COALESCE(${data.btCumplio}, btCumplio),
+                strObservacionesCumplimiento = COALESCE(${data.strObservacionesCumplimiento}, strObservacionesCumplimiento),
+                dtmActualizacion             = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion      = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+            WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: `El Paquete, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateRutas de la clase daoRutas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async checkServicioObjetivoFase(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn.query`    
+            UPDATE tbl_Objetivos_Servicios_Fases
+
+            SET btCumplio                    = COALESCE(${data.btCumplio}, btCumplio),
+                strObservacionesCumplimiento = COALESCE(${data.strObservacionesCumplimiento}, strObservacionesCumplimiento),
+                dtmActualizacion             = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion      = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+            WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: `El servicio, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateRutas de la clase daoRutas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async deleteRutas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
