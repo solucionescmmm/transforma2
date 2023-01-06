@@ -50,10 +50,12 @@ const DropdownServicios = ({
     label,
     multiple,
     required,
+    intIdTipoTarifa
 }) => {
     const [options, setOptions] = useState([]);
 
     const { data, refreshGetData } = useGetServicios({
+        intIdTipoTarifa,
         autoLoad: true,
     });
 

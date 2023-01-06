@@ -5,6 +5,7 @@ import { Button, Grid } from "@mui/material";
 
 //Iconos
 import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material";
+import PreviewRuta from "../modules/Empresarios/pages/Rutas/preview";
 
 // Componentes
 const Comentarios = lazy(() => import("../modules/Comentarios/pages/homePage"));
@@ -311,7 +312,6 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         );
     }
 
-    
     if (route.location === "EditRuta") {
         return (
             <Grid container direction="row" spacing={3}>
@@ -327,6 +327,31 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 </Grid>
 
                 <CreateRutas
+                    isEdit
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intId={route.params.intId}
+                    values={route.params}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "ViewRuta") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Rutas")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <PreviewRuta
                     isEdit
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}

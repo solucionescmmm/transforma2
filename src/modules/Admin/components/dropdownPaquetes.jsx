@@ -50,11 +50,13 @@ const DropdownPaquetes = ({
     label,
     multiple,
     required,
+    intIdTipoTarifa
 }) => {
     const [options, setOptions] = useState([]);
 
     const { data, refreshGetData } = useGetPaquetes({
         autoLoad: true,
+        intIdTipoTarifa
     });
 
     useEffect(() => {

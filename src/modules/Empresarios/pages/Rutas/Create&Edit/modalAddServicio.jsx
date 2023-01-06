@@ -33,7 +33,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const { arrObjetivos, intFase } = values;
+    const { arrObjetivos, intFase, intIdTipoTarifa } = values;
 
     const [success, setSucces] = useState(false);
 
@@ -144,6 +144,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                         errors?.objServicio?.message ||
                                         "Selecciona el servicio"
                                     }
+                                    intIdTipoTarifa={intIdTipoTarifa}
                                 />
                             )}
                             rules={{

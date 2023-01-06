@@ -36,7 +36,8 @@ const InfoFases = ({
     fields,
     append,
     remove,
-    isEdit
+    isEdit,
+    watch,
 }) => {
     const [loading, setLoading] = useState(false);
 
@@ -159,6 +160,7 @@ const InfoFases = ({
                                         disabled={disabled}
                                         remove={remove}
                                         length={fields.length}
+                                        watch={watch}
                                     />
                                 </CSSTransition>
                             ))}

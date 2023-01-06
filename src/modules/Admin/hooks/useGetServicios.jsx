@@ -12,7 +12,10 @@ import { toast } from "react-hot-toast";
  *
  * @author Santiago Cardona Saldarriaga <scardonas@xelerica.com>
  **/
-const useGetTiposServicio = ({ autoLoad = true, intId = null } = {}) => {
+const useGetTiposServicio = ({
+    autoLoad = true,
+    intIdTipoTarifa = null,
+} = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -27,7 +30,7 @@ const useGetTiposServicio = ({ autoLoad = true, intId = null } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intId }) => {
+        async ({ signalSubmitData, intIdTipoTarifa }) => {
             return await axios(
                 {
                     method: "GET",
@@ -37,7 +40,7 @@ const useGetTiposServicio = ({ autoLoad = true, intId = null } = {}) => {
                         token,
                     },
                     params: {
-                        intId,
+                        intIdTipoTarifa,
                     },
                 },
                 {
@@ -45,7 +48,14 @@ const useGetTiposServicio = ({ autoLoad = true, intId = null } = {}) => {
                 }
             )
                 .then((res) => {
-                    setData(res.data.data);
+                    if (res.data.data === null) {
+                        setData({
+                            error: true,
+                            msg: "No existen servicios asociados al tipo de tarifa seleccionada",
+                        });
+                    } else {
+                        setData(res.data.data);
+                    }
 
                     return res;
                 })
@@ -75,19 +85,19 @@ const useGetTiposServicio = ({ autoLoad = true, intId = null } = {}) => {
         [token]
     );
 
-    const refreshGetData = ({ intId = null } = {}) => {
+    const refreshGetData = ({ intIdTipoTarifa = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, intId });
+        getData({ signalSubmitData, intIdTipoTarifa });
     };
 
-    const getUniqueData = async ({ intId = null } = {}) => {
+    const getUniqueData = async ({ intIdTipoTarifa = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
-            intId,
+            intIdTipoTarifa,
             signalSubmitData,
         });
 
@@ -101,18 +111,18 @@ const useGetTiposServicio = ({ autoLoad = true, intId = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         if (autoLoad) {
-            getData({ signalSubmitData });
+            getData({ signalSubmitData, intIdTipoTarifa });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, autoLoad]);
+    }, [getData, autoLoad, intIdTipoTarifa]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
     //===============================================================================================================================================
-    return { data, refreshGetData, getUniqueData};
+    return { data, refreshGetData, getUniqueData };
 };
 
 export default useGetTiposServicio;

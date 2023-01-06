@@ -1,5 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useCallback, useEffect, useContext } from "react";
+import React, {
+    useState,
+    useCallback,
+    useEffect,
+    useContext,
+    Fragment,
+} from "react";
 
 //Context
 import { AuthContext } from "../../../../../common/middlewares/Auth";
@@ -17,6 +23,7 @@ import {
     LinearProgress,
     Container,
     Alert,
+    Button,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -29,6 +36,7 @@ import { Box } from "@mui/system";
 import InfoPrincipal from "./infoPrincipal";
 import InfoFases from "./infoFases";
 import PageError from "../../../../../common/components/Error";
+import ModalPreview from "./modalPreview";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -79,6 +87,8 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         objInfoPrincipal: {},
         arrInfoFases: [],
     });
+
+    const [openModalPreview, setOpenModalPreview] = useState(false);
 
     const [success, setSucces] = useState(false);
 
@@ -194,6 +204,10 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         [token, data, isEdit]
     );
 
+    const handlerChangeOpenModalPreview = () => {
+        setOpenModalPreview(!openModalPreview);
+    };
+
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
@@ -279,137 +293,155 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
     }
 
     return (
-        <Grid
-            container
-            direction="row"
-            spacing={3}
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-            sx={{
-                marginTop: "10px",
-            }}
-        >
-            <Grid item xs={12}>
-                <Container className={classes.containerPR}>
-                    <Paper className={classes.paper}>
-                        {loading ? (
-                            <LinearProgress
-                                className={classes.linearProgress}
-                            />
-                        ) : null}
+        <Fragment>
+            <ModalPreview
+                open={openModalPreview}
+                handleOpenDialog={handlerChangeOpenModalPreview}
+                values={{ ...getValues(), valorTotalRuta }}
+            />
 
-                        <Grid
-                            container
-                            direction="row"
-                            spacing={2}
-                            style={{ padding: "25px" }}
-                        >
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        width: "100%",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
+            <Grid
+                container
+                direction="row"
+                spacing={3}
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+                sx={{
+                    marginTop: "10px",
+                }}
+            >
+                <Grid item xs={12}>
+                    <Container className={classes.containerPR}>
+                        <Paper className={classes.paper}>
+                            {loading ? (
+                                <LinearProgress
+                                    className={classes.linearProgress}
+                                />
+                            ) : null}
+
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={2}
+                                style={{ padding: "25px" }}
+                            >
+                                <Grid item xs={12}>
                                     <Box
                                         sx={{
-                                            flexGrow: 1,
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            width: "100%",
+                                            justifyContent: "center",
+                                            alignItems: "center",
                                         }}
                                     >
-                                        <Typography
-                                            align="center"
-                                            style={{ fontWeight: "bold" }}
-                                            color="primary"
-                                            variant="h6"
+                                        <Box
+                                            sx={{
+                                                flexGrow: 1,
+                                            }}
                                         >
-                                            {isEdit
-                                                ? "EDITAR RUTA"
-                                                : "REGISTRAR RUTA"}
-                                        </Typography>
+                                            <Typography
+                                                align="center"
+                                                style={{ fontWeight: "bold" }}
+                                                color="primary"
+                                                variant="h6"
+                                            >
+                                                {isEdit
+                                                    ? "EDITAR RUTA"
+                                                    : "REGISTRAR RUTA"}
+                                            </Typography>
+                                        </Box>
                                     </Box>
-                                </Box>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="caption">
-                                    Todos los campos marcados con (*) son
-                                    obligatorios.
-                                </Typography>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoPrincipal
-                                    control={control}
-                                    values={data.objInfoPrincipal}
-                                    disabled={loading}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                    isEdit={isEdit}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoFases
-                                    control={control}
-                                    values={data.arrInfoFases}
-                                    disabled={loading}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                    isEdit={isEdit}
-                                    fields={fields}
-                                    append={append}
-                                    remove={remove}
-                                />
-                            </Grid>
-
-                            {(errors.objInfoPrincipal ||
-                                errors.arrInfoFases) && (
-                                <Grid item xs={12}>
-                                    <Alert severity="error">
-                                        Lo sentimos, tienes campos pendientes
-                                        por diligenciar en el formulario, revisa
-                                        e intentalo nuevamente.
-                                    </Alert>
                                 </Grid>
-                            )}
 
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        gap: 1,
-                                    }}
-                                >
-                                    <p style={{ flexGrow: 1 }}>
-                                        Valor total de la ruta:{" "}
-                                        {new Intl.NumberFormat("es-ES", {
-                                            style: "currency",
-                                            currency: "COP",
-                                        }).format(valorTotalRuta)}
-                                    </p>
-                                    <LoadingButton
-                                        variant="contained"
-                                        type="submit"
-                                        loading={loading}
+                                <Grid item xs={12}>
+                                    <Typography variant="caption">
+                                        Todos los campos marcados con (*) son
+                                        obligatorios.
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoPrincipal
+                                        control={control}
+                                        values={data.objInfoPrincipal}
+                                        disabled={loading}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                        isEdit={isEdit}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoFases
+                                        control={control}
+                                        values={data.arrInfoFases}
+                                        disabled={loading}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                        isEdit={isEdit}
+                                        fields={fields}
+                                        append={append}
+                                        remove={remove}
+                                        watch={watch}
+                                    />
+                                </Grid>
+
+                                {(errors.objInfoPrincipal ||
+                                    errors.arrInfoFases) && (
+                                    <Grid item xs={12}>
+                                        <Alert severity="error">
+                                            Lo sentimos, tienes campos
+                                            pendientes por diligenciar en el
+                                            formulario, revisa e intentalo
+                                            nuevamente.
+                                        </Alert>
+                                    </Grid>
+                                )}
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            gap: 1,
+                                        }}
                                     >
-                                        {isEdit ? "guardar" : "registrar"}
-                                    </LoadingButton>
-                                </Box>
+                                        <p style={{ flexGrow: 1 }}>
+                                            Valor total de la ruta:{" "}
+                                            {new Intl.NumberFormat("es-ES", {
+                                                style: "currency",
+                                                currency: "COP",
+                                            }).format(valorTotalRuta)}
+                                        </p>
+                                        <Button
+                                            type="button"
+                                            onClick={() =>
+                                                handlerChangeOpenModalPreview()
+                                            }
+                                        >
+                                            Previsualizar
+                                        </Button>
+                                        <LoadingButton
+                                            variant="contained"
+                                            type="submit"
+                                            loading={loading}
+                                        >
+                                            {isEdit ? "guardar" : "registrar"}
+                                        </LoadingButton>
+                                    </Box>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Paper>
-                </Container>
+                        </Paper>
+                    </Container>
+                </Grid>
             </Grid>
-        </Grid>
+        </Fragment>
     );
 };
 

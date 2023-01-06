@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react";
 import useGetRutas from "../../hooks/useGetRutas";
 
 //Componentes de Material UI
-import { Grid, Box, Button } from "@mui/material";
+import { Grid, Box, Button, Tab } from "@mui/material";
 
 import {
     ThemeProvider,
@@ -30,6 +30,7 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
     Delete as DeleteIcon,
+    RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -38,6 +39,8 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import ModalDelete from "./modalDelete";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import Maintenance from "../../../../common/components/Error/503";
 
 const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
@@ -62,7 +65,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
         {
             title: "Total Fases",
             render: (rowData) => {
-                let intFases = rowData.arrInfoFases?.length
+                let intFases = rowData.arrInfoFases?.length;
 
                 return <p>{intFases?.toString()}</p>;
             },
@@ -75,7 +78,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
         {
             title: "Responsable",
             render: (rowData) => {
-                let strResponsables = rowData?.objInfoPrincipal?.strResponsable
+                let strResponsables = rowData?.objInfoPrincipal?.strResponsable;
 
                 return <p>{strResponsables?.strNombre}</p>;
             },
@@ -84,6 +87,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
 
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [selectedData, setSelectedData] = useState();
+    const [valueTab, setValueTab] = useState(1);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -113,238 +117,295 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                 intIdIdea={intIdIdea}
             />
 
-            <Grid container direction="row" spacing={2}>
-                <Grid item xs={12}>
-                    <StyledEngineProvider injectFirst>
-                        <ThemeProvider
-                            theme={createTheme({
-                                palette: {
-                                    mode: "light",
-                                    primary: {
-                                        main: "#00BAB3",
-                                        dark: "#007c6a",
-                                        light: "#0288D1",
-                                        contrastText: "#ffff",
-                                    },
-                                    secondary: {
-                                        main: "#FF4160",
-                                    },
-                                    divider: "#BDBDBD",
-                                },
-                                typography: { fontSize: 13.2 },
-                                components: {
-                                    MuiTableBody: {
-                                        styleOverrides: {
-                                            root: {
-                                                fontSize: 13.2,
+            <TabContext value={valueTab}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                    <TabList
+                        onChange={(_, value) => setValueTab(value)}
+                        aria-label="menu"
+                    >
+                        <Tab label="Rutas" value={1} />
+                        <Tab label="Acompañamientos" value={2} />
+                    </TabList>
+                </Box>
+                <TabPanel value={1} sx={{ width: "100%" }}>
+                    <Grid container direction="row">
+                        <Grid item xs={12}>
+                            <StyledEngineProvider injectFirst>
+                                <ThemeProvider
+                                    theme={createTheme({
+                                        palette: {
+                                            mode: "light",
+                                            primary: {
+                                                main: "#00BAB3",
+                                                dark: "#007c6a",
+                                                light: "#0288D1",
+                                                contrastText: "#ffff",
+                                            },
+                                            secondary: {
+                                                main: "#FF4160",
+                                            },
+                                            divider: "#BDBDBD",
+                                        },
+                                        typography: { fontSize: 13.2 },
+                                        components: {
+                                            MuiTableBody: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        fontSize: 13.2,
+                                                    },
+                                                },
+                                            },
+                                            MuiTableCell: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        padding: "5px",
+                                                    },
+                                                },
                                             },
                                         },
-                                    },
-                                    MuiTableCell: {
-                                        styleOverrides: {
-                                            root: {
-                                                padding: "5px",
+                                    })}
+                                >
+                                    <MaterialTable
+                                        icons={{
+                                            Add: AddBoxIcon,
+                                            Clear: ClearIcon,
+                                            Check: CheckIcon,
+                                            Delete: DeleteOutlineIcon,
+                                            Edit: EditIcon,
+                                            DetailPanel: ChevronRightIcon,
+                                            Export: SaveAltIcon,
+                                            Filter: FilterListIcon,
+                                            FirstPage: FirstPageIcon,
+                                            LastPage: LastPageIcon,
+                                            NextPage: ChevronRightIcon,
+                                            PreviousPage: ChevronLeftIcon,
+                                            Search: SearchIcon,
+                                            ResetSearch: ClearIcon,
+                                            SortArrow: ArrowDownwardIcon,
+                                            ThirdStateCheck: RemoveIcon,
+                                            ViewColumn: ViewColumnIcon,
+                                        }}
+                                        localization={{
+                                            pagination: {
+                                                labelRowsSelect: "filas",
+                                                labelDisplayedRows:
+                                                    "{from}-{to} de {count}",
+                                                firstTooltip: "Primera página",
+                                                previousTooltip:
+                                                    "Página anterior",
+                                                nextTooltip: "Siguiente página",
+                                                lastTooltip: "Última página",
+                                                labelRowsPerPage:
+                                                    "Filas por página:",
                                             },
-                                        },
-                                    },
-                                },
-                            })}
-                        >
-                            <MaterialTable
-                                icons={{
-                                    Add: AddBoxIcon,
-                                    Clear: ClearIcon,
-                                    Check: CheckIcon,
-                                    Delete: DeleteOutlineIcon,
-                                    Edit: EditIcon,
-                                    DetailPanel: ChevronRightIcon,
-                                    Export: SaveAltIcon,
-                                    Filter: FilterListIcon,
-                                    FirstPage: FirstPageIcon,
-                                    LastPage: LastPageIcon,
-                                    NextPage: ChevronRightIcon,
-                                    PreviousPage: ChevronLeftIcon,
-                                    Search: SearchIcon,
-                                    ResetSearch: ClearIcon,
-                                    SortArrow: ArrowDownwardIcon,
-                                    ThirdStateCheck: RemoveIcon,
-                                    ViewColumn: ViewColumnIcon,
-                                }}
-                                localization={{
-                                    pagination: {
-                                        labelRowsSelect: "filas",
-                                        labelDisplayedRows:
-                                            "{from}-{to} de {count}",
-                                        firstTooltip: "Primera página",
-                                        previousTooltip: "Página anterior",
-                                        nextTooltip: "Siguiente página",
-                                        lastTooltip: "Última página",
-                                        labelRowsPerPage: "Filas por página:",
-                                    },
-                                    toolbar: {
-                                        nRowsSelected:
-                                            "{0} filas seleccionadas",
-                                        searchTooltip: "Buscar",
-                                        searchPlaceholder: "Buscar",
-                                    },
-                                    header: {
-                                        actions: "Acciones",
-                                    },
-                                    body: {
-                                        emptyDataSourceMessage:
-                                            "No existe información por mostrar",
-                                        filterRow: {
-                                            filterTooltip: "Filtro",
-                                        },
-                                        editRow: {
-                                            deleteText:
-                                                "Esta seguro de eliminar el registro?",
-                                        },
-                                    },
-                                    selector: {
-                                        okLabel: "aceptar",
-                                        cancelLabel: "Cancelar",
-                                        clearLabel: "Clear",
-                                        todayLabel: "Hoy",
-                                    },
-                                    grouping: {
-                                        placeholder:
-                                            "Arrasta el nombre de la columna para agrupar los campos",
-                                        groupedBy: "Datos agrupados por: ",
-                                    },
-                                }}
-                                isLoading={data === undefined ? true : false}
-                                data={data || []}
-                                columns={objColumns}
-                                title="Rutas"
-                                options={{
-                                    grouping: true,
-                                    title: true,
-                                    filtering: false,
-                                    search: true,
-                                    exportAllData: true,
-                                    columnsButton: true,
-                                    headerStyle: {
-                                        position: "sticky",
-                                        top: "0",
-                                        backgroundColor: "white",
-                                    },
-                                    detailPanelColumnStylele: {
-                                        fontSize: 12,
-                                    },
-                                    actionsColumnIndex: -1,
-                                    paging: true,
-                                    pageSizeOptions: [20, 100, 200, 500],
-                                    pageSize: 20,
-                                    maxBodyHeight: "520px",
-                                }}
-                                actions={[
-                                    (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    color={
+                                            toolbar: {
+                                                nRowsSelected:
+                                                    "{0} filas seleccionadas",
+                                                searchTooltip: "Buscar",
+                                                searchPlaceholder: "Buscar",
+                                            },
+                                            header: {
+                                                actions: "Acciones",
+                                            },
+                                            body: {
+                                                emptyDataSourceMessage:
+                                                    "No existe información por mostrar",
+                                                filterRow: {
+                                                    filterTooltip: "Filtro",
+                                                },
+                                                editRow: {
+                                                    deleteText:
+                                                        "Esta seguro de eliminar el registro?",
+                                                },
+                                            },
+                                            selector: {
+                                                okLabel: "aceptar",
+                                                cancelLabel: "Cancelar",
+                                                clearLabel: "Clear",
+                                                todayLabel: "Hoy",
+                                            },
+                                            grouping: {
+                                                placeholder:
+                                                    "Arrasta el nombre de la columna para agrupar los campos",
+                                                groupedBy:
+                                                    "Datos agrupados por: ",
+                                            },
+                                        }}
+                                        isLoading={
+                                            data === undefined ? true : false
+                                        }
+                                        data={data || []}
+                                        columns={objColumns}
+                                        title="Rutas"
+                                        options={{
+                                            grouping: true,
+                                            title: true,
+                                            filtering: false,
+                                            search: true,
+                                            exportAllData: true,
+                                            columnsButton: true,
+                                            headerStyle: {
+                                                position: "sticky",
+                                                top: "0",
+                                                backgroundColor: "white",
+                                            },
+                                            detailPanelColumnStylele: {
+                                                fontSize: 12,
+                                            },
+                                            actionsColumnIndex: -1,
+                                            paging: true,
+                                            pageSizeOptions: [
+                                                20, 100, 200, 500,
+                                            ],
+                                            pageSize: 20,
+                                            maxBodyHeight: "520px",
+                                        }}
+                                        actions={[
+                                            (rowData) => {
+                                                return {
+                                                    icon: () => (
+                                                        <EditIcon
+                                                            color={
+                                                                rowData.btFinalizada ===
+                                                                true
+                                                                    ? "gray"
+                                                                    : "success"
+                                                            }
+                                                            fontSize="small"
+                                                            onClick={() =>
+                                                                onChangeRoute(
+                                                                    "EditRuta",
+                                                                    {
+                                                                        intId: rowData.intId,
+                                                                        intIdIdea,
+                                                                        ...rowData,
+                                                                    }
+                                                                )
+                                                            }
+                                                        />
+                                                    ),
+                                                    tooltip: "Editar",
+
+                                                    disabled:
                                                         rowData.btFinalizada ===
-                                                        true
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                    onClick={() =>
+                                                        true,
+                                                };
+                                            },
+                                            (rowData) => {
+                                                return {
+                                                    icon: () => (
+                                                        <DeleteIcon
+                                                            color={
+                                                                rowData.btFinalizada ===
+                                                                true
+                                                                    ? "gray"
+                                                                    : "error"
+                                                            }
+                                                            fontSize="small"
+                                                        />
+                                                    ),
+                                                    onClick: (
+                                                        event,
+                                                        rowData
+                                                    ) => {
+                                                        setSelectedData(
+                                                            rowData
+                                                        );
+                                                        handlerOpenModalDelete();
+                                                    },
+                                                    tooltip: "Eliminar",
+                                                    disabled:
+                                                        rowData.btFinalizada ===
+                                                        true,
+                                                };
+                                            },
+                                            (rowData) => {
+                                                return {
+                                                    icon: () => (
+                                                        <RemoveRedEyeIcon
+                                                            color="gray"
+                                                            fontSize="small"
+                                                        />
+                                                    ),
+                                                    tooltip: "Previsualizar",
+                                                    onClick: (event, rowData) => {
                                                         onChangeRoute(
-                                                            "EditRuta",
+                                                            "ViewRuta",
                                                             {
                                                                 intId: rowData.intId,
                                                                 intIdIdea,
-                                                                ...rowData
+                                                                ...rowData,
                                                             }
                                                         )
-                                                    }
-                                                />
-                                            ),
-                                            tooltip: "Editar",
-
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
-                                    },
-                                    (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.btFinalizada ===
-                                                        true
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            onClick: (event, rowData) => {
-                                                setSelectedData(rowData);
-                                                handlerOpenModalDelete();
+                                                    },
+                                                };
                                             },
-                                            tooltip: "Eliminar",
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
-                                    },
-                                ]}
-                                components={{
-                                    Toolbar: (props) => (
-                                        <div
-                                            style={{
-                                                paddingRight: "5px",
-                                                paddingLeft: "5px",
-                                            }}
-                                        >
-                                            <MTableToolbar {...props} />
-
-                                            <Grid container direction="row">
-                                                <Grid
-                                                    item
-                                                    xs={12}
-                                                    md={6}
-                                                ></Grid>
-
-                                                <Grid
-                                                    item
-                                                    xs={12}
-                                                    md={6}
-                                                    sx={{ margin: "auto" }}
+                                        ]}
+                                        components={{
+                                            Toolbar: (props) => (
+                                                <div
+                                                    style={{
+                                                        paddingRight: "5px",
+                                                        paddingLeft: "5px",
+                                                    }}
                                                 >
-                                                    <Box
-                                                        sx={{
-                                                            display: "flex",
-                                                            flexDirection:
-                                                                "row-reverse",
-                                                            marginBottom:
-                                                                "10px",
-                                                            gap: 1,
-                                                        }}
+                                                    <MTableToolbar {...props} />
+
+                                                    <Grid
+                                                        container
+                                                        direction="row"
                                                     >
-                                                        <Button
-                                                            onClick={() =>
-                                                                onChangeRoute(
-                                                                    "CreateRutas"
-                                                                )
-                                                            }
-                                                            variant="contained"
+                                                        <Grid
+                                                            item
+                                                            xs={12}
+                                                            md={6}
+                                                        ></Grid>
+
+                                                        <Grid
+                                                            item
+                                                            xs={12}
+                                                            md={6}
+                                                            sx={{
+                                                                margin: "auto",
+                                                            }}
                                                         >
-                                                            Agregar ruta
-                                                        </Button>
-                                                    </Box>
-                                                </Grid>
-                                            </Grid>
-                                        </div>
-                                    ),
-                                }}
-                            />
-                        </ThemeProvider>
-                    </StyledEngineProvider>
-                </Grid>
-            </Grid>
+                                                            <Box
+                                                                sx={{
+                                                                    display:
+                                                                        "flex",
+                                                                    flexDirection:
+                                                                        "row-reverse",
+                                                                    marginBottom:
+                                                                        "10px",
+                                                                    gap: 1,
+                                                                }}
+                                                            >
+                                                                <Button
+                                                                    onClick={() =>
+                                                                        onChangeRoute(
+                                                                            "CreateRutas"
+                                                                        )
+                                                                    }
+                                                                    variant="contained"
+                                                                >
+                                                                    Agregar ruta
+                                                                </Button>
+                                                            </Box>
+                                                        </Grid>
+                                                    </Grid>
+                                                </div>
+                                            ),
+                                        }}
+                                    />
+                                </ThemeProvider>
+                            </StyledEngineProvider>
+                        </Grid>
+                    </Grid>
+                </TabPanel>
+                <TabPanel value={2} sx={{ width: "100%" }}>
+                    <Maintenance />
+                </TabPanel>
+            </TabContext>
         </Fragment>
     );
 };

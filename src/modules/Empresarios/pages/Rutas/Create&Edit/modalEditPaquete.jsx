@@ -33,7 +33,7 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const { intFase } = values;
+    const { intFase, intIdTipoTarifa } = values;
 
     const [success, setSucces] = useState(false);
 
@@ -148,6 +148,7 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                                         errors?.objPaquete?.message ||
                                         "Selecciona el paquete"
                                     }
+                                    intIdTipoTarifa={intIdTipoTarifa}
                                 />
                             )}
                             rules={{

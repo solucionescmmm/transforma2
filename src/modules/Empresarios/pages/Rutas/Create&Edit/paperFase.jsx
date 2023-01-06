@@ -22,6 +22,7 @@ import {
     Button,
     useTheme,
     useMediaQuery,
+    Alert,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -46,6 +47,7 @@ import ModalDeletePaquete from "./modalDeletePaquete";
 import ModalEditServicio from "./modalEditServicio";
 import ModalDeleteServicio from "./modalDeleteServicio";
 import SelectEstadosRutas from "../components/selectEstadosRutas";
+import toast from "react-hot-toast";
 
 const PaperFase = ({
     values,
@@ -57,6 +59,7 @@ const PaperFase = ({
     remove,
     length,
     isEdit,
+    watch,
 }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -92,6 +95,11 @@ const PaperFase = ({
     const [valueObjetivo, setValueObjetivo] = useState();
     const [valuePaquete, setValuePaquete] = useState();
     const [valueServicio, setValueServicio] = useState();
+
+    //===============================================================================================================================================
+    //========================================== Observables ========================================================================================
+    //===============================================================================================================================================
+    const watchTipoTarifa = watch(`arrInfoFases[${index}].objTarifa`);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -181,19 +189,43 @@ const PaperFase = ({
         const newArrPaquetes = [...data.arrPaquetes];
 
         if (mode.type === "register") {
-            newArrPaquetes.push({
-                strId: shortid.generate(),
-                objPaquete: value.objPaquete,
-                arrObjetivos: value.arrObjetivos,
-            });
+            if (
+                newArrPaquetes.find(
+                    (x) =>
+                        x.objPaquete.objInfoPrincipal.strNombre ===
+                        value.objPaquete.objInfoPrincipal.strNombre
+                )
+            ) {
+                toast.error(
+                    "El paquete ya se encuentra agregado, por favor selecciona otro"
+                );
+            } else {
+                newArrPaquetes.push({
+                    strId: shortid.generate(),
+                    objPaquete: value.objPaquete,
+                    arrObjetivos: value.arrObjetivos,
+                });
+            }
         }
 
         if (mode.type === "edit") {
-            newArrPaquetes[mode.index] = {
-                strId: value.strId,
-                objPaquete: value.objPaquete,
-                arrObjetivos: value.arrObjetivos,
-            };
+            if (
+                newArrPaquetes.find(
+                    (x) =>
+                        x.objPaquete.objInfoPrincipal.strNombre ===
+                        value.objPaquete.objInfoPrincipal.strNombre
+                )
+            ) {
+                toast.error(
+                    "El paquete ya se encuentra agregado, por favor selecciona otro"
+                );
+            } else {
+                newArrPaquetes[mode.index] = {
+                    strId: value.strId,
+                    objPaquete: value.objPaquete,
+                    arrObjetivos: value.arrObjetivos,
+                };
+            }
         }
 
         if (mode.type === "delete") {
@@ -212,19 +244,43 @@ const PaperFase = ({
         const newArrServicios = [...data.arrServicios];
 
         if (mode.type === "register") {
-            newArrServicios.push({
-                strId: shortid.generate(),
-                objServicio: value.objServicio,
-                arrObjetivos: value.arrObjetivos,
-            });
+            if (
+                newArrServicios.find(
+                    (x) =>
+                        x.objServicio.objInfoPrincipal.strNombre ===
+                        value.objServicio.objInfoPrincipal.strNombre
+                )
+            ) {
+                toast.error(
+                    "El servicios ya se encuentra agregado, por favor selecciona otro"
+                );
+            } else {
+                newArrServicios.push({
+                    strId: shortid.generate(),
+                    objServicio: value.objServicio,
+                    arrObjetivos: value.arrObjetivos,
+                });
+            }
         }
 
         if (mode.type === "edit") {
-            newArrServicios[mode.index] = {
-                strId: value.strId,
-                objServicio: value.objServicio,
-                arrObjetivos: value.arrObjetivos,
-            };
+            if (
+                newArrServicios.find(
+                    (x) =>
+                        x.objServicio.objInfoPrincipal.strNombre ===
+                        value.objServicio.objInfoPrincipal.strNombre
+                )
+            ) {
+                toast.error(
+                    "El servicios ya se encuentra agregado, por favor selecciona otro"
+                );
+            } else {
+                newArrServicios[mode.index] = {
+                    strId: value.strId,
+                    objServicio: value.objServicio,
+                    arrObjetivos: value.arrObjetivos,
+                };
+            }
         }
 
         if (mode.type === "delete") {
@@ -281,6 +337,8 @@ const PaperFase = ({
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
+    console.log(watchTipoTarifa);
+
     if (!data.Id) {
         return (
             <Box
@@ -320,14 +378,22 @@ const PaperFase = ({
                 open={openModalAddPaquete}
                 handleOpenDialog={handlerChangeOpenModalAddPaquete}
                 onChange={handlerChangePaquete}
-                values={{ arrObjetivos: data.arrObjetivos, intFase: index + 1 }}
+                values={{
+                    arrObjetivos: data.arrObjetivos,
+                    intFase: index + 1,
+                    intIdTipoTarifa: watchTipoTarifa.intId,
+                }}
             />
 
             <ModalEditPaquete
                 open={openModalEditPaquete}
                 handleOpenDialog={handlerChangeOpenModalEditPaquete}
                 onChange={handlerChangePaquete}
-                values={{ ...valuePaquete, intFase: index + 1 }}
+                values={{
+                    ...valuePaquete,
+                    intFase: index + 1,
+                    intIdTipoTarifa: watchTipoTarifa.intId,
+                }}
             />
 
             <ModalDeletePaquete
@@ -341,14 +407,22 @@ const PaperFase = ({
                 open={openModalAddServicio}
                 handleOpenDialog={handlerChangeOpenModalAddServicio}
                 onChange={handlerChangeServicio}
-                values={{ arrObjetivos: data.arrObjetivos, intFase: index + 1 }}
+                values={{
+                    arrObjetivos: data.arrObjetivos,
+                    intFase: index + 1,
+                    intIdTipoTarifa: watchTipoTarifa.intId,
+                }}
             />
 
             <ModalEditServicio
                 open={openModalEditServicio}
                 handleOpenDialog={handlerChangeOpenModalEditServicio}
                 onChange={handlerChangeServicio}
-                values={{ ...valueServicio, intFase: index + 1 }}
+                values={{
+                    ...valueServicio,
+                    intFase: index + 1,
+                    intIdTipoTarifa: watchTipoTarifa.intId,
+                }}
             />
 
             <ModalDeleteServicio
@@ -508,6 +582,52 @@ const PaperFase = ({
                                                     "Por favor, selecciona el estado de la fase",
                                             }}
                                         />
+                                    </Grid>
+                                )}
+
+                                <Grid item xs="12">
+                                    <Controller
+                                        defaultValue={data.objTarifa}
+                                        name={`arrInfoFases[${index}].objTarifa`}
+                                        render={({
+                                            field: { name, value, onChange },
+                                        }) => (
+                                            <DropdownTipoTarifa
+                                                label="Tipo de tarifa"
+                                                name={name}
+                                                value={value}
+                                                onChange={(_, value) =>
+                                                    onChange(value)
+                                                }
+                                                disabled={disabled}
+                                                error={
+                                                    !!errors?.arrInfoFases?.[
+                                                        index
+                                                    ]?.objTarifa
+                                                }
+                                                helperText={
+                                                    errors?.arrInfoFases?.[
+                                                        index
+                                                    ].objTarifa?.message ||
+                                                    "Selecciona el tipo de tarifa"
+                                                }
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, selecciona el tipo de tarifa",
+                                        }}
+                                    />
+                                </Grid>
+
+                                {!watchTipoTarifa?.strNombre && (
+                                    <Grid item xs={12}>
+                                        <Alert severity="info">
+                                            Recuerda seleccionar primero el tipo
+                                            de tarifa para habilitar los
+                                            paquetes y servicios
+                                        </Alert>
                                     </Grid>
                                 )}
 
@@ -707,6 +827,9 @@ const PaperFase = ({
                                                 onClick={() =>
                                                     handlerChangeOpenModalAddPaquete()
                                                 }
+                                                disabled={
+                                                    !watchTipoTarifa?.strNombre
+                                                }
                                             >
                                                 Adicionar paquete
                                             </Button>
@@ -781,7 +904,6 @@ const PaperFase = ({
                                                 key={paquete.strId}
                                                 style={{
                                                     fontSize: "14px",
-                                                    marginLeft: "94.5px",
                                                 }}
                                             >
                                                 {paquete.arrObjetivos.map(
@@ -800,19 +922,10 @@ const PaperFase = ({
                                                                     "14px",
                                                             }}
                                                         >
-                                                            <p
-                                                                style={{
-                                                                    paddingRight:
-                                                                        "30px",
-                                                                }}
-                                                            >
-                                                                Objetivo{" "}
-                                                                {index + 1}
-                                                            </p>
-                                                            <p>
+                                                            <li>
                                                                 {objetivo.strObjetivo ||
                                                                     objetivo.strNombre}
-                                                            </p>
+                                                            </li>
                                                         </Box>
                                                     )
                                                 )}
@@ -846,6 +959,9 @@ const PaperFase = ({
                                                 style={{ fontSize: "13px" }}
                                                 onClick={() =>
                                                     handlerChangeOpenModalAddServicio()
+                                                }
+                                                disabled={
+                                                    !watchTipoTarifa?.strNombre
                                                 }
                                             >
                                                 Adicionar servicio
@@ -923,7 +1039,6 @@ const PaperFase = ({
                                                 <Box
                                                     style={{
                                                         fontSize: "14px",
-                                                        marginLeft: "94.5px",
                                                     }}
                                                 >
                                                     {servicio.arrObjetivos.map(
@@ -943,19 +1058,10 @@ const PaperFase = ({
                                                                         "14px",
                                                                 }}
                                                             >
-                                                                <p
-                                                                    style={{
-                                                                        paddingRight:
-                                                                            "30px",
-                                                                    }}
-                                                                >
-                                                                    Objetivo{" "}
-                                                                    {index + 1}
-                                                                </p>
-                                                                <p>
+                                                                <li>
                                                                     {objetivo.strObjetivo ||
                                                                         objetivo.strNombre}
-                                                                </p>
+                                                                </li>
                                                             </Box>
                                                         )
                                                     )}
@@ -984,42 +1090,6 @@ const PaperFase = ({
                                             </b>
                                         </Box>
                                     </Box>
-                                </Grid>
-
-                                <Grid item xs="12">
-                                    <Controller
-                                        defaultValue={data.objTarifa}
-                                        name={`arrInfoFases[${index}].objTarifa`}
-                                        render={({
-                                            field: { name, value, onChange },
-                                        }) => (
-                                            <DropdownTipoTarifa
-                                                label="Tipo de tarifa"
-                                                name={name}
-                                                value={value}
-                                                onChange={(_, value) =>
-                                                    onChange(value)
-                                                }
-                                                disabled={disabled}
-                                                error={
-                                                    !!errors?.arrInfoFases?.[
-                                                        index
-                                                    ]?.objTarifa
-                                                }
-                                                helperText={
-                                                    errors?.arrInfoFases?.[
-                                                        index
-                                                    ].objTarifa?.message ||
-                                                    "Selecciona el tipo de tarifa"
-                                                }
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona el tipo de tarifa",
-                                        }}
-                                    />
                                 </Grid>
 
                                 <Grid item xs={12}>

@@ -33,7 +33,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const { arrObjetivos, intFase } = values;
+    const { arrObjetivos, intFase, intIdTipoTarifa } = values;
 
     const [success, setSucces] = useState(false);
 
@@ -134,6 +134,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownPaquetes
                                     label="Paquete"
+                                    intIdTipoTarifa={intIdTipoTarifa}
                                     name={name}
                                     required
                                     value={value}
