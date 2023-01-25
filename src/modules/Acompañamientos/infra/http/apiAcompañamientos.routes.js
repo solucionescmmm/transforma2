@@ -6,7 +6,7 @@ const classController = require("../../app/controllers/ctrl_Acompañamientos");
 
 //Routes
 routes.post(
-  "/transforma/api/Acompañamientos/setAcompañamiento",
+  "/transforma/api/Acompanamientos/setAcompanamiento",
   async (req, res) => {
     let controllerAcompañamientos = new classController();
     await controllerAcompañamientos.setAcompañamiento(req, res);
@@ -14,7 +14,7 @@ routes.post(
 );
 
 routes.get(
-  "/transforma/api/Acompañamientos/getAcompañamiento",
+  "/transforma/api/Acompanamientos/getAcompanamiento",
   async (req, res) => {
     let controllerAcompañamientos = new classController();
     await controllerAcompañamientos.getAcompañamiento(req, res);
@@ -22,7 +22,7 @@ routes.get(
 );
 
 routes.get(
-  "/transforma/api/Acompañamientos/getTipoAcompañamiento",
+  "/transforma/api/Acompanamientos/getTipoAcompanamiento",
   async (req, res) => {
     let controllerAcompañamientos = new classController();
     await controllerAcompañamientos.getTipoAcompañamiento(req, res);
@@ -30,7 +30,7 @@ routes.get(
 );
 
 routes.get(
-  "/transforma/api/Acompañamientos/getTipoActividad",
+  "/transforma/api/Acompanamientos/getTipoActividad",
   async (req, res) => {
     let controllerAcompañamientos = new classController();
     await controllerAcompañamientos.getTipoActividad(req, res);
@@ -38,7 +38,7 @@ routes.get(
 );
 
 routes.put(
-  "/transforma/api/Acompañamientos/updateAcompañamiento",
+  "/transforma/api/Acompanamientos/updateAcompanamiento",
   async (req, res) => {
     let controllerAcompañamientos = new classController();
     await controllerAcompañamientos.updateAcompañamiento(req, res);
@@ -46,7 +46,7 @@ routes.put(
 );
 
 routes.delete(
-  "/transforma/api/Acompañamientos/deleteAcompañamiento",
+  "/transforma/api/Acompanamientos/deleteAcompanamiento",
   async (req, res) => {
     let controllerAcompañamientos = new classController();
     await controllerAcompañamientos.deleteAcompañamiento(req, res);

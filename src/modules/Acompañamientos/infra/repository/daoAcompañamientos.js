@@ -16,11 +16,21 @@ class daoAcompañamientos {
             INSERT INTO tbl_Acompañamientos VALUES
             (
                 ${data.intIdIdea},
-                ${data.strAcompañamiento},
+                ${data.intIdEmpresario},
+                ${data.intIdTipoAcompañamiento},
+                ${data.dtmFechaInicial},
+                ${data.dtmFechaFinal},
+                ${data.strUbicacion},
+                ${data.intIdTipoActividad},
+                ${data.intIdRutaPaqueteServicio},
+                ${data.strResponsables},
+                ${data.strObjetivoActividad},
+                ${data.strTemasActividades},
+                ${data.strLogrosAvances},
                 ${data.strObservaciones},
-                ${data.strResponsable},
-                ${data.dtFechaFinTentativa},
-                ${data.btFinalizada},
+                ${data.intIdTarea},
+                ${data.dtmProximaActividad},
+                ${data.intIdDocumento},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
@@ -34,7 +44,52 @@ class daoAcompañamientos {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La Acompañamiento, fue registrada con éxito.`,
+                msg: `La Acompañamiento, fue registrado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setAcompañamiento de la clase daoAcompañamientos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async setRutasAcompañamiento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            DECLARE @intId INTEGER;
+            
+            INSERT INTO tbl_RutasAcompañamientos VALUES
+            (
+                ${data.intIdAcompañamiento},
+                ${data.intIdPaqueteFase},
+                ${data.intIdServicioFase},
+                GETDATE()
+                ${data.strUsuarioCreacion},
+                NULL,
+                NULL
+            )
+            
+            SET @intId = SCOPE_IDENTITY();
+    
+            SELECT * FROM tbl_RutasAcompañamientos WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `La Acompañamiento, fue registrado con éxito.`,
             };
 
             sql.close(conexion);
@@ -62,10 +117,10 @@ class daoAcompañamientos {
 
             SELECT *
             FROM tbl_tipoAcompañamiento
-            WHERE (intId = ${data.intId})`;
+            WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
-
+            console.log(arrNewData);
             let result = {
                 error: false,
                 data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
@@ -96,7 +151,7 @@ class daoAcompañamientos {
 
             SELECT *
             FROM tbl_tipoActividad
-            WHERE (intId = ${data.intId})`;
+            WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
@@ -129,13 +184,24 @@ class daoAcompañamientos {
 
             UPDATE tbl_Acompañamientos
 
-            SET strAcompañamiento                = COALESCE(${data.strAcompañamiento}, strAcompañamiento),
-                btFinalizada            = COALESCE(${data.btFinalizada}, btFinalizada),
-                strObservaciones        = COALESCE(${data.strObservaciones}, strObservaciones),
-                strResponsable          = COALESCE(${data.strResponsable}, strResponsable),
-                dtFechaFinTentativa     = COALESCE(${data.strRespondtFechaFinTentativasable}, dtFechaFinTentativa),
-                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion ),
-                dtmFechaActualizacion   = COALESCE(GETDATE(), dtmFechaActualizacion)
+            SET intIdEmpresario          = COALESCE(${data.intIdEmpresario},intIdEmpresario),
+                intIdTipoAcompañamiento  = COALESCE(${data.intIdTipoAcompañamiento},intIdTipoAcompañamiento),
+                dtmFechaInicial          = COALESCE(${data.dtmFechaInicial},dtmFechaInicial),
+                dtmFechaFinal            = COALESCE(${data.dtmFechaFinal},dtmFechaFinal),
+                strUbicacion             = COALESCE(${data.strUbicacion},strUbicacion),
+                intIdTipoActividad       = COALESCE(${data.intIdTipoActividad},intIdTipoActividad),
+                intIdRutaPaqueteServicio = COALESCE(${data.intIdRutaPaqueteServicio},intIdRutaPaqueteServicio),
+                strResponsables          = COALESCE(${data.strResponsables},strResponsables),
+                strObjetivoActividad     = COALESCE(${data.strObjetivoActividad},strObjetivoActividad),
+                strTemasActividades      = COALESCE(${data.strTemasActividades},strTemasActividades),
+                strLogrosAvances         = COALESCE(${data.strLogrosAvances},strLogrosAvances),
+                strObservaciones         = COALESCE(${data.strObservaciones},strObservaciones),
+                intIdTarea               = COALESCE(${data.intIdTarea},intIdTarea),
+                dtmProximaActividad      = COALESCE(${data.dtmProximaActividad},dtmProximaActividad),
+                intIdDocumento           = COALESCE(${data.intIdDocumento},intIdDocumento),
+                dtmActualizacion         = COALESCE(GETDATE(),dtmActualizacion),
+                strUsuarioActualizacion  = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+            
 
             WHERE intId = ${data.intId}
 
@@ -144,7 +210,7 @@ class daoAcompañamientos {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La Acompañamiento, fue actualizada con éxito.`,
+                msg: `La Acompañamiento, fue actualizado con éxito.`,
             };
 
             sql.close(conexion);

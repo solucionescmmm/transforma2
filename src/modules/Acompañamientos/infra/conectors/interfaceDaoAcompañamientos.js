@@ -8,6 +8,12 @@ class interfaceDAOAcompañamientos {
         return result;
     }
 
+    async setRutasAcompañamiento(data) {
+        const dao = new classDaoSql();
+        let result = await dao.setRutasAcompañamiento(data);
+        return result;
+    }
+
     async getTipoAcompañamiento(data) {
         const dao = new classDaoSql()
         let result = await dao.getTipoAcompañamiento(data)

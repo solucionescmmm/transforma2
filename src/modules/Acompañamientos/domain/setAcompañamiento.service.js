@@ -10,6 +10,9 @@ class setAcompañamiento {
     #objUser;
     #objResult;
 
+    //Variable
+    #intIdAcompañamiento
+
     /**
      * @param {object} data
      * @param {object} strDataUser
@@ -21,8 +24,8 @@ class setAcompañamiento {
 
     async main() {
         await this.#validations();
-        await this.#completeData();
         await this.#setAcompañamiento();
+        await this.#setRutasAcompañamiento();
         return this.#objResult;
     }
 
@@ -41,30 +44,43 @@ class setAcompañamiento {
         }
     }
 
-    async #completeData() {
-        let newData = {
-            ...this.#objData,
-            btFinalizada: 0,
-            strUsuarioCreacion:this.#objUser.strEmail,
-            strResponsable: JSON.stringify(this.#objData?.strResponsable)
-        };
-        this.#objData = newData;
-    }
-
     async #setAcompañamiento() {
         let dao = new classInterfaceDAOAcompañamientos();
+        let newData = {
+            ...this.#objData,
+            strUsuarioCreacion: this.#objUser.strEmail,
+        };
 
-        let query = await dao.setAcompañamiento(this.#objData);
+        let query = await dao.setAcompañamiento(newData);
 
         if (query.error) {
             throw new Error(query.msg);
         }
+
+        this.#intIdAcompañamiento = query.data.intId
 
         this.#objResult = {
             error: query.error,
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #setRutasAcompañamiento() {
+        let dao = new classInterfaceDAOAcompañamientos();
+        let array = this.#objData.arrPaqueteServicioFase;
+
+        for (let i = 0; i < array.length; i++) {
+            let newData = {
+                ...array[i],
+                strUsuarioCreacion: this.#objUser.strEmail,
+            }
+            let query = await dao.setRutasAcompañamiento(newData);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+        }
     }
 }
 module.exports = setAcompañamiento;
