@@ -34,6 +34,7 @@ app.use(
 
 //router
 app.use(require("../infra/http/apiMain.routes"));
+app.use(require("../../Acompañamientos/infra/http/apiAcompañamientos.routes"))
 app.use(require("../../Empresarios/infra/http/apiEmpresarios.routes"));
 app.use(require("../../Historicos/infra/http/apiHistoricos.routes"))
 app.use(require("../../Listas/Infra/http/apiListas.routes"));
