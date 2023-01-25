@@ -207,8 +207,24 @@ class daoPaquetes {
                     ) as arrServicios,
                     (
                         SELECT 
-                        *,
-                        Valor as dblValor FROM tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa
+                        SedeTipoTarifa.intId,
+                        SedeTipoTarifa.intIdSede,
+                        SedeTipoTarifa.intIdTipoTarifa,
+                        SedeTipoTarifa.intIdPaquete,
+                        SedeTipoTarifa.Valor,
+                        SedeTipoTarifa.dtmCreacion,
+                        SedeTipoTarifa.strUsuarioCreacion,
+                        SedeTipoTarifa.dtmActualizacion,
+                        SedeTipoTarifa.strUsuarioActualizacion,
+                        Sedes.strNombre as strSede,
+                        Tarifa.strNombre as strTarifa,
+                        Valor as dblValor 
+
+                        FROM tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa
+
+                        INNER JOIN tbl_Sedes Sedes on Sedes.intId = SedeTipoTarifa.intIdSede
+                        INNER JOIN tbl_TipoTarifa Tarifa on Tarifa.intId = SedeTipoTarifa.intIdTipoTarifa
+
                         WHERE SedeTipoTarifa.intIdPaquete = Paquete.intId
                         FOR JSON PATH
                     ) as arrSedesTarifas,
@@ -246,8 +262,24 @@ class daoPaquetes {
                     ) as arrServicios,
                     (
                         SELECT 
-                        *,
-                        Valor as dblValor FROM tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa
+                        SedeTipoTarifa.intId,
+                        SedeTipoTarifa.intIdSede,
+                        SedeTipoTarifa.intIdTipoTarifa,
+                        SedeTipoTarifa.intIdPaquete,
+                        SedeTipoTarifa.Valor,
+                        SedeTipoTarifa.dtmCreacion,
+                        SedeTipoTarifa.strUsuarioCreacion,
+                        SedeTipoTarifa.dtmActualizacion,
+                        SedeTipoTarifa.strUsuarioActualizacion,
+                        Sedes.strNombre as strSede,
+                        Tarifa.strNombre as strTarifa,
+                        Valor as dblValor 
+
+                        FROM tbl_Sede_TipoTarifa_Paquetes SedeTipoTarifa
+
+                        INNER JOIN tbl_Sedes Sedes on Sedes.intId = SedeTipoTarifa.intIdSede
+                        INNER JOIN tbl_TipoTarifa Tarifa on Tarifa.intId = SedeTipoTarifa.intIdTipoTarifa
+
                         WHERE SedeTipoTarifa.intIdPaquete = Paquete.intId
                         FOR JSON PATH
                     ) as arrSedesTarifas,
