@@ -88,6 +88,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
+        intIdIdea,
         dtmFecha: null,
         intHoraInicio: null,
         intHoraFinal: null,
@@ -122,7 +123,6 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         reset,
         setError,
         setValue,
-        getValues,
         clearErrors,
         watch,
     } = useForm({ mode: "onChange" });
@@ -132,8 +132,6 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         name: "arrInfoFases",
         keyName: "Id",
     });
-
-    const [valorTotalRuta, setValorTotalRuta] = useState(0);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -161,24 +159,10 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${
                         isEdit
-                            ? process.env.REACT_APP_API_TRANSFORMA_RUTAS_PUT
-                            : process.env.REACT_APP_API_TRANSFORMA_RUTAS_SET
+                            ? process.env.REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
+                            : process.env.REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET
                     }`,
                     data,
-                    transformRequest: [
-                        (data) => {
-                            const newData = {
-                                ...data,
-                                objInfoPrincipal: {
-                                    ...data.objInfoPrincipal,
-                                    intIdIdea,
-                                    valorTotalRuta,
-                                },
-                            };
-
-                            return JSON.stringify(newData);
-                        },
-                    ],
                     headers: {
                         token,
                         "Content-Type": "application/json;charset=UTF-8",
@@ -234,33 +218,6 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
             });
         }
     }, [isEdit, values]);
-
-    useEffect(() => {
-        const subscription = watch((value) => {
-            const watchArrInfoFases = value.arrInfoFases;
-
-            if (watchArrInfoFases) {
-                watchArrInfoFases.forEach((e, index) => {
-                    if (e.dblValorRef === undefined)
-                        watchArrInfoFases.splice(index, 1);
-                });
-
-                let cont = 0;
-
-                for (let index = 0; index < watchArrInfoFases.length; index++) {
-                    const dblValorFase = getValues(
-                        `arrInfoFases[${index}].dblValorFase`
-                    );
-
-                    if (dblValorFase) cont += dblValorFase;
-                }
-
-                setValorTotalRuta(cont);
-            }
-        });
-
-        return () => subscription.unsubscribe();
-    }, [watch]);
 
     useEffect(() => {
         if (values) {
