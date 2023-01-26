@@ -44,7 +44,7 @@ const CardRutas = ({ intIdIdea }) => {
         );
     }
 
-    if (arrRutas.length === 0) {
+    if (arrRutas.length === 0 || !arrRutas.length) {
         return (
             <div
                 style={{
@@ -71,7 +71,7 @@ const CardRutas = ({ intIdIdea }) => {
                 overflowY: "scroll",
             }}
         >
-            {arrRutas.slice(0, 5).map((p) => (
+            {arrRutas?.slice(0, 5).map((p) => (
                 <Box sx={{ display: "flex" }}>
                     <p
                         style={{

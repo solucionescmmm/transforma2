@@ -22,7 +22,6 @@ import {
     Button,
     useTheme,
     useMediaQuery,
-    Alert,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -39,7 +38,6 @@ import ModalAddObjetivo from "./modalAddObjetivo";
 import shortid from "shortid";
 import ModalAddPaquete from "./modalAddPaquete";
 import ModalAddServicio from "./modalAddServicio";
-import DropdownTipoTarifa from "../../../../Admin/components/dropdownTipoTarifa";
 import ModalEditObjetivo from "./modalEditObjetivo";
 import ModalDeleteObjetivo from "./modalDeleteObjetivo";
 import ModalEditPaquete from "./modalEditPaquete";
@@ -59,7 +57,6 @@ const PaperFase = ({
     remove,
     length,
     isEdit,
-    watch,
 }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -73,7 +70,6 @@ const PaperFase = ({
         arrObjetivos: values.arrObjetivos || [],
         arrPaquetes: values.arrPaquetes || [],
         arrServicios: values.arrServicios || [],
-        objTarifa: values.objTarifa || "",
         dblValorRef: values.dblValorRef || "",
         dblValorFase: values.dblValorFase || "",
     });
@@ -95,11 +91,6 @@ const PaperFase = ({
     const [valueObjetivo, setValueObjetivo] = useState();
     const [valuePaquete, setValuePaquete] = useState();
     const [valueServicio, setValueServicio] = useState();
-
-    //===============================================================================================================================================
-    //========================================== Observables ========================================================================================
-    //===============================================================================================================================================
-    const watchTipoTarifa = watch(`arrInfoFases[${index}].objTarifa`);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -203,6 +194,7 @@ const PaperFase = ({
                 newArrPaquetes.push({
                     strId: shortid.generate(),
                     objPaquete: value.objPaquete,
+                    objSedeTarifa: value.objSedeTarifa,
                     arrObjetivos: value.arrObjetivos,
                 });
             }
@@ -223,6 +215,7 @@ const PaperFase = ({
                 newArrPaquetes[mode.index] = {
                     strId: value.strId,
                     objPaquete: value.objPaquete,
+                    objSedeTarifa: value.objSedeTarifa,
                     arrObjetivos: value.arrObjetivos,
                 };
             }
@@ -258,6 +251,7 @@ const PaperFase = ({
                 newArrServicios.push({
                     strId: shortid.generate(),
                     objServicio: value.objServicio,
+                    objSedeTarifa: value.objSedeTarifa,
                     arrObjetivos: value.arrObjetivos,
                 });
             }
@@ -278,6 +272,7 @@ const PaperFase = ({
                 newArrServicios[mode.index] = {
                     strId: value.strId,
                     objServicio: value.objServicio,
+                    objSedeTarifa: value.objSedeTarifa,
                     arrObjetivos: value.arrObjetivos,
                 };
             }
@@ -302,27 +297,18 @@ const PaperFase = ({
         let dblValorRef = 0;
 
         for (let i = 0; i < data.arrPaquetes.length; i++) {
-            const {
-                objPaquete: { arrSedesTarifas },
-            } = data.arrPaquetes[i];
+            const { objSedeTarifa } = data.arrPaquetes[i];
 
-            for (let j = 0; j < arrSedesTarifas.length; j++) {
-                const { Valor } = arrSedesTarifas[j];
+            const { Valor } = objSedeTarifa;
 
-                dblValorRef += Valor;
-            }
+            dblValorRef += Valor;
         }
 
         for (let i = 0; i < data.arrServicios.length; i++) {
-            const {
-                objServicio: { arrSedesTarifas },
-            } = data.arrServicios[i];
+            const { objSedeTarifa } = data.arrServicios[i];
+            const { Valor } = objSedeTarifa;
 
-            for (let j = 0; j < arrSedesTarifas.length; j++) {
-                const { Valor } = arrSedesTarifas[j];
-
-                dblValorRef += Valor;
-            }
+            dblValorRef += Valor;
         }
 
         setValue(`arrInfoFases[${index}].dblValorRef`, dblValorRef);
@@ -337,7 +323,6 @@ const PaperFase = ({
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    console.log(watchTipoTarifa);
 
     if (!data.Id) {
         return (
@@ -381,7 +366,6 @@ const PaperFase = ({
                 values={{
                     arrObjetivos: data.arrObjetivos,
                     intFase: index + 1,
-                    intIdTipoTarifa: watchTipoTarifa.intId,
                 }}
             />
 
@@ -392,7 +376,6 @@ const PaperFase = ({
                 values={{
                     ...valuePaquete,
                     intFase: index + 1,
-                    intIdTipoTarifa: watchTipoTarifa.intId,
                 }}
             />
 
@@ -410,7 +393,6 @@ const PaperFase = ({
                 values={{
                     arrObjetivos: data.arrObjetivos,
                     intFase: index + 1,
-                    intIdTipoTarifa: watchTipoTarifa.intId,
                 }}
             />
 
@@ -421,7 +403,6 @@ const PaperFase = ({
                 values={{
                     ...valueServicio,
                     intFase: index + 1,
-                    intIdTipoTarifa: watchTipoTarifa.intId,
                 }}
             />
 
@@ -582,52 +563,6 @@ const PaperFase = ({
                                                     "Por favor, selecciona el estado de la fase",
                                             }}
                                         />
-                                    </Grid>
-                                )}
-
-                                <Grid item xs="12">
-                                    <Controller
-                                        defaultValue={data.objTarifa}
-                                        name={`arrInfoFases[${index}].objTarifa`}
-                                        render={({
-                                            field: { name, value, onChange },
-                                        }) => (
-                                            <DropdownTipoTarifa
-                                                label="Tipo de tarifa"
-                                                name={name}
-                                                value={value}
-                                                onChange={(_, value) =>
-                                                    onChange(value)
-                                                }
-                                                disabled={disabled}
-                                                error={
-                                                    !!errors?.arrInfoFases?.[
-                                                        index
-                                                    ]?.objTarifa
-                                                }
-                                                helperText={
-                                                    errors?.arrInfoFases?.[
-                                                        index
-                                                    ].objTarifa?.message ||
-                                                    "Selecciona el tipo de tarifa"
-                                                }
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona el tipo de tarifa",
-                                        }}
-                                    />
-                                </Grid>
-
-                                {!watchTipoTarifa?.strNombre && (
-                                    <Grid item xs={12}>
-                                        <Alert severity="info">
-                                            Recuerda seleccionar primero el tipo
-                                            de tarifa para habilitar los
-                                            paquetes y servicios
-                                        </Alert>
                                     </Grid>
                                 )}
 
@@ -827,9 +762,7 @@ const PaperFase = ({
                                                 onClick={() =>
                                                     handlerChangeOpenModalAddPaquete()
                                                 }
-                                                disabled={
-                                                    !watchTipoTarifa?.strNombre
-                                                }
+                                                disabled={disabled}
                                             >
                                                 Adicionar paquete
                                             </Button>
@@ -867,11 +800,31 @@ const PaperFase = ({
                                                     </p>
                                                     <p>
                                                         Nombre:{" "}
-                                                        {
+                                                        {`${
                                                             paquete.objPaquete
                                                                 .objInfoPrincipal
                                                                 .strNombre
-                                                        }
+                                                        } - ${
+                                                            paquete
+                                                                .objSedeTarifa
+                                                                .strSede
+                                                        } - ${
+                                                            paquete
+                                                                .objSedeTarifa
+                                                                .strTarifa
+                                                        } - ${new Intl.NumberFormat(
+                                                            "es-ES",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "COP",
+                                                            }
+                                                        )
+                                                            .format(
+                                                                paquete
+                                                                    .objSedeTarifa
+                                                                    .Valor
+                                                            )
+                                                            .toString()}`}
                                                     </p>
                                                 </Box>
 
@@ -960,9 +913,7 @@ const PaperFase = ({
                                                 onClick={() =>
                                                     handlerChangeOpenModalAddServicio()
                                                 }
-                                                disabled={
-                                                    !watchTipoTarifa?.strNombre
-                                                }
+                                                disabled={disabled}
                                             >
                                                 Adicionar servicio
                                             </Button>
@@ -1002,12 +953,33 @@ const PaperFase = ({
                                                         </p>
                                                         <p>
                                                             Nombre:{" "}
-                                                            {
+                                                            {`${
                                                                 servicio
                                                                     .objServicio
                                                                     .objInfoPrincipal
                                                                     .strNombre
-                                                            }
+                                                            } - ${
+                                                                servicio
+                                                                    .objSedeTarifa
+                                                                    .strSede
+                                                            } - ${
+                                                                servicio
+                                                                    .objSedeTarifa
+                                                                    .strTarifa
+                                                            } - ${new Intl.NumberFormat(
+                                                                "es-ES",
+                                                                {
+                                                                    style: "currency",
+                                                                    currency:
+                                                                        "COP",
+                                                                }
+                                                            )
+                                                                .format(
+                                                                    servicio
+                                                                        .objSedeTarifa
+                                                                        .Valor
+                                                                )
+                                                                .toString()}`}
                                                         </p>
                                                     </Box>
 

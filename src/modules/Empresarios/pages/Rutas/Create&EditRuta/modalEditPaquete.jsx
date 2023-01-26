@@ -12,6 +12,7 @@ import {
     LinearProgress,
     Grid,
     Typography,
+    Alert,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -19,8 +20,9 @@ import { LoadingButton } from "@mui/lab";
 //Estilos
 import { makeStyles } from "@mui/styles";
 import { Controller, useForm } from "react-hook-form";
-import DropdownServicios from "../../../../Admin/components/dropdownServicios";
+import DropdownPaquetes from "../../../../Admin/components/dropdownPaquetes";
 import DropdownObjetivos from "../components/dropdownObjetivos";
+import DropdownSedeTarifa from "../components/dropdownSedeTarifa";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -29,7 +31,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
+const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -42,7 +44,7 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        objServicio: values?.value ? values.value?.objServicio : null,
+        objPaquete: values?.value ? values.value?.objPaquete : null,
         arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
     });
 
@@ -56,8 +58,12 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
         control,
         formState: { errors },
         handleSubmit,
+        watch,
+        setValue,
         reset,
     } = useForm({ mode: "onChange" });
+
+    const watchPaquete = watch("objPaquete");
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -68,7 +74,7 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
         setLoading(true);
 
         setTimeout(() => {
-            onChange(data, { type: "edit", index: values.index });
+            onChange(data, { type: "edit", index: values?.index });
             setFlagSubmit(false);
             setLoading(false);
             setSucces(true);
@@ -97,8 +103,6 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
     useEffect(() => {
         if (success) {
             handleOpenDialog();
-            setData({ objServicio: null, arrObjetivos: [] });
-            reset({ objServicio: null, arrObjetivos: [] });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -106,9 +110,17 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
 
     useEffect(() => {
         setData({
-            objServicio: values?.value ? values.value?.objServicio : null,
+            objPaquete: values?.value ? values.value?.objPaquete : null,
+            objSedeTarifa: values?.value ? values.value?.objSedeTarifa : null,
             arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
         });
+
+        reset({
+            objPaquete: values?.value ? values.value?.objPaquete : null,
+            objSedeTarifa: values?.value ? values.value?.objSedeTarifa : null,
+            arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values]);
 
     //===============================================================================================================================================
@@ -124,7 +136,7 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Editar servicio de la fase #{intFase}</DialogTitle>
+            <DialogTitle>Editar paquete de la fase #{intFase}</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="row" spacing={1}>
@@ -136,30 +148,78 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
 
                     <Grid item xs={12}>
                         <Controller
-                            name="objServicio"
-                            defaultValue={data.objServicio}
+                            name="objPaquete"
+                            defaultValue={data.objPaquete}
                             render={({ field: { name, value, onChange } }) => (
-                                <DropdownServicios
-                                    label="Servicio"
+                                <DropdownPaquetes
+                                    label="Paquete"
                                     name={name}
                                     required
                                     value={value}
-                                    onChange={(e, value) => onChange(value)}
+                                    onChange={(e, value) => {
+                                        setValue("objSedeTarifa", null);
+                                        onChange(value);
+                                    }}
                                     disabled={loading}
-                                    error={errors?.objServicio ? true : false}
+                                    error={errors?.objPaquete ? true : false}
                                     helperText={
-                                        errors?.objServicio?.message ||
-                                        "Selecciona el servicio"
+                                        errors?.objPaquete?.message ||
+                                        "Selecciona el paquete"
                                     }
                                     intIdTipoTarifa={intIdTipoTarifa}
                                 />
                             )}
                             rules={{
-                                required: "Por favor, selcciona el servicio",
+                                required: "Por favor, selcciona el paquete",
                             }}
                             control={control}
                         />
                     </Grid>
+
+                    {!watchPaquete && (
+                        <Grid item xs={12}>
+                            <Alert severity="info">
+                                Selcciona un paquete para listar las sedes y
+                                tarifas
+                            </Alert>
+                        </Grid>
+                    )}
+
+                    {watchPaquete && (
+                        <Grid item xs={12}>
+                            <Controller
+                                name="objSedeTarifa"
+                                defaultValue={data.objSedeTarifa}
+                                render={({
+                                    field: { name, value, onChange },
+                                }) => (
+                                    <DropdownSedeTarifa
+                                        label="Sedes y tarifas"
+                                        name={name}
+                                        required
+                                        data={watchPaquete.arrSedesTarifas}
+                                        value={value}
+                                        onChange={(e, value) => {
+                                            onChange(value);
+                                        }}
+                                        disabled={loading}
+                                        error={
+                                            errors?.objSedeTarifa ? true : false
+                                        }
+                                        helperText={
+                                            errors?.objSedeTarifa?.message ||
+                                            "Selecciona la sede tarifa"
+                                        }
+                                    />
+                                )}
+                                rules={{
+                                    required:
+                                        "Por favor, selcciona la sede tarifa",
+                                }}
+                                control={control}
+                            />
+                        </Grid>
+                    )}
 
                     <Grid item xs={12}>
                         <Controller
@@ -214,4 +274,4 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
     );
 };
 
-export default ModalEditServicio;
+export default ModalEditPaquete;

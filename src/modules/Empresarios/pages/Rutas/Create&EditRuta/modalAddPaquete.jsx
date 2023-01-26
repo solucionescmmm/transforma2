@@ -12,6 +12,7 @@ import {
     LinearProgress,
     Grid,
     Typography,
+    Alert,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -19,8 +20,9 @@ import { LoadingButton } from "@mui/lab";
 //Estilos
 import { makeStyles } from "@mui/styles";
 import { Controller, useForm } from "react-hook-form";
-import DropdownServicios from "../../../../Admin/components/dropdownServicios";
+import DropdownPaquetes from "../../../../Admin/components/dropdownPaquetes";
 import DropdownObjetivos from "../components/dropdownObjetivos";
+import DropdownSedeTarifa from "../components/dropdownSedeTarifa";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -29,11 +31,11 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
+const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const { arrObjetivos, intFase, intIdTipoTarifa } = values;
+    const { arrObjetivos, intFase } = values;
 
     const [success, setSucces] = useState(false);
 
@@ -42,7 +44,8 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        objServicio: null,
+        objPaquete: null,
+        objSedeTarifa: null,
         arrObjetivos: [],
     });
 
@@ -57,7 +60,11 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
         formState: { errors },
         handleSubmit,
         reset,
+        setValue,
+        watch,
     } = useForm({ mode: "onChange" });
+
+    const watchPaquete = watch("objPaquete");
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -97,8 +104,12 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     useEffect(() => {
         if (success) {
             handleOpenDialog();
-            setData({ objServicio: null, arrObjetivos: [] });
-            reset({ objServicio: null, arrObjetivos: [] });
+            setData({
+                objPaquete: null,
+                objSedeTarifa: null,
+                arrObjetivos: [],
+            });
+            reset({ objPaquete: null, objSedeTarifa: null, arrObjetivos: [] });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,7 +128,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>Añadir servicio a la fase #{intFase}</DialogTitle>
+            <DialogTitle>Añadir paquete a la fase #{intFase}</DialogTitle>
 
             <DialogContent>
                 <Grid container direction="row" spacing={1}>
@@ -129,30 +140,77 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
 
                     <Grid item xs={12}>
                         <Controller
-                            name="objServicio"
-                            defaultValue={data.objServicio}
+                            name="objPaquete"
+                            defaultValue={data.objPaquete}
                             render={({ field: { name, value, onChange } }) => (
-                                <DropdownServicios
-                                    label="Servicio"
+                                <DropdownPaquetes
+                                    label="Paquete"
                                     name={name}
                                     required
                                     value={value}
-                                    onChange={(e, value) => onChange(value)}
+                                    onChange={(e, value) => {
+                                        setValue("objSedeTarifa", null);
+                                        onChange(value);
+                                    }}
                                     disabled={loading}
-                                    error={errors?.objServicio ? true : false}
+                                    error={errors?.objPaquete ? true : false}
                                     helperText={
-                                        errors?.objServicio?.message ||
-                                        "Selecciona el servicio"
+                                        errors?.objPaquete?.message ||
+                                        "Selecciona el paquete"
                                     }
-                                    intIdTipoTarifa={intIdTipoTarifa}
                                 />
                             )}
                             rules={{
-                                required: "Por favor, selcciona el servicio",
+                                required: "Por favor, selcciona el paquete",
                             }}
                             control={control}
                         />
                     </Grid>
+
+                    {!watchPaquete && (
+                        <Grid item xs={12}>
+                            <Alert severity="info">
+                                Selcciona un paquete para listar las sedes y
+                                tarifas
+                            </Alert>
+                        </Grid>
+                    )}
+
+                    {watchPaquete && (
+                        <Grid item xs={12}>
+                            <Controller
+                                name="objSedeTarifa"
+                                defaultValue={data.objSedeTarifa}
+                                render={({
+                                    field: { name, value, onChange },
+                                }) => (
+                                    <DropdownSedeTarifa
+                                        label="Sedes y tarifas"
+                                        name={name}
+                                        required
+                                        data={watchPaquete.arrSedesTarifas}
+                                        value={value}
+                                        onChange={(e, value) => {
+                                            onChange(value);
+                                        }}
+                                        disabled={loading}
+                                        error={
+                                            errors?.objSedeTarifa ? true : false
+                                        }
+                                        helperText={
+                                            errors?.objSedeTarifa?.message ||
+                                            "Selecciona la sede tarifa"
+                                        }
+                                    />
+                                )}
+                                rules={{
+                                    required:
+                                        "Por favor, selcciona la sede tarifa",
+                                }}
+                                control={control}
+                            />
+                        </Grid>
+                    )}
 
                     <Grid item xs={12}>
                         <Controller
@@ -207,4 +265,4 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
     );
 };
 
-export default ModalAddServicio;
+export default ModalAddPaquete;

@@ -46,7 +46,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [objColumns] = useState([
+    const [objColumnsRutas] = useState([
         {
             title: "Estado",
             field: "objInfoPrincipal.strEstadoRuta",
@@ -85,8 +85,34 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
         },
     ]);
 
-    const [openModalDelete, setOpenModalDelete] = useState(false);
-    const [selectedData, setSelectedData] = useState();
+    const [objColumnsAcom] = useState([
+        {
+            title: "Tipo de Actividad",
+            field: "objInfoPrincipal.strEstadoRuta",
+            width: "5%",
+        },
+        {
+            title: "Fecha Creación",
+            field: "objInfoPrincipal.dtmCreacion",
+            type: "date",
+        },
+        {
+            title: "Lugar",
+            field: "objInfoPrincipal.valorTotalRuta",
+            type: "string",
+        },
+        {
+            title: "Responsable",
+            render: (rowData) => {
+                let strResponsables = rowData?.objInfoPrincipal?.strResponsable;
+
+                return <p>{strResponsables?.strNombre}</p>;
+            },
+        },
+    ]);
+
+    const [openModalDeleteRuta, setopenModalDeleteRuta] = useState(false);
+    const [selectedDataRuta, setselectedDataRuta] = useState();
     const [valueTab, setValueTab] = useState(1);
 
     //===============================================================================================================================================
@@ -100,8 +126,8 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
-    const handlerOpenModalDelete = () => {
-        setOpenModalDelete(!openModalDelete);
+    const handleropenModalDeleteRuta = () => {
+        setopenModalDeleteRuta(!openModalDeleteRuta);
     };
 
     //===============================================================================================================================================
@@ -110,9 +136,9 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     return (
         <Fragment>
             <ModalDelete
-                handleOpenDialog={handlerOpenModalDelete}
-                open={openModalDelete}
-                intId={selectedData?.objInfoPrincipal?.intId}
+                handleOpenDialog={handleropenModalDeleteRuta}
+                open={openModalDeleteRuta}
+                intId={selectedDataRuta?.objInfoPrincipal?.intId}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
             />
@@ -234,8 +260,8 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                         isLoading={
                                             data === undefined ? true : false
                                         }
-                                        data={data || []}
-                                        columns={objColumns}
+                                        data={[]}
+                                        columns={objColumnsRutas}
                                         title="Rutas"
                                         options={{
                                             grouping: true,
@@ -308,10 +334,10 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         event,
                                                         rowData
                                                     ) => {
-                                                        setSelectedData(
+                                                        setselectedDataRuta(
                                                             rowData
                                                         );
-                                                        handlerOpenModalDelete();
+                                                        handleropenModalDeleteRuta();
                                                     },
                                                     tooltip: "Eliminar",
                                                     disabled:
@@ -328,7 +354,10 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         />
                                                     ),
                                                     tooltip: "Previsualizar",
-                                                    onClick: (event, rowData) => {
+                                                    onClick: (
+                                                        event,
+                                                        rowData
+                                                    ) => {
                                                         onChangeRoute(
                                                             "ViewRuta",
                                                             {
@@ -336,7 +365,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                                 intIdIdea,
                                                                 ...rowData,
                                                             }
-                                                        )
+                                                        );
                                                     },
                                                 };
                                             },
@@ -403,7 +432,283 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                     </Grid>
                 </TabPanel>
                 <TabPanel value={2} sx={{ width: "100%" }}>
-                    <Maintenance />
+                    <Grid container direction="row">
+                        <Grid item xs={12}>
+                            <StyledEngineProvider injectFirst>
+                                <ThemeProvider
+                                    theme={createTheme({
+                                        palette: {
+                                            mode: "light",
+                                            primary: {
+                                                main: "#00BAB3",
+                                                dark: "#007c6a",
+                                                light: "#0288D1",
+                                                contrastText: "#ffff",
+                                            },
+                                            secondary: {
+                                                main: "#FF4160",
+                                            },
+                                            divider: "#BDBDBD",
+                                        },
+                                        typography: { fontSize: 13.2 },
+                                        components: {
+                                            MuiTableBody: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        fontSize: 13.2,
+                                                    },
+                                                },
+                                            },
+                                            MuiTableCell: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        padding: "5px",
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    })}
+                                >
+                                    <MaterialTable
+                                        icons={{
+                                            Add: AddBoxIcon,
+                                            Clear: ClearIcon,
+                                            Check: CheckIcon,
+                                            Delete: DeleteOutlineIcon,
+                                            Edit: EditIcon,
+                                            DetailPanel: ChevronRightIcon,
+                                            Export: SaveAltIcon,
+                                            Filter: FilterListIcon,
+                                            FirstPage: FirstPageIcon,
+                                            LastPage: LastPageIcon,
+                                            NextPage: ChevronRightIcon,
+                                            PreviousPage: ChevronLeftIcon,
+                                            Search: SearchIcon,
+                                            ResetSearch: ClearIcon,
+                                            SortArrow: ArrowDownwardIcon,
+                                            ThirdStateCheck: RemoveIcon,
+                                            ViewColumn: ViewColumnIcon,
+                                        }}
+                                        localization={{
+                                            pagination: {
+                                                labelRowsSelect: "filas",
+                                                labelDisplayedRows:
+                                                    "{from}-{to} de {count}",
+                                                firstTooltip: "Primera página",
+                                                previousTooltip:
+                                                    "Página anterior",
+                                                nextTooltip: "Siguiente página",
+                                                lastTooltip: "Última página",
+                                                labelRowsPerPage:
+                                                    "Filas por página:",
+                                            },
+                                            toolbar: {
+                                                nRowsSelected:
+                                                    "{0} filas seleccionadas",
+                                                searchTooltip: "Buscar",
+                                                searchPlaceholder: "Buscar",
+                                            },
+                                            header: {
+                                                actions: "Acciones",
+                                            },
+                                            body: {
+                                                emptyDataSourceMessage:
+                                                    "No existe información por mostrar",
+                                                filterRow: {
+                                                    filterTooltip: "Filtro",
+                                                },
+                                                editRow: {
+                                                    deleteText:
+                                                        "Esta seguro de eliminar el registro?",
+                                                },
+                                            },
+                                            selector: {
+                                                okLabel: "aceptar",
+                                                cancelLabel: "Cancelar",
+                                                clearLabel: "Clear",
+                                                todayLabel: "Hoy",
+                                            },
+                                            grouping: {
+                                                placeholder:
+                                                    "Arrasta el nombre de la columna para agrupar los campos",
+                                                groupedBy:
+                                                    "Datos agrupados por: ",
+                                            },
+                                        }}
+                                        isLoading={
+                                            data === undefined ? true : false
+                                        }
+                                        data={[]}
+                                        columns={objColumnsAcom}
+                                        title="Acompañamientos"
+                                        options={{
+                                            grouping: true,
+                                            title: true,
+                                            filtering: false,
+                                            search: true,
+                                            exportAllData: true,
+                                            columnsButton: true,
+                                            headerStyle: {
+                                                position: "sticky",
+                                                top: "0",
+                                                backgroundColor: "white",
+                                            },
+                                            detailPanelColumnStylele: {
+                                                fontSize: 12,
+                                            },
+                                            actionsColumnIndex: -1,
+                                            paging: true,
+                                            pageSizeOptions: [
+                                                20, 100, 200, 500,
+                                            ],
+                                            pageSize: 20,
+                                            maxBodyHeight: "520px",
+                                        }}
+                                        actions={[
+                                            (rowData) => {
+                                                return {
+                                                    icon: () => (
+                                                        <EditIcon
+                                                            color={
+                                                                rowData.btFinalizada ===
+                                                                true
+                                                                    ? "gray"
+                                                                    : "success"
+                                                            }
+                                                            fontSize="small"
+                                                            onClick={() =>
+                                                                onChangeRoute(
+                                                                    "EditRuta",
+                                                                    {
+                                                                        intId: rowData.intId,
+                                                                        intIdIdea,
+                                                                        ...rowData,
+                                                                    }
+                                                                )
+                                                            }
+                                                        />
+                                                    ),
+                                                    tooltip: "Editar",
+
+                                                    disabled:
+                                                        rowData.btFinalizada ===
+                                                        true,
+                                                };
+                                            },
+                                            (rowData) => {
+                                                return {
+                                                    icon: () => (
+                                                        <DeleteIcon
+                                                            color={
+                                                                rowData.btFinalizada ===
+                                                                true
+                                                                    ? "gray"
+                                                                    : "error"
+                                                            }
+                                                            fontSize="small"
+                                                        />
+                                                    ),
+                                                    onClick: (
+                                                        event,
+                                                        rowData
+                                                    ) => {
+                                                        setselectedDataRuta(
+                                                            rowData
+                                                        );
+                                                        handleropenModalDeleteRuta();
+                                                    },
+                                                    tooltip: "Eliminar",
+                                                    disabled:
+                                                        rowData.btFinalizada ===
+                                                        true,
+                                                };
+                                            },
+                                            (rowData) => {
+                                                return {
+                                                    icon: () => (
+                                                        <RemoveRedEyeIcon
+                                                            color="gray"
+                                                            fontSize="small"
+                                                        />
+                                                    ),
+                                                    tooltip: "Previsualizar",
+                                                    onClick: (
+                                                        event,
+                                                        rowData
+                                                    ) => {
+                                                        onChangeRoute(
+                                                            "ViewRuta",
+                                                            {
+                                                                intId: rowData.intId,
+                                                                intIdIdea,
+                                                                ...rowData,
+                                                            }
+                                                        );
+                                                    },
+                                                };
+                                            },
+                                        ]}
+                                        components={{
+                                            Toolbar: (props) => (
+                                                <div
+                                                    style={{
+                                                        paddingRight: "5px",
+                                                        paddingLeft: "5px",
+                                                    }}
+                                                >
+                                                    <MTableToolbar {...props} />
+
+                                                    <Grid
+                                                        container
+                                                        direction="row"
+                                                    >
+                                                        <Grid
+                                                            item
+                                                            xs={12}
+                                                            md={6}
+                                                        ></Grid>
+
+                                                        <Grid
+                                                            item
+                                                            xs={12}
+                                                            md={6}
+                                                            sx={{
+                                                                margin: "auto",
+                                                            }}
+                                                        >
+                                                            <Box
+                                                                sx={{
+                                                                    display:
+                                                                        "flex",
+                                                                    flexDirection:
+                                                                        "row-reverse",
+                                                                    marginBottom:
+                                                                        "10px",
+                                                                    gap: 1,
+                                                                }}
+                                                            >
+                                                                <Button
+                                                                    onClick={() =>
+                                                                        onChangeRoute(
+                                                                            "CreateAcomp"
+                                                                        )
+                                                                    }
+                                                                    variant="contained"
+                                                                >
+                                                                    Agregar
+                                                                    acompañamiento
+                                                                </Button>
+                                                            </Box>
+                                                        </Grid>
+                                                    </Grid>
+                                                </div>
+                                            ),
+                                        }}
+                                    />
+                                </ThemeProvider>
+                            </StyledEngineProvider>
+                        </Grid>
+                    </Grid>
                 </TabPanel>
             </TabContext>
         </Fragment>

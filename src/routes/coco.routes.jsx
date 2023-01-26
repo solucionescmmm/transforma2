@@ -57,7 +57,11 @@ const DiagnosticosCoco = lazy(() =>
 const Rutas = lazy(() => import("../modules/Empresarios/pages/Rutas"));
 
 const CreateRutas = lazy(() =>
-    import("../modules/Empresarios/pages/Rutas/Create&Edit")
+    import("../modules/Empresarios/pages/Rutas/Create&EditRuta")
+);
+
+const CreateAcomp = lazy(() =>
+    import("../modules/Empresarios/pages/Rutas/Create&EditAcom")
 );
 
 const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
@@ -305,6 +309,28 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 </Grid>
 
                 <CreateRutas
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "CreateAcomp") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Rutas")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <CreateAcomp
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
                 />

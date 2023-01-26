@@ -87,18 +87,12 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
             const arrDataTable = [];
 
             for (let i = 0; i < values.arrInfoFases.length; i++) {
-                const {
-                    arrPaquetes,
-                    arrServicios,
-                    objTarifa: { intId },
-                } = values.arrInfoFases[i];
+                const { arrPaquetes, arrServicios } = values.arrInfoFases[i];
 
                 for (let j = 0; j < arrPaquetes.length; j++) {
-                    const { objPaquete, arrSedesTarifa } = arrPaquetes[j];
+                    const { objPaquete, objSedeTarifa } = arrPaquetes[j];
 
-                    const valorTotal = arrSedesTarifa.find(
-                        (x) => x.intIdTipoTarifa === intId
-                    )?.Valor;
+                    const valorTotal = objSedeTarifa.Valor;
 
                     const dataTable = {
                         id: i + 1,
@@ -118,10 +112,8 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                 }
 
                 for (let j = 0; j < arrServicios.length; j++) {
-                    const { objServicio, arrSedesTarifa } = arrServicios[j];
-                    const valorTotal = arrSedesTarifa.find(
-                        (x) => x.intIdTipoTarifa === intId
-                    )?.Valor;
+                    const { objServicio, objSedeTarifa } = arrServicios[j];
+                    const valorTotal = objSedeTarifa.Valor;
 
                     const dataTable = {
                         id: i + 1,
@@ -161,25 +153,41 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                 <Grid container direction="row">
                     <Grid item xs={6}>
                         <p>
-                            Nombre ruta: {values?.objInfoPrincipal?.strNombre}
+                            <span style={{ color: "#11BEB8" }}>
+                                Nombre ruta:
+                            </span>
+                            {values?.objInfoPrincipal?.strNombre}
                         </p>
                     </Grid>
 
                     <Grid item xs={6}>
-                        <p>Tipo: Planeada</p>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <p>Estado: Sin ejecutar</p>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <p>Total fases: {values?.arrInfoFases?.length}</p>
+                        <p>
+                            <span style={{ color: "#11BEB8" }}>Tipo:</span>
+                            Planeada
+                        </p>
                     </Grid>
 
                     <Grid item xs={6}>
                         <p>
-                            Valor Total:{" "}
+                            <span style={{ color: "#11BEB8" }}>Estado:</span>
+                            Sin ejecutar
+                        </p>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <p>
+                            <span style={{ color: "#11BEB8" }}>
+                                Total fases:
+                            </span>
+                            {values?.arrInfoFases?.length}
+                        </p>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <p>
+                            <span style={{ color: "#11BEB8" }}>
+                                Valor Total:
+                            </span>
                             {values?.valorTotalRuta
                                 ? new Intl.NumberFormat("es-ES", {
                                       style: "currency",
@@ -198,18 +206,27 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
 
                     <Grid item xs={6}>
                         <p>
-                            Fecha creación:{" "}
-                            {values?.objInfoPrincipal?.dtmCreacion || ""}
+                            <span style={{ color: "#11BEB8" }}>
+                                Fecha creación:
+                            </span>
+                            {values?.objInfoPrincipal?.dtmCreacion ||
+                                new Date().toString()}
                         </p>
                     </Grid>
 
                     <Grid item xs={6}>
-                        <p>Duración total:</p>
+                        <p>
+                            <span style={{ color: "#11BEB8" }}>
+                                Duración total:
+                            </span>
+                        </p>
                     </Grid>
 
                     <Grid item xs={6}>
                         <p>
-                            Responsable:{" "}
+                            <span style={{ color: "#11BEB8" }}>
+                                Responsable
+                            </span>{" "}
                             {values?.objInfoPrincipal?.strResponsable
                                 ?.strNombre || ""}
                         </p>
