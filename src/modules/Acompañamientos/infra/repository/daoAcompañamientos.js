@@ -116,10 +116,38 @@ class daoAcompañamientos {
             let response = await conn.query`
 
             SELECT 
-            *,
+            Acompañamientos.intId,
+            Acompañamientos.intIdIdea,
+            Acompañamientos.intIdEmpresario,
+            Acompañamientos.intIdTipoAcompañamiento,
+            Acompañamientos.dtmFechaInicial,
+            Acompañamientos.dtmFechaFinal,
+            Acompañamientos.strUbicacion,
+            Acompañamientos.intIdTipoActividad,
+            Acompañamientos.intIdRutaPaqueteServicio,
+            Acompañamientos.strResponsables,
+            Acompañamientos.strObjetivoActividad,
+            Acompañamientos.strTemasActividades,
+            Acompañamientos.strLogrosAvances,
+            Acompañamientos.strObservaciones,
+            Acompañamientos.intIdTarea,
+            Acompañamientos.dtmProximaActividad,
+            Acompañamientos.intIdDocumento,
+            Acompañamientos.dtmCreacion,
+            Acompañamientos.strUsuarioCreacion,
+            Acompañamientos.dtmActualizacion,
+            Acompañamientos.strUsuarioActualizacion,
             (
                 SELECT 
-                *
+                RutasAcompañamientos.intId,
+                RutasAcompañamientos.intIdAcompañamiento,
+                RutasAcompañamientos.intIdPaqueteFase,
+                RutasAcompañamientos.intIdServicioFase,
+                RutasAcompañamientos.dtmCreacion,
+                RutasAcompañamientos.strUsuarioCreacion,
+                RutasAcompañamientos.dtmActualizacion,
+                RutasAcompañamientos.strUsuarioActualizacion
+
                 FROM tbl_RutasAcompañamientos RutasAcompañamientos
 
                 INNER JOIN tbl_Acompañamientos Acompañamientos on Acompañamientos.intId = RutasAcompañamientos.intIdAcompañamiento
@@ -177,7 +205,7 @@ class daoAcompañamientos {
             WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
-            console.log(arrNewData);
+
             let result = {
                 error: false,
                 data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,

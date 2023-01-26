@@ -17,6 +17,7 @@ class daoRutas {
             INSERT INTO tbl_Rutas VALUES
             (
                 ${data.intIdIdea},
+                ${data.intIdTipoRuta},
                 ${data.strNombre},
                 ${data.intIdEstadoRuta},
                 ${data.valorTotalRuta},
@@ -594,6 +595,35 @@ class daoRutas {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
                 SELECT intId FROM tbl_EstadoRuta_Fase 
+                WHERE (strNombre = ${data.strNombre})`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getIdEstados de la clase daoEstados",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getIdTipoRutas(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                SELECT intId FROM tbl_TiposRutas 
                 WHERE (strNombre = ${data.strNombre})`;
 
             let result = {

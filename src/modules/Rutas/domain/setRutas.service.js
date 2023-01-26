@@ -7,6 +7,7 @@ const apiCache = require("apicache-plus");
 
 //Servicios
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
+const serviceGetIdTipo = require("./getIdTipoRutas.service");
 
 class setRutas {
     //obj info
@@ -18,6 +19,7 @@ class setRutas {
     #intIdRuta;
     #intIdFase;
     #intIdEstado;
+    #intIdTipo;
 
     /**
      * @param {object} data
@@ -29,8 +31,8 @@ class setRutas {
     }
 
     async main() {
-        console.log(this.#objData.arrInfoFases);
        await this.#deleteCache();
+       await this.#getTipoRuta();
        await this.#validations();
        await this.#getIdEstado();
        await this.#setRutas();
@@ -69,11 +71,24 @@ class setRutas {
         this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
+    async #getTipoRuta() {
+        let queryGetIdTipo = await serviceGetIdTipo({
+            strNombre: "Planeada",
+        });
+
+        if (queryGetIdTipo.error) {
+            throw new Error(queryGetIdTipo.msg);
+        }
+
+        this.#intIdTipo = queryGetIdTipo.data.intId;
+    }
+
     async #setRutas() {
         let dao = new classInterfaceDAORutas();
         let objDataRuta = this.#objData.objInfoPrincipal;
         let newData = {
             ...objDataRuta,
+            intIdTipoRuta:this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
             strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
             strUsuarioCreacion: this.#objUser.strEmail,
