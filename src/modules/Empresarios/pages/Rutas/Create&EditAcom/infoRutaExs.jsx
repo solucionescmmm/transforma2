@@ -4,48 +4,42 @@ import React, { useState, useEffect, Fragment } from "react";
 import { Controller } from "react-hook-form";
 
 //Componentes de Material UI
-import { Grid, Box, CircularProgress, TextField, Button } from "@mui/material";
+import { Grid, Box, CircularProgress, Alert, AlertTitle } from "@mui/material";
 
 //Componentes
-import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
-import { DatePicker, TimePicker } from "@mui/lab";
-import SelectTipoAct from "../../../components/selectTipoAct";
+import DropwdownRutas from "../../../components/dropdownRutas";
+import DropdownFases from "../components/dropdownFases";
+import DropdownPaquetes from "../components/dropdownPaquetes";
+import DropdownServicios from "../components/dropdownServicios";
 
-const InfoRutaExs = ({ disabled, values, errors, control, isEdit }) => {
+const InfoRutaExs = ({
+    disabled,
+    values,
+    errors,
+    control,
+    isEdit,
+    intIdIdea,
+    watch,
+}) => {
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        objRuta: {},
-        objFase: {},
-        objPaquetes: {},
-        objServicios: {},
-        strLugarActividad: "",
-        intTipoActividad: "",
-        objResponsable: {},
-        strObjetivoActividad: "",
-        strActividades: "",
-        strLogros: "",
-        dtmFechaProx: null,
-        intHoraInicio: null,
-        strRetroAlim: "",
+        objRuta: null,
+        objFase: null,
+        objPaquete: null,
+        objServicio: null,
     });
+
+    const watchObjRuta = watch("objInfoRutaExs.objRuta");
+    const watchObjFase = watch("objInfoRutaExs.objFase");
 
     useEffect(() => {
         if (values) {
             setData({
-                objRuta: values.objRuta || {},
-                objFase: values.objFase || {},
-                objPaquetes: values.objPaquetes || {},
-                objServicios: values.objServicios || {},
-                strLugarActividad: values.strLugarActividad || "",
-                intTipoActividad: values.intTipoActividad || "",
-                objResponsable: values.objResponsable || {},
-                strObjetivoActividad: values.strObjetivoActividad || "",
-                strActividades: values.strActividades || "",
-                strLogros: values.strLogros || "",
-                dtmFechaProx: values.dtmFechaProx || null,
-                intHoraInicio: values.intHoraInicio || null,
-                strRetroAlim: values.strRetroAlim || "",
+                objRuta: values.objRuta || null,
+                objFase: values.objFase || null,
+                objPaquete: values.objPaquete || null,
+                objServicio: values.objServicio || null,
             });
         }
 
@@ -67,319 +61,136 @@ const InfoRutaExs = ({ disabled, values, errors, control, isEdit }) => {
 
     return (
         <Fragment>
-            <Grid item xs={12} md={10}>
-                Ruta
-            </Grid>
-
-            <Grid item xs={12} md={2}>
-                Fase
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-                Paquetes
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-                Servicios
-            </Grid>
-
-            <Grid item xs={12}>
+            <Grid item xs={12} md={8}>
                 <Controller
-                    defaultValue={data.strLugarActividad}
-                    name="objInfoRutaExs.strLugarActividad"
-                    render={({ field: { name, onChange, value } }) => (
-                        <TextField
-                            label="Lugar actividad"
-                            variant="standard"
-                            name={name}
-                            value={value}
-                            onChange={(e) => onChange(e)}
-                            disabled={disabled}
-                            required
-                            error={!!errors?.objInfoRutaExs?.strLugarActividad}
-                            helperText={
-                                errors?.objInfoRutaExs?.strLugarActividad
-                                    ?.message ||
-                                "Digita el lugar donde se  realizo la actividad"
-                            }
-                            fullWidth
-                        />
-                    )}
-                    control={control}
-                    rules={{
-                        required: "Por favor, selecciona el responsable",
-                    }}
-                />
-            </Grid>
-
-            <Grid item xs={12}>
-                <Controller
-                    defaultValue={data.intTipoActividad}
-                    name="objInfoRutaExs.intTipoActividad"
-                    render={({ field: { name, onChange, value } }) => (
-                        <SelectTipoAct
-                            label="Tipo de actividad"
-                            variant="standard"
-                            name={name}
-                            value={value}
-                            onChange={(e) => onChange(e)}
-                            disabled={disabled}
-                            required
-                            error={!!errors?.objInfoRutaExs?.intTipoActividad}
-                            helperText={
-                                errors?.objInfoRutaExs?.intTipoActividad
-                                    ?.message ||
-                                "Selecciona el tipo de actividad"
-                            }
-                        />
-                    )}
-                    control={control}
-                    rules={{
-                        required: "Por favor, selecciona el tipo de actividad",
-                    }}
-                />
-            </Grid>
-
-            <Grid item xs={12}>
-                <Controller
-                    defaultValue={data.strResponsable}
-                    name="objInfoRutaExs.strResponsable"
-                    render={({ field: { name, onChange, value } }) => (
-                        <DropdownUsuarios
-                            label="Responsable"
+                    defaultValue={data.objRuta}
+                    name="objInfoRutaExs.objRuta"
+                    render={({ field: { name, value, onChange } }) => (
+                        <DropwdownRutas
+                            label="Ruta"
                             name={name}
                             value={value}
                             onChange={(_, value) => onChange(value)}
                             disabled={disabled}
-                            required
-                            error={!!errors?.objInfoRutaExs?.strResponsable}
+                            error={!!errors?.objInfoRutaExs?.objRuta}
                             helperText={
-                                errors?.objInfoRutaExs?.strResponsable
-                                    ?.message || "Selecciona el responsable"
+                                errors?.objInfoRutaExs?.objRuta?.message ||
+                                "Selecciona una ruta"
                             }
+                            intIdIdea={intIdIdea}
+                            required
                         />
                     )}
                     control={control}
-                    rules={{
-                        required: "Por favor, selecciona el responsable",
-                    }}
+                    rules={{ required: "Por favor, selecciona una ruta" }}
                 />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} md={4}>
                 <Controller
-                    defaultValue={data.strObjetivoActividad}
-                    name="objInfoRutaExs.strObjetivoActividad"
-                    render={({ field: { name, onChange, value } }) => (
-                        <TextField
-                            label="Objetivo actividad"
-                            variant="outlined"
-                            name={name}
-                            value={value}
-                            onChange={(e) => onChange(e)}
-                            disabled={disabled}
-                            required
-                            error={
-                                !!errors?.objInfoRutaExs?.strObjetivoActividad
-                            }
-                            helperText={
-                                errors?.objInfoRutaExs?.strObjetivoActividad
-                                    ?.message ||
-                                "Digita el objetivo de la actividad"
-                            }
-                            fullWidth
-                            multiline
-                            rows={4}
-                        />
-                    )}
-                    control={control}
-                    rules={{
-                        required:
-                            "Por favor, digita el objetivo de la actividad",
-                    }}
-                />
-            </Grid>
+                    defaultValue={data.objFase}
+                    name="objInfoRutaExs.objFase"
+                    render={({ field: { name, value, onChange } }) => {
+                        if (!watchObjRuta) {
+                            return (
+                                <Alert title="Fase" severity="info">
+                                    <AlertTitle>Fase</AlertTitle>
+                                    Por favor selecciona una ruta para continuar
+                                </Alert>
+                            );
+                        }
 
-            <Grid item xs={12}>
-                <Controller
-                    defaultValue={data.strActividades}
-                    name="objInfoRutaExs.strActividades"
-                    render={({ field: { name, onChange, value } }) => (
-                        <TextField
-                            label="Temas y/o actividades a desarrollar"
-                            variant="outlined"
-                            name={name}
-                            value={value}
-                            onChange={(e) => onChange(e)}
-                            disabled={disabled}
-                            required
-                            error={!!errors?.objInfoRutaExs?.strActividades}
-                            helperText={
-                                errors?.objInfoRutaExs?.strActividades
-                                    ?.message ||
-                                "Digita las actividades a desarrollar"
-                            }
-                            fullWidth
-                            multiline
-                            rows={4}
-                        />
-                    )}
-                    control={control}
-                    rules={{
-                        required:
-                            "Por favor, digita las actividad a desarrollar",
+                        return (
+                            <DropdownFases
+                                label="Fase"
+                                name={name}
+                                value={value}
+                                onChange={(_, value) => onChange(value)}
+                                disabled={disabled}
+                                error={!!errors?.objInfoRutaExs?.objFase}
+                                helperText={
+                                    errors?.objInfoRutaExs?.objFase?.message ||
+                                    "Selecciona una fase"
+                                }
+                                data={watchObjRuta.arrInfoFases}
+                                intIdIdea={intIdIdea}
+                                required
+                            />
+                        );
                     }}
-                />
-            </Grid>
-
-            <Grid item xs={12}>
-                <Controller
-                    defaultValue={data.strLogros}
-                    name="objInfoRutaExs.strLogros"
-                    render={({ field: { name, onChange, value } }) => (
-                        <TextField
-                            label="Logros/avances a desarrollar"
-                            variant="outlined"
-                            name={name}
-                            value={value}
-                            onChange={(e) => onChange(e)}
-                            disabled={disabled}
-                            required
-                            error={!!errors?.objInfoRutaExs?.strObservaciones}
-                            helperText={
-                                errors?.objInfoRutaExs?.strObservaciones
-                                    ?.message || "Digita las observaciones"
-                            }
-                            fullWidth
-                            multiline
-                            rows={4}
-                        />
-                    )}
                     control={control}
-                    rules={{
-                        required: "Por favor, digita las observaciones",
-                    }}
+                    rules={{ required: "Por favor, selecciona una fase" }}
                 />
             </Grid>
 
             <Grid item xs={12} md={6}>
                 <Controller
-                    defaultValue={data.dtmFechaProx}
-                    name="objInfoRutaExs.dtmFechaProx"
-                    render={({ field: { name, onChange, value } }) => (
-                        <DatePicker
-                            label="Fecha próxima actividad"
-                            value={value}
-                            onChange={(date) => onChange(date)}
-                            disabled={loading}
-                            renderInput={(props) => (
-                                <TextField
-                                    {...props}
-                                    name={name}
-                                    variant="standard"
-                                    error={
-                                        !!errors?.objInfoRutaExs?.dtmFechaProx
-                                    }
-                                    helperText={
-                                        errors?.objInfoRutaExs?.dtmFechaProx
-                                            ?.message ||
-                                        "Selecciona la fecha de la próxima reunión"
-                                    }
-                                    fullWidth
-                                />
-                            )}
-                        />
-                    )}
-                    control={control}
-                    rules={{
-                        required:
-                            "Por favor, selecciona la fecha de la próxima reunión",
+                    defaultValue={data.objPaquete}
+                    name="objInfoRutaExs.objPaquete"
+                    render={({ field: { name, value, onChange } }) => {
+                        if (!watchObjFase) {
+                            return (
+                                <Alert title="Paquete" severity="info">
+                                    <AlertTitle>Paquete</AlertTitle>
+                                    Por favor selecciona una fase para continuar
+                                </Alert>
+                            );
+                        }
+
+                        return (
+                            <DropdownPaquetes
+                                label="Paquete"
+                                name={name}
+                                value={value}
+                                onChange={(_, value) => onChange(value)}
+                                disabled={disabled}
+                                error={!!errors?.objInfoRutaExs?.objPaquete}
+                                helperText={
+                                    errors?.objInfoRutaExs?.objPaquete
+                                        ?.message || "Selecciona un paquete"
+                                }
+                                data={watchObjFase.arrPaquetes}
+                                intIdIdea={intIdIdea}
+                            />
+                        );
                     }}
+                    control={control}
                 />
             </Grid>
 
             <Grid item xs={12} md={6}>
                 <Controller
-                    defaultValue={data.intHoraInicio}
-                    name="objInfoRutaExs.intHoraInicio"
-                    render={({ field: { name, onChange, value } }) => (
-                        <TimePicker
-                            label="Hora inicio"
-                            value={value}
-                            onChange={(value) => onChange(value)}
-                            ampm
-                            disabled={loading}
-                            renderInput={(props) => (
-                                <TextField
-                                    {...props}
-                                    name={name}
-                                    variant="standard"
-                                    error={
-                                        !!errors?.objInfoRutaExs?.intHoraInicio
-                                    }
-                                    helperText={
-                                        errors?.objInfoRutaExs?.intHoraInicio
-                                            ?.message ||
-                                        "Selecciona la hora de inicio de la próxima reunión"
-                                    }
-                                    fullWidth
-                                />
-                            )}
-                        />
-                    )}
+                    defaultValue={data.objServicio}
+                    name="objInfoRutaExs.objServicio"
+                    render={({ field: { name, value, onChange } }) => {
+                        if (!watchObjFase) {
+                            return (
+                                <Alert title="Servicio" severity="info">
+                                    <AlertTitle>Servicio</AlertTitle>
+                                    Por favor selecciona una fase para continuar
+                                </Alert>
+                            );
+                        }
+
+                        return (
+                            <DropdownServicios
+                                label="Servicio"
+                                name={name}
+                                value={value}
+                                onChange={(_, value) => onChange(value)}
+                                disabled={disabled}
+                                error={!!errors?.objInfoRutaExs?.objServicio}
+                                helperText={
+                                    errors?.objInfoRutaExs?.objServicio
+                                        ?.message || "Selecciona un servicio"
+                                }
+                                data={watchObjFase.arrServicios}
+                                intIdIdea={intIdIdea}
+                            />
+                        );
+                    }}
                     control={control}
-                    rules={{
-                        required:
-                            "Por favor, selecciona la hora de inicio de la próxima reunión",
-                    }}
                 />
-            </Grid>
-
-            <Grid item xs={12}>
-                <Controller
-                    defaultValue={data.strRetroAlim}
-                    name="objInfoRutaExs.strRetroAlim"
-                    render={({ field: { name, onChange, value } }) => (
-                        <TextField
-                            label="Retroalimentación y observaciones"
-                            variant="outlined"
-                            name={name}
-                            value={value}
-                            onChange={(e) => onChange(e)}
-                            disabled={disabled}
-                            error={!!errors?.objInfoRutaExs?.strRetroAlim}
-                            helperText={
-                                errors?.objInfoRutaExs?.strRetroAlim
-                                    ?.message || "Digita la retroalimentación u observaciones en caso de tener"
-                            }
-                            fullWidth
-                            multiline
-                            rows={4}
-                        />
-                    )}
-                    control={control}
-                    rules={{
-                        required: "Por favor, digita la retroalimentación u observaciones en caso de tener",
-                    }}
-                />
-            </Grid>
-
-            <Grid item xs={12}>
-                Compromisos
-            </Grid>
-
-            <Grid item xs={12}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row-reverse",
-                        gap: 1,
-                    }}
-                >
-                    <Button variant="contained" type="button" loading={loading}>
-                        agregar tareas
-                    </Button>
-                </Box>
             </Grid>
         </Fragment>
     );

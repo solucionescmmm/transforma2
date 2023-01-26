@@ -210,7 +210,7 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                                 Fecha creación:
                             </span>
                             {values?.objInfoPrincipal?.dtmCreacion ||
-                                new Date().toString()}
+                                new Date().toLocaleDateString("en-US")}
                         </p>
                     </Grid>
 

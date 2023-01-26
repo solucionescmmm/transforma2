@@ -40,7 +40,6 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import ModalDelete from "./modalDelete";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import Maintenance from "../../../../common/components/Error/503";
 
 const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
@@ -118,7 +117,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data, refreshGetData } = useGetRutas({
+    const { data: dataRutas, refreshGetData } = useGetRutas({
         autoload: true,
         intIdIdea: intIdIdea,
     });
@@ -258,9 +257,11 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                             },
                                         }}
                                         isLoading={
-                                            data === undefined ? true : false
+                                            dataRutas === undefined
+                                                ? true
+                                                : false
                                         }
-                                        data={[]}
+                                        data={dataRutas || []}
                                         columns={objColumnsRutas}
                                         title="Rutas"
                                         options={{
@@ -412,7 +413,10 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                                 <Button
                                                                     onClick={() =>
                                                                         onChangeRoute(
-                                                                            "CreateRutas"
+                                                                            "CreateRutas",
+                                                                            {
+                                                                                intIdIdea,
+                                                                            }
                                                                         )
                                                                     }
                                                                     variant="contained"
@@ -536,7 +540,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                             },
                                         }}
                                         isLoading={
-                                            data === undefined ? true : false
+                                            dataRutas === undefined ? true : false
                                         }
                                         data={[]}
                                         columns={objColumnsAcom}
@@ -690,7 +694,10 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                                 <Button
                                                                     onClick={() =>
                                                                         onChangeRoute(
-                                                                            "CreateAcomp"
+                                                                            "CreateAcomp",
+                                                                            {
+                                                                                intIdIdea,
+                                                                            }
                                                                         )
                                                                     }
                                                                     variant="contained"

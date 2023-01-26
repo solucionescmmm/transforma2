@@ -39,8 +39,9 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import ModalDelete from "./modalDelete";
 import ModalState from "./modalState";
+import ModalCEdit from "./modalCreate&Edit";
 
-const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
+const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -81,6 +82,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
         },
     ]);
 
+    const [openModalCEdit, setOpenModalCEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
@@ -100,6 +102,10 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
         setOpenModalDelete(!openModalDelete);
     };
 
+    const handlerOpenModalCEdit = () => {
+        setOpenModalCEdit(!openModalCEdit);
+    };
+
     const handlerOpenModalState = () => {
         setOpenModalState(!openModalState);
     };
@@ -112,6 +118,14 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
             <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
+                intId={selectedData?.intId}
+                refresh={refreshGetData}
+                intIdIdea={intIdIdea}
+            />
+
+            <ModalCEdit
+                handleOpenDialog={handlerOpenModalCEdit}
+                open={openModalCEdit}
                 intId={selectedData?.intId}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
@@ -262,14 +276,22 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
                                                             : "success"
                                                     }
                                                     fontSize="small"
-                                                    onClick={() =>
-                                                        onChangeRoute(
-                                                            "EditTareas",
-                                                            {
-                                                                intId: rowData.intId,
-                                                            }
-                                                        )
-                                                    }
+                                                    onClick={() => {
+                                                        if (inModal) {
+                                                            selectedData(
+                                                                rowData
+                                                            );
+                                                            handlerOpenModalCEdit(
+                                                                rowData
+                                                            );
+                                                        } else
+                                                            onChangeRoute(
+                                                                "EditTareas",
+                                                                {
+                                                                    intId: rowData.intId,
+                                                                }
+                                                            );
+                                                    }}
                                                 />
                                             ),
                                             tooltip: "Editar",
@@ -350,11 +372,14 @@ const ReadTareas = ({ onChangeRoute, intIdIdea }) => {
                                                         }}
                                                     >
                                                         <Button
-                                                            onClick={() =>
-                                                                onChangeRoute(
-                                                                    "CreateTareas"
-                                                                )
-                                                            }
+                                                            onClick={() => {
+                                                                if (inModal) {
+                                                                    handlerOpenModalCEdit();
+                                                                } else
+                                                                    onChangeRoute(
+                                                                        "CreateTareas"
+                                                                    );
+                                                            }}
                                                             variant="contained"
                                                         >
                                                             Agregar tarea

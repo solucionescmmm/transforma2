@@ -9,6 +9,7 @@ import React, {
 
 //Context
 import { AuthContext } from "../../../../../common/middlewares/Auth";
+import Dropzone from "../../../../../common/components/dropzone";
 
 //Librerias
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -36,6 +37,10 @@ import { Box } from "@mui/system";
 import PageError from "../../../../../common/components/Error";
 import InfoRutaExs from "./infoRutaExs";
 import SelectTipoAcomp from "../../../components/selectTipoAcomp";
+import ReadTareas from "../../Tareas";
+import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
+import SelectTipoAct from "../../../components/selectTipoAct";
+import InfoNuevoServPaq from "./infoNuevoServPaq";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -88,9 +93,18 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         intHoraFinal: null,
         intTipoAcomp: null,
         objInfoRutaExs: {},
+        objNuevoServPaq: {},
+        strLugarActividad: "",
+        intTipoActividad: "",
+        objResponsable: {},
+        strObjetivoActividad: "",
+        strActividades: "",
+        strLogros: "",
+        dtmFechaProx: null,
+        intHoraInicioProx: null,
+        strRetroAlim: "",
+        strURLDocumento: "",
     });
-
-    const [openModalPreview, setOpenModalPreview] = useState(false);
 
     const [success, setSucces] = useState(false);
 
@@ -205,10 +219,6 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         },
         [token, data, isEdit]
     );
-
-    const handlerChangeOpenModalPreview = () => {
-        setOpenModalPreview(!openModalPreview);
-    };
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -536,8 +546,412 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                         append={append}
                                         remove={remove}
                                         watch={watch}
+                                        intIdIdea={intIdIdea}
                                     />
                                 )}
+
+                                {watchIntTipoAcomp === 2 && (
+                                    <InfoNuevoServPaq
+                                        control={control}
+                                        values={data.objInfoRutaExs}
+                                        disabled={loading}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                        isEdit={isEdit}
+                                        fields={fields}
+                                        append={append}
+                                        remove={remove}
+                                        watch={watch}
+                                        intIdIdea={intIdIdea}
+                                    />
+                                )}
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.strLugarActividad}
+                                        name="objInfoRutaExs.strLugarActividad"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <TextField
+                                                label="Lugar actividad"
+                                                variant="standard"
+                                                name={name}
+                                                value={value}
+                                                onChange={(e) => onChange(e)}
+                                                disabled={loading}
+                                                required
+                                                error={
+                                                    !!errors?.objInfoRutaExs
+                                                        ?.strLugarActividad
+                                                }
+                                                helperText={
+                                                    errors?.objInfoRutaExs
+                                                        ?.strLugarActividad
+                                                        ?.message ||
+                                                    "Digita el lugar donde se  realizo la actividad"
+                                                }
+                                                fullWidth
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, selecciona el responsable",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.intTipoActividad}
+                                        name="intTipoActividad"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <SelectTipoAct
+                                                label="Tipo de actividad"
+                                                variant="standard"
+                                                name={name}
+                                                value={value}
+                                                onChange={(e) => onChange(e)}
+                                                disabled={loading}
+                                                required
+                                                error={
+                                                    !!errors?.intTipoActividad
+                                                }
+                                                helperText={
+                                                    errors?.intTipoActividad
+                                                        ?.message ||
+                                                    "Selecciona el tipo de actividad"
+                                                }
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, selecciona el tipo de actividad",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.strResponsable}
+                                        name="strResponsable"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <DropdownUsuarios
+                                                label="Responsable"
+                                                name={name}
+                                                value={value}
+                                                onChange={(_, value) =>
+                                                    onChange(value)
+                                                }
+                                                disabled={loading}
+                                                required
+                                                error={!!errors?.strResponsable}
+                                                helperText={
+                                                    errors?.strResponsable
+                                                        ?.message ||
+                                                    "Selecciona el responsable"
+                                                }
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, selecciona el responsable",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.strObjetivoActividad}
+                                        name="strObjetivoActividad"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <TextField
+                                                label="Objetivo actividad"
+                                                variant="outlined"
+                                                name={name}
+                                                value={value}
+                                                onChange={(e) => onChange(e)}
+                                                disabled={loading}
+                                                required
+                                                error={
+                                                    !!errors?.strObjetivoActividad
+                                                }
+                                                helperText={
+                                                    errors?.strObjetivoActividad
+                                                        ?.message ||
+                                                    "Digita el objetivo de la actividad"
+                                                }
+                                                fullWidth
+                                                multiline
+                                                rows={4}
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, digita el objetivo de la actividad",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.strActividades}
+                                        name="strActividades"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <TextField
+                                                label="Temas y/o actividades a desarrollar"
+                                                variant="outlined"
+                                                name={name}
+                                                value={value}
+                                                onChange={(e) => onChange(e)}
+                                                disabled={loading}
+                                                required
+                                                error={!!errors?.strActividades}
+                                                helperText={
+                                                    errors?.strActividades
+                                                        ?.message ||
+                                                    "Digita las actividades a desarrollar"
+                                                }
+                                                fullWidth
+                                                multiline
+                                                rows={4}
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, digita las actividad a desarrollar",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.strLogros}
+                                        name="strLogros"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <TextField
+                                                label="Logros/avances a desarrollar"
+                                                variant="outlined"
+                                                name={name}
+                                                value={value}
+                                                onChange={(e) => onChange(e)}
+                                                disabled={loading}
+                                                required
+                                                error={
+                                                    !!errors?.strObservaciones
+                                                }
+                                                helperText={
+                                                    errors?.strObservaciones
+                                                        ?.message ||
+                                                    "Digita las observaciones"
+                                                }
+                                                fullWidth
+                                                multiline
+                                                rows={4}
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, digita las observaciones",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12} md={6}>
+                                    <Controller
+                                        defaultValue={data.dtmFechaProx}
+                                        name="dtmFechaProx"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <DatePicker
+                                                label="Fecha próxima actividad"
+                                                value={value}
+                                                onChange={(date) =>
+                                                    onChange(date)
+                                                }
+                                                disabled={loading}
+                                                renderInput={(props) => (
+                                                    <TextField
+                                                        {...props}
+                                                        name={name}
+                                                        variant="standard"
+                                                        error={
+                                                            !!errors?.dtmFechaProx
+                                                        }
+                                                        helperText={
+                                                            errors?.dtmFechaProx
+                                                                ?.message ||
+                                                            "Selecciona la fecha de la próxima reunión"
+                                                        }
+                                                        fullWidth
+                                                    />
+                                                )}
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, selecciona la fecha de la próxima reunión",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12} md={6}>
+                                    <Controller
+                                        defaultValue={data.intHoraInicioProx}
+                                        name="intHoraInicioProx"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <TimePicker
+                                                label="Hora inicio"
+                                                value={value}
+                                                onChange={(value) =>
+                                                    onChange(value)
+                                                }
+                                                ampm
+                                                disabled={loading}
+                                                renderInput={(props) => (
+                                                    <TextField
+                                                        {...props}
+                                                        name={name}
+                                                        variant="standard"
+                                                        error={
+                                                            !!errors?.intHoraInicioProx
+                                                        }
+                                                        helperText={
+                                                            errors
+                                                                ?.intHoraInicioProx
+                                                                ?.message ||
+                                                            "Selecciona la hora de inicio de la próxima reunión"
+                                                        }
+                                                        fullWidth
+                                                    />
+                                                )}
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, selecciona la hora de inicio de la próxima reunión",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.strRetroAlim}
+                                        name="strRetroAlim"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <TextField
+                                                label="Retroalimentación y observaciones"
+                                                variant="outlined"
+                                                name={name}
+                                                value={value}
+                                                onChange={(e) => onChange(e)}
+                                                disabled={loading}
+                                                error={!!errors?.strRetroAlim}
+                                                helperText={
+                                                    errors?.strRetroAlim
+                                                        ?.message ||
+                                                    "Digita la retroalimentación u observaciones en caso de tener"
+                                                }
+                                                fullWidth
+                                                multiline
+                                                rows={4}
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, digita la retroalimentación u observaciones en caso de tener",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography
+                                        style={{
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        Compromisos
+                                    </Typography>
+                                    <hr />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <ReadTareas intIdIdea={intIdIdea} inModal />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography
+                                        style={{
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        Información participantes
+                                    </Typography>
+                                    <hr />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.strURLDocumento}
+                                        name="strURLDocumento"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <Dropzone
+                                                label="Documento"
+                                                name={name}
+                                                value={value}
+                                                disabled={loading}
+                                                onChange={(url) =>
+                                                    onChange(url)
+                                                }
+                                                maxFiles={1}
+                                                type="Imagen"
+                                                setError={setError}
+                                                clearErrors={clearErrors}
+                                                error={
+                                                    errors?.objInfoEmpresa
+                                                        ?.strURLFileLogoEmpresa
+                                                        ? true
+                                                        : false
+                                                }
+                                                helperText={
+                                                    errors?.objInfoEmpresa
+                                                        ?.strURLFileLogoEmpresa
+                                                        ?.message ||
+                                                    "Selecciona algún documento de soporte en caso de ser necesario"
+                                                }
+                                            />
+                                        )}
+                                        control={control}
+                                    />
+                                </Grid>
 
                                 <Grid item xs={12}>
                                     <Box

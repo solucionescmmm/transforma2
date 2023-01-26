@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-//Librerias
-import { matchSorter } from "match-sorter";
+//Hooks
+import useGetRutas from "../hooks/useGetRutas";
 
 //Componentes de Material UI
 import {
@@ -13,25 +13,21 @@ import {
     ListItemText,
     Box,
     CircularProgress,
+    Alert,
+    AlertTitle,
+    Tooltip,
+    IconButton,
     Checkbox,
 } from "@mui/material";
 
 //Iconos
 import {
+    Refresh as RefreshIcon,
     CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
     CheckBox as CheckBoxIcon,
 } from "@mui/icons-material";
 
-//Filtro personalizado
-const filterOptions = (options, state) => {
-    const { inputValue } = state;
-
-    return matchSorter(options, inputValue, {
-        keys: ["intId", "strNombre"],
-    });
-};
-
-const DropdownFases = ({
+const DropwdownRutas = ({
     id,
     value,
     name,
@@ -41,16 +37,12 @@ const DropdownFases = ({
     helperText,
     label,
     multiple,
-    data,
     required,
+    intIdIdea,
 }) => {
-    const [options, setOptions] = useState([]);
+    const { data, refreshGetData } = useGetRutas({ intIdIdea });
 
-    useEffect(() => {
-        if (data?.length > 0) {
-            setOptions(data);
-        }
-    }, [data]);
+    console.log(data);
 
     if (!data) {
         return (
@@ -65,20 +57,44 @@ const DropdownFases = ({
         );
     }
 
+    if (data.error) {
+        return (
+            <Alert
+                severity="error"
+                action={
+                    <IconButton
+                        onClick={() => {
+                            refreshGetData({ intIdIdea });
+                        }}
+                        size="large"
+                    >
+                        <Tooltip title="Refrescar">
+                            <RefreshIcon />
+                        </Tooltip>
+                    </IconButton>
+                }
+            >
+                <AlertTitle>
+                    <b>{data.msg}</b>
+                </AlertTitle>
+                Ha ocurrido un error al obtener los datos de rutas
+            </Alert>
+        );
+    }
+
     return (
         <Autocomplete
             id={id}
             value={value}
             onChange={onChange}
-            options={options}
+            options={data}
             clearText="Borrar"
             openText="Abrir"
             closeText="Cerrar"
-            noOptionsText="Valor no encontrado."
+            noOptionsText="Ruta no encontrada."
             disabled={disabled}
             fullWidth
             multiple={multiple}
-            filterOptions={filterOptions}
             disableCloseOnSelect={multiple ? true : false}
             renderInput={(props) => (
                 <TextField
@@ -95,37 +111,29 @@ const DropdownFases = ({
                 if (typeof value === "string") {
                     return option === value;
                 } else {
-                    return option.intId === value.intId;
+                    return option.objInfoPrincipal.strNombre === value.objInfoPrincipal.strNombre;
                 }
             }}
-            getOptionLabel={(option) => option.strNombre || option}
+            getOptionLabel={(option) => option.objInfoPrincipal.strNombre || option}
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
-                    if (option.intId) {
+                    if (option.objInfoPrincipal.strNombre) {
                         return (
                             <Chip
                                 key={index}
-                                label={`${option.strNombre} - ${new Intl.NumberFormat(
-                                    "es-ES",
-                                    {
-                                        style: "currency",
-                                        currency: "COP",
-                                    }
-                                )
-                                    .format(option.dblValorFase)
-                                    .toString()}`}
+                                label={option.objInfoPrincipal.strNombre}
+                                {...getTagProps({ index })}
+                            />
+                        );
+                    } else {
+                        return (
+                            <Chip
+                                key={index}
+                                label={option}
                                 {...getTagProps({ index })}
                             />
                         );
                     }
-
-                    return (
-                        <Chip
-                            key={index}
-                            label={option}
-                            {...getTagProps({ index })}
-                        />
-                    );
                 })
             }
             renderOption={(props, option, { selected }) => (
@@ -141,17 +149,7 @@ const DropdownFases = ({
                                 checked={selected}
                             />
                         )}
-                        <ListItemText
-                            primary={`${option.strNombre} - ${new Intl.NumberFormat(
-                                "es-ES",
-                                {
-                                    style: "currency",
-                                    currency: "COP",
-                                }
-                            )
-                                .format(option.dblValorFase)
-                                .toString()}`}
-                        />
+                        <ListItemText primary={option.objInfoPrincipal.strNombre} />
                     </ListItem>
                 </List>
             )}
@@ -159,4 +157,4 @@ const DropdownFases = ({
     );
 };
 
-export default DropdownFases;
+export default DropwdownRutas;
