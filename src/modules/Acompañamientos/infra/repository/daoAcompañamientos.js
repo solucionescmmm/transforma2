@@ -100,7 +100,64 @@ class daoAcompañamientos {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setAcompañamiento de la clase daoAcompañamientos",
+                    "Error en el metodo setRutasAcompañamiento de la clase daoAcompañamientos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getAcompañamiento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT 
+            *,
+            (
+                SELECT 
+                *
+                FROM tbl_RutasAcompañamientos RutasAcompañamientos
+
+                INNER JOIN tbl_Acompañamientos Acompañamientos on Acompañamientos.intId = RutasAcompañamientos.intIdAcompañamiento
+
+                WHERE RutasAcompañamientos.intIdAcompañamiento = Acompañamientos.intId 
+                FOR JSON PATH
+            )as arrRutasAcompañamiento
+
+            FROM tbl_Acompañamientos Acompañamientos
+
+            WHERE (Acompañamientos.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                let { arrRutasAcompañamiento } = arrNewData[i];
+
+                if (validator.isJSON(arrRutasAcompañamiento)) {
+                    arrRutasAcompañamiento = JSON.parse(arrRutasAcompañamiento);
+                    arrNewData[i].arrRutasAcompañamiento = arrRutasAcompañamiento;
+                }
+                
+            }
+
+            let result = {
+                error: false,
+                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getAcompañamiento de la clase daoAcompañamientos",
             };
 
             sql.close(conexion);
@@ -235,6 +292,34 @@ class daoAcompañamientos {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
             await conn.query`DELETE FROM tbl_Acompañamientos WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                msg: "La Acompañamiento, fue eliminada con éxito.",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteAcompañamiento de la clase daoAcompañamientos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteRutaAcompañamiento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`DELETE FROM tbl_RutasAcompañamientos WHERE intIdAcompañamiento = ${data.intIdAcompañamiento}`;
 
             let result = {
                 error: false,

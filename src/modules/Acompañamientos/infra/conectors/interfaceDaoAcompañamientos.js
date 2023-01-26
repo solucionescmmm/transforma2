@@ -14,6 +14,12 @@ class interfaceDAOAcompañamientos {
         return result;
     }
 
+    async getAcompañamiento(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getAcompañamiento(data)
+        return result
+    }
+
     async getTipoAcompañamiento(data) {
         const dao = new classDaoSql()
         let result = await dao.getTipoAcompañamiento(data)
@@ -35,6 +41,12 @@ class interfaceDAOAcompañamientos {
     async deleteAcompañamiento(data) {
         const dao = new classDaoSql()
         let result = await dao.deleteAcompañamiento(data)
+        return result
+    }
+
+    async deleteRutaAcompañamiento(data) {
+        const dao = new classDaoSql()
+        let result = await dao.deleteRutaAcompañamiento(data)
         return result
     }
 }

@@ -10,6 +10,9 @@ class updateAcompañamiento {
     #objUser;
     #objResult;
 
+    //Variables
+    #intIdAcompañamiento
+
     /**
      * @param {object} data
      * @param {object} strDataUser
@@ -23,6 +26,7 @@ class updateAcompañamiento {
         await this.#validations();
         await this.#completeData();
         await this.#updateAcompañamiento();
+        await this.#updateRutaAcompañamiento();
         return this.#objResult;
     }
 
@@ -44,7 +48,6 @@ class updateAcompañamiento {
     async #completeData() {
         let newData = {
             ...this.#objData,
-            btFinalizada: 0,
             strUsuarioActualizacion:this.#objUser.strEmail,
             strResponsable: JSON.stringify(this.#objData?.strResponsable)
         };
@@ -53,18 +56,50 @@ class updateAcompañamiento {
 
     async #updateAcompañamiento() {
         let dao = new classInterfaceDAOAcompañamientos();
+        let newData = {
+            ...this.#objData,
+            strUsuarioActualizacion:this.#objUser.strEmail,
+            strResponsable: JSON.stringify(this.#objData?.strResponsable)
+        };
 
-        let query = await dao.updateAcompañamiento(this.#objData);
+        let query = await dao.updateAcompañamiento(newData);
 
         if (query.error) {
             throw new Error(query.msg);
         }
+
+        this.#intIdAcompañamiento = query.data.intId
 
         this.#objResult = {
             error: query.error,
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #updateRutaAcompañamiento() {
+        let dao = new classInterfaceDAOAcompañamientos();
+        
+        let queryDeleteRutaAcompañamiento = await dao.deleteRutaAcompañamiento({
+            intIdAcompañamiento:this.#intIdAcompañamiento
+        })
+        if(queryDeleteRutaAcompañamiento.error){
+            throw new Error(queryDeleteRutaAcompañamiento.msg)
+        }
+        let array = this.#objData.arrPaqueteServicioFase;
+        
+        for (let i = 0; i < array.length; i++) {
+            let newData = {
+              ...array[i],
+              intIdAcompañamiento: this.#intIdAcompañamiento,
+              strUsuarioCreacion: this.#objUser.strEmail,
+            };
+            let query = await dao.setRutasAcompañamiento(newData);
+      
+            if (query.error) {
+              throw new Error(query.msg);
+            }
+          }
     }
 }
 module.exports = updateAcompañamiento;
