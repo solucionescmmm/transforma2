@@ -356,7 +356,6 @@ class daoRutas {
                     Fases.strNombre,
                     Fases.intIdDiagnostico,
                     Fases.intIdEstadoFase,
-                    Fases.intIdReferenciaTipoTarifa as intIdTarifa,
                     Fases.valorReferenciaTotalFase as dblValorRef,
                     Fases.valorTotalFase as dblValorFase,
                     Fases.strResponsables as strResponsable,
