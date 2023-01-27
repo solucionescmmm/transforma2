@@ -68,50 +68,55 @@ const getRutas = async (objParams, strDataUser) => {
 
                     let arrObjPaquetes = objInfoFases.arrPaquetes;
 
-                    for (let k = 0; k < arrObjPaquetes.length; k++) {
-                        let queryGetPaquetes = await serviceGetPaquete(
-                            { intId: arrObjPaquetes[k].intIdPaquete },
-                            strDataUser
-                        );
+                    if (arrObjPaquetes?.length > 0) {
+                        for (let k = 0; k < arrObjPaquetes.length; k++) {
+                            let queryGetPaquetes = await serviceGetPaquete(
+                                { intId: arrObjPaquetes[k].intIdPaquete },
+                                strDataUser
+                            );
 
-                        if (queryGetPaquetes.error) {
-                            throw new Error(queryGetPaquetes.msg);
+                            if (queryGetPaquetes.error) {
+                                throw new Error(queryGetPaquetes.msg);
+                            }
+
+                            arrPaquetes.push({
+                                ...arrObjPaquetes[k],
+                                objPaquete: queryGetPaquetes.data[0],
+                                arrObjetivos:
+                                    arrObjPaquetes[k]?.arrFasesObjPaquetes,
+                            });
                         }
-
-                        arrPaquetes.push({
-                            ...arrObjPaquetes[k],
-                            objPaquete: queryGetPaquetes.data[0],
-                            arrObjetivos:
-                                arrObjPaquetes[k]?.arrFasesObjPaquetes,
-                        });
                     }
 
                     let arrServicios = [];
 
                     let arrObjServicios = objInfoFases.arrServicios;
 
-                    for (let k = 0; k < arrObjServicios.length; k++) {
-                        let queryGetServicio = await serviceGetServicio(
-                            { intId: arrObjServicios[k].intIdServicio },
-                            strDataUser
-                        );
+                    if (arrObjServicios?.length > 0) {
+                        for (let k = 0; k < arrObjServicios.length; k++) {
+                            let queryGetServicio = await serviceGetServicio(
+                                { intId: arrObjServicios[k].intIdServicio },
+                                strDataUser
+                            );
 
-                        if (queryGetServicio.error) {
-                            throw new Error(queryGetServicio.msg);
+                            if (queryGetServicio.error) {
+                                throw new Error(queryGetServicio.msg);
+                            }
+
+                            arrServicios.push({
+                                ...arrObjServicios[k],
+                                objServicio: queryGetServicio.data[0],
+                                arrObjetivos:
+                                    arrObjServicios[k]?.arrFasesObjPaquetes,
+                            });
                         }
-
-                        arrServicios.push({
-                            ...arrObjServicios[k],
-                            objServicio: queryGetServicio.data[0],
-                            arrObjetivos:
-                                arrObjServicios[k]?.arrFasesObjPaquetes,
-                        });
                     }
-
 
                     arrInfoFases[j] = {
                         ...objInfoFases,
-                        strResponsable:JSON.parse(objInfoFases?.strResponsable || null),
+                        strResponsable: JSON.parse(
+                            objInfoFases?.strResponsable || null
+                        ),
                         arrPaquetes,
                         arrServicios,
                     };

@@ -57,6 +57,22 @@ class setRutas {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+
+        let arrayFases =this.#objData.arrInfoFases
+
+        if (arrayFases.length <= 0) {
+            throw new Error("El array de las fases esta vacío.");
+        }
+
+        for (let i = 0; i < arrayFases.length; i++) {
+            if (arrayFases[i].arrObjetivos.length <= 0) {
+                throw new Error(`El array de los objetivos esta vacío en la fase #${i+1}`);
+            }
+
+            if (arrayFases[i].arrPaquetes.length <= 0 &&  arrayFases[i].arrServicios.length <= 0) {
+                throw new Error(`Por favor eliga un paquete o servicio en la fase #${i + 1}`);
+            }
+        }
     }
 
     async #getIdEstado() {
@@ -112,10 +128,6 @@ class setRutas {
     async #setFases() {
         let dao = new classInterfaceDAORutas();
         let arrayFases = this.#objData.arrInfoFases;
-
-        if (arrayFases.length <= 0) {
-            throw new Error("El array de las fases esta vacio.");
-        }
 
         for (let i = 0; i < arrayFases.length; i++) {
             let objDataFase = arrayFases[i];
