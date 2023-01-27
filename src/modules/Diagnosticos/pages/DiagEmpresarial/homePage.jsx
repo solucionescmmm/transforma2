@@ -47,6 +47,7 @@ const DiagEmpresarialPage = ({
         setOpenModalResumen(!openModalResumen);
     };
 
+    // eslint-disable-next-line no-unused-vars
     const [objResumen, setObjResumen] = useState({
         bitResumenHumano: false,
     });

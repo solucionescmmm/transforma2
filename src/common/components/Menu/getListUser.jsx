@@ -20,7 +20,7 @@ import {
     Equalizer as EqualizerIcon,
     ListAlt as ListAltIcon,
     People as PeopleIcon,
-    SupervisedUserCircle as SupervisedUserCircle,
+    SupervisedUserCircle,
     Report as ReportIcon,
     Engineering as EngineeringIcon,
 } from "@mui/icons-material";

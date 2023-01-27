@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 
 //Librerias
-import { useFieldArray } from "react-hook-form";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import shortid from "shortid";
 import "animate.css";

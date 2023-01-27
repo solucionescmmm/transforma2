@@ -140,13 +140,6 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
 
     const [loading, setLoading] = useState(false);
 
-    const [errorGetData, setErrorGetData] = useState({
-        flag: false,
-        msg: "",
-    });
-
-    const [loadingGetData, setLoadingGetData] = useState(false);
-
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     //===============================================================================================================================================
