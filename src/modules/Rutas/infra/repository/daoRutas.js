@@ -647,6 +647,35 @@ class daoRutas {
         }
     }
 
+    async getContadorRutas(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                SELECT intId FROM tbl_Rutas 
+                WHERE (intIdIdea = ${data.intIdIdea})`;
+
+            let result = {
+                error: false,
+                data: response.recordsets[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getIdEstados de la clase daoEstados",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateRutas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();

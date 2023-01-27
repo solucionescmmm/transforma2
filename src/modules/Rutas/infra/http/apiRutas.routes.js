@@ -29,6 +29,14 @@ routes.get(
     }
 );
 
+routes.get(
+    "/transforma/api/rutas/getContadorRutas",
+    async (req, res) => {
+        let controllerRutas = new classController();
+        await controllerRutas.getContadorRutas(req, res);
+    }
+);
+
 routes.put(
     "/transforma/api/rutas/updateRutas",
     async (req, res) => {

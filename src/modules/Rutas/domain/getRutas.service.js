@@ -79,6 +79,7 @@ const getRutas = async (objParams, strDataUser) => {
                         }
 
                         arrPaquetes.push({
+                            ...arrObjPaquetes[k],
                             objPaquete: queryGetPaquetes.data[0],
                             arrObjetivos:
                                 arrObjPaquetes[k]?.arrFasesObjPaquetes,
@@ -87,7 +88,7 @@ const getRutas = async (objParams, strDataUser) => {
 
                     let arrServicios = [];
 
-                    let arrObjServicios = objInfoFases.arrPaquetes;
+                    let arrObjServicios = objInfoFases.arrServicios;
 
                     for (let k = 0; k < arrObjServicios.length; k++) {
                         let queryGetServicio = await serviceGetServicio(
@@ -100,6 +101,7 @@ const getRutas = async (objParams, strDataUser) => {
                         }
 
                         arrServicios.push({
+                            ...arrObjServicios[k],
                             objServicio: queryGetServicio.data[0],
                             arrObjetivos:
                                 arrObjServicios[k]?.arrFasesObjPaquetes,

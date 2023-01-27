@@ -6,6 +6,7 @@ const validator = require("validator").default;
 
 //Service
 const serviceSetDocumento = require("../../Document/domain/setDocumento.service");
+const serviceSetRutaNoPlaneada = require("../../Rutas/domain/setRutaNoPlaneada.service")
 
 class setAcompañamiento {
     //obj info
@@ -29,7 +30,12 @@ class setAcompañamiento {
     async main() {
         await this.#validations();
         await this.#setAcompañamiento();
-        await this.#setRutasAcompañamiento();
+        if (this.#objData.intTipoAcomp === 1) {
+            await this.#setRutasAcompañamiento();
+        }
+        if (this.#objData.intTipoAcomp === 2) {
+            await this.#setRutasNoPlaneada();
+        }
         return this.#objResult;
     }
 
@@ -48,22 +54,7 @@ class setAcompañamiento {
         }
 
         if (this.#objData.strURLDocumento) {
-            let service = new serviceSetDocumento(
-                {
-                    intIdIdea: this.#objData.intIdIdea,
-                    strNombre: "Archivo de Acompañamiento",
-                    strObservaciones: "Archivo creado por un Acompañamiento",
-                    strUrlDocumento: this.#objData.strURLDocumento,
-                },
-                this.#objUser
-            );
-            let query = await service.main();
-
-            if (query.error) {
-              throw new Error(query.msg)
-            }
-
-            this.#intIdDocumento = query.data.intId
+            this.#setDocumento();
         }
     }
 
@@ -71,9 +62,19 @@ class setAcompañamiento {
         let dao = new classInterfaceDAOAcompañamientos();
         let newData = {
             ...this.#objData,
+            intIdTipoAcompañamiento: this.#objData.intTipoAcomp,
+            dtmFechaInicial: this.#objData.intHoraInicio,
+            dtmFechaFinal: this.#objData.intHoraFinal,
+            dtmProximaActividad: this.#objData.dtmFechaProx,
+            intIdRutaPaqueteServicio:this.#objData?.objInfoRutaExs?.objRuta?.objInfoPrincipal?.intId|| null,
+            intIdTipoActividad: this.#objData.intTipoActividad,
+            strUbicacion: this.#objData.strLugarActividad,
+            strResponsables: JSON.stringify(this.#objData.strResponsable),
+            strTemasActividades: this.#objData.strActividades,
+            strLogrosAvances: this.#objData.strLogros,
+            strObservaciones: this.#objData.strRetroAlim,
             strUsuarioCreacion: this.#objUser.strEmail,
-            intIdDocumento:this.#intIdDocumento,
-            strResponsables: JSON.stringify(this.#objData?.strResponsables),
+            intIdDocumento: this.#intIdDocumento,
         };
 
         let query = await dao.setAcompañamiento(newData);
@@ -93,19 +94,58 @@ class setAcompañamiento {
 
     async #setRutasAcompañamiento() {
         let dao = new classInterfaceDAOAcompañamientos();
-        let array = this.#objData.arrPaqueteServicioFase;
 
-        for (let i = 0; i < array.length; i++) {
-            let newData = {
-                ...array[i],
-                intIdAcompañamiento: this.#intIdAcompañamiento,
-                strUsuarioCreacion: this.#objUser.strEmail,
-            };
-            let query = await dao.setRutasAcompañamiento(newData);
+        let newData = {
+            intIdPaqueteFase:this.#objData.objInfoRutaExs?.objPaquete?.intId || null,
+            intIdServicioFase:this.#objData.objInfoRutaExs?.objServicio?.intId || null,
+            intIdAcompañamiento: this.#intIdAcompañamiento,
+            strUsuarioCreacion: this.#objUser.strEmail,
+        };
+        let query = await dao.setRutasAcompañamiento(newData);
 
-            if (query.error) {
-                throw new Error(query.msg);
-            }
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+    }
+
+    async #setDocumento() {
+        let service = new serviceSetDocumento(
+            {
+                intIdIdea: this.#objData.intIdIdea,
+                strNombre: "Archivo de Acompañamiento",
+                strObservaciones: "Archivo creado por un Acompañamiento",
+                strUrlDocumento: this.#objData.strURLDocumento,
+            },
+            this.#objUser
+        );
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdDocumento = query.data.intId;
+    }
+
+    async #setRutasNoPlaneada() {
+        let data ={
+            intIdIdea:this.#objData.intIdIdea,
+            strObservaciones: "Ruta creada apartir de un acompañamiento",
+            arrInfoFases:[{
+                strObservaciones:"Ruta creada apartir de un acompañamiento",
+                arrPaquetes: this.#objData.objNuevoServPaq?.objPaquete ? [this.#objData.objNuevoServPaq?.objPaquete]: null,
+                arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [this.#objData.objNuevoServPaq?.objServicio]:null,
+            }]
+        }
+
+        let service = new serviceSetRutaNoPlaneada(
+            data,
+            this.#objUser
+        );
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg);
         }
     }
 }

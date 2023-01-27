@@ -2,6 +2,7 @@
 const setRutas = require("../../domain/setRutas.service");
 const getRutas = require("../../domain/getRutas.service");
 const getEstadosRutas = require("../../domain/getEstadosRutas.service")
+const getContadorRutas = require("../../domain/getContadorRutas.service")
 const updateRutas = require("../../domain/updateRutas.service");
 const checkPaqueteFase= require("../../domain/checkPaqueteFase.service");
 const checkServicioFase = require("../../domain/checkServicioFase.service")
@@ -58,6 +59,27 @@ class ctrl_Rutas {
             let objParams = req.query;
 
             let query = await getEstadosRutas(objParams);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async getContadorRutas(req, res) {
+        try {
+            let objParams = req.query;
+
+            let query = await getContadorRutas(objParams);
 
             if (query.error) {
                 throw new Error(query.msg);

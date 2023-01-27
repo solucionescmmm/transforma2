@@ -8,6 +8,7 @@ const apiCache = require("apicache-plus");
 //Servicios
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
 const serviceGetIdTipo = require("./getIdTipoRutas.service")
+const getContadorRutas = require("./getContadorRutas.service")
 
 class setRutaNoPlaneada {
      //obj info
@@ -20,6 +21,7 @@ class setRutaNoPlaneada {
      #intIdFase;
      #intIdEstado;
      #intIdTipo;
+     #intNumRutas;
  
      /**
       * @param {object} data
@@ -33,8 +35,9 @@ class setRutaNoPlaneada {
      async main() {
         await this.#deleteCache();
         await this.#getTipoRuta();
-        await this.#validations();
         await this.#getIdEstado();
+        await this.#getCountRutas();
+        await this.#validations();
         await this.#setRutas();
         await this.#setFases();
         return this.#objResult;
@@ -82,15 +85,29 @@ class setRutaNoPlaneada {
  
          this.#intIdTipo = queryGetIdTipo.data.intId;
      }
+
+     async #getCountRutas() {
+        let queryGetCountRutas = await getContadorRutas({
+            intIdIdea: this.#objData.intIdIdea,
+        });
+
+        if (queryGetCountRutas.error) {
+            throw new Error(queryGetCountRutas.msg);
+        }
+
+        this.#intNumRutas = queryGetCountRutas.data.length;
+    }
  
      async #setRutas() {
          let dao = new classInterfaceDAORutas();
-         let objDataRuta = this.#objData.objInfoPrincipal;
+
          let newData = {
-             ...objDataRuta,
+             ...this.#objData,
+             strNombre:`Ruta #${this.#intNumRutas + 1}`,
+             valorTotalRuta: null,
              intIdTipoRuta:this.#intIdTipo,
              intIdEstadoRuta: this.#intIdEstado,
-             strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
+             strResponsable: JSON.stringify(this.#objData.strResponsable || null),
              strUsuarioCreacion: this.#objUser.strEmail,
          };
  
@@ -124,16 +141,14 @@ class setRutaNoPlaneada {
                  let query = await dao.setFases({
                      intIdRuta: this.#intIdRuta,
                      strNombre: `Fase # ${i + 1}`,
-                     intIdDiagnostico: objDataFase.intIdDiagnostico,
+                     intIdDiagnostico: null,
                      intIdEstadoFase: this.#intIdEstado,
-                     intIdReferenciaTipoTarifa: objDataFase.objTarifa.intId,
-                     valorReferenciaTotalFase: objDataFase.dblValorRef,
-                     valorTotalFase: objDataFase.dblValorFase,
-                     strResponsable: JSON.stringify(
-                         objDataFase.strResponsable || null
-                     ),
+                     intIdReferenciaTipoTarifa: null,
+                     valorReferenciaTotalFase: null,
+                     valorTotalFase: null,
+                     strResponsable: null,
                      strObservaciones: objDataFase.strObservaciones,
-                     intIdMotivoCancelacion: objDataFase.intIdMotivoCancelacion,
+                     intIdMotivoCancelacion: null,
                      strUsuarioCreacion: this.#objUser.strEmail,
                  });
  
@@ -142,26 +157,6 @@ class setRutaNoPlaneada {
                  }
  
                  this.#intIdFase = query.data.intId;
- 
-                 let arrObjetivos = objDataFase.arrObjetivos;
- 
-                 if (arrObjetivos.length > 0) {
-                     for (let j = 0; j < arrObjetivos.length; j++) {
-                         let objDataObjetivos = arrObjetivos[j];
- 
-                         let query = await dao.setObjetivosFases({
-                             intIdObjetivo: objDataObjetivos.intId,
-                             intIdFase: this.#intIdFase,
-                             btCumplio: null,
-                             strObservacionesCumplimiento: "",
-                             strUsuarioCreacion: this.#objUser.strEmail,
-                         });
- 
-                         if (query.error) {
-                             throw new Error(query.msg);
-                         }
-                     }
-                 }
  
                  let arrPaquetes = objDataFase.arrPaquetes;
  
