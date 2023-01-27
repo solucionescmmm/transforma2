@@ -120,6 +120,7 @@ class daoRutas {
             (
                 ${data.intIdFase},
                 ${data.intIdPaquete},
+                ${data.intIdSedeTipoTarifaPaqRef},
                 ${data.ValorReferenciaPaquete},
                 ${data.ValorTotalPaquete},
                 ${data.intDuracionHorasReferenciaPaquete},
@@ -177,7 +178,8 @@ class daoRutas {
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
-                NULL
+                NULL,
+                ${data.intIdSedeTipoTarifaServRef}
             )
             
             SET @intId = SCOPE_IDENTITY();

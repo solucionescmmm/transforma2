@@ -155,7 +155,7 @@ class setRutas {
 
             let arrObjetivos = objDataFase.arrObjetivos;
 
-            if (arrObjetivos.length > 0) {
+            if (arrObjetivos?.length > 0) {
                 for (let j = 0; j < arrObjetivos.length; j++) {
                     let objDataObjetivos = arrObjetivos[j];
 
@@ -175,15 +175,16 @@ class setRutas {
 
             let arrPaquetes = objDataFase.arrPaquetes;
 
-            if (arrPaquetes.length > 0) {
+            if (arrPaquetes?.length > 0) {
                 for (let j = 0; j < arrPaquetes.length; j++) {
                     let objDataPaquete = arrPaquetes[j];
 
                     let query = await dao.setPaquetesFases({
                         intIdFase: this.#intIdFase,
                         intIdPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intId,
+                        intIdSedeTipoTarifaServRef:objDataPaquete.objSedeTarifa.intId,
                         ValorReferenciaPaquete:objDataPaquete.objSedeTarifa.dblValor,
-                        ValorTotalPaquete:objDataPaquete.objSedeTarifa.dblValor,
+                        ValorTotalPaquete:objDataPaquete.ValorTotalPaquete,
                         intDuracionHorasReferenciaPaquete:objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalPaquete:objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
                         btFinalizado:false,
@@ -220,15 +221,16 @@ class setRutas {
 
             let arrServicios = objDataFase.arrServicios;
 
-            if (arrServicios.length > 0) {
+            if (arrServicios?.length > 0) {
                 for (let j = 0; j < arrServicios.length; j++) {
                     let objDataServicio = arrServicios[j];
 
                     let query = await dao.setServiciosFases({
                         intIdFase: this.#intIdFase,
                         intIdServicio:objDataServicio.objServicio.objInfoPrincipal.intId,
+                        intIdSedeTipoTarifaServRef:objDataServicio.objSedeTarifa.intId,
                         ValorReferenciaServicio:objDataServicio.objSedeTarifa.dblValor,
-                        ValorTotalServicio:objDataServicio.objSedeTarifa.dblValor,
+                        ValorTotalServicio:objDataServicio.ValorTotalServicio,
                         intDuracionHorasReferenciaServicio:objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras|| null,
                         intDuracionHorasTotalServicio:objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
                         btFinalizado:false,
