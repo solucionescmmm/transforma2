@@ -108,25 +108,12 @@ const getRutas = async (objParams, strDataUser) => {
                         });
                     }
 
-                    let objTarifa = {};
-
-                    let queryGetTarifa = await serviceGetTipoTarifa(
-                        { intId: arrFasesRutas[j]?.intIdTarifa },
-                        strDataUser
-                    );
-
-                    if (queryGetTarifa.error) {
-                        throw new Error(queryGetTarifa.msg);
-                    }
-
-                    objTarifa = queryGetTarifa?.data[0] || null;
 
                     arrInfoFases[j] = {
                         ...objInfoFases,
                         strResponsable:JSON.parse(objInfoFases?.strResponsable || null),
                         arrPaquetes,
                         arrServicios,
-                        objTarifa,
                     };
                 }
 
