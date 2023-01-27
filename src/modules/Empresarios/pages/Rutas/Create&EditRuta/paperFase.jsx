@@ -710,8 +710,13 @@ const PaperFase = ({
                                                 </Box>
 
                                                 <EditIcon
-                                                    htmlColor="green"
+                                                    htmlColor={
+                                                        !disabled
+                                                            ? "green"
+                                                            : "inherit"
+                                                    }
                                                     fontSize="small"
+                                                    disabled={disabled}
                                                     onClick={() => {
                                                         setValueObjetivo({
                                                             value: objetivo,
@@ -722,8 +727,13 @@ const PaperFase = ({
                                                 />
 
                                                 <DeleteIcon
-                                                    color="error"
+                                                    color={
+                                                        !disabled
+                                                            ? "error"
+                                                            : "inherit"
+                                                    }
                                                     fontSize="small"
+                                                    disabled={disabled}
                                                     onClick={() => {
                                                         setValueObjetivo({
                                                             value: objetivo,
@@ -806,13 +816,9 @@ const PaperFase = ({
                                                                 .objInfoPrincipal
                                                                 .strNombre
                                                         } - ${
-                                                            paquete
-                                                                .objSedeTarifa
-                                                                .strSede
+                                                            paquete?.objSedeTarifa?.strSede
                                                         } - ${
-                                                            paquete
-                                                                .objSedeTarifa
-                                                                .strTarifa
+                                                            paquete.objSedeTarifa?.strTarifa
                                                         } - ${new Intl.NumberFormat(
                                                             "es-ES",
                                                             {
@@ -821,17 +827,20 @@ const PaperFase = ({
                                                             }
                                                         )
                                                             .format(
-                                                                paquete
-                                                                    .objSedeTarifa
-                                                                    .Valor
+                                                                paquete.objSedeTarifa?.Valor
                                                             )
                                                             .toString()}`}
                                                     </p>
                                                 </Box>
 
                                                 <EditIcon
-                                                    htmlColor="green"
+                                                    htmlColor={
+                                                        !disabled
+                                                            ? "green"
+                                                            : "inherit"
+                                                    }
                                                     fontSize="small"
+                                                    disabled={disabled}
                                                     onClick={() => {
                                                         setValuePaquete({
                                                             value: paquete,
@@ -842,8 +851,13 @@ const PaperFase = ({
                                                 />
 
                                                 <DeleteIcon
-                                                    color="error"
+                                                    color={
+                                                        !disabled
+                                                            ? "error"
+                                                            : "inherit"
+                                                    }
                                                     fontSize="small"
+                                                    disabled={disabled}
                                                     onClick={() => {
                                                         setValuePaquete({
                                                             value: paquete,
@@ -955,18 +969,11 @@ const PaperFase = ({
                                                         <p>
                                                             Nombre:{" "}
                                                             {`${
-                                                                servicio
-                                                                    .objServicio
-                                                                    .objInfoPrincipal
-                                                                    .strNombre
+                                                                servicio?.objServicio?.objInfoPrincipal?.strNombre
                                                             } - ${
-                                                                servicio
-                                                                    .objSedeTarifa
-                                                                    .strSede
+                                                                servicio?.objSedeTarifa?.strSede
                                                             } - ${
-                                                                servicio
-                                                                    .objSedeTarifa
-                                                                    .strTarifa
+                                                                servicio?.objSedeTarifa?.strTarifa
                                                             } - ${new Intl.NumberFormat(
                                                                 "es-ES",
                                                                 {
@@ -976,17 +983,20 @@ const PaperFase = ({
                                                                 }
                                                             )
                                                                 .format(
-                                                                    servicio
-                                                                        .objSedeTarifa
-                                                                        .Valor
+                                                                    servicio?.objSedeTarifa?.Valor
                                                                 )
                                                                 .toString()}`}
                                                         </p>
                                                     </Box>
 
                                                     <EditIcon
-                                                        htmlColor="green"
+                                                        htmlColor={
+                                                            !disabled
+                                                                ? "green"
+                                                                : "inherit"
+                                                        }
                                                         fontSize="small"
+                                                        disabled={disabled}
                                                         onClick={() => {
                                                             setValueServicio({
                                                                 value: servicio,
@@ -997,8 +1007,13 @@ const PaperFase = ({
                                                     />
 
                                                     <DeleteIcon
-                                                        color="error"
+                                                        color={
+                                                            !disabled
+                                                                ? "error"
+                                                                : "inherit"
+                                                        }
                                                         fontSize="small"
+                                                        disabled={disabled}
                                                         onClick={() => {
                                                             setValueServicio({
                                                                 value: servicio,
@@ -1135,10 +1150,12 @@ const PaperFase = ({
                         color="error"
                         onClick={() => handlerChangeOpenModalDelete()}
                         size="large"
-                        disabled={length === 1}
+                        disabled={disabled || length === 1}
                     >
                         <Tooltip title="Eliminar">
-                            <DeleteIcon />
+                            <DeleteIcon
+                                color={!disabled ? "error" : "inherit"}
+                            />
                         </Tooltip>
                     </IconButton>
                 </Box>

@@ -421,6 +421,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                         </p>
                                         <Button
                                             type="button"
+                                            disabled={loading}
                                             onClick={() =>
                                                 handlerChangeOpenModalPreview()
                                             }

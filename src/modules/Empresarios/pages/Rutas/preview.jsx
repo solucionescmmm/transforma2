@@ -73,7 +73,7 @@ const PreviewRuta = ({ values }) => {
                 for (let j = 0; j < arrPaquetes.length; j++) {
                     const { objPaquete, objSedeTarifa } = arrPaquetes[j];
 
-                    const valorTotal = objSedeTarifa.Valor;
+                    const valorTotal = objSedeTarifa?.Valor;
 
                     const dataTable = {
                         id: i + 1,
@@ -94,7 +94,7 @@ const PreviewRuta = ({ values }) => {
 
                 for (let j = 0; j < arrServicios.length; j++) {
                     const { objServicio, objSedeTarifa } = arrServicios[j];
-                    const valorTotal = objSedeTarifa.Valor;
+                    const valorTotal = objSedeTarifa?.Valor;
 
                     const dataTable = {
                         id: i + 1,
