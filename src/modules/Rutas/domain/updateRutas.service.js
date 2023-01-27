@@ -19,6 +19,7 @@ class updateRutas {
     #intIdRuta;
     #intIdFase;
     #intIdEstado;
+    #intIdTipo
 
     /**
      * @param {object} data
@@ -31,6 +32,7 @@ class updateRutas {
 
     async main() {
         await this.#getIdEstado();
+        await this.#getTipoRuta()
         await this.#deleteCache();
         await this.#validations();
         await this.#deleteRuta();
@@ -70,20 +72,31 @@ class updateRutas {
             throw new Error(queryGetRuta.msg);
         }
 
-        let array = queryGetRuta.data[0].arrFasesRutas;
-        let conuntFases = 0;
+        let array = queryGetRuta.data[0].arrFasesRutas
 
         if (array?.length > 0) {
             for (let i = 0; i < array.length; i++) {
                 let objDataFase = array[i];
-                if (objDataFase.intIdEstadoFase === this.#intIdEstado) {
-                    conuntFases = conuntFases + 1;
+                if (objDataFase.intIdEstadoFase !== this.#intIdEstado) {
+                    throw new Error("No se puede editar la ruta ya hay una fase en proceso")
                 }
             }
         }
 
-        if (conuntFases !== array.length) {
-            return true;
+        let arrayFases =this.#objData.arrInfoFases
+
+        if (arrayFases.length <= 0) {
+            throw new Error("El array de las fases esta vacío.");
+        }
+
+        for (let i = 0; i < arrayFases.length; i++) {
+            if (arrayFases[i].arrObjetivos.length <= 0) {
+                throw new Error(`El array de los objetivos esta vacío en la fase #${i+1}`);
+            }
+
+            if (arrayFases[i].arrPaquetes.length <= 0 &&  arrayFases[i].arrServicios.length <= 0) {
+                throw new Error(`Por favor eliga un paquete o servicio en la fase #${i + 1}`);
+            }
         }
     }
 
@@ -114,11 +127,24 @@ class updateRutas {
         this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
+    async #getTipoRuta() {
+        let queryGetIdTipo = await serviceGetIdTipo({
+            strNombre: "Planeada",
+        });
+
+        if (queryGetIdTipo.error) {
+            throw new Error(queryGetIdTipo.msg);
+        }
+
+        this.#intIdTipo = queryGetIdTipo.data.intId;
+    }
+
     async #setRutas() {
         let dao = new classInterfaceDAORutas();
         let objDataRuta = this.#objData.objInfoPrincipal;
         let newData = {
             ...objDataRuta,
+            intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
             strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
             strUsuarioCreacion: this.#objUser.strEmail,
@@ -143,152 +169,135 @@ class updateRutas {
         let dao = new classInterfaceDAORutas();
         let arrayFases = this.#objData.arrInfoFases;
 
-        if (arrayFases.length <= 0) {
-            throw new Error("El array de las fases esta vacio.");
-        }
-
         for (let i = 0; i < arrayFases.length; i++) {
-            if (arrayFases[i].objTarifa) {
-                let objDataFase = arrayFases[i];
+            let objDataFase = arrayFases[i];
 
-                let query = await dao.setFases({
-                    intIdRuta: this.#intIdRuta,
-                    strNombre: `Fase # ${i + 1}`,
-                    intIdDiagnostico: objDataFase.intIdDiagnostico,
-                    intIdEstadoFase: this.#intIdEstado,
-                    intIdReferenciaTipoTarifa: objDataFase.objTarifa.intId,
-                    valorReferenciaTotalFase: objDataFase.dblValorRef,
-                    valorTotalFase: objDataFase.dblValorFase,
-                    strResponsable: JSON.stringify(
-                        objDataFase.strResponsable || null
-                    ),
-                    strObservaciones: objDataFase.strObservaciones,
-                    intIdMotivoCancelacion: objDataFase.intIdMotivoCancelacion,
-                    strUsuarioCreacion: this.#objUser.strEmail,
-                });
+            let query = await dao.setFases({
+                intIdRuta: this.#intIdRuta,
+                strNombre: `Fase # ${i + 1}`,
+                intIdDiagnostico: objDataFase.intIdDiagnostico,
+                intIdEstadoFase: this.#intIdEstado,
+                valorReferenciaTotalFase: objDataFase.dblValorRef,
+                valorTotalFase: objDataFase.dblValorFase,
+                strResponsable: JSON.stringify(
+                    objDataFase.strResponsable || null
+                ),
+                strObservaciones: objDataFase.strObservaciones,
+                intIdMotivoCancelacion: objDataFase.intIdMotivoCancelacion,
+                strUsuarioCreacion: this.#objUser.strEmail,
+            });
 
-                if (query.error) {
-                    throw new Error(query.msg);
-                }
+            if (query.error) {
+                throw new Error(query.msg);
+            }
 
-                this.#intIdFase = query.data.intId;
+            this.#intIdFase = query.data.intId;
 
-                let arrObjetivos = objDataFase.arrObjetivos;
+            let arrObjetivos = objDataFase.arrObjetivos;
 
-                if (arrObjetivos.length > 0) {
-                    for (let j = 0; j < arrObjetivos.length; j++) {
-                        let objDataObjetivos = arrObjetivos[j];
+            if (arrObjetivos.length > 0) {
+                for (let j = 0; j < arrObjetivos.length; j++) {
+                    let objDataObjetivos = arrObjetivos[j];
 
-                        let query = await dao.setObjetivosFases({
-                            intIdObjetivo: objDataObjetivos.intIdObjetivo,
-                            intIdFase: this.#intIdFase,
-                            btCumplio: null,
-                            strObservacionesCumplimiento: "",
-                            strUsuarioCreacion: this.#objUser.strEmail,
-                        });
+                    let query = await dao.setObjetivosFases({
+                        intIdObjetivo: objDataObjetivos.intId,
+                        intIdFase: this.#intIdFase,
+                        btCumplio: null,
+                        strObservacionesCumplimiento: "",
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
 
-                        if (query.error) {
-                            throw new Error(query.msg);
-                        }
+                    if (query.error) {
+                        throw new Error(query.msg);
                     }
                 }
+            }
 
-                let arrPaquetes = objDataFase.arrPaquetes;
+            let arrPaquetes = objDataFase.arrPaquetes;
 
-                if (arrPaquetes.length > 0) {
-                    for (let j = 0; j < arrPaquetes.length; j++) {
-                        let objDataPaquete = arrPaquetes[j];
+            if (arrPaquetes.length > 0) {
+                for (let j = 0; j < arrPaquetes.length; j++) {
+                    let objDataPaquete = arrPaquetes[j];
 
-                        let query = await dao.setPaquetesFases({
-                            intIdFase: this.#intIdFase,
-                            intIdPaquete:
-                                objDataPaquete.objPaquete.objInfoPrincipal
-                                    .intId,
-                            strUsuarioCreacion: this.#objUser.strEmail,
-                        });
+                    let query = await dao.setPaquetesFases({
+                        intIdFase: this.#intIdFase,
+                        intIdPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intId,
+                        ValorReferenciaPaquete:objDataPaquete.objSedeTarifa.dblValor,
+                        ValorTotalPaquete:objDataPaquete.objSedeTarifa.dblValor,
+                        intDuracionHorasReferenciaPaquete:objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
+                        intDuracionHorasTotalPaquete:objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
+                        btFinalizado:false,
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
 
-                        if (query.error) {
-                            throw new Error(query.msg);
-                        }
+                    if (query.error) {
+                        throw new Error(query.msg);
+                    }
 
-                        let intIdPaqueteFase = query.data.intId;
+                    let intIdPaqueteFase = query.data.intId;
 
-                        let arrObjetivosPaquete = objDataPaquete.arrObjetivos;
+                    let arrObjetivosPaquete = objDataPaquete.arrObjetivos;
 
-                        if (arrObjetivosPaquete?.length > 0) {
-                            for (
-                                let k = 0;
-                                k < arrObjetivosPaquete.length;
-                                k++
-                            ) {
-                                let objDataObjetivoPaquete =
-                                    arrObjetivosPaquete[k];
+                    if (arrObjetivosPaquete?.length > 0) {
+                        for (let k = 0; k < arrObjetivosPaquete.length; k++) {
+                            let objDataObjetivoPaquete = arrObjetivosPaquete[k];
 
-                                let query = await dao.setObjetivosPaquetesFases(
-                                    {
-                                        intIdObjetivo:
-                                            objDataObjetivoPaquete.intIdObjetivo,
-                                        intIdPaquetes_Fases: intIdPaqueteFase,
-                                        btCumplio: false,
-                                        strObservacionesCumplimiento: "",
-                                        strUsuarioCreacion:
-                                            this.#objUser.strEmail,
-                                    }
-                                );
+                            let query = await dao.setObjetivosPaquetesFases({
+                                intIdObjetivo: objDataObjetivoPaquete.intId,
+                                intIdPaquetes_Fases: intIdPaqueteFase,
+                                btCumplio: false,
+                                strObservacionesCumplimiento: "",
+                                strUsuarioCreacion: this.#objUser.strEmail,
+                            });
 
-                                if (query.error) {
-                                    throw new Error(query.msg);
-                                }
+                            if (query.error) {
+                                throw new Error(query.msg);
                             }
                         }
                     }
                 }
+            }
 
-                let arrServicios = objDataFase.arrServicios;
+            let arrServicios = objDataFase.arrServicios;
 
-                if (arrServicios.length > 0) {
-                    for (let j = 0; j < arrServicios.length; j++) {
-                        let objDataServicio = arrServicios[j];
+            if (arrServicios.length > 0) {
+                for (let j = 0; j < arrServicios.length; j++) {
+                    let objDataServicio = arrServicios[j];
 
-                        let query = await dao.setServiciosFases({
-                            intIdFase: this.#intIdFase,
-                            intIdServicio:
-                                objDataServicio.objServicio.objInfoPrincipal
-                                    .intId,
-                            strUsuarioCreacion: this.#objUser.strEmail,
-                        });
+                    let query = await dao.setServiciosFases({
+                        intIdFase: this.#intIdFase,
+                        intIdServicio:objDataServicio.objServicio.objInfoPrincipal.intId,
+                        ValorReferenciaServicio:objDataServicio.objSedeTarifa.dblValor,
+                        ValorTotalServicio:objDataServicio.objSedeTarifa.dblValor,
+                        intDuracionHorasReferenciaServicio:objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras|| null,
+                        intDuracionHorasTotalServicio:objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
+                        btFinalizado:false,
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
 
-                        if (query.error) {
-                            throw new Error(query.msg);
-                        }
+                    if (query.error) {
+                        throw new Error(query.msg);
+                    }
 
-                        let intIdServicioFase = query.data.intId;
+                    let intIdServicioFase = query.data.intId;
 
-                        let arrObjetivosServicio = objDataServicio.arrObjetivos;
+                    let arrObjetivosServicio = objDataServicio.arrObjetivos;
 
-                        if (arrObjetivosServicio?.length > 0) {
-                            for (
-                                let k = 0;
-                                k < arrObjetivosServicio.length;
-                                k++
-                            ) {
-                                let objDataObjetivoServicio =
-                                    arrObjetivosServicio[k];
+                    if (arrObjetivosServicio?.length > 0) {
+                        for (let k = 0; k < arrObjetivosServicio.length; k++) {
+                            let objDataObjetivoServicio =
+                                arrObjetivosServicio[k];
 
-                                let query =
-                                    await dao.setObjetivosServiciosFases({
-                                        intIdObjetivo:
-                                            objDataObjetivoServicio.intIdObjetivo,
-                                        intIdServicios_Fases: intIdServicioFase,
-                                        btCumplio: false,
-                                        strObservacionesCumplimiento: "",
-                                        strUsuarioCreacion:
-                                            this.#objUser.strEmail,
-                                    });
+                            let query = await dao.setObjetivosServiciosFases({
+                                intIdObjetivo: objDataObjetivoServicio.intId,
+                                intIdServicios_Fases: intIdServicioFase,
+                                btCumplio: false,
+                                strObservacionesCumplimiento: "",
+                                strUsuarioCreacion: this.#objUser.strEmail,
+                            });
 
-                                if (query.error) {
-                                    throw new Error(query.msg);
-                                }
+                            if (query.error) {
+                                throw new Error(query.msg);
                             }
                         }
                     }
