@@ -1,6 +1,6 @@
 import MaterialTable from "@material-table/core";
 import { Box, Grid, Typography } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 //Iconos
 import {
