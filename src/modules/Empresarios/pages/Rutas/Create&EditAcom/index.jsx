@@ -889,7 +889,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                     onChange(url)
                                                 }
                                                 maxFiles={1}
-                                                type="Imagen"
+                                                type=""
                                                 setError={setError}
                                                 clearErrors={clearErrors}
                                                 error={
