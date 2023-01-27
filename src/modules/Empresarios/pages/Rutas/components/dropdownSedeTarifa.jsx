@@ -102,7 +102,14 @@ const DropdownSedeTarifa = ({
                 }
             }}
             getOptionLabel={(option) =>
-                `${option.strSede} - ${option.strTarifa}` || option
+                `${option.strSede} - ${
+                    option.strTarifa
+                } - ${new Intl.NumberFormat("es-ES", {
+                    style: "currency",
+                    currency: "COP",
+                })
+                    .format(option.Valor)
+                    .toString()}` || option
             }
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
@@ -139,7 +146,14 @@ const DropdownSedeTarifa = ({
                             />
                         )}
                         <ListItemText
-                            primary={`${option.strSede} - ${option.strTarifa}`}
+                            primary={`${option.strSede} - ${
+                                option.strTarifa
+                            } - ${new Intl.NumberFormat("es-ES", {
+                                style: "currency",
+                                currency: "COP",
+                            })
+                                .format(option.Valor)
+                                .toString()}`}
                             secondary={`Valor: ${new Intl.NumberFormat(
                                 "es-ES",
                                 {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 
 //Componentes de Material UI
 import {
@@ -13,6 +13,7 @@ import {
     Grid,
     Typography,
     Alert,
+    TextField,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -23,6 +24,7 @@ import { Controller, useForm } from "react-hook-form";
 import DropdownServicios from "../../../../Admin/components/dropdownServicios";
 import DropdownObjetivos from "../components/dropdownObjetivos";
 import DropdownSedeTarifa from "../components/dropdownSedeTarifa";
+import NumberFormat from "react-number-format";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -47,6 +49,7 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
         objServicio: values?.value ? values.value?.objServicio : null,
         objSedeTarifa: values?.value ? values.value?.objSedeTarifa : null,
         arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
+        valorTotalServicio: values?.value ? values.value?.valorTotalServicio : "",
     });
 
     //===============================================================================================================================================
@@ -115,12 +118,18 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
             objServicio: values?.value ? values.value?.objServicio : null,
             arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
             objSedeTarifa: values?.value ? values.value?.objSedeTarifa : null,
+            valorTotalServicio: values?.value
+                ? values.value?.valorTotalServicio
+                : "",
         });
 
         reset({
             objServicio: values?.value ? values.value?.objServicio : null,
             arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
             objSedeTarifa: values?.value ? values.value?.objSedeTarifa : null,
+            valorTotalServicio: values?.value
+                ? values.value?.valorTotalServicio
+                : "",
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values]);
@@ -185,39 +194,82 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
                     )}
 
                     {watchServicio && (
-                        <Grid item xs={12}>
-                            <Controller
-                                name="objSedeTarifa"
-                                defaultValue={data.objSedeTarifa}
-                                render={({
-                                    field: { name, value, onChange },
-                                }) => (
-                                    <DropdownSedeTarifa
-                                        label="Sedes y tarifas"
-                                        name={name}
-                                        required
-                                        data={watchServicio.arrSedesTarifas}
-                                        value={value}
-                                        onChange={(e, value) => {
-                                            onChange(value);
-                                        }}
-                                        disabled={loading}
-                                        error={
-                                            errors?.objSedeTarifa ? true : false
-                                        }
-                                        helperText={
-                                            errors?.objSedeTarifa?.message ||
-                                            "Selecciona la sede tarifa"
-                                        }
-                                    />
-                                )}
-                                rules={{
-                                    required:
-                                        "Por favor, selcciona la sede tarifa",
-                                }}
-                                control={control}
-                            />
-                        </Grid>
+                        <Fragment>
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="objSedeTarifa"
+                                    defaultValue={data.objSedeTarifa}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <DropdownSedeTarifa
+                                            label="Sedes y tarifas"
+                                            name={name}
+                                            required
+                                            data={watchServicio.arrSedesTarifas}
+                                            value={value}
+                                            onChange={(e, value) => {
+                                                onChange(value);
+                                            }}
+                                            disabled={loading}
+                                            error={
+                                                errors?.objSedeTarifa
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.objSedeTarifa
+                                                    ?.message ||
+                                                "Selecciona la sede tarifa"
+                                            }
+                                        />
+                                    )}
+                                    rules={{
+                                        required:
+                                            "Por favor, selcciona la sede tarifa",
+                                    }}
+                                    control={control}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="valorTotalServicio"
+                                    defaultValue={data.valorTotalServicio}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <NumberFormat
+                                            label="Valor real del servicio"
+                                            name={name}
+                                            value={value}
+                                            onValueChange={(v) => {
+                                                onChange(v.floatValue);
+                                            }}
+                                            thousandSeparator={true}
+                                            allowNegative={false}
+                                            prefix={"$"}
+                                            customInput={TextField}
+                                            fullWidth
+                                            variant="standard"
+                                            disabled={loading}
+                                            required
+                                            error={!!errors?.valorTotalServicio}
+                                            helperText={
+                                                errors?.valorTotalServicio
+                                                    ?.message ||
+                                                "Digita el valor total del servicio"
+                                            }
+                                        />
+                                    )}
+                                    rules={{
+                                        required:
+                                            "Por favor, digita el valor total del servicio",
+                                    }}
+                                    control={control}
+                                />
+                            </Grid>
+                        </Fragment>
                     )}
 
                     <Grid item xs={12}>

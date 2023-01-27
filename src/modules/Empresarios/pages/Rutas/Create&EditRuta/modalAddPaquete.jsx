@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 
 //Componentes de Material UI
 import {
@@ -13,6 +13,7 @@ import {
     Grid,
     Typography,
     Alert,
+    TextField,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -23,6 +24,7 @@ import { Controller, useForm } from "react-hook-form";
 import DropdownPaquetes from "../../../../Admin/components/dropdownPaquetes";
 import DropdownObjetivos from "../components/dropdownObjetivos";
 import DropdownSedeTarifa from "../components/dropdownSedeTarifa";
+import NumberFormat from "react-number-format";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -47,6 +49,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
         objPaquete: null,
         objSedeTarifa: null,
         arrObjetivos: [],
+        valorTotalPaquete: "",
     });
 
     //===============================================================================================================================================
@@ -107,9 +110,15 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
             setData({
                 objPaquete: null,
                 objSedeTarifa: null,
+                valorTotalPaquete: "",
                 arrObjetivos: [],
             });
-            reset({ objPaquete: null, objSedeTarifa: null, arrObjetivos: [] });
+            reset({
+                objPaquete: null,
+                objSedeTarifa: null,
+                valorTotalPaquete: "",
+                arrObjetivos: [],
+            });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -177,39 +186,82 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                     )}
 
                     {watchPaquete && (
-                        <Grid item xs={12}>
-                            <Controller
-                                name="objSedeTarifa"
-                                defaultValue={data.objSedeTarifa}
-                                render={({
-                                    field: { name, value, onChange },
-                                }) => (
-                                    <DropdownSedeTarifa
-                                        label="Sedes y tarifas"
-                                        name={name}
-                                        required
-                                        data={watchPaquete.arrSedesTarifas}
-                                        value={value}
-                                        onChange={(e, value) => {
-                                            onChange(value);
-                                        }}
-                                        disabled={loading}
-                                        error={
-                                            errors?.objSedeTarifa ? true : false
-                                        }
-                                        helperText={
-                                            errors?.objSedeTarifa?.message ||
-                                            "Selecciona la sede tarifa"
-                                        }
-                                    />
-                                )}
-                                rules={{
-                                    required:
-                                        "Por favor, selcciona la sede tarifa",
-                                }}
-                                control={control}
-                            />
-                        </Grid>
+                        <Fragment>
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="objSedeTarifa"
+                                    defaultValue={data.objSedeTarifa}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <DropdownSedeTarifa
+                                            label="Sedes y tarifas (Valor Referencia)"
+                                            name={name}
+                                            required
+                                            data={watchPaquete.arrSedesTarifas}
+                                            value={value}
+                                            onChange={(e, value) => {
+                                                onChange(value);
+                                            }}
+                                            disabled={loading}
+                                            error={
+                                                errors?.objSedeTarifa
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.objSedeTarifa
+                                                    ?.message ||
+                                                "Selecciona la sede tarifa"
+                                            }
+                                        />
+                                    )}
+                                    rules={{
+                                        required:
+                                            "Por favor, selcciona la sede tarifa",
+                                    }}
+                                    control={control}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="valorTotalPaquete"
+                                    defaultValue={data.valorTotalPaquete}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <NumberFormat
+                                            label="Valor real del paquete"
+                                            name={name}
+                                            value={value}
+                                            onValueChange={(v) => {
+                                                onChange(v.floatValue);
+                                            }}
+                                            thousandSeparator={true}
+                                            allowNegative={false}
+                                            prefix={"$"}
+                                            customInput={TextField}
+                                            fullWidth
+                                            variant="standard"
+                                            disabled={loading}
+                                            required
+                                            error={!!errors?.valorTotalPaquete}
+                                            helperText={
+                                                errors?.valorTotalPaquete
+                                                    ?.message ||
+                                                "Digita el valor total del paquete"
+                                            }
+                                        />
+                                    )}
+                                    rules={{
+                                        required:
+                                            "Por favor, digita el valor total del paquete",
+                                    }}
+                                    control={control}
+                                />
+                            </Grid>
+                        </Fragment>
                     )}
 
                     <Grid item xs={12}>
