@@ -993,9 +993,7 @@ const Coco = () => {
                                             sx={{
                                                 width: 800,
                                                 height: 118,
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
+                                                paddingLeft: "10px",
                                             }}
                                         >
                                             <CardComentarios
@@ -1059,7 +1057,7 @@ const Coco = () => {
                                     >
                                         <p style={{ flexGrow: 1 }}>
                                             <b style={{ fontSize: 16 }}>
-                                                Personas
+                                                Personas Empresarias
                                             </b>
                                         </p>
                                         <img

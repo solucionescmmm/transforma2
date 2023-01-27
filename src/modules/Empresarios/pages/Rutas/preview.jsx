@@ -65,23 +65,15 @@ const PreviewRuta = ({ values }) => {
     //===============================================================================================================================================
     useEffect(() => {
         if (values?.arrInfoFases?.length > 0) {
-            console.log(values);
             const arrDataTable = [];
 
             for (let i = 0; i < values.arrInfoFases.length; i++) {
-                const {
-                    arrPaquetes,
-                    arrServicios,
-                    objTarifa: { intId },
-                } = values.arrInfoFases[i];
+                const { arrPaquetes, arrServicios } = values.arrInfoFases[i];
 
                 for (let j = 0; j < arrPaquetes.length; j++) {
-                    const { objPaquete } = arrPaquetes[j];
-                    const { arrSedesTarifas } = objPaquete;
+                    const { objPaquete, objSedeTarifa } = arrPaquetes[j];
 
-                    const valorTotal = arrSedesTarifas?.find(
-                        (x) => x.intIdTipoTarifa === intId
-                    )?.Valor;
+                    const valorTotal = objSedeTarifa.Valor;
 
                     const dataTable = {
                         id: i + 1,
@@ -101,12 +93,8 @@ const PreviewRuta = ({ values }) => {
                 }
 
                 for (let j = 0; j < arrServicios.length; j++) {
-                    const { objServicio } = arrServicios[j];
-                    const { arrSedesTarifas } = objServicio;
-
-                    const valorTotal = arrSedesTarifas?.find(
-                        (x) => x.intIdTipoTarifa === intId
-                    )?.Valor;
+                    const { objServicio, objSedeTarifa } = arrServicios[j];
+                    const valorTotal = objSedeTarifa.Valor;
 
                     const dataTable = {
                         id: i + 1,
@@ -211,7 +199,11 @@ const PreviewRuta = ({ values }) => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Fecha creación:
                                 </span>
-                                {values?.objInfoPrincipal?.dtmCreacion || ""}
+                                {values?.objInfoPrincipal?.dtmCreacion
+                                    ? new Date(
+                                          values?.objInfoPrincipal?.dtmCreacion
+                                      ).toLocaleDateString("en-EN")
+                                    : ""}
                             </Typography>
                         </Box>
 

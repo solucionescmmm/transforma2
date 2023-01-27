@@ -159,8 +159,10 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${
                         isEdit
-                            ? process.env.REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
-                            : process.env.REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET
+                            ? process.env
+                                  .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
+                            : process.env
+                                  .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET
                     }`,
                     data,
                     headers: {
@@ -313,8 +315,8 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                 variant="h6"
                                             >
                                                 {isEdit
-                                                    ? "EDITAR ACOMPAñAMIENTO"
-                                                    : "REGISTRAR RUTA"}
+                                                    ? "EDITAR ACOMPAÑAMIENTO"
+                                                    : "REGISTRAR ACOMPAÑAMIENTO"}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -528,7 +530,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                 <Grid item xs={12}>
                                     <Controller
                                         defaultValue={data.strLugarActividad}
-                                        name="objInfoRutaExs.strLugarActividad"
+                                        name="strLugarActividad"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
@@ -541,12 +543,10 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                 disabled={loading}
                                                 required
                                                 error={
-                                                    !!errors?.objInfoRutaExs
-                                                        ?.strLugarActividad
+                                                    !!errors?.strLugarActividad
                                                 }
                                                 helperText={
-                                                    errors?.objInfoRutaExs
-                                                        ?.strLugarActividad
+                                                    errors?.strLugarActividad
                                                         ?.message ||
                                                     "Digita el lugar donde se  realizo la actividad"
                                                 }

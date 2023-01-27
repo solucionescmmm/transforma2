@@ -260,7 +260,7 @@ const ReadPersonaSecundaria = ({
                                     },
                                 ]}
                                 columns={objColumns}
-                                title="Personas secundarias"
+                                title="Personas empresarias"
                                 options={{
                                     grouping: true,
                                     title: true,

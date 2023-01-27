@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { io } from "socket.io-client";
 
+import { ListAlt as ListAltIcon } from "@mui/icons-material";
+
 const CardComentarios = ({ intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -72,9 +74,64 @@ const CardComentarios = ({ intIdIdea }) => {
         </Alert>;
     }
 
+    console.log(arrComentarios);
+
+    if (arrComentarios.length === 0) {
+        return (
+            <div
+                style={{
+                    padding: "0px 5px",
+                    textAlign: "center",
+                    margin: "auto",
+                    width: 800,
+                    height: 118,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                No existen comentarios registrados
+            </div>
+        );
+    }
+
     return (
-        <div style={{ padding: "0px 5px" }}>
-            {`Existe un total de ${arrComentarios.length} comentarios`}
+        <div
+            style={{
+                padding: "0px 5px",
+                maxHeight: "100px",
+                overflowY: "scroll",
+            }}
+        >
+            {arrComentarios.slice(0, 5).map((p) => (
+                <Box sx={{ display: "flex" }}>
+                    <p
+                        style={{
+                            flexGrow: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            fontSize: "12px",
+                            maxWidth: "260px",
+                            marginRight: "5px",
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                        }}
+                    >
+                        <ListAltIcon
+                            sx={{
+                                width: "20px",
+                                height: "20px",
+                                marginRight: "5px",
+                            }}
+                        />
+                        {p.strMensaje}
+                    </p>
+                    <p style={{ fontSize: "12px", paddingRight: "5px" }}>
+                        {p.strUsuarioCreacion}
+                    </p>
+                </Box>
+            ))}
         </div>
     );
 };
