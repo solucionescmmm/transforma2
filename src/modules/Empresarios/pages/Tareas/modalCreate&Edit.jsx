@@ -184,7 +184,6 @@ const ModalCEdit = ({
                 await refFntGetData
                     .current({ intId, intIdIdea })
                     .then((res) => {
-                        console.log(res);
 
                         if (res.data.error) {
                             throw new Error(res.data.msg);

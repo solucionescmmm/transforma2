@@ -89,7 +89,7 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
             for (let i = 0; i < values.arrInfoFases.length; i++) {
                 const { arrPaquetes, arrServicios } = values.arrInfoFases[i];
 
-                for (let j = 0; j < arrPaquetes.length; j++) {
+                for (let j = 0; j < arrPaquetes?.length; j++) {
                     const { objPaquete, objSedeTarifa } = arrPaquetes[j];
 
                     const valorTotal = objSedeTarifa.Valor;
@@ -111,7 +111,7 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                     arrDataTable.push(dataTable);
                 }
 
-                for (let j = 0; j < arrServicios.length; j++) {
+                for (let j = 0; j < arrServicios?.length; j++) {
                     const { objServicio, objSedeTarifa } = arrServicios[j];
                     const valorTotal = objSedeTarifa.Valor;
 

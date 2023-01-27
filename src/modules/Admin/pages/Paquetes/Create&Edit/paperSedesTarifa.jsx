@@ -389,8 +389,6 @@ const PaperSedesTarifa = ({
                                                     i++
                                                 ) {
                                                     if (i !== index) {
-                                                        debugger;
-
                                                         const {
                                                             intIdSede,
                                                             intIdTipoTarifa,

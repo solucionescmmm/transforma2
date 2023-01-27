@@ -280,8 +280,6 @@ const Dropzone = ({
                     newArrFiles.push(file);
                 });
 
-                console.log(newArrFiles);
-
                 setFiles(newArrFiles);
             }
         },

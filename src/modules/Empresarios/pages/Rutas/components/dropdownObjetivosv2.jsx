@@ -290,7 +290,6 @@ const DropdownObjetivos2 = ({
                 id={id}
                 value={value}
                 onChange={(_, value) => {
-                    debugger
                     if (typeof value === "string") {
                         setTimeout(() => {
                             toggleOpen(true);

@@ -74,7 +74,6 @@ const CardComentarios = ({ intIdIdea }) => {
         </Alert>;
     }
 
-    console.log(arrComentarios);
 
     if (arrComentarios.length === 0) {
         return (

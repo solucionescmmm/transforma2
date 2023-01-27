@@ -42,8 +42,6 @@ const DropwdownRutas = ({
 }) => {
     const { data, refreshGetData } = useGetRutas({ intIdIdea });
 
-    console.log(data);
-
     if (!data) {
         return (
             <Box

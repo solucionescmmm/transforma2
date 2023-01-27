@@ -160,8 +160,6 @@ const ModalCreate = ({
     };
 
     useEffect(() => {
-        console.log(values);
-        console.log(isEdit);
         if (isEdit) {
             setData((prevState) => ({
                 ...prevState,

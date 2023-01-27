@@ -348,7 +348,7 @@ const Read = () => {
                                             tooltip: "Previsualizar",
                                             onClick: (event, rowData) => {
                                                 setSelectedData(rowData);
-                                                console.log(rowData);
+                        
                                                 handlerOpenModalPreview();
                                             },
                                         };

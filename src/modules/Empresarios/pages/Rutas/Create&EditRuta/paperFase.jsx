@@ -667,6 +667,7 @@ const PaperFase = ({
                                             <Button
                                                 size="small"
                                                 style={{ fontSize: "13px" }}
+                                                disabled={disabled}
                                                 onClick={() =>
                                                     handlerChangeOpenModalAddObjetivo()
                                                 }

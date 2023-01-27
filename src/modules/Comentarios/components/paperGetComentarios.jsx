@@ -79,8 +79,6 @@ const PaperGetComentarios = ({ socket, values }) => {
     return (
         <Grid container direction="row" spacing={2} sx={{ paddingBottom: "15px" }}>
             {arrComentarios.slice(0).reverse().map((e, i) => {
-                debugger
-                
                 if (e.strTipo === "Tarea") {
                     return (
                         <Grid item xs={12} key={i}>

@@ -646,9 +646,7 @@ const ResumenProducto = () => {
             />
         );
     }
-
-    console.log(data);
-
+    
     return (
         <Fragment>
             <ModalEditDiagServ

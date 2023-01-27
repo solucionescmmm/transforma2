@@ -153,7 +153,6 @@ const CardGrafica = ({ intIdIdea, type }) => {
         const ejeY = [];
 
         arrEtapaDllo?.forEach((v, i) => {
-            console.log(v)
             ejeX.push({
                 x: v.dtmCreacion,
                 y: v.intEtapaDlloFecha,

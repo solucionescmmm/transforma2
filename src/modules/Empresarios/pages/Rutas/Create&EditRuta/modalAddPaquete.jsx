@@ -170,7 +170,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                     {!watchPaquete && (
                         <Grid item xs={12}>
                             <Alert severity="info">
-                                Selcciona un paquete para listar las sedes y
+                                Selecciona un paquete para listar las sedes y
                                 tarifas
                             </Alert>
                         </Grid>

@@ -178,7 +178,7 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
                     {!watchServicio && (
                         <Grid item xs={12}>
                             <Alert severity="info">
-                                Selcciona un servicio para listar las sedes y
+                                Selecciona un servicio para listar las sedes y
                                 tarifas
                             </Alert>
                         </Grid>
