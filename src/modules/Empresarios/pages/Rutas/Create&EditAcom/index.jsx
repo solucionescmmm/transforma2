@@ -485,6 +485,16 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                         "objInfoRutaExs.objServicio",
                                                         null
                                                     );
+
+                                                    setValue(
+                                                        "objNuevoServPaq.objPaquete",
+                                                        null
+                                                    );
+
+                                                    setValue(
+                                                        "objNuevoServPaq.objServicio",
+                                                        null
+                                                    );
                                                     onChange(e);
                                                 }}
                                                 helperText={
