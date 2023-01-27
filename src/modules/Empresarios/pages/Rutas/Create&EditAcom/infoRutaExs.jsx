@@ -20,6 +20,7 @@ const InfoRutaExs = ({
     isEdit,
     intIdIdea,
     watch,
+    setValue,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -70,7 +71,12 @@ const InfoRutaExs = ({
                             label="Ruta"
                             name={name}
                             value={value}
-                            onChange={(_, value) => onChange(value)}
+                            onChange={(_, value) => {
+                                setValue("objInfoRutaExs.objFase", null);
+                                setValue("objInfoRutaExs.objPaquete", null);
+                                setValue("objInfoRutaExs.objServicio", null);
+                                onChange(value);
+                            }}
                             disabled={disabled}
                             error={!!errors?.objInfoRutaExs?.objRuta}
                             helperText={

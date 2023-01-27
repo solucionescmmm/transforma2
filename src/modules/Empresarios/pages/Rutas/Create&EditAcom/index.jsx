@@ -465,7 +465,28 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                 required
                                                 name={name}
                                                 value={value}
-                                                onChange={(e) => onChange(e)}
+                                                onChange={(e) => {
+                                                    setValue(
+                                                        "objInfoRutaExs.objRuta",
+                                                        null
+                                                    );
+
+                                                    setValue(
+                                                        "objInfoRutaExs.objFase",
+                                                        null
+                                                    );
+
+                                                    setValue(
+                                                        "objInfoRutaExs.objPaquete",
+                                                        null
+                                                    );
+
+                                                    setValue(
+                                                        "objInfoRutaExs.objServicio",
+                                                        null
+                                                    );
+                                                    onChange(e);
+                                                }}
                                                 helperText={
                                                     errors?.intTipoAcomp
                                                         ?.message ||
