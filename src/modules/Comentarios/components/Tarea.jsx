@@ -23,7 +23,10 @@ import {
 } from "@mui/material";
 
 //Iconos
-import { Comment as CommentIcon, MoreVert as MoreVertIcon } from "@mui/icons-material";
+import {
+    Comment as CommentIcon,
+    MoreVert as MoreVertIcon,
+} from "@mui/icons-material";
 
 //Componentes
 import PaperGetRespuestas from "./paperGetRespuestas";
@@ -54,9 +57,12 @@ const ComentarioTarea = ({ values, socket }) => {
 
     const [openRespuestas, setOpenRespuestas] = useState(false);
     const [openModalAddRespuesta, setOpenModalAddRespuesta] = useState(false);
-    const [openModalEditComentario, setOpenModalEditComentario] = useState(false);
-    const [openModalDeleteComentario, setOpenModalDeleteComentario] = useState(false);
-    const [openModalCheckComentario, setOpenModalCheckComentario] = useState(false);
+    const [openModalEditComentario, setOpenModalEditComentario] =
+        useState(false);
+    const [openModalDeleteComentario, setOpenModalDeleteComentario] =
+        useState(false);
+    const [openModalCheckComentario, setOpenModalCheckComentario] =
+        useState(false);
     const [anchorEl, setAnchorEl] = useState(false);
 
     const openMenu = Boolean(anchorEl);
@@ -164,26 +170,41 @@ const ComentarioTarea = ({ values, socket }) => {
                 }}
             >
                 <Box className={classes.avatar}>
-                    <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
+                    <Avatar
+                        alt={data.strUsuario}
+                        src={data.strURLImagenUsuario}
+                    />
                 </Box>
 
                 <Paper sx={{ width: "90%" }}>
                     <Box sx={{ display: "flex" }}>
                         <Box sx={{ flexGrow: 1, padding: "10px" }}>
-                            <Grid container direction="row" spacing={1}>
+                            <Grid container direction="row" spacing={0}>
                                 <Grid item xs={12}>
-                                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                        }}
+                                    >
                                         <Box sx={{ flexGrow: 1 }}>
-                                            <Typography variant="subtitle2" component="p">
+                                            <Typography
+                                                variant="subtitle2"
+                                                component="p"
+                                            >
                                                 {data.strUsuario}
                                             </Typography>
-                                            <Typography sx={{ fontSize: "10px" }}>
+                                            <Typography
+                                                sx={{ fontSize: "10px" }}
+                                            >
                                                 {data.dtmActualizacion}
                                             </Typography>
                                         </Box>
 
                                         <Box>
-                                            <Typography sx={{ fontSize: "12px" }}>
+                                            <Typography
+                                                sx={{ fontSize: "12px" }}
+                                            >
                                                 Tarea
                                             </Typography>
                                         </Box>
@@ -248,7 +269,9 @@ const ComentarioTarea = ({ values, socket }) => {
                                         size="small"
                                         sx={{ fontSize: "10px" }}
                                         color="inherit"
-                                        onClick={() => handleOpenModalAddRespuesta()}
+                                        onClick={() =>
+                                            handleOpenModalAddRespuesta()
+                                        }
                                     >
                                         responder
                                     </Button>
@@ -257,9 +280,13 @@ const ComentarioTarea = ({ values, socket }) => {
                                         size="small"
                                         sx={{ fontSize: "10px" }}
                                         color="inherit"
-                                        onClick={() => handlerChangeOpenCollapse()}
+                                        onClick={() =>
+                                            handlerChangeOpenCollapse()
+                                        }
                                         disabled={
-                                            data.arrRespuestas.length === 0 ? true : false
+                                            data.arrRespuestas.length === 0
+                                                ? true
+                                                : false
                                         }
                                     >
                                         {openRespuestas
@@ -301,7 +328,8 @@ const ComentarioTarea = ({ values, socket }) => {
                             sx={{
                                 width: "5px",
                                 backgroundColor: (theme) =>
-                                    data.btResuelto === false || data.btResuelto === null
+                                    data.btResuelto === false ||
+                                    data.btResuelto === null
                                         ? theme.palette.error.light
                                         : theme.palette.success.light,
                                 borderRadius: "0px 4px 4px 0px",

@@ -527,7 +527,7 @@ const Coco = () => {
             <Grid
                 container
                 direction="row"
-                spacing={1}
+                spacing={0}
                 sx={{ marginBottom: "15px" }}
             >
                 <Grid item xs={12} md={4}>

@@ -126,7 +126,7 @@ const PaperGetRespuestas = ({ values, socket }) => {
                 </Box>
 
                 <Paper sx={{ padding: "10px", width: "90%" }}>
-                    <Grid container direction="row" spacing={1}>
+                    <Grid container direction="row" spacing={0}>
                         <Grid item xs={12}>
                             <Box sx={{ display: "flex" }}>
                                 <Box sx={{ flexGrow: 1 }}>

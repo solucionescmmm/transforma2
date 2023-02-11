@@ -454,7 +454,7 @@ const Dropzone = ({
                         <Grid
                             container
                             direction="row"
-                            spacing={1}
+                            spacing={0}
                             justifyContent="center"
                         >
                             {archivos}

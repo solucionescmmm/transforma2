@@ -117,7 +117,7 @@ const ModalAddObjetivo = ({ handleOpenDialog, open, onChange }) => {
             <DialogTitle>Añadir objetivo</DialogTitle>
 
             <DialogContent>
-                <Grid container direction="row" spacing={1}>
+                <Grid container direction="row" spacing={0}>
                     <Grid item xs={12}>
                         <Typography variant="caption">
                             Todos los campos marcados con (*) son obligatorios.

@@ -303,7 +303,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
             <Grid
                 container
                 direction="row"
-                spacing={3}
+                spacing={0}
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate

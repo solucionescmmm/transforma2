@@ -157,7 +157,7 @@ const Comentario = ({ values, socket }) => {
                 </Box>
 
                 <Paper sx={{ padding: "10px", width: "90%" }}>
-                    <Grid container direction="row" spacing={1}>
+                    <Grid container direction="row" spacing={0}>
                         <Grid item xs={12}>
                             <Box sx={{ display: "flex", alignItems: "center" }}>
                                 <Box sx={{ flexGrow: 1 }}>
@@ -259,8 +259,7 @@ const Comentario = ({ values, socket }) => {
                                         <PaperGetRespuestas
                                             values={{
                                                 ...e,
-                                                intIdIdea:
-                                                    data.intIdIdea,
+                                                intIdIdea: data.intIdIdea,
                                             }}
                                             socket={socket}
                                         />

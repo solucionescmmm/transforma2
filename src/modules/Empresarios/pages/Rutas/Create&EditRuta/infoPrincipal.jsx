@@ -122,7 +122,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
             />
 
             <Collapse in={openCollapese} timeout="auto">
-                <Grid container direction="row" spacing={2}>
+                <Grid container direction="row" spacing={0}>
                     {isEdit && (
                         <Grid item xs={12}>
                             <Controller

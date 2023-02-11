@@ -195,6 +195,8 @@ const PaperFase = ({
                     strId: shortid.generate(),
                     objPaquete: value.objPaquete,
                     objSedeTarifa: value.objSedeTarifa,
+                    valor: value.valor,
+                    intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
                 });
             }
@@ -203,9 +205,10 @@ const PaperFase = ({
         if (mode.type === "edit") {
             if (
                 newArrPaquetes.find(
-                    (x) =>
+                    (x, index) =>
                         x.objPaquete.objInfoPrincipal.strNombre ===
-                        value.objPaquete.objInfoPrincipal.strNombre
+                            value.objPaquete.objInfoPrincipal.strNombre &&
+                        mode.index !== index
                 )
             ) {
                 toast.error(
@@ -216,6 +219,8 @@ const PaperFase = ({
                     strId: value.strId,
                     objPaquete: value.objPaquete,
                     objSedeTarifa: value.objSedeTarifa,
+                    valor: value.valor,
+                    intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
                 };
             }
@@ -252,6 +257,8 @@ const PaperFase = ({
                     strId: shortid.generate(),
                     objServicio: value.objServicio,
                     objSedeTarifa: value.objSedeTarifa,
+                    valor: value.valor,
+                    intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
                 });
             }
@@ -262,7 +269,8 @@ const PaperFase = ({
                 newArrServicios.find(
                     (x) =>
                         x.objServicio.objInfoPrincipal.strNombre ===
-                        value.objServicio.objInfoPrincipal.strNombre
+                            value.objServicio.objInfoPrincipal.strNombre &&
+                        mode.index !== index
                 )
             ) {
                 toast.error(
@@ -273,6 +281,8 @@ const PaperFase = ({
                     strId: value.strId,
                     objServicio: value.objServicio,
                     objSedeTarifa: value.objSedeTarifa,
+                    valor: value.valor,
+                    intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
                 };
             }
@@ -297,18 +307,14 @@ const PaperFase = ({
         let dblValorRef = 0;
 
         for (let i = 0; i < data.arrPaquetes.length; i++) {
-            const { objSedeTarifa } = data.arrPaquetes[i];
-
-            const { Valor } = objSedeTarifa;
-
-            dblValorRef += Valor;
+            const { valor } = data.arrPaquetes[i];
+            dblValorRef += valor;
         }
 
         for (let i = 0; i < data.arrServicios.length; i++) {
-            const { objSedeTarifa } = data.arrServicios[i];
-            const { Valor } = objSedeTarifa;
+            const { valor } = data.arrServicios[i];
 
-            dblValorRef += Valor;
+            dblValorRef += valor;
         }
 
         setValue(`arrInfoFases[${index}].dblValorRef`, dblValorRef);
@@ -692,6 +698,7 @@ const PaperFase = ({
                                                     fontSize: "14px",
                                                     gap: 1,
                                                     alignItems: "center",
+                                                    marginBottom: "20px"
                                                 }}
                                             >
                                                 <Box sx={{ flexGrow: 1 }}>
@@ -798,6 +805,7 @@ const PaperFase = ({
                                                     fontSize: "14px",
                                                     alignItems: "center",
                                                     gap: 1,
+                                                    marginBottom: "20px"
                                                 }}
                                             >
                                                 <Box sx={{ flexGrow: 1 }}>
@@ -816,9 +824,13 @@ const PaperFase = ({
                                                                 .objInfoPrincipal
                                                                 .strNombre
                                                         } - ${
-                                                            paquete?.objSedeTarifa?.strSede
+                                                            paquete
+                                                                ?.objSedeTarifa
+                                                                ?.strSede
                                                         } - ${
-                                                            paquete.objSedeTarifa?.strTarifa
+                                                            paquete
+                                                                .objSedeTarifa
+                                                                ?.strTarifa
                                                         } - ${new Intl.NumberFormat(
                                                             "es-ES",
                                                             {
@@ -827,7 +839,7 @@ const PaperFase = ({
                                                             }
                                                         )
                                                             .format(
-                                                                paquete.objSedeTarifa?.Valor
+                                                                paquete.valor
                                                             )
                                                             .toString()}`}
                                                     </p>
@@ -969,11 +981,18 @@ const PaperFase = ({
                                                         <p>
                                                             Nombre:{" "}
                                                             {`${
-                                                                servicio?.objServicio?.objInfoPrincipal?.strNombre
+                                                                servicio
+                                                                    ?.objServicio
+                                                                    ?.objInfoPrincipal
+                                                                    ?.strNombre
                                                             } - ${
-                                                                servicio?.objSedeTarifa?.strSede
+                                                                servicio
+                                                                    ?.objSedeTarifa
+                                                                    ?.strSede
                                                             } - ${
-                                                                servicio?.objSedeTarifa?.strTarifa
+                                                                servicio
+                                                                    ?.objSedeTarifa
+                                                                    ?.strTarifa
                                                             } - ${new Intl.NumberFormat(
                                                                 "es-ES",
                                                                 {
@@ -983,7 +1002,7 @@ const PaperFase = ({
                                                                 }
                                                             )
                                                                 .format(
-                                                                    servicio?.objSedeTarifa?.Valor
+                                                                    servicio?.valor
                                                                 )
                                                                 .toString()}`}
                                                         </p>

@@ -441,7 +441,7 @@ const ResumenHumanas = () => {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={1}
+                                spacing={0}
                                 sx={{ padding: "15px" }}
                             >
                                 {data.objInfoGeneral.map((e, i) => (
@@ -506,7 +506,7 @@ const ResumenHumanas = () => {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={1}
+                                spacing={0}
                                 sx={{ padding: "15px" }}
                             >
                                 {data.objInfoEncuestaHumanas.map((e, i) => (

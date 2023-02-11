@@ -981,7 +981,7 @@ const InfoRegistro = () => {
                         <Grid
                             container
                             direction="row"
-                            spacing={1}
+                            spacing={0}
                             sx={{ padding: "15px" }}
                         >
                             {data.objInfoPrincipal.map((e, i) => (
@@ -1046,7 +1046,7 @@ const InfoRegistro = () => {
                         <Grid
                             container
                             direction="row"
-                            spacing={1}
+                            spacing={0}
                             sx={{ padding: "15px" }}
                         >
                             {data.objInfoEmpresarioPr.map((e, i) => (
@@ -1140,7 +1140,7 @@ const InfoRegistro = () => {
                                         <Grid
                                             container
                                             direction="row"
-                                            spacing={1}
+                                            spacing={0}
                                         >
                                             {arrObj.map((e, i) => (
                                                 <Grid
@@ -1217,7 +1217,7 @@ const InfoRegistro = () => {
                         <Grid
                             container
                             direction="row"
-                            spacing={1}
+                            spacing={0}
                             sx={{ padding: "15px" }}
                         >
                             {data.objInfoEmpresa.map((e, i) => (
@@ -1279,7 +1279,7 @@ const InfoRegistro = () => {
                         <Grid
                             container
                             direction="row"
-                            spacing={1}
+                            spacing={0}
                             sx={{ padding: "15px" }}
                         >
                             {data.objInfoAdicional.map((e, i) => (

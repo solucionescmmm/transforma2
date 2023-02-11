@@ -1,25 +1,34 @@
 table {
-    font-size: 12px;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 5px;
-  }
+  font-size: 12px;
+  border-collapse: collapse;
+  width: 100%;
+}
 
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 5px;
+}
 
-  th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #00BBB4;
-    color: white;
-  }
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 
-  tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #00BBB4;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}

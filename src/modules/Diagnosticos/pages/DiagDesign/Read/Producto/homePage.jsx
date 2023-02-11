@@ -960,7 +960,7 @@ const ResumenProducto = () => {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={1}
+                                spacing={0}
                                 sx={{ padding: "15px" }}
                             >
                                 {data.objInfoGeneral.map((e, i) => (
@@ -1022,7 +1022,7 @@ const ResumenProducto = () => {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={1}
+                                spacing={0}
                                 sx={{ padding: "15px" }}
                             >
                                 {data.objInfoProductos.map((e, i) => (
@@ -1087,7 +1087,7 @@ const ResumenProducto = () => {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={1}
+                                spacing={0}
                                 sx={{ padding: "15px" }}
                             >
                                 {data.objInfoTemasFortalecer.map((e, i) => {
@@ -1868,7 +1868,7 @@ const ResumenProducto = () => {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={1}
+                                spacing={0}
                                 sx={{ padding: "15px" }}
                             >
                                 {data.objInfoFortalezas.map((e, i) => {
@@ -2644,7 +2644,7 @@ const ResumenProducto = () => {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={1}
+                                spacing={0}
                                 sx={{ padding: "15px" }}
                             >
                                 {data.objInfoNormatividad.map((e, i) => {
@@ -2717,7 +2717,7 @@ const ResumenProducto = () => {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={1}
+                                spacing={0}
                                 sx={{ padding: "15px" }}
                             >
                                 <Grid item xs={12}>
@@ -2774,7 +2774,7 @@ const ResumenProducto = () => {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={1}
+                                spacing={0}
                                 sx={{ padding: "15px" }}
                             >
                                 <Grid item xs={12}>

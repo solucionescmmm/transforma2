@@ -90,9 +90,9 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                 const { arrPaquetes, arrServicios } = values.arrInfoFases[i];
 
                 for (let j = 0; j < arrPaquetes?.length; j++) {
-                    const { objPaquete, objSedeTarifa } = arrPaquetes[j];
+                    const { objPaquete, valor, intDuracionHoras } = arrPaquetes[j];
 
-                    const valorTotal = objSedeTarifa?.Valor;
+                    const valorTotal = valor;
 
                     const dataTable = {
                         id: i + 1,
@@ -105,15 +105,15 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                         })
                             .format(valorTotal)
                             .toString(),
-                        intDuracion: "",
+                        intDuracion: intDuracionHoras,
                     };
 
                     arrDataTable.push(dataTable);
                 }
 
                 for (let j = 0; j < arrServicios?.length; j++) {
-                    const { objServicio, objSedeTarifa } = arrServicios[j];
-                    const valorTotal = objSedeTarifa?.Valor;
+                    const { objServicio, valor, intDuracionHoras} = arrServicios[j];
+                    const valorTotal = valor;
 
                     const dataTable = {
                         id: i + 1,
@@ -126,7 +126,7 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                         })
                             .format(valorTotal)
                             .toString(),
-                        intDuracion: "",
+                        intDuracion: intDuracionHoras,
                     };
 
                     arrDataTable.push(dataTable);

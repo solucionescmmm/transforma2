@@ -21,7 +21,10 @@ import {
 } from "@mui/material";
 
 //Iconos
-import { Comment as CommentIcon, MoreVert as MoreVertIcon } from "@mui/icons-material";
+import {
+    Comment as CommentIcon,
+    MoreVert as MoreVertIcon,
+} from "@mui/icons-material";
 
 //Componentes
 import PaperGetRespuestas from "./paperGetRespuestas";
@@ -51,8 +54,10 @@ const ComentarioSugerencia = ({ values, socket }) => {
 
     const [openRespuestas, setOpenRespuestas] = useState(false);
     const [openModalAddRespuesta, setOpenModalAddRespuesta] = useState(false);
-    const [openModalEditComentario, setOpenModalEditComentario] = useState(false);
-    const [openModalDeleteComentario, setOpenModalDeleteComentario] = useState(false);
+    const [openModalEditComentario, setOpenModalEditComentario] =
+        useState(false);
+    const [openModalDeleteComentario, setOpenModalDeleteComentario] =
+        useState(false);
     const [anchorEl, setAnchorEl] = useState(false);
 
     const openMenu = Boolean(anchorEl);
@@ -147,15 +152,21 @@ const ComentarioSugerencia = ({ values, socket }) => {
                 }}
             >
                 <Box className={classes.avatar}>
-                    <Avatar alt={data.strUsuario} src={data.strURLImagenUsuario} />
+                    <Avatar
+                        alt={data.strUsuario}
+                        src={data.strURLImagenUsuario}
+                    />
                 </Box>
 
                 <Paper sx={{ padding: "10px", width: "90%" }}>
-                    <Grid container direction="row" spacing={1}>
+                    <Grid container direction="row" spacing={0}>
                         <Grid item xs={12}>
                             <Box sx={{ display: "flex", alignItems: "center" }}>
                                 <Box sx={{ flexGrow: 1 }}>
-                                    <Typography variant="subtitle2" component="p">
+                                    <Typography
+                                        variant="subtitle2"
+                                        component="p"
+                                    >
                                         {data.strUsuario}
                                     </Typography>
                                     <Typography sx={{ fontSize: "10px" }}>
@@ -174,7 +185,8 @@ const ComentarioSugerencia = ({ values, socket }) => {
                                         size="small"
                                         onClick={handleOpenMenu}
                                         disabled={
-                                            strInfoUser.strUsuario !== data.strUsuario
+                                            strInfoUser.strUsuario !==
+                                            data.strUsuario
                                                 ? true
                                                 : false
                                         }
@@ -227,7 +239,11 @@ const ComentarioSugerencia = ({ values, socket }) => {
                                 sx={{ fontSize: "10px" }}
                                 color="inherit"
                                 onClick={() => handlerChangeOpenCollapse()}
-                                disabled={data.arrRespuestas.length === 0 ? true : false}
+                                disabled={
+                                    data.arrRespuestas.length === 0
+                                        ? true
+                                        : false
+                                }
                             >
                                 {openRespuestas
                                     ? "Cerrar respuestas"
@@ -252,7 +268,8 @@ const ComentarioSugerencia = ({ values, socket }) => {
                                         <PaperGetRespuestas
                                             values={{
                                                 ...e,
-                                                intIdEmpresario: data.intIdEmpresario,
+                                                intIdEmpresario:
+                                                    data.intIdEmpresario,
                                             }}
                                             socket={socket}
                                         />

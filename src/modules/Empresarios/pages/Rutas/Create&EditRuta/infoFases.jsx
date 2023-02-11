@@ -131,7 +131,7 @@ const InfoFases = ({
             />
 
             <Collapse in={openCollapese} timeout="auto">
-                <Grid container direction="row" spacing={2}>
+                <Grid container direction="row" spacing={0}>
                     <Grid item xs={12}>
                         <TransitionGroup>
                             {fields.map((e, i) => (
