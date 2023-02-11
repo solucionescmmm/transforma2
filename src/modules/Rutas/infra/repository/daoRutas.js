@@ -160,7 +160,6 @@ class daoRutas {
     }
 
     async setServiciosFases(data) {
-        
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -170,6 +169,8 @@ class daoRutas {
             (
                 ${data.intIdFase},
                 ${data.intIdServicio},
+                ${data.intIdPaqueteFase},
+                ${data.intIdSedeTipoTarifaServRef},
                 ${data.ValorReferenciaServicio},
                 ${data.ValorTotalServicio},
                 ${data.intDuracionHorasReferenciaServicio},
@@ -178,8 +179,7 @@ class daoRutas {
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
-                NULL,
-                ${data.intIdSedeTipoTarifaServRef}
+                NULL
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -387,6 +387,7 @@ class daoRutas {
                         FasesPaquetes.intId,
                         FasesPaquetes.intIdFase,
                         FasesPaquetes.intIdPaquete,
+                        FasesPaquetes.intIdSedeTipoTarifaPaqRef,
                         FasesPaquetes.ValorReferenciaPaquete,
                         FasesPaquetes.ValorTotalPaquete,
                         FasesPaquetes.intDuracionHorasReferenciaPaquete,
@@ -427,6 +428,8 @@ class daoRutas {
                         FasesServicios.intId,
                         FasesServicios.intIdFase,
                         FasesServicios.intIdServicio,
+                        FasesServicios.intIdPaqueteFase,
+                        FasesServicios.intIdSedeTipoTarifaServRef,
                         FasesServicios.ValorReferenciaServicio,
                         FasesServicios.ValorTotalServicio,
                         FasesServicios.intDuracionHorasReferenciaServicio,

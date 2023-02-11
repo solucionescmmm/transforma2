@@ -19,7 +19,7 @@ class setRutas {
     #intIdRuta;
     #intIdFase;
     #intIdEstado;
-    #intIdTipo;
+    #intIdTipoRuta;
 
     /**
      * @param {object} data
@@ -58,7 +58,7 @@ class setRutas {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
-        let arrayFases =this.#objData.arrInfoFases
+        let arrayFases = this.#objData.arrInfoFases
 
         if (arrayFases.length <= 0) {
             throw new Error("El array de las fases esta vacío.");
@@ -66,10 +66,10 @@ class setRutas {
 
         for (let i = 0; i < arrayFases.length; i++) {
             if (arrayFases[i].arrObjetivos.length <= 0) {
-                throw new Error(`El array de los objetivos esta vacío en la fase #${i+1}`);
+                throw new Error(`El array de los objetivos esta vacío en la fase #${i + 1}`);
             }
 
-            if (arrayFases[i].arrPaquetes.length <= 0 &&  arrayFases[i].arrServicios.length <= 0) {
+            if (arrayFases[i].arrPaquetes.length <= 0 && arrayFases[i].arrServicios.length <= 0) {
                 throw new Error(`Por favor eliga un paquete o servicio en la fase #${i + 1}`);
             }
         }
@@ -96,7 +96,7 @@ class setRutas {
             throw new Error(queryGetIdTipo.msg);
         }
 
-        this.#intIdTipo = queryGetIdTipo.data.intId;
+        this.#intIdTipoRuta = queryGetIdTipo.data.intId;
     }
 
     async #setRutas() {
@@ -104,7 +104,7 @@ class setRutas {
         let objDataRuta = this.#objData.objInfoPrincipal;
         let newData = {
             ...objDataRuta,
-            intIdTipoRuta: this.#intIdTipo,
+            intIdTipoRuta: this.#intIdTipoRuta,
             intIdEstadoRuta: this.#intIdEstado,
             strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
             strUsuarioCreacion: this.#objUser.strEmail,
@@ -155,7 +155,7 @@ class setRutas {
 
             let arrObjetivos = objDataFase.arrObjetivos;
 
-            if (arrObjetivos?.length > 0) {
+            if (arrObjetivos.length > 0) {
                 for (let j = 0; j < arrObjetivos.length; j++) {
                     let objDataObjetivos = arrObjetivos[j];
 
@@ -175,19 +175,19 @@ class setRutas {
 
             let arrPaquetes = objDataFase.arrPaquetes;
 
-            if (arrPaquetes?.length > 0) {
+            if (arrPaquetes.length > 0) {
                 for (let j = 0; j < arrPaquetes.length; j++) {
                     let objDataPaquete = arrPaquetes[j];
 
                     let query = await dao.setPaquetesFases({
                         intIdFase: this.#intIdFase,
                         intIdPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intId,
-                        intIdSedeTipoTarifaServRef:objDataPaquete.objSedeTarifa.intId,
-                        ValorReferenciaPaquete:objDataPaquete.objSedeTarifa.dblValor,
+                        intIdSedeTipoTarifaPaqRef: objDataPaquete.objSedeTarifa.intId,
+                        ValorReferenciaPaquete: objDataPaquete.objSedeTarifa.dblValor,
                         ValorTotalPaquete:objDataPaquete.valorTotalPaquete,
-                        intDuracionHorasReferenciaPaquete:objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
-                        intDuracionHorasTotalPaquete:objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
-                        btFinalizado:false,
+                        intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
+                        intDuracionHorasTotalPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
+                        btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 
@@ -196,6 +196,31 @@ class setRutas {
                     }
 
                     let intIdPaqueteFase = query.data.intId;
+
+                    let arrServicios = objDataPaquete.objPaquete.objInfoPrincipal.arrServicios
+
+                    if (arrServicios.length) {
+                        for (let k = 0; k < arrServicios.length; k++) {
+                            let objDataServicio = arrServicios[k];
+
+                            let query = await dao.setServiciosFases({
+                                intIdFase: this.#intIdFase,
+                                intIdServicio: objDataServicio.objInfoPrincipal.intId,
+                                intIdPaqueteFase: intIdPaqueteFase,
+                                intIdSedeTipoTarifaServRef: null,
+                                ValorReferenciaServicio: 0,
+                                ValorTotalServicio: 0,
+                                intDuracionHorasReferenciaServicio: null,
+                                intDuracionHorasTotalServicio: null,
+                                btFinalizado: false,
+                                strUsuarioCreacion: this.#objUser.strEmail,
+                            });
+
+                            if (query.error) {
+                                throw new Error(query.msg);
+                            }
+                        }
+                    }
 
                     let arrObjetivosPaquete = objDataPaquete.arrObjetivos;
 
@@ -221,19 +246,20 @@ class setRutas {
 
             let arrServicios = objDataFase.arrServicios;
 
-            if (arrServicios?.length > 0) {
+            if (arrServicios.length > 0) {
                 for (let j = 0; j < arrServicios.length; j++) {
                     let objDataServicio = arrServicios[j];
 
                     let query = await dao.setServiciosFases({
                         intIdFase: this.#intIdFase,
-                        intIdServicio:objDataServicio.objServicio.objInfoPrincipal.intId,
-                        intIdSedeTipoTarifaServRef:objDataServicio.objSedeTarifa.intId,
-                        ValorReferenciaServicio:objDataServicio.objSedeTarifa.dblValor,
+                        intIdServicio: objDataServicio.objServicio.objInfoPrincipal.intId,
+                        intIdPaqueteFase: null,
+                        intIdSedeTipoTarifaServRef: objDataServicio.objSedeTarifa.intId,
+                        ValorReferenciaServicio: objDataServicio.objSedeTarifa.dblValor,
                         ValorTotalServicio:objDataServicio.valorTotalServicio,
-                        intDuracionHorasReferenciaServicio:objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras|| null,
-                        intDuracionHorasTotalServicio:objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
-                        btFinalizado:false,
+                        intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
+                        intDuracionHorasTotalServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
+                        btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 
