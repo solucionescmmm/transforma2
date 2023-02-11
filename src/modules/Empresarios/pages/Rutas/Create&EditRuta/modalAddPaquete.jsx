@@ -51,7 +51,6 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
         valor: "",
         intDuracionHoras: "",
         arrObjetivos: [],
-        valorTotalPaquete: "",
     });
 
     //===============================================================================================================================================
@@ -112,14 +111,16 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
             setData({
                 objPaquete: null,
                 objSedeTarifa: null,
-                valorTotalPaquete: "",
                 arrObjetivos: [],
+                valor: "",
+                intDuracionHoras: "",
             });
             reset({
                 objPaquete: null,
                 objSedeTarifa: null,
-                valorTotalPaquete: "",
                 arrObjetivos: [],
+                valor: "",
+                intDuracionHoras: "",
             });
             setSucces(false);
         }

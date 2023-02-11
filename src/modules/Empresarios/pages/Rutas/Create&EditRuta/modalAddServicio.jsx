@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
-import React, { useState, useEffect, useCallback, Fragment } from "react";
 
 //Componentes de Material UI
 import {
@@ -15,7 +14,6 @@ import {
     Typography,
     Alert,
     TextField,
-    TextField,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -26,7 +24,6 @@ import { Controller, useForm } from "react-hook-form";
 import DropdownServicios from "../../../../Admin/components/dropdownServicios";
 import DropdownObjetivos from "../components/dropdownObjetivos";
 import DropdownSedeTarifa from "../components/dropdownSedeTarifa";
-import NumberFormat from "react-number-format";
 import NumberFormat from "react-number-format";
 
 const modalRejectStyles = makeStyles(() => ({
@@ -116,13 +113,15 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                 objServicio: null,
                 objSedeTarifa: null,
                 arrObjetivos: [],
-                valorTotalServicio: "",
+                valor: "",
+                intDuracionHoras: "",
             });
             reset({
                 objServicio: null,
                 objSedeTarifa: null,
                 arrObjetivos: [],
-                valorTotalServicio: "",
+                valor: "",
+                intDuracionHoras: "",
             });
             setSucces(false);
         }

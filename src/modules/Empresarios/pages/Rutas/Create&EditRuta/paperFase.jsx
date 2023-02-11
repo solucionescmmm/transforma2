@@ -198,7 +198,6 @@ const PaperFase = ({
                     valor: value.valor,
                     intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
-                    valorTotalPaquete: value.valorTotalPaquete,
                 });
             }
         }
@@ -223,7 +222,6 @@ const PaperFase = ({
                     valor: value.valor,
                     intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
-                    valorTotalPaquete: value.valorTotalPaquete,
                 };
             }
         }
@@ -262,7 +260,6 @@ const PaperFase = ({
                     valor: value.valor,
                     intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
-                    valorTotalServicio: value.valorTotalServicio,
                 });
             }
         }
@@ -287,7 +284,6 @@ const PaperFase = ({
                     valor: value.valor,
                     intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
-                    valorTotalServicio: value.valorTotalServicio,
                 };
             }
         }
@@ -831,9 +827,7 @@ const PaperFase = ({
                                                             paquete
                                                                 ?.objSedeTarifa
                                                                 ?.strSede
-                                                            paquete
-                                                                ?.objSedeTarifa
-                                                                ?.strSede
+                                                        
                                                         } - ${
                                                             paquete
                                                                 .objSedeTarifa
@@ -1006,24 +1000,17 @@ const PaperFase = ({
                                                                     ?.objServicio
                                                                     ?.objInfoPrincipal
                                                                     ?.strNombre
-                                                                servicio
-                                                                    ?.objServicio
-                                                                    ?.objInfoPrincipal
-                                                                    ?.strNombre
+                                                           
                                                             } - ${
                                                                 servicio
                                                                     ?.objSedeTarifa
                                                                     ?.strSede
-                                                                servicio
-                                                                    ?.objSedeTarifa
-                                                                    ?.strSede
+                                                         
                                                             } - ${
                                                                 servicio
                                                                     ?.objSedeTarifa
                                                                     ?.strTarifa
-                                                                servicio
-                                                                    ?.objSedeTarifa
-                                                                    ?.strTarifa
+                                                         
                                                             } - ${new Intl.NumberFormat(
                                                                 "es-ES",
                                                                 {
