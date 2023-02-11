@@ -18,6 +18,7 @@ class daoPaquetes {
             (
                 ${data.strNombre},
                 ${data.strDescripcion},
+                ${data.intDuracionHoras},
                 ${data.intIdEstado},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
@@ -194,6 +195,7 @@ class daoPaquetes {
                     Paquete.intId,
                     Paquete.strNombre,
                     Paquete.strDescripcion,
+                    Paquete.intDuracionHoras,
                     Paquete.intIdEstado,
                     Estado.strNombre as strEstado,
                     Paquete.dtmCreacion,
@@ -249,6 +251,7 @@ class daoPaquetes {
                     Paquete.intId,
                     Paquete.strNombre,
                     Paquete.strDescripcion,
+                    Paquete.intDuracionHoras,
                     Paquete.intIdEstado,
                     Estado.strNombre as strEstado,
                     Paquete.dtmCreacion,
@@ -384,9 +387,10 @@ class daoPaquetes {
             let response = await conn.query`    
                 UPDATE tbl_Paquetes
 
-                SET strNombre              = COALESCE(${data.strNombre}, strNombre),
+                SET strNombre               = COALESCE(${data.strNombre}, strNombre),
                     strDescripcion          = COALESCE(${data.strDescripcion}, strDescripcion),
                     intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
+                    intDuracionHoras        = COALESCE(${data.intDuracionHoras}, intDuracionHoras),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 
