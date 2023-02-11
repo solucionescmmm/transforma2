@@ -57,7 +57,6 @@ const PaperSedesTarifa = ({
         intIdSede: "",
         intIdTipoTarifa: "",
         dblValor: "",
-        intDuracionHoras: ""
     });
 
     const [loading, setLoading] = useState(true);
@@ -93,7 +92,6 @@ const PaperSedesTarifa = ({
                 intIdSede: values.intIdSede,
                 intIdTipoTarifa: values.intIdTipoTarifa,
                 dblValor: values.dblValor,
-                intDuracionHoras: values.intDuracionHoras,
             });
         }
 
@@ -456,44 +454,6 @@ const PaperSedesTarifa = ({
                                     control={control}
                                     rules={{
                                         required: "Por favor, digita el valor",
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Controller
-                                    defaultValue={data.intDuracionHoras}
-                                    name={`arrSedesTarifas[${index}].intDuracionHoras`}
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <TextField
-                                            label="Duración en horas"
-                                            name={name}
-                                            value={value}
-                                            onChange={(e) => {
-                                                onChange(e);
-                                            }}
-                                            fullWidth
-                                            type="number"
-                                            variant="standard"
-                                            disabled={disabled}
-                                            required
-                                            error={
-                                                !!errors?.arrSedesTarifas?.[
-                                                    index
-                                                ]?.intDuracionHoras
-                                            }
-                                            helperText={
-                                                errors?.arrSedesTarifas?.[index]
-                                                    ?.intDuracionHoras?.message ||
-                                                "Digita la duración en horas"
-                                            }
-                                        />
-                                    )}
-                                    control={control}
-                                    rules={{
-                                        required: "Por favor, digita la duración en horas",
                                     }}
                                 />
                             </Grid>

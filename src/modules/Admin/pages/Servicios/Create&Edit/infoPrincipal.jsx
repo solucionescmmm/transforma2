@@ -55,6 +55,7 @@ const InfoPrincipal = ({
         intIdProyectoEs: "",
         bitProyectoEs: "",
         bitModulos: "",
+        intDuracionHoras: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -81,6 +82,7 @@ const InfoPrincipal = ({
                 bitProyectoEs: values.intIdProyectoEs ? true : false,
                 bitModulos: values.bitModulos,
                 intIdProyectoEs: values.intIdProyectoEs,
+                intDuracionHoras: values.intDuracionHoras,
             });
 
             fntGetData(values.intIdTipoServicio);
@@ -96,7 +98,7 @@ const InfoPrincipal = ({
             intId: intIdTipoServicio,
         });
 
-        await onChangeTipoServicio(response.data.data[0]);
+        await onChangeTipoServicio(response.data?.data[0]);
     };
 
     const watchBitProyectoEs = watch("objInfoPrincipal.bitProyectoEs");
@@ -200,7 +202,7 @@ const InfoPrincipal = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <Controller
                             name="objInfoPrincipal.strNombre"
                             defaultValue={data.strNombre}
@@ -233,7 +235,7 @@ const InfoPrincipal = ({
                                 validate: (value) => {
                                     if (isEdit) {
                                         if (
-                                            dataServicios?.find(
+                                            dataServicios?.find?.(
                                                 (a) =>
                                                     a.objInfoPrincipal.strNombre.toLowerCase() ===
                                                         value.toLowerCase() &&
@@ -245,7 +247,7 @@ const InfoPrincipal = ({
                                         }
                                     } else {
                                         if (
-                                            dataServicios?.find(
+                                            dataServicios?.find?.(
                                                 (a) =>
                                                     a.objInfoPrincipal.strNombre.toLowerCase() ===
                                                     value.toLowerCase()
@@ -257,6 +259,42 @@ const InfoPrincipal = ({
                                 },
                             }}
                             control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <Controller
+                            defaultValue={data.intDuracionHoras}
+                            name={`objInfoPrincipal.intDuracionHoras`}
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Duración en horas"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                    }}
+                                    fullWidth
+                                    type="number"
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        !!errors?.objInfoPrincipal
+                                            ?.intDuracionHoras
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal
+                                            ?.intDuracionHoras?.message ||
+                                        "Digita la duración en horas"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digita la duración en horas",
+                            }}
                         />
                     </Grid>
 

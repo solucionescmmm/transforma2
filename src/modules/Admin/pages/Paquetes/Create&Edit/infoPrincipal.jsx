@@ -40,6 +40,7 @@ const InfoPrincipal = ({
         arrServicios: [],
         strNombre: "",
         strDescripcion: "",
+        intDuracionHoras: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -57,6 +58,7 @@ const InfoPrincipal = ({
                 arrServicios: values.arrServicios || [],
                 strNombre: values.strNombre,
                 strDescripcion: values.strDescripcion,
+                intDuracionHoras: values.intDuracionHoras,
             });
         }
 
@@ -252,6 +254,42 @@ const InfoPrincipal = ({
                                     "Por favor, selecciona uno o varios servicios",
                             }}
                             control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.intDuracionHoras}
+                            name={`objInfoPrincipal.intDuracionHoras`}
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Duración en horas"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e);
+                                    }}
+                                    fullWidth
+                                    type="number"
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        !!errors?.objInfoPrincipal
+                                            ?.intDuracionHoras
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal
+                                            ?.intDuracionHoras?.message ||
+                                        "Digita la duración en horas"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digita la duración en horas",
+                            }}
                         />
                     </Grid>
                 </Grid>
