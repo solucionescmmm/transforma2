@@ -198,6 +198,7 @@ const PaperFase = ({
                     valor: value.valor,
                     intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
+                    valorTotalPaquete: value.valorTotalPaquete,
                 });
             }
         }
@@ -222,6 +223,7 @@ const PaperFase = ({
                     valor: value.valor,
                     intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
+                    valorTotalPaquete: value.valorTotalPaquete,
                 };
             }
         }
@@ -260,6 +262,7 @@ const PaperFase = ({
                     valor: value.valor,
                     intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
+                    valorTotalServicio: value.valorTotalServicio,
                 });
             }
         }
@@ -284,6 +287,7 @@ const PaperFase = ({
                     valor: value.valor,
                     intDuracionHoras: value.intDuracionHoras,
                     arrObjetivos: value.arrObjetivos,
+                    valorTotalServicio: value.valorTotalServicio,
                 };
             }
         }
@@ -827,6 +831,9 @@ const PaperFase = ({
                                                             paquete
                                                                 ?.objSedeTarifa
                                                                 ?.strSede
+                                                            paquete
+                                                                ?.objSedeTarifa
+                                                                ?.strSede
                                                         } - ${
                                                             paquete
                                                                 .objSedeTarifa
@@ -842,6 +849,20 @@ const PaperFase = ({
                                                                 paquete.valor
                                                             )
                                                             .toString()}`}
+                                                    </p>
+                                                    <p>
+                                                        Valor:{" "}
+                                                        {new Intl.NumberFormat(
+                                                            "es-ES",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "COP",
+                                                            }
+                                                        )
+                                                            .format(
+                                                                paquete.valorTotalPaquete
+                                                            )
+                                                            .toString()}
                                                     </p>
                                                 </Box>
 
@@ -985,11 +1006,21 @@ const PaperFase = ({
                                                                     ?.objServicio
                                                                     ?.objInfoPrincipal
                                                                     ?.strNombre
+                                                                servicio
+                                                                    ?.objServicio
+                                                                    ?.objInfoPrincipal
+                                                                    ?.strNombre
                                                             } - ${
                                                                 servicio
                                                                     ?.objSedeTarifa
                                                                     ?.strSede
+                                                                servicio
+                                                                    ?.objSedeTarifa
+                                                                    ?.strSede
                                                             } - ${
+                                                                servicio
+                                                                    ?.objSedeTarifa
+                                                                    ?.strTarifa
                                                                 servicio
                                                                     ?.objSedeTarifa
                                                                     ?.strTarifa
@@ -1005,6 +1036,22 @@ const PaperFase = ({
                                                                     servicio?.valor
                                                                 )
                                                                 .toString()}`}
+                                                        </p>
+
+                                                        <p>
+                                                            Valor:{" "}
+                                                            {new Intl.NumberFormat(
+                                                                "es-ES",
+                                                                {
+                                                                    style: "currency",
+                                                                    currency:
+                                                                        "COP",
+                                                                }
+                                                            )
+                                                                .format(
+                                                                    servicio.valorTotalServicio
+                                                                )
+                                                                .toString()}
                                                         </p>
                                                     </Box>
 

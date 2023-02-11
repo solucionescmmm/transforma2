@@ -51,6 +51,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
         valor: "",
         intDuracionHoras: "",
         arrObjetivos: [],
+        valorTotalPaquete: "",
     });
 
     //===============================================================================================================================================
@@ -111,9 +112,15 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
             setData({
                 objPaquete: null,
                 objSedeTarifa: null,
+                valorTotalPaquete: "",
                 arrObjetivos: [],
             });
-            reset({ objPaquete: null, objSedeTarifa: null, arrObjetivos: [] });
+            reset({
+                objPaquete: null,
+                objSedeTarifa: null,
+                valorTotalPaquete: "",
+                arrObjetivos: [],
+            });
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
