@@ -3,7 +3,6 @@ const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas");
 
 //Librerias
 const validator = require("validator").default;
-const apiCache = require("apicache-plus");
 
 //Servicios
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
@@ -31,7 +30,7 @@ class setRutas {
     }
 
     async main() {
-        await this.#deleteCache();
+       
         await this.#getTipoRuta();
         await this.#validations();
         await this.#getIdEstado();
@@ -40,9 +39,7 @@ class setRutas {
         return this.#objResult;
     }
 
-    async #deleteCache() {
-        await apiCache.clear();
-    }
+   
 
     async #validations() {
         if (

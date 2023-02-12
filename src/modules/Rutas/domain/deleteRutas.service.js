@@ -2,7 +2,7 @@
 const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas");
 
 //Librerias
-const apiCache = require("apicache-plus");
+
 
 //Servicios
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
@@ -23,7 +23,6 @@ class deleteRutas {
     }
 
     async main() {
-        await this.#deleteCache();
         await this.#getIdEstado();
         await this.#getRuta();
         await this.#validations();
@@ -41,10 +40,6 @@ class deleteRutas {
                 "No se puede eliminar la ruta, al tener una o mas fases en un estado diferente al En Borrador."
             );
         }
-    }
-
-    async #deleteCache() {
-        await apiCache.clear();
     }
 
     async #getRuta() {

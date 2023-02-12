@@ -1,6 +1,5 @@
 //Librerias
 const validator = require("validator").default;
-const apiCache = require("apicache-plus");
 
 //class
 const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas");
@@ -33,16 +32,12 @@ class updateRutas {
     async main() {
         await this.#getIdEstado();
         await this.#getTipoRuta()
-        await this.#deleteCache();
+        
         await this.#validations();
         await this.#deleteRuta();
         await this.#setRutas();
         await this.#setFases();
         return this.#objResult;
-    }
-
-    async #deleteCache() {
-        await apiCache.clear();
     }
 
     async #validations() {

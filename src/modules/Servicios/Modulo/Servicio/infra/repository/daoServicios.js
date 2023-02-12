@@ -486,6 +486,7 @@ class daoServicios {
     }
 
     async updateServicios(data) {
+        console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    

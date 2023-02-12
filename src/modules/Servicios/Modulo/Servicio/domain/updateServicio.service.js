@@ -93,7 +93,6 @@ class updateServicios {
     async #updateServiciosActivar() {
         let dao = new classInterfaceDAOServicios();
 
-
         let query = await dao.updateServicios({
             intId: this.#objData.intId,
             ...this.#objData.objInfoPrincipal,
