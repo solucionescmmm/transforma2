@@ -118,7 +118,9 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
             objPaquete: values?.value ? values.value?.objPaquete : null,
             objSedeTarifa: values?.value ? values.value?.objSedeTarifa : null,
             valor: values?.value ? values.value?.valor : "",
-            intDuracionHoras: values?.value ? values.value?.intDuracionHoras : "",
+            intDuracionHoras: values?.value
+                ? values.value?.intDuracionHoras
+                : "",
             arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
         });
 
@@ -126,7 +128,9 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
             objPaquete: values?.value ? values.value?.objPaquete : null,
             objSedeTarifa: values?.value ? values.value?.objSedeTarifa : null,
             valor: values?.value ? values.value?.valor : "",
-            intDuracionHoras: values?.value ? values.value?.intDuracionHoras : "",
+            intDuracionHoras: values?.value
+                ? values.value?.intDuracionHoras
+                : "",
             arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -166,6 +170,12 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                                     required
                                     value={value}
                                     onChange={(e, value) => {
+                                        setValue(
+                                            "intDuracionHoras",
+                                            value?.objInfoPrincipal
+                                                ?.intDuracionHoras || ""
+                                        );
+                                        setValue("valor", "");
                                         setValue("objSedeTarifa", null);
                                         onChange(value);
                                     }}
@@ -210,8 +220,10 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                                             data={watchPaquete.arrSedesTarifas}
                                             value={value}
                                             onChange={(e, value) => {
-                                                setValue('valor', value.Valor)
-                                                setValue('intDuracionHoras', value.intDuracionHoras || "")
+                                                setValue(
+                                                    "valor",
+                                                    value?.Valor || ""
+                                                );
                                                 onChange(value);
                                             }}
                                             disabled={loading}

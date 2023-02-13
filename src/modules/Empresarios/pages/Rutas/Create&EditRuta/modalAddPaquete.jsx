@@ -161,6 +161,12 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                                     required
                                     value={value}
                                     onChange={(e, value) => {
+                                        setValue(
+                                            "intDuracionHoras",
+                                            value?.objInfoPrincipal
+                                                ?.intDuracionHoras || ""
+                                        );
+                                        setValue("valor", "");
                                         setValue("objSedeTarifa", null);
                                         onChange(value);
                                     }}
@@ -204,10 +210,14 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                                             data={watchPaquete.arrSedesTarifas}
                                             value={value}
                                             onChange={(e, value) => {
-                                                setValue("valor", value.Valor);
+                                                setValue(
+                                                    "valor",
+                                                    value?.Valor || ""
+                                                );
                                                 setValue(
                                                     "intDuracionHoras",
-                                                    value.intDuracionHoras || ""
+                                                    value?.intDuracionHoras ||
+                                                        ""
                                                 );
                                                 onChange(value);
                                             }}

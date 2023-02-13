@@ -65,7 +65,7 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
         handleSubmit,
         reset,
         watch,
-        setValue
+        setValue,
     } = useForm({ mode: "onChange" });
 
     const watchServicio = watch("objServicio");
@@ -177,7 +177,16 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                     name={name}
                                     required
                                     value={value}
-                                    onChange={(e, value) => onChange(value)}
+                                    onChange={(e, value) => {
+                                        setValue(
+                                            "intDuracionHoras",
+                                            value?.objInfoPrincipal
+                                                ?.intDuracionHoras || ""
+                                        );
+                                        setValue("valor", "");
+                                        setValue("objSedeTarifa", null);
+                                        onChange(value);
+                                    }}
                                     disabled={loading}
                                     error={errors?.objServicio ? true : false}
                                     helperText={
@@ -219,10 +228,9 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                             data={watchServicio.arrSedesTarifas}
                                             value={value}
                                             onChange={(e, value) => {
-                                                setValue("value", value.Valor);
                                                 setValue(
-                                                    "intDuracionHoras",
-                                                    value.intDuracionHoras || ""
+                                                    "valor",
+                                                    value?.Valor || ""
                                                 );
                                                 onChange(value);
                                             }}

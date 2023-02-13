@@ -162,6 +162,13 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                     required
                                     value={value}
                                     onChange={(e, value) => {
+                                        setValue(
+                                            "intDuracionHoras",
+                                            value?.objInfoPrincipal
+                                                ?.intDuracionHoras || ""
+                                        );
+                                        setValue("valor", "");
+                                        setValue("objSedeTarifa", null);
                                         onChange(value);
                                     }}
                                     disabled={loading}
@@ -205,10 +212,9 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                             data={watchServicio.arrSedesTarifas}
                                             value={value}
                                             onChange={(e, value) => {
-                                                setValue("value", value.Valor);
                                                 setValue(
-                                                    "intDuracionHoras",
-                                                    value.intDuracionHoras || ""
+                                                    "valor",
+                                                    value?.Valor || ""
                                                 );
                                                 onChange(value);
                                             }}

@@ -698,7 +698,7 @@ const PaperFase = ({
                                                     fontSize: "14px",
                                                     gap: 1,
                                                     alignItems: "center",
-                                                    marginBottom: "20px"
+                                                    marginBottom: "20px",
                                                 }}
                                             >
                                                 <Box sx={{ flexGrow: 1 }}>
@@ -805,7 +805,7 @@ const PaperFase = ({
                                                     fontSize: "14px",
                                                     alignItems: "center",
                                                     gap: 1,
-                                                    marginBottom: "20px"
+                                                    marginBottom: "20px",
                                                 }}
                                             >
                                                 <Box sx={{ flexGrow: 1 }}>
@@ -827,7 +827,6 @@ const PaperFase = ({
                                                             paquete
                                                                 ?.objSedeTarifa
                                                                 ?.strSede
-                                                        
                                                         } - ${
                                                             paquete
                                                                 .objSedeTarifa
@@ -840,7 +839,9 @@ const PaperFase = ({
                                                             }
                                                         )
                                                             .format(
-                                                                paquete.valor
+                                                                paquete
+                                                                    .objSedeTarifa
+                                                                    ?.Valor
                                                             )
                                                             .toString()}`}
                                                     </p>
@@ -854,7 +855,7 @@ const PaperFase = ({
                                                             }
                                                         )
                                                             .format(
-                                                                paquete.valorTotalPaquete
+                                                                paquete.valor
                                                             )
                                                             .toString()}
                                                     </p>
@@ -982,6 +983,7 @@ const PaperFase = ({
                                                         display: "flex",
                                                         flexDirection: "row",
                                                         fontSize: "14px",
+                                                        marginBottom: "20px",
                                                     }}
                                                 >
                                                     <Box sx={{ flexGrow: 1 }}>
@@ -1000,17 +1002,14 @@ const PaperFase = ({
                                                                     ?.objServicio
                                                                     ?.objInfoPrincipal
                                                                     ?.strNombre
-                                                           
                                                             } - ${
                                                                 servicio
                                                                     ?.objSedeTarifa
                                                                     ?.strSede
-                                                         
                                                             } - ${
                                                                 servicio
                                                                     ?.objSedeTarifa
                                                                     ?.strTarifa
-                                                         
                                                             } - ${new Intl.NumberFormat(
                                                                 "es-ES",
                                                                 {
@@ -1020,7 +1019,7 @@ const PaperFase = ({
                                                                 }
                                                             )
                                                                 .format(
-                                                                    servicio?.valor
+                                                                    servicio?.objSedeTarifa?.Valor
                                                                 )
                                                                 .toString()}`}
                                                         </p>
@@ -1036,7 +1035,7 @@ const PaperFase = ({
                                                                 }
                                                             )
                                                                 .format(
-                                                                    servicio.valorTotalServicio
+                                                                    servicio.valor
                                                                 )
                                                                 .toString()}
                                                         </p>
