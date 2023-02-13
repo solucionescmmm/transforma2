@@ -161,7 +161,7 @@ const InfoPrincipal = ({
                                 validate: (value) => {
                                     if (isEdit) {
                                         if (
-                                            dataPaquetes?.find(
+                                            dataPaquetes?.find?.(
                                                 (a) =>
                                                     a.objInfoPrincipal.strNombre.toLowerCase() ===
                                                         value.toLowerCase() &&
@@ -173,7 +173,7 @@ const InfoPrincipal = ({
                                         }
                                     } else {
                                         if (
-                                            dataPaquetes?.find(
+                                            dataPaquetes?.find?.(
                                                 (a) =>
                                                     a.objInfoPrincipal.strNombre.toLowerCase() ===
                                                     value.toLowerCase()

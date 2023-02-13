@@ -204,7 +204,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
     const handleChangeTipoServicio = (data) => {
         const arr = [];
 
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data?.length; i++) {
             arr.push({ ...data[i], id: shortid.generate() });
         }
 
