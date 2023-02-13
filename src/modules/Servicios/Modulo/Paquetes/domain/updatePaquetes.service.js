@@ -58,7 +58,7 @@ class updatePaquetes {
 
         if (typeof this.#objData.bitActivar === "undefined") {
             let queryGetPaquetes = await getPaquetes(
-                { strNombre: this.#objData.objInfoPrincipal.strNombre.trim() },
+                { strNombre: this.#objData.objInfoPrincipal.strNombre.trim()},
                 this.#objUser
             );
 
@@ -88,7 +88,7 @@ class updatePaquetes {
             }
         }
 
-        if (this.#objData.objInfoPrincipal.arrServicios?.length <= 1) {
+        if (this.#objData.objInfoPrincipal?.arrServicios?.length <= 1) {
             throw new Error(
                 "El paquete no puede tener un solo servicio asociado."
             );
@@ -125,7 +125,7 @@ class updatePaquetes {
         let dao = new classInterfaceDAOPaquetes();
 
         let query = await dao.updatePaquetes({
-            intId: this.#objData.objInfoPrincipal.intId,
+            intId: this.#objData.intId,
             ...this.#objData.objInfoPrincipal,
             intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
