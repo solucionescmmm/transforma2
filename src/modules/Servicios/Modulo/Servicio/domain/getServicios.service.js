@@ -48,6 +48,7 @@ const getEmpresario = async (objParams, strDataUser) => {
                     strDescripcion:array[i].strDescripcion,
                     bitModulos:array[i].btModulos,
                     intIdProyectoEs:array[i].intIdProyectosEspeciales,
+                    intDuracionHoras:array[i].intDuracionHoras,
                     strProyecto: array[i].strProyecto,
                     intIdEstado:array[i].intIdEstado,
                     strEstado:array[i].strEstado,

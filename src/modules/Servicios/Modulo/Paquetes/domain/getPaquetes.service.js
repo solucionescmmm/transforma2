@@ -61,6 +61,7 @@ const getPaquetes = async (objParams, strDataUser) => {
                     strDescripcion: array[i].strDescripcion,
                     intIdEstado: array[i].intIdEstado,
                     strEstado: array[i].strEstado,
+                    intDuracionHoras:array[i].intDuracionHoras,
                     dtmCreacion: array[i].dtmCreacion,
                     strUsuarioCreacion: array[i].strUsuarioCreacion,
                     dtmActualizacion: array[i].dtmActualizacion,
