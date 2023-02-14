@@ -217,11 +217,12 @@ class updateRutas {
                     let query = await dao.setPaquetesFases({
                         intIdFase: this.#intIdFase,
                         intIdPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intId,
-                        ValorReferenciaPaquete:objDataPaquete.objSedeTarifa.dblValor,
-                        ValorTotalPaquete:objDataPaquete.objSedeTarifa.dblValor,
-                        intDuracionHorasReferenciaPaquete:objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
-                        intDuracionHorasTotalPaquete:objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
-                        btFinalizado:false,
+                        intIdSedeTipoTarifaPaqRef: objDataPaquete.objSedeTarifa.intId,
+                        ValorReferenciaPaquete: objDataPaquete.objSedeTarifa.dblValor,
+                        ValorTotalPaquete:objDataPaquete.valor,
+                        intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
+                        intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || null,
+                        btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 
@@ -230,6 +231,31 @@ class updateRutas {
                     }
 
                     let intIdPaqueteFase = query.data.intId;
+
+                    let arrServicios = objDataPaquete.objPaquete.objInfoPrincipal.arrServicios
+
+                    if (arrServicios.length) {
+                        for (let k = 0; k < arrServicios.length; k++) {
+                            let objDataServicio = arrServicios[k];
+
+                            let query = await dao.setServiciosFases({
+                                intIdFase: this.#intIdFase,
+                                intIdServicio: objDataServicio.objInfoPrincipal.intId,
+                                intIdPaqueteFase: intIdPaqueteFase,
+                                intIdSedeTipoTarifaServRef: null,
+                                ValorReferenciaServicio: 0,
+                                ValorTotalServicio: 0,
+                                intDuracionHorasReferenciaServicio: null,
+                                intDuracionHorasTotalServicio: null,
+                                btFinalizado: false,
+                                strUsuarioCreacion: this.#objUser.strEmail,
+                            });
+
+                            if (query.error) {
+                                throw new Error(query.msg);
+                            }
+                        }
+                    }
 
                     let arrObjetivosPaquete = objDataPaquete.arrObjetivos;
 
@@ -261,12 +287,14 @@ class updateRutas {
 
                     let query = await dao.setServiciosFases({
                         intIdFase: this.#intIdFase,
-                        intIdServicio:objDataServicio.objServicio.objInfoPrincipal.intId,
-                        ValorReferenciaServicio:objDataServicio.objSedeTarifa.dblValor,
-                        ValorTotalServicio:objDataServicio.objSedeTarifa.dblValor,
-                        intDuracionHorasReferenciaServicio:objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras|| null,
-                        intDuracionHorasTotalServicio:objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
-                        btFinalizado:false,
+                        intIdServicio: objDataServicio.objServicio.objInfoPrincipal.intId,
+                        intIdPaqueteFase: null,
+                        intIdSedeTipoTarifaServRef: objDataServicio.objSedeTarifa.intId,
+                        ValorReferenciaServicio: objDataServicio.objSedeTarifa.dblValor,
+                        ValorTotalServicio:objDataServicio.valor || null,
+                        intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
+                        intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
+                        btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 
