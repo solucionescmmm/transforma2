@@ -30,7 +30,6 @@ class setRutas {
     }
 
     async main() {
-       
         await this.#getTipoRuta();
         await this.#validations();
         await this.#getIdEstado();
@@ -69,6 +68,12 @@ class setRutas {
             if (arrayFases[i].arrPaquetes.length <= 0 && arrayFases[i].arrServicios.length <= 0) {
                 throw new Error(`Por favor eliga un paquete o servicio en la fase #${i + 1}`);
             }
+
+            // let arrPaquetes = arrayFases.arrPaquetes
+
+            // for (let j = 0; j < arrPaquetes.length; j++) {
+                
+            // }
         }
     }
 
@@ -181,9 +186,9 @@ class setRutas {
                         intIdPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intId,
                         intIdSedeTipoTarifaPaqRef: objDataPaquete.objSedeTarifa.intId,
                         ValorReferenciaPaquete: objDataPaquete.objSedeTarifa.dblValor,
-                        ValorTotalPaquete:objDataPaquete.valorTotalPaquete,
+                        ValorTotalPaquete:objDataPaquete.valor,
                         intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
-                        intDuracionHorasTotalPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
+                        intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || null,
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
@@ -253,9 +258,9 @@ class setRutas {
                         intIdPaqueteFase: null,
                         intIdSedeTipoTarifaServRef: objDataServicio.objSedeTarifa.intId,
                         ValorReferenciaServicio: objDataServicio.objSedeTarifa.dblValor,
-                        ValorTotalServicio:objDataServicio.valorTotalServicio,
+                        ValorTotalServicio:objDataServicio.valor || null,
                         intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
-                        intDuracionHorasTotalServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
+                        intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
