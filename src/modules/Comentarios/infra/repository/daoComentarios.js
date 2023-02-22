@@ -142,7 +142,7 @@ class daoComentarios {
             FROM tbl_Comentarios Comentario
 
             WHERE (Comentario.intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (Comentario.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL) `;
+            AND   (Comentario.intIdIdea = ${data.intIdIdea}) `;
 
             let arrNewData = response.recordsets[0];
 
