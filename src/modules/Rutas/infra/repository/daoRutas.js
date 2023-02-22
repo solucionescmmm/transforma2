@@ -416,7 +416,7 @@ class daoRutas {
         
                             WHERE FasesObjPaquetes.intIdPaquetes_Fases = FasesPaquetes.intId 
                             FOR JSON PATH
-                        )as arrFasesObjPaquetes
+                        )as arrObjetivos
                         
                         FROM tbl_Paquetes_Fases FasesPaquetes
                         WHERE FasesPaquetes.intIdFase = Fases.intId 
@@ -459,7 +459,7 @@ class daoRutas {
         
                             WHERE FasesObjServicios.intIdServicios_Fases = FasesServicios.intId 
                             FOR JSON PATH
-                        )as arrFasesObjServicios
+                        )as arrObjetivos
 
                         FROM tbl_Servicios_Fases FasesServicios
                         WHERE FasesServicios.intIdFase = Fases.intId 
