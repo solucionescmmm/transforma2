@@ -169,7 +169,7 @@ class daoTercero {
             INNER JOIN tbl_Estados Estado on Estado.intId = Tercero.intIdEstado
 
             WHERE (Tercero.intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (Tercero.strNroDocto = ${data.strNroDocto} OR ${data.strNroDocto} IS NULL)
+            AND   (Tercero.strNroDocto = ${data.strDocumento} OR ${data.strDocumento} IS NULL)
             AND   (Tercero.strNombres = ${data.strNombres} OR ${data.strNombres} IS NULL)
             AND   (Tercero.strApellidos = ${data.strApellidos} OR ${data.strApellidos} IS NULL)
             AND   (Estado.strNombre = 'Activo')`;

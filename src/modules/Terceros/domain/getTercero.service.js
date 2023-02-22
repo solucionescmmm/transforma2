@@ -5,13 +5,13 @@ const validator = require("validator").default;
 const classInterfaceTercero = require("../infra/conectors/interfaceDAOTercero");
 
 const getTercero = async (objParams) => {
-    let = { intId, strNroDocto, strNombres, strApellidos } = objParams;
+    let = { intId, strDocumento, strNombres, strApellidos } = objParams;
 
     let dao = new classInterfaceTercero();
 
     let query = {
         intId: intId || null,
-        strNroDocto: strNroDocto || null,
+        strDocumento: strDocumento || null,
         strNombres: strNombres || null,
         strApellidos: strApellidos || null,
     };
