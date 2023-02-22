@@ -23,6 +23,7 @@ class ctrlEmpresarios {
                     };
 
                     res.status(500).json(result);
+                    return
                 }
 
                 let result = {

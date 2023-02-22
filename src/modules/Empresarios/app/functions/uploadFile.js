@@ -3,7 +3,6 @@ const multer = require("multer");
 const path = require("path");
 
 const configMulter = {
-    limits: { fileSize: 1024 * 1024 },
     storage: (fileStorage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, path.resolve(__dirname, "../uploads"));
@@ -15,7 +14,8 @@ const configMulter = {
                 file.originalname.length
             );
 
-            const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+            const uniqueSuffix =
+                Date.now() + "-" + Math.round(Math.random() * 1e9);
 
             cb(null, `${uniqueSuffix}${fileExtension}`);
         },
