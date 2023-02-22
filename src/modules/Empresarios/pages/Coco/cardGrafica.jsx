@@ -125,7 +125,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
         datasets: [
             {
                 label: "Valores",
-                data: [0, 1, 2, 3],
+                data: [0, 0, 0, 0],
                 borderColor: "rgb(255, 99, 132)",
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
@@ -146,7 +146,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
         );
     }
 
-    if (type === "Desarrollo") {
+    if (type === "Desarrollo" && state) {
         const { arrEtapaDllo } = state;
 
         const ejeX = [];
@@ -195,7 +195,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
         return <Line options={options} data={data} />;
     }
 
-    if (type === "Empleados") {
+    if (type === "Empleados" && state) {
         const { arrNumeroEmpleados } = state;
 
         const ejeX = [];
@@ -243,7 +243,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
         return <Line options={options} data={data} />;
     }
 
-    if (type === "Ventas") {
+    if (type === "Ventas" && state) {
         const { arrValorVentas } = state;
 
         const ejeX = [];

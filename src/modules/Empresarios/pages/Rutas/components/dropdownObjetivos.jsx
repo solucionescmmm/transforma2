@@ -27,7 +27,7 @@ const filterOptions = (options, state) => {
     const { inputValue } = state;
 
     return matchSorter(options, inputValue, {
-        keys: ["strId", "strObjetivo"],
+        keys: ["strId", "strObjetivo", "strNombre"],
     });
 };
 
@@ -95,17 +95,22 @@ const DropdownObjetivos = ({
                 if (typeof value === "string") {
                     return option === value;
                 } else {
-                    return option.strObjetivo === value.strObjetivo;
+                    return (
+                        option.strObjetivo === value.strObjetivo ||
+                        option.strNombre === value.strNombre
+                    );
                 }
             }}
-            getOptionLabel={(option) => option.strObjetivo || option}
+            getOptionLabel={(option) =>
+                option.strObjetivo || options.strNombre || option
+            }
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
-                    if (option.strObjetivo) {
+                    if (option.strObjetivo || option.strNombre) {
                         return (
                             <Chip
                                 key={index}
-                                label={option.strObjetivo}
+                                label={option.strObjetivo || option.strNombre}
                                 {...getTagProps({ index })}
                             />
                         );
@@ -133,7 +138,9 @@ const DropdownObjetivos = ({
                                 checked={selected}
                             />
                         )}
-                        <ListItemText primary={option.strObjetivo} />
+                        <ListItemText
+                            primary={option.strObjetivo || option.strNombre}
+                        />
                     </ListItem>
                 </List>
             )}

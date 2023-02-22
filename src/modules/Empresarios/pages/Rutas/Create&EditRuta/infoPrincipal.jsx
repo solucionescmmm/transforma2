@@ -23,7 +23,6 @@ import {
 
 //Componentes
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
-import SelectEstadosRutas from "../components/selectEstadosRutas";
 
 const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
     const [loading, setLoading] = useState(true);
@@ -122,43 +121,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
             />
 
             <Collapse in={openCollapese} timeout="auto">
-                <Grid container direction="row" spacing={0}>
-                    {isEdit && (
-                        <Grid item xs={12}>
-                            <Controller
-                                defaultValue={data.intEstado}
-                                name="objInfoPrincipal.intEstado"
-                                render={({
-                                    field: { name, onChange, value },
-                                }) => (
-                                    <SelectEstadosRutas
-                                        label="Estado"
-                                        name={name}
-                                        value={value}
-                                        onChange={(e) => onChange(e)}
-                                        disabled={disabled}
-                                        required
-                                        error={
-                                            errors?.objInfoPrincipal?.intEstado
-                                                ? true
-                                                : false
-                                        }
-                                        helperText={
-                                            errors?.objInfoPrincipal?.intEstado
-                                                ?.message ||
-                                            "Selecciona el estado de la ruta"
-                                        }
-                                    />
-                                )}
-                                control={control}
-                                rules={{
-                                    required:
-                                        "Por favor, selecciona el estado de la ruta",
-                                }}
-                            />
-                        </Grid>
-                    )}
-
+                <Grid container direction="row" spacing={1}>
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strNombre}
@@ -258,31 +221,6 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                             rules={{
                                 required: "Por favor, digita las observaciones",
                             }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.strCodigoDoc}
-                            name="objInfoPrincipal.strCodigoDoc"
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Codigo"
-                                    variant="standard"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled
-                                    required
-                                    error={
-                                        errors?.objInfoPrincipal?.strCodigoDoc
-                                            ? true
-                                            : false
-                                    }
-                                    fullWidth
-                                />
-                            )}
-                            control={control}
                         />
                     </Grid>
                 </Grid>

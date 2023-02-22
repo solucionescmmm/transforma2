@@ -90,7 +90,8 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                 const { arrPaquetes, arrServicios } = values.arrInfoFases[i];
 
                 for (let j = 0; j < arrPaquetes?.length; j++) {
-                    const { objPaquete, valor, intDuracionHoras } = arrPaquetes[j];
+                    const { objPaquete, valor, intDuracionHoras } =
+                        arrPaquetes[j];
 
                     const valorTotal = valor;
 
@@ -112,24 +113,27 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                 }
 
                 for (let j = 0; j < arrServicios?.length; j++) {
-                    const { objServicio, valor, intDuracionHoras} = arrServicios[j];
+                    const { objServicio, valor, intDuracionHoras } =
+                        arrServicios[j];
                     const valorTotal = valor;
 
-                    const dataTable = {
-                        id: i + 1,
-                        strNombre: objServicio.objInfoPrincipal?.strNombre,
-                        strEstado: "Sin ejecutar",
-                        intFase: i + 1,
-                        valorTotal: new Intl.NumberFormat("es-ES", {
-                            style: "currency",
-                            currency: "COP",
-                        })
-                            .format(valorTotal)
-                            .toString(),
-                        intDuracion: intDuracionHoras,
-                    };
+                    if (valorTotal) {
+                        const dataTable = {
+                            id: i + 1,
+                            strNombre: objServicio.objInfoPrincipal?.strNombre,
+                            strEstado: "Sin ejecutar",
+                            intFase: i + 1,
+                            valorTotal: new Intl.NumberFormat("es-ES", {
+                                style: "currency",
+                                currency: "COP",
+                            })
+                                .format(valorTotal)
+                                .toString(),
+                            intDuracion: intDuracionHoras,
+                        };
 
-                    arrDataTable.push(dataTable);
+                        arrDataTable.push(dataTable);
+                    }
                 }
             }
 

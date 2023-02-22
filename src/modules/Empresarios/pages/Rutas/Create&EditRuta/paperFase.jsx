@@ -62,16 +62,16 @@ const PaperFase = ({
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        Id: values.Id || values.strId || values.intId || null,
-        intEstado: values.intEstado || values.intIdEstadoFase || "",
-        intDiagnostico: values.intDiagnostico || "",
-        strResponsable: values.strResponsable || "",
-        strObservaciones: values.strObservaciones || "",
-        arrObjetivos: values.arrObjetivos || [],
-        arrPaquetes: values.arrPaquetes || [],
-        arrServicios: values.arrServicios || [],
-        dblValorRef: values.dblValorRef || "",
-        dblValorFase: values.dblValorFase || "",
+        Id: null,
+        intEstado: "",
+        intDiagnostico: "",
+        strResponsable: "",
+        strObservaciones: "",
+        arrObjetivos: [],
+        arrPaquetes: [],
+        arrServicios: [],
+        dblValorRef: "",
+        dblValorFase: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -304,16 +304,83 @@ const PaperFase = ({
     //========================================== useEffects =========================================================================================
     // //===============================================================================================================================================
     useEffect(() => {
+        const arrServicios = values.arrServicios.filter((s) => {
+            if (!s.intIdPaqueteFase) {
+                return s;
+            }
+
+            return null;
+        });
+
+        setData({
+            Id: values.Id || values.strId || values.intId || null,
+            intEstado: values.intEstado || values.intIdEstadoFase || "",
+            intDiagnostico: values.intDiagnostico || "",
+            strResponsable: values.strResponsable || "",
+            strObservaciones: values.strObservaciones || "",
+            arrObjetivos: values.arrObjetivos || [],
+            arrPaquetes: values.arrPaquetes || [],
+            arrServicios: arrServicios || [],
+            dblValorRef: values.dblValorRef || "",
+            dblValorFase: values.dblValorFase || "",
+        });
+    }, [values]);
+
+    useEffect(() => {
         let dblValorRef = 0;
 
         for (let i = 0; i < data.arrPaquetes.length; i++) {
-            const { valor } = data.arrPaquetes[i];
+            const intDuracionHoras =
+                data.arrPaquetes[i].intDuracionHoras ||
+                data.arrPaquetes[i].intDuracionHorasTotalPaquete;
+
+            const valor =
+                data.arrPaquetes[i].valor ||
+                data.arrPaquetes[i].ValorTotalPaquete;
+
+            let objSedeTarifa = data.arrPaquetes[i].objSedeTarifa;
+
+            if (!objSedeTarifa) {
+                const intIdSedeTipoTarifaPaqRef =
+                    data.arrPaquetes[i].intIdSedeTipoTarifaPaqRef;
+                const objPaquete = data.arrPaquetes[i].objPaquete;
+
+                objSedeTarifa = objPaquete.arrSedesTarifas
+                    .filter((p) => p.intId === intIdSedeTipoTarifaPaqRef)
+                    .at(0);
+            }
+
+            data.arrPaquetes[i].objSedeTarifa = objSedeTarifa;
+            data.arrPaquetes[i].intDuracionHoras = intDuracionHoras;
+            data.arrPaquetes[i].valor = valor;
+
             dblValorRef += valor;
         }
 
         for (let i = 0; i < data.arrServicios.length; i++) {
-            const { valor } = data.arrServicios[i];
+            const intDuracionHoras =
+                data.arrServicios[i].intDuracionHoras ||
+                data.arrServicios[i].intDuracionHorasTotalServicio;
 
+            const valor =
+                data.arrServicios[i].valor ||
+                data.arrServicios[i].ValorTotalServicio;
+
+            let objSedeTarifa = data.arrServicios[i].objSedeTarifa;
+
+            if (!objSedeTarifa) {
+                const intIdSedeTipoTarifaServRef =
+                    data.arrServicios[i].intIdSedeTipoTarifaServRef;
+                const objServicio = data.arrServicios[i].objServicio;
+
+                objSedeTarifa = objServicio.arrSedesTarifas
+                    .filter((p) => p.intId === intIdSedeTipoTarifaServRef)
+                    .at(0);
+            }
+
+            data.arrServicios[i].objSedeTarifa = objSedeTarifa;
+            data.arrServicios[i].intDuracionHoras = intDuracionHoras;
+            data.arrServicios[i].valor = valor;
             dblValorRef += valor;
         }
 
@@ -965,7 +1032,7 @@ const PaperFase = ({
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    {data.arrServicios.map(
+                                    {data?.arrServicios?.map?.(
                                         (servicio, index) => (
                                             <Fragment
                                                 key={
@@ -1019,7 +1086,9 @@ const PaperFase = ({
                                                                 }
                                                             )
                                                                 .format(
-                                                                    servicio?.objSedeTarifa?.Valor
+                                                                    servicio
+                                                                        ?.objSedeTarifa
+                                                                        ?.Valor
                                                                 )
                                                                 .toString()}`}
                                                         </p>
@@ -1081,7 +1150,7 @@ const PaperFase = ({
                                                         fontSize: "14px",
                                                     }}
                                                 >
-                                                    {servicio.arrObjetivos.map(
+                                                    {servicio?.arrObjetivos?.map(
                                                         (objetivo, index) => (
                                                             <Box
                                                                 key={

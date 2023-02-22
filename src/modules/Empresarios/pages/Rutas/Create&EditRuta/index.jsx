@@ -111,7 +111,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         watch,
     } = useForm({ mode: "onChange" });
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove  } = useFieldArray({
         control,
         name: "arrInfoFases",
         keyName: "Id",
@@ -220,6 +220,13 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                     intEstado: values.intIdEstadoRuta,
                 },
             });
+            reset({
+                ...values,
+                objInfoPrincipal: {
+                    ...values.objInfoPrincipal,
+                    intEstado: values.intIdEstadoRuta,
+                },
+            })
         }
     }, [isEdit, values]);
 

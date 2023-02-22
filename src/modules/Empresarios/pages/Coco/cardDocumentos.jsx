@@ -30,7 +30,7 @@ const CardDocumentos = ({ intIdIdea }) => {
         setIsLoading(false);
     }, [data]);
 
-    if (isLoading || !data) {
+    if (isLoading) {
         return (
             <Box
                 sx={{
@@ -39,10 +39,30 @@ const CardDocumentos = ({ intIdIdea }) => {
                     alignItems: "center",
                 }}
             >
-                <CircularProgress />;
+                <CircularProgress />
             </Box>
         );
     }
+
+    if (arrDocumentos.length === 0) {
+        return (
+            <div
+                style={{
+                    padding: "0px 5px",
+                    textAlign: "center",
+                    margin: "auto",
+                    width: 800,
+                    height: 118,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                No existen registros de documentos
+            </div>
+        );
+    }
+
 
     return (
         <div

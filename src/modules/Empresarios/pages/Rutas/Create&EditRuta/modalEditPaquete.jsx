@@ -46,11 +46,11 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        objPaquete: values?.value ? values.value?.objPaquete : null,
-        objSedeTarifa: values?.value ? values.value?.objSedeTarifa : "",
-        valor: values?.value ? values.value?.valor : "",
-        intDuracionHoras: values?.value ? values.value?.intDuracionHoras : "",
-        arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
+        objPaquete: null,
+        objSedeTarifa: "",
+        valor: "",
+        intDuracionHoras: "",
+        arrObjetivos: [],
     });
 
     //===============================================================================================================================================
@@ -114,25 +114,31 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     }, [success]);
 
     useEffect(() => {
-        setData({
-            objPaquete: values?.value ? values.value?.objPaquete : null,
-            objSedeTarifa: values?.value ? values.value?.objSedeTarifa : null,
-            valor: values?.value ? values.value?.valor : "",
-            intDuracionHoras: values?.value
-                ? values.value?.intDuracionHoras
-                : "",
-            arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
-        });
+        if (values.value) {
+            setData({
+                objPaquete: values?.value ? values.value?.objPaquete : null,
+                objSedeTarifa: values?.value
+                    ? values.value?.objSedeTarifa
+                    : null,
+                valor: values?.value ? values.value?.valor : "",
+                intDuracionHoras: values?.value
+                    ? values.value?.intDuracionHoras
+                    : "",
+                arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
+            });
 
-        reset({
-            objPaquete: values?.value ? values.value?.objPaquete : null,
-            objSedeTarifa: values?.value ? values.value?.objSedeTarifa : null,
-            valor: values?.value ? values.value?.valor : "",
-            intDuracionHoras: values?.value
-                ? values.value?.intDuracionHoras
-                : "",
-            arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
-        });
+            reset({
+                objPaquete: values?.value ? values.value?.objPaquete : null,
+                objSedeTarifa: values?.value
+                    ? values.value?.objSedeTarifa
+                    : null,
+                valor: values?.value ? values.value?.valor : "",
+                intDuracionHoras: values?.value
+                    ? values.value?.intDuracionHoras
+                    : "",
+                arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
+            });
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values]);
 

@@ -71,9 +71,13 @@ const PreviewRuta = ({ values }) => {
                 const { arrPaquetes, arrServicios } = values.arrInfoFases[i];
 
                 for (let j = 0; j < arrPaquetes.length; j++) {
-                    const { objPaquete, valor, intDuracionHoras } = arrPaquetes[j];
+                    const {
+                        objPaquete,
+                        ValorTotalPaquete,
+                        intDuracionHorasTotalPaquete,
+                    } = arrPaquetes[j];
 
-                    const valorTotal = valor;
+                    const valorTotal = ValorTotalPaquete;
 
                     const dataTable = {
                         id: i + 1,
@@ -86,31 +90,37 @@ const PreviewRuta = ({ values }) => {
                         })
                             .format(valorTotal)
                             .toString(),
-                        intDuracion: intDuracionHoras,
+                        intDuracion: intDuracionHorasTotalPaquete,
                     };
 
                     arrDataTable.push(dataTable);
                 }
 
                 for (let j = 0; j < arrServicios.length; j++) {
-                    const { objServicio, valor, intDuracionHoras } = arrServicios[j];
-                    const valorTotal = valor;
+                    const {
+                        objServicio,
+                        ValorTotalServicio,
+                        intDuracionHorasTotalServicio,
+                    } = arrServicios[j];
+                    const valorTotal = ValorTotalServicio;
 
-                    const dataTable = {
-                        id: i + 1,
-                        strNombre: objServicio.objInfoPrincipal?.strNombre,
-                        strEstado: "Sin ejecutar",
-                        intFase: i + 1,
-                        valorTotal: new Intl.NumberFormat("es-ES", {
-                            style: "currency",
-                            currency: "COP",
-                        })
-                            .format(valorTotal)
-                            .toString(),
-                        intDuracion: intDuracionHoras,
-                    };
+                    if (valorTotal) {
+                        const dataTable = {
+                            id: i + 1,
+                            strNombre: objServicio.objInfoPrincipal?.strNombre,
+                            strEstado: "Sin ejecutar",
+                            intFase: i + 1,
+                            valorTotal: new Intl.NumberFormat("es-ES", {
+                                style: "currency",
+                                currency: "COP",
+                            })
+                                .format(valorTotal)
+                                .toString(),
+                            intDuracion: intDuracionHorasTotalServicio,
+                        };
 
-                    arrDataTable.push(dataTable);
+                        arrDataTable.push(dataTable);
+                    }
                 }
             }
 
