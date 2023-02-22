@@ -6,6 +6,7 @@ const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas");
 
 //Servicios
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
+const serviceGetIdTipo = require("./getIdTipoRutas.service");
 const serviceDeleteRutas = require("./deleteRutas.service");
 
 class updateRutas {
