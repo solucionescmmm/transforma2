@@ -51,7 +51,6 @@ const getRutas = async (objParams, strDataUser) => {
                     intIdEstadoRuta: array[i]?.intIdEstadoRuta,
                     valorTotalRuta: array[i]?.valorTotalRuta,
                     intIdDoctoPropuesta: array[i]?.intIdDoctoPropuesta,
-                    strResponsable: JSON.parse(array[i]?.strResponsables),
                     strObservaciones: array[i]?.strObservaciones,
                     intIdMotivoCancelacion: array[i]?.intIdMotivoCancelacion,
                     dtmCreacion: array[i]?.dtmCreacion,

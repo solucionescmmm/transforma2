@@ -31,7 +31,7 @@ class updateRutas {
     }
 
     async main() {
-        //console.log(this.#objData.arrInfoFases[0].arrObjetivos)
+        // console.log(this.#objData.arrInfoFases[0].arrServicios[2].arrObjetivos)
         await this.#getIdEstado();
         await this.#getTipoRuta()
         
@@ -80,7 +80,7 @@ class updateRutas {
             }
         }
 
-        let arrayFases =this.#objData.arrInfoFases
+        let arrayFases = this.#objData.arrInfoFases
 
         if (arrayFases.length <= 0) {
             throw new Error("El array de las fases esta vacío.");
@@ -88,10 +88,10 @@ class updateRutas {
 
         for (let i = 0; i < arrayFases.length; i++) {
             if (arrayFases[i].arrObjetivos.length <= 0) {
-                throw new Error(`El array de los objetivos esta vacío en la fase #${i+1}`);
+                throw new Error(`El array de los objetivos esta vacío en la fase #${i + 1}`);
             }
 
-            if (arrayFases[i].arrPaquetes.length <= 0 &&  arrayFases[i].arrServicios.length <= 0) {
+            if (arrayFases[i].arrPaquetes.length <= 0 && arrayFases[i].arrServicios.length <= 0) {
                 throw new Error(`Por favor eliga un paquete o servicio en la fase #${i + 1}`);
             }
         }
@@ -197,7 +197,7 @@ class updateRutas {
                     let objDataObjetivos = arrObjetivos[j];
 
                     let query = await dao.setObjetivosFases({
-                        intIdObjetivo: objDataObjetivos.intIdObjetivo,
+                        intIdObjetivo: objDataObjetivos.intIdObjetivo || objDataObjetivos.intId,
                         intIdFase: this.#intIdFase,
                         btCumplio: null,
                         strObservacionesCumplimiento: "",
@@ -221,7 +221,7 @@ class updateRutas {
                         intIdPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intId,
                         intIdSedeTipoTarifaPaqRef: objDataPaquete.objSedeTarifa.intId,
                         ValorReferenciaPaquete: objDataPaquete.objSedeTarifa.dblValor,
-                        ValorTotalPaquete:objDataPaquete.valor,
+                        ValorTotalPaquete: objDataPaquete.valor,
                         intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || null,
                         btFinalizado: false,
@@ -266,7 +266,7 @@ class updateRutas {
                             let objDataObjetivoPaquete = arrObjetivosPaquete[k];
 
                             let query = await dao.setObjetivosPaquetesFases({
-                                intIdObjetivo: objDataObjetivoPaquete.intIdObjetivo,
+                                intIdObjetivo: objDataObjetivoPaquete.intIdObjetivo || objDataObjetivoPaquete.intId,
                                 intIdPaquetes_Fases: intIdPaqueteFase,
                                 btCumplio: false,
                                 strObservacionesCumplimiento: "",
@@ -286,47 +286,48 @@ class updateRutas {
             if (arrServicios.length > 0) {
                 for (let j = 0; j < arrServicios.length; j++) {
                     let objDataServicio = arrServicios[j];
+                    if (!objDataServicio.intIdPaqueteFase) {
 
-                    console.log(objDataServicio)
+                        let query = await dao.setServiciosFases({
+                            intIdFase: this.#intIdFase,
+                            intIdServicio: objDataServicio.objServicio.objInfoPrincipal.intId,
+                            intIdPaqueteFase: null,
+                            intIdSedeTipoTarifaServRef: objDataServicio.objSedeTarifa.intId,
+                            ValorReferenciaServicio: objDataServicio.objSedeTarifa.dblValor,
+                            ValorTotalServicio: objDataServicio.valor || null,
+                            intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
+                            intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
+                            btFinalizado: false,
+                            strUsuarioCreacion: this.#objUser.strEmail,
+                        });
 
-                    let query = await dao.setServiciosFases({
-                        intIdFase: this.#intIdFase,
-                        intIdServicio: objDataServicio.objServicio.objInfoPrincipal.intId,
-                        intIdPaqueteFase: null,
-                        intIdSedeTipoTarifaServRef: objDataServicio.objSedeTarifa.intId,
-                        ValorReferenciaServicio: objDataServicio.objSedeTarifa.dblValor,
-                        ValorTotalServicio:objDataServicio.valor || null,
-                        intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
-                        intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
-                        btFinalizado: false,
-                        strUsuarioCreacion: this.#objUser.strEmail,
-                    });
+                        if (query.error) {
+                            throw new Error(query.msg);
+                        }
 
-                    if (query.error) {
-                        throw new Error(query.msg);
-                    }
+                        let intIdServicioFase = query.data.intId;
 
-                    let intIdServicioFase = query.data.intId;
+                        let arrObjetivosServicio = objDataServicio.arrObjetivos;
 
-                    let arrObjetivosServicio = objDataServicio.arrObjetivos;
+                        if (arrObjetivosServicio?.length > 0) {
+                            for (let k = 0; k < arrObjetivosServicio.length; k++) {
+                                let objDataObjetivoServicio =
+                                    arrObjetivosServicio[k];
 
-                    if (arrObjetivosServicio?.length > 0) {
-                        for (let k = 0; k < arrObjetivosServicio.length; k++) {
-                            let objDataObjetivoServicio =
-                                arrObjetivosServicio[k];
+                                let query = await dao.setObjetivosServiciosFases({
+                                    intIdObjetivo: objDataObjetivoServicio.intIdObjetivo || objDataObjetivoServicio.intId,
+                                    intIdServicios_Fases: intIdServicioFase,
+                                    btCumplio: false,
+                                    strObservacionesCumplimiento: "",
+                                    strUsuarioCreacion: this.#objUser.strEmail,
+                                });
 
-                            let query = await dao.setObjetivosServiciosFases({
-                                intIdObjetivo: objDataObjetivoServicio.intIdObjetivo,
-                                intIdServicios_Fases: intIdServicioFase,
-                                btCumplio: false,
-                                strObservacionesCumplimiento: "",
-                                strUsuarioCreacion: this.#objUser.strEmail,
-                            });
-
-                            if (query.error) {
-                                throw new Error(query.msg);
+                                if (query.error) {
+                                    throw new Error(query.msg);
+                                }
                             }
                         }
+
                     }
                 }
             }
