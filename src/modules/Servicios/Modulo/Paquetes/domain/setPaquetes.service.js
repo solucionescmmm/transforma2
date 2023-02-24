@@ -79,6 +79,24 @@ class setPaquetes {
                 "El paquete no puede tener un solo servicio asociado."
             );
         }
+
+        let arraySedes = this.#objData.arrSedesTarifas
+
+        if (arraySedes.length > 0) {
+            for (let i = 0; i < arraySedes.length; i++) {
+                let intIdSede = arraySedes[i].intIdSede
+                let arrServicios = this.#objData.objInfoPrincipal.arrServicios
+                for (let k = 0; k < arrServicios.length; k++) {
+                    let arrSede = arrServicios[k].arrSedesTarifas
+                    let sedeExite = arrSede.find((sede)=> sede.intIdSede === intIdSede)
+                    if (!sedeExite) {
+                       throw new Error(`El servicio ${arrServicios[k].objInfoPrincipal.strNombre}, no pertenece a una o mas sedes seleccionadas.`) 
+                    }
+                    
+                }
+            }
+        }
+        
     }
 
     async #getIdEstado() {

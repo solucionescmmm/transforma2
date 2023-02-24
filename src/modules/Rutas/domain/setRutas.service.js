@@ -141,9 +141,6 @@ class setRutas {
                 intIdEstadoFase: this.#intIdEstado,
                 valorReferenciaTotalFase: objDataFase.dblValorRef,
                 valorTotalFase: objDataFase.dblValorFase,
-                strResponsable: JSON.stringify(
-                    objDataFase.strResponsable || null
-                ),
                 strObservaciones: objDataFase.strObservaciones,
                 intIdMotivoCancelacion: objDataFase.intIdMotivoCancelacion,
                 strUsuarioCreacion: this.#objUser.strEmail,
@@ -189,6 +186,7 @@ class setRutas {
                         ValorTotalPaquete:objDataPaquete.valor,
                         intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || null,
+                        strResponsables: objDataPaquete.strResponsable,
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
@@ -214,6 +212,7 @@ class setRutas {
                                 ValorTotalServicio: 0,
                                 intDuracionHorasReferenciaServicio: null,
                                 intDuracionHorasTotalServicio: null,
+                                strResponsables: objDataPaquete.strResponsable,
                                 btFinalizado: false,
                                 strUsuarioCreacion: this.#objUser.strEmail,
                             });
@@ -261,6 +260,7 @@ class setRutas {
                         ValorTotalServicio:objDataServicio.valor || null,
                         intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
+                        strResponsables: objDataPaquete.strResponsable,
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });

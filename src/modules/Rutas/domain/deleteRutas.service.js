@@ -21,7 +21,7 @@ class deleteRutas {
         this.#intIdIdea = objParms.intIdIdea;
         this.#objUser = strDataUser;
     }
-
+    
     async main() {
         await this.#getIdEstado();
         await this.#getRuta();
@@ -101,7 +101,7 @@ class deleteRutas {
 
             if (query.error) {
                 throw new Error(
-                    "Ha ocurrido un error al momento de eliminar el Rutas"
+                    query.msg || "Ha ocurrido un error al momento de eliminar el Rutas"
                 );
             }
 

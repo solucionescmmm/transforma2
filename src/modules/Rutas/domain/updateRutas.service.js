@@ -31,6 +31,7 @@ class updateRutas {
     }
 
     async main() {
+        //console.log(this.#objData.arrInfoFases[0].arrObjetivos)
         await this.#getIdEstado();
         await this.#getTipoRuta()
         
@@ -157,7 +158,7 @@ class updateRutas {
         this.#objResult = {
             error: query.error,
             data: query.data,
-            msg: query.msg,
+            msg: "La ruta, fue actualizada con éxito.",
         };
     }
 
@@ -196,7 +197,7 @@ class updateRutas {
                     let objDataObjetivos = arrObjetivos[j];
 
                     let query = await dao.setObjetivosFases({
-                        intIdObjetivo: objDataObjetivos.intId,
+                        intIdObjetivo: objDataObjetivos.intIdObjetivo,
                         intIdFase: this.#intIdFase,
                         btCumplio: null,
                         strObservacionesCumplimiento: "",
@@ -265,7 +266,7 @@ class updateRutas {
                             let objDataObjetivoPaquete = arrObjetivosPaquete[k];
 
                             let query = await dao.setObjetivosPaquetesFases({
-                                intIdObjetivo: objDataObjetivoPaquete.intId,
+                                intIdObjetivo: objDataObjetivoPaquete.intIdObjetivo,
                                 intIdPaquetes_Fases: intIdPaqueteFase,
                                 btCumplio: false,
                                 strObservacionesCumplimiento: "",
@@ -285,6 +286,8 @@ class updateRutas {
             if (arrServicios.length > 0) {
                 for (let j = 0; j < arrServicios.length; j++) {
                     let objDataServicio = arrServicios[j];
+
+                    console.log(objDataServicio)
 
                     let query = await dao.setServiciosFases({
                         intIdFase: this.#intIdFase,
@@ -313,7 +316,7 @@ class updateRutas {
                                 arrObjetivosServicio[k];
 
                             let query = await dao.setObjetivosServiciosFases({
-                                intIdObjetivo: objDataObjetivoServicio.intId,
+                                intIdObjetivo: objDataObjetivoServicio.intIdObjetivo,
                                 intIdServicios_Fases: intIdServicioFase,
                                 btCumplio: false,
                                 strObservacionesCumplimiento: "",
