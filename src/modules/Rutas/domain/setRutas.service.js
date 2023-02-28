@@ -4,6 +4,9 @@ const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas");
 //Librerias
 const validator = require("validator").default;
 
+//Funciones
+const servicioRepetido = require("../app/functions/servicioRepetido")
+
 //Servicios
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
 const serviceGetIdTipo = require("./getIdTipoRutas.service");
@@ -69,11 +72,7 @@ class setRutas {
                 throw new Error(`Por favor eliga un paquete o servicio en la fase #${i + 1}`);
             }
 
-            // let arrPaquetes = arrayFases.arrPaquetes
-
-            // for (let j = 0; j < arrPaquetes.length; j++) {
-                
-            // }
+            servicioRepetido(arrayFases[i], i)
         }
     }
 

@@ -4,6 +4,9 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAORutas = require("../infra/conectors/interfaseDAORutas");
 
+//Funciones
+const servicioRepetido = require("../app/functions/servicioRepetido")
+
 //Servicios
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
 const serviceGetIdTipo = require("./getIdTipoRutas.service");
@@ -31,9 +34,8 @@ class updateRutas {
     }
 
     async main() {
-        // console.log(this.#objData.arrInfoFases[0].arrServicios[2].arrObjetivos)
         await this.#getIdEstado();
-        await this.#getTipoRuta()
+        await this.#getTipoRuta();
         
         await this.#validations();
         await this.#deleteRuta();
@@ -94,6 +96,8 @@ class updateRutas {
             if (arrayFases[i].arrPaquetes.length <= 0 && arrayFases[i].arrServicios.length <= 0) {
                 throw new Error(`Por favor eliga un paquete o servicio en la fase #${i + 1}`);
             }
+
+            servicioRepetido(arrayFases[i], i)
         }
     }
 
