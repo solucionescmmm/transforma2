@@ -147,7 +147,6 @@ class updateRutas {
             ...objDataRuta,
             intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
-            strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 
@@ -180,9 +179,6 @@ class updateRutas {
                 intIdEstadoFase: this.#intIdEstado,
                 valorReferenciaTotalFase: objDataFase.dblValorRef,
                 valorTotalFase: objDataFase.dblValorFase,
-                strResponsable: JSON.stringify(
-                    objDataFase.strResponsable || null
-                ),
                 strObservaciones: objDataFase.strObservaciones,
                 intIdMotivoCancelacion: objDataFase.intIdMotivoCancelacion,
                 strUsuarioCreacion: this.#objUser.strEmail,
@@ -228,6 +224,7 @@ class updateRutas {
                         ValorTotalPaquete: objDataPaquete.valor,
                         intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || null,
+                        strResponsables: objDataPaquete.strResponsable,
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
@@ -253,6 +250,7 @@ class updateRutas {
                                 ValorTotalServicio: 0,
                                 intDuracionHorasReferenciaServicio: null,
                                 intDuracionHorasTotalServicio: null,
+                                strResponsables: objDataPaquete.strResponsable,
                                 btFinalizado: false,
                                 strUsuarioCreacion: this.#objUser.strEmail,
                             });
@@ -301,6 +299,7 @@ class updateRutas {
                             ValorTotalServicio: objDataServicio.valor || null,
                             intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
                             intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
+                            strResponsables: objDataServicio.strResponsable,
                             btFinalizado: false,
                             strUsuarioCreacion: this.#objUser.strEmail,
                         });

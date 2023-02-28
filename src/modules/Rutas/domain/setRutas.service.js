@@ -107,7 +107,6 @@ class setRutas {
             ...objDataRuta,
             intIdTipoRuta: this.#intIdTipoRuta,
             intIdEstadoRuta: this.#intIdEstado,
-            strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 
@@ -259,7 +258,7 @@ class setRutas {
                         ValorTotalServicio:objDataServicio.valor || null,
                         intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
-                        strResponsables: objDataPaquete.strResponsable,
+                        strResponsables: objDataServicio.strResponsable,
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
