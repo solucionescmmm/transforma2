@@ -9,7 +9,7 @@ import {
     Image,
     Document,
     StyleSheet,
-    Font,
+    Font
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";

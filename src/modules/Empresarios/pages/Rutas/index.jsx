@@ -31,6 +31,7 @@ import {
     AddBox as AddBoxIcon,
     Delete as DeleteIcon,
     RemoveRedEye as RemoveRedEyeIcon,
+    PictureAsPdf as PictureAsPdfIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -40,6 +41,7 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import ModalDelete from "./modalDelete";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
+import ModalPDF from "./components/modalPDF";
 
 const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
@@ -111,6 +113,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     ]);
 
     const [openModalDeleteRuta, setopenModalDeleteRuta] = useState(false);
+    const [openModalPDF, setopenModalPDF] = useState(false);
     const [selectedDataRuta, setselectedDataRuta] = useState();
     const [valueTab, setValueTab] = useState(1);
 
@@ -129,6 +132,10 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
         setopenModalDeleteRuta(!openModalDeleteRuta);
     };
 
+    const handleropenModalPDF = () => {
+        setopenModalPDF(!openModalPDF);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -139,6 +146,13 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                 open={openModalDeleteRuta}
                 intId={selectedDataRuta?.objInfoPrincipal?.intId}
                 refresh={refreshGetData}
+                intIdIdea={intIdIdea}
+            />
+
+            <ModalPDF
+                handleOpenDialog={handleropenModalPDF}
+                open={openModalPDF}
+                values={selectedDataRuta}
                 intIdIdea={intIdIdea}
             />
 
@@ -313,6 +327,34 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                     ),
                                                     tooltip: "Editar",
 
+                                                    disabled:
+                                                        rowData.btFinalizada ===
+                                                        true,
+                                                };
+                                            },
+                                            (rowData) => {
+                                                return {
+                                                    icon: () => (
+                                                        <PictureAsPdfIcon
+                                                            htmlColor={
+                                                                rowData.btFinalizada ===
+                                                                true
+                                                                    ? "gray"
+                                                                    : "#ff6d07"
+                                                            }
+                                                            fontSize="small"
+                                                        />
+                                                    ),
+                                                    onClick: (
+                                                        event,
+                                                        rowData
+                                                    ) => {
+                                                        setselectedDataRuta(
+                                                            rowData
+                                                        );
+                                                        handleropenModalPDF();
+                                                    },
+                                                    tooltip: "Generar PDF",
                                                     disabled:
                                                         rowData.btFinalizada ===
                                                         true,
@@ -540,7 +582,9 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                             },
                                         }}
                                         isLoading={
-                                            dataRutas === undefined ? true : false
+                                            dataRutas === undefined
+                                                ? true
+                                                : false
                                         }
                                         data={[]}
                                         columns={objColumnsAcom}
@@ -626,7 +670,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         rowData.btFinalizada ===
                                                         true,
                                                 };
-                                            },
+                                            },   
                                             (rowData) => {
                                                 return {
                                                     icon: () => (

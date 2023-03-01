@@ -18,11 +18,11 @@ import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/
 import { esES } from "@mui/material/locale";
 
 //Componente de Material Lab
-import { LocalizationProvider } from "@mui/lab";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
+// import { LocalizationProvider } from "@mui/lab";
+// import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 //Componentes de DateFns
-import { es } from "date-fns/locale";
+// import { es } from "date-fns/locale";
 
 //Componente de Permisos
 import { AbilityContext } from "./common/config/Can";
@@ -170,12 +170,7 @@ const App = () => {
                             <StyledEngineProvider injectFirst>
                                 <ThemeProvider theme={themeOptions}>
                                     <AbilityContext.Provider value={ability}>
-                                        <LocalizationProvider
-                                            dateAdapter={AdapterDateFns}
-                                            locale={es}
-                                        >
                                             <Routes />
-                                        </LocalizationProvider>
                                     </AbilityContext.Provider>
                                 </ThemeProvider>
                             </StyledEngineProvider>

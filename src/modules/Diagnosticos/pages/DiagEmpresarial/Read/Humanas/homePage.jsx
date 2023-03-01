@@ -33,8 +33,6 @@ import ErrorPage from "../../../../../../common/components/Error";
 import useGetDiagnHumano from "../../../../hooks/useGetDiagnHumano";
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
-import { ImageViewer } from "../../../../../../common/components/ImageViewer";
-import ChartBar from "./chartBar";
 
 const ResumenHumanas = () => {
     //===============================================================================================================================================

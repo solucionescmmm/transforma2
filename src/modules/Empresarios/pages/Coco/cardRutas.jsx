@@ -25,9 +25,8 @@ const CardRutas = ({ intIdIdea }) => {
 
         if (data) {
             setArrRutas(data);
+            setIsLoading(false);
         }
-
-        setIsLoading(false);
     }, [data]);
 
     if (isLoading) {
