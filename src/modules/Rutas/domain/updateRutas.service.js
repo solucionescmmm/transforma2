@@ -334,6 +334,25 @@ class updateRutas {
                     }
                 }
             }
+
+            let arrPagos = objDataFase.arrPagos;
+
+            if (arrPagos.length > 0) {
+                for (let j = 0; j < arrPagos.length; j++) {
+                    let objDataPago = arrPagos[j];
+
+                    let query = await dao.setPagosFases({
+                        ...objDataPago,
+                        intIdFase: this.#intIdFase,
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
+
+                    if (query.error) {
+                        throw new Error(query.msg);
+                    }
+                    
+                }
+            }
         }
     }
 }

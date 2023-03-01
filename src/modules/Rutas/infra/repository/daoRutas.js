@@ -343,6 +343,52 @@ class daoRutas {
         }
     }
 
+    async setPagosFases(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+            DECLARE @intId INTEGER;
+            
+            INSERT INTO tbl_PagosFase VALUES
+            (
+                ${data.intIdFase},
+                ${data.ValorTotalFase},
+                ${data.intNumPago},
+                ${data.intPorcentaje},
+                ${data.Valor},
+                GETDATE(),
+                ${data.strUsuarioCreacion},
+                NULL,
+                NULL
+            )
+            
+            SET @intId = SCOPE_IDENTITY();
+    
+            SELECT * FROM tbl_PagosFase WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El Pago, fue agregado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setRutas de la clase daoRutas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getRutas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();

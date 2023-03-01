@@ -43,6 +43,12 @@ class interfaceDAORutas {
         return query;
     }
 
+    async setPagosFases(data) {
+        let dao = new classDAO();
+        let query = await dao.setPagosFases(data);
+        return query;
+    }
+
     async getRutas(data) {
         let dao = new classDAO();
         let query = await dao.getRutas(data);
