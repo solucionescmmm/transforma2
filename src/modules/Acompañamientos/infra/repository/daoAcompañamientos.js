@@ -16,21 +16,7 @@ class daoAcompañamientos {
             INSERT INTO tbl_Acompañamientos VALUES
             (
                 ${data.intIdIdea},
-                ${data.intIdEmpresario},
                 ${data.intIdTipoAcompañamiento},
-                ${data.dtmFechaInicial},
-                ${data.dtmFechaFinal},
-                ${data.strUbicacion},
-                ${data.intIdTipoActividad},
-                ${data.intIdRutaPaqueteServicio},
-                ${data.strResponsables},
-                ${data.strObjetivoActividad},
-                ${data.strTemasActividades},
-                ${data.strLogrosAvances},
-                ${data.strObservaciones},
-                ${data.intIdTarea},
-                ${data.dtmProximaActividad},
-                ${data.intIdDocumento},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
@@ -64,19 +50,35 @@ class daoAcompañamientos {
         }
     }
 
-    async setRutasAcompañamiento(data) {
+    async setSesionAcompañamiento(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
             let response = await conn.query`
             DECLARE @intId INTEGER;
             
-            INSERT INTO tbl_RutasAcompañamientos VALUES
+            INSERT INTO tbl_Sesiones_Acompañamientos VALUES
             (
-                ${data.intIdAcompañamiento},
-                ${data.intIdPaqueteFase},
-                ${data.intIdServicioFase},
-                GETDATE()
+                ${data.intIdTipoAcompañamiento},
+                ${data.intIdEmpresario},
+                ${data.dtmFechaInicial},
+                ${data.dtmFechaFinal},
+                ${data.strUbicacion},
+                ${data.intIdTipoActividad},
+                ${data.intIdRuta},
+                ${data.intIdFase},
+                ${data.intIdServicio},
+                ${data.intIdPaquete},
+                ${data.btFinalizarServicio},
+                ${data.strResponsables},
+                ${data.strObjetivoActividad},
+                ${data.strTemasActividades},
+                ${data.strLogrosAvances},
+                ${data.strObservaciones},
+                ${data.intIdTarea},
+                ${data.dtmProximaActividad},
+                ${data.intIdDocumento},
+                GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
                 NULL
@@ -84,7 +86,7 @@ class daoAcompañamientos {
             
             SET @intId = SCOPE_IDENTITY();
     
-            SELECT * FROM tbl_RutasAcompañamientos WHERE intId = @intId`;
+            SELECT * FROM tbl_Acompañamientos WHERE intId = @intId`;
 
             let result = {
                 error: false,
@@ -100,7 +102,7 @@ class daoAcompañamientos {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setRutasAcompañamiento de la clase daoAcompañamientos",
+                    "Error en el metodo setSesionAcompañamiento de la clase daoAcompañamientos",
             };
 
             sql.close(conexion);

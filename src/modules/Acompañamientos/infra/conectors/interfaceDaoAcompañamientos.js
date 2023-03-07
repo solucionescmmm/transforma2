@@ -8,9 +8,9 @@ class interfaceDAOAcompañamientos {
         return result;
     }
 
-    async setRutasAcompañamiento(data) {
+    async setSesionAcompañamiento(data) {
         const dao = new classDaoSql();
-        let result = await dao.setRutasAcompañamiento(data);
+        let result = await dao.setSesionAcompañamiento(data);
         return result;
     }
 

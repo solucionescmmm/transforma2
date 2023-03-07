@@ -30,12 +30,7 @@ class setAcompañamiento {
     async main() {
         await this.#validations();
         await this.#setAcompañamiento();
-        if (this.#objData.intTipoAcomp === 1) {
-            await this.#setRutasAcompañamiento();
-        }
-        if (this.#objData.intTipoAcomp === 2) {
-            await this.#setRutasNoPlaneada();
-        }
+        await this.#setSesionAcompañamiento()
         return this.#objResult;
     }
 
@@ -60,21 +55,11 @@ class setAcompañamiento {
 
     async #setAcompañamiento() {
         let dao = new classInterfaceDAOAcompañamientos();
+
         let newData = {
-            ...this.#objData,
+            intIdIdea: this.#objData.intIdIdea,
             intIdTipoAcompañamiento: this.#objData.intTipoAcomp,
-            dtmFechaInicial: this.#objData.intHoraInicio,
-            dtmFechaFinal: this.#objData.intHoraFinal,
-            dtmProximaActividad: this.#objData.dtmFechaProx,
-            intIdRutaPaqueteServicio:this.#objData?.objInfoRutaExs?.objRuta?.objInfoPrincipal?.intId|| null,
-            intIdTipoActividad: this.#objData.intTipoActividad,
-            strUbicacion: this.#objData.strLugarActividad,
-            strResponsables: JSON.stringify(this.#objData.strResponsable),
-            strTemasActividades: this.#objData.strActividades,
-            strLogrosAvances: this.#objData.strLogros,
-            strObservaciones: this.#objData.strRetroAlim,
             strUsuarioCreacion: this.#objUser.strEmail,
-            intIdDocumento: this.#intIdDocumento,
         };
 
         let query = await dao.setAcompañamiento(newData);
@@ -92,16 +77,16 @@ class setAcompañamiento {
         };
     }
 
-    async #setRutasAcompañamiento() {
+    async #setSesionAcompañamiento() {
         let dao = new classInterfaceDAOAcompañamientos();
 
         let newData = {
-            intIdPaqueteFase:this.#objData.objInfoRutaExs?.objPaquete?.intId || null,
-            intIdServicioFase:this.#objData.objInfoRutaExs?.objServicio?.intId || null,
+            ...this.#objData,
+            intIdDocumento: this.#intIdDocumento,
             intIdAcompañamiento: this.#intIdAcompañamiento,
             strUsuarioCreacion: this.#objUser.strEmail,
         };
-        let query = await dao.setRutasAcompañamiento(newData);
+        let query = await dao.setSesionAcompañamiento(newData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -128,13 +113,13 @@ class setAcompañamiento {
     }
 
     async #setRutasNoPlaneada() {
-        let data ={
-            intIdIdea:this.#objData.intIdIdea,
+        let data = {
+            intIdIdea: this.#objData.intIdIdea,
             strObservaciones: "Ruta creada apartir de un acompañamiento",
-            arrInfoFases:[{
-                strObservaciones:"Ruta creada apartir de un acompañamiento",
-                arrPaquetes: this.#objData.objNuevoServPaq?.objPaquete ? [this.#objData.objNuevoServPaq?.objPaquete]: null,
-                arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [this.#objData.objNuevoServPaq?.objServicio]:null,
+            arrInfoFases: [{
+                strObservaciones: "Ruta creada apartir de un acompañamiento",
+                arrPaquetes: this.#objData.objNuevoServPaq?.objPaquete ? [this.#objData.objNuevoServPaq?.objPaquete] : null,
+                arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [this.#objData.objNuevoServPaq?.objServicio] : null,
             }]
         }
 
