@@ -32,6 +32,8 @@ import {
     Delete as DeleteIcon,
     RemoveRedEye as RemoveRedEyeIcon,
     PictureAsPdf as PictureAsPdfIcon,
+    PlayCircle as PlayCircleIcon,
+    MarkEmailRead as MarkEmailReadIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -42,6 +44,8 @@ import { MTableToolbar } from "@material-table/core";
 import ModalDelete from "./modalDelete";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ModalPDF from "./components/modalPDF";
+import ModalActiveRuta from "./components/modalActiveRuta";
+import ModalSendRuta from "./components/modalSendRuta";
 
 const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
@@ -114,6 +118,8 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
 
     const [openModalDeleteRuta, setopenModalDeleteRuta] = useState(false);
     const [openModalPDF, setopenModalPDF] = useState(false);
+    const [openModalActiveRuta, setopenModalActiveRuta] = useState(false);
+    const [openModalSendRutas, setopenModalSendRuta] = useState(false);
     const [selectedDataRuta, setselectedDataRuta] = useState();
     const [valueTab, setValueTab] = useState(1);
 
@@ -136,6 +142,14 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
         setopenModalPDF(!openModalPDF);
     };
 
+    const handleropenModalActiveRuta = () => {
+        setopenModalActiveRuta(!openModalActiveRuta);
+    };
+
+    const handleropenModalSendRuta = () => {
+        setopenModalSendRuta(!openModalSendRutas);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -153,6 +167,24 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                 handleOpenDialog={handleropenModalPDF}
                 open={openModalPDF}
                 values={selectedDataRuta}
+                intIdIdea={intIdIdea}
+            />
+
+            <ModalActiveRuta
+                handleOpenDialog={handleropenModalActiveRuta}
+                open={openModalActiveRuta}
+                values={selectedDataRuta}
+                refresh={refreshGetData}
+                intId={selectedDataRuta?.objInfoPrincipal?.intId}
+                intIdIdea={intIdIdea}
+            />
+
+            <ModalSendRuta
+                handleOpenDialog={handleropenModalSendRuta}
+                open={openModalSendRutas}
+                values={selectedDataRuta}
+                refresh={refreshGetData}
+                intId={selectedDataRuta?.objInfoPrincipal?.intId}
                 intIdIdea={intIdIdea}
             />
 
@@ -307,8 +339,10 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                     icon: () => (
                                                         <EditIcon
                                                             color={
-                                                                rowData.btFinalizada ===
-                                                                true
+                                                                rowData
+                                                                    .objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Aceptada/En Proceso"
                                                                     ? "gray"
                                                                     : "success"
                                                             }
@@ -326,10 +360,10 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         />
                                                     ),
                                                     tooltip: "Editar",
-
                                                     disabled:
-                                                        rowData.btFinalizada ===
-                                                        true,
+                                                        rowData.objInfoPrincipal
+                                                            ?.strEstadoRuta ===
+                                                        "Aceptada/En Proceso",
                                                 };
                                             },
                                             (rowData) => {
@@ -365,8 +399,14 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                     icon: () => (
                                                         <DeleteIcon
                                                             color={
-                                                                rowData.btFinalizada ===
-                                                                true
+                                                                rowData
+                                                                    .objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                    "Aceptada/En Proceso" ||
+                                                                rowData
+                                                                    .objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                    "Enviada"
                                                                     ? "gray"
                                                                     : "error"
                                                             }
@@ -384,8 +424,12 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                     },
                                                     tooltip: "Eliminar",
                                                     disabled:
-                                                        rowData.btFinalizada ===
-                                                        true,
+                                                        rowData.objInfoPrincipal
+                                                            ?.strEstadoRuta ===
+                                                            "Aceptada/En Proceso" ||
+                                                        rowData.objInfoPrincipal
+                                                            ?.strEstadoRuta ===
+                                                            "Enviada",
                                                 };
                                             },
                                             (rowData) => {
@@ -409,6 +453,74 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                                 ...rowData,
                                                             }
                                                         );
+                                                    },
+                                                };
+                                            },
+                                            (rowData) => {
+                                                return {
+                                                    icon: () => (
+                                                        <PlayCircleIcon
+                                                            color={
+                                                                rowData
+                                                                    .objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Aceptada/En Proceso"
+                                                                    ? "gray"
+                                                                    : "success"
+                                                            }
+                                                            fontSize="small"
+                                                        />
+                                                    ),
+                                                    tooltip: "Aceptada/En Procesor",
+                                                    disabled:
+                                                        rowData.objInfoPrincipal
+                                                            ?.strEstadoRuta ===
+                                                        "Aceptada/En Proceso",
+                                                    onClick: (
+                                                        event,
+                                                        rowData
+                                                    ) => {
+                                                        console.log(rowData);
+                                                        setselectedDataRuta(
+                                                            rowData
+                                                        );
+                                                        handleropenModalActiveRuta();
+                                                    },
+                                                };
+                                            },
+                                            (rowData) => {
+                                                return {
+                                                    icon: () => (
+                                                        <MarkEmailReadIcon
+                                                            htmlColor={
+                                                                rowData
+                                                                    .objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                    "Aceptada/En Proceso" ||
+                                                                rowData
+                                                                    .objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                    "Enviada"
+                                                                    ? "gray"
+                                                                    : "#571845"
+                                                            }
+                                                            fontSize="small"
+                                                        />
+                                                    ),
+                                                    tooltip: "Pasar a enviada",
+                                                    disabled:
+                                                        rowData.objInfoPrincipal
+                                                            ?.strEstadoRuta ===
+                                                            "Aceptada/En Proceso" ||
+                                                        rowData.objInfoPrincipal
+                                                            ?.strEstadoRuta ===
+                                                            "Enviada",
+                                                    onClick: (
+                                                        event,
+                                                        rowData
+                                                    ) => {
+                                                       setselectedDataRuta(rowData);
+                                                       handleropenModalSendRuta()
                                                     },
                                                 };
                                             },
@@ -670,7 +782,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         rowData.btFinalizada ===
                                                         true,
                                                 };
-                                            },   
+                                            },
                                             (rowData) => {
                                                 return {
                                                     icon: () => (

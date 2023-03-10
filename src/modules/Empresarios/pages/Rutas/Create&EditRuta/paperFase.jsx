@@ -33,7 +33,6 @@ import {
 } from "@mui/icons-material";
 
 //Componentes
-import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 import ModalAddObjetivo from "./modalAddObjetivo";
 import shortid from "shortid";
 import ModalAddPaquete from "./modalAddPaquete";
@@ -44,7 +43,6 @@ import ModalEditPaquete from "./modalEditPaquete";
 import ModalDeletePaquete from "./modalDeletePaquete";
 import ModalEditServicio from "./modalEditServicio";
 import ModalDeleteServicio from "./modalDeleteServicio";
-import SelectEstadosRutas from "../components/selectEstadosRutas";
 import toast from "react-hot-toast";
 
 const PaperFase = ({
@@ -595,88 +593,6 @@ const PaperFase = ({
 
                         <Collapse in={openCollapese} timeout="auto">
                             <Grid container direction="row" spacing={2}>
-                                {isEdit && (
-                                    <Grid item xs={12}>
-                                        <Controller
-                                            defaultValue={data.intEstado}
-                                            name={`arrInfoFases[${index}].intEstado`}
-                                            render={({
-                                                field: {
-                                                    name,
-                                                    onChange,
-                                                    value,
-                                                },
-                                            }) => (
-                                                <SelectEstadosRutas
-                                                    label="Estado"
-                                                    name={name}
-                                                    value={value}
-                                                    onChange={(e) =>
-                                                        onChange(e)
-                                                    }
-                                                    disabled={disabled}
-                                                    required
-                                                    error={
-                                                        !!errors
-                                                            ?.arrInfoFases?.[
-                                                            index
-                                                        ]?.intEstado
-                                                    }
-                                                    helperText={
-                                                        errors?.arrInfoFases?.[
-                                                            index
-                                                        ]?.intEstado?.message ||
-                                                        "Selecciona el estado de la fase"
-                                                    }
-                                                />
-                                            )}
-                                            control={control}
-                                            rules={{
-                                                required:
-                                                    "Por favor, selecciona el estado de la fase",
-                                            }}
-                                        />
-                                    </Grid>
-                                )}
-
-                                <Grid item xs={12}>
-                                    <Controller
-                                        defaultValue={data.strResponsable}
-                                        name={`arrInfoFases[${index}].strResponsable`}
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <DropdownUsuarios
-                                                label="Responsable"
-                                                name={name}
-                                                value={value}
-                                                onChange={(_, value) =>
-                                                    onChange(value)
-                                                }
-                                                disabled={disabled}
-                                                required
-                                                error={
-                                                    !!errors?.arrInfoFases?.[
-                                                        index
-                                                    ]?.strResponsable
-                                                }
-                                                helperText={
-                                                    errors?.arrInfoFases?.[
-                                                        index
-                                                    ]?.strResponsable
-                                                        ?.message ||
-                                                    "Selecciona el responsable"
-                                                }
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona el responsable",
-                                        }}
-                                    />
-                                </Grid>
-
                                 <Grid item xs={12}>
                                     <Controller
                                         defaultValue={data.strObservaciones}
@@ -910,7 +826,11 @@ const PaperFase = ({
                                                                     .objSedeTarifa
                                                                     ?.Valor
                                                             )
-                                                            .toString()}`}
+                                                            .toString()} - ${
+                                                            paquete.objPaquete
+                                                                .objInfoPrincipal
+                                                                .intDuracionHoras
+                                                        } horas`}
                                                     </p>
                                                     <p>
                                                         Valor:{" "}
@@ -925,6 +845,13 @@ const PaperFase = ({
                                                                 paquete.valor
                                                             )
                                                             .toString()}
+                                                    </p>
+                                                    <p>
+                                                        Horas:{" "}
+                                                        {
+                                                            paquete.intDuracionHoras
+                                                        }{" "}
+                                                        horas
                                                     </p>
                                                 </Box>
 
@@ -1107,6 +1034,14 @@ const PaperFase = ({
                                                                     servicio.valor
                                                                 )
                                                                 .toString()}
+                                                        </p>
+
+                                                        <p>
+                                                            Valor:{" "}
+                                                            {
+                                                                servicio.intDuracionHoras
+                                                            }{" "}
+                                                            horas
                                                         </p>
                                                     </Box>
 

@@ -256,42 +256,6 @@ const InfoPrincipal = ({
                             control={control}
                         />
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.intDuracionHoras}
-                            name={`objInfoPrincipal.intDuracionHoras`}
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Duración en horas"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => {
-                                        onChange(e);
-                                    }}
-                                    fullWidth
-                                    type="number"
-                                    variant="standard"
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        !!errors?.objInfoPrincipal
-                                            ?.intDuracionHoras
-                                    }
-                                    helperText={
-                                        errors?.objInfoPrincipal
-                                            ?.intDuracionHoras?.message ||
-                                        "Digita la duración en horas"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, digita la duración en horas",
-                            }}
-                        />
-                    </Grid>
                 </Grid>
             </Collapse>
         </Fragment>

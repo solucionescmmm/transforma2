@@ -25,6 +25,7 @@ import DropdownPaquetes from "../../../../Admin/components/dropdownPaquetes";
 import DropdownObjetivos from "../components/dropdownObjetivos";
 import DropdownSedeTarifa from "../components/dropdownSedeTarifa";
 import NumberFormat from "react-number-format";
+import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -46,6 +47,7 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
+        strResponsable: null,
         objPaquete: null,
         objSedeTarifa: "",
         valor: "",
@@ -116,6 +118,9 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     useEffect(() => {
         if (values.value) {
             setData({
+                strResponsable: values?.value
+                    ? values?.value?.strResponsable
+                    : null,
                 objPaquete: values?.value ? values.value?.objPaquete : null,
                 objSedeTarifa: values?.value
                     ? values.value?.objSedeTarifa
@@ -128,6 +133,9 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
             });
 
             reset({
+                strResponsable: values?.value
+                    ? values?.value?.strResponsable
+                    : null,
                 objPaquete: values?.value ? values.value?.objPaquete : null,
                 objSedeTarifa: values?.value
                     ? values.value?.objSedeTarifa
@@ -163,6 +171,33 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                         <Typography variant="caption">
                             Todos los campos marcados con (*) son obligatorios.
                         </Typography>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strResponsable}
+                            name={`strResponsable`}
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownUsuarios
+                                    label="Responsable"
+                                    name={name}
+                                    value={value}
+                                    onChange={(_, value) => onChange(value)}
+                                    disabled={loading}
+                                    required
+                                    error={!!errors?.strResponsable}
+                                    helperText={
+                                        errors?.strResponsable?.message ||
+                                        "Selecciona el responsable"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona el responsable",
+                            }}
+                        />
                     </Grid>
 
                     <Grid item xs={12}>

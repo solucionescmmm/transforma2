@@ -124,40 +124,6 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                 <Grid container direction="row" spacing={1}>
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.strNombre}
-                            name="objInfoPrincipal.strNombre"
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Nombre"
-                                    variant="standard"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoPrincipal?.strNombre
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPrincipal?.strNombre
-                                            ?.message ||
-                                        "Digita el nombre de la ruta"
-                                    }
-                                    fullWidth
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, digita el nombre de la ruta",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
                             defaultValue={data.strResponsable}
                             name="objInfoPrincipal.strResponsable"
                             render={({ field: { name, onChange, value } }) => (

@@ -50,13 +50,13 @@ const DropdownPaquetes = ({
     label,
     multiple,
     required,
-    intIdTipoTarifa
+    intIdTipoTarifa,
 }) => {
     const [options, setOptions] = useState([]);
 
     const { data, refreshGetData } = useGetPaquetes({
         autoLoad: true,
-        intIdTipoTarifa
+        intIdTipoTarifa,
     });
 
     useEffect(() => {
@@ -141,7 +141,7 @@ const DropdownPaquetes = ({
                 }
             }}
             getOptionLabel={(option) =>
-                option.objInfoPrincipal?.strNombre || option
+                `${option.objInfoPrincipal?.strNombre} - ${option.objInfoPrincipal?.intDuracionHoras}horas` || option
             }
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
@@ -178,8 +178,22 @@ const DropdownPaquetes = ({
                             />
                         )}
                         <ListItemText
-                            primary={option.objInfoPrincipal?.strNombre}
+                            primary={`${option.objInfoPrincipal?.strNombre} - ${option.objInfoPrincipal?.intDuracionHoras}horas`}
                         />
+                        <ul>
+                            {(() => {
+                                console.log(option)
+                                const { objInfoPrincipal } = option;
+                                const { arrServicios } = objInfoPrincipal;
+
+                                return arrServicios.map((x) => {
+                                    const { objInfoPrincipal } = x;
+                                    return (
+                                        <li>{objInfoPrincipal.strNombre}</li>
+                                    );
+                                });
+                            })()}
+                        </ul>
                     </ListItem>
                 </List>
             )}

@@ -25,6 +25,7 @@ import DropdownPaquetes from "../../../../Admin/components/dropdownPaquetes";
 import DropdownObjetivos from "../components/dropdownObjetivos";
 import DropdownSedeTarifa from "../components/dropdownSedeTarifa";
 import NumberFormat from "react-number-format";
+import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -46,6 +47,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
+        strResponsable: null,
         objPaquete: null,
         objSedeTarifa: null,
         valor: "",
@@ -109,6 +111,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
         if (success) {
             handleOpenDialog();
             setData({
+                strResponsable: null,
                 objPaquete: null,
                 objSedeTarifa: null,
                 arrObjetivos: [],
@@ -116,6 +119,7 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                 intDuracionHoras: "",
             });
             reset({
+                strResponsable: null,
                 objPaquete: null,
                 objSedeTarifa: null,
                 arrObjetivos: [],
@@ -148,6 +152,33 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                         <Typography variant="caption">
                             Todos los campos marcados con (*) son obligatorios.
                         </Typography>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strResponsable}
+                            name={`strResponsable`}
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownUsuarios
+                                    label="Responsable"
+                                    name={name}
+                                    value={value}
+                                    onChange={(_, value) => onChange(value)}
+                                    disabled={loading}
+                                    required
+                                    error={!!errors?.strResponsable}
+                                    helperText={
+                                        errors?.strResponsable?.message ||
+                                        "Selecciona el responsable"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona el responsable",
+                            }}
+                        />
                     </Grid>
 
                     <Grid item xs={12}>
@@ -213,11 +244,6 @@ const ModalAddPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                                                 setValue(
                                                     "valor",
                                                     value?.Valor || ""
-                                                );
-                                                setValue(
-                                                    "intDuracionHoras",
-                                                    value?.intDuracionHoras ||
-                                                        ""
                                                 );
                                                 onChange(value);
                                             }}

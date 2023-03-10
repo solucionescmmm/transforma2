@@ -25,6 +25,7 @@ import DropdownServicios from "../../../../Admin/components/dropdownServicios";
 import DropdownObjetivos from "../components/dropdownObjetivos";
 import DropdownSedeTarifa from "../components/dropdownSedeTarifa";
 import NumberFormat from "react-number-format";
+import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -117,6 +118,9 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
 
     useEffect(() => {
         setData({
+            strResponsable: values?.value
+                ? values?.value?.strResponsable
+                : null,
             objServicio: values?.value ? values.value?.objServicio : null,
             arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
             valor: values?.value ? values.value?.Valor : "",
@@ -130,6 +134,9 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
         });
 
         reset({
+            strResponsable: values?.value
+                ? values?.value?.strResponsable
+                : null,
             objServicio: values?.value ? values.value?.objServicio : null,
             arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
             valor: values?.value ? values.value?.Valor : "",
@@ -165,6 +172,33 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
                         <Typography variant="caption">
                             Todos los campos marcados con (*) son obligatorios.
                         </Typography>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strResponsable}
+                            name={`strResponsable`}
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownUsuarios
+                                    label="Responsable"
+                                    name={name}
+                                    value={value}
+                                    onChange={(_, value) => onChange(value)}
+                                    disabled={loading}
+                                    required
+                                    error={!!errors?.strResponsable}
+                                    helperText={
+                                        errors?.strResponsable?.message ||
+                                        "Selecciona el responsable"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona el responsable",
+                            }}
+                        />
                     </Grid>
 
                     <Grid item xs={12}>
