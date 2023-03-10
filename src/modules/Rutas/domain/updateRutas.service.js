@@ -10,6 +10,7 @@ const servicioRepetido = require("../app/functions/servicioRepetido")
 //Servicios
 const serviceGetIdEstado = require("./getIdEstadoRutas.service");
 const serviceGetIdTipo = require("./getIdTipoRutas.service");
+const getContadorRutas = require("./getContadorRutas.service")
 const serviceDeleteRutas = require("./deleteRutas.service");
 
 class updateRutas {
@@ -22,7 +23,8 @@ class updateRutas {
     #intIdRuta;
     #intIdFase;
     #intIdEstado;
-    #intIdTipo
+    #intIdTipo;
+    #intNumRutas;
 
     /**
      * @param {object} data
@@ -39,6 +41,7 @@ class updateRutas {
         
         await this.#validations();
         await this.#deleteRuta();
+        await this.#getCountRutas();
         await this.#setRutas();
         await this.#setFases();
         return this.#objResult;
@@ -116,6 +119,18 @@ class updateRutas {
         }
     }
 
+    async #getCountRutas() {
+        let queryGetCountRutas = await getContadorRutas({
+            intIdIdea: this.#objData.objInfoPrincipal.intIdIdea,
+        });
+
+        if (queryGetCountRutas.error) {
+            throw new Error(queryGetCountRutas.msg);
+        }
+
+        this.#intNumRutas = queryGetCountRutas.data.length;
+    }
+
     async #getIdEstado() {
         let queryGetIdEstado = await serviceGetIdEstado({
             strNombre: "En borrador",
@@ -145,6 +160,7 @@ class updateRutas {
         let objDataRuta = this.#objData.objInfoPrincipal;
         let newData = {
             ...objDataRuta,
+            strNombre: `Ruta #${this.#intNumRutas + 1}`,
             intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
             strUsuarioCreacion: this.#objUser.strEmail,

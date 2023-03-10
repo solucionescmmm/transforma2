@@ -62,6 +62,14 @@ routes.put(
 );
 
 routes.put(
+    "/transforma/api/rutas/updateRutaCancelada",
+    async (req, res) => {
+        let controllerRutas = new classController();
+        await controllerRutas.updateRutaCancelada(req, res);
+    }
+);
+
+routes.put(
     "/transforma/api/rutas/checkPaqueteFase",
     async (req, res) => {
         let controllerRutas = new classController();
