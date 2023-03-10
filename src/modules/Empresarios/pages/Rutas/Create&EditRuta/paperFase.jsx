@@ -191,6 +191,7 @@ const PaperFase = ({
             } else {
                 newArrPaquetes.push({
                     strId: shortid.generate(),
+                    strResponsable: value.strResponsable,
                     objPaquete: value.objPaquete,
                     objSedeTarifa: value.objSedeTarifa,
                     valor: value.valor,
@@ -215,6 +216,7 @@ const PaperFase = ({
             } else {
                 newArrPaquetes[mode.index] = {
                     strId: value.strId,
+                    strResponsable: value.strResponsable,
                     objPaquete: value.objPaquete,
                     objSedeTarifa: value.objSedeTarifa,
                     valor: value.valor,
@@ -253,6 +255,7 @@ const PaperFase = ({
             } else {
                 newArrServicios.push({
                     strId: shortid.generate(),
+                    strResponsable: value.strResponsable,
                     objServicio: value.objServicio,
                     objSedeTarifa: value.objSedeTarifa,
                     valor: value.valor,
@@ -277,6 +280,7 @@ const PaperFase = ({
             } else {
                 newArrServicios[mode.index] = {
                     strId: value.strId,
+                    strResponsable: value.strResponsable,
                     objServicio: value.objServicio,
                     objSedeTarifa: value.objSedeTarifa,
                     valor: value.valor,
