@@ -163,6 +163,7 @@ class updateRutas {
             strNombre: `Ruta #${this.#intNumRutas + 1}`,
             intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
+            strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 
@@ -240,7 +241,7 @@ class updateRutas {
                         ValorTotalPaquete: objDataPaquete.valor,
                         intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || null,
-                        strResponsables: objDataPaquete.strResponsable,
+                        strResponsables: JSON.stringify(objDataPaquete.strResponsable || null),
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
@@ -266,7 +267,7 @@ class updateRutas {
                                 ValorTotalServicio: 0,
                                 intDuracionHorasReferenciaServicio: null,
                                 intDuracionHorasTotalServicio: null,
-                                strResponsables: objDataPaquete.strResponsable,
+                                strResponsables: JSON.stringify(objDataPaquete.strResponsable || null),
                                 btFinalizado: false,
                                 strUsuarioCreacion: this.#objUser.strEmail,
                             });
@@ -315,7 +316,7 @@ class updateRutas {
                             ValorTotalServicio: objDataServicio.valor || null,
                             intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
                             intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
-                            strResponsables: objDataServicio.strResponsable,
+                            strResponsables: JSON.stringify(objDataServicio.strResponsable || null),
                             btFinalizado: false,
                             strUsuarioCreacion: this.#objUser.strEmail,
                         });

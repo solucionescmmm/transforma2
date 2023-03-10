@@ -123,6 +123,7 @@ class setRutas {
             strNombre: `Ruta #${this.#intNumRutas + 1}`,
             intIdTipoRuta: this.#intIdTipoRuta,
             intIdEstadoRuta: this.#intIdEstado,
+            strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 
@@ -200,7 +201,7 @@ class setRutas {
                         ValorTotalPaquete:objDataPaquete.valor,
                         intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || null,
-                        strResponsables: objDataPaquete.strResponsable,
+                        strResponsables: JSON.stringify(objDataPaquete.strResponsable || null),
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
@@ -226,7 +227,7 @@ class setRutas {
                                 ValorTotalServicio: 0,
                                 intDuracionHorasReferenciaServicio: null,
                                 intDuracionHorasTotalServicio: null,
-                                strResponsables: objDataPaquete.strResponsable,
+                                strResponsables: JSON.stringify(objDataPaquete.strResponsable || null),
                                 btFinalizado: false,
                                 strUsuarioCreacion: this.#objUser.strEmail,
                             });
@@ -274,7 +275,7 @@ class setRutas {
                         ValorTotalServicio:objDataServicio.valor || null,
                         intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
-                        strResponsables: objDataServicio.strResponsable,
+                        strResponsables: JSON.stringify(objDataServicio.strResponsable || null),
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
@@ -310,7 +311,7 @@ class setRutas {
 
             let arrPagos = objDataFase.arrPagos;
 
-            if (arrPagos.length > 0) {
+            if (arrPagos?.length > 0) {
                 for (let j = 0; j < arrPagos.length; j++) {
                     let objDataPago = arrPagos[j];
 
