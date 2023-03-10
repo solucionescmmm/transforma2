@@ -27,7 +27,7 @@ const filterOptions = (options, state) => {
     const { inputValue } = state;
 
     return matchSorter(options, inputValue, {
-        keys: ["strId", "strObjetivo", "strNombre"],
+        keys: ["strId", "strObjetivo", "strNombre", "intId"],
     });
 };
 
@@ -96,8 +96,8 @@ const DropdownObjetivos = ({
                     return option === value;
                 } else {
                     return (
-                        option.strObjetivo === value.strObjetivo ||
-                        option.strNombre === value.strNombre
+                        option.intId === value.intId ||
+                        option.strId === value.strId
                     );
                 }
             }}

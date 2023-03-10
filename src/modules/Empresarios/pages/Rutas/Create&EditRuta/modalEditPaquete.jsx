@@ -119,7 +119,7 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
         if (values.value) {
             setData({
                 strResponsable: values?.value
-                    ? values?.value?.strResponsable
+                    ? values?.value?.strResponsable || values?.value?.strResponsables
                     : null,
                 objPaquete: values?.value ? values.value?.objPaquete : null,
                 objSedeTarifa: values?.value
@@ -134,8 +134,8 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
 
             reset({
                 strResponsable: values?.value
-                    ? values?.value?.strResponsable
-                    : null,
+                ? values?.value?.strResponsable || values?.value?.strResponsables
+                : null,
                 objPaquete: values?.value ? values.value?.objPaquete : null,
                 objSedeTarifa: values?.value
                     ? values.value?.objSedeTarifa
