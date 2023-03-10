@@ -46,6 +46,22 @@ routes.put(
 );
 
 routes.put(
+    "/transforma/api/rutas/updateRutaEnviada",
+    async (req, res) => {
+        let controllerRutas = new classController();
+        await controllerRutas.updateRutaEnviada(req, res);
+    }
+);
+
+routes.put(
+    "/transforma/api/rutas/updateRutaActivada",
+    async (req, res) => {
+        let controllerRutas = new classController();
+        await controllerRutas.updateRutaActivada(req, res);
+    }
+);
+
+routes.put(
     "/transforma/api/rutas/checkPaqueteFase",
     async (req, res) => {
         let controllerRutas = new classController();

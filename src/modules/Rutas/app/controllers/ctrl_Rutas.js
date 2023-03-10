@@ -4,6 +4,8 @@ const getRutas = require("../../domain/getRutas.service");
 const getEstadosRutas = require("../../domain/getEstadosRutas.service")
 const getContadorRutas = require("../../domain/getContadorRutas.service")
 const updateRutas = require("../../domain/updateRutas.service");
+const updateRutaEnviada = require("../../domain/updateRutaEnviada.service");
+const updateRutaActivada = require("../../domain/updateRutaActivada.service");
 const checkPaqueteFase= require("../../domain/checkPaqueteFase.service");
 const checkServicioFase = require("../../domain/checkServicioFase.service")
 const deleteRutas = require("../../domain/deleteRutas.service");
@@ -102,6 +104,52 @@ class ctrl_Rutas {
             let { strDataUser } = req;
 
             let service = new updateRutas(data, strDataUser);
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async updateRutaEnviada(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new updateRutaEnviada(data, strDataUser);
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async updateRutaActivada(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new updateRutaActivada(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
