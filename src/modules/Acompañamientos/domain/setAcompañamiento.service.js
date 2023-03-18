@@ -30,7 +30,10 @@ class setAcompañamiento {
     async main() {
         await this.#validations();
         await this.#setAcompañamiento();
-        await this.#setSesionAcompañamiento()
+        await this.#setSesionAcompañamiento();
+        if (this.#objData) {
+            
+        }
         return this.#objResult;
     }
 
