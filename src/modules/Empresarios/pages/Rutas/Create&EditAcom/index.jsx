@@ -28,7 +28,7 @@ import {
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
-import { DatePicker, TimePicker } from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -90,9 +90,8 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         intIdIdea,
-        dtmFecha: null,
-        intHoraInicio: null,
-        intHoraFinal: null,
+        dtmFechaInicio: null,
+        dtmFechaFinal: null,
         intTipoAcomp: null,
         objInfoRutaExs: {},
         objNuevoServPaq: {},
@@ -103,7 +102,6 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         strActividades: "",
         strLogros: "",
         dtmFechaProx: null,
-        intHoraInicioProx: null,
         strRetroAlim: "",
         strURLDocumento: "",
     });
@@ -332,15 +330,15 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={12} md={6}>
                                     <Controller
-                                        defaultValue={data.dtmFecha}
-                                        name="dtmFecha"
+                                        defaultValue={data.dtmFechaInicio}
+                                        name="dtmFechaInicio"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
-                                            <DatePicker
-                                                label="Fecha"
+                                            <DateTimePicker
+                                                label="Fecha de inicio"
                                                 value={value}
                                                 onChange={(date) =>
                                                     onChange(date)
@@ -349,9 +347,9 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                     textField: {
                                                         name,
                                                         variant: "standard",
-                                                        error: !!errors?.dtmFecha,
+                                                        error: !!errors?.dtmFechaInicio,
                                                         helperText:
-                                                            errors?.dtmFecha
+                                                            errors?.dtmFechaInicio
                                                                 ?.message ||
                                                             "Selecciona la fecha del acompañamiento",
                                                         fullWidth: true,
@@ -368,53 +366,15 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={12} md={6}>
                                     <Controller
-                                        defaultValue={data.intHoraInicio}
-                                        name="intHoraInicio"
+                                        defaultValue={data.dtmFechaFinal}
+                                        name="dtmFechaFinal"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
-                                            <TimePicker
-                                                label="Hora de inicio"
-                                                value={value}
-                                                onChange={(value) =>
-                                                    onChange(value)
-                                                }
-                                                ampm
-                                                slotProps={{
-                                                    textField: {
-                                                        name,
-                                                        variant: "standard",
-                                                        error: !!errors?.intHoraInicio,
-                                                        helperText:
-                                                            errors
-                                                                ?.intHoraInicio
-                                                                ?.message ||
-                                                            "Selecciona la hora de inicio del acompañamiento",
-                                                        fullWidth: true,
-                                                    },
-                                                }}
-                                                disabled={loading}
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona la hora de inicio del acompañamiento",
-                                        }}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12} md={4}>
-                                    <Controller
-                                        defaultValue={data.intHoraFinal}
-                                        name="intHoraFinal"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <TimePicker
-                                                label="Hora final"
+                                            <DateTimePicker
+                                                label="Fecha final"
                                                 value={value}
                                                 onChange={(value) =>
                                                     onChange(value)
@@ -425,11 +385,11 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                     textField: {
                                                         name,
                                                         variant: "standard",
-                                                        error: !!errors?.intHoraFinal,
+                                                        error: !!errors?.dtmFechaFinal,
                                                         helperText:
-                                                            errors?.intHoraFinal
+                                                            errors?.dtmFechaFinal
                                                                 ?.message ||
-                                                            "Selecciona la hora final del acompañamiento",
+                                                            "Selecciona la fecha final del acompañamiento",
                                                         fullWidth: true,
                                                     },
                                                 }}
@@ -438,7 +398,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                         control={control}
                                         rules={{
                                             required:
-                                                "Por favor, selecciona la hora final del acompañamiento",
+                                                "Por favor, selecciona la fecha final del acompañamiento",
                                         }}
                                     />
                                 </Grid>
@@ -618,8 +578,8 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={data.strResponsable}
-                                        name="strResponsable"
+                                        defaultValue={data.objResponsable}
+                                        name="objResponsable"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
@@ -632,9 +592,9 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                 }
                                                 disabled={loading}
                                                 required
-                                                error={!!errors?.strResponsable}
+                                                error={!!errors?.objResponsable}
                                                 helperText={
-                                                    errors?.strResponsable
+                                                    errors?.objResponsable
                                                         ?.message ||
                                                     "Selecciona el responsable"
                                                 }
@@ -754,14 +714,14 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} md={6}>
+                                <Grid item xs={12} md={12}>
                                     <Controller
                                         defaultValue={data.dtmFechaProx}
                                         name="dtmFechaProx"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
-                                            <DatePicker
+                                            <DateTimePicker
                                                 label="Fecha próxima actividad"
                                                 value={value}
                                                 onChange={(date) =>
@@ -786,44 +746,6 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                         rules={{
                                             required:
                                                 "Por favor, selecciona la fecha de la próxima reunión",
-                                        }}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12} md={6}>
-                                    <Controller
-                                        defaultValue={data.intHoraInicioProx}
-                                        name="intHoraInicioProx"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <TimePicker
-                                                label="Hora inicio"
-                                                value={value}
-                                                onChange={(value) =>
-                                                    onChange(value)
-                                                }
-                                                ampm
-                                                disabled={loading}
-                                                slotProps={{
-                                                    textField: {
-                                                        name,
-                                                        variant: "standard",
-                                                        error: !!errors?.intHoraInicioProx,
-                                                        helperText:
-                                                            errors
-                                                                ?.intHoraInicioProx
-                                                                ?.message ||
-                                                            "Selecciona la hora de inicio de la próxima reunión",
-                                                        fullWidth: true,
-                                                    },
-                                                }}
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona la hora de inicio de la próxima reunión",
                                         }}
                                     />
                                 </Grid>

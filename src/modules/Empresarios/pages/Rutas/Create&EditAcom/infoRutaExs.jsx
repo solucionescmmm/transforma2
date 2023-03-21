@@ -143,6 +143,7 @@ const InfoRutaExs = ({
                             );
                         }
 
+                        
                         return (
                             <DropdownPaquetes
                                 label="Paquete"
