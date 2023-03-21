@@ -27,7 +27,8 @@ import {
     TextField,
 } from "@mui/material";
 
-import { DatePicker, LoadingButton, TimePicker } from "@mui/lab";
+import { LoadingButton } from "@mui/lab";
+import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -221,6 +222,8 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         }
     }, [isEdit, values]);
 
+    console.log(errors);
+
     useEffect(() => {
         if (values) {
             setData(values);
@@ -342,23 +345,19 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                 onChange={(date) =>
                                                     onChange(date)
                                                 }
-                                                disabled={loading}
-                                                renderInput={(props) => (
-                                                    <TextField
-                                                        {...props}
-                                                        name={name}
-                                                        variant="standard"
-                                                        error={
-                                                            !!errors?.dtmFecha
-                                                        }
-                                                        helperText={
+                                                slotProps={{
+                                                    textField: {
+                                                        name,
+                                                        variant: "standard",
+                                                        error: !!errors?.dtmFecha,
+                                                        helperText:
                                                             errors?.dtmFecha
                                                                 ?.message ||
-                                                            "Selecciona la fecha del acompañamiento"
-                                                        }
-                                                        fullWidth
-                                                    />
-                                                )}
+                                                            "Selecciona la fecha del acompañamiento",
+                                                        fullWidth: true,
+                                                    },
+                                                }}
+                                                disabled={loading}
                                             />
                                         )}
                                         control={control}
@@ -383,24 +382,20 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                     onChange(value)
                                                 }
                                                 ampm
-                                                disabled={loading}
-                                                renderInput={(props) => (
-                                                    <TextField
-                                                        {...props}
-                                                        name={name}
-                                                        variant="standard"
-                                                        error={
-                                                            !!errors?.intHoraInicio
-                                                        }
-                                                        helperText={
+                                                slotProps={{
+                                                    textField: {
+                                                        name,
+                                                        variant: "standard",
+                                                        error: !!errors?.intHoraInicio,
+                                                        helperText:
                                                             errors
                                                                 ?.intHoraInicio
                                                                 ?.message ||
-                                                            "Selecciona la hora de inicio del acompañamiento"
-                                                        }
-                                                        fullWidth
-                                                    />
-                                                )}
+                                                            "Selecciona la hora de inicio del acompañamiento",
+                                                        fullWidth: true,
+                                                    },
+                                                }}
+                                                disabled={loading}
                                             />
                                         )}
                                         control={control}
@@ -426,22 +421,18 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                 }
                                                 ampm
                                                 disabled={loading}
-                                                renderInput={(props) => (
-                                                    <TextField
-                                                        {...props}
-                                                        name={name}
-                                                        variant="standard"
-                                                        error={
-                                                            !!errors?.intHoraFinal
-                                                        }
-                                                        helperText={
+                                                slotProps={{
+                                                    textField: {
+                                                        name,
+                                                        variant: "standard",
+                                                        error: !!errors?.intHoraFinal,
+                                                        helperText:
                                                             errors?.intHoraFinal
                                                                 ?.message ||
-                                                            "Selecciona la hora final del acompañamiento"
-                                                        }
-                                                        fullWidth
-                                                    />
-                                                )}
+                                                            "Selecciona la hora final del acompañamiento",
+                                                        fullWidth: true,
+                                                    },
+                                                }}
                                             />
                                         )}
                                         control={control}
@@ -777,22 +768,18 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                     onChange(date)
                                                 }
                                                 disabled={loading}
-                                                renderInput={(props) => (
-                                                    <TextField
-                                                        {...props}
-                                                        name={name}
-                                                        variant="standard"
-                                                        error={
-                                                            !!errors?.dtmFechaProx
-                                                        }
-                                                        helperText={
+                                                slotProps={{
+                                                    textField: {
+                                                        name,
+                                                        variant: "standard",
+                                                        error: !!errors?.dtmFechaProx,
+                                                        helperText:
                                                             errors?.dtmFechaProx
                                                                 ?.message ||
-                                                            "Selecciona la fecha de la próxima reunión"
-                                                        }
-                                                        fullWidth
-                                                    />
-                                                )}
+                                                            "Selecciona la fecha de la próxima reunión",
+                                                        fullWidth: true,
+                                                    },
+                                                }}
                                             />
                                         )}
                                         control={control}
@@ -818,23 +805,19 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                 }
                                                 ampm
                                                 disabled={loading}
-                                                renderInput={(props) => (
-                                                    <TextField
-                                                        {...props}
-                                                        name={name}
-                                                        variant="standard"
-                                                        error={
-                                                            !!errors?.intHoraInicioProx
-                                                        }
-                                                        helperText={
+                                                slotProps={{
+                                                    textField: {
+                                                        name,
+                                                        variant: "standard",
+                                                        error: !!errors?.intHoraInicioProx,
+                                                        helperText:
                                                             errors
                                                                 ?.intHoraInicioProx
                                                                 ?.message ||
-                                                            "Selecciona la hora de inicio de la próxima reunión"
-                                                        }
-                                                        fullWidth
-                                                    />
-                                                )}
+                                                            "Selecciona la hora de inicio de la próxima reunión",
+                                                        fullWidth: true,
+                                                    },
+                                                }}
                                             />
                                         )}
                                         control={control}

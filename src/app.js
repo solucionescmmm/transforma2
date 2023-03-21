@@ -1,4 +1,10 @@
-import React, { useMemo, useState, useEffect, createContext, Fragment } from "react";
+import React, {
+    useMemo,
+    useState,
+    useEffect,
+    createContext,
+    Fragment,
+} from "react";
 
 //Librerias
 import Routes from "./router";
@@ -14,15 +20,19 @@ import {
     Button,
     adaptV4Theme,
 } from "@mui/material";
-import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
+import {
+    ThemeProvider,
+    StyledEngineProvider,
+    createTheme,
+} from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 
 //Componente de Material Lab
-// import { LocalizationProvider } from "@mui/lab";
-// import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 //Componentes de DateFns
-// import { es } from "date-fns/locale";
+import { es } from "date-fns/locale";
 
 //Componente de Permisos
 import { AbilityContext } from "./common/config/Can";
@@ -94,8 +104,8 @@ const App = () => {
                 <div>
                     <Typography component="p" variant="subtitle1">
                         Lo sentimos, está aplicación solo puede ser ejecutada en
-                        navegadores de ultima generación, por favor intenta abrirla en un
-                        navegador diferente.
+                        navegadores de ultima generación, por favor intenta
+                        abrirla en un navegador diferente.
                     </Typography>
                 </div>
             </div>
@@ -119,7 +129,8 @@ const App = () => {
                             position="bottom-center"
                             toastOptions={{
                                 style: {
-                                    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+                                    fontFamily:
+                                        '"Roboto","Helvetica","Arial",sans-serif',
                                     fontSize: "0.875rem",
                                     fontWeight: "400",
                                     lineHeight: "1.43",
@@ -142,12 +153,15 @@ const App = () => {
                                             {t.type !== "loading" && (
                                                 <Button
                                                     size="small"
-                                                    onClick={() => toast.dismiss(t.id)}
+                                                    onClick={() =>
+                                                        toast.dismiss(t.id)
+                                                    }
                                                 >
                                                     <b>
                                                         <span
                                                             style={{
-                                                                color: t.style.color,
+                                                                color: t.style
+                                                                    .color,
                                                             }}
                                                         >
                                                             cerrar
@@ -170,7 +184,12 @@ const App = () => {
                             <StyledEngineProvider injectFirst>
                                 <ThemeProvider theme={themeOptions}>
                                     <AbilityContext.Provider value={ability}>
+                                        <LocalizationProvider
+                                            dateAdapter={AdapterDateFns}
+                                            locale={es}
+                                        >
                                             <Routes />
+                                        </LocalizationProvider>
                                     </AbilityContext.Provider>
                                 </ThemeProvider>
                             </StyledEngineProvider>
