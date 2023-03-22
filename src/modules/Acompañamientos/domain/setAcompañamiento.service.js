@@ -28,11 +28,12 @@ class setAcompañamiento {
     }
 
     async main() {
+        console.log(this.#objData)
         await this.#validations();
         await this.#setAcompañamiento();
         await this.#setSesionAcompañamiento();
-        if (this.#objData) {
-            
+        if (this.#objData.intTipoAcomp === 2) {
+            await this.#setRutasNoPlaneada()
         }
         return this.#objResult;
     }
@@ -51,7 +52,7 @@ class setAcompañamiento {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
-        if (this.#objData.strURLDocumento) {
+        if (this.#objData.strURLDocumento !== "") {
             this.#setDocumento();
         }
     }
@@ -63,6 +64,7 @@ class setAcompañamiento {
             intIdIdea: this.#objData.intIdIdea,
             intIdTipoAcompañamiento: this.#objData.intTipoAcomp,
             strUsuarioCreacion: this.#objUser.strEmail,
+            btFinalizado: this.#objData.intTipoAcomp === 1 ? false : true
         };
 
         let query = await dao.setAcompañamiento(newData);
@@ -85,9 +87,24 @@ class setAcompañamiento {
 
         let newData = {
             ...this.#objData,
+            dtmFechaInicial:this.#objData.dtmFechaInicio,
+            dtmFechaFinal:this.#objData.dtmFechaFinal,
+            intIdRuta:this.#objData?.objInfoRutaExs?.objRuta?.objInfoPrincipal?.intId || null,
+            intIdFase:this.#objData?.objInfoRutaExs?.objFase?.intId || null,
+            intIdPaquete:this.#objData?.objInfoRutaExs?.objPaquete?.intId || null,
+            intIdServicio:this.#objData?.objInfoRutaExs?.objServicio?.intId || null,
+            strUbicacion: this.#objData.strLugarActividad,
+            intIdTipoActividad:this.#objData.intTipoActividad,
+            strResponsables: JSON.stringify(this.#objData.objResponsable || null),
+            strTemasActividades: this.#objData.strActividades,
+            strLogrosAvances: this.#objData.strLogros,
+            strObservaciones:this.#objData.strRetroAlim,
+            intIdTarea: null,
+            dtmProximaActividad:this.#objData.dtmFechaProx,
             intIdDocumento: this.#intIdDocumento,
             intIdAcompañamiento: this.#intIdAcompañamiento,
             strUsuarioCreacion: this.#objUser.strEmail,
+            btFinalizado: this.#objData.intTipoAcomp === 1 ? false : true
         };
         let query = await dao.setSesionAcompañamiento(newData);
 

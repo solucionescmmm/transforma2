@@ -20,7 +20,8 @@ class daoAcompañamientos {
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
-                NULL
+                NULL,
+                ${data.btFinalizado}
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -59,7 +60,7 @@ class daoAcompañamientos {
             
             INSERT INTO tbl_Sesiones_Acompañamientos VALUES
             (
-                ${data.intIdTipoAcompañamiento},
+                ${data.intIdAcompañamiento},
                 ${data.intIdEmpresario},
                 ${data.dtmFechaInicial},
                 ${data.dtmFechaFinal},
@@ -81,12 +82,13 @@ class daoAcompañamientos {
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
-                NULL
+                NULL,
+                ${data.btFinalizado}
             )
             
             SET @intId = SCOPE_IDENTITY();
     
-            SELECT * FROM tbl_Acompañamientos WHERE intId = @intId`;
+            SELECT * FROM tbl_Sesiones_Acompañamientos WHERE intId = @intId`;
 
             let result = {
                 error: false,
