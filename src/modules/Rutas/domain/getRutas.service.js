@@ -6,7 +6,6 @@ const classInterfaceRutas = require("../infra/conectors/interfaseDAORutas");
 //Servicios
 const serviceGetPaquete = require("../../Servicios/Modulo/Paquetes/domain/getPaquetes.service");
 const serviceGetServicio = require("../../Servicios/Modulo/Servicio/domain/getServicios.service");
-const serviceGetTipoTarifa = require("../../Servicios/Maestros/Tipos de Tarifas/domain/getTipoTarifa.service");
 
 const getRutas = async (objParams, strDataUser) => {
     let = { intId, intIdIdea } = objParams;
@@ -36,101 +35,199 @@ const getRutas = async (objParams, strDataUser) => {
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data?.length > 0) {
-            let array = arrayData.data;
-            let data = [];
+            if (!intId) {
+                let array = arrayData.data;
+                let data = [];
 
-            for (let i = 0; i < array.length; i++) {
-                let objInfoPrincipal = {};
-                let arrInfoFases = [];
-                let arrFasesRutas = array[i].arrFasesRutas;
+                for (let i = 0; i < array.length; i++) {
+                    let objInfoPrincipal = {}
 
-                objInfoPrincipal = {
-                    intId: array[i]?.intId,
-                    intIdIdea: array[i]?.intIdIdea,
-                    strNombre: array[i]?.strNombre,
-                    intIdEstadoRuta: array[i]?.intIdEstadoRuta,
-                    valorTotalRuta: array[i]?.valorTotalRuta,
-                    intIdDoctoPropuesta: array[i]?.intIdDoctoPropuesta,
-                    strResponsable: JSON.parse(array[i]?.strResponsables),
-                    strObservaciones: array[i]?.strObservaciones,
-                    intIdMotivoCancelacion: array[i]?.intIdMotivoCancelacion,
-                    dtmCreacion: array[i]?.dtmCreacion,
-                    strUsuarioCreacion: array[i]?.strUsuarioCreacion,
-                    dtmActualizacion: array[i]?.dtmActualizacion,
-                    strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
-                    strEstadoRuta: array[i]?.strEstadoRuta,
-                };
+                    objInfoPrincipal = {
+                        intId: array[i]?.intId,
+                        intIdIdea: array[i]?.intIdIdea,
+                        strNombre: array[i]?.strNombre,
+                        intIdEstadoRuta: array[i]?.intIdEstadoRuta,
+                        valorTotalRuta: array[i]?.valorTotalRuta,
+                        intIdDoctoPropuesta: array[i]?.intIdDoctoPropuesta,
+                        strResponsable: JSON.parse(array[i]?.strResponsables),
+                        strObservaciones: array[i]?.strObservaciones,
+                        intIdMotivoCancelacion: array[i]?.intIdMotivoCancelacion,
+                        dtmCreacion: array[i]?.dtmCreacion,
+                        strUsuarioCreacion: array[i]?.strUsuarioCreacion,
+                        dtmActualizacion: array[i]?.dtmActualizacion,
+                        strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
+                        strEstadoRuta: array[i]?.strEstadoRuta,
+                    };
 
-                for (let j = 0; j < arrFasesRutas.length; j++) {
-                    let objInfoFases = arrFasesRutas[j];
+                    // for (let j = 0; j < arrFasesRutas.length; j++) {
+                    //     let objInfoFases = arrFasesRutas[j];
 
-                    let arrPaquetes = [];
+                    //     let arrPaquetes = [];
 
-                    let arrObjPaquetes = objInfoFases.arrPaquetes;
+                    //     let arrObjPaquetes = objInfoFases.arrPaquetes;
 
-                    if (arrObjPaquetes?.length > 0) {
-                        for (let k = 0; k < arrObjPaquetes.length; k++) {
-                            let queryGetPaquetes = await serviceGetPaquete(
-                                { intId: arrObjPaquetes[k].intIdPaquete },
-                                strDataUser
-                            );
+                    //     if (arrObjPaquetes?.length > 0) {
+                    //         for (let k = 0; k < arrObjPaquetes.length; k++) {
+                    //             let queryGetPaquetes = await serviceGetPaquete(
+                    //                 { intId: arrObjPaquetes[k].intIdPaquete },
+                    //                 strDataUser
+                    //             );
 
-                            if (queryGetPaquetes.error) {
-                                throw new Error(queryGetPaquetes.msg);
-                            }
+                    //             if (queryGetPaquetes.error) {
+                    //                 throw new Error(queryGetPaquetes.msg);
+                    //             }
 
-                            arrPaquetes.push({
-                                ...arrObjPaquetes[k],
-                                strResponsables: JSON.parse(arrObjPaquetes[k]?.strResponsables || null),
-                                objPaquete: queryGetPaquetes.data[0]
-                            });
-                        }
-                    }
+                    //             arrPaquetes.push({
+                    //                 ...arrObjPaquetes[k],
+                    //                 strResponsables: JSON.parse(arrObjPaquetes[k]?.strResponsables || null),
+                    //                 objPaquete: queryGetPaquetes.data[0]
+                    //             });
+                    //         }
+                    //     }
 
-                    let arrServicios = [];
+                    //     let arrServicios = [];
 
-                    let arrObjServicios = objInfoFases.arrServicios;
+                    //     let arrObjServicios = objInfoFases.arrServicios;
 
-                    if (arrObjServicios?.length > 0) {
-                        for (let k = 0; k < arrObjServicios.length; k++) {
-                            let queryGetServicio = await serviceGetServicio(
-                                { intId: arrObjServicios[k].intIdServicio },
-                                strDataUser
-                            );
+                    //     if (arrObjServicios?.length > 0) {
+                    //         for (let k = 0; k < arrObjServicios.length; k++) {
+                    //             let queryGetServicio = await serviceGetServicio(
+                    //                 { intId: arrObjServicios[k].intIdServicio },
+                    //                 strDataUser
+                    //             );
 
-                            if (queryGetServicio.error) {
-                                throw new Error(queryGetServicio.msg);
-                            }
+                    //             if (queryGetServicio.error) {
+                    //                 throw new Error(queryGetServicio.msg);
+                    //             }
 
-                            arrServicios.push({
-                                ...arrObjServicios[k],
-                                strResponsables: JSON.parse(arrObjServicios[k]?.strResponsables || null),
-                                objServicio: queryGetServicio.data[0]
-                            });
-                        }
-                    }
+                    //             arrServicios.push({
+                    //                 ...arrObjServicios[k],
+                    //                 strResponsables: JSON.parse(arrObjServicios[k]?.strResponsables || null),
+                    //                 objServicio: queryGetServicio.data[0]
+                    //             });
+                    //         }
+                    //     }
 
-                    arrInfoFases[j] = {
-                        ...objInfoFases,
-                        strResponsable: JSON.parse(
-                            objInfoFases?.strResponsable || null
-                        ),
-                        arrPaquetes,
-                        arrServicios,
+                    //     arrInfoFases[j] = {
+                    //         ...objInfoFases,
+                    //         strResponsable: JSON.parse(
+                    //             objInfoFases?.strResponsable || null
+                    //         ),
+                    //         arrPaquetes,
+                    //         arrServicios,
+                    //     };
+                    // }
+
+                    data[i] = {
+                        objInfoPrincipal,
+                        //arrInfoFases,
                     };
                 }
-
-                data[i] = {
-                    objInfoPrincipal,
-                    arrInfoFases,
+                let result = {
+                    error: false,
+                    data,
                 };
-            }
-            let result = {
-                error: false,
-                data,
-            };
 
-            return result;
+                return result;
+            }
+            if (intId) {
+
+                let array = arrayData.data;
+                let data = [];
+
+                for (let i = 0; i < array.length; i++) {
+                    let objInfoPrincipal = {};
+                    let arrInfoFases = [];
+                    let arrFasesRutas = array[i].arrFasesRutas;
+
+                    objInfoPrincipal = {
+                        intId: array[i]?.intId,
+                        intIdIdea: array[i]?.intIdIdea,
+                        strNombre: array[i]?.strNombre,
+                        intIdEstadoRuta: array[i]?.intIdEstadoRuta,
+                        valorTotalRuta: array[i]?.valorTotalRuta,
+                        intIdDoctoPropuesta: array[i]?.intIdDoctoPropuesta,
+                        strResponsable: JSON.parse(array[i]?.strResponsables),
+                        strObservaciones: array[i]?.strObservaciones,
+                        intIdMotivoCancelacion: array[i]?.intIdMotivoCancelacion,
+                        dtmCreacion: array[i]?.dtmCreacion,
+                        strUsuarioCreacion: array[i]?.strUsuarioCreacion,
+                        dtmActualizacion: array[i]?.dtmActualizacion,
+                        strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
+                        strEstadoRuta: array[i]?.strEstadoRuta,
+                    };
+
+                    for (let j = 0; j < arrFasesRutas.length; j++) {
+                        let objInfoFases = arrFasesRutas[j];
+
+                        let arrPaquetes = [];
+
+                        let arrObjPaquetes = objInfoFases.arrPaquetes;
+
+                        if (arrObjPaquetes?.length > 0) {
+                            for (let k = 0; k < arrObjPaquetes.length; k++) {
+                                let queryGetPaquetes = await serviceGetPaquete(
+                                    { intId: arrObjPaquetes[k].intIdPaquete },
+                                    strDataUser
+                                );
+
+                                if (queryGetPaquetes.error) {
+                                    throw new Error(queryGetPaquetes.msg);
+                                }
+
+                                arrPaquetes.push({
+                                    ...arrObjPaquetes[k],
+                                    strResponsables: JSON.parse(arrObjPaquetes[k]?.strResponsables || null),
+                                    objPaquete: queryGetPaquetes.data[0]
+                                });
+                            }
+                        }
+
+                        let arrServicios = [];
+
+                        let arrObjServicios = objInfoFases.arrServicios;
+
+                        if (arrObjServicios?.length > 0) {
+                            for (let k = 0; k < arrObjServicios.length; k++) {
+                                let queryGetServicio = await serviceGetServicio(
+                                    { intId: arrObjServicios[k].intIdServicio },
+                                    strDataUser
+                                );
+
+                                if (queryGetServicio.error) {
+                                    throw new Error(queryGetServicio.msg);
+                                }
+
+                                arrServicios.push({
+                                    ...arrObjServicios[k],
+                                    strResponsables: JSON.parse(arrObjServicios[k]?.strResponsables || null),
+                                    objServicio: queryGetServicio.data[0]
+                                });
+                            }
+                        }
+
+                        arrInfoFases[j] = {
+                            ...objInfoFases,
+                            strResponsable: JSON.parse(
+                                objInfoFases?.strResponsable || null
+                            ),
+                            arrPaquetes,
+                            arrServicios,
+                        };
+                    }
+
+                    data[i] = {
+                        objInfoPrincipal,
+                        arrInfoFases,
+                    };
+                }
+                let result = {
+                    error: false,
+                    data,
+                };
+
+                return result;
+            }
         }
     }
 

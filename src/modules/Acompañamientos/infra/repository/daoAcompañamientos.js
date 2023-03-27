@@ -129,20 +129,38 @@ class daoAcompañamientos {
             Acompañamientos.strUsuarioActualizacion,
             (
                 SELECT 
-                RutasAcompañamientos.intId,
-                RutasAcompañamientos.intIdAcompañamiento,
-                RutasAcompañamientos.intIdPaqueteFase,
-                RutasAcompañamientos.intIdServicioFase,
-                RutasAcompañamientos.dtmCreacion,
-                RutasAcompañamientos.strUsuarioCreacion,
-                RutasAcompañamientos.dtmActualizacion,
-                RutasAcompañamientos.strUsuarioActualizacion
 
-                FROM tbl_RutasAcompañamientos RutasAcompañamientos
+                SesionesAcompañamientos.intId,
+                SesionesAcompañamientos.intIdAcompañamiento,
+                SesionesAcompañamientos.intIdEmpresario,
+                SesionesAcompañamientos.dtmFechaInicial,
+                SesionesAcompañamientos.dtmFechaFinal,
+                SesionesAcompañamientos.strUbicacion,
+                SesionesAcompañamientos.intIdTipoActividad,
+                SesionesAcompañamientos.intIdRuta,
+                SesionesAcompañamientos.intIdFase,
+                SesionesAcompañamientos.intIdServicio,
+                SesionesAcompañamientos.intIdPaquete,
+                SesionesAcompañamientos.btFinalizarServicio,
+                SesionesAcompañamientos.strResponsables,
+                SesionesAcompañamientos.strObjetivoActividad,
+                SesionesAcompañamientos.strTemasActividades,
+                SesionesAcompañamientos.strLogrosAvances,
+                SesionesAcompañamientos.strObservaciones,
+                SesionesAcompañamientos.intIdTarea,
+                SesionesAcompañamientos.dtmProximaActividad,
+                SesionesAcompañamientos.intIdDocumento,
+                SesionesAcompañamientos.dtmCreacion,
+                SesionesAcompañamientos.strUsuarioCreacion,
+                SesionesAcompañamientos.dtmActualizacion,
+                SesionesAcompañamientos.strUsuarioActualizacion,
+                SesionesAcompañamientos.btFinalizado
 
-                INNER JOIN tbl_Acompañamientos Acompañamientos on Acompañamientos.intId = RutasAcompañamientos.intIdAcompañamiento
+                FROM tbl_Sesiones_Acompañamientos SesionesAcompañamientos
 
-                WHERE RutasAcompañamientos.intIdAcompañamiento = Acompañamientos.intId 
+                INNER JOIN tbl_Acompañamientos Acompañamientos on Acompañamientos.intId = SesionesAcompañamientos.intIdAcompañamiento
+
+                WHERE SesionesAcompañamientos.intIdAcompañamiento = Acompañamientos.intId 
                 FOR JSON PATH
             )as arrRutasAcompañamiento
 

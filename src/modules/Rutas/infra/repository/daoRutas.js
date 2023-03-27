@@ -543,7 +543,8 @@ class daoRutas {
                 INNER JOIN tbl_EstadoRuta_Fase EstadosRutas on EstadosRutas.intId = Rutas.intIdEstadoRuta
 
                 WHERE (Rutas.intIdIdea = ${data.intIdIdea})
-                AND   (Rutas.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+                AND   (Rutas.intId = ${data.intId} OR ${data.intId} IS NULL)
+                AND   (EstadosRutas.strNombre <> 'Cancelada' AND EstadosRutas.strNombre <> 'Finalizada')`;
 
             let arrNewData = response.recordsets[0];
 
