@@ -44,6 +44,9 @@ import ModalDeletePaquete from "./modalDeletePaquete";
 import ModalEditServicio from "./modalEditServicio";
 import ModalDeleteServicio from "./modalDeleteServicio";
 import toast from "react-hot-toast";
+import ModalAddPorcentaje from "./modalAddPorcent";
+import ModalEditPorcentaje from "./modalEditPorcent";
+import ModalDeletePorcentaje from "./modalDeletePorcent";
 
 const PaperFase = ({
     values,
@@ -55,6 +58,7 @@ const PaperFase = ({
     remove,
     length,
     isEdit,
+    watch,
 }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -70,6 +74,7 @@ const PaperFase = ({
         arrServicios: [],
         dblValorRef: "",
         dblValorFase: "",
+        arrPorcentajes: [],
     });
 
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -79,6 +84,11 @@ const PaperFase = ({
     const [openModalDeleteObjetivo, setOpenModalDeleteObjetivo] =
         useState(false);
     const [openModalAddPaquete, setOpenModalAddPaquete] = useState(false);
+    const [openModalAddPorcentaje, setOpenModalAddPorcentaje] = useState(false);
+    const [openModalEditPorcentaje, setOpenModalEditPorcentaje] =
+        useState(false);
+    const [openModalDeletePorcentaje, setOpenModalDeletePorcentaje] =
+        useState(false);
     const [openModalEditPaquete, setOpenModalEditPaquete] = useState(false);
     const [openModalDeletePaquete, setOpenModalDeletePaquete] = useState(false);
     const [openModalAddServicio, setOpenModalAddServicio] = useState(false);
@@ -89,6 +99,7 @@ const PaperFase = ({
     const [valueObjetivo, setValueObjetivo] = useState();
     const [valuePaquete, setValuePaquete] = useState();
     const [valueServicio, setValueServicio] = useState();
+    const [valuePorcentaje, setValuePorcentaje] = useState();
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -141,6 +152,18 @@ const PaperFase = ({
 
     const handlerChangeOpenModalDeleteServicio = () => {
         setOpenModalDeleteServicio(!openModalDeleteServicio);
+    };
+
+    const handlerChangeOpenModalAddPorcentaje = () => {
+        setOpenModalAddPorcentaje(!openModalAddPorcentaje);
+    };
+
+    const handlerChangeOpenModalEditPorcentaje = () => {
+        setOpenModalEditPorcentaje(!openModalEditPorcentaje);
+    };
+
+    const handlerChangeOpenModalDeletePorcentaje = () => {
+        setOpenModalDeletePorcentaje(!openModalDeletePorcentaje);
     };
 
     const handlerChangeObjetivo = (value, mode) => {
@@ -302,6 +325,59 @@ const PaperFase = ({
         }));
     };
 
+    const handlerChangePorcentajes = (value, mode) => {
+        const newArrPorcentajes = [...data.arrPorcentajes];
+
+        if (mode.type === "register") {
+            const porc =
+                newArrPorcentajes
+                    .map((x) => x.intPorcentaje)
+                    .reduce((cont, intPorcentaje) => cont + intPorcentaje, 0) +
+                value.intPorcentaje;
+
+            if (porc > 100) {
+                toast.error("El porcentaje sobrepasa el 100%");
+            } else {
+                newArrPorcentajes.push({
+                    strId: shortid.generate(),
+                    intPorcentaje: value.intPorcentaje,
+                    valorPorce: value.valorPorce,
+                });
+            }
+        }
+
+        if (mode.type === "edit") {
+            const porc =
+                newArrPorcentajes
+                    .map((x, index) => x.intPorcentaje && mode.index !== index)
+                    .reduce((cont, intPorcentaje) => cont + intPorcentaje, 0) +
+                value.intPorcentaje;
+
+            if (porc > 100) {
+                toast.error("El porcentaje sobrepasa el 100%");
+            } else {
+                newArrPorcentajes[mode.index] = {
+                    strId: value.strId,
+                    intPorcentaje: value.intPorcentaje,
+                    valorPorce: value.valorPorce,
+                };
+            }
+        }
+
+        if (mode.type === "delete") {
+            newArrPorcentajes.splice(mode.index, 1);
+        }
+
+        setValue(`arrInfoFases[${index}].arrPorcentajes`, newArrPorcentajes);
+
+        setData((prevState) => ({
+            ...prevState,
+            arrPorcentajes: newArrPorcentajes,
+        }));
+    };
+
+    const watchValor = watch(`arrInfoFases[${index}].dblValorFase`);
+
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     // //===============================================================================================================================================
@@ -325,6 +401,7 @@ const PaperFase = ({
             arrServicios: arrServicios || [],
             dblValorRef: values.dblValorRef || "",
             dblValorFase: values.dblValorFase || "",
+            arrPorcentajes: values.arrPorcentajes || [],
         });
     }, [values]);
 
@@ -486,6 +563,28 @@ const PaperFase = ({
                 handleOpenDialog={handlerChangeOpenModalDeleteServicio}
                 onChange={handlerChangeServicio}
                 values={valueServicio}
+            />
+
+            <ModalAddPorcentaje
+                open={openModalAddPorcentaje}
+                handleOpenDialog={handlerChangeOpenModalAddPorcentaje}
+                onChange={handlerChangePorcentajes}
+                valor={watchValor}
+            />
+
+            <ModalEditPorcentaje
+                open={openModalEditPorcentaje}
+                handleOpenDialog={handlerChangeOpenModalEditPorcentaje}
+                onChange={handlerChangePorcentajes}
+                valor={watchValor}
+                values={valuePorcentaje}
+            />
+
+            <ModalDeletePorcentaje
+                open={openModalDeletePorcentaje}
+                handleOpenDialog={handlerChangeOpenModalDeletePorcentaje}
+                onChange={handlerChangePorcentajes}
+                values={valuePorcentaje}
             />
 
             <Box
@@ -1199,6 +1298,115 @@ const PaperFase = ({
                                                 "Por favor, digita el valor de la fase",
                                         }}
                                     />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                        }}
+                                    >
+                                        <Box sx={{ flexGrow: 1 }}>
+                                            <b style={{ fontSize: "14px" }}>
+                                                Porcentajes
+                                            </b>
+                                        </Box>
+
+                                        <Box>
+                                            <Button
+                                                size="small"
+                                                style={{ fontSize: "13px" }}
+                                                onClick={() => {
+                                                    if (!watchValor) {
+                                                        toast.error(
+                                                            "Por favor digita el valor de la fase para dividirlo en porcentajes"
+                                                        );
+                                                    } else {
+                                                        handlerChangeOpenModalAddPorcentaje();
+                                                    }
+                                                }}
+                                                disabled={disabled}
+                                            >
+                                                Adicionar porcentaje
+                                            </Button>
+                                        </Box>
+                                    </Box>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    {data.arrPorcentajes.map((porce, index) => (
+                                        <Box
+                                            key={porce.strId || porce.intId}
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                fontSize: "14px",
+                                                gap: 1,
+                                                alignItems: "center",
+                                                marginBottom: "20px",
+                                            }}
+                                        >
+                                            <Box sx={{ flexGrow: 1 }}>
+                                                <p
+                                                    style={{
+                                                        paddingRight: "30px",
+                                                    }}
+                                                >
+                                                    Porcentaje {index + 1}
+                                                </p>
+                                                <p>
+                                                    {`${
+                                                        porce.intPorcentaje
+                                                    }%: ${new Intl.NumberFormat(
+                                                        "es-ES",
+                                                        {
+                                                            style: "currency",
+                                                            currency: "COP",
+                                                        }
+                                                    )
+                                                        .format(
+                                                            porce.valorPorce
+                                                        )
+                                                        .toString()}`}
+                                                </p>
+                                            </Box>
+
+                                            <EditIcon
+                                                htmlColor={
+                                                    !disabled
+                                                        ? "green"
+                                                        : "inherit"
+                                                }
+                                                fontSize="small"
+                                                disabled={disabled}
+                                                onClick={() => {
+                                                    setValuePorcentaje({
+                                                        value: porce,
+                                                        index,
+                                                    });
+                                                    handlerChangeOpenModalEditPorcentaje();
+                                                }}
+                                            />
+
+                                            <DeleteIcon
+                                                color={
+                                                    !disabled
+                                                        ? "error"
+                                                        : "inherit"
+                                                }
+                                                fontSize="small"
+                                                disabled={disabled}
+                                                onClick={() => {
+                                                    setValuePorcentaje({
+                                                        value: porce,
+                                                        index,
+                                                    });
+                                                    handlerChangeOpenModalDeletePorcentaje();
+                                                }}
+                                            />
+                                        </Box>
+                                    ))}
                                 </Grid>
                             </Grid>
                         </Collapse>

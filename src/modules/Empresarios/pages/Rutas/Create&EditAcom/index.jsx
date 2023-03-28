@@ -97,7 +97,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         objNuevoServPaq: {},
         strLugarActividad: "",
         intTipoActividad: "",
-        objResponsable: {},
+        objResponsable: null,
         strObjetivoActividad: "",
         strActividades: "",
         strLogros: "",
