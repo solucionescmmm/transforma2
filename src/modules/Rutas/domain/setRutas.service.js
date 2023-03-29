@@ -76,6 +76,25 @@ class setRutas {
             }
 
             servicioRepetido(arrayFases[i], i)
+
+            let arrPorcentajes = arrayFases[i].arrPorcentajes
+
+            if (arrPorcentajes.length <= 0) {
+                throw new Error(`El array de los porcentajes esta vacío en la fase #${i + 1}`);
+            }
+
+            let intPorcentaje = 0
+            let intTotalValor = 0
+            
+            for (let j = 0; j < arrPorcentajes.length; j++) {
+                intPorcentaje = intPorcentaje + arrPorcentajes[j].intPorcentaje,
+                intTotalValor = intTotalValor + arrPorcentajes[j].valorPorce
+            }
+            
+            if (intPorcentaje !== 100 && intTotalValor !== arrayFases[i].dblValorFase) {
+                throw new Error(`Los valores de los pagos no correctos por favor revisalos en la fase #${i + 1}`);
+            }
+
         }
     }
 
@@ -309,15 +328,18 @@ class setRutas {
                 }
             }
 
-            let arrPagos = objDataFase.arrPagos;
+            let arrPagos = objDataFase.arrPorcentajes;
 
             if (arrPagos?.length > 0) {
                 for (let j = 0; j < arrPagos.length; j++) {
                     let objDataPago = arrPagos[j];
 
                     let query = await dao.setPagosFases({
-                        ...objDataPago,
                         intIdFase: this.#intIdFase,
+                        ValorTotalFase: objDataFase.dblValorFase,
+                        intNumPago: j + 1,
+                        intPorcentaje: objDataPago.intPorcentaje,
+                        Valor: objDataPago.valorPorce,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 
