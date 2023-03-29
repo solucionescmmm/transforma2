@@ -139,7 +139,7 @@ class setRutas {
         let objDataRuta = this.#objData.objInfoPrincipal;
         let newData = {
             ...objDataRuta,
-            strNombre: `Ruta #${this.#intNumRutas + 1}`,
+            strNombre: `Ruta # ${this.#intNumRutas + 1}`,
             intIdTipoRuta: this.#intIdTipoRuta,
             intIdEstadoRuta: this.#intIdEstado,
             strResponsable: JSON.stringify(objDataRuta.strResponsable || null),

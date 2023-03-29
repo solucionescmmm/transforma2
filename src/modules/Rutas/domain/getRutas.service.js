@@ -235,4 +235,5 @@ const getRutas = async (objParams, strDataUser) => {
 
     return arrayData;
 };
+
 module.exports = getRutas;
