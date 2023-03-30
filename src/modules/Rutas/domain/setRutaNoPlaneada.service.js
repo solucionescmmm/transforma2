@@ -101,6 +101,7 @@ class setRutaNoPlaneada {
             valorTotalRuta: null,
             intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
+            valorTotalRuta:0,
             strResponsable: JSON.stringify(this.#objData.strResponsable || null),
             strUsuarioCreacion: this.#objUser.strEmail,
         };
@@ -129,66 +130,70 @@ class setRutaNoPlaneada {
         }
 
         for (let i = 0; i < arrayFases.length; i++) {
-            if (arrayFases[i].objTarifa) {
-                let objDataFase = arrayFases[i];
 
-                let query = await dao.setFases({
-                    intIdRuta: this.#intIdRuta,
-                    strNombre: `Fase # ${i + 1}`,
-                    intIdDiagnostico: null,
-                    intIdEstadoFase: this.#intIdEstado,
-                    intIdReferenciaTipoTarifa: null,
-                    valorReferenciaTotalFase: null,
-                    valorTotalFase: null,
-                    strResponsable: null,
-                    strObservaciones: objDataFase.strObservaciones,
-                    intIdMotivoCancelacion: null,
-                    strUsuarioCreacion: this.#objUser.strEmail,
-                });
+            let objDataFase = arrayFases[i];
 
-                if (query.error) {
-                    throw new Error(query.msg);
-                }
+            let query = await dao.setFases({
+                intIdRuta: this.#intIdRuta,
+                strNombre: `Fase # ${i + 1}`,
+                intIdDiagnostico: null,
+                intIdEstadoFase: this.#intIdEstado,
+                intIdReferenciaTipoTarifa: null,
+                valorReferenciaTotalFase: 0,
+                valorTotalFase: 0,
+                strObservaciones: objDataFase.strObservaciones,
+                intIdMotivoCancelacion: null,
+                strUsuarioCreacion: this.#objUser.strEmail,
+            });
 
-                this.#intIdFase = query.data.intId;
+            if (query.error) {
+                throw new Error(query.msg);
+            }
 
-                let arrPaquetes = objDataFase.arrPaquetes;
+            this.#intIdFase = query.data.intId;
 
-                if (arrPaquetes?.length > 0) {
-                    for (let j = 0; j < arrPaquetes.length; j++) {
-                        let objDataPaquete = arrPaquetes[j];
+            let arrPaquetes = objDataFase.arrPaquetes;
 
-                        let query = await dao.setPaquetesFases({
-                            intIdFase: this.#intIdFase,
-                            intIdPaquete:
-                                objDataPaquete.objPaquete.objInfoPrincipal
-                                    .intId,
-                            strUsuarioCreacion: this.#objUser.strEmail,
-                        });
+            if (arrPaquetes?.length > 0) {
+                for (let j = 0; j < arrPaquetes.length; j++) {
+                    let objDataPaquete = arrPaquetes[j];
 
-                        if (query.error) {
-                            throw new Error(query.msg);
-                        }
+                    let query = await dao.setPaquetesFases({
+                        intIdFase: this.#intIdFase,
+                        intIdPaquete:
+                            objDataPaquete.objInfoPrincipal
+                                .intId,
+                        ValorReferenciaPaquete: 0,
+                        ValorTotalPaquete: 0,
+                        strResponsables: JSON.stringify(this.#objData.strResponsable || null),
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
+
+                    if (query.error) {
+                        throw new Error(query.msg);
                     }
                 }
+            }
 
-                let arrServicios = objDataFase.arrServicios;
+            let arrServicios = objDataFase.arrServicios;
 
-                if (arrServicios?.length > 0) {
-                    for (let j = 0; j < arrServicios.length; j++) {
-                        let objDataServicio = arrServicios[j];
+            if (arrServicios?.length > 0) {
+                for (let j = 0; j < arrServicios.length; j++) {
+                    let objDataServicio = arrServicios[j];
 
-                        let query = await dao.setServiciosFases({
-                            intIdFase: this.#intIdFase,
-                            intIdServicio:
-                                objDataServicio.objServicio.objInfoPrincipal
-                                    .intId,
-                            strUsuarioCreacion: this.#objUser.strEmail,
-                        });
+                    let query = await dao.setServiciosFases({
+                        intIdFase: this.#intIdFase,
+                        intIdServicio:
+                            objDataServicio.objInfoPrincipal
+                                .intId,
+                        ValorReferenciaServicio:0,
+                        ValorTotalServicio:0,
+                        strResponsables: JSON.stringify(this.#objData.strResponsable || null),
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                    });
 
-                        if (query.error) {
-                            throw new Error(query.msg);
-                        }
+                    if (query.error) {
+                        throw new Error(query.msg);
                     }
                 }
             }

@@ -425,7 +425,6 @@ class daoDiagnosticoProducto {
                 error: false,
                 data:  response.recordset[0]
             };
-            console.log(result);
             sql.close(conexion);
 
             return result;

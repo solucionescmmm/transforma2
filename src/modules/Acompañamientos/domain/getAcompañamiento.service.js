@@ -5,7 +5,11 @@ const validator = require("validator").default;
 const classInterfaceAcompañamientos = require("../infra/conectors/interfaceDaoAcompañamientos");
 
 const getAcompañamiento = async (objParams, strDataUser) => {
-    let = { intId } = objParams;
+    let = { intId, intIdIdea } = objParams;
+
+    if (!intIdIdea) {
+        throw new Error("Se esperaban parametros de entrada");
+    }
 
     if (
         !validator.isEmail(strDataUser.strEmail, {
@@ -21,10 +25,106 @@ const getAcompañamiento = async (objParams, strDataUser) => {
 
     let query = {
         intId: intId || null,
+        intIdIdea: intIdIdea || null
     };
 
-    let result = await dao.getAcompañamiento(query);
+    let arrayData = await dao.getAcompañamiento(query);
 
-    return result;
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data?.length > 0) {
+
+            let array = arrayData.data;
+            let data = [];
+
+            for (let i = 0; i < array.length; i++) {
+                let objInfoPrincipal = {};
+
+                objInfoPrincipal = {
+                    intId: array[i]?.intId,
+                    intIdIdea: array[i]?.intIdIdea,
+                    intTipoAcomp: array[i]?.intIdTipoAcompañamiento,
+                    strTipoAcompañamiento: array[i]?.strTipoAcompañamiento,
+                    strResponsables: JSON.parse(array[i]?.arrSesionAcompañamiento[0]?.strResponsables || null),
+                    strUbicacion:array[i]?.arrSesionAcompañamiento[0]?.strUbicacion,
+                    dtmCreacion: array[i]?.dtmCreacion,
+                    strUsuarioCreacion: array[i]?.strUsuarioCreacion,
+                    dtmActualizacion: array[i]?.dtmActualizacion,
+                    strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
+                    strEstadoRuta: array[i]?.strEstadoRuta,
+                };
+
+                // for (let j = 0; j < arrFasesRutas.length; j++) {
+                //     let objInfoFases = arrFasesRutas[j];
+
+                //     let arrPaquetes = [];
+
+                //     let arrObjPaquetes = objInfoFases.arrPaquetes;
+
+                //     if (arrObjPaquetes?.length > 0) {
+                //         for (let k = 0; k < arrObjPaquetes.length; k++) {
+                //             let queryGetPaquetes = await serviceGetPaquete(
+                //                 { intId: arrObjPaquetes[k].intIdPaquete },
+                //                 strDataUser
+                //             );
+
+                //             if (queryGetPaquetes.error) {
+                //                 throw new Error(queryGetPaquetes.msg);
+                //             }
+
+                //             arrPaquetes.push({
+                //                 ...arrObjPaquetes[k],
+                //                 strResponsables: JSON.parse(arrObjPaquetes[k]?.strResponsables || null),
+                //                 objPaquete: queryGetPaquetes.data[0]
+                //             });
+                //         }
+                //     }
+
+                //     let arrServicios = [];
+
+                //     let arrObjServicios = objInfoFases.arrServicios;
+
+                //     if (arrObjServicios?.length > 0) {
+                //         for (let k = 0; k < arrObjServicios.length; k++) {
+                //             let queryGetServicio = await serviceGetServicio(
+                //                 { intId: arrObjServicios[k].intIdServicio },
+                //                 strDataUser
+                //             );
+
+                //             if (queryGetServicio.error) {
+                //                 throw new Error(queryGetServicio.msg);
+                //             }
+
+                //             arrServicios.push({
+                //                 ...arrObjServicios[k],
+                //                 strResponsables: JSON.parse(arrObjServicios[k]?.strResponsables || null),
+                //                 objServicio: queryGetServicio.data[0]
+                //             });
+                //         }
+                //     }
+
+                //     arrInfoFases[j] = {
+                //         ...objInfoFases,
+                //         strResponsable: JSON.parse(
+                //             objInfoFases?.strResponsable || null
+                //         ),
+                //         arrPaquetes,
+                //         arrServicios,
+                //     };
+                // }
+
+                data[i] = {
+                    objInfoPrincipal,
+                };
+            }
+            let result = {
+                error: false,
+                data,
+            };
+
+            return result;
+        }
+    }
+
+    return arrayData;
 };
 module.exports = getAcompañamiento;

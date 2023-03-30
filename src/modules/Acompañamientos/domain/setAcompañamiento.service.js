@@ -28,7 +28,6 @@ class setAcompañamiento {
     }
 
     async main() {
-        console.log(this.#objData)
         await this.#validations();
         await this.#setAcompañamiento();
         await this.#setSesionAcompañamiento();
@@ -87,20 +86,21 @@ class setAcompañamiento {
 
         let newData = {
             ...this.#objData,
-            dtmFechaInicial:this.#objData.dtmFechaInicio,
-            dtmFechaFinal:this.#objData.dtmFechaFinal,
-            intIdRuta:this.#objData?.objInfoRutaExs?.objRuta?.objInfoPrincipal?.intId || null,
-            intIdFase:this.#objData?.objInfoRutaExs?.objFase?.intId || null,
-            intIdPaquete:this.#objData?.objInfoRutaExs?.objPaquete?.intId || null,
-            intIdServicio:this.#objData?.objInfoRutaExs?.objServicio?.intId || null,
+            intIdEmpresario: this.#objData.objEmpresario?.intId,
+            dtmFechaInicial: this.#objData.dtmFechaInicio,
+            dtmFechaFinal: this.#objData.dtmFechaFinal,
+            intIdRuta: this.#objData?.objInfoRutaExs?.objRuta?.objInfoPrincipal?.intId || null,
+            intIdFase: this.#objData?.objInfoRutaExs?.objFase?.intId || null,
+            intIdPaquete: this.#objData?.objNuevoServPaq?.objPaquete?.objInfoPrincipal?.intId || null,
+            intIdServicio: this.#objData?.objNuevoServPaq?.objServicio?.objInfoPrincipal?.intId || this.#objData?.objInfoRutaExs?.objServicio?.objServicio?.objInfoPrincipal?.intId || null,
             strUbicacion: this.#objData.strLugarActividad,
-            intIdTipoActividad:this.#objData.intTipoActividad,
+            intIdTipoActividad: this.#objData.intTipoActividad,
             strResponsables: JSON.stringify(this.#objData.objResponsable || null),
             strTemasActividades: this.#objData.strActividades,
             strLogrosAvances: this.#objData.strLogros,
-            strObservaciones:this.#objData.strRetroAlim,
+            strObservaciones: this.#objData.strRetroAlim,
             intIdTarea: null,
-            dtmProximaActividad:this.#objData.dtmFechaProx,
+            dtmProximaActividad: this.#objData.dtmFechaProx,
             intIdDocumento: this.#intIdDocumento,
             intIdAcompañamiento: this.#intIdAcompañamiento,
             strUsuarioCreacion: this.#objUser.strEmail,
@@ -136,6 +136,7 @@ class setAcompañamiento {
         let data = {
             intIdIdea: this.#objData.intIdIdea,
             strObservaciones: "Ruta creada apartir de un acompañamiento",
+            strResponsable: this.#objData.objResponsable,
             arrInfoFases: [{
                 strObservaciones: "Ruta creada apartir de un acompañamiento",
                 arrPaquetes: this.#objData.objNuevoServPaq?.objPaquete ? [this.#objData.objNuevoServPaq?.objPaquete] : null,

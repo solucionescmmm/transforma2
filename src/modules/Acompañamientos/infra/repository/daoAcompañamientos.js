@@ -127,6 +127,7 @@ class daoAcompañamientos {
             Acompañamientos.strUsuarioCreacion,
             Acompañamientos.dtmActualizacion,
             Acompañamientos.strUsuarioActualizacion,
+            TipoAcompañamiento.strNombre as strTipoAcompañamiento,
             (
                 SELECT 
 
@@ -162,20 +163,23 @@ class daoAcompañamientos {
 
                 WHERE SesionesAcompañamientos.intIdAcompañamiento = Acompañamientos.intId 
                 FOR JSON PATH
-            )as arrRutasAcompañamiento
+            )as arrSesionAcompañamiento
 
             FROM tbl_Acompañamientos Acompañamientos
 
-            WHERE (Acompañamientos.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+            INNER JOIN tbl_tipoAcompañamiento TipoAcompañamiento ON TipoAcompañamiento.intId = Acompañamientos.intIdTipoAcompañamiento
+
+            WHERE (Acompañamientos.intId = ${data.intId} OR ${data.intId} IS NULL)
+            AND   (Acompañamientos.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
             for (let i = 0; i < arrNewData.length; i++) {
-                let { arrRutasAcompañamiento } = arrNewData[i];
+                let { arrSesionAcompañamiento } = arrNewData[i];
 
-                if (validator.isJSON(arrRutasAcompañamiento)) {
-                    arrRutasAcompañamiento = JSON.parse(arrRutasAcompañamiento);
-                    arrNewData[i].arrRutasAcompañamiento = arrRutasAcompañamiento;
+                if (validator.isJSON(arrSesionAcompañamiento)) {
+                    arrSesionAcompañamiento = JSON.parse(arrSesionAcompañamiento);
+                    arrNewData[i].arrSesionAcompañamiento = arrSesionAcompañamiento;
                 }
                 
             }
