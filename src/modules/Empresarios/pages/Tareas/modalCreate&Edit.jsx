@@ -257,7 +257,7 @@ const ModalCEdit = ({
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar la tarea seleccionada?`}</DialogTitle>
+            <DialogTitle>{``}</DialogTitle>
 
             <DialogContent>
                 {loadingGetData && (
