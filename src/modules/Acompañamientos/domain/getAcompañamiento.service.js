@@ -38,7 +38,7 @@ const getAcompañamiento = async (objParams, strDataUser) => {
 
             for (let i = 0; i < array.length; i++) {
                 let objInfoPrincipal = {};
-
+                
                 objInfoPrincipal = {
                     intId: array[i]?.intId,
                     intIdIdea: array[i]?.intIdIdea,
@@ -52,6 +52,16 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                     strEstadoRuta: array[i]?.strEstadoRuta,
                 };
+                
+                let arrSesionAcompañamiento = array[i]?.arrSesionAcompañamiento
+                
+                for (let j = 0; j < arrSesionAcompañamiento.length; j++) {
+                    arrSesionAcompañamiento[j]={
+                        ...arrSesionAcompañamiento[j],
+                        strResponsables: JSON.parse(arrSesionAcompañamiento[j]?.strResponsables || null)
+                    }
+                    
+                }
 
                 // for (let j = 0; j < arrFasesRutas.length; j++) {
                 //     let objInfoFases = arrFasesRutas[j];
@@ -114,6 +124,7 @@ const getAcompañamiento = async (objParams, strDataUser) => {
 
                 data[i] = {
                     objInfoPrincipal,
+                    arrSesionAcompañamiento
                 };
             }
             let result = {
