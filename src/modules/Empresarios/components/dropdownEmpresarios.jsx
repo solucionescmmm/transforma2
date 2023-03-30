@@ -71,6 +71,7 @@ const DropdownEmpresarios = ({
                 if (!principal) {
                     objEmpresario.forEach((emp) => {
                         newArrOptions.push({
+                            intId: emp.intId,
                             strURLFileFoto: emp.strURLFileFoto,
                             strNombres: emp.strNombres,
                             strApellidos: emp.strApellidos,
@@ -84,6 +85,7 @@ const DropdownEmpresarios = ({
                     objEmpresario.forEach((emp) => {
                         if (emp.strTipoEmpresario === "Principal") {
                             newArrOptions.push({
+                                intId: emp.intId,
                                 strURLFileFoto: emp.strURLFileFoto,
                                 strNombres: emp.strNombres,
                                 strApellidos: emp.strApellidos,
