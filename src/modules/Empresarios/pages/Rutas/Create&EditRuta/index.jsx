@@ -37,6 +37,8 @@ import InfoPrincipal from "./infoPrincipal";
 import InfoFases from "./infoFases";
 import PageError from "../../../../../common/components/Error";
 import ModalPreview from "./modalPreview";
+import useGetRutas from "../../../hooks/useGetRutas";
+import Loader from "../../../../../common/components/Loader";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -74,10 +76,16 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
+const CURuta = ({ isEdit, intId, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
+    const { data: values } = useGetRutas({
+        autoLoad: !!isEdit,
+        intIdIdea,
+        intId,
+    });
+
     const { token } = useContext(AuthContext);
 
     //===============================================================================================================================================
@@ -111,7 +119,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         watch,
     } = useForm({ mode: "onChange" });
 
-    const { fields, append, remove  } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: "arrInfoFases",
         keyName: "Id",
@@ -214,19 +222,19 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
     useEffect(() => {
         if (isEdit && values) {
             setData({
-                ...values,
+                ...values[0],
                 objInfoPrincipal: {
-                    ...values.objInfoPrincipal,
-                    intEstado: values.intIdEstadoRuta,
+                    ...values[0].objInfoPrincipal,
+                    intEstado: values[0].intIdEstadoRuta,
                 },
             });
             reset({
                 ...values,
                 objInfoPrincipal: {
-                    ...values.objInfoPrincipal,
-                    intEstado: values.intIdEstadoRuta,
+                    ...values[0].objInfoPrincipal,
+                    intEstado: values[0].intIdEstadoRuta,
                 },
-            })
+            });
         }
     }, [isEdit, values]);
 
@@ -259,8 +267,8 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
 
     useEffect(() => {
         if (values) {
-            setData(values);
-            reset(values);
+            setData(values[0]);
+            reset(values[0]);
         }
     }, [values]);
 
@@ -293,10 +301,14 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         return (
             <PageError
                 severity="error"
-                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                msg="Ha ocurrido un error al obtener los datos de la ruta seleccionada, por favor escala al área de TI para más información."
                 title={data.msg}
             />
         );
+    }
+
+    if (isEdit && !values) {
+        return <Loader />;
     }
 
     return (

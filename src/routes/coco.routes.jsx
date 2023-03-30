@@ -5,7 +5,9 @@ import { Button, Grid } from "@mui/material";
 
 //Iconos
 import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material";
-import PreviewRuta from "../modules/Empresarios/pages/Rutas/preview";
+import PreviewRuta from "../modules/Empresarios/pages/Rutas/previewRuta";
+import PreviewAcomp from "../modules/Empresarios/pages/Rutas/previewAcomp"
+import CUSesion from "../modules/Empresarios/pages/Rutas/Create&EditSesion";
 
 // Componentes
 const Comentarios = lazy(() => import("../modules/Comentarios/pages/homePage"));
@@ -343,7 +345,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <Grid container direction="row" spacing={3}>
                 <Grid item xs={12}>
                     <Button
-                        onClick={() => onChangeRoute("Inicio")}
+                        onClick={() => onChangeRoute("ViewRuta")}
                         startIcon={<ChevronLeftIcon />}
                         size="small"
                         color="inherit"
@@ -383,6 +385,54 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     intIdIdea={route.params.intIdIdea}
                     intId={route.params.intId}
                     values={route.params}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "ViewAcomp") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Rutas")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <PreviewAcomp
+                    isEdit
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intId={route.params.intId}
+                    values={route.params}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "CreateSesion") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("ViewAcomp")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <CUSesion
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intId={route.params.intIdIdea}
                 />
             </Grid>
         );

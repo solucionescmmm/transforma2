@@ -46,6 +46,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ModalPDF from "./components/modalPDF";
 import ModalActiveRuta from "./components/modalActiveRuta";
 import ModalSendRuta from "./components/modalSendRuta";
+import useGetAcomp from "../../hooks/useGetAcomp";
 
 const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
@@ -92,8 +93,8 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
 
     const [objColumnsAcom] = useState([
         {
-            title: "Tipo de Actividad",
-            field: "objInfoPrincipal.strEstadoRuta",
+            title: "Tipo de Acompañamiento",
+            field: "objInfoPrincipal.strTipoAcompañamiento",
             width: "5%",
         },
         {
@@ -103,16 +104,13 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
         },
         {
             title: "Lugar",
-            field: "objInfoPrincipal.valorTotalRuta",
+            field: "objInfoPrincipal.strUbicacion",
             type: "string",
         },
         {
             title: "Responsable",
-            render: (rowData) => {
-                let strResponsables = rowData?.objInfoPrincipal?.strResponsable;
-
-                return <p>{strResponsables?.strNombre}</p>;
-            },
+            field: "objInfoPrincipal.strUsuarioCreacion",
+            type: "string",
         },
     ]);
 
@@ -126,7 +124,13 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data: dataRutas, refreshGetData } = useGetRutas({
+    const { data: dataRutas, refreshGetData: refreshGetDataRutas } =
+        useGetRutas({
+            autoload: true,
+            intIdIdea: intIdIdea,
+        });
+
+    const { data: dataAcomp } = useGetAcomp({
         autoload: true,
         intIdIdea: intIdIdea,
     });
@@ -159,7 +163,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                 handleOpenDialog={handleropenModalDeleteRuta}
                 open={openModalDeleteRuta}
                 intId={selectedDataRuta?.objInfoPrincipal?.intId}
-                refresh={refreshGetData}
+                refresh={refreshGetDataRutas}
                 intIdIdea={intIdIdea}
             />
 
@@ -174,7 +178,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                 handleOpenDialog={handleropenModalActiveRuta}
                 open={openModalActiveRuta}
                 values={selectedDataRuta}
-                refresh={refreshGetData}
+                refresh={refreshGetDataRutas}
                 intId={selectedDataRuta?.objInfoPrincipal?.intId}
                 intIdIdea={intIdIdea}
             />
@@ -183,7 +187,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                 handleOpenDialog={handleropenModalSendRuta}
                 open={openModalSendRutas}
                 values={selectedDataRuta}
-                refresh={refreshGetData}
+                refresh={refreshGetDataRutas}
                 intId={selectedDataRuta?.objInfoPrincipal?.intId}
                 intIdIdea={intIdIdea}
             />
@@ -351,7 +355,9 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                                 onChangeRoute(
                                                                     "EditRuta",
                                                                     {
-                                                                        intId: rowData.intId,
+                                                                        intId: rowData
+                                                                            ?.objInfoPrincipal
+                                                                            ?.intId,
                                                                         intIdIdea,
                                                                         ...rowData,
                                                                     }
@@ -448,7 +454,9 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         onChangeRoute(
                                                             "ViewRuta",
                                                             {
-                                                                intId: rowData.intId,
+                                                                intId: rowData
+                                                                    ?.objInfoPrincipal
+                                                                    ?.intId,
                                                                 intIdIdea,
                                                                 ...rowData,
                                                             }
@@ -471,7 +479,8 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                             fontSize="small"
                                                         />
                                                     ),
-                                                    tooltip: "Aceptada/En Procesor",
+                                                    tooltip:
+                                                        "Aceptada/En Procesor",
                                                     disabled:
                                                         rowData.objInfoPrincipal
                                                             ?.strEstadoRuta ===
@@ -518,8 +527,10 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         event,
                                                         rowData
                                                     ) => {
-                                                       setselectedDataRuta(rowData);
-                                                       handleropenModalSendRuta()
+                                                        setselectedDataRuta(
+                                                            rowData
+                                                        );
+                                                        handleropenModalSendRuta();
                                                     },
                                                 };
                                             },
@@ -693,11 +704,11 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                             },
                                         }}
                                         isLoading={
-                                            dataRutas === undefined
+                                            dataAcomp === undefined
                                                 ? true
                                                 : false
                                         }
-                                        data={[]}
+                                        data={dataAcomp || []}
                                         columns={objColumnsAcom}
                                         title="Acompañamientos"
                                         options={{
@@ -727,64 +738,6 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                             (rowData) => {
                                                 return {
                                                     icon: () => (
-                                                        <EditIcon
-                                                            color={
-                                                                rowData.btFinalizada ===
-                                                                true
-                                                                    ? "gray"
-                                                                    : "success"
-                                                            }
-                                                            fontSize="small"
-                                                            onClick={() =>
-                                                                onChangeRoute(
-                                                                    "EditRuta",
-                                                                    {
-                                                                        intId: rowData.intId,
-                                                                        intIdIdea,
-                                                                        ...rowData,
-                                                                    }
-                                                                )
-                                                            }
-                                                        />
-                                                    ),
-                                                    tooltip: "Editar",
-
-                                                    disabled:
-                                                        rowData.btFinalizada ===
-                                                        true,
-                                                };
-                                            },
-                                            (rowData) => {
-                                                return {
-                                                    icon: () => (
-                                                        <DeleteIcon
-                                                            color={
-                                                                rowData.btFinalizada ===
-                                                                true
-                                                                    ? "gray"
-                                                                    : "error"
-                                                            }
-                                                            fontSize="small"
-                                                        />
-                                                    ),
-                                                    onClick: (
-                                                        event,
-                                                        rowData
-                                                    ) => {
-                                                        setselectedDataRuta(
-                                                            rowData
-                                                        );
-                                                        handleropenModalDeleteRuta();
-                                                    },
-                                                    tooltip: "Eliminar",
-                                                    disabled:
-                                                        rowData.btFinalizada ===
-                                                        true,
-                                                };
-                                            },
-                                            (rowData) => {
-                                                return {
-                                                    icon: () => (
                                                         <RemoveRedEyeIcon
                                                             color="gray"
                                                             fontSize="small"
@@ -796,9 +749,11 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         rowData
                                                     ) => {
                                                         onChangeRoute(
-                                                            "ViewRuta",
+                                                            "ViewAcomp",
                                                             {
-                                                                intId: rowData.intId,
+                                                                intId: rowData
+                                                                    ?.objInfoPrincipal
+                                                                    ?.intId,
                                                                 intIdIdea,
                                                                 ...rowData,
                                                             }

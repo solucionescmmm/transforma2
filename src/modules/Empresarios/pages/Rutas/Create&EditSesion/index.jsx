@@ -12,7 +12,7 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 import Dropzone from "../../../../../common/components/dropzone";
 
 //Librerias
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 
@@ -23,7 +23,6 @@ import {
     Paper,
     LinearProgress,
     Container,
-    Alert,
     TextField,
 } from "@mui/material";
 
@@ -36,12 +35,9 @@ import { Box } from "@mui/system";
 
 //Componentes
 import PageError from "../../../../../common/components/Error";
-import InfoRutaExs from "./infoRutaExs";
-import SelectTipoAcomp from "../../../components/selectTipoAcomp";
 import ReadTareas from "../../Tareas";
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 import SelectTipoAct from "../../../components/selectTipoAct";
-import InfoNuevoServPaq from "./infoNuevoServPaq";
 import DropdownEmpresarios from "../../../components/dropdownEmpresarios";
 import useGetRutas from "../../../hooks/useGetRutas";
 import Loader from "../../../../../common/components/Loader";
@@ -82,12 +78,12 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
+const CUSesion = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
     const { data: values } = useGetRutas({
-        autoLoad: isEdit,
+        autoLoad: !!isEdit,
         intIdIdea,
         intId,
     });
@@ -98,13 +94,12 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        objEmpresario: null,
+        intId,
         intIdIdea,
+        objEmpresario: null,
         dtmFechaInicio: null,
         dtmFechaFinal: null,
         intTipoAcomp: null,
-        objInfoRutaExs: {},
-        objNuevoServPaq: {},
         strLugarActividad: "",
         intTipoActividad: "",
         objResponsable: null,
@@ -131,16 +126,8 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
         handleSubmit,
         reset,
         setError,
-        setValue,
         clearErrors,
-        watch,
     } = useForm({ mode: "onChange" });
-
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "arrInfoFases",
-        keyName: "Id",
-    });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -171,7 +158,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                             ? process.env
                                   .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
                             : process.env
-                                  .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET
+                                  .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET_SESION
                     }`,
                     data,
                     headers: {
@@ -258,8 +245,6 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    const watchIntTipoAcomp = watch("intTipoAcomp");
-
     if (success) {
         onChangeRoute("Rutas");
     }
@@ -268,7 +253,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
         return (
             <PageError
                 severity="error"
-                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                msg="Ha ocurrido un error al obtener los datos del acompañamiento seleccionado, por favor escala al área de TI para más información."
                 title={data.msg}
             />
         );
@@ -328,8 +313,8 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 variant="h6"
                                             >
                                                 {isEdit
-                                                    ? "EDITAR ACOMPAÑAMIENTO"
-                                                    : "REGISTRAR ACOMPAÑAMIENTO"}
+                                                    ? "EDITAR SESIÓN"
+                                                    : "REGISTRAR SESIÓN"}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -449,112 +434,6 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                         }}
                                     />
                                 </Grid>
-
-                                <Grid item xs={12}>
-                                    <Controller
-                                        defaultValue={data.intTipoAcomp}
-                                        name="intTipoAcomp"
-                                        render={({
-                                            field: { name, value, onChange },
-                                        }) => (
-                                            <SelectTipoAcomp
-                                                disabled={loading}
-                                                label="Tipo de Acompañamiento"
-                                                required
-                                                name={name}
-                                                value={value}
-                                                onChange={(e) => {
-                                                    setValue(
-                                                        "objInfoRutaExs.objRuta",
-                                                        null
-                                                    );
-
-                                                    setValue(
-                                                        "objInfoRutaExs.objFase",
-                                                        null
-                                                    );
-
-                                                    setValue(
-                                                        "objInfoRutaExs.objPaquete",
-                                                        null
-                                                    );
-
-                                                    setValue(
-                                                        "objInfoRutaExs.objServicio",
-                                                        null
-                                                    );
-
-                                                    setValue(
-                                                        "objNuevoServPaq.objPaquete",
-                                                        null
-                                                    );
-
-                                                    setValue(
-                                                        "objNuevoServPaq.objServicio",
-                                                        null
-                                                    );
-                                                    onChange(e);
-                                                }}
-                                                helperText={
-                                                    errors?.intTipoAcomp
-                                                        ?.message ||
-                                                    "Selecciona el tipo de acompañamiento"
-                                                }
-                                                error={!!errors?.intTipoAcomp}
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona el tipo de acompañamiento",
-                                        }}
-                                    />
-                                </Grid>
-
-                                {!watchIntTipoAcomp && (
-                                    <Grid item xs={12}>
-                                        <Alert severity="info">
-                                            Por favor selecciona el tipo de
-                                            acompañamiento para continuar
-                                        </Alert>
-                                    </Grid>
-                                )}
-
-                                {watchIntTipoAcomp === 1 && (
-                                    <InfoRutaExs
-                                        control={control}
-                                        values={data.objInfoRutaExs}
-                                        disabled={loading}
-                                        errors={errors}
-                                        setValue={setValue}
-                                        setError={setError}
-                                        clearErrors={clearErrors}
-                                        isEdit={isEdit}
-                                        fields={fields}
-                                        append={append}
-                                        remove={remove}
-                                        watch={watch}
-                                        intIdIdea={intIdIdea}
-                                    />
-                                )}
-
-                                {watchIntTipoAcomp === 2 && (
-                                    <InfoNuevoServPaq
-                                        control={control}
-                                        values={data.objInfoRutaExs}
-                                        disabled={loading}
-                                        errors={errors}
-                                        setValue={setValue}
-                                        setError={setError}
-                                        clearErrors={clearErrors}
-                                        isEdit={isEdit}
-                                        fields={fields}
-                                        append={append}
-                                        remove={remove}
-                                        watch={watch}
-                                        intIdIdea={intIdIdea}
-                                    />
-                                )}
 
                                 <Grid item xs={12}>
                                     <Controller
@@ -919,4 +798,4 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
     );
 };
 
-export default CURuta;
+export default CUSesion;

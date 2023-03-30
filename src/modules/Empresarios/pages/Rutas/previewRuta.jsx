@@ -20,16 +20,19 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
 } from "@mui/icons-material";
+import useGetRutas from "../../hooks/useGetRutas";
 
-const PreviewRuta = ({ values }) => {
+const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
+    const { data: values } = useGetRutas({ autoLoad: true, intIdIdea, intId });
+
     const [dataTable, setDataTable] = useState([]);
     const [objColumns] = useState([
         {
             title: "id",
-            field: "id",
+            field: "intId",
             type: "number",
             width: "5%",
         },
@@ -64,11 +67,13 @@ const PreviewRuta = ({ values }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (values?.arrInfoFases?.length > 0) {
+        console.log(values);
+
+        if (values?.[0]?.arrInfoFases?.length > 0) {
             const arrDataTable = [];
 
-            for (let i = 0; i < values.arrInfoFases.length; i++) {
-                const { arrPaquetes, arrServicios } = values.arrInfoFases[i];
+            for (let i = 0; i < values[0].arrInfoFases.length; i++) {
+                const { arrPaquetes, arrServicios } = values[0].arrInfoFases[i];
 
                 for (let j = 0; j < arrPaquetes.length; j++) {
                     const {
@@ -80,7 +85,7 @@ const PreviewRuta = ({ values }) => {
                     const valorTotal = ValorTotalPaquete;
 
                     const dataTable = {
-                        id: i + 1,
+                        intId: i + 1,
                         strNombre: objPaquete.objInfoPrincipal?.strNombre,
                         strEstado: "Sin ejecutar",
                         intFase: i + 1,
@@ -106,7 +111,7 @@ const PreviewRuta = ({ values }) => {
 
                     if (valorTotal) {
                         const dataTable = {
-                            id: i + 1,
+                            intId: i + 1,
                             strNombre: objServicio.objInfoPrincipal?.strNombre,
                             strEstado: "Sin ejecutar",
                             intFase: i + 1,

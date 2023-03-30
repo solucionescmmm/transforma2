@@ -1422,7 +1422,7 @@ const PaperFase = ({
                     >
                         <Tooltip title="Eliminar">
                             <DeleteIcon
-                                color={!disabled ? "error" : "inherit"}
+                                color={!disabled && length > 1 ? "error" : "inherit"}
                             />
                         </Tooltip>
                     </IconButton>

@@ -13,7 +13,7 @@ import { toast } from "react-hot-toast";
  * El hook devuelve el los motivos de cancelación de una solicitud
  *
  * @author Santiago Cardona Saldarriaga <scardonas@xelerica.com>
- * @param {{intIdIdea: number, intId: number, autoLoad: Boolean}} - Parametros de búsqueda:
+ * @param {{intIdIdea: number, autoLoad: Boolean}} - Parametros de búsqueda:
  * - `intIdIdea`
  * - `autoLoad` Utilice el parámetro en caso de que el hook haga la llamada a la API de forma automatica.
  * @returns {{data: Object, refreshGetData: Function}} Devuelve un objeto con las información de los motivos de no reemplazo y una función para llamar nuevamente a la API
@@ -35,7 +35,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData({strGrupo, strCodigo})
  *
  */
-const useGetRutas = ({ intIdIdea = null, autoLoad = true, intId = null } = {}) => {
+const useGetAcomp = ({ intIdIdea = null, autoLoad = true, intId = null } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -55,7 +55,7 @@ const useGetRutas = ({ intIdIdea = null, autoLoad = true, intId = null } = {}) =
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_RUTAS_GET}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_GET}`,
                     headers: {
                         token,
                     },
@@ -140,4 +140,4 @@ const useGetRutas = ({ intIdIdea = null, autoLoad = true, intId = null } = {}) =
     return { data, refreshGetData, getUniqueData };
 };
 
-export default useGetRutas;
+export default useGetAcomp;
