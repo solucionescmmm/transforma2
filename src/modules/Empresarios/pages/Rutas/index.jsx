@@ -480,7 +480,6 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         event,
                                                         rowData
                                                     ) => {
-                                                        console.log(rowData);
                                                         setselectedDataRuta(
                                                             rowData
                                                         );

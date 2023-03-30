@@ -182,7 +182,6 @@ const DropdownPaquetes = ({
                         />
                         <ul>
                             {(() => {
-                                console.log(option)
                                 const { objInfoPrincipal } = option;
                                 const { arrServicios } = objInfoPrincipal;
 

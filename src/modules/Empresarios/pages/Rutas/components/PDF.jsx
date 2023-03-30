@@ -210,7 +210,6 @@ const PDFProduct = ({ values, intIdIdea }) => {
                 }
 
                 const intTotalHoras = arrPaqueteServ.reduce((cont, value) => {
-                    console.log(cont);
                     return cont + value.intDuracionValue;
                 }, 0);
 
@@ -258,8 +257,6 @@ const PDFProduct = ({ values, intIdIdea }) => {
             setObjInfoPrincipal(objInfoPrincipal);
             setDataFases(arrDataFases);
 
-            console.log(values);
-            console.log(dataEmpr);
             setLoading(false);
         }
     }, [values, dataEmpr]);

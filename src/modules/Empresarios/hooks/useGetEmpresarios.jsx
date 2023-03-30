@@ -30,6 +30,7 @@ import { toast } from "react-hot-toast";
 const useGetEmpresarios = ({
     autoLoad = true,
     intId = null,
+    intIdIdea = null,
     strNombres = null,
     strApellidos = null,
     strNroDocto = null,
@@ -53,6 +54,7 @@ const useGetEmpresarios = ({
         async ({
             signalSubmitData,
             intId,
+            intIdIdea,
             strNombres,
             strApellidos,
             strNroDocto,
@@ -69,6 +71,7 @@ const useGetEmpresarios = ({
                     },
                     params: {
                         intId,
+                        intIdIdea,
                         strNombres,
                         strApellidos,
                         strNroDocto,
@@ -117,6 +120,7 @@ const useGetEmpresarios = ({
 
     const refreshGetData = ({
         intId = null,
+        intIdIdea = null,
         strNombres = null,
         strApellidos = null,
         strNroDocto = null,
@@ -127,7 +131,7 @@ const useGetEmpresarios = ({
 
         setData();
 
-        getData({ signalSubmitData, intId });
+        getData({ signalSubmitData, intId, intIdIdea });
     };
 
     const getUniqueData = async ({
@@ -142,6 +146,7 @@ const useGetEmpresarios = ({
 
         let query = await getData({
             intId,
+            intIdIdea,
             signalSubmitData,
             strNombres,
             strApellidos,
@@ -163,6 +168,7 @@ const useGetEmpresarios = ({
             getData({
                 signalSubmitData,
                 intId,
+                intIdIdea,
                 strNombres,
                 strApellidos,
                 strNroDocto,
@@ -178,6 +184,7 @@ const useGetEmpresarios = ({
         getData,
         autoLoad,
         intId,
+        intIdIdea,
         strNombres,
         strApellidos,
         strNroDocto,

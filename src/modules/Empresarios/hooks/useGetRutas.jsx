@@ -35,7 +35,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData({strGrupo, strCodigo})
  *
  */
-const useGetRutas = ({ intIdIdea = null, autoLoad = true } = {}) => {
+const useGetRutas = ({ intIdIdea = null, autoLoad = true, intId = null } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -99,12 +99,12 @@ const useGetRutas = ({ intIdIdea = null, autoLoad = true } = {}) => {
         [token]
     );
 
-    const refreshGetData = ({ intIdIdea = null } = {}) => {
+    const refreshGetData = ({ intIdIdea = null, intId = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, intIdIdea });
+        getData({ signalSubmitData, intIdIdea, intId });
     };
 
     const getUniqueData = async ({ intIdIdea = null, intId = null } = {}) => {
@@ -126,13 +126,13 @@ const useGetRutas = ({ intIdIdea = null, autoLoad = true } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         if (autoLoad) {
-            getData({ signalSubmitData, intIdIdea });
+            getData({ signalSubmitData, intIdIdea, intId });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, intIdIdea, autoLoad]);
+    }, [getData, intIdIdea, autoLoad, intId]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================

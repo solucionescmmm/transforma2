@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, Fragment } from "react";
 
 //Librerias
@@ -9,8 +10,8 @@ import { Grid, Box, CircularProgress, Alert, AlertTitle } from "@mui/material";
 //Componentes
 import DropwdownRutas from "../../../components/dropdownRutas";
 import DropdownFases from "../components/dropdownFases";
-import DropdownPaquetes from "../components/dropdownPaquetes";
 import DropdownServicios from "../components/dropdownServicios";
+import useGetRutas from "../../../hooks/useGetRutas";
 
 const InfoRutaExs = ({
     disabled,
@@ -23,6 +24,9 @@ const InfoRutaExs = ({
     setValue,
 }) => {
     const [loading, setLoading] = useState(true);
+
+    const { getUniqueData } = useGetRutas({ autoLoad: false });
+    const [arrServicios, setArrServicios] = useState();
 
     const [data, setData] = useState({
         objRuta: null,
@@ -47,6 +51,29 @@ const InfoRutaExs = ({
         setLoading(false);
     }, [values]);
 
+    useEffect(() => {
+        if (watchObjRuta?.objInfoPrincipal?.intId && watchObjFase?.intId) {
+            async function getData() {
+                const response = await getUniqueData({
+                    intId: watchObjRuta.objInfoPrincipal.intId,
+                    intIdIdea,
+                });
+
+                const dataRuta = response?.data?.data?.[0];
+
+                const arrFase = dataRuta?.arrInfoFases?.find(
+                    (x) => x.intId === watchObjFase.intId
+                );
+
+                const { arrServicios } = arrFase;
+
+                setArrServicios(arrServicios)
+            }
+
+            getData();
+        }
+    }, [watchObjRuta, intIdIdea, watchObjFase]);
+
     if (loading) {
         return (
             <Box
@@ -62,7 +89,7 @@ const InfoRutaExs = ({
 
     return (
         <Fragment>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
                 <Controller
                     defaultValue={data.objRuta}
                     name="objInfoRutaExs.objRuta"
@@ -92,7 +119,7 @@ const InfoRutaExs = ({
                 />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
                 <Controller
                     defaultValue={data.objFase}
                     name="objInfoRutaExs.objFase"
@@ -129,43 +156,7 @@ const InfoRutaExs = ({
                 />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-                <Controller
-                    defaultValue={data.objPaquete}
-                    name="objInfoRutaExs.objPaquete"
-                    render={({ field: { name, value, onChange } }) => {
-                        if (!watchObjFase) {
-                            return (
-                                <Alert title="Paquete" severity="info">
-                                    <AlertTitle>Paquete</AlertTitle>
-                                    Por favor selecciona una fase para continuar
-                                </Alert>
-                            );
-                        }
-
-                        
-                        return (
-                            <DropdownPaquetes
-                                label="Paquete"
-                                name={name}
-                                value={value}
-                                onChange={(_, value) => onChange(value)}
-                                disabled={disabled}
-                                error={!!errors?.objInfoRutaExs?.objPaquete}
-                                helperText={
-                                    errors?.objInfoRutaExs?.objPaquete
-                                        ?.message || "Selecciona un paquete"
-                                }
-                                data={watchObjFase.arrPaquetes}
-                                intIdIdea={intIdIdea}
-                            />
-                        );
-                    }}
-                    control={control}
-                />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
                 <Controller
                     defaultValue={data.objServicio}
                     name="objInfoRutaExs.objServicio"
@@ -176,6 +167,19 @@ const InfoRutaExs = ({
                                     <AlertTitle>Servicio</AlertTitle>
                                     Por favor selecciona una fase para continuar
                                 </Alert>
+                            );
+                        }
+
+                        if (!arrServicios) {
+                            return (
+                                <Box
+                                    display="flex"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    height="100%"
+                                >
+                                    <CircularProgress size={30} />
+                                </Box>
                             );
                         }
 
@@ -191,7 +195,7 @@ const InfoRutaExs = ({
                                     errors?.objInfoRutaExs?.objServicio
                                         ?.message || "Selecciona un servicio"
                                 }
-                                data={watchObjFase.arrServicios}
+                                data={arrServicios}
                                 intIdIdea={intIdIdea}
                             />
                         );

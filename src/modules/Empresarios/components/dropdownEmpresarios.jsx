@@ -35,16 +35,23 @@ import {
 //Filtro personalizado
 const filterOptions = (options, { inputValue }) =>
     matchSorter(options, inputValue, {
-        keys: ["strNombreCompleto", "strApellidos", "strNombres", "strNroDocto"],
+        keys: [
+            "strNombreCompleto",
+            "strApellidos",
+            "strNombres",
+            "strNroDocto",
+        ],
     });
 
 const DropdownEmpresarios = ({
     id,
+    intIdIdea,
     value,
     name,
     onChange,
     disabled,
     error,
+    principal,
     helperText,
     label,
     multiple,
@@ -52,7 +59,7 @@ const DropdownEmpresarios = ({
 }) => {
     const [options, setOptions] = useState([]);
 
-    const { data, refreshGetData } = useGetEmpresarios();
+    const { data, refreshGetData } = useGetEmpresarios({ intId: intIdIdea });
 
     useEffect(() => {
         if (data?.length > 0) {
@@ -61,24 +68,47 @@ const DropdownEmpresarios = ({
             data.forEach((e) => {
                 let { objEmpresario } = e;
 
-                newArrOptions.push({
-                    strURLFileFoto: objEmpresario.strURLFileFoto,
-                    strNombres: objEmpresario.strNombres,
-                    strApellidos: objEmpresario.strApellidos,
-                    strNroDocto: objEmpresario.strNroDocto,
-                    strNombreCompleto:
-                        objEmpresario.strNombres + " " + objEmpresario.strApellidos,
-                    strCorreoElectronico: objEmpresario.strCorreoElectronico1,
-                });
+                if (!principal) {
+                    objEmpresario.forEach((emp) => {
+                        newArrOptions.push({
+                            strURLFileFoto: emp.strURLFileFoto,
+                            strNombres: emp.strNombres,
+                            strApellidos: emp.strApellidos,
+                            strNroDocto: emp.strNroDocto,
+                            strNombreCompleto:
+                                emp.strNombres + " " + emp.strApellidos,
+                            strCorreoElectronico: emp.strCorreoElectronico1,
+                        });
+                    });
+                } else {
+                    objEmpresario.forEach((emp) => {
+                        if (emp.strTipoEmpresario === "Principal") {
+                            newArrOptions.push({
+                                strURLFileFoto: emp.strURLFileFoto,
+                                strNombres: emp.strNombres,
+                                strApellidos: emp.strApellidos,
+                                strNroDocto: emp.strNroDocto,
+                                strNombreCompleto:
+                                    emp.strNombres + " " + emp.strApellidos,
+                                strCorreoElectronico: emp.strCorreoElectronico1,
+                            });
+                        }
+                    });
+                }
             });
 
             setOptions(newArrOptions);
         }
-    }, [data]);
+    }, [data, principal]);
 
     if (!data) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -104,8 +134,8 @@ const DropdownEmpresarios = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos del listado de personas
-                empresarias
+                Ha ocurrido un error al obtener los datos del listado de
+                personas empresarias
             </Alert>
         );
     }
@@ -175,7 +205,11 @@ const DropdownEmpresarios = ({
                     }
 
                     return (
-                        <Chip key={index} label={option} {...getTagProps({ index })} />
+                        <Chip
+                            key={index}
+                            label={option}
+                            {...getTagProps({ index })}
+                        />
                     );
                 })
             }
@@ -184,17 +218,24 @@ const DropdownEmpresarios = ({
                     <ListItem>
                         {multiple && (
                             <Checkbox
-                                icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                                icon={
+                                    <CheckBoxOutlineBlankIcon fontSize="small" />
+                                }
                                 checkedIcon={<CheckBoxIcon fontSize="small" />}
                                 style={{ marginRight: 8 }}
                                 checked={selected}
                             />
                         )}
                         <ListItemAvatar>
-                            <Avatar src={option.strURLFileFoto} alt={option.strNombres} />
+                            <Avatar
+                                src={option.strURLFileFoto}
+                                alt={option.strNombres}
+                            />
                         </ListItemAvatar>
                         <ListItemText
-                            primary={option.strNombreCompleto || option.strNroDocto}
+                            primary={
+                                option.strNombreCompleto || option.strNroDocto
+                            }
                             secondary={`Doc: ${option.strNroDocto}`}
                         />
                     </ListItem>

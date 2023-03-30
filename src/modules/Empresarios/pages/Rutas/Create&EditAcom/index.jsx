@@ -42,6 +42,7 @@ import ReadTareas from "../../Tareas";
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 import SelectTipoAct from "../../../components/selectTipoAct";
 import InfoNuevoServPaq from "./infoNuevoServPaq";
+import DropdownEmpresarios from "../../../components/dropdownEmpresarios";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -89,6 +90,7 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
+        objEmpresario: null,
         intIdIdea,
         dtmFechaInicio: null,
         dtmFechaFinal: null,
@@ -220,8 +222,6 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
         }
     }, [isEdit, values]);
 
-    console.log(errors);
-
     useEffect(() => {
         if (values) {
             setData(values);
@@ -330,6 +330,39 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                     </Typography>
                                 </Grid>
 
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.objEmpresario}
+                                        name="objEmpresario"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <DropdownEmpresarios
+                                                name={name}
+                                                value={value}
+                                                label="Empresario"
+                                                helperText={
+                                                    errors?.objEmpresario
+                                                        ?.message ||
+                                                    "selecciona el empresario"
+                                                }
+                                                error={!!errors?.objEmpresario}
+                                                disabled={loading}
+                                                required
+                                                onChange={(_, value) =>
+                                                    onChange(value)
+                                                }
+                                                intIdIdea={intIdIdea}
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, selecciona el empresario",
+                                        }}
+                                    />
+                                </Grid>
+
                                 <Grid item xs={12} md={6}>
                                     <Controller
                                         defaultValue={data.dtmFechaInicio}
@@ -349,7 +382,8 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                         variant: "standard",
                                                         error: !!errors?.dtmFechaInicio,
                                                         helperText:
-                                                            errors?.dtmFechaInicio
+                                                            errors
+                                                                ?.dtmFechaInicio
                                                                 ?.message ||
                                                             "Selecciona la fecha del acompañamiento",
                                                         fullWidth: true,
@@ -387,7 +421,8 @@ const CURuta = ({ isEdit, values, intIdIdea, onChangeRoute }) => {
                                                         variant: "standard",
                                                         error: !!errors?.dtmFechaFinal,
                                                         helperText:
-                                                            errors?.dtmFechaFinal
+                                                            errors
+                                                                ?.dtmFechaFinal
                                                                 ?.message ||
                                                             "Selecciona la fecha final del acompañamiento",
                                                         fullWidth: true,
