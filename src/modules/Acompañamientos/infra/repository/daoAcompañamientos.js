@@ -155,7 +155,16 @@ class daoAcompañamientos {
                 SesionesAcompañamientos.strUsuarioCreacion,
                 SesionesAcompañamientos.dtmActualizacion,
                 SesionesAcompañamientos.strUsuarioActualizacion,
-                SesionesAcompañamientos.btFinalizado
+                SesionesAcompañamientos.btFinalizado,
+                (
+                    SELECT 
+
+                    Servicios.strNombre
+
+                    FROM tbl_servicios Servicios
+
+                    INNER JOIN tbl_Sesiones_Acompañamientos SesionesAcompañamientos ON Servicios.intId = SesionesAcompañamientos.intIdServicio
+                )as strNombreServicio
 
                 FROM tbl_Sesiones_Acompañamientos SesionesAcompañamientos
 
