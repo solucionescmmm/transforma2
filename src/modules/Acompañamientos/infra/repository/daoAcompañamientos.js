@@ -168,8 +168,6 @@ class daoAcompañamientos {
 
                 FROM tbl_Sesiones_Acompañamientos SesionesAcompañamientos
 
-                INNER JOIN tbl_Acompañamientos Acompañamientos on Acompañamientos.intId = SesionesAcompañamientos.intIdAcompañamiento
-
                 WHERE SesionesAcompañamientos.intIdAcompañamiento = Acompañamientos.intId 
                 FOR JSON PATH
             )as arrSesionAcompañamiento
