@@ -6,7 +6,7 @@ import { Button, Grid } from "@mui/material";
 //Iconos
 import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material";
 import PreviewRuta from "../modules/Empresarios/pages/Rutas/previewRuta";
-import PreviewAcomp from "../modules/Empresarios/pages/Rutas/previewAcomp"
+import PreviewAcomp from "../modules/Empresarios/pages/Rutas/previewAcomp";
 import CUSesion from "../modules/Empresarios/pages/Rutas/Create&EditSesion";
 
 // Componentes
@@ -430,9 +430,11 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 </Grid>
 
                 <CUSesion
+                    {...route.params}
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
-                    intId={route.params.intIdIdea}
+                    intIdAcompañamiento={route.params.intIdAcompañamiento}
+                    intId={route.params.intId}
                 />
             </Grid>
         );

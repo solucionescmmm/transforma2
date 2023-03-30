@@ -751,10 +751,11 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         onChangeRoute(
                                                             "ViewAcomp",
                                                             {
-                                                                intId: rowData
+                                                                intIdAcompañamiento: rowData
                                                                     ?.objInfoPrincipal
                                                                     ?.intId,
                                                                 intIdIdea,
+
                                                                 ...rowData,
                                                             }
                                                         );

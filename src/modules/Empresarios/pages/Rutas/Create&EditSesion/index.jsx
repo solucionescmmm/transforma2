@@ -78,7 +78,16 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CUSesion = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
+const CUSesion = ({
+    isEdit,
+    intIdIdea,
+    intId,
+    intIdAcompañamiento,
+    intIdServicio,
+    intIdRuta,
+    intIdFase,
+    onChangeRoute,
+}) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -96,6 +105,10 @@ const CUSesion = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
     const [data, setData] = useState({
         intId,
         intIdIdea,
+        intIdAcompañamiento,
+        intIdServicio,
+        intIdRuta,
+        intIdFase,
         objEmpresario: null,
         dtmFechaInicio: null,
         dtmFechaFinal: null,

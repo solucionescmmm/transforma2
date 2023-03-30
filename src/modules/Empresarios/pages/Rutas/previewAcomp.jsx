@@ -28,6 +28,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     const { data: values } = useGetAcomp({ autoLoad: true, intIdIdea, intId });
 
+    const [dataValues, setDataValues] = useState();
     const [dataTable, setDataTable] = useState([]);
     const [objColumns] = useState([
         {
@@ -66,12 +67,22 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                 arrDataTable.push({
                     intId: data.intId,
                     intIdServicio: data.intIdServicio,
+                    intIdRuta: data.intIdRuta,
+                    intIdFase: data.intIdFase,
                     strNombreServicio: data.strNombreServicio,
                     dtmCreacion: data.dtmCreacion,
                     objInfoPrincipal: values[0].objInfoPrincipal,
                 });
             }
 
+            setDataValues({
+                intIdServicio:
+                    values[0].arrSesionAcompañamiento[0].intIdServicio,
+                intIdAcompañamiento:
+                    values[0].arrSesionAcompañamiento[0].intIdAcompañamiento,
+                intIdRuta: values[0].arrSesionAcompañamiento[0].intIdRuta,
+                intIdFase: values[0].arrSesionAcompañamiento[0].intIdFase,
+            });
             setDataTable(arrDataTable);
         }
     }, [values]);
@@ -203,6 +214,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                                                             {
                                                                 intIdIdea,
                                                                 intId,
+                                                                ...dataValues,
                                                             }
                                                         )
                                                     }
