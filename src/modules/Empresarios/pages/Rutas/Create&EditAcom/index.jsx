@@ -87,7 +87,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
     const { data: values } = useGetRutas({
-        autoLoad: isEdit,
+        autoLoad: !!isEdit,
         intIdIdea,
         intId,
     });
@@ -232,8 +232,44 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
 
     useEffect(() => {
         if (values) {
-            setData(values[0]);
-            reset(values[0]);
+            console.log(values);
+
+            setData({
+                objEmpresario: null,
+                intIdIdea,
+                dtmFechaInicio: null,
+                dtmFechaFinal: null,
+                intTipoAcomp: null,
+                objInfoRutaExs: {},
+                objNuevoServPaq: {},
+                strLugarActividad: "",
+                intTipoActividad: "",
+                objResponsable: null,
+                strObjetivoActividad: "",
+                strActividades: "",
+                strLogros: "",
+                dtmFechaProx: null,
+                strRetroAlim: "",
+                strURLDocumento: "",
+            });
+            reset({
+                objEmpresario: null,
+                intIdIdea,
+                dtmFechaInicio: null,
+                dtmFechaFinal: null,
+                intTipoAcomp: null,
+                objInfoRutaExs: {},
+                objNuevoServPaq: {},
+                strLugarActividad: "",
+                intTipoActividad: "",
+                objResponsable: null,
+                strObjetivoActividad: "",
+                strActividades: "",
+                strLogros: "",
+                dtmFechaProx: null,
+                strRetroAlim: "",
+                strURLDocumento: "",
+            });
         }
     }, [values]);
 
