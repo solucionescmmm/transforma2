@@ -117,9 +117,12 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
 
     useEffect(() => {
         if (values.value) {
+            console.log(values.value);
+
             setData({
                 strResponsable: values?.value
-                    ? values?.value?.strResponsable || values?.value?.strResponsables
+                    ? values?.value?.strResponsable ||
+                      values?.value?.strResponsables
                     : null,
                 objPaquete: values?.value ? values.value?.objPaquete : null,
                 objSedeTarifa: values?.value
@@ -134,8 +137,9 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
 
             reset({
                 strResponsable: values?.value
-                ? values?.value?.strResponsable || values?.value?.strResponsables
-                : null,
+                    ? values?.value?.strResponsable ||
+                      values?.value?.strResponsables
+                    : null,
                 objPaquete: values?.value ? values.value?.objPaquete : null,
                 objSedeTarifa: values?.value
                     ? values.value?.objSedeTarifa
@@ -382,7 +386,11 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                                         errors?.arrObjetivos?.message ||
                                         "Selecciona los objetivos"
                                     }
-                                    data={values?.value.arrObjetivos || []}
+                                    data={
+                                        values?.arrObjetivos ||
+                                        values?.value?.arrObjetivos ||
+                                        []
+                                    }
                                     multiple
                                 />
                             )}

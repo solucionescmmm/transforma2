@@ -383,7 +383,11 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                         errors?.arrObjetivos?.message ||
                                         "Selecciona los objetivos"
                                     }
-                                    data={values?.value.arrObjetivos || []}
+                                    data={
+                                        values?.arrObjetivos ||
+                                        values?.value?.arrObjetivos ||
+                                        []
+                                    }
                                     multiple
                                 />
                             )}

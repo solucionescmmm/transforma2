@@ -527,6 +527,7 @@ const PaperFase = ({
                 onChange={handlerChangePaquete}
                 values={{
                     ...valuePaquete,
+                    arrObjetivos: data.arrObjetivos,
                     intFase: index + 1,
                 }}
             />
@@ -554,6 +555,7 @@ const PaperFase = ({
                 onChange={handlerChangeServicio}
                 values={{
                     ...valueServicio,
+                    arrObjetivos: data.arrObjetivos,
                     intFase: index + 1,
                 }}
             />
