@@ -38,8 +38,8 @@ class updateRutas {
     async main() {
         await this.#getIdEstado();
         await this.#getTipoRuta();
-        
         await this.#validations();
+
         await this.#deleteRuta();
         await this.#getCountRutas();
         await this.#setRutas();
@@ -60,6 +60,7 @@ class updateRutas {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+
         let dao = new classInterfaceDAORutas();
 
         let queryGetRuta = await dao.getEstadoFase(
@@ -74,7 +75,7 @@ class updateRutas {
             throw new Error(queryGetRuta.msg);
         }
 
-        let array = queryGetRuta.data[0].arrFasesRutas
+        let array = queryGetRuta.data[0]?.arrFasesRutas
 
         if (array?.length > 0) {
             for (let i = 0; i < array.length; i++) {
@@ -101,6 +102,24 @@ class updateRutas {
             }
 
             servicioRepetido(arrayFases[i], i)
+
+            let arrPorcentajes = arrayFases[i].arrPorcentajes
+
+            if (arrPorcentajes.length <= 0) {
+                throw new Error(`El array de los porcentajes esta vacío en la fase #${i + 1}`);
+            }
+
+            let intPorcentaje = 0
+            let intTotalValor = 0
+            
+            for (let j = 0; j < arrPorcentajes.length; j++) {
+                intPorcentaje = intPorcentaje + arrPorcentajes[j].intPorcentaje,
+                intTotalValor = intTotalValor + arrPorcentajes[j].valorPorce
+            }
+            
+            if (intPorcentaje !== 100 && intTotalValor !== arrayFases[i].dblValorFase) {
+                throw new Error(`Los valores de los pagos no correctos por favor revisalos en la fase #${i + 1}`);
+            }
         }
     }
 
@@ -160,7 +179,7 @@ class updateRutas {
         let objDataRuta = this.#objData.objInfoPrincipal;
         let newData = {
             ...objDataRuta,
-            strNombre: `Ruta #${this.#intNumRutas + 1}`,
+            strNombre: objDataRuta.strNombre || `Ruta # ${this.#intNumRutas + 1}`,
             intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
             strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
@@ -352,15 +371,18 @@ class updateRutas {
                 }
             }
 
-            let arrPagos = objDataFase.arrPagos;
+            let arrPagos = objDataFase.arrPorcentajes;
 
             if (arrPagos.length > 0) {
                 for (let j = 0; j < arrPagos.length; j++) {
                     let objDataPago = arrPagos[j];
 
                     let query = await dao.setPagosFases({
-                        ...objDataPago,
                         intIdFase: this.#intIdFase,
+                        ValorTotalFase: objDataFase.dblValorFase,
+                        intNumPago: j + 1,
+                        intPorcentaje: objDataPago.intPorcentaje,
+                        Valor: objDataPago.valorPorce,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 

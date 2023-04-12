@@ -14,16 +14,14 @@ const servicioRepetido = (infoFase, i) => {
             let intIdServicio = serv.objInfoPrincipal.intId
             //Recorre los servicios de la Fase
             arrServiciosFase.map((servicio) => {
-                if (servicio.objServicio.objInfoPrincipal.intId === intIdServicio) {
+                if (servicio.objServicio.objInfoPrincipal.intId === intIdServicio && !servicio.intIdPaqueteFase) {
                     throw new Error(`No se puede guardar el servicio ${servicio.objServicio.objInfoPrincipal?.strNombre},
-                             ya que se encuentra repetido en el paquete ${paquete.objPaquete.objInfoPrincipal?.strNombre} en la fase #${i+1}`)
+                             ya que se encuentra repetido en el paquete ${paquete.objPaquete.objInfoPrincipal?.strNombre} en la fase #${i + 1}`)
                 }
             })
         })
 
     })
-
-
 }
 
 module.exports = servicioRepetido;
