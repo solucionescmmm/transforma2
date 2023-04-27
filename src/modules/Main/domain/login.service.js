@@ -9,7 +9,10 @@ const jwt = require("jsonwebtoken");
 const privateKey = fs.readFileSync(path.basename("../../../../jwtRS256.key"), "utf-8");
 
 const login = async (token) => {
+    let ticket;
+
     try {
+      if(process.env.NODE_ENV === 'production') {
         const CLIENT_ID = process.env.CLIENT_GOOGLE;
         const client = new OAuth2Client(CLIENT_ID);
 
@@ -17,7 +20,7 @@ const login = async (token) => {
             throw new Error("Se esperaba el token de autenticación de Google.");
         }
 
-        const ticket = await client
+        ticket = await client
             .verifyIdToken({
                 idToken: token,
                 audience: CLIENT_ID,
@@ -34,15 +37,18 @@ const login = async (token) => {
             .then((res) => {
                 return res;
             });
+      }
 
-        const payload = ticket.getPayload();
+      console.log(process.env.NODE_ENV);
+
+        const payload = ticket?.getPayload();
 
         let objUserData = {
-            strNombre: payload.given_name,
-            strApellidos: payload.family_name,
-            strEmail: payload.email,
-            strUsuario: payload.email.substring(0, payload.email.indexOf("@")),
-            strURLImagen: payload.picture,
+            strNombre: payload?.given_name || 'Pruebas',
+            strApellidos: payload?.family_name || '.',
+            strEmail: payload?.email || 'lider.tecnologia@cmmmedellin.org',
+            strUsuario: payload?.email.substring(0, payload.email.indexOf("@")) || "Líder Tecnología",
+            strURLImagen: payload?.picture || "",
         };
 
         if (
