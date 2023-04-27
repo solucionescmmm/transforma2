@@ -1,4 +1,11 @@
-import React, { useState, useCallback, useRef, useEffect, useContext, memo } from "react";
+import React, {
+    useState,
+    useCallback,
+    useRef,
+    useEffect,
+    useContext,
+    memo,
+} from "react";
 
 //Context
 import { AuthContext } from "../../common/middlewares/Auth";
@@ -68,7 +75,7 @@ const loginStyles = makeStyles((theme) => ({
     },
     logo: {
         width: "500px",
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down("md")]: {
             width: "300px",
         },
     },
@@ -108,7 +115,7 @@ const Login = () => {
     };
 
     const onFailureAuth = (error) => {
-        toast.error(error.details);
+        toast.error(error.details || "Acceso denegado");
     };
 
     const submitData = useCallback(
@@ -123,7 +130,7 @@ const Login = () => {
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${process.env.REACT_APP_API_TRANSFORMA_LOGIN}`,
                     headers: {
-                        Authorization: data.tokenId,
+                        Authorization: data?.tokenId,
                     },
                 },
                 {
@@ -211,9 +218,15 @@ const Login = () => {
                 >
                     <Paper elevation={3} className={classes.paper}>
                         {loading ? (
-                            <LinearProgress className={classes.linearProgress} />
+                            <LinearProgress
+                                className={classes.linearProgress}
+                            />
                         ) : null}
-                        <Grid container direction="row" style={{ padding: "20px" }}>
+                        <Grid
+                            container
+                            direction="row"
+                            style={{ padding: "20px" }}
+                        >
                             <Grid item xs={12}>
                                 <Grid container direction="row" spacing={2}>
                                     <Grid item xs={12}>
@@ -239,33 +252,53 @@ const Login = () => {
                                             marginBottom: "5px",
                                         }}
                                     >
-                                        <GoogleLogin
-                                            clientId={process.env.REACT_APP_CLIENT_GOOGLE}
-                                            buttonText="Ingresar"
-                                            render={({ onClick }) => (
-                                                <LoadingButton
-                                                    onClick={onClick}
-                                                    startIcon={
-                                                        <img
-                                                            src={BtnGoogle}
-                                                            alt="btnGoogle"
-                                                        />
-                                                    }
-                                                    loading={loading}
-                                                >
-                                                    Iniciar sesión
-                                                </LoadingButton>
-                                            )}
-                                            onSuccess={onSuccessAuth}
-                                            onFailure={onFailureAuth}
-                                        />
+                                        {process.env.REACT_APP_NODE_ENV ===
+                                        "production" ? (
+                                            <GoogleLogin
+                                                clientId={
+                                                    process.env
+                                                        .REACT_APP_CLIENT_GOOGLE
+                                                }
+                                                buttonText="Ingresar"
+                                                render={({ onClick }) => (
+                                                    <LoadingButton
+                                                        onClick={onClick}
+                                                        startIcon={
+                                                            <img
+                                                                src={BtnGoogle}
+                                                                alt="btnGoogle"
+                                                            />
+                                                        }
+                                                        loading={loading}
+                                                    >
+                                                        Iniciar sesión
+                                                    </LoadingButton>
+                                                )}
+                                                onSuccess={onSuccessAuth}
+                                                onFailure={onFailureAuth}
+                                            />
+                                        ) : (
+                                            <LoadingButton
+                                                onClick={onSuccessAuth}
+                                                startIcon={
+                                                    <img
+                                                        src={BtnGoogle}
+                                                        alt="btnGoogle"
+                                                    />
+                                                }
+                                                loading={loading}
+                                            >
+                                                Iniciar sesión
+                                            </LoadingButton>
+                                        )}
                                     </Grid>
                                 </Grid>
 
                                 <Box className={classes.copyright}>
                                     <Box>
                                         <Typography variant="caption">
-                                            Todos los derechos reservados - 2021 ©
+                                            Todos los derechos reservados - 2021
+                                            ©
                                         </Typography>
                                     </Box>
                                 </Box>
