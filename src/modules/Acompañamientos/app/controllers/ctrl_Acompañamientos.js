@@ -1,5 +1,6 @@
 //Servicios
 const setAcompañamiento = require("../../domain/setAcompañamiento.service");
+const setSesionAcompañamiento = require("../../domain/setSesionAcompañamiento.service")
 const getAcompañamiento = require("../../domain/getAcompañamiento.service");
 const getTipoAcompañamiento = require("../../domain/getTipoAcompañamiento.service")
 const getTipoActividad = require("../../domain/getTipoActividad.service")
@@ -13,6 +14,29 @@ class ctrl_Acompañamiento {
             let { strDataUser } = req;
 
             let service = new setAcompañamiento(data, strDataUser);
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async setSesionAcompañamiento(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new setSesionAcompañamiento(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {

@@ -13,6 +13,15 @@ routes.post(
   }
 );
 
+routes.post(
+  "/transforma/api/Acompanamientos/setSesionAcompanamiento",
+  async (req, res) => {
+    let controllerAcompañamientos = new classController();
+    await controllerAcompañamientos.setSesionAcompañamiento(req, res);
+  }
+);
+
+
 routes.get(
   "/transforma/api/Acompanamientos/getAcompanamiento",
   async (req, res) => {
