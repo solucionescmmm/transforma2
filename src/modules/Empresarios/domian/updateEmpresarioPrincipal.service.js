@@ -7,6 +7,7 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 //Servicios
 const serviceUpdateHistorico = require("../../Historicos/domain/updateHistorico.service")
 const serviceGetIdFuenteHistorico = require("../../Historicos/domain/getIdFuenteHistoricos.service")
+const serviceGetHistorico = require("../../Historicos/domain/getHistorico.service")
 const servicegetIdeaEmpresario = require("./getIdeaEmpresario.service")
 
 class updateEmpresarioPrincipal {
@@ -20,6 +21,7 @@ class updateEmpresarioPrincipal {
     //variables
     #intIdIdea;
     #intIdFuenteHistorico;
+    #intIdCuantosHistoricos;
     /**
      * @param {object} data
      */
@@ -32,6 +34,7 @@ class updateEmpresarioPrincipal {
     async main() {
         await this.#getIdeaEmpresario();
         await this.#getIdFuenteHistorico();
+        await this.#getHistorico();
         await this.#validations();
         await this.#updateEmpresario();
         await this.#updateIdea();
@@ -76,6 +79,10 @@ class updateEmpresarioPrincipal {
                 );
             }
         }
+
+        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && this.#intIdCuantosHistoricos <= 1) {
+            await this.#updateHistorico()
+         }
     }
 
     async #getIdeaEmpresario() {
@@ -103,6 +110,18 @@ class updateEmpresarioPrincipal {
         }
 
         this.#intIdFuenteHistorico = queryGetIdFuenteHistorico.data.intId;
+    }
+
+    async #getHistorico() {
+        let queryGetHistorico = await serviceGetHistorico({
+            intIdIdea : this.#intIdIdea,
+        });
+
+        if (queryGetHistorico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdCuantosHistoricos = queryGetHistorico.data.arrNumeroEmpleados.length;
     }
 
     async #updateEmpresario() {
