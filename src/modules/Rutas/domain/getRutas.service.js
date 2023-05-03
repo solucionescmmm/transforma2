@@ -68,47 +68,9 @@ const getRutas = async (objParams, strDataUser) => {
 
                         let arrObjPaquetes = objInfoFases.arrPaquetes;
 
-                        // if (arrObjPaquetes?.length > 0) {
-                        //     for (let k = 0; k < arrObjPaquetes.length; k++) {
-                        //         let queryGetPaquetes = await serviceGetPaquete(
-                        //             { intId: arrObjPaquetes[k].intIdPaquete },
-                        //             strDataUser
-                        //         );
-
-                        //         if (queryGetPaquetes.error) {
-                        //             throw new Error(queryGetPaquetes.msg);
-                        //         }
-
-                        //         arrPaquetes.push({
-                        //             ...arrObjPaquetes[k],
-                        //             strResponsables: JSON.parse(arrObjPaquetes[k]?.strResponsables || null),
-                        //             objPaquete: queryGetPaquetes.data[0]
-                        //         });
-                        //     }
-                        // }
-
                         let arrServicios = [];
 
                         let arrObjServicios = objInfoFases.arrServicios;
-
-                        // if (arrObjServicios?.length > 0) {
-                        //     for (let k = 0; k < arrObjServicios.length; k++) {
-                        //         let queryGetServicio = await serviceGetServicio(
-                        //             { intId: arrObjServicios[k].intIdServicio },
-                        //             strDataUser
-                        //         );
-
-                        //         if (queryGetServicio.error) {
-                        //             throw new Error(queryGetServicio.msg);
-                        //         }
-
-                        //         arrServicios.push({
-                        //             ...arrObjServicios[k],
-                        //             strResponsables: JSON.parse(arrObjServicios[k]?.strResponsables || null),
-                        //             objServicio: queryGetServicio.data[0]
-                        //         });
-                        //     }
-                        // }
 
                         arrInfoFases[j] = {
                             ...objInfoFases,
@@ -189,6 +151,8 @@ const getRutas = async (objParams, strDataUser) => {
 
                         let arrObjServicios = objInfoFases.arrServicios;
 
+                        console.log(arrObjServicios)
+
                         if (arrObjServicios?.length > 0) {
                             for (let k = 0; k < arrObjServicios.length; k++) {
                                 let queryGetServicio = await serviceGetServicio(
@@ -202,6 +166,7 @@ const getRutas = async (objParams, strDataUser) => {
 
                                 arrServicios.push({
                                     ...arrObjServicios[k],
+                                    arrObjetivos: arrObjServicios[k].intIdPaqueteFase ? arrPaquetes[0]?.arrObjetivos : arrObjServicios[k].arrObjetivos,
                                     strResponsables: JSON.parse(arrObjServicios[k]?.strResponsables || null),
                                     objServicio: queryGetServicio.data[0]
                                 });
