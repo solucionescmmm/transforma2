@@ -156,17 +156,11 @@ class daoAcompañamientos {
                 SesionesAcompañamientos.dtmActualizacion,
                 SesionesAcompañamientos.strUsuarioActualizacion,
                 SesionesAcompañamientos.btFinalizado,
-                (
-                    SELECT 
-
-                    Servicios.strNombre
-
-                    FROM tbl_servicios Servicios
-
-                    INNER JOIN tbl_Sesiones_Acompañamientos SesionesAcompañamientos ON Servicios.intId = SesionesAcompañamientos.intIdServicio
-                )as strNombreServicio
+                Servicios.strNombre as strNombreServicio 
 
                 FROM tbl_Sesiones_Acompañamientos SesionesAcompañamientos
+
+                INNER JOIN tbl_servicios Servicios ON Servicios.intId = SesionesAcompañamientos.intIdServicio
 
                 WHERE SesionesAcompañamientos.intIdAcompañamiento = Acompañamientos.intId 
                 FOR JSON PATH
