@@ -24,6 +24,7 @@ import {
     LinearProgress,
     Container,
     TextField,
+    MenuItem,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -91,11 +92,13 @@ const CUSesion = ({
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
-    const { data: values } = useGetRutas({
-        autoLoad: !!isEdit,
+    const { data: dataRutas } = useGetRutas({
+        autoLoad: true,
         intIdIdea,
-        intId,
+        intId: intIdRuta,
     });
+
+    console.log(dataRutas);
 
     const { token } = useContext(AuthContext);
 
@@ -122,7 +125,13 @@ const CUSesion = ({
         dtmFechaProx: null,
         strRetroAlim: "",
         strURLDocumento: "",
+        objObjetivos: {
+            bitFinalizaServ: false,
+        },
+        bitFinalizarSesion: false
     });
+
+    const [dataObj, setDataObj] = useState([]);
 
     const [success, setSucces] = useState(false);
 
@@ -137,7 +146,7 @@ const CUSesion = ({
         control,
         formState: { errors },
         handleSubmit,
-        reset,
+        // reset,
         setError,
         clearErrors,
     } = useForm({ mode: "onChange" });
@@ -218,30 +227,48 @@ const CUSesion = ({
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
-    useEffect(() => {
-        if (isEdit && values) {
-            setData({
-                ...values[0],
-                objInfoPrincipal: {
-                    ...values[0].objInfoPrincipal,
-                    intEstado: values[0].intIdEstadoRuta,
-                },
-            });
-        }
-    }, [isEdit, values]);
+    // useEffect(() => {
+    //     if (isEdit) {
+    //         setData({
+    //             ...values[0],
+    //             objInfoPrincipal: {
+    //                 ...values[0].objInfoPrincipal,
+    //                 intEstado: values[0].intIdEstadoRuta,
+    //             },
+    //         });
+    //     }
+    // }, [isEdit]);
+
+    // useEffect(() => {
+    //     if (values) {
+    //         setData(values[0]);
+    //         reset(values[0]);
+    //     }
+    // }, [values]);
+
+    // useEffect(() => {
+    //     if (isEdit) {
+    //         reset(data);
+    //     }
+    // }, [data, reset, isEdit]);
 
     useEffect(() => {
-        if (values) {
-            setData(values[0]);
-            reset(values[0]);
-        }
-    }, [values]);
+        if (dataRutas?.length) {
+            const objFase = dataRutas[0].arrInfoFases.find(
+                (x) => x.intId === intIdFase
+            );
 
-    useEffect(() => {
-        if (isEdit) {
-            reset(data);
+            const { arrServicios } = objFase;
+
+            const objServicio = arrServicios.find(
+                (x) => x.intIdServicio === intIdServicio
+            );
+
+            const { arrObjetivos } = objServicio;
+
+            setDataObj(arrObjetivos);
         }
-    }, [data, reset, isEdit]);
+    }, [dataRutas]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -272,7 +299,7 @@ const CUSesion = ({
         );
     }
 
-    if (isEdit && !values) {
+    if (isEdit || !dataRutas) {
         return <Loader />;
     }
 
@@ -784,6 +811,172 @@ const CUSesion = ({
                                         control={control}
                                     />
                                 </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography
+                                        style={{
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        Información adicional
+                                    </Typography>
+                                    <hr />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={
+                                            data.bitFinalizarSesion
+                                        }
+                                        name="bitFinalizarSesion"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <TextField
+                                                label="¿Desea finalizar la sesión?"
+                                                variant="standard"
+                                                name={name}
+                                                value={value}
+                                                onChange={(e) => onChange(e)}
+                                                disabled={loading}
+                                                helperText={
+                                                    "Selecciona una opción"
+                                                }
+                                                fullWidth
+                                                select
+                                            >
+                                                <MenuItem value={true}>
+                                                    Sí
+                                                </MenuItem>
+                                                <MenuItem value={false}>
+                                                    No
+                                                </MenuItem>
+                                            </TextField>
+                                        )}
+                                        control={control}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={
+                                            data.objObjetivos.bitFinalizaServ
+                                        }
+                                        name="objObjetivos.bitFinalizaServ"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <TextField
+                                                label="¿Desea finalizar el servicio?"
+                                                variant="standard"
+                                                name={name}
+                                                value={value}
+                                                onChange={(e) => onChange(e)}
+                                                disabled={loading}
+                                                helperText={
+                                                    "Selecciona una opción"
+                                                }
+                                                fullWidth
+                                                select
+                                            >
+                                                <MenuItem value={true}>
+                                                    Sí
+                                                </MenuItem>
+                                                <MenuItem value={false}>
+                                                    No
+                                                </MenuItem>
+                                            </TextField>
+                                        )}
+                                        control={control}
+                                    />
+                                </Grid>
+
+                                {dataObj.map((x) => (
+                                    <Fragment>
+                                        <Grid item xs={12}>
+                                            <Controller
+                                                name={`objObjetivos.${x.intId}`}
+                                                defaultValue={false}
+                                                render={({
+                                                    field: {
+                                                        name,
+                                                        onChange,
+                                                        value,
+                                                    },
+                                                }) => (
+                                                    <Fragment>
+                                                        <Typography
+                                                            variant="p"
+                                                            style={{
+                                                                fontSize:
+                                                                    "14px",
+                                                            }}
+                                                        >
+                                                            {x.strNombre}
+                                                        </Typography>
+                                                        <TextField
+                                                            label="¿Se logró el objetivo?"
+                                                            variant="standard"
+                                                            name={name}
+                                                            value={value}
+                                                            onChange={(e) =>
+                                                                onChange(e)
+                                                            }
+                                                            disabled={loading}
+                                                            helperText={
+                                                                "Selecciona una opción"
+                                                            }
+                                                            fullWidth
+                                                            select
+                                                        >
+                                                            <MenuItem
+                                                                value={true}
+                                                            >
+                                                                Sí
+                                                            </MenuItem>
+                                                            <MenuItem
+                                                                value={false}
+                                                            >
+                                                                No
+                                                            </MenuItem>
+                                                        </TextField>
+                                                    </Fragment>
+                                                )}
+                                                control={control}
+                                            />
+
+                                            <Controller
+                                                name={`objObjetivos.${x.intId}.strMotivo`}
+                                                defaultValue=""
+                                                render={({
+                                                    field: {
+                                                        name,
+                                                        onChange,
+                                                        value,
+                                                    },
+                                                }) => (
+                                                    <TextField
+                                                        label="En caso de que no, especificar el por que"
+                                                        variant="outlined"
+                                                        name={name}
+                                                        value={value}
+                                                        onChange={(e) =>
+                                                            onChange(e)
+                                                        }
+                                                        disabled={loading}
+                                                        helperText={
+                                                            "Describe brevemente el motivo"
+                                                        }
+                                                        fullWidth
+                                                        multiline
+                                                        rows={4}
+                                                    />
+                                                )}
+                                                control={control}
+                                            />
+                                        </Grid>
+                                    </Fragment>
+                                ))}
 
                                 <Grid item xs={12}>
                                     <Box

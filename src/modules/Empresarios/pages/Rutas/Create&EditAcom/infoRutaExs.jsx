@@ -22,6 +22,7 @@ const InfoRutaExs = ({
     intIdIdea,
     watch,
     setValue,
+    setDataObj,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -37,6 +38,7 @@ const InfoRutaExs = ({
 
     const watchObjRuta = watch("objInfoRutaExs.objRuta");
     const watchObjFase = watch("objInfoRutaExs.objFase");
+    const watchObServicio = watch("objInfoRutaExs.objServicio");
 
     useEffect(() => {
         if (values) {
@@ -67,12 +69,19 @@ const InfoRutaExs = ({
 
                 const { arrServicios } = arrFase;
 
-                setArrServicios(arrServicios)
+                setArrServicios(arrServicios);
             }
 
             getData();
         }
     }, [watchObjRuta, intIdIdea, watchObjFase]);
+
+    useEffect(() => {
+        if (watchObServicio) {
+            const { arrObjetivos } = watchObServicio;
+            setDataObj(arrObjetivos);
+        }
+    }, [watchObServicio]);
 
     if (loading) {
         return (

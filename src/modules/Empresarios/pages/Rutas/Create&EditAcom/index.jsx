@@ -25,6 +25,7 @@ import {
     Container,
     Alert,
     TextField,
+    MenuItem,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -114,6 +115,10 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
         dtmFechaProx: null,
         strRetroAlim: "",
         strURLDocumento: "",
+        bitFinalizarSesion: false,
+        objObjetivos: {
+            bitFinalizaServ: false,
+        },
     });
 
     const [success, setSucces] = useState(false);
@@ -121,6 +126,8 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
     const [loading, setLoading] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
+
+    const [dataObj, setDataObj] = useState([]);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -232,8 +239,6 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
 
     useEffect(() => {
         if (values) {
-            console.log(values);
-
             setData({
                 objEmpresario: null,
                 intIdIdea,
@@ -251,7 +256,12 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                 dtmFechaProx: null,
                 strRetroAlim: "",
                 strURLDocumento: "",
+                bitFinalizarSesion: false,
+                objObjetivos: {
+                    bitFinalizaServ: false,
+                },
             });
+
             reset({
                 objEmpresario: null,
                 intIdIdea,
@@ -269,6 +279,10 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                 dtmFechaProx: null,
                 strRetroAlim: "",
                 strURLDocumento: "",
+                bitFinalizarSesion: false,
+                objObjetivos: {
+                    bitFinalizaServ: false,
+                },
             });
         }
     }, [values]);
@@ -571,6 +585,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                         remove={remove}
                                         watch={watch}
                                         intIdIdea={intIdIdea}
+                                        setDataObj={setDataObj}
                                     />
                                 )}
 
@@ -928,6 +943,199 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                         control={control}
                                     />
                                 </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography
+                                        style={{
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        Información adicional
+                                    </Typography>
+                                    <hr />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={
+                                            data.bitFinalizarSesion
+                                        }
+                                        name="bitFinalizarSesion"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <TextField
+                                                label="¿Desea finalizar la sesión?"
+                                                variant="standard"
+                                                name={name}
+                                                value={value}
+                                                onChange={(e) => onChange(e)}
+                                                disabled={loading}
+                                                helperText={
+                                                    "Selecciona una opción"
+                                                }
+                                                fullWidth
+                                                select
+                                            >
+                                                <MenuItem value={true}>
+                                                    Sí
+                                                </MenuItem>
+                                                <MenuItem value={false}>
+                                                    No
+                                                </MenuItem>
+                                            </TextField>
+                                        )}
+                                        control={control}
+                                    />
+                                </Grid>
+
+                                {watchIntTipoAcomp === 1 && (
+                                    <Fragment>
+                                        <Grid item xs={12}>
+                                            <Controller
+                                                defaultValue={
+                                                    data.objObjetivos
+                                                        .bitFinalizaServ
+                                                }
+                                                name="objObjetivos.bitFinalizaServ"
+                                                render={({
+                                                    field: {
+                                                        name,
+                                                        onChange,
+                                                        value,
+                                                    },
+                                                }) => (
+                                                    <TextField
+                                                        label="¿Desea finalizar el servicio?"
+                                                        variant="standard"
+                                                        name={name}
+                                                        value={value}
+                                                        onChange={(e) =>
+                                                            onChange(e)
+                                                        }
+                                                        disabled={loading}
+                                                        helperText={
+                                                            "Selecciona una opción"
+                                                        }
+                                                        fullWidth
+                                                        select
+                                                    >
+                                                        <MenuItem value={true}>
+                                                            Sí
+                                                        </MenuItem>
+                                                        <MenuItem value={false}>
+                                                            No
+                                                        </MenuItem>
+                                                    </TextField>
+                                                )}
+                                                control={control}
+                                            />
+                                        </Grid>
+
+                                        {dataObj.map((x) => (
+                                            <Fragment>
+                                                <Grid item xs={12}>
+                                                    <Controller
+                                                        name={`objObjetivos.${x.intId}`}
+                                                        defaultValue={false}
+                                                        render={({
+                                                            field: {
+                                                                name,
+                                                                onChange,
+                                                                value,
+                                                            },
+                                                        }) => (
+                                                            <Fragment>
+                                                                <Typography
+                                                                    variant="p"
+                                                                    style={{
+                                                                        fontSize:
+                                                                            "14px",
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        x.strNombre
+                                                                    }
+                                                                </Typography>
+                                                                <TextField
+                                                                    label="¿Se logró el objetivo?"
+                                                                    variant="standard"
+                                                                    name={name}
+                                                                    value={
+                                                                        value
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        onChange(
+                                                                            e
+                                                                        )
+                                                                    }
+                                                                    disabled={
+                                                                        loading
+                                                                    }
+                                                                    helperText={
+                                                                        "Selecciona una opción"
+                                                                    }
+                                                                    fullWidth
+                                                                    select
+                                                                >
+                                                                    <MenuItem
+                                                                        value={
+                                                                            true
+                                                                        }
+                                                                    >
+                                                                        Sí
+                                                                    </MenuItem>
+                                                                    <MenuItem
+                                                                        value={
+                                                                            false
+                                                                        }
+                                                                    >
+                                                                        No
+                                                                    </MenuItem>
+                                                                </TextField>
+                                                            </Fragment>
+                                                        )}
+                                                        control={control}
+                                                    />
+
+                                                    <Controller
+                                                        name={`objObjetivos.${x.intId}.strMotivo`}
+                                                        defaultValue=""
+                                                        render={({
+                                                            field: {
+                                                                name,
+                                                                onChange,
+                                                                value,
+                                                            },
+                                                        }) => (
+                                                            <TextField
+                                                                label="En caso de que no, especificar el por que"
+                                                                variant="outlined"
+                                                                name={name}
+                                                                value={value}
+                                                                onChange={(e) =>
+                                                                    onChange(e)
+                                                                }
+                                                                disabled={
+                                                                    loading
+                                                                }
+                                                                helperText={
+                                                                    "Describe brevemente el motivo"
+                                                                }
+                                                                fullWidth
+                                                                multiline
+                                                                rows={4}
+                                                            />
+                                                        )}
+                                                        control={control}
+                                                    />
+                                                </Grid>
+                                            </Fragment>
+                                        ))}
+                                    </Fragment>
+                                )}
 
                                 <Grid item xs={12}>
                                     <Box
