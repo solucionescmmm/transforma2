@@ -40,9 +40,6 @@ class updateEmpresarioPrincipal {
         await this.#updateIdea();
         await this.#updateEmpresa();
         await this.#updateInfoAdicional();
-        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio") {
-           await this.#updateHistorico()
-        }
 
         return this.#objResult;
     }
