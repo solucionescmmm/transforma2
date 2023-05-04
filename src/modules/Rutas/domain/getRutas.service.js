@@ -64,21 +64,11 @@ const getRutas = async (objParams, strDataUser) => {
                     for (let j = 0; j < arrFasesRutas.length; j++) {
                         let objInfoFases = arrFasesRutas[j];
 
-                        let arrPaquetes = [];
-
-                        let arrObjPaquetes = objInfoFases.arrPaquetes;
-
-                        let arrServicios = [];
-
-                        let arrObjServicios = objInfoFases.arrServicios;
-
                         arrInfoFases[j] = {
                             ...objInfoFases,
                             strResponsable: JSON.parse(
                                 objInfoFases?.strResponsable || null
                             ),
-                            arrPaquetes,
-                            arrServicios,
                         };
                     }
 
@@ -150,8 +140,6 @@ const getRutas = async (objParams, strDataUser) => {
                         let arrServicios = [];
 
                         let arrObjServicios = objInfoFases.arrServicios;
-
-                        console.log(arrObjServicios)
 
                         if (arrObjServicios?.length > 0) {
                             for (let k = 0; k < arrObjServicios.length; k++) {
