@@ -7,6 +7,7 @@ const validator = require("validator").default;
 //Service
 const serviceSetDocumento = require("../../Document/domain/setDocumento.service");
 const serviceSetRutaNoPlaneada = require("../../Rutas/domain/setRutaNoPlaneada.service")
+const serviceSetFinalizarServicio = require("../../Rutas/domain/checkServicioFase.service")
 
 class setAcompañamiento {
     //obj info
@@ -153,6 +154,34 @@ class setAcompañamiento {
         if (query.error) {
             throw new Error(query.msg);
         }
+    }
+
+    async #setFinalizarServicio(){
+
+        //falta agregar la data que va hacer el finalizar el servicio
+
+        let data = {
+            intIdIdea: this.#objData.intIdIdea,
+            strObservaciones: "Ruta creada apartir de un acompañamiento",
+            strResponsable: this.#objData.objResponsable,
+            arrInfoFases: [{
+                strObservaciones: "Ruta creada apartir de un acompañamiento",
+                arrPaquetes: this.#objData.objNuevoServPaq?.objPaquete ? [this.#objData.objNuevoServPaq?.objPaquete] : null,
+                arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [this.#objData.objNuevoServPaq?.objServicio] : null,
+            }]
+        }
+
+        let service = new serviceSetFinalizarServicio({
+            data,
+            strDataUser: this.#objUser
+        });
+
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+
     }
 }
 module.exports = setAcompañamiento;
