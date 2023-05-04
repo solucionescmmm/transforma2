@@ -29,13 +29,14 @@ class setAcompañamiento {
     }
 
     async main() {
-        await this.#validations();
-        await this.#setAcompañamiento();
-        await this.#setSesionAcompañamiento();
-        if (this.#objData.intTipoAcomp === 2) {
-            await this.#setRutasNoPlaneada()
-        }
-        return this.#objResult;
+        console.log(Object.keys(this.#objData.objObjetivos), this.#objData.objObjetivos)
+        // await this.#validations();
+        // await this.#setAcompañamiento();
+        // await this.#setSesionAcompañamiento();
+        // if (this.#objData.intTipoAcomp === 2) {
+        //     await this.#setRutasNoPlaneada()
+        // }
+        // return this.#objResult;
     }
 
     async #validations() {
