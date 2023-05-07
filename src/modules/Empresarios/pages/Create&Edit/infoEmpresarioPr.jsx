@@ -19,7 +19,7 @@ import {
 
 import NumberFormat from "react-number-format";
 
-import { DatePicker } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 
 //Iconos de Material UI
 import {
@@ -43,7 +43,7 @@ const InfoEmpresarioPr = ({
     control,
     setError,
     clearErrors,
-    isEdit
+    isEdit,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -123,7 +123,12 @@ const InfoEmpresarioPr = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -136,7 +141,9 @@ const InfoEmpresarioPr = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoEmpresarioPr ? "#D33030" : "inherit",
+                            color: errors?.objInfoEmpresarioPr
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Información de la persona empresaria principal
@@ -144,13 +151,22 @@ const InfoEmpresarioPr = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -158,7 +174,9 @@ const InfoEmpresarioPr = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoEmpresarioPr ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoEmpresarioPr
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -223,20 +241,22 @@ const InfoEmpresarioPr = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strApellidos
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strApellidos
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strApellidos
-                                            ?.message ||
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strApellidos?.message ||
                                         "Digíta los apellidos de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digíta los apellidos de la persona",
+                                required:
+                                    "Por favor, digíta los apellidos de la persona",
                                 validate: (value) => {
                                     if (
                                         !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
@@ -263,19 +283,22 @@ const InfoEmpresarioPr = ({
                                     required
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strTipoDocto
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strTipoDocto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strTipoDocto
-                                            ?.message || "Selecciona el tipo de documento"
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strTipoDocto?.message ||
+                                        "Selecciona el tipo de documento"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona el tipo de documento",
+                                required:
+                                    "Por favor, selecciona el tipo de documento",
                             }}
                         />
                     </Grid>
@@ -301,13 +324,15 @@ const InfoEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strNroDocto
-                                            ?.message || "Digita el número de documento"
+                                            ?.message ||
+                                        "Digita el número de documento"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el número de documento",
+                                required:
+                                    "Por favor, digita el número de documento",
                             }}
                         />
                     </Grid>
@@ -333,7 +358,8 @@ const InfoEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr
-                                            ?.strLugarExpedicionDocto?.message ||
+                                            ?.strLugarExpedicionDocto
+                                            ?.message ||
                                         "Digita el lugar de expedición del documento"
                                     }
                                 />
@@ -352,25 +378,20 @@ const InfoEmpresarioPr = ({
                                     value={value}
                                     disabled={disabled}
                                     onChange={(date) => onChange(date)}
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            fullWidth
-                                            variant="standard"
-                                            error={
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoEmpresarioPr
+                                                ?.dtFechaExpedicionDocto,
+                                            helperText:
                                                 errors?.objInfoEmpresarioPr
                                                     ?.dtFechaExpedicionDocto
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoEmpresarioPr
-                                                    ?.dtFechaExpedicionDocto?.message ||
-                                                "Selecciona la fecha de expedición del documento"
-                                            }
-                                        />
-                                    )}
+                                                    ?.message ||
+                                                "Selecciona la fecha de expedición del documento",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -387,25 +408,20 @@ const InfoEmpresarioPr = ({
                                     value={value}
                                     disabled={disabled}
                                     onChange={(date) => onChange(date)}
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            fullWidth
-                                            variant="standard"
-                                            error={
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoEmpresarioPr
+                                                ?.dtFechaNacimiento,
+                                            helperText:
                                                 errors?.objInfoEmpresarioPr
                                                     ?.dtFechaNacimiento
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoEmpresarioPr
-                                                    ?.dtFechaNacimiento?.message ||
-                                                "Selecciona la fecha de nacimiento"
-                                            }
-                                        />
-                                    )}
+                                                    ?.message ||
+                                                "Selecciona la fecha de nacimiento",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -430,14 +446,16 @@ const InfoEmpresarioPr = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strGenero?.message ||
+                                        errors?.objInfoEmpresarioPr?.strGenero
+                                            ?.message ||
                                         "Selecciona el género de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona el género de la persona",
+                                required:
+                                    "Por favor, selecciona el género de la persona",
                             }}
                         />
                     </Grid>
@@ -477,7 +495,12 @@ const InfoEmpresarioPr = ({
                                 validate: (value) => {
                                     let strValue = value.replace(/\s/g, "");
 
-                                    if (!validator.isMobilePhone(strValue, "es-CO")) {
+                                    if (
+                                        !validator.isMobilePhone(
+                                            strValue,
+                                            "es-CO"
+                                        )
+                                    ) {
                                         return "El número ingresado no corresponde a un operador válido en Colombia";
                                     }
                                 },
@@ -518,7 +541,12 @@ const InfoEmpresarioPr = ({
                                     if (value) {
                                         let strValue = value.replace(/\s/g, "");
 
-                                        if (!validator.isMobilePhone(strValue, "es-CO")) {
+                                        if (
+                                            !validator.isMobilePhone(
+                                                strValue,
+                                                "es-CO"
+                                            )
+                                        ) {
                                             return "El número ingresado no corresponde a un operador válido en Colombia";
                                         }
                                     }
@@ -541,13 +569,14 @@ const InfoEmpresarioPr = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico1
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strCorreoElectronico1
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico1
-                                            ?.message ||
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strCorreoElectronico1?.message ||
                                         "Digita el correo electrónico de la persona"
                                     }
                                 />
@@ -579,13 +608,14 @@ const InfoEmpresarioPr = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico2
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strCorreoElectronico2
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strCorreoElectronico2
-                                            ?.message ||
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strCorreoElectronico2?.message ||
                                         "Digita el correo electrónico alterno de la persona"
                                     }
                                 />
@@ -615,13 +645,14 @@ const InfoEmpresarioPr = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strNivelEducativo
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strNivelEducativo
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strNivelEducativo
-                                            ?.message ||
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strNivelEducativo?.message ||
                                         "Selecciona el nivel educativo de la persona"
                                     }
                                 />
@@ -678,7 +709,8 @@ const InfoEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr
-                                            ?.strCondicionDiscapacidad?.message ||
+                                            ?.strCondicionDiscapacidad
+                                            ?.message ||
                                         "Selecciona la discapacidad de la persona, en caso de padecer alguna"
                                     }
                                 />
@@ -753,16 +785,20 @@ const InfoEmpresarioPr = ({
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
-                                        handlerChangeData("arrDepartamento", value);
+                                        handlerChangeData(
+                                            "arrDepartamento",
+                                            value
+                                        );
                                     }}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.arrDepartamento
+                                        errors?.objInfoEmpresarioPr
+                                            ?.arrDepartamento
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.arrDepartamento
-                                            ?.message ||
+                                        errors?.objInfoEmpresarioPr
+                                            ?.arrDepartamento?.message ||
                                         "Selecciona el departamento de residencia"
                                     }
                                 />
@@ -791,9 +827,12 @@ const InfoEmpresarioPr = ({
                                             ? true
                                             : false
                                     }
-                                    strDepartamento={data.arrDepartamento?.region_name}
+                                    strDepartamento={
+                                        data.arrDepartamento?.region_name
+                                    }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.arrCiudad?.message ||
+                                        errors?.objInfoEmpresarioPr?.arrCiudad
+                                            ?.message ||
                                         "Selecciona la ciudad de residencia"
                                     }
                                 />
@@ -819,7 +858,8 @@ const InfoEmpresarioPr = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strBarrio?.message ||
+                                        errors?.objInfoEmpresarioPr?.strBarrio
+                                            ?.message ||
                                         "Selecciona el barrio/corregimiento/vereda de residencia"
                                     }
                                     variant="standard"
@@ -877,13 +917,14 @@ const InfoEmpresarioPr = ({
                                     type="Imagen"
                                     errors={errors}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strURLFileFoto
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strURLFileFoto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strURLFileFoto
-                                            ?.message ||
+                                        errors?.objInfoEmpresarioPr
+                                            ?.strURLFileFoto?.message ||
                                         "Selecciona una foto de la persona"
                                     }
                                 />

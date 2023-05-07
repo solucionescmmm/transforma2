@@ -12,10 +12,9 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
-    TextField,
 } from "@mui/material";
 
-import { DatePicker } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 
 //Iconos de Material UI
 import {
@@ -26,7 +25,7 @@ import {
 //Componentes
 import SelectModalidadIngreso from "../../components/selectModalidadIngreso";
 import SelectEstadoVinculacion from "../../components/selectEstadoVinculacion";
-import SelectSedes from "../../components/selectSedes";
+import SelectSedes from "../../../Admin/components/selectSedes";
 import SelectTipoVinculacion from "../../components/selectTipoVinculacion";
 
 const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
@@ -200,27 +199,20 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     value={value}
                                     disabled={disabled}
                                     onChange={(date) => onChange(date)}
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            fullWidth
-                                            required
-                                            variant="standard"
-                                            error={
-                                                errors?.objInfoPrincipal
-                                                    ?.dtFechaVinculacion
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoPrincipal
+                                                ?.dtFechaVinculacion,
+                                            helperText:
                                                 errors?.objInfoPrincipal
                                                     ?.dtFechaVinculacion
                                                     ?.message ||
-                                                "Selecciona la fecha de vinculación"
-                                            }
-                                        />
-                                    )}
+                                                "Selecciona la fecha de vinculación",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}

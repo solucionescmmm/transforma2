@@ -122,10 +122,10 @@ const DropdownLocalizaciones = ({
                     }
                 }
             }}
-            getOptionLabel={(option) => option?.region_name || option?.city_name || option}
+            getOptionLabel={(option) => option?.region_name || option?.city_name || option || []}
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
-                    if (option.region_name) {
+                    if (option?.region_name) {
                         return (
                             <Chip
                                 key={index}
@@ -135,7 +135,7 @@ const DropdownLocalizaciones = ({
                         );
                     }
 
-                    if (option.city_name) {
+                    if (option?.city_name) {
                         return (
                             <Chip
                                 key={index}
@@ -146,7 +146,7 @@ const DropdownLocalizaciones = ({
                     }
 
                     return (
-                        <Chip key={index} label={option} {...getTagProps({ index })} />
+                        <Chip key={index} label={option || ""} {...getTagProps({ index })} />
                     );
                 })
             }
@@ -161,7 +161,7 @@ const DropdownLocalizaciones = ({
                                 checked={selected}
                             />
                         )}
-                        <ListItemText primary={option.region_name || option.city_name} />
+                        <ListItemText primary={option?.region_name || option?.city_name || option || ""} />
                     </ListItem>
                 </List>
             )}

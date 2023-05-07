@@ -17,7 +17,7 @@ import {
     MenuItem,
 } from "@mui/material";
 
-import { DatePicker } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 
 //Iconos de Material UI
 import {
@@ -48,7 +48,7 @@ const InfoEmpresa = ({
     setValue,
     setError,
     clearErrors,
-    isEdit
+    isEdit,
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -121,7 +121,8 @@ const InfoEmpresa = ({
                 strCategoriaServicio: values.strCategoriaServicio || "",
                 arrCategoriasSecundarias: values.arrCategoriasSecundarias || [],
                 strOtraCategoria: values.strOtraCategoria || "",
-                strDescProductosServicios: values.strDescProductosServicios || "",
+                strDescProductosServicios:
+                    values.strDescProductosServicios || "",
                 strMateriaPrima: values.strMateriaPrima || "",
                 strNombreTecnica: values.strNombreTecnica || "",
                 strTiempoDedicacion: values.strTiempoDedicacion || "",
@@ -133,7 +134,8 @@ const InfoEmpresa = ({
                 dblValorVentasMes: values.valorVentasMes || "",
                 arrRequisitosLey: values.arrRequisitosLey || [],
                 strOtrosRequisitosLey: values.strOtrosRequisitosLey || "",
-                arrFormasComercializacion: values.arrFormasComercializacion || [],
+                arrFormasComercializacion:
+                    values.arrFormasComercializacion || [],
                 arrMediosDigitales: values.arrMediosDigitales || [],
                 btGrupoAsociativo:
                     typeof values.btGrupoAsociativo === "boolean"
@@ -149,7 +151,12 @@ const InfoEmpresa = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -162,7 +169,9 @@ const InfoEmpresa = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoEmpresa ? "#D33030" : "inherit",
+                            color: errors?.objInfoEmpresa
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Información de la empresa
@@ -170,13 +179,22 @@ const InfoEmpresa = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -206,13 +224,14 @@ const InfoEmpresa = ({
                                     setError={setError}
                                     clearErrors={clearErrors}
                                     error={
-                                        errors?.objInfoEmpresa?.strURLFileLogoEmpresa
+                                        errors?.objInfoEmpresa
+                                            ?.strURLFileLogoEmpresa
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strURLFileLogoEmpresa
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strURLFileLogoEmpresa?.message ||
                                         "Selecciona el logo de la empresa"
                                     }
                                 />
@@ -243,7 +262,10 @@ const InfoEmpresa = ({
                                             ""
                                         );
 
-                                        setValue("objInfoEmpresa.dtFechaFundacion", null);
+                                        setValue(
+                                            "objInfoEmpresa.dtFechaFundacion",
+                                            null
+                                        );
                                     }}
                                     select
                                     variant="standard"
@@ -296,17 +318,20 @@ const InfoEmpresa = ({
                                             : disabled
                                     }
                                     error={
-                                        errors?.objInfoEmpresa?.strCuandoComienzaEmpresa
+                                        errors?.objInfoEmpresa
+                                            ?.strCuandoComienzaEmpresa
                                             ? true
                                             : false
                                     }
                                     required={
-                                        data.strEstadoNegocio === "Idea de negocio"
+                                        data.strEstadoNegocio ===
+                                        "Idea de negocio"
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strCuandoComienzaEmpresa
+                                        errors?.objInfoEmpresa
+                                            ?.strCuandoComienzaEmpresa
                                             ?.message || "Selecciona una opción"
                                     }
                                 />
@@ -314,7 +339,10 @@ const InfoEmpresa = ({
                             control={control}
                             rules={{
                                 validate: (value) => {
-                                    if (data.strEstadoNegocio === "" && !value) {
+                                    if (
+                                        data.strEstadoNegocio === "" &&
+                                        !value
+                                    ) {
                                         return "Por favor, selecciona una opción";
                                     }
                                 },
@@ -342,14 +370,16 @@ const InfoEmpresa = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strNombreMarca?.message ||
+                                        errors?.objInfoEmpresa?.strNombreMarca
+                                            ?.message ||
                                         "Digita el nombre de la empresa"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el nombre de la empresa",
+                                required:
+                                    "Por favor, digita el nombre de la empresa",
                             }}
                         />
                     </Grid>
@@ -364,28 +394,25 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled={
-                                        data.strEstadoNegocio === "Idea de negocio"
+                                        data.strEstadoNegocio ===
+                                        "Idea de negocio"
                                             ? true
                                             : disabled
                                     }
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            variant="standard"
-                                            error={
-                                                errors?.objInfoEmpresa?.dtFechaFundacion
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoEmpresa?.dtFechaFundacion
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoEmpresa
+                                                ?.dtFechaFundacion,
+                                            helperText:
+                                                errors?.objInfoEmpresa
+                                                    ?.dtFechaFundacion
                                                     ?.message ||
-                                                "Selecciona la fecha de fundación"
-                                            }
-                                            fullWidth
-                                        />
-                                    )}
+                                                "Selecciona la fecha de fundación",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -413,19 +440,29 @@ const InfoEmpresa = ({
                                             "objInfoEmpresa.strDireccionResidencia",
                                             ""
                                         );
-                                        setValue("objInfoEmpresa.arrDepartamento", "");
-                                        setValue("objInfoEmpresa.arrCiudad", "");
-                                        setValue("objInfoEmpresa.strBarrio", "");
+                                        setValue(
+                                            "objInfoEmpresa.arrDepartamento",
+                                            ""
+                                        );
+                                        setValue(
+                                            "objInfoEmpresa.arrCiudad",
+                                            ""
+                                        );
+                                        setValue(
+                                            "objInfoEmpresa.strBarrio",
+                                            ""
+                                        );
                                     }}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.strLugarOperacion
+                                        errors?.objInfoEmpresa
+                                            ?.strLugarOperacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strLugarOperacion
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strLugarOperacion?.message ||
                                         "Selecciona el lugar donde opera la empresa"
                                     }
                                     required
@@ -450,20 +487,22 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     disabled={
-                                        data.strLugarOperacion === "Desde la vivienda"
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresa?.strDireccionResidencia
+                                        errors?.objInfoEmpresa
+                                            ?.strDireccionResidencia
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strDireccionResidencia
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strDireccionResidencia?.message ||
                                         "Digita la dirección de la empresa"
                                     }
                                 />
@@ -481,7 +520,8 @@ const InfoEmpresa = ({
                                     label="Departamento"
                                     strCodigo="departamentos"
                                     disabled={
-                                        data.strLugarOperacion === "Desde la vivienda"
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -489,7 +529,10 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(e, value) => {
                                         onChange(value);
-                                        handlerChangeData("arrDepartamento", value);
+                                        handlerChangeData(
+                                            "arrDepartamento",
+                                            value
+                                        );
                                     }}
                                     error={
                                         errors?.objInfoEmpresa?.arrDepartamento
@@ -518,7 +561,8 @@ const InfoEmpresa = ({
                                     name={name}
                                     value={value}
                                     disabled={
-                                        data.strLugarOperacion === "Desde la vivienda"
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -527,11 +571,16 @@ const InfoEmpresa = ({
                                         handlerChangeData("arrCiudad", value);
                                     }}
                                     error={
-                                        errors?.objInfoEmpresa?.arrCiudad ? true : false
+                                        errors?.objInfoEmpresa?.arrCiudad
+                                            ? true
+                                            : false
                                     }
-                                    strDepartamento={data.arrDepartamento?.region_name}
+                                    strDepartamento={
+                                        data.arrDepartamento?.region_name
+                                    }
                                     helperText={
-                                        errors?.objInfoEmpresa?.arrCiudad?.message ||
+                                        errors?.objInfoEmpresa?.arrCiudad
+                                            ?.message ||
                                         "Selecciona la ciudad de la empresa"
                                     }
                                 />
@@ -549,17 +598,21 @@ const InfoEmpresa = ({
                                     label="Barrio/Corregimiento/Vereda"
                                     name={name}
                                     disabled={
-                                        data.strLugarOperacion === "Desde la vivienda"
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoEmpresa?.strBarrio ? true : false
+                                        errors?.objInfoEmpresa?.strBarrio
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strBarrio?.message ||
+                                        errors?.objInfoEmpresa?.strBarrio
+                                            ?.message ||
                                         "Selecciona el barrio/corregimiento/vereda de la empresa"
                                     }
                                     variant="standard"
@@ -582,13 +635,14 @@ const InfoEmpresa = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.strSectorEconomico
+                                        errors?.objInfoEmpresa
+                                            ?.strSectorEconomico
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strSectorEconomico
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strSectorEconomico?.message ||
                                         "Selecciona el sector económico de la empresa"
                                     }
                                     required
@@ -625,16 +679,19 @@ const InfoEmpresa = ({
                                         );
                                     }}
                                     disabled={
-                                        data.strCategoriaServicio !== "" ? true : disabled
+                                        data.strCategoriaServicio !== ""
+                                            ? true
+                                            : disabled
                                     }
                                     error={
-                                        errors?.objInfoEmpresa?.strCategoriaProducto
+                                        errors?.objInfoEmpresa
+                                            ?.strCategoriaProducto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strCategoriaProducto
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strCategoriaProducto?.message ||
                                         "Selecciona la categoría de los productos"
                                     }
                                 />
@@ -661,16 +718,19 @@ const InfoEmpresa = ({
                                         );
                                     }}
                                     disabled={
-                                        data.strCategoriaProducto !== "" ? true : disabled
+                                        data.strCategoriaProducto !== ""
+                                            ? true
+                                            : disabled
                                     }
                                     error={
-                                        errors?.objInfoEmpresa?.strCategoriaServicio
+                                        errors?.objInfoEmpresa
+                                            ?.strCategoriaServicio
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strCategoriaServicio
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strCategoriaServicio?.message ||
                                         "Selecciona la categoría de los servicios"
                                     }
                                 />
@@ -691,13 +751,15 @@ const InfoEmpresa = ({
                                     onChange={(e, value) => onChange(value)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.arrCategoriasSecundarias
+                                        errors?.objInfoEmpresa
+                                            ?.arrCategoriasSecundarias
                                             ? true
                                             : false
                                     }
                                     multiple
                                     helperText={
-                                        errors?.objInfoEmpresa?.arrCategoriasSecundarias
+                                        errors?.objInfoEmpresa
+                                            ?.arrCategoriasSecundarias
                                             ?.message ||
                                         "Selecciona las categorías secundarias en caso de que aplique"
                                     }
@@ -753,12 +815,14 @@ const InfoEmpresa = ({
                                     multiline
                                     rows={4}
                                     error={
-                                        errors?.objInfoEmpresa?.strDescProductosServicios
+                                        errors?.objInfoEmpresa
+                                            ?.strDescProductosServicios
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strDescProductosServicios
+                                        errors?.objInfoEmpresa
+                                            ?.strDescProductosServicios
                                             ?.message ||
                                         "Describe detalladamente los servicios que ofrece la empresa"
                                     }
@@ -847,13 +911,15 @@ const InfoEmpresa = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmpresa?.strTiempoDedicacion
+                                        errors?.objInfoEmpresa
+                                            ?.strTiempoDedicacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strTiempoDedicacion
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoEmpresa
+                                            ?.strTiempoDedicacion?.message ||
+                                        "Selecciona una opción"
                                     }
                                 />
                             )}
@@ -879,7 +945,10 @@ const InfoEmpresa = ({
                                             "btGeneraEmpleo",
                                             e.target.value
                                         );
-                                        setValue("objInfoEmpresa.intNumeroEmpleados", "");
+                                        setValue(
+                                            "objInfoEmpresa.intNumeroEmpleados",
+                                            ""
+                                        );
                                     }}
                                     select
                                     fullWidth
@@ -892,7 +961,8 @@ const InfoEmpresa = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.btGeneraEmpleo?.message ||
+                                        errors?.objInfoEmpresa?.btGeneraEmpleo
+                                            ?.message ||
                                         "Selecciona si la empresa genera empleo o no"
                                     }
                                 >
@@ -924,16 +994,21 @@ const InfoEmpresa = ({
                                     type="number"
                                     fullWidth
                                     variant="standard"
-                                    disabled={!data.btGeneraEmpleo ? true : disabled}
-                                    required={data.btGeneraEmpleo ? true : false}
+                                    disabled={
+                                        !data.btGeneraEmpleo ? true : disabled
+                                    }
+                                    required={
+                                        data.btGeneraEmpleo ? true : false
+                                    }
                                     error={
-                                        errors?.objInfoEmpresa?.intNumeroEmpleados
+                                        errors?.objInfoEmpresa
+                                            ?.intNumeroEmpleados
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.intNumeroEmpleados
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.intNumeroEmpleados?.message ||
                                         "Digita la cantidad de empleos generados"
                                     }
                                 />
@@ -942,11 +1017,15 @@ const InfoEmpresa = ({
                             rules={{
                                 validate: (value) => {
                                     if (data.btGeneraEmpleo) {
-                                        if (value === "" || value === undefined) {
+                                        if (
+                                            value === "" ||
+                                            value === undefined
+                                        ) {
                                             return "Por favor, digita la cantidad de empleos generados";
                                         }
 
-                                        let intNumeroEmpleados = parseInt(value);
+                                        let intNumeroEmpleados =
+                                            parseInt(value);
 
                                         if (intNumeroEmpleados < 1) {
                                             return "La cantidad de empleados no pueden ser inferiores a 1";
@@ -978,13 +1057,14 @@ const InfoEmpresa = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmpresa?.dblValorVentasMes
+                                        errors?.objInfoEmpresa
+                                            ?.dblValorVentasMes
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.dblValorVentasMes
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.dblValorVentasMes?.message ||
                                         "Digita la cantidad promedio de las ventas mensuales"
                                     }
                                 />
@@ -1039,13 +1119,14 @@ const InfoEmpresa = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.strOtrosRequisitosLey
+                                        errors?.objInfoEmpresa
+                                            ?.strOtrosRequisitosLey
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strOtrosRequisitosLey
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strOtrosRequisitosLey?.message ||
                                         "Digita en caso de cumplir otros requerimientos legales"
                                     }
                                 />
@@ -1066,12 +1147,14 @@ const InfoEmpresa = ({
                                     onChange={(value) => onChange(value)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.arrFormasComercializacion
+                                        errors?.objInfoEmpresa
+                                            ?.arrFormasComercializacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.arrFormasComercializacion
+                                        errors?.objInfoEmpresa
+                                            ?.arrFormasComercializacion
                                             ?.message ||
                                         "Selecciona los medios que utilice para la venta de sus productos o servicios"
                                     }
@@ -1094,13 +1177,14 @@ const InfoEmpresa = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmpresa?.arrMediosDigitales
+                                        errors?.objInfoEmpresa
+                                            ?.arrMediosDigitales
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.arrMediosDigitales
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.arrMediosDigitales?.message ||
                                         "Selecciona los medios digitales que utilice y coloque su ID"
                                     }
                                 />
@@ -1140,13 +1224,15 @@ const InfoEmpresa = ({
                                     fullWidth
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.btGrupoAsociativo
+                                        errors?.objInfoEmpresa
+                                            ?.btGrupoAsociativo
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.btGrupoAsociativo
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoEmpresa
+                                            ?.btGrupoAsociativo?.message ||
+                                        "Selecciona una opción"
                                     }
                                 >
                                     <MenuItem value={true}>Sí</MenuItem>
@@ -1159,7 +1245,9 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strAsociacionUnidadProdIndividual}
+                            defaultValue={
+                                data.strAsociacionUnidadProdIndividual
+                            }
                             name="objInfoEmpresa.strAsociacionUnidadProdIndividual"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
@@ -1170,7 +1258,11 @@ const InfoEmpresa = ({
                                     select
                                     variant="standard"
                                     fullWidth
-                                    disabled={!data?.btGrupoAsociativo ? true : disabled}
+                                    disabled={
+                                        !data?.btGrupoAsociativo
+                                            ? true
+                                            : disabled
+                                    }
                                     error={
                                         errors?.objInfoEmpresa
                                             ?.strAsociacionUnidadProdIndividual
@@ -1182,9 +1274,13 @@ const InfoEmpresa = ({
                                             ?.strAsociacionUnidadProdIndividual
                                             ?.message || "Selecciona una opción"
                                     }
-                                    required={data?.btGrupoAsociativo ? true : false}
+                                    required={
+                                        data?.btGrupoAsociativo ? true : false
+                                    }
                                 >
-                                    <MenuItem value="Asociación">Asociación</MenuItem>
+                                    <MenuItem value="Asociación">
+                                        Asociación
+                                    </MenuItem>
                                     <MenuItem value="Empresa independiente">
                                         Empresa independiente
                                     </MenuItem>
