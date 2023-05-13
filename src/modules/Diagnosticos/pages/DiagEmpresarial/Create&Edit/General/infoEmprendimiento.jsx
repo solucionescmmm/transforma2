@@ -18,7 +18,7 @@ import {
     MenuItem,
 } from "@mui/material";
 
-import { DatePicker } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 
 //Iconos de Material UI
 import {
@@ -70,6 +70,23 @@ const InfoEmprendimiento = ({
         strOtraCategoria: "",
         strListadoProdServ: "",
         btGeneraEmpleo: "",
+        strDefinineLineasProductoServicios: "",
+        strLineaProductoServicioDestacada: "",
+        strProductoServiciosEnValidacion: "",
+        strNivelDlloProductoServicios: "",
+        strEtapaValidProductoServicios: "",
+        MinimoValorProducto: "",
+        MaximoValorProducto: "",
+        intCantidadUnidadesProducidasMes: "",
+        strEscojaProductoServicio: "",
+        ValorVentaProductoEscogido: "",
+        strConoceMargenRentaProductoEscogido: "",
+        intPorcentajeMargenRentaProductoEscogido: "",
+        strConoceCostosProductoEscogido: "",
+        CostoProduccionProductoEscogido: "",
+        strPorcentajeIntermediacionVentas: "",
+        strDefinePorcentajesCanal: "",
+        intRangoPorcentajeIntermediacionVentas: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -99,7 +116,8 @@ const InfoEmprendimiento = ({
                 strCorreoElectronico: values.strCorreoElectronico || "",
                 strRedesSociales: values.strRedesSociales || "",
                 arrMediosDigitales: values.arrMediosDigitales || [],
-                strRegistroCamaraComercio: values.strRegistroCamaraComercio || "",
+                strRegistroCamaraComercio:
+                    values.strRegistroCamaraComercio || "",
                 strTiempoDedicacion: values.strTiempoDedicacion || "",
                 strSectorEconomico: values.strSectorEconomico || "",
                 strCategoriaProducto: values.strCategoriaProducto || "",
@@ -107,6 +125,38 @@ const InfoEmprendimiento = ({
                 arrCategoriasSecundarias: values.arrCategoriasSecundarias || [],
                 strListadoProdServ: values.strListadoProdServ || "",
                 btGeneraEmpleo: values.btGeneraEmpleo || "",
+                strDefinineLineasProductoServicios:
+                    values.strDefinineLineasProductoServicios || "",
+                strLineaProductoServicioDestacada:
+                    values.strLineaProductoServicioDestacada || "",
+                strProductoServiciosEnValidacion:
+                    values.strProductoServiciosEnValidacion || "",
+                strNivelDlloProductoServicios:
+                    values.strNivelDlloProductoServicios || "",
+                strEtapaValidProductoServicios:
+                    values.strEtapaValidProductoServicios || "",
+                MinimoValorProducto: values.MinimoValorProducto || "",
+                MaximoValorProducto: values.MaximoValorProducto || "",
+                intCantidadUnidadesProducidasMes:
+                    values.intCantidadUnidadesProducidasMes || "",
+                strEscojaProductoServicio:
+                    values.strEscojaProductoServicio || "",
+                ValorVentaProductoEscogido:
+                    values.ValorVentaProductoEscogido || "",
+                strConoceMargenRentaProductoEscogido:
+                    values.strConoceMargenRentaProductoEscogido || "",
+                intPorcentajeMargenRentaProductoEscogido:
+                    values.intPorcentajeMargenRentaProductoEscogido || "",
+                strConoceCostosProductoEscogido:
+                    values.strConoceCostosProductoEscogido || "",
+                CostoProduccionProductoEscogido:
+                    values.CostoProduccionProductoEscogido || "",
+                strPorcentajeIntermediacionVentas:
+                    values.strPorcentajeIntermediacionVentas || "",
+                strDefinePorcentajesCanal:
+                    values.strDefinePorcentajesCanal || "",
+                intRangoPorcentajeIntermediacionVentas:
+                    values.intRangoPorcentajeIntermediacionVentas || "",
             });
         }
 
@@ -115,7 +165,12 @@ const InfoEmprendimiento = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -128,7 +183,9 @@ const InfoEmprendimiento = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoEmprendimiento ? "#D33030" : "inherit",
+                            color: errors?.objInfoEmprendimiento
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Información del emprendimiento
@@ -136,13 +193,22 @@ const InfoEmprendimiento = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -150,7 +216,9 @@ const InfoEmprendimiento = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoEmprendimiento ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoEmprendimiento
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -171,13 +239,14 @@ const InfoEmprendimiento = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmprendimiento?.strUnidadProductiva
+                                        errors?.objInfoEmprendimiento
+                                            ?.strUnidadProductiva
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strUnidadProductiva
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.strUnidadProductiva?.message ||
                                         "Digita el nombre de la empresa"
                                     }
                                 />
@@ -200,25 +269,21 @@ const InfoEmprendimiento = ({
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            variant="standard"
-                                            error={
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors
+                                                ?.objInfoEmprendimiento
+                                                ?.intAñoInicioOperacion,
+                                            helperText:
                                                 errors?.objInfoEmprendimiento
                                                     ?.intAñoInicioOperacion
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoEmprendimiento
-                                                    ?.intAñoInicioOperacion?.message ||
-                                                "Fecha de la última vez que se actualizó el diagnóstico"
-                                            }
-                                            fullWidth
-                                        />
-                                    )}
+                                                    ?.message ||
+                                                "Fecha de la última vez que se actualizó el diagnóstico",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -250,18 +315,25 @@ const InfoEmprendimiento = ({
                                             "objInfoEmprendimiento.arrDepartamento",
                                             ""
                                         );
-                                        setValue("objInfoEmprendimiento.arrCiudad", "");
-                                        setValue("objInfoEmprendimiento.strBarrio", "");
+                                        setValue(
+                                            "objInfoEmprendimiento.arrCiudad",
+                                            ""
+                                        );
+                                        setValue(
+                                            "objInfoEmprendimiento.strBarrio",
+                                            ""
+                                        );
                                     }}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmprendimiento?.strLugarOperacion
+                                        errors?.objInfoEmprendimiento
+                                            ?.strLugarOperacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strLugarOperacion
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.strLugarOperacion?.message ||
                                         "Selecciona el lugar donde opera la empresa"
                                     }
                                     required
@@ -284,7 +356,8 @@ const InfoEmprendimiento = ({
                                     label="Departamento"
                                     strCodigo="departamentos"
                                     disabled={
-                                        data.strLugarOperacion === "Desde la vivienda"
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -292,16 +365,20 @@ const InfoEmprendimiento = ({
                                     value={value}
                                     onChange={(e, value) => {
                                         onChange(value);
-                                        handlerChangeData("arrDepartamento", value);
+                                        handlerChangeData(
+                                            "arrDepartamento",
+                                            value
+                                        );
                                     }}
                                     error={
-                                        errors?.objInfoEmprendimiento?.arrDepartamento
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrDepartamento
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.arrDepartamento
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrDepartamento?.message ||
                                         "Selecciona el departamento de la empresa"
                                     }
                                 />
@@ -321,7 +398,8 @@ const InfoEmprendimiento = ({
                                     name={name}
                                     value={value}
                                     disabled={
-                                        data.strLugarOperacion === "Desde la vivienda"
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -334,7 +412,9 @@ const InfoEmprendimiento = ({
                                             ? true
                                             : false
                                     }
-                                    strDepartamento={data.arrDepartamento?.region_name}
+                                    strDepartamento={
+                                        data.arrDepartamento?.region_name
+                                    }
                                     helperText={
                                         errors?.objInfoEmprendimiento?.arrCiudad
                                             ?.message ||
@@ -355,7 +435,8 @@ const InfoEmprendimiento = ({
                                     label="Barrio/Corregimiento/Vereda"
                                     name={name}
                                     disabled={
-                                        data.strLugarOperacion === "Desde la vivienda"
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -390,7 +471,8 @@ const InfoEmprendimiento = ({
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     disabled={
-                                        data.strLugarOperacion === "Desde la vivienda"
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -428,13 +510,14 @@ const InfoEmprendimiento = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmprendimiento?.strUbicacionUP
+                                        errors?.objInfoEmprendimiento
+                                            ?.strUbicacionUP
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strUbicacionUP
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.strUbicacionUP?.message ||
                                         "Selecciona la ubicación de la UP (Urbana o Rural)"
                                     }
                                     strGrupo="DiagnosticoGeneral"
@@ -465,13 +548,14 @@ const InfoEmprendimiento = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmprendimiento?.strCelular
+                                        errors?.objInfoEmprendimiento
+                                            ?.strCelular
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strCelular
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.strCelular?.message ||
                                         "Digita el número celular de la empresa"
                                     }
                                 />
@@ -482,7 +566,12 @@ const InfoEmprendimiento = ({
                                     if (value) {
                                         let strValue = value.replace(/\s/g, "");
 
-                                        if (!validator.isMobilePhone(strValue, "es-CO")) {
+                                        if (
+                                            !validator.isMobilePhone(
+                                                strValue,
+                                                "es-CO"
+                                            )
+                                        ) {
                                             return "El número ingresado no corresponde a un operador válido en Colombia";
                                         }
                                     }
@@ -552,13 +641,14 @@ const InfoEmprendimiento = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmprendimiento?.strRedesSociales
+                                        errors?.objInfoEmprendimiento
+                                            ?.strRedesSociales
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strRedesSociales
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.strRedesSociales?.message ||
                                         "Selecciona si la empresa tiene presencia en redes sociales"
                                     }
                                     strGrupo="Lista_Generica"
@@ -580,19 +670,24 @@ const InfoEmprendimiento = ({
                                     value={value}
                                     onChange={(value) => onChange(value)}
                                     disabled={
-                                        data.strRedesSociales === "NO" ? true : disabled
+                                        data.strRedesSociales === "NO"
+                                            ? true
+                                            : disabled
                                     }
                                     error={
-                                        errors?.objInfoEmprendimiento?.arrMediosDigitales
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrMediosDigitales
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.arrMediosDigitales
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrMediosDigitales?.message ||
                                         "Selecciona los medios digitales que utilice y coloque su ID"
                                     }
-                                    required={data.strRedesSociales ? true : false}
+                                    required={
+                                        data.strRedesSociales ? true : false
+                                    }
                                 />
                             )}
                             control={control}
@@ -630,7 +725,8 @@ const InfoEmprendimiento = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.strRegistroCamaraComercio?.message ||
+                                            ?.strRegistroCamaraComercio
+                                            ?.message ||
                                         "Selecciona si la empresa cuenta con registro en la cámara de comercio"
                                     }
                                     strGrupo="Lista_Generica"
@@ -654,13 +750,15 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmprendimiento?.strTiempoDedicacion
+                                        errors?.objInfoEmprendimiento
+                                            ?.strTiempoDedicacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strTiempoDedicacion
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoEmprendimiento
+                                            ?.strTiempoDedicacion?.message ||
+                                        "Selecciona una opción"
                                     }
                                 />
                             )}
@@ -683,13 +781,14 @@ const InfoEmprendimiento = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmprendimiento?.strSectorEconomico
+                                        errors?.objInfoEmprendimiento
+                                            ?.strSectorEconomico
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strSectorEconomico
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.strSectorEconomico?.message ||
                                         "Selecciona el sector económico de la empresa"
                                     }
                                     required
@@ -726,16 +825,19 @@ const InfoEmprendimiento = ({
                                         );
                                     }}
                                     disabled={
-                                        data.strCategoriaServicio !== "" ? true : disabled
+                                        data.strCategoriaServicio !== ""
+                                            ? true
+                                            : disabled
                                     }
                                     error={
-                                        errors?.objInfoEmpresa?.strCategoriaProducto
+                                        errors?.objInfoEmpresa
+                                            ?.strCategoriaProducto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strCategoriaProducto
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strCategoriaProducto?.message ||
                                         "Selecciona la categoría de los productos"
                                     }
                                 />
@@ -762,16 +864,19 @@ const InfoEmprendimiento = ({
                                         );
                                     }}
                                     disabled={
-                                        data.strCategoriaProducto !== "" ? true : disabled
+                                        data.strCategoriaProducto !== ""
+                                            ? true
+                                            : disabled
                                     }
                                     error={
-                                        errors?.objInfoEmpresa?.strCategoriaServicio
+                                        errors?.objInfoEmpresa
+                                            ?.strCategoriaServicio
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strCategoriaServicio
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strCategoriaServicio?.message ||
                                         "Selecciona la categoría de los servicios"
                                     }
                                 />
@@ -800,7 +905,8 @@ const InfoEmprendimiento = ({
                                     multiple
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.arrCategoriasSecundarias?.message ||
+                                            ?.arrCategoriasSecundarias
+                                            ?.message ||
                                         "Selecciona las categorías secundarias en caso de que aplique"
                                     }
                                 />
@@ -853,13 +959,14 @@ const InfoEmprendimiento = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmprendimiento?.strListadoProdServ
+                                        errors?.objInfoEmprendimiento
+                                            ?.strListadoProdServ
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strListadoProdServ
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.strListadoProdServ?.message ||
                                         "Digita los productos o servicios que ofrece la empresa"
                                     }
                                 />
@@ -884,13 +991,14 @@ const InfoEmprendimiento = ({
                                     required
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmprendimiento?.btGeneraEmpleo
+                                        errors?.objInfoEmprendimiento
+                                            ?.btGeneraEmpleo
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.btGeneraEmpleo
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.btGeneraEmpleo?.message ||
                                         "Selecciona si la empresa genera empleo o no"
                                     }
                                 >
@@ -906,6 +1014,600 @@ const InfoEmprendimiento = ({
                                     }
                                 },
                             }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.strDefinineLineasProductoServicios
+                            }
+                            name="objInfoEmpresa.strDefinineLineasProductoServicios"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="¿Tiene definidas las líneas de productos/servicios del negocio?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmpresa
+                                            ?.strDefinineLineasProductoServicios
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa
+                                            ?.strDefinineLineasProductoServicios
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.strDefinineLineasProductoServicios
+                            }
+                            name="objInfoEmprendimiento.strDefinineLineasProductoServicios"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Cuál es la línea de productos/servicios más destacada?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="outlined"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strDefinineLineasProductoServicios
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strDefinineLineasProductoServicios
+                                            ?.message || "Digita tu respuesta"
+                                    }
+                                    multiline
+                                    rows={4}
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strProductoServiciosEnValidacion}
+                            name="objInfoEmprendimiento.strProductoServiciosEnValidacion"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="¿Cuenta con productos/servicios en validación?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strProductoServiciosEnValidacion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strProductoServiciosEnValidacion
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strNivelDlloProductoServicios}
+                            name="objInfoEmprendimiento.strNivelDlloProductoServicios"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="Nivel de desarrollo del producto/servicio"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strNivelDlloProductoServicios
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strNivelDlloProductoServicios
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="NivelDlloProductoServicio"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strEtapaValidProductoServicios}
+                            name="objInfoEmprendimiento.strEtapaValidProductoServicios"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="¿En qué etapa de validación se encuentra el producto/servicio?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strEtapaValidProductoServicios
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strEtapaValidProductoServicios
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="EtapaValidProductoServicios"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.MinimoValorProducto}
+                            name="objInfoEmprendimiento.MinimoValorProducto"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="Rango de precios de productos mínimo"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.MinimoValorProducto
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.MinimoValorProducto?.message ||
+                                        "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.MaximoValorProducto}
+                            name="objInfoEmprendimiento.MaximoValorProducto"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="Rango de precios de productos máximo"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.MaximoValorProducto
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.MaximoValorProducto?.message ||
+                                        "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.intCantidadUnidadesProducidasMes}
+                            name="objInfoEmprendimiento.intCantidadUnidadesProducidasMes"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Cantidad de unidades producidas al mes actualmente"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.intCantidadUnidadesProducidasMes
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.intCantidadUnidadesProducidasMes
+                                            ?.message || "Digita tu respuesta"
+                                    }
+                                    type="number"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strEscojaProductoServicio}
+                            name="objInfoEmprendimiento.strEscojaProductoServicio"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Escoja uno de los productos/servicios de su empresa"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strEscojaProductoServicio
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strEscojaProductoServicio
+                                            ?.message || "Digita tu respuesta"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.ValorVentaProductoEscogido}
+                            name="objInfoEmprendimiento.ValorVentaProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.ValorVentaProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.ValorVentaProductoEscogido
+                                            ?.message || "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.strConoceMargenRentaProductoEscogido
+                            }
+                            name="objInfoEmprendimiento.strConoceMargenRentaProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strConoceMargenRentaProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strConoceMargenRentaProductoEscogido
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.intPorcentajeMargenRentaProductoEscogido
+                            }
+                            name="objInfoEmprendimiento.intPorcentajeMargenRentaProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="En caso de que la pregunta anterior sea afirmativa, ¿Cuál es el margen de utilidad de este producto?"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"%"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.intPorcentajeMargenRentaProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.intPorcentajeMargenRentaProductoEscogido
+                                            ?.message || "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strConoceCostosProductoEscogido}
+                            name="objInfoEmprendimiento.strConoceCostosProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="¿Conoce los costos de producción de este producto?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strConoceCostosProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strConoceCostosProductoEscogido
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.CostoProduccionProductoEscogido}
+                            name="objInfoEmprendimiento.CostoProduccionProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.CostoProduccionProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.CostoProduccionProductoEscogido
+                                            ?.message || "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.strPorcentajeIntermediacionVentas
+                            }
+                            name="objInfoEmprendimiento.strPorcentajeIntermediacionVentas"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="Tiene porcentaje(s) estimados para la intermediación en ventas?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strPorcentajeIntermediacionVentas
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strPorcentajeIntermediacionVentas
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strDefinePorcentajesCanal}
+                            name="objInfoEmprendimiento.strDefinePorcentajesCanal "
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="En caso de que la pregunta anterior sea afirmativa, ¿tiene definido este porcentaje, de acuerdo con cada canal?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strDefinePorcentajesCanal
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strDefinePorcentajesCanal
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.intRangoPorcentajeIntermediacionVentas
+                            }
+                            name="objInfoEmprendimiento.intRangoPorcentajeIntermediacionVentas"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="¿De cuánto es el rango o porcentaje definido?"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"%"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.intRangoPorcentajeIntermediacionVentas
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.intRangoPorcentajeIntermediacionVentas
+                                            ?.message || "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
                         />
                     </Grid>
                 </Grid>

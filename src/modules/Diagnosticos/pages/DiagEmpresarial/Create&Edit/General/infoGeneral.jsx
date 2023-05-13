@@ -18,7 +18,7 @@ import {
     MenuItem,
 } from "@mui/material";
 
-import { DateTimePicker, DatePicker } from "@mui/lab";
+import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
 
 //Iconos de Material UI
 import {
@@ -122,7 +122,12 @@ const InfoGeneral = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -135,7 +140,9 @@ const InfoGeneral = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoGeneral ? "#D33030" : "inherit",
+                            color: errors?.objInfoGeneral
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Información general
@@ -143,13 +150,22 @@ const InfoGeneral = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -174,25 +190,19 @@ const InfoGeneral = ({
                                     onChange={(date) => onChange(date)}
                                     disabled={disabled}
                                     ampm
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            variant="standard"
-                                            required
-                                            error={
-                                                errors?.objInfoGeneral?.dtmFechaSesion
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoGeneral?.dtmFechaSesion
-                                                    ?.message ||
-                                                "Selecciona la fecha y hora de la sesión"
-                                            }
-                                            fullWidth
-                                        />
-                                    )}
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoGeneral
+                                                ?.dtmFechaSesion,
+                                            helperText:
+                                                errors?.objInfoGeneral
+                                                    ?.dtmFechaSesion?.message ||
+                                                "Selecciona la fecha y hora de la sesión",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -223,7 +233,8 @@ const InfoGeneral = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strLugarSesion?.message ||
+                                        errors?.objInfoGeneral?.strLugarSesion
+                                            ?.message ||
                                         "Digita el lugar donde se realizo la sesión"
                                     }
                                 />
@@ -246,24 +257,20 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            variant="standard"
-                                            error={
-                                                errors?.objInfoGeneral?.dtActualizacion
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoGeneral?.dtActualizacion
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoGeneral
+                                                ?.dtActualizacion,
+                                            helperText:
+                                                errors?.objInfoGeneral
+                                                    ?.dtActualizacion
                                                     ?.message ||
-                                                "Fecha de la última vez que se actualizó el diagnóstico"
-                                            }
-                                            fullWidth
-                                        />
-                                    )}
+                                                "Fecha de la última vez que se actualizó el diagnóstico",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -285,13 +292,14 @@ const InfoGeneral = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strUsuarioCreacion
+                                        errors?.objInfoGeneral
+                                            ?.strUsuarioCreacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strUsuarioCreacion
-                                            ?.message ||
+                                        errors?.objInfoGeneral
+                                            ?.strUsuarioCreacion?.message ||
                                         "Seleccione el responsable del diagnóstico"
                                     }
                                 />
@@ -319,12 +327,15 @@ const InfoGeneral = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strUsuarioActualizacion
+                                        errors?.objInfoGeneral
+                                            ?.strUsuarioActualizacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strUsuarioActualizacion?.message ||
+                                        errors?.objInfoGeneral
+                                            ?.strUsuarioActualizacion
+                                            ?.message ||
                                         "Persona que estuvo encargada de actualizar la información del diagnóstico en la última fecha"
                                     }
                                 />
@@ -348,10 +359,13 @@ const InfoGeneral = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strNombres ? true : false
+                                        errors?.objInfoGeneral?.strNombres
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strNombres?.message ||
+                                        errors?.objInfoGeneral?.strNombres
+                                            ?.message ||
                                         "Digíta el nombre o nombres de la persona"
                                     }
                                 />
@@ -394,14 +408,16 @@ const InfoGeneral = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strApellidos?.message ||
+                                        errors?.objInfoGeneral?.strApellidos
+                                            ?.message ||
                                         "Digíta los apellidos de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digíta los apellidos de la persona",
+                                required:
+                                    "Por favor, digíta los apellidos de la persona",
                                 validate: (value) => {
                                     if (
                                         !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
@@ -433,14 +449,16 @@ const InfoGeneral = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strTipoDocto?.message ||
+                                        errors?.objInfoGeneral?.strTipoDocto
+                                            ?.message ||
                                         "Selecciona el tipo de documento"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona el tipo de documento",
+                                required:
+                                    "Por favor, selecciona el tipo de documento",
                             }}
                         />
                     </Grid>
@@ -460,17 +478,21 @@ const InfoGeneral = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strNroDocto ? true : false
+                                        errors?.objInfoGeneral?.strNroDocto
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strNroDocto?.message ||
+                                        errors?.objInfoGeneral?.strNroDocto
+                                            ?.message ||
                                         "Digita el número de documento"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita el número de documento",
+                                required:
+                                    "Por favor, digita el número de documento",
                             }}
                         />
                     </Grid>
@@ -489,12 +511,14 @@ const InfoGeneral = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strLugarExpedicionDocto
+                                        errors?.objInfoGeneral
+                                            ?.strLugarExpedicionDocto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strLugarExpedicionDocto
+                                        errors?.objInfoGeneral
+                                            ?.strLugarExpedicionDocto
                                             ?.message ||
                                         "Digita el lugar de expedición del documento"
                                     }
@@ -514,25 +538,20 @@ const InfoGeneral = ({
                                     value={value}
                                     disabled={disabled}
                                     onChange={(date) => onChange(date)}
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            fullWidth
-                                            variant="standard"
-                                            error={
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoGeneral
+                                                ?.dtFechaExpedicionDocto,
+                                            helperText:
                                                 errors?.objInfoGeneral
                                                     ?.dtFechaExpedicionDocto
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoGeneral
-                                                    ?.dtFechaExpedicionDocto?.message ||
-                                                "Selecciona la fecha de expedición del documento"
-                                            }
-                                        />
-                                    )}
+                                                    ?.message ||
+                                                "Selecciona la fecha de expedición del documento",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -549,24 +568,20 @@ const InfoGeneral = ({
                                     value={value}
                                     disabled={disabled}
                                     onChange={(date) => onChange(date)}
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            fullWidth
-                                            variant="standard"
-                                            error={
-                                                errors?.objInfoGeneral?.dtFechaNacimiento
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoGeneral?.dtFechaNacimiento
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoGeneral
+                                                ?.dtFechaNacimiento,
+                                            helperText:
+                                                errors?.objInfoGeneral
+                                                    ?.dtFechaNacimiento
                                                     ?.message ||
-                                                "Selecciona la fecha de nacimiento"
-                                            }
-                                        />
-                                    )}
+                                                "Selecciona la fecha de nacimiento",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -586,17 +601,21 @@ const InfoGeneral = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoGeneral?.strGenero ? true : false
+                                        errors?.objInfoGeneral?.strGenero
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strGenero?.message ||
+                                        errors?.objInfoGeneral?.strGenero
+                                            ?.message ||
                                         "Selecciona el género de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona el género de la persona",
+                                required:
+                                    "Por favor, selecciona el género de la persona",
                             }}
                         />
                     </Grid>
@@ -613,13 +632,14 @@ const InfoGeneral = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoGeneral?.strNivelEducativo
+                                        errors?.objInfoGeneral
+                                            ?.strNivelEducativo
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strNivelEducativo
-                                            ?.message ||
+                                        errors?.objInfoGeneral
+                                            ?.strNivelEducativo?.message ||
                                         "Selecciona el nivel educativo de la persona"
                                     }
                                 />
@@ -642,10 +662,13 @@ const InfoGeneral = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strTitulos ? true : false
+                                        errors?.objInfoGeneral?.strTitulos
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strTitulos?.message ||
+                                        errors?.objInfoGeneral?.strTitulos
+                                            ?.message ||
                                         "Digita los títulos o título del empresario, en caso de poseer alguno"
                                     }
                                 />
@@ -669,10 +692,13 @@ const InfoGeneral = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strEstrato ? true : false
+                                        errors?.objInfoGeneral?.strEstrato
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strEstrato?.message ||
+                                        errors?.objInfoGeneral?.strEstrato
+                                            ?.message ||
                                         "Selecciona el estrato socioeconómico de la persona"
                                     }
                                 >
@@ -712,7 +738,10 @@ const InfoGeneral = ({
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
-                                        handlerChangeData("arrDepartamento", value);
+                                        handlerChangeData(
+                                            "arrDepartamento",
+                                            value
+                                        );
                                     }}
                                     error={
                                         errors?.objInfoGeneral?.arrDepartamento
@@ -746,11 +775,16 @@ const InfoGeneral = ({
                                         handlerChangeData("arrCiudad", value);
                                     }}
                                     error={
-                                        errors?.objInfoGeneral?.arrCiudad ? true : false
+                                        errors?.objInfoGeneral?.arrCiudad
+                                            ? true
+                                            : false
                                     }
-                                    strDepartamento={data.arrDepartamento?.region_name}
+                                    strDepartamento={
+                                        data.arrDepartamento?.region_name
+                                    }
                                     helperText={
-                                        errors?.objInfoGeneral?.arrCiudad?.message ||
+                                        errors?.objInfoGeneral?.arrCiudad
+                                            ?.message ||
                                         "Selecciona la ciudad de residencia"
                                     }
                                 />
@@ -773,13 +807,14 @@ const InfoGeneral = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strDireccionResidencia
+                                        errors?.objInfoGeneral
+                                            ?.strDireccionResidencia
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strDireccionResidencia
-                                            ?.message ||
+                                        errors?.objInfoGeneral
+                                            ?.strDireccionResidencia?.message ||
                                         "Digita la dirección de residencia de la persona"
                                     }
                                 />
@@ -800,10 +835,13 @@ const InfoGeneral = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
-                                        errors?.objInfoGeneral?.strBarrio ? true : false
+                                        errors?.objInfoGeneral?.strBarrio
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strBarrio?.message ||
+                                        errors?.objInfoGeneral?.strBarrio
+                                            ?.message ||
                                         "Selecciona el barrio/corregimiento/vereda de residencia"
                                     }
                                     variant="standard"
@@ -828,13 +866,14 @@ const InfoGeneral = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strUbicacionVivienda
+                                        errors?.objInfoGeneral
+                                            ?.strUbicacionVivienda
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strUbicacionVivienda
-                                            ?.message ||
+                                        errors?.objInfoGeneral
+                                            ?.strUbicacionVivienda?.message ||
                                         "Seleccione la ubicación de la vivienda"
                                     }
                                     select
@@ -865,10 +904,13 @@ const InfoGeneral = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoGeneral?.strCelular1 ? true : false
+                                        errors?.objInfoGeneral?.strCelular1
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strCelular1?.message ||
+                                        errors?.objInfoGeneral?.strCelular1
+                                            ?.message ||
                                         "Digita el número celular de la persona"
                                     }
                                 />
@@ -880,7 +922,12 @@ const InfoGeneral = ({
                                 validate: (value) => {
                                     let strValue = value.replace(/\s/g, "");
 
-                                    if (!validator.isMobilePhone(strValue, "es-CO")) {
+                                    if (
+                                        !validator.isMobilePhone(
+                                            strValue,
+                                            "es-CO"
+                                        )
+                                    ) {
                                         return "El número ingresado no corresponde a un operador válido en Colombia";
                                     }
                                 },
@@ -904,10 +951,13 @@ const InfoGeneral = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoGeneral?.strCelular2 ? true : false
+                                        errors?.objInfoGeneral?.strCelular2
+                                            ? true
+                                            : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strCelular2?.message ||
+                                        errors?.objInfoGeneral?.strCelular2
+                                            ?.message ||
                                         "Digita el número celular de la persona"
                                     }
                                 />
@@ -918,7 +968,12 @@ const InfoGeneral = ({
                                     if (value) {
                                         let strValue = value.replace(/\s/g, "");
 
-                                        if (!validator.isMobilePhone(strValue, "es-CO")) {
+                                        if (
+                                            !validator.isMobilePhone(
+                                                strValue,
+                                                "es-CO"
+                                            )
+                                        ) {
                                             return "El número ingresado no corresponde a un operador válido en Colombia";
                                         }
                                     }
@@ -941,13 +996,14 @@ const InfoGeneral = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoGeneral?.strCorreoElectronico1
+                                        errors?.objInfoGeneral
+                                            ?.strCorreoElectronico1
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strCorreoElectronico1
-                                            ?.message ||
+                                        errors?.objInfoGeneral
+                                            ?.strCorreoElectronico1?.message ||
                                         "Digita el correo electrónico de la persona"
                                     }
                                 />
@@ -979,13 +1035,14 @@ const InfoGeneral = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoGeneral?.strCorreoElectronico2
+                                        errors?.objInfoGeneral
+                                            ?.strCorreoElectronico2
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strCorreoElectronico2
-                                            ?.message ||
+                                        errors?.objInfoGeneral
+                                            ?.strCorreoElectronico2?.message ||
                                         "Digita el correo electrónico alterno de la persona"
                                     }
                                 />
