@@ -18,7 +18,9 @@ class daoDiagnosticoHumanas {
             INSERT INTO tbl_DiagnosticoHumanoSocial VALUES
             (
                 ${data.intIdDiagnostico},
+                ${data.intIdEstadoDiagnostico},
                 ${data.intIdEmpresario},
+                ${data.intIdTipoEmpresario},
                 ${data.strTomaDesiciones},
                 ${data.strMotivaciones},
                 ${data.strNivelVida},
@@ -30,8 +32,11 @@ class daoDiagnosticoHumanas {
                 ${data.strProyectoVidaEmprendimiento},
                 ${data.strHabilidadesCreatividad},
                 ${data.strConfianza},
+                ${data.strActividadesDisminuyenActProductiva},
+                ${data.strSituacionesDesistirEmprendimiento},
                 ${data.strEquilibrioVida},
                 ${data.strRedesApoyoPropia},
+                ${data.strObservaciones},
                 ${data.strLugarSesion},
                 ${data.dtmFechaSesion},
                 ${data.strUsuarioCreacion},
