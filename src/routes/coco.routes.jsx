@@ -46,6 +46,12 @@ const PageCUProducto = lazy(() =>
     )
 );
 
+const PageCUServicio = lazy(() =>
+    import(
+        "../modules/Diagnosticos/pages/DiagDesign/Create&Edit/Servicio/pageCUServicio"
+    )
+);
+
 const PageCUComercial = lazy(() =>
     import(
         "../modules/Diagnosticos/pages/DiagComercial/Create&Edit/pageCUComercial"
@@ -346,6 +352,31 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 </Grid>
 
                 <PageCUProducto
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagDesignServCreate") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("Diagnosticos", { ...route.params })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <PageCUServicio
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
                     intIdDiagnostico={route.params.intIdDiagnostico}

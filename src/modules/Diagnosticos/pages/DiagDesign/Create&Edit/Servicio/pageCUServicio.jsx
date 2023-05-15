@@ -4,7 +4,6 @@ import React, {
     useEffect,
     useRef,
     useCallback,
-    Fragment,
 } from "react";
 
 //Context
@@ -15,7 +14,7 @@ import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresario
 import useGetDiagnServ from "../../../../hooks/useGetDiagnServ";
 
 //Librerias
-import { Link as RouterLink, Redirect } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -41,9 +40,6 @@ import {
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
-
-//Iconos de Material UI
-import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
 
 //Componentes
 import Loader from "../../../../../../common/components/Loader";
@@ -92,7 +88,13 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const PageCUServicio = ({ intId, isEdit }) => {
+const PageCUServicio = ({
+    intId,
+    isEdit,
+    intIdIdea,
+    intIdDiagnostico,
+    onChangeRoute,
+}) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -109,8 +111,6 @@ const PageCUServicio = ({ intId, isEdit }) => {
     });
 
     const [openModal, setOpenModal] = useState(false);
-
-    const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
@@ -143,6 +143,8 @@ const PageCUServicio = ({ intId, isEdit }) => {
 
     const { getUniqueData: getUniqueDataServ } = useGetDiagnServ({
         autoLoad: false,
+        intIdIdea,
+        intIdDiagnostico,
     });
 
     const refFntGetDataEmpresario = useRef(getUniqueData);
@@ -185,6 +187,8 @@ const PageCUServicio = ({ intId, isEdit }) => {
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
+                                    intIdIdea,
+                                    intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
@@ -241,7 +245,10 @@ const PageCUServicio = ({ intId, isEdit }) => {
                     toast.success(res.data.msg);
 
                     setLoading(false);
-                    setSucces(true);
+                    onChangeRoute("DiagDesign", {
+                        intIdIdea,
+                        intIdDiagnostico,
+                    });
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -262,7 +269,8 @@ const PageCUServicio = ({ intId, isEdit }) => {
                     }
                 });
         },
-        [token, data, isEdit]
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [token, data, isEdit, intIdIdea, intIdDiagnostico]
     );
 
     //===============================================================================================================================================
@@ -274,7 +282,7 @@ const PageCUServicio = ({ intId, isEdit }) => {
 
             async function getData() {
                 await refFntGetDataEmpresario
-                    .current({ intId })
+                    .current({ intId, intIdIdea })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -312,7 +320,11 @@ const PageCUServicio = ({ intId, isEdit }) => {
                     });
 
                 await refFntGetDataServ
-                    .current({ intIdEmpresario: intId })
+                    .current({
+                        intIdEmpresario: intId,
+                        intIdIdea,
+                        intIdDiagnostico,
+                    })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -345,7 +357,7 @@ const PageCUServicio = ({ intId, isEdit }) => {
 
             getData();
         }
-    }, [intId, isEdit]);
+    }, [intId, isEdit, intIdIdea, intIdDiagnostico]);
 
     useEffect(() => {
         if (intId) {
@@ -368,10 +380,6 @@ const PageCUServicio = ({ intId, isEdit }) => {
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/diagnosticos/diagEmpresarial" />;
-    }
-
     if (loadingGetData) {
         return <Loader />;
     }
@@ -397,7 +405,7 @@ const PageCUServicio = ({ intId, isEdit }) => {
     }
 
     return (
-        <Fragment>
+        <div style={{ marginTop: "25px" }}>
             <Dialog
                 open={openModal}
                 disableEscapeKeyDown
@@ -438,18 +446,6 @@ const PageCUServicio = ({ intId, isEdit }) => {
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
             >
-                <Grid item xs={12}>
-                    <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagDesign/`}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        Regresar
-                    </Button>
-                </Grid>
-
                 <Grid item xs={12}>
                     <Container className={classes.containerPR}>
                         <Paper className={classes.paper}>
@@ -588,7 +584,7 @@ const PageCUServicio = ({ intId, isEdit }) => {
                     </Container>
                 </Grid>
             </Grid>
-        </Fragment>
+        </div>
     );
 };
 

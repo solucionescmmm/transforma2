@@ -112,14 +112,7 @@ const Diagnosticos = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
             <Grid item xs={12} md={2}>
                 <Card>
-                    <CardActionArea
-                        onClick={() =>
-                            onChangeRoute("DiagComercial", {
-                                intIdIdea,
-                                intIdDiagnostico,
-                            })
-                        }
-                    >
+                    <CardActionArea disabled>
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
                                 <Grid item xs={12}>
@@ -129,7 +122,7 @@ const Diagnosticos = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             flexDirection: "columns",
                                             alignContent: "center",
                                             justifyContent: "center",
-                                            backgroundColor: "#7BDBD8",
+                                            backgroundColor: "gray",
                                             padding: "25px",
                                         }}
                                     >
