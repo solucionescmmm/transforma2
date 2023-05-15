@@ -5,7 +5,7 @@ const validator = require("validator").default;
 const classInterfaceDAOHumanas = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
 
 //Service
-const serviceGetDiagnostico = require("../../../Main/domain/getDiagnosticos.service")
+const serviceGetDiagnostico = require("../../../Main/domain/getDiagnosticos.service");
 
 class setDiagnosticoHumanas {
     //Objetos
@@ -14,7 +14,6 @@ class setDiagnosticoHumanas {
     #objResult;
 
     // Variables
-    #intIdEmpresario;
     #intIdEstadoDiagnsotico;
     /**
      * @param {object} data
@@ -25,7 +24,6 @@ class setDiagnosticoHumanas {
     }
 
     async main() {
-        //console.log(this.#objData)
         await this.#validations();
         await this.#getDiagnostico()
         await this.#completeData();
@@ -71,16 +69,17 @@ class setDiagnosticoHumanas {
             intIdEstadoDiagnostico: this.#intIdEstadoDiagnsotico,
             strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
+            intIdEmpresario: 16,
+            intIdTipoEmpresario: 1
         };
         this.#objData = newData;
-        console.log(this.#objData)
     }
 
     async #setDiagnosticoHumanas() {
         let dao = new classInterfaceDAOHumanas();
 
         let query = await dao.setDiagnosticoHumanas(this.#objData);
-
+        
         if (query.error) {
             throw new Error(query.msg);
         }
@@ -96,7 +95,7 @@ class setDiagnosticoHumanas {
         let dao = new classInterfaceDAOHumanas();
 
         let query = await dao.setResultDiagnosticoHumanas({
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdEmpresario: this.#objData?.objInfoGeneral?.intIdDiagnostico
         });
 
         if (query.error) {

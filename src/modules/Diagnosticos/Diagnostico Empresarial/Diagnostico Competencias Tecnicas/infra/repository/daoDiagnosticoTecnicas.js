@@ -108,7 +108,7 @@ class daoDiagnosticoTecnicas {
                 ${data.strAsociEmpoOrgAdmin},
                 ${data.strAsociEmpoOrgAdminDetalle},
                 ${data.strLugarSesion},
-                ${data.dtmFechaSesion},
+                GETDATE(),
                 ${data.strUsuarioCreacion},
                 GETDATE(),
                 ${data.strUsuarioActualizacion}

@@ -62,14 +62,12 @@ class updateDiagnosticoHumanas {
 
     async #completeData() {
         let newData = {
-            //intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
             strUsuarioActualizacion: this.#objUser.strEmail,
             ...this.#objData.objInfoEncuestaHumanas,
             intIdEstadoDiagnostico: this.#intIdEstadoDiagnsotico,
             strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
-
         };
         this.#objData = newData;
     }

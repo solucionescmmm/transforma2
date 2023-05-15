@@ -38,7 +38,7 @@ class daoDiagnosticoHumanas {
                 ${data.strRedesApoyoPropia},
                 ${data.strObservaciones},
                 ${data.strLugarSesion},
-                ${data.dtmFechaSesion},
+                GETDATE(),
                 ${data.strUsuarioCreacion},
                 GETDATE(),
                 ${data.strUsuarioActualizacion}
@@ -51,7 +51,7 @@ class daoDiagnosticoHumanas {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El diagnostico general, fue registrado con éxito.`,
+                msg: `El diagnostico de competencias humanas, fue registrado con éxito.`,
             };
 
             sql.close(conexion);
@@ -198,7 +198,7 @@ class daoDiagnosticoHumanas {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn
                 .request()
-                .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .input("intIdDiagnostico", sql.Int, data.intIdDiagnostico)
                 .execute("sp_SetResultDiagnosticoHumano");
 
             let result = {

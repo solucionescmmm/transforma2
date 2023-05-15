@@ -14,7 +14,6 @@ class setDiagnosticoTecnicas {
      #objResult;
  
      // Variables
-     #intIdEmpresario;
      #intIdEstadoDiagnsotico;
     /**
      * @param {object} data
@@ -25,12 +24,11 @@ class setDiagnosticoTecnicas {
     }
 
     async main() {
-        console.log(this.#objData)
-        // await this.#validations();
-        // await this.#getDiagnostico()
-        // await this.#completeData();
-        // await this.#setDiagnosticoTecnicas();
-        // return this.#objResult;
+        await this.#validations();
+        await this.#getDiagnostico()
+        await this.#completeData();
+        await this.#setDiagnosticoTecnicas();
+        return this.#objResult;
     }
 
     async #validations() {
@@ -72,6 +70,8 @@ class setDiagnosticoTecnicas {
             ...this.#objData.objInfoComAdministrativo,
             ...this.#objData.objInfoComAsociativo,
             intIdEstadoDiagnostico: this.#intIdEstadoDiagnsotico,
+            intIdEmpresario: 16,
+            intTipoEmpresario: 1
         };
         this.#objData = newData;
     }
