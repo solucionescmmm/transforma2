@@ -42,9 +42,6 @@ import {
 
 import { LoadingButton } from "@mui/lab";
 
-//Iconos de Material UI
-import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
-
 //Componentes
 import Loader from "../../../../../../common/components/Loader";
 import PageError from "../../../../../../common/components/Error";
@@ -503,18 +500,6 @@ const PageCUProducto = ({
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
             >
-                <Grid item xs={12}>
-                    <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagDesign/`}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        Regresar
-                    </Button>
-                </Grid>
-
                 <Grid item xs={12}>
                     <Container className={classes.containerPR}>
                         <Paper className={classes.paper}>
