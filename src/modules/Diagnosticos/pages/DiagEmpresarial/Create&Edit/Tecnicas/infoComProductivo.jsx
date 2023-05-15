@@ -630,7 +630,7 @@ const InfoComMercadeo = ({
                                             ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
-                                    strCodigo="ConoceTiemposProduccionReferenciasDetalle"
+                                    strCodigo="ConoceTiemposProduccionReferencias"
                                 />
                             )}
                             control={control}

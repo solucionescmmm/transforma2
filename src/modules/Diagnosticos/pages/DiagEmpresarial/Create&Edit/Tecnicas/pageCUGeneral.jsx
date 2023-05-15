@@ -52,6 +52,7 @@ import InfoComAsociativo from "./infoComAsociativo";
 //Estilos
 import { makeStyles } from "@mui/styles";
 import { useTheme } from "@emotion/react";
+import useGetDiagnTecn from "../../../../hooks/useGetDiagnTecnico";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -144,7 +145,14 @@ const PageCUGeneral = ({
 
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
 
+    const { getUniqueData: getUniqueDataTecn } = useGetDiagnTecn({
+        autoLoad: false,
+        intIdIdea,
+        intIdDiagnostico,
+    });
+
     const refFntGetData = useRef(getUniqueData);
+    const refFntGetDataTecn = useRef(getUniqueDataTecn);
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -173,9 +181,9 @@ const PageCUGeneral = ({
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATETECNICO
                             : process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETTECNICO
                     }`,
                     data,
                     transformRequest: [
@@ -210,21 +218,7 @@ const PageCUGeneral = ({
                                           )
                                         : null,
                                 },
-                                objInfoFamiliar: {
-                                    ...data.objInfoFamiliar,
-                                },
-                                objInfoEmprendimiento: {
-                                    ...data.objInfoEmprendimiento,
-                                },
-                                objInfoEmpresa: {
-                                    ...data.objInfoEmpresa,
-                                },
-                                objInfoPerfilEco: {
-                                    ...data.objInfoPerfilEco,
-                                },
-                                objInfoAdicional: {
-                                    ...data.objInfoAdicional,
-                                },
+                                ...data,
                             };
 
                             return JSON.stringify(newData);
@@ -377,11 +371,48 @@ const PageCUGeneral = ({
                         setErrorGetData({ flag: true, msg: error.message });
                         setLoadingGetData(false);
                     });
+
+                await refFntGetDataTecn
+                    .current({
+                        intIdEmpresario: intId,
+                        intIdIdea,
+                        intIdDiagnostico,
+                    })
+                    .then((res) => {
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
+
+                        if (res.data?.data) {
+                            let data = res.data.data[0];
+
+                            setData((prevState) => ({
+                                ...prevState,
+                                ...data,
+                            }));
+
+                            if (!isEdit) {
+                                setOpenModal(true);
+                            }
+                        }
+
+                        setErrorGetData({ flag: false, msg: "" });
+
+                        setLoadingGetData(false);
+                    })
+                    .catch((error) => {
+                        setErrorGetData({
+                            flag: true,
+                            msg: error.message,
+                        });
+
+                        setLoadingGetData(false);
+                    });
             }
 
             getData();
         }
-    }, [intId, intIdIdea, intIdDiagnostico]);
+    }, [intId, intIdIdea, intIdDiagnostico, isEdit]);
 
     useEffect(() => {
         if (intId) {

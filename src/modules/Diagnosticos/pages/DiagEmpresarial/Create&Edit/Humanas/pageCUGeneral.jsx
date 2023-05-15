@@ -367,7 +367,7 @@ const PageCUGeneral = ({
                     });
 
                 await refFntGetDataHum
-                    .current({ intIdEmpresario: intId, intIdIdea })
+                    .current({ intIdEmpresario: intId, intIdIdea, intIdDiagnostico })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
