@@ -405,7 +405,7 @@ const PageCUServicio = ({
     }
 
     return (
-        <div style={{ marginTop: "25px" }}>
+        <div style={{ marginTop: "25px", width: "100%" }}>
             <Dialog
                 open={openModal}
                 disableEscapeKeyDown

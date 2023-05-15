@@ -341,7 +341,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid item xs={12}>
                     <Button
                         onClick={() =>
-                            onChangeRoute("Diagnosticos", { ...route.params })
+                            onChangeRoute("DiagDesign", { ...route.params })
                         }
                         startIcon={<ChevronLeftIcon />}
                         size="small"
@@ -366,7 +366,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid item xs={12}>
                     <Button
                         onClick={() =>
-                            onChangeRoute("Diagnosticos", { ...route.params })
+                            onChangeRoute("DiagDesign", { ...route.params })
                         }
                         startIcon={<ChevronLeftIcon />}
                         size="small"

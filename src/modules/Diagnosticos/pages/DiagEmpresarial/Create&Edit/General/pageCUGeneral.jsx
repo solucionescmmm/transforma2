@@ -179,7 +179,7 @@ const PageCUGeneral = ({
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEGENERAL
                             : process.env
                                   .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
                     }`,
