@@ -7,7 +7,6 @@ const classInterfaceDAOHumanas = require("../infra/conectors/interfaseDAODiagnos
 //Service
 const serviceGetDiagnostico = require("../../../Main/domain/getDiagnosticos.service")
 
-
 class setDiagnosticoHumanas {
     //Objetos
     #objData;
@@ -29,7 +28,6 @@ class setDiagnosticoHumanas {
         //console.log(this.#objData)
         await this.#validations();
         await this.#getDiagnostico()
-        await this.#getIntIdEmpresario();
         await this.#completeData();
         await this.#setDiagnosticoHumanas();
         await this.#setResultDiagnosticoHumanas();
@@ -65,16 +63,12 @@ class setDiagnosticoHumanas {
         this.#intIdEstadoDiagnsotico = queryServiceGetDiagnostico.data[0]?.intIdEstadoDiagnostico
     }
 
-    async #getIntIdEmpresario() {
-        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
-    }
-
     async #completeData() {
         let newData = {
             //intIdEmpresario: this.#intIdEmpresario,
-            intIdEstadoDiagnostico: this.#intIdEstadoDiagnsotico,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEncuestaHumanas,
+            intIdEstadoDiagnostico: this.#intIdEstadoDiagnsotico,
             strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
         };
