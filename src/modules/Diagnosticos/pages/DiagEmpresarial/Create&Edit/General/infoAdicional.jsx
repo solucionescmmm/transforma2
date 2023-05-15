@@ -71,7 +71,7 @@ const InfoAdicional = ({
                             color: errors?.objInfoAdicional ? "#D33030" : "inherit",
                         }}
                     >
-                        Información adicional (Conluciones, observaciones y registro
+                        Información adicional (Concluciones, observaciones y registro
                         fotográfico)
                     </Typography>
                 </Box>
