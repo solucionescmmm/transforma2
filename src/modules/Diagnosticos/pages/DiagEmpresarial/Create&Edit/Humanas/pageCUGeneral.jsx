@@ -132,7 +132,7 @@ const PageCUGeneral = ({
         clearErrors,
     } = useForm({ mode: "onChange" });
 
-    const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
+    const { getUniqueData } = useGetEmpresarios({ autoLoad: false, intIdIdea });
 
     const { getUniqueData: getUniqueDataHum } = useGetDiagnHumano({
         autoLoad: false,
@@ -273,7 +273,7 @@ const PageCUGeneral = ({
 
             async function getData() {
                 await refFntGetData
-                    .current({ intId, intIdIdea, intIdDiagnostico })
+                    .current({ intId, intIdIdea })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -367,7 +367,11 @@ const PageCUGeneral = ({
                     });
 
                 await refFntGetDataHum
-                    .current({ intIdEmpresario: intId, intIdIdea, intIdDiagnostico })
+                    .current({
+                        intIdEmpresario: intId,
+                        intIdIdea,
+                        intIdDiagnostico,
+                    })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);

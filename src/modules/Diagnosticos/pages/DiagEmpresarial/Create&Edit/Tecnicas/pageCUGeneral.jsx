@@ -143,7 +143,7 @@ const PageCUGeneral = ({
         clearErrors,
     } = useForm({ mode: "onChange" });
 
-    const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
+    const { getUniqueData } = useGetEmpresarios({ autoLoad: false, intIdIdea });
 
     const { getUniqueData: getUniqueDataTecn } = useGetDiagnTecn({
         autoLoad: false,

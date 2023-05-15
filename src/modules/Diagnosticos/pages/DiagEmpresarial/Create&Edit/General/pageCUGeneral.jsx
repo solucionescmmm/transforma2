@@ -27,6 +27,13 @@ import {
     Box,
     Typography,
     Alert,
+    DialogTitle,
+    useMediaQuery,
+    Dialog,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Button,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -43,6 +50,8 @@ import InfoAdicional from "./infoAdicional";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
+import useGetDiagnGeneral from "../../../../hooks/useGetDiagnGeneral";
+import { useTheme } from "@emotion/react";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -103,6 +112,8 @@ const PageCUGeneral = ({
         objInfoAdicional: {},
     });
 
+    const [openModal, setOpenModal] = useState(false);
+
     const [loading, setLoading] = useState(false);
 
     const [errorGetData, setErrorGetData] = useState({
@@ -127,9 +138,19 @@ const PageCUGeneral = ({
         clearErrors,
     } = useForm({ mode: "onChange" });
 
-    const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
+    const { getUniqueData } = useGetEmpresarios({ autoLoad: false, intIdIdea });
+
+    const { getUniqueData: getUniqueDataGen } = useGetDiagnGeneral({
+        autoLoad: false,
+        intIdIdea,
+        intIdDiagnostico,
+    });
 
     const refFntGetData = useRef(getUniqueData);
+    const refFntGetDataGen = useRef(getUniqueDataGen);
+
+    const theme = useTheme();
+    const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -270,7 +291,7 @@ const PageCUGeneral = ({
 
             async function getData() {
                 await refFntGetData
-                    .current({ intId: intIdIdea })
+                    .current({ intIdIdea })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -405,11 +426,47 @@ const PageCUGeneral = ({
                         setErrorGetData({ flag: true, msg: error.message });
                         setLoadingGetData(false);
                     });
+
+                await refFntGetDataGen
+                    .current({
+                        intIdIdea,
+                        intIdDiagnostico,
+                    })
+                    .then((res) => {
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
+
+                        if (res.data?.data) {
+                            let data = res.data.data[0];
+
+                            setData((prevState) => ({
+                                ...prevState,
+                                ...data,
+                            }));
+
+                            if (!isEdit) {
+                                setOpenModal(true);
+                            }
+                        }
+
+                        setErrorGetData({ flag: false, msg: "" });
+
+                        setLoadingGetData(false);
+                    })
+                    .catch((error) => {
+                        setErrorGetData({
+                            flag: true,
+                            msg: error.message,
+                        });
+
+                        setLoadingGetData(false);
+                    });
             }
 
             getData();
         }
-    }, [intIdIdea, intIdDiagnostico]);
+    }, [intIdIdea, intIdDiagnostico, isEdit]);
 
     useEffect(() => {
         if (intIdIdea) {
@@ -458,6 +515,35 @@ const PageCUGeneral = ({
 
     return (
         <div style={{ marginTop: "25px", width: "100%" }}>
+            <Dialog
+                open={openModal}
+                disableEscapeKeyDown
+                fullScreen={bitMobile}
+            >
+                <DialogTitle>Aviso</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Se ha detectado que la persona empresaria ya cuenta con
+                        un registro del diagnóstico general.
+                        ¿Deseas editar la información o previsualizar el
+                        resumen?
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button
+                        to={`/diagnosticos/diagEmpresarial/humanas/read/${data.objInfoGeneral?.intId}`}
+                        color="inherit"
+                    >
+                        ver resumen
+                    </Button>
+
+                    <Button to={`/diagnosticos/diagEmpresarial/humanas/edit/`}>
+                        editar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
             <Grid
                 container
                 direction="row"

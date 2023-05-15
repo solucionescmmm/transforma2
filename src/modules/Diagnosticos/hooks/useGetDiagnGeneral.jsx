@@ -34,7 +34,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData({intId, intIdEmpresario})
  *
  */
-const useGetDiagnHumano = ({
+const useGetDiagnGeneral = ({
     intId = null,
     intIdEmpresario = null,
     intIdDiagnostico = null,
@@ -66,7 +66,7 @@ const useGetDiagnHumano = ({
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_GETHUMANAS}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_GETGENERAL}`,
                     headers: {
                         token,
                     },
@@ -184,4 +184,4 @@ const useGetDiagnHumano = ({
     return { data, refreshGetData, getUniqueData };
 };
 
-export default useGetDiagnHumano;
+export default useGetDiagnGeneral;
