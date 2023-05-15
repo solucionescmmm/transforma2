@@ -5,7 +5,7 @@ const validator = require("validator").default;
 const getDiagnosticoServicio = async (objParams, strDataUser) => {
     let { intId, intIdDiagnostico } = objParams;
 
-    if (!intId && !intIdDiagnostico) {
+    if (!intIdDiagnostico) {
         throw new Error("Se esperaban parámetros de búsqueda.");
     }
 
