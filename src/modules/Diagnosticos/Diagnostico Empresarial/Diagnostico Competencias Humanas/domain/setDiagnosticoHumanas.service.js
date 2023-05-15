@@ -19,6 +19,7 @@ class setDiagnosticoHumanas {
     }
 
     async main() {
+        //console.log(this.#objData)
         await this.#validations();
         await this.#getIntIdEmpresario();
         await this.#completeData();
@@ -52,6 +53,8 @@ class setDiagnosticoHumanas {
             intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEncuestaHumanas,
+            strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
+            strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
         };
         this.#objData = newData;
     }

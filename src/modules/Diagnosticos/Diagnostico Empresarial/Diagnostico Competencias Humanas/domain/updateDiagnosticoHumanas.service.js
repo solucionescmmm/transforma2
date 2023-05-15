@@ -50,6 +50,9 @@ class updateDiagnosticoHumanas {
             ...this.#objData.objInfoGeneral,
             strUsuarioActualizacion: this.#objUser.strEmail,
             ...this.#objData.objInfoEncuestaHumanas,
+            strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
+            strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
+
         };
         this.#objData = newData;
     }

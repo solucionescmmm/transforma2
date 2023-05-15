@@ -78,22 +78,25 @@ class daoDiagnosticoHumanas {
 
             UPDATE tbl_DiagnosticoHumanoSocial
 
-            SET strTomaDesiciones           = COALESCE(${data.strTomaDesiciones}, strTomaDesiciones),
-                strMotivaciones                 = COALESCE(${data.strMotivaciones}, strMotivaciones),
-                strNivelVida            = COALESCE(${data.strNivelVida}, strNivelVida),
-                strRedesApoyoOtros                       = COALESCE(${data.strRedesApoyoOtros}, strRedesApoyoOtros),
-                strProyectoVidaEmpresa             = COALESCE(${data.strProyectoVidaEmpresa}, strProyectoVidaEmpresa),
-                strHabilidadesAutonomia      = COALESCE(${data.strHabilidadesAutonomia}, strHabilidadesAutonomia),
-                strHabilidadesCapacidad                 = COALESCE(${data.strHabilidadesCapacidad}, strHabilidadesCapacidad),
-                strHabilidadesComuniacion           = COALESCE(${data.strHabilidadesComuniacion}, strHabilidadesComuniacion),
-                strProyectoVidaEmprendimiento             = COALESCE(${data.strProyectoVidaEmprendimiento}, strProyectoVidaEmprendimiento),
+            SET strTomaDesiciones                     = COALESCE(${data.strTomaDesiciones}, strTomaDesiciones),
+                strMotivaciones                       = COALESCE(${data.strMotivaciones}, strMotivaciones),
+                strNivelVida                          = COALESCE(${data.strNivelVida}, strNivelVida),
+                strRedesApoyoOtros                    = COALESCE(${data.strRedesApoyoOtros}, strRedesApoyoOtros),
+                strProyectoVidaEmpresa                = COALESCE(${data.strProyectoVidaEmpresa}, strProyectoVidaEmpresa),
+                strHabilidadesAutonomia               = COALESCE(${data.strHabilidadesAutonomia}, strHabilidadesAutonomia),
+                strHabilidadesCapacidad               = COALESCE(${data.strHabilidadesCapacidad}, strHabilidadesCapacidad),
+                strHabilidadesComuniacion             = COALESCE(${data.strHabilidadesComuniacion}, strHabilidadesComuniacion),
+                strProyectoVidaEmprendimiento         = COALESCE(${data.strProyectoVidaEmprendimiento}, strProyectoVidaEmprendimiento),
                 strHabilidadesCreatividad             = COALESCE(${data.strHabilidadesCreatividad}, strHabilidadesCreatividad),
-                strConfianza          = COALESCE(${data.strConfianza}, strConfianza),
-                strEquilibrioVida                 = COALESCE(${data.strEquilibrioVida}, strEquilibrioVida),
-                strRedesApoyoPropia      = COALESCE(${data.strRedesApoyoPropia}, strRedesApoyoPropia),
-                strLugarSesion                 = COALESCE(${data.strLugarSesion}, strLugarSesion),
-                strUsuarioActualizacion        = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
-                dtmActualizacion               = COALESCE(GETDATE(), dtmActualizacion)
+                strConfianza                          = COALESCE(${data.strConfianza}, strConfianza),
+                strActividadesDisminuyenActProductiva = COALESCE(${data.strActividadesDisminuyenActProductiva}, strActividadesDisminuyenActProductiva),
+                strSituacionesDesistirEmprendimiento  = COALESCE(${data.strSituacionesDesistirEmprendimiento}, strSituacionesDesistirEmprendimiento),
+                strEquilibrioVida                     = COALESCE(${data.strEquilibrioVida}, strEquilibrioVida),
+                strRedesApoyoPropia                   = COALESCE(${data.strRedesApoyoPropia}, strRedesApoyoPropia),
+                strObservaciones                      = COALESCE(${data.strObservaciones}, strObservaciones),
+                strLugarSesion                        = COALESCE(${data.strLugarSesion}, strLugarSesion),
+                strUsuarioActualizacion               = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion                      = COALESCE(GETDATE(), dtmActualizacion)
 
             WHERE intId = ${data.intId}
 
