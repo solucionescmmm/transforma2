@@ -12,7 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
-    TextField
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -50,19 +50,18 @@ const InfoComMercadeo = ({
         setOpenCollapse(!openCollapese);
     };
 
-    const handlerChangeData = (name, value) => {
-        setData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
-
     useEffect(() => {
         if (values) {
             setData({
                 strPartReuPerioSociSoli: values.strPartReuPerioSociSoli || "",
+                strPartReuPerioSociSoliDetalle:
+                    values.strPartReuPerioSociSoliDetalle || "",
                 strConApliEstOrgSociSoli: values.strConApliEstOrgSociSoli || "",
+                strConApliEstOrgSociSoliDetalle:
+                    values.strConApliEstOrgSociSoliDetalle || "",
                 strAsociEmpoOrgAdmin: values.strAsociEmpoOrgAdmin || "",
+                strAsociEmpoOrgAdminDetalle:
+                    values.strAsociEmpoOrgAdminDetalle || "",
             });
         }
 
@@ -122,7 +121,9 @@ const InfoComMercadeo = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoComAsociativo ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoComAsociativo
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -147,8 +148,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComAsociativo
-                                            ?.strPartReuPerioSociSoli?.message ||
-                                        "Seleccione una opción"
+                                            ?.strPartReuPerioSociSoli
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="PartReuPerioSociSoli"
@@ -200,8 +201,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComAsociativo
-                                            ?.strConApliEstOrgSociSoli?.message ||
-                                        "Seleccione una opción"
+                                            ?.strConApliEstOrgSociSoli
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="ConApliEstOrgSociSoli"

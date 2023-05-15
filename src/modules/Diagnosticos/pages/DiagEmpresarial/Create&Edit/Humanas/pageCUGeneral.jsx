@@ -4,7 +4,6 @@ import React, {
     useEffect,
     useRef,
     useCallback,
-    Fragment,
 } from "react";
 
 //Context
@@ -137,6 +136,8 @@ const PageCUGeneral = ({
 
     const { getUniqueData: getUniqueDataHum } = useGetDiagnHumano({
         autoLoad: false,
+        intIdIdea,
+        intIdDiagnostico,
     });
 
     const refFntGetData = useRef(getUniqueData);
@@ -238,7 +239,7 @@ const PageCUGeneral = ({
                     onChangeRoute("DiagEmpresarial", {
                         intIdIdea,
                         intIdDiagnostico,
-                    })
+                    });
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -272,7 +273,7 @@ const PageCUGeneral = ({
 
             async function getData() {
                 await refFntGetData
-                    .current({ intId })
+                    .current({ intId, intIdIdea, intIdDiagnostico })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -366,7 +367,7 @@ const PageCUGeneral = ({
                     });
 
                 await refFntGetDataHum
-                    .current({ intIdEmpresario: intId })
+                    .current({ intIdEmpresario: intId, intIdIdea })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -401,7 +402,7 @@ const PageCUGeneral = ({
 
             getData();
         }
-    }, [intId, isEdit]);
+    }, [intId, isEdit, intIdIdea, intIdDiagnostico]);
 
     useEffect(() => {
         if (intId) {
@@ -449,7 +450,7 @@ const PageCUGeneral = ({
     }
 
     return (
-        <Fragment>
+        <div style={{ marginTop: "25px", width: "100%" }}>
             <Dialog
                 open={openModal}
                 disableEscapeKeyDown
@@ -612,7 +613,7 @@ const PageCUGeneral = ({
                     </Container>
                 </Grid>
             </Grid>
-        </Fragment>
+        </div>
     );
 };
 

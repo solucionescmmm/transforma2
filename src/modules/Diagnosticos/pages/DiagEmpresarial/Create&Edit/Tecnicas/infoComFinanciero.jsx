@@ -12,7 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
-    TextField
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -56,22 +56,27 @@ const InfoComMercadeo = ({
         setOpenCollapse(!openCollapese);
     };
 
-    const handlerChangeData = (name, value) => {
-        setData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
-
     useEffect(() => {
         if (values) {
             setData({
                 strUniProdSosFinan: values.strUniProdSosFinan || "",
+                strUniProdSosFinanDetalle:
+                    values.strUniProdSosFinanDetalle || "",
                 strEstrCosUniProdDef: values.strEstrCosUniProdDef || "",
+                strEstrCosUniProdDefDetalle:
+                    values.strEstrCosUniProdDefDetalle || "",
                 strPrecProdServDef: values.strPrecProdServDef || "",
+                strPrecProdServDefDetalle:
+                    values.strPrecProdServDefDetalle || "",
                 strDefProcConUniProd: values.strDefProcConUniProd || "",
+                strDefProcConUnirPodDetalle:
+                    values.strDefProcConUniProdDetalle || "",
                 strElabPresUniProd: values.strElabPresUniProd || "",
+                strElabPresUniProdDetalle:
+                    values.strElabPresUniProdDetalle || "",
                 strAdminDinUniProd: values.strAdminDinUniProd || "",
+                strAdminDinUniProdDetalle:
+                    values.strAdminDinUniProdDetalle || "",
             });
         }
 
@@ -131,7 +136,9 @@ const InfoComMercadeo = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoComFinanciero ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoComFinanciero
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -179,112 +186,6 @@ const InfoComMercadeo = ({
                                     error={
                                         errors?.objInfoComFinanciero
                                             ?.strUniProdSosFinanDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strEstrCosUniProdDef"
-                            defaultValue={data.strEstrCosUniProdDef}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="La estructura de costos de mi unidad productiva está definida"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strEstrCosUniProdDef
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComFinanciero
-                                            ?.strEstrCosUniProdDef?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="EstrCosUniProdDef"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strEstrCosUniProdDefDetalle"
-                            defaultValue={data.strEstrCosUniProdDefDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="La estructura de costos de mi unidad productiva está definida"
-                                    name={name}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strEstrCosUniProdDefDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strPrecProdServDef"
-                            defaultValue={data.strPrecProdServDef}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Los precios de mis productos/servicio(s) están definidos"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strPrecProdServDef
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComFinanciero
-                                            ?.strPrecProdServDef?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="PrecProdServDef"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strPrecProdServDefDetalle"
-                            defaultValue={data.strPrecProdServDefDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Los precios de mis productos/servicio(s) están definidos"
-                                    name={name}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strPrecProdServDefDetalle
                                             ? true
                                             : false
                                     }

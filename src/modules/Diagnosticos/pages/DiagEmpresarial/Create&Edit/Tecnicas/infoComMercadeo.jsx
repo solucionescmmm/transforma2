@@ -12,7 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
-    TextField
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -56,6 +56,16 @@ const InfoComMercadeo = ({
         strPartiRedesEmpreComerDetalle: "",
         strPreseMedDigital: "",
         strPreseMedDigitalDetalle: "",
+        strDefineDiscursoComercialClientes: "",
+        strDefineDiscursoComercialClientesDetalle: "",
+        strPlanAtraccionRelacionamientoFidelizacionClientes: "",
+        strPlanAtraccionRelacionamientoFidelizacionClientesDetalle: "",
+        strFormatosGestionComercial: "",
+        strFormatosGestionComercialDetalle: "",
+        strTieneBaseDatosClientes: "",
+        strTieneBaseDatosClientesDetalle: "",
+        strTieneLogisticaTransporteClientes: "",
+        strTieneLogisticaTransporteClientesDetalle: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -64,27 +74,61 @@ const InfoComMercadeo = ({
         setOpenCollapse(!openCollapese);
     };
 
-    const handlerChangeData = (name, value) => {
-        setData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
-
     useEffect(() => {
         if (values) {
             setData({
                 strCaractEmpresaComp: values.strCaractEmpresaComp || "",
+                strCaractEmpresaCompDetalle:
+                    values.strCaractEmpresaCompDetalle || "",
                 strAnalizoObjetivoEmpresa:
                     values.strAnalizoObjetivoEmpresa || "",
+                strAnalizoObjetivoEmpresaDetalle:
+                    values.strAnalizoObjetivoEmpresaDetalle || "",
                 strAnalizoCompetiEmpresa: values.strAnalizoCompetiEmpresa || "",
+                strAnalizoCompetiEmpresaDetalle:
+                    values.strAnalizoCompetiEmpresaDetalle || "",
                 strActivIncreVentClient: values.strActivIncreVentClient || "",
+                strActivIncreVentClientDetalle:
+                    values.strActivIncreVentClientDetalle || "",
                 strPlanRelFideClient: values.strPlanRelFideClient || "",
+                strPlanRelFideClientDetalle:
+                    values.strPlanRelFideClientDetalle || "",
                 strProceComerciEsta: values.strProceComerciEsta || "",
+                strProceComerciEstaDetalle:
+                    values.strProceComerciEstaDetalle || "",
                 strDefiniPortProd: values.strDefiniPortProd || "",
+                strDefiniPortProdDetalle: values.strDefiniPortProdDetalle || "",
                 strNumLugMedComerProd: values.strNumLugMedComerProd || "",
+                strNumLugMedComerProdDetalle:
+                    values.strNumLugMedComerProdDetalle || "",
                 strPartiRedesEmpreComer: values.strPartiRedesEmpreComer || "",
+                strPartiRedesEmpreComerDetalle:
+                    values.strPartiRedesEmpreComerDetalle || "",
                 strPreseMedDigital: values.strPreseMedDigital || "",
+                strPreseMedDigitalDetalle:
+                    values.strPreseMedDigitalDetalle || "",
+                strDefineDiscursoComercialClientes:
+                    values.strDefineDiscursoComercialClientes || "",
+                strDefineDiscursoComercialClientesDetalle:
+                    values.strDefineDiscursoComercialClientesDetalle || "",
+                strPlanAtraccionRelacionamientoFidelizacionClientes:
+                    values.strPlanAtraccionRelacionamientoFidelizacionClientes ||
+                    "",
+                strPlanAtraccionRelacionamientoFidelizacionClientesDetalle:
+                    values.strPlanAtraccionRelacionamientoFidelizacionClientesDetalle ||
+                    "",
+                strFormatosGestionComercial:
+                    values.strFormatosGestionComercial || "",
+                strFormatosGestionComercialDetalle:
+                    values.strFormatosGestionComercialDetalle || "",
+                strTieneBaseDatosClientes:
+                    values.strTieneBaseDatosClientes || "",
+                strTieneBaseDatosClientesDetalle:
+                    values.strTieneBaseDatosClientesDetalle || "",
+                strTieneLogisticaTransporteClientes:
+                    values.strTieneLogisticaTransporteClientes || "",
+                strTieneLogisticaTransporteClientesDetalle:
+                    values.strTieneLogisticaTransporteClientesDetalle || "",
             });
         }
 
@@ -144,7 +188,9 @@ const InfoComMercadeo = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoComMercadeo ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoComMercadeo
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -188,6 +234,7 @@ const InfoComMercadeo = ({
                                     label="Reconozco las características que hacen diferente a mi empresa frente a la competencia"
                                     autoFocus
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -223,8 +270,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComMercadeo
-                                            ?.strAnalizoObjetivoEmpresa?.message ||
-                                        "Seleccione una opción"
+                                            ?.strAnalizoObjetivoEmpresa
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="AnalizoObjetivoEmpresa"
@@ -242,6 +289,7 @@ const InfoComMercadeo = ({
                                     label="Conozco y analizo el público objetivo de mi empresa"
                                     name={name}
                                     disabled={disabled}
+                                    value={value}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComMercadeo
@@ -276,8 +324,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComMercadeo
-                                            ?.strAnalizoCompetiEmpresa?.message ||
-                                        "Seleccione una opción"
+                                            ?.strAnalizoCompetiEmpresa
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="AnalizoCompetiEmpresa"
@@ -296,6 +344,7 @@ const InfoComMercadeo = ({
                                     name={name}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
+                                    value={value}
                                     error={
                                         errors?.objInfoComMercadeo
                                             ?.strAnalizoCompetiEmpresaDetalle
@@ -329,8 +378,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComMercadeo
-                                            ?.strActivIncreVentClient?.message ||
-                                        "Seleccione una opción"
+                                            ?.strActivIncreVentClient
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="ActivIncreVentClient"
@@ -348,6 +397,7 @@ const InfoComMercadeo = ({
                                     label="Realizo actividades enfocadas en incrementar el nivel de ventas y clientes"
                                     name={name}
                                     disabled={disabled}
+                                    value={value}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComMercadeo
@@ -401,6 +451,7 @@ const InfoComMercadeo = ({
                                     label="Tengo un plan de relacionamiento y fidelización con mis clientes"
                                     name={name}
                                     disabled={disabled}
+                                    value={value}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComMercadeo
@@ -482,6 +533,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Mis procesos comerciales están"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -506,6 +558,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Tengo definido el portafolio de productos"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -559,6 +612,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="El número de lugares y medios en los que comercializo mis productos es"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -594,8 +648,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComMercadeo
-                                            ?.strPartiRedesEmpreComer?.message ||
-                                        "Seleccione una opción"
+                                            ?.strPartiRedesEmpreComer
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="PartiRedesEmpreComer"
@@ -613,6 +667,7 @@ const InfoComMercadeo = ({
                                     label="Pertenezco y participo en redes empresariales para la comercialización"
                                     name={name}
                                     disabled={disabled}
+                                    value={value}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComMercadeo
@@ -665,11 +720,301 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Tengo presencia en medios digitales"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComMercadeo
                                             ?.strPreseMedDigitalDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strDefineDiscursoComercialClientes"
+                            defaultValue={
+                                data.strDefineDiscursoComercialClientes
+                            }
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Tengo definido un discurso comercial atractivo para mis clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strDefineDiscursoComercialClientes
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strDefineDiscursoComercialClientes
+                                            ?.message || "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="DefineDiscursoComercialClientes"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strDefineDiscursoComercialClientesDetalle"
+                            defaultValue={
+                                data.strDefineDiscursoComercialClientesDetalle
+                            }
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Tengo definido un discurso comercial atractivo para mis clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strDefineDiscursoComercialClientesDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strPlanAtraccionRelacionamientoFidelizacionClientes"
+                            defaultValue={
+                                data.strPlanAtraccionRelacionamientoFidelizacionClientes
+                            }
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Tengo un plan de atracción, relacionamiento y fidelización con mis clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strPlanAtraccionRelacionamientoFidelizacionClientes
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strPlanAtraccionRelacionamientoFidelizacionClientes
+                                            ?.message || "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="PlanAtraccionRelacionamientoFidelizacionClientes"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strPlanAtraccionRelacionamientoFidelizacionClientesDetalle"
+                            defaultValue={
+                                data.strPlanAtraccionRelacionamientoFidelizacionClientesDetalle
+                            }
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Tengo un plan de atracción, relacionamiento y fidelización con mis clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strPlanAtraccionRelacionamientoFidelizacionClientesDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strFormatosGestionComercial"
+                            defaultValue={data.strFormatosGestionComercial}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Cuento con formatos para realizar mi gestión comercial"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strFormatosGestionComercial
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strFormatosGestionComercial
+                                            ?.message || "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="FormatosGestionComercial"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strFormatosGestionComercialDetalle"
+                            defaultValue={
+                                data.strFormatosGestionComercialDetalle
+                            }
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Cuento con formatos para realizar mi gestión comercial"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strFormatosGestionComercialDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strTieneBaseDatosClientes"
+                            defaultValue={data.strTieneBaseDatosClientes}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Cuento con una base de datos de clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strTieneBaseDatosClientes
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strTieneBaseDatosClientes
+                                            ?.message || "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="TieneBaseDatosClientes"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strTieneBaseDatosClientesDetalle"
+                            defaultValue={data.strTieneBaseDatosClientesDetalle}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Cuento con una base de datos de clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strTieneBaseDatosClientesDetalle
+                                            ? true
+                                            : false
+                                    }
+                                    helperText="Escribe el detalle"
+                                    fullWidth
+                                    multiline
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strTieneLogisticaTransporteClientes"
+                            defaultValue={
+                                data.strTieneLogisticaTransporteClientes
+                            }
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Cuento con capacidad logística y de transporte para llegar a mis clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strTieneLogisticaTransporteClientes
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoComMercadeo
+                                            ?.strTieneLogisticaTransporteClientes
+                                            ?.message || "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="TieneLogisticaTransporteClientes"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoComMercadeo.strTieneLogisticaTransporteClientesDetalle"
+                            defaultValue={
+                                data.strTieneLogisticaTransporteClientesDetalle
+                            }
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Cuento con capacidad logística y de transporte para llegar a mis clientes"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoComMercadeo
+                                            ?.strTieneLogisticaTransporteClientesDetalle
                                             ? true
                                             : false
                                     }

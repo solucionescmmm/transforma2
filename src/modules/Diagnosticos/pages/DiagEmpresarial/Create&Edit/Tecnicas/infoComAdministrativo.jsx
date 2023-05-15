@@ -12,7 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
-    TextField
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -64,26 +64,39 @@ const InfoComMercadeo = ({
         setOpenCollapse(!openCollapese);
     };
 
-    const handlerChangeData = (name, value) => {
-        setData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
-
     useEffect(() => {
         if (values) {
             setData({
                 strUniProdGenEmple: values.strUniProdGenEmple || "",
+                strUniProdGenEmpleDetalle:
+                    values.strUniProdGenEmpleDetalle || "",
                 strEquipTrabEstruct: values.strEquipTrabEstruct || "",
+                strEquipTrabEstructDetalle:
+                    values.strEquipTrabEstructDetalle || "",
                 strEstrucFormaOrganiza: values.strEstrucFormaOrganiza || "",
+                strEstrucFormaOrganizaDetalle:
+                    values.strEstrucFormaOrganizaDetalle || "",
                 strElabPlanTrabActiv: values.strElabPlanTrabActiv || "",
+                strElabPlanTrabActivDetalle:
+                    values.strElabPlanTrabActivDetalle || "",
                 strReaEvalPerioEquipTrab: values.strReaEvalPerioEquipTrab || "",
+                strReaEvalPerioEquipTrabDetalle:
+                    values.strReaEvalPerioEquipTrabDetalle || "",
                 strEmprFormaAcuerNormLab: values.strEmprFormaAcuerNormLab || "",
+                strEmprFormaAcuerNormLabDetalle:
+                    values.strEmprFormaAcuerNormLabDetalle || "",
                 strEmprFormaReqLey: values.strEmprFormaReqLey || "",
-                strPlaneaEstraEmpPlanPlani: values.strPlaneaEstraEmpPlanPlani || "",
+                strEmprFormaReqLeyDetalle:
+                    values.strEmprFormaReqLeyDetalle || "",
+                strPlaneaEstraEmpPlanPlani:
+                    values.strPlaneaEstraEmpPlanPlani || "",
+                strPlaneaEstraEmpPlanPlaniDetalle:
+                    values.strPlaneaEstraEmpPlanPlaniDetalle || "",
                 strMidConstCumpliMetObj: values.strMidConstCumpliMetObj || "",
+                strMidConstCumpliMetObjDetalle:
+                    values.strMidConstCumpliMetObjDetalle || "",
                 strCueAcompJuri: values.strCueAcompJuri || "",
+                strCueAcompJuriDetalle: values.strCueAcompJuriDetalle || "",
             });
         }
 
@@ -143,7 +156,9 @@ const InfoComMercadeo = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoComAdministrativo ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoComAdministrativo
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -380,8 +395,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComAdministrativo
-                                            ?.strReaEvalPerioEquipTrab?.message ||
-                                        "Seleccione una opción"
+                                            ?.strReaEvalPerioEquipTrab
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="ReaEvalPerioEquipTrab"
@@ -433,8 +448,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComAdministrativo
-                                            ?.strEmprFormaAcuerNormLab?.message ||
-                                        "Seleccione una opción"
+                                            ?.strEmprFormaAcuerNormLab
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="EmprFormaAcuerNormLab"
@@ -539,8 +554,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComAdministrativo
-                                            ?.strPlaneaEstraEmpPlanPlani?.message ||
-                                        "Seleccione una opción"
+                                            ?.strPlaneaEstraEmpPlanPlani
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="PlaneaEstraEmpPlanPlani"
@@ -552,7 +567,9 @@ const InfoComMercadeo = ({
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComAdministrativo.strPlaneaEstraEmpPlanPlaniDetalle"
-                            defaultValue={data.strPlaneaEstraEmpPlanPlaniDetalle}
+                            defaultValue={
+                                data.strPlaneaEstraEmpPlanPlaniDetalle
+                            }
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
                                     label="Tengo una planeación estratégica para mi empresa, mas que estrategica plan de trabajo, planificación"
@@ -592,8 +609,8 @@ const InfoComMercadeo = ({
                                     }
                                     helperText={
                                         errors?.objInfoComAdministrativo
-                                            ?.strMidConstCumpliMetObj?.message ||
-                                        "Seleccione una opción"
+                                            ?.strMidConstCumpliMetObj
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
                                     strCodigo="MidConstCumpliMetObj"

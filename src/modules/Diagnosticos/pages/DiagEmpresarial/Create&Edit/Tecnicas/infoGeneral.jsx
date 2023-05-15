@@ -15,7 +15,7 @@ import {
     TextField,
 } from "@mui/material";
 
-import { DateTimePicker, DatePicker } from "@mui/lab";
+import { DateTimePicker, DatePicker } from "@mui/x-date-pickers";
 
 //Iconos de Material UI
 import {
@@ -65,7 +65,12 @@ const InfoGeneral = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -78,7 +83,9 @@ const InfoGeneral = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoGeneral ? "#D33030" : "inherit",
+                            color: errors?.objInfoGeneral
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Información general
@@ -86,13 +93,22 @@ const InfoGeneral = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -117,25 +133,20 @@ const InfoGeneral = ({
                                     onChange={(date) => onChange(date)}
                                     disabled={disabled}
                                     ampm
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            variant="standard"
-                                            required
-                                            error={
-                                                errors?.objInfoGeneral?.dtmFechaSesion
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoGeneral?.dtmFechaSesion
-                                                    ?.message ||
-                                                "Selecciona la fecha y hora de la sesión"
-                                            }
-                                            fullWidth
-                                        />
-                                    )}
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            required: true,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoGeneral
+                                                ?.dtmFechaSesion,
+                                            helperText:
+                                                errors?.objInfoGeneral
+                                                    ?.dtmFechaSesion?.message ||
+                                                "Selecciona la fecha y hora de la sesión",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -166,7 +177,8 @@ const InfoGeneral = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strLugarSesion?.message ||
+                                        errors?.objInfoGeneral?.strLugarSesion
+                                            ?.message ||
                                         "Digita el lugar donde se realizo la sesión"
                                     }
                                 />
@@ -189,24 +201,20 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            variant="standard"
-                                            error={
-                                                errors?.objInfoGeneral?.dtActualizacion
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoGeneral?.dtActualizacion
+                                    slotProps={{
+                                        textField: {
+                                            name,
+                                            variant: "standard",
+                                            error: !!errors?.objInfoGeneral
+                                                ?.dtActualizacion,
+                                            helperText:
+                                                errors?.objInfoGeneral
+                                                    ?.dtActualizacion
                                                     ?.message ||
-                                                "Fecha de la última vez que se actualizó el diagnóstico"
-                                            }
-                                            fullWidth
-                                        />
-                                    )}
+                                                "Fecha de la última vez que se actualizó el diagnóstico",
+                                            fullWidth: true,
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -228,13 +236,14 @@ const InfoGeneral = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strUsuarioCreacion
+                                        errors?.objInfoGeneral
+                                            ?.strUsuarioCreacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strUsuarioCreacion
-                                            ?.message ||
+                                        errors?.objInfoGeneral
+                                            ?.strUsuarioCreacion?.message ||
                                         "Seleccione el responsable del diagnóstico"
                                     }
                                 />
@@ -262,12 +271,14 @@ const InfoGeneral = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strUsuarioActualizacion
+                                        errors?.objInfoGeneral
+                                            ?.strUsuarioActualizacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strUsuarioActualizacion
+                                        errors?.objInfoGeneral
+                                            ?.strUsuarioActualizacion
                                             ?.message ||
                                         "Persona que estuvo encargada de actualizar la información del diagnóstico en la última fecha"
                                     }

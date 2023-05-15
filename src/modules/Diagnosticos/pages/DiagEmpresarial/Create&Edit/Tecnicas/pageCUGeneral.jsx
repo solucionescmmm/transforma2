@@ -13,7 +13,7 @@ import { AuthContext } from "../../../../../../common/middlewares/Auth";
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
 
 //Librerias
-import { Link as RouterLink, Redirect } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -29,12 +29,15 @@ import {
     Box,
     Typography,
     Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    useMediaQuery,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
-
-//Iconos de Material UI
-import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
 
 //Componentes
 import Loader from "../../../../../../common/components/Loader";
@@ -46,9 +49,9 @@ import InfoComFinanciero from "./infoComFinanciero";
 import InfoComAdministrativo from "./infoComAdministrativo";
 import InfoComAsociativo from "./infoComAsociativo";
 
-
 //Estilos
 import { makeStyles } from "@mui/styles";
+import { useTheme } from "@emotion/react";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -86,7 +89,13 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const PageCUGeneral = ({ intId, isEdit }) => {
+const PageCUGeneral = ({
+    intId,
+    isEdit,
+    intIdIdea,
+    intIdDiagnostico,
+    onChangeRoute,
+}) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -104,7 +113,7 @@ const PageCUGeneral = ({ intId, isEdit }) => {
         objInfoComAsociativo: {},
     });
 
-    const [success, setSucces] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
@@ -116,6 +125,9 @@ const PageCUGeneral = ({ intId, isEdit }) => {
     const [loadingGetData, setLoadingGetData] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
+
+    const theme = useTheme();
+    const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -171,6 +183,8 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
+                                    intIdIdea,
+                                    intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
@@ -233,7 +247,10 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                     toast.success(res.data.msg);
 
                     setLoading(false);
-                    setSucces(true);
+                    onChangeRoute("DiagEmpresarial", {
+                        intIdIdea,
+                        intIdDiagnostico,
+                    });
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -266,7 +283,7 @@ const PageCUGeneral = ({ intId, isEdit }) => {
 
             async function getData() {
                 await refFntGetData
-                    .current({ intId })
+                    .current({ intId, intIdIdea })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -364,7 +381,7 @@ const PageCUGeneral = ({ intId, isEdit }) => {
 
             getData();
         }
-    }, [intId]);
+    }, [intId, intIdIdea, intIdDiagnostico]);
 
     useEffect(() => {
         if (intId) {
@@ -387,10 +404,6 @@ const PageCUGeneral = ({ intId, isEdit }) => {
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/diagnosticos/diagEmpresarial" />;
-    }
-
     if (loadingGetData) {
         return <Loader />;
     }
@@ -416,183 +429,206 @@ const PageCUGeneral = ({ intId, isEdit }) => {
     }
 
     return (
-        <Grid
-            container
-            direction="row"
-            spacing={3}
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-        >
-            <Grid item xs={12}>
-                <Button
-                    component={RouterLink}
-                    to={`/diagnosticos/diagEmpresarial`}
-                    startIcon={<ChevronLeftIcon />}
-                    size="small"
-                    color="inherit"
-                >
-                    Regresar
-                </Button>
-            </Grid>
+        <div style={{ marginTop: "25px", width: "100%" }}>
+            <Dialog
+                open={openModal}
+                disableEscapeKeyDown
+                fullScreen={bitMobile}
+            >
+                <DialogTitle>Aviso</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Se ha detectado que la persona empresaria ya cuenta con
+                        un registro del diagnóstico técnico. ¿Deseas editar la
+                        información o previsualizar el resumen?
+                    </DialogContentText>
+                </DialogContent>
 
-            <Grid item xs={12}>
-                <Container className={classes.containerPR}>
-                    <Paper className={classes.paper}>
-                        {loading ? (
-                            <LinearProgress
-                                className={classes.linearProgress}
-                            />
-                        ) : null}
+                <DialogActions>
+                    <Button
+                        component={RouterLink}
+                        to={`/diagnosticos/diagEmpresarial/humanas/read/${data.objInfoGeneral?.intId}`}
+                        color="inherit"
+                    >
+                        ver resumen
+                    </Button>
 
-                        <Grid
-                            container
-                            direction="row"
-                            spacing={2}
-                            style={{ padding: "25px" }}
-                        >
-                            <Grid item xs={12}>
-                                <Grid
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        width: "100%",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Box
+                    <Button
+                        component={RouterLink}
+                        to={`/diagnosticos/diagEmpresarial/humanas/edit/`}
+                    >
+                        editar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Grid
+                container
+                direction="row"
+                spacing={3}
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+            >
+                <Grid item xs={12}>
+                    <Container className={classes.containerPR}>
+                        <Paper className={classes.paper}>
+                            {loading ? (
+                                <LinearProgress
+                                    className={classes.linearProgress}
+                                />
+                            ) : null}
+
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={2}
+                                style={{ padding: "25px" }}
+                            >
+                                <Grid item xs={12}>
+                                    <Grid
                                         sx={{
-                                            flexGrow: 1,
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            width: "100%",
+                                            justifyContent: "center",
+                                            alignItems: "center",
                                         }}
                                     >
-                                        <Typography
-                                            align="center"
-                                            style={{
-                                                fontWeight: "bold",
-                                                textTransform: "uppercase",
+                                        <Box
+                                            sx={{
+                                                flexGrow: 1,
                                             }}
-                                            color="primary"
-                                            variant="body1"
                                         >
-                                            {isEdit
-                                                ? "editar diagnóstico de competencias técnicas"
-                                                : "registrar diagnóstico de competencias técnicas"}
-                                        </Typography>
+                                            <Typography
+                                                align="center"
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    textTransform: "uppercase",
+                                                }}
+                                                color="primary"
+                                                variant="body1"
+                                            >
+                                                {isEdit
+                                                    ? "editar diagnóstico de competencias técnicas"
+                                                    : "registrar diagnóstico de competencias técnicas"}
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography variant="caption">
+                                        Todos los campos marcados con (*) son
+                                        obligatorios.
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoGeneral
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoGeneral}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoComMercadeo
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoComMercadeo}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoComProductivo
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoComProductivo}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoComFinanciero
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoComFinanciero}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoComAdministrativo
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoComAdministrativo}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoComAsociativo
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoComAsociativo}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                {errors.objInfoGeneral && (
+                                    <Grid item xs={12}>
+                                        <Alert severity="error">
+                                            Lo sentimos, tienes campos
+                                            pendientes por diligenciar en el
+                                            formulario, revisa e intentalo
+                                            nuevamente.
+                                        </Alert>
+                                    </Grid>
+                                )}
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                        }}
+                                    >
+                                        <LoadingButton
+                                            variant="contained"
+                                            type="submit"
+                                            loading={loading}
+                                        >
+                                            {isEdit ? "guardar" : "registrar"}
+                                        </LoadingButton>
                                     </Box>
                                 </Grid>
                             </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="caption">
-                                    Todos los campos marcados con (*) son
-                                    obligatorios.
-                                </Typography>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoGeneral
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoGeneral}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoComMercadeo
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoComMercadeo}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoComProductivo
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoComProductivo}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoComFinanciero
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoComFinanciero}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoComAdministrativo
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoComAdministrativo}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoComAsociativo
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoComAsociativo}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            {errors.objInfoGeneral && (
-                                <Grid item xs={12}>
-                                    <Alert severity="error">
-                                        Lo sentimos, tienes campos pendientes
-                                        por diligenciar en el formulario, revisa
-                                        e intentalo nuevamente.
-                                    </Alert>
-                                </Grid>
-                            )}
-
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row-reverse",
-                                    }}
-                                >
-                                    <LoadingButton
-                                        variant="contained"
-                                        type="submit"
-                                        loading={loading}
-                                    >
-                                        {isEdit ? "guardar" : "registrar"}
-                                    </LoadingButton>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                </Container>
+                        </Paper>
+                    </Container>
+                </Grid>
             </Grid>
-        </Grid>
+        </div>
     );
 };
 
