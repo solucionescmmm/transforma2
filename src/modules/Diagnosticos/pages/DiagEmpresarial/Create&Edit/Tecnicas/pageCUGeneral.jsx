@@ -218,7 +218,21 @@ const PageCUGeneral = ({
                                           )
                                         : null,
                                 },
-                                ...data,
+                                objInfoComMercadeo: {
+                                    ...data.objInfoComMercadeo,
+                                },
+                                objInfoComProductivo: {
+                                    ...data.objInfoComProductivo,
+                                },
+                                objInfoComFinanciero: {
+                                    ...data.objInfoComFinanciero,
+                                },
+                                objInfoComAdministrativo: {
+                                    ...data.objInfoComAdministrativo,
+                                },
+                                objInfoComAsociativo: {
+                                    ...data.objInfoComAsociativo,
+                                },
                             };
 
                             return JSON.stringify(newData);
