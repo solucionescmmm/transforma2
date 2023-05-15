@@ -4,12 +4,19 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOHumanas = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
 
+//Service
+const serviceGetDiagnostico = require("../../../Main/domain/getDiagnosticos.service")
+
+
 class setDiagnosticoHumanas {
+    //Objetos
     #objData;
     #objUser;
-    #intIdEmpresario;
     #objResult;
 
+    // Variables
+    #intIdEmpresario;
+    #intIdEstadoDiagnsotico;
     /**
      * @param {object} data
      */
@@ -21,6 +28,7 @@ class setDiagnosticoHumanas {
     async main() {
         //console.log(this.#objData)
         await this.#validations();
+        await this.#getDiagnostico()
         await this.#getIntIdEmpresario();
         await this.#completeData();
         await this.#setDiagnosticoHumanas();
@@ -44,19 +52,34 @@ class setDiagnosticoHumanas {
         }
     }
 
+    async #getDiagnostico() {
+        let queryServiceGetDiagnostico = await serviceGetDiagnostico({
+            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
+            intId: this.#objData?.objInfoGeneral?.intIdDiagnostico
+        },this.#objUser)
+
+        if (queryServiceGetDiagnostico.error) {
+            throw new Error(queryServiceGetDiagnostico.msg)
+        }
+
+        this.#intIdEstadoDiagnsotico = queryServiceGetDiagnostico.data[0]?.intIdEstadoDiagnostico
+    }
+
     async #getIntIdEmpresario() {
         this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
     }
 
     async #completeData() {
         let newData = {
-            intIdEmpresario: this.#intIdEmpresario,
+            //intIdEmpresario: this.#intIdEmpresario,
+            intIdEstadoDiagnostico: this.#intIdEstadoDiagnsotico,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEncuestaHumanas,
             strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
         };
         this.#objData = newData;
+        console.log(this.#objData)
     }
 
     async #setDiagnosticoHumanas() {
