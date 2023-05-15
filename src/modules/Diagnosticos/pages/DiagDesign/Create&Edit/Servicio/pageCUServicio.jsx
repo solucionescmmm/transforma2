@@ -277,40 +277,15 @@ const PageCUServicio = ({
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (intId) {
+        if (intIdIdea) {
             setLoadingGetData(true);
 
             async function getData() {
                 await refFntGetDataEmpresario
-                    .current({ intId, intIdIdea })
+                    .current({ intIdIdea })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
-                        }
-
-                        if (res.data?.data) {
-                            let data = res.data.data[0];
-
-                            setData((prevState) => ({
-                                ...prevState,
-                                objInfoGeneral: {
-                                    intId: data.objEmpresario.intId || null,
-                                    dtmFechaSesion:
-                                        data.objEmpresario.dtmFechaSesion ||
-                                        null,
-                                    strLugarSesion:
-                                        data.objEmpresario.strLugarSesion || "",
-                                    strUsuarioCreacion:
-                                        data.objEmpresario.strUsuarioCreacion ||
-                                        "",
-                                    dtActualizacion:
-                                        data.objEmpresario.dtActualizacion ||
-                                        null,
-                                    strUsuarioActualizacion:
-                                        data.objEmpresario
-                                            .strUsuarioActualizacion || "",
-                                },
-                            }));
                         }
 
                         setErrorGetData({ flag: false, msg: "" });
@@ -321,7 +296,6 @@ const PageCUServicio = ({
 
                 await refFntGetDataServ
                     .current({
-                        intIdEmpresario: intId,
                         intIdIdea,
                         intIdDiagnostico,
                     })
@@ -331,13 +305,6 @@ const PageCUServicio = ({
                         }
 
                         if (res.data?.data) {
-                            let data = res.data.data[0];
-
-                            setData((prevState) => ({
-                                ...prevState,
-                                ...data,
-                            }));
-
                             if (!isEdit) {
                                 setOpenModal(true);
                             }
@@ -357,7 +324,7 @@ const PageCUServicio = ({
 
             getData();
         }
-    }, [intId, isEdit, intIdIdea, intIdDiagnostico]);
+    }, [isEdit, intIdIdea, intIdDiagnostico]);
 
     useEffect(() => {
         if (intId) {

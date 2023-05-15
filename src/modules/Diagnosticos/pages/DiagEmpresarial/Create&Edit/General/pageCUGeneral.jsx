@@ -438,13 +438,6 @@ const PageCUGeneral = ({
                         }
 
                         if (res.data?.data) {
-                            let data = res.data.data[0];
-
-                            setData((prevState) => ({
-                                ...prevState,
-                                ...data,
-                            }));
-
                             if (!isEdit) {
                                 setOpenModal(true);
                             }

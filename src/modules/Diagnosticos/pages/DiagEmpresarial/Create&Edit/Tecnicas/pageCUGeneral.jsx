@@ -287,96 +287,15 @@ const PageCUGeneral = ({
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (intId) {
+        if (intIdIdea) {
             setLoadingGetData(true);
 
             async function getData() {
                 await refFntGetData
-                    .current({ intId, intIdIdea })
+                    .current({ intIdIdea })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
-                        }
-
-                        if (res.data) {
-                            let data = res.data.data[0];
-
-                            setData({
-                                objInfoGeneral: {
-                                    intId: data.objEmpresario.intId || null,
-                                    dtmFechaSesion:
-                                        data.objEmpresario.dtmFechaSesion ||
-                                        null,
-                                    strLugarSesion:
-                                        data.objEmpresario.strLugarSesion || "",
-                                    strUsuarioCreacion:
-                                        data.objEmpresario.strUsuarioCreacion ||
-                                        "",
-                                    dtActualizacion:
-                                        data.objEmpresario.dtActualizacion ||
-                                        null,
-                                    strUsuarioActualizacion:
-                                        data.objEmpresario
-                                            .strUsuarioActualizacion || "",
-                                    strNombres:
-                                        data.objEmpresario.strNombres || "",
-                                    strApellidos:
-                                        data.objEmpresario.strApellidos || "",
-                                    strTipoDocto:
-                                        data.objEmpresario.strTipoDocto || "",
-                                    strNroDocto:
-                                        data.objEmpresario.strNroDocto || "",
-                                    strLugarExpedicionDocto:
-                                        data.objEmpresario
-                                            .strLugarExpedicionDocto || "",
-                                    dtFechaExpedicionDocto: data.objEmpresario
-                                        .dtFechaExpedicionDocto
-                                        ? parseISO(
-                                              data.objEmpresario
-                                                  .dtFechaExpedicionDocto
-                                          )
-                                        : null,
-                                    dtFechaNacimiento: data.objEmpresario
-                                        .dtFechaNacimiento
-                                        ? parseISO(
-                                              data.objEmpresario
-                                                  .dtFechaNacimiento
-                                          )
-                                        : null,
-                                    strGenero:
-                                        data.objEmpresario.strGenero || "",
-                                    strNivelEducativo:
-                                        data.objEmpresario.strNivelEducativo ||
-                                        "",
-                                    strTitulos:
-                                        data.objEmpresario.strTitulos || "",
-                                    strEstrato:
-                                        data.objEmpresario.strEstrato || "",
-                                    arrDepartamento:
-                                        data.objEmpresario.arrDepartamento ||
-                                        [],
-                                    arrCiudad:
-                                        data.objEmpresario.arrCiudad || [],
-                                    strDireccionResidencia:
-                                        data.objEmpresario
-                                            .strDireccionResidencia || "",
-                                    strBarrio:
-                                        data.objEmpresario.strBarrio || "",
-                                    strUbicacionVivienda:
-                                        data.objEmpresario
-                                            .strUbicacionVivienda || "",
-                                    strCelular1:
-                                        data.objEmpresario.strCelular1 || "",
-                                    strCelular2:
-                                        data.objEmpresario.strCelular2 || "",
-                                    strCorreoElectronico1:
-                                        data.objEmpresario
-                                            .strCorreoElectronico1 || "",
-                                    strCorreoElectronico2:
-                                        data.objEmpresario
-                                            .strCorreoElectronico2 || "",
-                                },
-                            });
                         }
 
                         setLoadingGetData(false);
@@ -389,7 +308,6 @@ const PageCUGeneral = ({
 
                 await refFntGetDataTecn
                     .current({
-                        intIdEmpresario: intId,
                         intIdIdea,
                         intIdDiagnostico,
                     })
@@ -399,13 +317,6 @@ const PageCUGeneral = ({
                         }
 
                         if (res.data?.data) {
-                            let data = res.data.data[0];
-
-                            setData((prevState) => ({
-                                ...prevState,
-                                ...data,
-                            }));
-
                             if (!isEdit) {
                                 setOpenModal(true);
                             }
@@ -427,7 +338,7 @@ const PageCUGeneral = ({
 
             getData();
         }
-    }, [intId, intIdIdea, intIdDiagnostico, isEdit]);
+    }, [intIdIdea, intIdDiagnostico, isEdit]);
 
     useEffect(() => {
         if (intId) {

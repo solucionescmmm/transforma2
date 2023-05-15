@@ -259,7 +259,10 @@ const PageCUProducto = ({
                     toast.success(res.data.msg);
 
                     setLoading(false);
-                    onChangeRoute("DiagDesign", { intIdIdea, intIdDiagnostico });
+                    onChangeRoute("DiagDesign", {
+                        intIdIdea,
+                        intIdDiagnostico,
+                    });
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -288,56 +291,16 @@ const PageCUProducto = ({
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (intId) {
+        if (intIdIdea) {
             setLoadingGetData(true);
 
             async function getData() {
                 await refFntGetDataEmpresario
-                    .current({ intId, intIdIdea })
+                    .current({ intIdIdea })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
                         }
-
-                        if (res.data) {
-                            let data = res.data.data[0];
-
-                            setData((prevState) => ({
-                                ...prevState,
-                                objInfoGeneral: {
-                                    intId: data.objEmpresario.intId || null,
-                                    dtmFechaSesion: data.objEmpresario
-                                        .dtmFechaSesion
-                                        ? parseISO(
-                                              data.objEmpresario.dtmFechaSesion
-                                          )
-                                        : null,
-                                    strLugarSesion:
-                                        data.objEmpresario.strLugarSesion || "",
-                                    strUsuarioCreacion:
-                                        data.objEmpresario.strUsuarioCreacion ||
-                                        "",
-                                    dtActualizacion: data.objEmpresario
-                                        .dtActualizacion
-                                        ? parseISO(
-                                              data.objEmpresario.dtActualizacion
-                                          )
-                                        : null,
-                                    strUsuarioActualizacion:
-                                        data.objEmpresario
-                                            .strUsuarioActualizacion || "",
-                                },
-                                objInfoProductos: {
-                                    strNombreTecnica:
-                                        data.objInfoEmpresa.strNombreTecnica ||
-                                        "",
-                                    strMateriaPrima:
-                                        data.objInfoEmpresa.strMateriaPrima ||
-                                        "",
-                                },
-                            }));
-                        }
-
                         setErrorGetData({ flag: false, msg: "" });
                     })
                     .catch((error) => {
@@ -349,7 +312,6 @@ const PageCUProducto = ({
 
                 await refFntGetDataProduct
                     .current({
-                        intIdEmpresario: intId,
                         intIdIdea,
                         intIdDiagnostico,
                     })
@@ -359,38 +321,6 @@ const PageCUProducto = ({
                         }
 
                         if (res.data) {
-                            let data = res.data.data[0];
-
-                            setData((prevState) => ({
-                                ...prevState,
-                                ...data,
-                                objInfoGeneral: {
-                                    intId: data.objInfoGeneral.intId,
-                                    dtmFechaSesion: data.objInfoGeneral
-                                        .dtmFechaSesion
-                                        ? parseISO(
-                                              data.objInfoGeneral.dtmFechaSesion
-                                          )
-                                        : null,
-                                    strLugarSesion:
-                                        data.objInfoGeneral.strLugarSesion ||
-                                        "",
-                                    strUsuarioCreacion:
-                                        data.objInfoGeneral
-                                            .strUsuarioCreacion || "",
-                                    dtActualizacion: data.objInfoGeneral
-                                        .dtActualizacion
-                                        ? parseISO(
-                                              data.objInfoGeneral
-                                                  .dtActualizacion
-                                          )
-                                        : null,
-                                    strUsuarioActualizacion:
-                                        data.objInfoGeneral
-                                            .strUsuarioActualizacion || "",
-                                },
-                            }));
-
                             if (!isEdit) {
                                 setOpenModal(true);
                             }
@@ -410,7 +340,7 @@ const PageCUProducto = ({
 
             getData();
         }
-    }, [intId, isEdit, intIdIdea, intIdDiagnostico]);
+    }, [isEdit, intIdIdea, intIdDiagnostico]);
 
     useEffect(() => {
         if (intId) {
@@ -458,7 +388,7 @@ const PageCUProducto = ({
     }
 
     return (
-        <div style={{marginTop: "25px", width: "100%"}}>
+        <div style={{ marginTop: "25px", width: "100%" }}>
             <Dialog
                 open={openModal}
                 disableEscapeKeyDown
