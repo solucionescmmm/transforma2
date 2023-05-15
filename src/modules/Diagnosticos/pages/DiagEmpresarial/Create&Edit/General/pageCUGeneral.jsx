@@ -168,6 +168,8 @@ const PageCUGeneral = ({
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
+                                    intIdIdea,
+                                    intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
@@ -230,6 +232,11 @@ const PageCUGeneral = ({
                     toast.success(res.data.msg);
 
                     setLoading(false);
+
+                    onChangeRoute("DiagEmpresarial", {
+                        intIdIdea,
+                        intIdDiagnostico,
+                    })
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -250,6 +257,7 @@ const PageCUGeneral = ({
                     }
                 });
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [token, data, isEdit]
     );
 

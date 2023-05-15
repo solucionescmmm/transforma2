@@ -12,6 +12,7 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
+    TextField,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -22,6 +23,7 @@ import {
 
 //Componentes
 import SelectListas from "../../../../components/selectLista";
+import DropdownLista from "../../../../components/dropdownLista";
 
 const InfoEncuestaHumanas = ({
     disabled,
@@ -46,21 +48,17 @@ const InfoEncuestaHumanas = ({
         strProyectoVidaEmprendimiento: "",
         strHabilidadesCreatividad: "",
         strConfianza: "",
-        strEquilibrioVida: "",
+        strEquilibrioVida: [],
         strRedesApoyoPropia: "",
+        strActividadesDisminuyenActProductiva: "",
+        strSituacionesDesistirEmprendimiento: [],
+        strObservaciones: ""
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
-    };
-
-    const handlerChangeData = (name, value) => {
-        setData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
     };
 
     useEffect(() => {
@@ -73,12 +71,20 @@ const InfoEncuestaHumanas = ({
                 strProyectoVidaEmpresa: values.strProyectoVidaEmpresa || "",
                 strHabilidadesAutonomia: values.strHabilidadesAutonomia || "",
                 strHabilidadesCapacidad: values.strHabilidadesCapacidad || "",
-                strHabilidadesComuniacion: values.strHabilidadesComuniacion || "",
-                strProyectoVidaEmprendimiento: values.strProyectoVidaEmprendimiento || "",
-                strHabilidadesCreatividad: values.strHabilidadesCreatividad || "",
+                strHabilidadesComuniacion:
+                    values.strHabilidadesComuniacion || "",
+                strProyectoVidaEmprendimiento:
+                    values.strProyectoVidaEmprendimiento || "",
+                strHabilidadesCreatividad:
+                    values.strHabilidadesCreatividad || "",
                 strConfianza: values.strConfianza || "",
-                strEquilibrioVida: values.strEquilibrioVida || "",
+                strEquilibrioVida: values.strEquilibrioVida || [],
                 strRedesApoyoPropia: values.strRedesApoyoPropia || "",
+                strActividadesDisminuyenActProductiva:
+                    values.strActividadesDisminuyenActProductiva || "",
+                strSituacionesDesistirEmprendimiento:
+                    values.strSituacionesDesistirEmprendimiento || [],
+                strObservaciones: values.strObservaciones || "",
             });
         }
 
@@ -138,7 +144,9 @@ const InfoEncuestaHumanas = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoEncuestaHumanas ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoEncuestaHumanas
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -147,7 +155,7 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strTomaDesiciones"
-                            defaultValue={data.str}
+                            defaultValue={data.strTomaDesiciones}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="¿Cómo se siente al momento de tomar las decisiones en su emprendimiento? "
@@ -173,11 +181,11 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
-                    
+
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strMotivaciones"
-                            defaultValue={data.str}
+                            defaultValue={data.strMotivaciones}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="¿Cuál es tú principal motivación para emprender?"
@@ -203,11 +211,11 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
-                    
+
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strNivelVida"
-                            defaultValue={data.str}
+                            defaultValue={data.strNivelVida}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="¿Desde que inició su empresa hasta hoy, cuánto ha influido en el nivel de vida de su familia(ingresos, salud, educación…)"
@@ -237,7 +245,7 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strRedesApoyoOtros"
-                            defaultValue={data.str}
+                            defaultValue={data.strRedesApoyoOtros}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="¿En quiénes usted ha encontrado apoyo para salir adelante con su emprendimiento?"
@@ -267,7 +275,7 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strProyectoVidaEmpresa"
-                            defaultValue={data.str}
+                            defaultValue={data.strProyectoVidaEmpresa}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="¿En su momento actual de desarrollo, cuánto diría que su empresa se ha convertido en su proyecto de vida?"
@@ -293,11 +301,11 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
-                    
+
                     <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesAutonomia"
-                            defaultValue={data.str}
+                            defaultValue={data.strHabilidadesAutonomia}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="Autonomía para el manejo de su negocio"
@@ -313,8 +321,8 @@ const InfoEncuestaHumanas = ({
                                     }
                                     helperText={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesAutonomia?.message ||
-                                        "Seleccione una opción"
+                                            ?.strHabilidadesAutonomia
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
                                     strCodigo="HabilidadesAutonomia"
@@ -327,7 +335,7 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesCapacidad"
-                            defaultValue={data.str}
+                            defaultValue={data.strHabilidadesCapacidad}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="Capacidad de adaptarse a los cambios"
@@ -343,8 +351,8 @@ const InfoEncuestaHumanas = ({
                                     }
                                     helperText={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesCapacidad?.message ||
-                                        "Seleccione una opción"
+                                            ?.strHabilidadesCapacidad
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
                                     strCodigo="HabilidadesCapacidad"
@@ -357,7 +365,7 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesComuniacion"
-                            defaultValue={data.str}
+                            defaultValue={data.strHabilidadesComuniacion}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="Comunicación efectiva con los clientes, con los empleados, los proveedores"
@@ -373,8 +381,8 @@ const InfoEncuestaHumanas = ({
                                     }
                                     helperText={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesComuniacion?.message ||
-                                        "Seleccione una opción"
+                                            ?.strHabilidadesComuniacion
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
                                     strCodigo="HabilidadesComunicacion"
@@ -387,7 +395,7 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strProyectoVidaEmprendimiento"
-                            defaultValue={data.str}
+                            defaultValue={data.strProyectoVidaEmprendimiento}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="Consideras que el emprendimiento, te permite cumplir tus aspiraciones y proyectos"
@@ -403,8 +411,8 @@ const InfoEncuestaHumanas = ({
                                     }
                                     helperText={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strProyectoVidaEmprendimiento?.message ||
-                                        "Seleccione una opción"
+                                            ?.strProyectoVidaEmprendimiento
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
                                     strCodigo="ProyectoVidaEmprendimiento"
@@ -417,7 +425,7 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesCreatividad"
-                            defaultValue={data.str}
+                            defaultValue={data.strHabilidadesCreatividad}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="Creatividad en productos y en procesos productivos"
@@ -433,8 +441,8 @@ const InfoEncuestaHumanas = ({
                                     }
                                     helperText={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesCreatividad?.message ||
-                                        "Seleccione una opción"
+                                            ?.strHabilidadesCreatividad
+                                            ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
                                     strCodigo="HabilidadesCreatividad"
@@ -447,7 +455,7 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strConfianza"
-                            defaultValue={data.str}
+                            defaultValue={data.strConfianza}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="De acuerdo con las experiencias y el conocimiento adquirido en su actuar empresarial, en la siguiente escala en qué nivel confianza se ubicaría"
@@ -477,10 +485,10 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strEquilibrioVida"
-                            defaultValue={data.str}
+                            defaultValue={data.strEquilibrioVida}
                             render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="En tú rutina realizas actividades de descanso y esparcimiento (Ejemplos: leer, tocar un instrumento, bailar, compartir con amistades, estudiar, orar, deportivas, entre otros)"
+                                <DropdownLista
+                                    label="Seleccione las actividades que en tú rutina realizas para el descanso y esparcimiento"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -498,6 +506,7 @@ const InfoEncuestaHumanas = ({
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
                                     strCodigo="EquilibrioVida"
+                                    multiple
                                 />
                             )}
                             control={control}
@@ -507,7 +516,7 @@ const InfoEncuestaHumanas = ({
                     <Grid item xs={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strRedesApoyoPropia"
-                            defaultValue={data.str}
+                            defaultValue={data.strRedesApoyoPropia}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="Evalúe su capacidad, su actitud para crear redes"
@@ -528,6 +537,103 @@ const InfoEncuestaHumanas = ({
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
                                     strCodigo="RedesApoyoPropia"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoEncuestaHumanas.strActividadesDisminuyenActProductiva"
+                            defaultValue={
+                                data.strActividadesDisminuyenActProductiva
+                            }
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="¿Cuáles son las tareas de cuidado que disminuyen el tiempo para dedicarse a su actividad productiva de manera continua?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strActividadesDisminuyenActProductiva
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strActividadesDisminuyenActProductiva
+                                            ?.message || "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="ActividadesDisminuyenActProductiva"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoEncuestaHumanas.strSituacionesDesistirEmprendimiento"
+                            defaultValue={
+                                data.strSituacionesDesistirEmprendimiento
+                            }
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownLista
+                                    label="¿Cuáles son las situaciones que te podrían llevar a desistir del emprendimiento? "
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e, value) => onChange(value)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strSituacionesDesistirEmprendimiento
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strSituacionesDesistirEmprendimiento
+                                            ?.message ||
+                                        "Seleccione una o varias opciones"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="SituacionesDesistirEmprendimiento"
+                                    multiple
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoEncuestaHumanas.strObservaciones"
+                            defaultValue={data.strObservaciones}
+                            render={({ field: { name, onChange, value } }) => (
+                                <TextField
+                                    label="Conclusiones y observaciones "
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e, value) => onChange(value)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strObservaciones
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strObservaciones?.message ||
+                                        "Digita tu respuesta"
+                                    }
+                                    multiline
+                                    fullWidth
+                                    rows={4}
                                 />
                             )}
                             control={control}

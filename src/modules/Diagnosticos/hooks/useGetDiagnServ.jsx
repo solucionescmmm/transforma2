@@ -37,6 +37,8 @@ import { toast } from "react-hot-toast";
 const useGetDiagnServ = ({
     intId = null,
     intIdEmpresario = null,
+    intIdDiagnostico,
+    intIdIdea,
     autoLoad = true,
 } = {}) => {
     //===============================================================================================================================================
@@ -53,7 +55,13 @@ const useGetDiagnServ = ({
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intId, intIdEmpresario }) => {
+        async ({
+            signalSubmitData,
+            intId,
+            intIdEmpresario,
+            intIdDiagnostico,
+            intIdIdea,
+        }) => {
             return await axios(
                 {
                     method: "GET",
@@ -65,6 +73,8 @@ const useGetDiagnServ = ({
                     params: {
                         intIdEmpresario,
                         intId,
+                        intIdDiagnostico,
+                        intIdIdea,
                     },
                 },
                 {
@@ -102,17 +112,30 @@ const useGetDiagnServ = ({
         [token]
     );
 
-    const refreshGetData = ({ intId = null, intIdEmpresario = null } = {}) => {
+    const refreshGetData = ({
+        intId = null,
+        intIdEmpresario = null,
+        intIdDiagnostico,
+        intIdIdea,
+    } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, intId, intIdEmpresario });
+        getData({
+            signalSubmitData,
+            intId,
+            intIdEmpresario,
+            intIdDiagnostico,
+            intIdIdea,
+        });
     };
 
     const getUniqueData = async ({
         intId = null,
         intIdEmpresario = null,
+        intIdDiagnostico,
+        intIdIdea,
     } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -120,6 +143,8 @@ const useGetDiagnServ = ({
             signalSubmitData,
             intId,
             intIdEmpresario,
+            intIdDiagnostico,
+            intIdIdea,
         });
 
         return query;
@@ -132,13 +157,26 @@ const useGetDiagnServ = ({
         let signalSubmitData = axios.CancelToken.source();
 
         if (autoLoad) {
-            getData({ signalSubmitData, intId, intIdEmpresario });
+            getData({
+                signalSubmitData,
+                intId,
+                intIdEmpresario,
+                intIdDiagnostico,
+                intIdIdea,
+            });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, intIdEmpresario, intId, autoLoad]);
+    }, [
+        getData,
+        intIdEmpresario,
+        intId,
+        autoLoad,
+        intIdDiagnostico,
+        intIdIdea,
+    ]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================

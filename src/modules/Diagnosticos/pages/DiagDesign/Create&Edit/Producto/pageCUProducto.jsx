@@ -15,7 +15,7 @@ import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresario
 import useGetDiagnProd from "../../../../hooks/useGetDiagnProd";
 
 //Librerias
-import { Link as RouterLink, Redirect } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -94,7 +94,13 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const PageCUProducto = ({ intId, isEdit }) => {
+const PageCUProducto = ({
+    intId,
+    isEdit,
+    intIdIdea,
+    intIdDiagnostico,
+    onChangeRoute,
+}) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -111,8 +117,6 @@ const PageCUProducto = ({ intId, isEdit }) => {
         objInfoNormatividad: {},
         objInfoAdicional: {},
     });
-
-    const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
@@ -138,7 +142,7 @@ const PageCUProducto = ({ intId, isEdit }) => {
         setError,
         setValue,
         clearErrors,
-        getValues
+        getValues,
     } = useForm({ mode: "onChange" });
 
     const theme = useTheme();
@@ -146,10 +150,13 @@ const PageCUProducto = ({ intId, isEdit }) => {
 
     const { getUniqueData } = useGetEmpresarios({
         autoLoad: false,
+        intIdIdea,
     });
 
     const { getUniqueData: getUniqueDataProduct } = useGetDiagnProd({
         autoLoad: false,
+        intIdIdea,
+        intIdDiagnostico,
     });
 
     const refFntGetDataEmpresario = useRef(getUniqueData);
@@ -192,6 +199,8 @@ const PageCUProducto = ({ intId, isEdit }) => {
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
+                                    intIdIdea,
+                                    intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
@@ -254,7 +263,7 @@ const PageCUProducto = ({ intId, isEdit }) => {
                     toast.success(res.data.msg);
 
                     setLoading(false);
-                    setSucces(true);
+                    onChangeRoute("DiagDesign", { intIdIdea, intIdDiagnostico });
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -275,7 +284,8 @@ const PageCUProducto = ({ intId, isEdit }) => {
                     }
                 });
         },
-        [token, data, isEdit]
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [token, data, isEdit, intIdIdea, intIdDiagnostico]
     );
 
     //===============================================================================================================================================
@@ -287,7 +297,7 @@ const PageCUProducto = ({ intId, isEdit }) => {
 
             async function getData() {
                 await refFntGetDataEmpresario
-                    .current({ intId })
+                    .current({ intId, intIdIdea })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -342,7 +352,11 @@ const PageCUProducto = ({ intId, isEdit }) => {
                     });
 
                 await refFntGetDataProduct
-                    .current({ intIdEmpresario: intId })
+                    .current({
+                        intIdEmpresario: intId,
+                        intIdIdea,
+                        intIdDiagnostico,
+                    })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -400,7 +414,7 @@ const PageCUProducto = ({ intId, isEdit }) => {
 
             getData();
         }
-    }, [intId, isEdit]);
+    }, [intId, isEdit, intIdIdea, intIdDiagnostico]);
 
     useEffect(() => {
         if (intId) {
@@ -423,14 +437,6 @@ const PageCUProducto = ({ intId, isEdit }) => {
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return (
-            <Redirect
-                to={`/diagnosticos/diagDesign/product/read/${data.objInfoGeneral?.intId}`}
-            />
-        );
-    }
-
     if (loadingGetData) {
         return <Loader />;
     }

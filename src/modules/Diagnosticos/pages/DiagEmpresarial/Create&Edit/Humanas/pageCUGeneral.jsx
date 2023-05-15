@@ -15,7 +15,7 @@ import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresario
 import useGetDiagnHumano from "../../../../../Diagnosticos/hooks/useGetDiagnHumano";
 
 //Librerias
-import { Link as RouterLink, Redirect } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -41,9 +41,6 @@ import {
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
-
-//Iconos de Material UI
-import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material/";
 
 //Componentes
 import Loader from "../../../../../../common/components/Loader";
@@ -90,7 +87,13 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const PageCUGeneral = ({ intId, isEdit }) => {
+const PageCUGeneral = ({
+    intId,
+    isEdit,
+    intIdIdea,
+    intIdDiagnostico,
+    onChangeRoute,
+}) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -105,8 +108,6 @@ const PageCUGeneral = ({ intId, isEdit }) => {
     });
 
     const [openModal, setOpenModal] = useState(false);
-
-    const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
@@ -181,6 +182,8 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
+                                    intIdIdea,
+                                    intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
@@ -231,7 +234,11 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                     toast.success(res.data.msg);
 
                     setLoading(false);
-                    setSucces(true);
+
+                    onChangeRoute("DiagEmpresarial", {
+                        intIdIdea,
+                        intIdDiagnostico,
+                    })
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -252,6 +259,7 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                     }
                 });
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [token, data, isEdit]
     );
 
@@ -416,10 +424,6 @@ const PageCUGeneral = ({ intId, isEdit }) => {
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
-        return <Redirect to="/diagnosticos/diagEmpresarial" />;
-    }
-
     if (loadingGetData) {
         return <Loader />;
     }
@@ -487,18 +491,6 @@ const PageCUGeneral = ({ intId, isEdit }) => {
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
             >
-                <Grid item xs={12}>
-                    <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial`}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        Regresar
-                    </Button>
-                </Grid>
-
                 <Grid item xs={12}>
                     <Container className={classes.containerPR}>
                         <Paper className={classes.paper}>

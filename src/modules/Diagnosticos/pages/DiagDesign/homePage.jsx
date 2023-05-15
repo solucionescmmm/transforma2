@@ -11,13 +11,11 @@ import {
     Grid,
     Box,
     Typography,
-    Button,
 } from "@mui/material";
 
 // Iconos
 import {
     Biotech as BiotechIcon,
-    ChevronLeft as ChevronLeftIcon,
     ConnectWithoutContact as ConnectWithoutContactIcon,
     ListAlt as ListAltIcon,
 } from "@mui/icons-material";
@@ -29,7 +27,7 @@ import ErrorPage from "../../../../common/components/Error";
 
 import ModalResumen from "./modalResumen";
 
-const DiagDesign = ({ intId }) => {
+const DiagDesign = ({ intId, intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -59,10 +57,14 @@ const DiagDesign = ({ intId }) => {
     //===============================================================================================================================================
     const { getUniqueData: getUniqueDataProd } = useGetDiagnProd({
         autoLoad: false,
+        intIdDiagnostico,
+        intIdIdea,
     });
 
     const { getUniqueData: getUniqueDataServ } = useGetDiagnServ({
         autoLoad: false,
+        intIdDiagnostico,
+        intIdIdea,
     });
 
     const refFntGetDataProd = useRef(getUniqueDataProd);
@@ -76,7 +78,11 @@ const DiagDesign = ({ intId }) => {
 
         async function getData() {
             await refFntGetDataProd
-                .current({ intIdEmpresario: intId })
+                .current({
+                    intIdEmpresario: intId,
+                    intIdDiagnostico,
+                    intIdIdea,
+                })
                 .then((res) => {
                     if (res.data.error) {
                         throw new Error(res.data.msg);
@@ -100,7 +106,11 @@ const DiagDesign = ({ intId }) => {
                 });
 
             await refFntGetDataServ
-                .current({ intIdEmpresario: intId })
+                .current({
+                    intIdEmpresario: intId,
+                    intIdDiagnostico,
+                    intIdIdea,
+                })
                 .then((res) => {
                     if (res.data.error) {
                         throw new Error(res.data.msg);
@@ -127,7 +137,7 @@ const DiagDesign = ({ intId }) => {
         }
 
         getData();
-    }, [intId]);
+    }, [intId, intIdDiagnostico, intIdIdea]);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -157,18 +167,6 @@ const DiagDesign = ({ intId }) => {
             />
 
             <Grid container direction="row" spacing={2}>
-                <Grid item xs={12}>
-                    <Button
-                        component={RouterLink}
-                        to={`/diagnosticos`}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
-
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
@@ -220,8 +218,12 @@ const DiagDesign = ({ intId }) => {
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
-                            component={RouterLink}
-                            to={`/diagnosticos/diagDesign/product/create`}
+                            onClick={() =>
+                                onChangeRoute("DiagDesignProdCreate", {
+                                    intIdIdea,
+                                    intIdDiagnostico,
+                                })
+                            }
                         >
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row" spacing={2}>

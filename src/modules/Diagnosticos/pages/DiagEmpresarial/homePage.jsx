@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef, Fragment } from "react";
 
-//Librerias
-import { Link as RouterLink } from "react-router-dom";
-
 //Componentes de Mui
 import {
     Card,
@@ -225,8 +222,12 @@ const DiagEmpresarialPage = ({
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
-                            component={RouterLink}
-                            to={`/diagnosticos/diagEmpresarial/humanas/create`}
+                             onClick={() =>
+                                onChangeRoute("DiagEmpresarialHumCreate", {
+                                    intIdIdea,
+                                    intIdDiagnostico,
+                                })
+                            }
                         >
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row" spacing={2}>
@@ -266,8 +267,12 @@ const DiagEmpresarialPage = ({
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
-                            component={RouterLink}
-                            to={`/diagnosticos/diagEmpresarial/tecnicas/create`}
+                              onClick={() =>
+                                onChangeRoute("DiagEmpresarialTecCreate", {
+                                    intIdIdea,
+                                    intIdDiagnostico,
+                                })
+                            }
                         >
                             <CardContent sx={{ padding: "0px" }}>
                                 <Grid container direction="row" spacing={2}>
