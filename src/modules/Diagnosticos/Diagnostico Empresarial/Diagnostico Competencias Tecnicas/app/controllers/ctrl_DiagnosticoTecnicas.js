@@ -1,7 +1,7 @@
 //Servicios
 const setDiagnosticoTecnica = require("../../domain/setDiagnosticoTecnicas.service");
-//const getDiagnosticoTecnica = require("../../domain/getDiagnosticoTecnica.service");
-//const updateDiagnosticoTecnica = require ("../../domain/updateDiagnosticoTecnica.service")
+const getDiagnosticoTecnica = require("../../domain/getDiagnosticoTecnicas.service");
+//const updateDiagnosticoTecnica = require ("../../domain/updateDiagnosticoTecnicas.service")
 
 class ctrl_DiagnosticoTecnica {
     async setDiagnosticoTecnica(req, res) {
