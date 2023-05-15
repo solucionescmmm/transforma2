@@ -4,12 +4,18 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOTecnicas = require("../infra/conectors/interfaseDAODiagnosticoTecnicas");
 
-class setDiagnosticoTecnicas {
-    #objData;
-    #objUser;
-    #intIdEmpresario;
-    #objResult;
+//Service
+const serviceGetDiagnostico = require("../../../Main/domain/getDiagnosticos.service")
 
+class setDiagnosticoTecnicas {
+     //Objetos
+     #objData;
+     #objUser;
+     #objResult;
+ 
+     // Variables
+     #intIdEmpresario;
+     #intIdEstadoDiagnsotico;
     /**
      * @param {object} data
      */
@@ -19,11 +25,12 @@ class setDiagnosticoTecnicas {
     }
 
     async main() {
-        await this.#validations();
-        await this.#getIntIdEmpresario();
-        await this.#completeData();
-        await this.#setDiagnosticoTecnicas();
-        return this.#objResult;
+        console.log(this.#objData)
+        // await this.#validations();
+        // await this.#getDiagnostico()
+        // await this.#completeData();
+        // await this.#setDiagnosticoTecnicas();
+        // return this.#objResult;
     }
 
     async #validations() {
@@ -42,19 +49,29 @@ class setDiagnosticoTecnicas {
         }
     }
 
-    async #getIntIdEmpresario() {
-        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
+    async #getDiagnostico() {
+        let queryServiceGetDiagnostico = await serviceGetDiagnostico({
+            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
+            intId: this.#objData?.objInfoGeneral?.intIdDiagnostico
+        },this.#objUser)
+
+        if (queryServiceGetDiagnostico.error) {
+            throw new Error(queryServiceGetDiagnostico.msg)
+        }
+
+        this.#intIdEstadoDiagnsotico = queryServiceGetDiagnostico.data[0]?.intIdEstadoDiagnostico
     }
 
     async #completeData() {
         let newData = {
-            intIdEmpresario: this.#intIdEmpresario,
+            //intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoComMercadeo,
             ...this.#objData.objInfoComProductivo,
             ...this.#objData.objInfoComFinanciero,
             ...this.#objData.objInfoComAdministrativo,
             ...this.#objData.objInfoComAsociativo,
+            intIdEstadoDiagnostico: this.#intIdEstadoDiagnsotico,
         };
         this.#objData = newData;
     }
