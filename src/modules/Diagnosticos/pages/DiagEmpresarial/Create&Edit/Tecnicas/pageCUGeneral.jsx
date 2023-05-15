@@ -265,7 +265,8 @@ const PageCUGeneral = ({
                     }
                 });
         },
-        [token, data, isEdit]
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [token, data, isEdit, intIdIdea, intIdDiagnostico]
     );
 
     //===============================================================================================================================================

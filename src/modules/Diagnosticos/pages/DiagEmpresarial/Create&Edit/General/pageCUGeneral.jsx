@@ -236,7 +236,7 @@ const PageCUGeneral = ({
                     onChangeRoute("DiagEmpresarial", {
                         intIdIdea,
                         intIdDiagnostico,
-                    })
+                    });
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -457,177 +457,180 @@ const PageCUGeneral = ({
     }
 
     return (
-        <Grid
-            container
-            direction="row"
-            spacing={3}
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            sx={{ marginTop: "10px" }}
-            noValidate
-        >
-            <Grid item xs={12}>
-                <Container className={classes.containerPR}>
-                    <Paper className={classes.paper}>
-                        {loading ? (
-                            <LinearProgress
-                                className={classes.linearProgress}
-                            />
-                        ) : null}
+        <div style={{ marginTop: "25px", width: "100%" }}>
+            <Grid
+                container
+                direction="row"
+                spacing={3}
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                sx={{ marginTop: "10px" }}
+                noValidate
+            >
+                <Grid item xs={12}>
+                    <Container className={classes.containerPR}>
+                        <Paper className={classes.paper}>
+                            {loading ? (
+                                <LinearProgress
+                                    className={classes.linearProgress}
+                                />
+                            ) : null}
 
-                        <Grid
-                            container
-                            direction="row"
-                            spacing={2}
-                            style={{ padding: "25px" }}
-                        >
-                            <Grid item xs={12}>
-                                <Grid
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        width: "100%",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Box
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={2}
+                                style={{ padding: "25px" }}
+                            >
+                                <Grid item xs={12}>
+                                    <Grid
                                         sx={{
-                                            flexGrow: 1,
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            width: "100%",
+                                            justifyContent: "center",
+                                            alignItems: "center",
                                         }}
                                     >
-                                        <Typography
-                                            align="center"
-                                            style={{
-                                                fontWeight: "bold",
-                                                textTransform: "uppercase",
+                                        <Box
+                                            sx={{
+                                                flexGrow: 1,
                                             }}
-                                            color="primary"
-                                            variant="body1"
                                         >
-                                            {isEdit
-                                                ? "editar diagnóstico empresarial"
-                                                : "registrar diagnóstico empresarial"}
-                                        </Typography>
+                                            <Typography
+                                                align="center"
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    textTransform: "uppercase",
+                                                }}
+                                                color="primary"
+                                                variant="body1"
+                                            >
+                                                {isEdit
+                                                    ? "editar diagnóstico empresarial"
+                                                    : "registrar diagnóstico empresarial"}
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography variant="caption">
+                                        Todos los campos marcados con (*) son
+                                        obligatorios.
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoGeneral
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoGeneral}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoFamiliar
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoFamiliar}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoEmprendimiento
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoFamiliar}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoEmpresa
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoFamiliar}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoPerfilEco
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoFamiliar}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoAdicional
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoFamiliar}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                {(errors.objInfoGeneral ||
+                                    errors.objInfoFamiliar ||
+                                    errors.objInfoEmprendimiento ||
+                                    errors.objInfoEmpresa ||
+                                    errors.objInfoPerfilEco ||
+                                    errors.objInfoAdicional) && (
+                                    <Grid item xs={12}>
+                                        <Alert severity="error">
+                                            Lo sentimos, tienes campos
+                                            pendientes por diligenciar en el
+                                            formulario, revisa e intentalo
+                                            nuevamente.
+                                        </Alert>
+                                    </Grid>
+                                )}
+
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                        }}
+                                    >
+                                        <LoadingButton
+                                            variant="contained"
+                                            type="submit"
+                                            loading={loading}
+                                        >
+                                            {isEdit ? "guardar" : "registrar"}
+                                        </LoadingButton>
                                     </Box>
                                 </Grid>
                             </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant="caption">
-                                    Todos los campos marcados con (*) son
-                                    obligatorios.
-                                </Typography>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoGeneral
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoGeneral}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoFamiliar
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoEmprendimiento
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoEmpresa
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoPerfilEco
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <InfoAdicional
-                                    control={control}
-                                    disabled={loading}
-                                    values={data.objInfoFamiliar}
-                                    errors={errors}
-                                    setValue={setValue}
-                                    setError={setError}
-                                    clearErrors={clearErrors}
-                                />
-                            </Grid>
-
-                            {(errors.objInfoGeneral ||
-                                errors.objInfoFamiliar ||
-                                errors.objInfoEmprendimiento ||
-                                errors.objInfoEmpresa ||
-                                errors.objInfoPerfilEco ||
-                                errors.objInfoAdicional) && (
-                                <Grid item xs={12}>
-                                    <Alert severity="error">
-                                        Lo sentimos, tienes campos pendientes
-                                        por diligenciar en el formulario, revisa
-                                        e intentalo nuevamente.
-                                    </Alert>
-                                </Grid>
-                            )}
-
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row-reverse",
-                                    }}
-                                >
-                                    <LoadingButton
-                                        variant="contained"
-                                        type="submit"
-                                        loading={loading}
-                                    >
-                                        {isEdit ? "guardar" : "registrar"}
-                                    </LoadingButton>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                </Container>
+                        </Paper>
+                    </Container>
+                </Grid>
             </Grid>
-        </Grid>
+        </div>
     );
 };
 
