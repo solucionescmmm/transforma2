@@ -4,7 +4,6 @@ import React, {
     useEffect,
     useRef,
     useCallback,
-    Fragment,
 } from "react";
 
 //Context
@@ -459,7 +458,7 @@ const PageCUProducto = ({
     }
 
     return (
-        <Fragment>
+        <div style={{marginTop: "25px"}}>
             <Dialog
                 open={openModal}
                 disableEscapeKeyDown
@@ -665,7 +664,7 @@ const PageCUProducto = ({
                     </Container>
                 </Grid>
             </Grid>
-        </Fragment>
+        </div>
     );
 };
 

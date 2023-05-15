@@ -619,7 +619,7 @@ const InfoEncuestaHumanas = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e, value) => onChange(value)}
+                                    onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoEncuestaHumanas
                                             ?.strObservaciones
