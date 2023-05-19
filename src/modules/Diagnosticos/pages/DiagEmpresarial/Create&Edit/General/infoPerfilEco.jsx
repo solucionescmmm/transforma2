@@ -24,6 +24,7 @@ import {
 
 //Componentes
 import SelectListas from "../../../../components/selectLista";
+import DropdownLista from "../../../../components/dropdownLista";
 
 const InfoPerfilEco = ({
     disabled,
@@ -47,7 +48,7 @@ const InfoPerfilEco = ({
         strTipoEmpleoGenerado: "",
         strDlloAcitividadesContratados: "",
         strPromedioTiempoInvertido: "",
-        strRolesEmprendimiento: "",
+        strRolesEmprendimiento: [],
         strDiasProduccion: "",
         strGeneraEmpleoRiesgoPobreza: "",
         strActivos: "",
@@ -366,7 +367,7 @@ const InfoPerfilEco = ({
                             defaultValue={data.strTipoEmpleoGenerado}
                             name="objInfoPerfilEco.strTipoEmpleoGenerado"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectListas
                                     label="¿Qué tipo de empleo genera?"
                                     name={name}
                                     value={value}
@@ -384,6 +385,8 @@ const InfoPerfilEco = ({
                                         errors?.objInfoPerfilEco?.strTipoEmpleoGenerado
                                             ?.message || "Selecciona una opción"
                                     }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="TipoEmpleoGenera"
                                 />
                             )}
                             control={control}
@@ -470,7 +473,7 @@ const InfoPerfilEco = ({
                             defaultValue={data.strRolesEmprendimiento}
                             name="objInfoPerfilEco.strRolesEmprendimiento"
                             render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
+                                <DropdownLista
                                     label="¿Cuál son tus roles en la operación de tú emprendimiento?"
                                     name={name}
                                     value={value}
@@ -490,6 +493,7 @@ const InfoPerfilEco = ({
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="RolesOperacion"
+                                    multiple
                                 />
                             )}
                             control={control}
