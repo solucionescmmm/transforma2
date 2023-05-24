@@ -13,12 +13,12 @@ const authToken = require("../../../common/middleware/authToken");
 
 //Declaracion de variables globales
 app.set("port", process.env.PORT);
-app.set("typeServer", process.env.NODE_ENV);
+app.set("typeServer", process.env.ENV);
 
 //Middlewares
 app.use(cors());
 app.use(express.json({limit:"50mb"}));
-app.use(morgan((process.env.NODE_ENV = "development" ? "dev" : "common")));
+app.use(morgan((process.env.ENV = "development" ? "dev" : "common")));
 app.use(helmet());
 app.use(compression({ level: 9 }));
 app.use("/transforma/api", authToken);
