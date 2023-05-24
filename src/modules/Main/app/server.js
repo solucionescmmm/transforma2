@@ -19,7 +19,7 @@ class clsServer {
     }
 
     async #server() {
-        if (app.get("typeServer") === "production") {
+        if (  app.get("typeServer") === "prod" ||    app.get("typeServer") === "dev") {
             this.#objServer = https
                 .createServer(
                     {
@@ -46,7 +46,7 @@ class clsServer {
         const io = socketIo(this.#objServer, {
             cors: {
                 origin:
-                    app.get("typeServer") === "production"
+                    app.get("typeServer") === "prod" ||    app.get("typeServer") === "dev"
                         ? "https://pruebas.demismanos.org"
                         : "http://localhost:3000",
                 methods: ["GET", "POST", "DELETE", "PUT"],
