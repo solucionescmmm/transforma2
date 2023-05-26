@@ -1055,9 +1055,9 @@ const InfoEmprendimiento = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={
-                                data.strDefinineLineasProductoServicios
+                                data.strLineaProductoServicioDestacada
                             }
-                            name="objInfoEmprendimiento.strDefinineLineasProductoServicios"
+                            name="objInfoEmprendimiento.strLineaProductoServicioDestacada"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Cuál es la línea de productos/servicios más destacada?"
@@ -1070,13 +1070,13 @@ const InfoEmprendimiento = ({
                                     variant="outlined"
                                     error={
                                         errors?.objInfoEmprendimiento
-                                            ?.strDefinineLineasProductoServicios
+                                            ?.strLineaProductoServicioDestacada
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.strDefinineLineasProductoServicios
+                                            ?.strLineaProductoServicioDestacada
                                             ?.message || "Digita tu respuesta"
                                     }
                                     multiline
