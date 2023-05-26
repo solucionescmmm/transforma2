@@ -14,11 +14,10 @@ import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresario
 import useGetDiagnProd from "../../../../hooks/useGetDiagnProd";
 
 //Librerias
-import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 // Componentes de MUI
 import {
@@ -405,16 +404,12 @@ const PageCUProducto = ({
 
                 <DialogActions>
                     <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagDesign/product/read/${data.objInfoGeneral?.intId}`}
                         color="inherit"
                     >
                         ver resumen
                     </Button>
 
                     <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagDesign/product/edit`}
                     >
                         editar
                     </Button>

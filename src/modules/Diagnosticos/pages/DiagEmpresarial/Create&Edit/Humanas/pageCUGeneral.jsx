@@ -14,11 +14,10 @@ import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresario
 import useGetDiagnHumano from "../../../../../Diagnosticos/hooks/useGetDiagnHumano";
 
 //Librerias
-import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 // Componentes de MUI
 import {
@@ -278,7 +277,7 @@ const PageCUGeneral = ({
                         if (res.data.error) {
                             throw new Error(res.data.msg);
                         }
-                        
+
                         setErrorGetData({ flag: false, msg: "" });
                     })
                     .catch((error) => {
@@ -382,20 +381,9 @@ const PageCUGeneral = ({
                 </DialogContent>
 
                 <DialogActions>
-                    <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial/humanas/read/${data.objInfoGeneral?.intId}`}
-                        color="inherit"
-                    >
-                        ver resumen
-                    </Button>
+                    <Button color="inherit">ver resumen</Button>
 
-                    <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial/humanas/edit/`}
-                    >
-                        editar
-                    </Button>
+                    <Button>editar</Button>
                 </DialogActions>
             </Dialog>
 

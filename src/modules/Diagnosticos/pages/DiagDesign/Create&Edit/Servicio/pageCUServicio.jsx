@@ -14,7 +14,6 @@ import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresario
 import useGetDiagnServ from "../../../../hooks/useGetDiagnServ";
 
 //Librerias
-import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -389,16 +388,12 @@ const PageCUServicio = ({
 
                 <DialogActions>
                     <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagDesign/service/read/${data.objInfoGeneral?.intId}`}
                         color="inherit"
                     >
                         ver resumen
                     </Button>
 
                     <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagDesign/service/edit`}
                     >
                         editar
                     </Button>

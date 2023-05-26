@@ -13,11 +13,10 @@ import { AuthContext } from "../../../../../../common/middlewares/Auth";
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
 
 //Librerias
-import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 // Componentes de MUI
 import {
@@ -402,20 +401,9 @@ const PageCUGeneral = ({
                 </DialogContent>
 
                 <DialogActions>
-                    <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial/humanas/read/${data.objInfoGeneral?.intId}`}
-                        color="inherit"
-                    >
-                        ver resumen
-                    </Button>
+                    <Button color="inherit">ver resumen</Button>
 
-                    <Button
-                        component={RouterLink}
-                        to={`/diagnosticos/diagEmpresarial/humanas/edit/`}
-                    >
-                        editar
-                    </Button>
+                    <Button>editar</Button>
                 </DialogActions>
             </Dialog>
 
