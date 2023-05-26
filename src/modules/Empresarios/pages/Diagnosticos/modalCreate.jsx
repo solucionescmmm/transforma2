@@ -222,7 +222,7 @@ const ModalCreate = ({
 
             <DialogActions>
                 <LoadingButton color="primary" loading={loading} type="submit">
-                    reglistrar
+                    registrar
                 </LoadingButton>
 
                 <Button

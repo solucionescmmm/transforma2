@@ -478,7 +478,7 @@ const InfoPerfilEco = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e, value) => onChange(value)}
                                     fullWidth
                                     required
                                     variant="standard"
