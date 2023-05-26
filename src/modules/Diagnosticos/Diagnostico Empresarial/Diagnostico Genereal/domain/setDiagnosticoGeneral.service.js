@@ -151,8 +151,7 @@ class setDiagnosticoGeneral {
                 this.#objData.objInfoPerfilEco.strDlloAcitividadesContratados,
             strPromedioTiempoInvertido:
                 this.#objData.objInfoPerfilEco.strPromedioTiempoInvertido,
-            strRolesEmprendimiento:
-                this.#objData.objInfoPerfilEco.strRolesEmprendimiento,
+            strRolesEmprendimiento: JSON.stringify( this.#objData.objInfoPerfilEco.strRolesEmprendimiento || null),
             strDiasProduccion: this.#objData.objInfoPerfilEco.strDiasProduccion,
             strGeneraEmpleoRiesgoPobreza:
                 this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
