@@ -1542,7 +1542,7 @@ const InfoEmprendimiento = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strDefinePorcentajesCanal}
-                            name="objInfoEmprendimiento.strDefinePorcentajesCanal "
+                            name="objInfoEmprendimiento.strDefinePorcentajesCanal"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
                                     label="En caso de que la pregunta anterior sea afirmativa, ¿tiene definido este porcentaje, de acuerdo con cada canal?"
