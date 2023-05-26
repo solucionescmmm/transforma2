@@ -34,6 +34,7 @@ class setDiagnosticoGeneral {
         await this.#updateEmpresaDiagnosticoGeneral();
         await this.#completeData();
         await this.#setDiagnosticoGeneral();
+        await this.#setHistorico();
         return this.#objResult;
     }
 
