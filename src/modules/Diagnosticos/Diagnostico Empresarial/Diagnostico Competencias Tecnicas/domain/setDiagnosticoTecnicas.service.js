@@ -12,9 +12,6 @@ class setDiagnosticoTecnicas {
      #objData;
      #objUser;
      #objResult;
- 
-     // Variables
-     #intIdEstadoDiagnsotico;
     /**
      * @param {object} data
      */
@@ -25,7 +22,6 @@ class setDiagnosticoTecnicas {
 
     async main() {
         await this.#validations();
-        await this.#getDiagnostico()
         await this.#completeData();
         await this.#setDiagnosticoTecnicas();
         return this.#objResult;
@@ -47,19 +43,6 @@ class setDiagnosticoTecnicas {
         }
     }
 
-    async #getDiagnostico() {
-        let queryServiceGetDiagnostico = await serviceGetDiagnostico({
-            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
-            intId: this.#objData?.objInfoGeneral?.intIdDiagnostico
-        },this.#objUser)
-
-        if (queryServiceGetDiagnostico.error) {
-            throw new Error(queryServiceGetDiagnostico.msg)
-        }
-
-        this.#intIdEstadoDiagnsotico = queryServiceGetDiagnostico.data[0]?.intIdEstadoDiagnostico
-    }
-
     async #completeData() {
         let newData = {
             //intIdEmpresario: this.#intIdEmpresario,
@@ -69,7 +52,6 @@ class setDiagnosticoTecnicas {
             ...this.#objData.objInfoComFinanciero,
             ...this.#objData.objInfoComAdministrativo,
             ...this.#objData.objInfoComAsociativo,
-            intIdEstadoDiagnostico: this.#intIdEstadoDiagnsotico,
             intIdEmpresario: 16,
             intTipoEmpresario: 1
         };

@@ -4,12 +4,19 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAODiagnosticoGeneral = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 
+//Services
+const serviceGetIdFuenteHistorico = require("../../../../Historicos/domain/getIdFuenteHistoricos.service")
+const serviceSetHistorico = require("../../../../Historicos/domain/setHistorico.service")
+
 class setDiagnosticoGeneral {
+    //Objetos
     #objData;
     #objUser;
-    #intIdEmpresario;
     #objResult;
 
+    //variables
+    #intIdEmpresario;
+    #intIdFuenteHistorico;
     /**
      * @param {object} data
      */
@@ -19,7 +26,9 @@ class setDiagnosticoGeneral {
     }
 
     async main() {
+        console.log(this.#objData)
         await this.#validations();
+        await this.#getIdFuenteHistorico();
         await this.#getIntIdEmpresario();
         await this.#updateEmpresarioDiagnosticoGeneral();
         await this.#updateEmpresaDiagnosticoGeneral();
@@ -44,6 +53,18 @@ class setDiagnosticoGeneral {
         }
     }
 
+    async #getIdFuenteHistorico() {
+        let queryGetIdFuenteHistorico = await serviceGetIdFuenteHistorico({
+            strNombre: "Diagnóstico Normal",
+        });
+
+        if (queryGetIdFuenteHistorico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdFuenteHistorico = queryGetIdFuenteHistorico.data.intId;
+    }
+
     async #getIntIdEmpresario() {
         this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
     }
@@ -51,14 +72,14 @@ class setDiagnosticoGeneral {
     async #completeData() {
         let newData = {
             //Objeto de Información General
+            intIdDiagnostico: this.#objData.objInfoGeneral.intIdDiagnostico,
             intIdEmpresario: this.#objData.objInfoGeneral.intId,
-            strUbicacionVivienda:
-                this.#objData.objInfoGeneral.strUbicacionVivienda,
+            intIdTipoEmpresario: 1,
+            strUbicacionVivienda:this.#objData.objInfoGeneral.strUbicacionVivienda,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
             strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
-            strUsuarioActualizacion:
-                this.#objData.objInfoGeneral.strUsuarioActualizacion,
+            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioActualizacion,
 
             //Objeto de Información Familiar
             strCabezaHogar: this.#objData.objInfoFamiliar.strCabezaHogar,
@@ -81,10 +102,26 @@ class setDiagnosticoGeneral {
             intAñoInicioOperacion:
                 this.#objData.objInfoEmprendimiento.intAñoInicioOperacion,
             strUbicacionUP: this.#objData.objInfoEmprendimiento.strUbicacionUP,
+            strProductoServiciosEnValidacion: this.#objData.objInfoEmprendimiento.strProductoServiciosEnValidacion,
+            strNivelDlloProductoServicios: this.#objData.objInfoEmprendimiento.strNivelDlloProductoServicios,
+            strEtapaValidProductoServicios: this.#objData.objInfoEmprendimiento.strEtapaValidProductoServicios,
+            MinimoValorProducto: this.#objData.objInfoEmprendimiento.MinimoValorProducto,
+            MaximoValorProducto: this.#objData.objInfoEmprendimiento.MaximoValorProducto,
+            strEscojaProductoServicio: this.#objData.objInfoEmprendimiento.strEscojaProductoServicio,
+            ValorVentaProductoEscogido: this.#objData.objInfoEmprendimiento.ValorVentaProductoEscogido,
+            strConoceMargenRentaProductoEscogido: this.#objData.objInfoEmprendimiento.strConoceMargenRentaProductoEscogido,
+            intPorcentajeMargenRentaProductoEscogido: this.#objData.objInfoEmprendimiento.intPorcentajeMargenRentaProductoEscogido,
+            strConoceCostosProductoEscogido: this.#objData.objInfoEmprendimiento.strConoceCostosProductoEscogido,
+            CostoProduccionProductoEscogido: this.#objData.objInfoEmprendimiento.CostoProduccionProductoEscogido,
+            strPorcentajeIntermediacionVentas: this.#objData.objInfoEmprendimiento.strPorcentajeIntermediacionVentas,
+            strDefinePorcentajesCanal: this.#objData.objInfoEmprendimiento.strDefinePorcentajesCanal,
+            intRangoPorcentajeIntermediacionVentas: this.#objData.objInfoEmprendimiento.intRangoPorcentajeIntermediacionVentas,
             strRegistroCamaraComercio:
                 this.#objData.objInfoEmprendimiento.strRegistroCamaraComercio,
 
             //Objeto de InfoEmpresa
+            strTrabajanFamiliares: this.#objData.objInfoEmpresa.strTrabajanFamiliares,
+            strDefinineLineasProductoServicios: this.#objData.objInfoEmpresa.strDefinineLineasProductoServicios,
             strHistoriaEmpresa: this.#objData.objInfoEmpresa.strHistoriaEmpresa,
             strSuenioEmpresa: this.#objData.objInfoEmpresa.strSuenioEmpresa,
             strEstudioEmprendimiento:
@@ -119,7 +156,7 @@ class setDiagnosticoGeneral {
             strDiasProduccion: this.#objData.objInfoPerfilEco.strDiasProduccion,
             strGeneraEmpleoRiesgoPobreza:
                 this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
-            valorGananciasMes: this.#objData.objInfoPerfilEco.valorGananciasMes,
+            valorGananciasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
             strActivos: this.#objData.objInfoPerfilEco.strActivos,
             ValorActivos: this.#objData.objInfoPerfilEco.ValorActivos,
 
@@ -201,6 +238,25 @@ class setDiagnosticoGeneral {
 
         if (query.error) {
             throw new Error(query.msg);
+        }
+    }
+
+    async #setHistorico(){
+        let data = {
+            intIdIdea:this.#objData.objInfoGeneral.intIdIdea,
+            intNumeroEmpleados:parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10),
+            ValorVentas:this.#objData.objInfoPerfilEco.dblValorVentasMes,
+            strTiempoDedicacionAdmin:this.#objData.objInfoEmprendimiento.strTiempoDedicacion,
+            intIdFuenteHistorico: this.#intIdFuenteHistorico,
+            intIdFuenteDato:this.#objData.objInfoGeneral.intIdDiagnostico
+        };
+    
+        let service = new serviceSetHistorico(data);
+
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg)
         }
     }
 }

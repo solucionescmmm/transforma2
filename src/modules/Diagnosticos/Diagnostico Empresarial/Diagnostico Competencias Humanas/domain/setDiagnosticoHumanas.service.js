@@ -25,7 +25,6 @@ class setDiagnosticoHumanas {
 
     async main() {
         await this.#validations();
-        await this.#getDiagnostico()
         await this.#completeData();
         await this.#setDiagnosticoHumanas();
         await this.#setResultDiagnosticoHumanas();
@@ -48,25 +47,11 @@ class setDiagnosticoHumanas {
         }
     }
 
-    async #getDiagnostico() {
-        let queryServiceGetDiagnostico = await serviceGetDiagnostico({
-            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
-            intId: this.#objData?.objInfoGeneral?.intIdDiagnostico
-        },this.#objUser)
-
-        if (queryServiceGetDiagnostico.error) {
-            throw new Error(queryServiceGetDiagnostico.msg)
-        }
-
-        this.#intIdEstadoDiagnsotico = queryServiceGetDiagnostico.data[0]?.intIdEstadoDiagnostico
-    }
-
     async #completeData() {
         let newData = {
             //intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEncuestaHumanas,
-            intIdEstadoDiagnostico: this.#intIdEstadoDiagnsotico,
             strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
             intIdEmpresario: 16,

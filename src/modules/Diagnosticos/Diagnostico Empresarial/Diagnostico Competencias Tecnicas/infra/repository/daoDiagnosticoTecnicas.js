@@ -16,7 +16,6 @@ class daoDiagnosticoTecnicas {
             INSERT INTO tbl_DiagnosticoCompetenciasTecnicas VALUES
             (
                 ${data.intIdDiagnostico},
-                ${data.intIdEstadoDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.intTipoEmpresario},
                 ${data.strCaractEmpresaComp},
