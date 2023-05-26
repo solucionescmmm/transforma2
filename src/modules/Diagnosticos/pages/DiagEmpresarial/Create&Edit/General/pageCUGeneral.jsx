@@ -308,7 +308,7 @@ const PageCUGeneral = ({
                                 intIdDiagnostico,
                                 objIdeaEmpresario: data.objInfoIdeaEmpresario,
                                 objInfoGeneral: {
-                                    intId: objEmprPrincipal.intId,
+                                    intIdEmpresario: objEmprPrincipal.intId,
                                     dtmFechaSesion: null,
                                     strLugarSesion: "",
                                     strUsuarioCreacion: "",
