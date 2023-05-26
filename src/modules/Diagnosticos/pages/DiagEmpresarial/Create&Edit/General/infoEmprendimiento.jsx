@@ -858,6 +858,11 @@ const InfoEmprendimiento = ({
                                     onChange={(e) => {
                                         onChange(e);
 
+                                        handlerChangeData(
+                                            "strCategoriaServicio",
+                                            e.target.value
+                                        );
+
                                         setValue(
                                             "objInfoEmprendimiento.strCategoriaProducto",
                                             ""
