@@ -5,8 +5,6 @@ const validator = require("validator").default;
 const classInterfaceDAODiagnosticos = require("../infra/conectors/interfaseDAODiagnosticos");
 
 //Servicios
-const serviceGetIdEstado = require("./getEstadoDiagnosticos.service");
-const getDiagnosticos = require("./getDiagnosticos.service");
 
 
 class updateDiagnosticos {
@@ -16,12 +14,12 @@ class updateDiagnosticos {
     #objResult;
 
     //variables
-    #intIdEstado;
 
     /**
      * @param {object} data
      * @param {object} strDataUser
      */
+    
     constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
@@ -29,10 +27,7 @@ class updateDiagnosticos {
 
     async main() {
         await this.#validations();
-        if (typeof this.#objData.bitActivar !== "undefined") {
-            await this.#getIdEstado();
-            this.#completeData();
-        }
+        this.#completeData();
         await this.#updateDiagnosticos();
         return this.#objResult;
     }
@@ -52,43 +47,12 @@ class updateDiagnosticos {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
-        let queryGetDiagnosticos = await getDiagnosticos({}, this.#objUser);
-
-        if (queryGetDiagnosticos.error) {
-            throw new Error(queryGetDiagnosticos.msg);
-        }
-
-        let arrayDiagnosticos = queryGetDiagnosticos.data;
-
-        for (let i = 0; i < arrayDiagnosticos.length; i++) {
-            let strNombreRepetido = 0;
-            if (this.#objData.strNombre?.trim() === arrayDiagnosticos[i].strNombre?.trim()) {
-                strNombreRepetido++;
-            }
-            if (strNombreRepetido === 2) {
-                throw new Error("El nombre de esta áreas ya existe.");
-            }
-        }
-    }
-
-    async #getIdEstado() {
-        let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre:
-                this.#objData.bitActivar === true ? "Activo" : "Inactivo",
-        });
-
-        if (queryGetIdEstado.error) {
-            throw new Error(queryGetIdEstado.msg);
-        }
-
-        this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
     #completeData() {
         let newData = {
             ...this.#objData,
-            intIdEstado: this.#intIdEstado,
-            strUsuarioActualizacion: this.#objUser.strEmail,
+            strUsuarioCreacion: this.#objUser.strEmail,
         };
         this.#objData = newData;
     }

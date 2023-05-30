@@ -19,7 +19,7 @@ class daoDiagnosticos {
                 ${data.intIdEstadoDiagnostico},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
-                GETDATE(),
+                NULL,
                 NULL
             )
             
@@ -200,8 +200,7 @@ class daoDiagnosticos {
             let response = await conn.query`    
                 UPDATE tbl_Diagnosticos
 
-                SET strNombre               = COALESCE(${data.strNombre}, strNombre),
-                    intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
+                SET intIdEstadoDiagnostico  = COALESCE(${data.intIdEstadoDiagnostico}, intIdEstadoDiagnostico),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 

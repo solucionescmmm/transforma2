@@ -6,7 +6,9 @@ const classInterfaceDAODiagnosticoGeneral = require("../infra/conectors/interfas
 
 //Services
 const serviceGetIdFuenteHistorico = require("../../../../Historicos/domain/getIdFuenteHistoricos.service")
+const serviceGetIdEstadoDiagnostico = require("../../../Main/domain/getIdEstadoDiagnosticos.service")
 const serviceSetHistorico = require("../../../../Historicos/domain/setHistorico.service")
+const serviceUpdateDiagnostico = require("../../../Main/domain/updateDiagnosticos.service")
 
 class setDiagnosticoGeneral {
     //Objetos
@@ -16,6 +18,7 @@ class setDiagnosticoGeneral {
 
     //variables
     #intIdEmpresario;
+    #intIdEstadoDiagnostico;
     #intIdFuenteHistorico;
     /**
      * @param {object} data
@@ -26,15 +29,16 @@ class setDiagnosticoGeneral {
     }
 
     async main() {
-        console.log(this.#objData)
         await this.#validations();
         await this.#getIdFuenteHistorico();
         await this.#getIntIdEmpresario();
+        await this.#getIntIdEstadoDiagnostico();
         await this.#updateEmpresarioDiagnosticoGeneral();
         await this.#updateEmpresaDiagnosticoGeneral();
         await this.#completeData();
         await this.#setDiagnosticoGeneral();
         await this.#setHistorico();
+        await this.#updateDiagnostico();
         return this.#objResult;
     }
 
@@ -64,6 +68,18 @@ class setDiagnosticoGeneral {
         }
 
         this.#intIdFuenteHistorico = queryGetIdFuenteHistorico.data.intId;
+    }
+    
+    async #getIntIdEstadoDiagnostico() {
+        let queryGetIntIdEstadoDiagnostico = await serviceGetIdEstadoDiagnostico({
+            strNombre: "En Proceso",
+        });
+
+        if (queryGetIntIdEstadoDiagnostico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
     }
 
     async #getIntIdEmpresario() {
@@ -259,5 +275,21 @@ class setDiagnosticoGeneral {
             throw new Error(query.msg)
         }
     }
+
+    async #updateDiagnostico(){
+        let data = {
+            intId: this.#objData.objInfoGeneral.intIdDiagnostico,
+            intIdEstadoDiagnostico: this.#intIdEstadoDiagnostico
+        };
+    
+        let service = new serviceUpdateDiagnostico(data,this.#objUser);
+
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg)
+        }
+    }
+    
 }
 module.exports = setDiagnosticoGeneral;
