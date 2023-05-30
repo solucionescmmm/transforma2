@@ -51,19 +51,22 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                 };
                 let objInfoEncuestaHumanas = {
-                    strTomaDesiciones:array[i]?.strTomaDesiciones,
-                    strMotivaciones:array[i]?.strMotivaciones,
-                    strNivelVida:array[i]?.strNivelVida,
-                    strRedesApoyoOtros:array[i]?.strRedesApoyoOtros,
-                    strProyectoVidaEmpresa:array[i]?.strProyectoVidaEmpresa,
-                    strHabilidadesAutonomia:array[i]?.strHabilidadesAutonomia,
-                    strHabilidadesCapacidad:array[i]?.strHabilidadesCapacidad,
-                    strHabilidadesComuniacion:array[i]?.strHabilidadesComuniacion,
-                    strProyectoVidaEmprendimiento:array[i]?.strProyectoVidaEmprendimiento,
-                    strHabilidadesCreatividad:array[i]?.strHabilidadesCreatividad,
-                    strConfianza:array[i]?.strConfianza,
-                    strEquilibrioVida:array[i]?.strEquilibrioVida,
-                    strRedesApoyoPropia:array[i]?.strRedesApoyoPropia
+                    strTomaDesiciones: array[i]?.strTomaDesiciones,
+                    strMotivaciones: array[i]?.strMotivaciones,
+                    strNivelVida: array[i]?.strNivelVida,
+                    strRedesApoyoOtros: array[i]?.strRedesApoyoOtros,
+                    strProyectoVidaEmpresa: array[i]?.strProyectoVidaEmpresa,
+                    strHabilidadesAutonomia: array[i]?.strHabilidadesAutonomia,
+                    strHabilidadesCapacidad: array[i]?.strHabilidadesCapacidad,
+                    strHabilidadesComuniacion: array[i]?.strHabilidadesComuniacion,
+                    strProyectoVidaEmprendimiento: array[i]?.strProyectoVidaEmprendimiento,
+                    strHabilidadesCreatividad: array[i]?.strHabilidadesCreatividad,
+                    strConfianza: array[i]?.strConfianza,
+                    strActividadesDisminuyenActProductiva: array[i]?.strActividadesDisminuyenActProductiva,
+                    strSituacionesDesistirEmprendimiento: JSON.parse(array[i]?.strSituacionesDesistirEmprendimiento),
+                    strEquilibrioVida: JSON.parse(array[i]?.strEquilibrioVida),
+                    strRedesApoyoPropia: array[i]?.strRedesApoyoPropia,
+                    strObservaciones: array[i]?.strObservaciones
                 }
 
                 let objResultDiagnosticoHumanas = arrayResultDiagnosticoHumanas.data
