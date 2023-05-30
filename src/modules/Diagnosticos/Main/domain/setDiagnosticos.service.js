@@ -82,7 +82,7 @@ class setDiagnosticos {
             let intIdEstadoDiagnosticoEnBorrador = queryGetIdEstadoEnBorrador.data.intId
             let intIdEstadoDiagnosticoEnProceso = queryGetIdEstadoEnProceso.data.intId
 
-            let queryGetDiagnosticos = await serviceGetDiagnosticos(
+            let queryGetDiagnosticosEnBorrador = await serviceGetDiagnosticos(
                 {
                     intIdIdea:this.#objData.intIdIdea,
                     intIdTipoDiagnostico: intIdTipoDiagnostico,
@@ -91,7 +91,15 @@ class setDiagnosticos {
                 this.#objUser
             )
 
-            queryGetDiagnosticos = await serviceGetDiagnosticos(
+            if (queryGetDiagnosticosEnBorrador.error) {
+                throw new Error(queryGetDiagnosticosEnBorrador.msg);
+            }
+
+            if (queryGetDiagnosticosEnBorrador.data) {
+                throw new Error("Ya existe un diagnostico de tipo Normal en estado en borrador")
+            }
+
+            let queryGetDiagnosticosEnProceso = await serviceGetDiagnosticos(
                 {
                     intIdIdea:this.#objData.intIdIdea,
                     intIdTipoDiagnostico: intIdTipoDiagnostico,
@@ -99,12 +107,13 @@ class setDiagnosticos {
                 },
                 this.#objUser
             )
-            if (queryGetDiagnosticos.error) {
-                throw new Error(queryGetDiagnosticos.msg);
+
+            if (queryGetDiagnosticosEnProceso.error) {
+                throw new Error(queryGetDiagnosticosEnProceso.msg);
             }
 
-            if (queryGetDiagnosticos.data) {
-                throw new Error("Ya existe un diagnostico de tipo Normal en estado en borrador o en proceso.")
+            if (queryGetDiagnosticosEnProceso.data) {
+                throw new Error("Ya existe un diagnostico de tipo Normal en estado en proceso.")
             }
         }
     }
