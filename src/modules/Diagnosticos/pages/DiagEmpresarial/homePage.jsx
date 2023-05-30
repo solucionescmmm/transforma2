@@ -126,10 +126,13 @@ const DiagEmpresarialPage = ({
     return (
         <Fragment>
             <ModalResumen
+                onChangeRoute={onChangeRoute}
                 onClose={handleOpenModalResumen}
                 open={openModalResumen}
                 values={{
                     intIdHumano: objHum?.objInfoGeneral?.intId,
+                    intIdDiagnostico,
+                    intIdIdea,
                 }}
             />
 
@@ -222,7 +225,7 @@ const DiagEmpresarialPage = ({
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
-                             onClick={() =>
+                            onClick={() =>
                                 onChangeRoute("DiagEmpresarialHumCreate", {
                                     intIdIdea,
                                     intIdDiagnostico,
@@ -267,7 +270,7 @@ const DiagEmpresarialPage = ({
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
-                              onClick={() =>
+                            onClick={() =>
                                 onChangeRoute("DiagEmpresarialTecCreate", {
                                     intIdIdea,
                                     intIdDiagnostico,

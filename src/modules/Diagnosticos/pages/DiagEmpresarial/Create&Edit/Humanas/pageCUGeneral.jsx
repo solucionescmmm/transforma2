@@ -17,7 +17,7 @@ import useGetDiagnHumano from "../../../../../Diagnosticos/hooks/useGetDiagnHuma
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 // Componentes de MUI
 import {
@@ -297,6 +297,40 @@ const PageCUGeneral = ({
                         if (res.data?.data) {
                             if (!isEdit) {
                                 setOpenModal(true);
+                            } else {
+                                reset({
+                                    ...res.data.data[0],
+                                    objInfoGeneral: {
+                                        ...res.data.data[0].objInfoGeneral,
+                                        dtmFechaSesion:
+                                            parseISO(
+                                                res.data.data[0].objInfoGeneral
+                                                    .dtmFechaSesion
+                                            ) || null,
+                                        dtActualizacion:
+                                            parseISO(
+                                                res.data.data[0].objInfoGeneral
+                                                    .dtmActualizacion
+                                            ) || null,
+                                    },
+                                });
+
+                                setData({
+                                    ...res.data.data[0],
+                                    objInfoGeneral: {
+                                        ...res.data.data[0].objInfoGeneral,
+                                        dtmFechaSesion:
+                                            parseISO(
+                                                res.data.data[0].objInfoGeneral
+                                                    .dtmFechaSesion
+                                            ) || null,
+                                        dtActualizacion:
+                                            parseISO(
+                                                res.data.data[0].objInfoGeneral
+                                                    .dtmActualizacion
+                                            ) || null,
+                                    },
+                                });
                             }
                         }
 
@@ -316,13 +350,14 @@ const PageCUGeneral = ({
 
             getData();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEdit, intIdIdea, intIdDiagnostico]);
 
     useEffect(() => {
-        if (intId) {
-            reset(data);
+        if (isEdit) {
+            setOpenModal(false);
         }
-    }, [data, reset, intId]);
+    }, [isEdit]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -381,9 +416,28 @@ const PageCUGeneral = ({
                 </DialogContent>
 
                 <DialogActions>
-                    <Button color="inherit">ver resumen</Button>
+                    <Button
+                        color="inherit"
+                        onClick={() =>
+                            onChangeRoute("DiagEmpresarialHumRead", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            })
+                        }
+                    >
+                        ver resumen
+                    </Button>
 
-                    <Button>editar</Button>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagEmpresarialHumEdit", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            })
+                        }
+                    >
+                        editar
+                    </Button>
                 </DialogActions>
             </Dialog>
 

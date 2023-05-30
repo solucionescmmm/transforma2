@@ -24,7 +24,7 @@ import ErrorPage from "../../../../common/components/Error";
 
 import ModalResumen from "./modalResumen";
 
-const DiagDesign = ({ intId, intIdIdea, intIdDiagnostico, onChangeRoute }) => {
+const DiagDesign = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -76,7 +76,6 @@ const DiagDesign = ({ intId, intIdIdea, intIdDiagnostico, onChangeRoute }) => {
         async function getData() {
             await refFntGetDataProd
                 .current({
-                    intIdEmpresario: intId,
                     intIdDiagnostico,
                     intIdIdea,
                 })
@@ -104,7 +103,6 @@ const DiagDesign = ({ intId, intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
             await refFntGetDataServ
                 .current({
-                    intIdEmpresario: intId,
                     intIdDiagnostico,
                     intIdIdea,
                 })
@@ -134,7 +132,7 @@ const DiagDesign = ({ intId, intIdIdea, intIdDiagnostico, onChangeRoute }) => {
         }
 
         getData();
-    }, [intId, intIdDiagnostico, intIdIdea]);
+    }, [intIdDiagnostico, intIdIdea]);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================

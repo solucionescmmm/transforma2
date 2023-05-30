@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Link as RouterLink } from "react-router-dom";
-
 //Componentes de Material UI
 import {
     Button,
@@ -18,7 +16,7 @@ import {
 // Iconos
 import { Article as ArticleIcon } from "@mui/icons-material";
 
-const ModalResumen = ({ onClose, open, values }) => {
+const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -47,11 +45,14 @@ const ModalResumen = ({ onClose, open, values }) => {
                     Selecciona el resumen que desea visualizar
                 </DialogContentText>
 
-                <Grid container direction="row" spacing={2} style={{marginTop: "15px"}}>
+                <Grid
+                    container
+                    direction="row"
+                    spacing={2}
+                    style={{ marginTop: "15px" }}
+                >
                     <Grid item xs={6}>
                         <Button
-                            component={RouterLink}
-                            to={`/diagnosticos/diagDesign/product/read/${values.intIdProducto}`}
                             color="primary"
                             disabled={!values?.intGeneral}
                             startIcon={<ArticleIcon />}
@@ -62,8 +63,12 @@ const ModalResumen = ({ onClose, open, values }) => {
 
                     <Grid item xs={6}>
                         <Button
-                            component={RouterLink}
-                            to={`/diagnosticos/diagDesign/product/read/${values.intIdProducto}`}
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarialHumRead", {
+                                    intIdIdea: values.intIdIdea,
+                                    intIdDiagnostico: values.intIdDiagnostico,
+                                })
+                            }
                             color="primary"
                             disabled={!values?.intIdHumano}
                             startIcon={<ArticleIcon />}
@@ -74,8 +79,6 @@ const ModalResumen = ({ onClose, open, values }) => {
 
                     <Grid item xs={6}>
                         <Button
-                            component={RouterLink}
-                            to={`/diagnosticos/diagDesign/product/read/${values.intIdProducto}`}
                             color="primary"
                             disabled={!values?.intIdProducto}
                             startIcon={<ArticleIcon />}

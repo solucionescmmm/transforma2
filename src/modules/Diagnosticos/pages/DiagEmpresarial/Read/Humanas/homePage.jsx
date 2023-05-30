@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 
 //Librerias
-import { Link as RouterLink, useParams } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 import validator from "validator";
 import html2canvas from "html2canvas";
@@ -9,7 +8,6 @@ import html2canvas from "html2canvas";
 //Componentes de Mui
 import {
     Box,
-    Button,
     Collapse,
     Grid,
     IconButton,
@@ -20,10 +18,8 @@ import {
 
 //Iconos
 import {
-    ChevronLeft as ChevronLeftIcon,
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
-    Delete as DeleteIcon,
     Edit as EditIcon,
     Print as PrintIcon,
 } from "@mui/icons-material";
@@ -34,12 +30,10 @@ import useGetDiagnHumano from "../../../../hooks/useGetDiagnHumano";
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
 
-const ResumenHumanas = () => {
+const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [intIdEmpresario, setIntIdEmpresario] = useState(null);
-
     const [data, setData] = useState({
         objInfoGeneral: [
             {
@@ -132,7 +126,22 @@ const ResumenHumanas = () => {
             {
                 parent: "strRedesApoyoPropia",
                 value: "",
-                label: "En tú rutina realizas actividades de descanso y esparcimiento (Ejemplos: leer, tocar un instrumento, bailar, compartir con amistades, estudiar, orar, deportivas, entre otros)",
+                label: "Evalúe su capacidad, su actitud para crear redes",
+            },
+            {
+                parent: "strActividadesDisminuyenActProductiva",
+                value: "",
+                label: "¿Cuáles son las tareas de cuidado que disminuyen el tiempo para dedicarse a su actividad productiva de manera continua?",
+            },
+            {
+                parent: "strSituacionesDesistirEmprendimiento",
+                value: "",
+                label: "¿Cuáles son las situaciones que te podrían llevar a desistir del emprendimiento?",
+            },
+            {
+                parent: "strObservaciones",
+                value: "",
+                label: "Conclusiones y observaciones ",
             },
         ],
     });
@@ -149,19 +158,20 @@ const ResumenHumanas = () => {
     const [openModalPDF, setOpenModalPDF] = useState(false);
 
     const [openCollapseInfoGeneral, setOpenCollapseInfoGeneral] =
-        useState(false);
+        useState(true);
 
     const [
         openCollapseInfoEncuestaHumanas,
         setOpenCollapseInfoEncuestaHumanas,
-    ] = useState(false);
+    ] = useState(true);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { intId } = useParams();
-
-    const { getUniqueData } = useGetDiagnHumano({ autoLoad: false });
+    const { getUniqueData } = useGetDiagnHumano({
+        autoLoad: false,
+        intIdDiagnostico,
+    });
 
     const refFntGetData = useRef(getUniqueData);
 
@@ -203,7 +213,7 @@ const ResumenHumanas = () => {
 
         async function getData() {
             await refFntGetData
-                .current({ intId })
+                .current({ intIdDiagnostico })
                 .then((res) => {
                     if (res.data.error) {
                         throw new Error(res.data.msg);
@@ -211,8 +221,6 @@ const ResumenHumanas = () => {
 
                     if (res.data) {
                         let data = res.data.data[0];
-
-                        setIntIdEmpresario(data.objInfoGeneral.intIdEmpresario);
 
                         const objInfoGeneral = {
                             dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
@@ -284,8 +292,22 @@ const ResumenHumanas = () => {
                                 ) {
                                     prevInfoEncuestaHumanas.forEach((e) => {
                                         if (e.parent === key) {
-                                            e.value =
-                                                objInfoEncuestaHumanas[key];
+                                            if (
+                                                objInfoEncuestaHumanas[key].map
+                                            ) {
+                                                const json =
+                                                    objInfoEncuestaHumanas[key];
+
+                                                const str = json
+                                                    .map((x) => {
+                                                        return x.strCodigoRetorno;
+                                                    })
+                                                    .join(", ");
+                                                e.value = str;
+                                            } else {
+                                                e.value =
+                                                    objInfoEncuestaHumanas[key];
+                                            }
                                         }
                                     });
                                 }
@@ -309,7 +331,7 @@ const ResumenHumanas = () => {
         }
 
         getData();
-    }, [intId]);
+    }, [intIdDiagnostico]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -332,7 +354,7 @@ const ResumenHumanas = () => {
     return (
         <Fragment>
             <ModalEditDiag
-                intId={intId}
+                intId={intIdDiagnostico}
                 handleOpenDialog={handlerChangeOpenModalEdit}
                 open={openModalEdit}
             />
@@ -340,7 +362,7 @@ const ResumenHumanas = () => {
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
-                intId={intIdEmpresario}
+                intId={intIdDiagnostico}
                 values={data}
             />
 
@@ -353,29 +375,18 @@ const ResumenHumanas = () => {
                             alignItems: "center",
                         }}
                     >
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Button
-                                component={RouterLink}
-                                to={`/diagnosticos/diagEmpresarial`}
-                                startIcon={<ChevronLeftIcon />}
-                                size="small"
-                                color="inherit"
-                            >
-                                regresar
-                            </Button>
-                        </Box>
+                        <Box sx={{ flexGrow: 1 }}></Box>
 
                         <Box>
-                            <Tooltip title="Eliminar diagnóstico">
-                                <IconButton color="error">
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Tooltip>
-
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton
                                     color="success"
-                                    onClick={() => handlerChangeOpenModalEdit()}
+                                    onClick={() =>
+                                        onChangeRoute(
+                                            "DiagEmpresarialHumEdit",
+                                            { intIdDiagnostico, intIdIdea }
+                                        )
+                                    }
                                 >
                                     <EditIcon />
                                 </IconButton>
@@ -384,6 +395,7 @@ const ResumenHumanas = () => {
                             <Tooltip title="Imprimir diagnóstico">
                                 <IconButton
                                     color="inherit"
+                                    disabled
                                     onClick={() => handlerChangeOpenModalPDF()}
                                 >
                                     <PrintIcon />

@@ -319,7 +319,7 @@ const PageCUProducto = ({
                             throw new Error(res.data.msg);
                         }
 
-                        if (res.data) {
+                        if (res.data?.data) {
                             if (!isEdit) {
                                 setOpenModal(true);
                             }
@@ -403,16 +403,9 @@ const PageCUProducto = ({
                 </DialogContent>
 
                 <DialogActions>
-                    <Button
-                        color="inherit"
-                    >
-                        ver resumen
-                    </Button>
+                    <Button color="inherit">ver resumen</Button>
 
-                    <Button
-                    >
-                        editar
-                    </Button>
+                    <Button>editar</Button>
                 </DialogActions>
             </Dialog>
 
