@@ -225,7 +225,7 @@ class daoDiagnosticoHumanas {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn
                 .request()
-                .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .input("intIdDiagnostico", sql.Int, data.intIdDiagnostico)
                 .execute("sp_GetResultDiagnosticoHumano");
             let result = {
                 error: false,

@@ -95,7 +95,7 @@ class setDiagnosticoHumanas {
         let dao = new classInterfaceDAOHumanas();
 
         let query = await dao.setResultDiagnosticoHumanas({
-            intIdEmpresario: this.#objData?.objInfoGeneral?.intIdDiagnostico
+            intIdDiagnostico: this.#objData?.objInfoGeneral?.intIdDiagnostico
         });
 
         if (query.error) {
