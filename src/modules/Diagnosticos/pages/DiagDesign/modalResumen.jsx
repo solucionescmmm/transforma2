@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Link as RouterLink } from "react-router-dom";
-
 //Componentes de Material UI
 import {
     Button,
@@ -51,16 +49,12 @@ const ModalResumen = ({ onClose, open, values }) => {
 
             <DialogActions>
                 <Button
-                    component={RouterLink}
-                    to={`/diagnosticos/diagDesign/product/read/${values.intIdProducto}`}
                     color="primary"
                     disabled={!values?.intIdProducto}
                 >
                     producto
                 </Button>
                 <Button
-                    component={RouterLink}
-                    to={`/diagnosticos/diagDesign/service/read/${values.intIdServicio}`}
                     color="primary"
                     disabled={!values?.intIdServicio}
                 >
