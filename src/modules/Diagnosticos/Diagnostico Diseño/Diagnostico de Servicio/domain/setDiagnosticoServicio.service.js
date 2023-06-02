@@ -49,7 +49,8 @@ class setDiagnosticoServicio {
 
     async #completeData() {
         let newData = {
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdEmpresario: this.#intIdEmpresario || 16,
+            intIdTipoEmpresario:1,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEvaluacion,
             ...this.#objData.objInfoNormatividad,

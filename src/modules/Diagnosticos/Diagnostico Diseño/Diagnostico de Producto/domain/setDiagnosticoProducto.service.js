@@ -49,7 +49,8 @@ class setDiagnosticoProducto {
 
     async #completeData() {
         let newData = {
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdEmpresario: this.#intIdEmpresario || 16 ,
+            intIdTipoEmpresario:1,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoProductos,
             ...this.#objData.objInfoCategoria1,

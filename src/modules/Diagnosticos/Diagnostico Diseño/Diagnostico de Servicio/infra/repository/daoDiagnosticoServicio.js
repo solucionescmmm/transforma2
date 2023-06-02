@@ -19,6 +19,7 @@ class daoDiagnosticoServicio {
             (
                 ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
+                ${data.intIdTipoEmpresario},
                 ${data.strServicio},
                 ${data.strHerramientasServicio},
                 ${data.strObjetivoProposito},

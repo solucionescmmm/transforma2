@@ -19,6 +19,7 @@ class daoDiagnosticoProducto {
             (
                 ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
+                ${data.intIdTipoEmpresario},
                 ${data.strCategoriaProductos},
                 ${data.strProductos},
                 ${data.strNombreTecnica},
@@ -107,7 +108,7 @@ class daoDiagnosticoProducto {
                 ${data.strConclusiones},
                 ${data.strURLSFotos},
                 ${data.strLugarSesion},
-                ${data.dtmFechaSesion},
+                GETDATE(),
                 ${data.strUsuarioCreacion},
                 GETDATE(),
                 ${data.strUsuarioActualizacion}
