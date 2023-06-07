@@ -12,7 +12,7 @@ const login = async (token) => {
     let ticket;
 
     try {
-      if(process.env.ENV === 'production') {
+      if(process.env.ENV === 'prod') {
         const CLIENT_ID = process.env.CLIENT_GOOGLE;
         const client = new OAuth2Client(CLIENT_ID);
 
