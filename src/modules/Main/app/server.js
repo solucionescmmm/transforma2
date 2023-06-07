@@ -24,10 +24,10 @@ class clsServer {
                 .createServer(
                     {
                         key: fs.readFileSync(
-                            "/var/www/transforma-dev.demismanos.org/ssl/transforma-dev.demismanos.org-le.key"
+                            "/var/www/transforma-api-dev.demismanos.org/ssl/transforma-api-dev.demismanos.org-le.key"
                         ),
                         cert: fs.readFileSync(
-                            "/var/www/transforma-dev.demismanos.org/ssl/transforma-dev.demismanos.org-le.crt"
+                            "/var/www/transforma-api-dev.demismanos.org/ssl/transforma-api-dev.demismanos.org-le.crt"
                         ),
                     },
                     app
@@ -44,10 +44,10 @@ class clsServer {
                 .createServer(
                     {
                         key: fs.readFileSync(
-                            "/var/www/transforma-test.demismanos.org/ssl/transforma-test.demismanos.org-le.key"
+                            "/var/www/transforma-api-test.demismanos.org/ssl/transforma-api-test.demismanos.org-le.key"
                         ),
                         cert: fs.readFileSync(
-                            "/var/www/transforma-test.demismanos.org/ssl/transforma-test.demismanos.org-le.crt"
+                            "/var/www/transforma-api-test.demismanos.org/ssl/transforma-api-test.demismanos.org-le.crt"
                         ),
                     },
                     app
@@ -64,10 +64,10 @@ class clsServer {
                 .createServer(
                     {
                         key: fs.readFileSync(
-                            "/var/www/transforma.demismanos.org/ssl/transforma.demismanos.org-le.key"
+                            "/var/www/transforma-api.demismanos.org/ssl/transforma-api.demismanos.org-le.key"
                         ),
                         cert: fs.readFileSync(
-                            "/var/www/transforma.demismanos.org/ssl/transforma.demismanos.org-le.crt"
+                            "/var/www/transforma-api.demismanos.org/ssl/transforma-api.demismanos.org-le.crt"
                         ),
                     },
                     app
