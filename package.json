@@ -72,7 +72,8 @@
         "start:prod": "env-cmd -f .env.production react-scripts start",
         "build:prod": "env-cmd -f .env.production react-scripts build",
         "build:local": "env-cmd -f .env.local react-scripts build",
-        "build:dev": "env-cmd -f .env.development react-scripts build"
+        "build:dev": "env-cmd -f .env.development react-scripts build",
+        "build:test": "env-cmd -f .env.testing react-scripts build"
     },
     "eslintConfig": {
         "extends": [
