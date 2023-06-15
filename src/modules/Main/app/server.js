@@ -19,22 +19,64 @@ class clsServer {
     }
 
     async #server() {
-        if (  app.get("typeServer") === "prod" ||    app.get("typeServer") === "dev") {
+        if (app.get("typeServer") === "dev") {
             this.#objServer = https
                 .createServer(
                     {
                         key: fs.readFileSync(
-                            "/var/www/servicios.demismanos.org/ssl/servicios.demismanos.org-le.key"
+                            "/var/www/transforma-api-dev.demismanos.org/ssl/transforma-api-dev.demismanos.org-le.key"
                         ),
                         cert: fs.readFileSync(
-                            "/var/www/servicios.demismanos.org/ssl/servicios.demismanos.org-le.crt"
+                            "/var/www/transforma-api-dev.demismanos.org/ssl/transforma-api-dev.demismanos.org-le.crt"
                         ),
                     },
                     app
                 )
                 .listen(app.get("port"), () => {
                     console.log(
-                        "HTTPS server listening on port " + app.get("port") + "..."
+                        "HTTPS server listening on port " +
+                            app.get("port") +
+                            "..."
+                    );
+                });
+        } else if (app.get("typeServer") === "test") {
+            this.#objServer = https
+                .createServer(
+                    {
+                        key: fs.readFileSync(
+                            "/var/www/transforma-api-test.demismanos.org/ssl/transforma-api-test.demismanos.org-le.key"
+                        ),
+                        cert: fs.readFileSync(
+                            "/var/www/transforma-api-test.demismanos.org/ssl/transforma-api-test.demismanos.org-le.crt"
+                        ),
+                    },
+                    app
+                )
+                .listen(app.get("port"), () => {
+                    console.log(
+                        "HTTPS server listening on port " +
+                            app.get("port") +
+                            "..."
+                    );
+                });
+        } else if (app.get("typeServer") === "prod") {
+            this.#objServer = https
+                .createServer(
+                    {
+                        key: fs.readFileSync(
+                            "/var/www/transforma-api.demismanos.org/ssl/transforma-api.demismanos.org-le.key"
+                        ),
+                        cert: fs.readFileSync(
+                            "/var/www/transforma-api.demismanos.org/ssl/transforma-api.demismanos.org-le.crt"
+                        ),
+                    },
+                    app
+                )
+                .listen(app.get("port"), () => {
+                    console.log(
+                        "HTTPS server listening on port " +
+                            app.get("port") +
+                            "..."
                     );
                 });
         } else {
@@ -46,8 +88,12 @@ class clsServer {
         const io = socketIo(this.#objServer, {
             cors: {
                 origin:
-                    app.get("typeServer") === "prod" ||    app.get("typeServer") === "dev"
-                        ? "https://pruebas.demismanos.org"
+                    app.get("typeServer") === "dev"
+                        ? "https://transforma-dev.demismanos.org"
+                        : app.get("typeServer") === "test"
+                        ? "https://transforma-test.demismanos.org"
+                        : app.get("typeServer") === "prod"
+                        ? "https://transforma.demismanos.org"
                         : "http://localhost:3000",
                 methods: ["GET", "POST", "DELETE", "PUT"],
             },
@@ -72,7 +118,10 @@ class clsServer {
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
-                client.emit("mdlComentarios:setComentario", responseSetComentario);
+                client.emit(
+                    "mdlComentarios:setComentario",
+                    responseSetComentario
+                );
             });
 
             client.on("mdlComentarios:getComentarios", async (data) => {
@@ -112,7 +161,7 @@ class clsServer {
             });
 
             client.on("mdlComentarios:setRespuesta", async (data) => {
-                console.log(data)
+                console.log(data);
                 let serviceSetRespuesta = new clsSetRespuesta(data);
 
                 let responseSetRespuesta = await serviceSetRespuesta.main();
@@ -122,7 +171,10 @@ class clsServer {
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
-                client.emit("mdlComentarios:setRespuesta", responseSetRespuesta);
+                client.emit(
+                    "mdlComentarios:setRespuesta",
+                    responseSetRespuesta
+                );
             });
 
             client.on("mdlComentarios:deleteRespuesta", async (data) => {
