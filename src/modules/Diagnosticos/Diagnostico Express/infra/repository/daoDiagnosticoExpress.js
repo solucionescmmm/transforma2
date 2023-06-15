@@ -14,84 +14,169 @@ class daoDiagnosticoExpress {
 
             let response = await conn.query`
             DECLARE @intId INTEGER;
-            
-            INSERT INTO tbl_DiagnosticoExpress VALUES
+
+            -- Query que inserta en Diagnostico HumanoSocial
+
+            INSERT INTO tbl_DiagnosticoHumanoSocial 
+            ( 
+                intId,
+                intIdDiagnostico,
+                strHabilidadesAutonomia,
+                strHabilidadesCapacidad,
+                strHabilidadesComunicacion,
+                strHabilidadesCreatividad,
+                strTomaDesiciones,
+                strConfianza,
+                dtmFechaSesion,
+                strUsuarioCreacion,
+                dtmActualizacion,
+                strUsuarioActualizacion
+            )
+            VALUES 
             (
                 ${data.intIdDiagnostico},
-                ${data.intIdEmpresario},
-                ${data.intIdTipoEmpresario},
-                ${data.strUbicacionVivienda},
-                ${data.strTrabajanFamiliares},
-                ${data.strCabezaHogar},
-                ${data.intNumPersonasCargo},
-                ${data.intHijos},
-                ${data.intHijosEstudiando},
-                ${data.strMaxNivelEducativoHijos},
-                ${data.strEstadoCivil},
-                ${data.strSituacionVivienda},
-                ${data.strGrupoVulnerable},
-                ${data.strPoblacionEtnica},
-                ${data.intAñoInicioOperacion},
-                ${data.strUbicacionUP},
+                ${data.strHabilidadesAutonomia},
+                ${data.strHabilidadesCapacidad},
+                ${data.strHabilidadesComunicacion},
+                ${data.strHabilidadesCreatividad},
+                ${data.strTomaDesiciones},
+                ${data.strConfianza},
+                GETDATE(),
+                ${data.strUsuarioCreacion},
+                NULL,
+                ${data.strUsuarioActualizacion}
+            )
+
+            -- Query que inserta en Diagnostico Producto
+
+            INSERT INTO tbl_DiagnosticoProductos 
+            ( 
+                intId,
+                intIdDiagnostico,
+                strPermisoFuncionamiento, 
+                strCertificadosRequeridos,
+                strCertificadosActuales,
+                strPatentesUtilidad,
+                strCualPatenteUtilidad,
+                strRegistroMarca,
+                strIdentidadMarca,
+                strComunicacionMarca,
+                dtmFechaSesion,
+                strUsuarioCreacion,
+                dtmActualizacion,
+                strUsuarioActualizacion
+            )
+            VALUES 
+            (
+                ${data.intIdDiagnostico},
+                ${data.strPermisoFuncionamiento}, 
+                ${data.strCertificadosRequeridos},
+                ${data.strCertificadosActuales},
+                ${data.strPatentesUtilidad},
+                ${data.strCualPatenteUtilidad},
+                ${data.strRegistroMarca},
+                ${data.strIdentidadMarca},
+                ${data.strComunicacionMarca},
+                GETDATE(),
+                ${data.strUsuarioCreacion},
+                NULL,
+                ${data.strUsuarioActualizacion}
+            )
+
+            -- Query que inserta en Diagnostico CompTecnicas
+
+            INSERT INTO tbl_DiagnosticoCompetenciasTecnicas 
+            ( 
+                intId,
+                intIdDiagnostico,
+                strUniProdSosFinan,
+                strTieneBaseDatosClientes,
+                strActivIncreVentClient,
+                strPlanAtraccionRelacionamientoFidelizacionClientes,
+                strEquipTrabEstruct,
+                strEmprFormaAcuerNormLab,
+                strPlaneaEstraEmpPlanPlani,
+                dtmFechaSesion,
+                strUsuarioCreacion,
+                dtmActualizacion,
+                strUsuarioActualizacion
+            )
+            VALUES 
+            (
+                ${data.intIdDiagnostico},
+                ${data.strUniProdSosFinan},
+                ${data.strTieneBaseDatosClientes},
+                ${data.strActivIncreVentClient},
+                ${data.strPlanAtraccionRelacionamientoFidelizacionClientes},
+                ${data.strEquipTrabEstruct},
+                ${data.strEmprFormaAcuerNormLab},
+                ${data.strPlaneaEstraEmpPlanPlani},
+                GETDATE(),
+                ${data.strUsuarioCreacion},
+                NULL,
+                ${data.strUsuarioActualizacion}
+            )
+
+            -- Query que inserta en Diagnostico General
+
+            INSERT INTO tbl_DiagnosticoCompetenciasTecnicas 
+            ( 
+                intId,
+                intIdDiagnostico,
+                strRegistroCamaraComercio,
+                strDefinineLineasProductoServicios,
+                strLineaProductoServicioDestacada,
+                strProductoServiciosNuevosUltimoAño,
+                strListaProductoServiciosNuevosUltimoAño,
+                strProductoServiciosEnValidacion,
+                strNivelDlloProductoServicios,
+                strEtapaValidProductoServicios,
+                strPromedioVentas6Meses,
+                strRangoVentas,
+                strEscojaProductoServicio,
+                ValorVentaProductoEscogido,
+                strConoceMargenRentaProductoEscogido,
+                strConoceCostosProduccionProductoEscogido,
+                CostoProduccionProductoEscogido,
+                intPorcentajeMargenRentaProductoEscogido,
+                strRangoEmpleados,
+                strEtapaDllo,
+                dtmFechaSesion,
+                strUsuarioCreacion,
+                dtmActualizacion,
+                strUsuarioActualizacion
+            )
+            VALUES 
+            (
+                ${data.intIdDiagnostico},
                 ${data.strRegistroCamaraComercio},
                 ${data.strDefinineLineasProductoServicios},
                 ${data.strLineaProductoServicioDestacada},
-                ${data.strHistoriaEmpresa},
-                ${data.strSuenioEmpresa},
-                ${data.strEstudioEmprendimiento},
-                ${data.strExperienciaEmprendimiento},
-                ${data.strTipoContribuyente},
-                ${data.strRut},
-                ${data.strPresupuestoFamiliar},
-                ${data.strIngresosDistintos},
-                ${data.strOperacionesVentas6Meses},
-                ${data.strEtapaValidacion},
+                ${data.strProductoServiciosNuevosUltimoAño},
+                ${data.strListaProductoServiciosNuevosUltimoAño},
                 ${data.strProductoServiciosEnValidacion},
                 ${data.strNivelDlloProductoServicios},
                 ${data.strEtapaValidProductoServicios},
                 ${data.strPromedioVentas6Meses},
                 ${data.strRangoVentas},
-                ${data.strRangoEmpleados},
-                ${data.MinimoValorProducto},
-                ${data.MaximoValorProducto},
-                ${data.intCantidadUnidadesProducidasMes},
                 ${data.strEscojaProductoServicio},
                 ${data.ValorVentaProductoEscogido},
                 ${data.strConoceMargenRentaProductoEscogido},
-                ${data.intPorcentajeMargenRentaProductoEscogido},
-                ${data.strConoceCostosProductoEscogido},
+                ${data.strConoceCostosProduccionProductoEscogido},
                 ${data.CostoProduccionProductoEscogido},
-                ${data.strPorcentajeIntermediacionVentas},
-                ${data.strDefinePorcentajesCanal},
-                ${data.intRangoPorcentajeIntermediacionVentas},
-                ${data.strTipoEmpleoGenerado},
-                ${data.strDlloAcitividadesContratados},
-                ${data.strPromedioTiempoInvertido},
-                ${data.strRolesEmprendimiento},
-                ${data.strDiasProduccion},
-                ${data.strGeneraEmpleoRiesgoPobreza},
-                ${data.valorGananciasMes},
-                ${data.strActivos},
-                ${data.ValorActivos},
+                ${data.intPorcentajeMargenRentaProductoEscogido},
+                ${data.strRangoEmpleados},
                 ${data.strEtapaDllo},
-                NULL,
-                NULL,
-                ${data.strConclusiones},
-                ${data.strURLSFotosProducto},
-                ${data.strLugarSesion},
-                ${data.dtmFechaSesion},
-                ${data.strUsuarioCreacion},
                 GETDATE(),
+                ${data.strUsuarioCreacion},
+                NULL,
                 ${data.strUsuarioActualizacion}
             )
             
-            SET @intId = SCOPE_IDENTITY();
-    
-            SELECT * FROM tbl_DiagnosticoExpress WHERE intId = @intId`;
+            SET @intId = SCOPE_IDENTITY();`;
 
             let result = {
                 error: false,
-                data: response.recordset[0],
                 msg: `El diagnostico Express, fue registrado con éxito.`,
             };
 
