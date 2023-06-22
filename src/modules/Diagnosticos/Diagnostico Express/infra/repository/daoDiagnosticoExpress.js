@@ -12,7 +12,7 @@ class daoDiagnosticoExpress {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            let response = await conn.query`
+            await conn.query`
             DECLARE @intId INTEGER;
 
             -- Query que inserta en Diagnostico HumanoSocial
@@ -47,7 +47,12 @@ class daoDiagnosticoExpress {
                 ${data.strUsuarioActualizacion}
             )
 
+            SET @intId = SCOPE_IDENTITY();`
+
+            await conn.query`
             -- Query que inserta en Diagnostico Producto
+
+            DECLARE @intId INTEGER;
 
             INSERT INTO tbl_DiagnosticoProductos 
             ( 
@@ -82,8 +87,13 @@ class daoDiagnosticoExpress {
                 NULL,
                 ${data.strUsuarioActualizacion}
             )
+            
+            SET @intId = SCOPE_IDENTITY();`
 
+            await conn.query`
             -- Query que inserta en Diagnostico CompTecnicas
+
+            DECLARE @intId INTEGER;
 
             INSERT INTO tbl_DiagnosticoCompetenciasTecnicas 
             ( 
@@ -117,7 +127,12 @@ class daoDiagnosticoExpress {
                 ${data.strUsuarioActualizacion}
             )
 
+            SET @intId = SCOPE_IDENTITY();`
+            
+            await conn.query`
             -- Query que inserta en Diagnostico General
+
+            DECLARE @intId INTEGER;
 
             INSERT INTO tbl_DiagnosticoCompetenciasTecnicas 
             ( 
