@@ -6,7 +6,7 @@ const classController = require("../../app/controllers/ctrl_DiagnosticoExpress")
 
 //Routes
 routes.post(
-    "/transforma/api/diagnosticos/diagnosticoEmpresarial/setDiagnosticoExpress",
+    "/transforma/api/diagnosticos/diagnosticoExpress/setDiagnosticoExpress",
     async (req, res) => {
         let controllerDiagnosticoExpress = new classController();
         await controllerDiagnosticoExpress.setDiagnosticoExpress(req, res);
@@ -14,7 +14,7 @@ routes.post(
 );
 
 routes.get(
-    "/transforma/api/diagnosticos/diagnosticoEmpresarial/getDiagnosticoExpress",
+    "/transforma/api/diagnosticos/diagnosticoExpress/getDiagnosticoExpress",
     async (req, res) => {
         let controllerDiagnosticoExpress = new classController();
         await controllerDiagnosticoExpress.getDiagnosticoExpress(req, res);
@@ -22,7 +22,7 @@ routes.get(
 );
 
 routes.put(
-    "/transforma/api/diagnosticos/diagnosticoEmpresarial/updateDiagnosticoExpress",
+    "/transforma/api/diagnosticos/diagnosticoExpress/updateDiagnosticoExpress",
     async (req, res) => {
         let controllerDiagnosticoExpress = new classController();
         await controllerDiagnosticoExpress(req, res);
