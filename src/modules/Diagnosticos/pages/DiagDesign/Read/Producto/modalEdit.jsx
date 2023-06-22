@@ -147,6 +147,7 @@ const ModalEditDiagProd = ({
                             intIdDiagnostico,
                         });
                     }}
+                    color="success"
                 >
                     editar
                 </Button>

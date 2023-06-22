@@ -26,6 +26,7 @@ import Loader from "../../../../common/components/Loader";
 import ErrorPage from "../../../../common/components/Error";
 
 import ModalResumen from "./modalResumen";
+import useGetDiagnTecn from "../../hooks/useGetDiagnTecnico";
 
 const DiagEmpresarialPage = ({
     intId,
@@ -46,10 +47,10 @@ const DiagEmpresarialPage = ({
 
     // eslint-disable-next-line no-unused-vars
     const [objResumen, setObjResumen] = useState({
+        bitResumenGen: false,
         bitResumenHumano: false,
+        bitResumenTec: false,
     });
-
-    const [objHum, setObjHum] = useState();
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -65,7 +66,14 @@ const DiagEmpresarialPage = ({
         intIdIdea,
     });
 
+    const { getUniqueData: getUniqueDataTec } = useGetDiagnTecn({
+        autoLoad: false,
+        intIdDiagnostico,
+        intIdIdea,
+    });
+
     const refFntGetDataHum = useRef(getUniqueDataHum);
+    const refFntGetDataTec = useRef(getUniqueDataTec);
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -84,13 +92,31 @@ const DiagEmpresarialPage = ({
                     }
 
                     if (res.data?.data) {
-                        let data = res.data.data[0];
-
-                        setObjHum(data);
-
                         setObjResumen((prevState) => ({
                             ...prevState,
                             bitResumenHumano: true,
+                        }));
+                    }
+
+                    setErrorGetData({ flag: false, msg: "" });
+                })
+                .catch((error) => {
+                    setErrorGetData({ flag: true, msg: error.message });
+                });
+
+            await refFntGetDataTec
+                .current({
+                    intIdDiagnostico,
+                })
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    if (res.data?.data) {
+                        setObjResumen((prevState) => ({
+                            ...prevState,
+                            bitResumenTec: true,
                         }));
                     }
 
@@ -130,7 +156,7 @@ const DiagEmpresarialPage = ({
                 onClose={handleOpenModalResumen}
                 open={openModalResumen}
                 values={{
-                    intIdHumano: objHum?.objInfoGeneral?.intId,
+                    objResumen,
                     intIdDiagnostico,
                     intIdIdea,
                 }}

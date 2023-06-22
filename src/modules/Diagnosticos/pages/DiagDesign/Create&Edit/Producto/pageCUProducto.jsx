@@ -323,8 +323,31 @@ const PageCUProducto = ({
                             if (!isEdit) {
                                 setOpenModal(true);
                             } else {
-                                setData({ ...res.data.data[0] });
-                                reset({ ...res.data.data[0] });
+                                setOpenModal(false);
+                                setData({
+                                    ...res.data.data[0],
+                                    objInfoGeneral: {
+                                        ...res.data.data[0].objInfoGeneral,
+                                        dtmFechaSesion: res.data.data[0]
+                                            .objInfoGeneral.dtmFechaSesion
+                                            ? new Date(
+                                                  res.data.data[0].objInfoGeneral.dtmFechaSesion
+                                              )
+                                            : null,
+                                    },
+                                });
+                                reset({
+                                    ...res.data.data[0],
+                                    objInfoGeneral: {
+                                        ...res.data.data[0].objInfoGeneral,
+                                        dtmFechaSesion: res.data.data[0]
+                                            .objInfoGeneral.dtmFechaSesion
+                                            ? new Date(
+                                                  res.data.data[0].objInfoGeneral.dtmFechaSesion
+                                              )
+                                            : null,
+                                    },
+                                });
                             }
                         }
 

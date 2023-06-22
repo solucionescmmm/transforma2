@@ -42,6 +42,12 @@ const DiagEmpresarialTecCreate = lazy(() =>
     )
 );
 
+const DiagEmpresarialTecRead = lazy(() =>
+    import(
+        "../modules/Diagnosticos/pages/DiagEmpresarial/Read/Tecnicas/homePage"
+    )
+);
+
 const DiagDesign = lazy(() =>
     import("../modules/Diagnosticos/pages/DiagDesign/homePage")
 );
@@ -56,10 +62,14 @@ const DiagDesignReadProducto = lazy(() =>
     import("../modules/Diagnosticos/pages/DiagDesign/Read/Producto/homePage")
 );
 
-const PageCUServicio = lazy(() =>
+const DiagDesignCUServicio = lazy(() =>
     import(
         "../modules/Diagnosticos/pages/DiagDesign/Create&Edit/Servicio/pageCUServicio"
     )
+);
+
+const DiagDesignReadServicio = lazy(() =>
+    import("../modules/Diagnosticos/pages/DiagDesign/Read/Servicio/homePage")
 );
 
 const PageCUComercial = lazy(() =>
@@ -375,6 +385,61 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         );
     }
 
+    if (route.location === "DiagEmpresarialTecEdit") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagEmpresarial", {
+                                ...route.params,
+                            })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagEmpresarialTecCreate
+                    isEdit
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagEmpresarialTecRead") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagEmpresarial", {
+                                ...route.params,
+                            })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagEmpresarialTecRead
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
     if (route.location === "DiagDesign") {
         return (
             <Grid container direction="row" spacing={3}>
@@ -492,7 +557,58 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     </Button>
                 </Grid>
 
-                <PageCUServicio
+                <DiagDesignCUServicio
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagDesignServEdit") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagDesign", { ...route.params })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagDesignCUServicio
+                    isEdit
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagDesignServRead") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagDesign", { ...route.params })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagDesignReadServicio
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
                     intIdDiagnostico={route.params.intIdDiagnostico}

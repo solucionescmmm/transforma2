@@ -154,6 +154,9 @@ const DiagDesign = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
         <Fragment>
             <ModalResumen
                 onClose={handleOpenModalResumen}
+                onChangeRoute={onChangeRoute}
+                intIdDiagnostico={intIdDiagnostico}
+                intIdIdea={intIdIdea}
                 open={openModalResumen}
                 values={{
                     intIdProducto: objProducto?.objInfoGeneral?.intId,

@@ -88,7 +88,6 @@ const styles = makeStyles((theme) => ({
 }));
 
 const PageCUServicio = ({
-    intId,
     isEdit,
     intIdIdea,
     intIdDiagnostico,
@@ -306,6 +305,32 @@ const PageCUServicio = ({
                         if (res.data?.data) {
                             if (!isEdit) {
                                 setOpenModal(true);
+                            } else {
+                                setOpenModal(false);
+                                setData({
+                                    ...res.data.data[0],
+                                    objInfoGeneral: {
+                                        ...res.data.data[0].objInfoGeneral,
+                                        dtmFechaSesion: res.data.data[0]
+                                            .objInfoGeneral.dtmFechaSesion
+                                            ? new Date(
+                                                  res.data.data[0].objInfoGeneral.dtmFechaSesion
+                                              )
+                                            : null,
+                                    },
+                                });
+                                reset({
+                                    ...res.data.data[0],
+                                    objInfoGeneral: {
+                                        ...res.data.data[0].objInfoGeneral,
+                                        dtmFechaSesion: res.data.data[0]
+                                            .objInfoGeneral.dtmFechaSesion
+                                            ? new Date(
+                                                  res.data.data[0].objInfoGeneral.dtmFechaSesion
+                                              )
+                                            : null,
+                                    },
+                                });
                             }
                         }
 
@@ -323,13 +348,8 @@ const PageCUServicio = ({
 
             getData();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEdit, intIdIdea, intIdDiagnostico]);
-
-    useEffect(() => {
-        if (intId) {
-            reset(data);
-        }
-    }, [data, reset, intId]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -389,11 +409,23 @@ const PageCUServicio = ({
                 <DialogActions>
                     <Button
                         color="inherit"
+                        onClick={() => {
+                            onChangeRoute("DiagDesignServRead", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            });
+                        }}
                     >
                         ver resumen
                     </Button>
 
                     <Button
+                        onClick={() => {
+                            onChangeRoute("DiagDesignServEdit", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            });
+                        }}
                     >
                         editar
                     </Button>

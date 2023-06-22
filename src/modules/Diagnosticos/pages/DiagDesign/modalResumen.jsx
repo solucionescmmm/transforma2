@@ -12,7 +12,14 @@ import {
     useMediaQuery,
 } from "@mui/material";
 
-const ModalResumen = ({ onClose, open, values }) => {
+const ModalResumen = ({
+    onClose,
+    open,
+    values,
+    onChangeRoute,
+    intIdIdea,
+    intIdDiagnostico,
+}) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -50,12 +57,24 @@ const ModalResumen = ({ onClose, open, values }) => {
             <DialogActions>
                 <Button
                     color="primary"
+                    onClick={() => {
+                        onChangeRoute("DiagDesignProdRead", {
+                            intIdIdea,
+                            intIdDiagnostico,
+                        });
+                    }}
                     disabled={!values?.intIdProducto}
                 >
                     producto
                 </Button>
                 <Button
                     color="primary"
+                    onClick={() => {
+                        onChangeRoute("DiagDesignServRead", {
+                            intIdIdea,
+                            intIdDiagnostico,
+                        });
+                    }}
                     disabled={!values?.intIdServicio}
                 >
                     servicio

@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 
 //Librerias
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 import validator from "validator";
 import html2canvas from "html2canvas";
@@ -9,7 +9,6 @@ import html2canvas from "html2canvas";
 //Componentes de Mui
 import {
     Box,
-    Button,
     Collapse,
     Grid,
     IconButton,
@@ -20,10 +19,8 @@ import {
 
 //Iconos
 import {
-    ChevronLeft as ChevronLeftIcon,
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
-    Delete as DeleteIcon,
     Edit as EditIcon,
     Print as PrintIcon,
 } from "@mui/icons-material";
@@ -36,12 +33,10 @@ import ModalPDF from "./modalPDF";
 import { ImageViewer } from "../../../../../../common/components/ImageViewer";
 import ChartBar from "./chartBar";
 
-const ResumenProducto = () => {
+const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [intIdEmpresario, setIntIdEmpresario] = useState(null);
-
     const [data, setData] = useState({
         objInfoGeneral: [
             {
@@ -133,32 +128,36 @@ const ResumenProducto = () => {
     const [openModalPDF, setOpenModalPDF] = useState(false);
 
     const [openCollapseInfoGeneral, setOpenCollapseInfoGeneral] =
-        useState(false);
+        useState(true);
 
     const [openCollapseInfoProductos, setOpenCollapseInfoProductos] =
-        useState(false);
+        useState(true);
 
     const [openCollapseTemasFortalecer, setOpenCollapseTemasFortalecer] =
-        useState(false);
+        useState(true);
 
-    const [openCollapseFortalezas, setOpenCollapseFortalezas] = useState(false);
+    const [openCollapseFortalezas, setOpenCollapseFortalezas] = useState(true);
 
     const [openCollapseInfoNormatividad, setOpenCollapseInfoNormatividad] =
-        useState(false);
+        useState(true);
 
     const [openCollapseConclusiones, setOpenCollapseConclusiones] =
-        useState(false);
+        useState(true);
 
-    const [openCollapseFotos, setOpenCollapseFotos] = useState(false);
+    const [openCollapseFotos, setOpenCollapseFotos] = useState(true);
 
-    const [openCollapseGrafico, setOpenCollapseGrafico] = useState(false);
+    const [openCollapseGrafico, setOpenCollapseGrafico] = useState(true);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { intId } = useParams();
 
-    const { getUniqueData } = useGetDiagnServ({ autoLoad: false });
+    const { getUniqueData } = useGetDiagnServ({
+        autoLoad: false,
+        intIdIdea,
+        intIdDiagnostico,
+    });
 
     const refFntGetData = useRef(getUniqueData);
 
@@ -224,7 +223,7 @@ const ResumenProducto = () => {
 
         async function getData() {
             await refFntGetData
-                .current({ intId })
+                .current({ intIdIdea, intIdDiagnostico })
                 .then((res) => {
                     if (res.data.error) {
                         throw new Error(res.data.msg);
@@ -232,8 +231,6 @@ const ResumenProducto = () => {
 
                     if (res.data) {
                         let data = res.data.data[0];
-
-                        setIntIdEmpresario(data.objInfoGeneral.intIdEmpresario);
 
                         const strConclusiones =
                             data.objInfoAdicional.strConclusiones;
@@ -627,7 +624,7 @@ const ResumenProducto = () => {
         }
 
         getData();
-    }, [intId]);
+    }, [intIdIdea, intIdDiagnostico]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -653,12 +650,15 @@ const ResumenProducto = () => {
                 intId={intId}
                 handleOpenDialog={handlerChangeOpenModalEdit}
                 open={openModalEdit}
+                onChangeRoute={onChangeRoute}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
             />
 
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
-                intId={intIdEmpresario}
+                intId={intIdIdea}
                 values={data}
             />
 
@@ -671,25 +671,9 @@ const ResumenProducto = () => {
                             alignItems: "center",
                         }}
                     >
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Button
-                                component={RouterLink}
-                                to={`/diagnosticos/diagDesign`}
-                                startIcon={<ChevronLeftIcon />}
-                                size="small"
-                                color="inherit"
-                            >
-                                regresar
-                            </Button>
-                        </Box>
+                        <Box sx={{ flexGrow: 1 }}></Box>
 
                         <Box>
-                            <Tooltip title="Eliminar diagnóstico">
-                                <IconButton color="error">
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Tooltip>
-
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton
                                     color="success"
@@ -2066,11 +2050,11 @@ const ResumenProducto = () => {
                                                 ]}
                                                 values={[
                                                     data.objResultServicio
-                                                        .intInnovacion || 0,
+                                                        ?.intInnovacion || 0,
                                                     data.objResultServicio
-                                                        .intExperiencia || 0,
+                                                        ?.intExperiencia || 0,
                                                     data.objResultServicio
-                                                        .intMarca || 0,
+                                                        ?.intMarca || 0,
                                                 ]}
                                             />
                                         </Box>

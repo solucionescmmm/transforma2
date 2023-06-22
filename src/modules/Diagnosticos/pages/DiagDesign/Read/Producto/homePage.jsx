@@ -139,25 +139,25 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     const [openModalPDF, setOpenModalPDF] = useState(false);
 
     const [openCollapseInfoGeneral, setOpenCollapseInfoGeneral] =
-        useState(false);
+        useState(true);
 
     const [openCollapseInfoProductos, setOpenCollapseInfoProductos] =
-        useState(false);
+        useState(true);
 
     const [openCollapseTemasFortalecer, setOpenCollapseTemasFortalecer] =
-        useState(false);
+        useState(true);
 
-    const [openCollapseFortalezas, setOpenCollapseFortalezas] = useState(false);
+    const [openCollapseFortalezas, setOpenCollapseFortalezas] = useState(true);
 
     const [openCollapseInfoNormatividad, setOpenCollapseInfoNormatividad] =
-        useState(false);
+        useState(true);
 
     const [openCollapseConclusiones, setOpenCollapseConclusiones] =
-        useState(false);
+        useState(true);
 
-    const [openCollapseFotos, setOpenCollapseFotos] = useState(false);
+    const [openCollapseFotos, setOpenCollapseFotos] = useState(true);
 
-    const [openCollapseGrafico, setOpenCollapseGrafico] = useState(false);
+    const [openCollapseGrafico, setOpenCollapseGrafico] = useState(true);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -916,8 +916,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
-                intIdIdea={intIdIdea}
-                intIdDiagnostico={intIdDiagnostico}
+                intId={intIdIdea}
                 values={data}
             />
 
@@ -930,7 +929,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                             alignItems: "center",
                         }}
                     >
-                        <Box></Box>
+                        <Box sx={{ flexGrow: 1 }}></Box>
                         <Box>
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton

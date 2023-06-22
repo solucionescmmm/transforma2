@@ -54,7 +54,7 @@ const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
                     <Grid item xs={6}>
                         <Button
                             color="primary"
-                            disabled={!values?.intGeneral}
+                            disabled={!values?.objResumen.bitResumenGen}
                             startIcon={<ArticleIcon />}
                         >
                             General
@@ -70,7 +70,7 @@ const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
                                 })
                             }
                             color="primary"
-                            disabled={!values?.intIdHumano}
+                            disabled={!values?.objResumen.bitResumenHumano}
                             startIcon={<ArticleIcon />}
                         >
                             Competencias Humanas
@@ -80,7 +80,13 @@ const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
                     <Grid item xs={6}>
                         <Button
                             color="primary"
-                            disabled={!values?.intIdProducto}
+                            disabled={!values?.objResumen.bitResumenTec}
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarialTecRead", {
+                                    intIdIdea: values.intIdIdea,
+                                    intIdDiagnostico: values.intIdDiagnostico,
+                                })
+                            }
                             startIcon={<ArticleIcon />}
                         >
                             Competencias Técnicas

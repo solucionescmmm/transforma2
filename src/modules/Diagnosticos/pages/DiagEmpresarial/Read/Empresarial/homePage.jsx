@@ -357,9 +357,6 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 intId={intIdDiagnostico}
                 handleOpenDialog={handlerChangeOpenModalEdit}
                 open={openModalEdit}
-                onChangeRoute={onChangeRoute}
-                intIdIdea={intIdIdea}
-                intIdDiagnostico={intIdDiagnostico}
             />
 
             <ModalPDF
@@ -383,8 +380,13 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box>
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton
-                                      color="success"
-                                      onClick={() => handlerChangeOpenModalEdit()}
+                                    color="success"
+                                    onClick={() =>
+                                        onChangeRoute(
+                                            "DiagEmpresarialHumEdit",
+                                            { intIdDiagnostico, intIdIdea }
+                                        )
+                                    }
                                 >
                                     <EditIcon />
                                 </IconButton>
@@ -393,6 +395,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             <Tooltip title="Imprimir diagnóstico">
                                 <IconButton
                                     color="inherit"
+                                    disabled
                                     onClick={() => handlerChangeOpenModalPDF()}
                                 >
                                     <PrintIcon />
