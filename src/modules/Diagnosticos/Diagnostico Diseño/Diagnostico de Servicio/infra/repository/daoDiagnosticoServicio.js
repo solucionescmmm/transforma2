@@ -240,7 +240,7 @@ class daoDiagnosticoServicio {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn
                 .request()
-                .input("intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .input("intIdDiagnostico", sql.Int, data.intIdDiagnostico)
                 .execute("sp_SetResultDiagnosticoServicios");
 
             let result = {

@@ -83,7 +83,7 @@ class updateDiagnosticoProducto {
         let dao = new classInterfaceDAOProducto();
 
         let query = await dao.setResultDiagnosticoProducto({
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdDiagnostico: this.#objData?.objInfoGeneral?.intIdDiagnostico
         });
 
         if (query.error) {

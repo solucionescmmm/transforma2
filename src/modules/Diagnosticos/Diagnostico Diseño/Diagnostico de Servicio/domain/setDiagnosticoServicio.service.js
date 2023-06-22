@@ -79,7 +79,7 @@ class setDiagnosticoServicio {
         let dao = new classInterfaceDAOServicio();
 
         let query = await dao.setResultDiagnosticoServicio({
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdDiagnostico: this.#objData?.objInfoGeneral?.intIdDiagnostico
         });
 
         if (query.error) {
