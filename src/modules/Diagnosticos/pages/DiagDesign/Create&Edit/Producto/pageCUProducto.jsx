@@ -322,6 +322,9 @@ const PageCUProducto = ({
                         if (res.data?.data) {
                             if (!isEdit) {
                                 setOpenModal(true);
+                            } else {
+                                setData({ ...res.data.data[0] });
+                                reset({ ...res.data.data[0] });
                             }
                         }
 
@@ -339,13 +342,8 @@ const PageCUProducto = ({
 
             getData();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEdit, intIdIdea, intIdDiagnostico]);
-
-    useEffect(() => {
-        if (intId) {
-            reset(data);
-        }
-    }, [data, reset, intId]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -403,9 +401,28 @@ const PageCUProducto = ({
                 </DialogContent>
 
                 <DialogActions>
-                    <Button color="inherit">ver resumen</Button>
+                    <Button
+                        color="inherit"
+                        onClick={() => {
+                            onChangeRoute("DiagDesignProdRead", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            });
+                        }}
+                    >
+                        ver resumen
+                    </Button>
 
-                    <Button>editar</Button>
+                    <Button
+                        onClick={() => {
+                            onChangeRoute("DiagDesignProdEdit", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            });
+                        }}
+                    >
+                        editar
+                    </Button>
                 </DialogActions>
             </Dialog>
 

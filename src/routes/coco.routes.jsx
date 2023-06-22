@@ -46,10 +46,14 @@ const DiagDesign = lazy(() =>
     import("../modules/Diagnosticos/pages/DiagDesign/homePage")
 );
 
-const PageCUProducto = lazy(() =>
+const DiagDesignCUProducto = lazy(() =>
     import(
         "../modules/Diagnosticos/pages/DiagDesign/Create&Edit/Producto/pageCUProducto"
     )
+);
+
+const DiagDesignReadProducto = lazy(() =>
+    import("../modules/Diagnosticos/pages/DiagDesign/Read/Producto/homePage")
 );
 
 const PageCUServicio = lazy(() =>
@@ -412,7 +416,58 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     </Button>
                 </Grid>
 
-                <PageCUProducto
+                <DiagDesignCUProducto
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagDesignProdEdit") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagDesign", { ...route.params })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagDesignCUProducto
+                    isEdit
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagDesignProdRead") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagDesign", { ...route.params })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagDesignReadProducto
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
                     intIdDiagnostico={route.params.intIdDiagnostico}

@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 
 //Librerias
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 import validator from "validator";
 import html2canvas from "html2canvas";
@@ -9,7 +9,6 @@ import html2canvas from "html2canvas";
 //Componentes de Mui
 import {
     Box,
-    Button,
     Collapse,
     Grid,
     IconButton,
@@ -20,10 +19,8 @@ import {
 
 //Iconos
 import {
-    ChevronLeft as ChevronLeftIcon,
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
-    Delete as DeleteIcon,
     Edit as EditIcon,
     Print as PrintIcon,
 } from "@mui/icons-material";
@@ -36,12 +33,10 @@ import ModalPDF from "./modalPDF";
 import { ImageViewer } from "../../../../../../common/components/ImageViewer";
 import ChartBar from "./chartBar";
 
-const ResumenProducto = () => {
+const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [intIdEmpresario, setIntIdEmpresario] = useState(null);
-
     const [data, setData] = useState({
         objInfoGeneral: [
             {
@@ -169,7 +164,11 @@ const ResumenProducto = () => {
     //===============================================================================================================================================
     const { intId } = useParams();
 
-    const { getUniqueData } = useGetDiagnProd({ autoLoad: false });
+    const { getUniqueData } = useGetDiagnProd({
+        autoLoad: false,
+        intIdIdea,
+        intIdDiagnostico,
+    });
 
     const refFntGetData = useRef(getUniqueData);
 
@@ -231,606 +230,659 @@ const ResumenProducto = () => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoadingGetData(true);
+        if (intIdIdea) {
+            setLoadingGetData(true);
 
-        async function getData() {
-            await refFntGetData
-                .current({ intId })
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
-                    }
+            async function getData() {
+                await refFntGetData
+                    .current({ intIdIdea, intIdDiagnostico })
+                    .then((res) => {
+                        console.log(intIdDiagnostico);
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
 
-                    if (res.data) {
-                        let data = res.data.data[0];
+                        if (res.data) {
+                            let data = res.data.data[0];
 
-                        setIntIdEmpresario(data.objInfoGeneral.intIdEmpresario);
+                            const strConclusiones =
+                                data.objInfoAdicional.strConclusiones;
 
-                        const strConclusiones =
-                            data.objInfoAdicional.strConclusiones;
+                            const arrImagenes =
+                                data.objInfoAdicional?.strURLSFotos?.split(";");
 
-                        const arrImagenes =
-                            data.objInfoAdicional?.strURLSFotos?.split(";");
+                            let newArrImagenes = [];
 
-                        let newArrImagenes = [];
+                            if (arrImagenes) {
+                                newArrImagenes = arrImagenes.map((url) => {
+                                    return {
+                                        src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
+                                        width: 4,
+                                        height: 3,
+                                    };
+                                });
+                            }
 
-                        if (arrImagenes) {
-                            newArrImagenes = arrImagenes.map((url) => {
+                            const objInfoGeneral = {
+                                dtmFechaSesion: data.objInfoGeneral
+                                    .dtmFechaSesion
+                                    ? parseISO(
+                                          data.objInfoGeneral.dtmFechaSesion
+                                      )
+                                    : null,
+                                strLugarSesion:
+                                    data.objInfoGeneral.strLugarSesion || "",
+                                strUsuarioCreacion:
+                                    data.objInfoGeneral.strUsuarioCreacion ||
+                                    "",
+                                dtActualizacion: data.objInfoGeneral
+                                    .dtActualizacion
+                                    ? parseISO(
+                                          data.objInfoGeneral.dtActualizacion
+                                      )
+                                    : null,
+                                strUsuarioActualizacion:
+                                    data.objInfoGeneral
+                                        .strUsuarioActualizacion || "",
+                            };
+
+                            const objInfoProductos = {
+                                strCategoriaProductos:
+                                    data.objInfoProductos
+                                        .strCategoriaProductos || "",
+                                strProductos:
+                                    data.objInfoProductos.strProductos || "",
+                                strNombreTecnica:
+                                    data.objInfoProductos.strNombreTecnica ||
+                                    "",
+                                strMateriaPrima:
+                                    data.objInfoProductos.strMateriaPrima || "",
+                            };
+
+                            const objInfoNormatividad = {
+                                strPermisoFuncionamiento:
+                                    data.objInfoNormatividad
+                                        .strPermisoFuncionamiento || "",
+                                strCertificadosRequeridos:
+                                    data.objInfoNormatividad
+                                        .strCertificadosRequeridos || "",
+                                strCertificadosActuales:
+                                    data.objInfoNormatividad
+                                        .strCertificadosActuales || "",
+                                strRegistroMarca:
+                                    data.objInfoNormatividad.strRegistroMarca ||
+                                    "",
+                                strPatentesUtilidad:
+                                    data.objInfoNormatividad
+                                        .strPatentesUtilidad || "",
+                                strCualPatenteUtilidad:
+                                    data.objInfoNormatividad
+                                        .strCualPatenteUtilidad || "",
+                            };
+
+                            const objInfoCategoria1 = data.objInfoCategoria1;
+                            const objInfoCategoria2 = data.objInfoCategoria2;
+
+                            setData((prevState) => {
+                                let prevInfoGeneral = prevState.objInfoGeneral;
+                                let prevInfoProductos =
+                                    prevState.objInfoProductos;
+                                let prevInfoNormatividad =
+                                    prevState.objInfoNormatividad;
+                                let prevInfoTemasFortalecer =
+                                    prevState.objInfoTemasFortalecer;
+                                let prevInfoFortalezas =
+                                    prevState.objInfoFortalezas;
+
+                                for (const key in objInfoGeneral) {
+                                    if (
+                                        Object.hasOwnProperty.call(
+                                            objInfoGeneral,
+                                            key
+                                        )
+                                    ) {
+                                        prevInfoGeneral.forEach((e) => {
+                                            if (e.parent === key) {
+                                                e.value = objInfoGeneral[key];
+
+                                                if (key === "dtActualizacion") {
+                                                    e.value = validator.isDate(
+                                                        e.value
+                                                    )
+                                                        ? format(
+                                                              e.value,
+                                                              "yyyy-MM-dd"
+                                                          )
+                                                        : "No diligenciado";
+                                                }
+
+                                                if (key === "dtmFechaSesion") {
+                                                    e.value = validator.isDate(
+                                                        e.value
+                                                    )
+                                                        ? format(
+                                                              e.value,
+                                                              "yyyy-MM-dd hh:mm"
+                                                          )
+                                                        : "No diligenciado";
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+
+                                for (const key in objInfoProductos) {
+                                    if (
+                                        Object.hasOwnProperty.call(
+                                            objInfoProductos,
+                                            key
+                                        )
+                                    ) {
+                                        prevInfoProductos.forEach((e) => {
+                                            if (e.parent === key) {
+                                                e.value = objInfoProductos[key];
+                                            }
+                                        });
+                                    }
+                                }
+
+                                for (const key in objInfoNormatividad) {
+                                    if (
+                                        Object.hasOwnProperty.call(
+                                            objInfoNormatividad,
+                                            key
+                                        )
+                                    ) {
+                                        prevInfoNormatividad.forEach((e) => {
+                                            if (e.parent === key) {
+                                                e.value =
+                                                    objInfoNormatividad[key];
+                                            }
+                                        });
+                                    }
+                                }
+
+                                const objInnovacionFortalecer = [];
+                                const objInnovacionFortalezas = [];
+
+                                const objPersepcionFortalecer = [];
+                                const objPersepcionFortalezas = [];
+
+                                const objEsteticaFortalecer = [];
+                                const objEsteticaFortalezas = [];
+
+                                const objExperienciaFortalecer = [];
+                                const objExperienciaFortalezas = [];
+
+                                const objMarcaFortalecer = [];
+                                const objMarcaFortalezas = [];
+
+                                const getLabel = (key) => {
+                                    switch (key) {
+                                        case "strFuncionalidad":
+                                            return "Funcionalidad";
+
+                                        case "strMetodologia":
+                                            return "Metodología para la creación de producto";
+
+                                        case "strRenovacionPortafolio":
+                                            return "Renovación del portafolio";
+
+                                        case "strSostenibilidad":
+                                            return "Sostenibilidad";
+
+                                        case "strAtributosValor":
+                                            return "Atributos de valor";
+
+                                        case "strUsoMateriales":
+                                            return "Uso de los materiales";
+
+                                        case "strMenajoTecnicaAlim":
+                                            return "Manejo que tengo de la(s) técnica(s)";
+
+                                        case "strProcesosPreparacion":
+                                            return "Procesos de preparación";
+
+                                        case "strPresentacionApariencia":
+                                            return "Presentación y apariencia";
+
+                                        case "strProporcionAlim":
+                                            return "Proporción";
+
+                                        case "strConservacion":
+                                            return "Conservación";
+
+                                        case "strInocuidad":
+                                            return "Inocuidad";
+
+                                        case "strEmpaqueEtiquetaAlim":
+                                            return "Empaque, Envase y Etiqueta";
+
+                                        case "strMenajoTecnica":
+                                            return "Manejo que tengo de la(s) técnica(s)";
+
+                                        case "strAcabadosFactura":
+                                            return "Acabados y Factura";
+
+                                        case "strDurabilidad":
+                                            return "Durabilidad";
+
+                                        case "strUsoColores":
+                                            return "Uso de los colores";
+
+                                        case "strProporcion":
+                                            return "Proporción";
+
+                                        case "strRiesgoUso":
+                                            return "Riesgo de Uso";
+
+                                        case "strEmpaqueEtiqueta":
+                                            return "Empaque, Envase y Etiqueta";
+
+                                        case "strUsabilidad":
+                                            return "Usabilidad";
+
+                                        case "strDisenioExperiencia":
+                                            return "Diseño de Experiencia";
+
+                                        case "strLineaGrafica":
+                                            return "Línea gráfica de la marca";
+
+                                        case "strIdentidadMarca":
+                                            return "Identidad de la marca";
+
+                                        case "strComunicacionMarca":
+                                            return "Comunicación de la marca";
+
+                                        default:
+                                            return null;
+                                    }
+                                };
+
+                                for (const key in objInfoCategoria1) {
+                                    if (
+                                        Object.hasOwnProperty.call(
+                                            objInfoCategoria1,
+                                            key
+                                        )
+                                    ) {
+                                        if (
+                                            (key === "strFuncionalidad" ||
+                                                key === "strMetodologia" ||
+                                                key ===
+                                                    "strRenovacionPortafolio" ||
+                                                key === "strSostenibilidad" ||
+                                                key === "strAtributosValor" ||
+                                                key === "strUsoMateriales") &&
+                                            objInfoCategoria1[key] !== ""
+                                        ) {
+                                            if (
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "BAJO" ||
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "MEDIO"
+                                            ) {
+                                                objInnovacionFortalecer.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria1[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria1[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria1[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+
+                                            if (
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "ALTO"
+                                            ) {
+                                                objInnovacionFortalezas.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria1[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria1[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria1[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+                                        }
+
+                                        if (
+                                            (key === "strMenajoTecnicaAlim" ||
+                                                key ===
+                                                    "strProcesosPreparacion" ||
+                                                key ===
+                                                    "strPresentacionApariencia" ||
+                                                key === "strProporcionAlim" ||
+                                                key === "strConservacion" ||
+                                                key === "strInocuidad" ||
+                                                key ===
+                                                    "strEmpaqueEtiquetaAlim") &&
+                                            objInfoCategoria1[key] !== ""
+                                        ) {
+                                            if (
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "BAJO" ||
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "MEDIO"
+                                            ) {
+                                                objPersepcionFortalecer.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria1[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria1[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria1[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+
+                                            if (
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "ALTO"
+                                            ) {
+                                                objPersepcionFortalezas.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria1[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria1[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria1[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+                                        }
+
+                                        if (
+                                            (key === "strMenajoTecnica" ||
+                                                key === "strAcabadosFactura" ||
+                                                key === "strDurabilidad" ||
+                                                key === "strUsoColores" ||
+                                                key === "strProporcion") &&
+                                            objInfoCategoria1[key] !== ""
+                                        ) {
+                                            if (
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "BAJO" ||
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "MEDIO"
+                                            ) {
+                                                objEsteticaFortalecer.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria1[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria1[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria1[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+
+                                            if (
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "ALTO"
+                                            ) {
+                                                objEsteticaFortalezas.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria1[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria1[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria1[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+                                        }
+
+                                        if (
+                                            (key === "strRiesgoUso" ||
+                                                key === "strEmpaqueEtiqueta" ||
+                                                key === "strUsabilidad" ||
+                                                key ===
+                                                    "strDisenioExperiencia") &&
+                                            objInfoCategoria1[key] !== ""
+                                        ) {
+                                            if (
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "BAJO" ||
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "MEDIO"
+                                            ) {
+                                                objExperienciaFortalecer.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria1[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria1[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria1[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+
+                                            if (
+                                                objInfoCategoria1[
+                                                    `${key}Nivel`
+                                                ] === "ALTO"
+                                            ) {
+                                                objExperienciaFortalezas.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria1[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria1[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria1[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+
+                                for (const key in objInfoCategoria2) {
+                                    if (
+                                        Object.hasOwnProperty.call(
+                                            objInfoCategoria2,
+                                            key
+                                        )
+                                    ) {
+                                        if (
+                                            (key === "strLineaGrafica" ||
+                                                key === "strIdentidadMarca" ||
+                                                key ===
+                                                    "strComunicacionMarca") &&
+                                            objInfoCategoria2[key] !== ""
+                                        ) {
+                                            if (
+                                                objInfoCategoria2[
+                                                    `${key}Nivel`
+                                                ] === "BAJO" ||
+                                                objInfoCategoria2[
+                                                    `${key}Nivel`
+                                                ] === "MEDIO"
+                                            ) {
+                                                objMarcaFortalecer.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria2[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria2[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria2[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+
+                                            if (
+                                                objInfoCategoria2[
+                                                    `${key}Nivel`
+                                                ] === "ALTO"
+                                            ) {
+                                                objMarcaFortalezas.push({
+                                                    parent: key,
+                                                    value: objInfoCategoria2[
+                                                        key
+                                                    ],
+                                                    detalle:
+                                                        objInfoCategoria2[
+                                                            `${key}Detalle`
+                                                        ],
+                                                    nivel: objInfoCategoria2[
+                                                        `${key}Nivel`
+                                                    ],
+                                                    label: getLabel(key),
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (objInnovacionFortalecer.length > 0) {
+                                    prevInfoTemasFortalecer.push({
+                                        objInnovacionFortalecer,
+                                    });
+                                }
+
+                                if (objInnovacionFortalezas.length > 0) {
+                                    prevInfoFortalezas.push({
+                                        objInnovacionFortalezas,
+                                    });
+                                }
+
+                                if (objPersepcionFortalecer.length > 0) {
+                                    prevInfoTemasFortalecer.push({
+                                        objPersepcionFortalecer,
+                                    });
+                                }
+
+                                if (objPersepcionFortalezas.length > 0) {
+                                    prevInfoFortalezas.push({
+                                        objPersepcionFortalezas,
+                                    });
+                                }
+
+                                if (objEsteticaFortalecer.length > 0) {
+                                    prevInfoTemasFortalecer.push({
+                                        objEsteticaFortalecer,
+                                    });
+                                }
+
+                                if (objEsteticaFortalezas.length > 0) {
+                                    prevInfoFortalezas.push({
+                                        objEsteticaFortalezas,
+                                    });
+                                }
+
+                                if (objExperienciaFortalecer.length > 0) {
+                                    prevInfoTemasFortalecer.push({
+                                        objExperienciaFortalecer,
+                                    });
+                                }
+
+                                if (objExperienciaFortalezas.length > 0) {
+                                    prevInfoFortalezas.push({
+                                        objExperienciaFortalezas,
+                                    });
+                                }
+
+                                if (objMarcaFortalecer.length > 0) {
+                                    prevInfoTemasFortalecer.push({
+                                        objMarcaFortalecer,
+                                    });
+                                }
+
+                                if (objMarcaFortalezas.length > 0) {
+                                    prevInfoFortalezas.push({
+                                        objMarcaFortalezas,
+                                    });
+                                }
+
                                 return {
-                                    src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
-                                    width: 4,
-                                    height: 3,
+                                    ...prevState,
+                                    objInfoGeneral: prevInfoGeneral,
+                                    objInfoProductos: prevInfoProductos,
+                                    objInfoNormatividad: prevInfoNormatividad,
+                                    objInfoTemasFortalecer:
+                                        prevInfoTemasFortalecer,
+                                    objInfoFortalezas: prevInfoFortalezas,
+                                    strConclusiones,
+                                    arrImagenes: newArrImagenes,
+                                    objResultadoNoAlimentos:
+                                        data.objResultadoNoAlimentos,
+                                    objResultadoAlimentos:
+                                        data.objResultadoAlimentos,
                                 };
                             });
                         }
 
-                        const objInfoGeneral = {
-                            dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
-                                ? parseISO(data.objInfoGeneral.dtmFechaSesion)
-                                : null,
-                            strLugarSesion:
-                                data.objInfoGeneral.strLugarSesion || "",
-                            strUsuarioCreacion:
-                                data.objInfoGeneral.strUsuarioCreacion || "",
-                            dtActualizacion: data.objInfoGeneral.dtActualizacion
-                                ? parseISO(data.objInfoGeneral.dtActualizacion)
-                                : null,
-                            strUsuarioActualizacion:
-                                data.objInfoGeneral.strUsuarioActualizacion ||
-                                "",
-                        };
+                        setLoadingGetData(false);
+                        setErrorGetData({ flag: false, msg: "" });
+                    })
+                    .catch((error) => {
+                        setErrorGetData({ flag: true, msg: error.message });
+                        setLoadingGetData(false);
+                    });
+            }
 
-                        const objInfoProductos = {
-                            strCategoriaProductos:
-                                data.objInfoProductos.strCategoriaProductos ||
-                                "",
-                            strProductos:
-                                data.objInfoProductos.strProductos || "",
-                            strNombreTecnica:
-                                data.objInfoProductos.strNombreTecnica || "",
-                            strMateriaPrima:
-                                data.objInfoProductos.strMateriaPrima || "",
-                        };
-
-                        const objInfoNormatividad = {
-                            strPermisoFuncionamiento:
-                                data.objInfoNormatividad
-                                    .strPermisoFuncionamiento || "",
-                            strCertificadosRequeridos:
-                                data.objInfoNormatividad
-                                    .strCertificadosRequeridos || "",
-                            strCertificadosActuales:
-                                data.objInfoNormatividad
-                                    .strCertificadosActuales || "",
-                            strRegistroMarca:
-                                data.objInfoNormatividad.strRegistroMarca || "",
-                            strPatentesUtilidad:
-                                data.objInfoNormatividad.strPatentesUtilidad ||
-                                "",
-                            strCualPatenteUtilidad:
-                                data.objInfoNormatividad
-                                    .strCualPatenteUtilidad || "",
-                        };
-
-                        const objInfoCategoria1 = data.objInfoCategoria1;
-                        const objInfoCategoria2 = data.objInfoCategoria2;
-
-                        setData((prevState) => {
-                            let prevInfoGeneral = prevState.objInfoGeneral;
-                            let prevInfoProductos = prevState.objInfoProductos;
-                            let prevInfoNormatividad =
-                                prevState.objInfoNormatividad;
-                            let prevInfoTemasFortalecer =
-                                prevState.objInfoTemasFortalecer;
-                            let prevInfoFortalezas =
-                                prevState.objInfoFortalezas;
-
-                            for (const key in objInfoGeneral) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoGeneral,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoGeneral.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoGeneral[key];
-
-                                            if (key === "dtActualizacion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-
-                                            if (key === "dtmFechaSesion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd hh:mm"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoProductos) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoProductos,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoProductos.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoProductos[key];
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoNormatividad) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoNormatividad,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoNormatividad.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoNormatividad[key];
-                                        }
-                                    });
-                                }
-                            }
-
-                            const objInnovacionFortalecer = [];
-                            const objInnovacionFortalezas = [];
-
-                            const objPersepcionFortalecer = [];
-                            const objPersepcionFortalezas = [];
-
-                            const objEsteticaFortalecer = [];
-                            const objEsteticaFortalezas = [];
-
-                            const objExperienciaFortalecer = [];
-                            const objExperienciaFortalezas = [];
-
-                            const objMarcaFortalecer = [];
-                            const objMarcaFortalezas = [];
-
-                            const getLabel = (key) => {
-                                switch (key) {
-                                    case "strFuncionalidad":
-                                        return "Funcionalidad";
-
-                                    case "strMetodologia":
-                                        return "Metodología para la creación de producto";
-
-                                    case "strRenovacionPortafolio":
-                                        return "Renovación del portafolio";
-
-                                    case "strSostenibilidad":
-                                        return "Sostenibilidad";
-
-                                    case "strAtributosValor":
-                                        return "Atributos de valor";
-
-                                    case "strUsoMateriales":
-                                        return "Uso de los materiales";
-
-                                    case "strMenajoTecnicaAlim":
-                                        return "Manejo que tengo de la(s) técnica(s)";
-
-                                    case "strProcesosPreparacion":
-                                        return "Procesos de preparación";
-
-                                    case "strPresentacionApariencia":
-                                        return "Presentación y apariencia";
-
-                                    case "strProporcionAlim":
-                                        return "Proporción";
-
-                                    case "strConservacion":
-                                        return "Conservación";
-
-                                    case "strInocuidad":
-                                        return "Inocuidad";
-
-                                    case "strEmpaqueEtiquetaAlim":
-                                        return "Empaque, Envase y Etiqueta";
-
-                                    case "strMenajoTecnica":
-                                        return "Manejo que tengo de la(s) técnica(s)";
-
-                                    case "strAcabadosFactura":
-                                        return "Acabados y Factura";
-
-                                    case "strDurabilidad":
-                                        return "Durabilidad";
-
-                                    case "strUsoColores":
-                                        return "Uso de los colores";
-
-                                    case "strProporcion":
-                                        return "Proporción";
-
-                                    case "strRiesgoUso":
-                                        return "Riesgo de Uso";
-
-                                    case "strEmpaqueEtiqueta":
-                                        return "Empaque, Envase y Etiqueta";
-
-                                    case "strUsabilidad":
-                                        return "Usabilidad";
-
-                                    case "strDisenioExperiencia":
-                                        return "Diseño de Experiencia";
-
-                                    case "strLineaGrafica":
-                                        return "Línea gráfica de la marca";
-
-                                    case "strIdentidadMarca":
-                                        return "Identidad de la marca";
-
-                                    case "strComunicacionMarca":
-                                        return "Comunicación de la marca";
-
-                                    default:
-                                        return null;
-                                }
-                            };
-
-                            for (const key in objInfoCategoria1) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoCategoria1,
-                                        key
-                                    )
-                                ) {
-                                    if (
-                                        (key === "strFuncionalidad" ||
-                                            key === "strMetodologia" ||
-                                            key === "strRenovacionPortafolio" ||
-                                            key === "strSostenibilidad" ||
-                                            key === "strAtributosValor" ||
-                                            key === "strUsoMateriales") &&
-                                        objInfoCategoria1[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objInnovacionFortalecer.push({
-                                                parent: key,
-                                                value: objInfoCategoria1[key],
-                                                detalle:
-                                                    objInfoCategoria1[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria1[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objInnovacionFortalezas.push({
-                                                parent: key,
-                                                value: objInfoCategoria1[key],
-                                                detalle:
-                                                    objInfoCategoria1[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria1[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-
-                                    if (
-                                        (key === "strMenajoTecnicaAlim" ||
-                                            key === "strProcesosPreparacion" ||
-                                            key ===
-                                                "strPresentacionApariencia" ||
-                                            key === "strProporcionAlim" ||
-                                            key === "strConservacion" ||
-                                            key === "strInocuidad" ||
-                                            key === "strEmpaqueEtiquetaAlim") &&
-                                        objInfoCategoria1[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objPersepcionFortalecer.push({
-                                                parent: key,
-                                                value: objInfoCategoria1[key],
-                                                detalle:
-                                                    objInfoCategoria1[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria1[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objPersepcionFortalezas.push({
-                                                parent: key,
-                                                value: objInfoCategoria1[key],
-                                                detalle:
-                                                    objInfoCategoria1[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria1[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-
-                                    if (
-                                        (key === "strMenajoTecnica" ||
-                                            key === "strAcabadosFactura" ||
-                                            key === "strDurabilidad" ||
-                                            key === "strUsoColores" ||
-                                            key === "strProporcion") &&
-                                        objInfoCategoria1[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objEsteticaFortalecer.push({
-                                                parent: key,
-                                                value: objInfoCategoria1[key],
-                                                detalle:
-                                                    objInfoCategoria1[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria1[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objEsteticaFortalezas.push({
-                                                parent: key,
-                                                value: objInfoCategoria1[key],
-                                                detalle:
-                                                    objInfoCategoria1[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria1[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-
-                                    if (
-                                        (key === "strRiesgoUso" ||
-                                            key === "strEmpaqueEtiqueta" ||
-                                            key === "strUsabilidad" ||
-                                            key === "strDisenioExperiencia") &&
-                                        objInfoCategoria1[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objExperienciaFortalecer.push({
-                                                parent: key,
-                                                value: objInfoCategoria1[key],
-                                                detalle:
-                                                    objInfoCategoria1[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria1[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoCategoria1[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objExperienciaFortalezas.push({
-                                                parent: key,
-                                                value: objInfoCategoria1[key],
-                                                detalle:
-                                                    objInfoCategoria1[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria1[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-
-                            for (const key in objInfoCategoria2) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoCategoria2,
-                                        key
-                                    )
-                                ) {
-                                    if (
-                                        (key === "strLineaGrafica" ||
-                                            key === "strIdentidadMarca" ||
-                                            key === "strComunicacionMarca") &&
-                                        objInfoCategoria2[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoCategoria2[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoCategoria2[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objMarcaFortalecer.push({
-                                                parent: key,
-                                                value: objInfoCategoria2[key],
-                                                detalle:
-                                                    objInfoCategoria2[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria2[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoCategoria2[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objMarcaFortalezas.push({
-                                                parent: key,
-                                                value: objInfoCategoria2[key],
-                                                detalle:
-                                                    objInfoCategoria2[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoCategoria2[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (objInnovacionFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objInnovacionFortalecer,
-                                });
-                            }
-
-                            if (objInnovacionFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objInnovacionFortalezas,
-                                });
-                            }
-
-                            if (objPersepcionFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objPersepcionFortalecer,
-                                });
-                            }
-
-                            if (objPersepcionFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objPersepcionFortalezas,
-                                });
-                            }
-
-                            if (objEsteticaFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objEsteticaFortalecer,
-                                });
-                            }
-
-                            if (objEsteticaFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objEsteticaFortalezas,
-                                });
-                            }
-
-                            if (objExperienciaFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objExperienciaFortalecer,
-                                });
-                            }
-
-                            if (objExperienciaFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objExperienciaFortalezas,
-                                });
-                            }
-
-                            if (objMarcaFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objMarcaFortalecer,
-                                });
-                            }
-
-                            if (objMarcaFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objMarcaFortalezas,
-                                });
-                            }
-
-                            return {
-                                ...prevState,
-                                objInfoGeneral: prevInfoGeneral,
-                                objInfoProductos: prevInfoProductos,
-                                objInfoNormatividad: prevInfoNormatividad,
-                                objInfoTemasFortalecer: prevInfoTemasFortalecer,
-                                objInfoFortalezas: prevInfoFortalezas,
-                                strConclusiones,
-                                arrImagenes: newArrImagenes,
-                                objResultadoNoAlimentos:
-                                    data.objResultadoNoAlimentos,
-                                objResultadoAlimentos:
-                                    data.objResultadoAlimentos,
-                            };
-                        });
-                    }
-
-                    setLoadingGetData(false);
-                    setErrorGetData({ flag: false, msg: "" });
-                })
-                .catch((error) => {
-                    setErrorGetData({ flag: true, msg: error.message });
-                    setLoadingGetData(false);
-                });
+            getData();
         }
-
-        getData();
-    }, [intId]);
+    }, [intIdIdea, intIdDiagnostico]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -856,12 +908,16 @@ const ResumenProducto = () => {
                 intId={intId}
                 handleOpenDialog={handlerChangeOpenModalEdit}
                 open={openModalEdit}
+                onChangeRoute={onChangeRoute}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
             />
 
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
-                intId={intIdEmpresario}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
                 values={data}
             />
 
@@ -874,25 +930,8 @@ const ResumenProducto = () => {
                             alignItems: "center",
                         }}
                     >
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Button
-                                component={RouterLink}
-                                to={`/diagnosticos/diagDesign`}
-                                startIcon={<ChevronLeftIcon />}
-                                size="small"
-                                color="inherit"
-                            >
-                                regresar
-                            </Button>
-                        </Box>
-
+                        <Box></Box>
                         <Box>
-                            <Tooltip title="Eliminar diagnóstico">
-                                <IconButton color="error">
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Tooltip>
-
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton
                                     color="success"
@@ -2857,17 +2896,18 @@ const ResumenProducto = () => {
                                                     values={[
                                                         data
                                                             .objResultadoNoAlimentos
-                                                            .intInnovación || 0,
-                                                        data
-                                                            .objResultadoNoAlimentos
-                                                            .intEstética || 0,
-                                                        data
-                                                            .objResultadoNoAlimentos
-                                                            .intExperiencia ||
+                                                            ?.intInnovación ||
                                                             0,
                                                         data
                                                             .objResultadoNoAlimentos
-                                                            .intMarca || 0,
+                                                            ?.intEstética || 0,
+                                                        data
+                                                            .objResultadoNoAlimentos
+                                                            ?.intExperiencia ||
+                                                            0,
+                                                        data
+                                                            .objResultadoNoAlimentos
+                                                            ?.intMarca || 0,
                                                     ]}
                                                 />
                                             </Box>
@@ -2896,17 +2936,18 @@ const ResumenProducto = () => {
                                                     values={[
                                                         data
                                                             .objResultadoAlimentos
-                                                            .intInnovación || 0,
-                                                        data
-                                                            .objResultadoAlimentos
-                                                            .intEstética || 0,
-                                                        data
-                                                            .objResultadoAlimentos
-                                                            .intExperiencia ||
+                                                            ?.intInnovación ||
                                                             0,
                                                         data
                                                             .objResultadoAlimentos
-                                                            .intMarca || 0,
+                                                            ?.intEstética || 0,
+                                                        data
+                                                            .objResultadoAlimentos
+                                                            ?.intExperiencia ||
+                                                            0,
+                                                        data
+                                                            .objResultadoAlimentos
+                                                            ?.intMarca || 0,
                                                     ]}
                                                 />
                                             </Box>

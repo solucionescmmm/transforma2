@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-// Liberias
-import { Link as RouterLink } from "react-router-dom";
-
 //Componentes de Material UI
 import {
     Box,
@@ -30,14 +27,20 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalEditDiagProd = ({ handleOpenDialog, open, intId }) => {
+const ModalEditDiagProd = ({
+    handleOpenDialog,
+    open,
+    intIdIdea,
+    intIdDiagnostico,
+    onChangeRoute
+}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        intId: null,
+        intIdIdea: null,
     });
 
     //===============================================================================================================================================
@@ -55,19 +58,19 @@ const ModalEditDiagProd = ({ handleOpenDialog, open, intId }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (intId) {
+        if (intIdIdea) {
             setData({
-                intId,
+                intIdIdea,
             });
         }
 
         setLoading(false);
-    }, [intId]);
+    }, [intIdIdea]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (!data.intId) {
+    if (!data.intIdIdea) {
         return (
             <Dialog
                 fullScreen={bitMobile}
@@ -76,7 +79,7 @@ const ModalEditDiagProd = ({ handleOpenDialog, open, intId }) => {
                 PaperProps={{
                     style: {
                         backgroundColor:
-                            !loading && !data.intId ? "#FDEDED" : "inherit",
+                            !loading && !data.intIdIdea ? "#FDEDED" : "inherit",
                     },
                 }}
             >
@@ -138,9 +141,12 @@ const ModalEditDiagProd = ({ handleOpenDialog, open, intId }) => {
 
             <DialogActions>
                 <Button
-                    component={RouterLink}
-                    to={`/diagnosticos/diagDesign/product/edit`}
-                    color="success"
+                    onClick={() => {
+                        onChangeRoute("DiagDesignProdEdit", {
+                            intIdIdea,
+                            intIdDiagnostico,
+                        });
+                    }}
                 >
                     editar
                 </Button>
