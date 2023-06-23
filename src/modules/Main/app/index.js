@@ -38,6 +38,7 @@ app.use(require("../../Historicos/infra/http/apiHistoricos.routes"))
 app.use(require("../../Listas/Infra/http/apiListas.routes"));
 app.use(require("../../Localizaciones/infra/http/apiLocalizaciones.routes"))
 app.use(require("../../Comentarios/infra/http/apiComentarios.routes"))
+app.use(require("../../Diagnosticos/Diagnostico Express/infra/http/apiDiagnosticoExpress.routes"))
 app.use(require("../../Diagnosticos/Diagnostico Diseño/Diagnostico de Producto/infra/http/apiDiagnosticoProducto.routes"))
 app.use(require("../../Diagnosticos/Diagnostico Diseño/Diagnostico de Servicio/infra/http/apiDiagnosticoServicio.routes"))
 app.use(require("../../Diagnosticos/Diagnostico Empresarial/Diagnostico Competencias Humanas/infra/http/apiDiagnosticoHumanas.routes"))

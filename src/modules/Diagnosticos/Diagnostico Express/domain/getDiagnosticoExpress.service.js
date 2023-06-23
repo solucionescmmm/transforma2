@@ -3,7 +3,7 @@ const classInterfaceDAODiagnostico = require("../infra/conectors/interfaseDAODia
 const validator = require("validator").default;
 
 const getDiagnosticoExpress = async (objParams, strDataUser) => {
-    let { intId, intIdDiagnostico } = objParams;
+    let { intIdDiagnostico } = objParams;
 
     if (!intIdDiagnostico) {
         throw new Error("Se esperaban parámetros de búsqueda.");
@@ -21,7 +21,6 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
 
     let dao = new classInterfaceDAODiagnostico();
     let query = {
-        intId,
         intIdDiagnostico,
     };
 
@@ -34,16 +33,13 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
-                let objInfoExpress = {
-                    intId: array[i].intId,
+                let objInfoGeneral = {
                     intIdDiagnostico: array[i]?.intIdDiagnostico,
-                    intIdEmpresario: array[i]?.intIdEmpresario,
-                    strUbicacionVivienda: array[i]?.strUbicacionVivienda,
                     strLugarSesion: "Medellin",
-                    dtmFechaSesion: "2021-12-16T13:25:00.000Z",
-                    strUsuarioCreacion: "Pepito",
-                    dtmActualizacion: "2021-12-09T21:34:58.943Z",
-                    strUsuarioActualizacion: "",
+                    dtmFechaSesion: array[i]?.dtmFechaSesion,
+                    strUsuarioCreacion: array[i]?.strUsuarioCreacion,
+                    dtmActualizacion: array[i]?.dtmActualizacion,
+                    strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                 };
                 let objInfoFamiliar = {
                     btCabezaHogar: array[i]?.btCabezaHogar,
@@ -102,7 +98,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                 };
 
                 data[i] = {
-                    objInfoExpress,
+                    objInfoGeneral,
                     objInfoFamiliar,
                     objInfoEmprendimiento,
                     objInfoEmpresa,

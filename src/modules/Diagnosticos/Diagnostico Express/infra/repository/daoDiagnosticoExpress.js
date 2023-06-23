@@ -5,7 +5,7 @@ const validator = require("validator").default;
 //Conexion
 const {
     conexion,
-} = require("../../../../../../common/config/confSQL_connectionTransfroma");
+} = require("../../../../../common/config/confSQL_connectionTransfroma");
 
 class daoDiagnosticoExpress {
     async setDiagnosticoExpress(data) {
@@ -134,7 +134,7 @@ class daoDiagnosticoExpress {
 
             DECLARE @intId INTEGER;
 
-            INSERT INTO tbl_DiagnosticoCompetenciasTecnicas 
+            INSERT INTO tbl_DiagnosticoGeneral 
             ( 
                 intId,
                 intIdDiagnostico,
@@ -450,11 +450,80 @@ class daoDiagnosticoExpress {
 
             let response = await conn.query`
 
-            SELECT *
-            FROM tbl_DiagnosticoExpress
+            SELECT
 
-            WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)`;
+            intIdDiagnostico,
+            strRegistroCamaraComercio,
+            strDefinineLineasProductoServicios,
+            strLineaProductoServicioDestacada,
+            strProductoServiciosNuevosUltimoAño,
+            strListaProductoServiciosNuevosUltimoAño,
+            strProductoServiciosEnValidacion,
+            strNivelDlloProductoServicios,
+            strEtapaValidProductoServicios,
+            strPromedioVentas6Meses,
+            strRangoVentas,
+            strEscojaProductoServicio,
+            ValorVentaProductoEscogido,
+            strConoceMargenRentaProductoEscogido,
+            strConoceCostosProduccionProductoEscogido,
+            CostoProduccionProductoEscogido,
+            intPorcentajeMargenRentaProductoEscogido,
+            strRangoEmpleados,
+            strEtapaDllo,
+            dtmFechaSesion,
+            strUsuarioCreacion,
+            dtmActualizacion,
+            strUsuarioActualizacion
+
+            FROM tbl_DiagnosticoGeneral
+
+            WHERE (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)
+    
+
+            SELECT 
+
+            strUniProdSosFinan,
+            strTieneBaseDatosClientes,
+            strActivIncreVentClient,
+            strPlanAtraccionRelacionamientoFidelizacionClientes,
+            strEquipTrabEstruct,
+            strEmprFormaAcuerNormLab,
+            strPlaneaEstraEmpPlanPlani
+
+            FROM tbl_DiagnosticoCompetenciasTecnicas
+
+            WHERE (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)
+            
+
+            SELECT
+
+            strPermisoFuncionamiento,
+            strCertificadosRequeridos,
+            strCertificadosActuales,
+            strPatentesUtilidad,
+            strCualPatenteUtilidad,
+            strRegistroMarca,
+            strIdentidadMarca,
+            strComunicacionMarca
+
+            FROM tbl_DiagnosticoProductos
+
+            WHERE (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)
+
+
+            SELECT
+
+            strHabilidadesAutonomia,
+            strHabilidadesCapacidad,
+            strHabilidadesComunicacion,
+            strHabilidadesCreatividad,
+            strTomaDesiciones,
+            strConfianza
+
+            FROM tbl_DiagnosticoHumanoSocial
+
+            WHERE (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
