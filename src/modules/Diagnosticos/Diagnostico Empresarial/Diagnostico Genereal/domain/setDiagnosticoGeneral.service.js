@@ -242,7 +242,7 @@ class setDiagnosticoGeneral {
                 this.#objData.objInfoPerfilEco.intNumeroEmpleados,
         };
 
-        let query = await dao.updateEmpresarioDiagnosticoGeneral(
+        let query = await dao.updateEmpresaDiagnosticoGeneral(
             objInfoEmpresa
         );
 
