@@ -198,7 +198,7 @@ class daoDiagnosticos {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
-                UPDATE tbl_Diagnosticos
+                UPDATE tbl_Diagnostico
 
                 SET intIdEstadoDiagnostico  = COALESCE(${data.intIdEstadoDiagnostico}, intIdEstadoDiagnostico),
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
@@ -207,7 +207,7 @@ class daoDiagnosticos {
                 WHERE intId = ${data.intId}
                 
                 
-                SELECT * FROM tbl_Diagnosticos WHERE intId = ${data.intId}`;
+                SELECT * FROM tbl_Diagnostico WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,

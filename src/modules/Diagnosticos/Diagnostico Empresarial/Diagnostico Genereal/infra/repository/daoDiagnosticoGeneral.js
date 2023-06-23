@@ -36,6 +36,8 @@ class daoDiagnosticoGeneral {
                 ${data.strRegistroCamaraComercio},
                 ${data.strDefinineLineasProductoServicios},
                 ${data.strLineaProductoServicioDestacada},
+                ${data.strProductoServiciosNuevosUltimoAño},
+                ${data.strListaProductoServiciosNuevosUltimoAño},
                 ${data.strHistoriaEmpresa},
                 ${data.strSuenioEmpresa},
                 ${data.strEstudioEmprendimiento},
@@ -234,7 +236,7 @@ class daoDiagnosticoGeneral {
                 strDireccionResidencia   = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
                 strUrlFileFoto           = COALESCE(${data.strURLFileFoto}, strUrlFileFoto),
                 dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario               = COALESCE(${data.strUsuario}, strUsuario)
+                strUsuario               = COALESCE(${data.strUsuarioActualizacion}, strUsuario)
 
             WHERE intId = ${data.intIdEmpresario}
 
@@ -278,16 +280,16 @@ class daoDiagnosticoGeneral {
                 strSectorEconomico                = COALESCE(${data.strSectorEconomico}, strSectorEconomico),
                 strCategoriaProducto              = COALESCE(${data.strCategoriaProducto}, strCategoriaProducto),
                 strCategoriaServicio              = COALESCE(${data.strCategoriaServicio}, strCategoriaServicio),
-                strCategoriasSecundarias          = COALESCE(${data.arrCategoriasSecundarias}, strCategoriasSecundarias),
+                strCategoriasSecundarias          = COALESCE(${data.strCategoriasSecundarias}, strCategoriasSecundarias),
                 strOtraCategoria                  = COALESCE(${data.strOtraCategoria}, strOtraCategoria),
                 strDescProductosServicios         = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
                 strTiempoDedicacion               = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
                 btGeneraEmpleo                    = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
                 intNumeroEmpleados                = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
                 valorVentasMes                    = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
-                strMediosDigitales                = COALESCE(${data.arrMediosDigitales}, strMediosDigitales),
+                strMediosDigitales                = COALESCE(${data.strMediosDigitales}, strMediosDigitales),
                 dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
+                strUsuarioActualizacion           = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
             WHERE intIdIdea = ${data.intIdIdea}
 
