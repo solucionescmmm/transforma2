@@ -289,9 +289,9 @@ class daoDiagnosticoGeneral {
                 dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
 
-            WHERE intIdEmpresario = ${data.intIdEmpresario}
+            WHERE intIdIdea = ${data.intIdIdea}
 
-            SELECT * FROM tbl_InfoEmpresa WHERE intIdEmpresario = ${data.intIdEmpresario}`;
+            SELECT * FROM tbl_InfoEmpresa WHERE intIdIdea = ${data.intIdIdea}`;
 
             let result = {
                 error: false,
