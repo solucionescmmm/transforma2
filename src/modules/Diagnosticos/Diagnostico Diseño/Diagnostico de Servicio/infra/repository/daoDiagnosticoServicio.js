@@ -71,7 +71,7 @@ class daoDiagnosticoServicio {
 
             let result = {
                 error: false,
-                msg: `El diagnostico de producto, fue registrado con éxito.`,
+                msg: `El diagnostico de servicio, fue registrado con éxito.`,
             };
 
             sql.close(conexion);
@@ -306,7 +306,7 @@ class daoDiagnosticoServicio {
                 error: false,
                 data:  response.recordset[0]
             };
-            console.log(result);
+
             sql.close(conexion);
 
             return result;

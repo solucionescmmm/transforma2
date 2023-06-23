@@ -56,7 +56,7 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strProyectoVidaEmpresa: array[i]?.strProyectoVidaEmpresa,
                     strHabilidadesAutonomia: array[i]?.strHabilidadesAutonomia,
                     strHabilidadesCapacidad: array[i]?.strHabilidadesCapacidad,
-                    strHabilidadesComuniacion: array[i]?.strHabilidadesComuniacion,
+                    strHabilidadesComunicacion: array[i]?.strHabilidadesComunicacion,
                     strProyectoVidaEmprendimiento: array[i]?.strProyectoVidaEmprendimiento,
                     strHabilidadesCreatividad: array[i]?.strHabilidadesCreatividad,
                     strConfianza: array[i]?.strConfianza,

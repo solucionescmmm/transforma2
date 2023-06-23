@@ -28,7 +28,6 @@ class setDiagnosticoTecnicas {
     async main() {
         await this.#validations();
         await this.#getIntIdEstadoDiagnostico();
-        await this.#completeData();
         await this.#setDiagnosticoTecnicas();
         await this.#updateDiagnostico();
         return this.#objResult;
@@ -53,7 +52,7 @@ class setDiagnosticoTecnicas {
     async #getIntIdEstadoDiagnostico() {
         let queryGetIntIdEstadoDiagnostico = await serviceGetIdEstadoDiagnostico({
             strNombre: "En Proceso",
-        });
+        },this.#objUser);
 
         if (queryGetIntIdEstadoDiagnostico.error) {
             throw new Error(query.msg);
@@ -62,25 +61,22 @@ class setDiagnosticoTecnicas {
         this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
     }
 
-    async #completeData() {
+    async #setDiagnosticoTecnicas() {
+        let dao = new classInterfaceDAOTecnicas();
+
         let newData = {
-            //intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoComMercadeo,
             ...this.#objData.objInfoComProductivo,
             ...this.#objData.objInfoComFinanciero,
             ...this.#objData.objInfoComAdministrativo,
             ...this.#objData.objInfoComAsociativo,
+            strUsuarioCreacion:this.#objUser.strEmail,
             intIdEmpresario: 16,
             intTipoEmpresario: 1
         };
-        this.#objData = newData;
-    }
 
-    async #setDiagnosticoTecnicas() {
-        let dao = new classInterfaceDAOTecnicas();
-
-        let query = await dao.setDiagnosticoTecnicas(this.#objData);
+        let query = await dao.setDiagnosticoTecnicas(newData);
 
         if (query.error) {
             throw new Error(query.msg);

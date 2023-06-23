@@ -27,7 +27,6 @@ class setDiagnosticoHumanas {
     async main() {
         await this.#validations();
         await this.#getIntIdEstadoDiagnostico();
-        await this.#completeData();
         await this.#setDiagnosticoHumanas();
         await this.#setResultDiagnosticoHumanas();
         await this.#updateDiagnostico();
@@ -53,7 +52,7 @@ class setDiagnosticoHumanas {
     async #getIntIdEstadoDiagnostico() {
         let queryGetIntIdEstadoDiagnostico = await serviceGetIdEstadoDiagnostico({
             strNombre: "En Proceso",
-        });
+        }, this.#objUser);
 
         if (queryGetIntIdEstadoDiagnostico.error) {
             throw new Error(query.msg);
@@ -62,23 +61,20 @@ class setDiagnosticoHumanas {
         this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
     }
 
-    async #completeData() {
+    async #setDiagnosticoHumanas() {
+        let dao = new classInterfaceDAOHumanas();
         let newData = {
             //intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEncuestaHumanas,
             strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
+            strUsuarioCreacion:this.#objUser.strEmail,
             intIdEmpresario: 16,
             intIdTipoEmpresario: 1
         };
-        this.#objData = newData;
-    }
 
-    async #setDiagnosticoHumanas() {
-        let dao = new classInterfaceDAOHumanas();
-
-        let query = await dao.setDiagnosticoHumanas(this.#objData);
+        let query = await dao.setDiagnosticoHumanas(newData);
         
         if (query.error) {
             throw new Error(query.msg);
@@ -105,7 +101,7 @@ class setDiagnosticoHumanas {
     
     async #updateDiagnostico(){
         let data = {
-            intId: this.#objData.objInfoGeneral.intIdDiagnostico,
+            intId: this.#objData?.objInfoGeneral?.intIdDiagnostico,
             intIdEstadoDiagnostico: this.#intIdEstadoDiagnostico
         };
     

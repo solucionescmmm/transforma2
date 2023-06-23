@@ -7,7 +7,6 @@ const classInterfaceDAOServicio = require("../infra/conectors/interfaseDAODiagno
 class setDiagnosticoServicio {
     #objData;
     #objUser;
-    #intIdEmpresario;
     #objResult;
 
     /**
@@ -20,8 +19,6 @@ class setDiagnosticoServicio {
 
     async main() {
         await this.#validations();
-        await this.#getIntIdEmpresario();
-        await this.#completeData();
         await this.#setDiagnosticoServicio();
         await this.#setResultDiagnosticoServicio();
         return this.#objResult;
@@ -43,26 +40,19 @@ class setDiagnosticoServicio {
         }
     }
 
-    async #getIntIdEmpresario() {
-        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
-    }
+    async #setDiagnosticoServicio() {
+        let dao = new classInterfaceDAOServicio();
 
-    async #completeData() {
         let newData = {
-            intIdEmpresario: this.#intIdEmpresario || 16,
-            intIdTipoEmpresario:1,
+            intIdEmpresario: 16,
+            intIdTipoEmpresario: 1,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEvaluacion,
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoAdicional,
         };
-        this.#objData = newData;
-    }
 
-    async #setDiagnosticoServicio() {
-        let dao = new classInterfaceDAOServicio();
-
-        let query = await dao.setDiagnosticoServicio(this.#objData);
+        let query = await dao.setDiagnosticoServicio(newData);
 
         if (query.error) {
             throw new Error(query.msg);

@@ -26,12 +26,6 @@ class interfaceDAODiagnosticoExpress {
         return result;
     }
 
-    async deleteDiagnosticoExpress(data) {
-        const dao = new classDaoSql();
-        let result = await dao.deleteDiagnosticoExpress(data);
-        return result;
-    }
-
     async getDiagnosticoExpress(data) {
         const dao = new classDaoSql();
         let result = await dao.getDiagnosticoExpress(data);

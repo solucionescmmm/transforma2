@@ -110,14 +110,11 @@ class setDiagnosticoExpress {
         let objInfoEmpresa = {
             ...this.#objData.objInfoEmprendimiento,
             intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
-            arrDepartamento: JSON.stringify(
-                this.#objData.objInfoEmprendimiento?.arrDepartamento || null
-            ),
-            arrCiudad: JSON.stringify(
-                this.#objData.objInfoEmprendimiento?.arrCiudad || null
-            ),
             strMediosDigitales: JSON.stringify(
                 this.#objData.objInfoEmprendimiento?.arrMediosDigitales || null
+            ),
+            strFormasComercializacion: JSON.stringify(
+                this.#objData.objInfoEmprendimiento?.arrFormasComercializacion || null
             ),
             strCategoriasSecundarias: JSON.stringify(
                 this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias ||
@@ -128,7 +125,7 @@ class setDiagnosticoExpress {
                 this.#objData.objInfoPerfilEco.intNumeroEmpleados,
         };
 
-        let query = await dao.updateEmpresarioDiagnosticoExpress(
+        let query = await dao.updateEmpresaDiagnosticoExpress(
             objInfoEmpresa
         );
 

@@ -7,7 +7,6 @@ const classInterfaceDAOProducto = require("../infra/conectros/interfaseDAODiagno
 class setDiagnosticoProducto {
     #objData;
     #objUser;
-    #intIdEmpresario;
     #objResult;
 
     /**
@@ -20,8 +19,6 @@ class setDiagnosticoProducto {
 
     async main() {
         await this.#validations();
-        await this.#getIntIdEmpresario();
-        await this.#completeData();
         await this.#setDiagnosticoProducto();
         await this.#setResultDiagnosticoProducto();
         return this.#objResult;
@@ -43,13 +40,9 @@ class setDiagnosticoProducto {
         }
     }
 
-    async #getIntIdEmpresario() {
-        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
-    }
-
-    async #completeData() {
+    async #setDiagnosticoProducto() {
         let newData = {
-            intIdEmpresario: this.#intIdEmpresario || 16 ,
+            intIdEmpresario: 16 ,
             intIdTipoEmpresario:1,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoProductos,
@@ -58,13 +51,9 @@ class setDiagnosticoProducto {
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoAdicional,
         };
-        this.#objData = newData;
-    }
-
-    async #setDiagnosticoProducto() {
         let dao = new classInterfaceDAOProducto();
 
-        let query = await dao.setDiagnosticoProducto(this.#objData);
+        let query = await dao.setDiagnosticoProducto(newData);
 
         if (query.error) {
             throw new Error(query.msg);

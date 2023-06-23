@@ -1,6 +1,5 @@
 //Librerias
 const sql = require("mssql");
-const validator = require("validator").default;
 
 //Conexion
 const {
@@ -19,7 +18,6 @@ class daoDiagnosticoExpress {
 
             INSERT INTO tbl_DiagnosticoHumanoSocial 
             ( 
-                intId,
                 intIdDiagnostico,
                 strHabilidadesAutonomia,
                 strHabilidadesCapacidad,
@@ -56,7 +54,6 @@ class daoDiagnosticoExpress {
 
             INSERT INTO tbl_DiagnosticoProductos 
             ( 
-                intId,
                 intIdDiagnostico,
                 strPermisoFuncionamiento, 
                 strCertificadosRequeridos,
@@ -97,7 +94,6 @@ class daoDiagnosticoExpress {
 
             INSERT INTO tbl_DiagnosticoCompetenciasTecnicas 
             ( 
-                intId,
                 intIdDiagnostico,
                 strUniProdSosFinan,
                 strTieneBaseDatosClientes,
@@ -136,7 +132,6 @@ class daoDiagnosticoExpress {
 
             INSERT INTO tbl_DiagnosticoGeneral 
             ( 
-                intId,
                 intIdDiagnostico,
                 strRegistroCamaraComercio,
                 strDefinineLineasProductoServicios,
@@ -306,62 +301,6 @@ class daoDiagnosticoExpress {
         }
     }
 
-    async updateEmpresarioDiagnosticoExpress(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
-
-            UPDATE tbl_Empresario
-
-            SET strNombres               = COALESCE(${data.strNombres}, strNombres),
-                strApellidos             = COALESCE(${data.strApellidos}, strApellidos),
-                strTipoDocto             = COALESCE(${data.strTipoDocto}, strTipoDocto),
-                strNroDocto              = COALESCE(${data.strNroDocto}, strNroDocto),
-                strLugarExpedicionDocto  = COALESCE(${data.strLugarExpedicionDocto}, strLugarExpedicionDocto),
-                dtFechaExpedicionDocto   = COALESCE(${data.dtFechaExpedicionDocto}, dtFechaExpedicionDocto),
-                dtFechaNacimiento        = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
-                strGenero                = COALESCE(${data.strGenero}, strGenero),
-                strCelular1              = COALESCE(${data.strCelular1}, strCelular1),
-                strCelular2              = COALESCE(${data.strCelular2}, strCelular2),
-                strCorreoElectronico1    = COALESCE(${data.strCorreoElectronico1}, strCorreoElectronico1),
-                strCorreoElectronico2    = COALESCE(${data.strCorreoElectronico2}, strCorreoElectronico2),
-                strNivelEducativo        = COALESCE(${data.strNivelEducativo}, strNivelEducativo),
-                strTitulos               = COALESCE(${data.strTitulos}, strTitulos),
-                strEstrato               = COALESCE(${data.strEstrato}, strEstrato),
-                strDepartamento          = COALESCE(${data.arrDepartamento}, strDepartamento),
-                strCiudad                = COALESCE(${data.arrCiudad}, strCiudad),
-                strBarrio                = COALESCE(${data.strBarrio}, strBarrio),
-                strDireccionResidencia   = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
-                strUrlFileFoto           = COALESCE(${data.strURLFileFoto}, strUrlFileFoto),
-                dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario               = COALESCE(${data.strUsuario}, strUsuario)
-
-            WHERE intId = ${data.intIdEmpresario}
-
-            SELECT * FROM tbl_Empresario WHERE intId = ${data.intIdEmpresario}`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo updateEmpresario de la clase daoDiagnosticoExpress",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
     async updateEmpresaDiagnosticoExpress(data) {
 
         try {
@@ -370,29 +309,22 @@ class daoDiagnosticoExpress {
 
             UPDATE tbl_InfoEmpresa
 
-            SET strNombreMarca                    = COALESCE(${data.strUnidadProductiva}, strNombreMarca),
-                strLugarOperacion                 = COALESCE(${data.strLugarOperacion}, strLugarOperacion),
-                strDepartamento                   = COALESCE(${data.arrDepartamento}, strDepartamento),
-                strCiudad                         = COALESCE(${data.arrCiudad}, strCiudad),
-                strBarrio                         = COALESCE(${data.strBarrio}, strBarrio),
-                strDireccionResidencia            = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
-                strSectorEconomico                = COALESCE(${data.strSectorEconomico}, strSectorEconomico),
-                strCategoriaProducto              = COALESCE(${data.strCategoriaProducto}, strCategoriaProducto),
-                strCategoriaServicio              = COALESCE(${data.strCategoriaServicio}, strCategoriaServicio),
-                strCategoriasSecundarias          = COALESCE(${data.arrCategoriasSecundarias}, strCategoriasSecundarias),
-                strOtraCategoria                  = COALESCE(${data.strOtraCategoria}, strOtraCategoria),
-                strDescProductosServicios         = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
-                strTiempoDedicacion               = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
-                btGeneraEmpleo                    = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
-                intNumeroEmpleados                = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
-                valorVentasMes                    = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
-                strMediosDigitales                = COALESCE(${data.arrMediosDigitales}, strMediosDigitales),
-                dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario                        = COALESCE(${data.strUsuario}, strUsuario)
+            SET strNombreMarca            = COALESCE(${data.strUnidadProductiva}, strNombreMarca),
+                strLugarOperacion         = COALESCE(${data.strLugarOperacion}, strLugarOperacion),
+                strFormasComercializacion = COALESCE(${data.strFormasComercializacion}, strFormasComercializacion),
+                strMediosDigitales        = COALESCE(${data.strMediosDigitales}, strMediosDigitales),
+                strTiempoDedicacion       = COALESCE(${data.strTiempoDedicacion}, strTiempoDedicacion),
+                strSectorEconomico        = COALESCE(${data.strSectorEconomico}, strSectorEconomico),
+                strCategoriaProducto      = COALESCE(${data.strCategoriaProducto}, strCategoriaProducto),
+                strCategoriaServicio      = COALESCE(${data.strCategoriaServicio}, strCategoriaServicio),
+                strCategoriasSecundarias  = COALESCE(${data.arrCategoriasSecundarias}, strCategoriasSecundarias),
+                strDescProductosServicios = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
+                dtmActualizacion          = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion   = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
-            WHERE intIdEmpresario = ${data.intIdEmpresario}
+            WHERE intIdIdea = ${data.intIdIdea}
 
-            SELECT * FROM tbl_InfoEmpresa WHERE intIdEmpresario = ${data.intIdEmpresario}`;
+            SELECT * FROM tbl_InfoEmpresa WHERE intIdIdea = ${data.intIdIdea}`;
 
             let result = {
                 error: false,
@@ -408,34 +340,6 @@ class daoDiagnosticoExpress {
                 msg:
                     error.message ||
                     "Error en el metodo updateEmpresa de la clase daoDiagnosticoExpress",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async deleteDiagnosticoExpress(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            await conn.query`DELETE FROM tbl_DiagnosticoExpress WHERE intIdEmpresario = ${data.intId}`;
-
-            let result = {
-                error: false,
-                msg: "El comentario fue eliminado con éxito.",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo deleteDiagnosticoExpress de la clase daoDiagnosticoExpress",
             };
 
             sql.close(conexion);
@@ -544,7 +448,7 @@ class daoDiagnosticoExpress {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo getComentario de la clase daoDiagnosticoExpress",
+                    "Error en el metodo getDiagnosticoExpress de la clase daoDiagnosticoExpress",
             };
 
             sql.close(conexion);
