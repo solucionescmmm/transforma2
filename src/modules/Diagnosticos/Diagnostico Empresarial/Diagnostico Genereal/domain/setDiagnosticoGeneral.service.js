@@ -17,7 +17,6 @@ class setDiagnosticoGeneral {
     #objResult;
 
     //variables
-    #intIdEmpresario;
     #intIdEstadoDiagnostico;
     #intIdFuenteHistorico;
     /**
@@ -31,7 +30,6 @@ class setDiagnosticoGeneral {
     async main() {
         await this.#validations();
         await this.#getIdFuenteHistorico();
-        await this.#getIntIdEmpresario();
         await this.#getIntIdEstadoDiagnostico();
         await this.#updateEmpresarioDiagnosticoGeneral();
         await this.#updateEmpresaDiagnosticoGeneral();
@@ -80,10 +78,6 @@ class setDiagnosticoGeneral {
         }
 
         this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
-    }
-
-    async #getIntIdEmpresario() {
-        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
     }
 
     async #completeData() {
@@ -212,7 +206,7 @@ class setDiagnosticoGeneral {
             arrCiudad: JSON.stringify(
                 this.#objData.objInfoGeneral?.arrCiudad || null
             ),
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdEmpresario: this.#objData.objInfoGeneral.intIdEmpresario,
         };
 
         let query = await dao.updateEmpresarioDiagnosticoGeneral(
@@ -229,7 +223,7 @@ class setDiagnosticoGeneral {
 
         let objInfoEmpresa = {
             ...this.#objData.objInfoEmprendimiento,
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
             arrDepartamento: JSON.stringify(
                 this.#objData.objInfoEmprendimiento?.arrDepartamento || null
             ),
