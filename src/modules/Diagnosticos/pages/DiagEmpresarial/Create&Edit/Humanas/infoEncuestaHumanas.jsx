@@ -44,7 +44,7 @@ const InfoEncuestaHumanas = ({
         strProyectoVidaEmpresa: "",
         strHabilidadesAutonomia: "",
         strHabilidadesCapacidad: "",
-        strHabilidadesComuniacion: "",
+        strHabilidadesComunicacion: "",
         strProyectoVidaEmprendimiento: "",
         strHabilidadesCreatividad: "",
         strConfianza: "",
@@ -71,8 +71,8 @@ const InfoEncuestaHumanas = ({
                 strProyectoVidaEmpresa: values.strProyectoVidaEmpresa || "",
                 strHabilidadesAutonomia: values.strHabilidadesAutonomia || "",
                 strHabilidadesCapacidad: values.strHabilidadesCapacidad || "",
-                strHabilidadesComuniacion:
-                    values.strHabilidadesComuniacion || "",
+                strHabilidadesComunicacion:
+                    values.strHabilidadesComunicacion || "",
                 strProyectoVidaEmprendimiento:
                     values.strProyectoVidaEmprendimiento || "",
                 strHabilidadesCreatividad:
@@ -364,8 +364,8 @@ const InfoEncuestaHumanas = ({
 
                     <Grid item xs={12} md={12}>
                         <Controller
-                            name="objInfoEncuestaHumanas.strHabilidadesComuniacion"
-                            defaultValue={data.strHabilidadesComuniacion}
+                            name="objInfoEncuestaHumanas.strHabilidadesComunicacion"
+                            defaultValue={data.strHabilidadesComunicacion}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
                                     label="Comunicación efectiva con los clientes, con los empleados, los proveedores"
@@ -375,13 +375,13 @@ const InfoEncuestaHumanas = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesComuniacion
+                                            ?.strHabilidadesComunicacion
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesComuniacion
+                                            ?.strHabilidadesComunicacion
                                             ?.message || "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"

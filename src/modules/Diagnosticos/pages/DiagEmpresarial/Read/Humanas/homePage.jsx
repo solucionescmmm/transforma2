@@ -99,7 +99,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Capacidad de adaptarse a los cambios",
             },
             {
-                parent: "strHabilidadesComuniacion",
+                parent: "strHabilidadesComunicacion",
                 value: "",
                 label: "Comunicación efectiva con los clientes, con los empleados, los proveedores",
             },
