@@ -7,10 +7,10 @@ import React, {
 } from "react";
 
 //Context
-import { AuthContext } from "../../../../../../common/middlewares/Auth";
+import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 //Hooks
-import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
+import useGetEmpresarios from "../../../../Empresarios/hooks/useGetEmpresarios";
 
 //Librerias
 import { useForm } from "react-hook-form";
@@ -39,18 +39,16 @@ import {
 import { LoadingButton } from "@mui/lab";
 
 //Componentes
-import Loader from "../../../../../../common/components/Loader";
-import PageError from "../../../../../../common/components/Error";
+import Loader from "../../../../../common/components/Loader";
+import PageError from "../../../../../common/components/Error";
 import InfoGeneral from "./infoGeneral";
-import InfoFamiliar from "./infoFamiliar";
 import InfoEmprendimiento from "./infoEmprendimiento";
-import InfoEmpresa from "./infoEmpresa";
 import InfoPerfilEco from "./infoPerfilEco";
 import InfoAdicional from "./infoAdicional";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import useGetDiagnGeneral from "../../../../hooks/useGetDiagnGeneral";
+import useGetDiagnGeneral from "../../../hooks/useGetDiagnGeneral";
 import { useTheme } from "@emotion/react";
 
 const styles = makeStyles((theme) => ({
@@ -89,7 +87,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const PageCUGeneral = ({
+const PageCUExpress = ({
     isEdit,
     intIdIdea,
     intIdDiagnostico,
@@ -105,7 +103,6 @@ const PageCUGeneral = ({
     //===============================================================================================================================================
     const [data, setData] = useState({
         objInfoGeneral: {},
-        objInfoFamiliar: {},
         objInfoEmprendimiento: {},
         objInfoEmpresa: {},
         objInfoPerfilEco: {},
@@ -179,9 +176,9 @@ const PageCUGeneral = ({
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEGENERAL
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEEXPRESS
                             : process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETEXPRESS
                     }`,
                     data,
                     transformRequest: [
@@ -216,14 +213,8 @@ const PageCUGeneral = ({
                                           )
                                         : null,
                                 },
-                                objInfoFamiliar: {
-                                    ...data.objInfoFamiliar,
-                                },
                                 objInfoEmprendimiento: {
                                     ...data.objInfoEmprendimiento,
-                                },
-                                objInfoEmpresa: {
-                                    ...data.objInfoEmpresa,
                                 },
                                 objInfoPerfilEco: {
                                     ...data.objInfoPerfilEco,
@@ -304,7 +295,6 @@ const PageCUGeneral = ({
                             );
 
                             setData({
-                                ...data,
                                 intIdIdea: intIdIdea,
                                 intIdDiagnostico,
                                 objIdeaEmpresario: data.objInfoIdeaEmpresario,
@@ -409,6 +399,14 @@ const PageCUGeneral = ({
                                             ? data.objInfoEmpresa.btGeneraEmpleo
                                             : "",
                                 },
+                                objInfoPerfilEco: {
+                                    // intNumeroEmpleados:
+                                    //     data.objInfoEmpresa
+                                    //         .intNumeroEmpleados || "",
+                                    // dblValorVentasMes:
+                                    //     data.objInfoEmpresa.valorVentasMes ||
+                                    //     "",
+                                },
                             });
                         }
 
@@ -433,98 +431,6 @@ const PageCUGeneral = ({
                         if (res.data?.data) {
                             if (!isEdit) {
                                 setOpenModal(true);
-                            } else {
-                                const data = res.data.data[0];
-
-                                setData({
-                                    objInfoGeneral: {
-                                        ...data.objInfoGeneral,
-                                        intIdIdea,
-                                        intIdDiagnostico,
-                                        dtmFechaSesion: data.objInfoGeneral
-                                            .dtmFechaSesion
-                                            ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtmFechaSesion
-                                              )
-                                            : null,
-                                        dtFechaExpedicionDocto: data
-                                            .objInfoGeneral
-                                            .dtFechaExpedicionDocto
-                                            ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtFechaExpedicionDocto
-                                              )
-                                            : null,
-                                        dtFechaNacimiento: data.objInfoGeneral
-                                            .dtFechaNacimiento
-                                            ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtFechaNacimiento
-                                              )
-                                            : null,
-                                    },
-                                    objInfoFamiliar: {
-                                        ...data.objInfoFamiliar,
-                                    },
-                                    objInfoEmprendimiento: {
-                                        ...data.objInfoEmprendimiento,
-                                    },
-                                    objInfoEmpresa: {
-                                        ...data.objInfoEmpresa,
-                                    },
-                                    objInfoPerfilEco: {
-                                        ...data.objInfoPerfilEco,
-                                    },
-                                    objInfoAdicional: {
-                                        ...data.objInfoAdicional,
-                                    },
-                                });
-
-                                reset({
-                                    objInfoGeneral: {
-                                        ...data.objInfoGeneral,
-                                        intIdIdea,
-                                        intIdDiagnostico,
-                                        dtmFechaSesion: data.objInfoGeneral
-                                            .dtmFechaSesion
-                                            ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtmFechaSesion
-                                              )
-                                            : null,
-                                        dtFechaExpedicionDocto: data
-                                            .objInfoGeneral
-                                            .dtFechaExpedicionDocto
-                                            ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtFechaExpedicionDocto
-                                              )
-                                            : null,
-                                        dtFechaNacimiento: data.objInfoGeneral
-                                            .dtFechaNacimiento
-                                            ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtFechaNacimiento
-                                              )
-                                            : null,
-                                    },
-                                    objInfoFamiliar: {
-                                        ...data.objInfoFamiliar,
-                                    },
-                                    objInfoEmprendimiento: {
-                                        ...data.objInfoEmprendimiento,
-                                    },
-                                    objInfoEmpresa: {
-                                        ...data.objInfoEmpresa,
-                                    },
-                                    objInfoPerfilEco: {
-                                        ...data.objInfoPerfilEco,
-                                    },
-                                    objInfoAdicional: {
-                                        ...data.objInfoAdicional,
-                                    },
-                                });
                             }
                         }
 
@@ -544,8 +450,13 @@ const PageCUGeneral = ({
 
             getData();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [intIdIdea, intIdDiagnostico, isEdit]);
+
+    useEffect(() => {
+        if (intIdIdea) {
+            reset(data);
+        }
+    }, [data, reset, intIdIdea]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -597,33 +508,21 @@ const PageCUGeneral = ({
                 <DialogContent>
                     <DialogContentText>
                         Se ha detectado que la persona empresaria ya cuenta con
-                        un registro del diagnóstico general. ¿Deseas editar la
-                        información o previsualizar el resumen?
+                        un registro del diagnóstico general.
+                        ¿Deseas editar la información o previsualizar el
+                        resumen?
                     </DialogContentText>
                 </DialogContent>
 
                 <DialogActions>
                     <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarialRead", {
-                                intIdIdea,
-                                intIdDiagnostico,
-                            })
-                        }
+                        to={`/diagnosticos/diagEmpresarial/humanas/read/${data.objInfoGeneral?.intId}`}
                         color="inherit"
                     >
                         ver resumen
                     </Button>
 
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarialEdit", {
-                                intIdIdea,
-                                intIdDiagnostico,
-                            })
-                        }
-                        color="success"
-                    >
+                    <Button to={`/diagnosticos/diagEmpresarial/humanas/edit/`}>
                         editar
                     </Button>
                 </DialogActions>
@@ -678,8 +577,8 @@ const PageCUGeneral = ({
                                                 variant="body1"
                                             >
                                                 {isEdit
-                                                    ? "editar diagnóstico empresarial"
-                                                    : "registrar diagnóstico empresarial"}
+                                                    ? "editar diagnóstico exprés"
+                                                    : "registrar diagnóstico exprés"}
                                             </Typography>
                                         </Box>
                                     </Grid>
@@ -705,31 +604,7 @@ const PageCUGeneral = ({
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <InfoFamiliar
-                                        control={control}
-                                        disabled={loading}
-                                        values={data.objInfoFamiliar}
-                                        errors={errors}
-                                        setValue={setValue}
-                                        setError={setError}
-                                        clearErrors={clearErrors}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12}>
                                     <InfoEmprendimiento
-                                        control={control}
-                                        disabled={loading}
-                                        values={data.objInfoFamiliar}
-                                        errors={errors}
-                                        setValue={setValue}
-                                        setError={setError}
-                                        clearErrors={clearErrors}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <InfoEmpresa
                                         control={control}
                                         disabled={loading}
                                         values={data.objInfoFamiliar}
@@ -805,4 +680,4 @@ const PageCUGeneral = ({
     );
 };
 
-export default PageCUGeneral;
+export default PageCUExpress;

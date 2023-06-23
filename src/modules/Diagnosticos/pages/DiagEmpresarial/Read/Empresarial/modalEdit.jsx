@@ -130,7 +130,7 @@ const ModalEditDiagServ = ({
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas editar la información del diagnóstico de competencias humanas?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas editar la información del diagnóstico general?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
@@ -142,7 +142,7 @@ const ModalEditDiagServ = ({
             <DialogActions>
                 <Button
                     onClick={() => {
-                        onChangeRoute("DiagEmpresarialHumEdit", {
+                        onChangeRoute("DiagEmpresarialEdit", {
                             intIdIdea,
                             intIdDiagnostico,
                         });

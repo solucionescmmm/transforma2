@@ -13,9 +13,24 @@ import CUSesion from "../modules/Empresarios/pages/Rutas/Create&EditSesion";
 const Comentarios = lazy(() => import("../modules/Comentarios/pages/homePage"));
 
 const Diagnosticos = lazy(() => import("../modules/Diagnosticos/pages"));
+const DiagnosticoExpress = lazy(() =>
+    import("../modules/Diagnosticos/pages/DiagExpress/homePage")
+);
+
+const DiagnosticoExpressCU = lazy(() =>
+    import(
+        "../modules/Diagnosticos/pages/DiagExpress/Create&Edit/pageCUGeneral"
+    )
+);
 
 const DiagEmpresarial = lazy(() =>
     import("../modules/Diagnosticos/pages/DiagEmpresarial/homePage")
+);
+
+const DiagEmpresarialRead = lazy(() =>
+    import(
+        "../modules/Diagnosticos/pages/DiagEmpresarial/Read/Empresarial/homePage"
+    )
 );
 
 const DiagEmpresarialCreate = lazy(() =>
@@ -224,6 +239,99 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         );
     }
 
+    if (route.location === "DiagnExpress") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("DiagnosticoCoco")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagnosticoExpress
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagnExpressCreate") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("DiagnosticoCoco")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagnosticoExpressCU
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagnExpressEdit") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("DiagnosticoCoco")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagnosticoExpressCU
+                    isEdit
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagnExpressRead") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("DiagnosticoCoco")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagnosticoExpress
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
     if (route.location === "DiagEmpresarial") {
         return (
             <Grid container direction="row" spacing={3}>
@@ -268,6 +376,61 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 </Grid>
 
                 <DiagEmpresarialCreate
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagEmpresarialEdit") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagEmpresarial", {
+                                ...route.params,
+                            })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagEmpresarialCreate
+                    isEdit
+                    onChangeRoute={onChangeRoute}
+                    intIdIdea={route.params.intIdIdea}
+                    intIdDiagnostico={route.params.intIdDiagnostico}
+                />
+            </Grid>
+        );
+    }
+
+    if (route.location === "DiagEmpresarialRead") {
+        return (
+            <Grid container direction="row" spacing={3}>
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagEmpresarial", {
+                                ...route.params,
+                            })
+                        }
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
+
+                <DiagEmpresarialRead
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
                     intIdDiagnostico={route.params.intIdDiagnostico}

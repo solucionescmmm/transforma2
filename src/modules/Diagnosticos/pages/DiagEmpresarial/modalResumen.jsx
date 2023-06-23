@@ -53,6 +53,12 @@ const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
                 >
                     <Grid item xs={6}>
                         <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarialRead", {
+                                    intIdIdea: values.intIdIdea,
+                                    intIdDiagnostico: values.intIdDiagnostico,
+                                })
+                            }
                             color="primary"
                             disabled={!values?.objResumen.bitResumenGen}
                             startIcon={<ArticleIcon />}

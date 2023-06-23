@@ -320,10 +320,19 @@ const ReadDiagnosticos = ({
                                     ),
                                 }}
                                 onRowClick={(e, rowData) => {
-                                    onChangeRoute("Diagnosticos", {
-                                        intIdDiagnostico: rowData.intId,
-                                        intIdIdea
-                                    });
+                                    if (
+                                        rowData.strTipoDiagnostico !== "Express"
+                                    ) {
+                                        onChangeRoute("Diagnosticos", {
+                                            intIdDiagnostico: rowData.intId,
+                                            intIdIdea,
+                                        });
+                                    } else {
+                                        onChangeRoute("DiagnExpress", {
+                                            intIdDiagnostico: rowData.intId,
+                                            intIdIdea,
+                                        });
+                                    }
                                 }}
                             />
                         </ThemeProvider>

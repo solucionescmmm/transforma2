@@ -354,7 +354,6 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     return (
         <Fragment>
             <ModalEditDiag
-                intId={intIdDiagnostico}
                 handleOpenDialog={handlerChangeOpenModalEdit}
                 open={openModalEdit}
                 onChangeRoute={onChangeRoute}
@@ -365,7 +364,6 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
-                intId={intIdDiagnostico}
                 values={data}
             />
 

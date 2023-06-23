@@ -44,6 +44,7 @@ const InfoEmpresa = ({
         strRut: "",
         strPresupuestoFamiliar: "",
         strIngresosDistintos: "",
+        strTrabajanFamiliares: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);

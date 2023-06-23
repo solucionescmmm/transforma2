@@ -27,6 +27,7 @@ import ErrorPage from "../../../../common/components/Error";
 
 import ModalResumen from "./modalResumen";
 import useGetDiagnTecn from "../../hooks/useGetDiagnTecnico";
+import useGetDiagnGeneral from "../../hooks/useGetDiagnGeneral";
 
 const DiagEmpresarialPage = ({
     intId,
@@ -72,6 +73,13 @@ const DiagEmpresarialPage = ({
         intIdIdea,
     });
 
+    const { getUniqueData: getUniqueDataGen } = useGetDiagnGeneral({
+        autoLoad: false,
+        intIdIdea,
+        intIdDiagnostico,
+    });
+
+    const refFntGetDataGen = useRef(getUniqueDataGen);
     const refFntGetDataHum = useRef(getUniqueDataHum);
     const refFntGetDataTec = useRef(getUniqueDataTec);
 
@@ -84,6 +92,7 @@ const DiagEmpresarialPage = ({
         async function getData() {
             await refFntGetDataHum
                 .current({
+                    intIdIdea,
                     intIdDiagnostico,
                 })
                 .then((res) => {
@@ -106,6 +115,7 @@ const DiagEmpresarialPage = ({
 
             await refFntGetDataTec
                 .current({
+                    intIdIdea,
                     intIdDiagnostico,
                 })
                 .then((res) => {
@@ -126,11 +136,34 @@ const DiagEmpresarialPage = ({
                     setErrorGetData({ flag: true, msg: error.message });
                 });
 
+            await refFntGetDataGen
+                .current({
+                    intIdIdea,
+                    intIdDiagnostico,
+                })
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    if (res.data?.data) {
+                        setObjResumen((prevState) => ({
+                            ...prevState,
+                            bitResumenGen: true,
+                        }));
+                    }
+
+                    setErrorGetData({ flag: false, msg: "" });
+                })
+                .catch((error) => {
+                    setErrorGetData({ flag: true, msg: error.message });
+                });
+
             setLoadingGetData(false);
         }
 
         getData();
-    }, [intIdDiagnostico]);
+    }, [intIdDiagnostico, intIdIdea]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================

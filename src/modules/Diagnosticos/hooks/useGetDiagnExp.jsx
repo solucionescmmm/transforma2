@@ -34,10 +34,10 @@ import { toast } from "react-hot-toast";
     function refreshGetData({intId, intIdEmpresario})
  *
  */
-const useGetDiagnGeneral = ({
+const useGetDiagnExp = ({
     intId = null,
-    intIdDiagnostico = null,
-    intIdIdea = null,
+    intIdDiagnostico,
+    intIdIdea,
     autoLoad = true,
 } = {}) => {
     //===============================================================================================================================================
@@ -64,7 +64,7 @@ const useGetDiagnGeneral = ({
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_GETGENERAL}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_GETEXPRESS}`,
                     headers: {
                         token,
                     },
@@ -111,8 +111,8 @@ const useGetDiagnGeneral = ({
 
     const refreshGetData = ({
         intId = null,
-        intIdDiagnostico = null,
-        intIdIdea = null,
+        intIdDiagnostico,
+        intIdIdea,
     } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -121,15 +121,15 @@ const useGetDiagnGeneral = ({
         getData({
             signalSubmitData,
             intId,
-            intIdIdea,
             intIdDiagnostico,
+            intIdIdea,
         });
     };
 
     const getUniqueData = async ({
         intId = null,
-        intIdDiagnostico = null,
-        intIdIdea = null,
+        intIdDiagnostico,
+        intIdIdea,
     } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -175,4 +175,4 @@ const useGetDiagnGeneral = ({
     return { data, refreshGetData, getUniqueData };
 };
 
-export default useGetDiagnGeneral;
+export default useGetDiagnExp;

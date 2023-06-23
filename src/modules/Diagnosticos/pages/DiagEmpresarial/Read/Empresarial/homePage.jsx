@@ -30,7 +30,7 @@ import useGetDiagnHumano from "../../../../hooks/useGetDiagnHumano";
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
 
-const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
+const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -62,86 +62,374 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Responsable de actualizar la información",
             },
         ],
-        objInfoEncuestaHumanas: [
+        objInfoFamiliar: [
             {
-                parent: "strTomaDesiciones",
+                parent: "btCabezaHogar",
                 value: "",
-                label: "¿Cómo se siente al momento de tomar las decisiones en su emprendimiento?",
+                label: "¿Es cabeza de hogar?",
             },
             {
-                parent: "strMotivaciones",
+                parent: "intNumPersonasCargo",
                 value: "",
-                label: "¿Cuál es tú principal motivación para emprender?",
+                label: "Número de personas que dependen económicamente de usted",
             },
             {
-                parent: "strNivelVida",
+                parent: "intHijos",
                 value: "",
-                label: "¿Desde que inició su empresa hasta hoy, cuánto ha influido en el nivel de vida de su familia(ingresos, salud, educación…)",
+                label: "Número de hijos",
             },
             {
-                parent: "strRedesApoyoOtros",
+                parent: "intHijosEstudiando",
                 value: "",
-                label: "¿En quiénes usted ha encontrado apoyo para salir adelante con su emprendimiento?",
+                label: "¿Cuántos de ellos están estudiando?",
             },
             {
-                parent: "strProyectoVidaEmpresa",
+                parent: "strMaxNivelEducativoHijos",
                 value: "",
-                label: "¿En su momento actual de desarrollo, cuánto diría que su empresa se ha convertido en su proyecto de vida?",
+                label: "Nivel educativo máximo de los hijos",
             },
             {
-                parent: "strHabilidadesAutonomia",
+                parent: "strEstadoCivil",
                 value: "",
-                label: "Autonomía para el manejo de su negocio",
+                label: "Estado Civil",
             },
             {
-                parent: "strHabilidadesCapacidad",
+                parent: "strSituacionVivienda",
                 value: "",
-                label: "Capacidad de adaptarse a los cambios",
+                label: "Situación de vivienda",
             },
             {
-                parent: "strHabilidadesComuniacion",
+                parent: "strGrupoVulnerable",
                 value: "",
-                label: "Comunicación efectiva con los clientes, con los empleados, los proveedores",
+                label: "Grupo poblacional vulnerable (no preguntar de observación)",
             },
             {
-                parent: "strProyectoVidaEmprendimiento",
+                parent: "strPoblacionEtnica",
                 value: "",
-                label: "Consideras que el emprendimiento, te permite cumplir tus aspiraciones y proyectos",
+                label: "Población étnica",
+            },
+        ],
+        objInfoEmprendimiento: [
+            {
+                parent: "strUnidadProductiva",
+                value: "",
+                label: "Nombre de la empresa",
             },
             {
-                parent: "strHabilidadesCreatividad",
+                parent: "strLugarOperacion",
                 value: "",
-                label: "Creatividad en productos y en procesos productivos",
+                label: "¿En qué año inició la operación?",
             },
             {
-                parent: "strConfianza",
+                parent: "arrDepartamento",
                 value: "",
-                label: "De acuerdo con las experiencias y el conocimiento adquirido en su actuar empresarial, en la siguiente escala en qué nivel confianza se ubicaría",
+                label: "Lugar de operación de la empresa",
             },
             {
-                parent: "strEquilibrioVida",
+                parent: "arrCiudad",
                 value: "",
-                label: "En tú rutina realizas actividades de descanso y esparcimiento (Ejemplos: leer, tocar un instrumento, bailar, compartir con amistades, estudiar, orar, deportivas, entre otros)",
+                label: "Departamento",
             },
             {
-                parent: "strRedesApoyoPropia",
+                parent: "strBarrio",
                 value: "",
-                label: "Evalúe su capacidad, su actitud para crear redes",
+                label: "Ciudad",
             },
             {
-                parent: "strActividadesDisminuyenActProductiva",
+                parent: "strDireccionResidencia",
                 value: "",
-                label: "¿Cuáles son las tareas de cuidado que disminuyen el tiempo para dedicarse a su actividad productiva de manera continua?",
+                label: "Barrio/Corregimiento/Vereda",
             },
             {
-                parent: "strSituacionesDesistirEmprendimiento",
+                parent: "strUbicacionUP",
                 value: "",
-                label: "¿Cuáles son las situaciones que te podrían llevar a desistir del emprendimiento?",
+                label: "Dirección de la empresa",
             },
             {
-                parent: "strObservaciones",
+                parent: "strCelular",
                 value: "",
-                label: "Conclusiones y observaciones ",
+                label: "Ubicación de la UP (Urbana o Rural)",
+            },
+            {
+                parent: "strCorreoElectronico",
+                value: "",
+                label: "Correo electrónico",
+            },
+            {
+                parent: "strRedesSociales",
+                value: "",
+                label: "¿Tiene presencia en redes sociales?",
+            },
+            {
+                parent: "arrMediosDigitales",
+                value: "",
+                label: "Medios digitales",
+            },
+            {
+                parent: "strRegistroCamaraComercio",
+                value: "",
+                label: "¿Cuenta con registro en cámara de comercio?",
+            },
+            {
+                parent: "strTiempoDedicacion",
+                value: "",
+                label: "Tiempo de dedicación actual a la empresa",
+            },
+            {
+                parent: "strSectorEconomico",
+                value: "",
+                label: "Sector económico",
+            },
+            {
+                parent: "strCategoriaProducto",
+                value: "",
+                label: "Categoría de los productos",
+            },
+            {
+                parent: "strCategoriaServicio",
+                value: "",
+                label: "Categoría de los servicios",
+            },
+            {
+                parent: "arrCategoriasSecundarias",
+                value: "",
+                label: "Categorías secundarias",
+            },
+            {
+                parent: "strOtraCategoria",
+                value: "",
+                label: "Otra categoría ¿cuál?",
+            },
+            {
+                parent: "strListadoProdServ",
+                value: "",
+                label: "Listado de los productos o servicios",
+            },
+            {
+                parent: "btGeneraEmpleo",
+                value: "",
+                label: "¿La empresa genera empleo para otras personas?",
+            },
+            {
+                parent: "strProductoServiciosEnValidacion",
+                value: "",
+                label: "¿Tiene definidas las líneas de productos/servicios del negocio?",
+            },
+            {
+                parent: "strNivelDlloProductoServicios",
+                value: "",
+                label: "¿Cuál es la línea de productos/servicios más destacada?",
+            },
+            {
+                parent: "strEtapaValidProductoServicios",
+                value: "",
+                label: "¿Cuenta con productos/servicios en validación?",
+            },
+            {
+                parent: "MinimoValorProducto",
+                value: "",
+                label: "Nivel de desarrollo del producto/servicio",
+            },
+            {
+                parent: "MaximoValorProducto",
+                value: "",
+                label: "¿En qué etapa de validación se encuentra el producto/servicio?",
+            },
+            {
+                parent: "intCantidadUnidadesProducidasMes",
+                value: "",
+                label: "Rango de precios de productos mínimo",
+            },
+            {
+                parent: "strEscojaProductoServicio",
+                value: "",
+                label: "Rango de precios de productos máximo",
+            },
+            {
+                parent: "ValorVentaProductoEscogido",
+                value: "",
+                label: "Cantidad de unidades producidas al mes actualmente",
+            },
+            {
+                parent: "strConoceCostosProductoEscogido",
+                value: "",
+                label: "Escoja uno de los productos/servicios de su empresa",
+            },
+            {
+                parent: "CostoProduccionProductoEscogido",
+                value: "",
+                label: "De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?",
+            },
+            {
+                parent: "strDefinePorcentajesCanal",
+                value: "",
+                label: "Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?",
+            },
+            {
+                parent: "strDefinineLineasProductoServicios",
+                value: "",
+                label: "¿Tiene definidas las líneas de productos/servicios del negocio?",
+            },
+            {
+                parent: "strLineaProductoServicioDestacada",
+                value: "",
+                label: "¿Cuál es la línea de productos/servicios más destacada?",
+            },
+            {
+                parent: "intCantidadUnidadesProducidasMes",
+                value: "",
+                label: "Cantidad de unidades producidas al mes actualmente",
+            },
+            {
+                parent: "strEscojaProductoServicio",
+                value: "",
+                label: "Escoja uno de los productos/servicios de su empresa",
+            },
+            {
+                parent: "strConoceCostosProductoEscogido",
+                value: "",
+                label: "¿Conoce los costos de producción de este producto?",
+            },
+        ],
+        objInfoEmpresa: [
+            {
+                parent: "strHistoriaEmpresa",
+                value: "",
+                label: "¿Cómo nace la empresa? - Historia",
+            },
+            {
+                parent: "strSuenioEmpresa",
+                value: "",
+                label: "¿Cómo sueña su empresa?/¿Cómo se ve usted en cinco años?",
+            },
+            {
+                parent: "strEstudioEmprendimiento",
+                value: "",
+                label: "¿Tiene estudio o aprendizaje sobre el tema de emprendimiento? ",
+            },
+            {
+                parent: "strExperienciaEmprendimiento",
+                value: "",
+                label: "¿Tiene experiencia en este tipo de emprendimiento?",
+            },
+            {
+                parent: "strTipoContribuyente",
+                value: "",
+                label: "Tipo de contribuyente",
+            },
+            {
+                parent: "strRut",
+                value: "",
+                label: "N° de Identificación del RUT (NIT)",
+            },
+            {
+                parent: "strPresupuestoFamiliar",
+                value: "",
+                label: "¿Los ingresos de esta inicativa son una fuente fundamental para el presupuesto familiar?",
+            },
+            {
+                parent: "strIngresosDistintos",
+                value: "",
+                label: "¿Tu familia recibe ingresos por origen de otras fuentes distintas del emprendimiento?",
+            },
+            {
+                parent: "strTrabajanFamiliares",
+                value: "",
+                label: "¿En la empresa participan familiares?",
+            },
+        ],
+        objInfoPerfilEco: [
+            {
+                parent: "strOperacionesVentas6Meses",
+                value: "",
+                label: "¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continúa?",
+            },
+            {
+                parent: "strEtapaValidacion",
+                value: "",
+                label: "¿En qué etapa de validación se encuentra tu producto?",
+            },
+            {
+                parent: "strPromedioVentas6Meses",
+                value: "",
+                label: "Promedio de ventas de los últimos 6 meses",
+            },
+            {
+                parent: "dblValorVentasMes",
+                value: "",
+                label: "Valor promedio de las ventas mensuales",
+            },
+            {
+                parent: "strRangoVentas",
+                value: "",
+                label: "Rango de ventas",
+            },
+            {
+                parent: "intNumeroEmpleados",
+                value: "",
+                label: "Número de empleos generados",
+            },
+            {
+                parent: "strRangoEmpleados",
+                value: "",
+                label: "Rango de empleados",
+            },
+            {
+                parent: "strTipoEmpleoGenerado",
+                value: "",
+                label: "¿Qué tipo de empleo genera?",
+            },
+            {
+                parent: "strDlloAcitividadesContratados",
+                value: "",
+                label: "¿Cuáles actividades desarrollan las personas contratadas?",
+            },
+            {
+                parent: "strPromedioTiempoInvertido",
+                value: "",
+                label: "En promedio, cuánto tiempo durante el día puede invertir para su emprendimiento entre las diferentes activiades que realiza",
+            },
+            {
+                parent: "strRolesEmprendimiento",
+                value: "",
+                label: "¿Cuál son tus roles en la operación de tú emprendimiento?",
+            },
+            {
+                parent: "strDiasProduccion",
+                value: "",
+                label: "¿En promedio al día cuántas horas dispones para la producción:?",
+            },
+            {
+                parent: "strGeneraEmpleoRiesgoPobreza",
+                value: "",
+                label: "¿Genera empleo o ingresos para personas que se encuentren en riesgo de pobreza o de exclusión socia?",
+            },
+            {
+                parent: "strActivos",
+                value: "",
+                label: "¿Qué activos tiene la unidad productiva a la fecha?",
+            },
+            {
+                parent: "dblValorActivos",
+                value: "",
+                label: "Valor estimado de los activos",
+            },
+            {
+                parent: "dblValorGananciasMes",
+                value: "",
+                label: "Valor de las ganancias mensuales",
+            },
+        ],
+        objInfoAdicional: [
+            {
+                parent: "strConclusiones",
+                value: "",
+                label: "Conclusiones y observaciones",
+            },
+            {
+                parent: "strURLSFotosProducto",
+                value: "",
+                label: "Registro fotográfico",
             },
         ],
     });
@@ -159,11 +447,16 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
     const [openCollapseInfoGeneral, setOpenCollapseInfoGeneral] =
         useState(true);
-
-    const [
-        openCollapseInfoEncuestaHumanas,
-        setOpenCollapseInfoEncuestaHumanas,
-    ] = useState(true);
+    const [openCollapseInfoFamiliar, setOpenCollapseInfoFamiliar] =
+        useState(true);
+    const [openCollapseInfoEmprendimiento, setOpenCollapseInfoEmprendimiento] =
+        useState(true);
+    const [openCollapseInfoEmpresa, setOpenCollapseInfoEmpresa] =
+        useState(true);
+    const [openCollapseInfoPerfilEco, setOpenCollapseInfoPerfilEco] =
+        useState(true);
+    const [openCollapseInfoAdicional, setOpenCollapseInfoAdicional] =
+        useState(true);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -201,8 +494,24 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         setOpenCollapseInfoGeneral(!openCollapseInfoGeneral);
     };
 
-    const handlerChangeOpenCollapseInfoEncuestaHumanas = () => {
-        setOpenCollapseInfoEncuestaHumanas(!openCollapseInfoEncuestaHumanas);
+    const handlerChangeOpenCollapseInfoFamiliar = () => {
+        setOpenCollapseInfoFamiliar(!openCollapseInfoFamiliar);
+    };
+
+    const handlerChangeOpenCollapseInfoEmprendimiento = () => {
+        setOpenCollapseInfoEmprendimiento(!openCollapseInfoEmprendimiento);
+    };
+
+    const handlerChangeOpenCollapseInfoEmpresa = () => {
+        setOpenCollapseInfoEmpresa(!openCollapseInfoEmpresa);
+    };
+
+    const handlerChangeOpenCollapseInfoPerfilEco = () => {
+        setOpenCollapseInfoPerfilEco(!openCollapseInfoPerfilEco);
+    };
+
+    const handlerChangeOpenCollapseInfoAdicional = () => {
+        setOpenCollapseInfoAdicional(!openCollapseInfoAdicional);
     };
 
     //===============================================================================================================================================
@@ -238,13 +547,21 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 "",
                         };
 
-                        const objInfoEncuestaHumanas =
-                            data.objInfoEncuestaHumanas;
+                        const objInfoFamiliar = data.objInfoFamiliar;
+                        const objInfoEmprendimiento =
+                            data.objInfoEmprendimiento;
+                        const objInfoEmpresa = data.objInfoEmpresa;
+                        const objInfoPerfilEco = data.objInfoPerfilEco;
+                        const objInfoAdicional = data.objInfoAdicional;
 
                         setData((prevState) => {
                             let prevInfoGeneral = prevState.objInfoGeneral;
-                            let prevInfoEncuestaHumanas =
-                                prevState.objInfoEncuestaHumanas;
+                            let prevInfoFamiliar = prevState.objInfoFamiliar;
+                            let prevInfoEmprendimiento =
+                                prevState.objInfoEmprendimiento;
+                            let prevInfoEmpresa = prevState.objInfoEmpresa;
+                            let prevInfoPerfilEco = prevState.objInfoPerfilEco;
+                            let prevInfoAdicional = prevState.objInfoAdicional;
 
                             for (const key in objInfoGeneral) {
                                 if (
@@ -283,20 +600,47 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 }
                             }
 
-                            for (const key in objInfoEncuestaHumanas) {
+                            for (const key in objInfoFamiliar) {
                                 if (
                                     Object.hasOwnProperty.call(
-                                        objInfoEncuestaHumanas,
+                                        objInfoFamiliar,
                                         key
                                     )
                                 ) {
-                                    prevInfoEncuestaHumanas.forEach((e) => {
+                                    prevInfoFamiliar.forEach((e) => {
+                                        if (e.parent === key) {
+                                            if (prevInfoFamiliar[key].map) {
+                                                const json =
+                                                    prevInfoFamiliar[key];
+
+                                                const str = json
+                                                    .map((x) => {
+                                                        return x.strCodigoRetorno;
+                                                    })
+                                                    .join(", ");
+                                                e.value = str;
+                                            } else {
+                                                e.value = prevInfoFamiliar[key];
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+
+                            for (const key in objInfoEmprendimiento) {
+                                if (
+                                    Object.hasOwnProperty.call(
+                                        objInfoEmprendimiento,
+                                        key
+                                    )
+                                ) {
+                                    prevInfoEmprendimiento.forEach((e) => {
                                         if (e.parent === key) {
                                             if (
-                                                objInfoEncuestaHumanas[key].map
+                                                prevInfoEmprendimiento[key].map
                                             ) {
                                                 const json =
-                                                    objInfoEncuestaHumanas[key];
+                                                    prevInfoEmprendimiento[key];
 
                                                 const str = json
                                                     .map((x) => {
@@ -306,7 +650,90 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 e.value = str;
                                             } else {
                                                 e.value =
-                                                    objInfoEncuestaHumanas[key];
+                                                    prevInfoEmprendimiento[key];
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+
+                            for (const key in objInfoEmpresa) {
+                                if (
+                                    Object.hasOwnProperty.call(
+                                        objInfoEmpresa,
+                                        key
+                                    )
+                                ) {
+                                    prevInfoEmpresa.forEach((e) => {
+                                        if (e.parent === key) {
+                                            if (prevInfoEmpresa[key].map) {
+                                                const json =
+                                                    prevInfoEmpresa[key];
+
+                                                const str = json
+                                                    .map((x) => {
+                                                        return x.strCodigoRetorno;
+                                                    })
+                                                    .join(", ");
+                                                e.value = str;
+                                            } else {
+                                                e.value = prevInfoEmpresa[key];
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+
+                            for (const key in objInfoPerfilEco) {
+                                if (
+                                    Object.hasOwnProperty.call(
+                                        objInfoPerfilEco,
+                                        key
+                                    )
+                                ) {
+                                    prevInfoPerfilEco.forEach((e) => {
+                                        if (e.parent === key) {
+                                            if (prevInfoPerfilEco[key].map) {
+                                                const json =
+                                                    prevInfoPerfilEco[key];
+
+                                                const str = json
+                                                    .map((x) => {
+                                                        return x.strCodigoRetorno;
+                                                    })
+                                                    .join(", ");
+                                                e.value = str;
+                                            } else {
+                                                e.value =
+                                                    prevInfoPerfilEco[key];
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+
+                            for (const key in objInfoAdicional) {
+                                if (
+                                    Object.hasOwnProperty.call(
+                                        objInfoAdicional,
+                                        key
+                                    )
+                                ) {
+                                    prevInfoAdicional.forEach((e) => {
+                                        if (e.parent === key) {
+                                            if (prevInfoAdicional[key].map) {
+                                                const json =
+                                                    prevInfoAdicional[key];
+
+                                                const str = json
+                                                    .map((x) => {
+                                                        return x.strCodigoRetorno;
+                                                    })
+                                                    .join(", ");
+                                                e.value = str;
+                                            } else {
+                                                e.value =
+                                                    prevInfoAdicional[key];
                                             }
                                         }
                                     });
@@ -316,7 +743,11 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             return {
                                 ...prevState,
                                 objInfoGeneral: prevInfoGeneral,
-                                objInfoEncuestaHumanas: prevInfoEncuestaHumanas,
+                                objInfoFamiliar: prevInfoFamiliar,
+                                objInfoEmprendimiento: prevInfoEmprendimiento,
+                                objInfoEmpresa: prevInfoEmpresa,
+                                objInfoPerfilEco: prevInfoPerfilEco,
+                                objInfoAdicional: prevInfoAdicional,
                             };
                         });
                     }
@@ -357,6 +788,9 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 intId={intIdDiagnostico}
                 handleOpenDialog={handlerChangeOpenModalEdit}
                 open={openModalEdit}
+                onChangeRoute={onChangeRoute}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
             />
 
             <ModalPDF
@@ -381,12 +815,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton
                                     color="success"
-                                    onClick={() =>
-                                        onChangeRoute(
-                                            "DiagEmpresarialHumEdit",
-                                            { intIdDiagnostico, intIdIdea }
-                                        )
-                                    }
+                                    onClick={() => handlerChangeOpenModalEdit()}
                                 >
                                     <EditIcon />
                                 </IconButton>
@@ -410,7 +839,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         sx={{ color: "#F5B335", textTransform: "uppercase" }}
                         textAlign="center"
                     >
-                        <b>resumen diagnóstico de competencias humanas</b>
+                        <b>resumen diagnóstico general</b>
                     </Typography>
                 </Grid>
 
@@ -481,25 +910,97 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>Componente humano</b>
+                                    <b>Información familiar</b>
                                 </Typography>
                             </Box>
 
                             <Box>
                                 <IconButton
                                     onClick={() =>
-                                        handlerChangeOpenCollapseInfoEncuestaHumanas()
+                                        handlerChangeOpenCollapseInfoFamiliar()
                                     }
                                     size="large"
                                 >
                                     <Tooltip
                                         title={
-                                            openCollapseInfoEncuestaHumanas
+                                            openCollapseInfoFamiliar
                                                 ? "Contraer detalle"
                                                 : "Expandir detalle"
                                         }
                                     >
-                                        {openCollapseInfoEncuestaHumanas ? (
+                                        {openCollapseInfoFamiliar ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseInfoFamiliar} timeout="auto">
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoFamiliar.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
+                                        </p>
+
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Información del emprendimiento</b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoEmprendimiento()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoEmprendimiento
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoEmprendimiento ? (
                                             <ExpandLessIcon />
                                         ) : (
                                             <ExpandMoreIcon />
@@ -510,7 +1011,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         </Box>
 
                         <Collapse
-                            in={openCollapseInfoEncuestaHumanas}
+                            in={openCollapseInfoEmprendimiento}
                             timeout="auto"
                         >
                             <Grid
@@ -519,7 +1020,228 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 spacing={0}
                                 sx={{ padding: "15px" }}
                             >
-                                {data.objInfoEncuestaHumanas.map((e, i) => (
+                                {data.objInfoEmprendimiento.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
+                                        </p>
+
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>
+                                        Profundización información de la empresa
+                                    </b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoEmpresa()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoEmpresa
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoEmpresa ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseInfoEmpresa} timeout="auto">
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoEmpresa.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
+                                        </p>
+
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b> Perfil económico y productivo</b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoPerfilEco()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoPerfilEco
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoPerfilEco ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseInfoPerfilEco} timeout="auto">
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoPerfilEco.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
+                                        </p>
+
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>
+                                        Información adicional (Concluciones,
+                                        observaciones y registro fotográfico)
+                                    </b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoAdicional()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoAdicional
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoAdicional ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseInfoAdicional} timeout="auto">
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoAdicional.map((e, i) => (
                                     <Grid item xs={12} md={12} key={i}>
                                         <p
                                             style={{
@@ -555,4 +1277,4 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     );
 };
 
-export default ResumenHumanas;
+export default ResumenEmp;
