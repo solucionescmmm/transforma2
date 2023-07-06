@@ -4,18 +4,11 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOHumanas = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
 
-//Service
-const serviceGetDiagnostico = require("../../../Main/domain/getDiagnosticos.service")
-
 class updateDiagnosticoHumanas {
     //Objetos
     #objData;
     #objUser;
     #objResult;
-
-    // Variables
-    #intIdEmpresario;
-    #intIdEstadoDiagnsotico;
 
     constructor(data, strDataUser) {
         this.#objData = data;

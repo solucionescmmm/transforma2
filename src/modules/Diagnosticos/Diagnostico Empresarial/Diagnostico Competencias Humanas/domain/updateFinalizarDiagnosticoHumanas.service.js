@@ -2,9 +2,11 @@
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOTecnicas = require("../infra/conectors/interfaseDAODiagnosticoTecnicas");
+const classInterfaceDAOHumanas = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
 
-class updateDiagnosticoTecnicas {
+
+class updateFinalizarDiagnosticoHumanas {
+    //Objetos
     #objData;
     #objUser;
     #objResult;
@@ -16,8 +18,8 @@ class updateDiagnosticoTecnicas {
 
     async main() {
         await this.#validations();
-        await this.#completeData();
-        await this.#updateDiagnosticoTecnicas();
+        await this.#updateFinalizarDiagnosticoHumanas();
+
         return this.#objResult;
     }
 
@@ -32,31 +34,21 @@ class updateDiagnosticoTecnicas {
             );
         }
 
-        if (!this.#objData) {
+        if (!this.#objData?.intIdDiagnostico) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
     }
 
-    async #completeData() {
-        let newData = {
-            ...this.#objData.objInfoGeneral,
-            ...this.#objData.objInfoComMercadeo,
-            ...this.#objData.objInfoComProductivo,
-            ...this.#objData.objInfoComFinanciero,
-            ...this.#objData.objInfoComAdministrativo,
-            ...this.#objData.objInfoComAsociativo,
-            strUsuarioCreacion:this.#objUser.strEmail,
-            intIdEmpresario: 16,
-            intTipoEmpresario: 1
-        };
-        
-        this.#objData = newData;
-    }
+    async #updateFinalizarDiagnosticoHumanas() {
+        let dao = new classInterfaceDAOHumanas();
 
-    async #updateDiagnosticoTecnicas() {
-        let dao = new classInterfaceDAOTecnicas();
+        let newData={
+            ...this.#objData,
+            btFinalizado:true,
+            strUsuarioActualizacion: this.#objUser.strEmail
+        }
 
-        let query = await dao.updateDiagnosticoTecnicas(this.#objData);
+        let query = await dao.updateFinalizarDiagnosticoHumanas(newData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -69,4 +61,4 @@ class updateDiagnosticoTecnicas {
         };
     }
 }
-module.exports = updateDiagnosticoTecnicas;
+module.exports = updateFinalizarDiagnosticoHumanas;

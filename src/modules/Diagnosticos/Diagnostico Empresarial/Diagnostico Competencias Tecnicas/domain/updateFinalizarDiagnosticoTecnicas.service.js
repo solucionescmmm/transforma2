@@ -4,7 +4,7 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOTecnicas = require("../infra/conectors/interfaseDAODiagnosticoTecnicas");
 
-class updateDiagnosticoTecnicas {
+class updateFinalizarDiagnosticoTecnicas {
     #objData;
     #objUser;
     #objResult;
@@ -16,8 +16,7 @@ class updateDiagnosticoTecnicas {
 
     async main() {
         await this.#validations();
-        await this.#completeData();
-        await this.#updateDiagnosticoTecnicas();
+        await this.#updateFinalizarDiagnosticoTecnicas();
         return this.#objResult;
     }
 
@@ -32,31 +31,21 @@ class updateDiagnosticoTecnicas {
             );
         }
 
-        if (!this.#objData) {
+        if (!this.#objData?.intIdDiagnostico) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
     }
 
-    async #completeData() {
-        let newData = {
-            ...this.#objData.objInfoGeneral,
-            ...this.#objData.objInfoComMercadeo,
-            ...this.#objData.objInfoComProductivo,
-            ...this.#objData.objInfoComFinanciero,
-            ...this.#objData.objInfoComAdministrativo,
-            ...this.#objData.objInfoComAsociativo,
-            strUsuarioCreacion:this.#objUser.strEmail,
-            intIdEmpresario: 16,
-            intTipoEmpresario: 1
-        };
-        
-        this.#objData = newData;
-    }
-
-    async #updateDiagnosticoTecnicas() {
+    async #updateFinalizarDiagnosticoTecnicas() {
         let dao = new classInterfaceDAOTecnicas();
 
-        let query = await dao.updateDiagnosticoTecnicas(this.#objData);
+        let newData={
+            ...this.#objData,
+            btFinalizado:true,
+            strUsuarioActualizacion: this.#objUser.strEmail
+        }
+
+        let query = await dao.updateFinalizarDiagnosticoTecnicas(newData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -69,4 +58,4 @@ class updateDiagnosticoTecnicas {
         };
     }
 }
-module.exports = updateDiagnosticoTecnicas;
+module.exports = updateFinalizarDiagnosticoTecnicas;

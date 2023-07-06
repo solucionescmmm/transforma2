@@ -14,6 +14,12 @@ class interfaceDAODiagnosticoServicios {
         return result;
     }
 
+    async updateFinalizarDiagnosticoServicio(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateFinalizarDiagnosticoServicio(data);
+        return result;
+    }
+
     async deleteDiagnosticoServicio(data) {
         const dao = new classDaoSql();
         let result = await dao.deleteDiagnosticoServicio(data);

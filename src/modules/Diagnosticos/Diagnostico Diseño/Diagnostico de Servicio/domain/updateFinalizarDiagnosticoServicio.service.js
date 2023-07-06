@@ -4,7 +4,7 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOServicio = require("../infra/conectors/interfaseDAODiagnosticoServicio");
 
-class updateDiagnosticoServicio {
+class updateFinalizarDiagnosticoServicio {
     #objData;
     #objUser;
     #objResult;
@@ -16,9 +16,7 @@ class updateDiagnosticoServicio {
 
     async main() {
         await this.#validations();
-        await this.#completeData();
-        await this.#updateDiagnosticoServicio();
-        await this.#setResultDiagnosticoServicio();
+        await this.#updateFinalizarDiagnosticoServicio();
         return this.#objResult;
     }
 
@@ -33,27 +31,21 @@ class updateDiagnosticoServicio {
             );
         }
 
-        if (!this.#objData) {
+        if (!this.#objData?.intIdDiagnostico) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
     }
 
-    async #completeData() {
-        let newData = {
-            intIdEmpresario: 16,
-            ...this.#objData.objInfoGeneral,
-            strUsuarioActualizacion: this.#objUser.strEmail,
-            ...this.#objData.objInfoEvaluacion,
-            ...this.#objData.objInfoNormatividad,
-            ...this.#objData.objInfoAdicional,
-        };
-        this.#objData = newData;
-    }
-
-    async #updateDiagnosticoServicio() {
+    async #updateFinalizarDiagnosticoServicio() {
         let dao = new classInterfaceDAOServicio();
 
-        let query = await dao.updateDiagnosticoServicio(this.#objData);
+        let newData = {
+            ...this.#objData,
+            btFinalizado: true,
+            strUsuarioActualizacion: this.#objUser.strEmail
+        }
+
+        let query = await dao.updateFinalizarDiagnosticoServicio(newData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -65,17 +57,5 @@ class updateDiagnosticoServicio {
             msg: query.msg,
         };
     }
-
-    async #setResultDiagnosticoServicio() {
-        let dao = new classInterfaceDAOServicio();
-
-        let query = await dao.setResultDiagnosticoServicio({
-            intIdDiagnostico: this.#objData?.objInfoGeneral?.intIdDiagnostico
-        });
-
-        if (query.error) {
-            throw new Error(query.msg);
-        }
-    }
 }
-module.exports = updateDiagnosticoServicio;
+module.exports = updateFinalizarDiagnosticoServicio;

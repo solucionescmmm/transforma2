@@ -20,6 +20,7 @@ class daoDiagnosticoGeneral {
                 ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.intIdTipoEmpresario},
+                ${data.btFinalizado},
                 ${data.strUbicacionVivienda},
                 ${data.strTrabajanFamiliares},
                 ${data.strCabezaHogar},
@@ -189,6 +190,44 @@ class daoDiagnosticoGeneral {
                 error: false,
                 data: response.recordset[0],
                 msg: `El diagnostico general, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateDiagnosticoGeneral de la clase daoDiagnosticoGeneral",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateFinalizarDiagnosticoGeneral(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_DiagnosticoGeneral
+
+            SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+            WHERE intIdDiagnostico = ${data.intIdDiagnostico}
+
+            SELECT * FROM tbl_DiagnosticoGeneral WHERE intIdDiagnostico = ${data.intIdDiagnostico}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El diagnostico general, fue finalizado con éxito.`,
             };
 
             sql.close(conexion);

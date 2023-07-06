@@ -18,6 +18,7 @@ class daoDiagnosticoTecnicas {
                 ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.intTipoEmpresario},
+                ${data.btFinalizado},
                 ${data.strCaractEmpresaComp},
                 ${data.strCaractEmpresaCompDetalle},
                 ${data.strAnalizoObjetivoEmpresa},
@@ -117,7 +118,9 @@ class daoDiagnosticoTecnicas {
                 ${data.strUsuarioActualizacion}
             )
             
-            SET @intId = SCOPE_IDENTITY();`;
+            SET @intId = SCOPE_IDENTITY();
+            
+            SELECT * FROM tbl_DiagnosticoCompetenciasTecnicas WHERE intId = @intId`;
 
             let result = {
                 error: false,
@@ -148,9 +151,7 @@ class daoDiagnosticoTecnicas {
 
             UPDATE tbl_DiagnosticoCompetenciasTecnicas
 
-            SET 
-
-                strCaractEmpresaComp = COALESCE(${data.strCaractEmpresaComp},strCaractEmpresaComp),
+            SET strCaractEmpresaComp = COALESCE(${data.strCaractEmpresaComp},strCaractEmpresaComp),
                 strCaractEmpresaCompDetalle = COALESCE(${data.strCaractEmpresaCompDetalle},strCaractEmpresaCompDetalle),
                 strAnalizoObjetivoEmpresa = COALESCE(${data.strAnalizoObjetivoEmpresa},strAnalizoObjetivoEmpresa),
                 strAnalizoObjetivoEmpresaDetalle = COALESCE(${data.strAnalizoObjetivoEmpresaDetalle},strAnalizoObjetivoEmpresaDetalle),
@@ -250,6 +251,44 @@ class daoDiagnosticoTecnicas {
                 error: false,
                 data: response.recordset[0],
                 msg: `El diagnóstico de competencias técnicas, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateDiagnosticoTecnicas de la clase daoDiagnosticoTecnicas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateFinalizarDiagnosticoTecnicas(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_DiagnosticoCompetenciasTecnicas
+
+            SET btFinalizado            = COALESCE(${data.btFinalizado},btFinalizado),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+            WHERE intIdDiagnostico = ${data.intIdDiagnostico}
+
+            SELECT * FROM tbl_DiagnosticoCompetenciasTecnicas WHERE intIdDiagnostico = ${data.intIdDiagnostico}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El diagnóstico de competencias técnicas, fue finalizado con éxito.`,
             };
 
             sql.close(conexion);

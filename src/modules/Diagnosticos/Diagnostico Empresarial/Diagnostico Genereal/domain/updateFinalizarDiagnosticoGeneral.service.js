@@ -1,14 +1,18 @@
+
 //librerias
 const validator = require("validator").default;
 
 //class
-const classInterfaceDAOTecnicas = require("../infra/conectors/interfaseDAODiagnosticoTecnicas");
+const classInterfaceDAODiagnosticoGeneral = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 
-class updateDiagnosticoTecnicas {
+class updateFinalizarDiagnosticoGeneral {
     #objData;
     #objUser;
     #objResult;
 
+    /**
+     * @param {object} data
+     */
     constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
@@ -16,8 +20,7 @@ class updateDiagnosticoTecnicas {
 
     async main() {
         await this.#validations();
-        await this.#completeData();
-        await this.#updateDiagnosticoTecnicas();
+        await this.#updateFinalizarDiagnosticoGeneral();
         return this.#objResult;
     }
 
@@ -32,31 +35,21 @@ class updateDiagnosticoTecnicas {
             );
         }
 
-        if (!this.#objData) {
+        if (!this.#objData?.intIdDiagnostico) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
     }
 
-    async #completeData() {
-        let newData = {
-            ...this.#objData.objInfoGeneral,
-            ...this.#objData.objInfoComMercadeo,
-            ...this.#objData.objInfoComProductivo,
-            ...this.#objData.objInfoComFinanciero,
-            ...this.#objData.objInfoComAdministrativo,
-            ...this.#objData.objInfoComAsociativo,
-            strUsuarioCreacion:this.#objUser.strEmail,
-            intIdEmpresario: 16,
-            intTipoEmpresario: 1
-        };
-        
-        this.#objData = newData;
-    }
+    async #updateFinalizarDiagnosticoGeneral() {
+        let dao = new classInterfaceDAODiagnosticoGeneral();
 
-    async #updateDiagnosticoTecnicas() {
-        let dao = new classInterfaceDAOTecnicas();
+        let newData={
+            ...this.#objData,
+            btFinalizado:true,
+            strUsuarioActualizacion: this.#objUser.strEmail
+        }
 
-        let query = await dao.updateDiagnosticoTecnicas(this.#objData);
+        let query = await dao.updateFinalizarDiagnosticoGeneral(newData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -68,5 +61,6 @@ class updateDiagnosticoTecnicas {
             msg: query.msg,
         };
     }
+
 }
-module.exports = updateDiagnosticoTecnicas;
+module.exports = updateFinalizarDiagnosticoGeneral;

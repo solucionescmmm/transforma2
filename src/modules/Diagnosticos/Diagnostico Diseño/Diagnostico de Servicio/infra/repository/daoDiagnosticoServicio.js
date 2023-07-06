@@ -20,6 +20,7 @@ class daoDiagnosticoServicio {
                 ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.intIdTipoEmpresario},
+                ${data.btFinalizado},
                 ${data.strServicio},
                 ${data.strHerramientasServicio},
                 ${data.strObjetivoProposito},
@@ -92,7 +93,6 @@ class daoDiagnosticoServicio {
     }
 
     async updateDiagnosticoServicio(data) {
-        console.log(data);
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn.query`
@@ -148,6 +148,41 @@ class daoDiagnosticoServicio {
             let result = {
                 error: false,
                 msg: `El diagnostico de servicio, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateDiagnosticoServicios de la clase daoDiagnosticoServicios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateFinalizarDiagnosticoServicio(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn.query`
+
+            UPDATE tbl_DiagnosticoServicios
+
+            SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+                WHERE intIdDiagnostico = ${data.intIdDiagnostico}`;
+
+            let result = {
+                error: false,
+                msg: `El diagnostico de servicio, fue finalizado con éxito.`,
             };
 
             sql.close(conexion);

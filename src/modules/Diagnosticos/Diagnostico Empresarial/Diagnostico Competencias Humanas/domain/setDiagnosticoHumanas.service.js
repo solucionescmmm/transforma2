@@ -71,7 +71,8 @@ class setDiagnosticoHumanas {
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
             strUsuarioCreacion:this.#objUser.strEmail,
             intIdEmpresario: 16,
-            intIdTipoEmpresario: 1
+            intIdTipoEmpresario: 1,
+            btFinalizado:false
         };
 
         let query = await dao.setDiagnosticoHumanas(newData);

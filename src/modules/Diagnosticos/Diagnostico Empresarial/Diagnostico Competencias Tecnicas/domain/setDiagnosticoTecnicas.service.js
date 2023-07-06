@@ -73,7 +73,8 @@ class setDiagnosticoTecnicas {
             ...this.#objData.objInfoComAsociativo,
             strUsuarioCreacion:this.#objUser.strEmail,
             intIdEmpresario: 16,
-            intTipoEmpresario: 1
+            intTipoEmpresario: 1,
+            btFinalizado: false,
         };
 
         let query = await dao.setDiagnosticoTecnicas(newData);

@@ -2,6 +2,7 @@
 const setDiagnosticoHumana = require("../../domain/setDiagnosticoHumanas.service");
 const getDiagnosticoHumana = require("../../domain/getDiagnosticoHumanas.service");
 const updateDiagnosticoHumana = require ("../../domain/updateDiagnosticoHumanas.service")
+const updateFinalizarDiagnosticoHumanas = require ("../../domain/updateFinalizarDiagnosticoHumanas.service")
 
 class ctrl_DiagnosticoHumana {
     async setDiagnosticoHumana(req, res) {
@@ -54,6 +55,29 @@ class ctrl_DiagnosticoHumana {
             let { strDataUser } = req;
 
             let service = new updateDiagnosticoHumana(data, strDataUser);
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async updateFinalizarDiagnosticoHumanas(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new updateFinalizarDiagnosticoHumanas(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {

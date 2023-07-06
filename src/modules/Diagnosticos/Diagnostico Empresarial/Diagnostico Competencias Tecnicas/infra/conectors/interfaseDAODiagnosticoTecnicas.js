@@ -14,6 +14,12 @@ class interfaceDAODiagnosticoTecnicas {
         return result;
     }
 
+    async updateFinalizarDiagnosticoTecnicas(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateFinalizarDiagnosticoTecnicas(data);
+        return result;
+    }
+
     async deleteDiagnosticoTecnicas(data) {
         const dao = new classDaoSql();
         let result = await dao.deleteDiagnosticoTecnicas(data);

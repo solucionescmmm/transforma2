@@ -44,6 +44,7 @@ class setDiagnosticoProducto {
         let newData = {
             intIdEmpresario: 16 ,
             intIdTipoEmpresario:1,
+            btFinalizado:false,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoProductos,
             ...this.#objData.objInfoCategoria1,

@@ -29,4 +29,12 @@ routes.put(
     }
 );
 
+routes.put(
+    "/transforma/api/diagnosticos/diagnosticoEmpresarial/updateFinalizarDiagnosticoHumanas",
+    async (req, res) => {
+        let controllerDiagnosticoHumana = new classController();
+        await controllerDiagnosticoHumana.updateFinalizarDiagnosticoHumanas(req, res);
+    }
+);
+
 module.exports = routes;

@@ -25,7 +25,15 @@ routes.put(
     "/transforma/api/diagnosticos/diagnosticoEmpresarial/updateDiagnosticoGeneral",
     async (req, res) => {
         let controllerDiagnosticoGeneral = new classController();
-        await controllerDiagnosticoGeneral(req, res);
+        await controllerDiagnosticoGeneral.updateDiagnosticoGeneral(req, res);
+    }
+);
+
+routes.put(
+    "/transforma/api/diagnosticos/diagnosticoEmpresarial/updateFinalizarDiagnosticoGeneral",
+    async (req, res) => {
+        let controllerDiagnosticoGeneral = new classController();
+        await controllerDiagnosticoGeneral.updateFinalizarDiagnosticoGeneral(req, res);
     }
 );
 

@@ -45,6 +45,7 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
                     intId: array[i].intId,
                     intIdDiagnostico:array[i]?.intIdDiagnostico,
                     intIdEmpresario: array[i]?.intIdEmpresario,
+                    btFinalizado: array[i]?.btFinalizado,
                     strLugarSesion: array[i]?.strLugarSesion,
                     dtmFechaSesion: array[i]?.dtmFechaSesion,
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,

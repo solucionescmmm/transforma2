@@ -14,6 +14,12 @@ class interfaceDAODiagnosticoGeneral {
         return result;
     }
 
+    async updateFinalizarDiagnosticoGeneral(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateFinalizarDiagnosticoGeneral(data);
+        return result;
+    }
+
     async updateEmpresarioDiagnosticoGeneral(data) {
         const dao = new classDaoSql();
         let result = await dao.updateEmpresarioDiagnosticoGeneral(data);

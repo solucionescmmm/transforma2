@@ -20,6 +20,7 @@ class daoDiagnosticoProducto {
                 ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.intIdTipoEmpresario},
+                ${data.btFinalizado},
                 ${data.strCategoriaProductos},
                 ${data.strProductos},
                 ${data.strNombreTecnica},
@@ -241,6 +242,41 @@ class daoDiagnosticoProducto {
             let result = {
                 error: false,
                 msg: `El diagnostico de producto, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateDiagnosticoProductos de la clase daoDiagnosticoProductos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateFinalizarDiagnosticoProducto(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn.query`
+
+            UPDATE tbl_DiagnosticoProductos
+
+            SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+                WHERE intIdDiagnostico = ${data.intIdDiagnostico}`;
+
+            let result = {
+                error: false,
+                msg: `El diagnostico de producto, fue finalizado con éxito.`,
             };
 
             sql.close(conexion);

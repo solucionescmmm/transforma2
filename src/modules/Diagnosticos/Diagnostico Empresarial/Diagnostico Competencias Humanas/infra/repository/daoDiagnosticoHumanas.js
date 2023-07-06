@@ -20,6 +20,7 @@ class daoDiagnosticoHumanas {
                 ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.intIdTipoEmpresario},
+                ${data.btFinalizado},
                 ${data.strTomaDesiciones},
                 ${data.strMotivaciones},
                 ${data.strNivelVida},
@@ -105,6 +106,44 @@ class daoDiagnosticoHumanas {
                 error: false,
                 data: response.recordset[0],
                 msg: `El diagnostico de competencias humanas, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateDiagnosticoHumanas de la clase daoDiagnosticoHumanas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateFinalizarDiagnosticoHumanas(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_DiagnosticoHumanoSocial
+
+            SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+            WHERE intIdDiagnostico = ${data.intIdDiagnostico}
+
+            SELECT * FROM tbl_DiagnosticoHumanoSocial WHERE intIdDiagnostico = ${data.intIdDiagnostico}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `El diagnostico de competencias humanas, fue finalizado con éxito.`,
             };
 
             sql.close(conexion);

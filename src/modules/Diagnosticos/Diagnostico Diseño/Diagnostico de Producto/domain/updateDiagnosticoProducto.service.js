@@ -7,7 +7,6 @@ const classInterfaceDAOProducto = require("../infra/conectros/interfaseDAODiagno
 class updateDiagnosticoProducto {
     #objData;
     #objUser;
-    #intIdEmpresario;
     #objResult;
 
     constructor(data, strDataUser) {
@@ -17,7 +16,6 @@ class updateDiagnosticoProducto {
 
     async main() {
         await this.#validations();
-        await this.#getIntIdEmpresario();
         await this.#completeData();
         await this.#updateDiagnosticoProducto();
         await this.#setResultDiagnosticoProducto()
@@ -38,16 +36,6 @@ class updateDiagnosticoProducto {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
-    }
-
-    async #getIntIdEmpresario() {
-        let dao = new classInterfaceDAOProducto();
-
-        let queryGetIntIdEmpresario = await dao.getIntIdEmpresario({
-            intId:this.#objData.objInfoGeneral.intId
-        })
-        
-        this.#intIdEmpresario = queryGetIntIdEmpresario.data.intIdEmpresario
     }
 
     async #completeData() {

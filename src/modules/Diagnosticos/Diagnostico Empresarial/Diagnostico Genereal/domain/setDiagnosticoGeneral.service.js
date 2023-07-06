@@ -87,6 +87,7 @@ class setDiagnosticoGeneral {
             intIdDiagnostico: this.#objData.objInfoGeneral.intIdDiagnostico,
             intIdEmpresario: this.#objData.objInfoGeneral?.intId || 1,
             intIdTipoEmpresario: 1,
+            btFinalizado: false,
             strUbicacionVivienda: this.#objData.objInfoGeneral.strUbicacionVivienda,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
