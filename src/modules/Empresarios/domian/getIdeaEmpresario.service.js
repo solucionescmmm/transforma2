@@ -49,11 +49,11 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                         
                     if (arrayEmpresario[j].strTipoEmpresario === "Principal") {
                         objInfoPrincipal ={
-                            strSede:arrayEmpresario[j].strSede,
-                            strModalidadIngreso:arrayEmpresario[j].strModalidadIngreso,
-                            dtFechaVinculacion:arrayEmpresario[j].dtFechaVinculacion,
-                            strEstadoVinculacion:arrayEmpresario[j].strEstadoVinculacion,
-                            strTipoVinculacion:arrayEmpresario[j].strTipoVinculacion
+                            strSede:arrayEmpresario[j]?.strSede,
+                            strModalidadIngreso:arrayEmpresario[j]?.strModalidadIngreso,
+                            dtFechaVinculacion:arrayEmpresario[j]?.dtFechaVinculacion,
+                            strEstadoVinculacion:arrayEmpresario[j]?.strEstadoVinculacion,
+                            strTipoVinculacion:arrayEmpresario[j]?.strTipoVinculacion
                         }
                     }
                     

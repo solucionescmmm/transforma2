@@ -184,8 +184,6 @@ class setEmpresarioPrincipal {
 
         let query = await dao.setIdeaEmpresario(newData);
 
-        console.log(query, "IdeaEmpresario")
-
 
         this.#intIdIdeaEmpresario = query.data.intId;
 
