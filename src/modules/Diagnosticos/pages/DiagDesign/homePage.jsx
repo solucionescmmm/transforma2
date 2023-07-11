@@ -204,7 +204,7 @@ const DiagDesign = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                             align="center"
                                             sx={{ padding: "10px" }}
                                         >
-                                            Resumen
+                                            Detalle
                                         </Typography>
                                     </Grid>
                                 </Grid>

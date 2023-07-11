@@ -227,7 +227,7 @@ const DiagEmpresarialPage = ({
                                             align="center"
                                             sx={{ padding: "10px" }}
                                         >
-                                            Resumen
+                                            Detalle
                                         </Typography>
                                     </Grid>
                                 </Grid>

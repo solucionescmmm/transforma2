@@ -22,6 +22,7 @@ import {
     ExpandMore as ExpandMoreIcon,
     Edit as EditIcon,
     Print as PrintIcon,
+    CheckCircle as CheckCircleIcon,
 } from "@mui/icons-material";
 
 import Loader from "../../../../../../common/components/Loader";
@@ -29,6 +30,7 @@ import ErrorPage from "../../../../../../common/components/Error";
 import useGetDiagnHumano from "../../../../hooks/useGetDiagnHumano";
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
+import ModalFinish from "./modalFinish";
 
 const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
@@ -442,6 +444,8 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     });
 
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalFinish, setOpenModalFinish] = useState(false);
+    const [finalizado, setFinalizado] = useState(false);
 
     const [openModalPDF, setOpenModalPDF] = useState(false);
 
@@ -474,6 +478,227 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     const handlerChangeOpenModalEdit = () => {
         setOpenModalEdit(!openModalEdit);
     };
+
+    const handlerChangeOpenModalFinish = () => {
+        setOpenModalFinish(!openModalFinish);
+    };
+
+    async function getData() {
+        await refFntGetData
+            .current({ intIdDiagnostico })
+            .then((res) => {
+                if (res.data.error) {
+                    throw new Error(res.data.msg);
+                }
+
+                if (res.data) {
+                    let data = res.data.data[0];
+
+                    setFinalizado(data.objInfoGeneral.btFinalizado);
+
+                    const objInfoGeneral = {
+                        dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
+                            ? parseISO(data.objInfoGeneral.dtmFechaSesion)
+                            : null,
+                        strLugarSesion:
+                            data.objInfoGeneral.strLugarSesion || "",
+                        strUsuarioCreacion:
+                            data.objInfoGeneral.strUsuarioCreacion || "",
+                        dtActualizacion: data.objInfoGeneral.dtActualizacion
+                            ? parseISO(data.objInfoGeneral.dtActualizacion)
+                            : null,
+                        strUsuarioActualizacion:
+                            data.objInfoGeneral.strUsuarioActualizacion || "",
+                    };
+
+                    const objInfoFamiliar = data.objInfoFamiliar;
+                    const objInfoEmprendimiento = data.objInfoEmprendimiento;
+                    const objInfoEmpresa = data.objInfoEmpresa;
+                    const objInfoPerfilEco = data.objInfoPerfilEco;
+                    const objInfoAdicional = data.objInfoAdicional;
+
+                    setData((prevState) => {
+                        let prevInfoGeneral = prevState.objInfoGeneral;
+                        let prevInfoFamiliar = prevState.objInfoFamiliar;
+                        let prevInfoEmprendimiento =
+                            prevState.objInfoEmprendimiento;
+                        let prevInfoEmpresa = prevState.objInfoEmpresa;
+                        let prevInfoPerfilEco = prevState.objInfoPerfilEco;
+                        let prevInfoAdicional = prevState.objInfoAdicional;
+
+                        for (const key in objInfoGeneral) {
+                            if (
+                                Object.hasOwnProperty.call(objInfoGeneral, key)
+                            ) {
+                                prevInfoGeneral.forEach((e) => {
+                                    if (e.parent === key) {
+                                        e.value = objInfoGeneral[key];
+
+                                        if (key === "dtActualizacion") {
+                                            e.value = validator.isDate(e.value)
+                                                ? format(e.value, "yyyy-MM-dd")
+                                                : "No diligenciado";
+                                        }
+
+                                        if (key === "dtmFechaSesion") {
+                                            e.value = validator.isDate(e.value)
+                                                ? format(
+                                                      e.value,
+                                                      "yyyy-MM-dd hh:mm"
+                                                  )
+                                                : "No diligenciado";
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoFamiliar) {
+                            if (
+                                Object.hasOwnProperty.call(objInfoFamiliar, key)
+                            ) {
+                                prevInfoFamiliar.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (prevInfoFamiliar[key].map) {
+                                            const json = prevInfoFamiliar[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = prevInfoFamiliar[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoEmprendimiento) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoEmprendimiento,
+                                    key
+                                )
+                            ) {
+                                prevInfoEmprendimiento.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (prevInfoEmprendimiento[key].map) {
+                                            const json =
+                                                prevInfoEmprendimiento[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value =
+                                                prevInfoEmprendimiento[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoEmpresa) {
+                            if (
+                                Object.hasOwnProperty.call(objInfoEmpresa, key)
+                            ) {
+                                prevInfoEmpresa.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (prevInfoEmpresa[key].map) {
+                                            const json = prevInfoEmpresa[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = prevInfoEmpresa[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoPerfilEco) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoPerfilEco,
+                                    key
+                                )
+                            ) {
+                                prevInfoPerfilEco.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (prevInfoPerfilEco[key].map) {
+                                            const json = prevInfoPerfilEco[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = prevInfoPerfilEco[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoAdicional) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoAdicional,
+                                    key
+                                )
+                            ) {
+                                prevInfoAdicional.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (prevInfoAdicional[key].map) {
+                                            const json = prevInfoAdicional[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = prevInfoAdicional[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        return {
+                            ...prevState,
+                            objInfoGeneral: prevInfoGeneral,
+                            objInfoFamiliar: prevInfoFamiliar,
+                            objInfoEmprendimiento: prevInfoEmprendimiento,
+                            objInfoEmpresa: prevInfoEmpresa,
+                            objInfoPerfilEco: prevInfoPerfilEco,
+                            objInfoAdicional: prevInfoAdicional,
+                        };
+                    });
+                }
+
+                setLoadingGetData(false);
+                setErrorGetData({ flag: false, msg: "" });
+            })
+            .catch((error) => {
+                setErrorGetData({ flag: true, msg: error.message });
+                setLoadingGetData(false);
+            });
+    }
 
     const handlerChangeOpenModalPDF = () => {
         const divChart = window.document.getElementById("chart-diag-serv");
@@ -518,251 +743,12 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoadingGetData(true);
-
-        async function getData() {
-            await refFntGetData
-                .current({ intIdDiagnostico })
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
-                    }
-
-                    if (res.data) {
-                        let data = res.data.data[0];
-
-                        const objInfoGeneral = {
-                            dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
-                                ? parseISO(data.objInfoGeneral.dtmFechaSesion)
-                                : null,
-                            strLugarSesion:
-                                data.objInfoGeneral.strLugarSesion || "",
-                            strUsuarioCreacion:
-                                data.objInfoGeneral.strUsuarioCreacion || "",
-                            dtActualizacion: data.objInfoGeneral.dtActualizacion
-                                ? parseISO(data.objInfoGeneral.dtActualizacion)
-                                : null,
-                            strUsuarioActualizacion:
-                                data.objInfoGeneral.strUsuarioActualizacion ||
-                                "",
-                        };
-
-                        const objInfoFamiliar = data.objInfoFamiliar;
-                        const objInfoEmprendimiento =
-                            data.objInfoEmprendimiento;
-                        const objInfoEmpresa = data.objInfoEmpresa;
-                        const objInfoPerfilEco = data.objInfoPerfilEco;
-                        const objInfoAdicional = data.objInfoAdicional;
-
-                        setData((prevState) => {
-                            let prevInfoGeneral = prevState.objInfoGeneral;
-                            let prevInfoFamiliar = prevState.objInfoFamiliar;
-                            let prevInfoEmprendimiento =
-                                prevState.objInfoEmprendimiento;
-                            let prevInfoEmpresa = prevState.objInfoEmpresa;
-                            let prevInfoPerfilEco = prevState.objInfoPerfilEco;
-                            let prevInfoAdicional = prevState.objInfoAdicional;
-
-                            for (const key in objInfoGeneral) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoGeneral,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoGeneral.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoGeneral[key];
-
-                                            if (key === "dtActualizacion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-
-                                            if (key === "dtmFechaSesion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd hh:mm"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoFamiliar) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoFamiliar,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoFamiliar.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (prevInfoFamiliar[key].map) {
-                                                const json =
-                                                    prevInfoFamiliar[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value = prevInfoFamiliar[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoEmprendimiento) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoEmprendimiento,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoEmprendimiento.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (
-                                                prevInfoEmprendimiento[key].map
-                                            ) {
-                                                const json =
-                                                    prevInfoEmprendimiento[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value =
-                                                    prevInfoEmprendimiento[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoEmpresa) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoEmpresa,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoEmpresa.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (prevInfoEmpresa[key].map) {
-                                                const json =
-                                                    prevInfoEmpresa[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value = prevInfoEmpresa[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoPerfilEco) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoPerfilEco,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoPerfilEco.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (prevInfoPerfilEco[key].map) {
-                                                const json =
-                                                    prevInfoPerfilEco[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value =
-                                                    prevInfoPerfilEco[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoAdicional) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoAdicional,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoAdicional.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (prevInfoAdicional[key].map) {
-                                                const json =
-                                                    prevInfoAdicional[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value =
-                                                    prevInfoAdicional[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            return {
-                                ...prevState,
-                                objInfoGeneral: prevInfoGeneral,
-                                objInfoFamiliar: prevInfoFamiliar,
-                                objInfoEmprendimiento: prevInfoEmprendimiento,
-                                objInfoEmpresa: prevInfoEmpresa,
-                                objInfoPerfilEco: prevInfoPerfilEco,
-                                objInfoAdicional: prevInfoAdicional,
-                            };
-                        });
-                    }
-
-                    setLoadingGetData(false);
-                    setErrorGetData({ flag: false, msg: "" });
-                })
-                .catch((error) => {
-                    setErrorGetData({ flag: true, msg: error.message });
-                    setLoadingGetData(false);
-                });
+        if (intIdIdea) {
+            setLoadingGetData(true);
+            getData();
         }
-
-        getData();
-    }, [intIdDiagnostico]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [intIdIdea, intIdDiagnostico]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -793,6 +779,15 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 intIdDiagnostico={intIdDiagnostico}
             />
 
+            <ModalFinish
+                handleOpenDialog={handlerChangeOpenModalFinish}
+                open={openModalFinish}
+                onChangeRoute={onChangeRoute}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
+                refresh={getData}
+            />
+
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
@@ -812,9 +807,22 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ flexGrow: 1 }}></Box>
 
                         <Box>
+                            <Tooltip title="Finalizar diagnóstico">
+                                <IconButton
+                                    color="error"
+                                    disabled={finalizado}
+                                    onClick={() =>
+                                        handlerChangeOpenModalFinish()
+                                    }
+                                >
+                                    <CheckCircleIcon />
+                                </IconButton>
+                            </Tooltip>
+
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton
                                     color="success"
+                                    disabled={finalizado}
                                     onClick={() => handlerChangeOpenModalEdit()}
                                 >
                                     <EditIcon />
@@ -839,7 +847,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         sx={{ color: "#F5B335", textTransform: "uppercase" }}
                         textAlign="center"
                     >
-                        <b>resumen diagnóstico general</b>
+                        <b>detalle diagnóstico general</b>
                     </Typography>
                 </Grid>
 

@@ -22,6 +22,7 @@ import {
     ExpandMore as ExpandMoreIcon,
     Edit as EditIcon,
     Print as PrintIcon,
+    CheckCircle as CheckCircleIcon,
 } from "@mui/icons-material";
 
 import Loader from "../../../../../../common/components/Loader";
@@ -29,6 +30,7 @@ import ErrorPage from "../../../../../../common/components/Error";
 import useGetDiagnHumano from "../../../../hooks/useGetDiagnHumano";
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
+import ModalFinish from "./modalFinish";
 
 const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
@@ -154,6 +156,8 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     });
 
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalFinish, setOpenModalFinish] = useState(false);
+    const [finalizado, setFinalizado] = useState(false);
 
     const [openModalPDF, setOpenModalPDF] = useState(false);
 
@@ -182,6 +186,117 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         setOpenModalEdit(!openModalEdit);
     };
 
+    const handlerChangeOpenModalFinish = () => {
+        setOpenModalFinish(!openModalFinish);
+    };
+
+    async function getData() {
+        await refFntGetData
+            .current({ intIdDiagnostico })
+            .then((res) => {
+                if (res.data.error) {
+                    throw new Error(res.data.msg);
+                }
+
+                if (res.data) {
+                    let data = res.data.data[0];
+
+                    setFinalizado(data.objInfoGeneral.btFinalizado);
+
+                    const objInfoGeneral = {
+                        dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
+                            ? parseISO(data.objInfoGeneral.dtmFechaSesion)
+                            : null,
+                        strLugarSesion:
+                            data.objInfoGeneral.strLugarSesion || "",
+                        strUsuarioCreacion:
+                            data.objInfoGeneral.strUsuarioCreacion || "",
+                        dtActualizacion: data.objInfoGeneral.dtActualizacion
+                            ? parseISO(data.objInfoGeneral.dtActualizacion)
+                            : null,
+                        strUsuarioActualizacion:
+                            data.objInfoGeneral.strUsuarioActualizacion || "",
+                    };
+
+                    const objInfoEncuestaHumanas = data.objInfoEncuestaHumanas;
+
+                    setData((prevState) => {
+                        let prevInfoGeneral = prevState.objInfoGeneral;
+                        let prevInfoEncuestaHumanas =
+                            prevState.objInfoEncuestaHumanas;
+
+                        for (const key in objInfoGeneral) {
+                            if (
+                                Object.hasOwnProperty.call(objInfoGeneral, key)
+                            ) {
+                                prevInfoGeneral.forEach((e) => {
+                                    if (e.parent === key) {
+                                        e.value = objInfoGeneral[key];
+
+                                        if (key === "dtActualizacion") {
+                                            e.value = validator.isDate(e.value)
+                                                ? format(e.value, "yyyy-MM-dd")
+                                                : "No diligenciado";
+                                        }
+
+                                        if (key === "dtmFechaSesion") {
+                                            e.value = validator.isDate(e.value)
+                                                ? format(
+                                                      e.value,
+                                                      "yyyy-MM-dd hh:mm"
+                                                  )
+                                                : "No diligenciado";
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoEncuestaHumanas) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoEncuestaHumanas,
+                                    key
+                                )
+                            ) {
+                                prevInfoEncuestaHumanas.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (objInfoEncuestaHumanas[key].map) {
+                                            const json =
+                                                objInfoEncuestaHumanas[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value =
+                                                objInfoEncuestaHumanas[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        return {
+                            ...prevState,
+                            objInfoGeneral: prevInfoGeneral,
+                            objInfoEncuestaHumanas: prevInfoEncuestaHumanas,
+                        };
+                    });
+                }
+
+                setLoadingGetData(false);
+                setErrorGetData({ flag: false, msg: "" });
+            })
+            .catch((error) => {
+                setErrorGetData({ flag: true, msg: error.message });
+                setLoadingGetData(false);
+            });
+    }
+
     const handlerChangeOpenModalPDF = () => {
         const divChart = window.document.getElementById("chart-diag-serv");
 
@@ -209,129 +324,12 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoadingGetData(true);
-
-        async function getData() {
-            await refFntGetData
-                .current({ intIdDiagnostico })
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
-                    }
-
-                    if (res.data) {
-                        let data = res.data.data[0];
-
-                        const objInfoGeneral = {
-                            dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
-                                ? parseISO(data.objInfoGeneral.dtmFechaSesion)
-                                : null,
-                            strLugarSesion:
-                                data.objInfoGeneral.strLugarSesion || "",
-                            strUsuarioCreacion:
-                                data.objInfoGeneral.strUsuarioCreacion || "",
-                            dtActualizacion: data.objInfoGeneral.dtActualizacion
-                                ? parseISO(data.objInfoGeneral.dtActualizacion)
-                                : null,
-                            strUsuarioActualizacion:
-                                data.objInfoGeneral.strUsuarioActualizacion ||
-                                "",
-                        };
-
-                        const objInfoEncuestaHumanas =
-                            data.objInfoEncuestaHumanas;
-
-                        setData((prevState) => {
-                            let prevInfoGeneral = prevState.objInfoGeneral;
-                            let prevInfoEncuestaHumanas =
-                                prevState.objInfoEncuestaHumanas;
-
-                            for (const key in objInfoGeneral) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoGeneral,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoGeneral.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoGeneral[key];
-
-                                            if (key === "dtActualizacion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-
-                                            if (key === "dtmFechaSesion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd hh:mm"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoEncuestaHumanas) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoEncuestaHumanas,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoEncuestaHumanas.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (
-                                                objInfoEncuestaHumanas[key].map
-                                            ) {
-                                                const json =
-                                                    objInfoEncuestaHumanas[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value =
-                                                    objInfoEncuestaHumanas[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            return {
-                                ...prevState,
-                                objInfoGeneral: prevInfoGeneral,
-                                objInfoEncuestaHumanas: prevInfoEncuestaHumanas,
-                            };
-                        });
-                    }
-
-                    setLoadingGetData(false);
-                    setErrorGetData({ flag: false, msg: "" });
-                })
-                .catch((error) => {
-                    setErrorGetData({ flag: true, msg: error.message });
-                    setLoadingGetData(false);
-                });
+        if (intIdIdea) {
+            setLoadingGetData(true);
+            getData();
         }
-
-        getData();
-    }, [intIdDiagnostico]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [intIdIdea, intIdDiagnostico]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -361,6 +359,15 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 intIdDiagnostico={intIdDiagnostico}
             />
 
+            <ModalFinish
+                handleOpenDialog={handlerChangeOpenModalFinish}
+                open={openModalFinish}
+                onChangeRoute={onChangeRoute}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
+                refresh={getData}
+            />
+
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
@@ -379,10 +386,23 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ flexGrow: 1 }}></Box>
 
                         <Box>
+                            <Tooltip title="Finalizar diagnóstico">
+                                <IconButton
+                                    color="error"
+                                    disabled={finalizado}
+                                    onClick={() =>
+                                        handlerChangeOpenModalFinish()
+                                    }
+                                >
+                                    <CheckCircleIcon />
+                                </IconButton>
+                            </Tooltip>
+
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton
-                                      color="success"
-                                      onClick={() => handlerChangeOpenModalEdit()}
+                                    color="success"
+                                    disabled={finalizado}
+                                    onClick={() => handlerChangeOpenModalEdit()}
                                 >
                                     <EditIcon />
                                 </IconButton>
@@ -405,7 +425,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         sx={{ color: "#F5B335", textTransform: "uppercase" }}
                         textAlign="center"
                     >
-                        <b>resumen diagnóstico de competencias humanas</b>
+                        <b>detalle diagnóstico de competencias humanas</b>
                     </Typography>
                 </Grid>
 

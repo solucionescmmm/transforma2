@@ -116,6 +116,7 @@ const PageCUGeneral = ({
     const [openModal, setOpenModal] = useState(false);
 
     const [loading, setLoading] = useState(false);
+    const [finalizado, setFinalizado] = useState(false);
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -317,6 +318,9 @@ const PageCUGeneral = ({
 
                         if (res.data?.data) {
                             if (!isEdit) {
+                                setFinalizado(
+                                    res.data.data[0].objInfoGeneral.btFinalizado
+                                );
                                 setOpenModal(true);
                             } else {
                                 reset({
@@ -371,7 +375,7 @@ const PageCUGeneral = ({
 
             getData();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [intIdIdea, intIdDiagnostico, isEdit]);
 
     useEffect(() => {
@@ -431,7 +435,7 @@ const PageCUGeneral = ({
                     <DialogContentText>
                         Se ha detectado que la persona empresaria ya cuenta con
                         un registro del diagnóstico técnico. ¿Deseas editar la
-                        información o previsualizar el resumen?
+                        información o previsualizar la información?
                     </DialogContentText>
                 </DialogContent>
 
@@ -445,10 +449,11 @@ const PageCUGeneral = ({
                             })
                         }
                     >
-                        ver resumen
+                        ver detalle
                     </Button>
 
                     <Button
+                        disabled={finalizado}
                         onClick={() =>
                             onChangeRoute("DiagEmpresarialTecEdit", {
                                 intIdIdea,

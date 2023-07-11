@@ -23,6 +23,7 @@ import {
     ExpandMore as ExpandMoreIcon,
     Edit as EditIcon,
     Print as PrintIcon,
+    CheckCircle as CheckCircleIcon,
 } from "@mui/icons-material";
 
 import Loader from "../../../../../../common/components/Loader";
@@ -32,6 +33,7 @@ import ModalEditDiagServ from "./modalEdit";
 import ModalPDF from "./modalPDF";
 import { ImageViewer } from "../../../../../../common/components/ImageViewer";
 import ChartBar from "./chartBar";
+import ModalFinish from "./modalFinish";
 
 const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     //===============================================================================================================================================
@@ -124,6 +126,8 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     });
 
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalFinish, setOpenModalFinish] = useState(false);
+    const [finalizado, setFinalizado] = useState(false);
 
     const [openModalPDF, setOpenModalPDF] = useState(false);
 
@@ -164,6 +168,400 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
+    async function getData() {
+        await refFntGetData
+            .current({ intIdIdea, intIdDiagnostico })
+            .then((res) => {
+                if (res.data.error) {
+                    throw new Error(res.data.msg);
+                }
+
+                if (res.data) {
+                    let data = res.data.data[0];
+
+                    const strConclusiones =
+                        data.objInfoAdicional.strConclusiones;
+
+                    const arrImagenes =
+                        data.objInfoAdicional?.strURLSFotos?.split(";");
+
+                    let newArrImagenes = [];
+
+                    if (arrImagenes) {
+                        newArrImagenes = arrImagenes.map((url) => {
+                            return {
+                                src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
+                                width: 4,
+                                height: 3,
+                            };
+                        });
+                    }
+
+                    setFinalizado(data.objInfoGeneral.btFinalizado);
+
+                    const objInfoGeneral = {
+                        dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
+                            ? parseISO(data.objInfoGeneral.dtmFechaSesion)
+                            : null,
+                        strLugarSesion:
+                            data.objInfoGeneral.strLugarSesion || "",
+                        strUsuarioCreacion:
+                            data.objInfoGeneral.strUsuarioCreacion || "",
+                        dtActualizacion: data.objInfoGeneral.dtActualizacion
+                            ? parseISO(data.objInfoGeneral.dtActualizacion)
+                            : null,
+                        strUsuarioActualizacion:
+                            data.objInfoGeneral.strUsuarioActualizacion || "",
+                    };
+
+                    const objInfoServicios = {
+                        strServicio: data.objInfoEvaluacion.strServicio || "",
+                        strHerramientasServicio:
+                            data.objInfoEvaluacion.strHerramientasServicio ||
+                            "",
+                    };
+
+                    const objInfoNormatividad = {
+                        strPermisoFuncionamiento:
+                            data.objInfoNormatividad.strPermisoFuncionamiento ||
+                            "",
+                        strCertificadosRequeridos:
+                            data.objInfoNormatividad
+                                .strCertificadosRequeridos || "",
+                        strCertificadosActuales:
+                            data.objInfoNormatividad.strCertificadosActuales ||
+                            "",
+                        strRegistroMarca:
+                            data.objInfoNormatividad.strRegistroMarca || "",
+                        strPatentesUtilidad:
+                            data.objInfoNormatividad.strPatentesUtilidad || "",
+                        strCualPatenteUtilidad:
+                            data.objInfoNormatividad.strCualPatenteUtilidad ||
+                            "",
+                    };
+
+                    const objInfoEvaluacion = data.objInfoEvaluacion;
+
+                    setData((prevState) => {
+                        let prevInfoGeneral = prevState.objInfoGeneral;
+                        let prevInfoServicios = prevState.objInfoServicios;
+                        let prevInfoNormatividad =
+                            prevState.objInfoNormatividad;
+                        let prevInfoTemasFortalecer =
+                            prevState.objInfoTemasFortalecer;
+                        let prevInfoFortalezas = prevState.objInfoFortalezas;
+
+                        for (const key in objInfoGeneral) {
+                            if (
+                                Object.hasOwnProperty.call(objInfoGeneral, key)
+                            ) {
+                                prevInfoGeneral.forEach((e) => {
+                                    if (e.parent === key) {
+                                        e.value = objInfoGeneral[key];
+
+                                        if (key === "dtActualizacion") {
+                                            e.value = validator.isDate(e.value)
+                                                ? format(e.value, "yyyy-MM-dd")
+                                                : "No diligenciado";
+                                        }
+
+                                        if (key === "dtmFechaSesion") {
+                                            e.value = validator.isDate(e.value)
+                                                ? format(
+                                                      e.value,
+                                                      "yyyy-MM-dd hh:mm"
+                                                  )
+                                                : "No diligenciado";
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoServicios) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoServicios,
+                                    key
+                                )
+                            ) {
+                                prevInfoServicios.forEach((e) => {
+                                    if (e.parent === key) {
+                                        e.value = objInfoServicios[key];
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoNormatividad) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoNormatividad,
+                                    key
+                                )
+                            ) {
+                                prevInfoNormatividad.forEach((e) => {
+                                    if (e.parent === key) {
+                                        e.value = objInfoNormatividad[key];
+                                    }
+                                });
+                            }
+                        }
+
+                        const objInnovacionFortalecer = [];
+                        const objInnovacionFortalezas = [];
+
+                        const objExperienciaFortalecer = [];
+                        const objExperienciaFortalezas = [];
+
+                        const objMarcaFortalecer = [];
+                        const objMarcaFortalezas = [];
+
+                        const getLabel = (key) => {
+                            switch (key) {
+                                case "strObjetivoProposito":
+                                    return "Objetivo o propósito";
+
+                                case "strRenovacionPortafolio":
+                                    return "Renovación de portafolio";
+
+                                case "strProcesoInteraccion":
+                                    return "Procesos de interacción";
+
+                                case "strPuntosContacto":
+                                    return "Puntos de contacto";
+
+                                case "strExperienciaDiseñada":
+                                    return "Experiencia diseñada";
+
+                                case "strRecursosServicio":
+                                    return "Recursos del servicio";
+
+                                case "strPostVenta":
+                                    return "Post venta";
+
+                                case "strLineaGrafica":
+                                    return "Línea gráfica de la marca";
+
+                                case "strIdentidadMarca":
+                                    return "Identidad de la marca";
+
+                                case "strComunicacionMarca":
+                                    return "Comunicación de la marca";
+
+                                default:
+                                    return null;
+                            }
+                        };
+
+                        for (const key in objInfoEvaluacion) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoEvaluacion,
+                                    key
+                                )
+                            ) {
+                                if (
+                                    (key === "strObjetivoProposito" ||
+                                        key === "strRenovacionPortafolio" ||
+                                        key === "strProcesoInteraccion" ||
+                                        key === "strPuntosContacto") &&
+                                    objInfoEvaluacion[key] !== ""
+                                ) {
+                                    if (
+                                        objInfoEvaluacion[`${key}Nivel`] ===
+                                            "BAJO" ||
+                                        objInfoEvaluacion[`${key}Nivel`] ===
+                                            "MEDIO"
+                                    ) {
+                                        objInnovacionFortalecer.push({
+                                            parent: key,
+                                            value: objInfoEvaluacion[key],
+                                            detalle:
+                                                objInfoEvaluacion[
+                                                    `${key}Detalle`
+                                                ],
+                                            nivel: objInfoEvaluacion[
+                                                `${key}Nivel`
+                                            ],
+                                            label: getLabel(key),
+                                        });
+                                    }
+
+                                    if (
+                                        objInfoEvaluacion[`${key}Nivel`] ===
+                                        "ALTO"
+                                    ) {
+                                        objInnovacionFortalezas.push({
+                                            parent: key,
+                                            value: objInfoEvaluacion[key],
+                                            detalle:
+                                                objInfoEvaluacion[
+                                                    `${key}Detalle`
+                                                ],
+                                            nivel: objInfoEvaluacion[
+                                                `${key}Nivel`
+                                            ],
+                                            label: getLabel(key),
+                                        });
+                                    }
+                                }
+
+                                if (
+                                    (key === "strExperienciaDiseñada" ||
+                                        key === "strRecursosServicio" ||
+                                        key === "strPostVenta") &&
+                                    objInfoEvaluacion[key] !== ""
+                                ) {
+                                    if (
+                                        objInfoEvaluacion[`${key}Nivel`] ===
+                                            "BAJO" ||
+                                        objInfoEvaluacion[`${key}Nivel`] ===
+                                            "MEDIO"
+                                    ) {
+                                        objExperienciaFortalecer.push({
+                                            parent: key,
+                                            value: objInfoEvaluacion[key],
+                                            detalle:
+                                                objInfoEvaluacion[
+                                                    `${key}Detalle`
+                                                ],
+                                            nivel: objInfoEvaluacion[
+                                                `${key}Nivel`
+                                            ],
+                                            label: getLabel(key),
+                                        });
+                                    }
+
+                                    if (
+                                        objInfoEvaluacion[`${key}Nivel`] ===
+                                        "ALTO"
+                                    ) {
+                                        objExperienciaFortalezas.push({
+                                            parent: key,
+                                            value: objInfoEvaluacion[key],
+                                            detalle:
+                                                objInfoEvaluacion[
+                                                    `${key}Detalle`
+                                                ],
+                                            nivel: objInfoEvaluacion[
+                                                `${key}Nivel`
+                                            ],
+                                            label: getLabel(key),
+                                        });
+                                    }
+                                }
+
+                                if (
+                                    (key === "strLineaGrafica" ||
+                                        key === "strIdentidadMarca" ||
+                                        key === "strComunicacionMarca") &&
+                                    objInfoEvaluacion[key] !== ""
+                                ) {
+                                    if (
+                                        objInfoEvaluacion[`${key}Nivel`] ===
+                                            "BAJO" ||
+                                        objInfoEvaluacion[`${key}Nivel`] ===
+                                            "MEDIO"
+                                    ) {
+                                        objExperienciaFortalecer.push({
+                                            parent: key,
+                                            value: objInfoEvaluacion[key],
+                                            detalle:
+                                                objInfoEvaluacion[
+                                                    `${key}Detalle`
+                                                ],
+                                            nivel: objInfoEvaluacion[
+                                                `${key}Nivel`
+                                            ],
+                                            label: getLabel(key),
+                                        });
+                                    }
+
+                                    if (
+                                        objInfoEvaluacion[`${key}Nivel`] ===
+                                        "ALTO"
+                                    ) {
+                                        objExperienciaFortalezas.push({
+                                            parent: key,
+                                            value: objInfoEvaluacion[key],
+                                            detalle:
+                                                objInfoEvaluacion[
+                                                    `${key}Detalle`
+                                                ],
+                                            nivel: objInfoEvaluacion[
+                                                `${key}Nivel`
+                                            ],
+                                            label: getLabel(key),
+                                        });
+                                    }
+                                }
+                            }
+                        }
+
+                        if (objInnovacionFortalecer.length > 0) {
+                            prevInfoTemasFortalecer.push({
+                                objInnovacionFortalecer,
+                            });
+                        }
+
+                        if (objInnovacionFortalezas.length > 0) {
+                            prevInfoFortalezas.push({
+                                objInnovacionFortalezas,
+                            });
+                        }
+
+                        if (objExperienciaFortalecer.length > 0) {
+                            prevInfoTemasFortalecer.push({
+                                objExperienciaFortalecer,
+                            });
+                        }
+
+                        if (objExperienciaFortalezas.length > 0) {
+                            prevInfoFortalezas.push({
+                                objExperienciaFortalezas,
+                            });
+                        }
+
+                        if (objMarcaFortalecer.length > 0) {
+                            prevInfoTemasFortalecer.push({
+                                objMarcaFortalecer,
+                            });
+                        }
+
+                        if (objMarcaFortalezas.length > 0) {
+                            prevInfoFortalezas.push({
+                                objMarcaFortalezas,
+                            });
+                        }
+
+                        return {
+                            ...prevState,
+                            objInfoGeneral: prevInfoGeneral,
+                            objInfoServicios: prevInfoServicios,
+                            objInfoNormatividad: prevInfoNormatividad,
+                            objInfoTemasFortalecer: prevInfoTemasFortalecer,
+                            objInfoFortalezas: prevInfoFortalezas,
+                            strConclusiones,
+                            arrImagenes: newArrImagenes,
+                            objResultServicio: data.objResultServicio,
+                        };
+                    });
+                }
+
+                setLoadingGetData(false);
+                setErrorGetData({ flag: false, msg: "" });
+            })
+            .catch((error) => {
+                setErrorGetData({ flag: true, msg: error.message });
+                setLoadingGetData(false);
+            });
+    }
+
+    const handlerChangeOpenModalFinish = () => {
+        setOpenModalFinish(!openModalFinish);
+    };
+
     const handlerChangeOpenModalEdit = () => {
         setOpenModalEdit(!openModalEdit);
     };
@@ -219,411 +617,11 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoadingGetData(true);
-
-        async function getData() {
-            await refFntGetData
-                .current({ intIdIdea, intIdDiagnostico })
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
-                    }
-
-                    if (res.data) {
-                        let data = res.data.data[0];
-
-                        const strConclusiones =
-                            data.objInfoAdicional.strConclusiones;
-
-                        const arrImagenes =
-                            data.objInfoAdicional?.strURLSFotos?.split(";");
-
-                        let newArrImagenes = [];
-
-                        if (arrImagenes) {
-                            newArrImagenes = arrImagenes.map((url) => {
-                                return {
-                                    src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
-                                    width: 4,
-                                    height: 3,
-                                };
-                            });
-                        }
-
-                        const objInfoGeneral = {
-                            dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
-                                ? parseISO(data.objInfoGeneral.dtmFechaSesion)
-                                : null,
-                            strLugarSesion:
-                                data.objInfoGeneral.strLugarSesion || "",
-                            strUsuarioCreacion:
-                                data.objInfoGeneral.strUsuarioCreacion || "",
-                            dtActualizacion: data.objInfoGeneral.dtActualizacion
-                                ? parseISO(data.objInfoGeneral.dtActualizacion)
-                                : null,
-                            strUsuarioActualizacion:
-                                data.objInfoGeneral.strUsuarioActualizacion ||
-                                "",
-                        };
-
-                        const objInfoServicios = {
-                            strServicio:
-                                data.objInfoEvaluacion.strServicio || "",
-                            strHerramientasServicio:
-                                data.objInfoEvaluacion
-                                    .strHerramientasServicio || "",
-                        };
-
-                        const objInfoNormatividad = {
-                            strPermisoFuncionamiento:
-                                data.objInfoNormatividad
-                                    .strPermisoFuncionamiento || "",
-                            strCertificadosRequeridos:
-                                data.objInfoNormatividad
-                                    .strCertificadosRequeridos || "",
-                            strCertificadosActuales:
-                                data.objInfoNormatividad
-                                    .strCertificadosActuales || "",
-                            strRegistroMarca:
-                                data.objInfoNormatividad.strRegistroMarca || "",
-                            strPatentesUtilidad:
-                                data.objInfoNormatividad.strPatentesUtilidad ||
-                                "",
-                            strCualPatenteUtilidad:
-                                data.objInfoNormatividad
-                                    .strCualPatenteUtilidad || "",
-                        };
-
-                        const objInfoEvaluacion = data.objInfoEvaluacion;
-
-                        setData((prevState) => {
-                            let prevInfoGeneral = prevState.objInfoGeneral;
-                            let prevInfoServicios = prevState.objInfoServicios;
-                            let prevInfoNormatividad =
-                                prevState.objInfoNormatividad;
-                            let prevInfoTemasFortalecer =
-                                prevState.objInfoTemasFortalecer;
-                            let prevInfoFortalezas =
-                                prevState.objInfoFortalezas;
-
-                            for (const key in objInfoGeneral) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoGeneral,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoGeneral.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoGeneral[key];
-
-                                            if (key === "dtActualizacion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-
-                                            if (key === "dtmFechaSesion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd hh:mm"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoServicios) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoServicios,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoServicios.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoServicios[key];
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoNormatividad) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoNormatividad,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoNormatividad.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoNormatividad[key];
-                                        }
-                                    });
-                                }
-                            }
-
-                            const objInnovacionFortalecer = [];
-                            const objInnovacionFortalezas = [];
-
-                            const objExperienciaFortalecer = [];
-                            const objExperienciaFortalezas = [];
-
-                            const objMarcaFortalecer = [];
-                            const objMarcaFortalezas = [];
-
-                            const getLabel = (key) => {
-                                switch (key) {
-                                    case "strObjetivoProposito":
-                                        return "Objetivo o propósito";
-
-                                    case "strRenovacionPortafolio":
-                                        return "Renovación de portafolio";
-
-                                    case "strProcesoInteraccion":
-                                        return "Procesos de interacción";
-
-                                    case "strPuntosContacto":
-                                        return "Puntos de contacto";
-
-                                    case "strExperienciaDiseñada":
-                                        return "Experiencia diseñada";
-
-                                    case "strRecursosServicio":
-                                        return "Recursos del servicio";
-
-                                    case "strPostVenta":
-                                        return "Post venta";
-
-                                    case "strLineaGrafica":
-                                        return "Línea gráfica de la marca";
-
-                                    case "strIdentidadMarca":
-                                        return "Identidad de la marca";
-
-                                    case "strComunicacionMarca":
-                                        return "Comunicación de la marca";
-
-                                    default:
-                                        return null;
-                                }
-                            };
-
-                            for (const key in objInfoEvaluacion) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoEvaluacion,
-                                        key
-                                    )
-                                ) {
-                                    if (
-                                        (key === "strObjetivoProposito" ||
-                                            key === "strRenovacionPortafolio" ||
-                                            key === "strProcesoInteraccion" ||
-                                            key === "strPuntosContacto") &&
-                                        objInfoEvaluacion[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objInnovacionFortalecer.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objInnovacionFortalezas.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-
-                                    if (
-                                        (key === "strExperienciaDiseñada" ||
-                                            key === "strRecursosServicio" ||
-                                            key === "strPostVenta") &&
-                                        objInfoEvaluacion[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objExperienciaFortalecer.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objExperienciaFortalezas.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-
-                                    if (
-                                        (key === "strLineaGrafica" ||
-                                            key === "strIdentidadMarca" ||
-                                            key === "strComunicacionMarca") &&
-                                        objInfoEvaluacion[key] !== ""
-                                    ) {
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "BAJO" ||
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                                "MEDIO"
-                                        ) {
-                                            objExperienciaFortalecer.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-
-                                        if (
-                                            objInfoEvaluacion[`${key}Nivel`] ===
-                                            "ALTO"
-                                        ) {
-                                            objExperienciaFortalezas.push({
-                                                parent: key,
-                                                value: objInfoEvaluacion[key],
-                                                detalle:
-                                                    objInfoEvaluacion[
-                                                        `${key}Detalle`
-                                                    ],
-                                                nivel: objInfoEvaluacion[
-                                                    `${key}Nivel`
-                                                ],
-                                                label: getLabel(key),
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (objInnovacionFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objInnovacionFortalecer,
-                                });
-                            }
-
-                            if (objInnovacionFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objInnovacionFortalezas,
-                                });
-                            }
-
-                            if (objExperienciaFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objExperienciaFortalecer,
-                                });
-                            }
-
-                            if (objExperienciaFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objExperienciaFortalezas,
-                                });
-                            }
-
-                            if (objMarcaFortalecer.length > 0) {
-                                prevInfoTemasFortalecer.push({
-                                    objMarcaFortalecer,
-                                });
-                            }
-
-                            if (objMarcaFortalezas.length > 0) {
-                                prevInfoFortalezas.push({
-                                    objMarcaFortalezas,
-                                });
-                            }
-
-                            return {
-                                ...prevState,
-                                objInfoGeneral: prevInfoGeneral,
-                                objInfoServicios: prevInfoServicios,
-                                objInfoNormatividad: prevInfoNormatividad,
-                                objInfoTemasFortalecer: prevInfoTemasFortalecer,
-                                objInfoFortalezas: prevInfoFortalezas,
-                                strConclusiones,
-                                arrImagenes: newArrImagenes,
-                                objResultServicio: data.objResultServicio,
-                            };
-                        });
-                    }
-
-                    setLoadingGetData(false);
-                    setErrorGetData({ flag: false, msg: "" });
-                })
-                .catch((error) => {
-                    setErrorGetData({ flag: true, msg: error.message });
-                    setLoadingGetData(false);
-                });
+        if (intIdIdea) {
+            setLoadingGetData(true);
+            getData();
         }
-
-        getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [intIdIdea, intIdDiagnostico]);
 
     //===============================================================================================================================================
@@ -655,6 +653,15 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                 intIdDiagnostico={intIdDiagnostico}
             />
 
+            <ModalFinish
+                handleOpenDialog={handlerChangeOpenModalFinish}
+                open={openModalFinish}
+                onChangeRoute={onChangeRoute}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
+                refresh={getData}
+            />
+
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
@@ -674,9 +681,22 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                         <Box sx={{ flexGrow: 1 }}></Box>
 
                         <Box>
+                            <Tooltip title="Finalizar diagnóstico">
+                                <IconButton
+                                    color="error"
+                                    disabled={finalizado}
+                                    onClick={() =>
+                                        handlerChangeOpenModalFinish()
+                                    }
+                                >
+                                    <CheckCircleIcon />
+                                </IconButton>
+                            </Tooltip>
+
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton
                                     color="success"
+                                    disabled={finalizado}
                                     onClick={() => handlerChangeOpenModalEdit()}
                                 >
                                     <EditIcon />
@@ -700,7 +720,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                         sx={{ color: "#F5B335", textTransform: "uppercase" }}
                         textAlign="center"
                     >
-                        <b>resumen diagnóstico de servicio</b>
+                        <b>detalle diagnóstico de servicio</b>
                     </Typography>
                 </Grid>
 
@@ -2042,7 +2062,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                             id="chart-diag-serv"
                                         >
                                             <ChartBar
-                                                title="RESUMEN DEL DIAGNÓSTICO"
+                                                title="DETALLE DEL DIAGNÓSTICO"
                                                 labels={[
                                                     "Innovación",
                                                     "Experiencia",

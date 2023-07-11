@@ -399,7 +399,7 @@ const PageCUProducto = ({ intId, isEdit }) => {
                     <DialogContentText>
                         Se ha detectado que la persona empresaria ya cuenta con
                         un registro del diagnóstico comercial. ¿Deseas editar
-                        la información o previsualizar el resumen?
+                        la información o previsualizar la información?
                     </DialogContentText>
                 </DialogContent>
 
@@ -409,7 +409,7 @@ const PageCUProducto = ({ intId, isEdit }) => {
                         to={`/diagnosticos/diagDesign/product/read/${data.objInfoGeneral?.intId}`}
                         color="inherit"
                     >
-                        ver resumen
+                        ver detalle
                     </Button>
 
                     <Button

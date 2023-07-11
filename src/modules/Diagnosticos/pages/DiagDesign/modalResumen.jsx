@@ -41,11 +41,11 @@ const ModalResumen = ({
             fullWidth
             fullScreen={bitMobile}
         >
-            <DialogTitle>Resumen de diagnóstico de diseño</DialogTitle>
+            <DialogTitle>Detalle de diagnóstico de diseño</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    Selecciona el resumen que desea visualizar
+                    Selecciona el detalle que desea visualizar
                 </DialogContentText>
 
                 <DialogContentText sx={{ marginTop: "30px", fontSize: "15px" }}>

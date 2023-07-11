@@ -111,6 +111,7 @@ const PageCUServicio = ({
     const [openModal, setOpenModal] = useState(false);
 
     const [loading, setLoading] = useState(false);
+    const [finalizado, setFinalizado] = useState(false);
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -304,6 +305,9 @@ const PageCUServicio = ({
 
                         if (res.data?.data) {
                             if (!isEdit) {
+                                setFinalizado(
+                                    res.data.data[0].objInfoGeneral.btFinalizado
+                                );
                                 setOpenModal(true);
                             } else {
                                 setOpenModal(false);
@@ -402,7 +406,7 @@ const PageCUServicio = ({
                     <DialogContentText>
                         Se ha detectado que la persona empresaria ya cuenta con
                         un registro del diagnóstico de servicio. ¿Deseas editar
-                        la información o previsualizar el resumen?
+                        la información o previsualizar la información?
                     </DialogContentText>
                 </DialogContent>
 
@@ -416,10 +420,11 @@ const PageCUServicio = ({
                             });
                         }}
                     >
-                        ver resumen
+                        ver detalle
                     </Button>
 
                     <Button
+                        disabled={finalizado}
                         onClick={() => {
                             onChangeRoute("DiagDesignServEdit", {
                                 intIdIdea,

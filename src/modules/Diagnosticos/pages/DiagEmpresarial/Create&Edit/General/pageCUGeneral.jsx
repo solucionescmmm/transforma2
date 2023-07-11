@@ -115,6 +115,7 @@ const PageCUGeneral = ({
     const [openModal, setOpenModal] = useState(false);
 
     const [loading, setLoading] = useState(false);
+    const [finalizado, setFinalizado] = useState(false);
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -432,6 +433,9 @@ const PageCUGeneral = ({
 
                         if (res.data?.data) {
                             if (!isEdit) {
+                                setFinalizado(
+                                    res.data.data[0].objInfoGeneral.btFinalizado
+                                );
                                 setOpenModal(true);
                             } else {
                                 const data = res.data.data[0];
@@ -598,7 +602,7 @@ const PageCUGeneral = ({
                     <DialogContentText>
                         Se ha detectado que la persona empresaria ya cuenta con
                         un registro del diagnóstico general. ¿Deseas editar la
-                        información o previsualizar el resumen?
+                        información o previsualizar la información?
                     </DialogContentText>
                 </DialogContent>
 
@@ -612,7 +616,7 @@ const PageCUGeneral = ({
                         }
                         color="inherit"
                     >
-                        ver resumen
+                        ver detalle
                     </Button>
 
                     <Button
@@ -622,6 +626,7 @@ const PageCUGeneral = ({
                                 intIdDiagnostico,
                             })
                         }
+                        disabled={finalizado}
                         color="success"
                     >
                         editar

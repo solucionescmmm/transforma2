@@ -22,6 +22,7 @@ import {
     ExpandMore as ExpandMoreIcon,
     Edit as EditIcon,
     Print as PrintIcon,
+    CheckCircle as CheckCircleIcon,
 } from "@mui/icons-material";
 
 import Loader from "../../../../../../common/components/Loader";
@@ -29,6 +30,7 @@ import ErrorPage from "../../../../../../common/components/Error";
 import useGetDiagnHumano from "../../../../hooks/useGetDiagnHumano";
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
+import ModalFinish from "./modalFinish";
 
 const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
@@ -536,6 +538,8 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
+    const [openModalFinish, setOpenModalFinish] = useState(false);
+    const [finalizado, setFinalizado] = useState(false);
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -576,6 +580,246 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     const handlerChangeOpenModalEdit = () => {
         setOpenModalEdit(!openModalEdit);
     };
+
+    const handlerChangeOpenModalFinish = () => {
+        setOpenModalFinish(!openModalFinish);
+    };
+
+    async function getData() {
+        await refFntGetData
+            .current({ intIdDiagnostico })
+            .then((res) => {
+                if (res.data.error) {
+                    throw new Error(res.data.msg);
+                }
+
+                if (res.data) {
+                    let data = res.data.data[0];
+
+                    setFinalizado(data.objInfoGeneral.btFinalizado);
+
+                    const objInfoGeneral = {
+                        dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
+                            ? parseISO(data.objInfoGeneral.dtmFechaSesion)
+                            : null,
+                        strLugarSesion:
+                            data.objInfoGeneral.strLugarSesion || "",
+                        strUsuarioCreacion:
+                            data.objInfoGeneral.strUsuarioCreacion || "",
+                        dtActualizacion: data.objInfoGeneral.dtActualizacion
+                            ? parseISO(data.objInfoGeneral.dtActualizacion)
+                            : null,
+                        strUsuarioActualizacion:
+                            data.objInfoGeneral.strUsuarioActualizacion || "",
+                    };
+
+                    const objInfoComMercadeo = data.objInfoComMercadeo;
+                    const objInfoComProductivo = data.objInfoComProductivo;
+                    const objInfoComFinanciero = data.objInfoComFinanciero;
+                    const objInfoComAdministrativo =
+                        data.objInfoComAdministrativo;
+                    const objInfoComAsociativo = data.objInfoComAsociativo;
+
+                    setData((prevState) => {
+                        let prevInfoGeneral = prevState.objInfoGeneral;
+                        let prevInfoComMercadeo = prevState.objInfoComMercadeo;
+                        let prevInfoComProductivo =
+                            prevState.objInfoComProductivo;
+                        let prevInfoComFinanciero =
+                            prevState.objInfoComFinanciero;
+                        let prevInfoComAdministrativo =
+                            prevState.objInfoComAdministrativo;
+                        let prevInfoComAsociativo =
+                            prevState.objInfoComAsociativo;
+
+                        for (const key in objInfoGeneral) {
+                            if (
+                                Object.hasOwnProperty.call(objInfoGeneral, key)
+                            ) {
+                                prevInfoGeneral.forEach((e) => {
+                                    if (e.parent === key) {
+                                        e.value = objInfoGeneral[key];
+
+                                        if (key === "dtActualizacion") {
+                                            e.value = validator.isDate(e.value)
+                                                ? format(e.value, "yyyy-MM-dd")
+                                                : "No diligenciado";
+                                        }
+
+                                        if (key === "dtmFechaSesion") {
+                                            e.value = validator.isDate(e.value)
+                                                ? format(
+                                                      e.value,
+                                                      "yyyy-MM-dd hh:mm"
+                                                  )
+                                                : "No diligenciado";
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoComMercadeo) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoComMercadeo,
+                                    key
+                                )
+                            ) {
+                                prevInfoComMercadeo.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (prevInfoComMercadeo[key].map) {
+                                            const json =
+                                                prevInfoComMercadeo[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = prevInfoComMercadeo[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoComProductivo) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoComProductivo,
+                                    key
+                                )
+                            ) {
+                                prevInfoComProductivo.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (prevInfoComProductivo[key].map) {
+                                            const json =
+                                                prevInfoComProductivo[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value =
+                                                prevInfoComProductivo[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoComFinanciero) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoComFinanciero,
+                                    key
+                                )
+                            ) {
+                                prevInfoComFinanciero.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (prevInfoComFinanciero[key].map) {
+                                            const json =
+                                                prevInfoComFinanciero[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value =
+                                                prevInfoComFinanciero[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoComAdministrativo) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoComAdministrativo,
+                                    key
+                                )
+                            ) {
+                                prevInfoComAdministrativo.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (
+                                            prevInfoComAdministrativo[key].map
+                                        ) {
+                                            const json =
+                                                prevInfoComAdministrativo[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value =
+                                                prevInfoComAdministrativo[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoComAsociativo) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoComAsociativo,
+                                    key
+                                )
+                            ) {
+                                prevInfoComAsociativo.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (prevInfoComAsociativo[key].map) {
+                                            const json =
+                                                prevInfoComAsociativo[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value =
+                                                prevInfoComAsociativo[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        return {
+                            ...prevState,
+                            objInfoGeneral: prevInfoGeneral,
+                            objInfoComMercadeo: prevInfoComMercadeo,
+                            objInfoComProductivo: prevInfoComProductivo,
+                            objInfoComFinanciero: prevInfoComFinanciero,
+                            objInfoComAdministrativo: prevInfoComAdministrativo,
+                            objInfoComAsociativo: prevInfoComAsociativo,
+                        };
+                    });
+                }
+
+                setLoadingGetData(false);
+                setErrorGetData({ flag: false, msg: "" });
+            })
+            .catch((error) => {
+                setErrorGetData({ flag: true, msg: error.message });
+                setLoadingGetData(false);
+            });
+    }
 
     const handlerChangeOpenModalPDF = () => {
         const divChart = window.document.getElementById("chart-diag-serv");
@@ -622,269 +866,12 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoadingGetData(true);
-
-        async function getData() {
-            await refFntGetData
-                .current({ intIdDiagnostico })
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
-                    }
-
-                    if (res.data) {
-                        let data = res.data.data[0];
-
-                        const objInfoGeneral = {
-                            dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
-                                ? parseISO(data.objInfoGeneral.dtmFechaSesion)
-                                : null,
-                            strLugarSesion:
-                                data.objInfoGeneral.strLugarSesion || "",
-                            strUsuarioCreacion:
-                                data.objInfoGeneral.strUsuarioCreacion || "",
-                            dtActualizacion: data.objInfoGeneral.dtActualizacion
-                                ? parseISO(data.objInfoGeneral.dtActualizacion)
-                                : null,
-                            strUsuarioActualizacion:
-                                data.objInfoGeneral.strUsuarioActualizacion ||
-                                "",
-                        };
-
-                        const objInfoComMercadeo = data.objInfoComMercadeo;
-                        const objInfoComProductivo = data.objInfoComProductivo;
-                        const objInfoComFinanciero = data.objInfoComFinanciero;
-                        const objInfoComAdministrativo =
-                            data.objInfoComAdministrativo;
-                        const objInfoComAsociativo = data.objInfoComAsociativo;
-
-                        setData((prevState) => {
-                            let prevInfoGeneral = prevState.objInfoGeneral;
-                            let prevInfoComMercadeo =
-                                prevState.objInfoComMercadeo;
-                            let prevInfoComProductivo =
-                                prevState.objInfoComProductivo;
-                            let prevInfoComFinanciero =
-                                prevState.objInfoComFinanciero;
-                            let prevInfoComAdministrativo =
-                                prevState.objInfoComAdministrativo;
-                            let prevInfoComAsociativo =
-                                prevState.objInfoComAsociativo;
-
-                            for (const key in objInfoGeneral) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoGeneral,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoGeneral.forEach((e) => {
-                                        if (e.parent === key) {
-                                            e.value = objInfoGeneral[key];
-
-                                            if (key === "dtActualizacion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-
-                                            if (key === "dtmFechaSesion") {
-                                                e.value = validator.isDate(
-                                                    e.value
-                                                )
-                                                    ? format(
-                                                          e.value,
-                                                          "yyyy-MM-dd hh:mm"
-                                                      )
-                                                    : "No diligenciado";
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoComMercadeo) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoComMercadeo,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoComMercadeo.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (prevInfoComMercadeo[key].map) {
-                                                const json =
-                                                    prevInfoComMercadeo[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value =
-                                                    prevInfoComMercadeo[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoComProductivo) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoComProductivo,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoComProductivo.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (
-                                                prevInfoComProductivo[key].map
-                                            ) {
-                                                const json =
-                                                    prevInfoComProductivo[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value =
-                                                    prevInfoComProductivo[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoComFinanciero) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoComFinanciero,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoComFinanciero.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (
-                                                prevInfoComFinanciero[key].map
-                                            ) {
-                                                const json =
-                                                    prevInfoComFinanciero[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value =
-                                                    prevInfoComFinanciero[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoComAdministrativo) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoComAdministrativo,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoComAdministrativo.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (
-                                                prevInfoComAdministrativo[key]
-                                                    .map
-                                            ) {
-                                                const json =
-                                                    prevInfoComAdministrativo[
-                                                        key
-                                                    ];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value =
-                                                    prevInfoComAdministrativo[
-                                                        key
-                                                    ];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            for (const key in objInfoComAsociativo) {
-                                if (
-                                    Object.hasOwnProperty.call(
-                                        objInfoComAsociativo,
-                                        key
-                                    )
-                                ) {
-                                    prevInfoComAsociativo.forEach((e) => {
-                                        if (e.parent === key) {
-                                            if (
-                                                prevInfoComAsociativo[key].map
-                                            ) {
-                                                const json =
-                                                    prevInfoComAsociativo[key];
-
-                                                const str = json
-                                                    .map((x) => {
-                                                        return x.strCodigoRetorno;
-                                                    })
-                                                    .join(", ");
-                                                e.value = str;
-                                            } else {
-                                                e.value =
-                                                    prevInfoComAsociativo[key];
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-
-                            return {
-                                ...prevState,
-                                objInfoGeneral: prevInfoGeneral,
-                                objInfoComMercadeo: prevInfoComMercadeo,
-                                objInfoComProductivo: prevInfoComProductivo,
-                                objInfoComFinanciero: prevInfoComFinanciero,
-                                objInfoComAdministrativo:
-                                    prevInfoComAdministrativo,
-                                objInfoComAsociativo: prevInfoComAsociativo,
-                            };
-                        });
-                    }
-
-                    setLoadingGetData(false);
-                    setErrorGetData({ flag: false, msg: "" });
-                })
-                .catch((error) => {
-                    setErrorGetData({ flag: true, msg: error.message });
-                    setLoadingGetData(false);
-                });
+        if (intIdIdea) {
+            setLoadingGetData(true);
+            getData();
         }
-
-        getData();
-    }, [intIdDiagnostico]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [intIdIdea, intIdDiagnostico]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -915,6 +902,15 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 intIdDiagnostico={intIdDiagnostico}
             />
 
+            <ModalFinish
+                handleOpenDialog={handlerChangeOpenModalFinish}
+                open={openModalFinish}
+                onChangeRoute={onChangeRoute}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
+                refresh={getData}
+            />
+
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
@@ -934,9 +930,22 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ flexGrow: 1 }}></Box>
 
                         <Box>
+                            <Tooltip title="Finalizar diagnóstico">
+                                <IconButton
+                                    color="error"
+                                    disabled={finalizado}
+                                    onClick={() =>
+                                        handlerChangeOpenModalFinish()
+                                    }
+                                >
+                                    <CheckCircleIcon />
+                                </IconButton>
+                            </Tooltip>
+
                             <Tooltip title="Editar diagnóstico">
                                 <IconButton
                                     color="success"
+                                    disabled={finalizado}
                                     onClick={() => handlerChangeOpenModalEdit()}
                                 >
                                     <EditIcon />
@@ -961,7 +970,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         sx={{ color: "#F5B335", textTransform: "uppercase" }}
                         textAlign="center"
                     >
-                        <b>resumen diagnóstico técnico</b>
+                        <b>detalle diagnóstico técnico</b>
                     </Typography>
                 </Grid>
 

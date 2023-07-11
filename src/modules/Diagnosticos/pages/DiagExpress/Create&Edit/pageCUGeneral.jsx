@@ -509,8 +509,8 @@ const PageCUExpress = ({
                     <DialogContentText>
                         Se ha detectado que la persona empresaria ya cuenta con
                         un registro del diagnóstico general.
-                        ¿Deseas editar la información o previsualizar el
-                        resumen?
+                        ¿Deseas editar la información o previsualizar la
+                        información?
                     </DialogContentText>
                 </DialogContent>
 
@@ -519,7 +519,7 @@ const PageCUExpress = ({
                         to={`/diagnosticos/diagEmpresarial/humanas/read/${data.objInfoGeneral?.intId}`}
                         color="inherit"
                     >
-                        ver resumen
+                        ver detalle
                     </Button>
 
                     <Button to={`/diagnosticos/diagEmpresarial/humanas/edit/`}>

@@ -38,11 +38,11 @@ const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
             fullWidth
             fullScreen={bitMobile}
         >
-            <DialogTitle>Resumen de diagnóstico empresarial</DialogTitle>
+            <DialogTitle>Detalle de diagnóstico empresarial</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    Selecciona el resumen que desea visualizar
+                    Selecciona el detalle que desea visualizar
                 </DialogContentText>
 
                 <Grid
