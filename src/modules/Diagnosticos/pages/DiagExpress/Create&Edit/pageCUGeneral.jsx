@@ -16,7 +16,7 @@ import useGetEmpresarios from "../../../../Empresarios/hooks/useGetEmpresarios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 // Componentes de MUI
 import {
@@ -44,7 +44,9 @@ import PageError from "../../../../../common/components/Error";
 import InfoGeneral from "./infoGeneral";
 import InfoEmprendimiento from "./infoEmprendimiento";
 import InfoPerfilEco from "./infoPerfilEco";
-import InfoAdicional from "./infoAdicional";
+import InfoMercadoYComercial from "./infoMercadoYComercial";
+import InfoNormatividad from "./infoNormatividad";
+import InfoEncuestaHumanas from "./infoEncuestaHumanas";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -104,9 +106,10 @@ const PageCUExpress = ({
     const [data, setData] = useState({
         objInfoGeneral: {},
         objInfoEmprendimiento: {},
-        objInfoEmpresa: {},
         objInfoPerfilEco: {},
-        objInfoAdicional: {},
+        objInfoMercado:{},
+        objInfoNormatividad: {},
+        objInfoEncuestaHumanas: {},
     });
 
     const [openModal, setOpenModal] = useState(false);
@@ -219,8 +222,14 @@ const PageCUExpress = ({
                                 objInfoPerfilEco: {
                                     ...data.objInfoPerfilEco,
                                 },
-                                objInfoAdicional: {
-                                    ...data.objInfoAdicional,
+                                objInfoMercado: {
+                                    ...data.objInfoMercado,
+                                },
+                                objInfoNormatividad: {
+                                    ...data.objInfoNormatividad,
+                                },
+                                objInfoEncuestaHumanas: {
+                                    ...data.objInfoEncuestaHumanas,
                                 },
                             };
 
@@ -305,68 +314,12 @@ const PageCUExpress = ({
                                     strUsuarioCreacion: "",
                                     dtActualizacion: null,
                                     strUsuarioActualizacion: "",
-                                    strNombres:
-                                        objEmprPrincipal.strNombres || "",
-                                    strApellidos:
-                                        objEmprPrincipal.strApellidos || "",
-                                    strTipoDocto:
-                                        objEmprPrincipal.strTipoDocto || "",
-                                    strNroDocto:
-                                        objEmprPrincipal.strNroDocto || "",
-                                    strLugarExpedicionDocto:
-                                        objEmprPrincipal.strLugarExpedicionDocto ||
-                                        "",
-                                    dtFechaExpedicionDocto:
-                                        objEmprPrincipal.dtFechaExpedicionDocto
-                                            ? parseISO(
-                                                  objEmprPrincipal.dtFechaExpedicionDocto
-                                              )
-                                            : null,
-                                    dtFechaNacimiento:
-                                        objEmprPrincipal.dtFechaNacimiento
-                                            ? parseISO(
-                                                  objEmprPrincipal.dtFechaNacimiento
-                                              )
-                                            : null,
-                                    strGenero: objEmprPrincipal.strGenero || "",
-                                    strNivelEducativo:
-                                        objEmprPrincipal.strNivelEducativo ||
-                                        "",
-                                    strTitulos:
-                                        objEmprPrincipal.strTitulos || "",
-                                    strEstrato:
-                                        objEmprPrincipal.strEstrato || "",
-                                    arrDepartamento:
-                                        objEmprPrincipal.arrDepartamento || [],
-                                    arrCiudad: objEmprPrincipal.arrCiudad || [],
-                                    strDireccionResidencia:
-                                        objEmprPrincipal.strDireccionResidencia ||
-                                        "",
-                                    strBarrio: objEmprPrincipal.strBarrio || "",
-                                    strUbicacionVivienda: "",
-                                    strCelular1:
-                                        objEmprPrincipal.strCelular1 || "",
-                                    strCelular2:
-                                        objEmprPrincipal.strCelular2 || "",
-                                    strCorreoElectronico1:
-                                        objEmprPrincipal.strCorreoElectronico1 ||
-                                        "",
-                                    strCorreoElectronico2:
-                                        objEmprPrincipal.strCorreoElectronico2 ||
-                                        "",
                                 },
                                 objInfoEmprendimiento: {
                                     strUnidadProductiva:
                                         data.objInfoEmpresa.strNombreMarca,
                                     strLugarOperacion:
                                         data.objInfoEmpresa.strLugarOperacion,
-                                    arrDepartamento:
-                                        data.objInfoEmpresa.arrDepartamento,
-                                    arrCiudad: data.objInfoEmpresa.arrCiudad,
-                                    strBarrio: data.objInfoEmpresa.strBarrio,
-                                    strDireccionResidencia:
-                                        data.objInfoEmpresa
-                                            .strDireccionResidencia,
                                     strRedesSociales:
                                         data.objInfoEmpresa.arrMediosDigitales
                                             ?.length > 0
@@ -400,12 +353,12 @@ const PageCUExpress = ({
                                             : "",
                                 },
                                 objInfoPerfilEco: {
-                                    // intNumeroEmpleados:
-                                    //     data.objInfoEmpresa
-                                    //         .intNumeroEmpleados || "",
-                                    // dblValorVentasMes:
-                                    //     data.objInfoEmpresa.valorVentasMes ||
-                                    //     "",
+                                    intNumeroEmpleados:
+                                        data.objInfoEmpresa
+                                            .intNumeroEmpleados || "",
+                                    dblValorVentasMes:
+                                        data.objInfoEmpresa.valorVentasMes ||
+                                        "",
                                 },
                             });
                         }
@@ -607,7 +560,7 @@ const PageCUExpress = ({
                                     <InfoEmprendimiento
                                         control={control}
                                         disabled={loading}
-                                        values={data.objInfoFamiliar}
+                                        values={data.objInfoEmprendimiento}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -619,7 +572,20 @@ const PageCUExpress = ({
                                     <InfoPerfilEco
                                         control={control}
                                         disabled={loading}
-                                        values={data.objInfoFamiliar}
+                                        values={data.objInfoPerfilEco}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+
+                                <Grid item xs={12}>
+                                    <InfoMercadoYComercial
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoMercado}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -628,10 +594,22 @@ const PageCUExpress = ({
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <InfoAdicional
+                                    <InfoNormatividad
                                         control={control}
                                         disabled={loading}
-                                        values={data.objInfoFamiliar}
+                                        values={data.objInfoNormatividad}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoEncuestaHumanas
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoEncuestaHumanas}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -640,11 +618,11 @@ const PageCUExpress = ({
                                 </Grid>
 
                                 {(errors.objInfoGeneral ||
-                                    errors.objInfoFamiliar ||
                                     errors.objInfoEmprendimiento ||
-                                    errors.objInfoEmpresa ||
                                     errors.objInfoPerfilEco ||
-                                    errors.objInfoAdicional) && (
+                                    errors.objInfoMercado ||
+                                    errors.objInfoNormatividad ||
+                                    errors.objInfoEncuestaHumanas) && (
                                     <Grid item xs={12}>
                                         <Alert severity="error">
                                             Lo sentimos, tienes campos
