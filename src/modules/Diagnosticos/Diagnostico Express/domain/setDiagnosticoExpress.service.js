@@ -80,9 +80,14 @@ class setDiagnosticoExpress {
     }
 
     async #completeData() {
+        //Objeto de Información Express
         let newData = {
-            //Objeto de Información Express
-            
+            ...this.#objData.objInfoGeneral,
+            ...this.#objData.objInfoEmprendimiento,
+            ...this.#objData.objInfoPerfilEco,
+            ...this.#objData.objInfoMercado,
+            ...this.#objData.objInfoNormatividad,
+            ...this.#objData.objInfoEncuestaHumanas,
         };
 
         this.#objData = newData;
@@ -120,9 +125,9 @@ class setDiagnosticoExpress {
                 this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias ||
                     null
             ),
-            dblValorVentasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
-            intNumeroEmpleados:
-                this.#objData.objInfoPerfilEco.intNumeroEmpleados,
+            dblValorVentasMes: this.#objData.objInfoPerfilEco.ValorVentaProductoEscogido,
+            intNumeroEmpleados:this.#objData.objInfoPerfilEco.intNumeroEmpleados,
+            btGeneraEmpleo:this.#objData.objInfoPerfilEco.btGeneraEmpleo
         };
 
         let query = await dao.updateEmpresaDiagnosticoExpress(
@@ -136,12 +141,12 @@ class setDiagnosticoExpress {
 
     async #setHistorico(){
         let data = {
-            intIdIdea:this.#objData.objInfoExpress.intIdIdea,
+            intIdIdea:this.#objData.objInfoGeneral.intIdIdea,
             intNumeroEmpleados:parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10),
-            ValorVentas:this.#objData.objInfoPerfilEco.dblValorVentasMes,
+            ValorVentas:this.#objData.objInfoPerfilEco.ValorVentaProductoEscogido,
             strTiempoDedicacionAdmin:this.#objData.objInfoEmprendimiento.strTiempoDedicacion,
             intIdFuenteHistorico: this.#intIdFuenteHistorico,
-            intIdFuenteDato:this.#objData.objInfoExpress.intIdDiagnostico
+            intIdFuenteDato:this.#objData.objInfoGeneral.intIdDiagnostico
         };
     
         let service = new serviceSetHistorico(data);
@@ -155,7 +160,7 @@ class setDiagnosticoExpress {
 
     async #updateDiagnostico(){
         let data = {
-            intId: this.#objData.objInfoExpress.intIdDiagnostico,
+            intId: this.#objData.objInfoGeneral.intIdDiagnostico,
             intIdEstadoDiagnostico: this.#intIdEstadoDiagnostico
         };
     

@@ -172,7 +172,7 @@ class daoDiagnosticoExpress {
                 ${data.strEscojaProductoServicio},
                 ${data.ValorVentaProductoEscogido},
                 ${data.strConoceMargenRentaProductoEscogido},
-                ${data.strConoceCostosProduccionProductoEscogido},
+                ${data.strConoceCostosProductoEscogido},
                 ${data.CostoProduccionProductoEscogido},
                 ${data.intPorcentajeMargenRentaProductoEscogido},
                 ${data.strRangoEmpleados},
@@ -319,6 +319,9 @@ class daoDiagnosticoExpress {
                 strCategoriaServicio      = COALESCE(${data.strCategoriaServicio}, strCategoriaServicio),
                 strCategoriasSecundarias  = COALESCE(${data.arrCategoriasSecundarias}, strCategoriasSecundarias),
                 strDescProductosServicios = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
+                btGeneraEmpleo            = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
+                valorVentasMes            = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
+                intNumeroEmpleados        = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
                 dtmActualizacion          = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion   = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
