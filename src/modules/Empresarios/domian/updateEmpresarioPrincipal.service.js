@@ -112,7 +112,7 @@ class updateEmpresarioPrincipal {
     async #getHistorico() {
         let queryGetHistorico = await serviceGetHistorico({
             intIdIdea : this.#intIdIdea,
-        });
+        }, this.#objUser);
 
         if (queryGetHistorico.error) {
             throw new Error(query.msg);
