@@ -63,7 +63,7 @@ class daoHistoricos {
                 ValorVentas              = COALESCE(${data.ValorVentas}, ValorVentas),
                 strTiempoDedicacionAdmin = COALESCE(${data.strTiempoDedicacionAdmin}, strTiempoDedicacionAdmin)
 
-            WHERE (intIdIdea = ${data.intIdIdea} AND intIdFuenteHistorico = ${data.intIdFuenteHistorico})`;
+            WHERE (intIdIdea = ${data.intIdIdea} AND intIdFuenteDato = ${data.intIdFuenteDato})`;
 
             let result = {
                 error: false,

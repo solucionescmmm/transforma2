@@ -248,7 +248,7 @@ class updateEmpresarioPrincipal {
             intNumeroEmpleados:parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10),
             ValorVentas:this.#objData.objInfoEmpresa.dblValorVentasMes,
             strTiempoDedicacionAdmin:this.#objData.objInfoEmpresa.strTiempoDedicacion,
-            intIdFuenteHistorico: this.#intIdFuenteHistorico
+            intIdFuenteDato: this.#objData.objInfoEmpresa.intId,
         };
     
         let service = new serviceUpdateHistorico(data);

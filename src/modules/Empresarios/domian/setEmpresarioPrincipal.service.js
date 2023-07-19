@@ -230,8 +230,6 @@ class setEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.setEmpresa(newData);
-        console.log(query)
-
 
         this.#intIdEmpresa = query.data.intId
         
