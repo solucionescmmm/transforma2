@@ -27,7 +27,7 @@ import {
 
 import Loader from "../../../../../../common/components/Loader";
 import ErrorPage from "../../../../../../common/components/Error";
-import useGetDiagnHumano from "../../../../hooks/useGetDiagnHumano";
+import useGetDiagnGeneral from "../../../../hooks/useGetDiagnGeneral";
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
 import ModalFinish from "./modalFinish";
@@ -465,7 +465,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { getUniqueData } = useGetDiagnHumano({
+    const { getUniqueData } = useGetDiagnGeneral({
         autoLoad: false,
         intIdDiagnostico,
     });
@@ -559,7 +559,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoFamiliar.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoFamiliar[key].map) {
+                                        if (prevInfoFamiliar[key]?.map) {
                                             const json = prevInfoFamiliar[key];
 
                                             const str = json
@@ -585,7 +585,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoEmprendimiento.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoEmprendimiento[key].map) {
+                                        if (prevInfoEmprendimiento[key]?.map) {
                                             const json =
                                                 prevInfoEmprendimiento[key];
 
@@ -610,7 +610,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoEmpresa.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoEmpresa[key].map) {
+                                        if (prevInfoEmpresa[key]?.map) {
                                             const json = prevInfoEmpresa[key];
 
                                             const str = json
@@ -636,7 +636,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoPerfilEco.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoPerfilEco[key].map) {
+                                        if (prevInfoPerfilEco[key]?.map) {
                                             const json = prevInfoPerfilEco[key];
 
                                             const str = json
@@ -662,7 +662,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoAdicional.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoAdicional[key].map) {
+                                        if (prevInfoAdicional[key]?.map) {
                                             const json = prevInfoAdicional[key];
 
                                             const str = json
