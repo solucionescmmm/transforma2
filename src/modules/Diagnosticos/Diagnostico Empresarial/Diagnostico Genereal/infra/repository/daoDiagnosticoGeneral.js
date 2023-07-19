@@ -178,7 +178,7 @@ class daoDiagnosticoGeneral {
                 strEtapaDllo                              = COALESCE(${data.strEtapaDllo}, strEtapaDllo),
                 strConclusiones                           = COALESCE(${data.strConclusiones}, strConclusiones),
                 strURLSFotosProducto                      = COALESCE(${data.strURLSFotosProducto}, strURLSFotosProducto),
-                strLugarSesion                            = COALESCE(${data.strLugarSesion}, strLugarSesion)
+                strLugarSesion                            = COALESCE(${data.strLugarSesion}, strLugarSesion),
                 strUsuarioActualizacion                   = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
                 dtmActualizacion                          = COALESCE(GETDATE(), dtmActualizacion)
 
