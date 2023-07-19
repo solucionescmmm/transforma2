@@ -15,7 +15,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
-import GoogleLogin from "react-google-login";
+import MicrosoftLogin from "react-microsoft-login";
 
 //Componentes de Material UI
 import {
@@ -35,7 +35,7 @@ import { makeStyles } from "@mui/styles";
 //Imagenes
 import LogoImg from "../../static/img/LogoLogin.svg";
 import BackGroundImg from "../../static/img/LoginBackground.svg";
-import BtnGoogle from "../../static/img/btnGoogle.png";
+import BtnMicrosoft from "../../static/img/Microsoft_logo.svg.png";
 
 const loginStyles = makeStyles((theme) => ({
     linearProgress: {
@@ -254,36 +254,46 @@ const Login = () => {
                                     >
                                         {process.env.REACT_APP_NODE_ENV ===
                                         "production" ? (
-                                            <GoogleLogin
+                                            <MicrosoftLogin
                                                 clientId={
                                                     process.env
-                                                        .REACT_APP_CLIENT_GOOGLE
+                                                        .REACT_APP_CLIENT_MICROSOFT
                                                 }
                                                 buttonText="Ingresar"
-                                                render={({ onClick }) => (
+                                                authCallback={(err, data) => {
+                                                    if (err) {
+                                                        onFailureAuth(err);
+                                                    } else {
+                                                        onSuccessAuth(data);
+                                                    }
+                                                }}
+                                                children={
                                                     <LoadingButton
-                                                        onClick={onClick}
                                                         startIcon={
                                                             <img
-                                                                src={BtnGoogle}
-                                                                alt="btnGoogle"
+                                                                src={
+                                                                    BtnMicrosoft
+                                                                }
+                                                                width={10}
+                                                                height={10}
+                                                                alt="btnMicrosoft"
                                                             />
                                                         }
                                                         loading={loading}
                                                     >
                                                         Iniciar sesión
                                                     </LoadingButton>
-                                                )}
-                                                onSuccess={onSuccessAuth}
-                                                onFailure={onFailureAuth}
+                                                }
                                             />
                                         ) : (
                                             <LoadingButton
                                                 onClick={onSuccessAuth}
                                                 startIcon={
                                                     <img
-                                                        src={BtnGoogle}
-                                                        alt="btnGoogle"
+                                                        src={BtnMicrosoft}
+                                                        width={10}
+                                                        height={10}
+                                                        alt="btnMicrosoft"
                                                     />
                                                 }
                                                 loading={loading}

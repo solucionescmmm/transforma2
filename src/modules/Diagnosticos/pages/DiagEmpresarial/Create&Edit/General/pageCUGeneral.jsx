@@ -552,6 +552,12 @@ const PageCUGeneral = ({
     }, [intIdIdea, intIdDiagnostico, isEdit]);
 
     useEffect(() => {
+        if (isEdit) {
+            setOpenModal(false);
+        }
+    }, [isEdit]);
+
+    useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
 
         if (flagSubmit) {
