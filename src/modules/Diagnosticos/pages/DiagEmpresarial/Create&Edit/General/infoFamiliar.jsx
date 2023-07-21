@@ -37,7 +37,7 @@ const InfoFamiliar = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        btCabezaHogar: "",
+        strCabezaHogar: "",
         intNumPersonasCargo: "",
         intHijos: "",
         intHijosEstudiando: "",
@@ -64,10 +64,7 @@ const InfoFamiliar = ({
     useEffect(() => {
         if (values) {
             setData({
-                btCabezaHogar:
-                    typeof values.btCabezaHogar === "boolean"
-                        ? values.btCabezaHogar
-                        : "",
+                strCabezaHogar:values.strCabezaHogar || "",
                 intNumPersonasCargo: values.intNumPersonasCargo || "",
                 intHijos: values.intHijos || "",
                 intHijosEstudiando: values.intHijosEstudiando || "",
@@ -146,8 +143,8 @@ const InfoFamiliar = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.btCabezaHogar}
-                            name="objInfoFamiliar.btCabezaHogar"
+                            defaultValue={data.strCabezaHogar}
+                            name="objInfoFamiliar.strCabezaHogar"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
                                     label="¿Es cabeza de hogar?"
@@ -158,12 +155,12 @@ const InfoFamiliar = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoFamiliar?.btCabezaHogar
+                                        errors?.objInfoFamiliar?.strCabezaHogar
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoFamiliar?.btCabezaHogar
+                                        errors?.objInfoFamiliar?.strCabezaHogar
                                             ?.message ||
                                         "Seleccione, si es cabeza de hogar o no"
                                     }

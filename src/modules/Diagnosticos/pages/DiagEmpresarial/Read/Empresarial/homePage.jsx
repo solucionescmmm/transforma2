@@ -66,7 +66,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         ],
         objInfoFamiliar: [
             {
-                parent: "btCabezaHogar",
+                parent: "strCabezaHogar",
                 value: "",
                 label: "¿Es cabeza de hogar?",
             },

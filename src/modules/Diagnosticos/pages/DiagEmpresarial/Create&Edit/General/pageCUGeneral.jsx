@@ -731,7 +731,7 @@ const PageCUGeneral = ({
                                     <InfoEmprendimiento
                                         control={control}
                                         disabled={loading}
-                                        values={data.objInfoFamiliar}
+                                        values={data.objInfoEmprendimiento}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -743,7 +743,7 @@ const PageCUGeneral = ({
                                     <InfoEmpresa
                                         control={control}
                                         disabled={loading}
-                                        values={data.objInfoFamiliar}
+                                        values={data.objInfoEmpresa}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -755,7 +755,7 @@ const PageCUGeneral = ({
                                     <InfoPerfilEco
                                         control={control}
                                         disabled={loading}
-                                        values={data.objInfoFamiliar}
+                                        values={data.objInfoPerfilEco}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -767,7 +767,7 @@ const PageCUGeneral = ({
                                     <InfoAdicional
                                         control={control}
                                         disabled={loading}
-                                        values={data.objInfoFamiliar}
+                                        values={data.objInfoAdicional}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
