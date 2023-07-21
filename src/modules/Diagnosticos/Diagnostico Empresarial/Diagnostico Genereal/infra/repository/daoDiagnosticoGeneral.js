@@ -128,7 +128,7 @@ class daoDiagnosticoGeneral {
                 intNumPersonasCargo                       = COALESCE(${data.intNumPersonasCargo}, intNumPersonasCargo),
                 intHijos                                  = COALESCE(${data.intHijos}, intHijos),
                 intHijosEstudiando                        = COALESCE(${data.intHijosEstudiando}, intHijosEstudiando),
-                strmaxNivelEducativoHijos                 = COALESCE(${data.strmaxNivelEducativoHijos}, strmaxNivelEducativoHijos),
+                strmaxNivelEducativoHijos                 = COALESCE(${data.strMaxNivelEducativoHijos}, strmaxNivelEducativoHijos),
                 strEstadoCivil                            = COALESCE(${data.strEstadoCivil}, strEstadoCivil),
                 strSituacionVivienda                      = COALESCE(${data.strSituacionVivienda}, strSituacionVivienda),
                 strGrupoVulnerable                        = COALESCE(${data.strGrupoVulnerable}, strGrupoVulnerable),

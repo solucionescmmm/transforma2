@@ -81,8 +81,14 @@ class setDiagnosticoGeneral {
     }
 
     async #completeData() {
-        
         let newData = {
+            ...this.#objData,
+            ...this.#objData.objInfoGeneral,
+            ...this.#objData.objInfoFamiliar,
+            ...this.#objData.objInfoEmprendimiento,
+            ...this.#objData.objInfoEmpresa,
+            ...this.#objData.objInfoPerfilEco,
+            ...this.#objData.objInfoAdicional,
             //Objeto de Información General
             intIdDiagnostico: this.#objData.objInfoGeneral.intIdDiagnostico,
             intIdEmpresario: this.#objData.objInfoGeneral?.intId || 1,
@@ -207,7 +213,7 @@ class setDiagnosticoGeneral {
             strMediosDigitales: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrMediosDigitales || null),
             strCategoriasSecundarias: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias || null),
             dblValorVentasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
-            intNumeroEmpleados: this.#objData.objInfoPerfilEco.intNumeroEmpleados,
+            intNumeroEmpleados: parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10),
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
 

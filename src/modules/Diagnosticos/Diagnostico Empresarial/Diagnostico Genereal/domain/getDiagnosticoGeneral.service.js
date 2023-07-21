@@ -47,12 +47,11 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     strUsuarioActualizacion: "",
                 };
                 let objInfoFamiliar = {
-                    btCabezaHogar: array[i]?.btCabezaHogar,
+                    strCabezaHogar: array[i]?.strCabezaHogar,
                     intNumPersonasCargo: array[i]?.intNumPersonasCargo,
                     intHijos: array[i]?.intHijos,
                     intHijosEstudiando: array[i]?.intHijosEstudiando,
-                    strMaxNivelEducativoHijos:
-                        array[i]?.strMaxNivelEducativoHijos,
+                    strMaxNivelEducativoHijos:array[i]?.strmaxNivelEducativoHijos,
                     strEstadoCivil: array[i]?.strEstadoCivil,
                     strSituacionVivienda: array[i]?.strSituacionVivienda,
                     strGrupoVulnerable: array[i]?.strGrupoVulnerable,
@@ -88,7 +87,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                         array[i]?.strDlloAcitividadesContratados,
                     strPromedioTiempoInvertido:
                         array[i]?.strPromedioTiempoInvertido,
-                    strRolesEmprendimiento: JSON.parse(array[i]?.strRolesEmprendimiento),
+                    strRolesEmprendimiento: JSON.parse(array[i]?.strRolesEmprendimiento|| ""),
                     strDiasProduccion: array[i]?.strDiasProduccion,
                     strGeneraEmpleoRiesgoPobreza:
                         array[i]?.strGeneraEmpleoRiesgoPobreza,

@@ -1,14 +1,17 @@
 
+
 //librerias
 const validator = require("validator").default;
 
 //class
 const classInterfaceDAODiagnosticoGeneral = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 
+//services
+const serviceUpdateHistorico = require("../../../../Historicos/domain/updateHistorico.service")
+
 class updateDiagnosticoGeneral {
     #objData;
     #objUser;
-    #intIdEmpresario;
     #objResult;
 
     /**
@@ -20,12 +23,13 @@ class updateDiagnosticoGeneral {
     }
 
     async main() {
+        console.log(this.#objData)
         await this.#validations();
-        await this.#getIntIdEmpresario();
-       await this.#updateEmpresarioDiagnosticoGeneral();
+        await this.#updateEmpresarioDiagnosticoGeneral();
         await this.#updateEmpresaDiagnosticoGeneral();
         await this.#completeData();
-       await this.#updateDiagnosticoGeneral();
+        await this.#updateDiagnosticoGeneral();
+        await this.#updateHistorico()
         return this.#objResult;
     }
 
@@ -45,12 +49,15 @@ class updateDiagnosticoGeneral {
         }
     }
 
-    async #getIntIdEmpresario() {
-        this.#intIdEmpresario = this.#objData.objInfoGeneral.intId;
-    }
-
     async #completeData() {
         let newData = {
+            ...this.#objData,
+            ...this.#objData.objInfoGeneral,
+            ...this.#objData.objInfoFamiliar,
+            ...this.#objData.objInfoEmprendimiento,
+            ...this.#objData.objInfoEmpresa,
+            ...this.#objData.objInfoPerfilEco,
+            ...this.#objData.objInfoAdicional,
             //Objeto de Información General
             intIdEmpresario: this.#objData.objInfoGeneral.intId,
             strUbicacionVivienda:
@@ -115,8 +122,8 @@ class updateDiagnosticoGeneral {
                 this.#objData.objInfoPerfilEco.strDlloAcitividadesContratados,
             strPromedioTiempoInvertido:
                 this.#objData.objInfoPerfilEco.strPromedioTiempoInvertido,
-            strRolesEmprendimiento:
-                this.#objData.objInfoPerfilEco.strRolesEmprendimiento,
+            strRolesEmprendimiento: JSON.stringify(
+                this.#objData.objInfoPerfilEco.strRolesEmprendimiento || null),
             strDiasProduccion: this.#objData.objInfoPerfilEco.strDiasProduccion,
             strGeneraEmpleoRiesgoPobreza:
                 this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
@@ -160,7 +167,7 @@ class updateDiagnosticoGeneral {
             arrCiudad: JSON.stringify(
                 this.#objData.objInfoGeneral?.arrCiudad || null
             ),
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdEmpresario: this.#objData.objInfoGeneral.intId,
         };
 
         console.log(objInfoEmpresario);
@@ -176,11 +183,10 @@ class updateDiagnosticoGeneral {
 
     async #updateEmpresaDiagnosticoGeneral() {
         let dao = new classInterfaceDAODiagnosticoGeneral();
-        console.log(this.#objData);
 
         let objInfoEmpresa = {
             ...this.#objData.objInfoEmprendimiento,
-            intIdEmpresario: this.#intIdEmpresario,
+            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
             arrDepartamento: JSON.stringify(
                 this.#objData.objInfoEmprendimiento?.arrDepartamento || null
             ),
@@ -192,21 +198,37 @@ class updateDiagnosticoGeneral {
             ),
             strCategoriasSecundarias: JSON.stringify(
                 this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias ||
-                    null
+                null
             ),
             dblValorVentasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
-            intNumeroEmpleados:
-                this.#objData.objInfoPerfilEco.intNumeroEmpleados,
+            intNumeroEmpleados:this.#objData.objInfoPerfilEco.intNumeroEmpleados,
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
 
-        let query = await dao.updateEmpresarioDiagnosticoGeneral(
+        let query = await dao.updateEmpresaDiagnosticoGeneral(
             objInfoEmpresa
         );
 
-        console.log(query);
-
         if (query.error) {
             throw new Error(query.msg);
+        }
+    }
+
+    async #updateHistorico() {
+        let data = {
+            intIdIdea: this.#objData.objInfoGeneral.intIdIdea,
+            intNumeroEmpleados: parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10),
+            ValorVentas: this.#objData.objInfoPerfilEco.dblValorVentasMes,
+            strTiempoDedicacionAdmin: this.#objData.objInfoEmprendimiento.strTiempoDedicacion,
+            intIdFuenteDato: this.#objData.objInfoGeneral.intIdDiagnostico
+        };
+
+        let service = new serviceUpdateHistorico(data);
+
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg)
         }
     }
 }

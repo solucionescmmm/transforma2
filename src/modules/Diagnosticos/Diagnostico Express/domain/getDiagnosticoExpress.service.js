@@ -42,7 +42,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                 };
                 let objInfoFamiliar = {
-                    btCabezaHogar: array[i]?.btCabezaHogar,
+                    strCabezaHogar: array[i]?.strCabezaHogar,
                     intNumPersonasCargo: array[i]?.intNumPersonasCargo,
                     intHijos: array[i]?.intHijos,
                     intHijosEstudiando: array[i]?.intHijosEstudiando,
