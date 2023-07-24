@@ -23,7 +23,6 @@ class updateDiagnosticoGeneral {
     }
 
     async main() {
-        console.log(this.#objData)
         await this.#validations();
         await this.#updateEmpresarioDiagnosticoGeneral();
         await this.#updateEmpresaDiagnosticoGeneral();
