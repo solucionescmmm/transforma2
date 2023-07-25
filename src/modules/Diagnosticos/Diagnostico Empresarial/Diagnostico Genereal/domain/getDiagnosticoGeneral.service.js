@@ -51,17 +51,29 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     intNumPersonasCargo: array[i]?.intNumPersonasCargo,
                     intHijos: array[i]?.intHijos,
                     intHijosEstudiando: array[i]?.intHijosEstudiando,
-                    strMaxNivelEducativoHijos:array[i]?.strmaxNivelEducativoHijos,
+                    strMaxNivelEducativoHijos: array[i]?.strmaxNivelEducativoHijos,
                     strEstadoCivil: array[i]?.strEstadoCivil,
                     strSituacionVivienda: array[i]?.strSituacionVivienda,
                     strGrupoVulnerable: array[i]?.strGrupoVulnerable,
                     strPoblacionEtnica: array[i]?.strPoblacionEtnica,
                 };
                 let objInfoEmprendimiento = {
-                    intAñoInicioOperacion: array[i]?.intAñoInicioOperacion,
                     strUbicacionUP: array[i]?.strUbicacionUP,
-                    strRegistroCamaraComercio:
-                        array[i]?.strRegistroCamaraComercio,
+                    strRegistroCamaraComercio: array[i]?.strRegistroCamaraComercio,
+                    strRedesSociales: array[i]?.strRedesSociales,
+                    intCantidadUnidadesProducidasMes: array[i]?.intCantidadUnidadesProducidasMes,
+                    intPorcentajeMargenRentaProductoEscogido: array[i]?.intPorcentajeMargenRentaProductoEscogido,
+                    intRangoPorcentajeIntermediacionVentas: array[i]?.intRangoPorcentajeIntermediacionVentas,
+                    strConoceCostosProductoEscogido: array[i]?.strConoceCostosProductoEscogido,
+                    strConoceMargenRentaProductoEscogido: array[i]?.strConoceMargenRentaProductoEscogido,
+                    strDefinePorcentajesCanal: array[i]?.strDefinePorcentajesCanal,
+                    strEscojaProductoServicio: array[i]?.strEscojaProductoServicio,
+                    strEtapaValidProductoServicios: array[i]?.strEtapaValidProductoServicios,
+                    strLineaProductoServicioDestacada: array[i]?.strLineaProductoServicioDestacada,
+                    strListadoProdServ: array[i]?.strListadoProdServ,
+                    trNivelDlloProductoServicios: array[i]?.trNivelDlloProductoServicios,
+                    strPorcentajeIntermediacionVentas: array[i]?.strPorcentajeIntermediacionVentas,
+                    strProductoServiciosEnValidacion: array[i]?.strProductoServiciosEnValidacion,
                 };
                 let objInfoEmpresa = {
                     strHistoriaEmpresa: array[i]?.strHistoriaEmpresa,
@@ -74,6 +86,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     strRut: array[i]?.strRut,
                     strPresupuestoFamiliar: array[i]?.strPresupuestoFamiliar,
                     strIngresosDistintos: array[i]?.strIngresosDistintos,
+                    strTrabajanFamiliares:array[i]?.strTrabajanFamiliares
                 };
                 let objInfoPerfilEco = {
                     strOperacionesVentas6Meses:
@@ -87,13 +100,13 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                         array[i]?.strDlloAcitividadesContratados,
                     strPromedioTiempoInvertido:
                         array[i]?.strPromedioTiempoInvertido,
-                    strRolesEmprendimiento: JSON.parse(array[i]?.strRolesEmprendimiento|| ""),
+                    strRolesEmprendimiento: JSON.parse(array[i]?.strRolesEmprendimiento || ""),
                     strDiasProduccion: array[i]?.strDiasProduccion,
                     strGeneraEmpleoRiesgoPobreza:
                         array[i]?.strGeneraEmpleoRiesgoPobreza,
-                    ValorGananciasMes: array[i]?.ValorGananciasMes,
+                    dblValorGananciasMes: array[i]?.ValorGananciasMes,
                     strActivos: array[i]?.strActivos,
-                    ValorActivos: array[i]?.ValorActivos,
+                    dblValorActivos: array[i]?.ValorActivos,
                     strEtapaDllo: array[i]?.strEtapaDllo,
                 };
                 let objInfoAdicional = {

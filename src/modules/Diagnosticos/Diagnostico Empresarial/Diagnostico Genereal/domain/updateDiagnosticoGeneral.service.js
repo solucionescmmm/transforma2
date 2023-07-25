@@ -127,7 +127,7 @@ class updateDiagnosticoGeneral {
             strGeneraEmpleoRiesgoPobreza:
                 this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
             valorGananciasMes: this.#objData.objInfoPerfilEco.valorGananciasMes,
-            strActivos: this.#objData.objInfoPerfilEco.strActivos,
+            strActivos: this.#objData.objInfoPerfilEco.dblValorActivos,
             ValorActivos: this.#objData.objInfoPerfilEco.ValorActivos,
 
             //Objeto de InfoAdicional
