@@ -221,6 +221,7 @@ const PageCUGeneral = ({
                                 },
                                 objInfoEmprendimiento: {
                                     ...data.objInfoEmprendimiento,
+                                    intAñoInicioOperacion: data.objInfoEmprendimiento.intAñoInicioOperacion ? format(data.objInfoEmprendimiento.intAñoInicioOperacion, 'yyyy') : null
                                 },
                                 objInfoEmpresa: {
                                     ...data.objInfoEmpresa,
@@ -368,10 +369,6 @@ const PageCUGeneral = ({
                                 objInfoEmprendimiento: {
                                     strUnidadProductiva:
                                         data.objInfoEmpresa.strNombreMarca,
-                                    intAñoInicioOperacion: data.objInfoEmpresa
-                                        .dtFechaFundacion
-                                        ? parseISO(data.objInfoEmpresa.dtFechaFundacion)
-                                        : null,
                                     strLugarOperacion:
                                         data.objInfoEmpresa.strLugarOperacion,
                                     arrDepartamento:
@@ -482,6 +479,13 @@ const PageCUGeneral = ({
                                     },
                                     objInfoEmprendimiento: {
                                         ...data.objInfoEmprendimiento,
+                                        intAñoInicioOperacion: data.objInfoEmprendimiento
+                                        .intAñoInicioOperacion
+                                        ? parseISO(
+                                            data.objInfoEmprendimiento
+                                                .intAñoInicioOperacion
+                                        )
+                                        : null,
                                     },
                                     objInfoEmpresa: {
                                         ...data.objInfoEmpresa,
@@ -527,6 +531,13 @@ const PageCUGeneral = ({
                                     },
                                     objInfoEmprendimiento: {
                                         ...data.objInfoEmprendimiento,
+                                        intAñoInicioOperacion: data.objInfoEmprendimiento
+                                        .intAñoInicioOperacion
+                                        ? parseISO(
+                                            data.objInfoEmprendimiento
+                                                .intAñoInicioOperacion
+                                        )
+                                        : null,
                                     },
                                     objInfoEmpresa: {
                                         ...data.objInfoEmpresa,

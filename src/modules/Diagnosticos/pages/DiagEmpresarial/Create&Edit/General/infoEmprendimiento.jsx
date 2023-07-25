@@ -271,7 +271,9 @@ const InfoEmprendimiento = ({
                                     label="¿En qué año inició la operación?"
                                     value={value}
                                     onChange={(date) => onChange(date)}
-                                    disabled
+                                    views={["year"]}
+                                    format="yyyy"
+                                    openTo="year"
                                     slotProps={{
                                         textField: {
                                             name,
@@ -833,13 +835,13 @@ const InfoEmprendimiento = ({
                                             : disabled
                                     }
                                     error={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoEmprendimiento
                                             ?.strCategoriaProducto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoEmprendimiento
                                             ?.strCategoriaProducto?.message ||
                                         "Selecciona la categoría de los productos"
                                     }
@@ -877,13 +879,13 @@ const InfoEmprendimiento = ({
                                             : disabled
                                     }
                                     error={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoEmprendimiento
                                             ?.strCategoriaServicio
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoEmprendimiento
                                             ?.strCategoriaServicio?.message ||
                                         "Selecciona la categoría de los servicios"
                                     }
@@ -926,7 +928,7 @@ const InfoEmprendimiento = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strOtraCategoria}
-                            name="objInfoEmpresa.strOtraCategoria"
+                            name="objInfoEmprendimiento.strOtraCategoria"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Otra categoría ¿cuál?"
@@ -937,12 +939,12 @@ const InfoEmprendimiento = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresa?.strOtraCategoria
+                                        errors?.objInfoEmprendimiento?.strOtraCategoria
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strOtraCategoria
+                                        errors?.objInfoEmprendimiento?.strOtraCategoria
                                             ?.message ||
                                         "En caso de que aplique, digita cuál sería la otra categoría del producto o servicio"
                                     }
@@ -1030,7 +1032,7 @@ const InfoEmprendimiento = ({
                             defaultValue={
                                 data.strDefinineLineasProductoServicios
                             }
-                            name="objInfoEmpresa.strDefinineLineasProductoServicios"
+                            name="objInfoEmprendimiento.strDefinineLineasProductoServicios"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
                                     label="¿Tiene definidas las líneas de productos/servicios del negocio?"
@@ -1042,13 +1044,13 @@ const InfoEmprendimiento = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoEmprendimiento
                                             ?.strDefinineLineasProductoServicios
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoEmprendimiento
                                             ?.strDefinineLineasProductoServicios
                                             ?.message || "Selecciona una opción"
                                     }
