@@ -177,13 +177,12 @@ const PageCUGeneral = ({
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
-                            ? process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEGENERAL
-                            : process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
-                    }`,
+                    url: `${isEdit
+                        ? process.env
+                            .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEGENERAL
+                        : process.env
+                            .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETGENERAL
+                        }`,
                     data,
                     transformRequest: [
                         (data) => {
@@ -195,26 +194,26 @@ const PageCUGeneral = ({
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
-                                              data.objInfoGeneral
-                                                  .dtmFechaSesion,
-                                              "yyyy-MM-dd hh:mm:ss"
-                                          )
+                                            data.objInfoGeneral
+                                                .dtmFechaSesion,
+                                            "yyyy-MM-dd hh:mm:ss"
+                                        )
                                         : null,
                                     dtFechaExpedicionDocto: data.objInfoGeneral
                                         .dtFechaExpedicionDocto
                                         ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaExpedicionDocto,
-                                              "yyyy-MM-dd"
-                                          )
+                                            data.objInfoGeneral
+                                                .dtFechaExpedicionDocto,
+                                            "yyyy-MM-dd"
+                                        )
                                         : null,
                                     dtFechaNacimiento: data.objInfoGeneral
                                         .dtFechaNacimiento
                                         ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaNacimiento,
-                                              "yyyy-MM-dd"
-                                          )
+                                            data.objInfoGeneral
+                                                .dtFechaNacimiento,
+                                            "yyyy-MM-dd"
+                                        )
                                         : null,
                                 },
                                 objInfoFamiliar: {
@@ -330,14 +329,14 @@ const PageCUGeneral = ({
                                     dtFechaExpedicionDocto:
                                         objEmprPrincipal.dtFechaExpedicionDocto
                                             ? parseISO(
-                                                  objEmprPrincipal.dtFechaExpedicionDocto
-                                              )
+                                                objEmprPrincipal.dtFechaExpedicionDocto
+                                            )
                                             : null,
                                     dtFechaNacimiento:
                                         objEmprPrincipal.dtFechaNacimiento
                                             ? parseISO(
-                                                  objEmprPrincipal.dtFechaNacimiento
-                                              )
+                                                objEmprPrincipal.dtFechaNacimiento
+                                            )
                                             : null,
                                     strGenero: objEmprPrincipal.strGenero || "",
                                     strNivelEducativo:
@@ -369,6 +368,10 @@ const PageCUGeneral = ({
                                 objInfoEmprendimiento: {
                                     strUnidadProductiva:
                                         data.objInfoEmpresa.strNombreMarca,
+                                    intAñoInicioOperacion: data.objInfoEmpresa
+                                        .dtFechaFundacion
+                                        ? parseISO(data.objInfoEmpresa.dtFechaFundacion)
+                                        : null,
                                     strLugarOperacion:
                                         data.objInfoEmpresa.strLugarOperacion,
                                     arrDepartamento:
@@ -378,6 +381,8 @@ const PageCUGeneral = ({
                                     strDireccionResidencia:
                                         data.objInfoEmpresa
                                             .strDireccionResidencia,
+                                    strCelular: objEmprPrincipal.strCelular1 || "",
+                                    strCorreoElectronico: objEmprPrincipal.strCorreoElectronico1 || "",
                                     strRedesSociales:
                                         data.objInfoEmpresa.arrMediosDigitales
                                             ?.length > 0
@@ -410,6 +415,10 @@ const PageCUGeneral = ({
                                             ? data.objInfoEmpresa.btGeneraEmpleo
                                             : "",
                                 },
+                                objInfoPerfilEco: {
+                                    dblValorVentasMes: data.objInfoEmpresa.valorVentasMes || "",
+                                    intNumeroEmpleados: data.objInfoEmpresa.intNumeroEmpleados || "",
+                                }
                             });
                         }
 
@@ -448,24 +457,24 @@ const PageCUGeneral = ({
                                         dtmFechaSesion: data.objInfoGeneral
                                             .dtmFechaSesion
                                             ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtmFechaSesion
-                                              )
+                                                data.objInfoGeneral
+                                                    .dtmFechaSesion
+                                            )
                                             : null,
                                         dtFechaExpedicionDocto: data
                                             .objInfoGeneral
                                             .dtFechaExpedicionDocto
                                             ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtFechaExpedicionDocto
-                                              )
+                                                data.objInfoGeneral
+                                                    .dtFechaExpedicionDocto
+                                            )
                                             : null,
                                         dtFechaNacimiento: data.objInfoGeneral
                                             .dtFechaNacimiento
                                             ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtFechaNacimiento
-                                              )
+                                                data.objInfoGeneral
+                                                    .dtFechaNacimiento
+                                            )
                                             : null,
                                     },
                                     objInfoFamiliar: {
@@ -493,24 +502,24 @@ const PageCUGeneral = ({
                                         dtmFechaSesion: data.objInfoGeneral
                                             .dtmFechaSesion
                                             ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtmFechaSesion
-                                              )
+                                                data.objInfoGeneral
+                                                    .dtmFechaSesion
+                                            )
                                             : null,
                                         dtFechaExpedicionDocto: data
                                             .objInfoGeneral
                                             .dtFechaExpedicionDocto
                                             ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtFechaExpedicionDocto
-                                              )
+                                                data.objInfoGeneral
+                                                    .dtFechaExpedicionDocto
+                                            )
                                             : null,
                                         dtFechaNacimiento: data.objInfoGeneral
                                             .dtFechaNacimiento
                                             ? parseISO(
-                                                  data.objInfoGeneral
-                                                      .dtFechaNacimiento
-                                              )
+                                                data.objInfoGeneral
+                                                    .dtFechaNacimiento
+                                            )
                                             : null,
                                     },
                                     objInfoFamiliar: {
@@ -781,15 +790,15 @@ const PageCUGeneral = ({
                                     errors.objInfoEmpresa ||
                                     errors.objInfoPerfilEco ||
                                     errors.objInfoAdicional) && (
-                                    <Grid item xs={12}>
-                                        <Alert severity="error">
-                                            Lo sentimos, tienes campos
-                                            pendientes por diligenciar en el
-                                            formulario, revisa e intentalo
-                                            nuevamente.
-                                        </Alert>
-                                    </Grid>
-                                )}
+                                        <Grid item xs={12}>
+                                            <Alert severity="error">
+                                                Lo sentimos, tienes campos
+                                                pendientes por diligenciar en el
+                                                formulario, revisa e intentalo
+                                                nuevamente.
+                                            </Alert>
+                                        </Grid>
+                                    )}
 
                                 <Grid item xs={12}>
                                     <Box

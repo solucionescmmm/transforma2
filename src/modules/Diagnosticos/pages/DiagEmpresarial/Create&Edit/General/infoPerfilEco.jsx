@@ -64,7 +64,24 @@ const InfoPerfilEco = ({
 
     useEffect(() => {
         if (values) {
-            setData({});
+            setData({
+                strOperacionesVentas6Meses:values.strOperacionesVentas6Meses || "",
+                strEtapaValidacion:values.strEtapaValidacion || "",
+                strPromedioVentas6Meses:values.strPromedioVentas6Meses || "",
+                dblValorVentasMes:values.dblValorVentasMes || "",
+                strRangoVentas:values.strRangoVentas || "",
+                intNumeroEmpleados:values.intNumeroEmpleados || "",
+                strRangoEmpleados:values.strRangoEmpleados || "",
+                strTipoEmpleoGenerado:values.strTipoEmpleoGenerado || "",
+                strDlloAcitividadesContratados:values.strDlloAcitividadesContratados || "",
+                strPromedioTiempoInvertido:values.strPromedioTiempoInvertido || "",
+                strRolesEmprendimiento:values.strRolesEmprendimiento || [],
+                strDiasProduccion:values.strDiasProduccion || "",
+                strGeneraEmpleoRiesgoPobreza:values.strGeneraEmpleoRiesgoPobreza || "",
+                strActivos:values.strActivos || "",
+                dblValorActivos:values.dblValorActivos || "",
+                dblValorGananciasMes:values.dblValorGananciasMes || "",
+            });
         }
 
         setLoading(false);
@@ -663,12 +680,12 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPerfilEco?.dblValorVentasMes
+                                        errors?.objInfoPerfilEco?.dblValorGananciasMes
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.dblValorVentasMes
+                                        errors?.objInfoPerfilEco?.dblValorGananciasMes
                                             ?.message ||
                                         "Digita la cantidad promedio de las ganancias mensuales"
                                     }

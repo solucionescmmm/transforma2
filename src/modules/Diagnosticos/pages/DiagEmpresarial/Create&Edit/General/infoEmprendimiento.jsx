@@ -57,6 +57,7 @@ const InfoEmprendimiento = ({
         arrCiudad: [],
         strBarrio: "",
         strDireccionResidencia: "",
+        strUbicacionUP: "",
         strCelular: "",
         strCorreoElectronico: "",
         strRedesSociales: "",
@@ -112,6 +113,7 @@ const InfoEmprendimiento = ({
                 arrCiudad: values.arrCiudad || [],
                 strBarrio: values.strBarrio || "",
                 strDireccionResidencia: values.strDireccionResidencia || "",
+                strUbicacionUP: values.strUbicacionUP || "",
                 strCelular: values.strCelular || "",
                 strCorreoElectronico: values.strCorreoElectronico || "",
                 strRedesSociales: values.strRedesSociales || "",
@@ -123,6 +125,7 @@ const InfoEmprendimiento = ({
                 strCategoriaProducto: values.strCategoriaProducto || "",
                 strCategoriaServicio: values.strCategoriaServicio || "",
                 arrCategoriasSecundarias: values.arrCategoriasSecundarias || [],
+                strOtraCategoria: values.strOtraCategoria || "",
                 strListadoProdServ: values.strListadoProdServ || "",
                 btGeneraEmpleo: values.btGeneraEmpleo || "",
                 strDefinineLineasProductoServicios:

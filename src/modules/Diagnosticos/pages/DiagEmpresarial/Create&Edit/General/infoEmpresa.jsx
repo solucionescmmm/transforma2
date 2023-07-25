@@ -55,7 +55,17 @@ const InfoEmpresa = ({
 
     useEffect(() => {
         if (values) {
-            setData({});
+            setData({
+                strHistoriaEmpresa: values.strHistoriaEmpresa || "",
+                strSuenioEmpresa: values.strSuenioEmpresa || "",
+                strEstudioEmprendimiento: values.strEstudioEmprendimiento || "",
+                strExperienciaEmprendimiento: values.strExperienciaEmprendimiento || "",
+                strTipoContribuyente: values.strTipoContribuyente || "",
+                strRut: values.strRut || "",
+                strPresupuestoFamiliar: values.strPresupuestoFamiliar || "",
+                strIngresosDistintos: values.strIngresosDistintos || "",
+                strTrabajanFamiliares: values.strTrabajanFamiliares || "",
+            });
         }
 
         setLoading(false);

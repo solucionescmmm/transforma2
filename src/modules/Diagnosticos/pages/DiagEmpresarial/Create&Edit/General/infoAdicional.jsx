@@ -47,7 +47,10 @@ const InfoAdicional = ({
 
     useEffect(() => {
         if (values) {
-            setData({});
+            setData({
+                strConclusiones:values.strConclusiones || "",
+                strURLSFotosProducto:values.strURLSFotosProducto || "",
+            });
         }
 
         setLoading(false);
