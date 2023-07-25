@@ -59,6 +59,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                 };
                 let objInfoEmprendimiento = {
                     strUbicacionUP: array[i]?.strUbicacionUP,
+                    intAñoInicioOperacion: array[i]?.intAñoInicioOperacion.toString(),
                     strRegistroCamaraComercio: array[i]?.strRegistroCamaraComercio,
                     strRedesSociales: array[i]?.strRedesSociales,
                     intCantidadUnidadesProducidasMes: array[i]?.intCantidadUnidadesProducidasMes,
@@ -70,10 +71,16 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     strEscojaProductoServicio: array[i]?.strEscojaProductoServicio,
                     strEtapaValidProductoServicios: array[i]?.strEtapaValidProductoServicios,
                     strLineaProductoServicioDestacada: array[i]?.strLineaProductoServicioDestacada,
-                    strListadoProdServ: array[i]?.strListadoProdServ,
-                    trNivelDlloProductoServicios: array[i]?.trNivelDlloProductoServicios,
+                    strListadoProdServ: array[i]?.strListaProductoServiciosNuevosUltimoAño,
+                    strNivelDlloProductoServicios: array[i]?.strNivelDlloProductoServicios,
                     strPorcentajeIntermediacionVentas: array[i]?.strPorcentajeIntermediacionVentas,
                     strProductoServiciosEnValidacion: array[i]?.strProductoServiciosEnValidacion,
+                    MaximoValorProducto: array[i]?.MaximoValorProducto,
+                    MinimoValorProducto: array[i]?.MinimoValorProducto,
+                    ValorVentaProductoEscogido: array[i]?.ValorVentaProductoEscogido,
+                    strConoceCostosProductoEscogido: array[i]?.strConoceCostosProduccionProductoEscogido,
+                    CostoProduccionProductoEscogido: array[i]?.CostoProduccionProductoEscogido,
+                    strDefinineLineasProductoServicios: array[i]?.strDefinineLineasProductoServicios,
                 };
                 let objInfoEmpresa = {
                     strHistoriaEmpresa: array[i]?.strHistoriaEmpresa,
@@ -86,7 +93,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     strRut: array[i]?.strRut,
                     strPresupuestoFamiliar: array[i]?.strPresupuestoFamiliar,
                     strIngresosDistintos: array[i]?.strIngresosDistintos,
-                    strTrabajanFamiliares:array[i]?.strTrabajanFamiliares
+                    strTrabajanFamiliares: array[i]?.strTrabajanFamiliares
                 };
                 let objInfoPerfilEco = {
                     strOperacionesVentas6Meses:

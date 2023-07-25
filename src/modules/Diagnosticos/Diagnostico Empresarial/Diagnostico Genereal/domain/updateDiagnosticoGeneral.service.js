@@ -85,8 +85,7 @@ class updateDiagnosticoGeneral {
                 this.#objData.objInfoFamiliar.strPoblacionEtnica,
 
             //Objeto de InfoEmprendimiento
-            intAñoInicioOperacion:
-                this.#objData.objInfoEmprendimiento.intAñoInicioOperacion,
+            intAñoInicioOperacion: parseInt(this.#objData.objInfoEmprendimiento.intAñoInicioOperacion, 10),
             strUbicacionUP: this.#objData.objInfoEmprendimiento.strUbicacionUP,
             strRegistroCamaraComercio:
                 this.#objData.objInfoEmprendimiento.strRegistroCamaraComercio,
@@ -169,8 +168,6 @@ class updateDiagnosticoGeneral {
             intIdEmpresario: this.#objData.objInfoGeneral.intId,
         };
 
-        console.log(objInfoEmpresario);
-
         let query = await dao.updateEmpresarioDiagnosticoGeneral(
             objInfoEmpresario
         );
@@ -200,7 +197,7 @@ class updateDiagnosticoGeneral {
                 null
             ),
             dblValorVentasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
-            intNumeroEmpleados:this.#objData.objInfoPerfilEco.intNumeroEmpleados,
+            intNumeroEmpleados: this.#objData.objInfoPerfilEco.intNumeroEmpleados,
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
 
