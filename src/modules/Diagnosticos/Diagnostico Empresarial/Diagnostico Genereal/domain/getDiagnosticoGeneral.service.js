@@ -40,11 +40,11 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     intIdEmpresario: array[i]?.intIdEmpresario,
                     btFinalizado: array[i]?.btFinalizado,
                     strUbicacionVivienda: array[i]?.strUbicacionVivienda,
-                    strLugarSesion: "Medellin",
-                    dtmFechaSesion: "2021-12-16T13:25:00.000Z",
-                    strUsuarioCreacion: "Pepito",
-                    dtmActualizacion: "2021-12-09T21:34:58.943Z",
-                    strUsuarioActualizacion: "",
+                    strLugarSesion: array[i]?.strLugarSesion,
+                    dtmFechaSesion: array[i]?.dtmFechaSesion,
+                    strUsuarioCreacion: array[i]?.strUsuarioCreacion,
+                    dtmActualizacion: array[i]?.dtmActualizacion,
+                    strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                 };
                 let objInfoFamiliar = {
                     strCabezaHogar: array[i]?.strCabezaHogar,

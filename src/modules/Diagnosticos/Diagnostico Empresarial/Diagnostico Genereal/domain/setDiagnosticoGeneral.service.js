@@ -94,11 +94,9 @@ class setDiagnosticoGeneral {
             intIdEmpresario: this.#objData.objInfoGeneral?.intId || 1,
             intIdTipoEmpresario: 1,
             btFinalizado: false,
-            strUbicacionVivienda: this.#objData.objInfoGeneral.strUbicacionVivienda,
-            dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
-            strUsuarioCreacion: this.#objUser.strEmail,
-            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioActualizacion,
+            dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
+            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
 
             //Objeto de Información Familiar
             strCabezaHogar: this.#objData.objInfoFamiliar.strCabezaHogar,
@@ -112,7 +110,7 @@ class setDiagnosticoGeneral {
             strPoblacionEtnica: this.#objData.objInfoFamiliar.strPoblacionEtnica,
 
             //Objeto de InfoEmprendimiento
-            intAñoInicioOperacion: this.#objData.objInfoEmprendimiento.intAñoInicioOperacion,
+            intAñoInicioOperacion: parseInt(this.#objData.objInfoEmprendimiento.intAñoInicioOperacion, 10),
             strUbicacionUP: this.#objData.objInfoEmprendimiento.strUbicacionUP,
             strProductoServiciosEnValidacion: this.#objData.objInfoEmprendimiento.strProductoServiciosEnValidacion,
             strNivelDlloProductoServicios: this.#objData.objInfoEmprendimiento.strNivelDlloProductoServicios,
@@ -132,7 +130,6 @@ class setDiagnosticoGeneral {
 
             //Objeto de InfoEmpresa
             strTrabajanFamiliares: this.#objData.objInfoEmpresa.strTrabajanFamiliares,
-            strDefinineLineasProductoServicios: this.#objData.objInfoEmpresa.strDefinineLineasProductoServicios,
             strHistoriaEmpresa: this.#objData.objInfoEmpresa.strHistoriaEmpresa,
             strSuenioEmpresa: this.#objData.objInfoEmpresa.strSuenioEmpresa,
             strEstudioEmprendimiento: this.#objData.objInfoEmpresa.strEstudioEmprendimiento,
@@ -156,7 +153,7 @@ class setDiagnosticoGeneral {
             strGeneraEmpleoRiesgoPobreza: this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
             valorGananciasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
             strActivos: this.#objData.objInfoPerfilEco.strActivos,
-            ValorActivos: this.#objData.objInfoPerfilEco.ValorActivos,
+            ValorActivos: this.#objData.objInfoPerfilEco.dblValorActivos,
 
             //Objeto de InfoAdicional
             strConclusiones: this.#objData.objInfoAdicional.strConclusiones,

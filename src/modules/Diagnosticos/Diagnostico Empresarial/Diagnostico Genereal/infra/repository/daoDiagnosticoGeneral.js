@@ -38,7 +38,7 @@ class daoDiagnosticoGeneral {
                 ${data.strDefinineLineasProductoServicios},
                 ${data.strLineaProductoServicioDestacada},
                 ${data.strProductoServiciosNuevosUltimoAño},
-                ${data.strListaProductoServiciosNuevosUltimoAño},
+                ${data.strListadoProdServ},
                 ${data.strHistoriaEmpresa},
                 ${data.strSuenioEmpresa},
                 ${data.strEstudioEmprendimiento},
@@ -84,8 +84,8 @@ class daoDiagnosticoGeneral {
                 ${data.strLugarSesion},
                 ${data.dtmFechaSesion},
                 ${data.strUsuarioCreacion},
-                GETDATE(),
-                ${data.strUsuarioActualizacion}
+                NULL,
+                NULL
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -182,7 +182,7 @@ class daoDiagnosticoGeneral {
                 strURLSFotosProducto                      = COALESCE(${data.strURLSFotosProducto}, strURLSFotosProducto),
                 strLugarSesion                            = COALESCE(${data.strLugarSesion}, strLugarSesion),
                 strUsuarioActualizacion                   = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
-                dtmActualizacion                          = COALESCE(GETDATE(), dtmActualizacion)
+                dtmActualizacion                          = COALESCE(${data.dtmActualizacion}, dtmActualizacion)
 
             WHERE intId = ${data.intId}
 

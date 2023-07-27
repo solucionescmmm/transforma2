@@ -59,13 +59,10 @@ class updateDiagnosticoGeneral {
             ...this.#objData.objInfoAdicional,
             //Objeto de Información General
             intIdEmpresario: this.#objData.objInfoGeneral.intId,
-            strUbicacionVivienda:
-                this.#objData.objInfoGeneral.strUbicacionVivienda,
-            dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
+            btFinalizado: false,
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
-            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
-            strUsuarioActualizacion:
-                this.#objData.objInfoGeneral.strUsuarioActualizacion,
+            dtmActualizacion: this.#objData.objInfoGeneral.dtmActualizacion,
+            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioActualizacion,
 
             //Objeto de Información Familiar
             strCabezaHogar: this.#objData.objInfoFamiliar.strCabezaHogar,
@@ -127,7 +124,7 @@ class updateDiagnosticoGeneral {
                 this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
             valorGananciasMes: this.#objData.objInfoPerfilEco.valorGananciasMes,
             strActivos: this.#objData.objInfoPerfilEco.strActivos,
-            ValorActivos: this.#objData.objInfoPerfilEco.ValorActivos,
+            ValorActivos: this.#objData.objInfoPerfilEco.dblValorActivos,
 
             //Objeto de InfoAdicional
             strConclusiones: this.#objData.objInfoAdicional.strConclusiones,
