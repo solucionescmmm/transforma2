@@ -199,6 +199,15 @@ const PageCUGeneral = ({
                                             "yyyy-MM-dd hh:mm:ss"
                                         )
                                         : null,
+                                    dtmActualizacion: data.objInfoGeneral
+                                        .dtmActualizacion
+                                        ? format(
+                                            data.objInfoGeneral
+                                                .dtmActualizacion,
+                                            "yyyy-MM-dd hh:mm:ss"
+                                        )
+                                        : null,
+                                    
                                     dtFechaExpedicionDocto: data.objInfoGeneral
                                         .dtFechaExpedicionDocto
                                         ? format(
@@ -314,7 +323,7 @@ const PageCUGeneral = ({
                                     dtmFechaSesion: null,
                                     strLugarSesion: "",
                                     strUsuarioCreacion: "",
-                                    dtActualizacion: null,
+                                    dtmActualizacion: null,
                                     strUsuarioActualizacion: "",
                                     strNombres:
                                         objEmprPrincipal.strNombres || "",
@@ -458,6 +467,13 @@ const PageCUGeneral = ({
                                                     .dtmFechaSesion
                                             )
                                             : null,
+                                        dtmActualizacion: data.objInfoGeneral
+                                            .dtmActualizacion
+                                            ? parseISO(
+                                                data.objInfoGeneral
+                                                    .dtmActualizacion
+                                            )
+                                            : null,
                                         dtFechaExpedicionDocto: data
                                             .objInfoGeneral
                                             .dtFechaExpedicionDocto
@@ -508,6 +524,13 @@ const PageCUGeneral = ({
                                             ? parseISO(
                                                 data.objInfoGeneral
                                                     .dtmFechaSesion
+                                            )
+                                            : null,
+                                        dtmActualizacion: data.objInfoGeneral
+                                            .dtmActualizacion
+                                            ? parseISO(
+                                                data.objInfoGeneral
+                                                    .dtmActualizacion
                                             )
                                             : null,
                                         dtFechaExpedicionDocto: data
@@ -729,6 +752,7 @@ const PageCUGeneral = ({
                                         disabled={loading}
                                         values={data.objInfoGeneral}
                                         errors={errors}
+                                        isEdit={isEdit}
                                         setValue={setValue}
                                         setError={setError}
                                         clearErrors={clearErrors}
