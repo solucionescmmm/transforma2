@@ -163,6 +163,7 @@ class updateDiagnosticoGeneral {
                 this.#objData.objInfoGeneral?.arrCiudad || null
             ),
             intIdEmpresario: this.#objData.objInfoGeneral.intId,
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
 
         let query = await dao.updateEmpresarioDiagnosticoGeneral(

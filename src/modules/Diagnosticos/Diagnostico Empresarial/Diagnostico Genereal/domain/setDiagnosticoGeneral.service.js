@@ -186,7 +186,7 @@ class setDiagnosticoGeneral {
             ...this.#objData.objInfoGeneral,
             arrDepartamento: JSON.stringify(this.#objData.objInfoGeneral?.arrDepartamento || null),
             arrCiudad: JSON.stringify(this.#objData.objInfoGeneral?.arrCiudad || null),
-            intIdEmpresario: this.#objData.objInfoGeneral.intIdEmpresario,
+            intIdEmpresario: this.#objData.objInfoGeneral.intId,
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
 
