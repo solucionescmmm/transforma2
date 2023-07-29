@@ -28,6 +28,7 @@ const InfoGeneral = ({
     values,
     errors,
     control,
+    isEdit,
     setValue,
     clearErrors,
     setError,
@@ -38,7 +39,7 @@ const InfoGeneral = ({
         dtmFechaSesion: null,
         strLugarSesion: "",
         strUsuarioCreacion: "",
-        dtActualizacion: null,
+        dtmActualizacion: null,
         strUsuarioActualizacion: "",
     });
 
@@ -55,7 +56,7 @@ const InfoGeneral = ({
                 dtmFechaSesion: values.dtmFechaSesion || null,
                 strLugarSesion: values.strLugarSesion || "",
                 strUsuarioCreacion: values.strUsuarioCreacion || "",
-                dtActualizacion: values.dtActualizacion || null,
+                dtmActualizacion: values.dtmActualizacion || null,
                 strUsuarioActualizacion: values.strUsuarioActualizacion || "",
             });
         }
@@ -131,7 +132,7 @@ const InfoGeneral = ({
                                     label="Fecha y hora de la sesión"
                                     value={value}
                                     onChange={(date) => onChange(date)}
-                                    disabled={disabled}
+                                    disabled={isEdit ? true : disabled}
                                     ampm
                                     slotProps={{
                                         textField: {
@@ -192,20 +193,20 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            defaultValue={data.dtActualizacion}
-                            name="objInfoGeneral.dtActualizacion"
+                            defaultValue={data.dtmActualizacion}
+                            name="objInfoGeneral.dtmActualizacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
                                     label="Fecha de ultima actualización"
                                     value={value}
                                     onChange={(date) => onChange(date)}
-                                    disabled
+                                    disabled={!isEdit ? true : disabled}
                                     slotProps={{
                                         textField: {
                                             name,
                                             variant: "standard",
                                             error: !!errors?.objInfoGeneral
-                                                ?.dtActualizacion,
+                                                ?.dtmActualizacion,
                                             fullWidth: true,
                                         },
                                     }}
@@ -224,7 +225,7 @@ const InfoGeneral = ({
                                     label="Responsable del diagnóstico"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
+                                    disabled={isEdit ? true : disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     required
@@ -259,7 +260,7 @@ const InfoGeneral = ({
                                     label="Responsable de actualizar la información"
                                     name={name}
                                     value={value}
-                                    disabled
+                                    disabled={!isEdit ? true : disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     required

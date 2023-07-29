@@ -164,6 +164,15 @@ const PageCUGeneral = ({
         async (signalSubmitData) => {
             setLoading(true);
 
+            let objEmprPrincipal
+
+            if(data.objEmpresario){
+                objEmprPrincipal = data?.objEmpresario?.find(
+                    (emp) => emp.strTipoEmpresario === "Principal"
+                );
+            }
+
+
             setFlagSubmit(false);
 
             await axios(
@@ -182,6 +191,8 @@ const PageCUGeneral = ({
                         (data) => {
                             let newData = {
                                 objInfoGeneral: {
+                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null  ,
+                                    intIdTipoEmpresario: objEmprPrincipal ? objEmprPrincipal.intIdTipoEmpresario : null ,
                                     ...data.objInfoGeneral,
                                     intIdIdea,
                                     intIdDiagnostico,
@@ -193,22 +204,14 @@ const PageCUGeneral = ({
                                               "yyyy-MM-dd hh:mm:ss"
                                           )
                                         : null,
-                                    dtFechaExpedicionDocto: data.objInfoGeneral
-                                        .dtFechaExpedicionDocto
-                                        ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaExpedicionDocto,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                    dtFechaNacimiento: data.objInfoGeneral
-                                        .dtFechaNacimiento
-                                        ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaNacimiento,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
+                                    dtmActualizacion: data.objInfoGeneral
+                                    .dtmActualizacion
+                                    ? format(
+                                        data.objInfoGeneral
+                                            .dtmActualizacion,
+                                        "yyyy-MM-dd hh:mm:ss"
+                                    )
+                                    : null,
                                 },
                                 objInfoEncuestaHumanas: {
                                     ...data.objInfoEncuestaHumanas,
@@ -279,10 +282,23 @@ const PageCUGeneral = ({
                             throw new Error(res.data.msg);
                         }
 
+                        if (res.data?.data?.[0]) {
+                            const data = res.data.data?.[0];
+
+                            console.log(data)
+
+                            setData({
+                                ...data,
+                                objEmpresario:data.objEmpresario
+                            });
+                        }
+
+                        setLoadingGetData(false);
                         setErrorGetData({ flag: false, msg: "" });
                     })
                     .catch((error) => {
                         setErrorGetData({ flag: true, msg: error.message });
+                        setLoadingGetData(false);
                     });
 
                 await refFntGetDataHum
@@ -302,38 +318,56 @@ const PageCUGeneral = ({
                                 );
                                 setOpenModal(true);
                             } else {
-                                reset({
-                                    ...res.data.data[0],
-                                    objInfoGeneral: {
-                                        ...res.data.data[0].objInfoGeneral,
-                                        dtmFechaSesion:
-                                            parseISO(
-                                                res.data.data[0].objInfoGeneral
-                                                    .dtmFechaSesion
-                                            ) || null,
-                                        dtActualizacion:
-                                            parseISO(
-                                                res.data.data[0].objInfoGeneral
-                                                    .dtmActualizacion
-                                            ) || null,
-                                    },
-                                });
+                                const data = res.data.data[0];
 
                                 setData({
-                                    ...res.data.data[0],
                                     objInfoGeneral: {
-                                        ...res.data.data[0].objInfoGeneral,
-                                        dtmFechaSesion:
-                                            parseISO(
-                                                res.data.data[0].objInfoGeneral
+                                        ...data.objInfoGeneral,
+                                        intIdIdea,
+                                        intIdDiagnostico,
+                                        dtmFechaSesion: data.objInfoGeneral
+                                            .dtmFechaSesion
+                                            ? parseISO(
+                                                data.objInfoGeneral
                                                     .dtmFechaSesion
-                                            ) || null,
-                                        dtActualizacion:
-                                            parseISO(
-                                                res.data.data[0].objInfoGeneral
+                                            )
+                                            : null,
+                                        dtmActualizacion: data.objInfoGeneral
+                                            .dtmActualizacion
+                                            ? parseISO(
+                                                data.objInfoGeneral
                                                     .dtmActualizacion
-                                            ) || null,
+                                            )
+                                            : null,
                                     },
+                                    objInfoEncuestaHumanas: {
+                                        ...data.objInfoEncuestaHumanas,
+                                    }
+                                });
+
+                                reset({
+                                    objInfoGeneral: {
+                                        ...data.objInfoGeneral,
+                                        intIdIdea,
+                                        intIdDiagnostico,
+                                        dtmFechaSesion: data.objInfoGeneral
+                                            .dtmFechaSesion
+                                            ? parseISO(
+                                                data.objInfoGeneral
+                                                    .dtmFechaSesion
+                                            )
+                                            : null,
+                                        dtmActualizacion: data.objInfoGeneral
+                                            .dtmActualizacion
+                                            ? parseISO(
+                                                data.objInfoGeneral
+                                                    .dtmActualizacion
+                                            )
+                                            : null,
+                                    },
+                                    objInfoEncuestaHumanas: {
+                                        ...data.objInfoEncuestaHumanas,
+                                    }
                                 });
                             }
                         }
@@ -514,22 +548,12 @@ const PageCUGeneral = ({
                                         disabled={loading}
                                         values={data.objInfoGeneral}
                                         errors={errors}
+                                        isEdit={isEdit}
                                         setValue={setValue}
                                         setError={setError}
                                         clearErrors={clearErrors}
                                     />
                                 </Grid>
-
-                                {errors.objInfoGeneral && (
-                                    <Grid item xs={12}>
-                                        <Alert severity="error">
-                                            Lo sentimos, tienes campos
-                                            pendientes por diligenciar en el
-                                            formulario, revisa e intentalo
-                                            nuevamente.
-                                        </Alert>
-                                    </Grid>
-                                )}
 
                                 <Grid item xs={12}>
                                     <InfoEncuestaHumanas
@@ -543,7 +567,7 @@ const PageCUGeneral = ({
                                     />
                                 </Grid>
 
-                                {errors.objInfoEncuestaHumanas && (
+                                {(errors.objInfoGeneral || errors.objInfoEncuestaHumanas) && (
                                     <Grid item xs={12}>
                                         <Alert severity="error">
                                             Lo sentimos, tienes campos
