@@ -17,7 +17,7 @@ import useGetDiagnProd from "../../../../hooks/useGetDiagnProd";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 // Componentes de MUI
 import {
@@ -90,7 +90,6 @@ const styles = makeStyles((theme) => ({
 }));
 
 const PageCUProducto = ({
-    intId,
     isEdit,
     intIdIdea,
     intIdDiagnostico,
@@ -176,6 +175,16 @@ const PageCUProducto = ({
         async (signalSubmitData) => {
             setLoading(true);
 
+            let objEmprPrincipal
+
+            if(data.objEmpresario){
+                objEmprPrincipal = data?.objEmpresario?.find(
+                    (emp) => emp.strTipoEmpresario === "Principal"
+                );
+            }
+
+            console.log(objEmprPrincipal)
+
             setFlagSubmit(false);
 
             await axios(
@@ -195,6 +204,8 @@ const PageCUProducto = ({
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
+                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null ,
+                                    intIdTipoEmpresario: objEmprPrincipal ? objEmprPrincipal.intIdTipoEmpresario : null,
                                     intIdIdea,
                                     intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
@@ -205,22 +216,14 @@ const PageCUProducto = ({
                                               "yyyy-MM-dd hh:mm:ss"
                                           )
                                         : null,
-                                    dtFechaExpedicionDocto: data.objInfoGeneral
-                                        .dtFechaExpedicionDocto
-                                        ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaExpedicionDocto,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                    dtFechaNacimiento: data.objInfoGeneral
-                                        .dtFechaNacimiento
-                                        ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaNacimiento,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
+                                    dtmActualizacion: data.objInfoGeneral
+                                    .dtmActualizacion
+                                    ? format(
+                                        data.objInfoGeneral
+                                            .dtmActualizacion,
+                                        "yyyy-MM-dd hh:mm:ss"
+                                    )
+                                    : null,
                                 },
                                 objInfoProductos: {
                                     ...data.objInfoProductos,
@@ -301,6 +304,17 @@ const PageCUProducto = ({
                         if (res.data.error) {
                             throw new Error(res.data.msg);
                         }
+
+                        if (res.data?.data?.[0]) {
+                            const data = res.data.data?.[0];
+
+                            setData({
+                                ...data,
+                                objEmpresario:data.objEmpresario
+                            });
+                        }
+
+                        setLoadingGetData(false);
                         setErrorGetData({ flag: false, msg: "" });
                     })
                     .catch((error) => {
@@ -327,28 +341,49 @@ const PageCUProducto = ({
                                 );
                                 setOpenModal(true);
                             } else {
-                                setOpenModal(false);
+                                const data = res.data.data[0];
+            
                                 setData({
-                                    ...res.data.data[0],
+                                    ...data,
                                     objInfoGeneral: {
-                                        ...res.data.data[0].objInfoGeneral,
-                                        dtmFechaSesion: res.data.data[0]
-                                            .objInfoGeneral.dtmFechaSesion
-                                            ? new Date(
-                                                  res.data.data[0].objInfoGeneral.dtmFechaSesion
-                                              )
+                                        ...data.objInfoGeneral,
+                                        intIdIdea,
+                                        intIdDiagnostico,
+                                        dtmFechaSesion: data.objInfoGeneral
+                                            .dtmFechaSesion
+                                            ? parseISO(
+                                                data.objInfoGeneral
+                                                    .dtmFechaSesion
+                                            )
+                                            : null,
+                                        dtmActualizacion: data.objInfoGeneral
+                                            .dtmActualizacion
+                                            ? parseISO(
+                                                data.objInfoGeneral
+                                                    .dtmActualizacion
+                                            )
                                             : null,
                                     },
                                 });
                                 reset({
-                                    ...res.data.data[0],
+                                    ...data,
                                     objInfoGeneral: {
-                                        ...res.data.data[0].objInfoGeneral,
-                                        dtmFechaSesion: res.data.data[0]
-                                            .objInfoGeneral.dtmFechaSesion
-                                            ? new Date(
-                                                  res.data.data[0].objInfoGeneral.dtmFechaSesion
-                                              )
+                                        ...data.objInfoGeneral,
+                                        intIdIdea,
+                                        intIdDiagnostico,
+                                        dtmFechaSesion: data.objInfoGeneral
+                                            .dtmFechaSesion
+                                            ? parseISO(
+                                                data.objInfoGeneral
+                                                    .dtmFechaSesion
+                                            )
+                                            : null,
+                                        dtmActualizacion: data.objInfoGeneral
+                                            .dtmActualizacion
+                                            ? parseISO(
+                                                data.objInfoGeneral
+                                                    .dtmActualizacion
+                                            )
                                             : null,
                                     },
                                 });
@@ -371,6 +406,12 @@ const PageCUProducto = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEdit, intIdIdea, intIdDiagnostico]);
+
+    useEffect(() => {
+        if (isEdit) {
+            setOpenModal(false);
+        }
+    }, [isEdit]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();

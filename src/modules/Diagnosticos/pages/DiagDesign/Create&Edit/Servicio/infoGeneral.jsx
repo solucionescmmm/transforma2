@@ -38,7 +38,7 @@ const InfoGeneral = ({
         dtmFechaSesion: null,
         strLugarSesion: "",
         strUsuarioCreacion: "",
-        dtActualizacion: null,
+        dtmActualizacion: null,
         strUsuarioActualizacion: "",
     });
 
@@ -55,7 +55,7 @@ const InfoGeneral = ({
                 dtmFechaSesion: values.dtmFechaSesion || null,
                 strLugarSesion: values.strLugarSesion || "",
                 strUsuarioCreacion: values.strUsuarioCreacion || "",
-                dtActualizacion: values.dtActualizacion || null,
+                dtmActualizacion: values.dtmActualizacion || null,
                 strUsuarioActualizacion: values.strUsuarioActualizacion || "",
             });
         }
@@ -193,8 +193,8 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            defaultValue={data.dtActualizacion}
-                            name="objInfoGeneral.dtActualizacion"
+                            defaultValue={data.dtmActualizacion}
+                            name="objInfoGeneral.dtmActualizacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
                                     label="Fecha de ultima actualización"
@@ -206,10 +206,10 @@ const InfoGeneral = ({
                                             name,
                                             variant: "standard",
                                             error: !!errors?.objInfoGeneral
-                                                ?.dtActualizacion,
+                                                ?.dtmActualizacion,
                                             helperText:
                                                 errors?.objInfoGeneral
-                                                    ?.dtActualizacion
+                                                    ?.dtmActualizacion
                                                     ?.message ||
                                                 "Fecha de la última vez que se actualizó el diagnóstico",
                                             fullWidth: true,

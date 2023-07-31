@@ -86,7 +86,6 @@ const styles = makeStyles((theme) => ({
 }));
 
 const PageCUGeneral = ({
-    intId,
     isEdit,
     intIdIdea,
     intIdDiagnostico,
@@ -172,7 +171,6 @@ const PageCUGeneral = ({
                 );
             }
 
-
             setFlagSubmit(false);
 
             await axios(
@@ -191,8 +189,8 @@ const PageCUGeneral = ({
                         (data) => {
                             let newData = {
                                 objInfoGeneral: {
-                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null  ,
-                                    intIdTipoEmpresario: objEmprPrincipal ? objEmprPrincipal.intIdTipoEmpresario : null ,
+                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null ,
+                                    intIdTipoEmpresario: objEmprPrincipal ? objEmprPrincipal.intIdTipoEmpresario : null,
                                     ...data.objInfoGeneral,
                                     intIdIdea,
                                     intIdDiagnostico,
@@ -284,8 +282,6 @@ const PageCUGeneral = ({
 
                         if (res.data?.data?.[0]) {
                             const data = res.data.data?.[0];
-
-                            console.log(data)
 
                             setData({
                                 ...data,
@@ -467,6 +463,7 @@ const PageCUGeneral = ({
                     </Button>
 
                     <Button
+                        color="success"
                         disabled={finalizado}
                         onClick={() =>
                             onChangeRoute("DiagEmpresarialHumEdit", {
@@ -548,7 +545,6 @@ const PageCUGeneral = ({
                                         disabled={loading}
                                         values={data.objInfoGeneral}
                                         errors={errors}
-                                        isEdit={isEdit}
                                         setValue={setValue}
                                         setError={setError}
                                         clearErrors={clearErrors}

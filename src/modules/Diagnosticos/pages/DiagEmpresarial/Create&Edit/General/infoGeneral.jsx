@@ -38,7 +38,6 @@ const InfoGeneral = ({
     values,
     errors,
     control,
-    isEdit,
     setValue,
     clearErrors,
     setError,
@@ -189,7 +188,7 @@ const InfoGeneral = ({
                                     label="Fecha y hora de la sesión"
                                     value={value}
                                     onChange={(date) => onChange(date)}
-                                    disabled={isEdit ? true : disabled}
+                                    disabled={disabled}
                                     ampm
                                     slotProps={{
                                         textField: {
@@ -257,7 +256,7 @@ const InfoGeneral = ({
                                     label="Fecha de ultima actualización"
                                     value={value}
                                     onChange={(date) => onChange(date)}
-                                    disabled={!isEdit ? true : disabled}
+                                    disabled
                                     ampm
                                     slotProps={{
                                         textField: {
@@ -288,7 +287,7 @@ const InfoGeneral = ({
                                     label="Responsable del diagnóstico"
                                     name={name}
                                     value={value}
-                                    disabled={isEdit ? true : disabled}
+                                    disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     required
@@ -323,7 +322,7 @@ const InfoGeneral = ({
                                     label="Responsable de actualizar la información"
                                     name={name}
                                     value={value}
-                                    disabled={!isEdit ? true : disabled}
+                                    disabled
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     required

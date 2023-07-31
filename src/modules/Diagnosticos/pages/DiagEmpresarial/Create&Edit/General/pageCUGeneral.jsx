@@ -752,7 +752,6 @@ const PageCUGeneral = ({
                                         disabled={loading}
                                         values={data.objInfoGeneral}
                                         errors={errors}
-                                        isEdit={isEdit}
                                         setValue={setValue}
                                         setError={setError}
                                         clearErrors={clearErrors}

@@ -90,7 +90,6 @@ const styles = makeStyles((theme) => ({
 }));
 
 const PageCUGeneral = ({
-    intId,
     isEdit,
     intIdIdea,
     intIdDiagnostico,
@@ -172,6 +171,14 @@ const PageCUGeneral = ({
         async (signalSubmitData) => {
             setLoading(true);
 
+            let objEmprPrincipal
+
+            if(data.objEmpresario){
+                objEmprPrincipal = data?.objEmpresario?.find(
+                    (emp) => emp.strTipoEmpresario === "Principal"
+                );
+            }
+
             setFlagSubmit(false);
 
             await axios(
@@ -191,6 +198,8 @@ const PageCUGeneral = ({
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
+                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null ,
+                                    intIdTipoEmpresario: objEmprPrincipal ? objEmprPrincipal.intIdTipoEmpresario : null,
                                     intIdIdea,
                                     intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
@@ -201,22 +210,14 @@ const PageCUGeneral = ({
                                               "yyyy-MM-dd hh:mm:ss"
                                           )
                                         : null,
-                                    dtFechaExpedicionDocto: data.objInfoGeneral
-                                        .dtFechaExpedicionDocto
-                                        ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaExpedicionDocto,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                    dtFechaNacimiento: data.objInfoGeneral
-                                        .dtFechaNacimiento
-                                        ? format(
-                                              data.objInfoGeneral
-                                                  .dtFechaNacimiento,
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
+                                    dtmActualizacion: data.objInfoGeneral
+                                    .dtmActualizacion
+                                    ? format(
+                                        data.objInfoGeneral
+                                            .dtmActualizacion,
+                                        "yyyy-MM-dd hh:mm:ss"
+                                    )
+                                    : null,
                                 },
                                 objInfoComMercadeo: {
                                     ...data.objInfoComMercadeo,
@@ -298,6 +299,15 @@ const PageCUGeneral = ({
                             throw new Error(res.data.msg);
                         }
 
+                        if (res.data?.data?.[0]) {
+                            const data = res.data.data?.[0];
+
+                            setData({
+                                ...data,
+                                objEmpresario:data.objEmpresario
+                            });
+                        }
+
                         setLoadingGetData(false);
                         setErrorGetData({ flag: false, msg: "" });
                     })
@@ -323,35 +333,37 @@ const PageCUGeneral = ({
                                 );
                                 setOpenModal(true);
                             } else {
+                                const data = res.data.data[0]
+
                                 reset({
-                                    ...res.data.data[0],
+                                    ...data,
                                     objInfoGeneral: {
-                                        ...res.data.data[0].objInfoGeneral,
+                                        ...data.objInfoGeneral,
                                         dtmFechaSesion:
                                             parseISO(
-                                                res.data.data[0].objInfoGeneral
+                                                data.objInfoGeneral
                                                     .dtmFechaSesion
                                             ) || null,
-                                        dtActualizacion:
+                                        dtmActualizacion:
                                             parseISO(
-                                                res.data.data[0].objInfoGeneral
+                                                data.objInfoGeneral
                                                     .dtmActualizacion
                                             ) || null,
                                     },
                                 });
 
                                 setData({
-                                    ...res.data.data[0],
+                                    ...data,
                                     objInfoGeneral: {
-                                        ...res.data.data[0].objInfoGeneral,
+                                        ...data.objInfoGeneral,
                                         dtmFechaSesion:
                                             parseISO(
-                                                res.data.data[0].objInfoGeneral
+                                                data.objInfoGeneral
                                                     .dtmFechaSesion
                                             ) || null,
-                                        dtActualizacion:
+                                        dtmActualizacion:
                                             parseISO(
-                                                res.data.data[0].objInfoGeneral
+                                                data.objInfoGeneral
                                                     .dtmActualizacion
                                             ) || null,
                                     },
@@ -379,10 +391,10 @@ const PageCUGeneral = ({
     }, [intIdIdea, intIdDiagnostico, isEdit]);
 
     useEffect(() => {
-        if (intId) {
-            reset(data);
+        if (isEdit) {
+            setOpenModal(false);
         }
-    }, [data, reset, intId]);
+    }, [isEdit]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -453,6 +465,7 @@ const PageCUGeneral = ({
                     </Button>
 
                     <Button
+                        color="success"
                         disabled={finalizado}
                         onClick={() =>
                             onChangeRoute("DiagEmpresarialTecEdit", {
