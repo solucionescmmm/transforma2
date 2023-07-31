@@ -44,8 +44,6 @@ class setDiagnosticoServicio {
         let dao = new classInterfaceDAOServicio();
 
         let newData = {
-            intIdEmpresario: 16,
-            intIdTipoEmpresario: 1,
             btFinalizado:false,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEvaluacion,

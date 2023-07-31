@@ -40,12 +40,11 @@ class updateDiagnosticoServicio {
 
     async #completeData() {
         let newData = {
-            intIdEmpresario: 16,
             ...this.#objData.objInfoGeneral,
-            strUsuarioActualizacion: this.#objUser.strEmail,
             ...this.#objData.objInfoEvaluacion,
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoAdicional,
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
         this.#objData = newData;
     }

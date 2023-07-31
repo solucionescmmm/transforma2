@@ -45,9 +45,7 @@ class updateDiagnosticoTecnicas {
             ...this.#objData.objInfoComFinanciero,
             ...this.#objData.objInfoComAdministrativo,
             ...this.#objData.objInfoComAsociativo,
-            strUsuarioCreacion:this.#objUser.strEmail,
-            intIdEmpresario: 16,
-            intTipoEmpresario: 1
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
         
         this.#objData = newData;

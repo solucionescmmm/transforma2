@@ -97,6 +97,7 @@ class setDiagnosticoGeneral {
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
             strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
+            strUsuarioActualizacion: this.#objUser.strEmail,
 
             //Objeto de Información Familiar
             strCabezaHogar: this.#objData.objInfoFamiliar.strCabezaHogar,

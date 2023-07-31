@@ -42,15 +42,14 @@ class setDiagnosticoProducto {
 
     async #setDiagnosticoProducto() {
         let newData = {
-            intIdEmpresario: 16 ,
-            intIdTipoEmpresario:1,
-            btFinalizado:false,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoProductos,
             ...this.#objData.objInfoCategoria1,
             ...this.#objData.objInfoCategoria2,
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoAdicional,
+            btFinalizado:false,
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
         let dao = new classInterfaceDAOProducto();
 

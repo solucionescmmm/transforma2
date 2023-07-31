@@ -61,8 +61,9 @@ class updateDiagnosticoGeneral {
             intIdEmpresario: this.#objData.objInfoGeneral.intId,
             btFinalizado: false,
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
-            dtmActualizacion: this.#objData.objInfoGeneral.dtmActualizacion,
-            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioActualizacion,
+            dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
+            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
+            strUsuarioActualizacion: this.#objUser.strEmail,
 
             //Objeto de Información Familiar
             strCabezaHogar: this.#objData.objInfoFamiliar.strCabezaHogar,

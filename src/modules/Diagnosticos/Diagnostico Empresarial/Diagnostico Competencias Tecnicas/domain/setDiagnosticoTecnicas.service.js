@@ -71,9 +71,9 @@ class setDiagnosticoTecnicas {
             ...this.#objData.objInfoComFinanciero,
             ...this.#objData.objInfoComAdministrativo,
             ...this.#objData.objInfoComAsociativo,
-            strUsuarioCreacion:this.#objUser.strEmail,
-            intIdEmpresario: 16,
-            intTipoEmpresario: 1,
+            intIdEmpresario:this.#objData.objInfoGeneral.intIdEmpresario,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral.intIdTipoEmpresario,
+            strUsuarioActualizacion: this.#objUser.strEmail,
             btFinalizado: false,
         };
 

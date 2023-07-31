@@ -17,7 +17,7 @@ class daoDiagnosticoTecnicas {
             (
                 ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
-                ${data.intTipoEmpresario},
+                ${data.intIdTipoEmpresario},
                 ${data.btFinalizado},
                 ${data.strCaractEmpresaComp},
                 ${data.strCaractEmpresaCompDetalle},
@@ -112,7 +112,7 @@ class daoDiagnosticoTecnicas {
                 ${data.strAsociEmpoOrgAdmin},
                 ${data.strAsociEmpoOrgAdminDetalle},
                 ${data.strLugarSesion},
-                GETDATE(),
+                ${data.dtmFechaSesion},
                 ${data.strUsuarioCreacion},
                 GETDATE(),
                 ${data.strUsuarioActualizacion}
@@ -239,10 +239,12 @@ class daoDiagnosticoTecnicas {
                 strConApliEstOrgSociSoliDetalle = COALESCE(${data.strConApliEstOrgSociSoliDetalle},strConApliEstOrgSociSoliDetalle),
                 strAsociEmpoOrgAdmin = COALESCE(${data.strAsociEmpoOrgAdmin},strAsociEmpoOrgAdmin),
                 strAsociEmpoOrgAdminDetalle = COALESCE(${data.strAsociEmpoOrgAdminDetalle},strAsociEmpoOrgAdminDetalle),
-                strLugarSesion                 = COALESCE(${data.strLugarSesion}, strLugarSesion),
-                strUsuarioActualizacion        = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
-                dtmActualizacion               = COALESCE(GETDATE(), dtmActualizacion)
-
+                strLugarSesion = COALESCE(${data.strLugarSesion}, strLugarSesion),
+                dtmFechaSesion = COALESCE(${data.dtmFechaSesion}, dtmFechaSesion),
+                strUsuarioCreacion = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
+                dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuario
+                
             WHERE intId = ${data.intId}
 
             SELECT * FROM tbl_DiagnosticoCompetenciasTecnicas WHERE intId = ${data.intId}`;

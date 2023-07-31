@@ -69,10 +69,12 @@ class setDiagnosticoHumanas {
             ...this.#objData.objInfoEncuestaHumanas,
             strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
-            strUsuarioCreacion:this.#objUser.strEmail,
-            intIdEmpresario: 16,
-            intIdTipoEmpresario: 1,
-            btFinalizado:false
+            intIdEmpresario: this.#objData.objInfoGeneral.intIdEmpresario,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral.intIdTipoEmpresario,
+            btFinalizado:false,
+            dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
+            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
 
         let query = await dao.setDiagnosticoHumanas(newData);

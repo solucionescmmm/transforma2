@@ -84,8 +84,8 @@ class daoDiagnosticoGeneral {
                 ${data.strLugarSesion},
                 ${data.dtmFechaSesion},
                 ${data.strUsuarioCreacion},
-                NULL,
-                NULL
+                GETDATE(),
+                ${data.strUsuarioActualizacion}
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -181,8 +181,10 @@ class daoDiagnosticoGeneral {
                 strConclusiones                           = COALESCE(${data.strConclusiones}, strConclusiones),
                 strURLSFotosProducto                      = COALESCE(${data.strURLSFotosProducto}, strURLSFotosProducto),
                 strLugarSesion                            = COALESCE(${data.strLugarSesion}, strLugarSesion),
-                strUsuarioActualizacion                   = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
-                dtmActualizacion                          = COALESCE(${data.dtmActualizacion}, dtmActualizacion)
+                dtmFechaSesion                            = COALESCE(${data.dtmFechaSesion}, dtmFechaSesion),
+                strUsuarioCreacion                        = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
+                dtmActualizacion                          = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion                   = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
             WHERE intId = ${data.intId}
 

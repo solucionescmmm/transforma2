@@ -140,8 +140,10 @@ class daoDiagnosticoServicio {
                 strConclusiones                = COALESCE(${data.strConclusiones}, strConclusiones),
                 strURLSFotos                   = COALESCE(${data.strURLSFotos}, strURLSFotos),
                 strLugarSesion                 = COALESCE(${data.strLugarSesion}, strLugarSesion),
-                strUsuarioActualizacion        = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
-                dtmActualizacion               = COALESCE(GETDATE(), dtmActualizacion)
+                dtmFechaSesion                 = COALESCE(${data.dtmFechaSesion}, dtmFechaSesion),
+                strUsuarioCreacion             = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
+                dtmActualizacion               = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion        = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
                 WHERE intId = ${data.intId}`;
 

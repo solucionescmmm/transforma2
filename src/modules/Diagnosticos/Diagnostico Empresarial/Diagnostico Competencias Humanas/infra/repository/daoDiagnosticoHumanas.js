@@ -38,7 +38,7 @@ class daoDiagnosticoHumanas {
                 ${data.strRedesApoyoPropia},
                 ${data.strObservaciones},
                 ${data.strLugarSesion},
-                GETDATE(),
+                ${data.dtmFechaSesion},
                 ${data.strUsuarioCreacion},
                 GETDATE(),
                 ${data.strUsuarioActualizacion}
@@ -95,8 +95,9 @@ class daoDiagnosticoHumanas {
                 strRedesApoyoPropia                   = COALESCE(${data.strRedesApoyoPropia}, strRedesApoyoPropia),
                 strObservaciones                      = COALESCE(${data.strObservaciones}, strObservaciones),
                 strLugarSesion                        = COALESCE(${data.strLugarSesion}, strLugarSesion),
-                strUsuarioActualizacion               = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
-                dtmActualizacion                      = COALESCE(GETDATE(), dtmActualizacion)
+                strUsuarioCreacion                    = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
+                dtmActualizacion                      = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion               = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
             WHERE intId = ${data.intId}
 
