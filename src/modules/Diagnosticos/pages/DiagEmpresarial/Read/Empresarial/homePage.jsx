@@ -559,8 +559,8 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoFamiliar.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoFamiliar[key]?.map) {
-                                            const json = prevInfoFamiliar[key];
+                                        if (objInfoFamiliar[key]?.map) {
+                                            const json = objInfoFamiliar[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -569,7 +569,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = prevInfoFamiliar[key];
+                                            e.value = objInfoFamiliar[key];
                                         }
                                     }
                                 });
@@ -585,9 +585,9 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoEmprendimiento.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoEmprendimiento[key]?.map) {
+                                        if (objInfoEmprendimiento[key]?.map) {
                                             const json =
-                                                prevInfoEmprendimiento[key];
+                                                objInfoEmprendimiento[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -597,7 +597,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             e.value = str;
                                         } else {
                                             e.value =
-                                                prevInfoEmprendimiento[key];
+                                                objInfoEmprendimiento[key];
                                         }
                                     }
                                 });
@@ -610,8 +610,8 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoEmpresa.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoEmpresa[key]?.map) {
-                                            const json = prevInfoEmpresa[key];
+                                        if (objInfoEmpresa[key]?.map) {
+                                            const json = objInfoEmpresa[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -620,7 +620,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = prevInfoEmpresa[key];
+                                            e.value = objInfoEmpresa[key];
                                         }
                                     }
                                 });
@@ -636,8 +636,8 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoPerfilEco.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoPerfilEco[key]?.map) {
-                                            const json = prevInfoPerfilEco[key];
+                                        if (objInfoPerfilEco[key]?.map) {
+                                            const json = objInfoPerfilEco[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -646,7 +646,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = prevInfoPerfilEco[key];
+                                            e.value = objInfoPerfilEco[key];
                                         }
                                     }
                                 });
@@ -662,8 +662,8 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoAdicional.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoAdicional[key]?.map) {
-                                            const json = prevInfoAdicional[key];
+                                        if (objInfoAdicional[key]?.map) {
+                                            const json = objInfoAdicional[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -672,7 +672,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = prevInfoAdicional[key];
+                                            e.value = objInfoAdicional[key];
                                         }
                                     }
                                 });

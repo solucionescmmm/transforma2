@@ -23,7 +23,9 @@ import {
     SupervisedUserCircle,
     Report as ReportIcon,
     Engineering as EngineeringIcon,
+    Stadium as StadiumIcon
 } from "@mui/icons-material";
+
 
 const ListItem = withStyles({
     root: {
@@ -132,6 +134,29 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                     <SupervisedUserCircle />
                 </ListItemIcon>
                 <ListItemText primary="Terceros" />
+            </ListItem>
+
+            <ListItem
+                button
+                component={RouterLink}
+                to="/transforma/asesor/eventos/read/all"
+                selected={
+                    location.pathname.startsWith(
+                        "/transforma/asesor/eventos/"
+                    )
+                        ? true
+                        : false
+                }
+                onClick={(e) => {
+                    if (movil) {
+                        toggleDrawer(e, false);
+                    }
+                }}
+            >
+                <ListItemIcon>
+                    <StadiumIcon />
+                </ListItemIcon>
+                <ListItemText primary="Eventos" />
             </ListItem>
 
             <ListItem

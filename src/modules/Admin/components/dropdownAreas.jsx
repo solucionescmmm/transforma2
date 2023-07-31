@@ -3,9 +3,6 @@ import React, { useState, useEffect } from "react";
 //Librerias
 import { matchSorter } from "match-sorter";
 
-//Hooks
-import useGetServicios from "../hooks/useGetServicios";
-
 //Componentes de Material UI
 import {
     Autocomplete,
@@ -29,17 +26,18 @@ import {
     CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
     CheckBox as CheckBoxIcon,
 } from "@mui/icons-material";
+import useGetAreas from "../hooks/useGetAreas";
 
 //Filtro personalizado
 const filterOptions = (options, state) => {
     const { inputValue } = state;
 
     return matchSorter(options, inputValue, {
-        keys: ["objInfoPrincipal.strNombre", "objInfoPrincipal.intId"],
+        keys: ["strNombre", "intId"],
     });
 };
 
-const DropdownServicios = ({
+const DropdownAreas = ({
     id,
     value,
     name,
@@ -50,17 +48,17 @@ const DropdownServicios = ({
     label,
     multiple,
     required,
-    intIdTipoTarifa
 }) => {
     const [options, setOptions] = useState([]);
 
-    const { data, refreshGetData } = useGetServicios({
-        intIdTipoTarifa,
-        autoLoad: true,
-    });
+    const { data, refreshGetData } = useGetAreas();
 
     useEffect(() => {
         if (data?.length > 0) {
+            data.forEach((e) => {
+                return e.intIdEstado === 1 ? e : null;
+            });
+
             setOptions(data);
         }
     }, [data]);
@@ -98,8 +96,7 @@ const DropdownServicios = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos del listado de
-                servicios
+                Ha ocurrido un error al obtener los datos del listado de areas
             </Alert>
         );
     }
@@ -134,22 +131,17 @@ const DropdownServicios = ({
                 if (typeof value === "string") {
                     return option === value;
                 } else {
-                    return (
-                        option.objInfoPrincipal?.strNombre ===
-                        value.objInfoPrincipal?.strNombre
-                    );
+                    return option.strNombre === value.strNombre;
                 }
             }}
-            getOptionLabel={(option) =>
-                option.objInfoPrincipal?.strNombre || option
-            }
+            getOptionLabel={(option) => option.strNombre || option}
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
-                    if (option.objInfoPrincipal) {
+                    if (option.strNombre) {
                         return (
                             <Chip
                                 key={index}
-                                label={option.objInfoPrincipal?.strNombre}
+                                label={option.strNombre}
                                 {...getTagProps({ index })}
                             />
                         );
@@ -177,9 +169,7 @@ const DropdownServicios = ({
                                 checked={selected}
                             />
                         )}
-                        <ListItemText
-                            primary={option.objInfoPrincipal?.strNombre}
-                        />
+                        <ListItemText primary={option?.strNombre} />
                     </ListItem>
                 </List>
             )}
@@ -187,4 +177,4 @@ const DropdownServicios = ({
     );
 };
 
-export default DropdownServicios;
+export default DropdownAreas;

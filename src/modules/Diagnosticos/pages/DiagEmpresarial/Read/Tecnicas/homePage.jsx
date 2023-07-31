@@ -668,9 +668,9 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoComMercadeo.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoComMercadeo[key].map) {
+                                        if (objInfoComMercadeo[key].map) {
                                             const json =
-                                                prevInfoComMercadeo[key];
+                                                objInfoComMercadeo[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -679,7 +679,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = prevInfoComMercadeo[key];
+                                            e.value = objInfoComMercadeo[key];
                                         }
                                     }
                                 });
@@ -695,9 +695,9 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoComProductivo.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoComProductivo[key].map) {
+                                        if (objInfoComProductivo[key].map) {
                                             const json =
-                                                prevInfoComProductivo[key];
+                                                objInfoComProductivo[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -706,8 +706,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value =
-                                                prevInfoComProductivo[key];
+                                            e.value = objInfoComProductivo[key];
                                         }
                                     }
                                 });
@@ -723,9 +722,9 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoComFinanciero.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoComFinanciero[key].map) {
+                                        if (objInfoComFinanciero[key].map) {
                                             const json =
-                                                prevInfoComFinanciero[key];
+                                                objInfoComFinanciero[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -734,8 +733,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value =
-                                                prevInfoComFinanciero[key];
+                                            e.value = objInfoComFinanciero[key];
                                         }
                                     }
                                 });
@@ -751,11 +749,9 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoComAdministrativo.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (
-                                            prevInfoComAdministrativo[key].map
-                                        ) {
+                                        if (objInfoComAdministrativo[key].map) {
                                             const json =
-                                                prevInfoComAdministrativo[key];
+                                                objInfoComAdministrativo[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -765,7 +761,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             e.value = str;
                                         } else {
                                             e.value =
-                                                prevInfoComAdministrativo[key];
+                                                objInfoComAdministrativo[key];
                                         }
                                     }
                                 });
@@ -781,9 +777,9 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             ) {
                                 prevInfoComAsociativo.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (prevInfoComAsociativo[key].map) {
+                                        if (objInfoComAsociativo[key].map) {
                                             const json =
-                                                prevInfoComAsociativo[key];
+                                                objInfoComAsociativo[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -792,8 +788,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value =
-                                                prevInfoComAsociativo[key];
+                                            e.value = objInfoComAsociativo[key];
                                         }
                                     }
                                 });

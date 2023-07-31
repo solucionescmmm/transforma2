@@ -55,6 +55,12 @@ const CUEmpresario = lazy(() =>
 
 const CUTercero = lazy(() => import("../modules/Terceros/Create&Edit"));
 
+const REventos = lazy(() => import("../modules/Eventos/pages/index"));
+
+const CUEventos = lazy(() =>
+    import("../modules/Eventos/pages/Create&Edit/pageCUEvento")
+);
+
 const RoutesTransforma = ({ path }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -239,6 +245,32 @@ const RoutesTransforma = ({ path }) => {
                                 component={() => (
                                     <div className="animate__animated animate__fadeIn">
                                         <AdminPaquetesCreate isPreview />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/asesor/eventos/read/all"
+                                exact
+                                component={() => (
+                                    <div
+                                        className="animate__animated animate__fadeIn"
+                                        style={{ width: "100%" }}
+                                    >
+                                        <REventos />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
+                                path="/transforma/asesor/eventos/create"
+                                exact
+                                component={() => (
+                                    <div
+                                        className="animate__animated animate__fadeIn"
+                                        style={{ width: "100%" }}
+                                    >
+                                        <CUEventos />
                                     </div>
                                 )}
                             />
