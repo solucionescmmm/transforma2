@@ -163,7 +163,7 @@ class updateDiagnosticoGeneral {
             arrCiudad: JSON.stringify(
                 this.#objData.objInfoGeneral?.arrCiudad || null
             ),
-            intIdEmpresario: this.#objData.objInfoGeneral.intId,
+            intIdEmpresario: this.#objData.objInfoGeneral.intIdEmpresario,
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
 
