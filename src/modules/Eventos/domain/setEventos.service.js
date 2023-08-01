@@ -1,11 +1,8 @@
-//Librerias
-const validator = require("validator").default;
 
 //class
-const classInterfaceDAOEventos = require("../infra/conectors/interfaceDaoEventos")
+const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos")
 
-class setEventos {
-    //obj info
+class setEventos{
     #objData;
     #objUser;
     #objResult;
@@ -20,21 +17,19 @@ class setEventos {
     async main() {
         await this.#validations()
         await this.#setEventos()
-        await this.#setSesionesEventos()
         return this.#objResult;
     }
 
-    async #validations() {
-
+    async #validations(){
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
     }
 
-    async #setEventos() {
+    async #setEventos(){
         let newData = {
             ...this.#objData,
-            strUsuarioCreacion: this.#objData.strUsuarioCreacion
+            strUsuarioCreacion: this.#objUser.strUsuarioCreacion
         }
         let dao = new classInterfaceDAOEventos();
 
@@ -44,25 +39,12 @@ class setEventos {
             throw new Error(query.msg);
         }
 
+
         this.#objResult = {
             error: query.error,
             data: query.data,
             msg: query.msg,
         };
-    }
-
-    async #setSesionesEventos() {
-        let newData = {
-            ...this.#objData,
-            strUsuarioCreacion: this.#objData.strUsuarioCreacion
-        }
-        let dao = new classInterfaceDAOEventos();
-
-        let query = await dao.setSesionesEventos(newData);
-
-        if (query.error) {
-            throw new Error(query.msg);
-        }
     }
 
 }

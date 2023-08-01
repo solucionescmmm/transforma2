@@ -1,24 +1,28 @@
 //Librerias
 const validator = require("validator").default;
 
-//Clases
-const classInterfaceEventos = require("../infra/conectors/interfaceDAOEventos");
+//Interface
+const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos");
 
-const  getTiposEventos = async (objParams) => {
-    let = { intId } = objParams;
+const getTipoEventos = async (objParams, strDataUser) => {
+    let { strNombre } = objParams;
 
-    if (!objParams) {
-        throw new Error("Se esperaban parámetros de búsqueda.");
+    if (
+        !validator.isEmail(strDataUser.strEmail, {
+            domain_specific_validation: "cmmmedellin.org",
+        })
+    ) {
+        throw new Error(
+            "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
+        );
     }
 
-    let dao = new classInterfaceEventos();
+    let dao = new classInterfaceDAOEventos();
 
-    let query = {
-        intId: intId || null,
-    };
+    let query = { strNombre };
 
     let result = await dao.getTiposEventos(query);
 
     return result;
 };
-module.exports = getTiposEventos;
+module.exports = getTipoEventos;

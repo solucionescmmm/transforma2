@@ -7,7 +7,7 @@ const { conexion } = require("../../../../common/config/confSQL_connectionTransf
 
 class daoEventos {
 
-    async setEventos(data){
+    async setEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -35,7 +35,7 @@ class daoEventos {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg:`El evento ${data.strNombre}, fue creado con exito.`
+                msg: `El evento ${data.strNombre}, fue creado con exito.`
             };
 
             sql.close(conexion);
@@ -55,7 +55,7 @@ class daoEventos {
         }
     }
 
-    async setSesionesEventos(data){
+    async setSesionesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -96,7 +96,7 @@ class daoEventos {
         }
     }
 
-    async setObjetivosEventos(data){
+    async setObjetivosEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -132,7 +132,7 @@ class daoEventos {
         }
     }
 
-    async setAsistentesEventos(data){
+    async setAsistentesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -153,7 +153,7 @@ class daoEventos {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg:`El asistente, fue matriculado con exito.`
+                msg: `El asistente, fue matriculado con exito.`
             };
 
             sql.close(conexion);
@@ -173,7 +173,7 @@ class daoEventos {
         }
     }
 
-    async setAsistentesTercerosEventos(data){
+    async setAsistentesTercerosEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -191,7 +191,7 @@ class daoEventos {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg:`El asistente, fue matriculado con exito.`
+                msg: `El asistente, fue matriculado con exito.`
             };
 
             sql.close(conexion);
@@ -211,7 +211,7 @@ class daoEventos {
         }
     }
 
-    async setAsistentesSesionesEventos(data){
+    async setAsistentesSesionesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -245,7 +245,7 @@ class daoEventos {
         }
     }
 
-    async setAsistentesTercerosSesionesEventos(data){
+    async setAsistentesTercerosSesionesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -279,7 +279,7 @@ class daoEventos {
         }
     }
 
-    async updateEventos(data){
+    async updateEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn.query`
@@ -302,7 +302,7 @@ class daoEventos {
 
             let result = {
                 error: false,
-                msg:"Se actualizo correctamente el evento",
+                msg: "Se actualizo correctamente el evento",
             };
 
             sql.close(conexion);
@@ -322,7 +322,7 @@ class daoEventos {
         }
     }
 
-    async updateSesionesEventos(data){
+    async updateSesionesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn.query`
@@ -340,7 +340,7 @@ class daoEventos {
 
             let result = {
                 error: false,
-                msg:"Se actualizo correctamente la sesión del evento",
+                msg: "Se actualizo correctamente la sesión del evento",
             };
 
             sql.close(conexion);
@@ -360,7 +360,7 @@ class daoEventos {
         }
     }
 
-    async updateObjetivosEventos(data){
+    async updateObjetivosEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             await conn.query`
@@ -373,7 +373,7 @@ class daoEventos {
 
             let result = {
                 error: false,
-                msg:"Se actualizo correctamente el objetivo del evento"
+                msg: "Se actualizo correctamente el objetivo del evento"
             };
 
             sql.close(conexion);
@@ -393,23 +393,67 @@ class daoEventos {
         }
     }
 
-    async getEventos(data){
+    async getEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
             let response = await conn.query`
 
-            SELECT *
+            SELECT
+
+            Eventos.intId,
+            Eventos.strNombre,
+            Eventos.intIdTipoEvento,
+            Eventos.dtFechaIni,
+            Eventos.dtFechaFin,
+            Eventos.intIdSede,
+            Eventos.intIdServicio,
+            Eventos.strResponsable,
+            Eventos.strInvolucrados,
+            Eventos.intNumSesiones,
+            Eventos.btPago,
+            Eventos.intEstadoEvento,
+            (
+                SELECT
+                SesionesEventos.intId,
+                SesionesEventos.intIdEvento,
+                SesionesEventos.strNombreModulo,
+                SesionesEventos.intAreaResponsable,
+                SesionesEventos.strResponsables,
+                SesionesEventos.dtFechaIni,
+                SesionesEventos.dtFechaFin,
+                SesionesEventos.btFinalizado
+
+                FROM tbl_SesionesEventos SesionesEventos
+
+                WHERE SesionesEventos.intIdEvento = Eventos.intId
+                FOR JSON PATH
+            )as arrSesionesEventos
             
             FROM tbl_EventosGrupales Eventos
 
-            WHERE (Eventos.intId = ${data.intId} OR ${data.intId} IS NULL) `;
+            WHERE (Eventos.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].arrSesionesEventos) {
+                    let { arrSesionesEventos } = arrNewData[i];
+
+                    if (validator.isJSON(arrSesionesEventos)) {
+                        arrSesionesEventos = JSON.parse(arrSesionesEventos);
+                        arrNewData[i].arrSesionesEventos = arrSesionesEventos;
+                    }
+                }
+            }
+
             let result = {
                 error: false,
-                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
             };
 
             sql.close(conexion);
@@ -428,9 +472,9 @@ class daoEventos {
             return result;
         }
     }
-    
 
-    async getTiposEventos(data){
+
+    async getTiposEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -466,7 +510,7 @@ class daoEventos {
         }
     }
 
-    async getEstadosEventos(data){
+    async getEstadosEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
