@@ -47,9 +47,9 @@ import useGetEventos from "../../hooks/useGetEventos";
 import { Link as RouterLink, Redirect, useHistory } from "react-router-dom";
 import SelectTipoEventos from "../../components/selectTipoEventos";
 import SelectListas from "../../../Diagnosticos/components/selectLista";
-import SelectSedes from "../../../Empresarios/components/selectSedes";
 import DropdownServicios from "../../../Admin/components/dropdownServicios";
 import DropdownAreas from "../../../Admin/components/dropdownAreas";
+import SelectSedes from "../../../Admin/components/selectSedes";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
