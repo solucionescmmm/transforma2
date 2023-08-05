@@ -34,7 +34,8 @@ import {
     ChevronLeft as ChevronLeftIcon,
 } from "@mui/icons-material";
 
-import { DatePicker, LoadingButton } from "@mui/lab";
+import { LoadingButton } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -303,14 +304,7 @@ const CreateEditEventos = ({ isEdit, intId }) => {
     }
 
     return (
-        <Grid
-            container
-            direction="row"
-            spacing={3}
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-        >
+        <Grid container direction="row" spacing={3}>
             <Grid item xs={12}>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Link
@@ -335,12 +329,13 @@ const CreateEditEventos = ({ isEdit, intId }) => {
                     startIcon={<ChevronLeftIcon />}
                     size="small"
                     color="inherit"
+                    type="button"
                 >
                     regresar
                 </Button>
             </Grid>
+
             <Grid item xs={12}>
-                {" "}
                 <Container className={classes.containerPR}>
                     <Paper className={classes.paper}>
                         {loading ? (
@@ -422,7 +417,7 @@ const CreateEditEventos = ({ isEdit, intId }) => {
                                     control={control}
                                     rules={{
                                         required:
-                                            "Por favor, digíta el nombre de la tarea",
+                                            "Por favor, digíta el nombre del evento",
                                     }}
                                 />
                             </Grid>
@@ -473,27 +468,19 @@ const CreateEditEventos = ({ isEdit, intId }) => {
                                         <DatePicker
                                             label="Fecha de inicio"
                                             value={value}
-                                            disabled={loading}
                                             onChange={(date) => onChange(date)}
-                                            renderInput={(props) => (
-                                                <TextField
-                                                    {...props}
-                                                    name={name}
-                                                    fullWidth
-                                                    required
-                                                    variant="standard"
-                                                    error={
-                                                        errors?.dtFechaInicio
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    helperText={
+                                            slotProps={{
+                                                textField: {
+                                                    name,
+                                                    variant: "standard",
+                                                    error: !!errors?.dtFechaInicio,
+                                                    helperText:
                                                         errors?.dtFechaInicio
                                                             ?.message ||
-                                                        "Selecciona la fecha de inicio"
-                                                    }
-                                                />
-                                            )}
+                                                        "Selecciona la fecha de inicio",
+                                                    fullWidth: true,
+                                                },
+                                            }}
                                         />
                                     )}
                                     control={control}
@@ -514,27 +501,19 @@ const CreateEditEventos = ({ isEdit, intId }) => {
                                         <DatePicker
                                             label="Fecha de finalización"
                                             value={value}
-                                            disabled={loading}
                                             onChange={(date) => onChange(date)}
-                                            renderInput={(props) => (
-                                                <TextField
-                                                    {...props}
-                                                    name={name}
-                                                    fullWidth
-                                                    required
-                                                    variant="standard"
-                                                    error={
-                                                        errors?.dtFechaFin
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    helperText={
+                                            slotProps={{
+                                                textField: {
+                                                    name,
+                                                    variant: "standard",
+                                                    error: !!errors?.dtFechaFin,
+                                                    helperText:
                                                         errors?.dtFechaFin
                                                             ?.message ||
-                                                        "Selecciona la fecha de finalización"
-                                                    }
-                                                />
-                                            )}
+                                                        "Selecciona la fecha de finalización",
+                                                    fullWidth: true,
+                                                },
+                                            }}
                                         />
                                     )}
                                     control={control}
