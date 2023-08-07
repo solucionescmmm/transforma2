@@ -3,6 +3,9 @@ const validator = require("validator").default;
 //Clases
 const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos");
 
+//services
+const serviceGetAreas = require("../../Servicios/Maestros/Areas/domain/getAreas.service")
+
 const getEventos = async (objParams, strDataUser) => {
     let { intId } = objParams;
 
@@ -29,9 +32,25 @@ const getEventos = async (objParams, strDataUser) => {
             let array = arrayData.data
 
             for (let i = 0; i < array.length; i++) {
+                let arrAreasEventos = array[i]?.arrAreasEventos;
+
+                let arrAreas = []
+
+                for (let j = 0; j < arrAreasEventos.length; j++) {
+                    let intIdArea = arrAreasEventos[j]?.intIdArea
+
+                    const query = await serviceGetAreas({ intId: intIdArea }, strDataUser)
+
+                    arrAreas.push({
+                        ...query.data[0]
+                    })
+                }
+
                 array[i] = {
                     ...array[i],
-                    intNumSesiones: array[i]?.arrSesionesEventos?.length
+                    arrAreas,
+                    arrInvolucrados: JSON.parse(array[i]?.strInvolucrados),
+                    arrInvolucrados: JSON.parse(array[i]?.strInvolucrados),
                 };
             }
 

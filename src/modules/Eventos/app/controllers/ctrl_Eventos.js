@@ -8,8 +8,9 @@ class ctrlEventos {
     async setEventos(req, res) {
         try {
             let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new setEventos(data);
+            let service = new setEventos(data,strDataUser);
 
             let query = await service.main();
 

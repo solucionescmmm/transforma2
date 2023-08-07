@@ -6,7 +6,6 @@ const sql = require("mssql");
 const { conexion } = require("../../../../common/config/confSQL_connectionTransfroma");
 
 class daoEventos {
-
     async setEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -18,7 +17,7 @@ class daoEventos {
             (
                 ${data.strNombre},
                 ${data.intIdTipoEvento},
-                ${data.dtFechaIni},
+                ${data.dtFechaInicio},
                 ${data.dtFechaFin},
                 ${data.intIdSede},
                 ${data.intIdServicio},
@@ -279,6 +278,45 @@ class daoEventos {
         }
     }
 
+    async setAreasEventos(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            DECLARE @intId INTEGER;
+            
+            INSERT INTO tbl_AreasEventos VALUES
+            (
+                ${data.intIdEvento},
+                ${data.intIdArea}
+            )
+            SET @intId = SCOPE_IDENTITY();
+            
+            SELECT * FROM tbl_AreasEventos WHERE intId = @intId`;
+
+            let result = {
+                error: false,
+                data:response?.recordset[0],
+                msg:"El area se guardo correctamente"
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setObjetivosEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -415,20 +453,16 @@ class daoEventos {
             Eventos.intEstadoEvento,
             (
                 SELECT
-                SesionesEventos.intId,
-                SesionesEventos.intIdEvento,
-                SesionesEventos.strNombreModulo,
-                SesionesEventos.intAreaResponsable,
-                SesionesEventos.strResponsables,
-                SesionesEventos.dtFechaIni,
-                SesionesEventos.dtFechaFin,
-                SesionesEventos.btFinalizado
 
-                FROM tbl_SesionesEventos SesionesEventos
+                AreasEventos.intId,
+                AreasEventos.intIdEvento,
+                AreasEventos.intIdArea
 
-                WHERE SesionesEventos.intIdEvento = Eventos.intId
+                FROM tbl_AreasEventos AreasEventos
+
+                WHERE AreasEventos.intIdEvento = Eventos.intId
                 FOR JSON PATH
-            )as arrSesionesEventos
+            )as arrAreasEventos
             
             FROM tbl_EventosGrupales Eventos
 
@@ -437,12 +471,12 @@ class daoEventos {
             let arrNewData = response.recordsets[0];
 
             for (let i = 0; i < arrNewData.length; i++) {
-                if (arrNewData[i].arrSesionesEventos) {
-                    let { arrSesionesEventos } = arrNewData[i];
+                if (arrNewData[i].arrAreasEventos) {
+                    let { arrAreasEventos } = arrNewData[i];
 
-                    if (validator.isJSON(arrSesionesEventos)) {
-                        arrSesionesEventos = JSON.parse(arrSesionesEventos);
-                        arrNewData[i].arrSesionesEventos = arrSesionesEventos;
+                    if (validator.isJSON(arrAreasEventos)) {
+                        arrAreasEventos = JSON.parse(arrAreasEventos);
+                        arrNewData[i].arrAreasEventos = arrAreasEventos;
                     }
                 }
             }
@@ -472,7 +506,6 @@ class daoEventos {
             return result;
         }
     }
-
 
     async getTiposEventos(data) {
         try {
@@ -538,6 +571,35 @@ class daoEventos {
                 msg:
                     error.message ||
                     "Error en el metodo getEstadosEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getIdEstadoEventos(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                SELECT intId FROM tbl_EstadosEventos 
+                WHERE (strNombre = ${data.strNombre})`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getIdEstados de la clase daoEstados",
             };
 
             sql.close(conexion);

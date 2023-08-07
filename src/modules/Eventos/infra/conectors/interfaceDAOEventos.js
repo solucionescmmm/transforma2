@@ -8,6 +8,30 @@ class interfaceDAOEventos {
         return result;
     }
 
+    async setEventos(data) {
+        const dao = new classDaoSql();
+        let result = await dao.setEventos(data);
+        return result;
+    }
+
+    async setEventos(data) {
+        const dao = new classDaoSql();
+        let result = await dao.setEventos(data);
+        return result;
+    }
+
+    async setEventos(data) {
+        const dao = new classDaoSql();
+        let result = await dao.setEventos(data);
+        return result;
+    }
+
+    async setAreasEventos(data) {
+        const dao = new classDaoSql();
+        let result = await dao.setAreasEventos(data);
+        return result;
+    }
+
     async updateEventos(data) {
         const dao = new classDaoSql();
         let result = await dao.updateEventos(data);
@@ -25,5 +49,12 @@ class interfaceDAOEventos {
         let result = await dao.getTiposEventos(data)
         return result
     }
+
+    async getIdEstadoEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getIdEstadoEventos(data)
+        return result
+    }
+
 }
 module.exports = interfaceDAOEventos
