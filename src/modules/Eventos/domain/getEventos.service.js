@@ -52,16 +52,9 @@ const getEventos = async (objParams, strDataUser) => {
                     })
                 }
 
-                const getServicios = await serviceGetServicio({intId: array[i]?.intIdServicio}, strDataUser)
-
-                if (getServicios.error) {
-                    throw new Error(getServicios.msg)
-                }
-
                 array[i] = {
                     ...array[i],
                     arrAreas,
-                    strNombreServicio: getServicios.data[0]?.objInfoPrincipal?.strNombre || "Sin Nombre",
                     arrInvolucrados: JSON.parse(array[i]?.strInvolucrados),
                     strResponsable: JSON.parse(array[i]?.strResponsable),
                 };
