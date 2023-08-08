@@ -10,6 +10,11 @@ routes.post("/transforma/api/eventos/setEventos", async (req, res) => {
     await controllerEventos.setEventos(req, res);
 });
 
+routes.post("/transforma/api/eventos/setSesionesEventos", async (req, res) => {
+    let controllerEventos = new classController();
+    await controllerEventos.setSesionesEventos(req, res);
+});
+
 routes.get("/transforma/api/eventos/getEventos", async (req, res) => {
     let controllerEventos = new classController()
     await controllerEventos.getEventos(req, res)

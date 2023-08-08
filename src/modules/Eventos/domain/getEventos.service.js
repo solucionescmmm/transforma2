@@ -5,6 +5,7 @@ const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos
 
 //services
 const serviceGetAreas = require("../../Servicios/Maestros/Areas/domain/getAreas.service")
+const serviceGetServicio = require("../../Servicios/Modulo/Servicio/domain/getServicios.service")
 
 const getEventos = async (objParams, strDataUser) => {
     let { intId } = objParams;
@@ -39,18 +40,30 @@ const getEventos = async (objParams, strDataUser) => {
                 for (let j = 0; j < arrAreasEventos.length; j++) {
                     let intIdArea = arrAreasEventos[j]?.intIdArea
 
-                    const query = await serviceGetAreas({ intId: intIdArea }, strDataUser)
+                    const getAreas = await serviceGetAreas({ intId: intIdArea }, strDataUser)
+
+                    if (getAreas.error) {
+                        throw new Error(getAreas.msg)
+                        
+                    }
 
                     arrAreas.push({
-                        ...query.data[0]
+                        ...getAreas.data[0]
                     })
+                }
+
+                const getServicios = await serviceGetServicio({intId: array[i]?.intIdServicio}, strDataUser)
+
+                if (getServicios.error) {
+                    throw new Error(getServicios.msg)
                 }
 
                 array[i] = {
                     ...array[i],
                     arrAreas,
+                    strNombreServicio: getServicios.data[0]?.objInfoPrincipal?.strNombre || "Sin Nombre",
                     arrInvolucrados: JSON.parse(array[i]?.strInvolucrados),
-                    arrInvolucrados: JSON.parse(array[i]?.strInvolucrados),
+                    strResponsable: JSON.parse(array[i]?.strResponsable),
                 };
             }
 

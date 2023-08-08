@@ -1,5 +1,6 @@
 //Servicios
 const setEventos = require("../../domain/setEventos.service");
+const setSesionesEventos = require("../../domain/setSesionesEventos.service");
 const getEventos = require("../../domain/getEventos.service");
 const getTiposEventos = require("../../domain/getTiposEventos.service");
 
@@ -11,6 +12,30 @@ class ctrlEventos {
             let { strDataUser } = req;
 
             let service = new setEventos(data,strDataUser);
+
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async setSesionesEventos(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new setSesionesEventos(data,strDataUser);
 
             let query = await service.main();
 
