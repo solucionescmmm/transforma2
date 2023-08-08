@@ -39,6 +39,7 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
     Home as HomeIcon,
+    Delete as DeleteIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -48,6 +49,7 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import Panel from "../components/panel";
 import useGetEventos from "../hooks/useGetEventos";
+import ModalDelete from "./modalDelete";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -66,10 +68,12 @@ const ReadSolicitudesUser = () => {
     const [objColumns] = useState([
         {
             title: "Nombre del evento",
-            type: 'string'
+            field: "strNombre",
+            type: "string",
         },
         {
             title: "Tipo de Evento",
+            field: "strNombre",
             type: "string",
         },
         {
@@ -78,42 +82,61 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Servicio",
+            field: "strNombreServicio",
             type: "string",
         },
         {
             title: "Estado",
+            field: "strNombreEstado",
             type: "string",
         },
         {
             title: "Fecha de Inicio",
+            field: "dtFechaIni",
             type: "date",
         },
         {
             title: "Fecha fin",
+            field: "dtFechaFin",
             type: "date",
         },
         {
             title: "Número de Sesiones",
+            field: "intNumSesiones",
             type: "number",
         },
     ]);
+
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [selectedData, setSelectedData] = useState();
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { push } = useHistory();
-    const { data } = useGetEventos({ autoload: true });
+    const { data, refreshGetData } = useGetEventos({ autoload: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = styles();
 
+    const handlerOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
         <Fragment>
+            <ModalDelete
+                handleOpenDialog={handlerOpenModalDelete}
+                open={openModalDelete}
+                intId={selectedData?.intId}
+                refresh={refreshGetData}
+            />
+
             <Grid container direction="row" spacing={2}>
                 <Grid item xs={12}>
                     <Breadcrumbs aria-label="breadcrumb">
@@ -252,10 +275,54 @@ const ReadSolicitudesUser = () => {
                                         fontSize: 12,
                                     },
                                     maxBodyHeight: "520px",
-                                    paging:true,
-                                    pageSizeOptions:[20,100,200,500], 
+                                    actionsColumnIndex: -1,
+                                    paging: true,
+                                    pageSizeOptions: [20, 100, 200, 500],
                                     pageSize: 20,
                                 }}
+                                actions={[
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <EditIcon
+                                                    color={
+                                                        rowData.btFinalizada ===
+                                                        true
+                                                            ? "gray"
+                                                            : "success"
+                                                    }
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            tooltip: "Editar",
+
+                                            disabled:
+                                                rowData.btFinalizada === true,
+                                        };
+                                    },
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <DeleteIcon
+                                                    color={
+                                                        rowData.btFinalizada ===
+                                                        true
+                                                            ? "gray"
+                                                            : "error"
+                                                    }
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            onClick: (event, rowData) => {
+                                                setSelectedData(rowData);
+                                                handlerOpenModalDelete();
+                                            },
+                                            tooltip: "Eliminar",
+                                            disabled:
+                                                rowData.btFinalizada === true,
+                                        };
+                                    },
+                                ]}
                                 onRowClick={(e, rowData) => {
                                     push(
                                         `/transforma/asesor/eventos/read/${rowData.intId}`
@@ -273,9 +340,7 @@ const ReadSolicitudesUser = () => {
 
                                             <Grid container direction="row">
                                                 <Grid item xs={12} md={6}>
-                                                    <Panel
-                                                        data={data}
-                                                    />
+                                                    <Panel data={data} />
                                                 </Grid>
 
                                                 <Grid
