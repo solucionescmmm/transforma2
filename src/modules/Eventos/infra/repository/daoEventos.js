@@ -453,6 +453,7 @@ class daoEventos {
             Eventos.intEstadoEvento,
             Estados.strNombre as strNombreEstado,
             Servicios.strNombre as strNombreServicio,
+            Tipos.strNombre as strNombreTipo,
             (
                 SELECT
 
@@ -469,6 +470,7 @@ class daoEventos {
             FROM tbl_EventosGrupales Eventos
 
             INNER JOIN tbl_EstadosEventos Estados on Estados.intId = Eventos.intEstadoEvento
+            INNER JOIN tbl_tipoEvento Tipos on Tipos.intId = Eventos.intIdTipoEvento
             INNER JOIN tbl_Servicios Servicios on Servicios.intId = Eventos.intIdServicio
 
             WHERE (Eventos.intId = ${data.intId} OR ${data.intId} IS NULL)`;
