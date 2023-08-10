@@ -7,7 +7,7 @@ const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos
 const serviceGetAreas = require("../../Servicios/Maestros/Areas/domain/getAreas.service")
 const serviceGetServicio = require("../../Servicios/Modulo/Servicio/domain/getServicios.service")
 
-const getEventos = async (objParams, strDataUser) => {
+const getSesionesEventos = async (objParams, strDataUser) => {
     let { intId } = objParams;
 
     if (
@@ -32,34 +32,6 @@ const getEventos = async (objParams, strDataUser) => {
         if (arrayData.data.length > 0) {
             let array = arrayData.data
 
-            for (let i = 0; i < array.length; i++) {
-                let arrAreasEventos = array[i]?.arrAreasEventos;
-
-                let arrAreas = []
-
-                for (let j = 0; j < arrAreasEventos.length; j++) {
-                    let intIdArea = arrAreasEventos[j]?.intIdArea
-
-                    const getAreas = await serviceGetAreas({ intId: intIdArea }, strDataUser)
-
-                    if (getAreas.error) {
-                        throw new Error(getAreas.msg)
-                        
-                    }
-
-                    arrAreas.push({
-                        ...getAreas.data[0]
-                    })
-                }
-
-                array[i] = {
-                    ...array[i],
-                    arrAreas,
-                    arrInvolucrados: JSON.parse(array[i]?.strInvolucrados),
-                    strResponsable: JSON.parse(array[i]?.strResponsable),
-                };
-            }
-
             let result = {
                 error: false,
                 data: array,
@@ -71,4 +43,4 @@ const getEventos = async (objParams, strDataUser) => {
 
     return arrayData;
 };
-module.exports = getEventos;
+module.exports = getSesionesEventos;

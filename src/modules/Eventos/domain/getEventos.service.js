@@ -10,6 +10,8 @@ const serviceGetServicio = require("../../Servicios/Modulo/Servicio/domain/getSe
 const getEventos = async (objParams, strDataUser) => {
     let { intId } = objParams;
 
+    intId = Number(intId)
+
     if (
         !validator.isEmail(strDataUser.strEmail, {
             domain_specific_validation: "cmmmedellin.org",

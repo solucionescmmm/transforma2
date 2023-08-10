@@ -25,13 +25,14 @@ class setSesionesEventos {
     }
 
     async main() {
-        await this.#validations()
-        await this.#getEventos()
-        await this.#setSesionesEventos()
-        await this.#setAsistentesEventos()
-        await this.#updateEventos()
+        console.log(this.#objData)
+        // await this.#validations()
+        // await this.#getEventos()
+        // await this.#setSesionesEventos()
+        // //await this.#setAsistentesEventos()
+        // await this.#updateEventos()
 
-        return this.#objResult;
+        // return this.#objResult;
     }
 
     async #validations() {
