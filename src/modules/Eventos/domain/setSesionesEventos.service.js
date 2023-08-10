@@ -28,6 +28,7 @@ class setSesionesEventos {
         await this.#validations()
         await this.#getEventos()
         await this.#setSesionesEventos()
+        await this.#setAsistentesEventos()
         await this.#updateEventos()
 
         return this.#objResult;
@@ -58,7 +59,7 @@ class setSesionesEventos {
         }
 
         this.#intNumSesiones = query.data[0]?.intNumSesiones
-    }9
+    } 9
 
     async #setSesionesEventos() {
         let newData = {
@@ -80,13 +81,36 @@ class setSesionesEventos {
         };
     }
 
-        async #updateEventos() {
+    async #setAsistentesEventos() {
         let dao = new classInterfaceDAOEventos();
 
-        let data={
-            intId : this.#objData.intIdEvento,
-            intNumSesiones: this.#intNumSesiones + 1
+        const array = this.#objData.arrAsistentes
 
+        for (let i = 0; i < array.length; i++) {
+
+            let query = await dao.setAsistentesEventos({
+                intIdEvento: this.#objData.intIdEvento,
+                intIdIdea: this.#objData.intIdIdea,
+                intIdEmpresario: array[i]?.intIdEmpresario || null,
+                intIdTercero: array[i]?.intIdTercero || null,
+                intTipoEmpresario: array[i]?.intTipoEmpresario|| null,
+                btFinalizoEvento: false
+            });
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+        }
+
+    }
+
+    async #updateEventos() {
+        let dao = new classInterfaceDAOEventos();
+
+        let data = {
+            intId: this.#objData.intIdEvento,
+            intNumSesiones: this.#intNumSesiones + 1
         }
 
         let query = await dao.updateEventos(data);

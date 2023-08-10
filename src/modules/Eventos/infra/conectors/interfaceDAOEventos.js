@@ -14,9 +14,9 @@ class interfaceDAOEventos {
         return result;
     }
 
-    async setEventos(data) {
+    async setAsistentesEventos(data) {
         const dao = new classDaoSql();
-        let result = await dao.setEventos(data);
+        let result = await dao.setAsistentesEventos(data);
         return result;
     }
 
