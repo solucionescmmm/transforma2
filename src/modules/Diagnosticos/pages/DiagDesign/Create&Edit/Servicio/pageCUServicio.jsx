@@ -109,6 +109,7 @@ const PageCUServicio = ({
     });
 
     const [openModal, setOpenModal] = useState(false);
+    const [openModalFinalizar, setOpenModalFinalizar] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const [finalizado, setFinalizado] = useState(false);
@@ -121,6 +122,7 @@ const PageCUServicio = ({
     const [loadingGetData, setLoadingGetData] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
+    const [flagFinalizar, setFlagFinalizar] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -279,6 +281,65 @@ const PageCUServicio = ({
         [token, data, isEdit, intIdIdea, intIdDiagnostico]
     );
 
+    const finalizarDiag = useCallback(
+        async (signalSubmitData) => {
+            setLoading(true);
+
+            setFlagFinalizar(false);
+
+            await axios(
+                {
+                    method:"PUT",
+                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_FINISHSERVICIO}`,
+                    data:{intIdDiagnostico},
+                    headers: {
+                        token,
+                        "Content-Type": "application/json;charset=UTF-8",
+                    },
+                },
+                {
+                    cancelToken: signalSubmitData.token,
+                }
+            )
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    toast.success(res.data.msg);
+
+                    setLoading(false);
+                    setOpenModalFinalizar(false)
+
+                    onChangeRoute("DiagEmpresarial", {
+                        intIdIdea,
+                        intIdDiagnostico,
+                    });
+                })
+                .catch((error) => {
+                    if (!axios.isCancel(error)) {
+                        let msg;
+
+                        if (error.response) {
+                            msg = error.response.data.msg;
+                        } else if (error.request) {
+                            msg = error.message;
+                        } else {
+                            msg = error.message;
+                        }
+
+                        console.error(error);
+                        setLoading(false);
+
+                        toast.error(msg);
+                    }
+                });
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [token, data, isEdit]
+    );
+
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
@@ -414,6 +475,18 @@ const PageCUServicio = ({
         };
     }, [flagSubmit, submitData]);
 
+    useEffect(() => {
+        let signalSubmitData = axios.CancelToken.source();
+
+        if (flagFinalizar) {
+            finalizarDiag(signalSubmitData);
+        }
+
+        return () => {
+            signalSubmitData.cancel("Petición abortada.");
+        };
+    }, [flagFinalizar, finalizarDiag]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -480,6 +553,42 @@ const PageCUServicio = ({
                         }}
                     >
                         editar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog
+                open={openModalFinalizar}
+                disableEscapeKeyDown
+                fullScreen={bitMobile}
+            >
+                <DialogTitle>Finalizar diagnóstico</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Se ha detectado que la persona empresaria ya cuenta con
+                        un registro del diagnóstico de servicio.
+                        ¿Deseas finalizar el diagnóstico de servicio?
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button
+                        onClick={() =>
+                            setOpenModalFinalizar(false)
+                        }
+                        color="inherit"
+                    >
+                        Cancelar
+                    </Button>
+
+                    <Button
+                        onClick={() =>
+                            setFlagFinalizar(true)
+                        }
+                        disabled={finalizado}
+                        color="error"
+                    >
+                        Finalizar
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -623,6 +732,21 @@ const PageCUServicio = ({
                                         >
                                             {isEdit ? "guardar" : "registrar"}
                                         </LoadingButton>
+                                        {
+                                            isEdit ? (
+                                            <LoadingButton
+                                                variant="contained"
+                                                loading={loading}
+                                                onClick={() =>
+                                                    setOpenModalFinalizar(true)
+                                                }
+                                                style={{
+                                                    marginRight: 15
+                                                }}>
+                                                Finalizar
+                                            </LoadingButton>
+                                            ): null
+                                        }
                                     </Box>
                                 </Grid>
                             </Grid>
