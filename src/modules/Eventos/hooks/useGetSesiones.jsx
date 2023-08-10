@@ -27,7 +27,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData()
  *
  */
-const useGetEventos = ({ autoLoad = true, intId } = {}) => {
+const useGetSesiones = ({ autoLoad = true, intIdEvento } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -42,17 +42,17 @@ const useGetEventos = ({ autoLoad = true, intId } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intId }) => {
+        async ({ signalSubmitData, intIdEvento }) => {
             return await axios(
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_EVENTOS_GET}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_SESIONES_GET}`,
                     headers: {
                         token,
                     },
                     params: {
-                        intId
+                        intIdEvento
                     }
                 },
                 {
@@ -94,20 +94,20 @@ const useGetEventos = ({ autoLoad = true, intId } = {}) => {
         setData(data);
     };
 
-    const refreshGetData = (intId) => {
+    const refreshGetData = (intIdEvento) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, intId });
+        getData({ signalSubmitData, intIdEvento });
     };
 
-    const getUniqueData = async (intId) => {
+    const getUniqueData = async (intIdEvento) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
             signalSubmitData,
-            intId
+            intIdEvento
         });
 
         return query;
@@ -122,14 +122,14 @@ const useGetEventos = ({ autoLoad = true, intId } = {}) => {
         if (autoLoad) {
             getData({
                 signalSubmitData,
-                intId,
+                intIdEvento
             });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, autoLoad, intId]);
+    }, [getData, autoLoad, intIdEvento]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
@@ -137,4 +137,4 @@ const useGetEventos = ({ autoLoad = true, intId } = {}) => {
     return { data, refreshGetData, getUniqueData, alterData };
 };
 
-export default useGetEventos;
+export default useGetSesiones;

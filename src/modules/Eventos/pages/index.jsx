@@ -295,7 +295,11 @@ const ReadSolicitudesUser = () => {
                                                 />
                                             ),
                                             tooltip: "Editar",
-
+                                            onClick: (event, rowData) => {
+                                                push(
+                                                    `/transforma/asesor/eventos/edit/${rowData.intId}`
+                                                );
+                                            },
                                             disabled:
                                                 rowData.btFinalizada === true,
                                         };

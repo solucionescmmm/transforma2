@@ -51,6 +51,9 @@ import SelectListas from "../../../Diagnosticos/components/selectLista";
 import DropdownServicios from "../../../Admin/components/dropdownServicios";
 import DropdownAreas from "../../../Admin/components/dropdownAreas";
 import SelectSedes from "../../../Admin/components/selectSedes";
+import { useParams } from "react-router-dom";
+import ReadSesiones from "./Sesiones";
+import { parseISO } from "date-fns";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -89,7 +92,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CreateEditEventos = ({ isEdit, intId }) => {
+const CreateEditEventos = ({ isEdit }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -100,7 +103,6 @@ const CreateEditEventos = ({ isEdit, intId }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        intId,
         strNombre: "",
         intTipoEvento: "",
         dtFechaInicio: null,
@@ -135,6 +137,8 @@ const CreateEditEventos = ({ isEdit, intId }) => {
         handleSubmit,
         reset,
     } = useForm({ mode: "onChange" });
+
+    const { intId } = useParams();
 
     const { getUniqueData } = useGetEventos({ autoLoad: false });
 
@@ -213,12 +217,12 @@ const CreateEditEventos = ({ isEdit, intId }) => {
     );
 
     useEffect(() => {
-        if (isEdit) {
+        if (isEdit && intId) {
             setLoadingGetData(true);
 
             async function getData() {
                 await refFntGetData
-                    .current({ intId })
+                    .current({ intId: Number(intId) })
                     .then((res) => {
                         if (res.data.error) {
                             throw new Error(res.data.msg);
@@ -230,13 +234,13 @@ const CreateEditEventos = ({ isEdit, intId }) => {
                             setData({
                                 intId,
                                 strNombre: data.strNombre,
-                                intTipoEvento: data.intTipoEvento,
-                                dtFechaInicio: data.dtFechaInicio,
-                                dtFechaFin: data.dtFechaFin,
+                                intTipoEvento: data.intIdTipoEvento,
+                                dtFechaInicio: parseISO(data.dtFechaIni),
+                                dtFechaFin: parseISO(data.dtFechaFin),
                                 strResponsable: data.strResponsable,
-                                bitPago: data.bitPago,
-                                strSede: data.strSede,
-                                strServicio: data.strServicio,
+                                bitPago: data.btPago === true ? "Sí" : "No",
+                                strSede: data.intIdSede,
+                                strServicio: data.intIdServicio,
                                 arrAreas: data.arrAreas,
                                 arrInvolucrados: data.arrInvolucrados,
                             });
@@ -244,13 +248,13 @@ const CreateEditEventos = ({ isEdit, intId }) => {
                             reset({
                                 intId,
                                 strNombre: data.strNombre,
-                                intTipoEvento: data.intTipoEvento,
-                                dtFechaInicio: data.dtFechaInicio,
-                                dtFechaFin: data.dtFechaFin,
+                                intTipoEvento: data.intIdTipoEvento,
+                                dtFechaInicio: parseISO(data.dtFechaIni),
+                                dtFechaFin: parseISO(data.dtFechaFin),
                                 strResponsable: data.strResponsable,
-                                bitPago: data.bitPago,
-                                strSede: data.strSede,
-                                strServicio: data.strServicio,
+                                bitPago: data.btPago === true ? "Sí" : "No",
+                                strSede: data.intIdSede,
+                                strServicio: data.intIdServicio,
                                 arrAreas: data.arrAreas,
                                 arrInvolucrados: data.arrInvolucrados,
                             });
@@ -730,6 +734,12 @@ const CreateEditEventos = ({ isEdit, intId }) => {
                                     }}
                                 />
                             </Grid>
+
+                            {isEdit && (
+                                <Grid item xs={12}>
+                                    <ReadSesiones intIdEvento={intId} />
+                                </Grid>
+                            )}
 
                             <Grid item xs={12}>
                                 <Box

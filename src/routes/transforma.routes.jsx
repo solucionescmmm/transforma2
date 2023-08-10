@@ -275,6 +275,19 @@ const RoutesTransforma = ({ path }) => {
                                 )}
                             />
 
+                            <Route
+                                path="/transforma/asesor/eventos/edit/:intId"
+                                exact
+                                component={() => (
+                                    <div
+                                        className="animate__animated animate__fadeIn"
+                                        style={{ width: "100%" }}
+                                    >
+                                        <CUEventos isEdit />
+                                    </div>
+                                )}
+                            />
+
                             <Route path="*" component={PageNotFound} />
                         </Switch>
                     </Suspense>
