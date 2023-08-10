@@ -38,9 +38,21 @@ class interfaceDAOEventos {
         return result;
     }
 
+    async updateSesionesEventos(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateSesionesEventos(data);
+        return result;
+    }
+
     async getEventos(data) {
         const dao = new classDaoSql()
         let result = await dao.getEventos(data)
+        return result
+    }
+
+    async getSesionesEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getSesionesEventos(data)
         return result
     }
 

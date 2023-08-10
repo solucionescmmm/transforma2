@@ -514,6 +514,89 @@ class daoEventos {
         }
     }
 
+    async getSesionesEventos(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT
+
+            Eventos.intId,
+            Eventos.strNombre,
+            Eventos.intIdTipoEvento,
+            Eventos.dtFechaIni,
+            Eventos.dtFechaFin,
+            Eventos.intIdSede,
+            Eventos.intIdServicio,
+            Eventos.strResponsable,
+            Eventos.strInvolucrados,
+            Eventos.intNumSesiones,
+            Eventos.btPago,
+            Eventos.intEstadoEvento,
+            Estados.strNombre as strNombreEstado,
+            Servicios.strNombre as strNombreServicio,
+            Tipos.strNombre as strNombreTipo,
+            (
+                SELECT
+
+                AreasEventos.intId,
+                AreasEventos.intIdEvento,
+                AreasEventos.intIdArea
+
+                FROM tbl_AreasEventos AreasEventos
+
+                WHERE AreasEventos.intIdEvento = Eventos.intId
+                FOR JSON PATH
+            )as arrAreasEventos
+            
+            FROM tbl_EventosGrupales Eventos
+
+            INNER JOIN tbl_EstadosEventos Estados on Estados.intId = Eventos.intEstadoEvento
+            INNER JOIN tbl_tipoEvento Tipos on Tipos.intId = Eventos.intIdTipoEvento
+            INNER JOIN tbl_Servicios Servicios on Servicios.intId = Eventos.intIdServicio
+
+            WHERE (Eventos.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].arrAreasEventos) {
+                    let { arrAreasEventos } = arrNewData[i];
+
+                    if (validator.isJSON(arrAreasEventos)) {
+                        arrAreasEventos = JSON.parse(arrAreasEventos);
+                        arrNewData[i].arrAreasEventos = arrAreasEventos;
+                    }
+                }
+            }
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getTiposEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();

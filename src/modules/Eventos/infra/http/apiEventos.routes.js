@@ -15,19 +15,29 @@ routes.post("/transforma/api/eventos/setSesionesEventos", async (req, res) => {
     await controllerEventos.setSesionesEventos(req, res);
 });
 
+routes.put("/transforma/api/eventos/updateEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.updateEventos(req, res)
+})
+
+routes.put("/transforma/api/eventos/updateSesionesEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.updateSesionesEventos(req, res)
+})
+
 routes.get("/transforma/api/eventos/getEventos", async (req, res) => {
     let controllerEventos = new classController()
     await controllerEventos.getEventos(req, res)
 })
 
+routes.get("/transforma/api/eventos/getSesionesEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.getSesionesEventos(req, res)
+})
+
 routes.get("/transforma/api/eventos/getTiposEventos", async (req, res) => {
     let controllerEventos = new classController()
     await controllerEventos.getTiposEventos(req, res)
-})
-
-routes.put("/transforma/api/eventos/updateEventos", async (req, res) => {
-    let controllerEventos = new classController()
-    await controllerEventos.updateEventos(req, res)
 })
 
 routes.delete("/transforma/api/eventos/deleteEventos", async (req, res) => {

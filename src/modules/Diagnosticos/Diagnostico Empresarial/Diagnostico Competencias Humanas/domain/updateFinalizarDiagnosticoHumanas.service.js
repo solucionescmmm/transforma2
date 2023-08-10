@@ -19,7 +19,6 @@ class updateFinalizarDiagnosticoHumanas {
     async main() {
         await this.#validations();
         await this.#updateFinalizarDiagnosticoHumanas();
-
         return this.#objResult;
     }
 
