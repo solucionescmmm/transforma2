@@ -48,8 +48,23 @@ const ReadDiagnosticos = ({
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
+            title: "Id del diagnostico",
+            field: "intId",
+            type: "string",
+        },
+        {
             title: "Tipo de diagnostico",
             field: "strTipoDiagnostico",
+            type: "string",
+        },
+        {
+            title: "Fecha de creación",
+            field: "dtmCreacion",
+            type: "date",
+        },
+        {
+            title: "Usuario de creación",
+            field: "strUsuarioCreacion",
             type: "string",
         },
         {
