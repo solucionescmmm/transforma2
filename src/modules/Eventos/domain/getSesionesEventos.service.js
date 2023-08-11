@@ -32,6 +32,24 @@ const getSesionesEventos = async (objParams, strDataUser) => {
         if (arrayData.data.length > 0) {
             let array = arrayData.data
 
+            for (let i = 0; i < array.length; i++) {
+                const getAreas = await serviceGetAreas({
+                    intId: array[i]?.intAreaResponsable
+                }, strDataUser)
+
+                if (getAreas.error) {
+                    throw new Error(getAreas.msg)
+                }
+
+                console.log(getAreas.data)
+
+                array[i] = {
+                    ...array[i],
+                    strArea:getAreas.data[0],
+                    strResponsables: JSON.parse(array[i]?.strResponsables),
+                };
+            }
+
             let result = {
                 error: false,
                 data: array,

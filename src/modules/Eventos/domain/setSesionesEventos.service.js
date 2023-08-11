@@ -5,7 +5,7 @@ const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos
 const validator = require("validator").default;
 
 //service
-const serviceGetEventos = require("./getEventos.service")
+
 
 class setSesionesEventos {
 
@@ -25,14 +25,12 @@ class setSesionesEventos {
     }
 
     async main() {
-        console.log(this.#objData)
-        // await this.#validations()
-        // await this.#getEventos()
-        // await this.#setSesionesEventos()
-        // //await this.#setAsistentesEventos()
-        // await this.#updateEventos()
+        await this.#validations()
+        await this.#getEventos()
+        await this.#setSesionesEventos()
+        await this.#updateEventos()
 
-        // return this.#objResult;
+        return this.#objResult;
     }
 
     async #validations() {
@@ -51,25 +49,34 @@ class setSesionesEventos {
     }
 
     async #getEventos() {
-        let query = await serviceGetEventos({
+        let dao = new classInterfaceDAOEventos();
+
+        let query = await dao.getIntNumSesiones({
             intId: this.#objData.intIdEvento
-        }, this.#objUser)
+        })
 
         if (query.error) {
             throw new Error(query.msg)
         }
 
+
         this.#intNumSesiones = query.data[0]?.intNumSesiones
-    } 9
+    }
 
     async #setSesionesEventos() {
         let newData = {
             ...this.#objData,
+            strNombreModulo: this.#objData.strNombre,
+            intAreaResponsable: this.#objData.strArea?.intId,
+            strResponsables: JSON.stringify(this.#objData?.strResponsables || ""),
             btFinalizado: false,
         }
+
         let dao = new classInterfaceDAOEventos();
 
         let query = await dao.setSesionesEventos(newData);
+
+        console.log(query)
 
         if (query.error) {
             throw new Error(query.msg);
@@ -80,30 +87,6 @@ class setSesionesEventos {
             data: query.data,
             msg: query.msg,
         };
-    }
-
-    async #setAsistentesEventos() {
-        let dao = new classInterfaceDAOEventos();
-
-        const array = this.#objData.arrAsistentes
-
-        for (let i = 0; i < array.length; i++) {
-
-            let query = await dao.setAsistentesEventos({
-                intIdEvento: this.#objData.intIdEvento,
-                intIdIdea: this.#objData.intIdIdea,
-                intIdEmpresario: array[i]?.intIdEmpresario || null,
-                intIdTercero: array[i]?.intIdTercero || null,
-                intTipoEmpresario: array[i]?.intTipoEmpresario|| null,
-                btFinalizoEvento: false
-            });
-
-            if (query.error) {
-                throw new Error(query.msg);
-            }
-
-        }
-
     }
 
     async #updateEventos() {

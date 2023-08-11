@@ -55,6 +55,7 @@ class daoEventos {
     }
 
     async setSesionesEventos(data) {
+
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -67,15 +68,18 @@ class daoEventos {
                 ${data.strNombreModulo},
                 ${data.intAreaResponsable},
                 ${data.strResponsables},
-                ${data.dtFechaIni},
+                ${data.dtFechaInicio},
                 ${data.dtFechaFin},
                 ${data.btFinalizado}
             )
-            SET @intId = SCOPE_IDENTITY();`;
+            SET @intId = SCOPE_IDENTITY();
+            
+            SELECT * FROM tbl_SesionesEventos WHERE intId = @intId`;
 
             let result = {
                 error: false,
                 data: response.recordset[0],
+                msg: `El evento ${data.strNombreModulo}, fue creado con exito.`
             };
 
             sql.close(conexion);
@@ -326,7 +330,7 @@ class daoEventos {
 
             SET strNombre       = COALESCE(${data.strNombre}, strNombre),
                 intIdTipoEvento = COALESCE(${data.intIdTipoEvento}, intIdTipoEvento),
-                dtFechaIni      = COALESCE(${data.dtFechaIni}, dtFechaIni),
+                dtFechaIni      = COALESCE(${data.dtFechaInicio}, dtFechaIni),
                 dtFechaFin      = COALESCE(${data.dtFechaFin}, dtFechaFin),
                 intIdSede       = COALESCE(${data.intIdSede}, intIdSede),
                 intIdServicio   = COALESCE(${data.intIdServicio}, intIdServicio),
@@ -432,7 +436,6 @@ class daoEventos {
     }
 
     async getEventos(data) {
-        console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -670,6 +673,46 @@ class daoEventos {
                 msg:
                     error.message ||
                     "Error en el metodo getIdEstados de la clase daoEstados",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getIntNumSesiones(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT intNumSesiones
+            
+            FROM tbl_EventosGrupales 
+
+            WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEventos de la clase daoEventos",
             };
 
             sql.close(conexion);

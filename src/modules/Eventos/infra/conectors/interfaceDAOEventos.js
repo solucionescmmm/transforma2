@@ -68,5 +68,11 @@ class interfaceDAOEventos {
         return result
     }
 
+    async getIntNumSesiones(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getIntNumSesiones(data)
+        return result
+    }
+
 }
 module.exports = interfaceDAOEventos
