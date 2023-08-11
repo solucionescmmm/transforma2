@@ -53,16 +53,17 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
         },
         {
             title: "Nombre del módulo",
-            field: "strNombre",
+            field: "strNombreModulo",
             type: "string",
         },
         {
             title: "Área responsable",
+            field: "strArea.strNombre",
             type: "string",
         },
         {
             title: "Responsable",
-            field: "strNombreServicio",
+            field: "strResponsables[0].strNombre",
             type: "string",
         },
         {
