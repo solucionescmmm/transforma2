@@ -52,7 +52,7 @@ const ModalCEdit = ({
     open,
     intId,
     refresh,
-    intIdIdea,
+    intIdEvento,
     isEdit,
 }) => {
     //===============================================================================================================================================
@@ -108,6 +108,7 @@ const ModalCEdit = ({
 
     const onSubmit = (data) => {
         setData((prevState) => ({
+            intIdEvento: Number(intIdEvento),
             ...prevState,
             ...data,
         }));
@@ -127,7 +128,8 @@ const ModalCEdit = ({
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${
                         isEdit
-                            ? process.env.REACT_APP_API_TRANSFORMA_SESIONES_UPDATE
+                            ? process.env
+                                  .REACT_APP_API_TRANSFORMA_SESIONES_UPDATE
                             : process.env.REACT_APP_API_TRANSFORMA_SESIONES_SET
                     }`,
                     data,
@@ -235,7 +237,7 @@ const ModalCEdit = ({
 
     useEffect(() => {
         if (success) {
-            refresh({ intIdIdea });
+            refresh({ intIdEvento });
             handleOpenDialog();
 
             setSucces(false);

@@ -92,7 +92,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CreateEditEventos = ({ isEdit }) => {
+const CreateEditEventos = ({ isEdit, isPreview }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -217,7 +217,7 @@ const CreateEditEventos = ({ isEdit }) => {
     );
 
     useEffect(() => {
-        if (isEdit && intId) {
+        if (isEdit || intId) {
             setLoadingGetData(true);
 
             async function getData() {
@@ -322,7 +322,11 @@ const CreateEditEventos = ({ isEdit }) => {
                     </Link>
 
                     <Typography color="textPrimary" className={classes.link}>
-                        {isEdit ? "Edición" : "Registro"}
+                        {isEdit
+                            ? "Edición"
+                            : isPreview
+                            ? "Previsualizar"
+                            : "Registro"}
                     </Typography>
                 </Breadcrumbs>
             </Grid>
@@ -380,6 +384,8 @@ const CreateEditEventos = ({ isEdit }) => {
                                         >
                                             {isEdit
                                                 ? "EDITAR EVENTO"
+                                                : isPreview
+                                                ? "PREVISUALIZAR EVENTO"
                                                 : "REGISTRAR EVENTO"}
                                         </Typography>
                                     </Box>
@@ -406,7 +412,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                             value={value}
                                             onChange={(e) => onChange(e)}
                                             required
-                                            disabled={loading}
+                                            disabled={loading || isPreview}
                                             fullWidth
                                             variant="standard"
                                             error={
@@ -439,7 +445,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                             value={value}
                                             onChange={(e) => onChange(e)}
                                             required
-                                            disabled={loading}
+                                            disabled={loading || isPreview}
                                             fullWidth
                                             variant="standard"
                                             error={
@@ -485,6 +491,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                                     fullWidth: true,
                                                 },
                                             }}
+                                            disabled={loading || isPreview}
                                         />
                                     )}
                                     control={control}
@@ -506,6 +513,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                             label="Fecha de finalización"
                                             value={value}
                                             onChange={(date) => onChange(date)}
+                                            disabled={loading || isPreview}
                                             slotProps={{
                                                 textField: {
                                                     name,
@@ -539,7 +547,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                             label="Responsable"
                                             name={name}
                                             value={value}
-                                            disabled={loading}
+                                            disabled={loading || isPreview}
                                             onChange={(e, value) =>
                                                 onChange(value)
                                             }
@@ -573,7 +581,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                             label="¿Es de pago?"
                                             name={name}
                                             value={value}
-                                            disabled={loading}
+                                            disabled={loading || isPreview}
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.bitPago ? true : false
@@ -608,7 +616,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                             onChange={(e) => {
                                                 onChange(e);
                                             }}
-                                            disabled={loading}
+                                            disabled={loading || isPreview}
                                             required
                                             error={!!errors?.strSede}
                                             helperText={
@@ -636,7 +644,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                             label="Servicio asociado"
                                             name={name}
                                             value={value}
-                                            disabled={loading}
+                                            disabled={loading || isPreview}
                                             onChange={(_, value) =>
                                                 onChange(value)
                                             }
@@ -672,7 +680,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                             label="Áreas involucradas"
                                             name={name}
                                             value={value}
-                                            disabled={loading}
+                                            disabled={loading || isPreview}
                                             onChange={(_, value) =>
                                                 onChange(value)
                                             }
@@ -709,7 +717,7 @@ const CreateEditEventos = ({ isEdit }) => {
                                             label="Involucrados"
                                             name={name}
                                             value={value}
-                                            disabled={loading}
+                                            disabled={loading || isPreview}
                                             onChange={(e, value) =>
                                                 onChange(value)
                                             }
@@ -735,9 +743,12 @@ const CreateEditEventos = ({ isEdit }) => {
                                 />
                             </Grid>
 
-                            {isEdit && (
+                            {(isEdit || isPreview) && (
                                 <Grid item xs={12}>
-                                    <ReadSesiones intIdEvento={intId} />
+                                    <ReadSesiones
+                                        intIdEvento={intId}
+                                        isPreview={isPreview}
+                                    />
                                 </Grid>
                             )}
 

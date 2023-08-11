@@ -94,7 +94,7 @@ const useGetSesiones = ({ autoLoad = true, intIdEvento } = {}) => {
         setData(data);
     };
 
-    const refreshGetData = (intIdEvento) => {
+    const refreshGetData = ({intIdEvento}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
@@ -102,7 +102,7 @@ const useGetSesiones = ({ autoLoad = true, intIdEvento } = {}) => {
         getData({ signalSubmitData, intIdEvento });
     };
 
-    const getUniqueData = async (intIdEvento) => {
+    const getUniqueData = async ({intIdEvento}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({

@@ -41,7 +41,7 @@ import ModalDelete from "./modalDelete";
 import useGetSesiones from "../../../hooks/useGetSesiones";
 import ModalCEdit from "./modalCreate";
 
-const ReadSesiones = (intIdEvento) => {
+const ReadSesiones = ({ intIdEvento, isPreview }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -117,6 +117,7 @@ const ReadSesiones = (intIdEvento) => {
                 handleOpenDialog={handlerOpenModalCEdit}
                 open={openModalCEdit}
                 intId={selectedData?.intId}
+                intIdEvento={intIdEvento}
                 refresh={refreshGetData}
             />
 

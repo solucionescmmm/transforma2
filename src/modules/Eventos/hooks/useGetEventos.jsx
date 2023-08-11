@@ -52,8 +52,8 @@ const useGetEventos = ({ autoLoad = true, intId } = {}) => {
                         token,
                     },
                     params: {
-                        intId
-                    }
+                        intId,
+                    },
                 },
                 {
                     cancelToken: signalSubmitData.token,
@@ -102,12 +102,12 @@ const useGetEventos = ({ autoLoad = true, intId } = {}) => {
         getData({ signalSubmitData, intId });
     };
 
-    const getUniqueData = async (intId) => {
+    const getUniqueData = async ({ intId }) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
             signalSubmitData,
-            intId
+            intId,
         });
 
         return query;
