@@ -53,11 +53,11 @@ class updateEventos {
     async #deleteAreasEventos() {
         let dao = new classInterfaceDAOEventos();
 
-        let newData={
-            intIdEvento:this.#intIdEvento
+        let newData = {
+            intIdEvento: this.#objData.intId
         }
 
-        let query = await dao.deleteAreasEventos(data);
+        let query = await dao.deleteAreasEventos(newData);
 
         if (query.error) {
             throw new Error(query.msg);
