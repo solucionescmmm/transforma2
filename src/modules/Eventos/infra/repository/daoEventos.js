@@ -526,7 +526,6 @@ class daoEventos {
 
             SELECT
 
-
             SesionesEventos.intId,
             SesionesEventos.intIdEvento,
             SesionesEventos.strNombreModulo,
@@ -538,8 +537,7 @@ class daoEventos {
             
             FROM tbl_SesionesEventos SesionesEventos
 
-
-            WHERE (SesionesEventos.intId = ${data.intId} OR ${data.intId} IS NULL)`;
+            WHERE (SesionesEventos.intId = ${data.intId} OR ${data.intId} IS NULL)AND (SesionesEventos.intIdEvento = ${data.intIdEvento})`;
 
             let arrNewData = response.recordsets[0];
 
@@ -713,6 +711,37 @@ class daoEventos {
                 msg:
                     error.message ||
                     "Error en el metodo getEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteAreasEventos(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`
+                       
+            DELETE tbl_AreasEventos VALUES
+            WHERE intIdEvento = ${data.intIdEvento}`;
+
+            let result = {
+                error: false,
+                msg:"El area se elimino correctamente"
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setObjetivosEventos de la clase daoEventos",
             };
 
             sql.close(conexion);

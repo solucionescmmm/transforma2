@@ -92,13 +92,13 @@ class setEventos {
 
     async #setAreasEventos() {
         const array = this.#objData?.arrAreas;
+        let dao = new classInterfaceDAOEventos();
 
         for (let i = 0; i < array.length; i++) {
             let data = {
                 intIdEvento: this.#intIdEvento,
                 intIdArea: array[i]?.intId,
             }
-            let dao = new classInterfaceDAOEventos();
 
             let query = await dao.setAreasEventos(data);
 

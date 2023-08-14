@@ -8,7 +8,11 @@ const serviceGetAreas = require("../../Servicios/Maestros/Areas/domain/getAreas.
 const serviceGetServicio = require("../../Servicios/Modulo/Servicio/domain/getServicios.service")
 
 const getSesionesEventos = async (objParams, strDataUser) => {
-    let { intId } = objParams;
+    let { intId, intIdEvento } = objParams;
+
+    if(!intIdEvento){
+        throw new Error("Se esperaban paramentros de entrada")
+    }
 
     if (
         !validator.isEmail(strDataUser.strEmail, {
@@ -23,7 +27,8 @@ const getSesionesEventos = async (objParams, strDataUser) => {
     let dao = new classInterfaceDAOEventos();
 
     let query = {
-        intId: intId
+        intId: intId,
+        intIdEvento:intIdEvento
     };
 
     let arrayData = await dao.getSesionesEventos(query);
@@ -40,8 +45,6 @@ const getSesionesEventos = async (objParams, strDataUser) => {
                 if (getAreas.error) {
                     throw new Error(getAreas.msg)
                 }
-
-                console.log(getAreas.data)
 
                 array[i] = {
                     ...array[i],

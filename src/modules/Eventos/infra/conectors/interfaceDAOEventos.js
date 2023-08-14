@@ -74,5 +74,11 @@ class interfaceDAOEventos {
         return result
     }
 
+    async deleteAreasEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.deleteAreasEventos(data)
+        return result
+    }
+
 }
 module.exports = interfaceDAOEventos

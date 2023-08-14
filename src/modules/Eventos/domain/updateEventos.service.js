@@ -27,12 +27,12 @@ class updateEventos {
     }
 
     async main() {
-        console.log(this.#objData)
-        // await this.#validations()
-        // await this.#getIdEstado()
-        // await this.#updateEventos()
-        // await this.#setAreasEventos()
-        // return this.#objResult;
+        //console.log(this.#objData)
+        await this.#validations()
+        await this.#deleteAreasEventos()
+        await this.#updateEventos()
+        await this.#setAreasEventos()
+        return this.#objResult;
     }
 
     async #validations() {
@@ -50,16 +50,19 @@ class updateEventos {
         }
     }
 
-    async #getIdEstado() {
-        let queryGetIdEstado = await serviceGetIdEstadoEventos({
-            strNombre: "Planeado",
-        });
+    async #deleteAreasEventos() {
+        let dao = new classInterfaceDAOEventos();
 
-        if (queryGetIdEstado.error) {
-            throw new Error(queryGetIdEstado.msg);
+        let newData={
+            intIdEvento:this.#intIdEvento
         }
 
-        this.#intIdEstado = queryGetIdEstado.data.intId;
+        let query = await dao.deleteAreasEventos(data);
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+
     }
 
     async #updateEventos() {
@@ -93,13 +96,13 @@ class updateEventos {
 
     async #setAreasEventos() {
         const array = this.#objData?.arrAreas;
+        let dao = new classInterfaceDAOEventos();
 
         for (let i = 0; i < array.length; i++) {
             let data = {
                 intIdEvento: this.#intIdEvento,
                 intIdArea: array[i]?.intId,
             }
-            let dao = new classInterfaceDAOEventos();
 
             let query = await dao.setAreasEventos(data);
 

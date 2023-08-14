@@ -46,7 +46,7 @@ const getEventos = async (objParams, strDataUser) => {
 
                     if (getAreas.error) {
                         throw new Error(getAreas.msg)
-                        
+
                     }
 
                     arrAreas.push({
@@ -54,11 +54,21 @@ const getEventos = async (objParams, strDataUser) => {
                     })
                 }
 
+                let intIdServicio = array[i]?.intIdServicio
+
+                const queryGetServicio = await serviceGetServicio({ intId: intIdServicio }, strDataUser)
+
+                if (queryGetServicio.error) {
+                    throw new Error(queryGetServicio.msg)
+
+                }
+
                 array[i] = {
                     ...array[i],
                     arrAreas,
                     arrInvolucrados: JSON.parse(array[i]?.strInvolucrados),
                     strResponsable: JSON.parse(array[i]?.strResponsable),
+                    strServicio: queryGetServicio?.data[0]
                 };
             }
 
