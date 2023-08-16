@@ -36,42 +36,32 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import ModalDelete from "./modalDelete";
-import useGetSesiones from "../../../hooks/useGetSesiones";
 import ModalCEdit from "./modalCreate";
+import useGetMatriculas from "../../../hooks/useGetMatriculas";
 
-const ReadSesiones = ({ intIdEvento, isPreview }) => {
+const ReadMatriculas = ({ intIdEvento, isPreview }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
-            title: "Id",
-            field: "intId",
-            type: "number",
-        },
-        {
-            title: "Nombre del módulo",
+            title: "Nombres y Apellidos",
             field: "strNombreModulo",
             type: "string",
         },
         {
-            title: "Área responsable",
+            title: "Tipo de documento",
             field: "strArea.strNombre",
             type: "string",
         },
         {
-            title: "Responsable",
+            title: "Documento",
             field: "strResponsables[0].strNombre",
             type: "string",
         },
         {
-            title: "Fecha de Inicio",
+            title: "Correo electronico",
             field: "dtFechaIni",
-            type: "date",
-        },
-        {
-            title: "Fecha fin",
-            field: "dtFechaFin",
             type: "date",
         },
     ]);
@@ -83,7 +73,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data, refreshGetData } = useGetSesiones({
+    const { data, refreshGetData } = useGetMatriculas({
         autoload: true,
         intIdEvento,
     });
@@ -218,7 +208,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                         isLoading={data === undefined ? true : false}
                         data={!data?.error && data ? data : []}
                         columns={objColumns}
-                        title="Sesiones"
+                        title="Matriculas"
                         options={{
                             grouping: true,
                             title: true,
@@ -279,9 +269,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                 };
                             },
                         ]}
-                        onRowClick={(e, rowData) => {
-                           
-                        }}
+                        onRowClick={(e, rowData) => {}}
                         components={{
                             Toolbar: (props) => (
                                 <div
@@ -314,7 +302,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                                     }}
                                                     variant="contained"
                                                 >
-                                                    Agregar sesion
+                                                    Matricular persona
                                                 </Button>
                                             </Box>
                                         </Grid>
@@ -329,4 +317,4 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
     );
 };
 
-export default ReadSesiones;
+export default ReadMatriculas;

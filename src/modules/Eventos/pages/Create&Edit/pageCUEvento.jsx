@@ -54,6 +54,7 @@ import SelectSedes from "../../../Admin/components/selectSedes";
 import { useParams } from "react-router-dom";
 import ReadSesiones from "./Sesiones";
 import { parseISO } from "date-fns";
+import ReadMatriculas from "./Matriculas";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -746,6 +747,15 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                             {(isEdit || isPreview) && (
                                 <Grid item xs={12}>
                                     <ReadSesiones
+                                        intIdEvento={intId}
+                                        isPreview={isPreview}
+                                    />
+                                </Grid>
+                            )}
+
+                            {(isEdit || isPreview) && (
+                                <Grid item xs={12}>
+                                    <ReadMatriculas
                                         intIdEvento={intId}
                                         isPreview={isPreview}
                                     />

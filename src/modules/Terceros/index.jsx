@@ -69,32 +69,26 @@ const ReadSolicitudesUser = () => {
         {
             title: "Nombres y Apellidos",
             render: (rowData) =>
-                rowData?.strNombres +
-                " " +
-                rowData?.strApellidos,
+                rowData?.strNombres + " " + rowData?.strApellidos,
         },
         {
             title: "Tipo de documento del tercero",
-            render: (rowData) =>
-                rowData?.strTipoDocto,
+            render: (rowData) => rowData?.strTipoDocto,
             type: "string",
         },
         {
             title: "Documento del tercero",
-            render: (rowData) =>
-                rowData?.strNroDocto,
+            render: (rowData) => rowData?.strNroDocto,
             type: "string",
         },
         {
             title: "Email del tercero",
-            render: (rowData) =>
-                rowData?.strCorreoElectronico,
+            render: (rowData) => rowData?.strCorreoElectronico,
             type: "string",
         },
         {
             title: "Numero celular del tercero",
-            render: (rowData) =>
-                rowData?.strCelular,
+            render: (rowData) => rowData?.strCelular,
             type: "string",
         },
     ]);
