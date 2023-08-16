@@ -22,6 +22,21 @@ const getEventos = async (objParams, strDataUser) => {
         );
     }
 
+    const queryGetAreas = await serviceGetAreas({}, strDataUser)
+
+    if (queryGetAreas.error) {
+        throw new Error(queryGetAreas.msg)
+    }
+
+    const queryGetServicios = await serviceGetServicio({}, strDataUser)
+
+    if (queryGetServicios.error) {
+        throw new Error(queryGetServicios.msg)
+    }
+
+    const arrDataAreas = queryGetAreas.data
+    const arrDataServicios = queryGetServicios.data
+
     let dao = new classInterfaceDAOEventos();
 
     let query = {
@@ -42,33 +57,17 @@ const getEventos = async (objParams, strDataUser) => {
                 for (let j = 0; j < arrAreasEventos.length; j++) {
                     let intIdArea = arrAreasEventos[j]?.intIdArea
 
-                    const getAreas = await serviceGetAreas({ intId: intIdArea }, strDataUser)
-
-                    if (getAreas.error) {
-                        throw new Error(getAreas.msg)
-
-                    }
-
-                    arrAreas.push({
-                        ...getAreas.data[0]
-                    })
+                    arrAreas.push(arrDataAreas.find((data) => data.intId === intIdArea))
                 }
 
                 let intIdServicio = array[i]?.intIdServicio
-
-                const queryGetServicio = await serviceGetServicio({ intId: intIdServicio }, strDataUser)
-
-                if (queryGetServicio.error) {
-                    throw new Error(queryGetServicio.msg)
-
-                }
 
                 array[i] = {
                     ...array[i],
                     arrAreas,
                     arrInvolucrados: JSON.parse(array[i]?.strInvolucrados),
                     strResponsable: JSON.parse(array[i]?.strResponsable),
-                    strServicio: queryGetServicio?.data[0]
+                    strServicio: arrDataServicios.find((data)=> data.objInfoPrincipal.intId === intIdServicio)
                 };
             }
 

@@ -176,44 +176,6 @@ class daoEventos {
         }
     }
 
-    async setAsistentesTercerosEventos(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            let response = await conn.query`
-            DECLARE @intId INTEGER;
-            
-            INSERT INTO tbl_AsistentesEventos VALUES
-            (
-                ${data.intIdEvento},
-                ${data.intIdTercero},
-                ${data.btFinalizoEvento}
-            )
-            SET @intId = SCOPE_IDENTITY();`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-                msg: `El asistente, fue matriculado con exito.`
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo setObjetivosEventos de la clase daoEventos",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
     async setAsistentesSesionesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -221,40 +183,6 @@ class daoEventos {
             let response = await conn.query`
             
             INSERT INTO tbl_AsistentesSesionesEventos VALUES
-            (
-                ${data.intIdEvento},
-                ${data.intIdAsistenteEvento}
-            )`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo setObjetivosEventos de la clase daoEventos",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async setAsistentesTercerosSesionesEventos(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            let response = await conn.query`
-            
-            INSERT INTO tbl_AsistentesTercerosSesionesEventos VALUES
             (
                 ${data.intIdEvento},
                 ${data.intIdAsistenteEvento}
@@ -690,6 +618,46 @@ class daoEventos {
             FROM tbl_EventosGrupales 
 
             WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getAsistentesEventos(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT *
+            
+            FROM tbl_AsistentesEventos 
+
+            WHERE (intIdEvento = ${data.intIdEvento})`;
 
             let arrNewData = response.recordsets[0];
 

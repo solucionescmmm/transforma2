@@ -20,6 +20,12 @@ class interfaceDAOEventos {
         return result;
     }
 
+    async setAsistentesSesionesEventos(data) {
+        const dao = new classDaoSql();
+        let result = await dao.setAsistentesSesionesEventos(data);
+        return result;
+    }
+
     async setEventos(data) {
         const dao = new classDaoSql();
         let result = await dao.setEventos(data);
@@ -71,6 +77,12 @@ class interfaceDAOEventos {
     async getIntNumSesiones(data) {
         const dao = new classDaoSql()
         let result = await dao.getIntNumSesiones(data)
+        return result
+    }
+
+    async getAsistentesEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getAsistentesEventos(data)
         return result
     }
 

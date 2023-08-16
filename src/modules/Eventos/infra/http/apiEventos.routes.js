@@ -15,6 +15,16 @@ routes.post("/transforma/api/eventos/setSesionesEventos", async (req, res) => {
     await controllerEventos.setSesionesEventos(req, res);
 });
 
+routes.post("/transforma/api/eventos/setAsistentesEventos", async (req, res) => {
+    let controllerEventos = new classController();
+    await controllerEventos.setAsistentesEventos(req, res);
+});
+
+routes.post("/transforma/api/eventos/setAsistentesSesionesEventos", async (req, res) => {
+    let controllerEventos = new classController();
+    await controllerEventos.setAsistentesSesionesEventos(req, res);
+});
+
 routes.put("/transforma/api/eventos/updateEventos", async (req, res) => {
     let controllerEventos = new classController()
     await controllerEventos.updateEventos(req, res)
@@ -33,6 +43,11 @@ routes.get("/transforma/api/eventos/getEventos", async (req, res) => {
 routes.get("/transforma/api/eventos/getSesionesEventos", async (req, res) => {
     let controllerEventos = new classController()
     await controllerEventos.getSesionesEventos(req, res)
+})
+
+routes.get("/transforma/api/eventos/getAsistentesEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.getAsistentesEventos(req, res)
 })
 
 routes.get("/transforma/api/eventos/getTiposEventos", async (req, res) => {
