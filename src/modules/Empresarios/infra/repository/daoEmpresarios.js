@@ -941,7 +941,7 @@ class daoEmpresarios {
                 INNER JOIN tbl_Idea Idea ON Idea.intId = IdeaEmpresario.intIdIdea
                 INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
 
-                WHERE IdeaEmpresario.intIdEmpresario = Empresario.intId AND Estados.strNombre = 'Activo' AND Tipo.strNombre = 'Principal'
+                WHERE IdeaEmpresario.intIdEmpresario = Empresario.intId AND Estados.strNombre = 'Activo'
                 FOR JSON PATH
             ) as objInfoIdeaEmpresario
 

@@ -27,11 +27,10 @@ class setAsistentesEventos {
     }
 
     async main() {
-        console.log(this.#objData)
-        // await this.#validations()
-        // await this.#setAsistentesEventos()
-        // await this.#setAreasEventos()
-        // return this.#objResult;
+        //console.log(this.#objData.arrEmpresarios)
+        await this.#validations()
+        await this.#setAsistentesEventos()
+        return this.#objResult;
     }
 
     async #validations() {
@@ -58,10 +57,10 @@ class setAsistentesEventos {
         for (let i = 0; i < arrEmpresarios.length; i++) {
             let data = {
                 intIdEvento: this.#objData.intIdEvento,
-                intIdIdea: arrEmpresarios[i]?.intIdIdea,
+                intIdIdea: arrEmpresarios[i]?.objInfoIdeaEmpresario[0]?.intIdIdea,
                 intIdEmpresario: arrEmpresarios[i]?.intId,
                 intIdTercero: null,
-                intTipoEmpresario: arrEmpresarios[i]?.intTipoEmpresario,
+                intTipoEmpresario: arrEmpresarios[i]?.objInfoIdeaEmpresario[0]?.intIdTipoEmpresario,
                 btFinalizoEvento: false
             }
     
@@ -88,14 +87,13 @@ class setAsistentesEventos {
             if (query.error) {
                 throw new Error(query.msg);
             }
-            
-        }
 
-        this.#objResult = {
-            error: query.error,
-            data: query.data,
-            msg: query.msg,
-        };
+            this.#objResult = {
+                error: query.error,
+                data: query.data,
+                msg: query.msg,
+            };
+        }
     }
 
 }

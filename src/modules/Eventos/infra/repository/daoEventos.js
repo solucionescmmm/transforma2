@@ -155,8 +155,7 @@ class daoEventos {
 
             let result = {
                 error: false,
-                data: response.recordset[0],
-                msg: `El asistente, fue matriculado con exito.`
+                msg: `Los asistentes, fueron matriculados con exito.`
             };
 
             sql.close(conexion);
