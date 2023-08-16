@@ -46,23 +46,23 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
     const [objColumns] = useState([
         {
             title: "Nombres y Apellidos",
-            field: "strNombreModulo",
+            field: "objDataAsistente.strNombres",
             type: "string",
         },
         {
             title: "Tipo de documento",
-            field: "strArea.strNombre",
+            field: "objDataAsistente.strTipoDocto",
             type: "string",
         },
         {
             title: "Documento",
-            field: "strResponsables[0].strNombre",
+            field: "objDataAsistente.strNroDocto",
             type: "string",
         },
         {
             title: "Correo electronico",
-            field: "dtFechaIni",
-            type: "date",
+            field: "objDataAsistente.strCorreoElectronico1",
+            type:"string",
         },
     ]);
 

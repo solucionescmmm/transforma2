@@ -27,7 +27,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData()
  *
  */
-const useGetMatriculas = ({ autoLoad = true, intId } = {}) => {
+const useGetMatriculas = ({ autoLoad = true, intIdEvento } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -42,7 +42,7 @@ const useGetMatriculas = ({ autoLoad = true, intId } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intId }) => {
+        async ({ signalSubmitData, intIdEvento }) => {
             return await axios(
                 {
                     method: "GET",
@@ -52,7 +52,7 @@ const useGetMatriculas = ({ autoLoad = true, intId } = {}) => {
                         token,
                     },
                     params: {
-                        intId,
+                        intIdEvento,
                     },
                 },
                 {
@@ -94,20 +94,20 @@ const useGetMatriculas = ({ autoLoad = true, intId } = {}) => {
         setData(data);
     };
 
-    const refreshGetData = (intId) => {
+    const refreshGetData = (intIdEvento) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, intId });
+        getData({ signalSubmitData, intIdEvento });
     };
 
-    const getUniqueData = async ({ intId }) => {
+    const getUniqueData = async ({ intIdEvento }) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
             signalSubmitData,
-            intId,
+            intIdEvento,
         });
 
         return query;
@@ -122,14 +122,14 @@ const useGetMatriculas = ({ autoLoad = true, intId } = {}) => {
         if (autoLoad) {
             getData({
                 signalSubmitData,
-                intId,
+                intIdEvento,
             });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, autoLoad, intId]);
+    }, [getData, autoLoad, intIdEvento]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================

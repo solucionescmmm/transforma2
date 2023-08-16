@@ -227,7 +227,7 @@ const ModalCEdit = ({
                             rules={{
                                 validate: (value) => {
                                     if (
-                                        watchEmpresarios.length === 0 &&
+                                        watchEmpresarios?.length === 0 &&
                                         value?.length === 0
                                     ) {
                                         return "Por favor, selecciona las personas a matricular";
@@ -262,7 +262,7 @@ const ModalCEdit = ({
                             rules={{
                                 validate: (value) => {
                                     if (
-                                        watchTerceros === 0 &&
+                                        watchTerceros?.length === 0 &&
                                         value?.length === 0
                                     ) {
                                         return "Por favor, selecciona las personas a matricular";
