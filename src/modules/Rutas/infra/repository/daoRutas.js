@@ -18,6 +18,7 @@ class daoRutas {
             (
                 ${data.intIdIdea},
                 ${data.intIdTipoRuta},
+                ${data.intIdDiagnostico},
                 ${data.strNombre},
                 ${data.intIdEstadoRuta},
                 ${data.valorTotalRuta},
