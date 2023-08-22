@@ -27,7 +27,7 @@ import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -70,8 +70,6 @@ const ModalFinalizar = ({
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const {
-        control,
-        formState: { errors },
         handleSubmit,
     } = useForm({ mode: "onChange" });
 
@@ -154,9 +152,10 @@ const ModalFinalizar = ({
 
     useEffect(() => {
         if (intId) {
-            setData({
+            setData((prevState)=>({
+                ...prevState,
                 intIdDiagnostico: intId || null,
-            });
+            }));
         }
         setLoading(false);
     }, [intId]);
