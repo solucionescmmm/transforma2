@@ -36,6 +36,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import ModalCreate from "./modalCreate";
+import ModalFinalizar from "./modalFinalizar";
 import useGetDiagnosticosCoco from "../../hooks/useGetDiagnosticosCoco";
 
 const ReadDiagnosticos = ({
@@ -110,6 +111,15 @@ const ReadDiagnosticos = ({
                 isEdit={selectedData}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
+                values={selectedData}
+            />
+
+            <ModalFinalizar
+                handleOpenDialog={handlerOpenModalDelete}
+                open={openModalDelete}
+                intId={selectedData?.intId}
+                isEdit={selectedData}
+                refresh={refreshGetData}
                 values={selectedData}
             />
 
@@ -245,7 +255,7 @@ const ReadDiagnosticos = ({
                                                 <EditIcon
                                                     color={
                                                         rowData.btFinalizada ===
-                                                        true
+                                                            true
                                                             ? "gray"
                                                             : "success"
                                                     }
@@ -270,7 +280,7 @@ const ReadDiagnosticos = ({
                                                 <DeleteIcon
                                                     color={
                                                         rowData.btFinalizada ===
-                                                        true
+                                                            true
                                                             ? "gray"
                                                             : "error"
                                                     }

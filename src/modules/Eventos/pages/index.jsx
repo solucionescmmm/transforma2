@@ -73,11 +73,12 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Tipo de Evento",
-            field: "strNombre",
+            field: "strNombreTipo",
             type: "string",
         },
         {
             title: "Responsable",
+            field: "strResponsable.strNombre",
             type: "string",
         },
         {

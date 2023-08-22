@@ -241,7 +241,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                 strResponsable: data.strResponsable,
                                 bitPago: data.btPago === true ? "Sí" : "No",
                                 strSede: data.intIdSede,
-                                strServicio: data.intIdServicio,
+                                strServicio: data.strServicio,
                                 arrAreas: data.arrAreas,
                                 arrInvolucrados: data.arrInvolucrados,
                             });
@@ -255,7 +255,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                 strResponsable: data.strResponsable,
                                 bitPago: data.btPago === true ? "Sí" : "No",
                                 strSede: data.intIdSede,
-                                strServicio: data.intIdServicio,
+                                strServicio: data.strServicio,
                                 arrAreas: data.arrAreas,
                                 arrInvolucrados: data.arrInvolucrados,
                             });
