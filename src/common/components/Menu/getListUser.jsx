@@ -17,11 +17,11 @@ import { withStyles } from "@mui/styles";
 //Iconos de Material UI
 import {
     Home as HomeIcon,
-    Equalizer as EqualizerIcon,
-    ListAlt as ListAltIcon,
+    //Equalizer as EqualizerIcon,
+    //ListAlt as ListAltIcon,
     People as PeopleIcon,
     SupervisedUserCircle,
-    Report as ReportIcon,
+    //Report as ReportIcon,
     Engineering as EngineeringIcon,
     Stadium as StadiumIcon
 } from "@mui/icons-material";
@@ -159,7 +159,7 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                 <ListItemText primary="Eventos" />
             </ListItem>
 
-            <ListItem
+            {/* <ListItem
                 // component={RouterLink}
                 // to=""
                 // selected={
@@ -179,9 +179,9 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                     <ListAltIcon />
                 </ListItemIcon>
                 <ListItemText primary="Actividades" />
-            </ListItem>
+            </ListItem> */}
 
-            <ListItem
+            {/* <ListItem
                 // button
                 // component={RouterLink}
                 // to="/transforma/asesor/empresario/read/all"
@@ -202,11 +202,11 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                     <EqualizerIcon />
                 </ListItemIcon>
                 <ListItemText primary="Estadísticas" />
-            </ListItem>
+            </ListItem> */}
 
             <Divider />
 
-            <ListItem
+            {/* <ListItem
                 // button
                 // component={RouterLink}
                 // to="/transforma/asesor/empresario/read/all"
@@ -227,7 +227,7 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                     <ReportIcon />
                 </ListItemIcon>
                 <ListItemText primary="Reportar una situación" />
-            </ListItem>
+            </ListItem> */}
 
             <ListItem
                 button
