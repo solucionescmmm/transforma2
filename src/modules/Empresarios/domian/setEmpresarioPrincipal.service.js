@@ -264,8 +264,6 @@ class setEmpresarioPrincipal {
 
         let query = await dao.setInfoAdicional(newData);
 
-        console.log(query)
-
         
         if (query.error) {
             await this.#rollbackTransaction();
@@ -275,7 +273,7 @@ class setEmpresarioPrincipal {
     async #setHistorico(){
         let data = {
             intIdIdea:this.#intIdIdea,
-            intNumeroEmpleados:parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10),
+            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10): 1,
             ValorVentas:this.#objData.objInfoEmpresa.dblValorVentasMes,
             strTiempoDedicacionAdmin:this.#objData.objInfoEmpresa.strTiempoDedicacion,
             intIdFuenteHistorico: this.#intIdFuenteHistorico,
@@ -285,9 +283,6 @@ class setEmpresarioPrincipal {
         let service = new serviceSetHistorico(data);
 
         let query = await service.main();
-
-        console.log(query)
-
 
         if (query.error) {
             await this.#rollbackTransaction();

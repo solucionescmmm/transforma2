@@ -97,7 +97,7 @@ class daoHistoricos {
             
             FROM tbl_Historicos Historico
 
-            WHERE (Historico.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL) `;
+            WHERE (Historico.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 

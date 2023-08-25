@@ -245,7 +245,7 @@ class updateEmpresarioPrincipal {
     async #updateHistorico(){
         let data = {
             intIdIdea:this.#intIdIdea,
-            intNumeroEmpleados:parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10),
+            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10): 1,
             ValorVentas:this.#objData.objInfoEmpresa.dblValorVentasMes,
             strTiempoDedicacionAdmin:this.#objData.objInfoEmpresa.strTiempoDedicacion,
             intIdFuenteDato: this.#objData.objInfoEmpresa.intId,

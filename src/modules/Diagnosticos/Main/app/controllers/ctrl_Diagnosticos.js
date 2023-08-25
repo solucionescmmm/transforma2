@@ -5,6 +5,7 @@ const getTipoDiagnosticos = require("../../domain/getTipoDiagnosticos.service")
 const getEstadoDiagnosticos = require("../../domain/getEstadoDiagnosticos.service")
 const getIdEstadoDiagnosticos = require("../../domain/getIdEstadoDiagnosticos.service")
 const updateDiagnosticos = require("../../domain/updateDiagnosticos.service");
+const updateFinalizarDiagnosticos = require("../../domain/updateFinalizarDiagnosticos.service");
 const cancelDiagnosticos = require("../../domain/cancelDiagnostico.service")
 const deleteDiagnosticos = require("../../domain/deleteDiagnosticos.service");
 
@@ -126,6 +127,29 @@ class ctrl_Diagnosticos {
             let { strDataUser } = req;
 
             let service = new updateDiagnosticos(data, strDataUser);
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async updateFinalizarDiagnosticos(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new updateFinalizarDiagnosticos(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {

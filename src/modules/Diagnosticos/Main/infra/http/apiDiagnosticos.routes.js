@@ -54,6 +54,14 @@ routes.put(
 );
 
 routes.put(
+    "/transforma/api/Diagnosticos/main/updateFinalizarDiagnosticos",
+    async (req, res) => {
+        let controllerComentarios = new classController();
+        await controllerComentarios.updateFinalizarDiagnosticos(req, res);
+    }
+);
+
+routes.put(
     "/transforma/api/Diagnosticos/main/cancelDiagnosticos",
     async (req, res) => {
         let controllerComentarios = new classController();
