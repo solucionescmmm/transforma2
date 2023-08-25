@@ -236,10 +236,10 @@ const SearchEmpresario = ({ isEdit }) => {
                     <Link
                         color="inherit"
                         component={RouterLink}
-                        to="/transforma/asesor/empresario/read/all"
+                        to="/transforma/asesor/terceros/read/all"
                         className={classes.link}
                     >
-                        Empresarios
+                        Terceros
                     </Link>
 
                     <Typography color="textPrimary" className={classes.link}>

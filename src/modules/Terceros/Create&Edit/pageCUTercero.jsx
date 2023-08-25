@@ -466,7 +466,7 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     if (success) {
-        return <Redirect to="/transforma/asesor/empresario/read/all" />;
+        return <Redirect to="/transforma/asesor/terceros/read/all" />;
     }
 
     if (loadingGetData) {
@@ -517,10 +517,10 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
                     <Link
                         color="inherit"
                         component={RouterLink}
-                        to="/transforma/asesor/empresario/read/all"
+                        to="/transforma/asesor/terceros/read/all"
                         className={classes.link}
                     >
-                        Empresarios
+                        Terceros
                     </Link>
 
                     <Typography color="textPrimary" className={classes.link}>
