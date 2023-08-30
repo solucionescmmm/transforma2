@@ -57,6 +57,7 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
                 if (array[i]?.intIdEmpresario) {
                     data.push({
                         ...array[i],
+                        strTipoPersona:"Empresaria",
                         objDataAsistente:arrDataEmpresario.find((data)=> data.intId === array[i]?.intIdEmpresario),
                     })
                 }
@@ -64,6 +65,7 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
                 if (array[i]?.intIdTercero) {
                     data.push({
                         ...array[i],
+                        strTipoPersona:"Tercero",
                         objDataAsistente:arrDataTerceros.find((data)=> data.intId === array[i]?.intIdTercero),
                     })
                 }
