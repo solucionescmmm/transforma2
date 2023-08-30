@@ -120,6 +120,16 @@ const RoutesTransforma = ({ path }) => {
                             />
 
                             <Route
+                                path="/transforma/asesor/terceros/edit/:intId"
+                                exact
+                                component={() => (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <CUTercero isEdit />
+                                    </div>
+                                )}
+                            />
+
+                            <Route
                                 path="/transforma/asesor/empresario/read/:intId"
                                 exact
                                 component={() => (

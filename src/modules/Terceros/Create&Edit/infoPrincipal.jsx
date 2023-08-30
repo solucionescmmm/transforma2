@@ -345,7 +345,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                             )}
                             control={control}
                             rules={{
-                                require:
+                                required:
                                     "Por favor, selecciona el estrato socioeconómico de la persona",
                             }}
                         />

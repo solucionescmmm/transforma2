@@ -11,7 +11,6 @@ import React, {
 import { AuthContext } from "../../../common/middlewares/Auth";
 
 //Hooks
-import useGetEmpresarios from "../../Empresarios/hooks/useGetEmpresarios";
 import { useHistory } from "react-router-dom";
 
 //Librerias
@@ -19,7 +18,6 @@ import { Link as RouterLink, Redirect, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { parseISO } from "date-fns";
 
 //Componentes de Material UI
 import {
@@ -50,6 +48,7 @@ import { Box } from "@mui/system";
 import InfoPrincipal from "./infoPrincipal";
 import Loader from "../../../common/components/Loader";
 import PageError from "../../../common/components/Error";
+import useGetTerceros from "../hook/useGetTerceros";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -128,7 +127,7 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
 
     const { intId } = useParams();
 
-    const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
+    const { getUniqueData } = useGetTerceros({ autoLoad: false });
 
     const refFntGetData = useRef(getUniqueData);
 
@@ -162,8 +161,7 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
                         isEdit
                             ? process.env
                                   .REACT_APP_API_TRANSFORMA_TERCEROS_UPDATE
-                            : process.env
-                                  .REACT_APP_API_TRANSFORMA_TERCEROS_SET
+                            : process.env.REACT_APP_API_TRANSFORMA_TERCEROS_SET
                     }`,
                     data,
                     transformRequest: [
@@ -234,193 +232,14 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
 
                         if (res.data) {
                             let data = res.data.data[0];
-                            const objEmprPrincipal = data.objEmpresario.find(
-                                (p) => p.strTipoEmpresario === "Principal"
-                            );
 
                             setData({
-                                intIdIdea: data.intId,
-                                objIdeaEmpresario: data.objIdeaEmpresario,
                                 objInfoPrincipal: {
-                                    strSede: objEmprPrincipal.strSede || "",
-                                    strModalidadIngreso:
-                                        objEmprPrincipal.strModalidadIngreso ||
-                                        "",
-                                    dtFechaVinculacion:
-                                        objEmprPrincipal.dtFechaVinculacion
-                                            ? parseISO(
-                                                  objEmprPrincipal.dtFechaVinculacion
-                                              )
-                                            : null,
-                                    strEstadoVinculacion:
-                                        objEmprPrincipal.strEstadoVinculacion ||
-                                        "",
-                                    strTipoVinculacion:
-                                        objEmprPrincipal.strTipoVinculacion ||
-                                        "",
-                                },
-
-                                objInfoEmpresarioPr: {
-                                    intId: objEmprPrincipal.intId,
-                                    strNombres:
-                                        objEmprPrincipal.strNombres || "",
-                                    strApellidos:
-                                        objEmprPrincipal.strApellidos || "",
-                                    strTipoDocto:
-                                        objEmprPrincipal.strTipoDocto || "",
-                                    strNroDocto:
-                                        objEmprPrincipal.strNroDocto || "",
-                                    strLugarExpedicionDocto:
-                                        objEmprPrincipal.strLugarExpedicionDocto ||
-                                        "",
-                                    dtFechaExpedicionDocto:
-                                        objEmprPrincipal.dtFechaExpedicionDocto
-                                            ? parseISO(
-                                                  objEmprPrincipal.dtFechaExpedicionDocto
-                                              )
-                                            : null,
-                                    dtFechaNacimiento:
-                                        objEmprPrincipal.dtFechaNacimiento
-                                            ? parseISO(
-                                                  objEmprPrincipal.dtFechaNacimiento
-                                              )
-                                            : null,
-                                    strGenero: objEmprPrincipal.strGenero || "",
-                                    strCelular1:
-                                        objEmprPrincipal.strCelular1 || "",
-                                    strCelular2:
-                                        objEmprPrincipal.strCelular2 || "",
+                                    ...data,
                                     strCorreoElectronico1:
-                                        objEmprPrincipal.strCorreoElectronico1 ||
-                                        "",
-                                    strCorreoElectronico2:
-                                        objEmprPrincipal.strCorreoElectronico2 ||
-                                        "",
-                                    strNivelEducativo:
-                                        objEmprPrincipal.strNivelEducativo ||
-                                        "",
-                                    strTitulos:
-                                        objEmprPrincipal.strTitulos || "",
-                                    strCondicionDiscapacidad:
-                                        objEmprPrincipal.strCondicionDiscapacidad ||
-                                        "",
-                                    strEstrato:
-                                        objEmprPrincipal.strEstrato || "",
-                                    arrDepartamento:
-                                        objEmprPrincipal.arrDepartamento || [],
-                                    arrCiudad: objEmprPrincipal.arrCiudad || [],
-                                    strBarrio: objEmprPrincipal.strBarrio || "",
-                                    strDireccionResidencia:
-                                        objEmprPrincipal.strDireccionResidencia ||
-                                        "",
-                                    strURLFileFoto:
-                                        objEmprPrincipal.strUrlFileFoto || "",
+                                        data.strCorreoElectronico,
+                                    strCelular1: data.strCelular,
                                 },
-
-                                objInfoEmpresa: {
-                                    intId: data.objInfoEmpresa.intId,
-                                    strURLFileLogoEmpresa:
-                                        data.objInfoEmpresa
-                                            .strURLFileLogoEmpresa || null,
-                                    strEstadoNegocio:
-                                        data.objInfoEmpresa.strEstadoNegocio ||
-                                        "",
-                                    strCuandoComienzaEmpresa:
-                                        data.objInfoEmpresa
-                                            .strCuandoComienzaEmpresa || "",
-                                    strNombreMarca:
-                                        data.objInfoEmpresa.strNombreMarca ||
-                                        "",
-                                    dtFechaFundacion: data.objInfoEmpresa
-                                        .dtFechaFundacion
-                                        ? parseISO(
-                                              data.objInfoEmpresa
-                                                  .dtFechaFundacion
-                                          )
-                                        : null,
-                                    strLugarOperacion:
-                                        data.objInfoEmpresa.strLugarOperacion ||
-                                        "",
-                                    strDireccionResidencia:
-                                        data.objInfoEmpresa
-                                            .strDireccionResidencia || "",
-                                    arrDepartamento:
-                                        data.objInfoEmpresa.arrDepartamento ||
-                                        [],
-                                    arrCiudad:
-                                        data.objInfoEmpresa.arrCiudad || [],
-                                    strBarrio:
-                                        data.objInfoEmpresa.strBarrio || "",
-                                    strSectorEconomico:
-                                        data.objInfoEmpresa
-                                            .strSectorEconomico || "",
-                                    strCategoriaProducto:
-                                        data.objInfoEmpresa
-                                            .strCategoriaProducto || "",
-                                    strCategoriaServicio:
-                                        data.objInfoEmpresa
-                                            .strCategoriaServicio || "",
-                                    arrCategoriasSecundarias:
-                                        data.objInfoEmpresa
-                                            .arrCategoriasSecundarias || [],
-                                    strOtraCategoria:
-                                        data.objInfoEmpresa.strOtraCategoria ||
-                                        "",
-                                    strDescProductosServicios:
-                                        data.objInfoEmpresa
-                                            .strDescProductosServicios || "",
-                                    strMateriaPrima:
-                                        data.objInfoEmpresa.strMateriaPrima ||
-                                        "",
-                                    strNombreTecnica:
-                                        data.objInfoEmpresa.strNombreTecnica ||
-                                        "",
-                                    strTiempoDedicacion:
-                                        data.objInfoEmpresa
-                                            .strTiempoDedicacion || "",
-                                    btGeneraEmpleo:
-                                        typeof data.objInfoEmpresa
-                                            .btGeneraEmpleo === "boolean"
-                                            ? data.objInfoEmpresa.btGeneraEmpleo
-                                            : "",
-                                    intNumeroEmpleados:
-                                        data.objInfoEmpresa
-                                            .intNumeroEmpleados || "",
-                                    dblValorVentasMes:
-                                        data.objInfoEmpresa.valorVentasMes ||
-                                        "",
-                                    arrRequisitosLey:
-                                        data.objInfoEmpresa.arrRequisitosLey ||
-                                        [],
-                                    strOtrosRequisitosLey:
-                                        data.objInfoEmpresa
-                                            .strOtrosRequisitosLey || "",
-                                    arrFormasComercializacion:
-                                        data.objInfoEmpresa
-                                            .arrFormasComercializacion || [],
-                                    arrMediosDigitales:
-                                        data.objInfoEmpresa
-                                            .arrMediosDigitales || [],
-                                    btGrupoAsociativo:
-                                        typeof data.objInfoEmpresa
-                                            .btGrupoAsociativo === "boolean"
-                                            ? data.objInfoEmpresa
-                                                  .btGrupoAsociativo
-                                            : "",
-                                    strAsociacionUnidadProdIndividual:
-                                        data.objInfoEmpresa
-                                            .strAsociacionUnidadProdIndividual ||
-                                        "",
-                                },
-
-                                objInfoAdicional: {
-                                    ...data.objInfoAdicional,
-                                    strURLDocumento:
-                                        data.objInfoAdicional.strUrlDocumento,
-                                },
-
-                                arrInfoEmpresarioSec:
-                                    data.arrEmpresarioSecundario || [],
                             });
                         }
 

@@ -131,7 +131,7 @@ const useGetEmpresarios = ({
 
         setData();
 
-        getData({ signalSubmitData, intId, intIdIdea });
+        getData({ signalSubmitData, intId, intIdIdea, strNroDocto});
     };
 
     const getUniqueData = async ({

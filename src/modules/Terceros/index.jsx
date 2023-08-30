@@ -73,22 +73,22 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Tipo de documento del tercero",
-            render: (rowData) => rowData?.strTipoDocto,
+            field: "strTipoDocto",
             type: "string",
         },
         {
             title: "Documento del tercero",
-            render: (rowData) => rowData?.strNroDocto,
+            field: "strNroDocto",
             type: "string",
         },
         {
             title: "Email del tercero",
-            render: (rowData) => rowData?.strCorreoElectronico,
+            field: "strCorreoElectronico",
             type: "string",
         },
         {
             title: "Numero celular del tercero",
-            render: (rowData) => rowData?.strCelular,
+            field: "strCelular",
             type: "string",
         },
     ]);
@@ -196,8 +196,8 @@ const ReadSolicitudesUser = () => {
                                     toolbar: {
                                         nRowsSelected:
                                             "{0} filas seleccionadas",
-                                        searchTooltip: "Buscar",
-                                        searchPlaceholder: "Buscar",
+                                        searchTooltip: "Buscar por documento, celular o email",
+                                        searchPlaceholder: "Buscar por documento",
                                     },
                                     header: {
                                         actions: "Acciones",
@@ -229,6 +229,29 @@ const ReadSolicitudesUser = () => {
                                 data={!data?.error && data ? data : []}
                                 columns={objColumns}
                                 title="Terceros"
+                                actions={[
+                                    (rowData) => {
+                                        return {
+                                            icon: () => (
+                                                <EditIcon
+                                                    color={
+                                                        rowData.btFinalizada ===
+                                                        true
+                                                            ? "gray"
+                                                            : "success"
+                                                    }
+                                                    fontSize="small"
+                                                />
+                                            ),
+                                            tooltip: "Editar",
+                                            onClick: (event, rowData) => {
+                                                push(
+                                                    `/transforma/asesor/terceros/edit/${rowData.intId}`
+                                                );
+                                            },
+                                        };
+                                    },
+                                ]}
                                 options={{
                                     grouping: true,
                                     title: true,
@@ -248,6 +271,7 @@ const ReadSolicitudesUser = () => {
                                     paging: true,
                                     pageSizeOptions: [20, 100, 200, 500],
                                     pageSize: 20,
+                                    actionsColumnIndex: -1,
                                 }}
                                 components={{
                                     Toolbar: (props) => (

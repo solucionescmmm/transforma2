@@ -99,8 +99,10 @@ const SearchEmpresario = ({ isEdit }) => {
     async function getData() {
         setLoadingGetData(true);
 
+        alert(sendData)
+
         await refFntGetData
-            .current({ strDocumento: sendData })
+            .current({ strNroDocto: sendData })
             .then((res) => {
                 if (res.data.error) {
                     throw new Error(res.data.msg);
