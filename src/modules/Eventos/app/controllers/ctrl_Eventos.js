@@ -9,6 +9,10 @@ const getEventos = require("../../domain/getEventos.service");
 const getSesionesEventos = require("../../domain/getSesionesEventos.service");
 const getAsistentesEventos = require("../../domain/getAsistentesEventos.service");
 const getTiposEventos = require("../../domain/getTiposEventos.service");
+const deleteEventos = require("../../../Eventos/domain/deleteEventos.service")
+const deleteSesionesEventos = require("../../../Eventos/domain/deleteSesionesEventos.service")
+const deleteAsistentesEventos = require("../../../Eventos/domain/deleteAsistentesEventos.service")
+const deleteAsistentesSesionesEventos = require("../../../Eventos/domain/deleteAsistentesSesionesEventos.service")
 
 
 class ctrlEventos {
@@ -17,7 +21,7 @@ class ctrlEventos {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new setEventos(data,strDataUser);
+            let service = new setEventos(data, strDataUser);
 
             let query = await service.main();
 
@@ -41,7 +45,7 @@ class ctrlEventos {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new setSesionesEventos(data,strDataUser);
+            let service = new setSesionesEventos(data, strDataUser);
 
             let query = await service.main();
 
@@ -65,7 +69,7 @@ class ctrlEventos {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new setAsistentesEventos(data,strDataUser);
+            let service = new setAsistentesEventos(data, strDataUser);
 
             let query = await service.main();
 
@@ -89,7 +93,7 @@ class ctrlEventos {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new setAsistentesSesionesEventos(data,strDataUser);
+            let service = new setAsistentesSesionesEventos(data, strDataUser);
 
             let query = await service.main();
 
@@ -113,7 +117,7 @@ class ctrlEventos {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new updateEventos(data,strDataUser);
+            let service = new updateEventos(data, strDataUser);
 
             let query = await service.main();
 
@@ -137,7 +141,7 @@ class ctrlEventos {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new updateSesionesEventos(data,strDataUser);
+            let service = new updateSesionesEventos(data, strDataUser);
 
             let query = await service.main();
 
@@ -229,6 +233,103 @@ class ctrlEventos {
             if (query.error) {
                 throw new Error(query.msg);
             }
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async deleteEventos(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new deleteEventos(data, strDataUser);
+
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async deleteSesionesEventos(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new deleteSesionesEventos(data, strDataUser);
+
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async deleteAsistentesEventos(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new deleteAsistentesEventos(data, strDataUser);
+
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    
+    async deleteAsistentesSesionesEventos(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new deleteAsistentesSesionesEventos(data, strDataUser);
+
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
             res.status(200).json(query);
         } catch (error) {
             let result = {

@@ -686,13 +686,44 @@ class daoEventos {
         }
     }
 
+    async deleteEventos(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`
+                       
+            DELETE tbl_EventosGrupales
+            WHERE intId = ${data.intIdEvento}`;
+
+            let result = {
+                error: false,
+                msg:"El evento se elimino correctamente"
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async deleteAreasEventos(data){
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
             await conn.query`
                        
-            DELETE tbl_AreasEventos VALUES
+            DELETE tbl_AreasEventos
             WHERE intIdEvento = ${data.intIdEvento}`;
 
             let result = {
@@ -708,7 +739,100 @@ class daoEventos {
                 error: true,
                 msg:
                     error.message ||
-                    "Error en el metodo setObjetivosEventos de la clase daoEventos",
+                    "Error en el metodo deleteAreasEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteSesionesEventos(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`
+                       
+            DELETE tbl_SesionesEventos
+            WHERE intId = ${data.intIdSesionesEvento}`;
+
+            let result = {
+                error: false,
+                msg:"La sesión se elimino correctamente"
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteSesionesEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteAsistentesEventos(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`
+                       
+            DELETE tbl_AsistentesEventos
+            WHERE intId = ${data.intIdAsistentesEvento}`;
+
+            let result = {
+                error: false,
+                msg:"El asistente se elimino correctamente"
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteSesionesEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async deleteAsistentesSesionesEventos(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`
+                       
+            DELETE tbl_AsistentesSesionesEventos
+            WHERE (intIdSesion = ${data.intIdSesion} AND intIdAsistenteEvento = ${data.intIdAsistenteEvento})`;
+
+            let result = {
+                error: false,
+                msg:"La asistencia se elimino correctamente"
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteSesionesEventos de la clase daoEventos",
             };
 
             sql.close(conexion);

@@ -60,4 +60,20 @@ routes.delete("/transforma/api/eventos/deleteEventos", async (req, res) => {
     await controllerEventos.deleteEventos(req, res)
 })
 
+routes.delete("/transforma/api/eventos/deleteSesionesEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.deleteSesionesEventos(req, res)
+})
+
+routes.delete("/transforma/api/eventos/deleteAsistentesEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.deleteAsistentesEventos(req, res)
+})
+
+routes.delete("/transforma/api/eventos/deleteAsistentesSesionesEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.deleteAsistentesSesionesEventos(req, res)
+})
+
+
 module.exports = routes;

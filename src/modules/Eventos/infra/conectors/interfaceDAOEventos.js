@@ -86,9 +86,33 @@ class interfaceDAOEventos {
         return result
     }
 
+    async deleteEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.deleteEventos(data)
+        return result
+    }
+
     async deleteAreasEventos(data) {
         const dao = new classDaoSql()
         let result = await dao.deleteAreasEventos(data)
+        return result
+    }
+
+    async deleteSesionesEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.deleteSesionesEventos(data)
+        return result
+    }
+
+    async deleteAsistentesEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.deleteAsistentesEventos(data)
+        return result
+    }
+
+    async deleteAsistentesSesionesEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.deleteAsistentesSesionesEventos(data)
         return result
     }
 
