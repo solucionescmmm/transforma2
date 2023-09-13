@@ -54,17 +54,19 @@ const getEmpresario = async (objParams, strDataUser) => {
         }
     }
 
-    let arrayDataTercero = await serviceGetTercero(objParams, strDataUser);
+    if (strDocumento) {
+        let arrayDataTercero = await serviceGetTercero(objParams, strDataUser);
 
-    if (!arrayDataTercero.error && arrayDataTercero.data) {
-        let array = arrayDataTercero.data;
-
-        let result = {
-            error: false,
-            data: array,
-        };
-
-        return result;
+        if (!arrayDataTercero.error && arrayDataTercero.data) {
+            let array = arrayDataTercero.data;
+    
+            let result = {
+                error: false,
+                data: array,
+            };
+    
+            return result;
+        }
     }
 
     return arrayData;
