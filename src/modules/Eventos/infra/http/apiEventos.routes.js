@@ -50,6 +50,11 @@ routes.get("/transforma/api/eventos/getAsistentesEventos", async (req, res) => {
     await controllerEventos.getAsistentesEventos(req, res)
 })
 
+routes.get("/transforma/api/eventos/getAsistentesSesionesEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.getAsistentesSesionesEventos(req, res)
+})
+
 routes.get("/transforma/api/eventos/getTiposEventos", async (req, res) => {
     let controllerEventos = new classController()
     await controllerEventos.getTiposEventos(req, res)

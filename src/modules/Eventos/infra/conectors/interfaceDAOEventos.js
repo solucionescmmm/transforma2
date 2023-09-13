@@ -86,6 +86,12 @@ class interfaceDAOEventos {
         return result
     }
 
+    async getAsistentesSesionesEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getAsistentesSesionesEventos(data)
+        return result
+    }
+
     async deleteEventos(data) {
         const dao = new classDaoSql()
         let result = await dao.deleteEventos(data)

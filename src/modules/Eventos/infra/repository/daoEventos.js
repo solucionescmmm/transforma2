@@ -686,6 +686,46 @@ class daoEventos {
         }
     }
 
+    async getAsistentesSesionesEventos(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT *
+            
+            FROM tbl_AsistentesSesionesEventos 
+
+            WHERE (intIdSesion = ${data.intIdSesion})`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEventos de la clase daoEventos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async deleteEventos(data){
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
