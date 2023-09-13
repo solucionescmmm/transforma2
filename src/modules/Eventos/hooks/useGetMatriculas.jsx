@@ -52,7 +52,7 @@ const useGetMatriculas = ({ autoLoad = true, intIdEvento } = {}) => {
                         token,
                     },
                     params: {
-                        intIdEvento,
+                        intIdEvento : typeof intIdEvento === 'object' ? intIdEvento.intIdEvento : intIdEvento,
                     },
                 },
                 {
