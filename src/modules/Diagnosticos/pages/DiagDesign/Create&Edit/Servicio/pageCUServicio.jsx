@@ -180,8 +180,6 @@ const PageCUServicio = ({
                 );
             }
 
-            console.log(objEmprPrincipal)
-
             setFlagSubmit(false);
 
             await axios(

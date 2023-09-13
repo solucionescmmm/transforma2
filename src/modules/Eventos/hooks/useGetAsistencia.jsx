@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 /**
- * El hook devuelve los datos de los eventos registrados
+ * El hook devuelve los datos de los asistentes de las sesiones
  *
  * @author Santiago Cardona Saldarriaga <scardonas@xelerica.com>
  * @param {{autoLoad: Boolean}} - Parametros de búsqueda:
@@ -27,7 +27,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData()
  *
  */
-const useGetSesiones = ({ autoLoad = true, intIdEvento, intId } = {}) => {
+const useGetAsistencia = ({ autoLoad = true, intIdSesion } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -42,19 +42,18 @@ const useGetSesiones = ({ autoLoad = true, intIdEvento, intId } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intIdEvento, intId }) => {
+        async ({ signalSubmitData, intIdSesion }) => {
             return await axios(
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_SESIONES_GET}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_EVENTOS_ASISTENCIA_GET}`,
                     headers: {
                         token,
                     },
                     params: {
-                        intIdEvento,
-                        intId
-                    }
+                        intIdSesion,
+                    },
                 },
                 {
                     cancelToken: signalSubmitData.token,
@@ -95,21 +94,20 @@ const useGetSesiones = ({ autoLoad = true, intIdEvento, intId } = {}) => {
         setData(data);
     };
 
-    const refreshGetData = ({intIdEvento, intId}) => {
+    const refreshGetData = ({ intIdSesion }) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, intIdEvento, intId });
+        getData({ signalSubmitData, intIdSesion });
     };
 
-    const getUniqueData = async ({intIdEvento, intId}) => {
+    const getUniqueData = async ({ intIdSesion }) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
             signalSubmitData,
-            intIdEvento,
-            intId
+            intIdSesion,
         });
 
         return query;
@@ -124,15 +122,14 @@ const useGetSesiones = ({ autoLoad = true, intIdEvento, intId } = {}) => {
         if (autoLoad) {
             getData({
                 signalSubmitData,
-                intIdEvento,
-                intId
+                intIdSesion,
             });
         }
 
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, autoLoad, intIdEvento, intId]);
+    }, [getData, autoLoad, intIdSesion]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
@@ -140,4 +137,4 @@ const useGetSesiones = ({ autoLoad = true, intIdEvento, intId } = {}) => {
     return { data, refreshGetData, getUniqueData, alterData };
 };
 
-export default useGetSesiones;
+export default useGetAsistencia;

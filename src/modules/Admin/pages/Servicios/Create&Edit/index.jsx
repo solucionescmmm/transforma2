@@ -209,7 +209,6 @@ const CreateEdit = ({ isEdit, isPreview }) => {
             arr.push({ ...data?.arrAtributos[i], id: shortid.generate() });
         }
 
-        console.log(arr)
         replace(arr);
         setObjTipoServicio(data);
     };

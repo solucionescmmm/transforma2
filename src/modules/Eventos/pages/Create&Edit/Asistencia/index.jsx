@@ -2,8 +2,6 @@ import React, { Fragment, useState } from "react";
 
 //Librerias
 //Componentes de Material UI
-import { Grid, Box, Button } from "@mui/material";
-
 import {
     ThemeProvider,
     StyledEngineProvider,
@@ -27,19 +25,15 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
-    Delete as DeleteIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
 import MaterialTable from "@material-table/core";
-import { MTableToolbar } from "@material-table/core";
 
 //Componentes
-import ModalDelete from "./modalDelete";
-import ModalCEdit from "./modalCreate";
-import useGetMatriculas from "../../../hooks/useGetMatriculas";
+import useGetAsistencia from "../../../hooks/useGetAsistencia";
 
-const ReadMatriculas = ({ intIdEvento, isPreview }) => {
+const ReadAsistencia = ({ isPreview, intIdSesion }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -62,54 +56,23 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
         {
             title: "Correo electronico",
             field: "objDataAsistente.strCorreoElectronico1",
-            type:"string",
+            type: "string",
         },
     ]);
-
-    const [openModalCEdit, setOpenModalCEdit] = useState(false);
-    const [openModalDelete, setOpenModalDelete] = useState(false);
-    const [selectedData, setSelectedData] = useState();
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data, refreshGetData } = useGetMatriculas({
+    const { data } = useGetAsistencia({
         autoload: true,
-        intIdEvento,
+        intIdSesion,
     });
-
-    //===============================================================================================================================================
-    //========================================== Funciones ==========================================================================================
-    //===============================================================================================================================================
-    const handlerOpenModalDelete = () => {
-        setOpenModalDelete(!openModalDelete);
-    };
-
-    const handlerOpenModalCEdit = () => {
-        setOpenModalCEdit(!openModalCEdit);
-    };
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
         <Fragment>
-            <ModalDelete
-                handleOpenDialog={handlerOpenModalDelete}
-                open={openModalDelete}
-                intId={selectedData?.intId}
-                refresh={refreshGetData}
-                intIdEvento={intIdEvento}
-            />
-
-            <ModalCEdit
-                handleOpenDialog={handlerOpenModalCEdit}
-                open={openModalCEdit}
-                intId={selectedData?.intId}
-                intIdEvento={intIdEvento}
-                refresh={refreshGetData}
-            />
-
             <StyledEngineProvider injectFirst>
                 <ThemeProvider
                     theme={createTheme({
@@ -209,7 +172,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
                         isLoading={data === undefined ? true : false}
                         data={!data?.error && data ? data : []}
                         columns={objColumns}
-                        title="Matriculas"
+                        title="Asistencia"
                         options={{
                             grouping: true,
                             title: true,
@@ -231,69 +194,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
                             pageSizeOptions: [20, 100, 200, 500],
                             pageSize: 20,
                         }}
-                        actions={[
-                            (rowData) => {
-                                return {
-                                    icon: () => (
-                                        <DeleteIcon
-                                            color={
-                                                rowData.btFinalizada === true
-                                                    ? "gray"
-                                                    : "error"
-                                            }
-                                            fontSize="small"
-                                        />
-                                    ),
-                                    onClick: (event, rowData) => {
-                                        setSelectedData(rowData);
-                                        handlerOpenModalDelete();
-                                    },
-                                    tooltip: "Eliminar",
-                                    disabled: rowData.btFinalizada === true,
-                                };
-                            },
-                        ]}
                         onRowClick={(e, rowData) => {}}
-                        components={{
-                            Toolbar: (props) => (
-                                <div
-                                    style={{
-                                        paddingRight: "5px",
-                                        paddingLeft: "5px",
-                                    }}
-                                >
-                                    <MTableToolbar {...props} />
-
-                                    <Grid container direction="row">
-                                        <Grid item xs={12} md={6}></Grid>
-
-                                        <Grid
-                                            item
-                                            xs={12}
-                                            md={6}
-                                            sx={{ margin: "auto" }}
-                                        >
-                                            <Box
-                                                sx={{
-                                                    display: "flex",
-                                                    flexDirection:
-                                                        "row-reverse",
-                                                }}
-                                            >
-                                                <Button
-                                                    onClick={() => {
-                                                        handlerOpenModalCEdit();
-                                                    }}
-                                                    variant="contained"
-                                                >
-                                                    Matricular persona
-                                                </Button>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>
-                                </div>
-                            ),
-                        }}
                     />
                 </ThemeProvider>
             </StyledEngineProvider>
@@ -301,4 +202,4 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
     );
 };
 
-export default ReadMatriculas;
+export default ReadAsistencia;

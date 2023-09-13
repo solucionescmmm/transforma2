@@ -117,8 +117,6 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
 
     useEffect(() => {
         if (values.value) {
-            console.log(values.value);
-
             setData({
                 strResponsable: values?.value
                     ? values?.value?.strResponsable ||

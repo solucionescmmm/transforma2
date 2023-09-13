@@ -37,7 +37,7 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import ModalDelete from "./modalDelete";
 import useGetSesiones from "../../../hooks/useGetSesiones";
-import ModalCEdit from "./modalCreate";
+import ModalCEdit from "./modalCreate&Edit";
 
 const ReadSesiones = ({ intIdEvento, isPreview }) => {
     //===============================================================================================================================================
@@ -76,7 +76,8 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
         },
     ]);
 
-    const [openModalCEdit, setOpenModalCEdit] = useState(false);
+    const [openModalRegister, setOpenModalRegister] = useState(false);
+    const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
@@ -95,8 +96,12 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
         setOpenModalDelete(!openModalDelete);
     };
 
-    const handlerOpenModalCEdit = () => {
-        setOpenModalCEdit(!openModalCEdit);
+    const handlerOpenModalRegister = () => {
+        setOpenModalRegister(!openModalRegister);
+    };
+
+    const handlerOpenModalEdit = () => {
+        setOpenModalEdit(!openModalEdit);
     };
 
     //===============================================================================================================================================
@@ -112,10 +117,21 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
             />
 
             <ModalCEdit
-                handleOpenDialog={handlerOpenModalCEdit}
-                open={openModalCEdit}
+                key={"register"}
+                handleOpenDialog={handlerOpenModalRegister}
+                open={openModalRegister}
                 intId={selectedData?.intId}
                 intIdEvento={intIdEvento}
+                refresh={refreshGetData}
+            />
+
+            <ModalCEdit
+                key={"edit"}
+                handleOpenDialog={handlerOpenModalEdit}
+                open={openModalEdit}
+                intId={selectedData?.intId}
+                intIdEvento={intIdEvento}
+                isEdit
                 refresh={refreshGetData}
             />
 
@@ -254,8 +270,10 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                         />
                                     ),
                                     tooltip: "Editar",
-
-                                    disabled: rowData.btFinalizada === true,
+                                    onClick: (_, rowData) => {
+                                        setSelectedData(rowData);
+                                        handlerOpenModalEdit();
+                                    },
                                 };
                             },
                             (rowData) => {
@@ -275,13 +293,10 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                         handlerOpenModalDelete();
                                     },
                                     tooltip: "Eliminar",
-                                    disabled: rowData.btFinalizada === true,
                                 };
                             },
                         ]}
-                        onRowClick={(e, rowData) => {
-                           
-                        }}
+                        onRowClick={(e, rowData) => {}}
                         components={{
                             Toolbar: (props) => (
                                 <div
@@ -310,7 +325,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                             >
                                                 <Button
                                                     onClick={() => {
-                                                        handlerOpenModalCEdit();
+                                                        handlerOpenModalRegister();
                                                     }}
                                                     variant="contained"
                                                 >

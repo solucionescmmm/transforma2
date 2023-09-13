@@ -184,9 +184,7 @@ const PageCUProducto = ({
                     (emp) => emp.strTipoEmpresario === "Principal"
                 );
             }
-
-            console.log(objEmprPrincipal)
-
+            
             setFlagSubmit(false);
 
             await axios(

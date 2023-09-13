@@ -1,9 +1,6 @@
-import React, {
-    useState,
-    useEffect,
-    useCallback,
-    useContext,
-} from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
+
+//Context
 
 //Librerias
 import axios from "axios";
@@ -11,26 +8,26 @@ import { toast } from "react-hot-toast";
 
 //Componentes de Material UI
 import {
+    Box,
     DialogTitle,
     DialogContent,
     DialogActions,
+    DialogContentText,
     Dialog,
     Button,
     useTheme,
     useMediaQuery,
     LinearProgress,
-    Grid,
-    Typography,
+    CircularProgress,
+    Alert,
+    AlertTitle,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import { Controller, useForm } from "react-hook-form";
 import { AuthContext } from "../../../../../common/middlewares/Auth";
-import DropdownTerceros from "../../../../../common/components/dropdowTerceros";
-import DropdownEmpresarios from "../../../../../common/components/dropdownEmpresarios";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -39,12 +36,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCEdit = ({
-    handleOpenDialog,
-    open,
-    refresh,
-    intIdEvento,
-}) => {
+const ModalFinish = ({ handleOpenDialog, open, intId, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -55,13 +47,12 @@ const ModalCEdit = ({
     //===============================================================================================================================================
     const [success, setSucces] = useState(false);
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        arrTerceros: [],
-        arrEmpresarios: [],
+        intId: null,
     });
 
     //===============================================================================================================================================
@@ -70,29 +61,10 @@ const ModalCEdit = ({
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-        watch,
-    } = useForm({ mode: "onChange" });
-
-    const watchTerceros = watch("arrTerceros");
-    const watchEmpresarios = watch("arrEmpresarios");
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = modalRejectStyles();
-
-    const onSubmit = (data) => {
-        setData((prevState) => ({
-            intIdEvento: Number(intIdEvento),
-            ...prevState,
-            ...data,
-        }));
-
-        setFlagSubmit(true);
-    };
 
     const submitData = useCallback(
         async (signalSubmitData) => {
@@ -102,13 +74,14 @@ const ModalCEdit = ({
 
             await axios(
                 {
-                    method: "POST",
+                    method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_MATRICULAS_SET}`,
-                    data,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_EVENTOS_DELETE}`,
+                    params: {
+                        intId: data.intId,
+                    },
                     headers: {
                         token,
-                        "Content-Type": "application/json;charset=UTF-8",
                     },
                 },
                 {
@@ -151,6 +124,16 @@ const ModalCEdit = ({
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
+        if (intId) {
+            setData({
+                intId,
+            });
+        }
+
+        setLoading(false);
+    }, [intId]);
+
+    useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
 
         if (flagSubmit) {
@@ -164,7 +147,7 @@ const ModalCEdit = ({
 
     useEffect(() => {
         if (success) {
-            refresh({ intIdEvento: Number(intIdEvento) });
+            refresh({ intId });
             handleOpenDialog();
 
             setSucces(false);
@@ -175,119 +158,92 @@ const ModalCEdit = ({
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
+    if (!data.intId) {
+        return (
+            <Dialog
+                fullScreen={bitMobile}
+                open={open}
+                onClose={handleOpenDialog}
+                PaperProps={{
+                    style: {
+                        backgroundColor:
+                            !loading && !data.intId ? "#FDEDED" : "inherit",
+                    },
+                }}
+            >
+                <DialogContent>
+                    {loading ? (
+                        <Box
+                            sx={{
+                                width: "100%",
+                                height: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <CircularProgress />
+                        </Box>
+                    ) : (
+                        <Alert severity="error">
+                            <AlertTitle>
+                                <b>
+                                    No se encontro el identificador de la sesión
+                                </b>
+                            </AlertTitle>
+                            Ha ocurrido un error al momento de seleccionar los
+                            datos, por favor escala al área de TI para mayor
+                            información.
+                        </Alert>
+                    )}
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={() => handleOpenDialog()} color="inherit">
+                        cerrar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    }
+
     return (
         <Dialog
             fullScreen={bitMobile}
             open={loading ? true : open}
             onClose={handleOpenDialog}
             fullWidth
-            maxWidth="md"
+            PaperProps={{
+                style: {
+                    backgroundColor: "#FDEDED",
+                },
+            }}
         >
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`Matricular asistentes`}</DialogTitle>
+            <DialogTitle>{`¿Deseas finalizar la sesión seleccionada?`}</DialogTitle>
 
             <DialogContent>
-                <Grid
-                    container
-                    direction="row"
-                    spacing={2}
-                    style={{ padding: "25px" }}
-                >
-                    <Grid item xs={12}>
-                        <Typography variant="caption">
-                            Se debe diligenciar minimamente alguno de los
-                            siguientes campos.
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            name={`arrTerceros`}
-                            defaultValue={data.arrTerceros}
-                            render={({ field: { name, value, onChange } }) => (
-                                <DropdownTerceros
-                                    label="Terceros a matricular"
-                                    multiple
-                                    name={name}
-                                    value={value}
-                                    disabled={loading}
-                                    onChange={(e, value) => onChange(value)}
-                                    fullWidth
-                                    variant="standard"
-                                    error={!!errors?.arrTerceros}
-                                    helperText={
-                                        errors?.arrTerceros?.message ||
-                                        "Selecciona los responsables de la sesion"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (
-                                        watchEmpresarios?.length === 0 &&
-                                        value?.length === 0
-                                    ) {
-                                        return "Por favor, selecciona las personas a matricular";
-                                    }
-                                },
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            name={`arrEmpresarios`}
-                            defaultValue={data.arrEmpresarios}
-                            render={({ field: { name, value, onChange } }) => (
-                                <DropdownEmpresarios
-                                    label="Empresarios a matricular"
-                                    multiple
-                                    name={name}
-                                    value={value}
-                                    disabled={loading}
-                                    onChange={(e, value) => onChange(value)}
-                                    fullWidth
-                                    variant="standard"
-                                    error={!!errors?.arrEmpresarios}
-                                    helperText={
-                                        errors?.arrEmpresarios?.message ||
-                                        "Selecciona los empresarios que asistiran al evento"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (
-                                        watchTerceros?.length === 0 &&
-                                        value?.length === 0
-                                    ) {
-                                        return "Por favor, selecciona las personas a matricular";
-                                    }
-                                },
-                            }}
-                        />
-                    </Grid>
-                </Grid>
+                <DialogContentText>
+                    Recuerda que el proceso es irreversible y no podra reabrirse
+                    nuevamente
+                </DialogContentText>
             </DialogContent>
 
             <DialogActions>
                 <LoadingButton
-                    color="primary"
+                    color="error"
                     loading={loading}
                     type="button"
-                    onClick={handleSubmit(onSubmit)}
+                    onClick={() => setFlagSubmit(true)}
                 >
-                    registrar
+                    aceptar
                 </LoadingButton>
 
                 <Button
                     onClick={() => handleOpenDialog()}
                     color="inherit"
-                    type="button"
                     disabled={loading}
                 >
                     cancelar
@@ -297,4 +253,4 @@ const ModalCEdit = ({
     );
 };
 
-export default ModalCEdit;
+export default ModalFinish;

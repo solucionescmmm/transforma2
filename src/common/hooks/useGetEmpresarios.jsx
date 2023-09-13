@@ -65,7 +65,7 @@ const useGetUsers = ({ autoLoad = true, strDocumento = null } = {}) => {
                 }
             )
                 .then((res) => {
-                    setData(res.data.data);
+                    setData(res.data.data || []);
 
                     return res;
                 })

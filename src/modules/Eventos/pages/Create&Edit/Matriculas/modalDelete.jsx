@@ -38,7 +38,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
+const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdEvento }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -78,9 +78,9 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
                 {
                     method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_EVENTOS_DELETE}`,
-                    params: {
-                        intId: data.intId,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_MATRICULAS_DELETE}`,
+                    data: {
+                        intIdAsistentesEvento: data.intId,
                     },
                     headers: {
                         token,
@@ -149,7 +149,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
 
     useEffect(() => {
         if (success) {
-            refresh({intIdIdea});
+            refresh({intIdEvento: Number(intIdEvento)});
             handleOpenDialog();
 
             setSucces(false);
@@ -190,7 +190,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
                         <Alert severity="error">
                             <AlertTitle>
                                 <b>
-                                    No se encontro el identificador del evento
+                                    No se encontro el identificador de la matrícula
                                 </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
@@ -224,7 +224,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar el evento seleccionado?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas eliminar la matrícula seleccionada?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
