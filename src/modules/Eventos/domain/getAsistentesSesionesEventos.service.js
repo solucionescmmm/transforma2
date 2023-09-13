@@ -8,7 +8,7 @@ const serviceGetEmpresarios = require("../../Empresarios/domian/getEmpresario.se
 const serviceGetTerceros = require("../../Terceros/domain/getTercero.service")
 
 const getAsistentesSesionesEventos = async (objParams, strDataUser) => {
-    let { intIdSesion } = objParams;
+    let { intIdSesion, intIdAsistenteEvento } = objParams;
 
     if (!intIdSesion) {
         throw new Error("Se esperaban paramentros de entrada")
@@ -42,7 +42,8 @@ const getAsistentesSesionesEventos = async (objParams, strDataUser) => {
     let dao = new classInterfaceDAOEventos();
 
     let query = {
-        intIdSesion: intIdSesion
+        intIdSesion: intIdSesion,
+        intIdAsistenteEvento: intIdAsistenteEvento || null
     };
 
     let arrayData = await dao.getAsistentesSesionesEventos(query);

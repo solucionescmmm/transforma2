@@ -696,7 +696,7 @@ class daoEventos {
             
             FROM tbl_AsistentesSesionesEventos 
 
-            WHERE (intIdSesion = ${data.intIdSesion})`;
+            WHERE (intIdSesion = ${data.intIdSesion} OR intIdAsistenteEvento = ${data.intIdAsistenteEvento})`;
 
             let arrNewData = response.recordsets[0];
 
