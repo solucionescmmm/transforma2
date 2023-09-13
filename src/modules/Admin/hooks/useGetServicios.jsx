@@ -12,7 +12,8 @@ import { toast } from "react-hot-toast";
  *
  * @author Santiago Cardona Saldarriaga <scardonas@xelerica.com>
  **/
-const useGetTiposServicio = ({
+const useGetServicios = ({
+    intId,
     autoLoad = true,
     intIdTipoTarifa = null,
 } = {}) => {
@@ -30,7 +31,7 @@ const useGetTiposServicio = ({
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intIdTipoTarifa }) => {
+        async ({ signalSubmitData, intIdTipoTarifa, intId }) => {
             return await axios(
                 {
                     method: "GET",
@@ -41,6 +42,7 @@ const useGetTiposServicio = ({
                     },
                     params: {
                         intIdTipoTarifa,
+                        intId,
                     },
                 },
                 {
@@ -85,20 +87,21 @@ const useGetTiposServicio = ({
         [token]
     );
 
-    const refreshGetData = ({ intIdTipoTarifa = null } = {}) => {
+    const refreshGetData = ({ intIdTipoTarifa = null, intId = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
 
-        getData({ signalSubmitData, intIdTipoTarifa });
+        getData({ signalSubmitData, intIdTipoTarifa, intId });
     };
 
-    const getUniqueData = async ({ intIdTipoTarifa = null } = {}) => {
+    const getUniqueData = async ({ intIdTipoTarifa = null, intId = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
             intIdTipoTarifa,
             signalSubmitData,
+            intId
         });
 
         return query;
@@ -125,4 +128,4 @@ const useGetTiposServicio = ({
     return { data, refreshGetData, getUniqueData };
 };
 
-export default useGetTiposServicio;
+export default useGetServicios;

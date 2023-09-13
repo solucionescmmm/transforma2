@@ -299,22 +299,22 @@ const PaperAtributo = ({
                                         required:
                                             "Por favor, selecciona el tipo de atributo",
 
-                                        validate: (value) => {
-                                            const x = getValues("arrAtributos");
+                                        // validate: (value) => {
+                                        //     const x = getValues("arrAtributos");
 
-                                            if (x?.length > 1) {
-                                                if (
-                                                    x.find(
-                                                        (a, i) =>
-                                                            a.intIdAtributo ===
-                                                                Number(value) &&
-                                                            index !== i
-                                                    )
-                                                ) {
-                                                    return "Este atributo ya fue seleccionado";
-                                                }
-                                            }
-                                        },
+                                        //     // if (x?.length > 1) {
+                                        //     //     if (
+                                        //     //         x.find(
+                                        //     //             (a, i) =>
+                                        //     //                 a.intIdAtributo ===
+                                        //     //                     Number(value) &&
+                                        //     //                 index !== i
+                                        //     //         )
+                                        //     //     ) {
+                                        //     //         return "Este atributo ya fue seleccionado";
+                                        //     //     }
+                                        //     // }
+                                        // },
                                     }}
                                 />
                             </Grid>

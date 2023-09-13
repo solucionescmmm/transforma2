@@ -142,7 +142,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
         keyName: "id",
     });
 
-    const { fields: arrAT, append: apAT } = useFieldArray({
+    const { fields: arrAT, append: apAT, replace } = useFieldArray({
         control,
         name: "arrAtributos",
         keyName: "id",
@@ -175,6 +175,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
     });
 
     const refFntGetData = useRef(getUniqueData);
+    const refDataServicios = useRef(dataServicios)
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -204,12 +205,12 @@ const CreateEdit = ({ isEdit, isPreview }) => {
     const handleChangeTipoServicio = (data) => {
         const arr = [];
 
-        for (let i = 0; i < data?.length; i++) {
-            arr.push({ ...data[i], id: shortid.generate() });
+        for (let i = 0; i < data?.arrAtributos?.length; i++) {
+            arr.push({ ...data?.arrAtributos[i], id: shortid.generate() });
         }
 
-        
-        setValue("arrAtributos", arr);
+        console.log(arr)
+        replace(arr);
         setObjTipoServicio(data);
     };
 
@@ -275,7 +276,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (isEdit || isPreview) {
+        if ((isEdit || isPreview) && intId) {
             setLoadingGetData(true);
 
             async function getData() {
@@ -380,7 +381,8 @@ const CreateEdit = ({ isEdit, isPreview }) => {
         return <Redirect to="/transforma/admin/services/" />;
     }
 
-    if (loadingGetData && typeof dataServicios !== "undefined") {
+
+    if (loadingGetData && typeof refDataServicios !== "undefined") {
         return <Loader />;
     }
 
@@ -514,7 +516,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     onChangeTipoServicio={
                                         handleChangeTipoServicio
                                     }
-                                    data={dataServicios}
+                                    data={refDataServicios}
                                     watch={watch}
                                     disabledMod
                                 />

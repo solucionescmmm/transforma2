@@ -149,7 +149,7 @@ const ReadSolicitudesUser = () => {
             <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
-                intId={selectedData?.intId}
+                intId={selectedData?.objInfoPrincipal?.intId}
                 refresh={refreshGetData}
             />
 

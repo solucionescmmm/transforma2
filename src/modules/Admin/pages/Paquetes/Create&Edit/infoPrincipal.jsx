@@ -245,13 +245,18 @@ const InfoPrincipal = ({
                                     helperText={
                                         errors?.objInfoPrincipal?.arrServicios
                                             ?.message ||
-                                        "Selecciona uno o varios servicios"
+                                        "Selecciona dos o más servicios"
                                     }
                                 />
                             )}
                             rules={{
                                 required:
-                                    "Por favor, selecciona uno o varios servicios",
+                                    "Por favor, selecciona dos o más servicios",
+                                validate: (value) => {
+                                    if (value.length < 2) {
+                                        return "Se requiere seleccionar mínimo dos servicios";
+                                    }
+                                },
                             }}
                             control={control}
                         />

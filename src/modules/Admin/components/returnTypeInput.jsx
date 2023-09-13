@@ -1,5 +1,5 @@
-import { DatePicker, DateTimePicker } from "@mui/lab";
 import { Alert, MenuItem, TextField } from "@mui/material";
+import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
 import NumberFormat from "react-number-format";
 
 const ReturnTypeInput = ({
@@ -41,18 +41,16 @@ const ReturnTypeInput = ({
                 value={value}
                 disabled={disabled}
                 onChange={(date) => onChange(date)}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        name={name}
-                        required={required}
-                        error={error}
-                        value={value}
-                        variant="standard"
-                        helperText={helperText}
-                        fullWidth
-                    />
-                )}
+                slotProps={{
+                    textField: {
+                        required,
+                        name,
+                        variant: "standard",
+                        error,
+                        helperText,
+                        fullWidth: true,
+                    },
+                }}
             />
         );
     }
@@ -64,18 +62,16 @@ const ReturnTypeInput = ({
                 value={value}
                 disabled={disabled}
                 onChange={(date) => onChange(date)}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        name={name}
-                        required={required}
-                        error={error}
-                        value={value}
-                        variant="standard"
-                        helperText={helperText}
-                        fullWidth
-                    />
-                )}
+                slotProps={{
+                    textField: {
+                        required,
+                        name,
+                        variant: "standard",
+                        error,
+                        helperText,
+                        fullWidth: true,
+                    },
+                }}
             />
         );
     }

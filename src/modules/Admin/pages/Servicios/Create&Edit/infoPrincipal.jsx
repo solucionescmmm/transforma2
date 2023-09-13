@@ -98,6 +98,8 @@ const InfoPrincipal = ({
             intId: intIdTipoServicio,
         });
 
+        console.log(response.data?.data[0])
+
         await onChangeTipoServicio(response.data?.data[0]);
     };
 
