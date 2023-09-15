@@ -127,6 +127,64 @@ const InfoAtributos = ({
         );
     }
 
+    if (fields?.length === 0) {
+        return (
+            <Fragment>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Typography
+                            style={{
+                                fontWeight: "bold",
+                                color: errors?.arrAtributos
+                                    ? "#D33030"
+                                    : "inherit",
+                            }}
+                        >
+                            Información de atributos
+                        </Typography>
+                    </Box>
+
+                    <Box>
+                        <IconButton
+                            onClick={() => handlerChangeOpenCollapse()}
+                            size="large"
+                        >
+                            <Tooltip
+                                title={
+                                    openCollapese
+                                        ? "Contraer detalle"
+                                        : "Expandir detalle"
+                                }
+                            >
+                                {openCollapese ? (
+                                    <ExpandLessIcon />
+                                ) : (
+                                    <ExpandMoreIcon />
+                                )}
+                            </Tooltip>
+                        </IconButton>
+                    </Box>
+                </Box>
+
+                <hr
+                    style={{
+                        borderColor: errors?.arrAtributos
+                            ? "#D33030"
+                            : "inherit",
+                    }}
+                />
+
+                <Collapse in={openCollapese} timeout="auto">
+                    <Alert severity="warning">
+                        Puedes continuar con el registro, sin embargo recuerda
+                        que el tipo de servicio seleccionado no tiene atributos
+                        asociados
+                    </Alert>
+                </Collapse>
+            </Fragment>
+        );
+    }
+
     return (
         <Fragment>
             <Box sx={{ display: "flex", alignItems: "center" }}>

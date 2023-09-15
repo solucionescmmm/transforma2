@@ -280,7 +280,6 @@ const PaperAtributo = ({
                                             value={value}
                                             onChange={(e) => onChange(e)}
                                             disabled={disabled}
-                                            required
                                             error={
                                                 errors?.arrAtributos?.[index]
                                                     ?.intIdAtributo
@@ -296,8 +295,8 @@ const PaperAtributo = ({
                                     )}
                                     control={control}
                                     rules={{
-                                        required:
-                                            "Por favor, selecciona el tipo de atributo",
+                                        // required:
+                                        //     "Por favor, selecciona el tipo de atributo",
 
                                         // validate: (value) => {
                                         //     const x = getValues("arrAtributos");

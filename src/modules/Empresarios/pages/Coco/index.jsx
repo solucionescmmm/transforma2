@@ -152,7 +152,7 @@ const Coco = () => {
                                 to="/transforma/asesor/empresario/read/all"
                                 className={classes.link}
                             >
-                                Personas iniciativas
+                                Personas empresarias
                             </Link>
 
                             <Typography color="textPrimary">
@@ -360,7 +360,7 @@ const Coco = () => {
                             to="/transforma/asesor/empresario/read/all"
                             className={classes.link}
                         >
-                            Personas iniciativas
+                            Personas empresarias
                         </Link>
 
                         <Typography color="textPrimary">

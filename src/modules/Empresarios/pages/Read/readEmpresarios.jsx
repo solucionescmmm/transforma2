@@ -171,7 +171,7 @@ const ReadSolicitudesUser = () => {
                         </Link>
 
                         <Typography color="textPrimary">
-                            Personas Iniciativas
+                            Personas Empresarias
                         </Typography>
                     </Breadcrumbs>
                 </Grid>
@@ -278,7 +278,7 @@ const ReadSolicitudesUser = () => {
                                 isLoading={data === undefined ? true : false}
                                 data={!data?.error && data ? data : []}
                                 columns={objColumns}
-                                title="Personas Iniciativas"
+                                title="Personas empresarias"
                                 options={{
                                     grouping: true,
                                     title: true,
