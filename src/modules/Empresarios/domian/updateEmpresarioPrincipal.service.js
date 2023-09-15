@@ -7,6 +7,7 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 //Servicios
 const serviceSetHistorico = require("../../Historicos/domain/setHistorico.service")
 const serviceUpdateHistorico = require("../../Historicos/domain/updateHistorico.service")
+const serviceSetDocumento = require("../../Document/domain/setDocumento.service");
 const serviceGetIdFuenteHistorico = require("../../Historicos/domain/getIdFuenteHistoricos.service")
 const serviceGetHistorico = require("../../Historicos/domain/getHistorico.service")
 const servicegetIdeaEmpresario = require("./getIdeaEmpresario.service")
@@ -85,6 +86,10 @@ class updateEmpresarioPrincipal {
 
          if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && !this.#intIdCuantosHistoricos) {
             await this.#setHistorico()
+         }
+
+         if (this.#objData.objInfoAdicional.strURLDocumento) {
+            await this.#setDocumento()
          }
     }
 
@@ -223,6 +228,7 @@ class updateEmpresarioPrincipal {
 
         let prevData = this.#objData.objInfoAdicional;
 
+
         let aux_arrTemasCapacitacion = JSON.stringify(
             this.#objData.objInfoAdicional?.arrTemasCapacitacion || null
         );
@@ -239,7 +245,10 @@ class updateEmpresarioPrincipal {
             arrTemasCapacitacion: aux_arrTemasCapacitacion,
             arrComoSeEntero: aux_arrComoSeEntero,
             arrMediosDeComunicacion: aux_arrMediosDeComunicacion,
+            strUrlSoporteRecibirInfoCMM:this.#objData.objInfoAdicional?.strURLDocumento || null,
         };
+
+        console.log(newData)
 
         let query = await dao.updateInfoAdicional(newData);
 
@@ -282,6 +291,23 @@ class updateEmpresarioPrincipal {
 
         if (query.error) {
             await this.#rollbackTransaction();
+        }
+    }
+
+    async #setDocumento() {
+        let service = new serviceSetDocumento(
+            {
+                intIdIdea: this.#intIdIdea,
+                strNombre: "Autorización para recibir información de CMM",
+                strObservaciones: "Autorización que da la persona empresaria para recibir información de CMM.",
+                strUrlDocumento: this.#objData.objInfoAdicional?.strURLDocumento,
+            },
+            this.#objUser
+        );
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg);
         }
     }
 

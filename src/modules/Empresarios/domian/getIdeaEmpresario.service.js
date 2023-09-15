@@ -106,6 +106,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                     arrMediosDeComunicacion:JSON.parse(array[i].objInfoAdicional[0]?.strMediosDeComunicacion||null),
                     strOtrosMediosComunicacion:array[i]?.objInfoAdicional[0]?.strOtrosMediosComunicacion,
                     btRecibirInfoCMM:array[i]?.objInfoAdicional[0]?.btRecibirInfoCMM,
+                    strURLDocumento:array[i]?.objInfoAdicional[0]?.strUrlSoporteRecibirInfoCMM,
                     strRecomendaciones:array[i]?.objInfoAdicional[0]?.strRecomendaciones,
                     dtmActualizacion:array[i]?.objInfoAdicional[0]?.dtmActualizacion,
                     strUsuario:array[i]?.objInfoAdicional[0]?.strUsuario,

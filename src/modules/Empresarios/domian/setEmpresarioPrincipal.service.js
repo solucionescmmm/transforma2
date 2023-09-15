@@ -5,10 +5,11 @@ const validator = require("validator").default;
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
 
 //servicios
+const serviceSetHistorico = require("../../Historicos/domain/setHistorico.service");
+const serviceSetDocumento = require("../../Document/domain/setDocumento.service");
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
 const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service");
 const serviceGetIdFuenteHistorico = require("../../Historicos/domain/getIdFuenteHistoricos.service")
-const serviceSetHistorico = require("../../Historicos/domain/setHistorico.service")
 
 class setEmpresarioPrincipal {
     //Objetos
@@ -70,6 +71,10 @@ class setEmpresarioPrincipal {
                 `Este número de documento ${queryGetNroDoctoEmpresario.data.strNroDocto}, ya exite y esta asociado a un Interesado`
             );
         }
+
+        if (this.#objData.objInfoAdicional.strURLDocumento) {
+            await this.#setDocumento()
+         }
     }
 
     async #getIdEstado() {
@@ -260,6 +265,7 @@ class setEmpresarioPrincipal {
             arrTemasCapacitacion: aux_arrTemasCapacitacion,
             arrComoSeEntero: aux_arrComoSeEntero,
             arrMediosDeComunicacion: aux_arrMediosDeComunicacion,
+            strUrlSoporteRecibirInfoCMM:this.#objData.objInfoAdicional?.strURLDocumento || null,
         };
 
         let query = await dao.setInfoAdicional(newData);
@@ -286,6 +292,23 @@ class setEmpresarioPrincipal {
 
         if (query.error) {
             await this.#rollbackTransaction();
+        }
+    }
+
+    async #setDocumento() {
+        let service = new serviceSetDocumento(
+            {
+                intIdIdea: this.#intIdIdea,
+                strNombre: "Autorización para recibir información de CMM",
+                strObservaciones: "Autorización que da la persona empresaria para recibir información de CMM.",
+                strUrlDocumento: this.#objData.objInfoAdicional?.strURLDocumento,
+            },
+            this.#objUser
+        );
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg);
         }
     }
 

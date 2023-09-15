@@ -263,6 +263,7 @@ class daoEmpresarios {
                 ${data.arrMediosDeComunicacion},
                 ${data.strOtrosMediosComunicacion},
                 ${data.btRecibirInfoCMM},
+                ${data.strUrlSoporteRecibirInfoCMM},
                 ${data.strRecomendaciones},
                 GETDATE(),
                 ${data.strUsuario}
@@ -468,17 +469,18 @@ class daoEmpresarios {
 
             UPDATE tbl_InfoAdicional
 
-            SET strPrincipalesNecesidades  = COALESCE(${data.strPrincipalesNecesidades}, strPrincipalesNecesidades),
-                btInteresadoProcesoCMM     = COALESCE(${data.btInteresadoProcesoCMM}, btInteresadoProcesoCMM),
-                strTemasCapacitacion       = COALESCE(${data.arrTemasCapacitacion}, strTemasCapacitacion),
-                strComoSeEntero            = COALESCE(${data.arrComoSeEntero}, strComoSeEntero),
-                strOtroComoSeEntero        = COALESCE(${data.strOtroComoSeEntero}, strOtroComoSeEntero),
-                strMediosDeComunicacion    = COALESCE(${data.arrMediosDeComunicacion}, strMediosDeComunicacion),
-                strOtrosMediosComunicacion = COALESCE(${data.strOtrosMediosComunicacion}, strOtrosMediosComunicacion),
-                btRecibirInfoCMM           = COALESCE(${data.btRecibirInfoCMM}, btRecibirInfoCMM),
-                strRecomendaciones         = COALESCE(${data.strRecomendaciones}, strRecomendaciones),
-                dtmActualizacion           = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuario                 = COALESCE(${data.strUsuario}, strUsuario)
+            SET strPrincipalesNecesidades   = COALESCE(${data.strPrincipalesNecesidades}, strPrincipalesNecesidades),
+                btInteresadoProcesoCMM      = COALESCE(${data.btInteresadoProcesoCMM}, btInteresadoProcesoCMM),
+                strTemasCapacitacion        = COALESCE(${data.arrTemasCapacitacion}, strTemasCapacitacion),
+                strComoSeEntero             = COALESCE(${data.arrComoSeEntero}, strComoSeEntero),
+                strOtroComoSeEntero         = COALESCE(${data.strOtroComoSeEntero}, strOtroComoSeEntero),
+                strMediosDeComunicacion     = COALESCE(${data.arrMediosDeComunicacion}, strMediosDeComunicacion),
+                strOtrosMediosComunicacion  = COALESCE(${data.strOtrosMediosComunicacion}, strOtrosMediosComunicacion),
+                btRecibirInfoCMM            = COALESCE(${data.btRecibirInfoCMM}, btRecibirInfoCMM),
+                strUrlSoporteRecibirInfoCMM = COALESCE(${data.strUrlSoporteRecibirInfoCMM}, strUrlSoporteRecibirInfoCMM),
+                strRecomendaciones          = COALESCE(${data.strRecomendaciones}, strRecomendaciones),
+                dtmActualizacion            = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuario                  = COALESCE(${data.strUsuario}, strUsuario)
 
             WHERE intId = ${data.intId}
 
