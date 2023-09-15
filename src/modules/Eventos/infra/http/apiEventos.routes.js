@@ -35,6 +35,11 @@ routes.put("/transforma/api/eventos/updateSesionesEventos", async (req, res) => 
     await controllerEventos.updateSesionesEventos(req, res)
 })
 
+routes.put("/transforma/api/eventos/updateCancelarEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.updateCancelarEventos(req, res)
+})
+
 routes.get("/transforma/api/eventos/getEventos", async (req, res) => {
     let controllerEventos = new classController()
     await controllerEventos.getEventos(req, res)

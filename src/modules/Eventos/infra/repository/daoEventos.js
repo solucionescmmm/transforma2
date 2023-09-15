@@ -464,20 +464,10 @@ class daoEventos {
             
             FROM tbl_SesionesEventos SesionesEventos
 
-            WHERE (SesionesEventos.intId = ${data.intId} OR ${data.intId} IS NULL)AND (SesionesEventos.intIdEvento = ${data.intIdEvento})`;
+            WHERE (SesionesEventos.intId = ${data.intId} OR ${data.intId} IS NULL) 
+            AND (SesionesEventos.intIdEvento = ${data.intIdEvento} OR ${data.intIdEvento} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
-
-            // for (let i = 0; i < arrNewData.length; i++) {
-            //     if (arrNewData[i].arrAreasEventos) {
-            //         let { arrAreasEventos } = arrNewData[i];
-
-            //         if (validator.isJSON(arrAreasEventos)) {
-            //             arrAreasEventos = JSON.parse(arrAreasEventos);
-            //             arrNewData[i].arrAreasEventos = arrAreasEventos;
-            //         }
-            //     }
-            // }
 
             let result = {
                 error: false,
