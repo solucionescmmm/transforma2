@@ -5,6 +5,7 @@ const validator = require("validator").default;
 const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmpresarios");
 
 //Servicios
+const serviceSetHistorico = require("../../Historicos/domain/setHistorico.service")
 const serviceUpdateHistorico = require("../../Historicos/domain/updateHistorico.service")
 const serviceGetIdFuenteHistorico = require("../../Historicos/domain/getIdFuenteHistoricos.service")
 const serviceGetHistorico = require("../../Historicos/domain/getHistorico.service")
@@ -32,6 +33,7 @@ class updateEmpresarioPrincipal {
     }
 
     async main() {
+        //console.log(this.#objData)
         await this.#getIdeaEmpresario();
         await this.#getIdFuenteHistorico();
         await this.#getHistorico();
@@ -77,8 +79,12 @@ class updateEmpresarioPrincipal {
             }
         }
 
-        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && this.#intIdCuantosHistoricos <= 1) {
+        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && this.#intIdCuantosHistoricos === 1) {
             await this.#updateHistorico()
+         }
+
+         if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && !this.#intIdCuantosHistoricos) {
+            await this.#setHistorico()
          }
     }
 
@@ -118,7 +124,7 @@ class updateEmpresarioPrincipal {
             throw new Error(query.msg);
         }
 
-        this.#intIdCuantosHistoricos = queryGetHistorico.data.arrNumeroEmpleados.length;
+        this.#intIdCuantosHistoricos = queryGetHistorico.data?.arrNumeroEmpleados.length;
     }
 
     async #updateEmpresario() {
@@ -236,6 +242,25 @@ class updateEmpresarioPrincipal {
         };
 
         let query = await dao.updateInfoAdicional(newData);
+
+        if (query.error) {
+            await this.#rollbackTransaction();
+        }
+    }
+
+    async #setHistorico(){
+        let data = {
+            intIdIdea:this.#intIdIdea,
+            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10): 1,
+            ValorVentas:this.#objData.objInfoEmpresa.dblValorVentasMes,
+            strTiempoDedicacionAdmin:this.#objData.objInfoEmpresa.strTiempoDedicacion,
+            intIdFuenteHistorico: this.#intIdFuenteHistorico,
+            intIdFuenteDato:this.#objData.objInfoEmpresa.intId,
+        };
+    
+        let service = new serviceSetHistorico(data);
+
+        let query = await service.main();
 
         if (query.error) {
             await this.#rollbackTransaction();
