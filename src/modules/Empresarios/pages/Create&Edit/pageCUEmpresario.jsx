@@ -775,8 +775,8 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                             variant="h6"
                                         >
                                             {isEdit
-                                                ? "EDITAR PERSONA INICIATIVA"
-                                                : "REGISTRAR PERSONA INICIATIVA"}
+                                                ? "EDITAR PERSONA EMPRESARIA"
+                                                : "REGISTRAR PERSONA EMPRESARIA"}
                                         </Typography>
                                     </Box>
 

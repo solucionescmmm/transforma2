@@ -231,7 +231,7 @@ const FiltersEmpresarios = ({ alterData, openModalRe }) => {
                 maxWidth="md"
                 fullWidth
             >
-                <DialogTitle>Buscar persona iniciativa</DialogTitle>
+                <DialogTitle>Buscar persona empresaria</DialogTitle>
 
                 <DialogContent>
                     <Grid container direction="row" spacing={2}>

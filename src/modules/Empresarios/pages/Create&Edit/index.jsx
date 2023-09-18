@@ -288,7 +288,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                             color="primary"
                                             variant="h6"
                                         >
-                                            REGISTRAR PERSONA INICIATIVA
+                                            REGISTRAR PERSONA EMPRESARIA
                                         </Typography>
                                     </Box>
                                 </Box>
