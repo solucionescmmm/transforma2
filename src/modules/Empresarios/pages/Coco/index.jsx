@@ -211,7 +211,7 @@ const Coco = () => {
 
                                 <Typography>
                                     <span style={{ color: "#00BAB3" }}>
-                                        Nombre de la iniciativa:
+                                        Nombre de la empresa:
                                     </span>
                                     {objInteresado?.objInfoEmpresa
                                         ?.strNombreMarca || ""}
@@ -418,7 +418,7 @@ const Coco = () => {
 
                             <Typography>
                                 <span style={{ color: "#00BAB3" }}>
-                                    Nombre de la iniciativa:
+                                    Nombre de la empresa:
                                 </span>
                                 {objInteresado?.objInfoEmpresa
                                     ?.strNombreMarca || ""}

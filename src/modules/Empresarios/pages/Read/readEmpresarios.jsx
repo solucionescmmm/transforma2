@@ -111,7 +111,7 @@ const ReadSolicitudesUser = () => {
             type: "string",
         },
         {
-            title: "Iniciativa",
+            title: "Empresa",
             field: "strNombre",
             type: "string",
         },
@@ -348,7 +348,7 @@ const ReadSolicitudesUser = () => {
                                                             }
                                                             variant="contained"
                                                         >
-                                                            Agregar iniciativa
+                                                            Agregar empresa
                                                         </Button>
                                                     </Box>
                                                 </Grid>

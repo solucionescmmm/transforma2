@@ -389,7 +389,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                                 <tr
                                                     style={{ fontSize: "12px" }}
                                                 >
-                                                    <th>Iniciativa</th>
+                                                    <th>Marca</th>
                                                     <th>Rol</th>
                                                 </tr>
                                                 {data.objIdeaEmpresario.map(
@@ -421,7 +421,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                             La información de la persona será
                                             precargada y podrá ser editada, sin
                                             embargo, en caso de estar registrado
-                                            en una iniciativa, no podrá ser
+                                            en una empresa, no podrá ser
                                             asociada nuevamente a la misma.
                                         </p>
                                     </Alert>
@@ -470,7 +470,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                         onClick={() => setHiddenSearch(true)}
                                     >
                                         {data
-                                            ? "Adicionar a Nueva Iniciativa"
+                                            ? "Adicionar a Nueva Empresa"
                                             : "nuevo registro"}
                                     </Button>
                                 </Box>
