@@ -197,10 +197,10 @@ class updateEmpresarioPrincipal {
             this.#objData.objInfoEmpresa?.arrRequisitosLey || null
         );
         let aux_arrDepartamento = JSON.stringify(
-            this.#objData.objEmpresario?.arrDepartamento || null
+            this.#objData.objInfoEmpresa?.arrDepartamento || null
         );
         let aux_arrCiudad = JSON.stringify(
-            this.#objData.objEmpresario?.arrCiudad || null
+            this.#objData.objInfoEmpresa?.arrCiudad || null
         );
 
         let newData = {
