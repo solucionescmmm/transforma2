@@ -46,6 +46,9 @@ class setEmpresarioPrincipal {
         if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio") {
             await this.#setHistorico()
         }
+        if (this.#objData.objInfoAdicional.strURLDocumento) {
+            await this.#setDocumento()
+         }
 
         return this.#objResult;
     }
@@ -71,10 +74,6 @@ class setEmpresarioPrincipal {
                 `Este número de documento ${queryGetNroDoctoEmpresario.data.strNroDocto}, ya exite y esta asociado a un Interesado`
             );
         }
-
-        if (this.#objData.objInfoAdicional.strURLDocumento) {
-            await this.#setDocumento()
-         }
     }
 
     async #getIdEstado() {
