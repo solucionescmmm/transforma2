@@ -8,7 +8,7 @@ const serviceGetEmpresarios = require("../../Empresarios/domian/getEmpresario.se
 const serviceGetTerceros = require("../../Terceros/domain/getTercero.service")
 
 const getAsistentesEventos = async (objParams, strDataUser) => {
-    let { intId, intIdEvento } = objParams;
+    let { intId, intIdEvento, intIdSesion } = objParams;
 
     if (!intIdEvento) {
         throw new Error("Se esperaban paramentros de entrada")
@@ -24,13 +24,13 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
         );
     }
 
-    let queryGetEmpresario = await serviceGetEmpresarios({},strDataUser)
+    let queryGetEmpresario = await serviceGetEmpresarios({}, strDataUser)
 
     if (queryGetEmpresario.error) {
         throw new Error(queryGetEmpresario.msg)
     }
 
-    let queryGetTerceros = await serviceGetTerceros({},strDataUser)
+    let queryGetTerceros = await serviceGetTerceros({}, strDataUser)
 
     if (queryGetTerceros.error) {
         throw new Error(queryGetTerceros.msg)
@@ -43,43 +43,84 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
 
     let query = {
         intId: intId,
-        intIdEvento: intIdEvento
+        intIdEvento: intIdEvento,
+        intIdSesion: intIdSesion,
     };
 
-    let arrayData = await dao.getAsistentesEventos(query);
+    let arrData = await dao.getAsistentesEventos(query);
 
-    if (!arrayData.error && arrayData.data) {
-        if (arrayData.data.length > 0) {
-            let array = arrayData.data
-             let data = []
+    if (!arrData.error && arrData.data) {
+        if (arrData.data.length > 0) {
+            if (!intIdSesion) {
+                let array = arrData.data
+                let data = []
 
-            for (let i = 0; i < array.length; i++) {
-                if (array[i]?.intIdEmpresario) {
-                    data.push({
-                        ...array[i],
-                        strTipoPersona:"Empresaria",
-                        objDataAsistente:arrDataEmpresario.find((data)=> data.intId === array[i]?.intIdEmpresario),
-                    })
+                for (let i = 0; i < array.length; i++) {
+                    if (array[i]?.intIdEmpresario) {
+                        data.push({
+                            ...array[i],
+                            strTipoPersona: "Empresaria",
+                            objDataAsistente: arrDataEmpresario.find((data) => data.intId === array[i]?.intIdEmpresario),
+                        })
+                    }
+
+                    if (array[i]?.intIdTercero) {
+                        data.push({
+                            ...array[i],
+                            strTipoPersona: "Tercero",
+                            objDataAsistente: arrDataTerceros.find((data) => data.intId === array[i]?.intIdTercero),
+                        })
+                    }
                 }
 
-                if (array[i]?.intIdTercero) {
-                    data.push({
-                        ...array[i],
-                        strTipoPersona:"Tercero",
-                        objDataAsistente:arrDataTerceros.find((data)=> data.intId === array[i]?.intIdTercero),
-                    })
+                let result = {
+                    error: false,
+                    data: data,
+                };
+
+                return result;
+            } else {
+                let arrDataAsistencia = await dao.getAsistentesSesionesEventos(query)
+                let array = arrData.data
+                let data = []
+
+                for (let i = 0; i < array.length; i++) {
+                    let btAsistio = arrDataAsistencia?.data?.find((data) => data.intIdAsistenteEvento === array[i]?.intId)
+
+                    if (array[i]?.intIdEmpresario) {
+                        let objDataAsistente = arrDataEmpresario.find((data) => data.intId === array[i]?.intIdEmpresario)
+                        data.push({
+                            //...array[i],
+                            intId: array[i].intId,
+                            strTipoPersona: "Empresaria",
+                            btAsistio: btAsistio ? true : false,
+                            strNombre: `${objDataAsistente.strNombres.trim()} ${objDataAsistente.strApellidos.trim()}`
+                        })
+                    }
+
+                    if (array[i]?.intIdTercero) {
+                        let objDataAsistente = arrDataTerceros.find((data) => data.intId === array[i]?.intIdTercero)
+                        data.push({
+                            //...array[i],
+                            intId: array[i].intId,
+                            strTipoPersona: "Tercero",
+                            btAsistio: btAsistio ? true : false,
+                            strNombre: `${objDataAsistente.strNombres.trim()} ${objDataAsistente.strApellidos.trim()}`
+                        })
+                    }
                 }
+
+                let result = {
+                    error: false,
+                    data: data,
+                };
+
+                return result;
+
             }
-
-            let result = {
-                error: false,
-                data: data,
-            };
-
-            return result;
         }
     }
 
-    return arrayData;
+    return arrData;
 };
 module.exports = getAsistentesEventos;

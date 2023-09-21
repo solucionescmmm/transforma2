@@ -6,7 +6,6 @@ const validator = require("validator").default;
 
 //service
 
-
 class setSesionesEventos {
 
     //objects
@@ -75,8 +74,6 @@ class setSesionesEventos {
         let dao = new classInterfaceDAOEventos();
 
         let query = await dao.setSesionesEventos(newData);
-
-        console.log(query)
 
         if (query.error) {
             throw new Error(query.msg);

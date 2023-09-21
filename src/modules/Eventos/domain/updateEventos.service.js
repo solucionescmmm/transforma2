@@ -73,9 +73,7 @@ class updateEventos {
             strInvolucrados: JSON.stringify(this.#objData.arrInvolucrados || ""),
             strResponsable: JSON.stringify(this.#objData.strResponsable || ""),
             intIdServicio: this.#objData?.strServicio?.objInfoPrincipal?.intId || this.#objData?.strServicio,
-            intEstadoEvento: this.#intIdEstado,
             btPago: this.#objData.bitPago === "Sí" ? true : false,
-            intNumSesiones: 0
         }
         let dao = new classInterfaceDAOEventos();
 

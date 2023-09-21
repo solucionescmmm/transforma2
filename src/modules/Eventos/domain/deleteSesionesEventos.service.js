@@ -7,6 +7,7 @@ const validator = require("validator").default;
 
 //service
 const serviceGetAsistentesSesionesEventos = require("./getAsistentesSesionesEventos.service")
+//const serviceGetSesionesEventos = require("./getSesionesEventos.service")
 
 class deleteSesionesEventos {
 
@@ -16,7 +17,8 @@ class deleteSesionesEventos {
     #objResult;
 
     //variables
-    #intNumAsistentesEventos
+    #intIdEvento;
+    #intNumAsistentesEventos;
 
     constructor(data, strDataUser) {
         this.#objData = data;
@@ -24,10 +26,12 @@ class deleteSesionesEventos {
     }
 
     async main() {
-        await this.#getAsistentesSesionesEventos()
-        await this.#validations()
-        await this.#deleteSesionesEventos()
-        return this.#objResult;
+        await this.#getSesionesEventos()
+        // await this.#getAsistentesSesionesEventos()
+        // await this.#getAsistentesSesionesEventos()
+        // await this.#validations()
+        // await this.#deleteSesionesEventos()
+        // return this.#objResult;
     }
 
     async #validations() {
@@ -50,16 +54,32 @@ class deleteSesionesEventos {
         }
     }
 
-    async #getAsistentesSesionesEventos() {
-        let queryGetSesionesEventos = await serviceGetAsistentesSesionesEventos({
-            intIdSesion: this.#objData.intIdSesionesEvento,
-        }, this.#objUser);
+    async #getSesionesEventos() {
+        let dao = new classInterfaceDAOEventos();
+
+        let queryGetSesionesEventos = await dao.getSesionesEventos({
+            intId: this.#objData.intIdSesionesEvento
+        })
 
         if (queryGetSesionesEventos.error) {
             throw new Error(queryGetSesionesEventos.msg);
         }
 
-        this.#intNumAsistentesEventos = queryGetSesionesEventos.data?.length
+        this.#intIdEvento = queryGetSesionesEventos.data[0]?.intIdEvento
+
+        console.log(this.#intIdEvento)
+    }
+
+    async #getAsistentesSesionesEventos() {
+        let queryGetAsistentesSesionesEventos = await serviceGetAsistentesSesionesEventos({
+            intIdSesion: this.#objData.intIdSesionesEvento,
+        }, this.#objUser);
+
+        if (queryGetAsistentesSesionesEventos.error) {
+            throw new Error(queryGetAsistentesSesionesEventos.msg);
+        }
+
+        this.#intNumAsistentesEventos = queryGetAsistentesSesionesEventos.data?.length
     }
 
     async #deleteSesionesEventos() {
