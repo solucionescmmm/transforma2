@@ -92,20 +92,27 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
                         data.push({
                             //...array[i],
                             intId: array[i].intId,
+                            strTipoDocto: objDataAsistente?.strTipoDocto,
+                            strNroDocto: objDataAsistente?.strNroDocto,
+                            strCorreoElectronico: objDataAsistente?.strCorreoElectronico1,
                             strTipoPersona: "Empresaria",
+                            strNombre: `${objDataAsistente.strNombres.trim()} ${objDataAsistente.strApellidos.trim()}`,
                             btAsistio: btAsistio ? true : false,
-                            strNombre: `${objDataAsistente.strNombres.trim()} ${objDataAsistente.strApellidos.trim()}`
                         })
                     }
 
                     if (array[i]?.intIdTercero) {
                         let objDataAsistente = arrDataTerceros.find((data) => data.intId === array[i]?.intIdTercero)
+                        console.log(objDataAsistente)
                         data.push({
                             //...array[i],
                             intId: array[i].intId,
+                            strTipoDocto: objDataAsistente?.strTipoDocto,
+                            strNroDocto: objDataAsistente?.strNroDocto,
+                            strCorreoElectronico: objDataAsistente?.strCorreoElectronico,
                             strTipoPersona: "Tercero",
+                            strNombre: `${objDataAsistente.strNombres.trim()} ${objDataAsistente.strApellidos.trim()}`,
                             btAsistio: btAsistio ? true : false,
-                            strNombre: `${objDataAsistente.strNombres.trim()} ${objDataAsistente.strApellidos.trim()}`
                         })
                     }
                 }
