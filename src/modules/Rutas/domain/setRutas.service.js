@@ -79,7 +79,7 @@ class setRutas {
 
             let arrPorcentajes = arrayFases[i]?.arrPorcentajes
 
-            if (!arrPorcentajes.length || arrPorcentajes.length <= 0) {
+            if (!arrPorcentajes?.length || arrPorcentajes?.length <= 0) {
                 throw new Error(`El array de los porcentajes esta vacío en la fase #${i + 1}`);
             }
 
