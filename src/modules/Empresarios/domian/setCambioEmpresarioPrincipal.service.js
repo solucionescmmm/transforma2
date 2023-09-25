@@ -31,7 +31,6 @@ class setCambioEmpresarioPrincipal {
     }
 
     async main() {
-        console.log(this.#objData)
         await this.#validations();
         await this.#getIdEstadoActivo();
         await this.#getIdEstadoInactivo();

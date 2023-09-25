@@ -311,7 +311,7 @@ class daoDiagnosticoServicio {
                 error: false,
                 data: response.recordset[0]
             };
-            console.log(response);
+
             sql.close(conexion);
             return result;
         } catch (error) {

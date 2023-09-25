@@ -6,7 +6,6 @@ const { conexion } = require("../../../../common/config/confSQL_connectionTransf
 
 class daoTercero {
     async setTercero(data) {
-        console.log(data);
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 

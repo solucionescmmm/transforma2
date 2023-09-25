@@ -103,7 +103,6 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
 
                     if (array[i]?.intIdTercero) {
                         let objDataAsistente = arrDataTerceros.find((data) => data.intId === array[i]?.intIdTercero)
-                        console.log(objDataAsistente)
                         data.push({
                             //...array[i],
                             intId: array[i].intId,

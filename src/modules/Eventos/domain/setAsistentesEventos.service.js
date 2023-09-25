@@ -27,7 +27,6 @@ class setAsistentesEventos {
     }
 
     async main() {
-        //console.log(this.#objData.arrEmpresarios)
         await this.#validations()
         await this.#setAsistentesEventos()
         return this.#objResult;

@@ -62,7 +62,6 @@ class daoLocalizaciones{
 
     async getLocalidades(data) {
         try {
-            console.log(data)
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn
                 .request()

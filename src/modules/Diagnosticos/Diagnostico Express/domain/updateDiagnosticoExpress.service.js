@@ -163,8 +163,6 @@ class updateDiagnosticoExpress {
             intIdEmpresario: this.#intIdEmpresario,
         };
 
-        console.log(objInfoEmpresario);
-
         let query = await dao.updateEmpresarioDiagnosticoExpress(
             objInfoEmpresario
         );
@@ -202,8 +200,6 @@ class updateDiagnosticoExpress {
         let query = await dao.updateEmpresarioDiagnosticoExpress(
             objInfoEmpresa
         );
-
-        console.log(query);
 
         if (query.error) {
             throw new Error(query.msg);

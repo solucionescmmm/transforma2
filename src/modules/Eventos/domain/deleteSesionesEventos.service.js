@@ -66,8 +66,6 @@ class deleteSesionesEventos {
         }
 
         this.#intIdEvento = queryGetSesionesEventos.data[0]?.intIdEvento
-
-        console.log(this.#intIdEvento)
     }
 
     async #getAsistentesSesionesEventos() {

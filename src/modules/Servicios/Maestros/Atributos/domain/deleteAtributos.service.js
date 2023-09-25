@@ -27,8 +27,6 @@ class deleteAtributos{
             intId: this.#intIdAtributos,
         });
 
-        console.log(query)
-
         if (query.error) {
             throw new Error(
                 "Ha ocurrido un error al momento de eliminar el Atributos"

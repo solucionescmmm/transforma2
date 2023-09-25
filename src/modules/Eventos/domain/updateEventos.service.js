@@ -27,7 +27,6 @@ class updateEventos {
     }
 
     async main() {
-        //console.log(this.#objData)
         await this.#validations()
         await this.#deleteAreasEventos()
         await this.#updateEventos()

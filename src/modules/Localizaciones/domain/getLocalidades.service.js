@@ -4,7 +4,6 @@ const classInterfaceDAOLocalizaciones = require("../infra/conectors/interfaceDAO
 const getLocalidades = async(data)=>{
 
     let {strDepartamento, strCuidad} = data
-    console.log(strDepartamento, strCuidad)
 
     if (!strDepartamento && !strCuidad) {
         throw new Error("Se esperaban parámetros de búsqueda.");

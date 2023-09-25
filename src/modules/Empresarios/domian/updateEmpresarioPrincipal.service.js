@@ -34,7 +34,6 @@ class updateEmpresarioPrincipal {
     }
 
     async main() {
-        //console.log(this.#objData)
         await this.#getIdeaEmpresario();
         await this.#getIdFuenteHistorico();
         await this.#getHistorico();
@@ -247,8 +246,6 @@ class updateEmpresarioPrincipal {
             arrMediosDeComunicacion: aux_arrMediosDeComunicacion,
             strUrlSoporteRecibirInfoCMM:this.#objData.objInfoAdicional?.strURLDocumento || null,
         };
-
-        console.log(newData)
 
         let query = await dao.updateInfoAdicional(newData);
 
