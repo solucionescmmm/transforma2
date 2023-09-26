@@ -7,13 +7,16 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 //servicios
 const serviceSetHistorico = require("../../Historicos/domain/setHistorico.service");
 const serviceSetDocumento = require("../../Document/domain/setDocumento.service");
+const serviceUpdateTercero = require("../../Terceros/domain/updateTercero.service")
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
 const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service");
 const serviceGetIdFuenteHistorico = require("../../Historicos/domain/getIdFuenteHistoricos.service")
+const serviceGetEmpresario = require("./getEmpresario.service")
 
 class setEmpresarioPrincipal {
     //Objetos
     #objData;
+    #objDataPersona;
     #objUser;
     #objResult;
 
@@ -23,7 +26,8 @@ class setEmpresarioPrincipal {
     #intIdTipoEmpresario;
     #intIdIdea;
     #intIdIdeaEmpresario;
-    #intIdEstado;
+    #intIdEstadoActivo;
+    #intIdEstadoInactivo;
     #intIdFuenteHistorico;
     /**
      * @param {object} data
@@ -34,11 +38,20 @@ class setEmpresarioPrincipal {
     }
 
     async main() {
-        await this.#validations();
-        await this.#getIdEstado();
+        await this.#getDataPersona();
+        await this.#getIdEstadoActivo();
         await this.#getIdTipoEmpresario();
         await this.#getIdFuenteHistorico();
-        await this.#setEmpresario();
+        await this.#validations();
+        if (this.#objDataPersona?.objInfoIdeaEmpresario) {
+            await this.#updateEmpresario();
+        } else if (this.#objDataPersona) {
+            await this.#getIdEstadoInactivo();
+            await this.#updateInactivarTercero();
+            await this.#setEmpresario();
+        } else {
+            await this.#setEmpresario();
+        }
         await this.#setIdea();
         await this.#setIdeaEmpresario();
         await this.#setEmpresa();
@@ -46,16 +59,13 @@ class setEmpresarioPrincipal {
         if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio") {
             await this.#setHistorico()
         }
-        if (this.#objData.objInfoAdicional.strURLDocumento) {
+        if (this.#objData?.objInfoAdicional?.strURLDocumento) {
             await this.#setDocumento()
-         }
-
+        }
         return this.#objResult;
     }
 
     async #validations() {
-        let dao = new classInterfaceDAOEmpresarios();
-
         if (
             !validator.isEmail(this.#objUser.strEmail, {
                 domain_specific_validation: "cmmmedellin.org",
@@ -65,18 +75,9 @@ class setEmpresarioPrincipal {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
-        let queryGetNroDoctoEmpresario = await dao.getNroDocumentoEmpresario({
-            strNroDocto: this.#objData.objEmpresario.strNroDocto,
-        });
-
-        if (queryGetNroDoctoEmpresario.data) {
-            throw new Error(
-                `Este número de documento ${queryGetNroDoctoEmpresario.data.strNroDocto}, ya exite y esta asociado a un Interesado`
-            );
-        }
     }
 
-    async #getIdEstado() {
+    async #getIdEstadoActivo() {
         let queryGetIdEstado = await serviceGetIdEstado({
             strNombre: "Activo",
         });
@@ -85,7 +86,19 @@ class setEmpresarioPrincipal {
             throw new Error(queryGetIdEstado.msg);
         }
 
-        this.#intIdEstado = queryGetIdEstado.data.intId;
+        this.#intIdEstadoActivo = queryGetIdEstado.data.intId;
+    }
+
+    async #getIdEstadoInactivo() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "Inactivo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstadoInactivo = queryGetIdEstado.data.intId;
     }
 
     async #getIdTipoEmpresario() {
@@ -110,6 +123,34 @@ class setEmpresarioPrincipal {
         }
 
         this.#intIdFuenteHistorico = queryGetIdFuenteHistorico.data.intId;
+    }
+
+    async #getDataPersona() {
+        let queryGetDataPersona = await serviceGetEmpresario({
+            strDocumento: this.#objData.objEmpresario.strNroDocto,
+        }, this.#objUser);
+
+        if (queryGetDataPersona.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#objDataPersona = queryGetDataPersona.data[0];
+
+        console.log(this.#objDataPersona)
+    }
+
+    async #updateInactivarTercero() {
+        let newData ={
+            ...this.#objDataPersona,
+            intIdEstado:this.#intIdEstadoInactivo
+        }
+
+        let service = new serviceUpdateTercero(newData, this.#objUser);
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 
     async #setEmpresario() {
@@ -146,18 +187,53 @@ class setEmpresarioPrincipal {
         };
     }
 
+    async #updateEmpresario() {
+        let prevData = this.#objData.objEmpresario;
+
+        let aux_arrDepartamento = JSON.stringify(
+            this.#objData.objEmpresario?.arrDepartamento || null
+        );
+        let aux_arrCiudad = JSON.stringify(
+            this.#objData.objEmpresario?.arrCiudad || null
+        );
+
+        let newData = {
+            ...prevData,
+            strUsuarioActualizacion: this.#objUser.strEmail,
+            arrDepartamento: aux_arrDepartamento,
+            arrCiudad: aux_arrCiudad
+        };
+
+        let dao = new classInterfaceDAOEmpresarios();
+
+        let query = await dao.updateEmpresario(newData);
+
+        if (query.error) {
+            await this.#rollbackTransaction();
+            throw new Error(query.msg);
+        }
+
+        this.#intIdEmpresario = query.data.intId;
+
+        this.#objResult = {
+            error: query.error,
+            data: query.data,
+            msg: `La iniciativa de la persona ${query.data?.strNombres} ${query.data?.strApellidos}, fue registrada con éxito.`,
+        };
+    }
+
     async #setIdea() {
         let newData
         if (this.#objData?.objInfoEmpresa?.strEstadoNegocio === "Idea de negocio") {
             newData = {
-                strNombre:`Idea de ${this.#objData.objEmpresario.strNombres} ${this.#objData.objEmpresario.strApellidos}`,
-                intIdEstado:this.#intIdEstado,
+                strNombre: `Idea de ${this.#objData.objEmpresario.strNombres?.trim()} ${this.#objData.objEmpresario.strApellidos?.trim()}`,
+                intIdEstado: this.#intIdEstadoActivo,
                 strUsuarioCreacion: this.#objUser.strEmail,
-            };  
-        }else{
+            };
+        } else {
             newData = {
-                strNombre:this.#objData.objInfoEmpresa?.strNombreMarca,
-                intIdEstado:this.#intIdEstado,
+                strNombre: this.#objData.objInfoEmpresa?.strNombreMarca,
+                intIdEstado: this.#intIdEstadoActivo,
                 strUsuarioCreacion: this.#objUser.strEmail,
             };
         }
@@ -166,7 +242,7 @@ class setEmpresarioPrincipal {
 
         let query = await dao.setIdea(newData);
 
-        
+
         this.#intIdIdea = query.data.intId;
 
         if (query.error) {
@@ -180,7 +256,7 @@ class setEmpresarioPrincipal {
             intIdEmpresario: this.#intIdEmpresario,
             intIdTipoEmpresario: this.#intIdTipoEmpresario,
             dtFechaInicio: new Date(),
-            intIdEstado: this.#intIdEstado,
+            intIdEstado: this.#intIdEstadoActivo,
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 
@@ -236,7 +312,7 @@ class setEmpresarioPrincipal {
         let query = await dao.setEmpresa(newData);
 
         this.#intIdEmpresa = query.data.intId
-        
+
         if (query.error) {
             await this.#rollbackTransaction();
         }
@@ -264,27 +340,27 @@ class setEmpresarioPrincipal {
             arrTemasCapacitacion: aux_arrTemasCapacitacion,
             arrComoSeEntero: aux_arrComoSeEntero,
             arrMediosDeComunicacion: aux_arrMediosDeComunicacion,
-            strUrlSoporteRecibirInfoCMM:this.#objData.objInfoAdicional?.strURLDocumento || null,
+            strUrlSoporteRecibirInfoCMM: this.#objData.objInfoAdicional?.strURLDocumento || null,
         };
 
         let query = await dao.setInfoAdicional(newData);
 
-        
+
         if (query.error) {
             await this.#rollbackTransaction();
         }
     }
 
-    async #setHistorico(){
+    async #setHistorico() {
         let data = {
-            intIdIdea:this.#intIdIdea,
-            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10): 1,
-            ValorVentas:this.#objData.objInfoEmpresa.dblValorVentasMes,
-            strTiempoDedicacionAdmin:this.#objData.objInfoEmpresa.strTiempoDedicacion,
+            intIdIdea: this.#intIdIdea,
+            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10) : 1,
+            ValorVentas: this.#objData.objInfoEmpresa.dblValorVentasMes,
+            strTiempoDedicacionAdmin: this.#objData.objInfoEmpresa.strTiempoDedicacion,
             intIdFuenteHistorico: this.#intIdFuenteHistorico,
-            intIdFuenteDato:this.#intIdEmpresa
+            intIdFuenteDato: this.#intIdEmpresa
         };
-    
+
         let service = new serviceSetHistorico(data);
 
         let query = await service.main();
@@ -315,11 +391,11 @@ class setEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let queryIdeaEmpresario = await dao.deleteIdeaEmpresario({
-            intId:this.#intIdIdeaEmpresario
+            intId: this.#intIdIdeaEmpresario
         })
 
-        let queryIdea =await dao.deleteIdea({
-            intId:this.#intIdIdea
+        let queryIdea = await dao.deleteIdea({
+            intId: this.#intIdIdea
         })
 
         let queryEmpresa = await dao.deleteInfoEmpresa({

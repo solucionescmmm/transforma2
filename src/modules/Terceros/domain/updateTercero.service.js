@@ -5,7 +5,7 @@ const classInterfaceDAOTercero = require("../infra/conectors/interfaceDAOTercero
 const validator = require("validator").default;
 
 //Servicios
-const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+
 
 class updateTercero {
     //obj info
@@ -14,7 +14,6 @@ class updateTercero {
     #objResult;
 
     //Variables
-     #intIdEstado
 
     /**
      * @param {object} data
@@ -27,7 +26,6 @@ class updateTercero {
 
     async main() {
         await this.#validations();
-        await this.#getIdEstado();
         await this.#completeData();
         await this.#updateTercero();
         return this.#objResult;
@@ -48,22 +46,9 @@ class updateTercero {
         }
     }
 
-    async #getIdEstado() {
-        let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre: "Activo",
-        });
-
-        if (queryGetIdEstado.error) {
-            throw new Error(queryGetIdEstado.msg);
-        }
-
-        this.#intIdEstado = queryGetIdEstado.data.intId;
-    }
-
     async #completeData() {
         let newData = {
             ...this.#objData,
-            intIdEstado: this.#intIdEstado,
             strDepartamento: JSON.stringify(this.#objData?.arrDepartamento || null),
             strCiudad: JSON.stringify(this.#objData?.arrCiudad || null),
             strUsuarioCreacion:this.#objUser.strEmail,
