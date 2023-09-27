@@ -171,7 +171,7 @@ class daoTercero {
             AND   (Tercero.strNroDocto = ${data.strDocumento} OR ${data.strDocumento} IS NULL)
             AND   (Tercero.strNombres = ${data.strNombres} OR ${data.strNombres} IS NULL)
             AND   (Tercero.strApellidos = ${data.strApellidos} OR ${data.strApellidos} IS NULL)
-            AND   (Estado.strNombre = 'Activo')`;
+            AND   (Estado.strNombre = 'activo' OR ${data.btActivo} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 

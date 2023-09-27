@@ -5,7 +5,7 @@ const validator = require("validator").default;
 const classInterfaceTercero = require("../infra/conectors/interfaceDAOTercero");
 
 const getTercero = async (objParams) => {
-    let = { intId, strDocumento, strNombres, strApellidos } = objParams;
+    let = { intId, strDocumento, strNombres, strApellidos, btActivo } = objParams;
 
     let dao = new classInterfaceTercero();
 
@@ -14,6 +14,7 @@ const getTercero = async (objParams) => {
         strDocumento: strDocumento || null,
         strNombres: strNombres || null,
         strApellidos: strApellidos || null,
+        btActivo: btActivo || null,
     };
 
     let arrayData = await dao.getTercero(query);
