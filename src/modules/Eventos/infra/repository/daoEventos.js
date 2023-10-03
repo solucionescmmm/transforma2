@@ -183,13 +183,13 @@ class daoEventos {
             
             INSERT INTO tbl_AsistentesSesionesEventos VALUES
             (
-                ${data.intIdEvento},
+                ${data.intIdSesion},
                 ${data.intIdAsistenteEvento}
             )`;
 
             let result = {
                 error: false,
-                data: response.recordset[0],
+                msg: "Se tomo la asistencia correctamente.",
             };
 
             sql.close(conexion);

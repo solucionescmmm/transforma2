@@ -6,7 +6,7 @@ const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos
 const validator = require("validator").default;
 
 //service
-const serviceGetIdEstadoEventos = require("./getIdEstadoEventos.service")
+const deleteAsistentesSesionesEventos = require("./deleteAsistentesSesionesEventos.service")
 
 class setAsistentesSesionesEventos {
 
@@ -15,9 +15,6 @@ class setAsistentesSesionesEventos {
     #objUser;
     #objResult;
 
-    //variables
-    #intIdEvento
-    #intIdEstado
     /**
      * @param {object} data
      */
@@ -28,9 +25,9 @@ class setAsistentesSesionesEventos {
 
     async main() {
         console.log(this.#objData)
-        // await this.#validations()
-        // await this.#setAsistentesSesionesEventos()
-        // return this.#objResult;
+        await this.#validations()
+        await this.#setAsistentesSesionesEventos()
+        return this.#objResult;
     }
 
     async #validations() {
@@ -49,25 +46,47 @@ class setAsistentesSesionesEventos {
     }
 
     async #setAsistentesSesionesEventos() {
-        let newData = {
-            ...this.#objData,
-            
-        }
         let dao = new classInterfaceDAOEventos();
 
-        let query = await dao.setAsistentesSesionesEventos(newData);
+        const arrAsistentes = this.#objData.arrAsistentes
 
-        if (query.error) {
-            throw new Error(query.msg);
+        for (let i = 0; i < arrAsistentes.length; i++) {
+            let newData = {
+                intIdSesion: this.#objData?.intIdSesion,
+                intIdAsistenteEvento: arrAsistentes[i]?.intIdAsistenteEvento
+            }
+
+            let query = await dao.setAsistentesSesionesEventos(newData);
+
+            if (query.error) {
+                await this.#rollbackTransaction()
+                throw new Error(query.msg);
+            }
+
+            this.#objResult = {
+                error: query.error,
+                msg: query.msg,
+            };
         }
 
-        this.#intIdEvento = query?.data?.intId
 
-        this.#objResult = {
-            error: query.error,
-            data: query.data,
-            msg: query.msg,
-        };
+    }
+
+    async #rollbackTransaction() {
+        const service = new deleteAsistentesSesionesEventos({
+            intIdSesion: this.#objData?.intIdSesion
+        }, this.#objUser)
+
+        let query = await service.main()
+
+        if (query.error) {
+            this.#objResult = {
+                error: true,
+                msg: query.error
+                    ? query.msg
+                    : "El registro de la asistencia ha fallado, se devolvieron los cambios efectuados en el sistema, por favor contacta al área de TI para más información.",
+            };
+        }
     }
 
 }
