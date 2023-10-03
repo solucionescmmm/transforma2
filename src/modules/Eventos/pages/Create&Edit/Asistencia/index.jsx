@@ -32,7 +32,7 @@ import MaterialTable from "@material-table/core";
 
 //Componentes
 import useGetMatriculas from "../../../hooks/useGetMatriculas";
-import { Switch } from "@mui/material";
+import { Checkbox } from "@mui/material";
 import ModalState from "./modalState";
 
 const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
@@ -43,7 +43,7 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
         {
             title: "",
             render: (rowData) => (
-                <Switch
+                <Checkbox
                     checked={rowData.btAsistio}
                     size="small"
                     onClick={() => {
