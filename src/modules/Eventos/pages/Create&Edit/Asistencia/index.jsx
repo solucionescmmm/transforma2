@@ -31,48 +31,77 @@ import {
 import MaterialTable from "@material-table/core";
 
 //Componentes
-import useGetAsistencia from "../../../hooks/useGetAsistencia";
+import useGetMatriculas from "../../../hooks/useGetMatriculas";
+import { Switch } from "@mui/material";
+import ModalState from "./modalState";
 
-const ReadAsistencia = ({ isPreview, intIdSesion }) => {
+const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
+            title: "",
+            render: (rowData) => (
+                <Switch
+                    checked={rowData.btAsistio}
+                    size="small"
+                    onClick={() => {
+                        setSelectedData(rowData);
+                        handlerOpenModalState();
+                    }}
+                />
+            ),
+            width: "5%",
+        },
+        {
             title: "Nombres y Apellidos",
-            field: "objDataAsistente.strNombres",
+            field: "strNombre",
             type: "string",
         },
         {
             title: "Tipo de documento",
-            field: "objDataAsistente.strTipoDocto",
+            field: "strTipoDocto",
             type: "string",
         },
         {
             title: "Documento",
-            field: "objDataAsistente.strNroDocto",
+            field: "strNroDocto",
             type: "string",
         },
         {
             title: "Correo electronico",
-            field: "objDataAsistente.strCorreoElectronico1",
+            field: "strCorreoElectronico",
             type: "string",
         },
     ]);
+    const [selectedData, setSelectedData] = useState();
+    const [openModalState, setOpenModalState] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data } = useGetAsistencia({
+    const { data, refreshGetData } = useGetMatriculas({
         autoload: true,
         intIdSesion,
+        intIdEvento,
     });
 
+    const handlerOpenModalState = () => {
+        setOpenModalState(!openModalState);
+    };
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
         <Fragment>
+            <ModalState
+                handleOpenDialog={handlerOpenModalState}
+                open={openModalState}
+                values={{ ...selectedData, intIdSesion, intIdEvento }}
+                refresh={refreshGetData}
+            />
+
             <StyledEngineProvider injectFirst>
                 <ThemeProvider
                     theme={createTheme({

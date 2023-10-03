@@ -499,7 +499,7 @@ const ModalCEdit = ({
 
                         {isEdit && (
                             <Grid item xs={12}>
-                                <ReadAsistencia intIdSesion={intId} />
+                                <ReadAsistencia intIdSesion={intId} intIdEvento={intIdEvento} />
                             </Grid>
                         )}
                     </Grid>
