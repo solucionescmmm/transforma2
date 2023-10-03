@@ -31,7 +31,8 @@ import {
     Typography,
 } from "@mui/material";
 
-import { DatePicker, LoadingButton } from "@mui/lab";
+import { LoadingButton } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -184,7 +185,6 @@ const ModalCEdit = ({
                 await refFntGetData
                     .current({ intId, intIdIdea })
                     .then((res) => {
-
                         if (res.data.error) {
                             throw new Error(res.data.msg);
                         }
@@ -436,27 +436,21 @@ const ModalCEdit = ({
                                     value={value}
                                     disabled={loading}
                                     onChange={(date) => onChange(date)}
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            fullWidth
-                                            required
-                                            variant="standard"
-                                            error={
-                                                errors?.objInfoEmpresarioPr
-                                                    ?.dtFechaExpedicionDocto
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
+                                    slotProps={{
+                                        textField: {
+                                            required: true,
+                                            fullWidth: true,
+                                            variant: "standard",
+                                            name,
+                                            error: !!errors?.objInfoEmpresarioPr
+                                                ?.dtFechaExpedicionDocto,
+                                            helperText:
                                                 errors?.objInfoEmpresarioPr
                                                     ?.dtFechaExpedicionDocto
                                                     ?.message ||
-                                                "Selecciona la fecha de finalización"
-                                            }
-                                        />
-                                    )}
+                                                "Selecciona la fecha de finalización",
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}
@@ -473,7 +467,6 @@ const ModalCEdit = ({
                 <LoadingButton
                     color="primary"
                     loading={loading}
-                    type="button"
                     onClick={handleSubmit(onSubmit)}
                 >
                     registrar

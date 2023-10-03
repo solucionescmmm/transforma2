@@ -402,7 +402,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                             <DropdownEmpresarios
                                                 name={name}
                                                 value={value}
-                                                label="Empresario"
+                                                label="Persona Empresaria"
                                                 helperText={
                                                     errors?.objEmpresario
                                                         ?.message ||
@@ -874,10 +874,6 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                             />
                                         )}
                                         control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, digita la retroalimentación u observaciones en caso de tener",
-                                        }}
                                     />
                                 </Grid>
 

@@ -464,10 +464,12 @@ const PaperFase = ({
         }
 
         setValue(`arrInfoFases[${index}].dblValorRef`, dblValorRef);
+        setValue(`arrInfoFases[${index}].dblValorFase`, dblValorRef);
 
         setData((prevState) => ({
             ...prevState,
             dblValorRef,
+            dblValorFase: dblValorRef,
         }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data.arrServicios, data.arrPaquetes]);
@@ -1424,7 +1426,11 @@ const PaperFase = ({
                     >
                         <Tooltip title="Eliminar">
                             <DeleteIcon
-                                color={!disabled && length > 1 ? "error" : "inherit"}
+                                color={
+                                    !disabled && length > 1
+                                        ? "error"
+                                        : "inherit"
+                                }
                             />
                         </Tooltip>
                     </IconButton>

@@ -274,41 +274,6 @@ const PaperModulo = ({
                         <Grid container direction="row" spacing={2}>
                             <Grid item xs={12}>
                                 <Controller
-                                    name={`arrModulos[${index}].intHoras`}
-                                    defaultValue={data.intHoras}
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <TextField
-                                            label="Duración en horas"
-                                            name={name}
-                                            value={value}
-                                            disabled={disabled}
-                                            onChange={(e) => onChange(e)}
-                                            fullWidth
-                                            variant="standard"
-                                            required
-                                            error={
-                                                !!errors?.arrModulos?.[index]
-                                                    ?.intHoras
-                                            }
-                                            helperText={
-                                                errors?.arrModulos?.[index]
-                                                    ?.intHoras?.message ||
-                                                "Digita la duración del módulo"
-                                            }
-                                        />
-                                    )}
-                                    control={control}
-                                    rules={{
-                                        required:
-                                            "Por favor, digita la duración del módulo",
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Controller
                                     name={`arrModulos[${index}].strNombre`}
                                     defaultValue={data.strNombre}
                                     render={({
@@ -338,6 +303,41 @@ const PaperModulo = ({
                                     rules={{
                                         required:
                                             "Por favor, digita el nombre del módulo",
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Controller
+                                    name={`arrModulos[${index}].intHoras`}
+                                    defaultValue={data.intHoras}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <TextField
+                                            label="Duración en horas"
+                                            name={name}
+                                            value={value}
+                                            disabled={disabled}
+                                            onChange={(e) => onChange(e)}
+                                            fullWidth
+                                            variant="standard"
+                                            required
+                                            error={
+                                                !!errors?.arrModulos?.[index]
+                                                    ?.intHoras
+                                            }
+                                            helperText={
+                                                errors?.arrModulos?.[index]
+                                                    ?.intHoras?.message ||
+                                                "Digita la duración del módulo"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, digita la duración del módulo",
                                     }}
                                 />
                             </Grid>
