@@ -58,9 +58,11 @@ class updateEmpresarioPrincipal {
         }
 
         let btMismaCedula = false;
+        let objDataEmpresarioPrincipal = this.#objIdeaEmpresarioActual.objEmpresario.find((data) => data.strTipoEmpresario === "Principal")
+
         if (
             this.#objData.objEmpresario.strNroDocto ===
-            this.#objIdeaEmpresarioActual.objEmpresario[0].strNroDocto
+            objDataEmpresarioPrincipal?.strNroDocto
         ) {
             btMismaCedula = true;
         }
@@ -81,15 +83,15 @@ class updateEmpresarioPrincipal {
 
         if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && this.#intIdCuantosHistoricos === 1) {
             await this.#updateHistorico()
-         }
+        }
 
-         if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && !this.#intIdCuantosHistoricos) {
+        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && !this.#intIdCuantosHistoricos) {
             await this.#setHistorico()
-         }
+        }
 
-         if (this.#objData.objInfoAdicional.strURLDocumento) {
+        if (this.#objData.objInfoAdicional.strURLDocumento) {
             await this.#setDocumento()
-         }
+        }
     }
 
     async #getIdeaEmpresario() {
@@ -104,6 +106,7 @@ class updateEmpresarioPrincipal {
         if (!query.data) {
             throw new Error(`El empresario no existe`);
         }
+        
         this.#objIdeaEmpresarioActual = query.data[0];
     }
 
@@ -121,7 +124,7 @@ class updateEmpresarioPrincipal {
 
     async #getHistorico() {
         let queryGetHistorico = await serviceGetHistorico({
-            intIdIdea : this.#intIdIdea,
+            intIdIdea: this.#intIdIdea,
         }, this.#objUser);
 
         if (queryGetHistorico.error) {
@@ -151,7 +154,7 @@ class updateEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let query = await dao.updateEmpresario(newData);
-        
+
         if (query.error) {
             await this.#rollbackTransaction();
             throw new Error(query.msg);
@@ -167,8 +170,8 @@ class updateEmpresarioPrincipal {
     async #updateIdea() {
         let newData = {
             strUsuarioActualizacion: this.#objUser.strEmail,
-            strNombre:this.#objData.objInfoEmpresa?.strNombreMarca,
-            intId : this.#intIdIdea
+            strNombre: this.#objData.objInfoEmpresa?.strNombreMarca,
+            intId: this.#intIdIdea
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -244,7 +247,7 @@ class updateEmpresarioPrincipal {
             arrTemasCapacitacion: aux_arrTemasCapacitacion,
             arrComoSeEntero: aux_arrComoSeEntero,
             arrMediosDeComunicacion: aux_arrMediosDeComunicacion,
-            strUrlSoporteRecibirInfoCMM:this.#objData.objInfoAdicional?.strURLDocumento || null,
+            strUrlSoporteRecibirInfoCMM: this.#objData.objInfoAdicional?.strURLDocumento || null,
         };
 
         let query = await dao.updateInfoAdicional(newData);
@@ -254,16 +257,16 @@ class updateEmpresarioPrincipal {
         }
     }
 
-    async #setHistorico(){
+    async #setHistorico() {
         let data = {
-            intIdIdea:this.#intIdIdea,
-            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10): 1,
-            ValorVentas:this.#objData.objInfoEmpresa.dblValorVentasMes,
-            strTiempoDedicacionAdmin:this.#objData.objInfoEmpresa.strTiempoDedicacion,
+            intIdIdea: this.#intIdIdea,
+            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10) : 1,
+            ValorVentas: this.#objData.objInfoEmpresa.dblValorVentasMes,
+            strTiempoDedicacionAdmin: this.#objData.objInfoEmpresa.strTiempoDedicacion,
             intIdFuenteHistorico: this.#intIdFuenteHistorico,
-            intIdFuenteDato:this.#objData.objInfoEmpresa.intId,
+            intIdFuenteDato: this.#objData.objInfoEmpresa.intId,
         };
-    
+
         let service = new serviceSetHistorico(data);
 
         let query = await service.main();
@@ -273,15 +276,15 @@ class updateEmpresarioPrincipal {
         }
     }
 
-    async #updateHistorico(){
+    async #updateHistorico() {
         let data = {
-            intIdIdea:this.#intIdIdea,
-            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10): 1,
-            ValorVentas:this.#objData.objInfoEmpresa.dblValorVentasMes,
-            strTiempoDedicacionAdmin:this.#objData.objInfoEmpresa.strTiempoDedicacion,
+            intIdIdea: this.#intIdIdea,
+            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10) : 1,
+            ValorVentas: this.#objData.objInfoEmpresa.dblValorVentasMes,
+            strTiempoDedicacionAdmin: this.#objData.objInfoEmpresa.strTiempoDedicacion,
             intIdFuenteDato: this.#objData.objInfoEmpresa.intId,
         };
-    
+
         let service = new serviceUpdateHistorico(data);
 
         let query = await service.main();
@@ -315,7 +318,7 @@ class updateEmpresarioPrincipal {
         let objDataEmpresario = this.#objIdeaEmpresarioActual.objEmpresario[0]
 
         let rollEmpresario = await dao.updateEmpresario(objDataEmpresario);
-        
+
         let aux_arrCategoriasSecundarias = JSON.stringify(
             this.#objIdeaEmpresarioActual.objInfoEmpresa
                 ?.arrCategoriasSecundarias || null
@@ -350,7 +353,7 @@ class updateEmpresarioPrincipal {
 
         let aux_arrTemasCapacitacion = JSON.stringify(
             this.#objIdeaEmpresarioActual.objInfoAdicional?.arrTemasCapacitacion ||
-                null
+            null
         );
         let aux_arrComoSeEntero = JSON.stringify(
             this.#objIdeaEmpresarioActual.objInfoAdicional?.arrComoSeEntero || null
