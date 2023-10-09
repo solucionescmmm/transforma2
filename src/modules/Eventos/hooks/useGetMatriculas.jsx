@@ -27,7 +27,11 @@ import { toast } from "react-hot-toast";
     function refreshGetData()
  *
  */
-const useGetMatriculas = ({ autoLoad = true, intIdEvento, intIdSesion } = {}) => {
+const useGetMatriculas = ({
+    autoLoad = true,
+    intIdEvento,
+    intIdSesion,
+} = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -52,8 +56,11 @@ const useGetMatriculas = ({ autoLoad = true, intIdEvento, intIdSesion } = {}) =>
                         token,
                     },
                     params: {
-                        intIdEvento : typeof intIdEvento === 'object' ? intIdEvento.intIdEvento : intIdEvento,
-                        intIdSesion
+                        intIdEvento:
+                            typeof intIdEvento === "object"
+                                ? intIdEvento.intIdEvento
+                                : intIdEvento,
+                        intIdSesion,
                     },
                 },
                 {
@@ -95,7 +102,7 @@ const useGetMatriculas = ({ autoLoad = true, intIdEvento, intIdSesion } = {}) =>
         setData(data);
     };
 
-    const refreshGetData = (intIdEvento, intIdSesion) => {
+    const refreshGetData = ({ intIdEvento, intIdSesion }) => {
         let signalSubmitData = axios.CancelToken.source();
 
         setData();
@@ -103,13 +110,13 @@ const useGetMatriculas = ({ autoLoad = true, intIdEvento, intIdSesion } = {}) =>
         getData({ signalSubmitData, intIdEvento, intIdSesion });
     };
 
-    const getUniqueData = async ({ intIdEvento, intIdSesion}) => {
+    const getUniqueData = async ({ intIdEvento, intIdSesion }) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
             signalSubmitData,
             intIdEvento,
-            intIdSesion
+            intIdSesion,
         });
 
         return query;
@@ -125,7 +132,7 @@ const useGetMatriculas = ({ autoLoad = true, intIdEvento, intIdSesion } = {}) =>
             getData({
                 signalSubmitData,
                 intIdEvento,
-                intIdSesion
+                intIdSesion,
             });
         }
 

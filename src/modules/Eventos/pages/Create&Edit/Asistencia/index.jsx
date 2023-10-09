@@ -32,7 +32,6 @@ import MaterialTable from "@material-table/core";
 
 //Componentes
 import useGetMatriculas from "../../../hooks/useGetMatriculas";
-import { Checkbox } from "@mui/material";
 import ModalState from "./modalState";
 
 const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
@@ -41,17 +40,9 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
-            title: "",
-            render: (rowData) => (
-                <Checkbox
-                    checked={rowData.btAsistio}
-                    size="small"
-                    onClick={() => {
-                        setSelectedData(rowData);
-                        handlerOpenModalState();
-                    }}
-                />
-            ),
+            title: "Asistencia",
+            field: "btAsistio",
+            type: "boolean",
             width: "5%",
         },
         {
@@ -203,6 +194,11 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
                         columns={objColumns}
                         title="Asistencia"
                         options={{
+                            selection: true,
+                            selectionProps: (rowData) => ({
+                                disabled: rowData.btAsistio,
+                                color: "primary",
+                            }),
                             grouping: true,
                             title: true,
                             filtering: false,
@@ -223,7 +219,16 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
                             pageSizeOptions: [20, 100, 200, 500],
                             pageSize: 20,
                         }}
-                        onRowClick={(e, rowData) => {}}
+                        actions={[
+                            {
+                                tooltip: "registrar asistencia",
+                                icon: CheckIcon,
+                                onClick: (_, rowData) => {
+                                    setSelectedData({ arrData: rowData });
+                                    handlerOpenModalState();
+                                },
+                            },
+                        ]}
                     />
                 </ThemeProvider>
             </StyledEngineProvider>

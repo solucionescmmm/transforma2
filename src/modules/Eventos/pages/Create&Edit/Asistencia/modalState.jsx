@@ -129,7 +129,10 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
         if (values) {
             setData({
                 intIdSesion: values.intIdSesion,
-                arrAsistentes: [{ intIdAsistenteEvento: values.intId }],
+                arrAsistentes:
+                    values.arrData?.map((value) => ({
+                        intIdAsistenteEvento: value.intId,
+                    })) || [],
             });
         }
 
@@ -194,7 +197,9 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
                     ) : (
                         <Alert severity="error">
                             <AlertTitle>
-                                <b>No se encontro el identificador de la sesión</b>
+                                <b>
+                                    No se encontro el identificador de la sesión
+                                </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
                             datos, por favor escala al área de TI para mayor
@@ -223,15 +228,13 @@ const ModalState = ({ handleOpenDialog, open, values, refresh }) => {
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
             <DialogTitle>
-                {!data.btAsistio
-                    ? "¿Deseas marcar la asistencia, del usuario seleccionado?"
-                    : "¿Deseas desmarcar la asistencia, del usuario seleccionado?"}
+                ¿Deseas marcar la asistencia, de los usuarios seleccionados?
             </DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    Al marcar o desmarca la asistencia, se registrara dentro del
-                    historial de dicha persona
+                    Al marcar la asistencia, se registrara dentro del historial
+                    de dicha persona
                 </DialogContentText>
             </DialogContent>
 
