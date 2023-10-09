@@ -27,10 +27,10 @@ class updateSesionesEventos {
     }
 
     async main() {
+        //console.log(this.#objData)
         await this.#validations()
         await this.#getIdEstado()
         await this.#updateSesionesEventos()
-        await this.#setAreasEventos()
         return this.#objResult;
     }
 
@@ -64,14 +64,11 @@ class updateSesionesEventos {
     async #updateSesionesEventos() {
         let newData = {
             ...this.#objData,
-            intIdSede: this.#objData.strSede,
-            intIdTipoEvento: this.#objData.intTipoEvento,
-            strInvolucrados: JSON.stringify(this.#objData.arrInvolucrados || ""),
-            strResponsable: JSON.stringify(this.#objData.strResponsable || ""),
-            intIdServicio: this.#objData?.strServicio?.objInfoPrincipal?.intId,
-            intEstadoEvento: this.#intIdEstado,
-            btPago: this.#objData.bitPago === "Sí" ? true : false,
-            intNumSesiones: 0
+            strNombreModulo: this.#objData?.strNombre,
+            intAreaResponsable: this.#objData?.strArea?.intId,
+            strResponsables: JSON.stringify(this.#objData.strResponsables || ""),
+            dtFechaIni: this.#objData.dtFechaInicio,
+            dtFechaFin: this.#objData.dtFechaFin,
         }
         let dao = new classInterfaceDAOEventos();
 
@@ -88,26 +85,6 @@ class updateSesionesEventos {
             data: query.data,
             msg: query.msg,
         };
-    }
-
-    async #setAreasEventos() {
-        const array = this.#objData?.arrAreas;
-
-        for (let i = 0; i < array.length; i++) {
-            let data = {
-                intIdEvento: this.#intIdEvento,
-                intIdArea: array[i]?.intId,
-            }
-            let dao = new classInterfaceDAOEventos();
-
-            let query = await dao.setAreasEventos(data);
-
-            if (query.error) {
-                throw new Error(query.msg);
-            }
-
-        }
-
     }
 
 }
