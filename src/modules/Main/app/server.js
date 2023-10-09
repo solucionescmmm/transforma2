@@ -114,7 +114,7 @@ class clsServer {
                 let responseSetComentario = await serviceSetComentario.main();
 
                 let responseGetData = await serviceGetComentarios({
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
@@ -126,7 +126,7 @@ class clsServer {
 
             client.on("mdlComentarios:getComentarios", async (data) => {
                 let response = await serviceGetComentarios({
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 });
 
                 client.emit("mdlComentarios:getComentarios", response);
@@ -140,7 +140,7 @@ class clsServer {
                 let responseDelete = await serviceDeleteComentario.main();
 
                 let responseGetData = await serviceGetComentarios({
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
@@ -153,7 +153,7 @@ class clsServer {
                 let responseUpdate = await serviceUpdateComentario.main();
 
                 let responseGetData = await serviceGetComentarios({
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
@@ -167,7 +167,7 @@ class clsServer {
                 let responseSetRespuesta = await serviceSetRespuesta.main();
 
                 let responseGetData = await serviceGetComentarios({
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
@@ -183,7 +183,7 @@ class clsServer {
                 let responseDelete = await serviceDeleteRespuesta.main();
 
                 let responseGetData = await serviceGetComentarios({
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
@@ -196,7 +196,7 @@ class clsServer {
                 let responseUpdate = await serviceUpdate.main();
 
                 let responseGetData = await serviceGetComentarios({
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
@@ -209,7 +209,7 @@ class clsServer {
                 let responseUpdate = await serviceUpdateComentario.main();
 
                 let responseGetData = await serviceGetComentarios({
-                    intIdEmpresario: data.intIdEmpresario,
+                    intIdIdea: data.intIdIdea,
                 });
 
                 client.emit("mdlComentarios:getComentarios", responseGetData);
