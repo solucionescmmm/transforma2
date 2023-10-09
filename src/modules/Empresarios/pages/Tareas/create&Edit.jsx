@@ -28,7 +28,8 @@ import {
     TextField,
 } from "@mui/material";
 
-import { DatePicker, LoadingButton } from "@mui/lab";
+import { LoadingButton } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -213,7 +214,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 intIdIdea,
                                 strObservaciones: data.strObservaciones,
                                 strResponsable: data.strResponsable || [],
-                                dtFechaFinTentativa: data.dtFechaFinTentativa,   
+                                dtFechaFinTentativa: data.dtFechaFinTentativa,
                                 strUsuarioCreacion: strInfoUser.strUsuario,
                             });
                         }
@@ -368,14 +369,9 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     disabled={loading}
                                     fullWidth
                                     variant="standard"
-                                    error={
-                                        errors?.objInfoEmpresarioPr?.strNombres
-                                            ? true
-                                            : false
-                                    }
+                                    error={errors?.strTarea ? true : false}
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strNombres
-                                            ?.message ||
+                                        errors?.strTarea?.message ||
                                         "Digíta el nombre de la tarea"
                                     }
                                 />
@@ -405,13 +401,10 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     multiline
                                     rows={4}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strNombres
-                                            ? true
-                                            : false
+                                        errors?.strObservaciones ? true : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strNombres
-                                            ?.message ||
+                                        errors?.strObservaciones?.message ||
                                         "Digíta las observaciones de la tarea"
                                     }
                                 />
@@ -434,27 +427,19 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     value={value}
                                     disabled={loading}
                                     onChange={(date) => onChange(date)}
-                                    renderInput={(props) => (
-                                        <TextField
-                                            {...props}
-                                            name={name}
-                                            fullWidth
-                                            required
-                                            variant="standard"
-                                            error={
-                                                errors?.objInfoEmpresarioPr
-                                                    ?.dtFechaExpedicionDocto
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoEmpresarioPr
-                                                    ?.dtFechaExpedicionDocto
+                                    slotProps={{
+                                        textField: {
+                                            required: true,
+                                            fullWidth: true,
+                                            variant: "standard",
+                                            name,
+                                            error: !!errors?.dtFechaFinTentativa,
+                                            helperText:
+                                                errors?.dtFechaFinTentativa
                                                     ?.message ||
-                                                "Selecciona la fecha de finalización"
-                                            }
-                                        />
-                                    )}
+                                                "Selecciona la fecha de finalización",
+                                        },
+                                    }}
                                 />
                             )}
                             control={control}

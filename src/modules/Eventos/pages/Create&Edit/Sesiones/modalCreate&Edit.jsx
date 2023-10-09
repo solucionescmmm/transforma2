@@ -499,7 +499,10 @@ const ModalCEdit = ({
 
                         {isEdit && (
                             <Grid item xs={12}>
-                                <ReadAsistencia intIdSesion={intId} intIdEvento={intIdEvento} />
+                                <ReadAsistencia
+                                    intIdSesion={intId}
+                                    intIdEvento={intIdEvento}
+                                />
                             </Grid>
                         )}
                     </Grid>
@@ -530,7 +533,7 @@ const ModalCEdit = ({
                                 type="button"
                                 onClick={handleSubmit(onSubmit)}
                             >
-                                registrar
+                                {isEdit ? "guardar" : "registrar"}
                             </LoadingButton>
 
                             <Button

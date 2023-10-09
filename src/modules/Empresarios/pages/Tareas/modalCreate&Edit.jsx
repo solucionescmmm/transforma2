@@ -371,12 +371,12 @@ const ModalCEdit = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strNombres
+                                        errors?.objInfoEmpresarioPr?.strTarea
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strNombres
+                                        errors?.objInfoEmpresarioPr?.strTarea
                                             ?.message ||
                                         "Digíta el nombre de la tarea"
                                     }
@@ -407,13 +407,10 @@ const ModalCEdit = ({
                                     multiline
                                     rows={4}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strNombres
-                                            ? true
-                                            : false
+                                        errors?.strObservaciones ? true : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strNombres
-                                            ?.message ||
+                                        errors?.strObservaciones?.message ||
                                         "Digíta las observaciones de la tarea"
                                     }
                                 />
@@ -442,11 +439,9 @@ const ModalCEdit = ({
                                             fullWidth: true,
                                             variant: "standard",
                                             name,
-                                            error: !!errors?.objInfoEmpresarioPr
-                                                ?.dtFechaExpedicionDocto,
+                                            error: !!errors?.dtFechaFinTentativa,
                                             helperText:
-                                                errors?.objInfoEmpresarioPr
-                                                    ?.dtFechaExpedicionDocto
+                                                errors?.dtFechaFinTentativa
                                                     ?.message ||
                                                 "Selecciona la fecha de finalización",
                                         },
