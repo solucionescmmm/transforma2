@@ -111,6 +111,7 @@ const ModalCEdit = ({
     const onSubmit = (data) => {
         setData((prevState) => ({
             intIdEvento: Number(intIdEvento),
+            intId,
             ...prevState,
             ...data,
         }));
