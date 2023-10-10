@@ -51,7 +51,7 @@ class deleteAsistentesEventos {
 
     async #getAsistentesSesionesEventos() {
         let queryGetSesionesEventos = await serviceGetAsistentesSesionesEventos({
-            intIdSesion: this.#objData.intIdSesionesEvento,
+            intIdAsistenteEvento: this.#objData.intIdAsistentesEvento,
         }, this.#objUser);
 
         if (queryGetSesionesEventos.error) {

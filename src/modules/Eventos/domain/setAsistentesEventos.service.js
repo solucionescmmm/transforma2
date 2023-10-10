@@ -68,6 +68,12 @@ class setAsistentesEventos {
             if (query.error) {
                 throw new Error(query.msg);
             }
+
+            this.#objResult = {
+                error: query.error,
+                data: query.data,
+                msg: query.msg,
+            };
             
         }
 
