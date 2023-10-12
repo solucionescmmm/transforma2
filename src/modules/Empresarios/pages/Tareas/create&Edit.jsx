@@ -427,6 +427,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     value={value}
                                     disabled={loading}
                                     onChange={(date) => onChange(date)}
+                                    format="dd/MM/yyyy"
                                     slotProps={{
                                         textField: {
                                             required: true,

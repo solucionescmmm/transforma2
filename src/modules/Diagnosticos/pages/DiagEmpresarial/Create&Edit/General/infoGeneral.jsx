@@ -189,6 +189,7 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled={disabled}
+                                    format="dd/MM/yyyy hh:ss"
                                     ampm
                                     slotProps={{
                                         textField: {
@@ -257,6 +258,7 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled
+                                    format="dd/MM/yyyy hh:ss"
                                     ampm
                                     slotProps={{
                                         textField: {
@@ -539,6 +541,7 @@ const InfoGeneral = ({
                                     value={value}
                                     disabled={disabled}
                                     onChange={(date) => onChange(date)}
+                                    format="dd/MM/yyyy"
                                     slotProps={{
                                         textField: {
                                             name,
@@ -569,6 +572,7 @@ const InfoGeneral = ({
                                     value={value}
                                     disabled={disabled}
                                     onChange={(date) => onChange(date)}
+                                    format="dd/MM/yyyy"
                                     slotProps={{
                                         textField: {
                                             name,

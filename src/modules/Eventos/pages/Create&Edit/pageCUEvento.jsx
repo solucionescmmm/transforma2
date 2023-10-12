@@ -480,6 +480,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                             label="Fecha de inicio"
                                             value={value}
                                             onChange={(date) => onChange(date)}
+                                            format="dd/MM/yyyy"
                                             slotProps={{
                                                 textField: {
                                                     name,
@@ -514,6 +515,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                             label="Fecha de finalización"
                                             value={value}
                                             onChange={(date) => onChange(date)}
+                                            format="dd/MM/yyyy"
                                             disabled={loading || isPreview}
                                             slotProps={{
                                                 textField: {

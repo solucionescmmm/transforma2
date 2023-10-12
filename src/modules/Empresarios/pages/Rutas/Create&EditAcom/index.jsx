@@ -438,6 +438,8 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 onChange={(date) =>
                                                     onChange(date)
                                                 }
+                                                format="dd/MM/yyyy hh:ss"
+                                                ampm
                                                 slotProps={{
                                                     textField: {
                                                         name,
@@ -475,6 +477,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 onChange={(value) =>
                                                     onChange(value)
                                                 }
+                                                format="dd/MM/yyyy hh:ss"
                                                 ampm
                                                 disabled={loading}
                                                 slotProps={{
@@ -825,6 +828,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 onChange={(date) =>
                                                     onChange(date)
                                                 }
+                                                format="dd/MM/yyyy hh:ss"
                                                 disabled={loading}
                                                 slotProps={{
                                                     textField: {

@@ -411,6 +411,8 @@ const CUSesion = ({
                                                 onChange={(date) =>
                                                     onChange(date)
                                                 }
+                                                format="dd/MM/yyyy hh:ss"
+                                                ampm
                                                 slotProps={{
                                                     textField: {
                                                         name,
@@ -448,6 +450,7 @@ const CUSesion = ({
                                                 onChange={(value) =>
                                                     onChange(value)
                                                 }
+                                                format="dd/MM/yyyy hh:ss"
                                                 ampm
                                                 disabled={loading}
                                                 slotProps={{
@@ -691,6 +694,8 @@ const CUSesion = ({
                                                 onChange={(date) =>
                                                     onChange(date)
                                                 }
+                                                format="dd/MM/yyyy hh:ss"
+                                                ampm
                                                 disabled={loading}
                                                 slotProps={{
                                                     textField: {

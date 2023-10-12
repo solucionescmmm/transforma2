@@ -469,6 +469,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             value={value}
                                             disabled={disabled}
                                             onChange={(date) => onChange(date)}
+                                            format="dd/MM/yyyy"
                                             renderInput={(props) => (
                                                 <TextField
                                                     {...props}
@@ -505,6 +506,7 @@ const PaperEmpresarioSec = ({ values, index, control, disabled, errors, remove }
                                             value={value}
                                             disabled={disabled}
                                             onChange={(date) => onChange(date)}
+                                            format="dd/MM/yyyy"
                                             renderInput={(props) => (
                                                 <TextField
                                                     {...props}

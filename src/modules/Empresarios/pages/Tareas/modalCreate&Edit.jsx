@@ -433,6 +433,7 @@ const ModalCEdit = ({
                                     value={value}
                                     disabled={loading}
                                     onChange={(date) => onChange(date)}
+                                    format="dd/MM/yyyy"
                                     slotProps={{
                                         textField: {
                                             required: true,

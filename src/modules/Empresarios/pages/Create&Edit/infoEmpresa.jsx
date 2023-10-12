@@ -393,6 +393,7 @@ const InfoEmpresa = ({
                                     label="Fecha de fundación"
                                     value={value}
                                     onChange={(date) => onChange(date)}
+                                    format="dd/MM/yyyy"
                                     disabled={
                                         data.strEstadoNegocio ===
                                         "Idea de negocio"

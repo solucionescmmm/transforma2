@@ -608,6 +608,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             value={value}
                                             disabled={loading}
                                             onChange={(date) => onChange(date)}
+                                            format="dd/MM/yyyy"
                                             renderInput={(props) => (
                                                 <TextField
                                                     {...props}
@@ -648,6 +649,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             value={value}
                                             disabled={loading}
                                             onChange={(date) => onChange(date)}
+                                            format="dd/MM/yyyy"
                                             renderInput={(props) => (
                                                 <TextField
                                                     {...props}

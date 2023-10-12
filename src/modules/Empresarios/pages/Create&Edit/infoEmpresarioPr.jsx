@@ -377,6 +377,7 @@ const InfoEmpresarioPr = ({
                                     label="Fecha de expedición del documento"
                                     value={value}
                                     disabled={disabled}
+                                    format="dd/MM/yyyy"
                                     onChange={(date) => onChange(date)}
                                     slotProps={{
                                         textField: {
@@ -408,6 +409,7 @@ const InfoEmpresarioPr = ({
                                     value={value}
                                     disabled={disabled}
                                     onChange={(date) => onChange(date)}
+                                    format="dd/MM/yyyy"
                                     slotProps={{
                                         textField: {
                                             name,

@@ -373,6 +373,7 @@ const ModalCEdit = ({
                                         value={value}
                                         disabled={loading}
                                         onChange={(date) => onChange(date)}
+                                        format="dd/MM/yyyy"
                                         slotProps={{
                                             textField: {
                                                 name,
@@ -408,6 +409,7 @@ const ModalCEdit = ({
                                         value={value}
                                         disabled={loading}
                                         onChange={(date) => onChange(date)}
+                                        format="dd/MM/yyyy"
                                         slotProps={{
                                             textField: {
                                                 name,

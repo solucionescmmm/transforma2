@@ -41,6 +41,7 @@ const ReturnTypeInput = ({
                 value={value}
                 disabled={disabled}
                 onChange={(date) => onChange(date)}
+                format="dd/MM/yyyy"
                 slotProps={{
                     textField: {
                         required,
@@ -62,6 +63,7 @@ const ReturnTypeInput = ({
                 value={value}
                 disabled={disabled}
                 onChange={(date) => onChange(date)}
+                format="dd/MM/yyyy hh:ss"
                 slotProps={{
                     textField: {
                         required,

@@ -198,6 +198,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     label="Fecha de vinculación"
                                     value={value}
                                     disabled={disabled}
+                                    format="dd/MM/yyyy"
                                     onChange={(date) => onChange(date)}
                                     slotProps={{
                                         textField: {
