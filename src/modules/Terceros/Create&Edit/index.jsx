@@ -25,7 +25,7 @@ import { useEffect, useRef, useState } from "react";
 
 // Componentes
 import CUEmpresario from "./pageCUTercero";
-import useGetEmpresarios from "../../Empresarios/hooks/useGetEmpresarios";
+import useGetEmpresarios from "../../../common/hooks/useGetEmpresarios";
 import axios from "axios";
 import PageError from "../../../common/components/Error";
 import { parseISO } from "date-fns";
@@ -72,6 +72,7 @@ const SearchEmpresario = ({ isEdit }) => {
     const [data, setData] = useState();
     const [flagGetdata, setFlagGetData] = useState(false);
     const [sendData, setSendData] = useState();
+    const [bitBuscar, setBitBuscar] = useState(false)
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -99,10 +100,8 @@ const SearchEmpresario = ({ isEdit }) => {
     async function getData() {
         setLoadingGetData(true);
 
-        alert(sendData)
-
         await refFntGetData
-            .current({ strNroDocto: sendData })
+            .current({ strDocumento: sendData })
             .then((res) => {
                 if (res.data.error) {
                     throw new Error(res.data.msg);
@@ -113,9 +112,6 @@ const SearchEmpresario = ({ isEdit }) => {
                     const objEmprPrincipal = data;
 
                     setData({
-                        intIdIdea: data.objInfoIdeaEmpresario?.intIdIdea,
-                        objIdeaEmpresario: data.objInfoIdeaEmpresario,
-                        objInfoPrincipal: {},
                         objInfoEmpresarioPr: {
                             intId: objEmprPrincipal.intId,
                             strNombres: objEmprPrincipal.strNombres || "",
@@ -158,13 +154,11 @@ const SearchEmpresario = ({ isEdit }) => {
                             strURLFileFoto:
                                 objEmprPrincipal.strUrlFileFoto || "",
                         },
-                        objInfoEmpresa: {},
-                        objInfoAdicional: {},
-                        arrInfoEmpresarioSec: [],
                     });
                 } else {
                     setData();
                     setSendData(false);
+                    setBitBuscar(true)
                 }
 
                 setLoadingGetData(false);
@@ -190,6 +184,14 @@ const SearchEmpresario = ({ isEdit }) => {
             signalSubmitData.cancel("Petición abortada.");
         };
     }, [flagGetdata]);
+
+    useEffect(() => {
+        return () => {
+            setData()
+            setDocumento()
+            setBitBuscar(false)
+        };
+    }, [hiddenSearch]);
 
     if (errorGetData.flag) {
         return (
@@ -305,9 +307,11 @@ const SearchEmpresario = ({ isEdit }) => {
                                     variant="standard"
                                     value={documento}
                                     disabled={loadingGetData}
-                                    onChange={(e) =>
+                                    onChange={(e) =>{
                                         handleChangeDocumento(e.target.value)
-                                    }
+                                        setData()
+                                        setBitBuscar(false)
+                                    }}
                                 />
                             </Grid>
 
@@ -328,104 +332,64 @@ const SearchEmpresario = ({ isEdit }) => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                {data && !loadingGetData && (
+                                {data && !loadingGetData && documento && (
                                     <Alert severity="warning">
-                                        Se encontro un registro con los
-                                        siguientes datos:
-                                        <Avatar
-                                            style={{ margin: "10px" }}
-                                            alt={
+                                    Se encontro un registro con los
+                                    siguientes datos:
+                                    <Avatar
+                                        style={{ margin: "10px" }}
+                                        alt={
+                                            data.objInfoEmpresarioPr
+                                                .strNombres
+                                        }
+                                        sx={{ width: 80, height: 80 }}
+                                        src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${data.objInfoEmpresarioPr.strURLFileFoto}`}
+                                    />
+                                    <p>
+                                        <b>Nombre: </b>{" "}
+                                        {
+                                            data.objInfoEmpresarioPr
+                                                .strNombres
+                                        }{" "}
+                                    </p>
+                                    <p>
+                                        <b>Apellidos: </b>{" "}
+                                        {
+                                            data.objInfoEmpresarioPr
+                                                .strApellidos
+                                        }{" "}
+                                    </p>
+                                    <p>
+                                        <b>
+                                            {
                                                 data.objInfoEmpresarioPr
-                                                    .strNombres
+                                                    .strTipoDocto
                                             }
-                                            sx={{ width: 80, height: 80 }}
-                                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${data.objInfoEmpresarioPr.strURLFileFoto}`}
-                                        />
-                                        <p>
-                                            <b>Nombre: </b>{" "}
-                                            {
-                                                data.objInfoEmpresarioPr
-                                                    .strNombres
-                                            }{" "}
-                                        </p>
-                                        <p>
-                                            <b>Apellidos: </b>{" "}
-                                            {
-                                                data.objInfoEmpresarioPr
-                                                    .strApellidos
-                                            }{" "}
-                                        </p>
-                                        <p>
-                                            <b>
-                                                {
-                                                    data.objInfoEmpresarioPr
-                                                        .strTipoDocto
-                                                }
-                                                :{" "}
-                                            </b>{" "}
-                                            {`${data.objInfoEmpresarioPr.strNroDocto} - (${data.objInfoEmpresarioPr.strLugarExpedicionDocto})`}
-                                        </p>
-                                        <p>
-                                            <b>Departamento: </b>{" "}
-                                            {
-                                                data.objInfoEmpresarioPr
-                                                    .arrDepartamento.region_name
-                                            }{" "}
-                                        </p>
-                                        <p>
-                                            <b>Ciudad: </b>{" "}
-                                            {
-                                                data.objInfoEmpresarioPr
-                                                    .arrCiudad.city_name
-                                            }{" "}
-                                        </p>
-                                        <p>
-                                            <b>Dirección de residencia: </b>{" "}
-                                            {
-                                                data.objInfoEmpresarioPr
-                                                    .strDireccionResidencia
-                                            }{" "}
-                                        </p>
-                                        {data.objIdeaEmpresario && (
-                                            <table>
-                                                <tr
-                                                    style={{ fontSize: "12px" }}
-                                                >
-                                                    <th>Empresa</th>
-                                                    <th>Rol</th>
-                                                </tr>
-                                                {data.objIdeaEmpresario.map(
-                                                    (x) => (
-                                                        <tr
-                                                            style={{
-                                                                fontSize:
-                                                                    "12px",
-                                                            }}
-                                                            key={x.intIdIdea}
-                                                        >
-                                                            <td>
-                                                                {
-                                                                    x.strNombreIdea
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    x.strTipoEmpresario
-                                                                }
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                )}
-                                            </table>
-                                        )}
-                                        <p style={{ marginTop: "15px" }}>
-                                            <b>Nota importante: </b>
-                                            La información de la persona será
-                                            precargada y podrá ser editada, sin
-                                            embargo, en caso de estar registrado
-                                            en una empresa, no podrá ser
-                                            asociada nuevamente a la misma.
-                                        </p>
+                                            :{" "}
+                                        </b>{" "}
+                                        {`${data.objInfoEmpresarioPr.strNroDocto} - (${data.objInfoEmpresarioPr.strLugarExpedicionDocto})`}
+                                    </p>
+                                    <p>
+                                        <b>Departamento: </b>{" "}
+                                        {
+                                            data.objInfoEmpresarioPr
+                                                .arrDepartamento.region_name
+                                        }{" "}
+                                    </p>
+                                    <p>
+                                        <b>Ciudad: </b>{" "}
+                                        {
+                                            data.objInfoEmpresarioPr
+                                                .arrCiudad.city_name
+                                        }{" "}
+                                    </p>
+                                    <p>
+                                        <b>Dirección de residencia: </b>{" "}
+                                        {
+                                            data.objInfoEmpresarioPr
+                                                .strDireccionResidencia
+                                        }{" "}
+                                    </p>
                                     </Alert>
                                 )}
 
@@ -455,17 +419,19 @@ const SearchEmpresario = ({ isEdit }) => {
                                     </Alert>
                                 )}
 
-                                <div style={{ width: "500px" }}></div>
-                            </Grid>
-
-                            {data && (
+                                {data && documento &&  (
                                 <Alert severity="warning">
                                     Lo sentimos no puedes volver a registrar a
                                     esta persona
                                 </Alert>
-                            )}
+                                )}
 
-                            {!data && (
+                                <div style={{ width: "500px" }}></div>
+                            </Grid>
+
+
+
+                            {!data && bitBuscar && (
                                 <Grid item xs={12}>
                                     <Box
                                         sx={{
@@ -477,9 +443,12 @@ const SearchEmpresario = ({ isEdit }) => {
                                             variant="contained"
                                             type="submit"
                                             disabled={loadingGetData}
-                                            onClick={() =>
+                                            onClick={() =>{
                                                 setHiddenSearch(true)
-                                            }
+                                                setData({
+                                                    objInfoEmpresarioPr: {strNroDocto:documento},
+                                                });
+                                            }}
                                         >
                                             {"nuevo registro"}
                                         </Button>

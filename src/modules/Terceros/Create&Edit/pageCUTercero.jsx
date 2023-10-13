@@ -449,9 +449,11 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
                                         {isEdit ? "guardar" : "registrar"}
                                     </LoadingButton>
 
-                                    <Button onClick={() => resetSearch(false)}>
+                                    {!isEdit &&(
+                                        <Button onClick={() => resetSearch(false)}>
                                         Nueva busqueda
-                                    </Button>
+                                        </Button>
+                                    )}
                                 </Box>
                             </Grid>
                         </Grid>
