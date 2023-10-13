@@ -16,6 +16,7 @@ import {
     DeleteOutline as DeleteOutlineIcon,
     Search as SearchIcon,
     SaveAlt as SaveAltIcon,
+    Save as SaveIcon,
     ArrowDownward as ArrowDownwardIcon,
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
@@ -33,6 +34,7 @@ import MaterialTable from "@material-table/core";
 //Componentes
 import useGetMatriculas from "../../../hooks/useGetMatriculas";
 import ModalState from "./modalState";
+import { Button } from "@mui/material";
 
 const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
     //===============================================================================================================================================
@@ -222,13 +224,29 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
                         actions={[
                             {
                                 tooltip: "registrar asistencia",
-                                icon: CheckIcon,
+                                icon: SaveIcon,
+                                color: "primary",
                                 onClick: (_, rowData) => {
                                     setSelectedData({ arrData: rowData });
                                     handlerOpenModalState();
                                 },
                             },
                         ]}
+                        components={{
+                            Action: (props) => (
+                                <Button
+                                    onClick={(event) =>
+                                        props.action.onClick(event, props.data)
+                                    }
+                                    color="primary"
+                                    variant="contained"
+                                    style={{ textTransform: "none" }}
+                                    size="small"
+                                >
+                                    registrar asistencia
+                                </Button>
+                            ),
+                        }}
                     />
                 </ThemeProvider>
             </StyledEngineProvider>
