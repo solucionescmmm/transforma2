@@ -54,10 +54,12 @@ const getEventos = async (objParams, strDataUser) => {
 
                 let arrAreas = []
 
-                for (let j = 0; j < arrAreasEventos.length; j++) {
-                    let intIdArea = arrAreasEventos[j]?.intIdArea
+                if (arrAreasEventos?.length > 0) {
+                    for (let j = 0; j < arrAreasEventos.length; j++) {
+                        let intIdArea = arrAreasEventos[j]?.intIdArea
 
-                    arrAreas.push(arrDataAreas.find((data) => data.intId === intIdArea))
+                        arrAreas.push(arrDataAreas.find((data) => data.intId === intIdArea))
+                    }
                 }
 
                 let intIdServicio = array[i]?.intIdServicio
@@ -67,7 +69,7 @@ const getEventos = async (objParams, strDataUser) => {
                     arrAreas,
                     arrInvolucrados: JSON.parse(array[i]?.strInvolucrados),
                     strResponsable: JSON.parse(array[i]?.strResponsable),
-                    strServicio: arrDataServicios.find((data)=> data.objInfoPrincipal.intId === intIdServicio)
+                    strServicio: arrDataServicios.find((data) => data.objInfoPrincipal.intId === intIdServicio)
                 };
             }
 

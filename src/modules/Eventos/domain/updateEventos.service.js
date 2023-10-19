@@ -81,8 +81,8 @@ class updateEventos {
         if (query.error) {
             throw new Error(query.msg);
         }
-
-        this.#intIdEvento = query?.data?.intId
+  
+        this.#intIdEvento = query?.data?.intId || this.#objData?.intId
 
         this.#objResult = {
             error: query.error,
@@ -107,7 +107,7 @@ class updateEventos {
                 throw new Error(query.msg);
             }
 
-        }
+        }   
 
     }
 

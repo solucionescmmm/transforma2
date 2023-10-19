@@ -227,8 +227,8 @@ class daoEventos {
 
             let result = {
                 error: false,
-                data:response?.recordset[0],
-                msg:"El area se guardo correctamente"
+                data: response?.recordset[0],
+                msg: "El area se guardo correctamente"
             };
 
             sql.close(conexion);
@@ -251,7 +251,7 @@ class daoEventos {
     async updateEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn.query`
+            let response = await conn.query`
 
             UPDATE tbl_EventosGrupales
 
@@ -267,10 +267,13 @@ class daoEventos {
                 btPago          = COALESCE(${data.btPago}, btPago),
                 intEstadoEvento = COALESCE(${data.intEstadoEvento}, intEstadoEvento)
 
-            WHERE (intId = ${data.intId})`;
+            WHERE (intId = ${data.intId})
+            
+            SELECT * FROM tbl_EventosGrupales WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
+                data: response.recordset[0],
                 msg: "Se actualizo correctamente el evento",
             };
 
@@ -718,7 +721,7 @@ class daoEventos {
         }
     }
 
-    async deleteEventos(data){
+    async deleteEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -729,7 +732,7 @@ class daoEventos {
 
             let result = {
                 error: false,
-                msg:"El evento se elimino correctamente"
+                msg: "El evento se elimino correctamente"
             };
 
             sql.close(conexion);
@@ -749,7 +752,7 @@ class daoEventos {
         }
     }
 
-    async deleteAreasEventos(data){
+    async deleteAreasEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -760,7 +763,7 @@ class daoEventos {
 
             let result = {
                 error: false,
-                msg:"El area se elimino correctamente"
+                msg: "El area se elimino correctamente"
             };
 
             sql.close(conexion);
@@ -780,7 +783,7 @@ class daoEventos {
         }
     }
 
-    async deleteSesionesEventos(data){
+    async deleteSesionesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -791,7 +794,7 @@ class daoEventos {
 
             let result = {
                 error: false,
-                msg:"La sesión se elimino correctamente"
+                msg: "La sesión se elimino correctamente"
             };
 
             sql.close(conexion);
@@ -811,7 +814,7 @@ class daoEventos {
         }
     }
 
-    async deleteAsistentesEventos(data){
+    async deleteAsistentesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -822,7 +825,7 @@ class daoEventos {
 
             let result = {
                 error: false,
-                msg:"El asistente se elimino correctamente"
+                msg: "El asistente se elimino correctamente"
             };
 
             sql.close(conexion);
@@ -842,7 +845,7 @@ class daoEventos {
         }
     }
 
-    async deleteAsistentesSesionesEventos(data){
+    async deleteAsistentesSesionesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -853,7 +856,7 @@ class daoEventos {
 
             let result = {
                 error: false,
-                msg:"La asistencia se elimino correctamente"
+                msg: "La asistencia se elimino correctamente"
             };
 
             sql.close(conexion);
