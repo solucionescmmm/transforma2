@@ -16,6 +16,7 @@ import useGetTareas from "../../hooks/useGetTareas";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Controller, useForm } from "react-hook-form";
+import { parseISO } from "date-fns";
 
 // MUI
 import {
@@ -214,9 +215,21 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 intIdIdea,
                                 strObservaciones: data.strObservaciones,
                                 strResponsable: data.strResponsable || [],
-                                dtFechaFinTentativa: data.dtFechaFinTentativa,
+                                dtFechaFinTentativa: parseISO(data.dtFechaFinTentativa),
                                 strUsuarioCreacion: strInfoUser.strUsuario,
                             });
+
+                            reset({
+                                intId,
+                                strTarea: data.strTarea,
+                                intIdIdea,
+                                strObservaciones: data.strObservaciones,
+                                strResponsable: data.strResponsable || [],
+                                dtFechaFinTentativa: parseISO(data.dtFechaFinTentativa),
+                                strUsuarioCreacion: strInfoUser.strUsuario,
+                            });
+
+                            console.log(data.dtFechaFinTentativa)
                         }
 
                         setLoadingGetData(false);
@@ -230,13 +243,8 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
 
             getData();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEdit, intId, intIdIdea, strInfoUser]);
-
-    useEffect(() => {
-        if (isEdit) {
-            reset(data);
-        }
-    }, [data, reset, isEdit]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
