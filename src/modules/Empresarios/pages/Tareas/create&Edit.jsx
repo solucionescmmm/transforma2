@@ -228,8 +228,6 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 dtFechaFinTentativa: parseISO(data.dtFechaFinTentativa),
                                 strUsuarioCreacion: strInfoUser.strUsuario,
                             });
-
-                            console.log(data.dtFechaFinTentativa)
                         }
 
                         setLoadingGetData(false);
