@@ -86,6 +86,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
+    const [isEdit, setIsEdit] = useState(false)
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -129,6 +130,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                 intId={selectedData?.intId}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
+                isEdit={isEdit}
             />
 
             <ModalState
@@ -277,13 +279,15 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                                     }
                                                     fontSize="small"
                                                     onClick={() => {
-                                                        if (inModal) {
-                                                            selectedData(
+                                                        if (
+                                                            inModal &&
+                                                            !rowData.btFinalizada
+                                                        ) {
+                                                            setIsEdit(true)
+                                                            setSelectedData(
                                                                 rowData
                                                             );
-                                                            handlerOpenModalCEdit(
-                                                                rowData
-                                                            );
+                                                            handlerOpenModalCEdit();
                                                         } else
                                                             onChangeRoute(
                                                                 "EditTareas",
@@ -374,6 +378,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                                         <Button
                                                             onClick={() => {
                                                                 if (inModal) {
+                                                                    setIsEdit(false)
                                                                     handlerOpenModalCEdit();
                                                                 } else
                                                                     onChangeRoute(

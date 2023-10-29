@@ -12,6 +12,7 @@ import { AuthContext } from "../../../../common/middlewares/Auth";
 //Librerias
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { parseISO } from "date-fns";
 
 //Componentes de Material UI
 import {
@@ -198,7 +199,9 @@ const ModalCEdit = ({
                                 intIdIdea,
                                 strObservaciones: data.strObservaciones,
                                 strResponsable: data.strResponsable || [],
-                                dtFechaFinTentativa: data.dtFechaFinTentativa,
+                                dtFechaFinTentativa: data.dtFechaFinTentativa
+                                    ? parseISO(data.dtFechaFinTentativa)
+                                    : null,
                                 strUsuarioCreacion: strInfoUser.strUsuario,
                             });
                         }
@@ -370,14 +373,9 @@ const ModalCEdit = ({
                                     disabled={loading}
                                     fullWidth
                                     variant="standard"
-                                    error={
-                                        errors?.objInfoEmpresarioPr?.strTarea
-                                            ? true
-                                            : false
-                                    }
+                                    error={errors?.strTarea ? true : false}
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strTarea
-                                            ?.message ||
+                                        errors?.strTarea?.message ||
                                         "Digíta el nombre de la tarea"
                                     }
                                 />
@@ -465,7 +463,7 @@ const ModalCEdit = ({
                     loading={loading}
                     onClick={handleSubmit(onSubmit)}
                 >
-                    registrar
+                    {isEdit ? "guardar" : "registrar"}
                 </LoadingButton>
 
                 <Button

@@ -795,12 +795,12 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 disabled={loading}
                                                 required
                                                 error={
-                                                    !!errors?.strObservaciones
+                                                    !!errors?.strLogros
                                                 }
                                                 helperText={
-                                                    errors?.strObservaciones
+                                                    errors?.strLogros
                                                         ?.message ||
-                                                    "Digita las observaciones"
+                                                    "Digita los logros/avances a desarrollar"
                                                 }
                                                 fullWidth
                                                 multiline
@@ -810,7 +810,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                         control={control}
                                         rules={{
                                             required:
-                                                "Por favor, digita las observaciones",
+                                                "Por favor, digita los logros/avances a desarrollar",
                                         }}
                                     />
                                 </Grid>
