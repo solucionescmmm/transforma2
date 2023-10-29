@@ -118,6 +118,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
         bitFinalizarSesion: false,
         objObjetivos: {
             bitFinalizaServ: false,
+            strMotivo: "",
         },
     });
 
@@ -258,6 +259,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                 strURLDocumento: "",
                 bitFinalizarSesion: false,
                 objObjetivos: {
+                    strMotivo: '',
                     bitFinalizaServ: false,
                 },
             });
@@ -281,6 +283,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                 strURLDocumento: "",
                 bitFinalizarSesion: false,
                 objObjetivos: {
+                    strMotivo: '',
                     bitFinalizaServ: false,
                 },
             });
@@ -794,9 +797,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 onChange={(e) => onChange(e)}
                                                 disabled={loading}
                                                 required
-                                                error={
-                                                    !!errors?.strLogros
-                                                }
+                                                error={!!errors?.strLogros}
                                                 helperText={
                                                     errors?.strLogros
                                                         ?.message ||
@@ -957,9 +958,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={
-                                            data.bitFinalizarSesion
-                                        }
+                                        defaultValue={data.bitFinalizarSesion}
                                         name="bitFinalizarSesion"
                                         render={({
                                             field: { name, onChange, value },
