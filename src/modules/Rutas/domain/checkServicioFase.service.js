@@ -73,7 +73,9 @@ class checkServicioFase {
                 let objData = array[i];
 
                 let newData = {
-                    ...objData,
+                    intId: objData.intIdObjetivo,
+                    btCumplio: objData.bitCumplio,
+                    strObservacionesCumplimiento: objData.strMotivo,
                     strUsuarioActualizacion: this.#objUser.strEmail,
                 };
 

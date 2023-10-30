@@ -29,14 +29,14 @@ class setAcompañamiento {
     }
 
     async main() {
-        console.log(Object.keys(this.#objData.objObjetivos), this.#objData.objObjetivos)
-        // await this.#validations();
-        // await this.#setAcompañamiento();
-        // await this.#setSesionAcompañamiento();
-        // if (this.#objData.intTipoAcomp === 2) {
-        //     await this.#setRutasNoPlaneada()
-        // }
-        // return this.#objResult;
+        //console.log(this.#objData.objObjetivos)
+        await this.#validations();
+        await this.#setAcompañamiento();
+        await this.#setSesionAcompañamiento();
+        if (this.#objData.intTipoAcomp === 2) {
+            await this.#setRutasNoPlaneada()
+        }
+        return this.#objResult;
     }
 
     async #validations() {
@@ -54,7 +54,11 @@ class setAcompañamiento {
         }
 
         if (this.#objData.strURLDocumento !== "") {
-            this.#setDocumento();
+            await this.#setDocumento();
+        }
+
+        if (this.#objData.objObjetivos.bitFinalizaServ) {
+            await this.#setFinalizarServicio()
         }
     }
 
@@ -65,7 +69,7 @@ class setAcompañamiento {
             intIdIdea: this.#objData.intIdIdea,
             intIdTipoAcompañamiento: this.#objData.intTipoAcomp,
             strUsuarioCreacion: this.#objUser.strEmail,
-            btFinalizado: this.#objData.intTipoAcomp === 1 ? false : true
+            btFinalizado: this.#objData.intTipoAcomp === 2 ? true : this.#objData?.bitFinalizarSesion
         };
 
         let query = await dao.setAcompañamiento(newData);
@@ -106,8 +110,9 @@ class setAcompañamiento {
             intIdDocumento: this.#intIdDocumento,
             intIdAcompañamiento: this.#intIdAcompañamiento,
             strUsuarioCreacion: this.#objUser.strEmail,
-            btFinalizado: this.#objData.intTipoAcomp === 1 ? false : true
+            btFinalizado: this.#objData.intTipoAcomp === 2 ? true : this.#objData?.bitFinalizarSesion
         };
+
         let query = await dao.setSesionAcompañamiento(newData);
 
         if (query.error) {
@@ -158,18 +163,18 @@ class setAcompañamiento {
     }
 
     async #setFinalizarServicio(){
+        let arrObjetivos = []
 
-        //falta agregar la data que va hacer el finalizar el servicio
+        for (const [key, value] of Object.entries(this.#objData.objObjetivos)) {
+            let newKey = parseInt(key)
+            if (!isNaN(newKey)) {
+                arrObjetivos.push({intIdObjetivo: newKey, ...value,})
+            }
+        }
 
         let data = {
-            intIdIdea: this.#objData.intIdIdea,
-            strObservaciones: "Ruta creada apartir de un acompañamiento",
-            strResponsable: this.#objData.objResponsable,
-            arrInfoFases: [{
-                strObservaciones: "Ruta creada apartir de un acompañamiento",
-                arrPaquetes: this.#objData.objNuevoServPaq?.objPaquete ? [this.#objData.objNuevoServPaq?.objPaquete] : null,
-                arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [this.#objData.objNuevoServPaq?.objServicio] : null,
-            }]
+            intIdServicioFase: this.#objData.objInfoRutaExs?.objServicio?.intId,
+            arrObjetivos
         }
 
         let service = new serviceSetFinalizarServicio({
