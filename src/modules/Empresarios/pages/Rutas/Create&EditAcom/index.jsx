@@ -1035,7 +1035,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                             <Fragment>
                                                 <Grid item xs={12}>
                                                     <Controller
-                                                        name={`objObjetivos.${x.intId}`}
+                                                        name={`objObjetivos.${x.intId}.bitCumplio`}
                                                         defaultValue={false}
                                                         render={({
                                                             field: {
