@@ -471,6 +471,7 @@ const PaperFase = ({
             dblValorRef,
             dblValorFase: dblValorRef,
         }));
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data.arrServicios, data.arrPaquetes]);
 
@@ -912,15 +913,15 @@ const PaperFase = ({
                                                         {`${
                                                             paquete.objPaquete
                                                                 .objInfoPrincipal
-                                                                .strNombre
+                                                                ?.strNombre || "N/A"
                                                         } - ${
                                                             paquete
                                                                 ?.objSedeTarifa
-                                                                ?.strSede
+                                                                ?.strSede || "N/A"
                                                         } - ${
                                                             paquete
                                                                 .objSedeTarifa
-                                                                ?.strTarifa
+                                                                ?.strTarifa || "N/A"
                                                         } - ${new Intl.NumberFormat(
                                                             "es-ES",
                                                             {
@@ -931,7 +932,7 @@ const PaperFase = ({
                                                             .format(
                                                                 paquete
                                                                     .objSedeTarifa
-                                                                    ?.Valor
+                                                                    ?.Valor || 0
                                                             )
                                                             .toString()} - ${
                                                             paquete.objPaquete
@@ -949,7 +950,7 @@ const PaperFase = ({
                                                             }
                                                         )
                                                             .format(
-                                                                paquete.valor
+                                                                paquete.valor || 0
                                                             )
                                                             .toString()}
                                                     </p>
@@ -1003,7 +1004,7 @@ const PaperFase = ({
                                                     fontSize: "14px",
                                                 }}
                                             >
-                                                {paquete.arrObjetivos.map(
+                                                {paquete?.arrObjetivos?.map(
                                                     (objetivo, index) => (
                                                         <Box
                                                             key={
@@ -1106,11 +1107,11 @@ const PaperFase = ({
                                                             } - ${
                                                                 servicio
                                                                     ?.objSedeTarifa
-                                                                    ?.strSede
+                                                                    ?.strSede || "N/A"
                                                             } - ${
                                                                 servicio
                                                                     ?.objSedeTarifa
-                                                                    ?.strTarifa
+                                                                    ?.strTarifa || "N/A"
                                                             } - ${new Intl.NumberFormat(
                                                                 "es-ES",
                                                                 {
@@ -1122,7 +1123,7 @@ const PaperFase = ({
                                                                 .format(
                                                                     servicio
                                                                         ?.objSedeTarifa
-                                                                        ?.Valor
+                                                                        ?.Valor || 0
                                                                 )
                                                                 .toString()}`}
                                                         </p>
@@ -1144,7 +1145,7 @@ const PaperFase = ({
                                                         </p>
 
                                                         <p>
-                                                            Valor:{" "}
+                                                            Horas:{" "}
                                                             {
                                                                 servicio.intDuracionHoras
                                                             }{" "}
