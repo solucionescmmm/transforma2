@@ -44,7 +44,7 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                     intIdIdea: array[i]?.intIdIdea,
                     intTipoAcomp: array[i]?.intIdTipoAcompañamiento,
                     strTipoAcompañamiento: array[i]?.strTipoAcompañamiento,
-                    strResponsables: JSON.parse(array[i]?.arrSesionAcompañamiento[0]?.strResponsables || null),
+                    strResponsables: JSON.parse(array[i]?.arrSesionAcompañamiento[0]?.strResponsables || ""),
                     strUbicacion:array[i]?.arrSesionAcompañamiento[0]?.strUbicacion,
                     dtmCreacion: array[i]?.dtmCreacion,
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
@@ -58,7 +58,7 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                 for (let j = 0; j < arrSesionAcompañamiento.length; j++) {
                     arrSesionAcompañamiento[j]={
                         ...arrSesionAcompañamiento[j],
-                        strResponsables: JSON.parse(arrSesionAcompañamiento[j]?.strResponsables || null)
+                        strResponsables: JSON.parse(arrSesionAcompañamiento[j]?.strResponsables || "")
                     }
                     
                 }

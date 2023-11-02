@@ -160,18 +160,19 @@ class daoAcompañamientos {
 
                 FROM tbl_Sesiones_Acompañamientos SesionesAcompañamientos
 
-                INNER JOIN tbl_servicios Servicios ON Servicios.intId = SesionesAcompañamientos.intIdServicio
+                LEFT JOIN tbl_servicios Servicios ON Servicios.intId = SesionesAcompañamientos.intIdServicio
 
-                WHERE SesionesAcompañamientos.intIdAcompañamiento = Acompañamientos.intId 
+                WHERE SesionesAcompañamientos.intIdAcompañamiento = Acompañamientos.intId
+
                 FOR JSON PATH
             )as arrSesionAcompañamiento
 
             FROM tbl_Acompañamientos Acompañamientos
 
-            INNER JOIN tbl_tipoAcompañamiento TipoAcompañamiento ON TipoAcompañamiento.intId = Acompañamientos.intIdTipoAcompañamiento
+            LEFT JOIN tbl_tipoAcompañamiento TipoAcompañamiento ON TipoAcompañamiento.intId = Acompañamientos.intIdTipoAcompañamiento
 
-            WHERE (Acompañamientos.intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (Acompañamientos.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL)`;
+            WHERE (Acompañamientos.intIdIdea = ${data.intIdIdea})
+            AND   (Acompañamientos.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
