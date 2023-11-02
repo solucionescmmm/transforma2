@@ -16,6 +16,7 @@ class setPaquetes {
 
     //variables
     #intIdEstado;
+    #intDuracionHoras = 0;
 
     /**
      * @param {object} data
@@ -28,6 +29,7 @@ class setPaquetes {
     async main() {
         await this.#validations();
         await this.#getIdEstado();
+        this.#getDuracionHoras()
         await this.#setPaquetes();
         await this.#setServiciosPaquetes();
         await this.#setSedeTipoTarifaPaquetes();
@@ -111,11 +113,20 @@ class setPaquetes {
         this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
+    #getDuracionHoras() {
+        const arrServicios = this.#objData.objInfoPrincipal.arrServicios
+
+        for (let i = 0; i < arrServicios.length; i++) {
+            this.#intDuracionHoras += arrServicios[i]?.objInfoPrincipal?.intDuracionHoras
+        }
+    }
+
     async #setPaquetes() {
         let dao = new classInterfaceDAOPaquetes();
 
         let query = await dao.setPaquetes({
             ...this.#objData.objInfoPrincipal,
+            intDuracionHoras: this.#intDuracionHoras,
             intIdEstado: this.#intIdEstado,
             strUsuarioCreacion: this.#objUser.strEmail,
         });

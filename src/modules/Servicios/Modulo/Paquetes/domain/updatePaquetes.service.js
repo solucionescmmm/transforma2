@@ -17,6 +17,7 @@ class updatePaquetes {
 
     //variables
     #intIdEstado;
+    #intDuracionHoras = 0;
     /**
      * @param {object} data
      */
@@ -27,6 +28,7 @@ class updatePaquetes {
 
     async main() {
         await this.#validations();
+        this.#getDuracionHoras()
         if (typeof this.#objData.bitActivar !== "undefined") {
             await this.#getIdEstado();
             await this.#updatePaquetes();
@@ -121,6 +123,14 @@ class updatePaquetes {
         this.#objDataPaqueteAnterior = query.data[0];
     }
 
+    #getDuracionHoras() {
+        const arrServicios = this.#objData.objInfoPrincipal.arrServicios
+
+        for (let i = 0; i < arrServicios.length; i++) {
+            this.#intDuracionHoras += arrServicios[i]?.objInfoPrincipal?.intDuracionHoras
+        }
+    }
+
     async #updatePaquetes() {
         let dao = new classInterfaceDAOPaquetes();
 
@@ -128,6 +138,7 @@ class updatePaquetes {
             intId: this.#objData.intId,
             ...this.#objData.objInfoPrincipal,
             intIdEstado: this.#intIdEstado,
+            intDuracionHoras: this.#intDuracionHoras,
             strUsuarioActualizacion: this.#objUser.strEmail,
         });
 
