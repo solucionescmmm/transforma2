@@ -8,6 +8,7 @@ import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material";
 import PreviewRuta from "../modules/Empresarios/pages/Rutas/previewRuta";
 import PreviewAcomp from "../modules/Empresarios/pages/Rutas/previewAcomp";
 import CUSesion from "../modules/Empresarios/pages/Rutas/Create&EditSesion";
+import { TabPanel } from "@mui/lab";
 
 // Componentes
 const Comentarios = lazy(() => import("../modules/Comentarios/pages/homePage"));
@@ -128,702 +129,815 @@ const CreateAcomp = lazy(() =>
 const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
     if (route.location === "Personas") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
+            <TabPanel value="Personas" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Personas
+                        onChangeRoute={onChangeRoute}
+                        intIdIdea={route.params.intIdIdea}
+                        openModalRe={route.params.openModalRe}
+                        refreshGlobal={refreshGlobal}
+                    />
                 </Grid>
-
-                <Personas
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    openModalRe={route.params.openModalRe}
-                    refreshGlobal={refreshGlobal}
-                />
-            </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "PersonasRe") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Personas" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Personas
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            openModalRe={true}
+                            refreshGlobal={refreshGlobal}
+                        />
+                    </Grid>
 
-                <Personas
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    openModalRe={true}
-                    refreshGlobal={refreshGlobal}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "PersonasCreate") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Personas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Personas" sx={{ width: "100%" }}>
+                <Grid
+                    container
+                    direction="row"
+                    spacing={3}
+                    sx={{ marginTop: "20px" }}
+                >
+                    <Grid item xs={12}>
+                        <PersonasCreate onChangeRoute={onChangeRoute} />
+                    </Grid>
 
-                <PersonasCreate onChangeRoute={onChangeRoute} />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Personas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "PersonasEdit") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Personas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Personas" sx={{ width: "100%" }}>
+                <Grid
+                    container
+                    direction="row"
+                    spacing={3}
+                    sx={{ marginTop: "20px" }}
+                >
+                    <Grid item xs={12}>
+                        <PersonasCreate
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            values={route.params}
+                        />
+                    </Grid>
 
-                <PersonasCreate
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    values={route.params}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Personas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "Diagnosticos") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("DiagnosticoCoco")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Diagnosticos
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <Diagnosticos
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagnExpress") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("DiagnosticoCoco")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagnosticoExpress
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagnosticoExpress
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagnExpressCreate") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("DiagnosticoCoco")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagnosticoExpressCU
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagnosticoExpressCU
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagnExpressEdit") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("DiagnosticoCoco")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagnosticoExpressCU
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagnosticoExpressCU
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagnExpressRead") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("DiagnosticoCoco")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagnosticoExpress
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagnosticoExpress
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarial") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("Diagnosticos", { ...route.params })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarial
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarial
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("Diagnosticos", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarialCreate") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarial", {
-                                ...route.params,
-                            })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarialCreate
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarialCreate
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarialEdit") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarial", {
-                                ...route.params,
-                            })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarialCreate
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarialCreate
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarialRead") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarial", {
-                                ...route.params,
-                            })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarialRead
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarialRead
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarialHumCreate") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarial", {
-                                ...route.params,
-                            })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarialHumCreate
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarialHumCreate
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarialHumEdit") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarial", {
-                                ...route.params,
-                            })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarialHumCreate
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarialHumCreate
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarialHumRead") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarial", {
-                                ...route.params,
-                            })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarialHumRead
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarialHumRead
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarialTecCreate") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarial", {
-                                ...route.params,
-                            })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarialTecCreate
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarialTecCreate
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarialTecEdit") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarial", {
-                                ...route.params,
-                            })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarialTecCreate
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarialTecCreate
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagEmpresarialTecRead") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagEmpresarial", {
-                                ...route.params,
-                            })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagEmpresarialTecRead
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagEmpresarialTecRead
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagDesign") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("Diagnosticos", { ...route.params })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagDesign
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagDesign
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("Diagnosticos", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagDesignProdCreate") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagDesign", { ...route.params })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagDesignCUProducto
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagDesignCUProducto
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagDesignProdEdit") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagDesign", { ...route.params })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagDesignCUProducto
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagDesignCUProducto
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagDesignProdRead") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagDesign", { ...route.params })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagDesignReadProducto
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagDesignReadProducto
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagDesignServCreate") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagDesign", { ...route.params })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagDesignCUServicio
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagDesignCUServicio
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagDesignServEdit") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagDesign", { ...route.params })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagDesignCUServicio
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagDesignCUServicio
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagDesignServRead") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("DiagDesign", { ...route.params })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagDesignReadServicio
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <DiagDesignReadServicio
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagComercial") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() =>
-                            onChangeRoute("Diagnosticos", { ...route.params })
-                        }
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <PageCUComercial
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
 
-                <PageCUComercial
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdDiagnostico={route.params.intIdDiagnostico}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("Diagnosticos", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "Rutas") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Rutas" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Rutas
+                        onChangeRoute={onChangeRoute}
+                        intIdIdea={route.params.intIdIdea}
+                    />
 
-                <Rutas
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
@@ -973,42 +1087,60 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "Comentarios") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Comentarios" sx={{ width: "100%" }}>
+                <Grid
+                    container
+                    direction="row"
+                    spacing={3}
+                    sx={{ marginTop: "20px" }}
+                >
+                    <Grid item xs={12}>
+                        <Comentarios onChangeRoute={onChangeRoute} />
+                    </Grid>
 
-                <Comentarios onChangeRoute={onChangeRoute} />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "CreateComentarios") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Comentarios" sx={{ width: "100%" }}>
+                <Grid
+                    container
+                    direction="row"
+                    spacing={3}
+                    sx={{ marginTop: "20px" }}
+                >
+                    <Grid item xs={12}>
+                        <Comentarios
+                            onChangeRoute={onChangeRoute}
+                            openModalCreate={true}
+                        />
+                    </Grid>
 
-                <Comentarios
-                    onChangeRoute={onChangeRoute}
-                    openModalCreate={true}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
@@ -1169,6 +1301,8 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             </Grid>
         );
     }
+
+    return null;
 };
 
 export default CocoRoutes;
