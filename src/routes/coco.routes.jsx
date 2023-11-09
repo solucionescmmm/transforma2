@@ -235,7 +235,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "Diagnosticos") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <Diagnosticos
@@ -262,7 +262,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagnExpress") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagnosticoExpress
@@ -289,7 +289,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagnExpressCreate") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagnosticoExpressCU
@@ -316,7 +316,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagnExpressEdit") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagnosticoExpressCU
@@ -344,7 +344,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagnExpressRead") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagnosticoExpress
@@ -371,7 +371,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarial") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarial
@@ -402,7 +402,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarialCreate") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarialCreate
@@ -433,7 +433,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarialEdit") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarialCreate
@@ -465,7 +465,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarialRead") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarialRead
@@ -496,7 +496,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarialHumCreate") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarialHumCreate
@@ -527,7 +527,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarialHumEdit") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarialHumCreate
@@ -559,7 +559,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarialHumRead") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarialHumRead
@@ -590,7 +590,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarialTecCreate") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarialTecCreate
@@ -621,7 +621,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarialTecEdit") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarialTecCreate
@@ -653,7 +653,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagEmpresarialTecRead") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagEmpresarialTecRead
@@ -684,7 +684,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagDesign") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagDesign
@@ -715,7 +715,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagDesignProdCreate") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagDesignCUProducto
@@ -744,7 +744,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagDesignProdEdit") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagDesignCUProducto
@@ -774,7 +774,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagDesignProdRead") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagDesignReadProducto
@@ -803,7 +803,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagDesignServCreate") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagDesignCUServicio
@@ -832,7 +832,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagDesignServEdit") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagDesignCUServicio
@@ -862,7 +862,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagDesignServRead") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <DiagDesignReadServicio
@@ -891,7 +891,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "DiagComercial") {
         return (
-            <TabPanel value="Diagnosticos" sx={{ width: "100%" }}>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <PageCUComercial
