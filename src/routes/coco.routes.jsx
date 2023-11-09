@@ -117,6 +117,9 @@ const DiagnosticosCoco = lazy(() =>
 );
 
 const Rutas = lazy(() => import("../modules/Empresarios/pages/Rutas"));
+const Acomp = lazy(() =>
+    import("../modules/Empresarios/pages/Rutas/indexAcom")
+);
 
 const CreateRutas = lazy(() =>
     import("../modules/Empresarios/pages/Rutas/Create&EditRuta")
@@ -943,145 +946,197 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "CreateRutas") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Rutas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
+            <TabPanel value="Rutas" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <CreateRutas
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Rutas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
                 </Grid>
-
-                <CreateRutas
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                />
-            </Grid>
-        );
-    }
-
-    if (route.location === "CreateAcomp") {
-        return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Rutas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
-
-                <CreateAcomp
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                />
-            </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "EditRuta") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Rutas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Rutas" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <CreateRutas
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intId={route.params.intId}
+                            values={route.params}
+                        />
+                    </Grid>
 
-                <CreateRutas
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intId={route.params.intId}
-                    values={route.params}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Rutas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "ViewRuta") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Rutas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Rutas" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <PreviewRuta
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intId={route.params.intId}
+                            values={route.params}
+                        />
+                    </Grid>
 
-                <PreviewRuta
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intId={route.params.intId}
-                    values={route.params}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Rutas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
+    if (route.location === "Acompañamientos") {
+        return (
+            <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Acomp
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
+    if (route.location === "CreateAcomp") {
+        return (
+            <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <CreateAcomp
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Acompañamientos")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "ViewAcomp") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Rutas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <PreviewAcomp
+                            isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intId={route.params.intId}
+                            values={route.params}
+                        />
+                    </Grid>
 
-                <PreviewAcomp
-                    isEdit
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intId={route.params.intId}
-                    values={route.params}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Acompañamientos")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "CreateSesion") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("ViewAcomp")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <CUSesion
+                            {...route.params}
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdAcompañamiento={
+                                route.params.intIdAcompañamiento
+                            }
+                            intId={route.params.intId}
+                        />
+                    </Grid>
 
-                <CUSesion
-                    {...route.params}
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    intIdAcompañamiento={route.params.intIdAcompañamiento}
-                    intId={route.params.intId}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("ViewAcomp")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
@@ -1214,91 +1269,107 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "Documentos") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Documentos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Documentos
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                        />
+                    </Grid>
 
-                <Documentos
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "CreateDocumentos") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Documentos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Documentos
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            openModalCreateRoute={true}
+                        />
+                    </Grid>
 
-                <Documentos
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    openModalCreateRoute={true}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "DiagnosticoCoco") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagnosticosCoco
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                        />
+                    </Grid>
 
-                <DiagnosticosCoco
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "CreateDiagnosticoCoco") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <DiagnosticosCoco
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            openModalCreateRoute={true}
+                        />
+                    </Grid>
 
-                <DiagnosticosCoco
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                    openModalCreateRoute={true}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
         );
     }
 

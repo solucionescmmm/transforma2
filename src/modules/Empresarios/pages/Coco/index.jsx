@@ -106,7 +106,19 @@ const Coco = () => {
         }
 
         if (location.match(/Diag/gi)) {
-            return "Diagnosticos";
+            return "DiagnosticoCoco";
+        }
+
+        if (location.match(/Ruta/gi)) {
+            return "Rutas";
+        }
+
+        if (location.match(/Acomp/gi) || location.match(/Sesion/gi)) {
+            return "Acompañamientos";
+        }
+
+        if (location.match(/Docum/gi)) {
+            return "Documentos";
         }
 
         return "Inicio";
@@ -354,7 +366,7 @@ const Coco = () => {
                                 <Tab label="Comentarios" value="Comentarios" />
                                 <Tab
                                     label="Diagnósticos"
-                                    value="Diagnosticos"
+                                    value="DiagnosticoCoco"
                                 />
                                 <Tab label="Rutas" value="Rutas" />
                                 <Tab

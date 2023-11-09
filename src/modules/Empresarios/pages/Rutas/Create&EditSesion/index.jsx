@@ -126,7 +126,7 @@ const CUSesion = ({
         objObjetivos: {
             bitFinalizaServ: false,
         },
-        bitFinalizarSesion: false
+        bitFinalizarSesion: false,
     });
 
     const [dataObj, setDataObj] = useState([]);
@@ -256,15 +256,17 @@ const CUSesion = ({
                 (x) => x.intId === intIdFase
             );
 
-            const { arrServicios } = objFase;
+            if (objFase) {
+                const { arrServicios } = objFase;
 
-            const objServicio = arrServicios.find(
-                (x) => x.intIdServicio === intIdServicio
-            );
+                const objServicio = arrServicios.find(
+                    (x) => x.intIdServicio === intIdServicio
+                );
 
-            const { arrObjetivos } = objServicio;
+                const { arrObjetivos } = objServicio;
 
-            setDataObj(arrObjetivos);
+                setDataObj(arrObjetivos);
+            }
         }
     }, [dataRutas]);
 
@@ -828,9 +830,7 @@ const CUSesion = ({
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={
-                                            data.bitFinalizarSesion
-                                        }
+                                        defaultValue={data.bitFinalizarSesion}
                                         name="bitFinalizarSesion"
                                         render={({
                                             field: { name, onChange, value },

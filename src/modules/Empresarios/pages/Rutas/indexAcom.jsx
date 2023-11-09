@@ -1,8 +1,5 @@
 import React, { Fragment, useState } from "react";
 
-//Hooks
-import useGetRutas from "../../hooks/useGetRutas";
-
 //Componentes de Material UI
 import { Grid, Box, Button } from "@mui/material";
 
@@ -29,11 +26,7 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
-    Delete as DeleteIcon,
     RemoveRedEye as RemoveRedEyeIcon,
-    PictureAsPdf as PictureAsPdfIcon,
-    PlayCircle as PlayCircleIcon,
-    MarkEmailRead as MarkEmailReadIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -41,38 +34,17 @@ import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 
 //Componentes
-import ModalDelete from "./modalDelete";
-import ModalPDF from "./components/modalPDF";
-import ModalActiveRuta from "./components/modalActiveRuta";
-import ModalSendRuta from "./components/modalSendRuta";
+import useGetAcomp from "../../hooks/useGetAcomp";
 
 const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [objColumnsRutas] = useState([
+    const [objColumnsAcom] = useState([
         {
-            title: "Estado",
-            field: "objInfoPrincipal.strEstadoRuta",
+            title: "Tipo de Acompañamiento",
+            field: "objInfoPrincipal.strTipoAcompañamiento",
             width: "5%",
-        },
-        {
-            title: "Nombre",
-            field: "objInfoPrincipal.strNombre",
-            type: "string",
-        },
-        {
-            title: "Valor Total",
-            field: "objInfoPrincipal.valorTotalRuta",
-            type: "string",
-        },
-        {
-            title: "Total Fases",
-            render: (rowData) => {
-                let intFases = rowData.arrInfoFases?.length;
-
-                return <p>{intFases?.toString()}</p>;
-            },
         },
         {
             title: "Fecha Creación",
@@ -80,86 +52,35 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
             type: "date",
         },
         {
+            title: "Lugar",
+            field: "objInfoPrincipal.strUbicacion",
+            type: "string",
+        },
+        {
             title: "Responsable",
-            render: (rowData) => {
-                let strResponsables = rowData?.objInfoPrincipal?.strResponsable;
-
-                return <p>{strResponsables?.strNombre}</p>;
-            },
+            field: "objInfoPrincipal.strUsuarioCreacion",
+            type: "string",
         },
     ]);
 
-    const [openModalDeleteRuta, setopenModalDeleteRuta] = useState(false);
-    const [openModalPDF, setopenModalPDF] = useState(false);
-    const [openModalActiveRuta, setopenModalActiveRuta] = useState(false);
-    const [openModalSendRutas, setopenModalSendRuta] = useState(false);
-    const [selectedDataRuta, setselectedDataRuta] = useState();
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data: dataRutas, refreshGetData: refreshGetDataRutas } =
-        useGetRutas({
-            autoload: true,
-            intIdIdea: intIdIdea,
-        });
+    const { data: dataAcomp } = useGetAcomp({
+        autoload: true,
+        intIdIdea: intIdIdea,
+    });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
-    const handleropenModalDeleteRuta = () => {
-        setopenModalDeleteRuta(!openModalDeleteRuta);
-    };
 
-    const handleropenModalPDF = () => {
-        setopenModalPDF(!openModalPDF);
-    };
-
-    const handleropenModalActiveRuta = () => {
-        setopenModalActiveRuta(!openModalActiveRuta);
-    };
-
-    const handleropenModalSendRuta = () => {
-        setopenModalSendRuta(!openModalSendRutas);
-    };
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
-        <Fragment>
-            <ModalDelete
-                handleOpenDialog={handleropenModalDeleteRuta}
-                open={openModalDeleteRuta}
-                intId={selectedDataRuta?.objInfoPrincipal?.intId}
-                refresh={refreshGetDataRutas}
-                intIdIdea={intIdIdea}
-            />
-
-            <ModalPDF
-                handleOpenDialog={handleropenModalPDF}
-                open={openModalPDF}
-                values={selectedDataRuta}
-                intIdIdea={intIdIdea}
-            />
-
-            <ModalActiveRuta
-                handleOpenDialog={handleropenModalActiveRuta}
-                open={openModalActiveRuta}
-                values={selectedDataRuta}
-                refresh={refreshGetDataRutas}
-                intId={selectedDataRuta?.objInfoPrincipal?.intId}
-                intIdIdea={intIdIdea}
-            />
-
-            <ModalSendRuta
-                handleOpenDialog={handleropenModalSendRuta}
-                open={openModalSendRutas}
-                values={selectedDataRuta}
-                refresh={refreshGetDataRutas}
-                intId={selectedDataRuta?.objInfoPrincipal?.intId}
-                intIdIdea={intIdIdea}
-            />
-
+        <Fragment> 
             <Grid container direction="row">
                 <Grid item xs={12}>
                     <StyledEngineProvider injectFirst>
@@ -261,11 +182,11 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                     },
                                 }}
                                 isLoading={
-                                    dataRutas === undefined ? true : false
+                                    dataAcomp === undefined ? true : false
                                 }
-                                data={dataRutas || []}
-                                columns={objColumnsRutas}
-                                title="Rutas"
+                                data={dataAcomp || []}
+                                columns={objColumnsAcom}
+                                title="Acompañamientos"
                                 options={{
                                     grouping: true,
                                     title: true,
@@ -291,92 +212,6 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                     (rowData) => {
                                         return {
                                             icon: () => (
-                                                <EditIcon
-                                                    color={
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                        "Aceptada/En Proceso"
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                    onClick={() =>
-                                                        onChangeRoute(
-                                                            "EditRuta",
-                                                            {
-                                                                intId: rowData
-                                                                    ?.objInfoPrincipal
-                                                                    ?.intId,
-                                                                intIdIdea,
-                                                                ...rowData,
-                                                            }
-                                                        )
-                                                    }
-                                                />
-                                            ),
-                                            tooltip: "Editar",
-                                            disabled:
-                                                rowData.objInfoPrincipal
-                                                    ?.strEstadoRuta ===
-                                                "Aceptada/En Proceso",
-                                        };
-                                    },
-                                    (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <PictureAsPdfIcon
-                                                    htmlColor={
-                                                        rowData.btFinalizada ===
-                                                        true
-                                                            ? "gray"
-                                                            : "#ff6d07"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            onClick: (event, rowData) => {
-                                                setselectedDataRuta(rowData);
-                                                handleropenModalPDF();
-                                            },
-                                            tooltip: "Generar PDF",
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
-                                    },
-                                    (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                            "Aceptada/En Proceso" ||
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                            "Enviada"
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            onClick: (event, rowData) => {
-                                                setselectedDataRuta(rowData);
-                                                handleropenModalDeleteRuta();
-                                            },
-                                            tooltip: "Eliminar",
-                                            disabled:
-                                                rowData.objInfoPrincipal
-                                                    ?.strEstadoRuta ===
-                                                    "Aceptada/En Proceso" ||
-                                                rowData.objInfoPrincipal
-                                                    ?.strEstadoRuta ===
-                                                    "Enviada",
-                                        };
-                                    },
-                                    (rowData) => {
-                                        return {
-                                            icon: () => (
                                                 <RemoveRedEyeIcon
                                                     color="gray"
                                                     fontSize="small"
@@ -384,69 +219,15 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                             ),
                                             tooltip: "Previsualizar",
                                             onClick: (event, rowData) => {
-                                                onChangeRoute("ViewRuta", {
-                                                    intId: rowData
-                                                        ?.objInfoPrincipal
-                                                        ?.intId,
+                                                onChangeRoute("ViewAcomp", {
+                                                    intIdAcompañamiento:
+                                                        rowData
+                                                            ?.objInfoPrincipal
+                                                            ?.intId,
                                                     intIdIdea,
+
                                                     ...rowData,
                                                 });
-                                            },
-                                        };
-                                    },
-                                    (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <PlayCircleIcon
-                                                    color={
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                        "Aceptada/En Proceso"
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            tooltip: "Aceptada/En Procesor",
-                                            disabled:
-                                                rowData.objInfoPrincipal
-                                                    ?.strEstadoRuta ===
-                                                "Aceptada/En Proceso",
-                                            onClick: (event, rowData) => {
-                                                setselectedDataRuta(rowData);
-                                                handleropenModalActiveRuta();
-                                            },
-                                        };
-                                    },
-                                    (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <MarkEmailReadIcon
-                                                    htmlColor={
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                            "Aceptada/En Proceso" ||
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                            "Enviada"
-                                                            ? "gray"
-                                                            : "#571845"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            tooltip: "Pasar a enviada",
-                                            disabled:
-                                                rowData.objInfoPrincipal
-                                                    ?.strEstadoRuta ===
-                                                    "Aceptada/En Proceso" ||
-                                                rowData.objInfoPrincipal
-                                                    ?.strEstadoRuta ===
-                                                    "Enviada",
-                                            onClick: (event, rowData) => {
-                                                setselectedDataRuta(rowData);
-                                                handleropenModalSendRuta();
                                             },
                                         };
                                     },
@@ -489,7 +270,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         <Button
                                                             onClick={() =>
                                                                 onChangeRoute(
-                                                                    "CreateRutas",
+                                                                    "CreateAcomp",
                                                                     {
                                                                         intIdIdea,
                                                                     }
@@ -497,7 +278,8 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                             }
                                                             variant="contained"
                                                         >
-                                                            Agregar ruta
+                                                            Agregar
+                                                            acompañamiento
                                                         </Button>
                                                     </Box>
                                                 </Grid>
