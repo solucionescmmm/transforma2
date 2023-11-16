@@ -33,6 +33,7 @@ const useGetTerceros = ({
     strNombres = null,
     strApellidos = null,
     strNroDocto = null,
+    btActivo
 } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -54,6 +55,7 @@ const useGetTerceros = ({
             strNombres,
             strApellidos,
             strNroDocto,
+            btActivo
         }) => {
             return await axios(
                 {
@@ -68,6 +70,7 @@ const useGetTerceros = ({
                         strNombres,
                         strApellidos,
                         strNroDocto,
+                        btActivo
                     },
                 },
                 {
@@ -114,6 +117,7 @@ const useGetTerceros = ({
         strNombres = null,
         strApellidos = null,
         strNroDocto = null,
+        btActivo = null,
     } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -127,6 +131,7 @@ const useGetTerceros = ({
         strNombres = null,
         strApellidos = null,
         strNroDocto = null,
+        btActivo
     } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
@@ -136,6 +141,7 @@ const useGetTerceros = ({
             strNombres,
             strApellidos,
             strNroDocto,
+            btActivo
         });
 
         return query;
@@ -154,7 +160,7 @@ const useGetTerceros = ({
                 strNombres,
                 strApellidos,
                 strNroDocto,
-                
+                btActivo
             });
         }
 
@@ -168,6 +174,7 @@ const useGetTerceros = ({
         strNombres,
         strApellidos,
         strNroDocto,
+        btActivo
     ]);
 
     //===============================================================================================================================================

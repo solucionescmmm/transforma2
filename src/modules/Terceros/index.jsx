@@ -235,8 +235,8 @@ const ReadSolicitudesUser = () => {
                                             icon: () => (
                                                 <EditIcon
                                                     color={
-                                                        rowData.btFinalizada ===
-                                                        true
+                                                        rowData.intIdEstado ===
+                                                        3
                                                             ? "gray"
                                                             : "success"
                                                     }
@@ -244,6 +244,7 @@ const ReadSolicitudesUser = () => {
                                                 />
                                             ),
                                             tooltip: "Editar",
+                                            disabled: rowData.intIdEstado === 3 ? true : false,
                                             onClick: (event, rowData) => {
                                                 push(
                                                     `/transforma/asesor/terceros/edit/${rowData.intId}`

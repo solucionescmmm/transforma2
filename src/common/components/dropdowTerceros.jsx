@@ -52,7 +52,9 @@ const DropdownTerceros = ({
 }) => {
     const [options, setOptions] = useState([]);
 
-    const { data, refreshGetData } = useGetTerceros();
+    const { data, refreshGetData } = useGetTerceros({
+        btActivo: true
+    });
 
     useEffect(() => {
         if (data?.length > 0) {
