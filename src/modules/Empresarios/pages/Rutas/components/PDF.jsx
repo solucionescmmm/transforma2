@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
     BG1Title: {
         textAlign: "center",
         position: "absolute",
-        fontSize: "28px",
+        fontSize: "25px",
         fontWeight: 100,
         color: "#fff",
-        top: "200",
-        left: "580",
-        width: "200px",
+        top: "180",
+        left: "540",
+        width: "300px",
         bottom: "0",
     },
     BG1Desc1: {
@@ -174,7 +174,7 @@ const PDFProduct = ({ values, intIdIdea }) => {
                     });
 
                     const dataTable = {
-                        strComp: objPaquete.objInfoPrincipal?.strNombre,
+                        strComp: objPaquete?.objInfoPrincipal?.strNombre,
                         intDuracion: `${intDuracionHorasTotalPaquete} horas`,
                         intDuracionValue: intDuracionHorasTotalPaquete,
                         strResultado: htmlResultado,
@@ -199,7 +199,7 @@ const PDFProduct = ({ values, intIdIdea }) => {
                         });
 
                         const dataTable = {
-                            strComp: objServicio.objInfoPrincipal?.strNombre,
+                            strComp: objServicio?.objInfoPrincipal?.strNombre,
                             intDuracion: `${intDuracionHorasTotalServicio} horas`,
                             intDuracionValue: intDuracionHorasTotalServicio,
                             strResultado: htmlResultado,

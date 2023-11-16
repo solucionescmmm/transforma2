@@ -47,6 +47,7 @@ import CardDiagnosticos from "./cardDiagnosticos";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import CardAcom from "./cardAcomp";
 import ReadTareas from "../Tareas";
+import { calcularEdad } from "../../../../common/functions/edad";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -205,11 +206,20 @@ const Coco = () => {
                     >
                         <Avatar
                             sx={{
-                                width: 50,
-                                height: 50,
+                                width: 80,
+                                height: 80,
                             }}
                             alt="logo"
-                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objInfoEmpresa.strURLFileLogoEmpresa}`}
+                            src={`${process.env.REACT_APP_API_BACK_PROT}://${
+                                process.env.REACT_APP_API_BACK_HOST
+                            }${process.env.REACT_APP_API_BACK_PORT}${
+                                objInteresado?.objEmpresario
+                                    ?.filter(
+                                        (p) =>
+                                            p.strTipoEmpresario === "Principal"
+                                    )
+                                    ?.at(0)?.strUrlFileFoto || ""
+                            }`}
                         />
 
                         <Box
@@ -219,9 +229,14 @@ const Coco = () => {
                             }}
                         >
                             <Typography>
-                                <span style={{ color: "#00BAB3" }}>
-                                    Representante:
-                                </span>
+                                <b>
+                                    {" "}
+                                    {objInteresado?.objInfoEmpresa
+                                        ?.strNombreMarca || ""}
+                                </b>
+                            </Typography>
+
+                            <Typography>
                                 {objInteresado?.objEmpresario
                                     ?.filter(
                                         (p) =>
@@ -239,52 +254,37 @@ const Coco = () => {
                             </Typography>
 
                             <Typography>
-                                <span style={{ color: "#00BAB3" }}>
-                                    Nombre de la empresa:
+                                <span
+                                    style={{
+                                        color: "#00BAB3",
+                                        marginRight: "10px",
+                                    }}
+                                >
+                                    {objInteresado?.objEmpresario
+                                        ?.filter(
+                                            (p) =>
+                                                p.strTipoEmpresario ===
+                                                "Principal"
+                                        )
+                                        ?.at(0)?.strEstadoVinculacion || ""}
                                 </span>
-                                {objInteresado?.objInfoEmpresa
-                                    ?.strNombreMarca || ""}
-                            </Typography>
 
-                            <Typography>
-                                <span style={{ color: "#00BAB3" }}>
-                                    Categoría:
-                                </span>
-                            </Typography>
-                        </Box>
-
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                            }}
-                        >
-                            <Typography>
-                                <span style={{ color: "#00BAB3" }}>
-                                    Teléfono:
-                                </span>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strCelular1 || ""}
-                            </Typography>
-
-                            <Typography>
-                                <span style={{ color: "#00BAB3" }}>
-                                    Estado:
-                                </span>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strEstadoVinculacion || ""}
-                            </Typography>
-
-                            <Typography>
-                                <span style={{ color: "#00BAB3" }}>NIT:</span>
+                                <Button
+                                    size="small"
+                                    sx={{
+                                        padding: "0",
+                                        letterSpacing: "0",
+                                        fontSize: "12px",
+                                    }}
+                                    variant="contained"
+                                    onClick={() =>
+                                        location.push(
+                                            `/transforma/asesor/empresario/edit/${intId}`
+                                        )
+                                    }
+                                >
+                                    Editar
+                                </Button>
                             </Typography>
                         </Box>
 
@@ -292,35 +292,12 @@ const Coco = () => {
                             sx={{
                                 display: "flex",
                                 flexGrow: "1",
+                                marginTop: "5px",
                                 flexDirection: "column",
                             }}
                         >
-                            <Typography>
-                                <span style={{ color: "#00BAB3" }}>
-                                    Correo:
-                                </span>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strCorreoElectronico1 || ""}
-                            </Typography>
-
-                            <Typography>
-                                <span style={{ color: "#00BAB3" }}>Sede:</span>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strSede || ""}
-                            </Typography>
-
-                            <Typography>
-                                <span style={{ color: "#00BAB3" }}>
-                                    Fecha de vinculación:
-                                </span>
+                            <Typography variant="caption">
+                                <b>Fecha de vinculación:</b>
                                 {objInteresado?.objEmpresario
                                     ?.filter(
                                         (p) =>
@@ -328,19 +305,16 @@ const Coco = () => {
                                     )
                                     ?.at(0)?.dtFechaVinculacion || ""}
                             </Typography>
-                        </Box>
 
-                        <Box sx={{ margin: "auto" }}>
-                            <Button
-                                variant="contained"
-                                onClick={() =>
-                                    location.push(
-                                        `/transforma/asesor/empresario/edit/${intId}`
+                            <Typography variant="caption">
+                                <b>Sede:</b>
+                                {objInteresado?.objEmpresario
+                                    ?.filter(
+                                        (p) =>
+                                            p.strTipoEmpresario === "Principal"
                                     )
-                                }
-                            >
-                                Editar
-                            </Button>
+                                    ?.at(0)?.strSede || ""}
+                            </Typography>
                         </Box>
                     </Paper>
                 </Grid>
@@ -361,7 +335,7 @@ const Coco = () => {
                                 }
                                 aria-label="menu"
                             >
-                                <Tab label="Perfíl" value="Inicio" />
+                                <Tab label="Perfil" value="Inicio" />
                                 <Tab label="Personas" value="Personas" />
                                 <Tab label="Comentarios" value="Comentarios" />
                                 <Tab
@@ -417,6 +391,7 @@ const Coco = () => {
                                                                 sx={{
                                                                     textAlign:
                                                                         "center",
+                                                                    
                                                                 }}
                                                             >
                                                                 <b>
@@ -432,6 +407,7 @@ const Coco = () => {
                                                         sx={{
                                                             display: "flex",
                                                             flexGrow: "1",
+                                                            marginTop: "10px",
                                                             flexDirection:
                                                                 "column",
                                                         }}
@@ -624,6 +600,30 @@ const Coco = () => {
                                                         flexDirection: "column",
                                                     }}
                                                 >
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: "12px",
+                                                        }}
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                color: "#00BAB3",
+                                                            }}
+                                                        >
+                                                            Edad:
+                                                        </span>
+                                                        {calcularEdad(
+                                                            objInteresado?.objEmpresario
+                                                                ?.filter(
+                                                                    (p) =>
+                                                                        p.strTipoEmpresario ===
+                                                                        "Principal"
+                                                                )
+                                                                ?.at(0)
+                                                                ?.dtFechaNacimiento
+                                                        )}
+                                                    </Typography>
+
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
