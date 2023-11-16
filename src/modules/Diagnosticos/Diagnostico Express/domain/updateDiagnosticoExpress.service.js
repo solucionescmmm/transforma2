@@ -174,7 +174,6 @@ class updateDiagnosticoExpress {
 
     async #updateEmpresaDiagnosticoExpress() {
         let dao = new classInterfaceDAODiagnosticoExpress();
-        console.log(this.#objData);
 
         let objInfoEmpresa = {
             ...this.#objData.objInfoEmprendimiento,

@@ -24,7 +24,6 @@ class setAsistentesSesionesEventos {
     }
 
     async main() {
-        console.log(this.#objData)
         await this.#validations()
         await this.#setAsistentesSesionesEventos()
         return this.#objResult;

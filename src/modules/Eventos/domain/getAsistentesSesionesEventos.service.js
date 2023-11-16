@@ -10,6 +10,10 @@ const serviceGetTerceros = require("../../Terceros/domain/getTercero.service")
 const getAsistentesSesionesEventos = async (objParams, strDataUser) => {
     let { intIdSesion, intIdAsistenteEvento } = objParams;
 
+    if(!intIdSesion){
+        throw new Error("Se esperaban paramentros de entrada")
+    }
+
     if (
         !validator.isEmail(strDataUser.strEmail, {
             domain_specific_validation: "cmmmedellin.org",

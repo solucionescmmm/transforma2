@@ -7,6 +7,7 @@ const validator = require("validator").default;
 
 //service
 const serviceGetIdEstadoEventos = require("./getIdEstadoEventos.service")
+const serviceGetAsistentesEventos = require("./getAsistentesEventos.service");
 
 class setAsistentesEventos {
 
@@ -14,10 +15,7 @@ class setAsistentesEventos {
     #objData;
     #objUser;
     #objResult;
-
-    //variables
-    #intIdEvento
-    #intIdEstado
+    
     /**
      * @param {object} data
      */
@@ -44,6 +42,34 @@ class setAsistentesEventos {
         }
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        const queryGetAsistentesEventos = await serviceGetAsistentesEventos({
+            intIdEvento: this.#objData.intIdEvento
+        }, this.#objUser)
+
+        if (queryGetAsistentesEventos.error) {
+            throw new Error(queryGetAsistentesEventos.msg)
+        }
+
+        const arrAsistentes = queryGetAsistentesEventos.data
+        let arrEmpresarios = this.#objData.arrEmpresarios
+        let arrTerceros = this.#objData.arrTerceros
+
+        for (let i = 0; i < arrAsistentes.length; i++) {
+            for (let j = 0; j < arrEmpresarios.length; j++) {
+                const intIdAsistente = arrAsistentes[i]?.intIdEmpresario
+                if (intIdAsistente === arrEmpresarios[j]?.intId) {
+                    throw new Error(`El empresario ${arrEmpresarios[j]?.strNombres} ${arrEmpresarios[j]?.strApellidos}, ya esta registrado en el evento.`)
+                }
+            }
+
+            for (let j = 0; j < arrTerceros.length; j++) {
+                const intIdAsistente = arrAsistentes[i]?.intIdTercero
+                if (intIdAsistente === arrTerceros[j]?.intId) {
+                    throw new Error(`El tercero ${arrTerceros[j]?.strNombres} ${arrTerceros[j]?.strApellidos}, ya esta registrado en el evento.`)
+                }
+            }
         }
     }
 

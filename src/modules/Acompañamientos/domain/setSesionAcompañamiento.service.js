@@ -103,28 +103,5 @@ class setAcompañamiento {
 
         this.#intIdDocumento = query.data.intId;
     }
-
-    async #setRutasNoPlaneada() {
-        let data = {
-            intIdIdea: this.#objData.intIdIdea,
-            strObservaciones: "Ruta creada apartir de un acompañamiento",
-            strResponsable: this.#objData.objResponsable,
-            arrInfoFases: [{
-                strObservaciones: "Ruta creada apartir de un acompañamiento",
-                arrPaquetes: this.#objData.objNuevoServPaq?.objPaquete ? [this.#objData.objNuevoServPaq?.objPaquete] : null,
-                arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [this.#objData.objNuevoServPaq?.objServicio] : null,
-            }]
-        }
-
-        let service = new serviceSetRutaNoPlaneada(
-            data,
-            this.#objUser
-        );
-        let query = await service.main();
-
-        if (query.error) {
-            throw new Error(query.msg);
-        }
-    }
 }
 module.exports = setAcompañamiento;

@@ -27,11 +27,10 @@ class deleteSesionesEventos {
 
     async main() {
         await this.#getSesionesEventos()
-        // await this.#getAsistentesSesionesEventos()
-        // await this.#getAsistentesSesionesEventos()
-        // await this.#validations()
-        // await this.#deleteSesionesEventos()
-        // return this.#objResult;
+        await this.#getAsistentesSesionesEventos()
+        await this.#validations()
+        await this.#deleteSesionesEventos()
+        return this.#objResult;
     }
 
     async #validations() {
