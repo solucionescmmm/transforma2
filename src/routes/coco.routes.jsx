@@ -1298,11 +1298,11 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="Documentos" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
-                        <Documentos
+                        {/* <Documentos
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
                             openModalCreateRoute={true}
-                        />
+                        /> */}
                     </Grid>
 
                     <Grid item xs={12}>

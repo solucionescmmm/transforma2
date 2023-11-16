@@ -73,7 +73,8 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
         },
     ]);
 
-    const [openModalCreate, setOpenModalCreate] = useState(openModalCreateRoute);
+    const [openModalCreate, setOpenModalCreate] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
@@ -101,19 +102,19 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
     //===============================================================================================================================================
     return (
         <Fragment>
-            <ModalDelete
+            {/* <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
                 intId={selectedData?.intId}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
-            />
+            /> */}
 
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
                 intId={selectedData?.intId}
-                isEdit={selectedData}
+                isEdit={isEdit}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
                 values={selectedData}
@@ -257,7 +258,10 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
                                                     }
                                                     fontSize="small"
                                                     onClick={() => {
-                                                        setSelectedData(rowData);
+                                                        setIsEdit(true);
+                                                        setSelectedData(
+                                                            rowData
+                                                        );
                                                         handlerOpenModalCreate();
                                                     }}
                                                 />
@@ -325,9 +329,12 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
                                                         }}
                                                     >
                                                         <Button
-                                                            onClick={() =>
-                                                                handlerOpenModalCreate()
-                                                            }
+                                                            onClick={() => {
+                                                                setIsEdit(
+                                                                    false
+                                                                );
+                                                                handlerOpenModalCreate();
+                                                            }}
                                                             variant="contained"
                                                         >
                                                             Agregar documento

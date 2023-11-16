@@ -56,7 +56,7 @@ const ModalCreate = ({
     //===============================================================================================================================================
     const [success, setSucces] = useState(false);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
@@ -172,8 +172,7 @@ const ModalCreate = ({
             });
         }
 
-        setLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [intId, isEdit, values]);
 
     useEffect(() => {
