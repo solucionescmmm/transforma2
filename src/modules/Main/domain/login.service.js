@@ -4,43 +4,23 @@ const { OAuth2Client } = require("google-auth-library");
 const path = require("path");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
+const validator = require("validator").default;
 
 //Private Key JWT
 const privateKey = fs.readFileSync(path.basename("../../../../jwtRS256.key"), "utf-8");
 
+//Services
+const serviceGetRolesUsuario = require("../../Usuarios/domain/getRolesUsuario.service")
+
 const login = async (token) => {
-    let ticket;
 
     try {
       if(process.env.ENV === 'prod') {
-        const CLIENT_ID = process.env.CLIENT_GOOGLE;
-        const client = new OAuth2Client(CLIENT_ID);
 
-        if (!token) {
-            throw new Error("Se esperaba el token de autenticación de Google.");
         }
 
-        ticket = await client
-            .verifyIdToken({
-                idToken: token,
-                audience: CLIENT_ID,
-            })
-            .catch((error) => {
-                if (error.message.startsWith("Token used too late")) {
-                    throw new Error(
-                        "El token suministrado por Google ha expirado, por favor intenta nuevamente."
-                    );
-                }
-
-                throw new Error(error.message);
-            })
-            .then((res) => {
-                return res;
-            });
-      }
-
-        const payload = ticket?.getPayload();
-
+        const payload = null
+        
         let objUserData = {
             strNombre: payload?.given_name || 'Pruebas',
             strApellidos: payload?.family_name || '.',
@@ -49,15 +29,31 @@ const login = async (token) => {
             strURLImagen: payload?.picture || "",
         };
 
+        const queryGetRolesUsuario = await serviceGetRolesUsuario({
+            strApp:"Transforma",
+            strEmail:"auxiliarcontable@demismanos.org"
+        })
+
+        if (queryGetRolesUsuario.error) {
+            throw new Error(queryGetRolesUsuario.msg)
+        }
+
+        objUserData={
+            ...objUserData,
+            strRol: queryGetRolesUsuario.data[0]?.strNombre
+        }
+
         if (
-            !/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@cmmmedellin.org$/.test(
-                objUserData.strEmail
-            )
+            !validator.isEmail(objUserData.strEmail, {
+                domain_specific_validation: "cmmmedellin.org",
+            })
         ) {
             throw new Error(
-                "El dominio de la cuenta no es válido, por favor intenta con usuario de la corporación."
+                "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
+
+        console.log(objUserData)
 
         let JWT = jwt.sign(
             {

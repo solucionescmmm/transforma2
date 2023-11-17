@@ -7,5 +7,11 @@ class interfaceDAOUsuarios {
         let result = await dao.getUsuarios(data);
         return result;
     }
+
+    async getRolesUsuario(data) {
+        const dao = new classDaoSql();
+        let result = await dao.getRolesUsuario(data);
+        return result;
+    }
 }
 module.exports = interfaceDAOUsuarios;
