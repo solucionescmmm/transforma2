@@ -798,13 +798,15 @@ class daoEmpresarios {
                 Empresario.dtmActualizacion,
                 Empresario.strUsuario,
                 IdeaEmpresario.intIdTipoEmpresario,
-                Tipo.strNombre as strTipoEmpresario
+                Tipo.strNombre as strTipoEmpresario,
+                Sedes.strNombre as strNombreSedes
 
                 FROM tbl_Empresario Empresario
 
                 INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
                 INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
                 INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
+                LEFT JOIN tbl_Sedes Sedes ON Sedes.intId = Empresario.intIdSede
 
                 WHERE IdeaEmpresario.intIdIdea = Idea.intId AND Estados.strNombre = 'Activo'
                 FOR JSON PATH

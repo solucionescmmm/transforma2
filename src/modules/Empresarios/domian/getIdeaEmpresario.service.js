@@ -46,12 +46,12 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                         ...arrayEmpresario[j],
                         arrDepartamento:JSON.parse(arrayEmpresario[j]?.strDepartamento||null),
                         arrCiudad:JSON.parse(arrayEmpresario[j]?.strCiudad||null),
-                        strSede:arrayEmpresario[j]?.intIdSede,
+                        strSede:arrayEmpresario[j]?.strNombreSedes,
                     }) 
                         
                     if (arrayEmpresario[j].strTipoEmpresario === "Principal") {
                         objInfoPrincipal ={
-                            strSede:arrayEmpresario[j]?.intIdSede,
+                            strSede:arrayEmpresario[j]?.strNombreSedes,
                             strModalidadIngreso:arrayEmpresario[j]?.strModalidadIngreso,
                             dtFechaVinculacion:arrayEmpresario[j]?.dtFechaVinculacion,
                             strEstadoVinculacion:arrayEmpresario[j]?.strEstadoVinculacion,

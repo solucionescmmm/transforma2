@@ -156,11 +156,15 @@ class daoAcompañamientos {
                 SesionesAcompañamientos.dtmActualizacion,
                 SesionesAcompañamientos.strUsuarioActualizacion,
                 SesionesAcompañamientos.btFinalizado,
-                Servicios.strNombre as strNombreServicio 
+                Servicios.strNombre as strNombreServicio,
+                Paquetes.strNombre as strNombrePaquete,
+                Actividad.strNombre as strTipoActividad
 
                 FROM tbl_Sesiones_Acompañamientos SesionesAcompañamientos
 
                 LEFT JOIN tbl_servicios Servicios ON Servicios.intId = SesionesAcompañamientos.intIdServicio
+                LEFT JOIN tbl_Paquetes Paquetes ON Paquetes.intId = SesionesAcompañamientos.intIdPaquete
+                LEFT JOIN tbl_TipoActividad Actividad ON Actividad.intId = SesionesAcompañamientos.intIdTipoActividad
 
                 WHERE SesionesAcompañamientos.intIdAcompañamiento = Acompañamientos.intId
 

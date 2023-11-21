@@ -58,7 +58,8 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                 for (let j = 0; j < arrSesionAcompañamiento.length; j++) {
                     arrSesionAcompañamiento[j]={
                         ...arrSesionAcompañamiento[j],
-                        strResponsables: JSON.parse(arrSesionAcompañamiento[j]?.strResponsables || "")
+                        strResponsables: JSON.parse(arrSesionAcompañamiento[j]?.strResponsables || ""),
+                        strNombreServicio: arrSesionAcompañamiento[j]?.strNombreServicio || arrSesionAcompañamiento[j]?.strNombrePaquete || "N/A"
                     }
                     
                 }
