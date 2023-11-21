@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
 // Iconos
-import { ListAlt as ListAltIcon } from "@mui/icons-material";
 import useGetAcomp from "../../hooks/useGetAcomp";
 import { format, parseISO } from "date-fns";
 
@@ -27,6 +26,7 @@ const CardAcom = ({ intIdIdea }) => {
             setArrAcom(data);
             setIsLoading(false);
         }
+        setIsLoading(false);
     }, [data]);
 
     if (isLoading) {
@@ -43,7 +43,7 @@ const CardAcom = ({ intIdIdea }) => {
         );
     }
 
-    if (arrAcom.length === 0 || !arrAcom.length) {
+    if (arrAcom.length === 0  || !arrAcom.length) {
         return (
             <div
                 style={{
@@ -71,31 +71,24 @@ const CardAcom = ({ intIdIdea }) => {
             }}
         >
             {arrAcom?.slice(0, 5).map((p) => (
-                <Box sx={{ display: "flex" }}>
-                    <p
-                        style={{
-                            flexGrow: 1,
-                            display: "flex",
-                            alignItems: "center",
-                            fontSize: "12px",
-                        }}
-                    >
-                        <ListAltIcon
-                            sx={{
-                                width: "20px",
-                                height: "20px",
-                                marginRight: "5px",
+                <div>
+                    <Box sx={{ display: "flex" }}>
+                        <p style={{ fontSize: "12px", paddingRight: "5px" }}>
+                            {format(
+                                parseISO(p.objInfoPrincipal.dtmCreacion),
+                                "yyyy-MM-dd"
+                            )}
+                        </p>
+                        <p
+                            style={{
+                                fontSize: "12px",
                             }}
-                        />
-                        {p.objInfoPrincipal.strTipoAcompañamiento}
-                    </p>
-                    <p style={{ fontSize: "12px", paddingRight: "5px" }}>
-                        {format(
-                            parseISO(p.objInfoPrincipal.dtmCreacion),
-                            "yyyy-MM-dd"
-                        )}
-                    </p>
-                </Box>
+                        >
+                            {p.objInfoPrincipal.strTipoAcompañamiento}
+                        </p>
+                    </Box>
+                    <hr style={{color: "black"}}/>
+                </div>
             ))}
         </div>
     );

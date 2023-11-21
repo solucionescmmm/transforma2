@@ -1,10 +1,8 @@
-import { Avatar, Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-import useGetEmpresarios from "../../hooks/useGetEmpresarios";
-
-const CardPersonas = ({ intId }) => {
+const CardPersonas = ({ intId, arrPerson }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -15,19 +13,18 @@ const CardPersonas = ({ intId }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data } = useGetEmpresarios({ autoload: true, intId });
 
     useEffect(() => {
         setIsLoading(true);
 
-        if (data) {
-            setArrPersonas(data[0].objEmpresario);
+        if (arrPerson) {
+            setArrPersonas(arrPerson.filter((p)=>p.strTipoEmpresario === "Secundario"));
         }
 
         setIsLoading(false);
-    }, [data]);
+    }, [arrPerson]);
 
-    if (isLoading || !data) {
+    if (isLoading) {
         return (
             <Box
                 sx={{
@@ -41,6 +38,25 @@ const CardPersonas = ({ intId }) => {
         );
     }
 
+    if (arrPersonas.length === 0) {
+        return (
+            <div
+                style={{
+                    padding: "0px 5px",
+                    textAlign: "center",
+                    margin: "auto",
+                    width: 800,
+                    height: 118,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                No existen personas secundarias registradas
+            </div>
+        );
+    }
+
     return (
         <div
             style={{
@@ -50,27 +66,21 @@ const CardPersonas = ({ intId }) => {
             }}
         >
             {arrPersonas.slice(0, 5).map((p) => (
-                <Box sx={{ display: "flex" }}>
+                <Box sx={{ display: "flex", flexDirection:"column" }}>
                     <p
                         style={{
-                            flexGrow: 1,
-                            display: "flex",
-                            alignItems: "center",
                             fontSize: "12px",
                         }}
                     >
-                        <Avatar
-                            sx={{
-                                width: "20px",
-                                height: "20px",
-                                marginRight: "5px",
-                            }}
-                        />
-                        {p.strNombres} {p.strApellidos}
+                    <b>Nombre: </b> {p.strNombres} {p.strApellidos}
                     </p>
-                    <p style={{ fontSize: "12px", paddingRight: "5px" }}>
-                        {p.strTipoEmpresario}
+                    <p style={{ fontSize: "12px" }}>
+                        <b>Número de documento: </b>{p.strNroDocto}
                     </p>
+                    <p style={{ fontSize: "12px" }}>
+                        <b>Celular: </b>{p.strCelular1}
+                    </p>
+                    <br/>
                 </Box>
             ))}
         </div>

@@ -52,13 +52,28 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
             type: "date",
         },
         {
-            title: "Lugar",
-            field: "objInfoPrincipal.strUbicacion",
+            title: "Servicio/Paquete",
+            field: "arrSesionAcompañamiento[0].strNombreServicio",
+            type: "string",
+        },
+        {
+            title: "Tipo Actividad",
+            field: "arrSesionAcompañamiento[0].strTipoActividad",
             type: "string",
         },
         {
             title: "Responsable",
-            field: "objInfoPrincipal.strUsuarioCreacion",
+            field: "objInfoPrincipal.strResponsables.strNombre",
+            type: "string",
+        },
+        {
+            title: "Área",
+            field: "objInfoPrincipal.arrSesionAcompañamiento.length",
+            type: "string",
+        },
+        {
+            title: "Número de sesiones",
+            field: "arrSesionAcompañamiento.length",
             type: "string",
         },
     ]);

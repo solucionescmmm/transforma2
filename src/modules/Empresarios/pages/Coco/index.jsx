@@ -5,6 +5,7 @@ import { Link as RouterLink, useParams, useHistory } from "react-router-dom";
 
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
+import useGetHistorico from "../../hooks/useGetHistorico";
 
 // Componentes MUI
 import {
@@ -22,7 +23,7 @@ import {
 } from "@mui/material";
 
 //Iconos
-import { Home as HomeIcon } from "@mui/icons-material";
+import { Home as HomeIcon, EmailOutlined as EmailIcon, PhoneAndroidOutlined as PhoneIcon, PlaceOutlined as PlaceIcon } from "@mui/icons-material";
 import TeamIcon from "../../../../static/img/icons/Personas.png";
 import DocumentIcon from "../../../../static/img/icons/Diagnosticos.png";
 import RouteIcon from "../../../../static/img/icons/Rutas.png";
@@ -68,6 +69,10 @@ const Coco = () => {
         autoload: true,
         intId,
     });
+    const { data: dataHistorico } = useGetHistorico({
+        autoload: true,
+        intIdIdea:intId,
+    })
     const location = useHistory();
 
     //===============================================================================================================================================
@@ -82,6 +87,7 @@ const Coco = () => {
     });
 
     const [objInteresado, setObjInteresado] = useState({});
+    const [strEtapa, setStrEtapa] = useState("N/A");
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
@@ -134,7 +140,18 @@ const Coco = () => {
             setObjInteresado(dataPersonas[0]);
             setLoading(false);
         }
+
     }, [dataPersonas]);
+
+    useEffect(() => {
+        setLoading(true);
+
+        if (dataHistorico) {
+            setStrEtapa(dataHistorico?.arrEtapaDllo?.at(-1)?.strClasificacionFecha)
+            setLoading(false);
+        }
+
+    }, [dataHistorico]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -143,11 +160,11 @@ const Coco = () => {
         return <Loader />;
     }
 
-    if (!dataPersonas) {
+    if (!dataPersonas && !dataHistorico) {
         return <Loader />;
     }
 
-    if (dataPersonas.error) {
+    if (dataPersonas?.error) {
         return (
             <ErrorPage
                 severity="error"
@@ -297,7 +314,7 @@ const Coco = () => {
                             }}
                         >
                             <Typography variant="caption">
-                                <b>Fecha de vinculación:</b>
+                                <b>Fecha de vinculación: </b>
                                 {objInteresado?.objEmpresario
                                     ?.filter(
                                         (p) =>
@@ -307,13 +324,23 @@ const Coco = () => {
                             </Typography>
 
                             <Typography variant="caption">
-                                <b>Sede:</b>
+                                <b>Sede: </b>
                                 {objInteresado?.objEmpresario
                                     ?.filter(
                                         (p) =>
                                             p.strTipoEmpresario === "Principal"
                                     )
                                     ?.at(0)?.strSede || ""}
+                            </Typography>
+
+                            <Typography variant="caption">
+                                <b>Ruta activa: </b>
+                                {"Falta conectar"}
+                            </Typography>
+
+                            <Typography variant="caption">
+                                <b>Etapa de desarrollo: </b>
+                                {strEtapa}
                             </Typography>
                         </Box>
                     </Paper>
@@ -379,7 +406,7 @@ const Coco = () => {
                                                                     height: 50,
                                                                 }}
                                                                 alt="logo"
-                                                                src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado.objInfoEmpresa.strURLFileLogoEmpresa}`}
+                                                                src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado?.objInfoEmpresa?.strURLFileLogoEmpresa}`}
                                                             />
                                                         </Box>
                                                         <Box
@@ -431,7 +458,7 @@ const Coco = () => {
                                                                 objInteresado
                                                                     ?.objInfoEmpresa
                                                                     ?.strCategoriaServicio ||
-                                                                ""}
+                                                                "No registro"}
                                                         </Typography>
 
                                                         <Typography
@@ -450,7 +477,7 @@ const Coco = () => {
                                                             {objInteresado
                                                                 ?.objInfoEmpresa
                                                                 ?.strDescProductosServicios ||
-                                                                ""}
+                                                                "No registro"}
                                                         </Typography>
 
                                                         <Typography
@@ -469,7 +496,7 @@ const Coco = () => {
                                                             {objInteresado
                                                                 ?.objInfoEmpresa
                                                                 ?.strDireccionResidencia ||
-                                                                ""}
+                                                                "No registro"}
                                                         </Typography>
 
                                                         <Typography
@@ -505,7 +532,7 @@ const Coco = () => {
                                                                 (x) =>
                                                                     x.label ===
                                                                     "Instagram"
-                                                            )?.value || ""}
+                                                            )?.value || "No registro"}
                                                         </Typography>
 
                                                         <Typography
@@ -525,7 +552,7 @@ const Coco = () => {
                                                                 (x) =>
                                                                     x.label ===
                                                                     "Facebook"
-                                                            )?.value || ""}
+                                                            )?.value || "No registro"}
                                                         </Typography>
                                                     </Box>
                                                 </Grid>
@@ -572,6 +599,34 @@ const Coco = () => {
                                                         />
                                                     </Box>
                                                 </Box>
+
+                                                <Grid item xs={12}>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "row-reverse",
+                                                            gap: 1,
+                                                            paddingRight: "5px",
+                                                        }}
+                                                    >
+                                                        <Button
+                                                            size="small"
+                                                            variant="contained"
+                                                            onClick={() =>
+                                                                onChangeRoute(
+                                                                    "Acompañamientos"
+                                                                )
+                                                            }
+                                                            sx={{
+                                                                fontSize:
+                                                                    "11px",
+                                                            }}
+                                                        >
+                                                            Ver más
+                                                        </Button>
+                                                    </Box>
+                                                </Grid>
                                             </Grid>
                                         </CardContent>
                                     </Card>
@@ -600,6 +655,116 @@ const Coco = () => {
                                                         flexDirection: "column",
                                                     }}
                                                 >
+                                                    <Box sx={{
+                                                        display:"flex",
+                                                        flexDirection:"row"
+                                                    }}>
+                                                        <EmailIcon className={classes.icon}/>
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize: "12px", marginTop:"4px"
+                                                            }}
+                                                            >
+                                                                {objInteresado?.objEmpresario
+                                                                    ?.filter(
+                                                                        (p) =>
+                                                                            p.strTipoEmpresario ===
+                                                                            "Principal"
+                                                                    )
+                                                                    ?.at(0)
+                                                                    ?.strCorreoElectronico1 ||
+                                                                    "No registro"}
+                                                        </Typography>
+                                                    </Box>
+
+                                                    <Box sx={{
+                                                        display:"flex",
+                                                        flexDirection:"row"
+                                                    }}>
+                                                        <PhoneIcon className={classes.icon}/>
+                                                        <Typography
+                                                        sx={{
+                                                            fontSize: "12px", marginTop:"4px"
+                                                        }}
+                                                        >
+                                                        {objInteresado?.objEmpresario
+                                                            ?.filter(
+                                                                (p) =>
+                                                                    p.strTipoEmpresario ===
+                                                                    "Principal"
+                                                            )
+                                                            ?.at(0)
+                                                            ?.strCelular1 || "No registro"}
+                                                        </Typography>
+                                                    </Box>
+
+                                                    <Box sx={{
+                                                        display:"flex",
+                                                        flexDirection:"row"
+                                                    }}>
+                                                        <PlaceIcon className={classes.icon}/>
+                                                        <Typography
+                                                        sx={{
+                                                            fontSize: "12px", marginTop:"4px"
+                                                        }}
+                                                        >
+                                                        {objInteresado?.objEmpresario
+                                                            ?.filter(
+                                                                (p) =>
+                                                                    p.strTipoEmpresario ===
+                                                                    "Principal"
+                                                            )
+                                                            ?.at(0)
+                                                            ?.strDireccionResidencia ||
+                                                            "No registro"}
+                                                        </Typography>
+                                                    </Box>
+
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: "12px",
+                                                        }}
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                color: "#00BAB3",
+                                                            }}
+                                                        >
+                                                            Tipo de documento:
+                                                        </span>
+                                                        {objInteresado?.objEmpresario
+                                                            ?.filter(
+                                                                (p) =>
+                                                                    p.strTipoEmpresario ===
+                                                                    "Principal"
+                                                            )
+                                                            ?.at(0)
+                                                            ?.strTipoDocto ||
+                                                            "No registro"}
+                                                    </Typography>
+
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: "12px",
+                                                        }}
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                color: "#00BAB3",
+                                                            }}
+                                                        >
+                                                            Número de documento:
+                                                        </span>
+                                                        {objInteresado?.objEmpresario
+                                                            ?.filter(
+                                                                (p) =>
+                                                                    p.strTipoEmpresario ===
+                                                                    "Principal"
+                                                            )
+                                                            ?.at(0)
+                                                            ?.strNroDocto || "No registro"}
+                                                    </Typography>
+
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
@@ -622,119 +787,6 @@ const Coco = () => {
                                                                 ?.at(0)
                                                                 ?.dtFechaNacimiento
                                                         )}
-                                                    </Typography>
-
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "12px",
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                color: "#00BAB3",
-                                                            }}
-                                                        >
-                                                            Email:
-                                                        </span>
-                                                        {objInteresado?.objEmpresario
-                                                            ?.filter(
-                                                                (p) =>
-                                                                    p.strTipoEmpresario ===
-                                                                    "Principal"
-                                                            )
-                                                            ?.at(0)
-                                                            ?.strCorreoElectronico1 ||
-                                                            ""}
-                                                    </Typography>
-
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "12px",
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                color: "#00BAB3",
-                                                            }}
-                                                        >
-                                                            Celular:
-                                                        </span>
-                                                        {objInteresado?.objEmpresario
-                                                            ?.filter(
-                                                                (p) =>
-                                                                    p.strTipoEmpresario ===
-                                                                    "Principal"
-                                                            )
-                                                            ?.at(0)
-                                                            ?.strCelular1 || ""}
-                                                    </Typography>
-
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "12px",
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                color: "#00BAB3",
-                                                            }}
-                                                        >
-                                                            Dirección:
-                                                        </span>
-                                                        {objInteresado?.objEmpresario
-                                                            ?.filter(
-                                                                (p) =>
-                                                                    p.strTipoEmpresario ===
-                                                                    "Principal"
-                                                            )
-                                                            ?.at(0)
-                                                            ?.strDireccionResidencia ||
-                                                            ""}
-                                                    </Typography>
-
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "12px",
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                color: "#00BAB3",
-                                                            }}
-                                                        >
-                                                            Tipo de documento:
-                                                        </span>
-                                                        {objInteresado?.objEmpresario
-                                                            ?.filter(
-                                                                (p) =>
-                                                                    p.strTipoEmpresario ===
-                                                                    "Principal"
-                                                            )
-                                                            ?.at(0)
-                                                            ?.strTipoDocto ||
-                                                            ""}
-                                                    </Typography>
-
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "12px",
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                color: "#00BAB3",
-                                                            }}
-                                                        >
-                                                            Número de documento:
-                                                        </span>
-                                                        {objInteresado?.objEmpresario
-                                                            ?.filter(
-                                                                (p) =>
-                                                                    p.strTipoEmpresario ===
-                                                                    "Principal"
-                                                            )
-                                                            ?.at(0)
-                                                            ?.strNroDocto || ""}
                                                     </Typography>
                                                 </Box>
                                             </Grid>
@@ -777,6 +829,7 @@ const Coco = () => {
                                                     >
                                                         <CardPersonas
                                                             intIdIdea={intId}
+                                                            arrPerson={objInteresado?.objEmpresario}
                                                         />
                                                     </Box>
                                                 </Box>
@@ -796,7 +849,7 @@ const Coco = () => {
                                                             variant="contained"
                                                             onClick={() =>
                                                                 onChangeRoute(
-                                                                    "PersonasCreate"
+                                                                    "Personas"
                                                                 )
                                                             }
                                                             sx={{
@@ -804,24 +857,7 @@ const Coco = () => {
                                                                     "11px",
                                                             }}
                                                         >
-                                                            Agregar personas
-                                                        </Button>
-
-                                                        <Button
-                                                            size="small"
-                                                            variant="contained"
-                                                            onClick={() =>
-                                                                onChangeRoute(
-                                                                    "PersonasRe"
-                                                                )
-                                                            }
-                                                            sx={{
-                                                                fontSize:
-                                                                    "11px",
-                                                            }}
-                                                        >
-                                                            Reemplazar
-                                                            representante
+                                                            Ver más
                                                         </Button>
                                                     </Box>
                                                 </Grid>
