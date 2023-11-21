@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 // Hooks
 import useGetAreas from "../../../hooks/useGetAreas";
@@ -39,6 +39,7 @@ import ModalCreate from "./modalCreate";
 import ModalEdit from "./modalEdit";
 import ModalDelete from "./modalDelete";
 import ModalState from "./modalState";
+import { AbilityContext, Can } from "../../../../../common/functions/can";
 
 const ReadListAreas = () => {
     const [openModalCreate, setOpenModalCreate] = useState(false);
@@ -109,6 +110,8 @@ const ReadListAreas = () => {
             type: "date",
         },
     ]);
+
+    const ability = useContext(AbilityContext);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -252,7 +255,7 @@ const ReadListAreas = () => {
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can("search", "Maestros"),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -265,60 +268,68 @@ const ReadListAreas = () => {
                                     },
                                     maxBodyHeight: "520px",
                                     actionsColumnIndex: -1,
-                                    paging:true,
-                                    pageSizeOptions:[20,100,200,500], 
+                                    paging: true,
+                                    pageSizeOptions: [20, 100, 200, 500],
                                     pageSize: 20,
                                 }}
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    color={
-                                                        rowData.intIdEstado ===
-                                                            1 ||
-                                                        rowData.intIdEstado ===
-                                                            3
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            tooltip: "Editar",
-                                            onClick: (event, rowData) => {
-                                                setSelectedData(rowData);
-                                                handlerOpenModalEdit();
-                                            },
-                                            disabled:
-                                                rowData.intIdEstado === 1 ||
-                                                rowData.intIdEstado === 3,
-                                        };
+                                        if (ability.can("update", "Maestros")) {
+                                            return {
+                                                icon: () => (
+                                                    <EditIcon
+                                                        color={
+                                                            rowData.intIdEstado ===
+                                                                1 ||
+                                                            rowData.intIdEstado ===
+                                                                3
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                tooltip: "Editar",
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalEdit();
+                                                },
+                                                disabled:
+                                                    rowData.intIdEstado === 1 ||
+                                                    rowData.intIdEstado === 3,
+                                            };
+                                        }
+
+                                        return null;
                                     },
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.intIdEstado ===
-                                                            1 ||
-                                                        rowData.intIdEstado ===
-                                                            3
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            tooltip: "Eliminar",
-                                            onClick: (event, rowData) => {
-                                                setSelectedData(rowData);
-                                                handlerOpenModalDelete();
-                                            },
-                                            disabled:
-                                                rowData.intIdEstado === 1 ||
-                                                rowData.intIdEstado === 3,
-                                        };
+                                        if (ability.can("delete", "Maestros")) {
+                                            return {
+                                                icon: () => (
+                                                    <DeleteIcon
+                                                        color={
+                                                            rowData.intIdEstado ===
+                                                                1 ||
+                                                            rowData.intIdEstado ===
+                                                                3
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                tooltip: "Eliminar",
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                disabled:
+                                                    rowData.intIdEstado === 1 ||
+                                                    rowData.intIdEstado === 3,
+                                            };
+                                        }
+
+                                        return null;
                                     },
                                 ]}
                                 components={{
@@ -342,14 +353,19 @@ const ReadListAreas = () => {
                                                                 "10px 35px",
                                                         }}
                                                     >
-                                                        <Button
-                                                            variant="contained"
-                                                            onClick={() =>
-                                                                handlerOpenModalCreate()
-                                                            }
+                                                        <Can
+                                                            I="create"
+                                                            a="Maestros"
                                                         >
-                                                            Agregar area
-                                                        </Button>
+                                                            <Button
+                                                                variant="contained"
+                                                                onClick={() =>
+                                                                    handlerOpenModalCreate()
+                                                                }
+                                                            >
+                                                                Agregar area
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

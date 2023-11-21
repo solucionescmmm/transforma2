@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, Fragment } from "react";
+import React, {
+    useState,
+    useEffect,
+    useRef,
+    Fragment,
+    useContext,
+} from "react";
 
 //Componentes de Mui
 import {
@@ -28,6 +34,7 @@ import ErrorPage from "../../../../common/components/Error";
 import ModalResumen from "./modalResumen";
 import useGetDiagnTecn from "../../hooks/useGetDiagnTecnico";
 import useGetDiagnGeneral from "../../hooks/useGetDiagnGeneral";
+import { AbilityContext } from "../../../../common/functions/can";
 
 const DiagEmpresarialPage = ({
     intId,
@@ -82,6 +89,8 @@ const DiagEmpresarialPage = ({
     const refFntGetDataGen = useRef(getUniqueDataGen);
     const refFntGetDataHum = useRef(getUniqueDataHum);
     const refFntGetDataTec = useRef(getUniqueDataTec);
+
+    const ability = useContext(AbilityContext);
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -199,6 +208,7 @@ const DiagEmpresarialPage = ({
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
+                            disabled={!ability.can("create", "Diag")}
                             onClick={() => handleOpenModalResumen()}
                         >
                             <CardContent sx={{ padding: "0px" }}>
@@ -239,6 +249,7 @@ const DiagEmpresarialPage = ({
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
+                            disabled={!ability.can("create", "Diag")}
                             onClick={() =>
                                 onChangeRoute("DiagEmpresarialCreate", {
                                     intIdIdea,
@@ -284,6 +295,7 @@ const DiagEmpresarialPage = ({
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
+                            disabled={!ability.can("create", "Diag")}
                             onClick={() =>
                                 onChangeRoute("DiagEmpresarialHumCreate", {
                                     intIdIdea,
@@ -329,6 +341,7 @@ const DiagEmpresarialPage = ({
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
+                            disabled={!ability.can("create", "Diag")}
                             onClick={() =>
                                 onChangeRoute("DiagEmpresarialTecCreate", {
                                     intIdIdea,

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Hooks
 import useGetDocumentos from "../../hooks/useGetDocumentos";
@@ -37,8 +37,8 @@ import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 
 //Componentes
-import ModalDelete from "./modalDelete";
 import ModalCreate from "./modalCreate";
+import { AbilityContext, Can } from "../../../../common/functions/can";
 
 const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
     //===============================================================================================================================================
@@ -96,6 +96,8 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
     const handlerOpenModalCreate = () => {
         setOpenModalCreate(!openModalCreate);
     };
+
+    const ability = useContext(AbilityContext);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -228,7 +230,7 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can("search", "Docum"),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -247,52 +249,58 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
                                 }}
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    color={
-                                                        rowData.btFinalizada ===
-                                                        true
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                    onClick={() => {
-                                                        setIsEdit(true);
-                                                        setSelectedData(
-                                                            rowData
-                                                        );
-                                                        handlerOpenModalCreate();
-                                                    }}
-                                                />
-                                            ),
-                                            tooltip: "Editar",
+                                        if (ability.can("update", "Docum")) {
+                                            return {
+                                                icon: () => (
+                                                    <EditIcon
+                                                        color={
+                                                            rowData.btFinalizada ===
+                                                            true
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                        fontSize="small"
+                                                        onClick={() => {
+                                                            setIsEdit(true);
+                                                            setSelectedData(
+                                                                rowData
+                                                            );
+                                                            handlerOpenModalCreate();
+                                                        }}
+                                                    />
+                                                ),
+                                                tooltip: "Editar",
 
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
+                                                disabled:
+                                                    rowData.btFinalizada ===
+                                                    true,
+                                            };
+                                        }
                                     },
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.btFinalizada ===
-                                                        true
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            onClick: (_, rowData) => {
-                                                setSelectedData(rowData);
-                                                handlerOpenModalDelete();
-                                            },
-                                            tooltip: "Eliminar",
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
+                                        if (ability.can("delete", "Docum")) {
+                                            return {
+                                                icon: () => (
+                                                    <DeleteIcon
+                                                        color={
+                                                            rowData.btFinalizada ===
+                                                            true
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                onClick: (_, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                tooltip: "Eliminar",
+                                                disabled:
+                                                    rowData.btFinalizada ===
+                                                    true,
+                                            };
+                                        }
                                     },
                                 ]}
                                 components={{
@@ -328,17 +336,23 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
                                                             gap: 1,
                                                         }}
                                                     >
-                                                        <Button
-                                                            onClick={() => {
-                                                                setIsEdit(
-                                                                    false
-                                                                );
-                                                                handlerOpenModalCreate();
-                                                            }}
-                                                            variant="contained"
+                                                        <Can
+                                                            I="create"
+                                                            a="Docum"
                                                         >
-                                                            Agregar documento
-                                                        </Button>
+                                                            <Button
+                                                                onClick={() => {
+                                                                    setIsEdit(
+                                                                        false
+                                                                    );
+                                                                    handlerOpenModalCreate();
+                                                                }}
+                                                                variant="contained"
+                                                            >
+                                                                Agregar
+                                                                documento
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

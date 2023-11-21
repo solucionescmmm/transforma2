@@ -6,7 +6,7 @@
     "license": "ISC",
     "private": true,
     "dependencies": {
-        "@casl/ability": "^5.3.1",
+        "@casl/ability": "^5.4.4",
         "@casl/react": "^2.3.0",
         "@emotion/react": "^11.10.6",
         "@emotion/styled": "^11.10.6",

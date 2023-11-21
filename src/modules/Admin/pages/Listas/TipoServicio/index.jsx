@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 // Hooks
 import useGetTiposServicio from "../../../hooks/useGetTiposServicio";
@@ -42,6 +42,7 @@ import ModalDelete from "./modalDelete";
 import ModalState from "./modalState";
 import ModalPreview from "./modalPreview";
 import useGetAtributos from "../../../hooks/useGetAtributos";
+import { AbilityContext, Can } from "../../../../../common/functions/can";
 
 const Read = () => {
     //===============================================================================================================================================
@@ -119,6 +120,7 @@ const Read = () => {
         setOpenModalPreview(!openModalPreview);
     };
 
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -268,7 +270,7 @@ const Read = () => {
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can("search", "Maestros"),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -281,61 +283,65 @@ const Read = () => {
                                     },
                                     maxBodyHeight: "520px",
                                     actionsColumnIndex: -1,
-                                    paging:true,
-                                    pageSizeOptions:[20,100,200,500], 
+                                    paging: true,
+                                    pageSizeOptions: [20, 100, 200, 500],
                                     pageSize: 20,
                                 }}
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    fontSize="small"
-                                                    color={
-                                                        rowData.intIdEstado ===
-                                                            1 ||
-                                                        rowData.intIdEstado ===
-                                                            3
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                />
-                                            ),
-                                            tooltip: "Editar",
-                                            onClick: (event, rowData) => {
-                                                setSelectedData(rowData);
+                                        if (ability.can("update", "Maestros")) {
+                                            return {
+                                                icon: () => (
+                                                    <EditIcon
+                                                        fontSize="small"
+                                                        color={
+                                                            rowData.intIdEstado ===
+                                                                1 ||
+                                                            rowData.intIdEstado ===
+                                                                3
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                    />
+                                                ),
+                                                tooltip: "Editar",
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
 
-                                                handlerOpenModalEdit();
-                                            },
-                                            disabled:
-                                                rowData.intIdEstado === 1 ||
-                                                rowData.intIdEstado === 3,
-                                        };
+                                                    handlerOpenModalEdit();
+                                                },
+                                                disabled:
+                                                    rowData.intIdEstado === 1 ||
+                                                    rowData.intIdEstado === 3,
+                                            };
+                                        }
                                     },
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.intIdEstado ===
-                                                            1 ||
-                                                        rowData.intIdEstado ===
-                                                            3
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            tooltip: "Eliminar",
-                                            onClick: (event, rowData) => {
-                                                setSelectedData(rowData);
-                                                handlerOpenModalDelete();
-                                            },
-                                            disabled:
-                                                rowData.intIdEstado === 1 ||
-                                                rowData.intIdEstado === 3,
-                                        };
+                                        if (ability.can("delete", "Maestros")) {
+                                            return {
+                                                icon: () => (
+                                                    <DeleteIcon
+                                                        color={
+                                                            rowData.intIdEstado ===
+                                                                1 ||
+                                                            rowData.intIdEstado ===
+                                                                3
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                tooltip: "Eliminar",
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                disabled:
+                                                    rowData.intIdEstado === 1 ||
+                                                    rowData.intIdEstado === 3,
+                                            };
+                                        }
                                     },
                                     (rowData) => {
                                         return {
@@ -348,7 +354,7 @@ const Read = () => {
                                             tooltip: "Previsualizar",
                                             onClick: (event, rowData) => {
                                                 setSelectedData(rowData);
-                        
+
                                                 handlerOpenModalPreview();
                                             },
                                         };
@@ -375,15 +381,20 @@ const Read = () => {
                                                                 "10px 35px",
                                                         }}
                                                     >
-                                                        <Button
-                                                            variant="contained"
-                                                            onClick={() =>
-                                                                handlerOpenModalCreate()
-                                                            }
+                                                        <Can
+                                                            I="create"
+                                                            a="Maestros"
                                                         >
-                                                            Agregar tipo de
-                                                            servicio
-                                                        </Button>
+                                                            <Button
+                                                                variant="contained"
+                                                                onClick={() =>
+                                                                    handlerOpenModalCreate()
+                                                                }
+                                                            >
+                                                                Agregar tipo de
+                                                                servicio
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

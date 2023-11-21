@@ -52,6 +52,7 @@ import InfoEncuestaHumanas from "./infoEncuestaHumanas";
 import { makeStyles } from "@mui/styles";
 import useGetDiagnGeneral from "../../../hooks/useGetDiagnGeneral";
 import { useTheme } from "@emotion/react";
+import { Can } from "../../../../../common/functions/can";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -107,7 +108,7 @@ const PageCUExpress = ({
         objInfoGeneral: {},
         objInfoEmprendimiento: {},
         objInfoPerfilEco: {},
-        objInfoMercado:{},
+        objInfoMercado: {},
         objInfoNormatividad: {},
         objInfoEncuestaHumanas: {},
     });
@@ -461,9 +462,8 @@ const PageCUExpress = ({
                 <DialogContent>
                     <DialogContentText>
                         Se ha detectado que la persona empresaria ya cuenta con
-                        un registro del diagnóstico general.
-                        ¿Deseas editar la información o previsualizar la
-                        información?
+                        un registro del diagnóstico general. ¿Deseas editar la
+                        información o previsualizar la información?
                     </DialogContentText>
                 </DialogContent>
 
@@ -580,7 +580,6 @@ const PageCUExpress = ({
                                     />
                                 </Grid>
 
-
                                 <Grid item xs={12}>
                                     <InfoMercadoYComercial
                                         control={control}
@@ -634,20 +633,24 @@ const PageCUExpress = ({
                                 )}
 
                                 <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "row-reverse",
-                                        }}
-                                    >
-                                        <LoadingButton
-                                            variant="contained"
-                                            type="submit"
-                                            loading={loading}
+                                    <Can I="create" a="Diag">
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row-reverse",
+                                            }}
                                         >
-                                            {isEdit ? "guardar" : "registrar"}
-                                        </LoadingButton>
-                                    </Box>
+                                            <LoadingButton
+                                                variant="contained"
+                                                type="submit"
+                                                loading={loading}
+                                            >
+                                                {isEdit
+                                                    ? "guardar"
+                                                    : "registrar"}
+                                            </LoadingButton>
+                                        </Box>
+                                    </Can>
                                 </Grid>
                             </Grid>
                         </Paper>

@@ -34,6 +34,7 @@ import ModalPDF from "./modalPDF";
 import { ImageViewer } from "../../../../../../common/components/ImageViewer";
 import ChartBar from "./chartBar";
 import ModalFinish from "./modalFinish";
+import { Can } from "../../../../../../common/functions/can";
 
 const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     //===============================================================================================================================================
@@ -693,15 +694,19 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                 </IconButton>
                             </Tooltip>
 
-                            <Tooltip title="Editar diagnóstico">
-                                <IconButton
-                                    color="success"
-                                    disabled={finalizado}
-                                    onClick={() => handlerChangeOpenModalEdit()}
-                                >
-                                    <EditIcon />
-                                </IconButton>
-                            </Tooltip>
+                            <Can I="edit" a="Diag">
+                                <Tooltip title="Editar diagnóstico">
+                                    <IconButton
+                                        color="success"
+                                        disabled={finalizado}
+                                        onClick={() =>
+                                            handlerChangeOpenModalEdit()
+                                        }
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </Can>
 
                             <Tooltip title="Imprimir diagnóstico">
                                 <IconButton

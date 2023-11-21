@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Hooks
 //Componentes de Material UI
@@ -38,6 +38,7 @@ import { MTableToolbar } from "@material-table/core";
 import ModalCreate from "./modalCreate";
 import ModalFinalizar from "./modalFinalizar";
 import useGetDiagnosticosCoco from "../../hooks/useGetDiagnosticosCoco";
+import { AbilityContext, Can } from "../../../../common/functions/can";
 
 const ReadDiagnosticos = ({
     onChangeRoute,
@@ -98,6 +99,8 @@ const ReadDiagnosticos = ({
     const handlerOpenModalCreate = () => {
         setOpenModalCreate(!openModalCreate);
     };
+
+    const ability = useContext(AbilityContext);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -231,7 +234,7 @@ const ReadDiagnosticos = ({
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can("search", "Diag"),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -250,51 +253,57 @@ const ReadDiagnosticos = ({
                                 }}
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    color={
-                                                        rowData.btFinalizada ===
+                                        if (ability.can("update", "Diag")) {
+                                            return {
+                                                icon: () => (
+                                                    <EditIcon
+                                                        color={
+                                                            rowData.btFinalizada ===
                                                             true
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                    onClick={() => {
-                                                        setSelectedData(
-                                                            rowData
-                                                        );
-                                                        handlerOpenModalCreate();
-                                                    }}
-                                                />
-                                            ),
-                                            tooltip: "Editar",
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                        fontSize="small"
+                                                        onClick={() => {
+                                                            setSelectedData(
+                                                                rowData
+                                                            );
+                                                            handlerOpenModalCreate();
+                                                        }}
+                                                    />
+                                                ),
+                                                tooltip: "Editar",
 
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
+                                                disabled:
+                                                    rowData.btFinalizada ===
+                                                    true,
+                                            };
+                                        }
                                     },
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.btFinalizada ===
+                                        if (ability.can("delete", "Diag")) {
+                                            return {
+                                                icon: () => (
+                                                    <DeleteIcon
+                                                        color={
+                                                            rowData.btFinalizada ===
                                                             true
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            onClick: (_, rowData) => {
-                                                setSelectedData(rowData);
-                                                handlerOpenModalDelete();
-                                            },
-                                            tooltip: "Eliminar",
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                onClick: (_, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                tooltip: "Eliminar",
+                                                disabled:
+                                                    rowData.btFinalizada ===
+                                                    true,
+                                            };
+                                        }
                                     },
                                 ]}
                                 components={{
@@ -330,14 +339,20 @@ const ReadDiagnosticos = ({
                                                             gap: 1,
                                                         }}
                                                     >
-                                                        <Button
-                                                            onClick={() =>
-                                                                handlerOpenModalCreate()
-                                                            }
-                                                            variant="contained"
+                                                        <Can
+                                                            I="create"
+                                                            a="Diag"
                                                         >
-                                                            Agregar diagnóstico
-                                                        </Button>
+                                                            <Button
+                                                                onClick={() =>
+                                                                    handlerOpenModalCreate()
+                                                                }
+                                                                variant="contained"
+                                                            >
+                                                                Agregar
+                                                                diagnóstico
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

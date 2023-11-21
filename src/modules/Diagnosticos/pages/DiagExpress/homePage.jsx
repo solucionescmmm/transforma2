@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useContext, useEffect, useRef, useState } from "react";
 
 //Componentes de Mui
 import {
@@ -20,6 +20,7 @@ import Loader from "../../../../common/components/Loader";
 import ErrorPage from "../../../../common/components/Error";
 
 import useGetDiagnExp from "../../hooks/useGetDiagnExp";
+import { AbilityContext } from "../../../../common/functions/can";
 
 const DiagExpress = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     //===============================================================================================================================================
@@ -46,7 +47,7 @@ const DiagExpress = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
     });
 
     const refFntGetDataExp = useRef(getUniqueDataExp);
-
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
@@ -154,6 +155,7 @@ const DiagExpress = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                 <Grid item xs={12} md={2}>
                     <Card>
                         <CardActionArea
+                            disabled={!ability.can("create", "Diag")}
                             onClick={() =>
                                 onChangeRoute("DiagnExpressCreate", {
                                     intIdIdea,
