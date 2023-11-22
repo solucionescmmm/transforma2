@@ -929,7 +929,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         intIdIdea={route.params.intIdIdea}
                     />
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button
                             onClick={() => onChangeRoute("Inicio")}
                             startIcon={<ChevronLeftIcon />}
@@ -938,7 +938,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         >
                             regresar
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </TabPanel>
         );
@@ -1039,7 +1039,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button
                             onClick={() => onChangeRoute("Inicio")}
                             startIcon={<ChevronLeftIcon />}
@@ -1048,7 +1048,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         >
                             regresar
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </TabPanel>
         );
@@ -1153,7 +1153,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         <Comentarios onChangeRoute={onChangeRoute} />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button
                             onClick={() => onChangeRoute("Inicio")}
                             startIcon={<ChevronLeftIcon />}
@@ -1162,7 +1162,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         >
                             regresar
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </TabPanel>
         );
@@ -1278,7 +1278,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button
                             onClick={() => onChangeRoute("Inicio")}
                             startIcon={<ChevronLeftIcon />}
@@ -1287,7 +1287,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         >
                             regresar
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </TabPanel>
         );
@@ -1331,7 +1331,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button
                             onClick={() => onChangeRoute("Inicio")}
                             startIcon={<ChevronLeftIcon />}
@@ -1340,7 +1340,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         >
                             regresar
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </TabPanel>
         );

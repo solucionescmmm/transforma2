@@ -279,13 +279,7 @@ const Main = ({ children }) => {
                                     </Avatar>
                                 </IconButton>
 
-                                <IconButton
-                                    color="error"
-                                    title="Notificaciones"
-                                    onClick={(e) => toggleDrawerNotificacion(e, true)}
-                                >
-                                    <CampaignIcon />
-                                </IconButton>
+
 
                                 <Menu
                                     anchorEl={anchorEl}
@@ -376,10 +370,10 @@ const Main = ({ children }) => {
 
                     <MenuDrawer open={openMenu} toggleDrawer={toggleDrawer} />
 
-                    <NotificacionsDrawer
+                    {/* <NotificacionsDrawer
                         open={openMenuNotification}
                         toggleDrawer={toggleDrawerNotificacion}
-                    />
+                    /> */}
                 </ThemeProvider>
             </StyledEngineProvider>
 

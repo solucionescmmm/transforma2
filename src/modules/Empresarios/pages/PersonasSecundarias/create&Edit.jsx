@@ -1009,7 +1009,6 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             value={value}
                                             disabled={loading}
                                             select
-                                            required
                                             onChange={(e) => onChange(e)}
                                             fullWidth
                                             variant="standard"
