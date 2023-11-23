@@ -65,6 +65,11 @@ routes.get("/transforma/api/eventos/getTiposEventos", async (req, res) => {
     await controllerEventos.getTiposEventos(req, res)
 })
 
+routes.get("/transforma/api/eventos/getProximosEventos", async (req, res) => {
+    let controllerEventos = new classController()
+    await controllerEventos.getProximosEventos(req, res)
+})
+
 routes.delete("/transforma/api/eventos/deleteEventos", async (req, res) => {
     let controllerEventos = new classController()
     await controllerEventos.deleteEventos(req, res)

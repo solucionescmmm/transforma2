@@ -11,6 +11,7 @@ const getSesionesEventos = require("../../domain/getSesionesEventos.service");
 const getAsistentesEventos = require("../../domain/getAsistentesEventos.service");
 const getAsistentesSesionesEventos = require("../../domain/getAsistentesSesionesEventos.service");
 const getTiposEventos = require("../../domain/getTiposEventos.service");
+const getProximosEventos = require("../../domain/getProximosEventos.service");
 const deleteEventos = require("../../../Eventos/domain/deleteEventos.service")
 const deleteSesionesEventos = require("../../../Eventos/domain/deleteSesionesEventos.service")
 const deleteAsistentesEventos = require("../../../Eventos/domain/deleteAsistentesEventos.service")
@@ -276,6 +277,27 @@ class ctrlEventos {
             let { strDataUser } = req;
 
             let query = await getTiposEventos(objParams, strDataUser);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async getProximosEventos(req, res) {
+        try {
+            let objParams = req.query;
+            let { strDataUser } = req;
+
+            let query = await getProximosEventos(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);

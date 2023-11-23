@@ -92,6 +92,12 @@ class interfaceDAOEventos {
         return result
     }
 
+    async getProximosEventos(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getProximosEventos(data)
+        return result
+    }
+
     async deleteEventos(data) {
         const dao = new classDaoSql()
         let result = await dao.deleteEventos(data)
