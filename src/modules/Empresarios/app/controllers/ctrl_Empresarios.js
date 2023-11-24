@@ -9,8 +9,9 @@ const classDaleteEmpresario = require("../../domian/deleteEmpresario.service")
 
 //servicios
 const getIdeaEmpresario = require("../../domian/getIdeaEmpresario.service");
-const getLastEmpresarios = require("../../domian/getLastEmpresarios.service")
+const getLastEmpresarios = require("../../domian/getLastEmpresarios.service");
 const getEmpresario = require("../../domian/getEmpresario.service");
+const getEmpresarioByIdea = require("../../domian/getEmpresarioByIdea.service")
 const uploadFile = require("../functions/uploadFile");
 
 class ctrlEmpresarios {
@@ -245,6 +246,27 @@ class ctrlEmpresarios {
             let { strDataUser } = req;
 
             let query = await getEmpresario(objParams, strDataUser);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async getEmpresarioByIdea(req, res) {
+        try {
+            let objParams = req.query;
+            let { strDataUser } = req;
+
+            let query = await getEmpresarioByIdea(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);

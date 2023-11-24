@@ -968,12 +968,86 @@ class daoEmpresarios {
                             objInfoIdeaEmpresario;
                     }
                 }
-                if (arrNewData[i].objInfoIdea) {
-                    let { objInfoIdea } = arrNewData[i];
+            }
 
-                    if (validator.isJSON(objInfoIdea)) {
-                        objInfoIdea = JSON.parse(objInfoIdea);
-                        arrNewData[i].objInfoIdea = objInfoIdea;
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getEmpresarioByIdea(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            
+            SELECT
+            IdeaEmpresario.intIdIdea,
+            IdeaEmpresario.intIdEmpresario,
+            IdeaEmpresario.intIdTipoEmpresario,
+            IdeaEmpresario.intIdEstado,
+            Tipo.strNombre as strTipoEmpresario,
+            (
+                SELECT 
+                Empresario.intId,
+                Empresario.strNombres,
+                Empresario.strApellidos,
+                Empresario.strTipoDocto,
+                Empresario.strNroDocto,
+                Empresario.strLugarExpedicionDocto,
+                Empresario.dtFechaExpedicionDocto,
+                Empresario.dtFechaNacimiento,
+                Empresario.strCelular1,
+                Empresario.strCorreoElectronico1,
+                Empresario.intIdSede
+
+                FROM tbl_Empresario Empresario
+
+                WHERE  IdeaEmpresario.intIdEmpresario = Empresario.intId
+                FOR JSON PATH
+            ) as objEmpresario
+
+            FROM tbl_Idea_Empresario IdeaEmpresario
+
+            INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+            INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
+            
+            WHERE (IdeaEmpresario.intIdIdea = ${data.intIdIdea})
+            AND   (Estados.strNombre = 'Activo')`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].objEmpresario) {
+                    let { objEmpresario } = arrNewData[i];
+
+                    if (validator.isJSON(objEmpresario)) {
+                        objEmpresario = JSON.parse(
+                            objEmpresario
+                        );
+                        arrNewData[i].objEmpresario =
+                        objEmpresario;
                     }
                 }
             }

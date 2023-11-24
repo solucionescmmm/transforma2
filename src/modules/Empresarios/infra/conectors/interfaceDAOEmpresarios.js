@@ -121,6 +121,12 @@ class interfaceDAOEmpresarios {
         return result;
     }
 
+    async getEmpresarioByIdea(data) {
+        const dao = new classDaoSql();
+        let result = await dao.getEmpresarioByIdea(data);
+        return result;
+    }
+
     async getNroDocumentoEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.getNroDocumentoEmpresario(data);
