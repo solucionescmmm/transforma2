@@ -38,6 +38,7 @@ class setEmpresarioPrincipal {
     }
 
     async main() {
+        //console.log(this.#objData)
         await this.#getDataPersona();
         await this.#getIdEstadoActivo();
         await this.#getIdTipoEmpresario();
@@ -134,9 +135,7 @@ class setEmpresarioPrincipal {
             throw new Error(query.msg);
         }
 
-        this.#objDataPersona = queryGetDataPersona.data[0];
-
-        console.log(this.#objDataPersona)
+        this.#objDataPersona = queryGetDataPersona.data ? queryGetDataPersona.data[0] : null;
     }
 
     async #updateInactivarTercero() {
@@ -226,7 +225,7 @@ class setEmpresarioPrincipal {
         let newData
         if (this.#objData?.objInfoEmpresa?.strEstadoNegocio === "Idea de negocio") {
             newData = {
-                strNombre: `Idea de ${this.#objData.objEmpresario.strNombres?.trim()} ${this.#objData.objEmpresario.strApellidos?.trim()}`,
+                strNombre: `Idea de ${this.#objData.objEmpresario?.strNombres?.trim()} ${this.#objData.objEmpresario.strApellidos?.trim()}`,
                 intIdEstado: this.#intIdEstadoActivo,
                 strUsuarioCreacion: this.#objUser.strEmail,
             };
