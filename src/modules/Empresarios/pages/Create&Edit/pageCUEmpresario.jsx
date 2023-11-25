@@ -180,7 +180,7 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                 objIdeaEmpresario: data.objIdeaEmpresario,
                                 objEmpresario: {
                                     intId: data.objInfoEmpresarioPr.intId,
-                                    strSede: data.objInfoPrincipal.strSede,
+                                    intIdSede: data.objInfoPrincipal.intIdSede,
                                     strModalidadIngreso:
                                         data.objInfoPrincipal
                                             .strModalidadIngreso,
@@ -441,6 +441,7 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                 objIdeaEmpresario: data.objIdeaEmpresario,
                                 objInfoPrincipal: {
                                     strSede: objEmprPrincipal.strSede || "",
+                                    intIdSede: objEmprPrincipal.intIdSede || "",
                                     strModalidadIngreso:
                                         objEmprPrincipal.strModalidadIngreso ||
                                         "",

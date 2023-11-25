@@ -55,6 +55,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
         if (values) {
             setData({
                 strSede: values.strSede || "",
+                intIdSede: values.intIdSede || "",
                 strModalidadIngreso: values.strModalidadIngreso || "",
                 dtFechaVinculacion: values.dtFechaVinculacion || null,
                 strEstadoVinculacion: values.strEstadoVinculacion || "",
@@ -128,8 +129,8 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
-                            defaultValue={data.strSede}
-                            name="objInfoPrincipal.strSede"
+                            defaultValue={data.intIdSede}
+                            name="objInfoPrincipal.intIdSede"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectSedes
                                     label="Sede"
@@ -139,12 +140,12 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPrincipal?.strSede
+                                        errors?.objInfoPrincipal?.intIdSede
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal?.strSede
+                                        errors?.objInfoPrincipal?.intIdSede
                                             ?.message || "Selecciona la sede"
                                     }
                                 />
