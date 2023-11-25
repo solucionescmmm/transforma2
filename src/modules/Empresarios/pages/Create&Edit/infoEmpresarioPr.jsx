@@ -732,7 +732,6 @@ const InfoEmpresarioPr = ({
                                     value={value}
                                     disabled={disabled}
                                     select
-                                    required
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     variant="standard"
@@ -767,10 +766,6 @@ const InfoEmpresarioPr = ({
                                 </TextField>
                             )}
                             control={control}
-                            rules={{
-                                require:
-                                    "Por favor, selecciona el estrato socioeconómico de la persona",
-                            }}
                         />
                     </Grid>
 
