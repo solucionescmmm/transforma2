@@ -181,7 +181,7 @@ const ModalDireccionResidencia = ({
                 maxWidth="md"
                 fullScreen={bitMobile}
             >
-                <DialogTitle>Dirección de residencia</DialogTitle>
+                <DialogTitle>{label}</DialogTitle>
 
                 <DialogContent>
                     <Grid container direction="row" spacing={2}>
@@ -385,7 +385,6 @@ const ModalDireccionResidencia = ({
                                 render={({ field: { name, value, onChange } }) => (
                                     <TextField
                                         label="Letra de la vía secundaria"
-                                        required
                                         name={name}
                                         value={value}
                                         onChange={(e) => {
@@ -495,7 +494,6 @@ const ModalDireccionResidencia = ({
                                 render={({ field: { name, value, onChange } }) => (
                                     <TextField
                                         label="Complemento de la dirección (unidad/bloque/apto/manzana)"
-                                        required
                                         name={name}
                                         value={value}
                                         onChange={(e) => {

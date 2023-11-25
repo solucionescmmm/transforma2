@@ -873,7 +873,7 @@ const InfoEmpresarioPr = ({
                             name="objInfoEmpresarioPr.strDireccionResidencia"
                             render={({ field: { name, value, onChange } }) => (
                                 <ModalDireccionResidencia
-                                    label="Dirección de residencia"
+                                    label="Dirección de la residencia"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
