@@ -316,7 +316,7 @@ class daoEmpresarios {
                 strNivelEducativo        = COALESCE(${data.strNivelEducativo}, strNivelEducativo),
                 strTitulos               = COALESCE(${data.strTitulos}, strTitulos),
                 strCondicionDiscapacidad = COALESCE(${data.strCondicionDiscapacidad}, strCondicionDiscapacidad),
-                intIdSede                = COALESCE(${data.strSede}, intIdSede),
+                intIdSede                = COALESCE(${data.intIdSede}, intIdSede),
                 strModalidadIngreso      = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
                 dtFechaVinculacion       = COALESCE(${data.dtFechaVinculacion}, dtFechaVinculacion),
                 strEstadoVinculacion     = COALESCE(${data.strEstadoVinculacion}, strEstadoVinculacion),

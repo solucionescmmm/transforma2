@@ -720,6 +720,33 @@ class daoEventos {
         }
     }
 
+    async getProximosEventos() {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn
+                .request()
+                .execute("sp_getProximosEventos");
+            
+            let result = {
+                error: false,
+                data: response.recordsets[0]
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getListas de la clase daoListas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async deleteEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
