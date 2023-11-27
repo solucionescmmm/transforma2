@@ -31,7 +31,7 @@ const login = async (token) => {
 
         const queryGetRolesUsuario = await serviceGetRolesUsuario({
             strApp:"Transforma",
-            strEmail:"auxiliarcontable@demismanos.org"
+            strEmail:"socio.empresarial11@demismanos.org"
         })
 
         if (queryGetRolesUsuario.error) {
