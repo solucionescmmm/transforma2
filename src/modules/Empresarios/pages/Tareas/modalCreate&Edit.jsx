@@ -222,8 +222,18 @@ const ModalCEdit = ({
     useEffect(() => {
         if (isEdit) {
             reset(data);
+        } else {
+            reset({
+                intId,
+                strTarea: "",
+                intIdIdea,
+                strObservaciones: "",
+                strResponsable: [],
+                dtFechaFinTentativa: null,
+                strUsuarioCreacion: strInfoUser.strUsuario,
+            });
         }
-    }, [data, reset, isEdit]);
+    }, [data, reset, isEdit, intId, intIdIdea, strInfoUser.strUsuario]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -242,10 +252,22 @@ const ModalCEdit = ({
             refresh({ intIdIdea });
             handleOpenDialog();
 
+            if (!isEdit) {
+                reset({
+                    intId,
+                    strTarea: "",
+                    intIdIdea,
+                    strObservaciones: "",
+                    strResponsable: [],
+                    dtFechaFinTentativa: null,
+                    strUsuarioCreacion: strInfoUser.strUsuario,
+                });
+            }
+
             setSucces(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [success]);
+    }, [success, isEdit, isEdit, intId, intIdIdea, strInfoUser.strUsuario]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================

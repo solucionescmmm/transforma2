@@ -36,11 +36,10 @@ import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/
 import { makeStyles } from "@mui/styles";
 
 //Iconos de Material UI
-import { Person as PersonIcon, Campaign as CampaignIcon } from "@mui/icons-material";
+import { Person as PersonIcon } from "@mui/icons-material";
 
 //Componentes
 import MenuDrawer from "./Menu";
-import NotificacionsDrawer from "./Notificacions";
 
 const themeOptions = createTheme(
     adaptV4Theme({
@@ -144,7 +143,7 @@ const Main = ({ children }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [openMenu, setOpenMenu] = useState(false);
-    const [openMenuNotification, setOpenMenuNotificacion] = useState(false);
+    // const [openMenuNotification, setOpenMenuNotificacion] = useState(false);
     const [openMenuProfile, setOpenMenuProfile] = useState(false);
     const [anchorEl, setAnchorEl] = useState();
 
@@ -167,13 +166,13 @@ const Main = ({ children }) => {
         setOpenMenu(flag);
     }, []);
 
-    const toggleDrawerNotificacion = useCallback((e, flag) => {
-        if (e.type === "keydown" && (e.key === "Tab" || e.key === "Shift")) {
-            return;
-        }
+    // const toggleDrawerNotificacion = useCallback((e, flag) => {
+    //     if (e.type === "keydown" && (e.key === "Tab" || e.key === "Shift")) {
+    //         return;
+    //     }
 
-        setOpenMenuNotificacion(flag);
-    }, []);
+    //     setOpenMenuNotificacion(flag);
+    // }, []);
 
     const toggleProfile = useCallback(() => {
         setOpenMenuProfile(!openMenuProfile);

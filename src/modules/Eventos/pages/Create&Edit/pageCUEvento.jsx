@@ -55,6 +55,7 @@ import { useParams } from "react-router-dom";
 import ReadSesiones from "./Sesiones";
 import { parseISO } from "date-fns";
 import ReadMatriculas from "./Matriculas";
+import { Can } from "../../../../common/functions/can";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -764,22 +765,24 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                 </Grid>
                             )}
 
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row-reverse",
-                                    }}
-                                >
-                                    <LoadingButton
-                                        variant="contained"
-                                        type="submit"
-                                        loading={loading}
+                            <Can I="create" a="Eventos">
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                        }}
                                     >
-                                        {isEdit ? "guardar" : "registrar"}
-                                    </LoadingButton>
-                                </Box>
-                            </Grid>
+                                        <LoadingButton
+                                            variant="contained"
+                                            type="submit"
+                                            loading={loading}
+                                        >
+                                            {isEdit ? "guardar" : "registrar"}
+                                        </LoadingButton>
+                                    </Box>
+                                </Grid>
+                            </Can>
                         </Grid>
                     </Paper>
                 </Container>

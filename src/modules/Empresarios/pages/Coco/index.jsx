@@ -23,13 +23,13 @@ import {
 } from "@mui/material";
 
 //Iconos
-import { Home as HomeIcon, EmailOutlined as EmailIcon, PhoneAndroidOutlined as PhoneIcon, PlaceOutlined as PlaceIcon } from "@mui/icons-material";
-import TeamIcon from "../../../../static/img/icons/Personas.png";
-import DocumentIcon from "../../../../static/img/icons/Diagnosticos.png";
-import RouteIcon from "../../../../static/img/icons/Rutas.png";
-import CommentsIcon from "../../../../static/img/icons/Comentarios.png";
-import NotesIcon from "../../../../static/img/icons/tareas.png";
-import FoldersIcon from "../../../../static/img/icons/Documentos.png";
+import {
+    Home as HomeIcon,
+    EmailOutlined as EmailIcon,
+    PhoneAndroidOutlined as PhoneIcon,
+    PlaceOutlined as PlaceIcon,
+} from "@mui/icons-material";
+
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -40,11 +40,6 @@ import ErrorPage from "../../../../common/components/Error";
 import Routes from "../../../../routes/coco.routes";
 import CardPersonas from "./cardPersonas";
 import CardGrafica from "./cardGrafica";
-import CardTareas from "./cardTareas";
-import CardComentarios from "./cardComentarios";
-import CardDocumentos from "./cardDocumentos";
-import CardRutas from "./cardRutas";
-import CardDiagnosticos from "./cardDiagnosticos";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import CardAcom from "./cardAcomp";
 import ReadTareas from "../Tareas";
@@ -71,8 +66,8 @@ const Coco = () => {
     });
     const { data: dataHistorico } = useGetHistorico({
         autoload: true,
-        intIdIdea:intId,
-    })
+        intIdIdea: intId,
+    });
     const location = useHistory();
 
     //===============================================================================================================================================
@@ -128,6 +123,10 @@ const Coco = () => {
             return "Documentos";
         }
 
+        if (location.startsWith("Indicadores")) {
+            return "Indicadores";
+        }
+
         return "Inicio";
     };
     //===============================================================================================================================================
@@ -140,17 +139,17 @@ const Coco = () => {
             setObjInteresado(dataPersonas[0]);
             setLoading(false);
         }
-
     }, [dataPersonas]);
 
     useEffect(() => {
         setLoading(true);
 
         if (dataHistorico) {
-            setStrEtapa(dataHistorico?.arrEtapaDllo?.at(-1)?.strClasificacionFecha)
+            setStrEtapa(
+                dataHistorico?.arrEtapaDllo?.at(-1)?.strClasificacionFecha
+            );
             setLoading(false);
         }
-
     }, [dataHistorico]);
 
     //===============================================================================================================================================
@@ -418,7 +417,6 @@ const Coco = () => {
                                                                 sx={{
                                                                     textAlign:
                                                                         "center",
-                                                                    
                                                                 }}
                                                             >
                                                                 <b>
@@ -532,7 +530,8 @@ const Coco = () => {
                                                                 (x) =>
                                                                     x.label ===
                                                                     "Instagram"
-                                                            )?.value || "No registro"}
+                                                            )?.value ||
+                                                                "No registro"}
                                                         </Typography>
 
                                                         <Typography
@@ -552,7 +551,8 @@ const Coco = () => {
                                                                 (x) =>
                                                                     x.label ===
                                                                     "Facebook"
-                                                            )?.value || "No registro"}
+                                                            )?.value ||
+                                                                "No registro"}
                                                         </Typography>
                                                     </Box>
                                                 </Grid>
@@ -655,68 +655,99 @@ const Coco = () => {
                                                         flexDirection: "column",
                                                     }}
                                                 >
-                                                    <Box sx={{
-                                                        display:"flex",
-                                                        flexDirection:"row"
-                                                    }}>
-                                                        <EmailIcon className={classes.icon}/>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "row",
+                                                        }}
+                                                    >
+                                                        <EmailIcon
+                                                            className={
+                                                                classes.icon
+                                                            }
+                                                        />
                                                         <Typography
                                                             sx={{
-                                                                fontSize: "12px", marginTop:"4px"
+                                                                fontSize:
+                                                                    "12px",
+                                                                marginTop:
+                                                                    "4px",
                                                             }}
-                                                            >
-                                                                {objInteresado?.objEmpresario
-                                                                    ?.filter(
-                                                                        (p) =>
-                                                                            p.strTipoEmpresario ===
-                                                                            "Principal"
-                                                                    )
-                                                                    ?.at(0)
-                                                                    ?.strCorreoElectronico1 ||
-                                                                    "No registro"}
+                                                        >
+                                                            {objInteresado?.objEmpresario
+                                                                ?.filter(
+                                                                    (p) =>
+                                                                        p.strTipoEmpresario ===
+                                                                        "Principal"
+                                                                )
+                                                                ?.at(0)
+                                                                ?.strCorreoElectronico1 ||
+                                                                "No registro"}
                                                         </Typography>
                                                     </Box>
 
-                                                    <Box sx={{
-                                                        display:"flex",
-                                                        flexDirection:"row"
-                                                    }}>
-                                                        <PhoneIcon className={classes.icon}/>
-                                                        <Typography
+                                                    <Box
                                                         sx={{
-                                                            fontSize: "12px", marginTop:"4px"
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "row",
                                                         }}
+                                                    >
+                                                        <PhoneIcon
+                                                            className={
+                                                                classes.icon
+                                                            }
+                                                        />
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize:
+                                                                    "12px",
+                                                                marginTop:
+                                                                    "4px",
+                                                            }}
                                                         >
-                                                        {objInteresado?.objEmpresario
-                                                            ?.filter(
-                                                                (p) =>
-                                                                    p.strTipoEmpresario ===
-                                                                    "Principal"
-                                                            )
-                                                            ?.at(0)
-                                                            ?.strCelular1 || "No registro"}
+                                                            {objInteresado?.objEmpresario
+                                                                ?.filter(
+                                                                    (p) =>
+                                                                        p.strTipoEmpresario ===
+                                                                        "Principal"
+                                                                )
+                                                                ?.at(0)
+                                                                ?.strCelular1 ||
+                                                                "No registro"}
                                                         </Typography>
                                                     </Box>
 
-                                                    <Box sx={{
-                                                        display:"flex",
-                                                        flexDirection:"row"
-                                                    }}>
-                                                        <PlaceIcon className={classes.icon}/>
-                                                        <Typography
+                                                    <Box
                                                         sx={{
-                                                            fontSize: "12px", marginTop:"4px"
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "row",
                                                         }}
+                                                    >
+                                                        <PlaceIcon
+                                                            className={
+                                                                classes.icon
+                                                            }
+                                                        />
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize:
+                                                                    "12px",
+                                                                marginTop:
+                                                                    "4px",
+                                                            }}
                                                         >
-                                                        {objInteresado?.objEmpresario
-                                                            ?.filter(
-                                                                (p) =>
-                                                                    p.strTipoEmpresario ===
-                                                                    "Principal"
-                                                            )
-                                                            ?.at(0)
-                                                            ?.strDireccionResidencia ||
-                                                            "No registro"}
+                                                            {objInteresado?.objEmpresario
+                                                                ?.filter(
+                                                                    (p) =>
+                                                                        p.strTipoEmpresario ===
+                                                                        "Principal"
+                                                                )
+                                                                ?.at(0)
+                                                                ?.strDireccionResidencia ||
+                                                                "No registro"}
                                                         </Typography>
                                                     </Box>
 
@@ -762,7 +793,8 @@ const Coco = () => {
                                                                     "Principal"
                                                             )
                                                             ?.at(0)
-                                                            ?.strNroDocto || "No registro"}
+                                                            ?.strNroDocto ||
+                                                            "No registro"}
                                                     </Typography>
 
                                                     <Typography
@@ -829,7 +861,9 @@ const Coco = () => {
                                                     >
                                                         <CardPersonas
                                                             intIdIdea={intId}
-                                                            arrPerson={objInteresado?.objEmpresario}
+                                                            arrPerson={
+                                                                objInteresado?.objEmpresario
+                                                            }
                                                         />
                                                     </Box>
                                                 </Box>
@@ -872,6 +906,214 @@ const Coco = () => {
                                         inModal
                                         intIdIdea={route.params.intIdIdea}
                                     />
+                                </Grid>
+                            </Grid>
+                        </TabPanel>
+
+                        <TabPanel value="Indicadores" sx={{ width: "100%" }}>
+                            <Grid container>
+                                <Grid item xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent sx={{ padding: "0px" }}>
+                                            <Grid container direction="row">
+                                                <Grid
+                                                    item
+                                                    xs={12}
+                                                    sx={{
+                                                        color: "#00BAB3",
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        variant="subtitle2"
+                                                        sx={{
+                                                            padding: "1px",
+                                                            display: "flex",
+                                                            alignItems:
+                                                                "center",
+                                                        }}
+                                                    >
+                                                        <p
+                                                            style={{
+                                                                flexGrow: 1,
+                                                            }}
+                                                        >
+                                                            <b
+                                                                style={{
+                                                                    fontSize: 16,
+                                                                }}
+                                                            >
+                                                                Ventas
+                                                            </b>
+                                                        </p>
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid item xs={12}>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "columns",
+                                                            alignContent:
+                                                                "center",
+                                                            justifyContent:
+                                                                "center",
+                                                        }}
+                                                    >
+                                                        <Box
+                                                            sx={{
+                                                                width: 290,
+                                                                height: 118,
+                                                            }}
+                                                        >
+                                                            <CardGrafica
+                                                                intIdIdea={
+                                                                    intId
+                                                                }
+                                                                type="Ventas"
+                                                            />
+                                                        </Box>
+                                                    </Box>
+                                                </Grid>
+                                            </Grid>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+
+                                <Grid item xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent sx={{ padding: "0px" }}>
+                                            <Grid container direction="row">
+                                                <Grid
+                                                    item
+                                                    xs={12}
+                                                    sx={{
+                                                        color: "#00BAB3",
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        variant="subtitle2"
+                                                        sx={{
+                                                            padding: "1px",
+                                                            display: "flex",
+                                                            alignItems:
+                                                                "center",
+                                                        }}
+                                                    >
+                                                        <p
+                                                            style={{
+                                                                flexGrow: 1,
+                                                            }}
+                                                        >
+                                                            <b
+                                                                style={{
+                                                                    fontSize: 16,
+                                                                }}
+                                                            >
+                                                                Empleados
+                                                            </b>
+                                                        </p>
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid item xs={12}>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "columns",
+                                                            alignContent:
+                                                                "center",
+                                                            justifyContent:
+                                                                "center",
+                                                        }}
+                                                    >
+                                                        <Box
+                                                            sx={{
+                                                                width: 290,
+                                                                height: 118,
+                                                            }}
+                                                        >
+                                                            <CardGrafica
+                                                                intIdIdea={
+                                                                    intId
+                                                                }
+                                                                type="Empleados"
+                                                            />
+                                                        </Box>
+                                                    </Box>
+                                                </Grid>
+                                            </Grid>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+
+                                <Grid item xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent sx={{ padding: "0px" }}>
+                                            <Grid container direction="row">
+                                                <Grid
+                                                    item
+                                                    xs={12}
+                                                    sx={{
+                                                        color: "#00BAB3",
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        variant="subtitle2"
+                                                        sx={{
+                                                            padding: "1px",
+                                                            display: "flex",
+                                                            alignItems:
+                                                                "center",
+                                                        }}
+                                                    >
+                                                        <p
+                                                            style={{
+                                                                flexGrow: 1,
+                                                            }}
+                                                        >
+                                                            <b
+                                                                style={{
+                                                                    fontSize: 16,
+                                                                }}
+                                                            >
+                                                                Etapa desarrollo
+                                                            </b>
+                                                        </p>
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid item xs={12}>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "columns",
+                                                            alignContent:
+                                                                "center",
+                                                            justifyContent:
+                                                                "center",
+                                                        }}
+                                                    >
+                                                        <Box
+                                                            sx={{
+                                                                width: 290,
+                                                                height: 118,
+                                                            }}
+                                                        >
+                                                            <CardGrafica
+                                                                intIdIdea={
+                                                                    intId
+                                                                }
+                                                                type="Desarrollo"
+                                                            />
+                                                        </Box>
+                                                    </Box>
+                                                </Grid>
+                                            </Grid>
+                                        </CardContent>
+                                    </Card>
                                 </Grid>
                             </Grid>
                         </TabPanel>

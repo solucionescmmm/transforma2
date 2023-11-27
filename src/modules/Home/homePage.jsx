@@ -1,16 +1,35 @@
 import React, { useContext } from "react";
 
 //Componentes de Material UI
-import { Grid, Typography, Paper, Breadcrumbs } from "@mui/material";
+import {
+    Grid,
+    Typography,
+    Paper,
+    Breadcrumbs,
+    Card,
+    CardContent,
+    Avatar,
+    Box,
+    Button,
+    CardActionArea,
+} from "@mui/material";
 
 //Iconos
-import { Home as HomeIcon } from "@mui/icons-material";
+import {
+    Home as HomeIcon,
+    CalendarToday as CalendarTodayIcon,
+} from "@mui/icons-material";
 
 //Estilos de Material UI
 import { makeStyles } from "@mui/styles";
 
 //Context
 import { AuthContext } from "../../common/middlewares/Auth";
+import useGetLastEmpresarios from "../../common/hooks/useGetEmpLogin";
+import { format, parseISO } from "date-fns";
+import { useHistory } from "react-router-dom";
+
+import useGetLastEventos from "../../common/hooks/useGetEventLogin";
 
 const homeStyles = makeStyles((theme) => ({
     paper: {
@@ -48,14 +67,17 @@ const homeStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
     const { strInfoUser } = useContext(AuthContext);
+    const history = useHistory();
 
+    const { data: dataLastEmp } = useGetLastEmpresarios({ autoLoad: true });
+    const { data: dataLastEvents } = useGetLastEventos({ autoLoad: true });
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = homeStyles();
 
     return (
-        <Grid container direction="row" spacing={2} alignItems="center">
+        <Grid container direction="row" spacing={4} alignItems="center">
             <Grid item xs={12}>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Typography color="textPrimary" className={classes.link}>
@@ -67,26 +89,377 @@ const HomePage = () => {
 
             <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                    <Typography style={{ fontWeight: "bold" }} variant="subtitle1">
+                    <Typography
+                        style={{ fontWeight: "bold" }}
+                        variant="subtitle1"
+                    >
                         {`Bienvenido ${strInfoUser?.strNombre} ${strInfoUser?.strApellidos}`}
+                    </Typography>
+
+                    <Typography>
+                        ¡Te damos la bienvenida, eres parte de la
+                        Transformación!
                     </Typography>
                 </Paper>
             </Grid>
 
             <Grid item xs={12}>
                 <Typography>
-                    En la parte derecha encontraras el menu con todas las opciones
-                    disponibles, si necesitas ayuda o soporte comunícate con el area
-                    encargada para mas información
+                    En la parte derecha encontraras el menu con todas las
+                    opciones disponibles, si necesitas ayuda o soporte
+                    comunícate con el area encargada para mas información
                 </Typography>
             </Grid>
 
-            <Grid item xs={12}>
-                <Typography style={{ textTransform: "uppercase", fontWeight: "bold" }}>
-                    eventos
-                </Typography>
+            <Grid item xs={12} display="table">
+                <Grid
+                    item
+                    xs={12}
+                    md={8}
+                    display="table-cell"
+                    style={{
+                        backgroundColor: "#f3f2f1",
+                        padding: "15px",
+                        height: "100%",
+                    }}
+                >
+                    <Grid container direction="row" spacing={2}>
+                        <Grid item xs={12}>
+                            <Typography
+                                sx={{ color: "#3b7678", fontWeight: "bold" }}
+                            >
+                                Conoce las nuevas personas emprendedoras
+                            </Typography>
+                        </Grid>
 
-                <hr />
+                        {dataLastEmp?.map((e, i) => (
+                            <Grid item xs={6} md={4} sx={{ flex: "1" }} key={i}>
+                                <Card sx={{ height: "100%" }}>
+                                    <CardActionArea
+                                        sx={{ height: "100%" }}
+                                        onClick={() =>
+                                            history.push(
+                                                `/transforma/asesor/empresario/read/${e.intId}`
+                                            )
+                                        }
+                                    >
+                                        <CardContent>
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    width: "100%",
+                                                }}
+                                            >
+                                                <Avatar
+                                                    sx={{
+                                                        width: 70,
+                                                        height: 70,
+                                                    }}
+                                                    src={
+                                                        e.objEmpresario?.find(
+                                                            (e) =>
+                                                                e.strTipoEmpresario ===
+                                                                "Principal"
+                                                        )?.strUrlFileFoto
+                                                    }
+                                                >
+                                                    {e.objEmpresario
+                                                        ?.find(
+                                                            (e) =>
+                                                                e.strTipoEmpresario ===
+                                                                "Principal"
+                                                        )
+                                                        ?.strNombres.charAt(0)}
+                                                </Avatar>
+                                            </Box>
+
+                                            <Box sx={{ width: "100%" }}>
+                                                <Typography
+                                                    align="center"
+                                                    sx={{
+                                                        fontWeight: "bold",
+                                                        fontSize: "14px",
+                                                    }}
+                                                >
+                                                    {e.strNombre}
+                                                </Typography>
+                                            </Box>
+
+                                            <Box sx={{ width: "100%" }}>
+                                                <Typography
+                                                    align="center"
+                                                    sx={{
+                                                        fontSize: "13px",
+                                                    }}
+                                                >
+                                                    {e.objEmpresario?.find(
+                                                        (e) =>
+                                                            e.strTipoEmpresario ===
+                                                            "Principal"
+                                                    )?.strNombres +
+                                                        " " +
+                                                        e.objEmpresario?.find(
+                                                            (e) =>
+                                                                e.strTipoEmpresario ===
+                                                                "Principal"
+                                                        )?.strApellidos}
+                                                </Typography>
+                                            </Box>
+
+                                            <Box
+                                                sx={{
+                                                    width: "100%",
+                                                    marginTop: "15px",
+                                                }}
+                                            >
+                                                <Typography
+                                                    sx={{
+                                                        fontSize: "13px",
+                                                    }}
+                                                >
+                                                    <span
+                                                        style={{
+                                                            color: "#38c9c4",
+                                                            fontWeight: "bold",
+                                                        }}
+                                                    >
+                                                        Sede:{" "}
+                                                        {
+                                                            e.objInfoPrincipal
+                                                                ?.strSede
+                                                        }
+                                                    </span>
+                                                </Typography>
+
+                                                <Typography
+                                                    sx={{
+                                                        fontSize: "13px",
+                                                    }}
+                                                >
+                                                    Estado: {e.strEstado}
+                                                </Typography>
+
+                                                <Typography
+                                                    sx={{
+                                                        fontSize: "13px",
+                                                    }}
+                                                >
+                                                    Vinculación:{" "}
+                                                    {format(
+                                                        parseISO(e.dtmCreacion),
+                                                        "yyyy-MM-dd"
+                                                    )}
+                                                </Typography>
+
+                                                <Typography
+                                                    sx={{
+                                                        fontSize: "13px",
+                                                    }}
+                                                >
+                                                    Tipo:{" "}
+                                                    {
+                                                        e.objInfoPrincipal
+                                                            ?.strTipoVinculacion
+                                                    }
+                                                </Typography>
+                                            </Box>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Grid>
+
+                <Grid
+                    item
+                    display="table-cell"
+                    xs={12}
+                    md={4}
+                    sx={{
+                        backgroundColor: "#03787c",
+                        height: "100%",
+                        padding: "15px",
+                    }}
+                >
+                    <Box sx={{ display: "flex" }}>
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Typography
+                                sx={{ color: "#fff", fontWeight: "bold" }}
+                            >
+                                Próximos eventos
+                            </Typography>
+                        </Box>
+
+                        <Box>
+                            <Button
+                                onClick={() =>
+                                    history.push(
+                                        "/transforma/asesor/eventos/read/all"
+                                    )
+                                }
+                                size="small"
+                                sx={{ color: "#fff", fontSize: "11px" }}
+                            >
+                                Ver todo
+                            </Button>
+                        </Box>
+                    </Box>
+
+                    <Box>
+                        <Button
+                            onClick={() =>
+                                history.push(
+                                    "/transforma/asesor/eventos/create"
+                                )
+                            }
+                            size="small"
+                            sx={{ color: "#fff", fontSize: "10px" }}
+                        >
+                            + Agregar evento
+                        </Button>
+                    </Box>
+
+                    <Box
+                        display="flex"
+                        marginTop="20px"
+                        onClick={() =>
+                            history.push("/transforma/asesor/eventos/create")
+                        }
+                    >
+                        <Box
+                            flexGrow={1}
+                            maxWidth={50}
+                            display="flex"
+                            sx={{ backgroundColor: "#026d70" }}
+                            padding="1px"
+                            justifyContent="center"
+                            alignItems="center"
+                        >
+                            <CalendarTodayIcon htmlColor="#fff" />
+                        </Box>
+
+                        <Box marginLeft="10px">
+                            <Typography
+                                sx={{
+                                    fontSize: "12px",
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                Crear un evento
+                            </Typography>
+
+                            <Typography
+                                sx={{
+                                    fontSize: "12px",
+                                    color: "#fff",
+                                }}
+                            >
+                                al agregar un evento, aparecerá aquí, donde los
+                                lectores puedan verlo.
+                            </Typography>
+                        </Box>
+                    </Box>
+
+                    <Box display="flex" width="100%">
+                        {dataLastEvents?.map((e, i) => (
+                            <Box key={i} display="flex" width="100%" marginTop="20px">
+                                <Box
+                                    flexGrow={1}
+                                    maxWidth={50}
+                                    display="flex"
+                                    sx={{ backgroundColor: "#fff" }}
+                                    padding="1px"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                >
+                                    <Box>
+                                        <Typography
+                                            sx={{
+                                                fontSize: "10px",
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            Mes
+                                        </Typography>
+
+                                        <Typography
+                                            sx={{
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            {Number(
+                                                format(
+                                                    parseISO(e.FechaInicial),
+                                                    "MM"
+                                                )
+                                            ) + 1}
+                                        </Typography>
+                                    </Box>
+                                </Box>
+
+                                <Box marginLeft="10px">
+                                    <Typography
+                                        sx={{
+                                            fontSize: "12px",
+                                            color: "#fff",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        {e.Nombre}
+                                    </Typography>
+
+                                    <Typography
+                                        sx={{
+                                            fontSize: "11px",
+                                            color: "#fff",
+                                        }}
+                                    >
+                                        {(() => {
+                                            const diasSemana = [
+                                                "Domingo",
+                                                "Lunes",
+                                                "Martes",
+                                                "Miércoles",
+                                                "Jueves",
+                                                "Viernes",
+                                                "Sábado",
+                                            ];
+
+                                            const ahora = parseISO(
+                                                e.FechaInicial
+                                            );
+
+                                            const diaSemana =
+                                                diasSemana[ahora.getDay()];
+
+                                            const formatoFechaHora = `${diaSemana}, ${format(
+                                                parseISO(e.FechaInicial),
+                                                "dd"
+                                            )} del año ${format(
+                                                parseISO(e.FechaInicial),
+                                                "yyyy"
+                                            )}`;
+
+                                            return formatoFechaHora;
+                                        })()}
+                                    </Typography>
+
+                                    <Typography
+                                        sx={{
+                                            fontSize: "11px",
+                                            color: "#fff",
+                                        }}
+                                    >
+                                        Responsable: {e.Responsable?.strNombre}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        ))}
+                    </Box>
+                </Grid>
             </Grid>
         </Grid>
     );

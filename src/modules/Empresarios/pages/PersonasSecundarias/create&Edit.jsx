@@ -8,7 +8,8 @@ import {
     TextField,
     MenuItem,
 } from "@mui/material";
-import { DatePicker, LoadingButton } from "@mui/lab";
+import { LoadingButton } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 
 import validator from "validator";
 
@@ -339,14 +340,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors
-                                                    ?.strNombres
+                                                errors?.strNombres
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strNombres?.message ||
+                                                errors?.strNombres?.message ||
                                                 "Selecciona una opción para buscar y seleccionar una persona existente"
                                             }
                                             select
@@ -415,14 +414,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors
-                                                    ?.strNombres
+                                                errors?.strNombres
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strNombres?.message ||
+                                                errors?.strNombres?.message ||
                                                 "Digíta el nombre o nombres de la persona"
                                             }
                                         />
@@ -462,14 +459,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors
-                                                    ?.strApellidos
+                                                errors?.strApellidos
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strApellidos?.message ||
+                                                errors?.strApellidos?.message ||
                                                 "Digíta los apellidos de la persona"
                                             }
                                         />
@@ -506,14 +501,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             required
                                             disabled={loading}
                                             error={
-                                                errors
-                                                    ?.strTipoDocto
+                                                errors?.strTipoDocto
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strTipoDocto?.message ||
+                                                errors?.strTipoDocto?.message ||
                                                 "Selecciona el tipo de documento"
                                             }
                                         />
@@ -549,8 +542,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strNroDocto?.message ||
+                                                errors?.strNroDocto?.message ||
                                                 "Digita el número de documento"
                                             }
                                         />
@@ -579,14 +571,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors
-                                                    ?.strLugarExpedicionDocto
+                                                errors?.strLugarExpedicionDocto
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strLugarExpedicionDocto
+                                                errors?.strLugarExpedicionDocto
                                                     ?.message ||
                                                 "Digita el lugar de expedición del documento"
                                             }
@@ -609,28 +599,19 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             disabled={loading}
                                             onChange={(date) => onChange(date)}
                                             format="dd/MM/yyyy"
-                                            renderInput={(props) => (
-                                                <TextField
-                                                    {...props}
-                                                    name={name}
-                                                    fullWidth
-                                                    variant="standard"
-                                                    error={
+                                            slotProps={{
+                                                textField: {
+                                                    name,
+                                                    fullWidth: true,
+                                                    variant: "standard",
+                                                    error: !!errors?.dtFechaExpedicionDocto,
+                                                    helperText:
                                                         errors
-                                                            
-                                                            ?.dtFechaExpedicionDocto
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    helperText={
-                                                        errors
-                                                            
                                                             ?.dtFechaExpedicionDocto
                                                             ?.message ||
-                                                        "Selecciona la fecha de expedición del documento"
-                                                    }
-                                                />
-                                            )}
+                                                        "Selecciona la fecha de expedición del documento",
+                                                },
+                                            }}
                                         />
                                     )}
                                     control={control}
@@ -650,28 +631,19 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             disabled={loading}
                                             onChange={(date) => onChange(date)}
                                             format="dd/MM/yyyy"
-                                            renderInput={(props) => (
-                                                <TextField
-                                                    {...props}
-                                                    name={name}
-                                                    fullWidth
-                                                    variant="standard"
-                                                    error={
+                                            slotProps={{
+                                                textField: {
+                                                    name,
+                                                    variant: "standard",
+                                                    fullWidth: true,
+                                                    error: !!errors?.dtFechaNacimiento,
+                                                    helperText:
                                                         errors
-                                                            
-                                                            ?.dtFechaNacimiento
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    helperText={
-                                                        errors
-                                                            
                                                             ?.dtFechaNacimiento
                                                             ?.message ||
-                                                        "Selecciona la fecha de nacimiento"
-                                                    }
-                                                />
-                                            )}
+                                                        "Selecciona la fecha de nacimiento",
+                                                },
+                                            }}
                                         />
                                     )}
                                     control={control}
@@ -693,14 +665,10 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             disabled={loading}
                                             required
                                             error={
-                                                errors
-                                                    ?.strGenero
-                                                    ? true
-                                                    : false
+                                                errors?.strGenero ? true : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strGenero?.message ||
+                                                errors?.strGenero?.message ||
                                                 "Selecciona el género de la persona"
                                             }
                                         />
@@ -732,14 +700,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             disabled={loading}
                                             required
                                             error={
-                                                errors
-                                                    ?.strCelular1
+                                                errors?.strCelular1
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strCelular1?.message ||
+                                                errors?.strCelular1?.message ||
                                                 "Digita el número celular de la persona"
                                             }
                                         />
@@ -785,14 +751,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             variant="standard"
                                             disabled={loading}
                                             error={
-                                                errors
-                                                    ?.strCelular2
+                                                errors?.strCelular2
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strCelular2?.message ||
+                                                errors?.strCelular2?.message ||
                                                 "Digita el número celular de la persona"
                                             }
                                         />
@@ -876,14 +840,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             variant="standard"
                                             disabled={loading}
                                             error={
-                                                errors
-                                                    ?.strCorreoElectronico2
+                                                errors?.strCorreoElectronico2
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strCorreoElectronico2
+                                                errors?.strCorreoElectronico2
                                                     ?.message ||
                                                 "Digita el correo electrónico alterno de la persona"
                                             }
@@ -916,14 +878,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             onChange={(e) => onChange(e)}
                                             disabled={loading}
                                             error={
-                                                errors
-                                                    ?.strNivelEducativo
+                                                errors?.strNivelEducativo
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strNivelEducativo
+                                                errors?.strNivelEducativo
                                                     ?.message ||
                                                 "Selecciona el nivel educativo de la persona"
                                             }
@@ -949,14 +909,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors
-                                                    ?.strTitulos
+                                                errors?.strTitulos
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strTitulos?.message ||
+                                                errors?.strTitulos?.message ||
                                                 "Digita los títulos o título del empresario, en caso de poseer alguno"
                                             }
                                         />
@@ -979,14 +937,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             onChange={(e) => onChange(e)}
                                             disabled={loading}
                                             error={
-                                                errors
-                                                    ?.strCondicionDiscapacidad
+                                                errors?.strCondicionDiscapacidad
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strCondicionDiscapacidad
+                                                errors?.strCondicionDiscapacidad
                                                     ?.message ||
                                                 "Selecciona la discapacidad de la persona, en caso de padecer alguna"
                                             }
@@ -1013,14 +969,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors
-                                                    ?.strEstrato
+                                                errors?.strEstrato
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strEstrato?.message ||
+                                                errors?.strEstrato?.message ||
                                                 "Selecciona el estrato socioeconómico de la persona"
                                             }
                                         >
@@ -1075,14 +1029,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                 );
                                             }}
                                             error={
-                                                errors
-                                                    ?.arrDepartamento
+                                                errors?.arrDepartamento
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.arrDepartamento
+                                                errors?.arrDepartamento
                                                     ?.message ||
                                                 "Selecciona el departamento de residencia"
                                             }
@@ -1113,18 +1065,14 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                 );
                                             }}
                                             error={
-                                                errors
-                                                    ?.arrCiudad
-                                                    ? true
-                                                    : false
+                                                errors?.arrCiudad ? true : false
                                             }
                                             strDepartamento={
                                                 data.arrDepartamento
                                                     ?.region_name
                                             }
                                             helperText={
-                                                errors
-                                                    ?.arrCiudad?.message ||
+                                                errors?.arrCiudad?.message ||
                                                 "Selecciona la ciudad de residencia"
                                             }
                                         />
@@ -1147,14 +1095,10 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             disabled={loading}
                                             onChange={(e) => onChange(e)}
                                             error={
-                                                errors
-                                                    ?.strBarrio
-                                                    ? true
-                                                    : false
+                                                errors?.strBarrio ? true : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strBarrio?.message ||
+                                                errors?.strBarrio?.message ||
                                                 "Selecciona el barrio/corregimiento/vereda de residencia"
                                             }
                                             variant="standard"
@@ -1181,14 +1125,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             fullWidth
                                             variant="standard"
                                             error={
-                                                errors
-                                                    ?.strDireccionResidencia
+                                                errors?.strDireccionResidencia
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strDireccionResidencia
+                                                errors?.strDireccionResidencia
                                                     ?.message ||
                                                 "Digita la dirección de residencia de la persona"
                                             }
@@ -1217,14 +1159,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             type="Imagen"
                                             errors={errors}
                                             error={
-                                                errors
-                                                    ?.strURLFileFoto
+                                                errors?.strURLFileFoto
                                                     ? true
                                                     : false
                                             }
                                             helperText={
-                                                errors
-                                                    ?.strURLFileFoto?.message ||
+                                                errors?.strURLFileFoto
+                                                    ?.message ||
                                                 "Selecciona una foto de la persona"
                                             }
                                         />

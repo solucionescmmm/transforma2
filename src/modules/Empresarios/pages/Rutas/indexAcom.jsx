@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Componentes de Material UI
 import { Grid, Box, Button } from "@mui/material";
@@ -35,6 +35,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import useGetAcomp from "../../hooks/useGetAcomp";
+import { AbilityContext, Can } from "../../../../common/functions/can";
 
 const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
@@ -90,12 +91,12 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
 
-
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     return (
-        <Fragment> 
+        <Fragment>
             <Grid container direction="row">
                 <Grid item xs={12}>
                     <StyledEngineProvider injectFirst>
@@ -206,7 +207,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can("search", "Acomp"),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -282,20 +283,25 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                             gap: 1,
                                                         }}
                                                     >
-                                                        <Button
-                                                            onClick={() =>
-                                                                onChangeRoute(
-                                                                    "CreateAcomp",
-                                                                    {
-                                                                        intIdIdea,
-                                                                    }
-                                                                )
-                                                            }
-                                                            variant="contained"
+                                                        <Can
+                                                            I="create"
+                                                            a="Maestros"
                                                         >
-                                                            Agregar
-                                                            acompañamiento
-                                                        </Button>
+                                                            <Button
+                                                                onClick={() =>
+                                                                    onChangeRoute(
+                                                                        "CreateAcomp",
+                                                                        {
+                                                                            intIdIdea,
+                                                                        }
+                                                                    )
+                                                                }
+                                                                variant="contained"
+                                                            >
+                                                                Agregar
+                                                                acompañamiento
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

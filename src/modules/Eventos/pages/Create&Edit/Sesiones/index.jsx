@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Librerias
 //Componentes de Material UI
@@ -38,6 +38,7 @@ import { MTableToolbar } from "@material-table/core";
 import ModalDelete from "./modalDelete";
 import useGetSesiones from "../../../hooks/useGetSesiones";
 import ModalCEdit from "./modalCreate&Edit";
+import { AbilityContext, Can } from "../../../../../common/functions/can";
 
 const ReadSesiones = ({ intIdEvento, isPreview }) => {
     //===============================================================================================================================================
@@ -104,6 +105,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
         setOpenModalEdit(!openModalEdit);
     };
 
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -239,7 +241,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                             grouping: true,
                             title: true,
                             filtering: false,
-                            search: true,
+                            search: ability.can("search", "Sesiones"),
                             exportAllData: true,
                             columnsButton: true,
                             headerStyle: {
@@ -258,42 +260,48 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                         }}
                         actions={[
                             (rowData) => {
-                                return {
-                                    icon: () => (
-                                        <EditIcon
-                                            color={
-                                                rowData.btFinalizada === true
-                                                    ? "gray"
-                                                    : "success"
-                                            }
-                                            fontSize="small"
-                                        />
-                                    ),
-                                    tooltip: "Editar",
-                                    onClick: (_, rowData) => {
-                                        setSelectedData(rowData);
-                                        handlerOpenModalEdit();
-                                    },
-                                };
+                                if (ability.can("update", "Sesiones")) {
+                                    return {
+                                        icon: () => (
+                                            <EditIcon
+                                                color={
+                                                    rowData.btFinalizada ===
+                                                    true
+                                                        ? "gray"
+                                                        : "success"
+                                                }
+                                                fontSize="small"
+                                            />
+                                        ),
+                                        tooltip: "Editar",
+                                        onClick: (_, rowData) => {
+                                            setSelectedData(rowData);
+                                            handlerOpenModalEdit();
+                                        },
+                                    };
+                                }
                             },
                             (rowData) => {
-                                return {
-                                    icon: () => (
-                                        <DeleteIcon
-                                            color={
-                                                rowData.btFinalizada === true
-                                                    ? "gray"
-                                                    : "error"
-                                            }
-                                            fontSize="small"
-                                        />
-                                    ),
-                                    onClick: (event, rowData) => {
-                                        setSelectedData(rowData);
-                                        handlerOpenModalDelete();
-                                    },
-                                    tooltip: "Eliminar",
-                                };
+                                if (ability.can("delete", "Sesiones")) {
+                                    return {
+                                        icon: () => (
+                                            <DeleteIcon
+                                                color={
+                                                    rowData.btFinalizada ===
+                                                    true
+                                                        ? "gray"
+                                                        : "error"
+                                                }
+                                                fontSize="small"
+                                            />
+                                        ),
+                                        onClick: (event, rowData) => {
+                                            setSelectedData(rowData);
+                                            handlerOpenModalDelete();
+                                        },
+                                        tooltip: "Eliminar",
+                                    };
+                                }
                             },
                         ]}
                         onRowClick={(e, rowData) => {}}
@@ -323,14 +331,16 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                                         "row-reverse",
                                                 }}
                                             >
-                                                <Button
-                                                    onClick={() => {
-                                                        handlerOpenModalRegister();
-                                                    }}
-                                                    variant="contained"
-                                                >
-                                                    Agregar sesion
-                                                </Button>
+                                                <Can I="create" a="Sesiones">
+                                                    <Button
+                                                        onClick={() => {
+                                                            handlerOpenModalRegister();
+                                                        }}
+                                                        variant="contained"
+                                                    >
+                                                        Agregar sesion
+                                                    </Button>
+                                                </Can>
                                             </Box>
                                         </Grid>
                                     </Grid>

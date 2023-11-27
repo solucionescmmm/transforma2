@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Librerias
 import { Link as RouterLink, useHistory } from "react-router-dom";
@@ -50,6 +50,7 @@ import { MTableToolbar } from "@material-table/core";
 import Panel from "../components/panel";
 import useGetEventos from "../hooks/useGetEventos";
 import ModalDelete from "./modalDelete";
+import { AbilityContext, Can } from "../../../common/functions/can";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -111,6 +112,7 @@ const ReadSolicitudesUser = () => {
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -264,7 +266,7 @@ const ReadSolicitudesUser = () => {
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can("search", "Eventos"),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -283,49 +285,55 @@ const ReadSolicitudesUser = () => {
                                 }}
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    color={
-                                                        rowData.btFinalizada ===
-                                                        true
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            tooltip: "Editar",
-                                            onClick: (event, rowData) => {
-                                                push(
-                                                    `/transforma/asesor/eventos/edit/${rowData.intId}`
-                                                );
-                                            },
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
+                                        if (ability.can("update", "Eventos")) {
+                                            return {
+                                                icon: () => (
+                                                    <EditIcon
+                                                        color={
+                                                            rowData.btFinalizada ===
+                                                            true
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                tooltip: "Editar",
+                                                onClick: (event, rowData) => {
+                                                    push(
+                                                        `/transforma/asesor/eventos/edit/${rowData.intId}`
+                                                    );
+                                                },
+                                                disabled:
+                                                    rowData.btFinalizada ===
+                                                    true,
+                                            };
+                                        }
                                     },
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.btFinalizada ===
-                                                        true
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            onClick: (event, rowData) => {
-                                                setSelectedData(rowData);
-                                                handlerOpenModalDelete();
-                                            },
-                                            tooltip: "Eliminar",
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
+                                        if (ability.can("delete", "Eventos")) {
+                                            return {
+                                                icon: () => (
+                                                    <DeleteIcon
+                                                        color={
+                                                            rowData.btFinalizada ===
+                                                            true
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                tooltip: "Eliminar",
+                                                disabled:
+                                                    rowData.btFinalizada ===
+                                                    true,
+                                            };
+                                        }
                                     },
                                 ]}
                                 onRowClick={(e, rowData) => {
@@ -361,16 +369,21 @@ const ReadSolicitudesUser = () => {
                                                                 "row-reverse",
                                                         }}
                                                     >
-                                                        <Button
-                                                            onClick={() =>
-                                                                push(
-                                                                    "/transforma/asesor/eventos/create"
-                                                                )
-                                                            }
-                                                            variant="contained"
+                                                        <Can
+                                                            I="create"
+                                                            a="Eventos"
                                                         >
-                                                            Agregar evento
-                                                        </Button>
+                                                            <Button
+                                                                onClick={() =>
+                                                                    push(
+                                                                        "/transforma/asesor/eventos/create"
+                                                                    )
+                                                                }
+                                                                variant="contained"
+                                                            >
+                                                                Agregar evento
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

@@ -13,7 +13,7 @@ import {
 // Iconos
 import {
     Business as BusinessIcon,
-    AddBusiness as AddBusinessIcon,
+    // AddBusiness as AddBusinessIcon,
     Architecture as ArchitectureIcon,
 } from "@mui/icons-material";
 
@@ -110,7 +110,7 @@ const Diagnosticos = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 </Card>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            {/* <Grid item xs={12} md={2}>
                 <Card>
                     <CardActionArea disabled>
                         <CardContent sx={{ padding: "0px" }}>
@@ -146,7 +146,7 @@ const Diagnosticos = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         </CardContent>
                     </CardActionArea>
                 </Card>
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 };

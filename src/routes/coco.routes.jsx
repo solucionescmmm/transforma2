@@ -150,6 +150,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="Personas" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <Personas
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -185,17 +196,6 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <PersonasCreate onChangeRoute={onChangeRoute} />
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <Button
-                            onClick={() => onChangeRoute("Personas")}
-                            startIcon={<ChevronLeftIcon />}
-                            size="small"
-                            color="inherit"
-                        >
-                            regresar
-                        </Button>
-                    </Grid>
                 </Grid>
             </TabPanel>
         );
@@ -217,17 +217,6 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                             values={route.params}
                         />
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <Button
-                            onClick={() => onChangeRoute("Personas")}
-                            startIcon={<ChevronLeftIcon />}
-                            size="small"
-                            color="inherit"
-                        >
-                            regresar
-                        </Button>
-                    </Grid>
                 </Grid>
             </TabPanel>
         );
@@ -237,6 +226,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <Diagnosticos
                             onChangeRoute={onChangeRoute}
@@ -265,6 +265,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagnosticoExpress
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -292,6 +303,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagnosticoExpressCU
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -318,6 +340,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <DiagnosticoExpressCU
                             isEdit
@@ -347,6 +380,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagnosticoExpress
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -373,6 +417,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("Diagnosticos", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <DiagEmpresarial
                             onChangeRoute={onChangeRoute}
@@ -405,6 +464,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagEmpresarialCreate
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -435,6 +509,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <DiagEmpresarialCreate
                             isEdit
@@ -468,6 +557,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagEmpresarialRead
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -499,6 +603,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagEmpresarialHumCreate
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -529,6 +648,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <DiagEmpresarialHumCreate
                             isEdit
@@ -562,6 +696,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagEmpresarialHumRead
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -593,6 +742,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagEmpresarialTecCreate
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -623,6 +787,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <DiagEmpresarialTecCreate
                             isEdit
@@ -656,6 +835,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagEmpresarialTecRead
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -686,6 +880,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("Diagnosticos", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <DiagDesign
                             onChangeRoute={onChangeRoute}
@@ -718,6 +927,19 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagDesignCUProducto
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -746,6 +968,19 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <DiagDesignCUProducto
                             isEdit
@@ -777,6 +1012,19 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagDesignReadProducto
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -806,6 +1054,19 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagDesignCUServicio
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -834,6 +1095,19 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <DiagDesignCUServicio
                             isEdit
@@ -865,6 +1139,19 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <DiagDesignReadServicio
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -893,6 +1180,21 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("Diagnosticos", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <PageCUComercial
                             onChangeRoute={onChangeRoute}
@@ -949,6 +1251,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="Rutas" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Rutas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <CreateRutas
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -974,6 +1287,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="Rutas" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Rutas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <CreateRutas
                             isEdit
@@ -1003,6 +1327,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="Rutas" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Rutas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <PreviewRuta
                             isEdit
@@ -1059,6 +1394,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
             <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Acompañamientos")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <CreateAcomp
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
@@ -1084,6 +1430,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Acompañamientos")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <PreviewAcomp
                             isEdit
@@ -1113,6 +1470,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("ViewAcomp")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <CUSesion
                             {...route.params}
@@ -1177,6 +1545,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     spacing={3}
                     sx={{ marginTop: "20px" }}
                 >
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <Comentarios
                             onChangeRoute={onChangeRoute}
@@ -1350,6 +1729,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <DiagnosticosCoco
                             onChangeRoute={onChangeRoute}

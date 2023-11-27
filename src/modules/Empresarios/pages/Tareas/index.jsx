@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Hooks
 import useGetTareas from "../../hooks/useGetTareas";
@@ -40,6 +40,7 @@ import { MTableToolbar } from "@material-table/core";
 import ModalDelete from "./modalDelete";
 import ModalState from "./modalState";
 import ModalCEdit from "./modalCreate&Edit";
+import { AbilityContext, Can } from "../../../../common/functions/can";
 
 const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
     //===============================================================================================================================================
@@ -86,7 +87,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalState, setOpenModalState] = useState(false);
     const [selectedData, setSelectedData] = useState();
-    const [isEdit, setIsEdit] = useState(false)
+    const [isEdit, setIsEdit] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -111,6 +112,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
         setOpenModalState(!openModalState);
     };
 
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -249,7 +251,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can("search", "Tareas"),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -268,63 +270,68 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                 }}
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    color={
-                                                        rowData.btFinalizada ===
-                                                        true
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                    onClick={() => {
-                                                        if (
-                                                            inModal &&
-                                                            !rowData.btFinalizada
-                                                        ) {
-                                                            setIsEdit(true)
-                                                            setSelectedData(
-                                                                rowData
-                                                            );
-                                                            handlerOpenModalCEdit();
-                                                        } else
-                                                            onChangeRoute(
-                                                                "EditTareas",
-                                                                {
-                                                                    intId: rowData.intId,
-                                                                }
-                                                            );
-                                                    }}
-                                                />
-                                            ),
-                                            tooltip: "Editar",
-
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
+                                        if (ability.can("update", "Tareas")) {
+                                            return {
+                                                icon: () => (
+                                                    <EditIcon
+                                                        color={
+                                                            rowData.btFinalizada ===
+                                                            true
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                        fontSize="small"
+                                                        onClick={() => {
+                                                            if (
+                                                                inModal &&
+                                                                !rowData.btFinalizada
+                                                            ) {
+                                                                setIsEdit(true);
+                                                                setSelectedData(
+                                                                    rowData
+                                                                );
+                                                                handlerOpenModalCEdit();
+                                                            } else
+                                                                onChangeRoute(
+                                                                    "EditTareas",
+                                                                    {
+                                                                        intId: rowData.intId,
+                                                                    }
+                                                                );
+                                                        }}
+                                                    />
+                                                ),
+                                                tooltip: "Editar",
+                                                disabled:
+                                                    rowData.btFinalizada ===
+                                                    true,
+                                            };
+                                        }
                                     },
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.btFinalizada ===
-                                                        true
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            onClick: (event, rowData) => {
-                                                setSelectedData(rowData);
-                                                handlerOpenModalDelete();
-                                            },
-                                            tooltip: "Eliminar",
-                                            disabled:
-                                                rowData.btFinalizada === true,
-                                        };
+                                        if (ability.can("delete", "Tareas")) {
+                                            return {
+                                                icon: () => (
+                                                    <DeleteIcon
+                                                        color={
+                                                            rowData.btFinalizada ===
+                                                            true
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                tooltip: "Eliminar",
+                                                disabled:
+                                                    rowData.btFinalizada ===
+                                                    true,
+                                            };
+                                        }
                                     },
                                 ]}
                                 detailPanel={[
@@ -375,20 +382,29 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                                             gap: 1,
                                                         }}
                                                     >
-                                                        <Button
-                                                            onClick={() => {
-                                                                if (inModal) {
-                                                                    setIsEdit(false)
-                                                                    handlerOpenModalCEdit();
-                                                                } else
-                                                                    onChangeRoute(
-                                                                        "CreateTareas"
-                                                                    );
-                                                            }}
-                                                            variant="contained"
+                                                        <Can
+                                                            I="create"
+                                                            a="Tareas"
                                                         >
-                                                            Agregar tarea
-                                                        </Button>
+                                                            <Button
+                                                                onClick={() => {
+                                                                    if (
+                                                                        inModal
+                                                                    ) {
+                                                                        setIsEdit(
+                                                                            false
+                                                                        );
+                                                                        handlerOpenModalCEdit();
+                                                                    } else
+                                                                        onChangeRoute(
+                                                                            "CreateTareas"
+                                                                        );
+                                                                }}
+                                                                variant="contained"
+                                                            >
+                                                                Agregar tarea
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

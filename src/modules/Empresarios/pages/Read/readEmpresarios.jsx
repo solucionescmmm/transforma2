@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
@@ -52,6 +52,7 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import PanelEmpresarios from "../../components/panelEmpresarios";
 import FiltersEmpresarios from "./filter";
+import { AbilityContext, Can } from "../../../../common/functions/can";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -152,6 +153,7 @@ const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
     const classes = styles();
 
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -283,7 +285,10 @@ const ReadSolicitudesUser = () => {
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can(
+                                        "search",
+                                        "Empresarios"
+                                    ),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -295,14 +300,16 @@ const ReadSolicitudesUser = () => {
                                         fontSize: 12,
                                     },
                                     maxBodyHeight: "520px",
-                                    paging:true,
-                                    pageSizeOptions:[20,100,200,500], 
+                                    paging: true,
+                                    pageSizeOptions: [20, 100, 200, 500],
                                     pageSize: 20,
                                 }}
                                 onRowClick={(e, rowData) => {
-                                    push(
-                                        `/transforma/asesor/empresario/read/${rowData.intId}`
-                                    );
+                                    if (ability.can("search", "Empresarios")) {
+                                        push(
+                                            `/transforma/asesor/empresario/read/${rowData.intId}`
+                                        );
+                                    }
                                 }}
                                 components={{
                                     Toolbar: (props) => (
@@ -334,22 +341,27 @@ const ReadSolicitudesUser = () => {
                                                                 "row-reverse",
                                                         }}
                                                     >
-                                                        <FiltersEmpresarios
-                                                            alterData={
-                                                                alterData
-                                                            }
-                                                        />
-
-                                                        <Button
-                                                            onClick={() =>
-                                                                push(
-                                                                    "/transforma/asesor/empresario/create"
-                                                                )
-                                                            }
-                                                            variant="contained"
+                                                        <Can
+                                                            I="create"
+                                                            a="Empresarios"
                                                         >
-                                                            Agregar empresa
-                                                        </Button>
+                                                            <FiltersEmpresarios
+                                                                alterData={
+                                                                    alterData
+                                                                }
+                                                            />
+
+                                                            <Button
+                                                                onClick={() =>
+                                                                    push(
+                                                                        "/transforma/asesor/empresario/create"
+                                                                    )
+                                                                }
+                                                                variant="contained"
+                                                            >
+                                                                Agregar empresa
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

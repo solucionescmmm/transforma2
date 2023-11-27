@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Hooks
 import useGetRutas from "../../hooks/useGetRutas";
@@ -45,6 +45,7 @@ import ModalDelete from "./modalDelete";
 import ModalPDF from "./components/modalPDF";
 import ModalActiveRuta from "./components/modalActiveRuta";
 import ModalSendRuta from "./components/modalSendRuta";
+import { AbilityContext, Can } from "../../../../common/functions/can";
 
 const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
@@ -122,6 +123,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
         setopenModalSendRuta(!openModalSendRutas);
     };
 
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -270,7 +272,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can("search", "Rutas"),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -289,37 +291,40 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                 }}
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    color={
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                        "Aceptada/En Proceso"
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                    onClick={() =>
-                                                        onChangeRoute(
-                                                            "EditRuta",
-                                                            {
-                                                                intId: rowData
-                                                                    ?.objInfoPrincipal
-                                                                    ?.intId,
-                                                                intIdIdea,
-                                                                ...rowData,
-                                                            }
-                                                        )
-                                                    }
-                                                />
-                                            ),
-                                            tooltip: "Editar",
-                                            disabled:
-                                                rowData.objInfoPrincipal
-                                                    ?.strEstadoRuta ===
-                                                "Aceptada/En Proceso",
-                                        };
+                                        if (ability.can("update", "Rutas")) {
+                                            return {
+                                                icon: () => (
+                                                    <EditIcon
+                                                        color={
+                                                            rowData
+                                                                .objInfoPrincipal
+                                                                ?.strEstadoRuta ===
+                                                            "Aceptada/En Proceso"
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                        fontSize="small"
+                                                        onClick={() =>
+                                                            onChangeRoute(
+                                                                "EditRuta",
+                                                                {
+                                                                    intId: rowData
+                                                                        ?.objInfoPrincipal
+                                                                        ?.intId,
+                                                                    intIdIdea,
+                                                                    ...rowData,
+                                                                }
+                                                            )
+                                                        }
+                                                    />
+                                                ),
+                                                tooltip: "Editar",
+                                                disabled:
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                    "Aceptada/En Proceso",
+                                            };
+                                        }
                                     },
                                     (rowData) => {
                                         return {
@@ -344,35 +349,41 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                         };
                                     },
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <DeleteIcon
-                                                    color={
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                            "Aceptada/En Proceso" ||
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                            "Enviada"
-                                                            ? "gray"
-                                                            : "error"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            onClick: (event, rowData) => {
-                                                setselectedDataRuta(rowData);
-                                                handleropenModalDeleteRuta();
-                                            },
-                                            tooltip: "Eliminar",
-                                            disabled:
-                                                rowData.objInfoPrincipal
-                                                    ?.strEstadoRuta ===
-                                                    "Aceptada/En Proceso" ||
-                                                rowData.objInfoPrincipal
-                                                    ?.strEstadoRuta ===
-                                                    "Enviada",
-                                        };
+                                        if (ability.can("delete", "Rutas")) {
+                                            return {
+                                                icon: () => (
+                                                    <DeleteIcon
+                                                        color={
+                                                            rowData
+                                                                .objInfoPrincipal
+                                                                ?.strEstadoRuta ===
+                                                                "Aceptada/En Proceso" ||
+                                                            rowData
+                                                                .objInfoPrincipal
+                                                                ?.strEstadoRuta ===
+                                                                "Enviada"
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                onClick: (event, rowData) => {
+                                                    setselectedDataRuta(
+                                                        rowData
+                                                    );
+                                                    handleropenModalDeleteRuta();
+                                                },
+                                                tooltip: "Eliminar",
+                                                disabled:
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                        "Aceptada/En Proceso" ||
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                        "Enviada",
+                                            };
+                                        }
                                     },
                                     (rowData) => {
                                         return {
@@ -486,19 +497,24 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                             gap: 1,
                                                         }}
                                                     >
-                                                        <Button
-                                                            onClick={() =>
-                                                                onChangeRoute(
-                                                                    "CreateRutas",
-                                                                    {
-                                                                        intIdIdea,
-                                                                    }
-                                                                )
-                                                            }
-                                                            variant="contained"
+                                                        <Can
+                                                            I="create"
+                                                            a="Rutas"
                                                         >
-                                                            Agregar ruta
-                                                        </Button>
+                                                            <Button
+                                                                onClick={() =>
+                                                                    onChangeRoute(
+                                                                        "CreateRutas",
+                                                                        {
+                                                                            intIdIdea,
+                                                                        }
+                                                                    )
+                                                                }
+                                                                variant="contained"
+                                                            >
+                                                                Agregar ruta
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

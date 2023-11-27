@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Librerias
 //Componentes de Material UI
@@ -38,6 +38,7 @@ import { MTableToolbar } from "@material-table/core";
 import ModalDelete from "./modalDelete";
 import ModalCEdit from "./modalCreate";
 import useGetMatriculas from "../../../hooks/useGetMatriculas";
+import { AbilityContext, Can } from "../../../../../common/functions/can";
 
 const ReadMatriculas = ({ intIdEvento, isPreview }) => {
     //===============================================================================================================================================
@@ -62,7 +63,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
         {
             title: "Correo electronico",
             field: "objDataAsistente.strCorreoElectronico1",
-            type:"string",
+            type: "string",
         },
     ]);
 
@@ -89,6 +90,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
         setOpenModalCEdit(!openModalCEdit);
     };
 
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -214,7 +216,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
                             grouping: true,
                             title: true,
                             filtering: false,
-                            search: true,
+                            search: ability.can("search", "Eventos"),
                             exportAllData: true,
                             columnsButton: true,
                             headerStyle: {
@@ -233,24 +235,27 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
                         }}
                         actions={[
                             (rowData) => {
-                                return {
-                                    icon: () => (
-                                        <DeleteIcon
-                                            color={
-                                                rowData.btFinalizada === true
-                                                    ? "gray"
-                                                    : "error"
-                                            }
-                                            fontSize="small"
-                                        />
-                                    ),
-                                    onClick: (event, rowData) => {
-                                        setSelectedData(rowData);
-                                        handlerOpenModalDelete();
-                                    },
-                                    tooltip: "Eliminar",
-                                    disabled: rowData.btFinalizada === true,
-                                };
+                                if (ability.can("Delete", "Eventos")) {
+                                    return {
+                                        icon: () => (
+                                            <DeleteIcon
+                                                color={
+                                                    rowData.btFinalizada ===
+                                                    true
+                                                        ? "gray"
+                                                        : "error"
+                                                }
+                                                fontSize="small"
+                                            />
+                                        ),
+                                        onClick: (event, rowData) => {
+                                            setSelectedData(rowData);
+                                            handlerOpenModalDelete();
+                                        },
+                                        tooltip: "Eliminar",
+                                        disabled: rowData.btFinalizada === true,
+                                    };
+                                }
                             },
                         ]}
                         onRowClick={(e, rowData) => {}}
@@ -280,14 +285,16 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
                                                         "row-reverse",
                                                 }}
                                             >
-                                                <Button
-                                                    onClick={() => {
-                                                        handlerOpenModalCEdit();
-                                                    }}
-                                                    variant="contained"
-                                                >
-                                                    Matricular persona
-                                                </Button>
+                                                <Can I="enroll" a="Eventos">
+                                                    <Button
+                                                        onClick={() => {
+                                                            handlerOpenModalCEdit();
+                                                        }}
+                                                        variant="contained"
+                                                    >
+                                                        Matricular persona
+                                                    </Button>
+                                                </Can>
                                             </Box>
                                         </Grid>
                                     </Grid>

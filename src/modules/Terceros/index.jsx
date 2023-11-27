@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 //Hooks
 import useGetTerceros from "./hook/useGetTerceros";
@@ -50,6 +50,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import PanelEmpresarios from "./components/panelTerceros";
+import { AbilityContext, Can } from "../../common/functions/can";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -104,6 +105,7 @@ const ReadSolicitudesUser = () => {
     //===============================================================================================================================================
     const classes = styles();
 
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -196,8 +198,10 @@ const ReadSolicitudesUser = () => {
                                     toolbar: {
                                         nRowsSelected:
                                             "{0} filas seleccionadas",
-                                        searchTooltip: "Buscar por documento, celular o email",
-                                        searchPlaceholder: "Buscar por documento",
+                                        searchTooltip:
+                                            "Buscar por documento, celular o email",
+                                        searchPlaceholder:
+                                            "Buscar por documento",
                                     },
                                     header: {
                                         actions: "Acciones",
@@ -231,33 +235,38 @@ const ReadSolicitudesUser = () => {
                                 title="Terceros"
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    color={
-                                                        rowData.intIdEstado ===
-                                                        3
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            tooltip: "Editar",
-                                            disabled: rowData.intIdEstado === 3 ? true : false,
-                                            onClick: (event, rowData) => {
-                                                push(
-                                                    `/transforma/asesor/terceros/edit/${rowData.intId}`
-                                                );
-                                            },
-                                        };
+                                        if (ability.can("update", "Terceros")) {
+                                            return {
+                                                icon: () => (
+                                                    <EditIcon
+                                                        color={
+                                                            rowData.intIdEstado ===
+                                                            3
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                tooltip: "Editar",
+                                                disabled:
+                                                    rowData.intIdEstado === 3
+                                                        ? true
+                                                        : false,
+                                                onClick: (event, rowData) => {
+                                                    push(
+                                                        `/transforma/asesor/terceros/edit/${rowData.intId}`
+                                                    );
+                                                },
+                                            };
+                                        }
                                     },
                                 ]}
                                 options={{
                                     grouping: true,
                                     title: true,
                                     filtering: false,
-                                    search: true,
+                                    search: ability.can("search", "Terceros"),
                                     exportAllData: true,
                                     columnsButton: true,
                                     headerStyle: {
@@ -304,16 +313,21 @@ const ReadSolicitudesUser = () => {
                                                                 "row-reverse",
                                                         }}
                                                     >
-                                                        <Button
-                                                            onClick={() =>
-                                                                push(
-                                                                    "/transforma/asesor/terceros/create"
-                                                                )
-                                                            }
-                                                            variant="contained"
+                                                        <Can
+                                                            I="create"
+                                                            a="Terceros"
                                                         >
-                                                            Agregar tercero
-                                                        </Button>
+                                                            <Button
+                                                                onClick={() =>
+                                                                    push(
+                                                                        "/transforma/asesor/terceros/create"
+                                                                    )
+                                                                }
+                                                                variant="contained"
+                                                            >
+                                                                Agregar tercero
+                                                            </Button>
+                                                        </Can>
                                                     </Box>
                                                 </Grid>
                                             </Grid>
