@@ -103,14 +103,6 @@ const HomePage = () => {
                 </Paper>
             </Grid>
 
-            <Grid item xs={12}>
-                <Typography>
-                    En la parte derecha encontraras el menu con todas las
-                    opciones disponibles, si necesitas ayuda o soporte
-                    comunícate con el area encargada para mas información
-                </Typography>
-            </Grid>
-
             <Grid item xs={12} display="table">
                 <Grid
                     item

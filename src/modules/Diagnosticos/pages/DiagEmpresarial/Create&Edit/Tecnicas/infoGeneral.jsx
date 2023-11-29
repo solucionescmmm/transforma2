@@ -23,10 +23,14 @@ import {
     ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 
+//Componentes
+import DropdownEmpresarios from "../../../../components/dropdownEmpresarios";
+
 const InfoGeneral = ({
     disabled,
     values,
     errors,
+    intIdIdea,
     control,
     setValue,
     clearErrors,
@@ -35,6 +39,7 @@ const InfoGeneral = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
+        objEmpresario:null,
         dtmFechaSesion: null,
         strLugarSesion: "",
         strUsuarioCreacion: "",
@@ -52,6 +57,7 @@ const InfoGeneral = ({
         if (values) {
             setData({
                 intId: values.intId || null,
+                objEmpresario: values.objEmpresario || null,
                 dtmFechaSesion: values.dtmFechaSesion || null,
                 strLugarSesion: values.strLugarSesion || "",
                 strUsuarioCreacion: values.strUsuarioCreacion || "",
@@ -122,6 +128,35 @@ const InfoGeneral = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.objEmpresario}
+                            name="objInfoGeneral.objEmpresario"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownEmpresarios
+                                label="Persona empresaria a la cual se le realiza el diagnóstico"
+                                disabled={loading}
+                                name={name}
+                                value={value}
+                                onChange={(target, value) => {
+                                    onChange(value);
+                                }}
+                                required
+                                helperText={
+                                    errors?.objEmpresario?.message ||
+                                    "Selecciona una persona"
+                                }
+                                error={!!errors?.objEmpresario}
+                                intIdIdea={intIdIdea}
+                            />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona la fecha y hora de la sesión",
+                            }}
+                        />
+                    </Grid>
                     <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.dtmFechaSesion}

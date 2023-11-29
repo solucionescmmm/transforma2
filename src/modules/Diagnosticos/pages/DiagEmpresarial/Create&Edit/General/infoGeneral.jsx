@@ -38,6 +38,7 @@ const InfoGeneral = ({
     values,
     errors,
     control,
+    intIdIdea,
     setValue,
     clearErrors,
     setError,

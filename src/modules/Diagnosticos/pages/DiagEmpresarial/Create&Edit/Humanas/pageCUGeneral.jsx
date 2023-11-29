@@ -191,7 +191,7 @@ const PageCUGeneral = ({
                         (data) => {
                             let newData = {
                                 objInfoGeneral: {
-                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null ,
+                                    intIdEmpresario: data.objInfoGeneral?.objEmpresario.intId,
                                     intIdTipoEmpresario: objEmprPrincipal ? objEmprPrincipal.intIdTipoEmpresario : null,
                                     ...data.objInfoGeneral,
                                     intIdIdea,
@@ -654,6 +654,7 @@ const PageCUGeneral = ({
                                         disabled={loading}
                                         values={data.objInfoGeneral}
                                         errors={errors}
+                                        intIdIdea={intIdIdea}
                                         setValue={setValue}
                                         setError={setError}
                                         clearErrors={clearErrors}

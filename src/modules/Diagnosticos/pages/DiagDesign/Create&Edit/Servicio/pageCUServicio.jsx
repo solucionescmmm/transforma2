@@ -659,6 +659,7 @@ const PageCUServicio = ({
                                         disabled={loading}
                                         values={data.objInfoGeneral}
                                         errors={errors}
+                                        intIdIdea={intIdIdea}
                                         setValue={setValue}
                                         setError={setError}
                                         clearErrors={clearErrors}
