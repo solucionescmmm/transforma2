@@ -64,13 +64,12 @@ class setDiagnosticoHumanas {
     async #setDiagnosticoHumanas() {
         let dao = new classInterfaceDAOHumanas();
         let newData = {
-            //intIdEmpresario: this.#intIdEmpresario,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEncuestaHumanas,
             strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
-            intIdEmpresario: this.#objData.objInfoGeneral.intIdEmpresario,
-            intIdTipoEmpresario: this.#objData.objInfoGeneral.intIdTipoEmpresario,
+            intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intId,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
             btFinalizado:false,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
             strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,

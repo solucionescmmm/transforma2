@@ -28,15 +28,16 @@ class setDiagnosticoExpress {
     }
 
     async main() {
-        await this.#validations();
-        await this.#getIdFuenteHistorico();
-        await this.#getIntIdEstadoDiagnostico();
-        await this.#updateEmpresaDiagnosticoExpress();
-        await this.#completeData();
-        await this.#setDiagnosticoExpress();
-        await this.#setHistorico();
-        await this.#updateDiagnostico();
-        return this.#objResult;
+        console.log(this.#objData)
+        // await this.#validations();
+        // await this.#getIdFuenteHistorico();
+        // await this.#getIntIdEstadoDiagnostico();
+        // await this.#updateEmpresaDiagnosticoExpress();
+        // await this.#completeData();
+        // await this.#setDiagnosticoExpress();
+        // await this.#setHistorico();
+        // await this.#updateDiagnostico();
+        // return this.#objResult;
     }
 
     async #validations() {
@@ -69,7 +70,7 @@ class setDiagnosticoExpress {
     
     async #getIntIdEstadoDiagnostico() {
         let queryGetIntIdEstadoDiagnostico = await serviceGetIdEstadoDiagnostico({
-            strNombre: "En Proceso",
+            strNombre: "Finalizado",
         });
 
         if (queryGetIntIdEstadoDiagnostico.error) {
@@ -88,6 +89,8 @@ class setDiagnosticoExpress {
             ...this.#objData.objInfoMercado,
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoEncuestaHumanas,
+            intIdEmpresario:this.#objData.objInfoGeneral.objEmpresario.intId,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario.intIdTipoEmpresario,
         };
 
         this.#objData = newData;

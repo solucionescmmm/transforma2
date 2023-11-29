@@ -146,7 +146,7 @@ class updateEmpresarioPrincipal {
 
         let newData = {
             ...prevData,
-            strUsuarioActualizacion: this.#objUser.strEmail,
+            strUsuario: this.#objUser.strEmail,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad
         };

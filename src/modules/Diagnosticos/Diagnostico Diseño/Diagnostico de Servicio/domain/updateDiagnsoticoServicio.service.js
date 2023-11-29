@@ -44,6 +44,8 @@ class updateDiagnosticoServicio {
             ...this.#objData.objInfoEvaluacion,
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoAdicional,
+            intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intId,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
         this.#objData = newData;

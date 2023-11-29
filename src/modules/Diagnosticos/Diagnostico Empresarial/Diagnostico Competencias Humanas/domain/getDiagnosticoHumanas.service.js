@@ -2,8 +2,11 @@
 const classInterfaceDAODiagnostico = require("../infra/conectors/interfaseDAODiagnosticoHumanas");
 const validator = require("validator").default;
 
+//service
+const serviceGetEmpresario = require("../../../../Empresarios/domian/getEmpresario.service")
+
 const getDiagnosticoHumanas = async (objParams, strDataUser) => {
-    let { intId,  intIdDiagnostico } = objParams;
+    let { intId, intIdDiagnostico } = objParams;
 
     if (!intId && !intIdDiagnostico) {
         throw new Error("Se esperaban parámetros de búsqueda.");
@@ -20,7 +23,7 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
     }
 
     let dao = new classInterfaceDAODiagnostico();
-    
+
     let query = {
         intId,
         intIdDiagnostico
@@ -38,9 +41,16 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
+                let queryGetEmpresario = await serviceGetEmpresario({ intId: array[i]?.intIdEmpresario }, strDataUser)
+                if (queryGetEmpresario.error) {
+                    throw new Error(queryGetEmpresario.msg)
+                }
+
+                let objDataEmpresario = queryGetEmpresario.data[0]
+
                 let objInfoGeneral = {
                     intId: array[i].intId,
-                    intIdDiagnostico:array[i]?.intIdDiagnostico,
+                    intIdDiagnostico: array[i]?.intIdDiagnostico,
                     intIdEmpresario: array[i]?.intIdEmpresario,
                     intIdTipoEmpresario: array[i]?.intIdTipoEmpresario,
                     btFinalizado: array[i]?.btFinalizado,
@@ -49,6 +59,15 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
+                    objEmpresario: {
+                        strNombreCompleto: objDataEmpresario.strNombres + " " + objDataEmpresario.strApellidos,
+                        intId: array[i]?.intIdEmpresario,
+                        intIdTipoEmpresario: array[i]?.intIdTipoEmpresario,
+                        strNombres: objDataEmpresario.strNombres,
+                        strApellidos: objDataEmpresario.strApellidos,
+                        strNroDocto: objDataEmpresario.strNroDocto,
+                        strCorreoElectronico: objDataEmpresario?.strCorreoElectronico1
+                    }
                 };
                 let objInfoEncuestaHumanas = {
                     strTomaDesiciones: array[i]?.strTomaDesiciones,

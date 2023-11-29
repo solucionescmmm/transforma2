@@ -6,7 +6,6 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 
 //servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
-const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service");
 
 class setEmpresarioSecundario {
     //Objetos
@@ -74,7 +73,7 @@ class setEmpresarioSecundario {
         if (this.#objData.btExiste === true) {
             let dao = new classInterfaceDAOEmpresarios();
             let queryGetEmpresarioIdea = await dao.getEmpresarioIdea({
-                intId:this.#objData.intIdIdea,
+                intId: this.#objData.intIdIdea,
             });
 
             let array = queryGetEmpresarioIdea.data;
@@ -102,7 +101,8 @@ class setEmpresarioSecundario {
     }
 
     async #getIdTipoEmpresario() {
-        let queryGetIdTipoEmpresario = await serviceGetIdTipoServicio({
+        let dao = new classInterfaceDAOEmpresarios();
+        let queryGetIdTipoEmpresario = await dao.getIdTipoEmpresario({
             strNombre: "Secundario",
         });
 
@@ -147,6 +147,7 @@ class setEmpresarioSecundario {
             intIdIdea: this.#objData.intIdIdea,
             intIdEmpresario: this.#intIdEmpresario,
             intIdTipoEmpresario: this.#intIdTipoEmpresario,
+            strTipoRelacion: this.#objData.strTipoRelacion,
             dtFechaInicio: new Date(),
             intIdEstado: this.#intIdEstado,
             strUsuarioCreacion: this.#objUser.strEmail,

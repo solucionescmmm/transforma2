@@ -49,6 +49,8 @@ class setDiagnosticoServicio {
             ...this.#objData.objInfoEvaluacion,
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoAdicional,
+            intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intId,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
         };
 
         let query = await dao.setDiagnosticoServicio(newData);

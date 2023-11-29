@@ -133,7 +133,7 @@ class daoEmpresarios {
                 ${data.intIdIdea},
                 ${data.intIdEmpresario},
                 ${data.intIdTipoEmpresario},
-                ${data.strTipoRelacionPrincipal},
+                ${data.strTipoRelacion},
                 ${data.dtFechaInicio},
                 ${data.dtFechaFin},
                 ${data.intIdEstado},
@@ -146,10 +146,7 @@ class daoEmpresarios {
             SET @intId = SCOPE_IDENTITY();
 
             
-            SELECT * FROM tbl_Idea_Empresario WHERE intId = @intId
-            
-            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
-            `;
+            SELECT * FROM tbl_Idea_Empresario WHERE intId = @intId`;
 
             let result = {
                 error: false,
@@ -270,7 +267,9 @@ class daoEmpresarios {
             )
             SET @intId = SCOPE_IDENTITY();
 
-            SELECT * FROM tbl_InfoAdicional WHERE intId = @intId`;
+            SELECT * FROM tbl_InfoAdicional WHERE intId = @intId
+            
+            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}`;
 
             let result = {
                 error: false,
@@ -295,6 +294,7 @@ class daoEmpresarios {
     }
 
     async updateEmpresario(data) {
+        //console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -334,10 +334,12 @@ class daoEmpresarios {
 
             SELECT * FROM tbl_Empresario WHERE intId = ${data.intId}`;
 
+            console.log(response.recordset[0].strNombres, response.recordset[0]?.strApellidos)
+
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La persona ${response.recordset[0].strNombres} ${response.recordset[0].strApellidos}, fue actualizada con éxito.`,
+                msg: `La persona ${response.recordset[0]?.strNombres} ${response.recordset[0]?.strApellidos}, fue actualizada con éxito.`,
             };
 
             sql.close(conexion);
@@ -378,6 +380,44 @@ class daoEmpresarios {
             let result = {
                 error: false,
                 data: response.recordset[0],
+                msg: `La Idea, fue actualizada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateIdeaEmpresario(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn.query`
+
+            UPDATE tbl_Idea_Empresario
+
+            SET strTipoRelacionPrincipal = COALESCE(${data.strTipoRelacionPrincipal}, strTipoRelacionPrincipal),
+                dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion  = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+            WHERE (intIdIdea = ${data.intIdIdea})
+            AND   (intIdEmpresario = ${data.intIdEmpresario})
+            AND   (intIdTipoEmpresario = ${data.intIdTipoEmpresario})
+            AND   (intIdEstado = ${data.intIdEstado})`;
+
+            let result = {
+                error: false,
                 msg: `La Idea, fue actualizada con éxito.`,
             };
 

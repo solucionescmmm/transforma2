@@ -23,7 +23,7 @@ const login = async (token) => {
         
         let objUserData = {
             strNombre: payload?.given_name || 'Pruebas',
-            strApellidos: payload?.family_name || '.',
+            strApellidos: payload?.family_name || 'Transforma',
             strEmail: payload?.email || 'lider.tecnologia@cmmmedellin.org',
             strUsuario: payload?.email.substring(0, payload.email.indexOf("@")) || "Líder Tecnología",
             strURLImagen: payload?.picture || "",

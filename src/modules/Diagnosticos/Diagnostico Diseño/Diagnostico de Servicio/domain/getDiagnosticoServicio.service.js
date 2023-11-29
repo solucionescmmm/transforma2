@@ -2,6 +2,9 @@
 const classInterfaceDAODiagnostico = require("../infra/conectors/interfaseDAODiagnosticoServicio");
 const validator = require("validator").default;
 
+//service
+const serviceGetEmpresario = require("../../../../Empresarios/domian/getEmpresario.service")
+
 const getDiagnosticoServicio = async (objParams, strDataUser) => {
     let { intId, intIdDiagnostico } = objParams;
 
@@ -38,6 +41,13 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
+                let queryGetEmpresario = await serviceGetEmpresario({ intId: array[i]?.intIdEmpresario }, strDataUser)
+                if (queryGetEmpresario.error) {
+                    throw new Error(queryGetEmpresario.msg)
+                }
+
+                let objDataEmpresario = queryGetEmpresario.data[0]
+
                 let objInfoGeneral = {
                     intId: array[i].intId,
                     intIdDiagnostico:array[i]?.intIdDiagnostico,
@@ -48,6 +58,15 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
+                    objEmpresario: {
+                        strNombreCompleto: objDataEmpresario.strNombres + " " + objDataEmpresario.strApellidos,
+                        intId: array[i]?.intIdEmpresario,
+                        intIdTipoEmpresario: array[i]?.intIdTipoEmpresario,
+                        strNombres: objDataEmpresario.strNombres,
+                        strApellidos: objDataEmpresario.strApellidos,
+                        strNroDocto: objDataEmpresario.strNroDocto,
+                        strCorreoElectronico: objDataEmpresario?.strCorreoElectronico1
+                    }
                 };
                 let objInfoEvaluacion = {
                     strServicio: array[i]?.strServicio,

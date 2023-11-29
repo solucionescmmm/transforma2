@@ -48,6 +48,8 @@ class setDiagnosticoProducto {
             ...this.#objData.objInfoCategoria2,
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoAdicional,
+            intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intId,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
             btFinalizado:false,
             strUsuarioActualizacion: this.#objUser.strEmail,
         };

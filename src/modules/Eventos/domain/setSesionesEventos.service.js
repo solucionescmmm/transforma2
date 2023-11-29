@@ -58,7 +58,6 @@ class setSesionesEventos {
             throw new Error(query.msg)
         }
 
-
         this.#intNumSesiones = query.data[0]?.intNumSesiones
     }
 

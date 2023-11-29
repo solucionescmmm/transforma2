@@ -18,6 +18,7 @@ class deleteSesionesEventos {
 
     //variables
     #intIdEvento;
+    #intNumSesiones;
     #intNumAsistentesEventos;
 
     constructor(data, strDataUser) {
@@ -28,8 +29,10 @@ class deleteSesionesEventos {
     async main() {
         await this.#getSesionesEventos()
         await this.#getAsistentesSesionesEventos()
+        await this.#getIntNumSesiones()
         await this.#validations()
         await this.#deleteSesionesEventos()
+        await this.#updateEventos();
         return this.#objResult;
     }
 
@@ -79,6 +82,20 @@ class deleteSesionesEventos {
         this.#intNumAsistentesEventos = queryGetAsistentesSesionesEventos.data?.length
     }
 
+    async #getIntNumSesiones() {
+        let dao = new classInterfaceDAOEventos();
+
+        let query = await dao.getIntNumSesiones({
+            intId: this.#intIdEvento
+        })
+
+        if (query.error) {
+            throw new Error(query.msg)
+        }
+
+        this.#intNumSesiones = query.data[0]?.intNumSesiones
+    }
+    
     async #deleteSesionesEventos() {
         let dao = new classInterfaceDAOEventos();
 
@@ -97,6 +114,21 @@ class deleteSesionesEventos {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #updateEventos() {
+        let dao = new classInterfaceDAOEventos();
+
+        let data = {
+            intId: this.#intIdEvento,
+            intNumSesiones: this.#intNumSesiones - 1
+        }
+
+        let query = await dao.updateEventos(data);
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 
 }

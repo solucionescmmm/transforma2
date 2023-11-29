@@ -45,6 +45,8 @@ class updateDiagnosticoHumanas {
             ...this.#objData.objInfoEncuestaHumanas,
             strEquilibrioVida: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strEquilibrioVida || ""),
             strSituacionesDesistirEmprendimiento: JSON.stringify(this.#objData?.objInfoEncuestaHumanas?.strSituacionesDesistirEmprendimiento || ""),
+            intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intId,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
             strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
             strUsuarioActualizacion: this.#objUser.strEmail,

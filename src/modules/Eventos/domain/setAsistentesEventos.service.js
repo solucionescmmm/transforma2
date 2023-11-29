@@ -56,18 +56,20 @@ class setAsistentesEventos {
         let arrEmpresarios = this.#objData.arrEmpresarios
         let arrTerceros = this.#objData.arrTerceros
 
-        for (let i = 0; i < arrAsistentes.length; i++) {
-            for (let j = 0; j < arrEmpresarios.length; j++) {
-                const intIdAsistente = arrAsistentes[i]?.intIdEmpresario
-                if (intIdAsistente === arrEmpresarios[j]?.intId) {
-                    throw new Error(`El empresario ${arrEmpresarios[j]?.strNombres} ${arrEmpresarios[j]?.strApellidos}, ya esta registrado en el evento.`)
+        if (arrAsistentes?.length > 0) { 
+            for (let i = 0; i < arrAsistentes.length; i++) {
+                for (let j = 0; j < arrEmpresarios.length; j++) {
+                    const intIdAsistente = arrAsistentes[i]?.intIdEmpresario
+                    if (intIdAsistente === arrEmpresarios[j]?.intId) {
+                        throw new Error(`El empresario ${arrEmpresarios[j]?.strNombres} ${arrEmpresarios[j]?.strApellidos}, ya esta registrado en el evento.`)
+                    }
                 }
-            }
 
-            for (let j = 0; j < arrTerceros.length; j++) {
-                const intIdAsistente = arrAsistentes[i]?.intIdTercero
-                if (intIdAsistente === arrTerceros[j]?.intId) {
-                    throw new Error(`El tercero ${arrTerceros[j]?.strNombres} ${arrTerceros[j]?.strApellidos}, ya esta registrado en el evento.`)
+                for (let j = 0; j < arrTerceros.length; j++) {
+                    const intIdAsistente = arrAsistentes[i]?.intIdTercero
+                    if (intIdAsistente === arrTerceros[j]?.intId) {
+                        throw new Error(`El tercero ${arrTerceros[j]?.strNombres} ${arrTerceros[j]?.strApellidos}, ya esta registrado en el evento.`)
+                    }
                 }
             }
         }

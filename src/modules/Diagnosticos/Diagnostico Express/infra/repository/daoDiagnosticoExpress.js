@@ -133,6 +133,8 @@ class daoDiagnosticoExpress {
             INSERT INTO tbl_DiagnosticoGeneral 
             ( 
                 intIdDiagnostico,
+                intIdEmpresario,
+                intIdTipoEmpresario,
                 strRegistroCamaraComercio,
                 strDefinineLineasProductoServicios,
                 strLineaProductoServicioDestacada,
@@ -151,6 +153,7 @@ class daoDiagnosticoExpress {
                 intPorcentajeMargenRentaProductoEscogido,
                 strRangoEmpleados,
                 strEtapaDllo,
+                strLugarSesion,
                 dtmFechaSesion,
                 strUsuarioCreacion,
                 dtmActualizacion,
@@ -159,6 +162,8 @@ class daoDiagnosticoExpress {
             VALUES 
             (
                 ${data.intIdDiagnostico},
+                ${data.intIdEmpresario},
+                ${data.intIdTipoEmpresario},
                 ${data.strRegistroCamaraComercio},
                 ${data.strDefinineLineasProductoServicios},
                 ${data.strLineaProductoServicioDestacada},
@@ -177,6 +182,7 @@ class daoDiagnosticoExpress {
                 ${data.intPorcentajeMargenRentaProductoEscogido},
                 ${data.strRangoEmpleados},
                 ${data.strEtapaDllo},
+                ${data.strLugarSesion},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
@@ -360,6 +366,8 @@ class daoDiagnosticoExpress {
             SELECT
 
             intIdDiagnostico,
+            intIdEmpresario,
+            intIdTipoEmpresario,
             strRegistroCamaraComercio,
             strDefinineLineasProductoServicios,
             strLineaProductoServicioDestacada,
@@ -378,6 +386,7 @@ class daoDiagnosticoExpress {
             intPorcentajeMargenRentaProductoEscogido,
             strRangoEmpleados,
             strEtapaDllo,
+            strLugarSesion,
             dtmFechaSesion,
             strUsuarioCreacion,
             dtmActualizacion,
