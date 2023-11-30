@@ -32,6 +32,7 @@ import SelectTipoDocumento from "../../components/selectTipoDocumento";
 import SelectGenero from "../../components/selectGenero";
 import SelectNivelEducativo from "../../components/selectNivelEducativo";
 import SelectTiposDiscapacidad from "../../components/selectTipoDiscapacidad";
+import SelectTipoRelacion from "../../components/selectTipoRelacion";
 import Dropzone from "../../../../common/components/dropzone";
 import ModalDireccionResidencia from "../../components/modalDireccionResidencia";
 import DropdownLocalizaciones from "../../components/dropdownLocalizaciones";
@@ -104,7 +105,10 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
     const [data, setData] = useState({
         btExiste: "",
         objEmpresario: null,
+        intIdEmpresario: "",
+        intIdTipoEmpresario:"",
         intIdIdea: intId,
+        strTipoRelacion:"",
         strNombres: "",
         strApellidos: "",
         strTipoDocto: "",
@@ -170,7 +174,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATEREGISTRO
+                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATE_SECUNDARIOS
                             : process.env
                                   .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
                     }`,
@@ -221,7 +225,10 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
             setData({
                 btExiste: false,
                 objEmpresario: null,
+                intIdEmpresario: values.intId || "",
+                intIdTipoEmpresario: values.intIdTipoEmpresario || "",
                 intIdIdea: intId,
+                strTipoRelacion:values.strTipoRelacion|| "",
                 strNombres: values.strNombres || "",
                 strApellidos: values.strApellidos || "",
                 strTipoDocto: values.strTipoDocto || "",
@@ -397,6 +404,36 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
 
                     {(data.btExiste || watchbtExiste) === false && (
                         <Fragment>
+                            <Grid item xs={12}>
+                                <Controller
+                                    defaultValue={data.strTipoRelacion}
+                                    name="strTipoRelacion"
+                                    render={({ field: { name, value, onChange } }) => (
+                                        <SelectTipoRelacion
+                                            label="Tipo de relación con la persona principal"
+                                            name={name}
+                                            value={value}
+                                            onChange={(e) => onChange(e)}
+                                            disabled={loading}
+                                            required
+                                            error={
+                                                errors?.strTipoRelacion
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.strTipoRelacion?.message ||
+                                                "Selecciona la relación que tiene con la persona principal"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, selecciona la relación que tiene con la persona principal",
+                                    }}
+                                />
+                            </Grid>
                             <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.strNombres}
