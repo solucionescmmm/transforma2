@@ -19,7 +19,7 @@ import {
 import {
     CorporateFare as CorporateFareIcon,
     Home as HomeIcon,
-    VerifiedUser as VerifiedUserIcon,
+    //VerifiedUser as VerifiedUserIcon,
     BusinessCenter as BusinessCenterIcon,
     Ballot as BallotIcon
 } from "@mui/icons-material";
@@ -105,7 +105,7 @@ const HomePage = () => {
                                         align="center"
                                         sx={{ padding: "10px" }}
                                     >
-                                        Gestión de tablas maestras
+                                        Tablas maestras
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -146,7 +146,7 @@ const HomePage = () => {
                                         align="center"
                                         sx={{ padding: "10px" }}
                                     >
-                                        Gestión de servicios
+                                        Servicios
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -187,7 +187,7 @@ const HomePage = () => {
                                         align="center"
                                         sx={{ padding: "10px" }}
                                     >
-                                        Gestión de paquetes
+                                        Paquetes
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -196,7 +196,7 @@ const HomePage = () => {
                 </Card>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            {/* <Grid item xs={12} md={2}>
                 <Card>
                     <CardActionArea
                         component={RouterLink}
@@ -235,7 +235,7 @@ const HomePage = () => {
                         </CardContent>
                     </CardActionArea>
                 </Card>
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 };
