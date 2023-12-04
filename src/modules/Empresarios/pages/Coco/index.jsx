@@ -302,6 +302,12 @@ const Coco = () => {
                                     Editar
                                 </Button>
                             </Typography>
+                            {/* <Typography
+                                color="red"
+                                variant="body1"
+                            >
+                                Perfil sensible
+                            </Typography> */}
                         </Box>
 
                         <Box
@@ -448,7 +454,7 @@ const Coco = () => {
                                                                     color: "#00BAB3",
                                                                 }}
                                                             >
-                                                                Categoría:
+                                                                Categoría:{" "}
                                                             </span>
                                                             {objInteresado
                                                                 ?.objInfoEmpresa
@@ -470,7 +476,7 @@ const Coco = () => {
                                                                     color: "#00BAB3",
                                                                 }}
                                                             >
-                                                                Descripción:
+                                                                Descripción:{" "}
                                                             </span>
                                                             {objInteresado
                                                                 ?.objInfoEmpresa
@@ -489,7 +495,7 @@ const Coco = () => {
                                                                     color: "#00BAB3",
                                                                 }}
                                                             >
-                                                                Dirección:
+                                                                Dirección:{" "}
                                                             </span>
                                                             {objInteresado
                                                                 ?.objInfoEmpresa
@@ -508,7 +514,7 @@ const Coco = () => {
                                                                     color: "#00BAB3",
                                                                 }}
                                                             >
-                                                                NIT:
+                                                                NIT:{" "}
                                                             </span>
                                                             {""}
                                                         </Typography>
@@ -524,7 +530,7 @@ const Coco = () => {
                                                                     color: "#00BAB3",
                                                                 }}
                                                             >
-                                                                Instagram:
+                                                                Instagram:{" "}
                                                             </span>
                                                             {objInteresado?.objInfoEmpresa?.arrMediosDigitales.find(
                                                                 (x) =>
@@ -545,7 +551,7 @@ const Coco = () => {
                                                                     color: "#00BAB3",
                                                                 }}
                                                             >
-                                                                Facebook:
+                                                                Facebook:{" "}
                                                             </span>
                                                             {objInteresado?.objInfoEmpresa?.arrMediosDigitales.find(
                                                                 (x) =>
@@ -761,7 +767,7 @@ const Coco = () => {
                                                                 color: "#00BAB3",
                                                             }}
                                                         >
-                                                            Tipo de documento:
+                                                            Tipo de documento:{" "}
                                                         </span>
                                                         {objInteresado?.objEmpresario
                                                             ?.filter(
@@ -784,7 +790,7 @@ const Coco = () => {
                                                                 color: "#00BAB3",
                                                             }}
                                                         >
-                                                            Número de documento:
+                                                            Número de documento:{" "}
                                                         </span>
                                                         {objInteresado?.objEmpresario
                                                             ?.filter(
@@ -807,7 +813,7 @@ const Coco = () => {
                                                                 color: "#00BAB3",
                                                             }}
                                                         >
-                                                            Edad:
+                                                            Edad:{" "}
                                                         </span>
                                                         {calcularEdad(
                                                             objInteresado?.objEmpresario
