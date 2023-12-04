@@ -50,6 +50,8 @@ class daoEmpresarios {
             
             SET @intId = SCOPE_IDENTITY();
 
+            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
+
             SELECT * FROM tbl_Empresario WHERE intId = @intId`;
 
             let result = {
@@ -268,9 +270,7 @@ class daoEmpresarios {
             )
             SET @intId = SCOPE_IDENTITY();
 
-            SELECT * FROM tbl_InfoAdicional WHERE intId = @intId
-            
-            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}`;
+            SELECT * FROM tbl_InfoAdicional WHERE intId = @intId`;
 
             let result = {
                 error: false,
@@ -332,10 +332,10 @@ class daoEmpresarios {
                 strUsuario               = COALESCE(${data.strUsuario}, strUsuario)
 
             WHERE intId = ${data.intId}
+            
+            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
 
             SELECT * FROM tbl_Empresario WHERE intId = ${data.intId}`;
-
-            console.log(response.recordset[0].strNombres, response.recordset[0]?.strApellidos)
 
             let result = {
                 error: false,

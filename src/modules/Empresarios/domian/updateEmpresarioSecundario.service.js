@@ -16,6 +16,7 @@ class updateEmpresarioSecundario {
     //Variables
     #intIdEmpresarioActual;
     #intIdEstado;
+    #intIdIdea
     #intIdTipoEmpresario;
     #objResult;
     /**
@@ -24,6 +25,7 @@ class updateEmpresarioSecundario {
     constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
+        this.#intIdIdea = data.intIdIdea
     }
 
     async main() {
@@ -82,8 +84,6 @@ class updateEmpresarioSecundario {
         this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
-
-
     async #getEmpresario() {
         let dao = new classInterfaceDAOEmpresarios();
 
@@ -115,6 +115,7 @@ class updateEmpresarioSecundario {
         let newData = {
             intId: this.#objData.intIdEmpresario,
             ...prevData,
+            intIdIdea: this.#intIdIdea,
             strUsuario: this.#objUser.strEmail,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad,
