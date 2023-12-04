@@ -150,8 +150,7 @@ class updateEmpresarioSecundario {
             strUsuarioActualizacion: this.#objUser.strEmail
         });
 
-        console.log(query)
-
+        
         if (query.error) {
             await this.#rollbackTransaction();
             throw new Error(query.msg);

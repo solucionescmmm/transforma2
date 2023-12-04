@@ -37,6 +37,7 @@ class daoEmpresarios {
                 ${data.dtFechaVinculacion},
                 ${data.strEstadoVinculacion},
                 ${data.strTipoVinculacion},
+                ${data.btPerfilSensible},
                 ${data.strEstrato},
                 ${data.arrDepartamento},
                 ${data.arrCiudad},
@@ -294,7 +295,6 @@ class daoEmpresarios {
     }
 
     async updateEmpresario(data) {
-        //console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -321,6 +321,7 @@ class daoEmpresarios {
                 dtFechaVinculacion       = COALESCE(${data.dtFechaVinculacion}, dtFechaVinculacion),
                 strEstadoVinculacion     = COALESCE(${data.strEstadoVinculacion}, strEstadoVinculacion),
                 strTipoVinculacion       = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
+                btPerfilSensible         = COALESCE(${data.btPerfilSensible}, btPerfilSensible),
                 strEstrato               = COALESCE(${data.strEstrato}, strEstrato),
                 strDepartamento          = COALESCE(${data.arrDepartamento}, strDepartamento),
                 strCiudad                = COALESCE(${data.arrCiudad}, strCiudad),
@@ -829,6 +830,7 @@ class daoEmpresarios {
                 Empresario.dtFechaVinculacion,
                 Empresario.strEstadoVinculacion,
                 Empresario.strTipoVinculacion,
+                Empresario.btPerfilSensible,
                 Empresario.strEstrato,
                 Empresario.strDepartamento,
                 Empresario.strCiudad,
@@ -838,6 +840,7 @@ class daoEmpresarios {
                 Empresario.dtmActualizacion,
                 Empresario.strUsuario,
                 IdeaEmpresario.intIdTipoEmpresario,
+                IdeaEmpresario.strTipoRelacionPrincipal as strTipoRelacion,
                 Tipo.strNombre as strTipoEmpresario,
                 Sedes.strNombre as strNombreSedes
 
@@ -962,6 +965,7 @@ class daoEmpresarios {
             Empresario.dtFechaVinculacion,
             Empresario.strEstadoVinculacion,
             Empresario.strTipoVinculacion,
+            Empresario.btPerfilSensible,
             Empresario.strEstrato,
             Empresario.strDepartamento,
             Empresario.strCiudad,
