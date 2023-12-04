@@ -79,6 +79,16 @@ const ReadPersonaSecundaria = ({
             type: "string",
         },
         {
+            title: "Tipo de relación",
+            field: "strTipoRelacion",
+            type: "string",
+        },
+        {
+            title: "Perfil sensible",
+            field: "btPerfilSensible",
+            type: "boolean",
+        },
+        {
             title: "Tipo",
             field: "strTipoEmpresario",
             type: "string",

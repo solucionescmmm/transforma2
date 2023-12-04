@@ -147,6 +147,7 @@ const SearchEmpresario = ({ isEdit }) => {
                             strCondicionDiscapacidad:
                                 objEmprPrincipal.strCondicionDiscapacidad || "",
                             strEstrato: objEmprPrincipal.strEstrato || "",
+                            btPerfilSensible: objEmprPrincipal.btPerfilSensible || "",
                             arrDepartamento:
                                 objEmprPrincipal.arrDepartamento || [],
                             arrCiudad: objEmprPrincipal.arrCiudad || [],

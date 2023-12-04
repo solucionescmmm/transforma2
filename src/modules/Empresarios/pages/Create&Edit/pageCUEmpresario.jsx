@@ -246,6 +246,9 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                     strCondicionDiscapacidad:
                                         data.objInfoEmpresarioPr
                                             .strCondicionDiscapacidad,
+                                    btPerfilSensible: 
+                                        data.objInfoEmpresarioPr
+                                            .btPerfilSensible,
                                     strEstrato:
                                         data.objInfoEmpresarioPr.strEstrato,
                                     arrDepartamento:
@@ -503,6 +506,8 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                     strCondicionDiscapacidad:
                                         objEmprPrincipal.strCondicionDiscapacidad ||
                                         "",
+                                    btPerfilSensible:
+                                        objEmprPrincipal.btPerfilSensible,
                                     strEstrato:
                                         objEmprPrincipal.strEstrato || "",
                                     arrDepartamento:

@@ -124,6 +124,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
         strNivelEducativo: "",
         strTitulos: "",
         strCondicionDiscapacidad: "",
+        btPerfilSensible: false,
         strEstrato: "",
         arrDepartamento: [],
         arrCiudad: [],
@@ -244,6 +245,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                 strNivelEducativo: values.strNivelEducativo || "",
                 strTitulos: values.strTitulos || "",
                 strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
+                btPerfilSensible: values.btPerfilSensible,
                 strEstrato: values.strEstrato || "",
                 arrDepartamento: values.arrDepartamento || [],
                 arrCiudad: values.arrCiudad || [],
@@ -1046,6 +1048,45 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                             </Grid>
 
                             <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.btPerfilSensible}
+                            name="btPerfilSensible"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿El empresario es perfil sensible?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e);
+
+                                        handlerChangeData(
+                                            "btPerfilSensible",
+                                            e.target.value
+                                        );
+                                    }}
+                                    select
+                                    variant="standard"
+                                    fullWidth
+                                    disabled={loading}
+                                    error={
+                                        errors?.btPerfilSensible
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.btPerfilSensible?.message ||
+                                        "Selecciona una opción"
+                                    }
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                            <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.arrDepartamento}
                                     name="arrDepartamento"
@@ -1146,7 +1187,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={12}>
                                 <Controller
                                     defaultValue={data.strDireccionResidencia}
                                     name="strDireccionResidencia"

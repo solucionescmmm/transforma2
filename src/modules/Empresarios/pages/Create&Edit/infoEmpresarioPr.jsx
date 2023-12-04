@@ -63,6 +63,7 @@ const InfoEmpresarioPr = ({
         strNivelEducativo: "",
         strTitulos: "",
         strCondicionDiscapacidad: "",
+        btPerfilSensible: false,
         strEstrato: "",
         arrDepartamento: [],
         arrCiudad: [],
@@ -109,6 +110,7 @@ const InfoEmpresarioPr = ({
                 strNivelEducativo: values.strNivelEducativo || "",
                 strTitulos: values.strTitulos || "",
                 strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
+                btPerfilSensible: values.btPerfilSensible || null,
                 strEstrato: values.strEstrato || "",
                 arrDepartamento: values.arrDepartamento || [],
                 arrCiudad: values.arrCiudad || [],
@@ -771,6 +773,47 @@ const InfoEmpresarioPr = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
+                            defaultValue={data.btPerfilSensible}
+                            name="objInfoEmpresarioPr.btPerfilSensible"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿El empresario es perfil sensible?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e);
+
+                                        handlerChangeData(
+                                            "btPerfilSensible",
+                                            e.target.value
+                                        );
+                                    }}
+                                    select
+                                    variant="standard"
+                                    fullWidth
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmpresarioPr
+                                            ?.btPerfilSensible
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresarioPr
+                                            ?.btPerfilSensible?.message ||
+                                        "Selecciona una opción"
+                                    }
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
                             defaultValue={data.arrDepartamento}
                             name="objInfoEmpresarioPr.arrDepartamento"
                             render={({ field: { name, value, onChange } }) => (
@@ -867,7 +910,7 @@ const InfoEmpresarioPr = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strDireccionResidencia}
                             name="objInfoEmpresarioPr.strDireccionResidencia"
