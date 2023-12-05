@@ -6,6 +6,7 @@ import { Link as RouterLink, useParams, useHistory } from "react-router-dom";
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
 import useGetHistorico from "../../hooks/useGetHistorico";
+import useGetRutasActivas from "../../hooks/useGetRutasActivas";
 
 // Componentes MUI
 import {
@@ -65,6 +66,11 @@ const Coco = () => {
         intId,
     });
     const { data: dataHistorico } = useGetHistorico({
+        autoload: true,
+        intIdIdea: intId,
+    });
+
+    const { data: dataRuta } = useGetRutasActivas({
         autoload: true,
         intIdIdea: intId,
     });
@@ -346,7 +352,7 @@ const Coco = () => {
 
                             <Typography variant="caption">
                                 <b>Ruta activa: </b>
-                                {"Falta conectar"}
+                                {dataRuta ? "Si" : "No"}
                             </Typography>
 
                             <Typography variant="caption">

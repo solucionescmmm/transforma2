@@ -12,6 +12,7 @@ import { LoadingButton } from "@mui/lab";
 import { DatePicker } from "@mui/x-date-pickers";
 
 import validator from "validator";
+import { format, parseISO } from "date-fns";
 
 import React, {
     Fragment,
@@ -40,6 +41,7 @@ import DropdownEmpresarios from "../../../../common/components/dropdownEmpresari
 
 //Estilos
 import { makeStyles } from "@mui/styles";
+
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -180,6 +182,18 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                   .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
                     }`,
                     data,
+                    transformRequest:[
+                        (data)=>{
+                            let newData = {
+                                ...data,
+                                dtFechaExpedicionDocto: data.dtFechaExpedicionDocto ? format(data.dtFechaExpedicionDocto, "yyyy-MM-dd"): null,
+                                dtFechaNacimiento: data.dtFechaExpedicionDocto ? format(data.dtFechaNacimiento, "yyyy-MM-dd"): null,
+                            }
+
+                            return JSON.stringify(newData);
+                        }
+
+                    ],
                     headers: {
                         token,
                         "Content-Type": "application/json;charset=UTF-8",
@@ -235,8 +249,8 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                 strTipoDocto: values.strTipoDocto || "",
                 strNroDocto: values.strNroDocto || "",
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || null,
-                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto || null,
-                dtFechaNacimiento: values.dtFechaNacimiento || null,
+                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto ? parseISO(values.dtFechaExpedicionDocto) : null,
+                dtFechaNacimiento: values.dtFechaNacimiento ? parseISO(values.dtFechaNacimiento) : null,
                 strGenero: values.strGenero || "",
                 strCelular1: values.strCelular1 || "",
                 strCelular2: values.strCelular2 || "",

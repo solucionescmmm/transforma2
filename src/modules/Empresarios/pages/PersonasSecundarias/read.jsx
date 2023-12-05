@@ -70,7 +70,7 @@ const ReadPersonaSecundaria = ({
         },
         {
             title: "Fecha de registro",
-            field: "dtFechaVinculacion",
+            field: "dtmCreacion",
             type: "date",
         },
         {
