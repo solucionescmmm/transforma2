@@ -37,6 +37,14 @@ routes.get(
     }
 );
 
+routes.get(
+    "/transforma/api/rutas/getRutasActivas",
+    async (req, res) => {
+        let controllerRutas = new classController();
+        await controllerRutas.getRutasActivas(req, res);
+    }
+);
+
 routes.put(
     "/transforma/api/rutas/updateRutas",
     async (req, res) => {

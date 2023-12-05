@@ -45,6 +45,7 @@ class daoEmpresarios {
                 ${data.strDireccionResidencia},
                 ${data.strURLFileFoto},
                 GETDATE(),
+                GETDATE(),
                 ${data.strUsuario}
             )
             
@@ -837,6 +838,7 @@ class daoEmpresarios {
                 Empresario.strBarrio,
                 Empresario.strDireccionResidencia,
                 Empresario.strUrlFileFoto,
+                Empresario.dtmCreacion,
                 Empresario.dtmActualizacion,
                 Empresario.strUsuario,
                 IdeaEmpresario.intIdTipoEmpresario,
@@ -972,6 +974,7 @@ class daoEmpresarios {
             Empresario.strBarrio,
             Empresario.strDireccionResidencia,
             Empresario.strUrlFileFoto,
+            Empresario.dtmCreacion,
             Empresario.dtmActualizacion,
             Empresario.strUsuario,
             (

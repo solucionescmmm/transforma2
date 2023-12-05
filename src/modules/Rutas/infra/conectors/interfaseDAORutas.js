@@ -85,6 +85,12 @@ class interfaceDAORutas {
         return query;
     }
 
+    async getRutasActivas(data) {
+        let dao = new classDAO();
+        let query = await dao.getRutasActivas(data);
+        return query;
+    }
+
     async updateRutas(data) {
         let dao = new classDAO();
         let query = await dao.updateRutas(data);

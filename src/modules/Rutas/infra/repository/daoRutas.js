@@ -754,6 +754,57 @@ class daoRutas {
         }
     }
 
+    async getRutasActivas(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+                SELECT
+
+                Rutas.intId,
+                Rutas.intIdIdea,
+                Rutas.strNombre,
+                Rutas.intIdEstadoRuta,
+                Rutas.valorTotalRuta,
+                Rutas.intIdDoctoPropuesta,
+                Rutas.strResponsables,
+                Rutas.strObservaciones,
+                Rutas.intIdMotivoCancelacion,
+                Rutas.dtmCreacion,
+                Rutas.strUsuarioCreacion,
+                Rutas.dtmActualizacion,
+                Rutas.strUsuarioActualizacion,
+                EstadosRutas.strNombre as strEstadoRuta
+
+                FROM tbl_Rutas Rutas
+
+                INNER JOIN tbl_EstadoRuta_Fase EstadosRutas on EstadosRutas.intId = Rutas.intIdEstadoRuta
+
+                WHERE (Rutas.intIdIdea = ${data.intIdIdea})
+                AND (EstadosRutas.strNombre = 'Aceptada/En Proceso')`;
+
+            let result = {
+                error: false,
+                data: response.recordsets[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getIdEstados de la clase daoEstados",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateRutas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
