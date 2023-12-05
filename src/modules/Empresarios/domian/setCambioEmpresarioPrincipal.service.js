@@ -194,6 +194,7 @@ class setCambioEmpresarioPrincipal {
             intIdIdea: this.#objData.intIdIdea,
             intIdEmpresario: this.#intIdEmpresarioPrincipal,
             intIdTipoEmpresario: this.#intIdTipoEmpresarioSecundario,
+            strTipoRelacion:this.#objData.objEmpresario.strTipoRelacion,
             dtFechaInicio: new Date(),
             intIdEstado: this.#intIdEstadoActivo,
             strUsuarioCreacion: this.#objUser.strEmail,
