@@ -123,6 +123,57 @@ class daoHistoricos {
         }
     }
 
+    async getHistoricoByFuente(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT 
+
+            Historico.intId,
+            Historico.intIdIdea,
+            Historico.intNumeroEmpleados,
+            Historico.ValorVentas,
+            Historico.strTiempoDedicacionAdmin,
+            Historico.intIdFuenteHistorico,
+            Historico.intIdEtapaDlloAuto,
+            Historico.intEtapaDlloFecha,
+            Historico.strClasificacionFecha,
+            Historico.intIdFuenteDato,
+            Historico.dtmCreacion
+            
+            FROM tbl_Historicos Historico
+
+            LEFT JOIN tbl_FuentesHistorico FuenteHistorico ON FuenteHistorico.intId = Historico.intIdFuenteHistorico
+
+            WHERE (Historico.intIdIdea = ${data.intIdIdea})
+            AND (FuenteHistorico.strNombre = 'Prediagnóstico')`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getHistorico de la clase daoHistoricos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getIdFuenteHistorico(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();

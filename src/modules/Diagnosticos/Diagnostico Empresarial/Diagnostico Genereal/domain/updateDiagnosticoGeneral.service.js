@@ -8,11 +8,15 @@ const classInterfaceDAODiagnosticoGeneral = require("../infra/conectors/interfas
 
 //services
 const serviceUpdateHistorico = require("../../../../Historicos/domain/updateHistorico.service")
+const serviceGetHistoricoByFuente = require("../../../../Historicos/domain/getHistoricoByFuente.service")
 
 class updateDiagnosticoGeneral {
     #objData;
     #objUser;
     #objResult;
+
+    //Variable
+    #bitTienePrediagnostico;
 
     /**
      * @param {object} data
@@ -23,12 +27,13 @@ class updateDiagnosticoGeneral {
     }
 
     async main() {
+        await this.#getHistorico();
         await this.#validations();
         await this.#updateEmpresarioDiagnosticoGeneral();
         await this.#updateEmpresaDiagnosticoGeneral();
         await this.#completeData();
         await this.#updateDiagnosticoGeneral();
-        await this.#updateHistorico()
+
         return this.#objResult;
     }
 
@@ -46,6 +51,22 @@ class updateDiagnosticoGeneral {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+
+        if (this.#bitTienePrediagnostico) {
+            await this.#updateHistorico();
+        }
+    }
+
+    async #getHistorico() {
+        let queryGetHistorico = await serviceGetHistoricoByFuente({
+            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
+        });
+
+        if (queryGetHistorico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#bitTienePrediagnostico = queryGetHistorico.data ? true : false;
     }
 
     async #completeData() {

@@ -8,6 +8,7 @@ const classInterfaceDAODiagnosticoExpress = require("../infra/conectors/interfas
 const serviceGetIdFuenteHistorico = require("../../../Historicos/domain/getIdFuenteHistoricos.service")
 const serviceGetIdEstadoDiagnostico = require("../../Main/domain/getIdEstadoDiagnosticos.service")
 const serviceSetHistorico = require("../../../Historicos/domain/setHistorico.service")
+const serviceGetHistoricoByFuente = require("../../../Historicos/domain/getHistoricoByFuente.service")
 const serviceUpdateDiagnostico = require("../../Main/domain/updateDiagnosticos.service")
 
 class setDiagnosticoExpress {
@@ -19,6 +20,7 @@ class setDiagnosticoExpress {
     //variables
     #intIdEstadoDiagnostico;
     #intIdFuenteHistorico;
+    #bitTienePrediagnostico;
     /**
      * @param {object} data
      */
@@ -28,16 +30,15 @@ class setDiagnosticoExpress {
     }
 
     async main() {
-        console.log(this.#objData)
-        // await this.#validations();
-        // await this.#getIdFuenteHistorico();
-        // await this.#getIntIdEstadoDiagnostico();
-        // await this.#updateEmpresaDiagnosticoExpress();
-        // await this.#completeData();
-        // await this.#setDiagnosticoExpress();
-        // await this.#setHistorico();
-        // await this.#updateDiagnostico();
-        // return this.#objResult;
+        await this.#getIdFuenteHistorico();
+        await this.#getIntIdEstadoDiagnostico();
+        await this.#getHistorico();
+        await this.#validations();
+        await this.#updateEmpresaDiagnosticoExpress();
+        await this.#completeData();
+        await this.#setDiagnosticoExpress();
+        await this.#updateDiagnostico();
+        return this.#objResult;
     }
 
     async #validations() {
@@ -53,6 +54,10 @@ class setDiagnosticoExpress {
 
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        if (this.#bitTienePrediagnostico) {
+            await this.#setHistorico();
         }
     }
 
@@ -78,6 +83,18 @@ class setDiagnosticoExpress {
         }
 
         this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
+    }
+
+    async #getHistorico() {
+        let queryGetHistorico = await serviceGetHistoricoByFuente({
+            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
+        });
+
+        if (queryGetHistorico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#bitTienePrediagnostico = queryGetHistorico.data ? true : false;
     }
 
     async #completeData() {

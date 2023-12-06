@@ -20,6 +20,12 @@ class interfaceDAOHistoricos {
         return result
     }
 
+    async getHistoricoByFuente(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getHistoricoByFuente(data)
+        return result
+    }
+
     async getIdFuenteHistorico(data) {
         const dao = new classDaoSql()
         let result = await dao.getIdFuenteHistorico(data)

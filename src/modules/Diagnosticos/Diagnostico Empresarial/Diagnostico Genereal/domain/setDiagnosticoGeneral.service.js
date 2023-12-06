@@ -8,6 +8,7 @@ const classInterfaceDAODiagnosticoGeneral = require("../infra/conectors/interfas
 const serviceGetIdFuenteHistorico = require("../../../../Historicos/domain/getIdFuenteHistoricos.service")
 const serviceGetIdEstadoDiagnostico = require("../../../Main/domain/getIdEstadoDiagnosticos.service")
 const serviceSetHistorico = require("../../../../Historicos/domain/setHistorico.service")
+const serviceGetHistoricoByFuente = require("../../../../Historicos/domain/getHistoricoByFuente.service")
 const serviceUpdateDiagnostico = require("../../../Main/domain/updateDiagnosticos.service")
 
 class setDiagnosticoGeneral {
@@ -19,6 +20,7 @@ class setDiagnosticoGeneral {
     //variables
     #intIdEstadoDiagnostico;
     #intIdFuenteHistorico;
+    #bitTienePrediagnostico;
     /**
      * @param {object} data
      */
@@ -28,13 +30,13 @@ class setDiagnosticoGeneral {
     }
 
     async main() {
-        await this.#validations();
         await this.#getIdFuenteHistorico();
         await this.#getIntIdEstadoDiagnostico();
+        await this.#getHistorico();
+        await this.#validations();
         await this.#updateEmpresarioDiagnosticoGeneral();
         await this.#updateEmpresaDiagnosticoGeneral();
         await this.#updateDiagnostico();
-        await this.#setHistorico();
         await this.#completeData();
         await this.#setDiagnosticoGeneral();
         return this.#objResult;
@@ -53,6 +55,10 @@ class setDiagnosticoGeneral {
 
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        if (this.#bitTienePrediagnostico) {
+            await this.#setHistorico();
         }
     }
 
@@ -80,6 +86,18 @@ class setDiagnosticoGeneral {
         this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
     }
 
+    async #getHistorico() {
+        let queryGetHistorico = await serviceGetHistoricoByFuente({
+            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
+        });
+
+        if (queryGetHistorico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#bitTienePrediagnostico = queryGetHistorico.data ? true : false;
+    }
+
     async #completeData() {
         let newData = {
             ...this.#objData,
@@ -90,9 +108,9 @@ class setDiagnosticoGeneral {
             ...this.#objData.objInfoPerfilEco,
             ...this.#objData.objInfoAdicional,
             //Objeto de Información General
-            intIdDiagnostico: this.#objData.objInfoGeneral.intIdDiagnostico,
-            intIdEmpresario: this.#objData.objInfoGeneral?.intId || 1,
-            intIdTipoEmpresario: 1,
+            intIdDiagnostico: this.#objData.objInfoGeneral?.intIdDiagnostico,
+            intIdEmpresario: this.#objData.objInfoGeneral?.intIdEmpresario,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral?.intIdTipoEmpresario,
             btFinalizado: false,
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
@@ -138,7 +156,7 @@ class setDiagnosticoGeneral {
             strTipoContribuyente: this.#objData.objInfoEmpresa.strTipoContribuyente,
             strRut: this.#objData.objInfoEmpresa.strRut,
             strPresupuestoFamiliar: this.#objData.objInfoEmpresa.strPresupuestoFamiliar,
-            strIngresosDistintos:this.#objData.objInfoEmpresa.strIngresosDistintos,
+            strIngresosDistintos: this.#objData.objInfoEmpresa.strIngresosDistintos,
 
             //Objeto de InfoPerfilEco
             strOperacionesVentas6Meses: this.#objData.objInfoPerfilEco.strOperacionesVentas6Meses,
@@ -158,7 +176,7 @@ class setDiagnosticoGeneral {
 
             //Objeto de InfoAdicional
             strConclusiones: this.#objData.objInfoAdicional.strConclusiones,
-            strURLSFotosProducto:this.#objData.objInfoAdicional.strURLSFotosProducto,
+            strURLSFotosProducto: this.#objData.objInfoAdicional.strURLSFotosProducto,
         };
 
         this.#objData = newData;
