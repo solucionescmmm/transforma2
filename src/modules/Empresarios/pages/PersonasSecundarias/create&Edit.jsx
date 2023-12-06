@@ -42,7 +42,6 @@ import DropdownEmpresarios from "../../../../common/components/dropdownEmpresari
 //Estilos
 import { makeStyles } from "@mui/styles";
 
-
 const styles = makeStyles((theme) => ({
     containerPR: {
         marginTop: "20px",
@@ -108,9 +107,9 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
         btExiste: "",
         objEmpresario: null,
         intIdEmpresario: "",
-        intIdTipoEmpresario:"",
+        intIdTipoEmpresario: "",
         intIdIdea: intId,
-        strTipoRelacion:"",
+        strTipoRelacion: "",
         strNombres: "",
         strApellidos: "",
         strTipoDocto: "",
@@ -182,17 +181,27 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                   .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
                     }`,
                     data,
-                    transformRequest:[
-                        (data)=>{
+                    transformRequest: [
+                        (data) => {
                             let newData = {
                                 ...data,
-                                dtFechaExpedicionDocto: data.dtFechaExpedicionDocto ? format(data.dtFechaExpedicionDocto, "yyyy-MM-dd"): null,
-                                dtFechaNacimiento: data.dtFechaExpedicionDocto ? format(data.dtFechaNacimiento, "yyyy-MM-dd"): null,
-                            }
+                                dtFechaExpedicionDocto:
+                                    data.dtFechaExpedicionDocto
+                                        ? format(
+                                              data.dtFechaExpedicionDocto,
+                                              "yyyy-MM-dd"
+                                          )
+                                        : null,
+                                dtFechaNacimiento: data.dtFechaExpedicionDocto
+                                    ? format(
+                                          data.dtFechaNacimiento,
+                                          "yyyy-MM-dd"
+                                      )
+                                    : null,
+                            };
 
                             return JSON.stringify(newData);
-                        }
-
+                        },
                     ],
                     headers: {
                         token,
@@ -243,14 +252,18 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                 intIdEmpresario: values.intId || "",
                 intIdTipoEmpresario: values.intIdTipoEmpresario || "",
                 intIdIdea: intId,
-                strTipoRelacion:values.strTipoRelacion|| "",
+                strTipoRelacion: values.strTipoRelacion || "",
                 strNombres: values.strNombres || "",
                 strApellidos: values.strApellidos || "",
                 strTipoDocto: values.strTipoDocto || "",
                 strNroDocto: values.strNroDocto || "",
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || null,
-                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto ? parseISO(values.dtFechaExpedicionDocto) : null,
-                dtFechaNacimiento: values.dtFechaNacimiento ? parseISO(values.dtFechaNacimiento) : null,
+                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto
+                    ? parseISO(values.dtFechaExpedicionDocto)
+                    : null,
+                dtFechaNacimiento: values.dtFechaNacimiento
+                    ? parseISO(values.dtFechaNacimiento)
+                    : null,
                 strGenero: values.strGenero || "",
                 strCelular1: values.strCelular1 || "",
                 strCelular2: values.strCelular2 || "",
@@ -424,7 +437,9 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                 <Controller
                                     defaultValue={data.strTipoRelacion}
                                     name="strTipoRelacion"
-                                    render={({ field: { name, value, onChange } }) => (
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
                                         <SelectTipoRelacion
                                             label="Tipo de relación con la persona principal"
                                             name={name}
@@ -438,7 +453,8 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                                     : false
                                             }
                                             helperText={
-                                                errors?.strTipoRelacion?.message ||
+                                                errors?.strTipoRelacion
+                                                    ?.message ||
                                                 "Selecciona la relación que tiene con la persona principal"
                                             }
                                         />
@@ -518,14 +534,14 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             }
                                             helperText={
                                                 errors?.strApellidos?.message ||
-                                                "Digíta los apellidos de la persona"
+                                                "Digita los apellidos de la persona"
                                             }
                                         />
                                     )}
                                     control={control}
                                     rules={{
                                         required:
-                                            "Por favor, digíta los apellidos de la persona",
+                                            "Por favor, digita los apellidos de la persona",
                                         validate: (value) => {
                                             if (
                                                 !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
@@ -1062,43 +1078,48 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                             </Grid>
 
                             <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.btPerfilSensible}
-                            name="btPerfilSensible"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿El empresario es perfil sensible?"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => {
-                                        onChange(e);
+                                <Controller
+                                    defaultValue={data.btPerfilSensible}
+                                    name="btPerfilSensible"
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <TextField
+                                            label="¿El empresario es perfil sensible?"
+                                            name={name}
+                                            value={value}
+                                            onChange={(e) => {
+                                                onChange(e);
 
-                                        handlerChangeData(
-                                            "btPerfilSensible",
-                                            e.target.value
-                                        );
-                                    }}
-                                    select
-                                    variant="standard"
-                                    fullWidth
-                                    disabled={loading}
-                                    error={
-                                        errors?.btPerfilSensible
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.btPerfilSensible?.message ||
-                                        "Selecciona una opción"
-                                    }
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                </TextField>
-                            )}
-                            control={control}
-                        />
-                    </Grid>
+                                                handlerChangeData(
+                                                    "btPerfilSensible",
+                                                    e.target.value
+                                                );
+                                            }}
+                                            select
+                                            variant="standard"
+                                            fullWidth
+                                            disabled={loading}
+                                            error={
+                                                errors?.btPerfilSensible
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.btPerfilSensible
+                                                    ?.message ||
+                                                "Selecciona una opción"
+                                            }
+                                        >
+                                            <MenuItem value={true}>Sí</MenuItem>
+                                            <MenuItem value={false}>
+                                                No
+                                            </MenuItem>
+                                        </TextField>
+                                    )}
+                                    control={control}
+                                />
+                            </Grid>
 
                             <Grid item xs={12} md={6}>
                                 <Controller

@@ -345,7 +345,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parent: "strOperacionesVentas6Meses",
                 value: "",
-                label: "¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continúa?",
+                label: "¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?",
             },
             {
                 parent: "strEtapaValidacion",
@@ -400,12 +400,12 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parent: "strDiasProduccion",
                 value: "",
-                label: "¿En promedio al día cuántas horas dispones para la producción:?",
+                label: "¿En promedio al día cuántas horas dispones para la producción?",
             },
             {
                 parent: "strGeneraEmpleoRiesgoPobreza",
                 value: "",
-                label: "¿Genera empleo o ingresos para personas que se encuentren en riesgo de pobreza o de exclusión socia?",
+                label: "¿Genera empleo o ingresos para personas que se encuentren en riesgo de pobreza o de exclusión social?",
             },
             {
                 parent: "strActivos",

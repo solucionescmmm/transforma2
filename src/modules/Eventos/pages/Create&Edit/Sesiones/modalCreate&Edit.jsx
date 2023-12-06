@@ -240,6 +240,13 @@ const ModalCEdit = ({
 
     useEffect(() => {
         if (success) {
+            reset({
+                strNombre: "",
+                dtFechaInicio: null,
+                dtFechaFin: null,
+                strArea: null,
+                strResponsables: [],
+            });
             refresh({ intIdEvento });
             handleOpenDialog();
 

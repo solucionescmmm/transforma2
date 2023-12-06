@@ -31,7 +31,6 @@ import {
     PlaceOutlined as PlaceIcon,
 } from "@mui/icons-material";
 
-
 //Estilos
 import { makeStyles } from "@mui/styles";
 import Loader from "../../../../common/components/Loader";
@@ -133,6 +132,10 @@ const Coco = () => {
             return "Indicadores";
         }
 
+        if (location.startsWith("Tareas")) {
+            return "Tareas";
+        }
+
         return "Inicio";
     };
     //===============================================================================================================================================
@@ -232,14 +235,16 @@ const Coco = () => {
                                 height: 80,
                             }}
                             alt="logo"
-                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
-                                }${process.env.REACT_APP_API_BACK_PORT}${objInteresado?.objEmpresario
+                            src={`${process.env.REACT_APP_API_BACK_PROT}://${
+                                process.env.REACT_APP_API_BACK_HOST
+                            }${process.env.REACT_APP_API_BACK_PORT}${
+                                objInteresado?.objEmpresario
                                     ?.filter(
                                         (p) =>
                                             p.strTipoEmpresario === "Principal"
                                     )
                                     ?.at(0)?.strUrlFileFoto || ""
-                                }`}
+                            }`}
                         />
 
                         <Box
@@ -308,15 +313,10 @@ const Coco = () => {
                             </Typography>
                             {objInteresado?.objEmpresario
                                 ?.filter(
-                                    (p) =>
-                                        p.strTipoEmpresario ===
-                                        "Principal"
+                                    (p) => p.strTipoEmpresario === "Principal"
                                 )
                                 ?.at(0)?.btPerfilSensible ? (
-                                <Typography
-                                    color="red"
-                                    variant="body1"
-                                >
+                                <Typography color="red" variant="body1">
                                     Perfil sensible
                                 </Typography>
                             ) : null}
@@ -382,6 +382,7 @@ const Coco = () => {
                                 <Tab label="Perfil" value="Inicio" />
                                 <Tab label="Personas" value="Personas" />
                                 <Tab label="Comentarios" value="Comentarios" />
+                                <Tab label="Tareas" value="Tareas" />
                                 <Tab
                                     label="Diagnósticos"
                                     value="DiagnosticoCoco"
@@ -1132,6 +1133,18 @@ const Coco = () => {
                                             </Grid>
                                         </CardContent>
                                     </Card>
+                                </Grid>
+                            </Grid>
+                        </TabPanel>
+
+                        <TabPanel value="Tareas" sx={{ width: "100%" }}>
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <ReadTareas
+                                        onChangeRoute={onChangeRoute}
+                                        inModal
+                                        intIdIdea={route.params.intIdIdea}
+                                    />
                                 </Grid>
                             </Grid>
                         </TabPanel>

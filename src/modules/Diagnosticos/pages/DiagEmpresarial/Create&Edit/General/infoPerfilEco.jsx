@@ -65,22 +65,26 @@ const InfoPerfilEco = ({
     useEffect(() => {
         if (values) {
             setData({
-                strOperacionesVentas6Meses:values.strOperacionesVentas6Meses || "",
-                strEtapaValidacion:values.strEtapaValidacion || "",
-                strPromedioVentas6Meses:values.strPromedioVentas6Meses || "",
-                dblValorVentasMes:values.dblValorVentasMes || "",
-                strRangoVentas:values.strRangoVentas || "",
-                intNumeroEmpleados:values.intNumeroEmpleados || "",
-                strRangoEmpleados:values.strRangoEmpleados || "",
-                strTipoEmpleoGenerado:values.strTipoEmpleoGenerado || "",
-                strDlloAcitividadesContratados:values.strDlloAcitividadesContratados || "",
-                strPromedioTiempoInvertido:values.strPromedioTiempoInvertido || "",
-                strRolesEmprendimiento:values.strRolesEmprendimiento || [],
-                strDiasProduccion:values.strDiasProduccion || "",
-                strGeneraEmpleoRiesgoPobreza:values.strGeneraEmpleoRiesgoPobreza || "",
-                strActivos:values.strActivos || "",
-                dblValorActivos:values.dblValorActivos || "",
-                dblValorGananciasMes:values.dblValorGananciasMes || "",
+                strOperacionesVentas6Meses:
+                    values.strOperacionesVentas6Meses || "",
+                strEtapaValidacion: values.strEtapaValidacion || "",
+                strPromedioVentas6Meses: values.strPromedioVentas6Meses || "",
+                dblValorVentasMes: values.dblValorVentasMes || "",
+                strRangoVentas: values.strRangoVentas || "",
+                intNumeroEmpleados: values.intNumeroEmpleados || "",
+                strRangoEmpleados: values.strRangoEmpleados || "",
+                strTipoEmpleoGenerado: values.strTipoEmpleoGenerado || "",
+                strDlloAcitividadesContratados:
+                    values.strDlloAcitividadesContratados || "",
+                strPromedioTiempoInvertido:
+                    values.strPromedioTiempoInvertido || "",
+                strRolesEmprendimiento: values.strRolesEmprendimiento || [],
+                strDiasProduccion: values.strDiasProduccion || "",
+                strGeneraEmpleoRiesgoPobreza:
+                    values.strGeneraEmpleoRiesgoPobreza || "",
+                strActivos: values.strActivos || "",
+                dblValorActivos: values.dblValorActivos || "",
+                dblValorGananciasMes: values.dblValorGananciasMes || "",
             });
         }
 
@@ -89,7 +93,12 @@ const InfoPerfilEco = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -102,7 +111,9 @@ const InfoPerfilEco = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoPerfilEco ? "#D33030" : "inherit",
+                            color: errors?.objInfoPerfilEco
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Perfil económico y productivo
@@ -110,13 +121,22 @@ const InfoPerfilEco = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -124,7 +144,9 @@ const InfoPerfilEco = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoPerfilEco ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoPerfilEco
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -136,7 +158,7 @@ const InfoPerfilEco = ({
                             name="objInfoPerfilEco.strOperacionesVentas6Meses"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
-                                    label="¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continúa?"
+                                    label="¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -151,8 +173,8 @@ const InfoPerfilEco = ({
                                     }
                                     helperText={
                                         errors?.objInfoPerfilEco
-                                            ?.strOperacionesVentas6Meses?.message ||
-                                        "Selecciona una opción"
+                                            ?.strOperacionesVentas6Meses
+                                            ?.message || "Selecciona una opción"
                                     }
                                     strGrupo="Lista_Generica"
                                     strCodigo="SI_NO_N/A"
@@ -178,13 +200,15 @@ const InfoPerfilEco = ({
                                     onChange={(e) => onChange(e)}
                                     required
                                     error={
-                                        errors?.objInfoPerfilEco?.strEtapaValidacion
+                                        errors?.objInfoPerfilEco
+                                            ?.strEtapaValidacion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.strEtapaValidacion
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoPerfilEco
+                                            ?.strEtapaValidacion?.message ||
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="EtapaValidacionProducto"
@@ -212,12 +236,14 @@ const InfoPerfilEco = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoPerfilEco?.strPromedioVentas6Meses
+                                        errors?.objInfoPerfilEco
+                                            ?.strPromedioVentas6Meses
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.strPromedioVentas6Meses
+                                        errors?.objInfoPerfilEco
+                                            ?.strPromedioVentas6Meses
                                             ?.message || "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
@@ -252,13 +278,14 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPerfilEco?.dblValorVentasMes
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorVentasMes
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.dblValorVentasMes
-                                            ?.message ||
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorVentasMes?.message ||
                                         "Digita la cantidad promedio de las ventas mensuales"
                                     }
                                 />
@@ -321,13 +348,14 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPerfilEco?.intNumeroEmpleados
+                                        errors?.objInfoPerfilEco
+                                            ?.intNumeroEmpleados
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.intNumeroEmpleados
-                                            ?.message ||
+                                        errors?.objInfoPerfilEco
+                                            ?.intNumeroEmpleados?.message ||
                                         "Digita la cantidad de empleos generados"
                                     }
                                 />
@@ -363,13 +391,15 @@ const InfoPerfilEco = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoPerfilEco?.strRangoEmpleados
+                                        errors?.objInfoPerfilEco
+                                            ?.strRangoEmpleados
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.strRangoEmpleados
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoPerfilEco
+                                            ?.strRangoEmpleados?.message ||
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="RangoEmpleados"
@@ -394,13 +424,15 @@ const InfoPerfilEco = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoPerfilEco?.strTipoEmpleoGenerado
+                                        errors?.objInfoPerfilEco
+                                            ?.strTipoEmpleoGenerado
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.strTipoEmpleoGenerado
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoPerfilEco
+                                            ?.strTipoEmpleoGenerado?.message ||
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="TipoEmpleoGenera"
@@ -437,14 +469,16 @@ const InfoPerfilEco = ({
                                     }
                                     helperText={
                                         errors?.objInfoPerfilEco
-                                            ?.strDlloAcitividadesContratados?.message ||
+                                            ?.strDlloAcitividadesContratados
+                                            ?.message ||
                                         "Digita detalladamente tu respuesta"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita detalladamente tu respuesta",
+                                required:
+                                    "Por favor, digita detalladamente tu respuesta",
                             }}
                         />
                     </Grid>
@@ -471,8 +505,8 @@ const InfoPerfilEco = ({
                                     }
                                     helperText={
                                         errors?.objInfoPerfilEco
-                                            ?.strPromedioTiempoInvertido?.message ||
-                                        "Selecciona una opción"
+                                            ?.strPromedioTiempoInvertido
+                                            ?.message || "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="PromedioTiempoInvertido"
@@ -500,13 +534,15 @@ const InfoPerfilEco = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoPerfilEco?.strRolesEmprendimiento
+                                        errors?.objInfoPerfilEco
+                                            ?.strRolesEmprendimiento
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.strRolesEmprendimiento
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoPerfilEco
+                                            ?.strRolesEmprendimiento?.message ||
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="RolesOperacion"
@@ -526,7 +562,7 @@ const InfoPerfilEco = ({
                             name="objInfoPerfilEco.strDiasProduccion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
-                                    label="¿En promedio al día cuántas horas dispones para la producción:?"
+                                    label="¿En promedio al día cuántas horas dispones para la producción?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -535,13 +571,15 @@ const InfoPerfilEco = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoPerfilEco?.strDiasProduccion
+                                        errors?.objInfoPerfilEco
+                                            ?.strDiasProduccion
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.strDiasProduccion
-                                            ?.message || "Digita detalladamente"
+                                        errors?.objInfoPerfilEco
+                                            ?.strDiasProduccion?.message ||
+                                        "Digita detalladamente"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="PromedioDiaHorasProduccion"
@@ -560,7 +598,7 @@ const InfoPerfilEco = ({
                             name="objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
-                                    label="¿Genera empleo o ingresos para personas que se encuentren en riesgo de pobreza o de exclusión socia?"
+                                    label="¿Genera empleo o ingresos para personas que se encuentren en riesgo de pobreza o de exclusión social?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -576,8 +614,8 @@ const InfoPerfilEco = ({
                                     }
                                     helperText={
                                         errors?.objInfoPerfilEco
-                                            ?.strGeneraEmpleoRiesgoPobreza?.message ||
-                                        "Selecciona una opción"
+                                            ?.strGeneraEmpleoRiesgoPobreza
+                                            ?.message || "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="GeneraEmpleoRiesgoPobreza"
@@ -610,8 +648,8 @@ const InfoPerfilEco = ({
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.strActivos?.message ||
-                                        "Digita una opción"
+                                        errors?.objInfoPerfilEco?.strActivos
+                                            ?.message || "Digita una opción"
                                     }
                                 />
                             )}
@@ -642,13 +680,15 @@ const InfoPerfilEco = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoPerfilEco?.dblValorActivos
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorActivos
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.dblValorActivos
-                                            ?.message || "Digita una opción"
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorActivos?.message ||
+                                        "Digita una opción"
                                     }
                                 />
                             )}
@@ -680,13 +720,14 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoPerfilEco?.dblValorGananciasMes
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorGananciasMes
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.dblValorGananciasMes
-                                            ?.message ||
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorGananciasMes?.message ||
                                         "Digita la cantidad promedio de las ganancias mensuales"
                                     }
                                 />

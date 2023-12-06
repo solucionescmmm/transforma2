@@ -701,7 +701,7 @@ const PaperFase = ({
 
                         <Collapse in={openCollapese} timeout="auto">
                             <Grid container direction="row" spacing={2}>
-                                <Grid item xs={12}>
+                                {/* <Grid item xs={12}>
                                     <Controller
                                         defaultValue={data.strObservaciones}
                                         name={`arrInfoFases[${index}].strObservaciones`}
@@ -739,7 +739,7 @@ const PaperFase = ({
                                                 "Por favor, digita las observaciones",
                                         }}
                                     />
-                                </Grid>
+                                </Grid> */}
 
                                 <hr
                                     style={{

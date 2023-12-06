@@ -355,7 +355,7 @@ const HomePage = () => {
                         </Box>
                     </Box>
 
-                    <Box display="flex" width="100%">
+                    <Box display="flex" width="100%" flexDirection="column">
                         {dataLastEvents?.map((e, i) => (
                             <Box key={i} display="flex" width="100%" marginTop="20px">
                                 <Box
@@ -387,7 +387,7 @@ const HomePage = () => {
                                                     parseISO(e.FechaInicial),
                                                     "MM"
                                                 )
-                                            ) + 1}
+                                            )}
                                         </Typography>
                                     </Box>
                                 </Box>

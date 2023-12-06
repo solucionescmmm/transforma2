@@ -245,7 +245,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button
                             onClick={() => onChangeRoute("DiagnosticoCoco")}
                             startIcon={<ChevronLeftIcon />}
@@ -254,7 +254,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         >
                             regresar
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </TabPanel>
         );
@@ -440,7 +440,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button
                             onClick={() =>
                                 onChangeRoute("Diagnosticos", {
@@ -453,7 +453,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         >
                             regresar
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </TabPanel>
         );
@@ -903,7 +903,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button
                             onClick={() =>
                                 onChangeRoute("Diagnosticos", {
@@ -916,7 +916,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                         >
                             regresar
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </TabPanel>
         );

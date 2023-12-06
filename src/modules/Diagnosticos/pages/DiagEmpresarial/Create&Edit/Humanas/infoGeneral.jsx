@@ -39,7 +39,7 @@ const InfoGeneral = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        objEmpresario:null,
+        objEmpresario: null,
         dtmFechaSesion: null,
         strLugarSesion: "",
         strUsuarioCreacion: "",
@@ -134,21 +134,21 @@ const InfoGeneral = ({
                             name="objInfoGeneral.objEmpresario"
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownEmpresarios
-                                label="Persona empresaria a la cual se le realiza el diagnóstico"
-                                disabled={loading}
-                                name={name}
-                                value={value}
-                                onChange={(target, value) => {
-                                    onChange(value);
-                                }}
-                                required
-                                helperText={
-                                    errors?.objEmpresario?.message ||
-                                    "Selecciona una persona"
-                                }
-                                error={!!errors?.objEmpresario}
-                                intIdIdea={intIdIdea}
-                            />
+                                    label="Persona empresaria a la cual se le realiza el diagnóstico"
+                                    disabled={loading}
+                                    name={name}
+                                    value={value}
+                                    onChange={(target, value) => {
+                                        onChange(value);
+                                    }}
+                                    required
+                                    helperText={
+                                        errors?.objEmpresario?.message ||
+                                        "Selecciona una persona"
+                                    }
+                                    error={!!errors?.objEmpresario}
+                                    intIdIdea={intIdIdea}
+                                />
                             )}
                             control={control}
                             rules={{
@@ -214,14 +214,14 @@ const InfoGeneral = ({
                                     helperText={
                                         errors?.objInfoGeneral?.strLugarSesion
                                             ?.message ||
-                                        "Digita el lugar donde se realizo la sesión"
+                                        "Digita el lugar dónde se realizó la sesión"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digita el lugar donde se realizo la sesión",
+                                    "Por favor, digita el lugar dónde se realizó la sesión",
                             }}
                         />
                     </Grid>

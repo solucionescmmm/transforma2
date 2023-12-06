@@ -64,7 +64,7 @@ const InfoFamiliar = ({
     useEffect(() => {
         if (values) {
             setData({
-                strCabezaHogar:values.strCabezaHogar || "",
+                strCabezaHogar: values.strCabezaHogar || "",
                 intNumPersonasCargo: values.intNumPersonasCargo || "",
                 intHijos: values.intHijos || "",
                 intHijosEstudiando: values.intHijosEstudiando || "",
@@ -194,7 +194,7 @@ const InfoFamiliar = ({
                                     helperText={
                                         errors?.objInfoFamiliar
                                             ?.intNumPersonasCargo?.message ||
-                                        "Digíta el número de personas que dependen económicamente de usted"
+                                        "Digita el número de personas que dependen económicamente de usted"
                                     }
                                     type="number"
                                     required
@@ -203,7 +203,7 @@ const InfoFamiliar = ({
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta el número de personas que dependen económicamente de usted",
+                                    "Por favor, digita el número de personas que dependen económicamente de usted",
                                 validate: (value) => {
                                     if (value < 0) {
                                         return "El valor no puede ser menor a 0";
@@ -251,7 +251,7 @@ const InfoFamiliar = ({
                                     helperText={
                                         errors?.objInfoFamiliar?.intHijos
                                             ?.message ||
-                                        "Digíta el número de hijos"
+                                        "Digita el número de hijos"
                                     }
                                     type="number"
                                     required
@@ -260,7 +260,7 @@ const InfoFamiliar = ({
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta el número de hijos",
+                                    "Por favor, digita el número de hijos",
                                 validate: (value) => {
                                     if (value < 0) {
                                         return "El valor no puede ser menor a 0";
@@ -297,7 +297,7 @@ const InfoFamiliar = ({
                                     helperText={
                                         errors?.objInfoFamiliar
                                             ?.intHijosEstudiando?.message ||
-                                        "Digíta el número de hijos que están estudiando"
+                                        "Digita el número de hijos que están estudiando"
                                     }
                                     type="number"
                                     required={
@@ -315,7 +315,7 @@ const InfoFamiliar = ({
 
                                     if (intHijos > 0) {
                                         if (!value) {
-                                            return "Por favor, digíta el número de hijos que están estudiando";
+                                            return "Por favor, digita el número de hijos que están estudiando";
                                         }
 
                                         if (value < 0) {

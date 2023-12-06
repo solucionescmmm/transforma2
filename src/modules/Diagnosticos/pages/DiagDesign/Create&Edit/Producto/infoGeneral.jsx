@@ -39,7 +39,7 @@ const InfoGeneral = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        objEmpresario:null,
+        objEmpresario: null,
         dtmFechaSesion: null,
         strLugarSesion: "",
         strUsuarioCreacion: "",
@@ -214,14 +214,14 @@ const InfoGeneral = ({
                                     helperText={
                                         errors?.objInfoGeneral?.strLugarSesion
                                             ?.message ||
-                                        "Digita el lugar donde se realizo la sesión"
+                                        "Digita el lugar dónde se realizó la sesión"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digita el lugar donde se realizo la sesión",
+                                    "Por favor, digita el lugar dónde se realizó la sesión",
                             }}
                         />
                     </Grid>

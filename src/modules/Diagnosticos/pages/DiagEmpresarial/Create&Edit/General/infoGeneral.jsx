@@ -237,14 +237,14 @@ const InfoGeneral = ({
                                     helperText={
                                         errors?.objInfoGeneral?.strLugarSesion
                                             ?.message ||
-                                        "Digita el lugar donde se realizo la sesión"
+                                        "Digita el lugar dónde se realizó la sesión"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digita el lugar donde se realizo la sesión",
+                                    "Por favor, digita el lugar dónde se realizó la sesión",
                             }}
                         />
                     </Grid>
@@ -414,14 +414,14 @@ const InfoGeneral = ({
                                     helperText={
                                         errors?.objInfoGeneral?.strApellidos
                                             ?.message ||
-                                        "Digíta los apellidos de la persona"
+                                        "Digita los apellidos de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta los apellidos de la persona",
+                                    "Por favor, digita los apellidos de la persona",
                                 validate: (value) => {
                                     if (
                                         !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
