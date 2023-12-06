@@ -52,7 +52,9 @@ class updateTiposServicios {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
-        let queryGetTipoServicios = await getTipoServicios({}, this.#objUser);
+        let dao = new classInterfaceDAOTiposServicios();
+
+        let queryGetTipoServicios = await dao.getTiposServicios({});
 
         if (queryGetTipoServicios.error) {
             throw new Error(queryGetTipoServicios.msg);
@@ -67,6 +69,16 @@ class updateTiposServicios {
             }
             if (strNombreRepetido === 2) {
                 throw new Error("El nombre de este tipo servicio ya existe.");
+            }
+        }
+
+        let arrayAtributos = this.#objData.arrAtributos
+
+        if (arrayAtributos.length > 0) {
+            for (let i = 0; i < arrayAtributos.length; i++) {
+                if (!arrayAtributos[i].intIdAtributo) {
+                    throw new Error("Hay un atributo en este tipo de servicio que no tiene tipo de atributo.");  
+                }  
             }
         }
     }

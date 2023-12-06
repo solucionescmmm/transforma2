@@ -6,7 +6,6 @@ const validator = require("validator").default;
 
 //Servicios
 const serviceGetIdEstado = require("../../../../Estados/domain/getIdEstado.service");
-const getTipoServicios = require("./getTiposServicios.service");
 
 class setTiposServicios {
     #objData;
@@ -30,6 +29,7 @@ class setTiposServicios {
         this.#completeData();
         await this.#setTiposServicios();
         await this.#setAtributosTiposServicios();
+
         return this.#objResult;
     }
 
@@ -48,7 +48,9 @@ class setTiposServicios {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
-        let queryGetTipoServicios = await getTipoServicios({}, this.#objUser);
+        let dao = new classInterfaceDAOTiposServicios();
+
+        let queryGetTipoServicios = await dao.getTiposServicios({});
 
         if (queryGetTipoServicios.error) {
             throw new Error(queryGetTipoServicios.msg);
@@ -59,6 +61,16 @@ class setTiposServicios {
         for (let i = 0; i < arrayTipoServicios.length; i++) {
             if (this.#objData.strNombre.trim() === arrayTipoServicios[i].strNombre.trim()) {
                 throw new Error("El nombre de este tipo servicio ya existe.");
+            }
+        }
+
+        let arrayAtributos = this.#objData.arrAtributos
+
+        if (arrayAtributos.length > 0) {
+            for (let i = 0; i < arrayAtributos.length; i++) {
+                if (!arrayAtributos[i].intIdAtributo) {
+                    throw new Error("Hay un atributo en este tipo de servicio que no tiene tipo de atributo.");  
+                }  
             }
         }
     }
