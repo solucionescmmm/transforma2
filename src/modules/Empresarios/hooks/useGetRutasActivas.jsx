@@ -70,8 +70,6 @@ const useGetRutasActivas = ({ intIdIdea = null, autoLoad = true } = {}) => {
                 .then((res) => {
                     setData(res.data.data);
 
-                    console.log(res.data)
-
                     return res;
                 })
                 .catch((error) => {

@@ -193,6 +193,8 @@ const PageCUGeneral = ({
                                     ...data.objInfoGeneral,
                                     intIdIdea,
                                     intIdDiagnostico,
+                                    intIdEmpresario:data.objEmpresario?.filter((p) => p.strTipoEmpresario === "Principal")?.at(0)?.intId,
+                                    intIdTipoEmpresario:data.objEmpresario?.filter((p) => p.strTipoEmpresario === "Principal")?.at(0)?.intIdTipoEmpresario,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
