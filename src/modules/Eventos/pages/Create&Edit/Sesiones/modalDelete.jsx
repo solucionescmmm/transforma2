@@ -149,7 +149,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdEvento }) =>
 
     useEffect(() => {
         if (success) {
-            refresh({intIdEvento: Number(intIdEvento)});
+            refresh({ intIdEvento });
             handleOpenDialog();
 
             setSucces(false);

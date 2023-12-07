@@ -115,6 +115,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
                 intId={selectedData?.intId}
+                intIdEvento={intIdEvento}
                 refresh={refreshGetData}
             />
 
