@@ -70,16 +70,11 @@ class daoTercero {
                 strApellidos            = COALESCE(${data.strApellidos}, strApellidos),
                 strTipoDocto            = COALESCE(${data.strTipoDocto}, strTipoDocto),
                 strNroDocto             = COALESCE(${data.strNroDocto}, strNroDocto),
-                dtFechaNacimiento       = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
-                strNacionalidad         = COALESCE(${data.strNacionalidad}, strNacionalidad),
-                strGenero               = COALESCE(${data.strGenero}, strGenero),
-                strCorreoElectronico    = COALESCE(${data.strCorreoElectronico}, strCorreoElectronico),
-                strCelular              = COALESCE(${data.strCelular}, strCelular),
+                strCorreoElectronico    = COALESCE(${data.strCorreoElectronico1}, strCorreoElectronico),
+                strCelular              = COALESCE(${data.strCelular1}, strCelular),
                 strEstrato              = COALESCE(${data.strEstrato}, strEstrato),
                 strDepartamento         = COALESCE(${data.strDepartamento}, strDepartamento),
                 strCiudad               = COALESCE(${data.strCiudad}, strCiudad),
-                strBarrio               = COALESCE(${data.strBarrio}, strBarrio),
-                strDireccionResidencia  = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
                 dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
 
