@@ -102,7 +102,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoEmpresarioPr
+                            color: errors?.objInfoPrincipal
                                 ? "#D33030"
                                 : "inherit",
                         }}
@@ -135,7 +135,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoEmpresarioPr
+                    borderColor: errors?.objInfoPrincipal
                         ? "#D33030"
                         : "inherit",
                 }}
@@ -146,7 +146,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strNombres}
-                            name="objInfoEmpresarioPr.strNombres"
+                            name="objInfoPrincipal.strNombres"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Nombres"
@@ -158,12 +158,12 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strNombres
+                                        errors?.objInfoPrincipal?.strNombres
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strNombres
+                                        errors?.objInfoPrincipal?.strNombres
                                             ?.message ||
                                         "Digíta el nombre o nombres de la persona"
                                     }
@@ -190,7 +190,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strApellidos}
-                            name="objInfoEmpresarioPr.strApellidos"
+                            name="objInfoPrincipal.strApellidos"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Apellidos"
@@ -202,13 +202,13 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresarioPr
+                                        errors?.objInfoPrincipal
                                             ?.strApellidos
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr
+                                        errors?.objInfoPrincipal
                                             ?.strApellidos?.message ||
                                         "Digita los apellidos de la persona"
                                     }
@@ -234,7 +234,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.strTipoDocto}
-                            name="objInfoEmpresarioPr.strTipoDocto"
+                            name="objInfoPrincipal.strTipoDocto"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTipoDocumento
                                     label="Tipo de documento"
@@ -244,13 +244,13 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     required
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresarioPr
+                                        errors?.objInfoPrincipal
                                             ?.strTipoDocto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr
+                                        errors?.objInfoPrincipal
                                             ?.strTipoDocto?.message ||
                                         "Selecciona el tipo de documento"
                                     }
@@ -267,7 +267,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.strNroDocto}
-                            name="objInfoEmpresarioPr.strNroDocto"
+                            name="objInfoPrincipal.strNroDocto"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Número de documento"
@@ -279,12 +279,12 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strNroDocto
+                                        errors?.objInfoPrincipal?.strNroDocto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strNroDocto
+                                        errors?.objInfoPrincipal?.strNroDocto
                                             ?.message ||
                                         "Digita el número de documento"
                                     }
@@ -301,7 +301,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.strEstrato}
-                            name="objInfoEmpresarioPr.strEstrato"
+                            name="objInfoPrincipal.strEstrato"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Estrato socioeconómico"
@@ -314,12 +314,12 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strEstrato
+                                        errors?.objInfoPrincipal?.strEstrato
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strEstrato
+                                        errors?.objInfoPrincipal?.strEstrato
                                             ?.message ||
                                         "Selecciona el estrato socioeconómico de la persona"
                                     }
@@ -354,7 +354,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strCelular1}
-                            name="objInfoEmpresarioPr.strCelular1"
+                            name="objInfoPrincipal.strCelular1"
                             render={({ field: { name, value, onChange } }) => (
                                 <NumberFormat
                                     format="### ### ####"
@@ -368,12 +368,12 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     disabled={disabled}
                                     required
                                     error={
-                                        errors?.objInfoEmpresarioPr?.strCelular1
+                                        errors?.objInfoPrincipal?.strCelular1
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.strCelular1
+                                        errors?.objInfoPrincipal?.strCelular1
                                             ?.message ||
                                         "Digita el número celular de la persona"
                                     }
@@ -402,7 +402,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strCorreoElectronico1}
-                            name="objInfoEmpresarioPr.strCorreoElectronico1"
+                            name="objInfoPrincipal.strCorreoElectronico1"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Correo electrónico"
@@ -413,13 +413,13 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmpresarioPr
+                                        errors?.objInfoPrincipal
                                             ?.strCorreoElectronico1
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr
+                                        errors?.objInfoPrincipal
                                             ?.strCorreoElectronico1?.message ||
                                         "Digita el correo electrónico de la persona"
                                     }
@@ -441,7 +441,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.arrDepartamento}
-                            name="objInfoEmpresarioPr.arrDepartamento"
+                            name="objInfoPrincipal.arrDepartamento"
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownLocalizaciones
                                     label="Departamento"
@@ -457,13 +457,13 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                         );
                                     }}
                                     error={
-                                        errors?.objInfoEmpresarioPr
+                                        errors?.objInfoPrincipal
                                             ?.arrDepartamento
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr
+                                        errors?.objInfoPrincipal
                                             ?.arrDepartamento?.message ||
                                         "Selecciona el departamento de residencia"
                                     }
@@ -476,7 +476,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.arrCiudad}
-                            name="objInfoEmpresarioPr.arrCiudad"
+                            name="objInfoPrincipal.arrCiudad"
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownLocalizaciones
                                     label="Ciudad"
@@ -489,7 +489,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                         handlerChangeData("arrCiudad", value);
                                     }}
                                     error={
-                                        errors?.objInfoEmpresarioPr?.arrCiudad
+                                        errors?.objInfoPrincipal?.arrCiudad
                                             ? true
                                             : false
                                     }
@@ -497,7 +497,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                         data.arrDepartamento?.region_name
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr?.arrCiudad
+                                        errors?.objInfoPrincipal?.arrCiudad
                                             ?.message ||
                                         "Selecciona la ciudad de residencia"
                                     }

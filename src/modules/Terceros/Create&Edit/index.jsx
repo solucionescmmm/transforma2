@@ -446,7 +446,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                             onClick={() =>{
                                                 setHiddenSearch(true)
                                                 setData({
-                                                    objInfoEmpresarioPr: {strNroDocto:documento},
+                                                    objInfoPrincipal: {strNroDocto:documento},
                                                 });
                                             }}
                                         >
