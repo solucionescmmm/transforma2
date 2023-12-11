@@ -132,7 +132,7 @@ const Coco = () => {
             return "Indicadores";
         }
 
-        if (location.startsWith("Tareas")) {
+        if (location.startsWith("Tareas") || location.startsWith("CreateTareas") || location.startsWith("EditTareas") ) {
             return "Tareas";
         }
 
@@ -682,6 +682,7 @@ const Coco = () => {
                                                         }}
                                                     >
                                                         <EmailIcon
+                                                        htmlColor="#00BAB3"
                                                             className={
                                                                 classes.icon
                                                             }
@@ -714,6 +715,7 @@ const Coco = () => {
                                                         }}
                                                     >
                                                         <PhoneIcon
+                                                        htmlColor="#00BAB3"
                                                             className={
                                                                 classes.icon
                                                             }
@@ -749,6 +751,7 @@ const Coco = () => {
                                                             className={
                                                                 classes.icon
                                                             }
+                                                            htmlColor="#00BAB3"
                                                         />
                                                         <Typography
                                                             sx={{
@@ -773,7 +776,9 @@ const Coco = () => {
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
+                                                            marginLeft: "10px"
                                                         }}
+
                                                     >
                                                         <span
                                                             style={{
@@ -796,6 +801,7 @@ const Coco = () => {
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
+                                                            marginLeft: "10px"
                                                         }}
                                                     >
                                                         <span
@@ -819,6 +825,7 @@ const Coco = () => {
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
+                                                            marginLeft: "10px"
                                                         }}
                                                     >
                                                         <span
@@ -1133,18 +1140,6 @@ const Coco = () => {
                                             </Grid>
                                         </CardContent>
                                     </Card>
-                                </Grid>
-                            </Grid>
-                        </TabPanel>
-
-                        <TabPanel value="Tareas" sx={{ width: "100%" }}>
-                            <Grid container>
-                                <Grid item xs={12}>
-                                    <ReadTareas
-                                        onChangeRoute={onChangeRoute}
-                                        inModal
-                                        intIdIdea={route.params.intIdIdea}
-                                    />
                                 </Grid>
                             </Grid>
                         </TabPanel>

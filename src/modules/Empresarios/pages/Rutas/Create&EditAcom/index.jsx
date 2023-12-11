@@ -259,7 +259,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                 strURLDocumento: "",
                 bitFinalizarSesion: false,
                 objObjetivos: {
-                    strMotivo: '',
+                    strMotivo: "",
                     bitFinalizaServ: false,
                 },
             });
@@ -283,7 +283,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                 strURLDocumento: "",
                 bitFinalizarSesion: false,
                 objObjetivos: {
-                    strMotivo: '',
+                    strMotivo: "",
                     bitFinalizaServ: false,
                 },
             });
@@ -409,7 +409,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 helperText={
                                                     errors?.objEmpresario
                                                         ?.message ||
-                                                    "selecciona el empresario"
+                                                    "Selecciona el empresario"
                                                 }
                                                 error={!!errors?.objEmpresario}
                                                 disabled={loading}
@@ -463,45 +463,6 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                         rules={{
                                             required:
                                                 "Por favor, selecciona la fecha del acompañamiento",
-                                        }}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12} md={6}>
-                                    <Controller
-                                        defaultValue={data.dtmFechaFinal}
-                                        name="dtmFechaFinal"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <DateTimePicker
-                                                label="Fecha final"
-                                                value={value}
-                                                onChange={(value) =>
-                                                    onChange(value)
-                                                }
-                                                format="dd/MM/yyyy hh:ss a"
-                                                ampm
-                                                disabled={loading}
-                                                slotProps={{
-                                                    textField: {
-                                                        name,
-                                                        variant: "standard",
-                                                        error: !!errors?.dtmFechaFinal,
-                                                        helperText:
-                                                            errors
-                                                                ?.dtmFechaFinal
-                                                                ?.message ||
-                                                            "Selecciona la fecha final del acompañamiento",
-                                                        fullWidth: true,
-                                                    },
-                                                }}
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona la fecha final del acompañamiento",
                                         }}
                                     />
                                 </Grid>
@@ -750,24 +711,23 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={data.strActividades}
-                                        name="strActividades"
+                                        defaultValue={data.strRetroAlim}
+                                        name="strRetroAlim"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
                                             <TextField
-                                                label="Temas y/o actividades a desarrollar"
+                                                label="Retroalimentación y observaciones"
                                                 variant="outlined"
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
                                                 disabled={loading}
-                                                required
-                                                error={!!errors?.strActividades}
+                                                error={!!errors?.strRetroAlim}
                                                 helperText={
-                                                    errors?.strActividades
+                                                    errors?.strRetroAlim
                                                         ?.message ||
-                                                    "Digita las actividades a desarrollar"
+                                                    "Digita la retroalimentación y las observaciones en caso de tener"
                                                 }
                                                 fullWidth
                                                 multiline
@@ -775,44 +735,6 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                             />
                                         )}
                                         control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, digita las actividad a desarrollar",
-                                        }}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Controller
-                                        defaultValue={data.strLogros}
-                                        name="strLogros"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <TextField
-                                                label="Logros/avances a desarrollar"
-                                                variant="outlined"
-                                                name={name}
-                                                value={value}
-                                                onChange={(e) => onChange(e)}
-                                                disabled={loading}
-                                                required
-                                                error={!!errors?.strLogros}
-                                                helperText={
-                                                    errors?.strLogros
-                                                        ?.message ||
-                                                    "Digita los logros/avances a desarrollar"
-                                                }
-                                                fullWidth
-                                                multiline
-                                                rows={4}
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, digita los logros/avances a desarrollar",
-                                        }}
                                     />
                                 </Grid>
 
@@ -850,35 +772,6 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                             required:
                                                 "Por favor, selecciona la fecha de la próxima reunión",
                                         }}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Controller
-                                        defaultValue={data.strRetroAlim}
-                                        name="strRetroAlim"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <TextField
-                                                label="Retroalimentación y observaciones"
-                                                variant="outlined"
-                                                name={name}
-                                                value={value}
-                                                onChange={(e) => onChange(e)}
-                                                disabled={loading}
-                                                error={!!errors?.strRetroAlim}
-                                                helperText={
-                                                    errors?.strRetroAlim
-                                                        ?.message ||
-                                                    "Digita la retroalimentación u observaciones en caso de tener"
-                                                }
-                                                fullWidth
-                                                multiline
-                                                rows={4}
-                                            />
-                                        )}
-                                        control={control}
                                     />
                                 </Grid>
 

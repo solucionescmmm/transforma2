@@ -1596,6 +1596,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     onChangeRoute={onChangeRoute}
                     intIdIdea={route.params.intIdIdea}
                 />
+
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Inicio")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
             </Grid>
         );
     }
@@ -1618,6 +1629,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     intIdIdea={route.params.intIdIdea}
                     onChangeRoute={onChangeRoute}
                 />
+
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Inicio")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
             </Grid>
         );
     }
@@ -1642,6 +1664,17 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     intIdIdea={route.params.intIdIdea}
                     onChangeRoute={onChangeRoute}
                 />
+
+                <Grid item xs={12}>
+                    <Button
+                        onClick={() => onChangeRoute("Tareas")}
+                        startIcon={<ChevronLeftIcon />}
+                        size="small"
+                        color="inherit"
+                    >
+                        regresar
+                    </Button>
+                </Grid>
             </Grid>
         );
     }

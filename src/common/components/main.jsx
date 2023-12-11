@@ -339,19 +339,7 @@ const Main = ({ children }) => {
                                                 </Typography>
                                             </Box>
                                             <Box>
-                                                <MenuItem>
-                                                    <a
-                                                        href="https://admin.google.com"
-                                                        rel="noopener noreferrer"
-                                                        style={{
-                                                            textDecoration: "none",
-                                                            color: "black",
-                                                        }}
-                                                        target="_blank"
-                                                    >
-                                                        Mi perfil
-                                                    </a>
-                                                </MenuItem>
+
                                                 <MenuItem
                                                     onClick={() => {
                                                         cerrarSesion();
