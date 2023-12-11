@@ -33,10 +33,6 @@ class daoEmpresarios {
                 ${data.strTitulos},
                 ${data.strCondicionDiscapacidad},
                 ${data.strSede},
-                ${data.strModalidadIngreso},
-                ${data.dtFechaVinculacion},
-                ${data.strEstadoVinculacion},
-                ${data.strTipoVinculacion},
                 ${data.btPerfilSensible},
                 ${data.strEstrato},
                 ${data.arrDepartamento},
@@ -44,14 +40,13 @@ class daoEmpresarios {
                 ${data.strBarrio},
                 ${data.strDireccionResidencia},
                 ${data.strURLFileFoto},
+                ${data.intIdEstado},
                 GETDATE(),
                 GETDATE(),
                 ${data.strUsuario}
             )
             
             SET @intId = SCOPE_IDENTITY();
-
-            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
 
             SELECT * FROM tbl_Empresario WHERE intId = @intId`;
 
@@ -91,7 +86,7 @@ class daoEmpresarios {
                 NULL,
                 NULL,
                 NULL,
-                NULL,
+                ${data.intIdEstadoVinculacion},
                 NULL,
                 GETDATE(),
                 ${data.strUsuarioCreacion},
@@ -141,6 +136,10 @@ class daoEmpresarios {
                 ${data.dtFechaInicio},
                 ${data.dtFechaFin},
                 ${data.intIdEstado},
+                ${data.strModalidadIngreso},
+                ${data.dtfechaVinculacion},
+                ${data.strTipoVinculacion},
+                ${data.intIdEstadoVinculacion},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 GETDATE(),
@@ -271,6 +270,8 @@ class daoEmpresarios {
             )
             SET @intId = SCOPE_IDENTITY();
 
+            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
+
             SELECT * FROM tbl_InfoAdicional WHERE intId = @intId`;
 
             let result = {
@@ -287,6 +288,33 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo setInfoAdicional de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async sp_SetInfoPrincipalIdea(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            await conn.query`EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}`;
+
+            let result = {
+                error: false,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo sp_SetInfoPrincipalIdea de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
@@ -333,8 +361,6 @@ class daoEmpresarios {
                 strUsuario               = COALESCE(${data.strUsuario}, strUsuario)
 
             WHERE intId = ${data.intId}
-            
-            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
 
             SELECT * FROM tbl_Empresario WHERE intId = ${data.intId}`;
 
@@ -369,13 +395,15 @@ class daoEmpresarios {
             UPDATE tbl_Idea
 
             SET strNombre               = COALESCE(${data.strNombre}, strNombre),
+                strModalidadIngreso     = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
+                dtfechaVinculacion      = COALESCE(${data.dtfechaVinculacion}, dtfechaVinculacion),
+                strTipoVinculacion      = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
+                intIdEstadoVinculacion  = COALESCE(${data.intIdEstadoVinculacion}, intIdEstadoVinculacion),
                 intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
                 dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 
             WHERE intId = ${data.intId}
-
-            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intId}
 
             SELECT * FROM tbl_Idea WHERE intId = ${data.intId}`;
 
@@ -410,6 +438,10 @@ class daoEmpresarios {
             UPDATE tbl_Idea_Empresario
 
             SET strTipoRelacionPrincipal = COALESCE(${data.strTipoRelacionPrincipal}, strTipoRelacionPrincipal),
+                strModalidadIngreso      = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
+                dtfechaVinculacion       = COALESCE(${data.dtfechaVinculacion}, dtfechaVinculacion),
+                strTipoVinculacion       = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
+                intIdEstadoVinculacion   = COALESCE(${data.intIdEstadoVinculacion}, intIdEstadoVinculacion),
                 dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion  = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 
@@ -526,7 +558,7 @@ class daoEmpresarios {
 
             WHERE intId = ${data.intId}
 
-            
+            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
 
             SELECT * FROM tbl_InfoAdicional WHERE intId = ${data.intId}`;
 
@@ -785,6 +817,10 @@ class daoEmpresarios {
             Idea.strNombre,
             Idea.intIdEstado,
             Idea.intIdSede,
+            Idea.strModalidadIngreso,
+            Idea.dtFechaVinculacion,
+            Idea.intIdEstadoVinculacion,
+            Idea.strTipoVinculacion,
             Idea.dtmCreacion,
             Idea.strUsuarioCreacion,
             Idea.dtmActualizacion,
@@ -798,11 +834,21 @@ class daoEmpresarios {
                 IdeaEmpresario.strTipoRelacionPrincipal,
                 IdeaEmpresario.dtFechaInicio,
                 IdeaEmpresario.dtFechaFin,
-                IdeaEmpresario.intIdEstado
+                IdeaEmpresario.intIdEstado,
+                IdeaEmpresario.strModalidadIngreso,
+                IdeaEmpresario.dtfechaVinculacion,
+                IdeaEmpresario.strTipoVinculacion,
+                IdeaEmpresario.intIdEstadoVinculacionEmpresario,
+                IdeaEmpresario.dtmCreacion,
+                IdeaEmpresario.strUsuarioCreacion,
+                IdeaEmpresario.dtmActualizacion,
+                IdeaEmpresario.strUsuarioActualizacion,
+                Tipo.strNombre as strTipoEmpresario
 
                 FROM tbl_Idea_Empresario IdeaEmpresario
 
                 INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+                INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
 
                 WHERE IdeaEmpresario.intIdIdea = Idea.intId AND Estados.strNombre = 'Activo'
                 FOR JSON PATH
@@ -827,10 +873,6 @@ class daoEmpresarios {
                 Empresario.strTitulos,
                 Empresario.strCondicionDiscapacidad,
                 Empresario.intIdSede,
-                Empresario.strModalidadIngreso,
-                Empresario.dtFechaVinculacion,
-                Empresario.strEstadoVinculacion,
-                Empresario.strTipoVinculacion,
                 Empresario.btPerfilSensible,
                 Empresario.strEstrato,
                 Empresario.strDepartamento,
@@ -963,10 +1005,6 @@ class daoEmpresarios {
             Empresario.strTitulos,
             Empresario.strCondicionDiscapacidad,
             Empresario.intIdSede,
-            Empresario.strModalidadIngreso,
-            Empresario.dtFechaVinculacion,
-            Empresario.strEstadoVinculacion,
-            Empresario.strTipoVinculacion,
             Empresario.btPerfilSensible,
             Empresario.strEstrato,
             Empresario.strDepartamento,
@@ -1250,6 +1288,86 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo getEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getEstadoVinculacion(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            
+            SELECT 
+
+            *
+
+            FROM tbl_EstadoVinculacion
+            
+            WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEstadoVinculacion de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getIdEstadoVinculacion(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            
+            SELECT intId FROM tbl_EstadoVinculacion
+            
+            WHERE (strNombre = ${data.strNombre})`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEstadoVinculacion de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
