@@ -44,16 +44,18 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                 
                 for (let j = 0; j < arrayEmpresario.length; j++) {
                     let dataEmpresarioPrincipal = arrayIdeaEmpresario.find((i)=> i.strTipoEmpresario === "Principal")
-                    console.log(dataEmpresarioPrincipal)
+
                     objEmpresario.push({
                         ...arrayEmpresario[j],
                         arrDepartamento:JSON.parse(arrayEmpresario[j]?.strDepartamento||null),
                         arrCiudad:JSON.parse(arrayEmpresario[j]?.strCiudad||null),
                         strSede:arrayEmpresario[j]?.strNombreSedes,
-                        strModalidadIngreso:dataEmpresarioPrincipal?.strModalidadIngreso,
-                        dtFechaVinculacion:dataEmpresarioPrincipal?.dtFechaVinculacion,
-                        intIdEstadoVinculacion:dataEmpresarioPrincipal?.intIdEstadoVinculacionEmpresario,
-                        strTipoVinculacion:dataEmpresarioPrincipal?.strTipoVinculacion
+                        strModalidadIngreso:arrayIdeaEmpresario[j]?.strModalidadIngreso,
+                        dtFechaVinculacion:arrayIdeaEmpresario[j]?.dtFechaVinculacion,
+                        intIdEstadoVinculacion:arrayIdeaEmpresario[j]?.intIdEstadoVinculacionEmpresario,
+                        strTipoVinculacion:arrayIdeaEmpresario[j]?.strTipoVinculacion,
+                        strEstado:arrayIdeaEmpresario[j]?.strEstado,
+                        strEstadoVinculacion: arrayIdeaEmpresario[j]?.strEstadoVinculacion
                     }) 
                         
                     if (arrayEmpresario[j].strTipoEmpresario === "Principal") {

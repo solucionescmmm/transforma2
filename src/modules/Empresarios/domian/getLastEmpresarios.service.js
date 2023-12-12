@@ -38,25 +38,34 @@ const getLastEmpresarios = async (objParams, strDataUser) => {
             let data = [];
 
             for (let i = 0; i < maxLength; i++) {
-                let arrayEmpresario = array[i]?.objInfoEmpresario
+                let arrayEmpresario = array[i].objInfoEmpresario
+                let arrayIdeaEmpresario = array[i]?.objInfoIdeaEmpresario;
                 let objEmpresario = []
                 let objInfoPrincipal = {}
                 
                 for (let j = 0; j < arrayEmpresario.length; j++) {
+                    let dataEmpresarioPrincipal = arrayIdeaEmpresario?.find((i)=> i.strTipoEmpresario === "Principal")
                     objEmpresario.push({
                         ...arrayEmpresario[j],
                         arrDepartamento:JSON.parse(arrayEmpresario[j]?.strDepartamento||null),
                         arrCiudad:JSON.parse(arrayEmpresario[j]?.strCiudad||null),
                         strSede:arrayEmpresario[j]?.strNombreSedes,
+                        strModalidadIngreso:arrayIdeaEmpresario[j]?.strModalidadIngreso,
+                        dtFechaVinculacion:arrayIdeaEmpresario[j]?.dtFechaVinculacion,
+                        intIdEstadoVinculacion:arrayIdeaEmpresario[j]?.intIdEstadoVinculacionEmpresario,
+                        strTipoVinculacion:arrayIdeaEmpresario[j]?.strTipoVinculacion,
+                        strEstado:arrayIdeaEmpresario[j]?.strEstado,
+                        strEstadoVinculacion: arrayIdeaEmpresario[j]?.strEstadoVinculacion
                     }) 
                         
                     if (arrayEmpresario[j].strTipoEmpresario === "Principal") {
                         objInfoPrincipal ={
                             strSede:arrayEmpresario[j]?.strNombreSedes,
-                            strModalidadIngreso:arrayEmpresario[j]?.strModalidadIngreso,
-                            dtFechaVinculacion:arrayEmpresario[j]?.dtFechaVinculacion,
-                            strEstadoVinculacion:arrayEmpresario[j]?.strEstadoVinculacion,
-                            strTipoVinculacion:arrayEmpresario[j]?.strTipoVinculacion
+                            intIdSede:arrayEmpresario[j]?.intIdSede,
+                            strModalidadIngreso:dataEmpresarioPrincipal?.strModalidadIngreso,
+                            dtFechaVinculacion:dataEmpresarioPrincipal?.dtFechaVinculacion,
+                            intIdEstadoVinculacion:dataEmpresarioPrincipal?.intIdEstadoVinculacionEmpresario,
+                            strTipoVinculacion:dataEmpresarioPrincipal?.strTipoVinculacion
                         }
                     }
                     

@@ -840,11 +840,14 @@ class daoEmpresarios {
                 IdeaEmpresario.strUsuarioCreacion,
                 IdeaEmpresario.dtmActualizacion,
                 IdeaEmpresario.strUsuarioActualizacion,
-                Tipo.strNombre as strTipoEmpresario
+                Tipo.strNombre as strTipoEmpresario,
+                Estados.strNombre as strEstado,
+                EstadosVinculacion.strNombre as strEstadoVinculacion
 
                 FROM tbl_Idea_Empresario IdeaEmpresario
 
                 INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+                LEFT JOIN tbl_EstadoVinculacion EstadosVinculacion ON EstadosVinculacion.intId = IdeaEmpresario.intIdEstadoVinculacionEmpresario
                 INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
 
                 WHERE IdeaEmpresario.intIdIdea = Idea.intId AND Estados.strNombre = 'Activo'
