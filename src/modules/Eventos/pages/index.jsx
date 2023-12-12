@@ -40,6 +40,12 @@ import {
     AddBox as AddBoxIcon,
     Home as HomeIcon,
     Delete as DeleteIcon,
+    Cancel as CancelIcon,
+    PlayArrow as PlayIcon,
+    Stop as StopIcon,
+    Pause as PauseIcon,
+    RemoveRedEye as RemoveRedEyeIcon,
+    Edit,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -287,17 +293,22 @@ const ReadSolicitudesUser = () => {
                                     (rowData) => {
                                         if (ability.can("update", "Eventos")) {
                                             return {
-                                                icon: () => (
-                                                    <EditIcon
+                                                icon: () => (rowData.strNombreEstado === "Cancelado" || rowData.strNombreEstado === "Finalizado" ? (
+                                                    <RemoveRedEyeIcon
+                                                        color="gray"
+                                                        fontSize="small" 
+                                                    />
+                                                ) : (
+                                                    <Edit
                                                         color={
                                                             rowData.btFinalizada ===
-                                                            true
+                                                                true
                                                                 ? "gray"
                                                                 : "success"
                                                         }
                                                         fontSize="small"
                                                     />
-                                                ),
+                                                )),
                                                 tooltip: "Editar",
                                                 onClick: (event, rowData) => {
                                                     push(
@@ -311,36 +322,148 @@ const ReadSolicitudesUser = () => {
                                         }
                                     },
                                     (rowData) => {
-                                        if (ability.can("delete", "Eventos")) {
+                                        if (ability.can("cancel", "Eventos")) {
                                             return {
                                                 icon: () => (
-                                                    <DeleteIcon
+                                                    <PlayIcon
                                                         color={
-                                                            rowData.btFinalizada ===
-                                                            true
+                                                            rowData.strNombreEstado === "En ejecución" ||
+                                                            rowData.strNombreEstado === "Finalizado" ||
+                                                            rowData.strNombreEstado === "Cancelado"
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                disabled:
+                                                    rowData.strNombreEstado === "En ejecución" ||
+                                                    rowData.strNombreEstado === "Finalizado" ||
+                                                    rowData.strNombreEstado === "Cancelado",
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                tooltip: "Ejecutar",
+                                            };
+                                        }
+                                    },
+                                    (rowData) => {
+                                        if (ability.can("cancel", "Eventos")) {
+                                            return {
+                                                icon: () => (
+                                                    <StopIcon
+                                                        color={
+                                                            rowData.strNombreEstado === "Planeado" ||
+                                                            rowData.strNombreEstado === "Suspendido" ||
+                                                            rowData.strNombreEstado === "Finalizado" ||
+                                                            rowData.strNombreEstado === "Cancelado"
                                                                 ? "gray"
                                                                 : "error"
                                                         }
                                                         fontSize="small"
                                                     />
                                                 ),
+                                                disabled:
+                                                    rowData.strNombreEstado === "Planeado" ||
+                                                    rowData.strNombreEstado === "Suspendido" ||
+                                                    rowData.strNombreEstado === "Finalizado" ||
+                                                    rowData.strNombreEstado === "Cancelado",
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                tooltip: "Finalizar",
+                                            };
+                                        }
+                                    },
+                                    (rowData) => {
+                                        if (ability.can("cancel", "Eventos")) {
+                                            return {
+                                                icon: () => (
+                                                    <PauseIcon
+                                                        color={
+                                                            rowData.strNombreEstado === "Planeado" ||
+                                                            rowData.strNombreEstado === "Suspendido" ||
+                                                            rowData.strNombreEstado === "Finalizado" ||
+                                                            rowData.strNombreEstado === "Cancelado"
+                                                                ? "gray"
+                                                                : "warning"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                disabled:
+                                                    rowData.strNombreEstado === "Planeado" ||
+                                                    rowData.strNombreEstado === "Suspendido" ||
+                                                    rowData.strNombreEstado === "Finalizado" ||
+                                                    rowData.strNombreEstado === "Cancelado",
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                tooltip: "Suspender",
+                                            };
+                                        }
+                                    },
+                                    (rowData) => {
+                                        if (ability.can("cancel", "Eventos")) {
+                                            return {
+                                                icon: () => (
+                                                    <CancelIcon
+                                                        color={
+                                                            rowData.strNombreEstado === "Finalizado" ||
+                                                            rowData.strNombreEstado === "Cancelado"
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                disabled:
+                                                    rowData.strNombreEstado === "Finalizado" ||
+                                                    rowData.strNombreEstado === "Cancelado",
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDelete();
+                                                },
+                                                tooltip: "Cancelar",
+                                            };
+                                        }
+                                    },
+                                    (rowData) => {
+                                        if (ability.can("delete", "Eventos")) {
+                                            return {
+                                                icon: () => (
+                                                    <DeleteIcon
+                                                        color={
+                                                            rowData.strNombreEstado === "En ejecución" ||
+                                                            rowData.strNombreEstado === "Finalizado" ||
+                                                            rowData.strNombreEstado === "Suspendido"
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                disabled:
+                                                    rowData.strNombreEstado === "En ejecución" ||
+                                                    rowData.strNombreEstado === "Finalizado" ||
+                                                    rowData.strNombreEstado === "Suspendido",
                                                 onClick: (event, rowData) => {
                                                     setSelectedData(rowData);
                                                     handlerOpenModalDelete();
                                                 },
                                                 tooltip: "Eliminar",
-                                                disabled:
-                                                    rowData.btFinalizada ===
-                                                    true,
                                             };
                                         }
                                     },
                                 ]}
-                                onRowClick={(e, rowData) => {
-                                    push(
-                                        `/transforma/asesor/eventos/read/${rowData.intId}`
-                                    );
-                                }}
+                                // onRowClick={(e, rowData) => {
+                                //     push(
+                                //         `/transforma/asesor/eventos/read/${rowData.intId}`
+                                //     );
+                                // }}
                                 components={{
                                     Toolbar: (props) => (
                                         <div
