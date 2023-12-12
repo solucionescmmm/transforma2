@@ -35,7 +35,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
         strSede: "",
         strModalidadIngreso: "",
         dtFechaVinculacion: null,
-        strEstadoVinculacion: "",
+        intIdEstadoVinculacion: "",
         strTipoVinculacion: "",
     });
 
@@ -53,12 +53,13 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
     useEffect(() => {
         if (values) {
+            console.log(values)
             setData({
                 strSede: values.strSede || "",
                 intIdSede: values.intIdSede || "",
                 strModalidadIngreso: values.strModalidadIngreso || "",
                 dtFechaVinculacion: values.dtFechaVinculacion || null,
-                strEstadoVinculacion: values.strEstadoVinculacion || "",
+                intIdEstadoVinculacion: values.intIdEstadoVinculacion || "",
                 strTipoVinculacion: values.strTipoVinculacion || "",
             });
         }
@@ -127,7 +128,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={isEdit ? 4 : 6}>
                         <Controller
                             defaultValue={data.intIdSede}
                             name="objInfoPrincipal.intIdSede"
@@ -157,7 +158,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={isEdit ? 4 : 6}>
                         <Controller
                             defaultValue={data.strModalidadIngreso}
                             name="objInfoPrincipal.strModalidadIngreso"
@@ -190,7 +191,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={isEdit ? 4 : 6}>
                         <Controller
                             defaultValue={data.dtFechaVinculacion}
                             name="objInfoPrincipal.dtFechaVinculacion"
@@ -225,38 +226,35 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strEstadoVinculacion}
-                            name="objInfoPrincipal.strEstadoVinculacion"
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectEstadoVinculacion
-                                    label="Estado de vinculación"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoPrincipal
-                                            ?.strEstadoVinculacion
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPrincipal
-                                            ?.strEstadoVinculacion?.message ||
-                                        "Selecciona el estado de vinculación"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona el estado de vinculación",
-                            }}
-                        />
-                    </Grid>
+                    {isEdit ? (
+                        <Grid item xs={12} md={6}>
+                            <Controller
+                                defaultValue={data.intIdEstadoVinculacion}
+                                name="objInfoPrincipal.intIdEstadoVinculacion"
+                                render={({ field: { name, onChange, value } }) => (
+                                    <SelectEstadoVinculacion
+                                        label="Estado de vinculación"
+                                        name={name}
+                                        value={value}
+                                        onChange={(e) => onChange(e)}
+                                        disabled={disabled}
+                                        error={
+                                            errors?.objInfoPrincipal
+                                                ?.intIdEstadoVinculacion
+                                                ? true
+                                                : false
+                                        }
+                                        helperText={
+                                            errors?.objInfoPrincipal
+                                                ?.intIdEstadoVinculacion?.message ||
+                                            "Selecciona el estado de vinculación"
+                                        }
+                                    />
+                                )}
+                                control={control}
+                            />
+                        </Grid>
+                    ):null}
 
                     <Grid item xs={12} md={6}>
                         <Controller

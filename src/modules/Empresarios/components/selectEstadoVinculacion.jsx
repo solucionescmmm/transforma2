@@ -1,7 +1,7 @@
 import React from "react";
 
 //Hooks
-import useGetListas from "../hooks/useGetListas";
+import useGetEstadoVinculacion from "../hooks/useGetEstadoVinculacion";
 
 //Componentes de Material UI
 import {
@@ -28,9 +28,7 @@ const SelectEstadoVinculacion = ({
     disabled,
     required,
 }) => {
-    const { data, refreshGetData } = useGetListas({
-        strGrupo: "Empresarios",
-        strCodigo: "EstadoVinculacion",
+    const { data, refreshGetData } = useGetEstadoVinculacion({
     });
 
     if (data === undefined) {
@@ -111,8 +109,8 @@ const SelectEstadoVinculacion = ({
             select
         >
             {data.map((e, i) => (
-                <MenuItem value={e.strCodigoRetorno} key={i}>
-                    {e.strCodigoRetorno}
+                <MenuItem value={e.intId} key={i}>
+                    {e.strNombre}
                 </MenuItem>
             ))}
         </TextField>

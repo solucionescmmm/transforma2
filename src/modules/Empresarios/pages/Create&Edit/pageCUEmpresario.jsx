@@ -192,9 +192,9 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                               "yyyy-MM-dd"
                                           )
                                         : null,
-                                    strEstadoVinculacion:
+                                    intIdEstadoVinculacion:
                                         data.objInfoPrincipal
-                                            .strEstadoVinculacion,
+                                            .intIdEstadoVinculacion,
                                     strTipoVinculacion:
                                         data.objInfoPrincipal
                                             .strTipoVinculacion,
@@ -454,8 +454,8 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                                   objEmprPrincipal.dtFechaVinculacion
                                               )
                                             : null,
-                                    strEstadoVinculacion:
-                                        objEmprPrincipal.strEstadoVinculacion ||
+                                    intIdEstadoVinculacion:
+                                        objEmprPrincipal.intIdEstadoVinculacion ||
                                         "",
                                     strTipoVinculacion:
                                         objEmprPrincipal.strTipoVinculacion ||
