@@ -32,7 +32,7 @@ class daoEmpresarios {
                 ${data.strNivelEducativo},
                 ${data.strTitulos},
                 ${data.strCondicionDiscapacidad},
-                ${data.strSede},
+                ${data.intIdSede},
                 ${data.btPerfilSensible},
                 ${data.strEstrato},
                 ${data.arrDepartamento},
@@ -137,7 +137,7 @@ class daoEmpresarios {
                 ${data.dtFechaFin},
                 ${data.intIdEstado},
                 ${data.strModalidadIngreso},
-                ${data.dtfechaVinculacion},
+                ${data.dtFechaVinculacion},
                 ${data.strTipoVinculacion},
                 ${data.intIdEstadoVinculacion},
                 GETDATE(),
@@ -346,10 +346,6 @@ class daoEmpresarios {
                 strTitulos               = COALESCE(${data.strTitulos}, strTitulos),
                 strCondicionDiscapacidad = COALESCE(${data.strCondicionDiscapacidad}, strCondicionDiscapacidad),
                 intIdSede                = COALESCE(${data.intIdSede}, intIdSede),
-                strModalidadIngreso      = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
-                dtFechaVinculacion       = COALESCE(${data.dtFechaVinculacion}, dtFechaVinculacion),
-                strEstadoVinculacion     = COALESCE(${data.strEstadoVinculacion}, strEstadoVinculacion),
-                strTipoVinculacion       = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
                 btPerfilSensible         = COALESCE(${data.btPerfilSensible}, btPerfilSensible),
                 strEstrato               = COALESCE(${data.strEstrato}, strEstrato),
                 strDepartamento          = COALESCE(${data.arrDepartamento}, strDepartamento),
@@ -396,7 +392,7 @@ class daoEmpresarios {
 
             SET strNombre               = COALESCE(${data.strNombre}, strNombre),
                 strModalidadIngreso     = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
-                dtfechaVinculacion      = COALESCE(${data.dtfechaVinculacion}, dtfechaVinculacion),
+                dtFechaVinculacion      = COALESCE(${data.dtFechaVinculacion}, dtFechaVinculacion),
                 strTipoVinculacion      = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
                 intIdEstadoVinculacion  = COALESCE(${data.intIdEstadoVinculacion}, intIdEstadoVinculacion),
                 intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
@@ -437,13 +433,13 @@ class daoEmpresarios {
 
             UPDATE tbl_Idea_Empresario
 
-            SET strTipoRelacionPrincipal = COALESCE(${data.strTipoRelacionPrincipal}, strTipoRelacionPrincipal),
-                strModalidadIngreso      = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
-                dtfechaVinculacion       = COALESCE(${data.dtfechaVinculacion}, dtfechaVinculacion),
-                strTipoVinculacion       = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
-                intIdEstadoVinculacion   = COALESCE(${data.intIdEstadoVinculacion}, intIdEstadoVinculacion),
-                dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuarioActualizacion  = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+            SET strTipoRelacionPrincipal         = COALESCE(${data.strTipoRelacionPrincipal}, strTipoRelacionPrincipal),
+                strModalidadIngreso              = COALESCE(${data.strModalidadIngreso}, strModalidadIngreso),
+                dtFechaVinculacion               = COALESCE(${data.dtFechaVinculacion}, dtFechaVinculacion),
+                strTipoVinculacion               = COALESCE(${data.strTipoVinculacion}, strTipoVinculacion),
+                intIdEstadoVinculacionEmpresario = COALESCE(${data.intIdEstadoVinculacionEmpresario}, intIdEstadoVinculacionEmpresario),
+                dtmActualizacion                 = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion          = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 
             WHERE (intIdIdea = ${data.intIdIdea})
             AND   (intIdEmpresario = ${data.intIdEmpresario})
@@ -452,7 +448,7 @@ class daoEmpresarios {
 
             let result = {
                 error: false,
-                msg: `La Idea, fue actualizada con éxito.`,
+                msg: `La IdeaEmpresario, fue actualizada con éxito.`,
             };
 
             sql.close(conexion);
@@ -826,7 +822,8 @@ class daoEmpresarios {
             Idea.dtmActualizacion,
             Idea.strUsuarioActualizacion,
             (
-                SELECT 
+                SELECT
+
                 IdeaEmpresario.intId,
                 IdeaEmpresario.intIdIdea,
                 IdeaEmpresario.intIdEmpresario,
@@ -836,7 +833,7 @@ class daoEmpresarios {
                 IdeaEmpresario.dtFechaFin,
                 IdeaEmpresario.intIdEstado,
                 IdeaEmpresario.strModalidadIngreso,
-                IdeaEmpresario.dtfechaVinculacion,
+                IdeaEmpresario.dtFechaVinculacion,
                 IdeaEmpresario.strTipoVinculacion,
                 IdeaEmpresario.intIdEstadoVinculacionEmpresario,
                 IdeaEmpresario.dtmCreacion,
@@ -1017,10 +1014,23 @@ class daoEmpresarios {
             Empresario.strUsuario,
             (
                 SELECT 
+                
+                IdeaEmpresario.intId,
                 IdeaEmpresario.intIdIdea,
                 IdeaEmpresario.intIdEmpresario,
                 IdeaEmpresario.intIdTipoEmpresario,
+                IdeaEmpresario.strTipoRelacionPrincipal,
+                IdeaEmpresario.dtFechaInicio,
+                IdeaEmpresario.dtFechaFin,
                 IdeaEmpresario.intIdEstado,
+                IdeaEmpresario.strModalidadIngreso,
+                IdeaEmpresario.dtFechaVinculacion,
+                IdeaEmpresario.strTipoVinculacion,
+                IdeaEmpresario.intIdEstadoVinculacionEmpresario,
+                IdeaEmpresario.dtmCreacion,
+                IdeaEmpresario.strUsuarioCreacion,
+                IdeaEmpresario.dtmActualizacion,
+                IdeaEmpresario.strUsuarioActualizacion,
                 Tipo.strNombre as strTipoEmpresario,
                 Idea.strNombre as strNombreIdea
 
@@ -1348,15 +1358,9 @@ class daoEmpresarios {
             
             WHERE (strNombre = ${data.strNombre})`;
 
-            let arrNewData = response.recordsets[0];
-
             let result = {
                 error: false,
-                data: arrNewData
-                    ? arrNewData.length > 0
-                        ? arrNewData
-                        : null
-                    : null,
+                data: response.recordset[0]
             };
 
             sql.close(conexion);

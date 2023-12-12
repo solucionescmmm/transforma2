@@ -60,6 +60,11 @@ routes.get("/transforma/api/Empresario/getEmpresarioByIdea", async (req, res) =>
     await controllerEmpresarios.getEmpresarioByIdea(req, res);
 });
 
+routes.get("/transforma/api/Empresario/getEstadoVinculacion", async (req, res) => {
+    let controllerEmpresarios = new classController();
+    await controllerEmpresarios.getEstadoVinculacion(req, res);
+});
+
 routes.delete("/transforma/api/Interesados/delete",async(req, res)=>{
     let controllerEmpresarios = new classController();
     await controllerEmpresarios.deleteEmpresario(req, res)

@@ -1,7 +1,7 @@
 const classDaoSql = require("../repository/daoEmpresarios");
 
 class interfaceDAOEmpresarios {
-    async setEmpresarios(data) {
+    async setEmpresario(data) {
         const dao = new classDaoSql();
         let result = await dao.setEmpresario(data);
         return result;
@@ -31,9 +31,9 @@ class interfaceDAOEmpresarios {
         return result
     }
 
-    async setHistorico(data){
+    async sp_SetInfoPrincipalIdea(data){
         const dao = new classDaoSql();
-        let result = await dao.setHistorico(data);
+        let result = await dao.sp_SetInfoPrincipalIdea(data);
         return result
     }
 
@@ -154,6 +154,18 @@ class interfaceDAOEmpresarios {
     async getEmpresarioIdea(data){
         const dao = new classDaoSql();
         let result = await dao.getEmpresarioIdea(data);
+        return result;
+    }
+
+    async getEstadoVinculacion(data){
+        const dao = new classDaoSql();
+        let result = await dao.getEstadoVinculacion(data);
+        return result;
+    }
+
+    async getIdEstadoVinculacion(data){
+        const dao = new classDaoSql();
+        let result = await dao.getIdEstadoVinculacion(data);
         return result;
     }
 }

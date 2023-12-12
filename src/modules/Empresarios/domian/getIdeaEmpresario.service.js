@@ -38,25 +38,32 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
 
             for (let i = 0; i < array.length; i++) {
                 let arrayEmpresario = array[i].objInfoEmpresario
+                let arrayIdeaEmpresario = array[i]?.objInfoIdeaEmpresario;
                 let objEmpresario = []
                 let objInfoPrincipal = {}
                 
                 for (let j = 0; j < arrayEmpresario.length; j++) {
+                    let dataEmpresarioPrincipal = arrayIdeaEmpresario.find((i)=> i.strTipoEmpresario === "Principal")
+                    console.log(dataEmpresarioPrincipal)
                     objEmpresario.push({
                         ...arrayEmpresario[j],
                         arrDepartamento:JSON.parse(arrayEmpresario[j]?.strDepartamento||null),
                         arrCiudad:JSON.parse(arrayEmpresario[j]?.strCiudad||null),
                         strSede:arrayEmpresario[j]?.strNombreSedes,
+                        strModalidadIngreso:dataEmpresarioPrincipal?.strModalidadIngreso,
+                        dtFechaVinculacion:dataEmpresarioPrincipal?.dtFechaVinculacion,
+                        intIdEstadoVinculacion:dataEmpresarioPrincipal?.intIdEstadoVinculacionEmpresario,
+                        strTipoVinculacion:dataEmpresarioPrincipal?.strTipoVinculacion
                     }) 
                         
                     if (arrayEmpresario[j].strTipoEmpresario === "Principal") {
                         objInfoPrincipal ={
                             strSede:arrayEmpresario[j]?.strNombreSedes,
                             intIdSede:arrayEmpresario[j]?.intIdSede,
-                            strModalidadIngreso:arrayEmpresario[j]?.strModalidadIngreso,
-                            dtFechaVinculacion:arrayEmpresario[j]?.dtFechaVinculacion,
-                            strEstadoVinculacion:arrayEmpresario[j]?.strEstadoVinculacion,
-                            strTipoVinculacion:arrayEmpresario[j]?.strTipoVinculacion
+                            strModalidadIngreso:dataEmpresarioPrincipal?.strModalidadIngreso,
+                            dtFechaVinculacion:dataEmpresarioPrincipal?.dtFechaVinculacion,
+                            intIdEstadoVinculacion:dataEmpresarioPrincipal?.intIdEstadoVinculacionEmpresario,
+                            strTipoVinculacion:dataEmpresarioPrincipal?.strTipoVinculacion
                         }
                     }
                     
@@ -64,7 +71,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
 
                 let objInfoEmpresa ={
                     intId:array[i]?.objInfoEmpresa[0]?.intId,
-                    intIdEmpresario:array[i]?.objInfoEmpresa[0]?.intIdEmpresario,
+                    intIdIdea:array[i]?.objInfoEmpresa[0]?.intIdIdea,
                     strEstadoNegocio:array[i]?.objInfoEmpresa[0]?.strEstadoNegocio,
                     strCuandoComienzaEmpresa:array[i]?.objInfoEmpresa[0]?.strCuandoPlaneaComenzar,
                     strURLFileLogoEmpresa:array[i]?.objInfoEmpresa[0]?.strURLFileLogoEmpresa,

@@ -11,7 +11,7 @@ const serviceUpdateTercero = require("../../Terceros/domain/updateTercero.servic
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
 const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service");
 const serviceGetIdFuenteHistorico = require("../../Historicos/domain/getIdFuenteHistoricos.service")
-const serviceGetEmpresario = require("./getEmpresario.service")
+const serviceGetEmpresario = require("./getEmpresario.service");
 
 class setEmpresarioPrincipal {
     //Objetos
@@ -28,6 +28,7 @@ class setEmpresarioPrincipal {
     #intIdIdeaEmpresario;
     #intIdEstadoActivo;
     #intIdEstadoInactivo;
+    #intIdEstadoVinculacion;
     #intIdFuenteHistorico;
     /**
      * @param {object} data
@@ -43,6 +44,7 @@ class setEmpresarioPrincipal {
         await this.#getIdEstadoActivo();
         await this.#getIdTipoEmpresario();
         await this.#getIdFuenteHistorico();
+        await this.#getIdEstadoVinculacion();
         await this.#validations();
         if (this.#objDataPersona?.objInfoIdeaEmpresario) {
             await this.#updateEmpresario();
@@ -63,6 +65,7 @@ class setEmpresarioPrincipal {
         if (this.#objData?.objInfoAdicional?.strURLDocumento) {
             await this.#setDocumento()
         }
+
         return this.#objResult;
     }
 
@@ -102,13 +105,31 @@ class setEmpresarioPrincipal {
         this.#intIdEstadoInactivo = queryGetIdEstado.data.intId;
     }
 
+    async #getIdEstadoVinculacion() {
+        let dao = new classInterfaceDAOEmpresarios();
+
+        let queryGetIdEstadoVinculacion = await dao.getIdEstadoVinculacion({
+            strNombre: "En Proceso"
+        });
+
+        console.log(queryGetIdEstadoVinculacion)
+
+        if (queryGetIdEstadoVinculacion.error) {
+            throw new Error(queryGetIdEstadoVinculacion.msg);
+        }
+
+        this.#intIdEstadoVinculacion = queryGetIdEstadoVinculacion.data.intId;
+    }
+
     async #getIdTipoEmpresario() {
-        let queryGetIdTipoEmpresario = await serviceGetIdTipoServicio({
+        const dao = new classInterfaceDAOEmpresarios()
+        
+        let queryGetIdTipoEmpresario = await dao.getIdTipoEmpresario({
             strNombre: "Principal",
         });
 
         if (queryGetIdTipoEmpresario.error) {
-            throw new Error(query.msg);
+            throw new Error(queryGetIdTipoEmpresario.msg);
         }
 
         this.#intIdTipoEmpresario = queryGetIdTipoEmpresario.data.intId;
@@ -120,7 +141,7 @@ class setEmpresarioPrincipal {
         });
 
         if (queryGetIdFuenteHistorico.error) {
-            throw new Error(query.msg);
+            throw new Error(queryGetIdFuenteHistorico.msg);
         }
 
         this.#intIdFuenteHistorico = queryGetIdFuenteHistorico.data.intId;
@@ -132,7 +153,7 @@ class setEmpresarioPrincipal {
         }, this.#objUser);
 
         if (queryGetDataPersona.error) {
-            throw new Error(query.msg);
+            throw new Error(queryGetDataPersona.msg);
         }
 
         this.#objDataPersona = queryGetDataPersona.data ? queryGetDataPersona.data[0] : null;
@@ -167,11 +188,12 @@ class setEmpresarioPrincipal {
             strUsuario: this.#objUser.strEmail,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad,
+            intIdEstado:this.#intIdEstadoActivo,
         };
 
         let dao = new classInterfaceDAOEmpresarios();
 
-        let query = await dao.setEmpresarios(newData);
+        let query = await dao.setEmpresario(newData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -227,19 +249,23 @@ class setEmpresarioPrincipal {
             newData = {
                 strNombre: `Idea de ${this.#objData.objEmpresario?.strNombres?.trim()} ${this.#objData.objEmpresario.strApellidos?.trim()}`,
                 intIdEstado: this.#intIdEstadoActivo,
+                intIdEstadoVinculacion:this.#intIdEstadoVinculacion,
                 strUsuarioCreacion: this.#objUser.strEmail,
             };
         } else {
             newData = {
                 strNombre: this.#objData.objInfoEmpresa?.strNombreMarca,
                 intIdEstado: this.#intIdEstadoActivo,
+                intIdEstadoVinculacion:this.#intIdEstadoVinculacion,
                 strUsuarioCreacion: this.#objUser.strEmail,
             };
         }
 
+        console.log(newData)
+
         let dao = new classInterfaceDAOEmpresarios();
 
-        let query = await dao.setIdea(newData);
+        //let query = await dao.setIdea(newData);
 
 
         this.#intIdIdea = query.data.intId;
@@ -254,6 +280,10 @@ class setEmpresarioPrincipal {
             intIdIdea: this.#intIdIdea,
             intIdEmpresario: this.#intIdEmpresario,
             intIdTipoEmpresario: this.#intIdTipoEmpresario,
+            strModalidadIngreso:this.#objData?.objEmpresario?.strModalidadIngreso,
+            dtFechaVinculacion: this.#objData?.objEmpresario?.dtFechaVinculacion,
+            strTipoVinculacion: this.#objData?.objEmpresario?.strTipoVinculacion,
+            intIdEstadoVinculacion: this.#intIdEstadoVinculacion,
             dtFechaInicio: new Date(),
             intIdEstado: this.#intIdEstadoActivo,
             strUsuarioCreacion: this.#objUser.strEmail,
@@ -261,7 +291,9 @@ class setEmpresarioPrincipal {
 
         let dao = new classInterfaceDAOEmpresarios();
 
-        let query = await dao.setIdeaEmpresario(newData);
+        console.log(newData)
+
+        //let query = await dao.setIdeaEmpresario(newData);
 
 
         this.#intIdIdeaEmpresario = query.data.intId;
