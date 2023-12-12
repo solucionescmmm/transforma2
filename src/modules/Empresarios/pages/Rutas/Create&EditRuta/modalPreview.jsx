@@ -313,7 +313,7 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                                 headerStyle: {
                                     position: "sticky",
                                     top: "0",
-                                    backgroundColor: "white",
+                                    backgroundColor: "#cff3f2",
                                 },
                                 detailPanelColumnStylele: {
                                     fontSize: 12,

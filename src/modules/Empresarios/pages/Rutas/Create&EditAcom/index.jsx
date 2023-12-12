@@ -83,12 +83,12 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
+const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute, isPreview }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
     const { data: values } = useGetRutas({
-        autoLoad: !!isEdit,
+        autoLoad: !!isEdit || !!isPreview,
         intIdIdea,
         intId,
     });
@@ -227,7 +227,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (isEdit && values) {
+        if ((isEdit || isPreview) && values) {
             setData({
                 ...values[0],
                 objInfoPrincipal: {
@@ -382,6 +382,8 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                             >
                                                 {isEdit
                                                     ? "EDITAR ACOMPAÑAMIENTO"
+                                                    : isPreview
+                                                    ? "PREVISUALIZAR ACOMPAÑAMIENTO"
                                                     : "REGISTRAR ACOMPAÑAMIENTO"}
                                             </Typography>
                                         </Box>
@@ -395,7 +397,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} md={6}>
                                     <Controller
                                         defaultValue={data.objEmpresario}
                                         name="objEmpresario"
@@ -412,7 +414,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                     "Selecciona el empresario"
                                                 }
                                                 error={!!errors?.objEmpresario}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 onChange={(_, value) =>
                                                     onChange(value)
@@ -456,7 +458,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                         fullWidth: true,
                                                     },
                                                 }}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                             />
                                         )}
                                         control={control}
@@ -475,7 +477,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                             field: { name, value, onChange },
                                         }) => (
                                             <SelectTipoAcomp
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 label="Tipo de Acompañamiento"
                                                 required
                                                 name={name}
@@ -541,7 +543,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     <InfoRutaExs
                                         control={control}
                                         values={data.objInfoRutaExs}
-                                        disabled={loading}
+                                        disabled={loading || isPreview}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -560,7 +562,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     <InfoNuevoServPaq
                                         control={control}
                                         values={data.objInfoRutaExs}
-                                        disabled={loading}
+                                        disabled={loading || isPreview}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -587,7 +589,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 error={
                                                     !!errors?.strLugarActividad
@@ -621,7 +623,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 error={
                                                     !!errors?.intTipoActividad
@@ -655,7 +657,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 onChange={(_, value) =>
                                                     onChange(value)
                                                 }
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 error={!!errors?.objResponsable}
                                                 helperText={
@@ -686,7 +688,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 error={
                                                     !!errors?.strObjetivoActividad
@@ -722,7 +724,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 error={!!errors?.strRetroAlim}
                                                 helperText={
                                                     errors?.strRetroAlim
@@ -752,7 +754,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                     onChange(date)
                                                 }
                                                 format="dd/MM/yyyy hh:ss"
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 slotProps={{
                                                     textField: {
                                                         name,
@@ -787,7 +789,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <ReadTareas intIdIdea={intIdIdea} inModal />
+                                    <ReadTareas intIdIdea={intIdIdea} inModal disabled />
                                 </Grid>
 
                                 <Grid item xs={12}>
@@ -812,7 +814,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 label="Documento"
                                                 name={name}
                                                 value={value}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 onChange={(url) =>
                                                     onChange(url)
                                                 }
@@ -862,7 +864,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 helperText={
                                                     "Selecciona una opción"
                                                 }
@@ -905,7 +907,9 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                                         onChange={(e) =>
                                                             onChange(e)
                                                         }
-                                                        disabled={loading}
+                                                        disabled={
+                                                            loading || isPreview
+                                                        }
                                                         helperText={
                                                             "Selecciona una opción"
                                                         }
@@ -1040,6 +1044,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                         <LoadingButton
                                             variant="contained"
                                             type="submit"
+                                            disabled={isPreview}
                                             loading={loading}
                                         >
                                             {isEdit ? "guardar" : "registrar"}

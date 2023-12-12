@@ -203,6 +203,14 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                 data={dataAcomp || []}
                                 columns={objColumnsAcom}
                                 title="Acompañamientos"
+                                onRowClick={(_, rowData) => {
+                                    onChangeRoute("ViewAcomp", {
+                                        intIdAcompañamiento:
+                                            rowData?.objInfoPrincipal?.intId,
+                                        intIdIdea,
+                                        ...rowData,
+                                    });
+                                }}
                                 options={{
                                     grouping: true,
                                     title: true,
@@ -213,7 +221,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                     headerStyle: {
                                         position: "sticky",
                                         top: "0",
-                                        backgroundColor: "white",
+                                        backgroundColor: "#cff3f2",
                                     },
                                     detailPanelColumnStylele: {
                                         fontSize: 12,
@@ -235,13 +243,12 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                             ),
                                             tooltip: "Previsualizar",
                                             onClick: (event, rowData) => {
-                                                onChangeRoute("ViewAcomp", {
+                                                onChangeRoute("PreviewAcomp", {
                                                     intIdAcompañamiento:
                                                         rowData
                                                             ?.objInfoPrincipal
                                                             ?.intId,
                                                     intIdIdea,
-
                                                     ...rowData,
                                                 });
                                             },

@@ -776,7 +776,7 @@ const Coco = () => {
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
-                                                            marginLeft: "10px"
+                                                            marginLeft: "27px"
                                                         }}
 
                                                     >
@@ -801,7 +801,7 @@ const Coco = () => {
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
-                                                            marginLeft: "10px"
+                                                            marginLeft: "27px"
                                                         }}
                                                     >
                                                         <span
@@ -825,7 +825,7 @@ const Coco = () => {
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
-                                                            marginLeft: "10px"
+                                                            marginLeft: "27px"
                                                         }}
                                                     >
                                                         <span

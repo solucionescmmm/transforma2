@@ -42,7 +42,7 @@ import ModalState from "./modalState";
 import ModalCEdit from "./modalCreate&Edit";
 import { AbilityContext, Can } from "../../../../common/functions/can";
 
-const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
+const ReadTareas = ({ onChangeRoute, intIdIdea, inModal, disabled }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -53,6 +53,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                 <Checkbox
                     checked={rowData.btFinalizada}
                     size="small"
+                    disabled={disabled}
                     onChange={() => {
                         setSelectedData(rowData);
                         handlerOpenModalState();
@@ -257,7 +258,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                     headerStyle: {
                                         position: "sticky",
                                         top: "0",
-                                        backgroundColor: "white",
+                                        backgroundColor: "#cff3f2",
                                     },
                                     detailPanelColumnStylele: {
                                         fontSize: 12,
@@ -276,7 +277,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                                     <EditIcon
                                                         color={
                                                             rowData.btFinalizada ===
-                                                            true
+                                                                true || disabled
                                                                 ? "gray"
                                                                 : "success"
                                                         }
@@ -304,7 +305,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                                 tooltip: "Editar",
                                                 disabled:
                                                     rowData.btFinalizada ===
-                                                    true,
+                                                        true || disabled,
                                             };
                                         }
                                     },
@@ -315,7 +316,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                                     <DeleteIcon
                                                         color={
                                                             rowData.btFinalizada ===
-                                                            true
+                                                                true || disabled
                                                                 ? "gray"
                                                                 : "error"
                                                         }
@@ -329,7 +330,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                                 tooltip: "Eliminar",
                                                 disabled:
                                                     rowData.btFinalizada ===
-                                                    true,
+                                                        true || disabled,
                                             };
                                         }
                                     },
@@ -387,6 +388,9 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal }) => {
                                                             a="Tareas"
                                                         >
                                                             <Button
+                                                                disabled={
+                                                                    disabled
+                                                                }
                                                                 onClick={() => {
                                                                     if (
                                                                         inModal

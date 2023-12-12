@@ -1426,6 +1426,44 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         );
     }
 
+    if (route.location === "PreviewAcomp") {
+        return (
+            <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Acompañamientos")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <CreateAcomp
+                            isPreview
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Acompañamientos")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
     if (route.location === "ViewAcomp") {
         return (
             <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
@@ -1580,102 +1618,108 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
     if (route.location === "Tareas") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Tareas" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
 
-                <Tareas
-                    onChangeRoute={onChangeRoute}
-                    intIdIdea={route.params.intIdIdea}
-                />
+                    <Tareas
+                        onChangeRoute={onChangeRoute}
+                        intIdIdea={route.params.intIdIdea}
+                    />
 
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "CreateTareas") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Tareas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Tareas" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Tareas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
 
-                <CreateTareas
-                    intIdIdea={route.params.intIdIdea}
-                    onChangeRoute={onChangeRoute}
-                />
+                    <CreateTareas
+                        intIdIdea={route.params.intIdIdea}
+                        onChangeRoute={onChangeRoute}
+                    />
 
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Inicio")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Inicio")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </TabPanel>
         );
     }
 
     if (route.location === "EditTareas") {
         return (
-            <Grid container direction="row" spacing={3}>
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Tareas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
-                </Grid>
+            <TabPanel value="Tareas" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Tareas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
 
-                <CreateTareas
-                    isEdit
-                    intId={route.params.intId}
-                    intIdIdea={route.params.intIdIdea}
-                    onChangeRoute={onChangeRoute}
-                />
+                    <CreateTareas
+                        isEdit
+                        intId={route.params.intId}
+                        intIdIdea={route.params.intIdIdea}
+                        onChangeRoute={onChangeRoute}
+                    />
 
-                <Grid item xs={12}>
-                    <Button
-                        onClick={() => onChangeRoute("Tareas")}
-                        startIcon={<ChevronLeftIcon />}
-                        size="small"
-                        color="inherit"
-                    >
-                        regresar
-                    </Button>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Tareas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </TabPanel>
         );
     }
 

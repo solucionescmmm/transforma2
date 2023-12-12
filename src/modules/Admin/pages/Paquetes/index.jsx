@@ -309,15 +309,15 @@ const ReadPaquetes = () => {
                                     headerStyle: {
                                         position: "sticky",
                                         top: "0",
-                                        backgroundColor: "white",
+                                        backgroundColor: "#cff3f2",
                                     },
                                     detailPanelColumnStylele: {
                                         fontSize: 12,
                                     },
                                     maxBodyHeight: "520px",
                                     actionsColumnIndex: -1,
-                                    paging:true,
-                                    pageSizeOptions:[20,100,200,500], 
+                                    paging: true,
+                                    pageSizeOptions: [20, 100, 200, 500],
                                     pageSize: 20,
                                 }}
                                 actions={[

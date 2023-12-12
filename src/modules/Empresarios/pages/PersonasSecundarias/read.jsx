@@ -281,7 +281,7 @@ const ReadPersonaSecundaria = ({
                                     headerStyle: {
                                         position: "sticky",
                                         top: "0",
-                                        backgroundColor: "white",
+                                        backgroundColor: "#cff3f2",
                                     },
                                     detailPanelColumnStylele: {
                                         fontSize: 12,
