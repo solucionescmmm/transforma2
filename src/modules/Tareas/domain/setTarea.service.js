@@ -4,6 +4,10 @@ const classInterfaceDAOTareas = require("../infra/conectors/interfaceDaoTareas")
 //Librerias
 const validator = require("validator").default;
 
+//functions
+const sendEmail = require("../../../common/functions/sendEmail")
+const plantillaCorreoTareas = require("../app/functions/plantillaCorreoTareas")
+
 class setTarea {
     //obj info
     #objData;
@@ -23,6 +27,7 @@ class setTarea {
         await this.#validations();
         await this.#completeData();
         await this.#setTarea();
+        //await this.#sendEmail()
         return this.#objResult;
     }
 
@@ -65,6 +70,38 @@ class setTarea {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #sendEmail(){
+        let strMensaje = plantillaCorreoTareas(this.#objData)
+        let strEmailResponsables
+
+        if (typeof this.#objData.strResponsable === "object") {
+            strEmailResponsables = this.#objData.strResponsable
+                .map((e) => {
+                    return e.strEmail;
+                })
+                .join(";");
+        }
+
+        const querySendEmail = await sendEmail({
+            from:"transforma@demismanos.org",
+            to:"snayderlon115@gmail.com",
+            cc: "",
+            subject:"Nueva tarea",
+            message: strMensaje
+        })
+
+        console.log(querySendEmail)
+
+        if (querySendEmail.error) {
+            this.#objResult={
+                ...this.#objResult,
+                msg: `La tarea fue registrada con éxito, sin embargo, no fue posible enviar la notificación por correo electrónico debido a un error en el Servicio de Mensajeria.`,
+            }
+            return;
+        }
+        
     }
 }
 module.exports = setTarea;

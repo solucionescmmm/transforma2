@@ -5,7 +5,8 @@ const setAsistentesEventos = require("../../domain/setAsistentesEventos.service"
 const setAsistentesSesionesEventos = require("../../domain/setAsistentesSesionesEventos.service")
 const updateEventos = require("../../domain/updateEventos.service");
 const updateSesionesEventos = require("../../domain/updateSesionesEventos.service");
-const updateCancelarEventos = require("../../domain/updateCancelarEventos.service");
+const updateCambiarEstadoEventos = require("../../domain/updateCambiarEstadoEventos.service");
+const updateFinalizarSesionesEventos = require("../../domain/updateFinalizarSesionesEventos.service");
 const getEventos = require("../../domain/getEventos.service");
 const getSesionesEventos = require("../../domain/getSesionesEventos.service");
 const getAsistentesEventos = require("../../domain/getAsistentesEventos.service");
@@ -163,12 +164,36 @@ class ctrlEventos {
         }
     }
 
-    async updateCancelarEventos(req, res) {
+    async updateCambiarEstadoEventos(req, res) {
         try {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new updateCancelarEventos(data, strDataUser);
+            let service = new updateCambiarEstadoEventos(data, strDataUser);
+
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async updateFinalizarSesionesEventos(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new updateFinalizarSesionesEventos(data, strDataUser);
 
             let query = await service.main();
 

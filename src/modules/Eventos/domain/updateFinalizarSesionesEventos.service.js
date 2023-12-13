@@ -1,23 +1,15 @@
 
-//class
-const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos")
-
-//Librerias
+//librerias
 const validator = require("validator").default;
 
-//service
-const serviceGetIdEstadoEventos = require("./getIdEstadoEventos.service")
+//class
+const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos");
 
-class updateCancelarEventos {
-
-    //objects
+class updateFinalizarSesionesEventos {
     #objData;
     #objUser;
     #objResult;
 
-    //variables
-    #intIdEvento
-    #intIdEstado
     /**
      * @param {object} data
      */
@@ -27,9 +19,8 @@ class updateCancelarEventos {
     }
 
     async main() {
-        await this.#validations()
-        await this.#getIdEstado()
-        await this.#updateEventos()
+        await this.#validations();
+        await this.#updateFinalizarSesionesEventos();
         return this.#objResult;
     }
 
@@ -43,31 +34,21 @@ class updateCancelarEventos {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
-        if (!this.#objData) {
+
+        if (!this.#objData?.intId) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
     }
 
-    async #getIdEstado() {
-        let queryGetIdEstado = await serviceGetIdEstadoEventos({
-            strNombre: "Cancelado",
-        });
-
-        if (queryGetIdEstado.error) {
-            throw new Error(queryGetIdEstado.msg);
-        }
-
-        this.#intIdEstado = queryGetIdEstado.data.intId;
-    }
-
-    async #updateEventos() {
-        let newData = {
-            ...this.#objData,
-            intEstadoEvento: this.#intIdEstado,
-        }
+    async #updateFinalizarSesionesEventos() {
         let dao = new classInterfaceDAOEventos();
 
-        let query = await dao.updateEventos(newData);
+        let newData={
+            ...this.#objData,
+            btFinalizado:true,
+        }
+
+        let query = await dao.updateSesionesEventos(newData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -81,4 +62,4 @@ class updateCancelarEventos {
     }
 
 }
-module.exports = updateCancelarEventos;
+module.exports = updateFinalizarSesionesEventos;

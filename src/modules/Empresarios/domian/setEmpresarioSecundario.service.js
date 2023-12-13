@@ -29,19 +29,21 @@ class setEmpresarioSecundario {
     }
 
     async main() {
-        await this.#getIdTipoEmpresario();
-        await this.#getIdEstado();
-        await this.#validations();
-        if (this.#objData.btExiste === true) {
-            await this.#setIdeaEmpresario();
-            this.#objResult = {
-                error: false,
-                msg: "El empresario se registro exitosamente en la idea.",
-            };
-        } else {
-            await this.#setEmpresario();
-            await this.#setIdeaEmpresario();
-        }
+        console.log(this.#objData.objEmpresario)
+        // await this.#getIdTipoEmpresario();
+        // await this.#getIdEstado();
+        // await this.#validations();
+        // if (this.#objData.btExiste === true) {
+        //     await this.#setIdeaEmpresario();
+        //     this.#objResult = {
+        //         error: false,
+        //         msg: "El empresario se registro exitosamente en la idea.",
+        //     };
+        // } else {
+        //     await this.#setEmpresario();
+        //     await this.#setIdeaEmpresario();
+        // }
+        // await this.#sp_SetInfoPrincipalIdea();
 
         return this.#objResult;
     }
@@ -149,6 +151,7 @@ class setEmpresarioSecundario {
             intIdTipoEmpresario: this.#intIdTipoEmpresario,
             strTipoRelacion: this.#objData.strTipoRelacion,
             dtFechaInicio: new Date(),
+            dtFechaVinculacion: new Date(),
             intIdEstado: this.#intIdEstado,
             strUsuarioCreacion: this.#objUser.strEmail,
         };
@@ -158,6 +161,16 @@ class setEmpresarioSecundario {
         let query = await dao.setIdeaEmpresario(newData);
 
         if (query.error && this.#objData.btExiste === false) {
+            await this.#rollbackTransaction();
+        }
+    }
+
+    async #sp_SetInfoPrincipalIdea(){
+        const dao = new classInterfaceDAOEmpresarios
+
+        let query = dao.sp_SetInfoPrincipalIdea({intIdIdea: this.#objData.intIdIdea,})
+
+        if (query.error) {
             await this.#rollbackTransaction();
         }
     }
