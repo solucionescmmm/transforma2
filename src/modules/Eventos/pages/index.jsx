@@ -45,7 +45,6 @@ import {
     Stop as StopIcon,
     Pause as PauseIcon,
     RemoveRedEye as RemoveRedEyeIcon,
-    Edit,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -351,7 +350,7 @@ const ReadSolicitudesUser = () => {
                                                         fontSize="small" 
                                                     />
                                                 ) : (
-                                                    <Edit
+                                                    <EditIcon
                                                         color={
                                                             rowData.btFinalizada ===
                                                                 true
@@ -361,7 +360,7 @@ const ReadSolicitudesUser = () => {
                                                         fontSize="small"
                                                     />
                                                 )),
-                                                tooltip: "Editar",
+                                                tooltip: rowData.strNombreEstado === "Cancelado" || rowData.strNombreEstado === "Finalizado" ? "Visualizar": "Editar",
                                                 onClick: (event, rowData) => {
                                                     push(
                                                         `/transforma/asesor/eventos/edit/${rowData.intId}`

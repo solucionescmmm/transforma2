@@ -38,7 +38,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalFinalizacion = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
+const ModalFinalizacion = ({ handleOpenDialog, open, intId, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -76,11 +76,12 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intId, refresh, intIdIdea }
 
             await axios(
                 {
-                    method: "DELETE",
+                    method: "PUT",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_EVENTOS_DELETE}`,
-                    params: {
-                        intId: data.intId,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_EVENTOS_UPDATE_ESTADO_EVENTO}`,
+                    data: {
+                        intIdEvento: data.intId,
+                        strEstado:"Finalizado"
                     },
                     headers: {
                         token,
@@ -149,7 +150,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intId, refresh, intIdIdea }
 
     useEffect(() => {
         if (success) {
-            refresh({intIdIdea});
+            refresh();
             handleOpenDialog();
 
             setSucces(false);

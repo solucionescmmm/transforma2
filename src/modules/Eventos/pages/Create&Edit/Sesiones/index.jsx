@@ -28,6 +28,8 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
     Delete as DeleteIcon,
+    Stop as StopIcon,
+    RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -36,6 +38,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import ModalDelete from "./modalDelete";
+import ModalFinish from "./modalFinish";
 import useGetSesiones from "../../../hooks/useGetSesiones";
 import ModalCEdit from "./modalCreate&Edit";
 import { AbilityContext, Can } from "../../../../../common/functions/can";
@@ -80,6 +83,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
     const [openModalRegister, setOpenModalRegister] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalFinalizacion, setOpenModalFinalizacion] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     //===============================================================================================================================================
@@ -103,6 +107,10 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
 
     const handlerOpenModalEdit = () => {
         setOpenModalEdit(!openModalEdit);
+    };
+
+    const handlerOpenModalFinalizacion = () => {
+        setOpenModalFinalizacion(!openModalFinalizacion);
     };
 
     const ability = useContext(AbilityContext);
@@ -135,6 +143,13 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                 intId={selectedData?.intId}
                 intIdEvento={intIdEvento}
                 isEdit
+                refresh={refreshGetData}
+            />
+
+            <ModalFinish
+                handleOpenDialog={handlerOpenModalFinalizacion}
+                open={openModalFinalizacion}
+                intId={selectedData?.intId}
                 refresh={refreshGetData}
             />
 
@@ -262,23 +277,51 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                         actions={[
                             (rowData) => {
                                 if (ability.can("update", "Sesiones")) {
+                                    console.log(rowData)
                                     return {
-                                        icon: () => (
+                                        icon: () => (rowData.btFinalizado === true ? (
+                                            <RemoveRedEyeIcon
+                                                color="gray"
+                                                fontSize="small" 
+                                            />
+                                        ) : (
                                             <EditIcon
                                                 color={
                                                     rowData.btFinalizada ===
-                                                    true
+                                                        true
                                                         ? "gray"
                                                         : "success"
                                                 }
                                                 fontSize="small"
                                             />
-                                        ),
-                                        tooltip: "Editar",
-                                        onClick: (_, rowData) => {
+                                        )),
+                                        tooltip: rowData.btFinalizado === true ? "Visualizar" :"Editar",
+                                        onClick: (event, rowData) => {
                                             setSelectedData(rowData);
                                             handlerOpenModalEdit();
                                         },
+                                    };
+                                }
+                            },
+                            (rowData) => {
+                                if (ability.can("cancel", "Sesiones")) {
+                                    return {
+                                        icon: () => (
+                                            <StopIcon
+                                                color={
+                                                    rowData.btFinalizado === true
+                                                        ? "gray"
+                                                        : "error"
+                                                }
+                                                fontSize="small"
+                                            />
+                                        ),
+                                        disabled: rowData.btFinalizado === true ? true : false,
+                                        onClick: (event, rowData) => {
+                                            setSelectedData(rowData);
+                                            handlerOpenModalFinalizacion();
+                                        },
+                                        tooltip: "Finalizar",
                                     };
                                 }
                             },
@@ -288,7 +331,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                         icon: () => (
                                             <DeleteIcon
                                                 color={
-                                                    rowData.btFinalizada ===
+                                                    rowData.btFinalizado ===
                                                     true
                                                         ? "gray"
                                                         : "error"
@@ -296,6 +339,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                                 fontSize="small"
                                             />
                                         ),
+                                        disabled: rowData.btFinalizado === true ? true : false,
                                         onClick: (event, rowData) => {
                                             setSelectedData(rowData);
                                             handlerOpenModalDelete();

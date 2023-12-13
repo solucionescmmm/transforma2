@@ -38,7 +38,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
+const ModalDelete = ({ handleOpenDialog, open, intId, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -149,7 +149,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
 
     useEffect(() => {
         if (success) {
-            refresh({intIdIdea});
+            refresh();
             handleOpenDialog();
 
             setSucces(false);
