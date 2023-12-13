@@ -63,16 +63,6 @@ class setTiposServicios {
                 throw new Error("El nombre de este tipo servicio ya existe.");
             }
         }
-
-        let arrayAtributos = this.#objData.arrAtributos
-
-        if (arrayAtributos.length > 0) {
-            for (let i = 0; i < arrayAtributos.length; i++) {
-                if (!arrayAtributos[i].intIdAtributo) {
-                    throw new Error("Hay un atributo en este tipo de servicio que no tiene tipo de atributo.");  
-                }  
-            }
-        }
     }
 
     async #getIdEstado() {
