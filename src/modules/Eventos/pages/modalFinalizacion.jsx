@@ -38,7 +38,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCancelacion = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
+const ModalFinalizacion = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -224,12 +224,13 @@ const ModalCancelacion = ({ handleOpenDialog, open, intId, refresh, intIdIdea })
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar el evento seleccionado?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas finalizar el evento seleccionado?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    El proceso es irreversible y no podrás recuperar la
-                    información.
+                Al finalizar el evento las sesiones que se encuentren 
+                PLANEADAS, SUSPENDIDAS o EN EJECUCIÓN serán finalizadas. 
+                    El proceso es irreversible y no podrás recuperar la información.
                 </DialogContentText>
             </DialogContent>
 
@@ -255,4 +256,4 @@ const ModalCancelacion = ({ handleOpenDialog, open, intId, refresh, intIdIdea })
     );
 };
 
-export default ModalCancelacion;
+export default ModalFinalizacion;

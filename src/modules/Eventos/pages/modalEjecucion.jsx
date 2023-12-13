@@ -211,31 +211,26 @@ const ModalEjecucion = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) =
 
     return (
         <Dialog
-            fullScreen={bitMobile}
             open={loading ? true : open}
             onClose={handleOpenDialog}
+            maxWidth = "sm"
             fullWidth
-            PaperProps={{
-                style: {
-                    backgroundColor: "#FDEDED",
-                },
-            }}
+            fullScreen={bitMobile}
         >
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar el evento seleccionado?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas iniciar el evento seleccionado?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    El proceso es irreversible y no podrás recuperar la
-                    información.
+                    Este proceso cambiara el estado del evento.
                 </DialogContentText>
             </DialogContent>
 
             <DialogActions>
                 <LoadingButton
-                    color="error"
+                    color="primary"
                     loading={loading}
                     type="button"
                     onClick={() => setFlagSubmit(true)}

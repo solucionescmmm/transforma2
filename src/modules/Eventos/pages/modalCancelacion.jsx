@@ -224,7 +224,7 @@ const ModalCancelacion = ({ handleOpenDialog, open, intId, refresh, intIdIdea })
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar el evento seleccionado?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas cancelar el evento seleccionado?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>

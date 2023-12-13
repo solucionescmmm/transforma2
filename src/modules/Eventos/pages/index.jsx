@@ -55,6 +55,10 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import Panel from "../components/panel";
 import useGetEventos from "../hooks/useGetEventos";
+import ModalCancelacion from "./modalCancelacion";
+import ModalFinalizacion from "./modalFinalizacion"
+import ModalEjecucion from "./modalEjecucion";
+import ModalSuspencion from "./modalSuspencion";
 import ModalDelete from "./modalDelete";
 import { AbilityContext, Can } from "../../../common/functions/can";
 
@@ -116,6 +120,10 @@ const ReadSolicitudesUser = () => {
     ]);
 
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalCancelacion, setOpenModalCancelacion] = useState(false);
+    const [openModalEjecucion, setOpenModalEjecucion] = useState(false);
+    const [openModalSuspencion, setOpenModalSuspencion] = useState(false);
+    const [openModalFinalizacion, setOpenModalFinalizacion] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     const ability = useContext(AbilityContext);
@@ -134,6 +142,22 @@ const ReadSolicitudesUser = () => {
         setOpenModalDelete(!openModalDelete);
     };
 
+    const handlerOpenModalCancelacion = () => {
+        setOpenModalCancelacion(!openModalCancelacion);
+    };
+
+    const handlerOpenModalEjecucion = () => {
+        setOpenModalEjecucion(!openModalEjecucion);
+    };
+
+    const handlerOpenModalSuspencion = () => {
+        setOpenModalSuspencion(!openModalSuspencion);
+    };
+
+    const handlerOpenModalFinalizacion = () => {
+        setOpenModalFinalizacion(!openModalFinalizacion);
+    };
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -142,6 +166,34 @@ const ReadSolicitudesUser = () => {
             <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
+                intId={selectedData?.intId}
+                refresh={refreshGetData}
+            />
+
+            <ModalCancelacion
+                handleOpenDialog={handlerOpenModalCancelacion}
+                open={openModalCancelacion}
+                intId={selectedData?.intId}
+                refresh={refreshGetData}
+            />
+
+            <ModalEjecucion
+                handleOpenDialog={handlerOpenModalEjecucion}
+                open={openModalEjecucion}
+                intId={selectedData?.intId}
+                refresh={refreshGetData}
+            />
+
+            <ModalSuspencion
+                handleOpenDialog={handlerOpenModalSuspencion}
+                open={openModalSuspencion}
+                intId={selectedData?.intId}
+                refresh={refreshGetData}
+            />
+
+            <ModalFinalizacion
+                handleOpenDialog={handlerOpenModalFinalizacion}
+                open={openModalFinalizacion}
                 intId={selectedData?.intId}
                 refresh={refreshGetData}
             />
@@ -342,7 +394,7 @@ const ReadSolicitudesUser = () => {
                                                     rowData.strNombreEstado === "Cancelado",
                                                 onClick: (event, rowData) => {
                                                     setSelectedData(rowData);
-                                                    handlerOpenModalDelete();
+                                                    handlerOpenModalEjecucion();
                                                 },
                                                 tooltip: "Ejecutar",
                                             };
@@ -371,7 +423,7 @@ const ReadSolicitudesUser = () => {
                                                     rowData.strNombreEstado === "Cancelado",
                                                 onClick: (event, rowData) => {
                                                     setSelectedData(rowData);
-                                                    handlerOpenModalDelete();
+                                                    handlerOpenModalFinalizacion();
                                                 },
                                                 tooltip: "Finalizar",
                                             };
@@ -400,7 +452,7 @@ const ReadSolicitudesUser = () => {
                                                     rowData.strNombreEstado === "Cancelado",
                                                 onClick: (event, rowData) => {
                                                     setSelectedData(rowData);
-                                                    handlerOpenModalDelete();
+                                                    handlerOpenModalSuspencion();
                                                 },
                                                 tooltip: "Suspender",
                                             };
@@ -425,7 +477,7 @@ const ReadSolicitudesUser = () => {
                                                     rowData.strNombreEstado === "Cancelado",
                                                 onClick: (event, rowData) => {
                                                     setSelectedData(rowData);
-                                                    handlerOpenModalDelete();
+                                                    handlerOpenModalCancelacion();
                                                 },
                                                 tooltip: "Cancelar",
                                             };

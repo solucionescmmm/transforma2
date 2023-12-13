@@ -224,12 +224,11 @@ const ModalSuspencion = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) 
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar el evento seleccionado?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas suspender el evento seleccionado?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    El proceso es irreversible y no podrás recuperar la
-                    información.
+                    Al suspender el evento las sesiones que se encuntran EN EJECUCIÓN serán suspendidas.
                 </DialogContentText>
             </DialogContent>
 
