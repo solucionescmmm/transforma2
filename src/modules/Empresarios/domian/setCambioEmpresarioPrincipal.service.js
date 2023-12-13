@@ -41,6 +41,8 @@ class setCambioEmpresarioPrincipal {
         await this.#updateEmpresarioSecundario();
         await this.#setIdeaEmpresarioPrincipalNuevo();
         await this.#setIdeaEmpresarioSecundarioNuevo();
+        await this.#sp_SetInfoPrincipalIdea();
+        
         return this.#objResult;
     }
 
@@ -217,6 +219,16 @@ class setCambioEmpresarioPrincipal {
             data: query.data,
             msg: "Se realizo el cambio de empresario principal exitosamente.",
         };
+    }
+
+    async #sp_SetInfoPrincipalIdea(){
+        const dao = new classInterfaceDAOEmpresarios
+
+        let query = dao.sp_SetInfoPrincipalIdea({intIdIdea: this.#objData.intIdIdea,})
+
+        if (query.error) {
+            await this.#rollbackTransaction();
+        }
     }
 
     async #rollbackTransaction() {
