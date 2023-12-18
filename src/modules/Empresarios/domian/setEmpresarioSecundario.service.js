@@ -29,21 +29,20 @@ class setEmpresarioSecundario {
     }
 
     async main() {
-        console.log(this.#objData.objEmpresario)
-        // await this.#getIdTipoEmpresario();
-        // await this.#getIdEstado();
-        // await this.#validations();
-        // if (this.#objData.btExiste === true) {
-        //     await this.#setIdeaEmpresario();
-        //     this.#objResult = {
-        //         error: false,
-        //         msg: "El empresario se registro exitosamente en la idea.",
-        //     };
-        // } else {
-        //     await this.#setEmpresario();
-        //     await this.#setIdeaEmpresario();
-        // }
-        // await this.#sp_SetInfoPrincipalIdea();
+        await this.#getIdTipoEmpresario();
+        await this.#getIdEstado();
+        await this.#validations();
+        if (this.#objData.btExiste === true) {
+            await this.#setIdeaEmpresario();
+            this.#objResult = {
+                error: false,
+                msg: "El empresario se registro exitosamente en la idea.",
+            };
+        } else {
+            await this.#setEmpresario();
+            await this.#setIdeaEmpresario();
+        }
+        await this.#sp_SetInfoPrincipalIdea();
 
         return this.#objResult;
     }
@@ -129,7 +128,7 @@ class setEmpresarioSecundario {
 
         let dao = new classInterfaceDAOEmpresarios();
 
-        let query = await dao.setEmpresarios(newData);
+        let query = await dao.setEmpresario(newData);
 
         if (query.error) {
             throw new Error(query.msg);

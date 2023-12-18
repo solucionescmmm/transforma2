@@ -125,8 +125,6 @@ class updateEmpresarioSecundario {
 
         let query = await dao.updateEmpresario(newData);
 
-        console.log(query)
-
         if (query.error) {
             await this.#rollbackTransaction();
             throw new Error(query.msg);

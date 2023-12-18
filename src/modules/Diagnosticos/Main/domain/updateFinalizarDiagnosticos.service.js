@@ -28,10 +28,10 @@ class updateFinalizarDiagnosticos {
 
     async main() {
         console.log(this.#objData)
-        // await this.#validations();
-        // await this.#getIntIdEstadoDiagnostico()
-        // await this.#updateFinalizarDiagnosticos();
-        // return this.#objResult;
+        await this.#validations();
+        await this.#getIntIdEstadoDiagnostico()
+        await this.#updateFinalizarDiagnosticos();
+        return this.#objResult;
     }
 
     async #validations() {

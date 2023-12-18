@@ -12,7 +12,10 @@ class updateInactivarEmpresario {
     #objData;
     #objUser;
     #objResult;
-    #intIdEstado;
+
+    //Variables
+    #intIdEstadoInactivo;
+    #intIdEstadoActivo;
     /**
      * @param {object} data
      */
@@ -23,7 +26,8 @@ class updateInactivarEmpresario {
 
     async main() {
         await this.#validations();
-        await this.#getIdEstado();
+        await this.#getIdEstadoActivo();
+        await this.#getIdEstadoInactivo();
         await this.#updateInactivarEmpresario();
 
         return this.#objResult;
@@ -57,7 +61,19 @@ class updateInactivarEmpresario {
         }
     }
 
-    async #getIdEstado() {
+    async #getIdEstadoActivo() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "Activo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstadoActivo = queryGetIdEstado.data.intId;
+    }
+
+    async #getIdEstadoInactivo() {
         let queryGetIdEstado = await serviceGetIdEstado({
             strNombre: "Inactivo",
         });
@@ -66,13 +82,16 @@ class updateInactivarEmpresario {
             throw new Error(queryGetIdEstado.msg);
         }
 
-        this.#intIdEstado = queryGetIdEstado.data.intId;
+        this.#intIdEstadoInactivo = queryGetIdEstado.data.intId;
     }
 
     async #updateInactivarEmpresario() {
         let newData = {
-            ...this.#objData,
-            intIdEstado: this.#intIdEstado,
+            //...this.#objData,
+            intIdIdea:this.#objData.intIdIdea,
+            intIdEmpresario: this.#objData.intId,
+            intIdEstadoActivo:this.#intIdEstadoActivo,
+            intIdEstadoInactivo: this.#intIdEstadoInactivo,
             strUsuarioActualizacion: this.#objUser.strEmail,
             dtFechaFin: new Date(),
         };

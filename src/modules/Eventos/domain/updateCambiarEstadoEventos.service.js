@@ -116,8 +116,6 @@ class updateCambiarEstadoEventos {
                 }
             }
         }else{
-            console.log("Entre en true")
-            console.log(arrayDataSesionesEventos)
             if (!arrayDataSesionesEventos) {
                 throw new Error("El evento no tiene sesiones.")
             }

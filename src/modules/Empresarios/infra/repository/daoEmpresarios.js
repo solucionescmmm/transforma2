@@ -41,6 +41,7 @@ class daoEmpresarios {
                 ${data.strDireccionResidencia},
                 ${data.strURLFileFoto},
                 ${data.intIdEstado},
+                0,
                 GETDATE(),
                 GETDATE(),
                 ${data.strUsuario}
@@ -593,13 +594,12 @@ class daoEmpresarios {
 
             WHERE intId = ${data.intId}
 
-            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
-
-            SELECT * FROM tbl_InfoAdicional WHERE intId = ${data.intId}`;
+            SELECT * FROM tbl_Empresario WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
                 data: response.recordset[0],
+                msg:`Se interrumpio la comunicación con el empresario ${response.recordset[0]?.strNombres} ${response.recordset[0]?.strApellidos}`,
             };
 
             sql.close(conexion);
@@ -627,18 +627,20 @@ class daoEmpresarios {
             UPDATE tbl_Idea_Empresario
 
             SET dtFechaFin              = COALESCE(${data.dtFechaFin}, dtFechaFin),
-                intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
+                intIdEstado             = COALESCE(${data.intIdEstadoInactivo}, intIdEstado),
                 dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
-            WHERE (intIdEmpresario = ${data.intIdEmpresario} AND intIdIdea = ${data.intIdIdea})
+            WHERE (intIdEmpresario = ${data.intIdEmpresario})
+            AND   (intIdIdea = ${data.intIdIdea})
+            AND   (intIdEstado =${data.intIdEstadoActivo})
  
             SELECT * FROM tbl_Empresario WHERE intId = ${data.intIdEmpresario}`;
 
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El empresario ${response.recordset[0].strNombre} fue inactivado con exito.`,
+                msg: `El empresario ${response.recordset[0]?.strNombres} ${response.recordset[0]?.strApellidos} fue desvinculado con exito.`,
             };
 
             sql.close(conexion);
@@ -919,6 +921,8 @@ class daoEmpresarios {
                 Empresario.strBarrio,
                 Empresario.strDireccionResidencia,
                 Empresario.strUrlFileFoto,
+                Empresario.intIdEstado,
+                Empresario.btNoContactar,
                 Empresario.dtmCreacion,
                 Empresario.dtmActualizacion,
                 Empresario.strUsuario,
@@ -930,7 +934,7 @@ class daoEmpresarios {
                 FROM tbl_Empresario Empresario
 
                 INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
-                INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+                LEFT JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
                 INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
                 LEFT JOIN tbl_Sedes Sedes ON Sedes.intId = Empresario.intIdSede
 

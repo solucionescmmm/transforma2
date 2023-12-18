@@ -22,8 +22,8 @@ class updateNoContactarEmpresario {
     }
 
     async main() {
+        //console.log(this.#objData)
         await this.#validations();
-        await this.#getIdEstado();
         await this.#updateNoContactarEmpresario();
 
         return this.#objResult;
@@ -39,42 +39,11 @@ class updateNoContactarEmpresario {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
-
-        let queryGetIntIdTipoEmpresario = await serviceGetIdTipoEmpresario({
-            strNombre: "Principal",
-        });
-
-        if (queryGetIntIdTipoEmpresario.error) {
-            throw new Error(queryGetIntIdTipoEmpresario.msg);
-        }
-
-        let intIdTipoEmpresario = queryGetIntIdTipoEmpresario.data.intId;
-
-        if (this.#objData.intIdTipoEmpresario === intIdTipoEmpresario) {
-            throw new Error(
-                "El empresario no se puede inactivar porque es el principal."
-            );
-        }
-    }
-
-    async #getIdEstado() {
-        const dao = new classInterfaceDAOEmpresarios()
-
-        let queryGetIdEstado = await dao.getIdEstadoVinculacion({
-            strNombre: "No contactar",
-        });
-
-        if (queryGetIdEstado.error) {
-            throw new Error(queryGetIdEstado.msg);
-        }
-
-        this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
     async #updateNoContactarEmpresario() {
         let newData = {
-            ...this.#objData,
-            intIdEstado: this.#intIdEstado,
+            intId:this.#objData.intId,
             btNoContactar:true,
             strUsuario: this.#objUser.strEmail,
         };

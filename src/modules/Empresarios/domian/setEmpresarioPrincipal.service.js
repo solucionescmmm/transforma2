@@ -112,8 +112,6 @@ class setEmpresarioPrincipal {
             strNombre: "En Proceso"
         });
 
-        console.log(queryGetIdEstadoVinculacion)
-
         if (queryGetIdEstadoVinculacion.error) {
             throw new Error(queryGetIdEstadoVinculacion.msg);
         }
@@ -261,11 +259,9 @@ class setEmpresarioPrincipal {
             };
         }
 
-        console.log(newData)
-
         let dao = new classInterfaceDAOEmpresarios();
 
-        //let query = await dao.setIdea(newData);
+        let query = await dao.setIdea(newData);
 
 
         this.#intIdIdea = query.data.intId;
@@ -291,9 +287,7 @@ class setEmpresarioPrincipal {
 
         let dao = new classInterfaceDAOEmpresarios();
 
-        console.log(newData)
-
-        //let query = await dao.setIdeaEmpresario(newData);
+        let query = await dao.setIdeaEmpresario(newData);
 
 
         this.#intIdIdeaEmpresario = query.data.intId;
