@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 
 //Hooks
 import useGetEmpresarios from "../../hooks/useGetEmpresarios";
@@ -29,14 +29,20 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
+    Cancel as CancelIcon,
+    PhoneDisabled as PhoneIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
 import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 import ModalRepresentante from "./modalRepresentante";
+import ModalDesvincular from "./ModalDesvincular";
+import ModalNoContactar from "./modalNoContactar";
 
 //Componentes
+import { AbilityContext } from "../../../../common/functions/can";
+
 
 const ReadPersonaSecundaria = ({
     onChangeRoute,
@@ -44,6 +50,8 @@ const ReadPersonaSecundaria = ({
     intIdIdea,
     refreshGlobal,
 }) => {
+
+    const ability = useContext(AbilityContext);
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -96,10 +104,9 @@ const ReadPersonaSecundaria = ({
     ]);
 
     const [openModalRepresentante, setModalRepresentante] = useState(false);
-
-    const handleOpenDialogRepresentante = () => {
-        setModalRepresentante(!openModalRepresentante);
-    };
+    const [openModalCancelacion, setOpenModalCancelacion] = useState(false);
+    const [openModalNoContactar, setOpenModalNoContactar] = useState(false);
+    const [selectedData, setSelectedData] = useState();
 
     const refresh = ({ intIdIdea }) => {
         refreshGetData({ intIdIdea });
@@ -114,12 +121,30 @@ const ReadPersonaSecundaria = ({
         intId: intIdIdea,
     });
 
+    //===============================================================================================================================================
+    //========================================== Funciones ==========================================================================================
+    //===============================================================================================================================================
+
+    const handlerOpenModalCancelacion = () => {
+        setOpenModalCancelacion(!openModalCancelacion);
+    };
+
+    const handlerOpenModalNoContactar = () => {
+        setOpenModalNoContactar(!openModalNoContactar);
+    };
+
+    const handleOpenDialogRepresentante = () => {
+        setModalRepresentante(!openModalRepresentante);
+    };
+
     useEffect(() => {
         if (openModalRe) {
             handleOpenDialogRepresentante();
         }
         // eslint-disable-next-line
     }, [openModalRe]);
+
+
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -134,6 +159,22 @@ const ReadPersonaSecundaria = ({
                     (p) => p.strTipoEmpresario !== "Principal"
                 )}
                 intIdIdea={intIdIdea}
+            />
+
+            <ModalDesvincular
+                handleOpenDialog={handlerOpenModalCancelacion}
+                open={openModalCancelacion}
+                refresh={refreshGetData}
+                intIdIdea={intIdIdea}
+                selectedData={selectedData}
+            />
+
+            <ModalNoContactar
+                handleOpenDialog={handlerOpenModalNoContactar}
+                open={openModalNoContactar}
+                refresh={refreshGetData}
+                intIdIdea={intIdIdea}
+                selectedData={selectedData}
             />
 
             <Grid container direction="row" spacing={2}>
@@ -239,7 +280,7 @@ const ReadPersonaSecundaria = ({
                                 isLoading={data === undefined ? true : false}
                                 data={
                                     !data?.error && data
-                                        ? data[0].objEmpresario
+                                        ? data[0].objEmpresario.filter((e)=> e.btNoContactar === false)
                                         : []
                                 }
                                 actions={[
@@ -267,6 +308,46 @@ const ReadPersonaSecundaria = ({
                                                 rowData.strTipoEmpresario ===
                                                 "Principal",
                                         };
+                                    },
+                                    (rowData) => {
+                                        if (ability.can("cancel", "Eventos")) {
+                                            return {
+                                                icon: () => (
+                                                    <CancelIcon
+                                                        color={
+                                                            rowData.strTipoEmpresario ===
+                                                            "Principal"
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                disabled:rowData.strTipoEmpresario === "Principal",
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalCancelacion();
+                                                },
+                                                tooltip: "Desvincular",
+                                            };
+                                        }
+                                    },
+                                    (rowData) => {
+                                        if (ability.can("cancel", "Eventos")) {
+                                            return {
+                                                icon: () => (
+                                                    <PhoneIcon
+                                                        color={"warning"}
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                onClick: (event, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalNoContactar();
+                                                },
+                                                tooltip: "No contactar",
+                                            };
+                                        }
                                     },
                                 ]}
                                 columns={objColumns}

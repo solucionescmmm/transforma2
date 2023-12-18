@@ -2081,6 +2081,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                     data.objResultServicio
                                                         ?.intMarca || 0,
                                                 ]}
+                                                maxValues={[40,30,30]}
                                             />
                                         </Box>
                                     </Box>

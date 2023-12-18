@@ -2876,6 +2876,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             .objResultadoNoAlimentos
                                                             ?.intMarca || 0,
                                                     ]}
+                                                    maxValues={[30,30,30,30]}
                                                 />
                                             </Box>
                                         </Box>
@@ -2916,6 +2917,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             .objResultadoAlimentos
                                                             ?.intMarca || 0,
                                                     ]}
+                                                    maxValues={[30,44,16,30]}
                                                 />
                                             </Box>
                                         </Box>
