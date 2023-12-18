@@ -234,25 +234,26 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                 }}
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <RemoveRedEyeIcon
-                                                    color="gray"
-                                                    fontSize="small"
-                                                />
-                                            ),
-                                            tooltip: "Previsualizar",
-                                            onClick: (event, rowData) => {
-                                                onChangeRoute("PreviewAcomp", {
-                                                    intIdAcompañamiento:
-                                                        rowData
-                                                            ?.objInfoPrincipal
-                                                            ?.intId,
-                                                    intIdIdea,
-                                                    ...rowData,
-                                                });
-                                            },
-                                        };
+                                        // return {
+                                        //     icon: () => (
+                                        //         <RemoveRedEyeIcon
+                                        //             color="gray"
+                                        //             fontSize="small"
+                                        //         />
+                                        //     ),
+                                        //     tooltip: "Previsualizar",
+                                        //     onClick: (event, rowData) => {
+                                        //         console.log(rowData)
+                                        //         onChangeRoute("PreviewAcomp", {
+                                        //             intIdAcompañamiento:
+                                        //                 rowData
+                                        //                     ?.objInfoPrincipal
+                                        //                     ?.intId,
+                                        //             intIdIdea,
+                                        //             ...rowData,
+                                        //         });
+                                        //     },
+                                        // };
                                     },
                                 ]}
                                 components={{

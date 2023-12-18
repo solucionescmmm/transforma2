@@ -44,8 +44,8 @@ import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 import SelectTipoAct from "../../../components/selectTipoAct";
 import InfoNuevoServPaq from "./infoNuevoServPaq";
 import DropdownEmpresarios from "../../../components/dropdownEmpresarios";
-import useGetRutas from "../../../hooks/useGetRutas";
 import Loader from "../../../../../common/components/Loader";
+import useGetAcomp from "../../../hooks/useGetAcomp";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -83,14 +83,14 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute, isPreview }) => {
+const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPreview }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
-    const { data: values } = useGetRutas({
-        autoLoad: !!isEdit || !!isPreview,
+    const { data: values } = useGetAcomp({
+        autoLoad: isEdit || isPreview,
         intIdIdea,
-        intId,
+        intId: intIdAcompañamiento,
     });
 
     const { token } = useContext(AuthContext);
@@ -236,7 +236,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute, isPreview }) => {
                 },
             });
         }
-    }, [isEdit, values]);
+    }, [isEdit, values, isPreview]);
 
     useEffect(() => {
         if (values) {
@@ -291,10 +291,10 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute, isPreview }) => {
     }, [values]);
 
     useEffect(() => {
-        if (isEdit) {
+        if (isEdit || isPreview) {
             reset(data);
         }
-    }, [data, reset, isEdit]);
+    }, [data, reset, isEdit, isPreview]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();

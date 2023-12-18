@@ -1446,6 +1446,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                             isPreview
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
+                            intIdAcompañamiento={route.params.intIdAcompañamiento}
                         />
                     </Grid>
 
