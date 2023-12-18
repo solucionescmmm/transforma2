@@ -93,9 +93,23 @@ class daoHistoricos {
 
             let response = await conn.query`
 
-            SELECT *
-            
+            SELECT
+
+            Historico.intIdIdea,
+            Historico.intNumeroEmpleados,
+            Historico.ValorVentas,
+            Historico.strTiempoDedicacionAdmin,
+            Historico.intIdFuenteHistorico,
+            Historico.intIdEtapaDlloAuto,
+            Historico.intEtapaDlloFecha,
+            Historico.strClasificacionFecha,
+            Historico.intIdFuenteDato,
+            Historico.dtmCreacion,
+            DesarrolloEtapa.intPuntaje as intPuntaje
+
             FROM tbl_Historicos Historico
+
+            LEFT JOIN tbl_EtapaDllo DesarrolloEtapa ON DesarrolloEtapa.intId = Historico.intEtapaDlloFecha
 
             WHERE (Historico.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL)`;
 

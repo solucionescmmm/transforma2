@@ -49,6 +49,7 @@ const getHistorico = async (objParams, strDataUser) => {
 
                 arrEtapaDllo.push({
                     intEtapaDlloFecha: array[i]?.intEtapaDlloFecha,
+                    intIdPuntaje: array[i]?.intPuntaje,
                     strClasificacionFecha:array[i]?.strClasificacionFecha,
                     dtmCreacion:array[i]?.dtmCreacion
                 })
