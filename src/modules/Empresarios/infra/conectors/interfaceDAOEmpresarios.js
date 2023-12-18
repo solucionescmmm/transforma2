@@ -67,6 +67,12 @@ class interfaceDAOEmpresarios {
         return result
     }
 
+    async updateNoContactarEmpresario(data){
+        const dao = new classDaoSql()
+        let result = await dao.updateNoContactarEmpresario(data)
+        return result
+    }
+
     async updateInactivarEmpresario(data){
         const dao = new classDaoSql()
         let result = await dao.updateInactivarEmpresario(data)

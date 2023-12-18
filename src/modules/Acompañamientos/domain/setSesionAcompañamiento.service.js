@@ -28,10 +28,10 @@ class setAcompañamiento {
     }
 
     async main() {
-        console.log(this.#objData)
-        // await this.#validations();
-        // await this.#setSesionAcompañamiento();
-        // return this.#objResult;
+        //console.log(this.#objData)
+        await this.#validations();
+        await this.#setSesionAcompañamiento();
+        return this.#objResult;
     }
 
     async #validations() {

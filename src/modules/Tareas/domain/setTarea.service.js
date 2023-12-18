@@ -25,9 +25,8 @@ class setTarea {
 
     async main() {
         await this.#validations();
-        await this.#completeData();
         await this.#setTarea();
-        //await this.#sendEmail()
+       // await this.#sendEmail()
         return this.#objResult;
     }
 
@@ -46,20 +45,17 @@ class setTarea {
         }
     }
 
-    async #completeData() {
+    async #setTarea() {
+        let dao = new classInterfaceDAOTareas();
+
         let newData = {
             ...this.#objData,
             btFinalizada: 0,
             strUsuarioCreacion:this.#objUser.strEmail,
             strResponsable: JSON.stringify(this.#objData?.strResponsable)
         };
-        this.#objData = newData;
-    }
 
-    async #setTarea() {
-        let dao = new classInterfaceDAOTareas();
-
-        let query = await dao.setTarea(this.#objData);
+        let query = await dao.setTarea(newData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -73,16 +69,22 @@ class setTarea {
     }
 
     async #sendEmail(){
-        let strMensaje = plantillaCorreoTareas(this.#objData)
+        let strMensaje = plantillaCorreoTareas({
+            ...this.#objData,
+            ...this.#objUser,
+        })
         let strEmailResponsables
 
         if (typeof this.#objData.strResponsable === "object") {
+            console.log(this.#objData.strResponsable)
             strEmailResponsables = this.#objData.strResponsable
                 .map((e) => {
                     return e.strEmail;
                 })
                 .join(";");
         }
+
+        console.log(strEmailResponsables)
 
         const querySendEmail = await sendEmail({
             from:"transforma@demismanos.org",

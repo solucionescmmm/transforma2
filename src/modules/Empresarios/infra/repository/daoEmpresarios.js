@@ -580,6 +580,45 @@ class daoEmpresarios {
         }
     }
 
+    async updateNoContactarEmpresario(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_Empresario
+
+            SET btNoContactar    = COALESCE(${data.btNoContactar}, btNoContactar),
+                dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuario       = COALESCE(${data.strUsuario}, strUsuario)
+
+            WHERE intId = ${data.intId}
+
+            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
+
+            SELECT * FROM tbl_InfoAdicional WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateInfoAdicional de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateInactivarEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -587,7 +626,7 @@ class daoEmpresarios {
 
             UPDATE tbl_Idea_Empresario
 
-            SET dtFechaFin              = COALESCE(GETDATE(), dtFechaFin),
+            SET dtFechaFin              = COALESCE(${data.dtFechaFin}, dtFechaFin),
                 intIdEstado             = COALESCE(${data.intIdEstado}, intIdEstado),
                 dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
