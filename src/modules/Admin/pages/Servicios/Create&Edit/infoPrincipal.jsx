@@ -340,7 +340,7 @@ const InfoPrincipal = ({
                             defaultValue={data.bitProyectoEs}
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿El servicio contiene un proyecto especial?"
+                                    label="¿El servicio hace parte de un proyecto especial?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => {
@@ -360,7 +360,7 @@ const InfoPrincipal = ({
                                     helperText={
                                         errors?.objInfoPrincipal?.bitProyectoEs
                                             ?.message ||
-                                        "Selecciona si el servicio contiene un proyecto especial"
+                                        "Selecciona si el servicio hace parte de un proyecto especial"
                                     }
                                     select
                                 >
@@ -371,7 +371,7 @@ const InfoPrincipal = ({
                             rules={{
                                 validate: (value) => {
                                     if (value === "") {
-                                        return "Por favor, selecciona si el servicio contiene un proyecto especial";
+                                        return "Por favor, selecciona si el servicio hace parte de un proyecto especial";
                                     }
                                 },
                             }}

@@ -46,8 +46,13 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
     //===============================================================================================================================================
     const [objColumns] = useState([
         {
-            title: "Nombres y Apellidos",
+            title: "Nombres",
             field: "objDataAsistente.strNombres",
+            type: "string",
+        },
+        {
+            title: "Apellidos",
+            field: "objDataAsistente.strApellidos",
             type: "string",
         },
         {

@@ -314,7 +314,7 @@ const CURuta = ({ isEdit, intIdIdea, intId, onChangeRoute, isPreview }) => {
     const watchIntTipoAcomp = watch("intTipoAcomp");
 
     if (success) {
-        onChangeRoute("Rutas");
+        onChangeRoute("Acompañamientos");
     }
 
     if (data?.error) {
