@@ -134,12 +134,14 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         return (
             <TabPanel value="Personas" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
-                    <Personas
-                        onChangeRoute={onChangeRoute}
-                        intIdIdea={route.params.intIdIdea}
-                        openModalRe={route.params.openModalRe}
-                        refreshGlobal={refreshGlobal}
-                    />
+                    <Grid item xs={12}>
+                        <Personas
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            openModalRe={route.params.openModalRe}
+                            refreshGlobal={refreshGlobal}
+                        />
+                    </Grid>
                 </Grid>
             </TabPanel>
         );
@@ -194,7 +196,29 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     sx={{ marginTop: "20px" }}
                 >
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Personas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <PersonasCreate onChangeRoute={onChangeRoute} />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Personas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
                     </Grid>
                 </Grid>
             </TabPanel>
@@ -211,11 +235,33 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     sx={{ marginTop: "20px" }}
                 >
                     <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Personas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <PersonasCreate
                             isEdit
                             onChangeRoute={onChangeRoute}
                             values={route.params}
                         />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("Personas")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
                     </Grid>
                 </Grid>
             </TabPanel>
@@ -1446,7 +1492,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                             isPreview
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
-                            intIdAcompañamiento={route.params.intIdAcompañamiento}
+                            intIdAcompañamiento={
+                                route.params.intIdAcompañamiento
+                            }
                         />
                     </Grid>
 

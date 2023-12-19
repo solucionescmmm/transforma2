@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+    Fragment,
+    useCallback,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 
 import {
     Chart as ChartJS,
@@ -20,8 +26,16 @@ import toast from "react-hot-toast";
 
 import { AuthContext } from "../../../../common/middlewares/Auth";
 import { Box } from "@mui/system";
-import { CircularProgress } from "@mui/material";
+import {
+    CircularProgress,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Dialog,
+    useMediaQuery,
+} from "@mui/material";
 import "chartjs-adapter-moment";
+import { useTheme } from "@emotion/react";
 
 ChartJS.register(
     CategoryScale,
@@ -37,7 +51,16 @@ ChartJS.register(
 
 const CardGrafica = ({ intIdIdea, type }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [openModalDesarrollo, setOpenModalDesarrollo] = useState(false)
+    const [openModalEmpleados, setOpenModalEmpleados] = useState(false)
+    const [openModalVentas, setOpenModalVentas] = useState(false)
     const [state, setState] = useState([]);
+
+    const theme = useTheme();
+    const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+
+    const 
 
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
@@ -152,6 +175,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
         const ejeX = [];
         const ejeY = [];
 
+        debugger;
         arrEtapaDllo?.forEach((v, i) => {
             ejeX.push({
                 x: v.dtmCreacion,
@@ -171,10 +195,10 @@ const CardGrafica = ({ intIdIdea, type }) => {
                     // },
                     ticks: {
                         // Include a dollar sign in the ticks
-                        callback: function(value, index, ticks) {
+                        callback: function (value, index, ticks) {
                             return index;
-                        }
-                    }
+                        },
+                    },
                 },
             },
         };
@@ -192,7 +216,83 @@ const CardGrafica = ({ intIdIdea, type }) => {
             ],
         };
 
-        return <Line options={options} data={data} />;
+        return (
+            <Fragment>
+                <Dialog
+                    fullScreen={bitMobile}
+                    open={loading ? true : open}
+                    onClose={handleOpenDialogDllo}
+                    fullWidth
+                >
+                    <DialogTitle>Registrar diagnóstico</DialogTitle>
+
+                    <DialogContent>
+                        <Grid container direction="row">
+                            <Grid item xs={12}>
+                                <Typography variant="caption">
+                                    Todos los campos marcados con (*) son
+                                    obligatorios.
+                                </Typography>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="intIdTipoDiagnostico"
+                                    defaultValue={data.intIdTipoDiagnostico}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <SelectTipoDiag
+                                            label="Tipo de diagnóstico"
+                                            name={name}
+                                            required
+                                            value={value}
+                                            onChange={(e) => onChange(e)}
+                                            disabled={loading}
+                                            error={
+                                                errors?.strNombre ? true : false
+                                            }
+                                            helperText={
+                                                errors?.strNombre?.message ||
+                                                "Selecciona el tipo de diagnóstico"
+                                            }
+                                        />
+                                    )}
+                                    rules={{
+                                        required:
+                                            "Por favor, selecciona el tipo de diagnóstico",
+                                    }}
+                                    control={control}
+                                />
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
+
+                    <DialogActions>
+                        <LoadingButton
+                            color="primary"
+                            loading={loading}
+                            type="submit"
+                        >
+                            registrar
+                        </LoadingButton>
+
+                        <Button
+                            onClick={() => handleOpenDialog()}
+                            color="inherit"
+                            type="button"
+                            disabled={loading}
+                        >
+                            cancelar
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
+                <Line options={options} data={data} />
+            </Fragment>
+        );
+
+        return;
     }
 
     if (type === "Empleados" && state) {
@@ -219,10 +319,10 @@ const CardGrafica = ({ intIdIdea, type }) => {
                     // },
                     ticks: {
                         // Include a dollar sign in the ticks
-                        callback: function(value, index, ticks) {
+                        callback: function (value, index, ticks) {
                             return index;
-                        }
-                    }
+                        },
+                    },
                 },
             },
         };
@@ -264,10 +364,10 @@ const CardGrafica = ({ intIdIdea, type }) => {
                     type: "time",
                     ticks: {
                         // Include a dollar sign in the ticks
-                        callback: function(value, index, ticks) {
+                        callback: function (value, index, ticks) {
                             return index;
-                        }
-                    }
+                        },
+                    },
                 },
             },
         };
