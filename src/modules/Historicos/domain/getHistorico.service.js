@@ -34,7 +34,7 @@ const getHistorico = async (objParams, strDataUser) => {
             let arrNumeroEmpleados =[]
             let arrValorVentas = []
             let arrEtapaDllo =[]
-            let data ={}
+            let data = {}
 
             for (let i = 0; i < array.length; i++) {
                 arrNumeroEmpleados.push({
@@ -59,14 +59,15 @@ const getHistorico = async (objParams, strDataUser) => {
                 arrValorVentas,
                 arrEtapaDllo
             }
-
+            
             let result = {
                 error: false,
                 data,
             };
-
+    
             return result;
         }
+
     }
 
     return arrayData;

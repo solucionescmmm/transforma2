@@ -15,6 +15,11 @@ routes.get("/transforma/api/Historico/getHistorico", async (req, res) => {
     await controllerHistoricos.getHistorico(req, res);
 });
 
+routes.get("/transforma/api/Historico/getHistoricoTabla", async (req, res) => {
+    let controllerHistoricos = new classController();
+    await controllerHistoricos.getHistoricoTabla(req, res);
+});
+
 
 
 module.exports = routes;

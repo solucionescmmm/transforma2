@@ -4,6 +4,9 @@ const classInterfaceDAOTareas = require("../infra/conectors/interfaceDaoTareas")
 //Librerias
 const validator = require("validator").default;
 
+//Service
+const serviceGetIdeaEmpresario = require("../../Empresarios/domian/getIdeaEmpresario.service")
+
 //functions
 const sendEmail = require("../../../common/functions/sendEmail")
 const plantillaCorreoTareas = require("../app/functions/plantillaCorreoTareas")
@@ -13,6 +16,7 @@ class setTarea {
     #objData;
     #objUser;
     #objResult;
+    #objIdea;
 
     /**
      * @param {object} data
@@ -24,9 +28,11 @@ class setTarea {
     }
 
     async main() {
+        //console.log(this.#objData)
         await this.#validations();
+        await this.#getIdea()
         await this.#setTarea();
-       // await this.#sendEmail()
+        // await this.#sendEmail()
         return this.#objResult;
     }
 
@@ -43,6 +49,20 @@ class setTarea {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+    }
+
+    async #getIdea() {
+        let queryGetIdEstado = await serviceGetIdeaEmpresario({
+            intIdIdea: this.#objData.intIdIdea,
+        },this.#objUser);
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#objIdea = queryGetIdEstado.data;
+
+        console.log(this.#objIdea[0].strNombre, this.#objIdea[0].objEmpresario.find((e)=> e.strTipoEmpresario === "Principal").strNombres)
     }
 
     async #setTarea() {
@@ -69,9 +89,15 @@ class setTarea {
     }
 
     async #sendEmail(){
+        const objDataEmpresarioPrincipal = this.#objIdea[0].objEmpresario.find((e)=> e.strTipoEmpresario === "Principal")
+        const strNombreIdea = this.#objIdea[0].strNombre;
+        const strNombreEmpresario = `${objDataEmpresarioPrincipal.strNombres} ${objDataEmpresarioPrincipal.strApellidos}`
+
         let strMensaje = plantillaCorreoTareas({
             ...this.#objData,
             ...this.#objUser,
+            strNombreIdea,
+            strNombreEmpresario
         })
         let strEmailResponsables
 
