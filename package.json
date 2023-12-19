@@ -11,6 +11,7 @@
         "@emotion/react": "^11.10.6",
         "@emotion/styled": "^11.10.6",
         "@material-table/core": "^0.2.9",
+        "@material-table/exporters": "^1.2.18",
         "@mui/base": "^5.0.0-alpha.121",
         "@mui/core": "^5.0.0-alpha.52",
         "@mui/icons-material": "^5.11.11",

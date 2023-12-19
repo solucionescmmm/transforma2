@@ -19,10 +19,15 @@ import {
     TimeSeriesScale,
 } from "chart.js";
 
+import { ExportCsv } from "@material-table/exporters";
+
 import { Line } from "react-chartjs-2";
 
 import axios from "axios";
 import toast from "react-hot-toast";
+
+//Librerias
+import { parseISO, format } from "date-fns";
 
 import { AuthContext } from "../../../../common/middlewares/Auth";
 import { Box } from "@mui/system";
@@ -32,10 +37,37 @@ import {
     DialogContent,
     DialogActions,
     Dialog,
+    Grid,
+    Button,
     useMediaQuery,
 } from "@mui/material";
 import "chartjs-adapter-moment";
 import { useTheme } from "@emotion/react";
+import MaterialTable from "@material-table/core";
+
+import {
+    ThemeProvider,
+    StyledEngineProvider,
+    createTheme,
+} from "@mui/material/styles";
+
+import {
+    ViewColumn as ViewColumnIcon,
+    Edit as EditIcon,
+    Clear as ClearIcon,
+    DeleteOutline as DeleteOutlineIcon,
+    Search as SearchIcon,
+    SaveAlt as SaveAltIcon,
+    ArrowDownward as ArrowDownwardIcon,
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon,
+    FirstPage as FirstPageIcon,
+    LastPage as LastPageIcon,
+    Check as CheckIcon,
+    FilterList as FilterListIcon,
+    Remove as RemoveIcon,
+    AddBox as AddBoxIcon,
+} from "@mui/icons-material";
 
 ChartJS.register(
     CategoryScale,
@@ -51,16 +83,25 @@ ChartJS.register(
 
 const CardGrafica = ({ intIdIdea, type }) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [openModalDesarrollo, setOpenModalDesarrollo] = useState(false)
-    const [openModalEmpleados, setOpenModalEmpleados] = useState(false)
-    const [openModalVentas, setOpenModalVentas] = useState(false)
+    const [openModalDesarrollo, setOpenModalDesarrollo] = useState(false);
+    const [openModalEmpleados, setOpenModalEmpleados] = useState(false);
+    const [openModalVentas, setOpenModalVentas] = useState(false);
     const [state, setState] = useState([]);
 
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+    const handleOpenDialogDllo = () => {
+        setOpenModalDesarrollo(!openModalDesarrollo);
+    };
 
-    const 
+    const handleOpenDialogEmp = () => {
+        setOpenModalEmpleados(!openModalEmpleados);
+    };
+
+    const handleOpenDialogVent = () => {
+        setOpenModalVentas(!openModalVentas);
+    };
 
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
@@ -133,6 +174,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
     }, [getData, intIdIdea]);
 
     const options = {
+        responsive: true,
         scales: {
             xAxes: [
                 {
@@ -175,31 +217,34 @@ const CardGrafica = ({ intIdIdea, type }) => {
         const ejeX = [];
         const ejeY = [];
 
-        debugger;
         arrEtapaDllo?.forEach((v, i) => {
             ejeX.push({
-                x: v.dtmCreacion,
-                y: v.intEtapaDlloFecha,
-                t: v.strClasificacionFecha,
+                x: parseISO(v.dtmCreacion),
+                y: v.intIdPuntaje,
             });
 
-            ejeY.push(v.dtmCreacion);
+            ejeY.push(format(parseISO(v.dtmCreacion), "yyyy MM dd"));
         });
 
         const options = {
+            responsive: true,
             scales: {
-                x: {
-                    type: "time",
-                    // time: {
-                    //     tooltipFormat: "YYYY MM DD",
-                    // },
-                    ticks: {
-                        // Include a dollar sign in the ticks
-                        callback: function (value, index, ticks) {
-                            return index;
+                xAxes: [
+                    {
+                        type: "time",
+                        gridLines: {
+                            lineWidth: 2,
+                        },
+                        title: {
+                            display: true,
+                            text: "Fecha",
+                        },
+                        time: {
+                            tooltipFormat: "YYYY MM DD",
+                            unit: "month",
                         },
                     },
-                },
+                ],
             },
         };
 
@@ -216,83 +261,205 @@ const CardGrafica = ({ intIdIdea, type }) => {
             ],
         };
 
+        const objColumns = [
+            {
+                title: "Fecha",
+                field: "dtmCreacion",
+                type: "date",
+            },
+            {
+                title: "Puntuación",
+                field: "intIdPuntaje",
+                type: "date",
+            },
+            {
+                title: "Tipo",
+                field: "strClasificacionFecha",
+            },
+        ];
+
         return (
             <Fragment>
                 <Dialog
                     fullScreen={bitMobile}
-                    open={loading ? true : open}
+                    open={openModalDesarrollo}
                     onClose={handleOpenDialogDllo}
                     fullWidth
                 >
-                    <DialogTitle>Registrar diagnóstico</DialogTitle>
+                    <DialogTitle>Historico Desarrollo</DialogTitle>
 
                     <DialogContent>
                         <Grid container direction="row">
-                            <Grid item xs={12}>
-                                <Typography variant="caption">
-                                    Todos los campos marcados con (*) son
-                                    obligatorios.
-                                </Typography>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Controller
-                                    name="intIdTipoDiagnostico"
-                                    defaultValue={data.intIdTipoDiagnostico}
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <SelectTipoDiag
-                                            label="Tipo de diagnóstico"
-                                            name={name}
-                                            required
-                                            value={value}
-                                            onChange={(e) => onChange(e)}
-                                            disabled={loading}
-                                            error={
-                                                errors?.strNombre ? true : false
-                                            }
-                                            helperText={
-                                                errors?.strNombre?.message ||
-                                                "Selecciona el tipo de diagnóstico"
-                                            }
-                                        />
-                                    )}
-                                    rules={{
-                                        required:
-                                            "Por favor, selecciona el tipo de diagnóstico",
-                                    }}
-                                    control={control}
-                                />
-                            </Grid>
+                            <StyledEngineProvider injectFirst>
+                                <ThemeProvider
+                                    theme={createTheme({
+                                        palette: {
+                                            mode: "light",
+                                            primary: {
+                                                main: "#00BAB3",
+                                                dark: "#007c6a",
+                                                light: "#0288D1",
+                                                contrastText: "#ffff",
+                                            },
+                                            secondary: {
+                                                main: "#FF4160",
+                                            },
+                                            divider: "#BDBDBD",
+                                        },
+                                        typography: { fontSize: 13.2 },
+                                        components: {
+                                            MuiTableBody: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        fontSize: 13.2,
+                                                    },
+                                                },
+                                            },
+                                            MuiTableCell: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        padding: "5px",
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    })}
+                                >
+                                    <MaterialTable
+                                        icons={{
+                                            Add: AddBoxIcon,
+                                            Clear: ClearIcon,
+                                            Check: CheckIcon,
+                                            Delete: DeleteOutlineIcon,
+                                            Edit: EditIcon,
+                                            DetailPanel: ChevronRightIcon,
+                                            Export: SaveAltIcon,
+                                            Filter: FilterListIcon,
+                                            FirstPage: FirstPageIcon,
+                                            LastPage: LastPageIcon,
+                                            NextPage: ChevronRightIcon,
+                                            PreviousPage: ChevronLeftIcon,
+                                            Search: SearchIcon,
+                                            ResetSearch: ClearIcon,
+                                            SortArrow: ArrowDownwardIcon,
+                                            ThirdStateCheck: RemoveIcon,
+                                            ViewColumn: ViewColumnIcon,
+                                        }}
+                                        localization={{
+                                            pagination: {
+                                                labelRowsSelect: "filas",
+                                                labelDisplayedRows:
+                                                    "{from}-{to} de {count}",
+                                                firstTooltip: "Primera página",
+                                                previousTooltip:
+                                                    "Página anterior",
+                                                nextTooltip: "Siguiente página",
+                                                lastTooltip: "Última página",
+                                                labelRowsPerPage:
+                                                    "Filas por página:",
+                                            },
+                                            toolbar: {
+                                                nRowsSelected:
+                                                    "{0} filas seleccionadas",
+                                                searchTooltip: "Buscar",
+                                                searchPlaceholder: "Buscar",
+                                            },
+                                            header: {
+                                                actions: "Acciones",
+                                            },
+                                            body: {
+                                                emptyDataSourceMessage:
+                                                    "No existe información por mostrar",
+                                                filterRow: {
+                                                    filterTooltip: "Filtro",
+                                                },
+                                                editRow: {
+                                                    deleteText:
+                                                        "Esta seguro de eliminar el registro?",
+                                                },
+                                            },
+                                            selector: {
+                                                okLabel: "aceptar",
+                                                cancelLabel: "Cancelar",
+                                                clearLabel: "Clear",
+                                                todayLabel: "Hoy",
+                                            },
+                                            grouping: {
+                                                placeholder:
+                                                    "Arrasta el nombre de la columna para agrupar los campos",
+                                                groupedBy:
+                                                    "Datos agrupados por: ",
+                                            },
+                                        }}
+                                        data={arrEtapaDllo || []}
+                                        columns={objColumns}
+                                        title=""
+                                        options={{
+                                            grouping: true,
+                                            title: false,
+                                            filtering: false,
+                                            search: false,
+                                            exportMenu: [
+                                                {
+                                                    label: "Exportar como CSV",
+                                                    exportFunc: (cols, datas) =>
+                                                        ExportCsv(
+                                                            cols,
+                                                            datas,
+                                                            "historicoEtapaDesarrollo"
+                                                        ),
+                                                },
+                                            ],
+                                            exportAllData: true,
+                                            columnsButton: true,
+                                            headerStyle: {
+                                                position: "sticky",
+                                                top: "0",
+                                                backgroundColor: "#cff3f2",
+                                            },
+                                            detailPanelColumnStylele: {
+                                                fontSize: 12,
+                                            },
+                                            actionsColumnIndex: -1,
+                                            paging: true,
+                                            pageSizeOptions: [
+                                                20, 100, 200, 500,
+                                            ],
+                                            pageSize: 20,
+                                            maxBodyHeight: "520px",
+                                        }}
+                                    />
+                                </ThemeProvider>
+                            </StyledEngineProvider>
                         </Grid>
                     </DialogContent>
 
                     <DialogActions>
-                        <LoadingButton
-                            color="primary"
-                            loading={loading}
-                            type="submit"
-                        >
-                            registrar
-                        </LoadingButton>
-
                         <Button
-                            onClick={() => handleOpenDialog()}
+                            onClick={() => handleOpenDialogDllo()}
                             color="inherit"
-                            type="button"
-                            disabled={loading}
                         >
-                            cancelar
+                            cerrar
                         </Button>
                     </DialogActions>
                 </Dialog>
 
-                <Line options={options} data={data} />
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Line options={options} data={data} />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => handleOpenDialogDllo()}
+                            color="primary"
+                        >
+                            ver tabla
+                        </Button>
+                    </Grid>
+                </Grid>
             </Fragment>
         );
-
-        return;
     }
 
     if (type === "Empleados" && state) {
@@ -303,27 +470,45 @@ const CardGrafica = ({ intIdIdea, type }) => {
 
         arrNumeroEmpleados?.forEach((v) => {
             ejeX.push({
-                x: v.dtmCreacion,
+                x: parseISO(v.dtmCreacion),
                 y: v.intNumeroEmpleados,
             });
 
-            ejeY.push(v.dtmCreacion);
+            ejeY.push(format(parseISO(v.dtmCreacion), "yyyy MM dd"));
         });
 
+        const objColumns = [
+            {
+                title: "Fecha",
+                field: "dtmCreacion",
+                type: "date",
+            },
+            {
+                title: "Número empleados",
+                field: "intNumeroEmpleados",
+                type: "number",
+            },
+        ];
+
         const options = {
+            responsive: true,
             scales: {
-                x: {
-                    type: "time",
-                    // time: {
-                    //     tooltipFormat: "YYYY MM DD",
-                    // },
-                    ticks: {
-                        // Include a dollar sign in the ticks
-                        callback: function (value, index, ticks) {
-                            return index;
+                xAxes: [
+                    {
+                        type: "time",
+                        gridLines: {
+                            lineWidth: 2,
+                        },
+                        title: {
+                            display: true,
+                            text: "Fecha",
+                        },
+                        time: {
+                            tooltipFormat: "YYYY MM DD",
+                            unit: "month",
                         },
                     },
-                },
+                ],
             },
         };
 
@@ -340,7 +525,188 @@ const CardGrafica = ({ intIdIdea, type }) => {
             ],
         };
 
-        return <Line options={options} data={data} />;
+        return (
+            <Fragment>
+                <Dialog
+                    fullScreen={bitMobile}
+                    open={openModalEmpleados}
+                    onClose={handleOpenDialogEmp}
+                    fullWidth
+                >
+                    <DialogTitle>Historico Empleados</DialogTitle>
+
+                    <DialogContent>
+                        <Grid container direction="row">
+                            <StyledEngineProvider injectFirst>
+                                <ThemeProvider
+                                    theme={createTheme({
+                                        palette: {
+                                            mode: "light",
+                                            primary: {
+                                                main: "#00BAB3",
+                                                dark: "#007c6a",
+                                                light: "#0288D1",
+                                                contrastText: "#ffff",
+                                            },
+                                            secondary: {
+                                                main: "#FF4160",
+                                            },
+                                            divider: "#BDBDBD",
+                                        },
+                                        typography: { fontSize: 13.2 },
+                                        components: {
+                                            MuiTableBody: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        fontSize: 13.2,
+                                                    },
+                                                },
+                                            },
+                                            MuiTableCell: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        padding: "5px",
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    })}
+                                >
+                                    <MaterialTable
+                                        icons={{
+                                            Add: AddBoxIcon,
+                                            Clear: ClearIcon,
+                                            Check: CheckIcon,
+                                            Delete: DeleteOutlineIcon,
+                                            Edit: EditIcon,
+                                            DetailPanel: ChevronRightIcon,
+                                            Export: SaveAltIcon,
+                                            Filter: FilterListIcon,
+                                            FirstPage: FirstPageIcon,
+                                            LastPage: LastPageIcon,
+                                            NextPage: ChevronRightIcon,
+                                            PreviousPage: ChevronLeftIcon,
+                                            Search: SearchIcon,
+                                            ResetSearch: ClearIcon,
+                                            SortArrow: ArrowDownwardIcon,
+                                            ThirdStateCheck: RemoveIcon,
+                                            ViewColumn: ViewColumnIcon,
+                                        }}
+                                        localization={{
+                                            pagination: {
+                                                labelRowsSelect: "filas",
+                                                labelDisplayedRows:
+                                                    "{from}-{to} de {count}",
+                                                firstTooltip: "Primera página",
+                                                previousTooltip:
+                                                    "Página anterior",
+                                                nextTooltip: "Siguiente página",
+                                                lastTooltip: "Última página",
+                                                labelRowsPerPage:
+                                                    "Filas por página:",
+                                            },
+                                            toolbar: {
+                                                nRowsSelected:
+                                                    "{0} filas seleccionadas",
+                                                searchTooltip: "Buscar",
+                                                searchPlaceholder: "Buscar",
+                                            },
+                                            header: {
+                                                actions: "Acciones",
+                                            },
+                                            body: {
+                                                emptyDataSourceMessage:
+                                                    "No existe información por mostrar",
+                                                filterRow: {
+                                                    filterTooltip: "Filtro",
+                                                },
+                                                editRow: {
+                                                    deleteText:
+                                                        "Esta seguro de eliminar el registro?",
+                                                },
+                                            },
+                                            selector: {
+                                                okLabel: "aceptar",
+                                                cancelLabel: "Cancelar",
+                                                clearLabel: "Clear",
+                                                todayLabel: "Hoy",
+                                            },
+                                            grouping: {
+                                                placeholder:
+                                                    "Arrasta el nombre de la columna para agrupar los campos",
+                                                groupedBy:
+                                                    "Datos agrupados por: ",
+                                            },
+                                        }}
+                                        data={arrNumeroEmpleados || []}
+                                        columns={objColumns}
+                                        title=""
+                                        options={{
+                                            grouping: true,
+                                            title: false,
+                                            filtering: false,
+                                            search: false,
+                                            exportMenu: [
+                                                {
+                                                    label: "Exportar como CSV",
+                                                    exportFunc: (cols, datas) =>
+                                                        ExportCsv(
+                                                            cols,
+                                                            datas,
+                                                            "historicoEtapaDesarrollo"
+                                                        ),
+                                                },
+                                            ],
+                                            exportAllData: true,
+                                            columnsButton: true,
+                                            headerStyle: {
+                                                position: "sticky",
+                                                top: "0",
+                                                backgroundColor: "#cff3f2",
+                                            },
+                                            detailPanelColumnStylele: {
+                                                fontSize: 12,
+                                            },
+                                            actionsColumnIndex: -1,
+                                            paging: true,
+                                            pageSizeOptions: [
+                                                20, 100, 200, 500,
+                                            ],
+                                            pageSize: 20,
+                                            maxBodyHeight: "520px",
+                                        }}
+                                    />
+                                </ThemeProvider>
+                            </StyledEngineProvider>
+                        </Grid>
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button
+                            onClick={() => handleOpenDialogEmp()}
+                            color="inherit"
+                        >
+                            cerrar
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Line options={options} data={data} />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => handleOpenDialogEmp()}
+                            color="primary"
+                        >
+                            ver tabla
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Fragment>
+        );
     }
 
     if (type === "Ventas" && state) {
@@ -351,24 +717,32 @@ const CardGrafica = ({ intIdIdea, type }) => {
 
         arrValorVentas?.forEach((v) => {
             ejeX.push({
-                x: v.dtmCreacion,
+                x: parseISO(v.dtmCreacion),
                 y: v.ValorVentas,
             });
 
-            ejeY.push(v.dtmCreacion);
+            ejeY.push(format(parseISO(v.dtmCreacion), "yyyy MM dd"));
         });
 
         const options = {
+            responsive: true,
             scales: {
-                x: {
-                    type: "time",
-                    ticks: {
-                        // Include a dollar sign in the ticks
-                        callback: function (value, index, ticks) {
-                            return index;
+                xAxes: [
+                    {
+                        type: "time",
+                        gridLines: {
+                            lineWidth: 2,
+                        },
+                        title: {
+                            display: true,
+                            text: "Fecha",
+                        },
+                        time: {
+                            tooltipFormat: "YYYY MM DD",
+                            unit: "month",
                         },
                     },
-                },
+                ],
             },
         };
 
@@ -385,7 +759,202 @@ const CardGrafica = ({ intIdIdea, type }) => {
             ],
         };
 
-        return <Line options={options} data={data} />;
+        const objColumns = [
+            {
+                title: "Fecha",
+                field: "dtmCreacion",
+                type: "date",
+            },
+            {
+                title: "Valor de las ventas",
+                field: "ValorVentas",
+                type: "number",
+            },
+        ];
+
+
+        return (
+            <Fragment>
+                <Dialog
+                    fullScreen={bitMobile}
+                    open={openModalVentas}
+                    onClose={handleOpenDialogVent}
+                    fullWidth
+                >
+                    <DialogTitle>Historico Ventas</DialogTitle>
+
+                    <DialogContent>
+                        <Grid container direction="row">
+                            <StyledEngineProvider injectFirst>
+                                <ThemeProvider
+                                    theme={createTheme({
+                                        palette: {
+                                            mode: "light",
+                                            primary: {
+                                                main: "#00BAB3",
+                                                dark: "#007c6a",
+                                                light: "#0288D1",
+                                                contrastText: "#ffff",
+                                            },
+                                            secondary: {
+                                                main: "#FF4160",
+                                            },
+                                            divider: "#BDBDBD",
+                                        },
+                                        typography: { fontSize: 13.2 },
+                                        components: {
+                                            MuiTableBody: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        fontSize: 13.2,
+                                                    },
+                                                },
+                                            },
+                                            MuiTableCell: {
+                                                styleOverrides: {
+                                                    root: {
+                                                        padding: "5px",
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    })}
+                                >
+                                    <MaterialTable
+                                        icons={{
+                                            Add: AddBoxIcon,
+                                            Clear: ClearIcon,
+                                            Check: CheckIcon,
+                                            Delete: DeleteOutlineIcon,
+                                            Edit: EditIcon,
+                                            DetailPanel: ChevronRightIcon,
+                                            Export: SaveAltIcon,
+                                            Filter: FilterListIcon,
+                                            FirstPage: FirstPageIcon,
+                                            LastPage: LastPageIcon,
+                                            NextPage: ChevronRightIcon,
+                                            PreviousPage: ChevronLeftIcon,
+                                            Search: SearchIcon,
+                                            ResetSearch: ClearIcon,
+                                            SortArrow: ArrowDownwardIcon,
+                                            ThirdStateCheck: RemoveIcon,
+                                            ViewColumn: ViewColumnIcon,
+                                        }}
+                                        localization={{
+                                            pagination: {
+                                                labelRowsSelect: "filas",
+                                                labelDisplayedRows:
+                                                    "{from}-{to} de {count}",
+                                                firstTooltip: "Primera página",
+                                                previousTooltip:
+                                                    "Página anterior",
+                                                nextTooltip: "Siguiente página",
+                                                lastTooltip: "Última página",
+                                                labelRowsPerPage:
+                                                    "Filas por página:",
+                                            },
+                                            toolbar: {
+                                                nRowsSelected:
+                                                    "{0} filas seleccionadas",
+                                                searchTooltip: "Buscar",
+                                                searchPlaceholder: "Buscar",
+                                            },
+                                            header: {
+                                                actions: "Acciones",
+                                            },
+                                            body: {
+                                                emptyDataSourceMessage:
+                                                    "No existe información por mostrar",
+                                                filterRow: {
+                                                    filterTooltip: "Filtro",
+                                                },
+                                                editRow: {
+                                                    deleteText:
+                                                        "Esta seguro de eliminar el registro?",
+                                                },
+                                            },
+                                            selector: {
+                                                okLabel: "aceptar",
+                                                cancelLabel: "Cancelar",
+                                                clearLabel: "Clear",
+                                                todayLabel: "Hoy",
+                                            },
+                                            grouping: {
+                                                placeholder:
+                                                    "Arrasta el nombre de la columna para agrupar los campos",
+                                                groupedBy:
+                                                    "Datos agrupados por: ",
+                                            },
+                                        }}
+                                        data={arrValorVentas || []}
+                                        columns={objColumns}
+                                        title=""
+                                        options={{
+                                            grouping: true,
+                                            title: false,
+                                            filtering: false,
+                                            search: false,
+                                            exportMenu: [
+                                                {
+                                                    label: "Exportar como CSV",
+                                                    exportFunc: (cols, datas) =>
+                                                        ExportCsv(
+                                                            cols,
+                                                            datas,
+                                                            "historicoEtapaDesarrollo"
+                                                        ),
+                                                },
+                                            ],
+                                            exportAllData: true,
+                                            columnsButton: true,
+                                            headerStyle: {
+                                                position: "sticky",
+                                                top: "0",
+                                                backgroundColor: "#cff3f2",
+                                            },
+                                            detailPanelColumnStylele: {
+                                                fontSize: 12,
+                                            },
+                                            actionsColumnIndex: -1,
+                                            paging: true,
+                                            pageSizeOptions: [
+                                                20, 100, 200, 500,
+                                            ],
+                                            pageSize: 20,
+                                            maxBodyHeight: "520px",
+                                        }}
+                                    />
+                                </ThemeProvider>
+                            </StyledEngineProvider>
+                        </Grid>
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button
+                            onClick={() => handleOpenDialogVent()}
+                            color="inherit"
+                        >
+                            cerrar
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Line options={options} data={data} />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => handleOpenDialogVent()}
+                            color="primary"
+                        >
+                            ver tabla
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Fragment>
+        );
     }
 
     return <Line options={options} data={data} />;

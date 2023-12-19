@@ -26,7 +26,6 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
-    RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
 //Table Material UI

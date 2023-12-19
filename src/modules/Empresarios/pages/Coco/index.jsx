@@ -989,7 +989,7 @@ const Coco = () => {
                                                         <Box
                                                             sx={{
                                                                 width: 290,
-                                                                height: 118,
+                                                                height: 225,
                                                             }}
                                                         >
                                                             <CardGrafica
@@ -1057,7 +1057,7 @@ const Coco = () => {
                                                         <Box
                                                             sx={{
                                                                 width: 290,
-                                                                height: 118,
+                                                                height: 225,
                                                             }}
                                                         >
                                                             <CardGrafica
@@ -1125,7 +1125,7 @@ const Coco = () => {
                                                         <Box
                                                             sx={{
                                                                 width: 290,
-                                                                height: 118,
+                                                                height: 225,
                                                             }}
                                                         >
                                                             <CardGrafica
