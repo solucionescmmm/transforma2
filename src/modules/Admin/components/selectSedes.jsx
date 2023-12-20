@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 //Hooks
 import useGetSedes from "../hooks/useGetSedes";
@@ -29,6 +29,21 @@ const SelectSedes = ({
     required,
 }) => {
     const { data, refreshGetData } = useGetSedes();
+
+    const [objValueInactivo, setObjValueInactivo] = useState(null)
+
+    const onFocus = () => {
+        setObjValueInactivo(null)
+    }
+
+    useEffect(() => {
+        if (value) {
+            const objValue = data?.find((s) => s.intId === value)
+            if (objValue?.intIdEstado === 3) {
+                setObjValueInactivo(objValue)
+            }
+        }
+    }, [data, value]);
 
     if (data === undefined) {
         return (
@@ -101,12 +116,20 @@ const SelectSedes = ({
             onChange={onChange}
             helperText={helperText}
             error={error}
+            onFocus={onFocus}
             disabled={disabled}
             required={required}
             variant="standard"
             fullWidth
             select
         >
+
+            {objValueInactivo ? (
+                <MenuItem value={objValueInactivo.intId} key={0}>
+                    {objValueInactivo.strNombre}
+                </MenuItem>
+            ) : null}
+
             {data.map((e, i) => (
                 e.intIdEstado === 1 ? (
                     <MenuItem value={e.intId} key={i}>
@@ -114,6 +137,7 @@ const SelectSedes = ({
                     </MenuItem>
                 ) : null
             ))}
+
         </TextField>
     );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //Hooks
 import useGetProyectosEs from "../hooks/useGetProyectosEs";
@@ -29,6 +29,21 @@ const SelectProyectoEs = ({
     required,
 }) => {
     const { data, refreshGetData } = useGetProyectosEs();
+
+    const [objValueInactivo, setObjValueInactivo] = useState(null)
+
+    const onFocus = () => {
+        setObjValueInactivo(null)
+    }
+
+    useEffect(() => {
+        if (value) {
+            const objValue = data?.find((s) => s.intId === value)
+            if (objValue?.intIdEstado === 3) {
+                setObjValueInactivo(objValue)
+            }
+        }
+    }, [data, value]);
 
     if (data === undefined) {
         return (
@@ -101,16 +116,25 @@ const SelectProyectoEs = ({
             onChange={onChange}
             helperText={helperText}
             error={error}
+            onFocus={onFocus}
             disabled={disabled}
             required={required}
             variant="standard"
             fullWidth
             select
         >
-            {data.map((e, i) => (
-                <MenuItem value={e.intId} key={i}>
-                    {e.strNombre}
+            {objValueInactivo ? (
+                <MenuItem value={objValueInactivo.intId} key={0}>
+                    {objValueInactivo.strNombre}
                 </MenuItem>
+            ) : null}
+
+            {data.map((e, i) => (
+                e.intIdEstado === 1 ? (
+                    <MenuItem value={e.intId} key={i}>
+                        {e.strNombre}
+                    </MenuItem>
+                ) : null
             ))}
         </TextField>
     );

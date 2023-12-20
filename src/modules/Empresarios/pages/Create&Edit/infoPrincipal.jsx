@@ -53,7 +53,6 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
     useEffect(() => {
         if (values) {
-            console.log(values)
             setData({
                 strSede: values.strSede || "",
                 intIdSede: values.intIdSede || "",
