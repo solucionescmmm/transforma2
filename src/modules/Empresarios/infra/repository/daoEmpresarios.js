@@ -862,6 +862,7 @@ class daoEmpresarios {
             Idea.strUsuarioCreacion,
             Idea.dtmActualizacion,
             Idea.strUsuarioActualizacion,
+            EstadoVinculacion.strNombre as strEstado,
             (
                 SELECT
 
@@ -954,6 +955,8 @@ class daoEmpresarios {
             ) as objInfoAdicional
 
             FROM tbl_Idea Idea
+
+            LEFT JOIN tbl_EstadoVinculacion EstadoVinculacion ON EstadoVinculacion.intId = Idea.intIdEstadoVinculacion
             
             WHERE (Idea.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
