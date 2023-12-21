@@ -44,6 +44,34 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import CardAcom from "./cardAcomp";
 import ReadTareas from "../Tareas";
 import { calcularEdad } from "../../../../common/functions/edad";
+import useGetHistTabla from "../../hooks/useGetHistTabla";
+
+import MaterialTable from "@material-table/core";
+import { ExportCsv } from "@material-table/exporters";
+
+import {
+    ThemeProvider,
+    StyledEngineProvider,
+    createTheme,
+} from "@mui/material/styles";
+
+import {
+    ViewColumn as ViewColumnIcon,
+    Edit as EditIcon,
+    Clear as ClearIcon,
+    DeleteOutline as DeleteOutlineIcon,
+    Search as SearchIcon,
+    SaveAlt as SaveAltIcon,
+    ArrowDownward as ArrowDownwardIcon,
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon,
+    FirstPage as FirstPageIcon,
+    LastPage as LastPageIcon,
+    Check as CheckIcon,
+    FilterList as FilterListIcon,
+    Remove as RemoveIcon,
+    AddBox as AddBoxIcon,
+} from "@mui/icons-material";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -74,6 +102,21 @@ const Coco = () => {
         intIdIdea: intId,
     });
     const location = useHistory();
+
+    const { data } = useGetHistTabla({ intIdIdea: intId, autoLoad: true });
+
+    const objColumns = [
+        {
+            title: "Fecha",
+            field: "dtmCreacion",
+            type: "date",
+        },
+        {
+            title: "Valor de las ventas",
+            field: "ValorVentas",
+            type: "number",
+        },
+    ];
 
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -132,7 +175,11 @@ const Coco = () => {
             return "Indicadores";
         }
 
-        if (location.startsWith("Tareas") || location.startsWith("CreateTareas") || location.startsWith("EditTareas") ) {
+        if (
+            location.startsWith("Tareas") ||
+            location.startsWith("CreateTareas") ||
+            location.startsWith("EditTareas")
+        ) {
             return "Tareas";
         }
 
@@ -682,7 +729,7 @@ const Coco = () => {
                                                         }}
                                                     >
                                                         <EmailIcon
-                                                        htmlColor="#00BAB3"
+                                                            htmlColor="#00BAB3"
                                                             className={
                                                                 classes.icon
                                                             }
@@ -715,7 +762,7 @@ const Coco = () => {
                                                         }}
                                                     >
                                                         <PhoneIcon
-                                                        htmlColor="#00BAB3"
+                                                            htmlColor="#00BAB3"
                                                             className={
                                                                 classes.icon
                                                             }
@@ -776,9 +823,8 @@ const Coco = () => {
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
-                                                            marginLeft: "27px"
+                                                            marginLeft: "27px",
                                                         }}
-
                                                     >
                                                         <span
                                                             style={{
@@ -801,7 +847,7 @@ const Coco = () => {
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
-                                                            marginLeft: "27px"
+                                                            marginLeft: "27px",
                                                         }}
                                                     >
                                                         <span
@@ -825,7 +871,7 @@ const Coco = () => {
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
-                                                            marginLeft: "27px"
+                                                            marginLeft: "27px",
                                                         }}
                                                     >
                                                         <span
@@ -1140,6 +1186,164 @@ const Coco = () => {
                                             </Grid>
                                         </CardContent>
                                     </Card>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <StyledEngineProvider injectFirst>
+                                        <ThemeProvider
+                                            theme={createTheme({
+                                                palette: {
+                                                    mode: "light",
+                                                    primary: {
+                                                        main: "#00BAB3",
+                                                        dark: "#007c6a",
+                                                        light: "#0288D1",
+                                                        contrastText: "#ffff",
+                                                    },
+                                                    secondary: {
+                                                        main: "#FF4160",
+                                                    },
+                                                    divider: "#BDBDBD",
+                                                },
+                                                typography: { fontSize: 13.2 },
+                                                components: {
+                                                    MuiTableBody: {
+                                                        styleOverrides: {
+                                                            root: {
+                                                                fontSize: 13.2,
+                                                            },
+                                                        },
+                                                    },
+                                                    MuiTableCell: {
+                                                        styleOverrides: {
+                                                            root: {
+                                                                padding: "5px",
+                                                            },
+                                                        },
+                                                    },
+                                                },
+                                            })}
+                                        >
+                                            <MaterialTable
+                                                icons={{
+                                                    Add: AddBoxIcon,
+                                                    Clear: ClearIcon,
+                                                    Check: CheckIcon,
+                                                    Delete: DeleteOutlineIcon,
+                                                    Edit: EditIcon,
+                                                    DetailPanel:
+                                                        ChevronRightIcon,
+                                                    Export: SaveAltIcon,
+                                                    Filter: FilterListIcon,
+                                                    FirstPage: FirstPageIcon,
+                                                    LastPage: LastPageIcon,
+                                                    NextPage: ChevronRightIcon,
+                                                    PreviousPage:
+                                                        ChevronLeftIcon,
+                                                    Search: SearchIcon,
+                                                    ResetSearch: ClearIcon,
+                                                    SortArrow:
+                                                        ArrowDownwardIcon,
+                                                    ThirdStateCheck: RemoveIcon,
+                                                    ViewColumn: ViewColumnIcon,
+                                                }}
+                                                localization={{
+                                                    pagination: {
+                                                        labelRowsSelect:
+                                                            "filas",
+                                                        labelDisplayedRows:
+                                                            "{from}-{to} de {count}",
+                                                        firstTooltip:
+                                                            "Primera página",
+                                                        previousTooltip:
+                                                            "Página anterior",
+                                                        nextTooltip:
+                                                            "Siguiente página",
+                                                        lastTooltip:
+                                                            "Última página",
+                                                        labelRowsPerPage:
+                                                            "Filas por página:",
+                                                    },
+                                                    toolbar: {
+                                                        nRowsSelected:
+                                                            "{0} filas seleccionadas",
+                                                        searchTooltip: "Buscar",
+                                                        searchPlaceholder:
+                                                            "Buscar",
+                                                    },
+                                                    header: {
+                                                        actions: "Acciones",
+                                                    },
+                                                    body: {
+                                                        emptyDataSourceMessage:
+                                                            "No existe información por mostrar",
+                                                        filterRow: {
+                                                            filterTooltip:
+                                                                "Filtro",
+                                                        },
+                                                        editRow: {
+                                                            deleteText:
+                                                                "Esta seguro de eliminar el registro?",
+                                                        },
+                                                    },
+                                                    selector: {
+                                                        okLabel: "aceptar",
+                                                        cancelLabel: "Cancelar",
+                                                        clearLabel: "Clear",
+                                                        todayLabel: "Hoy",
+                                                    },
+                                                    grouping: {
+                                                        placeholder:
+                                                            "Arrasta el nombre de la columna para agrupar los campos",
+                                                        groupedBy:
+                                                            "Datos agrupados por: ",
+                                                    },
+                                                }}
+                                                data={data || []}
+                                                isLoading={!!data}
+                                                columns={objColumns}
+                                                title="Histórico"
+                                                options={{
+                                                    grouping: true,
+                                                    title: false,
+                                                    filtering: false,
+                                                    search: false,
+                                                    exportMenu: [
+                                                        {
+                                                            label: "Exportar como CSV",
+                                                            exportFunc: (
+                                                                cols,
+                                                                datas
+                                                            ) =>
+                                                                ExportCsv(
+                                                                    cols,
+                                                                    datas,
+                                                                    "historicoEtapaDesarrollo"
+                                                                ),
+                                                        },
+                                                    ],
+                                                    exportAllData: true,
+                                                    columnsButton: true,
+                                                    headerStyle: {
+                                                        position: "sticky",
+                                                        top: "0",
+                                                        backgroundColor:
+                                                            "#cff3f2",
+                                                    },
+                                                    detailPanelColumnStylele: {
+                                                        fontSize: 12,
+                                                    },
+                                                    actionsColumnIndex: -1,
+                                                    paging: true,
+                                                    pageSizeOptions: [
+                                                        20, 100, 200, 500,
+                                                    ],
+                                                    pageSize: 20,
+                                                    maxBodyHeight: "520px",
+                                                }}
+                                            />
+                                        </ThemeProvider>
+                                    </StyledEngineProvider>
                                 </Grid>
                             </Grid>
                         </TabPanel>
