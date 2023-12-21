@@ -67,7 +67,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
         },
         {
             title: "Correo electronico",
-            field: "objDataAsistente.strCorreoElectronico1",
+            field: "objDataAsistente.strCorreoElectronico",
             type: "string",
         },
     ]);
