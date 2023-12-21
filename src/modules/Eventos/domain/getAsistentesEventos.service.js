@@ -57,10 +57,14 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
 
                 for (let i = 0; i < array.length; i++) {
                     if (array[i]?.intIdEmpresario) {
+                        objDataEmpresario = arrDataEmpresario.find((data) => data.intId === array[i]?.intIdEmpresario)
                         data.push({
                             ...array[i],
                             strTipoPersona: "Empresaria",
-                            objDataAsistente: arrDataEmpresario.find((data) => data.intId === array[i]?.intIdEmpresario),
+                            objDataAsistente:{
+                                ...objDataEmpresario,
+                                strCorreoElectronico: objDataEmpresario.strCorreoElectronico1
+                            }
                         })
                     }
 
