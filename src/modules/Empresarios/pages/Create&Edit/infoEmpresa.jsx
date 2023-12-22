@@ -464,7 +464,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa
                                             ?.strLugarOperacion?.message ||
-                                        "Selecciona el lugar donde opera la empresa"
+                                        "Selecciona el lugar dónde opera la empresa"
                                     }
                                     required
                                 />
@@ -860,7 +860,7 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa?.strMateriaPrima
                                             ?.message ||
-                                        "Describe detalladamente los materias primas que utiliza"
+                                        "Describe detalladamente las materias primas utilizadas"
                                     }
                                 />
                             )}
@@ -1252,7 +1252,7 @@ const InfoEmpresa = ({
                             name="objInfoEmpresa.strAsociacionUnidadProdIndividual"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿Como desea registrarse?"
+                                    label="¿Cómo desea registrarse?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}

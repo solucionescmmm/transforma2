@@ -165,7 +165,7 @@ const InfoAdicional = ({
                                     helperText={
                                         errors?.objInfoAdicional
                                             ?.strPrincipalesNecesidades?.message ||
-                                        "Describe cuales son las principales necesidades e intereses de la empresa"
+                                        "Describe cuáles son las principales necesidades e intereses de la empresa"
                                     }
                                 />
                             )}

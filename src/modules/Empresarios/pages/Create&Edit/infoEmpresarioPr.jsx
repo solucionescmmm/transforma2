@@ -206,7 +206,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strNombres
                                             ?.message ||
-                                        "Digíta el nombre o nombres de la persona"
+                                        "Digita el nombre o nombres de la persona"
                                     }
                                 />
                             )}
@@ -535,7 +535,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strCelular2
                                             ?.message ||
-                                        "Digita el número celular de la persona"
+                                        "Digita el número alterno del celular de la persona"
                                     }
                                 />
                             )}
