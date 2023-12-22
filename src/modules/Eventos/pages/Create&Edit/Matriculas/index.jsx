@@ -66,6 +66,11 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
             type: "string",
         },
         {
+            title: "Tipo de Persona",
+            field: "strTipoPersona",
+            type: "string",
+        },
+        {
             title: "Correo electronico",
             field: "objDataAsistente.strCorreoElectronico",
             type: "string",
