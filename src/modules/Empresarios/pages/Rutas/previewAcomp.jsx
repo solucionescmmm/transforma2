@@ -1,5 +1,5 @@
 import MaterialTable, { MTableToolbar } from "@material-table/core";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 //Iconos
@@ -59,6 +59,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     useEffect(() => {
         if (values?.[0]?.arrSesionAcompañamiento?.length > 0) {
+            console.log(values);
             const arrDataTable = [];
 
             for (let i = 0; i < values[0].arrSesionAcompañamiento.length; i++) {
@@ -82,14 +83,46 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                     values[0].arrSesionAcompañamiento[0].intIdAcompañamiento,
                 intIdRuta: values[0].arrSesionAcompañamiento[0].intIdRuta,
                 intIdFase: values[0].arrSesionAcompañamiento[0].intIdFase,
+                strTipoAcompañamiento:
+                    values[0].objInfoPrincipal.strTipoAcompañamiento,
+                strUbicacion: values[0].objInfoPrincipal.strUbicacion,
+                strResponsables:
+                    values[0].objInfoPrincipal.strResponsables.strNombre,
+                dtmCreacion: values[0].objInfoPrincipal.dtmCreacion,
             });
+
             setDataTable(arrDataTable);
         }
     }, [values]);
 
     return (
         <Box sx={{ padding: "10px" }}>
-            <Grid container direction="row" spacing={0}>
+            <Grid container direction="row" spacing={2}>
+                <Grid item xs={12}>
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                        <Typography>
+                            <span style={{ color: "#52bab3" }}>
+                                Tipo de acompañamiento:{" "}
+                            </span>{" "}
+                            {dataValues?.strTipoAcompañamiento}
+                        </Typography>
+
+                        <Typography>
+                            <span style={{ color: "#52bab3" }}>
+                                Ubicación:{" "}
+                            </span>{" "}
+                            {dataValues?.strUbicacion}
+                        </Typography>
+
+                        <Typography>
+                            <span style={{ color: "#52bab3" }}>
+                                Responsable:{" "}
+                            </span>{" "}
+                            {dataValues?.strResponsables}
+                        </Typography>
+                    </Box>
+                </Grid>
+
                 <Grid item xs={12} style={{ width: "80vw" }}>
                     <MaterialTable
                         icons={{

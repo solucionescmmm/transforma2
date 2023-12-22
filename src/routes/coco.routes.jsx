@@ -1533,7 +1533,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                             isEdit
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
-                            intId={route.params.intId}
+                            intId={route.params.intIdAcompañamiento}
                             values={route.params}
                         />
                     </Grid>

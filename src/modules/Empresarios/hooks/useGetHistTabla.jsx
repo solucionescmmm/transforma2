@@ -7,7 +7,6 @@ import { AuthContext } from "../../../common/middlewares/Auth";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-
 const useGetHistTabla = ({ intIdIdea = null, autoLoad = true } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
@@ -41,9 +40,8 @@ const useGetHistTabla = ({ intIdIdea = null, autoLoad = true } = {}) => {
                 }
             )
                 .then((res) => {
-                    setData(res.data.data);
-                    
-                    return res;
+                    setData(res.data?.array);
+                    return res.data?.array;
                 })
                 .catch((error) => {
                     if (!axios.isCancel(error)) {
@@ -84,7 +82,7 @@ const useGetHistTabla = ({ intIdIdea = null, autoLoad = true } = {}) => {
 
         let query = await getData({
             intIdIdea,
-            signalSubmitData
+            signalSubmitData,
         });
 
         return query;

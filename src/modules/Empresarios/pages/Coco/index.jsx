@@ -103,7 +103,7 @@ const Coco = () => {
     });
     const location = useHistory();
 
-    const { data } = useGetHistTabla({ intIdIdea: intId, autoLoad: true });
+    const { data: dataTabla } = useGetHistTabla({ intIdIdea: intId, autoLoad: true });
 
     const objColumns = [
         {
@@ -115,6 +115,26 @@ const Coco = () => {
             title: "Valor de las ventas",
             field: "ValorVentas",
             type: "number",
+        },
+        {
+            title: "Número de empleados",
+            field: "intNumeroEmpleados",
+            type: "number",
+        },
+        {
+            title: "Puntuación",
+            field: "intPuntaje",
+            type: "number",
+        },
+        {
+            title: "Tipo",
+            field: "strClasificacionFecha",
+            type: "string",
+        },
+        {
+            title: "Fuente",
+            field: "strFuenteHistorico",
+            type: "string",
         },
     ];
 
@@ -1299,8 +1319,8 @@ const Coco = () => {
                                                             "Datos agrupados por: ",
                                                     },
                                                 }}
-                                                data={data || []}
-                                                isLoading={!!data}
+                                                data={dataTabla || []}
+                                                isLoading={!dataTabla}
                                                 columns={objColumns}
                                                 title="Histórico"
                                                 options={{

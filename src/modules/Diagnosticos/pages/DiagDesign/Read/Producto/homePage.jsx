@@ -1115,6 +1115,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objInnovacionFortalecer.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
+                                                        
                                                             <Grid
                                                                 item
                                                                 xs={12}
@@ -1165,7 +1166,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={2}
+                                                                md={1}
                                                             >
                                                                 <p
                                                                     style={{
@@ -1178,7 +1179,11 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>
+                                                                        {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}
+                                                                    </b>
                                                                 </p>
 
                                                                 <p
@@ -1196,6 +1201,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                         "No diligenciado"}
                                                                 </p>
                                                             </Grid>
+
 
                                                             {e.detalle && (
                                                                 <Grid
@@ -1323,7 +1329,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
                                                                 </p>
 
                                                                 <p
@@ -1470,7 +1478,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
                                                                 </p>
 
                                                                 <p
@@ -1617,7 +1627,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
                                                                 </p>
 
                                                                 <p
@@ -1764,7 +1776,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
                                                                 </p>
 
                                                                 <p
@@ -1959,7 +1973,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
                                                                 </p>
 
                                                                 <p
@@ -2104,7 +2120,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
                                                                 </p>
 
                                                                 <p
@@ -2249,7 +2267,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
                                                                 </p>
 
                                                                 <p
@@ -2394,7 +2414,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
                                                                 </p>
 
                                                                 <p
@@ -2539,7 +2561,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                    <b>Nivel</b>
+                                                                    <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
                                                                 </p>
 
                                                                 <p
@@ -2876,7 +2900,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             .objResultadoNoAlimentos
                                                             ?.intMarca || 0,
                                                     ]}
-                                                    maxValues={[30,30,30,30]}
+                                                    maxValues={[30, 30, 30, 30]}
                                                 />
                                             </Box>
                                         </Box>
@@ -2917,7 +2941,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             .objResultadoAlimentos
                                                             ?.intMarca || 0,
                                                     ]}
-                                                    maxValues={[30,44,16,30]}
+                                                    maxValues={[30, 44, 16, 30]}
                                                 />
                                             </Box>
                                         </Box>
