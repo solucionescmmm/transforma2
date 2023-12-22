@@ -27,7 +27,7 @@ class updateFinalizarDiagnosticos {
     }
 
     async main() {
-        console.log(this.#objData)
+        //console.log(this.#objData)
         await this.#validations();
         await this.#getIntIdEstadoDiagnostico()
         await this.#updateFinalizarDiagnosticos();
@@ -52,7 +52,9 @@ class updateFinalizarDiagnosticos {
     }
 
     async #getIntIdEstadoDiagnostico() {
-        let queryGetIntIdEstadoDiagnostico = await serviceGetIdEstadoDiagnostico({
+        const dao = new classInterfaceDAODiagnosticos()
+
+        let queryGetIntIdEstadoDiagnostico = await dao.getIdEstadoDiagnosticos({
             strNombre: "Finalizado",
         });
 
@@ -66,7 +68,10 @@ class updateFinalizarDiagnosticos {
     async #updateFinalizarDiagnosticos() {
         let dao = new classInterfaceDAODiagnosticos();
 
-        let query = await dao.updateDiagnosticos(this.#objData);
+        let query = await dao.updateDiagnosticos({
+            ...this.#objData,
+            intIdEstadoDiagnostico:this.#intIdEstadoDiagnostico
+        });
 
         if (query.error) {
             throw new Error(query.msg);

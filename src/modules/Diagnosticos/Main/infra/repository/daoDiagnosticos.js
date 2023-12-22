@@ -204,10 +204,10 @@ class daoDiagnosticos {
                     dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
                     strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
 
-                WHERE intId = ${data.intId}
+                WHERE intId = ${data.intIdDiagnostico}
                 
                 
-                SELECT * FROM tbl_Diagnostico WHERE intId = ${data.intId}`;
+                SELECT * FROM tbl_Diagnostico WHERE intId = ${data.intIdDiagnostico}`;
 
             let result = {
                 error: false,
