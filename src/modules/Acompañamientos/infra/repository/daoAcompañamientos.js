@@ -66,6 +66,7 @@ class daoAcompañamientos {
                 ${data.dtmFechaFinal},
                 ${data.strUbicacion},
                 ${data.intIdTipoActividad},
+                NULL,
                 ${data.intIdRuta},
                 ${data.intIdFase},
                 ${data.intIdServicio},
@@ -138,6 +139,7 @@ class daoAcompañamientos {
                 SesionesAcompañamientos.dtmFechaFinal,
                 SesionesAcompañamientos.strUbicacion,
                 SesionesAcompañamientos.intIdTipoActividad,
+                SesionesAcompañamientos.intIdEvento,
                 SesionesAcompañamientos.intIdRuta,
                 SesionesAcompañamientos.intIdFase,
                 SesionesAcompañamientos.intIdServicio,
@@ -155,7 +157,7 @@ class daoAcompañamientos {
                 SesionesAcompañamientos.strUsuarioCreacion,
                 SesionesAcompañamientos.dtmActualizacion,
                 SesionesAcompañamientos.strUsuarioActualizacion,
-                SesionesAcompañamientos.btFinalizado,
+                SesionesAcompañamientos.btFinalizado
                 Servicios.strNombre as strNombreServicio,
                 Paquetes.strNombre as strNombrePaquete,
                 Actividad.strNombre as strTipoActividad
@@ -179,6 +181,8 @@ class daoAcompañamientos {
             AND   (Acompañamientos.intId = ${data.intId} OR ${data.intId} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
+
+            console.log(arrNewData)
 
             for (let i = 0; i < arrNewData.length; i++) {
                 let { arrSesionAcompañamiento } = arrNewData[i];
