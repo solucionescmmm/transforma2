@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 //Librerias
 import { matchSorter } from "match-sorter";
@@ -22,6 +22,7 @@ import {
     Tooltip,
     IconButton,
     Checkbox,
+    Dialog,
 } from "@mui/material";
 
 //Iconos
@@ -31,11 +32,25 @@ import {
     CheckBox as CheckBoxIcon,
 } from "@mui/icons-material";
 import useGetTerceros from "../../modules/Terceros/hook/useGetTerceros";
+import SearchEmpresario from "../../modules/Terceros/Create&Edit";
+
+import { styled } from "@mui/material/styles";
+
+const StyleDialog = styled(Dialog)(({ theme }) => ({
+    "& .MuiContainer-root": {
+        padding: 0,
+    },
+}));
 
 //Filtro personalizado
 const filterOptions = (options, { inputValue }) =>
     matchSorter(options, inputValue, {
-        keys: ["strNombres", "strCorreoElectronico"],
+        keys: [
+            "strNombres",
+            "strApellidos",
+            "strCorreoElectronico",
+            "strNroDocto",
+        ],
     });
 
 const DropdownTerceros = ({
@@ -51,9 +66,15 @@ const DropdownTerceros = ({
     required,
 }) => {
     const [options, setOptions] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [strDocRegis, setStrDocRegis] = useState("");
+
+    const handleClose = () => {
+        setOpen(!open);
+    };
 
     const { data, refreshGetData } = useGetTerceros({
-        btActivo: true
+        btActivo: true,
     });
 
     useEffect(() => {
@@ -102,113 +123,169 @@ const DropdownTerceros = ({
     }
 
     return (
-        <Autocomplete
-            id={id}
-            value={value}
-            onChange={onChange}
-            options={options}
-            clearText="Borrar"
-            openText="Abrir"
-            closeText="Cerrar"
-            noOptionsText="Valor no encontrado."
-            disabled={disabled}
-            fullWidth
-            multiple={multiple}
-            filterOptions={filterOptions}
-            disableCloseOnSelect={multiple ? true : false}
-            renderInput={(props) => (
-                <TextField
-                    label={label}
-                    name={name}
-                    error={error}
-                    required={required}
-                    helperText={helperText}
-                    variant="standard"
-                    {...props}
-                />
-            )}
-            isOptionEqualToValue={(option, value) => {
-                if (typeof value === "string") {
-                    return option === value;
-                } else {
-                    return (
-                        option === value ||
-                        option.strCorreoElectronico ===
-                            value.strCorreoElectronico ||
-                        option.strNombres === value.strNombres
-                    );
+        <Fragment>
+            <Autocomplete
+                id={id}
+                value={value}
+                onChange={(event, newValue) => {
+                    if (
+                        newValue.find(
+                            (x) => x.register || typeof x === "string"
+                        )
+                    ) {
+                        setTimeout(() => {
+                            setStrDocRegis(
+                                newValue.find(
+                                    (x) => x.register || typeof x === "string"
+                                ).inputValue ||
+                                    newValue.find(
+                                        (x) =>
+                                            x.register || typeof x === "string"
+                                    )
+                            );
+                            handleClose();
+                        });
+                    } else {
+                        onChange(event, newValue);
+                    }
+                }}
+                options={options}
+                clearText="Borrar"
+                openText="Abrir"
+                closeText="Cerrar"
+                noOptionsText="Valor no encontrado."
+                disabled={disabled}
+                fullWidth
+                multiple={multiple}
+                freeSolo
+                selectOnFocus
+                clearOnBlur
+                handleHomeEndKeys
+                filterOptions={(options, params) => {
+                    const filtered = filterOptions(options, params);
+
+                    if (params.inputValue !== "") {
+                        filtered.push({
+                            inputValue: params.inputValue,
+                            register: true,
+                            title: `Registrar a: "${params.inputValue}"`,
+                        });
+                    }
+
+                    return filtered;
+                }}
+                disableCloseOnSelect={multiple ? true : false}
+                renderInput={(props) => (
+                    <TextField
+                        label={label}
+                        name={name}
+                        error={error}
+                        required={required}
+                        helperText={helperText}
+                        variant="standard"
+                        {...props}
+                    />
+                )}
+                isOptionEqualToValue={(option, value) => {
+                    if (typeof value === "string") {
+                        return option === value;
+                    } else {
+                        return (
+                            option === value ||
+                            option.strCorreoElectronico ===
+                                value.strCorreoElectronico ||
+                            option.strNombres === value.strNombres
+                        );
+                    }
+                }}
+                getOptionLabel={(option) =>
+                    option?.strNombres + " " + option.strApellidos ||
+                    option?.strCorreoElectronico ||
+                    option
                 }
-            }}
-            getOptionLabel={(option) =>
-                option?.strNombres + " " + option.strApellidos ||
-                option?.strCorreoElectronico ||
-                option
-            }
-            renderTags={(value, getTagProps) =>
-                value.map((option, index) => {
-                    if (option.strNombres) {
+                renderTags={(value, getTagProps) =>
+                    value.map((option, index) => {
+                        if (option.strNombres) {
+                            return (
+                                <Chip
+                                    key={index}
+                                    label={
+                                        option?.strNombres +
+                                        " " +
+                                        option?.strApellidos
+                                    }
+                                    {...getTagProps({ index })}
+                                />
+                            );
+                        }
+
+                        if (option.strCorreoElectronico) {
+                            return (
+                                <Chip
+                                    key={index}
+                                    label={option.strCorreoElectronico}
+                                    {...getTagProps({ index })}
+                                />
+                            );
+                        }
+
                         return (
                             <Chip
                                 key={index}
-                                label={
-                                    option?.strNombres +
-                                    " " +
-                                    option?.strApellidos
-                                }
+                                label={option}
                                 {...getTagProps({ index })}
                             />
                         );
-                    }
-
-                    if (option.strCorreoElectronico) {
+                    })
+                }
+                renderOption={(props, option, { selected }) => {
+                    if (option.register) {
                         return (
-                            <Chip
-                                key={index}
-                                label={option.strCorreoElectronico}
-                                {...getTagProps({ index })}
-                            />
+                            <List {...props}>
+                                <ListItemText primary={option.title} />
+                            </List>
+                        );
+                    } else {
+                        return (
+                            <List {...props} disablePadding>
+                                <ListItem>
+                                    {multiple && (
+                                        <Checkbox
+                                            icon={
+                                                <CheckBoxOutlineBlankIcon fontSize="small" />
+                                            }
+                                            checkedIcon={
+                                                <CheckBoxIcon fontSize="small" />
+                                            }
+                                            style={{ marginRight: 8 }}
+                                            checked={selected}
+                                        />
+                                    )}
+                                    <ListItemAvatar>
+                                        <Avatar
+                                            src={option.strURLFileFoto}
+                                            alt={option.strNombres}
+                                        />
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={
+                                            option.strNombres +
+                                                " " +
+                                                option.strApellidos ||
+                                            option.strEmail
+                                        }
+                                        secondary={`Email: ${option.strCorreoElectronico}`}
+                                    />
+                                </ListItem>
+                            </List>
                         );
                     }
-
-                    return (
-                        <Chip
-                            key={index}
-                            label={option}
-                            {...getTagProps({ index })}
-                        />
-                    );
-                })
-            }
-            renderOption={(props, option, { selected }) => (
-                <List {...props} disablePadding>
-                    <ListItem>
-                        {multiple && (
-                            <Checkbox
-                                icon={
-                                    <CheckBoxOutlineBlankIcon fontSize="small" />
-                                }
-                                checkedIcon={<CheckBoxIcon fontSize="small" />}
-                                style={{ marginRight: 8 }}
-                                checked={selected}
-                            />
-                        )}
-                        <ListItemAvatar>
-                            <Avatar
-                                src={option.strURLFileFoto}
-                                alt={option.strNombres}
-                            />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={
-                                option.strNombres + " " + option.strApellidos ||
-                                option.strEmail
-                            }
-                            secondary={`Email: ${option.strCorreoElectronico}`}
-                        />
-                    </ListItem>
-                </List>
-            )}
-        />
+                }}
+            />
+            <StyleDialog open={open} onClose={handleClose} maxWidth="md">
+                <SearchEmpresario strDoc={strDocRegis} inModal closeModal={handleClose} resetModal={refreshGetData} />
+            </StyleDialog>
+        </Fragment>
     );
 };
 

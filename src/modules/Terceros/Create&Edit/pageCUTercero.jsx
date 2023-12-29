@@ -5,6 +5,7 @@ import React, {
     useEffect,
     useContext,
     useRef,
+    Fragment,
 } from "react";
 
 //Context
@@ -86,7 +87,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CUTercero = ({ isEdit, values, resetSearch }) => {
+const CUTercero = ({ isEdit, values, resetSearch, inModal, resetModal, closeModal }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -284,7 +285,12 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (success) {
+    if(success && inModal) {
+        resetModal()
+        closeModal()
+    }
+    
+    if (success && !inModal) {
         return <Redirect to="/transforma/asesor/terceros/read/all" />;
     }
 
@@ -321,43 +327,50 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
             onSubmit={handleSubmit(onSubmit)}
             noValidate
         >
-            <Grid item xs={12}>
-                <Breadcrumbs aria-label="breadcrumb">
-                    <Link
-                        color="inherit"
-                        component={RouterLink}
-                        to="/transforma"
-                        className={classes.link}
-                    >
-                        <HomeIcon className={classes.icon} />
-                        Inicio
-                    </Link>
+            {!inModal && (
+                <Fragment>
+                    <Grid item xs={12}>
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Link
+                                color="inherit"
+                                component={RouterLink}
+                                to="/transforma"
+                                className={classes.link}
+                            >
+                                <HomeIcon className={classes.icon} />
+                                Inicio
+                            </Link>
 
-                    <Link
-                        color="inherit"
-                        component={RouterLink}
-                        to="/transforma/asesor/terceros/read/all"
-                        className={classes.link}
-                    >
-                        Terceros
-                    </Link>
+                            <Link
+                                color="inherit"
+                                component={RouterLink}
+                                to="/transforma/asesor/terceros/read/all"
+                                className={classes.link}
+                            >
+                                Terceros
+                            </Link>
 
-                    <Typography color="textPrimary" className={classes.link}>
-                        {isEdit ? "Edición" : "Registro"}
-                    </Typography>
-                </Breadcrumbs>
-            </Grid>
+                            <Typography
+                                color="textPrimary"
+                                className={classes.link}
+                            >
+                                {isEdit ? "Edición" : "Registro"}
+                            </Typography>
+                        </Breadcrumbs>
+                    </Grid>
 
-            <Grid item xs={12}>
-                <Button
-                    onClick={() => goBack()}
-                    startIcon={<ChevronLeftIcon />}
-                    size="small"
-                    color="inherit"
-                >
-                    regresar
-                </Button>
-            </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => goBack()}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Fragment>
+            )}
 
             <Grid item xs={12}>
                 <Container className={classes.containerPR}>
@@ -449,9 +462,11 @@ const CUTercero = ({ isEdit, values, resetSearch }) => {
                                         {isEdit ? "guardar" : "registrar"}
                                     </LoadingButton>
 
-                                    {!isEdit &&(
-                                        <Button onClick={() => resetSearch(false)}>
-                                        Nueva busqueda
+                                    {!isEdit && (
+                                        <Button
+                                            onClick={() => resetSearch(false)}
+                                        >
+                                            Nueva busqueda
                                         </Button>
                                     )}
                                 </Box>

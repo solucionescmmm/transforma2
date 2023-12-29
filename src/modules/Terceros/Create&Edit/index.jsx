@@ -21,7 +21,7 @@ import {
 } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 // Componentes
 import CUEmpresario from "./pageCUTercero";
@@ -66,13 +66,13 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const SearchEmpresario = ({ isEdit }) => {
+const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) => {
     const [documento, setDocumento] = useState("");
     const [hiddenSearch, setHiddenSearch] = useState(false);
     const [data, setData] = useState();
     const [flagGetdata, setFlagGetData] = useState(false);
     const [sendData, setSendData] = useState();
-    const [bitBuscar, setBitBuscar] = useState(false)
+    const [bitBuscar, setBitBuscar] = useState(false);
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -158,7 +158,7 @@ const SearchEmpresario = ({ isEdit }) => {
                 } else {
                     setData();
                     setSendData(false);
-                    setBitBuscar(true)
+                    setBitBuscar(true);
                 }
 
                 setLoadingGetData(false);
@@ -174,6 +174,12 @@ const SearchEmpresario = ({ isEdit }) => {
     }
 
     useEffect(() => {
+        if (strDoc) {
+            setDocumento(strDoc);
+        }
+    }, [strDoc]);
+
+    useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
 
         if (flagGetdata) {
@@ -187,9 +193,9 @@ const SearchEmpresario = ({ isEdit }) => {
 
     useEffect(() => {
         return () => {
-            setData()
-            setDocumento()
-            setBitBuscar(false)
+            setData();
+            setDocumento();
+            setBitBuscar(false);
         };
     }, [hiddenSearch]);
 
@@ -216,51 +222,61 @@ const SearchEmpresario = ({ isEdit }) => {
     if (hiddenSearch || isEdit) {
         return (
             <CUEmpresario
+                inModal={inModal}
                 values={data}
                 isEdit={isEdit}
                 resetSearch={setHiddenSearch}
+                closeModal={closeModal}
+                resetModal={resetModal}
             />
         );
     }
 
     return (
         <Grid container direction="row" spacing={3}>
-            <Grid item xs={12}>
-                <Breadcrumbs aria-label="breadcrumb">
-                    <Link
-                        color="inherit"
-                        component={RouterLink}
-                        to="/transforma"
-                        className={classes.link}
-                    >
-                        <HomeIcon className={classes.icon} />
-                        Inicio
-                    </Link>
+            {!inModal && (
+                <Fragment>
+                    <Grid item xs={12}>
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Link
+                                color="inherit"
+                                component={RouterLink}
+                                to="/transforma"
+                                className={classes.link}
+                            >
+                                <HomeIcon className={classes.icon} />
+                                Inicio
+                            </Link>
 
-                    <Link
-                        color="inherit"
-                        component={RouterLink}
-                        to="/transforma/asesor/terceros/read/all"
-                        className={classes.link}
-                    >
-                        Terceros
-                    </Link>
+                            <Link
+                                color="inherit"
+                                component={RouterLink}
+                                to="/transforma/asesor/terceros/read/all"
+                                className={classes.link}
+                            >
+                                Terceros
+                            </Link>
 
-                    <Typography color="textPrimary" className={classes.link}>
-                        Registro
-                    </Typography>
-                </Breadcrumbs>
-            </Grid>
-            <Grid item xs={12}>
-                <Button
-                    onClick={() => goBack()}
-                    startIcon={<ChevronLeftIcon />}
-                    size="small"
-                    color="inherit"
-                >
-                    regresar
-                </Button>
-            </Grid>
+                            <Typography
+                                color="textPrimary"
+                                className={classes.link}
+                            >
+                                Registro
+                            </Typography>
+                        </Breadcrumbs>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => goBack()}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Fragment>
+            )}
 
             <Grid item xs={12}>
                 <Container className={classes.containerPR}>
@@ -307,10 +323,10 @@ const SearchEmpresario = ({ isEdit }) => {
                                     variant="standard"
                                     value={documento}
                                     disabled={loadingGetData}
-                                    onChange={(e) =>{
-                                        handleChangeDocumento(e.target.value)
-                                        setData()
-                                        setBitBuscar(false)
+                                    onChange={(e) => {
+                                        handleChangeDocumento(e.target.value);
+                                        setData();
+                                        setBitBuscar(false);
                                     }}
                                 />
                             </Grid>
@@ -334,62 +350,62 @@ const SearchEmpresario = ({ isEdit }) => {
                             <Grid item xs={12}>
                                 {data && !loadingGetData && documento && (
                                     <Alert severity="warning">
-                                    Se encontro un registro con los
-                                    siguientes datos:
-                                    <Avatar
-                                        style={{ margin: "10px" }}
-                                        alt={
-                                            data.objInfoEmpresarioPr
-                                                .strNombres
-                                        }
-                                        sx={{ width: 80, height: 80 }}
-                                        src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${data.objInfoEmpresarioPr.strURLFileFoto}`}
-                                    />
-                                    <p>
-                                        <b>Nombre: </b>{" "}
-                                        {
-                                            data.objInfoEmpresarioPr
-                                                .strNombres
-                                        }{" "}
-                                    </p>
-                                    <p>
-                                        <b>Apellidos: </b>{" "}
-                                        {
-                                            data.objInfoEmpresarioPr
-                                                .strApellidos
-                                        }{" "}
-                                    </p>
-                                    <p>
-                                        <b>
+                                        Se encontro un registro con los
+                                        siguientes datos:
+                                        <Avatar
+                                            style={{ margin: "10px" }}
+                                            alt={
+                                                data.objInfoEmpresarioPr
+                                                    .strNombres
+                                            }
+                                            sx={{ width: 80, height: 80 }}
+                                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${data.objInfoEmpresarioPr.strURLFileFoto}`}
+                                        />
+                                        <p>
+                                            <b>Nombre: </b>{" "}
                                             {
                                                 data.objInfoEmpresarioPr
-                                                    .strTipoDocto
-                                            }
-                                            :{" "}
-                                        </b>{" "}
-                                        {`${data.objInfoEmpresarioPr.strNroDocto} - (${data.objInfoEmpresarioPr.strLugarExpedicionDocto})`}
-                                    </p>
-                                    <p>
-                                        <b>Departamento: </b>{" "}
-                                        {
-                                            data.objInfoEmpresarioPr
-                                                .arrDepartamento.region_name
-                                        }{" "}
-                                    </p>
-                                    <p>
-                                        <b>Ciudad: </b>{" "}
-                                        {
-                                            data.objInfoEmpresarioPr
-                                                .arrCiudad.city_name
-                                        }{" "}
-                                    </p>
-                                    <p>
-                                        <b>Dirección de residencia: </b>{" "}
-                                        {
-                                            data.objInfoEmpresarioPr
-                                                .strDireccionResidencia
-                                        }{" "}
-                                    </p>
+                                                    .strNombres
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>Apellidos: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .strApellidos
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>
+                                                {
+                                                    data.objInfoEmpresarioPr
+                                                        .strTipoDocto
+                                                }
+                                                :{" "}
+                                            </b>{" "}
+                                            {`${data.objInfoEmpresarioPr.strNroDocto} - (${data.objInfoEmpresarioPr.strLugarExpedicionDocto})`}
+                                        </p>
+                                        <p>
+                                            <b>Departamento: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .arrDepartamento.region_name
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>Ciudad: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .arrCiudad.city_name
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>Dirección de residencia: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .strDireccionResidencia
+                                            }{" "}
+                                        </p>
                                     </Alert>
                                 )}
 
@@ -419,17 +435,15 @@ const SearchEmpresario = ({ isEdit }) => {
                                     </Alert>
                                 )}
 
-                                {data && documento &&  (
-                                <Alert severity="warning">
-                                    Lo sentimos no puedes volver a registrar a
-                                    esta persona
-                                </Alert>
+                                {data && documento && (
+                                    <Alert severity="warning">
+                                        Lo sentimos no puedes volver a registrar
+                                        a esta persona
+                                    </Alert>
                                 )}
 
                                 <div style={{ width: "500px" }}></div>
                             </Grid>
-
-
 
                             {!data && bitBuscar && (
                                 <Grid item xs={12}>
@@ -443,10 +457,12 @@ const SearchEmpresario = ({ isEdit }) => {
                                             variant="contained"
                                             type="submit"
                                             disabled={loadingGetData}
-                                            onClick={() =>{
-                                                setHiddenSearch(true)
+                                            onClick={() => {
+                                                setHiddenSearch(true);
                                                 setData({
-                                                    objInfoPrincipal: {strNroDocto:documento},
+                                                    objInfoPrincipal: {
+                                                        strNroDocto: documento,
+                                                    },
                                                 });
                                             }}
                                         >
