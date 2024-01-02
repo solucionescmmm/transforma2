@@ -157,7 +157,7 @@ class daoAcompañamientos {
                 SesionesAcompañamientos.strUsuarioCreacion,
                 SesionesAcompañamientos.dtmActualizacion,
                 SesionesAcompañamientos.strUsuarioActualizacion,
-                SesionesAcompañamientos.btFinalizado
+                SesionesAcompañamientos.btFinalizado,
                 Servicios.strNombre as strNombreServicio,
                 Paquetes.strNombre as strNombrePaquete,
                 Actividad.strNombre as strTipoActividad
