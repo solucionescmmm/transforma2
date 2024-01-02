@@ -119,6 +119,26 @@ const PDFProduct = ({ intId, values }) => {
 
         values?.objInfoTemasFortalecer.forEach((e) => {
             if (e.objInnovacionFortalecer) {
+
+                // e.objInnovacionFortalecer.forEach(e => {
+                //     if(e.nivel === "BAJO") {
+                //         htmlTemasFortalecer = htmlTemasFortalecer +
+                //         `
+                //         <div>
+                //         <p>
+                //          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit fugiat magni recusandae nisi beatae soluta cupiditate adipisci ipsa numquam exercitationem non suscipit eveniet mollitia eos quisquam, autem illo odit molestiae?
+                //         </p>
+
+                //         <p class="title">
+                //             En Innovación
+                //         </p>
+                //         </div>
+
+
+                //         `
+                //     }
+                // })
+
                 htmlTemasFortalecer =
                     htmlTemasFortalecer +
                     ` 
@@ -135,6 +155,8 @@ const PDFProduct = ({ intId, values }) => {
                                 <th>Nivel</th>
                                 <th>Detalle</th>
                             </tr>
+
+                          
 
                         ${e.objInnovacionFortalecer
                             .map(
@@ -494,6 +516,33 @@ const PDFProduct = ({ intId, values }) => {
                     <Image src="/Logo.png" style={styles.image} />
 
                     <Html>
+                        {` 
+                        <style>
+                        .pMargin {
+                            margin-bottom: -10px;
+                         }
+                         </style>
+                        <h5 class="pMargin"> <span style="color: #00BBB4"> Grafíco de resultados</span></h5>
+                            <hr />`}
+                    </Html>
+
+                    <Image source={values?.imgChart} />
+
+                    <Html>
+                        {`
+                        <style>
+                        p {
+                            font-size: 12px;
+                        }
+
+                        .pMargin {
+                           margin-bottom: -10px;
+                        }
+                        </style>
+                        <p class="pMargin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam pariatur illum dolores quam ab reprehenderit, esse dolorem earum alias quasi, nulla quidem molestias placeat corporis, dignissimos aperiam voluptatem doloremque odio.</p>`}
+                    </Html>
+
+                    <Html>
                         {`
                         <html>
                         <style>
@@ -552,6 +601,9 @@ const PDFProduct = ({ intId, values }) => {
                         </style>
 
                         <body>
+                        <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
+                            <hr />
+
                             <p class="pMargin">
                                 <span style="color: #00BBB4">${
                                     objEmpresario?.strTipoDocto
@@ -576,10 +628,18 @@ const PDFProduct = ({ intId, values }) => {
                                  ${new Date().toLocaleDateString("es-ES")} 
                             </p>
 
+                            <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
+                            </p>
+
                             <h5 class="pMargin"> <span style="color: #00BBB4">Productos evaluados en el diagnóstico </span></h5>
                             <hr />
 
                             ${htmlInfoProductos}
+
+                            <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
+                            </p>
 
                             ${
                                 htmlTemasFortalecer &&
@@ -615,12 +675,6 @@ const PDFProduct = ({ intId, values }) => {
                         </html>
                       `}
                     </Html>
-
-                    <Text style={styles.title}>
-                        Grafíco de resultados
-                    </Text>
-
-                    <Image source={values?.imgChart} />
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y
