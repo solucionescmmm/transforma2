@@ -72,6 +72,7 @@ const SearchEmpresario = ({ isEdit }) => {
     const [data, setData] = useState();
     const [flagGetdata, setFlagGetData] = useState(false);
     const [sendData, setSendData] = useState();
+    const [bitBuscar, setBitBuscar] = useState(false);
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -164,8 +165,10 @@ const SearchEmpresario = ({ isEdit }) => {
                 } else {
                     setData();
                     setSendData(false);
+                    
                 }
 
+                setBitBuscar(true);
                 setLoadingGetData(false);
                 setErrorGetData({ flag: false, msg: "" });
                 setFlagGetData(false);
@@ -189,6 +192,14 @@ const SearchEmpresario = ({ isEdit }) => {
             signalSubmitData.cancel("Petición abortada.");
         };
     }, [flagGetdata]);
+
+    useEffect(() => {
+        return () => {
+            setData();
+            setDocumento();
+            setBitBuscar(false);
+        };
+    }, [hiddenSearch]);
 
     if (errorGetData.flag) {
         return (
@@ -304,9 +315,10 @@ const SearchEmpresario = ({ isEdit }) => {
                                     variant="standard"
                                     value={documento}
                                     disabled={loadingGetData}
-                                    onChange={(e) =>
+                                    onChange={(e) =>{
                                         handleChangeDocumento(e.target.value)
-                                    }
+                                        setBitBuscar(false);
+                                    }}
                                 />
                             </Grid>
 
@@ -327,7 +339,7 @@ const SearchEmpresario = ({ isEdit }) => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                {data && !loadingGetData && (
+                                {data && !loadingGetData && documento && (
                                     <Alert severity="warning">
                                         Se encontro un registro con los
                                         siguientes datos:
@@ -457,25 +469,34 @@ const SearchEmpresario = ({ isEdit }) => {
                                 <div style={{ width: "500px" }}></div>
                             </Grid>
 
-                            <Grid item xs={12}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row-reverse",
-                                    }}
-                                >
-                                    <Button
-                                        variant="contained"
-                                        type="submit"
-                                        disabled={loadingGetData}
-                                        onClick={() => setHiddenSearch(true)}
+                            {bitBuscar && (
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row-reverse",
+                                        }}
                                     >
-                                        {data
-                                            ? "Adicionar a Nueva Empresa"
-                                            : "nuevo registro"}
-                                    </Button>
-                                </Box>
-                            </Grid>
+                                        <Button
+                                            variant="contained"
+                                            type="submit"
+                                            disabled={loadingGetData}
+                                            onClick={() => {
+                                                setHiddenSearch(true)
+                                                setData({
+                                                    objInfoEmpresarioPr: {
+                                                        strNroDocto: documento,
+                                                    },
+                                                });
+                                            }}
+                                        >
+                                            {data
+                                                ? "Adicionar a Nueva Empresa"
+                                                : "nuevo registro"}
+                                        </Button>
+                                    </Box>
+                                </Grid>
+                            )}
                         </Grid>
                     </Paper>
                 </Container>
