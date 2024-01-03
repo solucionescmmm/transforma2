@@ -318,6 +318,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                     onChange={(e) =>{
                                         handleChangeDocumento(e.target.value)
                                         setBitBuscar(false);
+                                        setData()
                                     }}
                                 />
                             </Grid>
