@@ -275,7 +275,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     required
-                                    disabled={disabled}
+                                    disabled={true}
                                     fullWidth
                                     variant="standard"
                                     error={

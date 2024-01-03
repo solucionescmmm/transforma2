@@ -316,7 +316,7 @@ const InfoEmpresarioPr = ({
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     required
-                                    disabled={disabled}
+                                    disabled={true}
                                     fullWidth
                                     variant="standard"
                                     error={
