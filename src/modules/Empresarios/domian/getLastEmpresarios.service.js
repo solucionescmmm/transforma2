@@ -30,6 +30,7 @@ const getLastEmpresarios = async (objParams, strDataUser) => {
     };
 
     let arrayData = await dao.getIdeaEmpresario(query);
+    console.log(arrayData)
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
@@ -42,33 +43,35 @@ const getLastEmpresarios = async (objParams, strDataUser) => {
                 let arrayIdeaEmpresario = array[i]?.objInfoIdeaEmpresario;
                 let objEmpresario = []
                 let objInfoPrincipal = {}
-                
-                for (let j = 0; j < arrayEmpresario.length; j++) {
-                    let dataEmpresarioPrincipal = arrayIdeaEmpresario?.find((i)=> i.strTipoEmpresario === "Principal")
-                    objEmpresario.push({
-                        ...arrayEmpresario[j],
-                        arrDepartamento:JSON.parse(arrayEmpresario[j]?.strDepartamento||null),
-                        arrCiudad:JSON.parse(arrayEmpresario[j]?.strCiudad||null),
-                        strSede:arrayEmpresario[j]?.strNombreSedes,
-                        strModalidadIngreso:arrayIdeaEmpresario[j]?.strModalidadIngreso,
-                        dtFechaVinculacion:arrayIdeaEmpresario[j]?.dtFechaVinculacion,
-                        intIdEstadoVinculacion:arrayIdeaEmpresario[j]?.intIdEstadoVinculacionEmpresario,
-                        strTipoVinculacion:arrayIdeaEmpresario[j]?.strTipoVinculacion,
-                        strEstado:arrayIdeaEmpresario[j]?.strEstado,
-                        strEstadoVinculacion: arrayIdeaEmpresario[j]?.strEstadoVinculacion
-                    }) 
-                        
-                    if (arrayEmpresario[j].strTipoEmpresario === "Principal") {
-                        objInfoPrincipal ={
+
+                if (arrayEmpresario?.length > 0) {
+                    for (let j = 0; j < arrayEmpresario.length; j++) {
+                        let dataEmpresarioPrincipal = arrayIdeaEmpresario?.find((i)=> i.strTipoEmpresario === "Principal")
+                        objEmpresario.push({
+                            ...arrayEmpresario[j],
+                            arrDepartamento:JSON.parse(arrayEmpresario[j]?.strDepartamento||null),
+                            arrCiudad:JSON.parse(arrayEmpresario[j]?.strCiudad||null),
                             strSede:arrayEmpresario[j]?.strNombreSedes,
-                            intIdSede:arrayEmpresario[j]?.intIdSede,
-                            strModalidadIngreso:dataEmpresarioPrincipal?.strModalidadIngreso,
-                            dtFechaVinculacion:dataEmpresarioPrincipal?.dtFechaVinculacion,
-                            intIdEstadoVinculacion:dataEmpresarioPrincipal?.intIdEstadoVinculacionEmpresario,
-                            strTipoVinculacion:dataEmpresarioPrincipal?.strTipoVinculacion
+                            strModalidadIngreso:arrayIdeaEmpresario[j]?.strModalidadIngreso,
+                            dtFechaVinculacion:arrayIdeaEmpresario[j]?.dtFechaVinculacion,
+                            intIdEstadoVinculacion:arrayIdeaEmpresario[j]?.intIdEstadoVinculacionEmpresario,
+                            strTipoVinculacion:arrayIdeaEmpresario[j]?.strTipoVinculacion,
+                            strEstado:arrayIdeaEmpresario[j]?.strEstado,
+                            strEstadoVinculacion: arrayIdeaEmpresario[j]?.strEstadoVinculacion
+                        }) 
+                            
+                        if (arrayEmpresario[j].strTipoEmpresario === "Principal") {
+                            objInfoPrincipal ={
+                                strSede:arrayEmpresario[j]?.strNombreSedes,
+                                intIdSede:arrayEmpresario[j]?.intIdSede,
+                                strModalidadIngreso:dataEmpresarioPrincipal?.strModalidadIngreso,
+                                dtFechaVinculacion:dataEmpresarioPrincipal?.dtFechaVinculacion,
+                                intIdEstadoVinculacion:dataEmpresarioPrincipal?.intIdEstadoVinculacionEmpresario,
+                                strTipoVinculacion:dataEmpresarioPrincipal?.strTipoVinculacion
+                            }
                         }
+                        
                     }
-                    
                 }
 
                 let objInfoEmpresa ={

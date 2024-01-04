@@ -6,7 +6,7 @@ const validator = require("validator").default;
 const serviceGetEmpresario = require("../../../../Empresarios/domian/getEmpresario.service")
 
 const getDiagnosticoProducto = async (objParams, strDataUser) => {
-    let { intId,  intIdDiagnostico } = objParams;
+    let { intId, intIdDiagnostico } = objParams;
 
     if (!intIdDiagnostico) {
         throw new Error("Se esperaban parámetros de búsqueda.");
@@ -26,7 +26,7 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
     let query = {
         intId,
         intIdDiagnostico
-    };    
+    };
 
     let arrayData = await dao.getDiagnosticoProducto(query);
     let arrayResultAlimentos = await dao.getResultDiagnosticoAlimentos(query);
@@ -53,7 +53,7 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
 
                 let objInfoGeneral = {
                     intId: array[i].intId,
-                    intIdDiagnostico:array[i]?.intIdDiagnostico,
+                    intIdDiagnostico: array[i]?.intIdDiagnostico,
                     intIdEmpresario: array[i]?.intIdEmpresario,
                     btFinalizado: array[i]?.btFinalizado,
                     strLugarSesion: array[i]?.strLugarSesion,
@@ -195,7 +195,7 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
                 let objResultadoAlimentos = arrayAlimentos
 
                 let objResultadoNoAlimentos = arrayNoAlimentos
-                
+
                 data[i] = {
                     objInfoGeneral,
                     objInfoProductos,
