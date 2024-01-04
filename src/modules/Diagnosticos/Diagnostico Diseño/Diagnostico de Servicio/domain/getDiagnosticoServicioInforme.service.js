@@ -27,7 +27,7 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
         intId,
         intIdDiagnostico,
     };
-    
+
     let arrayData = await dao.getDiagnosticoServicio(query);
     let arrayResultServicios = await dao.getResultDiagnosticoServicio(query)
 
@@ -48,8 +48,8 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
 
                 let objInfoGeneral = {
                     intId: array[i].intId,
-                    intIdDiagnostico:array[i]?.intIdDiagnostico,
-                    btFinalizado:array[i]?.btFinalizado,
+                    intIdDiagnostico: array[i]?.intIdDiagnostico,
+                    btFinalizado: array[i]?.btFinalizado,
                     intIdEmpresario: array[i]?.intIdEmpresario,
                     strLugarSesion: array[i]?.strLugarSesion,
                     dtmFechaSesion: array[i]?.dtmFechaSesion,
@@ -114,196 +114,247 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
                     strComunicacionMarcaNivel:
                         array[i]?.strComunicacionMarcaNivel,
                 };
-                const objInnovacionFortalecer = [];
-                        const objInnovacionFortalezas = [];
+                const objInnovacionBajo = [];
+                const objInnovacionMedio = [];
+                const objInnovacionAlto = [];
 
-                        const objExperienciaFortalecer = [];
-                        const objExperienciaFortalezas = [];
+                const objExperienciaBajo = [];
+                const objExperienciaMedio = [];
+                const objExperienciaAlto = [];
 
-                        const objMarcaFortalecer = [];
-                        const objMarcaFortalezas = [];
+                const objMarcaBajo = [];
+                const objMarcaMedio = [];
+                const objMarcaAlto = [];
 
-                        const getLabel = (key) => {
-                            switch (key) {
-                                case "strObjetivoProposito":
-                                    return "Objetivo o propósito";
+                const getLabel = (key) => {
+                    switch (key) {
+                        case "strObjetivoProposito":
+                            return "Objetivo o propósito";
 
-                                case "strRenovacionPortafolio":
-                                    return "Renovación de portafolio";
+                        case "strRenovacionPortafolio":
+                            return "Renovación de portafolio";
 
-                                case "strProcesoInteraccion":
-                                    return "Procesos de interacción";
+                        case "strProcesoInteraccion":
+                            return "Procesos de interacción";
 
-                                case "strPuntosContacto":
-                                    return "Puntos de contacto";
+                        case "strPuntosContacto":
+                            return "Puntos de contacto";
 
-                                case "strExperienciaDiseñada":
-                                    return "Experiencia diseñada";
+                        case "strExperienciaDiseñada":
+                            return "Experiencia diseñada";
 
-                                case "strRecursosServicio":
-                                    return "Recursos del servicio";
+                        case "strRecursosServicio":
+                            return "Recursos del servicio";
 
-                                case "strPostVenta":
-                                    return "Post venta";
+                        case "strPostVenta":
+                            return "Post venta";
 
-                                case "strLineaGrafica":
-                                    return "Línea gráfica de la marca";
+                        case "strLineaGrafica":
+                            return "Línea gráfica de la marca";
 
-                                case "strIdentidadMarca":
-                                    return "Identidad de la marca";
+                        case "strIdentidadMarca":
+                            return "Identidad de la marca";
 
-                                case "strComunicacionMarca":
-                                    return "Comunicación de la marca";
+                        case "strComunicacionMarca":
+                            return "Comunicación de la marca";
 
-                                default:
-                                    return null;
-                            }
-                        };
+                        default:
+                            return null;
+                    }
+                };
 
-                        for (const key in objInfoEvaluacion) {
+                for (const key in objInfoEvaluacion) {
+                    if (
+                        Object.hasOwnProperty.call(
+                            objInfoEvaluacion,
+                            key
+                        )
+                    ) {
+                        if (
+                            (key === "strObjetivoProposito" ||
+                                key === "strRenovacionPortafolio" ||
+                                key === "strProcesoInteraccion" ||
+                                key === "strPuntosContacto") &&
+                            objInfoEvaluacion[key] !== ""
+                        ) {
                             if (
-                                Object.hasOwnProperty.call(
-                                    objInfoEvaluacion,
-                                    key
-                                )
+                                objInfoEvaluacion[`${key}Nivel`] ===
+                                "BAJO"
                             ) {
-                                if (
-                                    (key === "strObjetivoProposito" ||
-                                        key === "strRenovacionPortafolio" ||
-                                        key === "strProcesoInteraccion" ||
-                                        key === "strPuntosContacto") &&
-                                    objInfoEvaluacion[key] !== ""
-                                ) {
-                                    if (
-                                        objInfoEvaluacion[`${key}Nivel`] ===
-                                            "BAJO" ||
-                                        objInfoEvaluacion[`${key}Nivel`] ===
-                                            "MEDIO"
-                                    ) {
-                                        objInnovacionFortalecer.push({
-                                            parent: key,
-                                            value: objInfoEvaluacion[key],
-                                            detalle:
-                                                objInfoEvaluacion[
-                                                    `${key}Detalle`
-                                                ],
-                                            nivel: objInfoEvaluacion[
-                                                `${key}Nivel`
-                                            ],
-                                            label: getLabel(key),
-                                        });
-                                    }
+                                objInnovacionBajo.push({
+                                    parent: key,
+                                    value: objInfoEvaluacion[key],
+                                    detalle:
+                                        objInfoEvaluacion[
+                                        `${key}Detalle`
+                                        ],
+                                    nivel: objInfoEvaluacion[
+                                        `${key}Nivel`
+                                    ],
+                                    label: getLabel(key),
+                                });
+                            }
 
-                                    if (
-                                        objInfoEvaluacion[`${key}Nivel`] ===
-                                        "ALTO"
-                                    ) {
-                                        objInnovacionFortalezas.push({
-                                            parent: key,
-                                            value: objInfoEvaluacion[key],
-                                            detalle:
-                                                objInfoEvaluacion[
-                                                    `${key}Detalle`
-                                                ],
-                                            nivel: objInfoEvaluacion[
-                                                `${key}Nivel`
-                                            ],
-                                            label: getLabel(key),
-                                        });
-                                    }
-                                }
+                            if (
+                                objInfoEvaluacion[`${key}Nivel`] ===
+                                "MEDIO"
+                            ) {
+                                objInnovacionMedio.push({
+                                    parent: key,
+                                    value: objInfoEvaluacion[key],
+                                    detalle:
+                                        objInfoEvaluacion[
+                                        `${key}Detalle`
+                                        ],
+                                    nivel: objInfoEvaluacion[
+                                        `${key}Nivel`
+                                    ],
+                                    label: getLabel(key),
+                                });
+                            }
 
-                                if (
-                                    (key === "strExperienciaDiseñada" ||
-                                        key === "strRecursosServicio" ||
-                                        key === "strPostVenta") &&
-                                    objInfoEvaluacion[key] !== ""
-                                ) {
-                                    if (
-                                        objInfoEvaluacion[`${key}Nivel`] ===
-                                            "BAJO" ||
-                                        objInfoEvaluacion[`${key}Nivel`] ===
-                                            "MEDIO"
-                                    ) {
-                                        objExperienciaFortalecer.push({
-                                            parent: key,
-                                            value: objInfoEvaluacion[key],
-                                            detalle:
-                                                objInfoEvaluacion[
-                                                    `${key}Detalle`
-                                                ],
-                                            nivel: objInfoEvaluacion[
-                                                `${key}Nivel`
-                                            ],
-                                            label: getLabel(key),
-                                        });
-                                    }
-
-                                    if (
-                                        objInfoEvaluacion[`${key}Nivel`] ===
-                                        "ALTO"
-                                    ) {
-                                        objExperienciaFortalezas.push({
-                                            parent: key,
-                                            value: objInfoEvaluacion[key],
-                                            detalle:
-                                                objInfoEvaluacion[
-                                                    `${key}Detalle`
-                                                ],
-                                            nivel: objInfoEvaluacion[
-                                                `${key}Nivel`
-                                            ],
-                                            label: getLabel(key),
-                                        });
-                                    }
-                                }
-
-                                if (
-                                    (key === "strLineaGrafica" ||
-                                        key === "strIdentidadMarca" ||
-                                        key === "strComunicacionMarca") &&
-                                    objInfoEvaluacion[key] !== ""
-                                ) {
-                                    if (
-                                        objInfoEvaluacion[`${key}Nivel`] ===
-                                            "BAJO" ||
-                                        objInfoEvaluacion[`${key}Nivel`] ===
-                                            "MEDIO"
-                                    ) {
-                                        objExperienciaFortalecer.push({
-                                            parent: key,
-                                            value: objInfoEvaluacion[key],
-                                            detalle:
-                                                objInfoEvaluacion[
-                                                    `${key}Detalle`
-                                                ],
-                                            nivel: objInfoEvaluacion[
-                                                `${key}Nivel`
-                                            ],
-                                            label: getLabel(key),
-                                        });
-                                    }
-
-                                    if (
-                                        objInfoEvaluacion[`${key}Nivel`] ===
-                                        "ALTO"
-                                    ) {
-                                        objExperienciaFortalezas.push({
-                                            parent: key,
-                                            value: objInfoEvaluacion[key],
-                                            detalle:
-                                                objInfoEvaluacion[
-                                                    `${key}Detalle`
-                                                ],
-                                            nivel: objInfoEvaluacion[
-                                                `${key}Nivel`
-                                            ],
-                                            label: getLabel(key),
-                                        });
-                                    }
-                                }
+                            if (
+                                objInfoEvaluacion[`${key}Nivel`] ===
+                                "ALTO"
+                            ) {
+                                objInnovacionAlto.push({
+                                    parent: key,
+                                    value: objInfoEvaluacion[key],
+                                    detalle:
+                                        objInfoEvaluacion[
+                                        `${key}Detalle`
+                                        ],
+                                    nivel: objInfoEvaluacion[
+                                        `${key}Nivel`
+                                    ],
+                                    label: getLabel(key),
+                                });
                             }
                         }
+
+                        if (
+                            (key === "strExperienciaDiseñada" ||
+                                key === "strRecursosServicio" ||
+                                key === "strPostVenta") &&
+                            objInfoEvaluacion[key] !== ""
+                        ) {
+                            if (
+                                objInfoEvaluacion[`${key}Nivel`] ===
+                                "BAJO"
+                            ) {
+                                objExperienciaBajo.push({
+                                    parent: key,
+                                    value: objInfoEvaluacion[key],
+                                    detalle:
+                                        objInfoEvaluacion[
+                                        `${key}Detalle`
+                                        ],
+                                    nivel: objInfoEvaluacion[
+                                        `${key}Nivel`
+                                    ],
+                                    label: getLabel(key),
+                                });
+                            }
+
+                            if (
+                                objInfoEvaluacion[`${key}Nivel`] ===
+                                "MEDIO"
+                            ) {
+                                objExperienciaMedio.push({
+                                    parent: key,
+                                    value: objInfoEvaluacion[key],
+                                    detalle:
+                                        objInfoEvaluacion[
+                                        `${key}Detalle`
+                                        ],
+                                    nivel: objInfoEvaluacion[
+                                        `${key}Nivel`
+                                    ],
+                                    label: getLabel(key),
+                                });
+                            }
+
+                            if (
+                                objInfoEvaluacion[`${key}Nivel`] ===
+                                "ALTO"
+                            ) {
+                                objExperienciaAlto.push({
+                                    parent: key,
+                                    value: objInfoEvaluacion[key],
+                                    detalle:
+                                        objInfoEvaluacion[
+                                        `${key}Detalle`
+                                        ],
+                                    nivel: objInfoEvaluacion[
+                                        `${key}Nivel`
+                                    ],
+                                    label: getLabel(key),
+                                });
+                            }
+                        }
+
+                        if (
+                            (key === "strLineaGrafica" ||
+                                key === "strIdentidadMarca" ||
+                                key === "strComunicacionMarca") &&
+                            objInfoEvaluacion[key] !== ""
+                        ) {
+                            if (
+                                objInfoEvaluacion[`${key}Nivel`] ===
+                                "BAJO"
+                            ) {
+                                objMarcaBajo.push({
+                                    parent: key,
+                                    value: objInfoEvaluacion[key],
+                                    detalle:
+                                        objInfoEvaluacion[
+                                        `${key}Detalle`
+                                        ],
+                                    nivel: objInfoEvaluacion[
+                                        `${key}Nivel`
+                                    ],
+                                    label: getLabel(key),
+                                });
+                            }
+
+                            if (
+                                objInfoEvaluacion[`${key}Nivel`] ===
+                                "MEDIO"
+                            ) {
+                                objMarcaMedio.push({
+                                    parent: key,
+                                    value: objInfoEvaluacion[key],
+                                    detalle:
+                                        objInfoEvaluacion[
+                                        `${key}Detalle`
+                                        ],
+                                    nivel: objInfoEvaluacion[
+                                        `${key}Nivel`
+                                    ],
+                                    label: getLabel(key),
+                                });
+                            }
+
+                            if (
+                                objInfoEvaluacion[`${key}Nivel`] ===
+                                "ALTO"
+                            ) {
+                                objMarcaAlto.push({
+                                    parent: key,
+                                    value: objInfoEvaluacion[key],
+                                    detalle:
+                                        objInfoEvaluacion[
+                                        `${key}Detalle`
+                                        ],
+                                    nivel: objInfoEvaluacion[
+                                        `${key}Nivel`
+                                    ],
+                                    label: getLabel(key),
+                                });
+                            }
+                        }
+                    }
+                }
                 let objInfoNormatividad = {
                     strPermisoFuncionamiento:
                         array[i]?.strPermisoFuncionamiento,
@@ -319,14 +370,23 @@ const getDiagnosticoServicio = async (objParams, strDataUser) => {
                     strURLSFotos: array[i]?.strURLSFotos,
                 };
 
-                let objResultServicio = arrayServicios    
+                let objResultServicio = arrayServicios
 
                 data[i] = {
                     objInfoGeneral,
                     objInfoEvaluacion,
                     objInfoNormatividad,
                     objInfoAdicional,
-                    objResultServicio
+                    objResultServicio,
+                    objInnovacionBajo,
+                    objInnovacionMedio,
+                    objInnovacionAlto,
+                    objExperienciaBajo,
+                    objExperienciaMedio,
+                    objExperienciaAlto,
+                    objMarcaBajo,
+                    objMarcaMedio,
+                    objMarcaAlto,
                 };
             }
             let result = {

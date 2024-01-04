@@ -3,6 +3,7 @@ const setDiagnosticoServicio = require("../../domain/setDiagnosticoServicio.serv
 const updateDiagnosticoServicio = require("../../domain/updateDiagnsoticoServicio.service");
 const updateFinalizarDiagnosticoServicio = require("../../domain/updateFinalizarDiagnosticoServicio.service");
 const getDiagnosticoServicio = require("../../domain/getDiagnosticoServicio.service");
+const getDiagnosticoServicioInforme = require("../../domain/getDiagnosticoServicioInforme.service");
 
 class ctrl_DiagnosticoServicio {
     async setDiagnosticoServicio(req, res) {
@@ -78,6 +79,27 @@ class ctrl_DiagnosticoServicio {
             let { strDataUser } = req;
 
             let query = await getDiagnosticoServicio(objParams, strDataUser);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async getDiagnosticoServicioInforme(req, res) {
+        try {
+            let objParams = req.query;
+            let { strDataUser } = req;
+
+            let query = await getDiagnosticoServicioInforme(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);

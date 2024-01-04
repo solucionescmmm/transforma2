@@ -37,4 +37,11 @@ routes.get(
     }
 );
 
+routes.get(
+    "/transforma/api/diagnosticos/diagnosticoDisenio/getDiagnosticoProductoInforme",
+    async (req, res) => {
+        let controllerDiagnosticoProducto = new classController();
+        await controllerDiagnosticoProducto.getDiagnosticoProductoInforme(req, res);
+    }
+);
 module.exports = routes;

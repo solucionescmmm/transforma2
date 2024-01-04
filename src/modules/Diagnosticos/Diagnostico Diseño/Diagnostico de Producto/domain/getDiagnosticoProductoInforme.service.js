@@ -5,9 +5,6 @@ const validator = require("validator").default;
 //service
 const serviceGetEmpresario = require("../../../../Empresarios/domian/getEmpresario.service")
 
-//functions
-const nivel = require("../app/functions/nivel")
-
 const getDiagnosticoProducto = async (objParams, strDataUser) => {
     let { intId, intIdDiagnostico } = objParams;
 
