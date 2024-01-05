@@ -869,6 +869,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                 open={openModalPDF}
                 intId={intIdIdea}
                 values={data}
+                intIdDiagnostico={intIdDiagnostico}
             />
 
             <Grid container direction="row" spacing={2}>
