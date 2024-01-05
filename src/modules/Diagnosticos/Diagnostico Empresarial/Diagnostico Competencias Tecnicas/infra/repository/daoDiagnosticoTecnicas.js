@@ -243,7 +243,7 @@ class daoDiagnosticoTecnicas {
                 dtmFechaSesion = COALESCE(${data.dtmFechaSesion}, dtmFechaSesion),
                 strUsuarioCreacion = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
                 dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuario
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuario)
                 
             WHERE intId = ${data.intId}
 
