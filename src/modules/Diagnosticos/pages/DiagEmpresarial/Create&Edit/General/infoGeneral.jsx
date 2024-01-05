@@ -190,7 +190,7 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled={disabled}
-                                    format="dd/MM/yyyy hh:ss"
+                                    format="dd/MM/yyyy H:m"
                                     ampm
                                     slotProps={{
                                         textField: {
@@ -255,7 +255,7 @@ const InfoGeneral = ({
                             name="objInfoGeneral.dtmActualizacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <DateTimePicker
-                                    label="Fecha de ultima actualización"
+                                    label="Fecha de última actualización"
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled
@@ -370,14 +370,14 @@ const InfoGeneral = ({
                                     helperText={
                                         errors?.objInfoGeneral?.strNombres
                                             ?.message ||
-                                        "Digíta el nombre o nombres de la persona"
+                                        "Digita el nombre o nombres de la persona"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta el nombre o nombres de la persona",
+                                    "Por favor, digita el nombre o nombres de la persona",
 
                                 validate: (value) => {
                                     if (
@@ -675,7 +675,7 @@ const InfoGeneral = ({
                                     helperText={
                                         errors?.objInfoGeneral?.strTitulos
                                             ?.message ||
-                                        "Digita los títulos o título del empresario, en caso de poseer alguno"
+                                        "Digita los títulos o título del empresario en caso de poseer alguno"
                                     }
                                 />
                             )}

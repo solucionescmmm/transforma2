@@ -1176,7 +1176,6 @@ const InfoEmpresa = ({
                                     value={value}
                                     onChange={(value) => onChange(value)}
                                     disabled={disabled}
-                                    required
                                     error={
                                         errors?.objInfoEmpresa
                                             ?.arrMediosDigitales
@@ -1186,15 +1185,11 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa
                                             ?.arrMediosDigitales?.message ||
-                                        "Selecciona los medios digitales que utilice y coloque su ID"
+                                        "Selecciona los medios digitales que utilice y registre su ID"
                                     }
                                 />
                             )}
                             control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona los medios digitales que utilice y coloque su ID",
-                            }}
                         />
                     </Grid>
 

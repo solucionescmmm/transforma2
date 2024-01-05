@@ -1,10 +1,10 @@
 import React from "react";
 import {
     Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
     Tooltip,
     Legend,
 } from "chart.js";
@@ -12,32 +12,44 @@ import {
 import { Radar } from "react-chartjs-2";
 
 ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
     Tooltip,
     Legend
 );
 
 const ChartBar = ({ values, labels, title, maxValues }) => {
     const options = {
-        indexAxis: "y",
         elements: {
-            bar: {
-                borderWidth: 2,
+            line: {
+                borderWidth: 3
+            },
+            font:{
+                size: 20
             },
         },
         responsive: true,
         plugins: {
             legend: {
                 position: "right",
+                labels: {
+                    display:true,
+                    font: {
+                        size: 15
+                    }
+                },
             },
             title: {
                 display: true,
                 text: title,
+                font: {
+                    size: 15
+                }
             },
         },
+    
     };
 
     const data = {
@@ -68,7 +80,7 @@ const ChartBar = ({ values, labels, title, maxValues }) => {
         ],
     };
 
-    return <Radar options={options} data={data} />;
+    return <Radar data={data} options={options}  />;
 };
 
 export default ChartBar;

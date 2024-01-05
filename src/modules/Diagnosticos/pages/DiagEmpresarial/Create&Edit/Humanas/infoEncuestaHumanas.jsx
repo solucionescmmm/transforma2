@@ -218,7 +218,7 @@ const InfoEncuestaHumanas = ({
                             defaultValue={data.strNivelVida}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="¿Desde que inició su empresa hasta hoy, cuánto ha influido en el nivel de vida de su familia(ingresos, salud, educación…)"
+                                    label="¿Desde que inició su empresa hasta hoy, cuánto ha influido en el nivel de vida de su familia (ingresos, salud, educación…)"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -248,7 +248,7 @@ const InfoEncuestaHumanas = ({
                             defaultValue={data.strRedesApoyoOtros}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="¿En quiénes usted ha encontrado apoyo para salir adelante con su emprendimiento?"
+                                    label="¿En quiénes ha encontrado apoyo para salir adelante con su emprendimiento?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}

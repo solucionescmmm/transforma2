@@ -688,7 +688,7 @@ const InfoEmprendimiento = ({
                                     helperText={
                                         errors?.objInfoEmprendimiento
                                             ?.arrMediosDigitales?.message ||
-                                        "Selecciona los medios digitales que utilice y coloque su ID"
+                                        "Selecciona los medios digitales que utilice y registre su ID"
                                     }
                                     required={
                                         data.strRedesSociales ? true : false
