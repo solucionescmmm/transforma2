@@ -29,6 +29,14 @@ routes.put(
     }
 );
 
+routes.put(
+    "/transforma/api/diagnosticos/diagnosticoDisenio/deleteDiagnosticoServicio",
+    async (req, res) => {
+        let controllerDiagnosticoServicio = new classController();
+        await controllerDiagnosticoServicio.deleteDiagnosticoServicio(req, res);
+    }
+);
+
 routes.get(
     "/transforma/api/diagnosticos/diagnosticoDisenio/getDiagnosticoServicio",
     async (req, res) => {

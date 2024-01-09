@@ -2,11 +2,11 @@
 const classInterfaceDAOComentarios = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 
 class deleteComentario {
-    #intIdEmpresario;
+    #intId;
     #objResult;
 
     constructor(objParms) {
-        this.#intIdEmpresario = objParms.intId;
+        this.#intId = objParms.intId;
     }
 
     async main() {
@@ -17,7 +17,7 @@ class deleteComentario {
     }
 
     async #validations() {
-        if (!this.#intIdComentario) {
+        if (!this.#intId) {
             throw new Error("Se esperaban parametros de entrada");
         }
     }
@@ -25,7 +25,7 @@ class deleteComentario {
     async #deleteDiagnosticoGeneral() {
         let dao = new classInterfaceDAOComentarios();
         let query = await dao.deleteDiagnosticoGeneral({
-            intId: this.#intIdEmpresario,
+            intId: this.#intId,
         });
 
         if (query.error) {

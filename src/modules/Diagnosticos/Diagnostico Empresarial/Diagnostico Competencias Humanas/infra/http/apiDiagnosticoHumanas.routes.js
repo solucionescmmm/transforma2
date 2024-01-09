@@ -37,4 +37,12 @@ routes.put(
     }
 );
 
+routes.delete(
+    "/transforma/api/diagnosticos/diagnosticoEmpresarial/deleteDiagnosticoHumanas",
+    async (req, res) => {
+        let controllerDiagnosticoHumana = new classController();
+        await controllerDiagnosticoHumana.deleteDiagnosticoHumanas(req, res);
+    }
+);
+
 module.exports = routes;

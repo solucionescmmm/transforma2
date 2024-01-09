@@ -168,11 +168,11 @@ class daoDiagnosticoHumanas {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            await conn.query`DELETE FROM tbl_DiagnosticoHumanoSocial WHERE intIdEmpresario = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_DiagnosticoHumanoSocial WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
-                msg: "El diagnostico fue eliminado con éxito.",
+                msg: "El diagnostico de competencias humanas fue eliminado con éxito.",
             };
 
             sql.close(conexion);

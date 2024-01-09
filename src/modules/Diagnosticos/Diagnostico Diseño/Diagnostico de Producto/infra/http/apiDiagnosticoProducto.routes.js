@@ -29,6 +29,14 @@ routes.put(
     }
 );
 
+routes.delete(
+    "/transforma/api/diagnosticos/diagnosticoDisenio/deleteDiagnosticoProducto",
+    async (req, res) => {
+        let controllerDiagnosticoProducto = new classController();
+        await controllerDiagnosticoProducto.deleteDiagnosticoProducto(req, res);
+    }
+);
+
 routes.get(
     "/transforma/api/diagnosticos/diagnosticoDisenio/getDiagnosticoProducto",
     async (req, res) => {

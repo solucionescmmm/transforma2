@@ -2,6 +2,7 @@
 const setDiagnosticoProducto = require("../../domain/setDiagnosticoProducto.service");
 const updateDiagnosticoProducto = require("../../domain/updateDiagnosticoProducto.service");
 const updateFinalizarDiagnosticoProducto = require("../../domain/updateFinalizarDiagnosticoProducto.service");
+const deleteDiagnosticoProducto = require("../../domain/deleteDiagnosticoProducto.service")
 const getDiagnosticoProducto = require("../../domain/getDiagnosticoProducto.service");
 const getDiagnosticoProductoInforme = require("../../domain/getDiagnosticoProductoInforme.service");
 
@@ -57,6 +58,28 @@ class ctrl_DiagnosticoProducto {
             let { strDataUser } = req;
 
             let service = new updateFinalizarDiagnosticoProducto(data, strDataUser);
+            let query = await service.main();
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async deleteDiagnosticoProducto(req, res) {
+        try {
+            let data = req.body;
+            let { strDataUser } = req;
+
+            let service = new deleteDiagnosticoProducto(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {
