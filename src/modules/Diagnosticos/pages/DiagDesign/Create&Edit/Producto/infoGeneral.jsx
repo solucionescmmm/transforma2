@@ -167,7 +167,7 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled={disabled}
-                                    format="dd/MM/yyyy H:m"
+                                    format="dd/MM/yyyy H:mm"
                                     ampm
                                     slotProps={{
                                         textField: {
@@ -235,7 +235,7 @@ const InfoGeneral = ({
                                     label="Fecha de ultima actualización"
                                     value={value}
                                     onChange={(date) => onChange(date)}
-                                    format="dd/MM/yyyy"
+                                    format="dd/MM/yyyy H:mm"
                                     disabled
                                     slotProps={{
                                         textField: {
