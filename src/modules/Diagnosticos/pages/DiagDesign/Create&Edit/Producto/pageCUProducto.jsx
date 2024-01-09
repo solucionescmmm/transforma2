@@ -49,6 +49,8 @@ import InfoCategoria1 from "./infoCategoria1";
 import InfoCategoria2 from "./infoCategoria2";
 import InfoAdicional from "./infoAdicional";
 import InfoNormatividad from "./infoNormatividad";
+import ModalFinalizacion from "./components/modalFinalizacion";
+import ModalDelete from "./components/modalDelete";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -116,7 +118,8 @@ const PageCUProducto = ({
     const [finalizado, setFinalizado] = useState(false);
 
     const [openModal, setOpenModal] = useState(false);
-    const [openModalFinalizar, setOpenModalFinalizar] = useState(false);
+    const [openModalFinalizacion, setOpenModalFinalizacion] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
 
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
@@ -126,7 +129,6 @@ const PageCUProducto = ({
     const [loadingGetData, setLoadingGetData] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
-    const [flagFinalizar, setFlagFinalizar] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -179,51 +181,50 @@ const PageCUProducto = ({
 
             let objEmprPrincipal
 
-            if(data.objEmpresario){
+            if (data.objEmpresario) {
                 objEmprPrincipal = data?.objEmpresario?.find(
                     (emp) => emp.strTipoEmpresario === "Principal"
                 );
             }
-            
+
             setFlagSubmit(false);
 
             await axios(
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
-                            ? process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEPRODUCTO
-                            : process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETPRODUCTO
-                    }`,
+                    url: `${isEdit
+                        ? process.env
+                            .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEPRODUCTO
+                        : process.env
+                            .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETPRODUCTO
+                        }`,
                     data,
                     transformRequest: [
                         (data) => {
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
-                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null ,
+                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null,
                                     intIdTipoEmpresario: objEmprPrincipal ? objEmprPrincipal.intIdTipoEmpresario : null,
                                     intIdIdea,
                                     intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
-                                              data.objInfoGeneral
-                                                  .dtmFechaSesion,
-                                              "yyyy-MM-dd hh:mm:ss"
-                                          )
+                                            data.objInfoGeneral
+                                                .dtmFechaSesion,
+                                            "yyyy-MM-dd hh:mm:ss"
+                                        )
                                         : null,
                                     dtmActualizacion: data.objInfoGeneral
-                                    .dtmActualizacion
-                                    ? format(
-                                        data.objInfoGeneral
-                                            .dtmActualizacion,
-                                        "yyyy-MM-dd hh:mm:ss"
-                                    )
-                                    : null,
+                                        .dtmActualizacion
+                                        ? format(
+                                            data.objInfoGeneral
+                                                .dtmActualizacion,
+                                            "yyyy-MM-dd hh:mm:ss"
+                                        )
+                                        : null,
                                 },
                                 objInfoProductos: {
                                     ...data.objInfoProductos,
@@ -290,64 +291,13 @@ const PageCUProducto = ({
         [token, data, isEdit, intIdIdea, intIdDiagnostico]
     );
 
-    const finalizarDiag = useCallback(
-        async (signalSubmitData) => {
-            setLoading(true);
+    const handlerOpenModalFinalizacion = () => {
+        setOpenModalFinalizacion(!openModalFinalizacion);
+    };
 
-            setFlagFinalizar(false);
-
-            await axios(
-                {
-                    method:"PUT",
-                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_FINISHPRODUCTO}`,
-                    data:{intIdDiagnostico},
-                    headers: {
-                        token,
-                        "Content-Type": "application/json;charset=UTF-8",
-                    },
-                },
-                {
-                    cancelToken: signalSubmitData.token,
-                }
-            )
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
-                    }
-
-                    toast.success(res.data.msg);
-
-                    setLoading(false);
-                    setOpenModalFinalizar(false)
-
-                    onChangeRoute("DiagEmpresarial", {
-                        intIdIdea,
-                        intIdDiagnostico,
-                    });
-                })
-                .catch((error) => {
-                    if (!axios.isCancel(error)) {
-                        let msg;
-
-                        if (error.response) {
-                            msg = error.response.data.msg;
-                        } else if (error.request) {
-                            msg = error.message;
-                        } else {
-                            msg = error.message;
-                        }
-
-                        console.error(error);
-                        setLoading(false);
-
-                        toast.error(msg);
-                    }
-                });
-        },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [token, data, isEdit]
-    )
+    const handlerOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -369,11 +319,10 @@ const PageCUProducto = ({
 
                             setData({
                                 ...data,
-                                objEmpresario:data.objEmpresario
+                                objEmpresario: data.objEmpresario
                             });
                         }
 
-                        setLoadingGetData(false);
                         setErrorGetData({ flag: false, msg: "" });
                     })
                     .catch((error) => {
@@ -389,6 +338,7 @@ const PageCUProducto = ({
                         intIdDiagnostico,
                     })
                     .then((res) => {
+
                         if (res.data.error) {
                             throw new Error(res.data.msg);
                         }
@@ -401,7 +351,7 @@ const PageCUProducto = ({
                                 setOpenModal(true);
                             } else {
                                 const data = res.data.data[0];
-            
+
                                 setData({
                                     ...data,
                                     objInfoGeneral: {
@@ -484,18 +434,6 @@ const PageCUProducto = ({
         };
     }, [flagSubmit, submitData]);
 
-    useEffect(() => {
-        let signalSubmitData = axios.CancelToken.source();
-
-        if (flagFinalizar) {
-            finalizarDiag(signalSubmitData);
-        }
-
-        return () => {
-            signalSubmitData.cancel("Petición abortada.");
-        };
-    }, [flagFinalizar, finalizarDiag]);
-
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -525,6 +463,23 @@ const PageCUProducto = ({
 
     return (
         <div style={{ marginTop: "25px", width: "100%" }}>
+
+            <ModalFinalizacion
+                handleOpenDialog={handlerOpenModalFinalizacion}
+                open={openModalFinalizacion}
+                intIdDiagnostico={intIdDiagnostico}
+                intIdIdea={intIdIdea}
+                onChangeRoute={onChangeRoute}
+            />
+
+            <ModalDelete
+                handleOpenDialog={handlerOpenModalDelete}
+                open={openModalDelete}
+                intIdDiagnostico={intIdDiagnostico}
+                intIdIdea={intIdIdea}
+                onChangeRoute={onChangeRoute}
+            />
+
             <Dialog
                 open={openModal}
                 disableEscapeKeyDown
@@ -562,42 +517,6 @@ const PageCUProducto = ({
                         }}
                     >
                         editar
-                    </Button>
-                </DialogActions>
-            </Dialog>
-
-            <Dialog
-                open={openModalFinalizar}
-                disableEscapeKeyDown
-                fullScreen={bitMobile}
-            >
-                <DialogTitle>Finalizar diagnóstico</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Se ha detectado que la persona empresaria ya cuenta con
-                        un registro del diagnóstico de producto.
-                        ¿Deseas finalizar el diagnóstico de producto?
-                    </DialogContentText>
-                </DialogContent>
-
-                <DialogActions>
-                    <Button
-                        onClick={() =>
-                            setOpenModalFinalizar(false)
-                        }
-                        color="inherit"
-                    >
-                        Cancelar
-                    </Button>
-
-                    <Button
-                        onClick={() =>
-                            setFlagFinalizar(true)
-                        }
-                        disabled={finalizado}
-                        color="error"
-                    >
-                        Finalizar
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -744,23 +663,53 @@ const PageCUProducto = ({
                                     errors.objInfoCategoria2 ||
                                     errors.objInfoNormatividad ||
                                     errors.objInfoAdicional) && (
-                                    <Grid item xs={12}>
-                                        <Alert severity="error">
-                                            Lo sentimos, tienes campos
-                                            pendientes por diligenciar en el
-                                            formulario, revisa e intentalo
-                                            nuevamente.
-                                        </Alert>
-                                    </Grid>
-                                )}
+                                        <Grid item xs={12}>
+                                            <Alert severity="error">
+                                                Lo sentimos, tienes campos
+                                                pendientes por diligenciar en el
+                                                formulario, revisa e intentalo
+                                                nuevamente.
+                                            </Alert>
+                                        </Grid>
+                                    )}
 
                                 <Grid item xs={12}>
                                     <Box
                                         sx={{
                                             display: "flex",
-                                            flexDirection: "row-reverse",
+                                            flexDirection: isEdit ? "row" : "row-reverse",
                                         }}
                                     >
+                                        {
+                                            isEdit ? (
+                                                <Box sx={{ flexGrow: 1 }}>
+                                                    <LoadingButton
+                                                        variant="text"
+                                                        loading={loading}
+                                                        color="error"
+                                                        onClick={() =>
+                                                            handlerOpenModalDelete()
+                                                        }>
+                                                        Borrar diagnóstico
+                                                    </LoadingButton>
+                                                </Box>
+                                            ) : null
+                                        }
+                                        {
+                                            isEdit ? (
+                                                <LoadingButton
+                                                    variant="contained"
+                                                    loading={loading}
+                                                    onClick={() =>
+                                                        handlerOpenModalFinalizacion()
+                                                    }
+                                                    style={{
+                                                        marginLeft: 15
+                                                    }}>
+                                                    Finalizar
+                                                </LoadingButton>
+                                            ) : null
+                                        }
                                         <LoadingButton
                                             variant="contained"
                                             type="submit"
@@ -769,21 +718,6 @@ const PageCUProducto = ({
                                         >
                                             {isEdit ? "guardar" : "registrar"}
                                         </LoadingButton>
-                                        {
-                                            isEdit ? (
-                                            <LoadingButton
-                                                variant="contained"
-                                                loading={loading}
-                                                onClick={() =>
-                                                    setOpenModalFinalizar(true)
-                                                }
-                                                style={{
-                                                    marginRight: 15
-                                                }}>
-                                                Finalizar
-                                            </LoadingButton>
-                                            ): null
-                                        }
                                     </Box>
                                 </Grid>
                             </Grid>

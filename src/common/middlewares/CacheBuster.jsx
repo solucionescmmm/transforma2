@@ -76,6 +76,7 @@ export default class CacheBuster extends Component {
             .catch((error) => {
                 this.setState({
                     ...this.state,
+                    loading: false,
                     error: true,
                     errorMsg: `Error el obtener el meta.json: ${error.message}`,
                 });

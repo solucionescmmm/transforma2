@@ -47,6 +47,8 @@ import InfoComProductivo from "./infoComProductivo";
 import InfoComFinanciero from "./infoComFinanciero";
 import InfoComAdministrativo from "./infoComAdministrativo";
 import InfoComAsociativo from "./infoComAsociativo";
+import ModalFinalizacion from "./components/modalFinalizacion";
+import ModalDelete from "./components/modalDelete";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -113,7 +115,8 @@ const PageCUGeneral = ({
     });
 
     const [openModal, setOpenModal] = useState(false);
-    const [openModalFinalizar, setOpenModalFinalizar] = useState(false);
+    const [openModalFinalizacion, setOpenModalFinalizacion] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const [finalizado, setFinalizado] = useState(false);
@@ -126,7 +129,6 @@ const PageCUGeneral = ({
     const [loadingGetData, setLoadingGetData] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
-    const [flagFinalizar, setFlagFinalizar] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -175,7 +177,7 @@ const PageCUGeneral = ({
 
             let objEmprPrincipal
 
-            if(data.objEmpresario){
+            if (data.objEmpresario) {
                 objEmprPrincipal = data?.objEmpresario?.find(
                     (emp) => emp.strTipoEmpresario === "Principal"
                 );
@@ -187,39 +189,38 @@ const PageCUGeneral = ({
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
-                            ? process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATETECNICO
-                            : process.env
-                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETTECNICO
-                    }`,
+                    url: `${isEdit
+                        ? process.env
+                            .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATETECNICO
+                        : process.env
+                            .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETTECNICO
+                        }`,
                     data,
                     transformRequest: [
                         (data) => {
                             let newData = {
                                 objInfoGeneral: {
                                     ...data.objInfoGeneral,
-                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null ,
+                                    intIdEmpresario: objEmprPrincipal ? objEmprPrincipal.intId : null,
                                     intIdTipoEmpresario: objEmprPrincipal ? objEmprPrincipal.intIdTipoEmpresario : null,
                                     intIdIdea,
                                     intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
-                                              data.objInfoGeneral
-                                                  .dtmFechaSesion,
-                                              "yyyy-MM-dd hh:mm:ss"
-                                          )
+                                            data.objInfoGeneral
+                                                .dtmFechaSesion,
+                                            "yyyy-MM-dd hh:mm:ss"
+                                        )
                                         : null,
                                     dtmActualizacion: data.objInfoGeneral
-                                    .dtmActualizacion
-                                    ? format(
-                                        data.objInfoGeneral
-                                            .dtmActualizacion,
-                                        "yyyy-MM-dd hh:mm:ss"
-                                    )
-                                    : null,
+                                        .dtmActualizacion
+                                        ? format(
+                                            data.objInfoGeneral
+                                                .dtmActualizacion,
+                                            "yyyy-MM-dd hh:mm:ss"
+                                        )
+                                        : null,
                                 },
                                 objInfoComMercadeo: {
                                     ...data.objInfoComMercadeo,
@@ -286,64 +287,13 @@ const PageCUGeneral = ({
         [token, data, isEdit, intIdIdea, intIdDiagnostico]
     );
 
-    const finalizarDiag = useCallback(
-        async (signalSubmitData) => {
-            setLoading(true);
+    const handlerOpenModalFinalizacion = () => {
+        setOpenModalFinalizacion(!openModalFinalizacion);
+    };
 
-            setFlagFinalizar(false);
-
-            await axios(
-                {
-                    method:"PUT",
-                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_FINISHTECNICO}`,
-                    data:{intIdDiagnostico},
-                    headers: {
-                        token,
-                        "Content-Type": "application/json;charset=UTF-8",
-                    },
-                },
-                {
-                    cancelToken: signalSubmitData.token,
-                }
-            )
-                .then((res) => {
-                    if (res.data.error) {
-                        throw new Error(res.data.msg);
-                    }
-
-                    toast.success(res.data.msg);
-
-                    setLoading(false);
-                    setOpenModalFinalizar(false)
-
-                    onChangeRoute("DiagEmpresarial", {
-                        intIdIdea,
-                        intIdDiagnostico,
-                    });
-                })
-                .catch((error) => {
-                    if (!axios.isCancel(error)) {
-                        let msg;
-
-                        if (error.response) {
-                            msg = error.response.data.msg;
-                        } else if (error.request) {
-                            msg = error.message;
-                        } else {
-                            msg = error.message;
-                        }
-
-                        console.error(error);
-                        setLoading(false);
-
-                        toast.error(msg);
-                    }
-                });
-        },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [token, data, isEdit]
-    )
+    const handlerOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -365,11 +315,10 @@ const PageCUGeneral = ({
 
                             setData({
                                 ...data,
-                                objEmpresario:data.objEmpresario
+                                objEmpresario: data.objEmpresario
                             });
                         }
 
-                        setLoadingGetData(false);
                         setErrorGetData({ flag: false, msg: "" });
                     })
                     .catch((error) => {
@@ -469,18 +418,6 @@ const PageCUGeneral = ({
         };
     }, [flagSubmit, submitData]);
 
-    useEffect(() => {
-        let signalSubmitData = axios.CancelToken.source();
-
-        if (flagFinalizar) {
-            finalizarDiag(signalSubmitData);
-        }
-
-        return () => {
-            signalSubmitData.cancel("Petición abortada.");
-        };
-    }, [flagFinalizar, finalizarDiag]);
-
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -510,6 +447,23 @@ const PageCUGeneral = ({
 
     return (
         <div style={{ marginTop: "25px", width: "100%" }}>
+
+            <ModalFinalizacion
+                handleOpenDialog={handlerOpenModalFinalizacion}
+                open={openModalFinalizacion}
+                intIdDiagnostico={intIdDiagnostico}
+                intIdIdea={intIdIdea}
+                onChangeRoute={onChangeRoute}
+            />
+
+            <ModalDelete
+                handleOpenDialog={handlerOpenModalDelete}
+                open={openModalDelete}
+                intIdDiagnostico={intIdDiagnostico}
+                intIdIdea={intIdIdea}
+                onChangeRoute={onChangeRoute}
+            />
+
             <Dialog
                 open={openModal}
                 disableEscapeKeyDown
@@ -548,42 +502,6 @@ const PageCUGeneral = ({
                         }
                     >
                         editar
-                    </Button>
-                </DialogActions>
-            </Dialog>
-
-            <Dialog
-                open={openModalFinalizar}
-                disableEscapeKeyDown
-                fullScreen={bitMobile}
-            >
-                <DialogTitle>Finalizar diagnóstico</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Se ha detectado que la persona empresaria ya cuenta con
-                        un registro del diagnóstico de competencias técnicas.
-                        ¿Deseas finalizar el diagnóstico de competencias técnicas?
-                    </DialogContentText>
-                </DialogContent>
-
-                <DialogActions>
-                    <Button
-                        onClick={() =>
-                            setOpenModalFinalizar(false)
-                        }
-                        color="inherit"
-                    >
-                        Cancelar
-                    </Button>
-
-                    <Button
-                        onClick={() =>
-                            setFlagFinalizar(true)
-                        }
-                        disabled={finalizado}
-                        color="error"
-                    >
-                        Finalizar
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -738,31 +656,47 @@ const PageCUGeneral = ({
                                     <Box
                                         sx={{
                                             display: "flex",
-                                            flexDirection: "row-reverse",
+                                            flexDirection: isEdit ? "row" : "row-reverse",
                                         }}
                                     >
+                                        {
+                                            isEdit ? (
+                                                <Box sx={{ flexGrow: 1 }}>
+                                                    <LoadingButton
+                                                        variant="text"
+                                                        loading={loading}
+                                                        color="error"
+                                                        onClick={() =>
+                                                            handlerOpenModalDelete()
+                                                        }>
+                                                        Borrar diagnóstico
+                                                    </LoadingButton>
+                                                </Box>
+                                            ) : null
+                                        }
+                                        {
+                                            isEdit ? (
+                                                <LoadingButton
+                                                    variant="contained"
+                                                    loading={loading}
+                                                    onClick={() =>
+                                                        handlerOpenModalFinalizacion()
+                                                    }
+                                                    style={{
+                                                        marginLeft: 15
+                                                    }}>
+                                                    Finalizar
+                                                </LoadingButton>
+                                            ) : null
+                                        }
                                         <LoadingButton
                                             variant="contained"
                                             type="submit"
                                             loading={loading}
+                                            sx={{ marginLeft: "15px" }}
                                         >
                                             {isEdit ? "guardar" : "registrar"}
                                         </LoadingButton>
-                                        {
-                                            isEdit ? (
-                                            <LoadingButton
-                                                variant="contained"
-                                                loading={loading}
-                                                onClick={() =>
-                                                    setOpenModalFinalizar(true)
-                                                }
-                                                style={{
-                                                    marginRight: 15
-                                                }}>
-                                                Finalizar
-                                            </LoadingButton>
-                                            ): null
-                                        }
                                     </Box>
                                 </Grid>
                             </Grid>

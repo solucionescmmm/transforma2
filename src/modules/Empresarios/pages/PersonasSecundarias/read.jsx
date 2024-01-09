@@ -30,7 +30,6 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
     Cancel as CancelIcon,
-    PhoneDisabled as PhoneIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -329,23 +328,6 @@ const ReadPersonaSecundaria = ({
                                                     handlerOpenModalCancelacion();
                                                 },
                                                 tooltip: "Desvincular",
-                                            };
-                                        }
-                                    },
-                                    (rowData) => {
-                                        if (ability.can("cancel", "Eventos")) {
-                                            return {
-                                                icon: () => (
-                                                    <PhoneIcon
-                                                        color={"warning"}
-                                                        fontSize="small"
-                                                    />
-                                                ),
-                                                onClick: (event, rowData) => {
-                                                    setSelectedData(rowData);
-                                                    handlerOpenModalNoContactar();
-                                                },
-                                                tooltip: "No contactar",
                                             };
                                         }
                                     },
