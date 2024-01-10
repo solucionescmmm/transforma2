@@ -16,7 +16,6 @@ class deleteDiagnosticoTecnicas {
 
     async main() {
         await this.#validations();
-        await this.#completeData();
         await this.#deleteDiagnosticoTecnicas();
         return this.#objResult;
     }
@@ -35,22 +34,6 @@ class deleteDiagnosticoTecnicas {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
-    }
-
-    async #completeData() {
-        let newData = {
-            ...this.#objData.objInfoGeneral,
-            ...this.#objData.objInfoComMercadeo,
-            ...this.#objData.objInfoComProductivo,
-            ...this.#objData.objInfoComFinanciero,
-            ...this.#objData.objInfoComAdministrativo,
-            ...this.#objData.objInfoComAsociativo,
-            intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intId,
-            intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
-            strUsuarioActualizacion: this.#objUser.strEmail,
-        };
-        
-        this.#objData = newData;
     }
 
     async #deleteDiagnosticoTecnicas() {

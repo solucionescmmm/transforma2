@@ -1,37 +1,49 @@
-//clases
-const classInterfaceDAOComentarios = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
+//librerias
+const validator = require("validator").default;
 
-class deleteComentario {
-    #intId;
+//class
+const classInterfaceDAOGeneral = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
+
+class deleteDiagnosticoGeneral {
+    //Objetos
+    #objData;
+    #objUser;
     #objResult;
 
-    constructor(objParms) {
-        this.#intId = objParms.intId;
+    constructor(data, strDataUser) {
+        this.#objData = data;
+        this.#objUser = strDataUser;
     }
 
     async main() {
         await this.#validations();
         await this.#deleteDiagnosticoGeneral();
-
         return this.#objResult;
     }
 
     async #validations() {
-        if (!this.#intId) {
-            throw new Error("Se esperaban parametros de entrada");
+        if (
+            !validator.isEmail(this.#objUser.strEmail, {
+                domain_specific_validation: "cmmmedellin.org",
+            })
+        ) {
+            throw new Error(
+                "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
+            );
+        }
+
+        if (!this.#objData?.intId) {
+            throw new Error("Se esperaban parámetros de entrada.");
         }
     }
 
     async #deleteDiagnosticoGeneral() {
-        let dao = new classInterfaceDAOComentarios();
-        let query = await dao.deleteDiagnosticoGeneral({
-            intId: this.#intId,
-        });
+        let dao = new classInterfaceDAOGeneral();
+
+        let query = await dao.deleteDiagnosticoGeneral(this.#objData);
 
         if (query.error) {
-            throw new Error(
-                "Ha ocurrido un error al momento de eliminar el Diagnostico General"
-            );
+            throw new Error(query.msg);
         }
 
         this.#objResult = {
@@ -41,4 +53,4 @@ class deleteComentario {
         };
     }
 }
-module.exports = deleteComentario;
+module.exports = deleteDiagnosticoGeneral;

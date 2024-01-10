@@ -29,7 +29,7 @@ routes.put(
     }
 );
 
-routes.put(
+routes.delete(
     "/transforma/api/diagnosticos/diagnosticoDisenio/deleteDiagnosticoServicio",
     async (req, res) => {
         let controllerDiagnosticoServicio = new classController();

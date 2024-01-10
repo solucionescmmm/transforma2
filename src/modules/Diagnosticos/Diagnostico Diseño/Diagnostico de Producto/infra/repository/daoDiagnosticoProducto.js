@@ -302,7 +302,7 @@ class daoDiagnosticoProducto {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            await conn.query`DELETE FROM tbl_DiagnosticoProductos WHERE intId = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_DiagnosticoProductos WHERE intIdDiagnostico = ${data.intId}`;
 
             let result = {
                 error: false,

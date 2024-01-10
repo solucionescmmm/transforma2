@@ -182,8 +182,6 @@ class daoAcompañamientos {
 
             let arrNewData = response.recordsets[0];
 
-            console.log(arrNewData)
-
             for (let i = 0; i < arrNewData.length; i++) {
                 let { arrSesionAcompañamiento } = arrNewData[i];
 
