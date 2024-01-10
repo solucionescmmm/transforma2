@@ -15,6 +15,7 @@ import {
 import { Box, CircularProgress } from "@mui/material";
 
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
+import useGetDataPDFService from "../../../../hooks/useGetDatPDFService";
 
 // Register Font
 Font.register({
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const PDFProduct = ({ intId, values }) => {
+const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -88,7 +89,13 @@ const PDFProduct = ({ intId, values }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data } = useGetEmpresarios({ autoload: true, intIdIdea:intId });
+    const { data } = useGetEmpresarios({ autoload: true, intIdIdea: intId });
+
+    const { data: valuesPDF } = useGetDataPDFService({
+        autoload: true,
+        intIdIdea: intId,
+        intIdDiagnostico,
+    });
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -122,223 +129,281 @@ const PDFProduct = ({ intId, values }) => {
             </p>`)
         );
 
-        values?.objInfoTemasFortalecer.forEach((e) => {
-            if (e.objInnovacionFortalecer) {
-                htmlTemasFortalecer =
-                    htmlTemasFortalecer +
-                    ` 
-                        <div>
-                            <p class="title">
-                                Innovación
-                            </p>
-                        </div>
+        htmlTemasFortalecer =
+            htmlTemasFortalecer +
+            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
-                        <table>
-                            <tr>
-                                <th>Item</th>
-                                <th>Respuesta</th>
-                                <th>Nivel</th>
-                                <th>Detalle</th>
-                            </tr>
+        if (valuesPDF?.[0].objInnovacionBajo?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
+                `<div>
+                    <p class="title">
+                      En Innovación
+                    </p>
+                </div>
+                
+                ${valuesPDF?.[0].objInnovacionBajo
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
+                    )
+                    .join("")}`;
+        }
 
-                        ${e.objInnovacionFortalecer
-                            .map(
-                                (e) => `
-                            <tr>
-                                <td>${e.label}</td>
-                                <td>${e.value || "No diligenciado"}</td>
-                                <td>${e.nivel || "No diligenciado"}</td>
-                                <td>${e.detalle || ""}</td>
-                            </tr>
-                            `
-                            )
-                            .join("")}
-                        </table>`;
-            }
+        if (valuesPDF?.[0].objPersepcionBajo?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
+                `<div>
+                    <p class="title">
+                       En Percepción y calidad
+                    </p>
+                </div>
+                
+                ${valuesPDF?.[0].objPersepcionBajo
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
+                    )
+                    .join("")}`;
+        }
 
-            if (e.objExperienciaFortalecer) {
-                htmlTemasFortalecer =
-                    htmlTemasFortalecer +
-                    ` 
-                    <div>
-                        <p class="title">
-                        Experiencia
-                        </p>
-                    </div>
+        if (valuesPDF?.[0].objExperienciaBajo?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
+                `<div>
+                    <p class="title">
+                       En Experiencia
+                    </p>
+                </div>
+                
+                ${valuesPDF?.[0].objExperienciaBajo
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
+                    )
+                    .join("")}`;
+        }
 
-                    <table>
-                        <tr>
-                            <th>Item</th>
-                            <th>Respuesta</th>
-                            <th>Nivel</th>
-                            <th>Detalle</th>
-                        </tr>
+        if (valuesPDF?.[0].objMarcaBajo?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
+                `<div>
+                    <p class="title">
+                       En Marca
+                    </p>
+                </div>
+                
+                ${valuesPDF?.[0].objMarcaBajo
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
+                    )
+                    .join("")}`;
+        }
 
-                    ${e.objExperienciaFortalecer
-                        .map(
-                            (e) => `
-                        <tr>
-                            <td>${e.label}</td>
-                            <td>${e.value || "No diligenciado"}</td>
-                            <td>${e.nivel || "No diligenciado"}</td>
-                            <td>${e.detalle || ""}</td>
-                        </tr>
-                           
-                       
-                        `
-                        )
-                        .join("")}
-                    </table>`;
-            }
+        htmlTemasFortalecer =
+            htmlTemasFortalecer +
+            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
-            if (e.objMarcaFortalecer) {
-                htmlTemasFortalecer =
-                    htmlTemasFortalecer +
-                    ` 
-                    <div>
-                        <p class="title">
-                        Marca
-                        </p>
-                    </div>
+        if (valuesPDF?.[0].objInnovacionMedio?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
+                `<div>
+                    <p class="title">
+                      En Innovación
+                    </p>
+                </div>
+                
+                ${valuesPDF?.[0].objInnovacionMedio
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
+                    )
+                    .join("")}`;
+        }
 
-                    <table>
-                        <tr>
-                            <th>Item</th>
-                            <th>Respuesta</th>
-                            <th>Nivel</th>
-                            <th>Detalle</th>
-                        </tr>
+        if (valuesPDF?.[0].objPersepcionMedio?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
+                `<div>
+                    <p class="title">
+                     En Percepción y calidad
+                    </p>
+                </div>
+                
+                ${valuesPDF?.[0].objPersepcionMedio
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
+                    )
+                    .join("")}`;
+        }
 
-                    ${e.objMarcaFortalecer
-                        .map(
-                            (e) => `
-                        <tr>
-                            <td>${e.label}</td>
-                            <td>${e.value || "No diligenciado"}</td>
-                            <td>${e.nivel || "No diligenciado"}</td>
-                            <td>${e.detalle || ""}</td>
-                        </tr>
-                           
-                       
-                        `
-                        )
-                        .join("")}
-                    </table>`;
-            }
-        });
+        if (valuesPDF?.[0].objExperienciaMedio?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
+                `<div>
+                    <p class="title">
+                      En Experiencia
+                    </p>
+                </div>
+                
+                ${valuesPDF?.[0].objExperienciaMedio
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
+                    )
+                    .join("")}`;
+        }
+
+        if (valuesPDF?.[0].objMarcaMedio?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
+                `<div>
+                    <p class="title">
+                      En Marca
+                    </p>
+                </div>
+                
+                ${valuesPDF?.[0].objMarcaMedio
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
+                    )
+                    .join("")}`;
+        }
 
         values?.objInfoFortalezas.forEach((e) => {
             if (e.objInnovacionFortalezas) {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
-                        <div>
-                            <p class="title">
-                                Innovación
+                            <p class="title" >
+                                En Innovación
                             </p>
-                        </div>
-
-                        <table>
-                            <tr>
-                                <th>Item</th>
-                                <th>Respuesta</th>
-                                <th>Nivel</th>
-                                <th>Detalle</th>
-                            </tr>
+           
 
                         ${e.objInnovacionFortalezas
                             .map(
                                 (e) => `
-                            <tr>
-                                <td>${e.label}</td>
-                                <td>${e.value || "No diligenciado"}</td>
-                                <td>${e.nivel || "No diligenciado"}</td>
-                                <td>${e.detalle || ""}</td>
-                            </tr>
+                   
+                                <p class="pPDF"><span class="pPDFSpan">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</p>
                             `
                             )
                             .join("")}
-                        </table>`;
+                        `;
+            }
+
+            if (e.objPersepcionFortalezas) {
+                htmlFortalezas =
+                    htmlFortalezas +
+                    ` 
+        
+                        <p class="title">
+                        En Percepción y calidad
+                        </p>
+        
+
+
+                    ${e.objPersepcionFortalezas
+                        .map(
+                            (e) => `
+                        
+                            <p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>
+                        
+                        `
+                        )
+                        .join("")}
+                    `;
+            }
+
+            if (e.objEsteticaFortalezas) {
+                htmlFortalezas =
+                    htmlFortalezas +
+                    ` 
+                    ${e.objEsteticaFortalezas
+                        .map(
+                            (e) => `         
+                            <p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>
+                        `
+                        )
+                        .join("")}
+                  `;
             }
 
             if (e.objExperienciaFortalezas) {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
-                    <div>
                         <p class="title">
-                        Experiencia
+                        En Experiencia
                         </p>
-                    </div>
-
-                    <table>
-                        <tr>
-                            <th>Item</th>
-                            <th>Respuesta</th>
-                            <th>Nivel</th>
-                            <th>Detalle</th>
-                        </tr>
-
+              
                     ${e.objExperienciaFortalezas
                         .map(
                             (e) => `
-                        <tr>
-                            <td>${e.label}</td>
-                            <td>${e.value || "No diligenciado"}</td>
-                            <td>${e.nivel || "No diligenciado"}</td>
-                            <td>${e.detalle || ""}</td>
-                        </tr>
-                           
-                       
+                            <p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>
                         `
                         )
                         .join("")}
-                    </table>`;
+                   `;
             }
 
             if (e.objMarcaFortalezas) {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
-                    <div>
                         <p class="title">
-                        Marca
+                        En Marca
                         </p>
-                    </div>
-
-                    <table>
-                        <tr>
-                            <th>Item</th>
-                            <th>Respuesta</th>
-                            <th>Nivel</th>
-                            <th>Detalle</th>
-                        </tr>
 
                     ${e.objMarcaFortalezas
                         .map(
                             (e) => `
-                        <tr>
-                            <td>${e.label}</td>
-                            <td>${e.value || "No diligenciado"}</td>
-                            <td>${e.nivel || "No diligenciado"}</td>
-                            <td>${e.detalle || ""}</td>
-                        </tr>
-                           
-                       
+                            <p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>
                         `
                         )
-                        .join("")}
-                    </table>`;
+                        .join("")}`;
             }
         });
+
+        htmlFortalezas =
+            htmlFortalezas +
+            `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
 
         setHtmlTemasFortalecer(htmlTemasFortalecer);
         setHtmlInfoServicios(htmlServicios);
         setHtmlFortalezas(htmlFortalezas);
         setHtmlConclusiones(htmlConclusiones);
 
-        setLoading(true);
-    }, [values]);
+        setLoading(false);
+    }, [values, valuesPDF]);
 
     if (loading || !data) {
         return (
@@ -365,6 +430,10 @@ const PDFProduct = ({ intId, values }) => {
                     <Text style={styles.title}>
                         Reporte diagnóstico de servicio
                     </Text>
+
+                    <Text style={styles.title}>Grafíco de resultados</Text>
+
+                    <Image source={values?.imgChart} />
 
                     <Html>
                         {`
@@ -427,6 +496,9 @@ const PDFProduct = ({ intId, values }) => {
                         </style>
 
                         <body>
+                        <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
+                        <hr />
+
                             <p class="pMargin">
                                 <span style="color: #00BBB4">${
                                     objEmpresario?.strTipoDocto
@@ -491,12 +563,6 @@ const PDFProduct = ({ intId, values }) => {
                         </html>
                       `}
                     </Html>
-
-                    <Text style={styles.title}>
-                        Grafíco de resultados
-                    </Text>
-
-                    <Image source={values?.imgChart} />
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y

@@ -667,6 +667,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
                 intId={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
                 values={data}
             />
 

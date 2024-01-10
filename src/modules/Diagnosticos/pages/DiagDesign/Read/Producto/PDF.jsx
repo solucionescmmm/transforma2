@@ -435,6 +435,12 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         {`
                         <html>
                         <style>
+                           hr {
+                            border: 1px solid gray;
+                            border-radius: 1px;
+                            margin: 15px;
+                           }
+
                            p {
                                font-size: 12px;
                            }
