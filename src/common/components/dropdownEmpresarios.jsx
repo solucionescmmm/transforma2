@@ -35,7 +35,7 @@ import {
 //Filtro personalizado
 const filterOptions = (options, { inputValue }) =>
     matchSorter(options, inputValue, {
-        keys: ["strNombre", "strApellidos", "strNroDocto", "strCorreoElectronico1"],
+        keys: ["strNombres", "strApellidos", "strNroDocto", "strCorreoElectronico1"],
     });
 
 const DropdownEmpresarios = ({
