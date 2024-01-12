@@ -30,7 +30,6 @@ const getLastEmpresarios = async (objParams, strDataUser) => {
     };
 
     let arrayData = await dao.getIdeaEmpresario(query);
-    console.log(arrayData)
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {

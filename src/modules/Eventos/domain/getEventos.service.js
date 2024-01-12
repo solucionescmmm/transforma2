@@ -47,7 +47,7 @@ const getEventos = async (objParams, strDataUser) => {
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
-            let array = arrayData.data
+            let array = arrayData.data.reverse()
 
             for (let i = 0; i < array.length; i++) {
                 let arrAreasEventos = array[i]?.arrAreasEventos;

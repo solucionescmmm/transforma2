@@ -18,8 +18,21 @@ const  getComentario = async (objParams, strDataUser) => {
         intIdIdea: intIdIdea || null,
     };
 
-    let result = await dao.getComentario(query);
+    let arrayData = await dao.getComentario(query);
 
-    return result;
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data;
+
+            let result = {
+                error: false,
+                data: array,
+            };
+
+            return result;
+        }
+    }
+
+    return arrayData;
 };
 module.exports = getComentario;

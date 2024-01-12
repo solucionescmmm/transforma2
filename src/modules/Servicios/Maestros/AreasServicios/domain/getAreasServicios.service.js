@@ -22,8 +22,21 @@ const getAreasServicios = async (objParams, strDataUser) => {
         intId: intId || null,
     };
 
-    let result = await dao.getAreasServicios(query);
+    let arrayData = await dao.getAreasServicios(query);
+    
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data?.reverse();
 
-    return result;
+            let result = {
+                error: false,
+                data: array,
+            };
+
+            return result;
+        }
+    }
+
+    return arrayData;
 };
 module.exports = getAreasServicios;

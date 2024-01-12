@@ -22,8 +22,21 @@ const getTipoTarifa = async (objParams, strDataUser) => {
         intId: intId || null,
     };
 
-    let result = await dao.getTipoTarifa(query);
+    let arrayData = await dao.getTipoTarifa(query);
 
-    return result;
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data?.reverse();
+
+            let result = {
+                error: false,
+                data: array,
+            };
+
+            return result;
+        }
+    }
+
+    return arrayData;
 };
 module.exports = getTipoTarifa;

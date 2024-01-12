@@ -95,7 +95,6 @@ class updateServicios {
 
         let query = await dao.updateServicios({
             intId: this.#objData.intId,
-            ...this.#objData.objInfoPrincipal,
             intIdEstado: this.#intIdEstado,
             strUsuarioActualizacion: this.#objUser.strEmail,
         });
@@ -117,7 +116,6 @@ class updateServicios {
         let dao = new classInterfaceDAOServicios();
 
         let query = await dao.updateServicios({
-            intId: this.#objData.intId,
             ...this.#objData.objInfoPrincipal,
             intIdEstado: this.#intIdEstado,
             intIdProyectosEspeciales:

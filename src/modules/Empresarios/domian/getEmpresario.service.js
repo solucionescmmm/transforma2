@@ -34,7 +34,7 @@ const getEmpresario = async (objParams, strDataUser) => {
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
-            let array = arrayData.data;
+            let array = arrayData.data.reverse();
 
             for (let i = 0; i < array.length; i++) {
                 array[i] = {
@@ -43,6 +43,7 @@ const getEmpresario = async (objParams, strDataUser) => {
                         array[i]?.strDepartamento || null
                     ),
                     arrCiudad: JSON.parse(array[i]?.strCiudad || null),
+                    bitIsEmpresario: true
                 };
             }
             let result = {

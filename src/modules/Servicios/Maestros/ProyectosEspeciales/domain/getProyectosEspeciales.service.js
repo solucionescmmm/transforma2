@@ -22,8 +22,21 @@ const getProyectosEspeciales = async (objParams, strDataUser) => {
         intId: intId || null,
     };
 
-    let result = await dao.getProyectosEspeciales(query);
+    let arrayData = await dao.getProyectosEspeciales(query);
 
-    return result;
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data?.reverse();
+
+            let result = {
+                error: false,
+                data: array,
+            };
+
+            return result;
+        }
+    }
+
+    return arrayData;
 };
 module.exports = getProyectosEspeciales;

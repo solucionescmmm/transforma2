@@ -22,8 +22,21 @@ const getObjetivos = async (objParams, strDataUser) => {
         intId: intId || null,
     };
 
-    let result = await dao.getObjetivos(query);
+    let arrayData = await dao.getObjetivos(query);
 
-    return result;
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data?.reverse();
+
+            let result = {
+                error: false,
+                data: array,
+            };
+
+            return result;
+        }
+    }
+
+    return arrayData;
 };
 module.exports = getObjetivos;

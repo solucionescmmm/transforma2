@@ -492,6 +492,7 @@ class daoServicios {
                 UPDATE tbl_Servicios
 
                 SET intIdTipoServicio        = COALESCE(${data.intIdTipoServicio}, intIdTipoServicio),
+                    strNombre                = COALESCE(${data.strNombre}, strNombre),
                     strDescripcion           = COALESCE(${data.strDescripcion}, strDescripcion),
                     btModulos                = COALESCE(${data.bitModulos}, btModulos),
                     intIdProyectosEspeciales = COALESCE(${data.intIdProyectosEspeciales}, intIdProyectosEspeciales),

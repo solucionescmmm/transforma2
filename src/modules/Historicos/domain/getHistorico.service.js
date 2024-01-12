@@ -31,27 +31,28 @@ const getHistorico = async (objParams, strDataUser) => {
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data
-            let arrNumeroEmpleados =[]
+            let arrNumeroEmpleados = []
             let arrValorVentas = []
-            let arrEtapaDllo =[]
+            let arrEtapaDllo = []
             let data = {}
 
             for (let i = 0; i < array.length; i++) {
                 arrNumeroEmpleados.push({
                     intNumeroEmpleados: array[i]?.intNumeroEmpleados,
-                    dtmCreacion:array[i]?.dtmCreacion
+                    dtmCreacion: array[i]?.dtmCreacion
                 })
 
                 arrValorVentas.push({
                     ValorVentas: array[i]?.ValorVentas,
-                    dtmCreacion:array[i]?.dtmCreacion
+                    dtmCreacion: array[i]?.dtmCreacion
                 })
 
                 arrEtapaDllo.push({
                     intEtapaDlloFecha: array[i]?.intEtapaDlloFecha,
                     intIdPuntaje: array[i]?.intPuntaje,
-                    strClasificacionFecha:array[i]?.strClasificacionFecha,
-                    dtmCreacion:array[i]?.dtmCreacion
+                    strPuntaje: `${array[i]?.intPuntaje} ${array[i]?.strClasificacionFecha}`,
+                    strClasificacionFecha: array[i]?.strClasificacionFecha,
+                    dtmCreacion: array[i]?.dtmCreacion
                 })
             }
             data = {
@@ -59,12 +60,12 @@ const getHistorico = async (objParams, strDataUser) => {
                 arrValorVentas,
                 arrEtapaDllo
             }
-            
+
             let result = {
                 error: false,
                 data,
             };
-    
+
             return result;
         }
 

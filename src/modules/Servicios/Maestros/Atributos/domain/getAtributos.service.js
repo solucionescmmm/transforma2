@@ -22,8 +22,21 @@ const getAtributos = async (objParams, strDataUser) => {
         intId: intId || null,
     };
 
-    let result = await dao.getAtributos(query);
+    let arrayData = await dao.getAtributos(query);
+    
+    if (!arrayData.error && arrayData.data) {
+        if (arrayData.data.length > 0) {
+            let array = arrayData.data?.reverse();
 
-    return result;
+            let result = {
+                error: false,
+                data: array,
+            };
+
+            return result;
+        }
+    }
+
+    return arrayData;
 };
 module.exports = getAtributos;

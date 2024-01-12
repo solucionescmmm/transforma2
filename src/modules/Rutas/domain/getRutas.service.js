@@ -36,7 +36,7 @@ const getRutas = async (objParams, strDataUser) => {
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data?.length > 0) {
             if (!intId) {
-                let array = arrayData.data;
+                let array = arrayData.data.reverse();
                 let data = [];
                 
                 for (let i = 0; i < array.length; i++) {

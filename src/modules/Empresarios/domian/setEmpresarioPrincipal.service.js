@@ -46,7 +46,7 @@ class setEmpresarioPrincipal {
         await this.#getIdFuenteHistorico();
         await this.#getIdEstadoVinculacion();
         await this.#validations();
-        if (this.#objDataPersona?.objInfoIdeaEmpresario) {
+        if (this.#objDataPersona?.bitIsEmpresario) {
             await this.#updateEmpresario();
         } else if (this.#objDataPersona) {
             await this.#getIdEstadoInactivo();
@@ -109,7 +109,7 @@ class setEmpresarioPrincipal {
         let dao = new classInterfaceDAOEmpresarios();
 
         let queryGetIdEstadoVinculacion = await dao.getIdEstadoVinculacion({
-            strNombre: "En Proceso"
+            strNombre: "Interesado"
         });
 
         if (queryGetIdEstadoVinculacion.error) {
@@ -159,8 +159,10 @@ class setEmpresarioPrincipal {
 
     async #updateInactivarTercero() {
         let newData ={
-            ...this.#objDataPersona,
-            intIdEstado:this.#intIdEstadoInactivo
+            objInfoPrincipal:{
+                ...this.#objDataPersona,
+                intIdEstado:this.#intIdEstadoInactivo
+            }
         }
 
         let service = new serviceUpdateTercero(newData, this.#objUser);

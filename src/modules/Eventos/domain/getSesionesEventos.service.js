@@ -35,7 +35,7 @@ const getSesionesEventos = async (objParams, strDataUser) => {
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
-            let array = arrayData.data
+            let array = arrayData.data.reverse()
 
             for (let i = 0; i < array.length; i++) {
                 const getAreas = await serviceGetAreas({
