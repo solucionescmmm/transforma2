@@ -109,11 +109,11 @@ const SelectEstadoVinculacion = ({
             select
         >
             {data.map((e, i) => (
-                e.strNombre !== "En Proceso" && e.strNombre !== "No contactar" ? 
+                e.strNombre !== "No contactar" ?
                     <MenuItem value={e.intId} key={i}>
                         {e.strNombre}
                     </MenuItem>
-                : null
+                    : null
             ))}
         </TextField>
     );

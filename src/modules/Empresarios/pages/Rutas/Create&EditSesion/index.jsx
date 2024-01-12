@@ -367,7 +367,7 @@ const CUSesion = ({
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} md={6}>
                                     <Controller
                                         defaultValue={data.objEmpresario}
                                         name="objEmpresario"
@@ -435,45 +435,6 @@ const CUSesion = ({
                                         rules={{
                                             required:
                                                 "Por favor, selecciona la fecha del acompañamiento",
-                                        }}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12} md={6}>
-                                    <Controller
-                                        defaultValue={data.dtmFechaFinal}
-                                        name="dtmFechaFinal"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <DateTimePicker
-                                                label="Fecha final"
-                                                value={value}
-                                                onChange={(value) =>
-                                                    onChange(value)
-                                                }
-                                                format="dd/MM/yyyy hh:ss"
-                                                ampm
-                                                disabled={loading}
-                                                slotProps={{
-                                                    textField: {
-                                                        name,
-                                                        variant: "standard",
-                                                        error: !!errors?.dtmFechaFinal,
-                                                        helperText:
-                                                            errors
-                                                                ?.dtmFechaFinal
-                                                                ?.message ||
-                                                            "Selecciona la fecha final del acompañamiento",
-                                                        fullWidth: true,
-                                                    },
-                                                }}
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona la fecha final del acompañamiento",
                                         }}
                                     />
                                 </Grid>
@@ -579,42 +540,6 @@ const CUSesion = ({
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={data.strObjetivoActividad}
-                                        name="strObjetivoActividad"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <TextField
-                                                label="Objetivo actividad"
-                                                variant="outlined"
-                                                name={name}
-                                                value={value}
-                                                onChange={(e) => onChange(e)}
-                                                disabled={loading}
-                                                required
-                                                error={
-                                                    !!errors?.strObjetivoActividad
-                                                }
-                                                helperText={
-                                                    errors?.strObjetivoActividad
-                                                        ?.message ||
-                                                    "Digita el objetivo de la actividad"
-                                                }
-                                                fullWidth
-                                                multiline
-                                                rows={4}
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, digita el objetivo de la actividad",
-                                        }}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Controller
                                         defaultValue={data.strActividades}
                                         name="strActividades"
                                         render={({
@@ -643,42 +568,6 @@ const CUSesion = ({
                                         rules={{
                                             required:
                                                 "Por favor, digita las actividad a desarrollar",
-                                        }}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Controller
-                                        defaultValue={data.strLogros}
-                                        name="strLogros"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <TextField
-                                                label="Logros/avances a desarrollar"
-                                                variant="outlined"
-                                                name={name}
-                                                value={value}
-                                                onChange={(e) => onChange(e)}
-                                                disabled={loading}
-                                                required
-                                                error={
-                                                    !!errors?.strObservaciones
-                                                }
-                                                helperText={
-                                                    errors?.strObservaciones
-                                                        ?.message ||
-                                                    "Digita las observaciones"
-                                                }
-                                                fullWidth
-                                                multiline
-                                                rows={4}
-                                            />
-                                        )}
-                                        control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, digita las observaciones",
                                         }}
                                     />
                                 </Grid>

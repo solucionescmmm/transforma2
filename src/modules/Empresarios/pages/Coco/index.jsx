@@ -378,15 +378,6 @@ const Coco = () => {
                                     Editar
                                 </Button>
                             </Typography>
-                            {objInteresado?.objEmpresario
-                                ?.filter(
-                                    (p) => p.strTipoEmpresario === "Principal"
-                                )
-                                ?.at(0)?.btPerfilSensible ? (
-                                <Typography color="red" variant="body1">
-                                    Perfil sensible
-                                </Typography>
-                            ) : null}
                         </Box>
 
                         <Box
@@ -426,6 +417,15 @@ const Coco = () => {
                                 <b>Etapa de desarrollo: </b>
                                 {strEtapa}
                             </Typography>
+                            {objInteresado?.objEmpresario
+                                ?.filter(
+                                    (p) => p.strTipoEmpresario === "Principal"
+                                )
+                                ?.at(0)?.btPerfilSensible ? (
+                                <Typography color="red" variant="caption">
+                                    Perfil sensible
+                                </Typography>
+                            ) : null}
                         </Box>
                     </Paper>
                 </Grid>

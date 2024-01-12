@@ -789,7 +789,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <ReadTareas intIdIdea={intIdIdea} inModal disabled />
+                                    <ReadTareas intIdIdea={intIdIdea} inModal />
                                 </Grid>
 
                                 <Grid item xs={12}>

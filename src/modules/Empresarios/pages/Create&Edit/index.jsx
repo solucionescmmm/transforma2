@@ -136,10 +136,10 @@ const SearchEmpresario = ({ isEdit }) => {
                                       )
                                     : null,
                             strGenero: objEmprPrincipal.strGenero || "",
-                            strCelular1: objEmprPrincipal.strCelular1 || "",
+                            strCelular1: objEmprPrincipal.strCelular1 || objEmprPrincipal.strCelular || "",
                             strCelular2: objEmprPrincipal.strCelular2 || "",
                             strCorreoElectronico1:
-                                objEmprPrincipal.strCorreoElectronico1 || "",
+                                objEmprPrincipal.strCorreoElectronico1 || objEmprPrincipal.strCorreoElectronico || "",
                             strCorreoElectronico2:
                                 objEmprPrincipal.strCorreoElectronico2 || "",
                             strNivelEducativo:
@@ -486,6 +486,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                                 setHiddenSearch(true)
                                                 setData({
                                                     objInfoEmpresarioPr: {
+                                                        ...data.objInfoEmpresarioPr,
                                                         strNroDocto: documento,
                                                     },
                                                 });
