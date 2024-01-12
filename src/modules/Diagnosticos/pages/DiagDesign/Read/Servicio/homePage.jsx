@@ -916,11 +916,48 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objInnovacionFortalecer.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
+                                                                      <Grid
+                                                                item
+                                                                xs={12}
+                                                                md={2}
+                                                            >
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                      <b>    {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}</b>
+                                                                </p>
+
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                    {e.nivel ||
+                                                                        "No diligenciado"}
+                                                                </p>
+                                                            </Grid>
+
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={8}
-                                                            >
+                                                                md={e.datelle ? 8: 10}
+                                                             >
                                                                 <p
                                                                     style={{
                                                                         margin: "0px",
@@ -963,40 +1000,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 </p>
                                                             </Grid>
 
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
+                                                  
 
                                                             {e.detalle && (
                                                                 <Grid
@@ -1061,10 +1065,47 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objExperienciaFortalecer.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
+                                                                          <Grid
+                                                                item
+                                                                xs={12}
+                                                                md={2}
+                                                            >
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                </p>
+
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                        maxWidth:
+                                                                            "600px",
+                                                                    }}
+                                                                >
+                                                                    {e.nivel ||
+                                                                        "No diligenciado"}
+                                                                </p>
+                                                            </Grid>
+
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={8}
+                                                                md={e.datelle ? 8: 10}
                                                             >
                                                                 <p
                                                                     style={{
@@ -1108,42 +1149,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 </p>
                                                             </Grid>
 
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                        maxWidth:
-                                                                            "600px",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
+                                              
 
                                                             {e.detalle && (
                                                                 <Grid
@@ -1211,7 +1217,45 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={8}
+                                                                md={2}
+                                                            >
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                </p>
+
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                        maxWidth:
+                                                                            "600px",
+                                                                    }}
+                                                                >
+                                                                    {e.nivel ||
+                                                                        "No diligenciado"}
+                                                                </p>
+                                                            </Grid>
+
+                                                            <Grid
+                                                                item
+                                                                xs={12}
+                                                                md={e.datelle ? 8: 10}
+                                                           
                                                             >
                                                                 <p
                                                                     style={{
@@ -1251,43 +1295,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                     }}
                                                                 >
                                                                     {e.value ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                        maxWidth:
-                                                                            "600px",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
                                                                         "No diligenciado"}
                                                                 </p>
                                                             </Grid>
@@ -1403,10 +1410,47 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objInnovacionFortalezas.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
+
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={8}
+                                                                md={2}
+                                                            >
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                </p>
+
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                    {e.nivel ||
+                                                                        "No diligenciado"}
+                                                                </p>
+                                                            </Grid>
+
+                                                            <Grid
+                                                                item
+                                                                xs={12}
+                                                                md={e.datelle ? 8: 10}
+                                                           
                                                             >
                                                                 <p
                                                                     style={{
@@ -1446,41 +1490,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                     }}
                                                                 >
                                                                     {e.value ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
                                                                         "No diligenciado"}
                                                                 </p>
                                                             </Grid>
@@ -1548,10 +1557,47 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objExperienciaFortalezas.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
+
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={8}
+                                                                md={2}
+                                                            >
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                </p>
+
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                    {e.nivel ||
+                                                                        "No diligenciado"}
+                                                                </p>
+                                                            </Grid>
+
+                                                            <Grid
+                                                                item
+                                                                xs={12}
+                                                                md={e.datelle ? 8: 10}
+                                                            
                                                             >
                                                                 <p
                                                                     style={{
@@ -1591,41 +1637,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                     }}
                                                                 >
                                                                     {e.value ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
                                                                         "No diligenciado"}
                                                                 </p>
                                                             </Grid>
@@ -1693,10 +1704,47 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objMarcaFortalezas.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
+                                                
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={8}
+                                                                md={2}
+                                                            >
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                </p>
+
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                    {e.nivel ||
+                                                                        "No diligenciado"}
+                                                                </p>
+                                                            </Grid>
+
+                                                            <Grid
+                                                                item
+                                                                xs={12}
+                                                                md={e.datelle ? 8: 10}
+                                                            
                                                             >
                                                                 <p
                                                                     style={{
@@ -1736,41 +1784,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                     }}
                                                                 >
                                                                     {e.value ||
-                                                                        "No diligenciado"}
-                                                                </p>
-                                                            </Grid>
-
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                md={2}
-                                                            >
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    <b>Nivel</b>
-                                                                </p>
-
-                                                                <p
-                                                                    style={{
-                                                                        margin: "0px",
-                                                                        fontSize:
-                                                                            "13px",
-                                                                        display:
-                                                                            "flex",
-                                                                        alignContent:
-                                                                            "center",
-                                                                    }}
-                                                                >
-                                                                    {e.nivel ||
                                                                         "No diligenciado"}
                                                                 </p>
                                                             </Grid>

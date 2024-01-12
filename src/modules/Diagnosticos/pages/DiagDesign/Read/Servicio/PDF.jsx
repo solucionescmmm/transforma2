@@ -44,23 +44,36 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: "14px",
         color: "#00BBB4",
+        fontFamily: "Roboto",
     },
     footerTitle: {
         textAlign: "center",
         fontSize: "10px",
         color: "#00BBB4",
         marginTop: "55px",
+        fontFamily: "Roboto",
+    },
+    pPDFSpan: {
+        fontWeight: 400,
+        fontFamily: "Roboto",
     },
     footerContact: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
         marginTop: "10px",
+        fontFamily: "Roboto",
     },
     footerPhoneEmail: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
+        fontFamily: "Roboto",
+    },
+    pPDF: {
+        fontSize: "10px",
+        marginBottom: "-15px",
+        fontFamily: "Roboto",
     },
     pageNumber: {
         position: "absolute",
@@ -431,14 +444,15 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         Reporte diagnóstico de servicio
                     </Text>
 
-                    <Text style={styles.title}>Grafíco de resultados</Text>
-
-                    <Image source={values?.imgChart} />
 
                     <Html>
                         {`
                         <html>
                         <style>
+                        div {
+                            font-family: "Roboto";
+                        }
+
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
@@ -446,8 +460,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            }
 
                            p {
-                               font-size: 12px;
-                           }
+                            font-size: 12px;
+                            margin: 0;
+                            font-family: "Roboto";
+                        }
 
                            .pMargin {
                               margin-bottom: -10px;
@@ -499,21 +515,21 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
                         <hr />
 
-                            <p class="pMargin">
+                            <p>
                                 <span style="color: #00BBB4">${
                                     objEmpresario?.strTipoDocto
                                 }: </span>
                                 ${objEmpresario?.strNroDocto}
                             </p>
 
-                            <p class="pMargin">
+                            <p>
                                 <span style="color: #00BBB4">Nombre: </span>
                                  ${objEmpresario?.strNombres}  ${
                             objEmpresario?.strApellidos
                         }
                             </p>
 
-                            <p class="pMargin">
+                            <p>
                                 <span style="color: #00BBB4">Empresa: </span>
                                  ${objEmpresa?.strNombreMarca} 
                             </p>
@@ -558,10 +574,24 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                             ${htmlConclusiones}
 
-                            
                         </body>
                         </html>
                       `}
+                    </Html>
+                    <Image source={values?.imgChart} />
+                    <Html>
+                        {`
+                        <style>
+                        p {
+                            font-size: 12px;
+                            font-family: "Roboto";
+                        }
+
+                        .pMargin {
+                           margin-bottom: -10px;
+                        }
+                        </style>
+                        <p class="pMargin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam pariatur illum dolores quam ab reprehenderit, esse dolorem earum alias quasi, nulla quidem molestias placeat corporis, dignissimos aperiam voluptatem doloremque odio.</p>`}
                     </Html>
 
                     <Text style={styles.footerTitle}>

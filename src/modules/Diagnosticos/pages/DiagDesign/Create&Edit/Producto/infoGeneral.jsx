@@ -25,6 +25,7 @@ import {
 
 //Componentes
 import DropdownEmpresarios from "../../../../components/dropdownEmpresarios";
+import DropdownUsuarios from "../../../../../../common/components/dropdowUsuarios";
 
 const InfoGeneral = ({
     disabled,
@@ -262,15 +263,15 @@ const InfoGeneral = ({
                             defaultValue={data.strUsuarioCreacion}
                             name="objInfoGeneral.strUsuarioCreacion"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <DropdownUsuarios
                                     label="Responsable del diagnóstico"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e, value) => onChange(value)}
                                     fullWidth
-                                    required
                                     variant="standard"
+                                    required
                                     error={
                                         errors?.objInfoGeneral
                                             ?.strUsuarioCreacion
@@ -297,15 +298,15 @@ const InfoGeneral = ({
                             defaultValue={data.strUsuarioActualizacion}
                             name="objInfoGeneral.strUsuarioActualizacion"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <DropdownUsuarios
                                     label="Responsable de actualizar la información"
                                     name={name}
                                     value={value}
-                                    disabled
-                                    onChange={(e) => onChange(e)}
+                                    disabled={disabled}
+                                    onChange={(e, value) => onChange(value)}
                                     fullWidth
-                                    required
                                     variant="standard"
+                                    required
                                     error={
                                         errors?.objInfoGeneral
                                             ?.strUsuarioActualizacion
