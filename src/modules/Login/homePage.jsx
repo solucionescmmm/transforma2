@@ -115,6 +115,7 @@ const Login = () => {
     };
 
     const onFailureAuth = (error) => {
+        console.log(error)
         toast.error(error.details || "Acceso denegado");
     };
 
