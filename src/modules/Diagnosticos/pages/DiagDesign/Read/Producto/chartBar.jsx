@@ -30,6 +30,15 @@ const ChartBar = ({ values, labels, title, maxValues }) => {
                 size: 20
             },
         },
+        scales: {
+            r: {
+                angleLines: {
+                    display: false
+                },
+                suggestedMin: 10,
+                suggestedMax: 50
+            }
+        },
         responsive: true,
         plugins: {
             legend: {
