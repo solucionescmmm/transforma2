@@ -269,7 +269,6 @@ const Login = () => {
                                                         onSuccessAuth(data);
                                                     }
                                                 }}
-                                                tenantUrl={`https://login.microsoftonline.com/${process.env.REACT_APP_NODE_ENV}`}
                                                 children={
                                                     <LoadingButton
                                                         startIcon={
