@@ -106,6 +106,7 @@ const Login = () => {
     const classes = loginStyles();
 
     const onSuccessAuth = (res) => {
+        console.log(res)
         setData((prevState) => ({
             ...prevState,
             ...res,
