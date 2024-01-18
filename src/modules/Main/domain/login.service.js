@@ -18,7 +18,6 @@ const serviceGetRolesUsuario = require("../../Usuarios/domain/getRolesUsuario.se
 const login = async (payload) => {
     try {
         let objUserData;
-        console.log(payload)
 
         if (process.env.ENV === "prod" || process.env.ENV === "dev" || process.env.ENV === "test") {
             const { account } = payload;
@@ -28,7 +27,7 @@ const login = async (payload) => {
                 strEmail: account.username,
                 strUsuario: account.username.substring(
                     0,
-                    payload.email.indexOf("@")
+                    account.email.indexOf("@")
                 ),
                 strURLImagen: "",
             };
