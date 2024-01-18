@@ -5,6 +5,7 @@ class ctrlMain {
     async Login(req, res) {
         try {
             let body = req.body;
+            console.log(req)
 
             let query = await serviceLogin(body);
 
