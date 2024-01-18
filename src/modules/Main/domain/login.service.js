@@ -27,7 +27,7 @@ const login = async (payload) => {
                 strEmail: account.username,
                 strUsuario: account.username.substring(
                     0,
-                    account.email.indexOf("@")
+                    account.username.indexOf("@")
                 ),
                 strURLImagen: "",
             };
