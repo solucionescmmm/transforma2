@@ -18,6 +18,7 @@ const serviceGetRolesUsuario = require("../../Usuarios/domain/getRolesUsuario.se
 const login = async (payload) => {
     try {
         let objUserData;
+        console.log(payload)
 
         if (process.env.ENV === "prod" || process.env.ENV === "dev" || process.env.ENV === "test") {
             const { account } = payload;
