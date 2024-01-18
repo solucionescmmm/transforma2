@@ -131,9 +131,7 @@ const Login = () => {
                     method: "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${process.env.REACT_APP_API_TRANSFORMA_LOGIN}`,
-                    headers: {
-                        Authorization: data?.tokenId,
-                    },
+                    data
                 },
                 {
                     cancelToken: signalSubmitData.token,
