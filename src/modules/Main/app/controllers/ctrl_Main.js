@@ -4,9 +4,9 @@ const serviceLogin = require("../../domain/login.service");
 class ctrlMain {
     async Login(req, res) {
         try {
-            let token = req.headers.authorization;
+            let body = req.body;
 
-            let query = await serviceLogin(token);
+            let query = await serviceLogin(body);
 
             res.status(200).json(query);
         } catch (error) {

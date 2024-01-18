@@ -7,53 +7,63 @@ const jwt = require("jsonwebtoken");
 const validator = require("validator").default;
 
 //Private Key JWT
-const privateKey = fs.readFileSync(path.basename("../../../../jwtRS256.key"), "utf-8");
+const privateKey = fs.readFileSync(
+    path.basename("../../../../jwtRS256.key"),
+    "utf-8"
+);
 
 //Services
-const serviceGetRolesUsuario = require("../../Usuarios/domain/getRolesUsuario.service")
+const serviceGetRolesUsuario = require("../../Usuarios/domain/getRolesUsuario.service");
 
-const login = async (token) => {
-
+const login = async (payload) => {
     try {
-      if(process.env.ENV === 'prod') {
+        let objUserData;
 
+        if (process.env.ENV === "prod" || process.env.ENV === "dev" || process.env.ENV === "test") {
+            const { account } = payload;
+
+            objUserData = {
+                strNombre: account.name,
+                strEmail: account.username,
+                strUsuario: account.username.substring(
+                    0,
+                    payload.email.indexOf("@")
+                ),
+                strURLImagen: "",
+            };
+        } else {
+            objUserData = {
+                strNombre: "Pruebas",
+                strApellidos: "Transforma",
+                strEmail: "lider.tecnologia@cmmmedellin.org",
+                strUsuario: "Líder Tecnología",
+                strURLImagen: "",
+            };
         }
-
-        const payload = null
-        
-        let objUserData = {
-            strNombre: payload?.given_name || 'Pruebas',
-            strApellidos: payload?.family_name || 'Transforma',
-            strEmail: payload?.email || 'lider.tecnologia@cmmmedellin.org',
-            strUsuario: payload?.email.substring(0, payload.email.indexOf("@")) || "Líder Tecnología",
-            strURLImagen: payload?.picture || "",
-        };
 
         const queryGetRolesUsuario = await serviceGetRolesUsuario({
-            strApp:"Transforma",
-            strEmail:"socio.empresarial11@demismanos.org"
-        })
+            strApp: "Transforma",
+            strEmail: objUserData.strEmail,
+        });
 
         if (queryGetRolesUsuario.error) {
-            throw new Error(queryGetRolesUsuario.msg)
+            throw new Error(queryGetRolesUsuario.msg);
         }
 
-        objUserData={
+        objUserData = {
             ...objUserData,
-            strRol: queryGetRolesUsuario.data[0]?.strNombre
-        }
+            strRol: queryGetRolesUsuario.data[0]?.strNombre,
+        };
 
         if (
             !validator.isEmail(objUserData.strEmail, {
-                domain_specific_validation: "cmmmedellin.org",
+                domain_specific_validation: "demismanos.org",
             })
         ) {
             throw new Error(
-                "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
+                "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino demismanos.org."
             );
         }
-
-        console.log(objUserData)
 
         let JWT = jwt.sign(
             {
