@@ -126,6 +126,7 @@ class updateCambiarEstadoEventos {
     async #updateEventos() {
         let newData = {
             ...this.#objData,
+            intId:this.#objData?.intIdEvento,
             intEstadoEvento: this.#intIdEstado,
         }
         let dao = new classInterfaceDAOEventos();
