@@ -106,7 +106,6 @@ const Login = () => {
     const classes = loginStyles();
 
     const onSuccessAuth = (res) => {
-        console.log(res)
         setData((prevState) => ({
             ...prevState,
             ...res,
@@ -288,7 +287,7 @@ const Login = () => {
                                             />
                                         ) : (
                                             <LoadingButton
-                                                onClick={onSuccessAuth}
+                                                onClick={() => onSuccessAuth(null)}
                                                 startIcon={
                                                     <img
                                                         src={BtnMicrosoft}
