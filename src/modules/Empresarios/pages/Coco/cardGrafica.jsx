@@ -140,7 +140,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
             const ejeY = [];
 
             arrEtapaDllo?.forEach((v, i) => {
-                console.log(v)
+                console.log(v);
                 ejeX.push({
                     x: parseISO(v.dtmCreacion),
                     y: v.intIdPuntaje,
@@ -172,16 +172,22 @@ const CardGrafica = ({ intIdIdea, type }) => {
                         ticks: {
                             beginAtZero: true,
                             callback: (value, index, values) => {
-
-                                console.log(values)
+                                console.log(values);
                                 switch (value) {
+                                    case 1:
+                                        return "Validación comercial";
                                     case 2:
+                                        return "Nuevo empresario";
+                                    case 3:
                                         return "Fortalecimiento empresarial I";
                                     case 4:
-                                        return "Desarrollo";
+                                        return "Fortalecimiento empresarial II";
+                                    case 5:
+                                        return "Consolidación";
                                     case 6:
-                                        return "Etiqueta para 6"; // Reemplaza con tu etiqueta
-                                    // Continúa para los demás valores
+                                        return "Escalamiento";
+                                    case 7:
+                                        return "Expansion";
                                     default:
                                         return value;
                                 }
