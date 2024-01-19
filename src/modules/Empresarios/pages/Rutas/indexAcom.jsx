@@ -67,11 +67,6 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
             type: "string",
         },
         {
-            title: "Área",
-            field: "objInfoPrincipal.arrSesionAcompañamiento.length",
-            type: "string",
-        },
-        {
             title: "Número de sesiones",
             field: "arrSesionAcompañamiento.length",
             type: "string",
@@ -231,30 +226,6 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                     pageSize: 20,
                                     maxBodyHeight: "520px",
                                 }}
-                                actions={[
-                                    (rowData) => {
-                                        // return {
-                                        //     icon: () => (
-                                        //         <RemoveRedEyeIcon
-                                        //             color="gray"
-                                        //             fontSize="small"
-                                        //         />
-                                        //     ),
-                                        //     tooltip: "Previsualizar",
-                                        //     onClick: (event, rowData) => {
-                                        //         console.log(rowData)
-                                        //         onChangeRoute("PreviewAcomp", {
-                                        //             intIdAcompañamiento:
-                                        //                 rowData
-                                        //                     ?.objInfoPrincipal
-                                        //                     ?.intId,
-                                        //             intIdIdea,
-                                        //             ...rowData,
-                                        //         });
-                                        //     },
-                                        // };
-                                    },
-                                ]}
                                 components={{
                                     Toolbar: (props) => (
                                         <div

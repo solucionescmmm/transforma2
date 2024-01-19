@@ -302,16 +302,14 @@ const Coco = () => {
                                 height: 80,
                             }}
                             alt="logo"
-                            src={`${process.env.REACT_APP_API_BACK_PROT}://${
-                                process.env.REACT_APP_API_BACK_HOST
-                            }${process.env.REACT_APP_API_BACK_PORT}${
-                                objInteresado?.objEmpresario
+                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
+                                }${process.env.REACT_APP_API_BACK_PORT}${objInteresado?.objEmpresario
                                     ?.filter(
                                         (p) =>
                                             p.strTipoEmpresario === "Principal"
                                     )
                                     ?.at(0)?.strUrlFileFoto || ""
-                            }`}
+                                }`}
                         />
 
                         <Box
@@ -596,7 +594,10 @@ const Coco = () => {
                                                             >
                                                                 NIT:{" "}
                                                             </span>
-                                                            {""}
+                                                            {objInteresado
+                                                                ?.objInfoEmpresa
+                                                                ?.strNIT ||
+                                                                "No registro"}
                                                         </Typography>
 
                                                         <Typography
