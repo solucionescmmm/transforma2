@@ -35,7 +35,7 @@ const login = async (payload) => {
             objUserData = {
                 strNombre: "Pruebas",
                 strApellidos: "Transforma",
-                strEmail: "lider.tecnologia@cmmmedellin.org",
+                strEmail: "lider.tecnologia@demismanos.org",
                 strUsuario: "Líder Tecnología",
                 strURLImagen: "",
             };
