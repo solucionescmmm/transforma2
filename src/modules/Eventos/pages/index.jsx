@@ -347,7 +347,7 @@ const ReadSolicitudesUser = () => {
                                                 icon: () => (rowData.strNombreEstado === "Cancelado" || rowData.strNombreEstado === "Finalizado" ? (
                                                     <RemoveRedEyeIcon
                                                         color="gray"
-                                                        fontSize="small" 
+                                                        fontSize="small"
                                                     />
                                                 ) : (
                                                     <EditIcon
@@ -360,10 +360,12 @@ const ReadSolicitudesUser = () => {
                                                         fontSize="small"
                                                     />
                                                 )),
-                                                tooltip: rowData.strNombreEstado === "Cancelado" || rowData.strNombreEstado === "Finalizado" ? "Visualizar": "Editar",
+                                                tooltip: rowData.strNombreEstado === "Cancelado" || rowData.strNombreEstado === "Finalizado" ? "Visualizar" : "Editar",
                                                 onClick: (event, rowData) => {
                                                     push(
-                                                        `/transforma/asesor/eventos/edit/${rowData.intId}`
+                                                        rowData.strNombreEstado === "Cancelado" || rowData.strNombreEstado === "Finalizado"
+                                                            ? `/transforma/asesor/eventos/edit/${rowData.intId}`
+                                                            : `/transforma/asesor/eventos/read/${rowData.intId}`
                                                     );
                                                 },
                                                 disabled:
@@ -379,8 +381,8 @@ const ReadSolicitudesUser = () => {
                                                     <PlayIcon
                                                         color={
                                                             rowData.strNombreEstado === "En ejecución" ||
-                                                            rowData.strNombreEstado === "Finalizado" ||
-                                                            rowData.strNombreEstado === "Cancelado"
+                                                                rowData.strNombreEstado === "Finalizado" ||
+                                                                rowData.strNombreEstado === "Cancelado"
                                                                 ? "gray"
                                                                 : "success"
                                                         }
@@ -406,9 +408,9 @@ const ReadSolicitudesUser = () => {
                                                     <StopIcon
                                                         color={
                                                             rowData.strNombreEstado === "Planeado" ||
-                                                            rowData.strNombreEstado === "Suspendido" ||
-                                                            rowData.strNombreEstado === "Finalizado" ||
-                                                            rowData.strNombreEstado === "Cancelado"
+                                                                rowData.strNombreEstado === "Suspendido" ||
+                                                                rowData.strNombreEstado === "Finalizado" ||
+                                                                rowData.strNombreEstado === "Cancelado"
                                                                 ? "gray"
                                                                 : "error"
                                                         }
@@ -435,9 +437,9 @@ const ReadSolicitudesUser = () => {
                                                     <PauseIcon
                                                         color={
                                                             rowData.strNombreEstado === "Planeado" ||
-                                                            rowData.strNombreEstado === "Suspendido" ||
-                                                            rowData.strNombreEstado === "Finalizado" ||
-                                                            rowData.strNombreEstado === "Cancelado"
+                                                                rowData.strNombreEstado === "Suspendido" ||
+                                                                rowData.strNombreEstado === "Finalizado" ||
+                                                                rowData.strNombreEstado === "Cancelado"
                                                                 ? "gray"
                                                                 : "warning"
                                                         }
@@ -464,7 +466,7 @@ const ReadSolicitudesUser = () => {
                                                     <CancelIcon
                                                         color={
                                                             rowData.strNombreEstado === "Finalizado" ||
-                                                            rowData.strNombreEstado === "Cancelado"
+                                                                rowData.strNombreEstado === "Cancelado"
                                                                 ? "gray"
                                                                 : "error"
                                                         }
@@ -489,8 +491,8 @@ const ReadSolicitudesUser = () => {
                                                     <DeleteIcon
                                                         color={
                                                             rowData.strNombreEstado === "En ejecución" ||
-                                                            rowData.strNombreEstado === "Finalizado" ||
-                                                            rowData.strNombreEstado === "Suspendido"
+                                                                rowData.strNombreEstado === "Finalizado" ||
+                                                                rowData.strNombreEstado === "Suspendido"
                                                                 ? "gray"
                                                                 : "error"
                                                         }
