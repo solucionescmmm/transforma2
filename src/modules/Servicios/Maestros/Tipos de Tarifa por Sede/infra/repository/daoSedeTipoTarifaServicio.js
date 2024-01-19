@@ -81,6 +81,36 @@ class daoSedeTipoTarifaServicio {
         }
     }
 
+    async getSedeTipoTarifaServicioBySedeServicio(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                SELECT * FROM tbl_Sede_TipoTarifa_Servicio 
+                WHERE (intIdSede = ${data.intIdSede})
+                AND (intIdServicio = ${data.intIdServicio})`;
+
+            let result = {
+                error: false,
+                data: response.recordsets[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getSedeTipoTarifaServicio de la clase daoSedeTipoTarifaServicio",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateSedeTipoTarifaServicio(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();

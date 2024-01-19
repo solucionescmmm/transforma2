@@ -13,6 +13,12 @@ class interfaceDAOSedeTipoTarifaServicio {
         return query;
     }
 
+    async getSedeTipoTarifaServicioBySedeServicio(data) {
+        let dao = new classDAO();
+        let query = await dao.getSedeTipoTarifaServicioBySedeServicio(data);
+        return query;
+    }
+
     async updateSedeTipoTarifaServicio(data) {
         let dao = new classDAO();
         let query = await dao.updateSedeTipoTarifaServicio(data);

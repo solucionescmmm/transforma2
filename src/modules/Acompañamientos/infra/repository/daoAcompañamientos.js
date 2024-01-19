@@ -124,6 +124,7 @@ class daoAcompañamientos {
             Acompañamientos.intId,
             Acompañamientos.intIdIdea,
             Acompañamientos.intIdTipoAcompañamiento,
+            Acompañamientos.btFinalizado,
             Acompañamientos.dtmCreacion,
             Acompañamientos.strUsuarioCreacion,
             Acompañamientos.dtmActualizacion,
@@ -160,12 +161,16 @@ class daoAcompañamientos {
                 SesionesAcompañamientos.btFinalizado,
                 Servicios.strNombre as strNombreServicio,
                 Paquetes.strNombre as strNombrePaquete,
-                Actividad.strNombre as strTipoActividad
+                Actividad.strNombre as strTipoActividad,
+                Eventos.strNombre as strNombreEventos,
+                Rutas.strNombre as strNombreRuta
 
                 FROM tbl_Sesiones_Acompañamientos SesionesAcompañamientos
 
                 LEFT JOIN tbl_servicios Servicios ON Servicios.intId = SesionesAcompañamientos.intIdServicio
                 LEFT JOIN tbl_Paquetes Paquetes ON Paquetes.intId = SesionesAcompañamientos.intIdPaquete
+                LEFT JOIN tbl_EventosGrupales Eventos ON Eventos.intId = SesionesAcompañamientos.intIdEvento
+                LEFT JOIN tbl_Rutas Rutas ON Rutas.intId = SesionesAcompañamientos.intIdRuta
                 LEFT JOIN tbl_TipoActividad Actividad ON Actividad.intId = SesionesAcompañamientos.intIdTipoActividad
 
                 WHERE SesionesAcompañamientos.intIdAcompañamiento = Acompañamientos.intId
@@ -383,6 +388,38 @@ class daoAcompañamientos {
                 msg:
                     error.message ||
                     "Error en el metodo deleteAcompañamiento de la clase daoAcompañamientos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async sp_setFlujoAcompañamiento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn
+                .request()
+                .input("P_intIdIdea", sql.Int, data.intIdIdea)
+                .input("p_intIdEvento", sql.Int, data.intIdEvento)
+                .input("p_intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .input("intIdSedeTarifaServicio", sql.Int, data.intIdSedeTarifaServicio)
+                .execute("sp_setFlujoAcompañamiento");
+            
+            let result = {
+                error: false,
+                data: response.recordsets[0]
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo sp_setFlujoAcompañamiento de la clase daoAcompañamientos",
             };
 
             sql.close(conexion);

@@ -139,7 +139,7 @@ class daoEventos {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            let response = await conn.query`
+            await conn.query`
             DECLARE @intId INTEGER;
             
             INSERT INTO tbl_AsistentesEventos VALUES
@@ -149,6 +149,8 @@ class daoEventos {
                 ${data.intIdEmpresario},
                 ${data.intIdTercero},
                 ${data.intTipoEmpresario},
+                ${data.intIdSedeTarifaServicio},
+                ${data.ValorMatricula},
                 ${data.btFinalizoEvento}
             )
             SET @intId = SCOPE_IDENTITY();`;
@@ -179,7 +181,7 @@ class daoEventos {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
-            let response = await conn.query`
+            await conn.query`
             
             INSERT INTO tbl_AsistentesSesionesEventos VALUES
             (

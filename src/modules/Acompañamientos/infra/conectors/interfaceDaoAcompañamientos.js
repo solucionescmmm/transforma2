@@ -49,5 +49,11 @@ class interfaceDAOAcompañamientos {
         let result = await dao.deleteRutaAcompañamiento(data)
         return result
     }
+
+    async sp_setFlujoAcompañamiento(data) {
+        const dao = new classDaoSql()
+        let result = await dao.sp_setFlujoAcompañamiento(data)
+        return result
+    }
 }
 module.exports = interfaceDAOAcompañamientos
