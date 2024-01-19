@@ -32,8 +32,6 @@ import { Box } from "@mui/system";
 import { CircularProgress, Grid } from "@mui/material";
 import "chartjs-adapter-moment";
 
-
-
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -54,7 +52,6 @@ const CardGrafica = ({ intIdIdea, type }) => {
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
     const { token } = useContext(AuthContext);
-
 
     const getData = useCallback(
         async ({ signalSubmitData, intIdIdea }) => {
@@ -143,6 +140,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
             const ejeY = [];
 
             arrEtapaDllo?.forEach((v, i) => {
+                console.log(v)
                 ejeX.push({
                     x: parseISO(v.dtmCreacion),
                     y: v.intIdPuntaje,
@@ -170,6 +168,26 @@ const CardGrafica = ({ intIdIdea, type }) => {
                             },
                         },
                     ],
+                    y: {
+                        ticks: {
+                            beginAtZero: true,
+                            callback: (value, index, values) => {
+
+                                console.log(values)
+                                switch (value) {
+                                    case 2:
+                                        return "Fortalecimiento empresarial I";
+                                    case 4:
+                                        return "Desarrollo";
+                                    case 6:
+                                        return "Etiqueta para 6"; // Reemplaza con tu etiqueta
+                                    // Continúa para los demás valores
+                                    default:
+                                        return value;
+                                }
+                            },
+                        },
+                    },
                 },
             };
 
@@ -316,9 +334,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
 
     return (
         <Fragment>
-            <Grid container>
-                {fntRenderLine()}
-            </Grid>
+            <Grid container>{fntRenderLine()}</Grid>
         </Fragment>
     );
 };
