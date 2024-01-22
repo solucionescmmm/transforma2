@@ -251,7 +251,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
                                             <DeleteIcon
                                                 color={
                                                     rowData.btFinalizada ===
-                                                    true
+                                                    true || isPreview
                                                         ? "gray"
                                                         : "error"
                                                 }
@@ -263,7 +263,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
                                             handlerOpenModalDelete();
                                         },
                                         tooltip: "Eliminar",
-                                        disabled: rowData.btFinalizada === true,
+                                        disabled: rowData.btFinalizada === true || isPreview,
                                     };
                                 }
                             },
@@ -301,6 +301,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
                                                             handlerOpenModalCEdit();
                                                         }}
                                                         variant="contained"
+                                                        disabled={isPreview}
                                                     >
                                                         Matricular persona
                                                     </Button>

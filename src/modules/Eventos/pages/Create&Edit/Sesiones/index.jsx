@@ -277,29 +277,29 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                         actions={[
                             (rowData) => {
                                 if (ability.can("update", "Sesiones")) {
-                                    console.log(rowData)
                                     return {
                                         icon: () => (rowData.btFinalizado === true ? (
                                             <RemoveRedEyeIcon
                                                 color="gray"
-                                                fontSize="small" 
+                                                fontSize="small"
                                             />
                                         ) : (
                                             <EditIcon
                                                 color={
                                                     rowData.btFinalizada ===
-                                                        true
+                                                        true || isPreview
                                                         ? "gray"
                                                         : "success"
                                                 }
                                                 fontSize="small"
                                             />
                                         )),
-                                        tooltip: rowData.btFinalizado === true ? "Visualizar" :"Editar",
+                                        tooltip: rowData.btFinalizado === true ? "Visualizar" : "Editar",
                                         onClick: (event, rowData) => {
                                             setSelectedData(rowData);
                                             handlerOpenModalEdit();
                                         },
+                                        disabled: isPreview
                                     };
                                 }
                             },
@@ -309,14 +309,14 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                         icon: () => (
                                             <StopIcon
                                                 color={
-                                                    rowData.btFinalizado === true
+                                                    rowData.btFinalizado === true || isPreview
                                                         ? "gray"
                                                         : "error"
                                                 }
                                                 fontSize="small"
                                             />
                                         ),
-                                        disabled: rowData.btFinalizado === true ? true : false,
+                                        disabled: rowData.btFinalizado === true ? true : isPreview,
                                         onClick: (event, rowData) => {
                                             setSelectedData(rowData);
                                             handlerOpenModalFinalizacion();
@@ -332,14 +332,14 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                             <DeleteIcon
                                                 color={
                                                     rowData.btFinalizado ===
-                                                    true
+                                                        true || isPreview
                                                         ? "gray"
                                                         : "error"
                                                 }
                                                 fontSize="small"
                                             />
                                         ),
-                                        disabled: rowData.btFinalizado === true ? true : false,
+                                        disabled: rowData.btFinalizado === true ? true : isPreview,
                                         onClick: (event, rowData) => {
                                             setSelectedData(rowData);
                                             handlerOpenModalDelete();
@@ -349,7 +349,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                 }
                             },
                         ]}
-                        onRowClick={(e, rowData) => {}}
+                        onRowClick={(e, rowData) => { }}
                         components={{
                             Toolbar: (props) => (
                                 <div
@@ -382,6 +382,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                                             handlerOpenModalRegister();
                                                         }}
                                                         variant="contained"
+                                                        disabled={isPreview}
                                                     >
                                                         Agregar sesion
                                                     </Button>
