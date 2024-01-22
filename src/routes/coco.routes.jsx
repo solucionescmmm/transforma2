@@ -1559,7 +1559,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("ViewAcomp")}
+                            onClick={() => onChangeRoute("ViewAcomp", {
+                                ...route.params,
+                            })}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -1576,6 +1578,98 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                             intIdAcompañamiento={
                                 route.params.intIdAcompañamiento
                             }
+                            intId={route.params.intId}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("ViewAcomp")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
+    if (route.location === "EditSesion") {
+        return (
+            <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("ViewAcomp", {
+                                ...route.params,
+                            })}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <CUSesion
+                            isEdit
+                            {...route.params}
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdAcompañamiento={
+                                route.params.intIdAcompañamiento
+                            }
+                            values={route.params}
+                            intId={route.params.intId}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("ViewAcomp")}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
+    if (route.location === "PreviewSesion") {
+        return (
+            <TabPanel value="Acompañamientos" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => onChangeRoute("ViewAcomp", {
+                                ...route.params,
+                            })}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <CUSesion
+                            {...route.params}
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdAcompañamiento={
+                                route.params.intIdAcompañamiento
+                            }
+                            isPreview
+                            values={route.params}
                             intId={route.params.intId}
                         />
                     </Grid>

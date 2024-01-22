@@ -15,6 +15,7 @@ import Dropzone from "../../../../../common/components/dropzone";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { parseISO } from "date-fns";
 
 //Componentes de Material UI
 import {
@@ -87,7 +88,9 @@ const CUSesion = ({
     intIdServicio,
     intIdRuta,
     intIdFase,
+    values,
     onChangeRoute,
+    isPreview,
 }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
@@ -112,7 +115,6 @@ const CUSesion = ({
         intIdFase,
         objEmpresario: null,
         dtmFechaInicio: null,
-        dtmFechaFinal: null,
         intTipoAcomp: null,
         strLugarActividad: "",
         intTipoActividad: "",
@@ -144,7 +146,7 @@ const CUSesion = ({
         control,
         formState: { errors },
         handleSubmit,
-        // reset,
+        reset,
         setError,
         clearErrors,
     } = useForm({ mode: "onChange" });
@@ -173,13 +175,12 @@ const CUSesion = ({
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
-                            ? process.env
-                                  .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
-                            : process.env
-                                  .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET_SESION
-                    }`,
+                    url: `${isEdit
+                        ? process.env
+                            .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
+                        : process.env
+                            .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET_SESION
+                        }`,
                     data,
                     headers: {
                         token,
@@ -225,30 +226,45 @@ const CUSesion = ({
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
-    // useEffect(() => {
-    //     if (isEdit) {
-    //         setData({
-    //             ...values[0],
-    //             objInfoPrincipal: {
-    //                 ...values[0].objInfoPrincipal,
-    //                 intEstado: values[0].intIdEstadoRuta,
-    //             },
-    //         });
-    //     }
-    // }, [isEdit]);
 
-    // useEffect(() => {
-    //     if (values) {
-    //         setData(values[0]);
-    //         reset(values[0]);
-    //     }
-    // }, [values]);
+    useEffect(() => {
+        console.log(values)
+        if (values) {
+            setData({
+                objEmpresario: values.objEmpresario || null,
+                dtmFechaInicio: values.dtmFechaInicio ? parseISO(values?.dtmFechaInicio) : null,
+                intTipoAcomp: values.intTipoAcomp || null,
+                strLugarActividad: values.strUbicacion || "",
+                intTipoActividad: values.intIdTipoActividad || "",
+                objResponsable: values.strResponsables || null,
+                strObjetivoActividad: values.strObjetivoActividad || "",
+                strActividades: values.strTemasActividades || "",
+                dtmFechaProx: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
+                strRetroAlim: values.strObservaciones || "",
+                strURLDocumento: values.strURLDocumento || "",
+            });
 
-    // useEffect(() => {
-    //     if (isEdit) {
-    //         reset(data);
-    //     }
-    // }, [data, reset, isEdit]);
+            reset({
+                objEmpresario: values.objEmpresario || null,
+                dtmFechaInicio: values.dtmFechaInicio ? parseISO(values?.dtmFechaInicio) : null,
+                intTipoAcomp: values.intTipoAcomp || null,
+                strLugarActividad: values.strUbicacion || "",
+                intTipoActividad: values.intIdTipoActividad || "",
+                objResponsable: values.strResponsables || null,
+                strObjetivoActividad: values.strObjetivoActividad || "",
+                strActividades: values.strTemasActividades || "",
+                dtmFechaProx: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
+                strRetroAlim: values.strObservaciones || "",
+                strURLDocumento: values.strURLDocumento || "",
+            });
+        }
+    }, [values]);
+
+    useEffect(() => {
+        if (isEdit|| isPreview) {
+            reset(data);
+        }
+    }, [data, reset, isEdit, isPreview]);
 
     useEffect(() => {
         if (dataRutas?.length) {
@@ -299,7 +315,7 @@ const CUSesion = ({
         );
     }
 
-    if (isEdit || !dataRutas) {
+    if (isEdit && !values) {
         return <Loader />;
     }
 
@@ -354,7 +370,9 @@ const CUSesion = ({
                                             >
                                                 {isEdit
                                                     ? "EDITAR SESIÓN"
-                                                    : "REGISTRAR SESIÓN"}
+                                                    : isPreview
+                                                        ? "PREVISUALIZAR SESIÓN"
+                                                        : "REGISTRAR SESIÓN"}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -369,7 +387,7 @@ const CUSesion = ({
 
                                 <Grid item xs={12} md={6}>
                                     <Controller
-                                        defaultValue={data.objEmpresario}
+                                        defaultValue={data?.objEmpresario}
                                         name="objEmpresario"
                                         render={({
                                             field: { name, onChange, value },
@@ -384,7 +402,7 @@ const CUSesion = ({
                                                     "selecciona el empresario"
                                                 }
                                                 error={!!errors?.objEmpresario}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 onChange={(_, value) =>
                                                     onChange(value)
@@ -413,7 +431,7 @@ const CUSesion = ({
                                                 onChange={(date) =>
                                                     onChange(date)
                                                 }
-                                                format="dd/MM/yyyy hh:ss"
+                                                format="dd/MM/yyyy H:mm"
                                                 ampm
                                                 slotProps={{
                                                     textField: {
@@ -428,7 +446,7 @@ const CUSesion = ({
                                                         fullWidth: true,
                                                     },
                                                 }}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                             />
                                         )}
                                         control={control}
@@ -452,7 +470,7 @@ const CUSesion = ({
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 error={
                                                     !!errors?.strLugarActividad
@@ -486,7 +504,7 @@ const CUSesion = ({
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 error={
                                                     !!errors?.intTipoActividad
@@ -520,7 +538,7 @@ const CUSesion = ({
                                                 onChange={(_, value) =>
                                                     onChange(value)
                                                 }
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 error={!!errors?.objResponsable}
                                                 helperText={
@@ -551,7 +569,7 @@ const CUSesion = ({
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 required
                                                 error={!!errors?.strActividades}
                                                 helperText={
@@ -585,9 +603,9 @@ const CUSesion = ({
                                                 onChange={(date) =>
                                                     onChange(date)
                                                 }
-                                                format="dd/MM/yyyy hh:ss"
+                                                format="dd/MM/yyyy H:mm"
                                                 ampm
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 slotProps={{
                                                     textField: {
                                                         name,
@@ -623,7 +641,7 @@ const CUSesion = ({
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 error={!!errors?.strRetroAlim}
                                                 helperText={
                                                     errors?.strRetroAlim
@@ -655,7 +673,7 @@ const CUSesion = ({
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <ReadTareas intIdIdea={intIdIdea} inModal />
+                                    <ReadTareas intIdIdea={intIdIdea} inModal disabled={loading || isPreview} />
                                 </Grid>
 
                                 <Grid item xs={12}>
@@ -680,7 +698,7 @@ const CUSesion = ({
                                                 label="Documento"
                                                 name={name}
                                                 value={value}
-                                                disabled={loading}
+                                                disabled={loading || isPreview}
                                                 onChange={(url) =>
                                                     onChange(url)
                                                 }
@@ -706,7 +724,7 @@ const CUSesion = ({
                                     />
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                {/* <Grid item xs={12}>
                                     <Typography
                                         style={{
                                             fontWeight: "bold",
@@ -715,72 +733,6 @@ const CUSesion = ({
                                         Información adicional
                                     </Typography>
                                     <hr />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Controller
-                                        defaultValue={data.bitFinalizarSesion}
-                                        name="bitFinalizarSesion"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <TextField
-                                                label="¿Desea finalizar la sesión?"
-                                                variant="standard"
-                                                name={name}
-                                                value={value}
-                                                onChange={(e) => onChange(e)}
-                                                disabled={loading}
-                                                helperText={
-                                                    "Selecciona una opción"
-                                                }
-                                                fullWidth
-                                                select
-                                            >
-                                                <MenuItem value={true}>
-                                                    Sí
-                                                </MenuItem>
-                                                <MenuItem value={false}>
-                                                    No
-                                                </MenuItem>
-                                            </TextField>
-                                        )}
-                                        control={control}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Controller
-                                        defaultValue={
-                                            data.objObjetivos.bitFinalizaServ
-                                        }
-                                        name="objObjetivos.bitFinalizaServ"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
-                                            <TextField
-                                                label="¿Desea finalizar el servicio?"
-                                                variant="standard"
-                                                name={name}
-                                                value={value}
-                                                onChange={(e) => onChange(e)}
-                                                disabled={loading}
-                                                helperText={
-                                                    "Selecciona una opción"
-                                                }
-                                                fullWidth
-                                                select
-                                            >
-                                                <MenuItem value={true}>
-                                                    Sí
-                                                </MenuItem>
-                                                <MenuItem value={false}>
-                                                    No
-                                                </MenuItem>
-                                            </TextField>
-                                        )}
-                                        control={control}
-                                    />
                                 </Grid>
 
                                 {dataObj.map((x) => (
@@ -814,7 +766,7 @@ const CUSesion = ({
                                                             onChange={(e) =>
                                                                 onChange(e)
                                                             }
-                                                            disabled={loading}
+                                                            disabled={loading || isPreview}
                                                             helperText={
                                                                 "Selecciona una opción"
                                                             }
@@ -855,7 +807,7 @@ const CUSesion = ({
                                                         onChange={(e) =>
                                                             onChange(e)
                                                         }
-                                                        disabled={loading}
+                                                        disabled={loading || isPreview}
                                                         helperText={
                                                             "Describe brevemente el motivo"
                                                         }
@@ -868,25 +820,27 @@ const CUSesion = ({
                                             />
                                         </Grid>
                                     </Fragment>
-                                ))}
+                                ))} */}
 
-                                <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "row-reverse",
-                                            gap: 1,
-                                        }}
-                                    >
-                                        <LoadingButton
-                                            variant="contained"
-                                            type="submit"
-                                            loading={loading}
+                                {isPreview ? null : (
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row-reverse",
+                                                gap: 1,
+                                            }}
                                         >
-                                            {isEdit ? "guardar" : "registrar"}
-                                        </LoadingButton>
-                                    </Box>
-                                </Grid>
+                                            <LoadingButton
+                                                variant="contained"
+                                                type="submit"
+                                                loading={loading}
+                                            >
+                                                {isEdit ? "guardar" : "registrar"}
+                                            </LoadingButton>
+                                        </Box>
+                                    </Grid>
+                                )}
                             </Grid>
                         </Paper>
                     </Container>

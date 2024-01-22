@@ -133,7 +133,7 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     disabled={disabled}
-                                    format="dd/MM/yyyy hh:ss"
+                                    format="dd/MM/yyyy H:mm"
                                     ampm
                                     renderInput={(props) => (
                                         <TextField

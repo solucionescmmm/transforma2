@@ -101,9 +101,10 @@ const SelectTipoAcomp = ({
             select
         >
             {data.map((e, i) => (
-                <MenuItem value={e.intId} key={i}>
-                    {e.strNombre}
-                </MenuItem>
+                e.strNombre !== "Asociado a un evento" ?
+                    <MenuItem value={e.intId} key={i}>
+                        {e.strNombre}
+                    </MenuItem> : null
             ))}
         </TextField>
     );

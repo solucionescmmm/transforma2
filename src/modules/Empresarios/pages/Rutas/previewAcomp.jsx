@@ -19,6 +19,8 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
+    RemoveRedEye as RemoveRedEyeIcon,
+    Cancel as CancelIcon,
 } from "@mui/icons-material";
 import useGetAcomp from "../../hooks/useGetAcomp";
 
@@ -48,6 +50,16 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
             type: "string",
         },
         {
+            title: "Rutas",
+            field: "strNombreRuta",
+            type: "string",
+        },
+        {
+            title: "Evento",
+            field: "strNombreEventos",
+            type: "string",
+        },
+        {
             title: "Fecha de creación",
             field: "dtmCreacion",
             type: "date",
@@ -59,18 +71,21 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     useEffect(() => {
         if (values?.[0]?.arrSesionAcompañamiento?.length > 0) {
-            console.log(values);
+            //console.log(values);
             const arrDataTable = [];
 
             for (let i = 0; i < values[0].arrSesionAcompañamiento.length; i++) {
                 const data = values[0].arrSesionAcompañamiento[i];
 
                 arrDataTable.push({
+                    ...data,
                     intId: data.intId,
                     intIdServicio: data.intIdServicio,
                     intIdRuta: data.intIdRuta,
                     intIdFase: data.intIdFase,
                     strNombreServicio: data.strNombreServicio,
+                    strNombreEventos: data.strNombreEventos,
+                    strNombreRuta: data.strNombreRuta,
                     dtmCreacion: data.dtmCreacion,
                     objInfoPrincipal: values[0].objInfoPrincipal,
                 });
@@ -86,6 +101,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                 strTipoAcompañamiento:
                     values[0].objInfoPrincipal.strTipoAcompañamiento,
                 strUbicacion: values[0].objInfoPrincipal.strUbicacion,
+                btFinalizado: values[0].objInfoPrincipal.btFinalizado,
                 strResponsables:
                     values[0].objInfoPrincipal.strResponsables.strNombre,
                 dtmCreacion: values[0].objInfoPrincipal.dtmCreacion,
@@ -210,6 +226,69 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                             pageSize: 5,
                             maxBodyHeight: "520px",
                         }}
+                        actions={[
+                            (rowData) => {
+                                if (rowData?.btFinalizado) {
+                                    return {
+                                        icon: () => (
+                                            <RemoveRedEyeIcon
+                                                color="gray"
+                                                fontSize="small"
+                                            />
+                                        ),
+                                        tooltip: "Previsualizar",
+                                        onClick: (event, rowData) => {
+                                            console.log(rowData)
+                                            onChangeRoute("PreviewSesion", {
+                                                intIdAcompañamiento:
+                                                    rowData
+                                                        ?.objInfoPrincipal
+                                                        ?.intId,
+                                                intIdIdea,
+                                                ...rowData,
+                                            });
+                                        },
+                                    };
+                                }else{
+                                    return {
+                                        icon: () => (
+                                            <EditIcon
+                                                color="success"
+                                                fontSize="small"
+                                            />
+                                        ),
+                                        tooltip: "Editar",
+                                        onClick: (event, rowData) => {
+                                            console.log(rowData)
+                                            onChangeRoute("EditSesion", {
+                                                intIdAcompañamiento:
+                                                    rowData
+                                                        ?.objInfoPrincipal
+                                                        ?.intId,
+                                                intIdIdea,
+                                                ...rowData,
+                                            });
+                                        },
+                                    };
+                                }
+                            },
+                            (rowData) => {
+                                if (!rowData?.btFinalizado) {
+                                    return {
+                                        icon: () => (
+                                            <CancelIcon
+                                                color="error"
+                                                fontSize="small"
+                                            />
+                                        ),
+                                        tooltip: "Finalizar",
+                                        onClick: (event, rowData) => {
+                                            console.log(rowData)
+                                        },
+                                    };
+                                }
+                            },
+                        ]}
                         components={{
                             Toolbar: (props) => (
                                 <div
@@ -251,6 +330,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                                                             }
                                                         )
                                                     }
+                                                    disabled={dataValues?.btFinalizado}
                                                     variant="contained"
                                                 >
                                                     Agregar sesión
