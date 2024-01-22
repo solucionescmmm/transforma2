@@ -63,7 +63,8 @@
         "socket.io-client": "^4.2.0",
         "string-type-convertor": "^1.2.0",
         "validator": "^13.6.0",
-        "web-vitals": "^1.1.2"
+        "web-vitals": "^1.1.2",
+        "yoga-layout": "^2.0.1"
     },
     "overrides": {
         "@react-pdf/font": "2.2.0"
