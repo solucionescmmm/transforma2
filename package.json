@@ -68,7 +68,8 @@
         "yoga-layout": "^2.0.1"
     },
     "overrides": {
-        "@react-pdf/font": "2.2.0"
+        "@react-pdf/font": "2.2.0",
+        "@react-pdf/pdfkit": "2.1.0"
     },
     "scripts": {
         "start:dev": "env-cmd -f .env.development react-scripts start",
