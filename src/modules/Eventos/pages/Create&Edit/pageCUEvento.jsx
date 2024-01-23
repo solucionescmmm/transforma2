@@ -173,9 +173,9 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                     url: `${
                         isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_EVENTOS_UPDATE
+                                .REACT_APP_API_TRANSFORMA_EVENTOS_UPDATE
                             : process.env.REACT_APP_API_TRANSFORMA_EVENTOS_SET
-                    }`,
+                        }`,
                     data,
                     headers: {
                         token,
@@ -327,8 +327,8 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                         {isEdit
                             ? "Edición"
                             : isPreview
-                            ? "Previsualizar"
-                            : "Registro"}
+                                ? "Previsualizar"
+                                : "Registro"}
                     </Typography>
                 </Breadcrumbs>
             </Grid>
@@ -387,8 +387,8 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                             {isEdit
                                                 ? "EDITAR EVENTO"
                                                 : isPreview
-                                                ? "PREVISUALIZAR EVENTO"
-                                                : "REGISTRAR EVENTO"}
+                                                    ? "PREVISUALIZAR EVENTO"
+                                                    : "REGISTRAR EVENTO"}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -765,7 +765,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                 </Grid>
                             )}
 
-                            <Can I="create" a="Eventos">
+                            {isPreview ? null : (<Can I="create" a="Eventos">
                                 <Grid item xs={12}>
                                     <Box
                                         sx={{
@@ -782,7 +782,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                         </LoadingButton>
                                     </Box>
                                 </Grid>
-                            </Can>
+                            </Can>)}
                         </Grid>
                     </Paper>
                 </Container>
