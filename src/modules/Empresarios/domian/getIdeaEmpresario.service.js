@@ -47,6 +47,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
 
                 objEmpresario.push({
                     ...dataEmpresarioPrincipal,
+                    strNombreCompleto: `${dataEmpresarioPrincipal?.strNombres} ${dataEmpresarioPrincipal?.strApellidos}`,
                     arrDepartamento: JSON.parse(dataEmpresarioPrincipal?.strDepartamento || null),
                     arrCiudad: JSON.parse(dataEmpresarioPrincipal?.strCiudad || null),
                     strSede: dataEmpresarioPrincipal?.strNombreSedes,
@@ -63,6 +64,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                     if (arrayEmpresario[j].strTipoEmpresario !== "Principal") {
                         objEmpresario.push({
                             ...arrayEmpresario[j],
+                            strNombreCompleto: `${arrayEmpresario[j]?.strNombres} ${arrayEmpresario[j]?.strApellidos}`,
                             arrDepartamento: JSON.parse(arrayEmpresario[j]?.strDepartamento || null),
                             arrCiudad: JSON.parse(arrayEmpresario[j]?.strCiudad || null),
                             strSede: arrayEmpresario[j]?.strNombreSedes,
