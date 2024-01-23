@@ -81,34 +81,23 @@ const ReadSolicitudesUser = () => {
                             ?.filter((p) => p.strTipoEmpresario === "Principal")
                             ?.at(0)?.strApellidos
                     }
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${
-                        process.env.REACT_APP_API_BACK_HOST
-                    }${process.env.REACT_APP_API_BACK_PORT}${
-                        rowData.objEmpresario
+                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
+                        }${process.env.REACT_APP_API_BACK_PORT}${rowData.objEmpresario
                             .filter((p) => p.strTipoEmpresario === "Principal")
                             ?.at(0)?.strUrlFileFoto
-                    }`}
+                        }`}
                 />
             ),
             width: "0%",
         },
         {
             title: "Representante",
-            render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strNombres +
-                " " +
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strApellidos,
+            field: "objEmpresario[0].strNombreCompleto",
+            type: "string",
         },
         {
             title: "Documento del representante",
-            render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strNroDocto,
+            field: "objEmpresario[0].strNroDocto",
             type: "string",
         },
         {
@@ -118,26 +107,17 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Sede",
-            render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strSede,
+            field: "objEmpresario[0].strSede",
             type: "string",
         },
         {
             title: "Fecha de registro",
-            render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.dtFechaVinculacion,
+            field: "objEmpresario[0].dtFechaVinculacion",
             type: "date",
         },
         {
             title: "Estado Vinculación",
-            render: (rowData) =>
-                rowData.objEmpresario
-                    .filter((p) => p.strTipoEmpresario === "Principal")
-                    ?.at(0)?.strEstadoVinculacion,
+            field: "objEmpresario[0].strEstadoVinculacion",
             type: "string",
         },
     ]);
