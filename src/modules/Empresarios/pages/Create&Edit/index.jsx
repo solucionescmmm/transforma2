@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef, useState } from "react";
 import {
     Alert,
     Avatar,
@@ -21,14 +22,15 @@ import {
 } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
-import { useEffect, useRef, useState } from "react";
 
+//Librerias
+import { parseISO } from "date-fns";
+import { Controller, useForm } from "react-hook-form";
 // Componentes
 import CUEmpresario from "./pageCUEmpresario";
 import useGetEmpresarios from "../../../../common/hooks/useGetEmpresarios";
 import axios from "axios";
 import PageError from "../../../../common/components/Error";
-import { parseISO } from "date-fns";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -82,15 +84,25 @@ const SearchEmpresario = ({ isEdit }) => {
     const [loadingGetData, setLoadingGetData] = useState(false);
 
     //===============================================================================================================================================
+    //========================================== Hooks personalizados ===============================================================================
+    //===============================================================================================================================================
+
+    const { goBack } = useHistory();
+    const {
+        control,
+        formState: { errors },
+        handleSubmit,
+    } = useForm({ mode: "onChange" });
+
+    //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = styles();
 
-    const { goBack } = useHistory();
+    const onSubmit = (data) => {
+        setDocumento(data.documento);
 
-    const handleChangeDocumento = (value) => {
-        setSendData();
-        setDocumento(value);
+        setFlagGetData(true);
     };
 
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
@@ -101,7 +113,7 @@ const SearchEmpresario = ({ isEdit }) => {
         setLoadingGetData(true);
 
         await refFntGetData
-            .current({ strDocumento: sendData })
+            .current({ strDocumento: documento })
             .then((res) => {
                 if (res.data.error) {
                     throw new Error(res.data.msg);
@@ -126,14 +138,14 @@ const SearchEmpresario = ({ isEdit }) => {
                             dtFechaExpedicionDocto:
                                 objEmprPrincipal.dtFechaExpedicionDocto
                                     ? parseISO(
-                                          objEmprPrincipal.dtFechaExpedicionDocto
-                                      )
+                                        objEmprPrincipal.dtFechaExpedicionDocto
+                                    )
                                     : null,
                             dtFechaNacimiento:
                                 objEmprPrincipal.dtFechaNacimiento
                                     ? parseISO(
-                                          objEmprPrincipal.dtFechaNacimiento
-                                      )
+                                        objEmprPrincipal.dtFechaNacimiento
+                                    )
                                     : null,
                             strGenero: objEmprPrincipal.strGenero || "",
                             strCelular1: objEmprPrincipal.strCelular1 || objEmprPrincipal.strCelular || "",
@@ -165,7 +177,7 @@ const SearchEmpresario = ({ isEdit }) => {
                 } else {
                     setData();
                     setSendData(false);
-                    
+
                 }
 
                 setBitBuscar(true);
@@ -277,6 +289,9 @@ const SearchEmpresario = ({ isEdit }) => {
                             container
                             direction="row"
                             spacing={2}
+                            component="form"
+                            onSubmit={handleSubmit(onSubmit)}
+                            noValidate
                             style={{ padding: "25px" }}
                         >
                             <Grid item xs={12}>
@@ -307,18 +322,43 @@ const SearchEmpresario = ({ isEdit }) => {
                             </Grid>
 
                             <Grid item xs={9} md={11}>
-                                <TextField
+                                <Controller
+                                    defaultValue={documento}
                                     name="documento"
-                                    label="Documento"
-                                    helperText="Digita el documento de la persona"
-                                    fullWidth
-                                    variant="standard"
-                                    value={documento}
-                                    disabled={loadingGetData}
-                                    onChange={(e) =>{
-                                        handleChangeDocumento(e.target.value)
-                                        setBitBuscar(false);
-                                        setData()
+                                    render={({ field: { name, value, onChange } }) => (
+                                        <TextField
+                                            label="Número de documento"
+                                            name={name}
+                                            value={value.trim()}
+                                            onChange={(e) => {
+                                                onChange(e)
+                                                setBitBuscar(false)
+                                                setData()
+                                            }}
+                                            required
+                                            fullWidth
+                                            variant="standard"
+                                            error={
+                                                errors?.documento
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.documento
+                                                    ?.message ||
+                                                "Digita el número de documento"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, digita el número de documento",
+                                        validate: (value) => {
+                                            if (value === " ") {
+                                                return "Por favor, digita el número de documento";
+                                            }
+                                        },
                                     }}
                                 />
                             </Grid>
@@ -329,11 +369,8 @@ const SearchEmpresario = ({ isEdit }) => {
                                     size="small"
                                     style={{ marginTop: "15px" }}
                                     fullWidth
+                                    type="submit"
                                     disabled={loadingGetData}
-                                    onClick={() => {
-                                        setSendData(documento);
-                                        setFlagGetData(true);
-                                    }}
                                 >
                                     Buscar
                                 </Button>
@@ -460,12 +497,12 @@ const SearchEmpresario = ({ isEdit }) => {
                                     </Alert>
                                 )}
 
-                                {!data && sendData === false && documento && (
+                                {!data && sendData === false && !loadingGetData&& (
                                     <Alert severity="info">
                                         No se ha encontrado registros asociados
                                         al documento digitado
                                     </Alert>
-                                )}
+                                )} 
 
                                 <div style={{ width: "500px" }}></div>
                             </Grid>
@@ -480,13 +517,12 @@ const SearchEmpresario = ({ isEdit }) => {
                                     >
                                         <Button
                                             variant="contained"
-                                            type="submit"
                                             disabled={loadingGetData}
                                             onClick={() => {
                                                 setHiddenSearch(true)
                                                 setData({
                                                     objInfoEmpresarioPr: {
-                                                        ...data.objInfoEmpresarioPr,
+                                                        ...data?.objInfoEmpresarioPr,
                                                         strNroDocto: documento,
                                                     },
                                                 });
