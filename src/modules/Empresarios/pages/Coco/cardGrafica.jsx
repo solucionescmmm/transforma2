@@ -151,6 +151,50 @@ const CardGrafica = ({ intIdIdea, type }) => {
 
             const options = {
                 responsive: true,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function (tooltipItem, data) {
+                                return "Etapa de desarrollo en el que se encuentra";
+                            },
+                            label: function (tooltipItem) {
+                                let y =
+                                    tooltipItem.dataset.data[
+                                        tooltipItem.datasetIndex
+                                    ].y || "";
+
+                                const fntValue = (y) => {
+                                    switch (y) {
+                                        case 1:
+                                            return "Validación comercial";
+                                        case 2:
+                                            return "Nuevo empresario";
+                                        case 3:
+                                            return "Fortalecimiento empresarial I";
+                                        case 4:
+                                            return "Fortalecimiento empresarial II";
+                                        case 5:
+                                            return "Consolidación";
+                                        case 6:
+                                            return "Escalamiento";
+                                        case 7:
+                                            return "Expansion";
+                                        default:
+                                            return y;
+                                    }
+                                };
+
+                                let label = fntValue(y);
+
+                                if (label) {
+                                    label += ": " + y;
+                                }
+
+                                return label;
+                            },
+                        },
+                    },
+                },
                 scales: {
                     xAxes: [
                         {
@@ -168,32 +212,32 @@ const CardGrafica = ({ intIdIdea, type }) => {
                             },
                         },
                     ],
-                    y: {
-                        ticks: {
-                            beginAtZero: true,
-                            callback: (value, index, values) => {
-                                console.log(values);
-                                switch (value) {
-                                    case 1:
-                                        return "Validación comercial";
-                                    case 2:
-                                        return "Nuevo empresario";
-                                    case 3:
-                                        return "Fortalecimiento empresarial I";
-                                    case 4:
-                                        return "Fortalecimiento empresarial II";
-                                    case 5:
-                                        return "Consolidación";
-                                    case 6:
-                                        return "Escalamiento";
-                                    case 7:
-                                        return "Expansion";
-                                    default:
-                                        return value;
-                                }
-                            },
-                        },
-                    },
+                    // y: {
+                    //     ticks: {
+                    //         beginAtZero: true,
+                    //         callback: (value, index, values) => {
+                    //             console.log(values);
+                    //             switch (value) {
+                    //                 case 1:
+                    //                     return "Validación comercial";
+                    //                 case 2:
+                    //                     return "Nuevo empresario";
+                    //                 case 3:
+                    //                     return "Fortalecimiento empresarial I";
+                    //                 case 4:
+                    //                     return "Fortalecimiento empresarial II";
+                    //                 case 5:
+                    //                     return "Consolidación";
+                    //                 case 6:
+                    //                     return "Escalamiento";
+                    //                 case 7:
+                    //                     return "Expansion";
+                    //                 default:
+                    //                     return value;
+                    //             }
+                    //         },
+                    //     },
+                    // },
                 },
             };
 
