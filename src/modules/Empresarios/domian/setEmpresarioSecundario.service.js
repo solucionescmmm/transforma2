@@ -23,8 +23,8 @@ class setEmpresarioSecundario {
     constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
-        if (this.#objData.btExiste === true) {
-            this.#intIdEmpresario = this.#objData.objEmpresario.intId;
+        if (this.#objData.intIdEmpresario) {
+            this.#intIdEmpresario = this.#objData.intIdEmpresario;
         }
     }
 
@@ -32,7 +32,7 @@ class setEmpresarioSecundario {
         await this.#getIdTipoEmpresario();
         await this.#getIdEstado();
         await this.#validations();
-        if (this.#objData.btExiste === true) {
+        if (this.#objData.intIdEmpresario) {
             await this.#setIdeaEmpresario();
             this.#objResult = {
                 error: false,
@@ -56,36 +56,6 @@ class setEmpresarioSecundario {
             throw new Error(
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
-        }
-        if (this.#objData.btExiste === false) {
-            let dao = new classInterfaceDAOEmpresarios();
-            let queryGetNroDoctoEmpresario =
-                await dao.getNroDocumentoEmpresario({
-                    strNroDocto: this.#objData.strNroDocto,
-                });
-
-            if (queryGetNroDoctoEmpresario.data) {
-                throw new Error(
-                    `Este número de documento ${queryGetNroDoctoEmpresario.data.strNroDocto}, ya exite y esta asociado a un Interesado`
-                );
-            }
-        }
-
-        if (this.#objData.btExiste === true) {
-            let dao = new classInterfaceDAOEmpresarios();
-            let queryGetEmpresarioIdea = await dao.getEmpresarioIdea({
-                intId: this.#objData.intIdIdea,
-            });
-
-            let array = queryGetEmpresarioIdea.data;
-
-            for (let i = 0; i < array.length; i++) {
-                if (array[i].intIdEmpresario === this.#intIdEmpresario && this.#intIdEstado === array[i].intIdEstado) {
-                    throw new Error(
-                        `Este empresario ya esta registrado en esta idea.`
-                    );
-                }
-            }
         }
     }
 
