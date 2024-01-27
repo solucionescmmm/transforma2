@@ -303,7 +303,7 @@ const InfoGeneral = ({
                                     label="Responsable de actualizar la información"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
+                                    disabled
                                     onChange={(e, value) => onChange(value)}
                                     fullWidth
                                     variant="standard"

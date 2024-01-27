@@ -1,3 +1,11 @@
+import React, {
+    Fragment,
+    useCallback,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
+
 import {
     Container,
     Grid,
@@ -7,20 +15,13 @@ import {
     Typography,
     TextField,
     MenuItem,
+    Button
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { DatePicker } from "@mui/x-date-pickers";
 
 import validator from "validator";
 import { format, parseISO } from "date-fns";
-
-import React, {
-    Fragment,
-    useCallback,
-    useContext,
-    useEffect,
-    useState,
-} from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AuthContext } from "../../../../common/middlewares/Auth";
 import axios from "axios";
@@ -79,7 +80,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
+const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -105,7 +106,6 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         btExiste: "",
-        objEmpresario: null,
         intIdEmpresario: "",
         intIdTipoEmpresario: "",
         intIdIdea: intId,
@@ -133,8 +133,6 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
         strDireccionResidencia: "",
         strURLFileFoto: "",
     });
-
-    const watchbtExiste = watch("btExiste");
 
     const handlerChangeData = (name, value) => {
         setData((prevState) => ({
@@ -173,13 +171,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
-                            ? process.env
-                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATE_SECUNDARIOS
-                            : process.env
-                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
-                    }`,
+                    url: `${isEdit
+                        ? process.env
+                            .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATE_SECUNDARIOS
+                        : process.env
+                            .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
+                        }`,
                     data,
                     transformRequest: [
                         (data) => {
@@ -188,15 +185,15 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                 dtFechaExpedicionDocto:
                                     data.dtFechaExpedicionDocto
                                         ? format(
-                                              data.dtFechaExpedicionDocto,
-                                              "yyyy-MM-dd"
-                                          )
+                                            data.dtFechaExpedicionDocto,
+                                            "yyyy-MM-dd"
+                                        )
                                         : null,
                                 dtFechaNacimiento: data.dtFechaExpedicionDocto
                                     ? format(
-                                          data.dtFechaNacimiento,
-                                          "yyyy-MM-dd"
-                                      )
+                                        data.dtFechaNacimiento,
+                                        "yyyy-MM-dd"
+                                    )
                                     : null,
                             };
 
@@ -245,10 +242,9 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
     );
 
     useEffect(() => {
-        if (isEdit && values) {
+        if (isEdit || values) {
             setData({
                 btExiste: false,
-                objEmpresario: null,
                 intIdEmpresario: values.intId || "",
                 intIdTipoEmpresario: values.intIdTipoEmpresario || "",
                 intIdIdea: intId,
@@ -258,12 +254,38 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                 strTipoDocto: values.strTipoDocto || "",
                 strNroDocto: values.strNroDocto || "",
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || null,
-                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto
-                    ? parseISO(values.dtFechaExpedicionDocto)
-                    : null,
-                dtFechaNacimiento: values.dtFechaNacimiento
-                    ? parseISO(values.dtFechaNacimiento)
-                    : null,
+                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto,
+                dtFechaNacimiento: values.dtFechaNacimiento,
+                strGenero: values.strGenero || "",
+                strCelular1: values.strCelular1 || "",
+                strCelular2: values.strCelular2 || "",
+                strCorreoElectronico1: values.strCorreoElectronico1 || "",
+                strCorreoElectronico2: values.strCorreoElectronico2 || "",
+                strNivelEducativo: values.strNivelEducativo || "",
+                strTitulos: values.strTitulos || "",
+                strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
+                btPerfilSensible: values.btPerfilSensible,
+                strEstrato: values.strEstrato || "",
+                arrDepartamento: values.arrDepartamento || [],
+                arrCiudad: values.arrCiudad || [],
+                strBarrio: values.strBarrio || "",
+                strDireccionResidencia: values.strDireccionResidencia || "",
+                strURLFileFoto: values.strUrlFileFoto || "",
+            });
+
+            reset({
+                btExiste: false,
+                intIdEmpresario: values.intId || "",
+                intIdTipoEmpresario: values.intIdTipoEmpresario || "",
+                intIdIdea: intId,
+                strTipoRelacion: values.strTipoRelacion || "",
+                strNombres: values.strNombres || "",
+                strApellidos: values.strApellidos || "",
+                strTipoDocto: values.strTipoDocto || "",
+                strNroDocto: values.strNroDocto || "",
+                strLugarExpedicionDocto: values.strLugarExpedicionDocto || null,
+                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto,
+                dtFechaNacimiento: values.dtFechaNacimiento,
                 strGenero: values.strGenero || "",
                 strCelular1: values.strCelular1 || "",
                 strCelular2: values.strCelular2 || "",
@@ -357,81 +379,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                         </Typography>
                     </Grid>
 
-                    {!isEdit && (
-                        <Fragment>
-                            <Grid item xs={12}>
-                                <Controller
-                                    defaultValue={data.btExiste}
-                                    name="btExiste"
-                                    render={({
-                                        field: { name, value, onChange },
-                                    }) => (
-                                        <TextField
-                                            label="¿La persona ya se encuentra registrada?"
-                                            name={name}
-                                            value={value}
-                                            onChange={(e) => onChange(e)}
-                                            required
-                                            disabled={loading}
-                                            fullWidth
-                                            variant="standard"
-                                            error={
-                                                errors?.strNombres
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.strNombres?.message ||
-                                                "Selecciona una opción para buscar y seleccionar una persona existente"
-                                            }
-                                            select
-                                        >
-                                            <MenuItem value={true}>Sí</MenuItem>
-                                            <MenuItem value={false}>
-                                                No
-                                            </MenuItem>
-                                        </TextField>
-                                    )}
-                                    control={control}
-                                />
-                            </Grid>
-                        </Fragment>
-                    )}
-
-                    {(data.btExiste || watchbtExiste) === true && (
-                        <Grid item xs={12}>
-                            <Controller
-                                defaultValue={data.objEmpresario}
-                                name="objEmpresario"
-                                control={control}
-                                render={({
-                                    field: { name, value, onChange },
-                                }) => (
-                                    <DropdownEmpresarios
-                                        label="Persona empresaria"
-                                        disabled={loading}
-                                        name={name}
-                                        value={value}
-                                        onChange={(target, values) => {
-                                            onChange(values);
-                                        }}
-                                        required
-                                        helperText={
-                                            errors?.objEmpresario?.message ||
-                                            "Selecciona una persona"
-                                        }
-                                        error={!!errors?.objEmpresario}
-                                    />
-                                )}
-                                rules={{
-                                    required:
-                                        "Por favor selecciona a una persona",
-                                }}
-                            />
-                        </Grid>
-                    )}
-
-                    {(data.btExiste || watchbtExiste) === false && (
+                    {!data.btExiste && (
                         <Fragment>
                             <Grid item xs={12}>
                                 <Controller
@@ -601,7 +549,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                                             value={value}
                                             onChange={(e) => onChange(e)}
                                             required
-                                            disabled={loading}
+                                            disabled
                                             fullWidth
                                             variant="standard"
                                             error={
@@ -1303,6 +1251,14 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute }) => {
                             >
                                 {isEdit ? "guardar" : "registrar"}
                             </LoadingButton>
+
+
+                            <Button
+
+                                onClick={() => resetSearch(false)}
+                            >
+                                Nueva busqueda
+                            </Button>
                         </Box>
                     </Grid>
                 </Grid>

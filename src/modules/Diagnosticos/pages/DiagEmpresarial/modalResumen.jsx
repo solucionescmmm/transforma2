@@ -63,7 +63,7 @@ const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
                             disabled={!values?.objResumen.bitResumenGen}
                             startIcon={<ArticleIcon />}
                         >
-                            General
+                            Información General
                         </Button>
                     </Grid>
 

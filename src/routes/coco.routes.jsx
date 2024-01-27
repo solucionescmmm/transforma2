@@ -99,7 +99,7 @@ const Personas = lazy(() =>
 );
 
 const PersonasCreate = lazy(() =>
-    import("../modules/Empresarios/pages/PersonasSecundarias/create&Edit")
+    import("../modules/Empresarios/pages/PersonasSecundarias")
 );
 
 const Tareas = lazy(() => import("../modules/Empresarios/pages/Tareas"));
@@ -207,7 +207,10 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <PersonasCreate onChangeRoute={onChangeRoute} />
+                        <PersonasCreate
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                        />
                     </Grid>
 
                     <Grid item xs={12}>

@@ -334,11 +334,6 @@ const PageCUGeneral = ({
                                 objIdeaEmpresario: data.objInfoIdeaEmpresario,
                                 objInfoGeneral: {
                                     intIdEmpresario: objEmprPrincipal.intId,
-                                    dtmFechaSesion: null,
-                                    strLugarSesion: "",
-                                    strUsuarioCreacion: "",
-                                    dtmActualizacion: null,
-                                    strUsuarioActualizacion: "",
                                     strNombres:
                                         objEmprPrincipal.strNombres || "",
                                     strApellidos:
@@ -466,123 +461,129 @@ const PageCUGeneral = ({
                                 );
                                 setOpenModal(true);
                             } else {
-                                const data = res.data.data[0];
+                                const dataDiagn = res.data.data[0];
 
                                 setData({
                                     objInfoGeneral: {
                                         ...data.objInfoGeneral,
+                                        ...dataDiagn.objInfoGeneral,
                                         intIdIdea,
                                         intIdDiagnostico,
-                                        dtmFechaSesion: data.objInfoGeneral
+                                        dtmFechaSesion: dataDiagn.objInfoGeneral
                                             .dtmFechaSesion
                                             ? parseISO(
-                                                data.objInfoGeneral
+                                                dataDiagn.objInfoGeneral
                                                     .dtmFechaSesion
                                             )
                                             : null,
-                                        dtmActualizacion: data.objInfoGeneral
+                                        dtmActualizacion: dataDiagn.objInfoGeneral
                                             .dtmActualizacion
                                             ? parseISO(
-                                                data.objInfoGeneral
+                                                dataDiagn.objInfoGeneral
                                                     .dtmActualizacion
                                             )
                                             : null,
-                                        dtFechaExpedicionDocto: data
+                                        dtFechaExpedicionDocto: dataDiagn
                                             .objInfoGeneral
                                             .dtFechaExpedicionDocto
                                             ? parseISO(
-                                                data.objInfoGeneral
+                                                dataDiagn.objInfoGeneral
                                                     .dtFechaExpedicionDocto
                                             )
                                             : null,
-                                        dtFechaNacimiento: data.objInfoGeneral
+                                        dtFechaNacimiento: dataDiagn.objInfoGeneral
                                             .dtFechaNacimiento
                                             ? parseISO(
-                                                data.objInfoGeneral
+                                                dataDiagn.objInfoGeneral
                                                     .dtFechaNacimiento
                                             )
                                             : null,
                                     },
                                     objInfoFamiliar: {
-                                        ...data.objInfoFamiliar,
+                                        ...dataDiagn.objInfoFamiliar,
                                     },
                                     objInfoEmprendimiento: {
                                         ...data.objInfoEmprendimiento,
-                                        intAñoInicioOperacion: data.objInfoEmprendimiento
+                                        ...dataDiagn.objInfoEmprendimiento,
+                                        intAñoInicioOperacion: dataDiagn.objInfoEmprendimiento
                                             .intAñoInicioOperacion
                                             ? parseISO(
-                                                data.objInfoEmprendimiento
+                                                dataDiagn.objInfoEmprendimiento
                                                     .intAñoInicioOperacion
                                             )
                                             : null,
                                     },
                                     objInfoEmpresa: {
-                                        ...data.objInfoEmpresa,
+                                        ...dataDiagn.objInfoEmpresa,
                                     },
                                     objInfoPerfilEco: {
                                         ...data.objInfoPerfilEco,
+                                        ...dataDiagn.objInfoPerfilEco,
                                     },
                                     objInfoAdicional: {
-                                        ...data.objInfoAdicional,
+                                        ...dataDiagn.objInfoAdicional,
                                     },
                                 });
 
                                 reset({
                                     objInfoGeneral: {
                                         ...data.objInfoGeneral,
+                                        ...dataDiagn.objInfoGeneral,
                                         intIdIdea,
                                         intIdDiagnostico,
-                                        dtmFechaSesion: data.objInfoGeneral
+                                        dtmFechaSesion: dataDiagn.objInfoGeneral
                                             .dtmFechaSesion
                                             ? parseISO(
-                                                data.objInfoGeneral
+                                                dataDiagn.objInfoGeneral
                                                     .dtmFechaSesion
                                             )
                                             : null,
-                                        dtmActualizacion: data.objInfoGeneral
+                                        dtmActualizacion: dataDiagn.objInfoGeneral
                                             .dtmActualizacion
                                             ? parseISO(
-                                                data.objInfoGeneral
+                                                dataDiagn.objInfoGeneral
                                                     .dtmActualizacion
                                             )
                                             : null,
-                                        dtFechaExpedicionDocto: data
+                                        dtFechaExpedicionDocto: dataDiagn
                                             .objInfoGeneral
                                             .dtFechaExpedicionDocto
                                             ? parseISO(
-                                                data.objInfoGeneral
+                                                dataDiagn.objInfoGeneral
                                                     .dtFechaExpedicionDocto
                                             )
                                             : null,
-                                        dtFechaNacimiento: data.objInfoGeneral
+                                        dtFechaNacimiento: dataDiagn.objInfoGeneral
                                             .dtFechaNacimiento
                                             ? parseISO(
-                                                data.objInfoGeneral
+                                                dataDiagn.objInfoGeneral
                                                     .dtFechaNacimiento
                                             )
                                             : null,
                                     },
                                     objInfoFamiliar: {
-                                        ...data.objInfoFamiliar,
+                                        ...dataDiagn.objInfoFamiliar,
                                     },
                                     objInfoEmprendimiento: {
                                         ...data.objInfoEmprendimiento,
-                                        intAñoInicioOperacion: data.objInfoEmprendimiento
+                                        ...dataDiagn.objInfoEmprendimiento,
+                                        intAñoInicioOperacion: dataDiagn.objInfoEmprendimiento
                                             .intAñoInicioOperacion
                                             ? parseISO(
-                                                data.objInfoEmprendimiento
+                                                dataDiagn.objInfoEmprendimiento
                                                     .intAñoInicioOperacion
                                             )
                                             : null,
                                     },
                                     objInfoEmpresa: {
-                                        ...data.objInfoEmpresa,
+                                        ...dataDiagn.objInfoEmpresa,
                                     },
                                     objInfoPerfilEco: {
                                         ...data.objInfoPerfilEco,
+                                        ...dataDiagn.objInfoPerfilEco,
                                     },
                                     objInfoAdicional: {
-                                        ...data.objInfoAdicional,
+                                        ...dataDiagn.objInfoAdicional,
                                     },
                                 });
                             }
