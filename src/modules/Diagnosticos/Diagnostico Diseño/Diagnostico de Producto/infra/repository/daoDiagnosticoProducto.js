@@ -235,7 +235,6 @@ class daoDiagnosticoProducto {
                 strURLSFotos                     = COALESCE(${data.strURLSFotos}, strURLSFotos),
                 strLugarSesion                   = COALESCE(${data.strLugarSesion}, strLugarSesion),
                 dtmFechaSesion                   = COALESCE(${data.dtmFechaSesion}, dtmFechaSesion),
-                strUsuarioCreacion               = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
                 dtmActualizacion                 = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion          = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 

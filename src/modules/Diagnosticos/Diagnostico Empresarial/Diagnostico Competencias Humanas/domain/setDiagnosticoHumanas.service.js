@@ -72,8 +72,8 @@ class setDiagnosticoHumanas {
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
             btFinalizado:false,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
-            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
-            strUsuarioActualizacion: this.#objUser.strEmail,
+            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
+            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
         };
 
         let query = await dao.setDiagnosticoHumanas(newData);

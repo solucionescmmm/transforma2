@@ -241,7 +241,6 @@ class daoDiagnosticoTecnicas {
                 strAsociEmpoOrgAdminDetalle = COALESCE(${data.strAsociEmpoOrgAdminDetalle},strAsociEmpoOrgAdminDetalle),
                 strLugarSesion = COALESCE(${data.strLugarSesion}, strLugarSesion),
                 dtmFechaSesion = COALESCE(${data.dtmFechaSesion}, dtmFechaSesion),
-                strUsuarioCreacion = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
                 dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuario)
                 

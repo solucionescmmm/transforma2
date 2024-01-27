@@ -114,8 +114,8 @@ class setDiagnosticoGeneral {
             btFinalizado: false,
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
-            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
-            strUsuarioActualizacion: this.#objUser.strEmail,
+            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
+            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
 
             //Objeto de Información Familiar
             strCabezaHogar: this.#objData.objInfoFamiliar.strCabezaHogar,

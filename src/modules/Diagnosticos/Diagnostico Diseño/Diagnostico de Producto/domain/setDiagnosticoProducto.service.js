@@ -51,7 +51,8 @@ class setDiagnosticoProducto {
             intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
             btFinalizado:false,
-            strUsuarioActualizacion: this.#objUser.strEmail,
+            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
+            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
         };
         let dao = new classInterfaceDAOProducto();
 

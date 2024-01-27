@@ -32,9 +32,6 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
     let arrayResultAlimentos = await dao.getResultDiagnosticoAlimentos(query);
     let arrayResultNoAlimentos = await dao.getResultDiagnosticoNoAlimentos(query);
 
-    console.log(arrayResultAlimentos)
-    console.log(arrayResultNoAlimentos)
-
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data;

@@ -95,7 +95,6 @@ class daoDiagnosticoHumanas {
                 strRedesApoyoPropia                   = COALESCE(${data.strRedesApoyoPropia}, strRedesApoyoPropia),
                 strObservaciones                      = COALESCE(${data.strObservaciones}, strObservaciones),
                 strLugarSesion                        = COALESCE(${data.strLugarSesion}, strLugarSesion),
-                strUsuarioCreacion                    = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
                 dtmActualizacion                      = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion               = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
