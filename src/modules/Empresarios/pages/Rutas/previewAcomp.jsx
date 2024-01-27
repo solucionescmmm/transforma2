@@ -71,7 +71,6 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     useEffect(() => {
         if (values?.[0]?.arrSesionAcompañamiento?.length > 0) {
-            //console.log(values);
             const arrDataTable = [];
 
             for (let i = 0; i < values[0].arrSesionAcompañamiento.length; i++) {
@@ -228,7 +227,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                         }}
                         actions={[
                             (rowData) => {
-                                if (rowData?.btFinalizado) {
+                                if (rowData.btFinalizado || rowData.objInfoPrincipal.strTipoAcompañamiento === "Asociado a un evento") {
                                     return {
                                         icon: () => (
                                             <RemoveRedEyeIcon
