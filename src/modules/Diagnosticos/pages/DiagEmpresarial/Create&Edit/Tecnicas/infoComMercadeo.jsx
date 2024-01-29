@@ -44,8 +44,6 @@ const InfoComMercadeo = ({
         strAnalizoCompetiEmpresaDetalle: "",
         strActivIncreVentClient: "",
         strActivIncreVentClientDetalle: "",
-        strPlanRelFideClient: "",
-        strPlanRelFideClientDetalle: "",
         strProceComerciEsta: "",
         strProceComerciEstaDetalle: "",
         strDefiniPortProd: "",
@@ -90,9 +88,6 @@ const InfoComMercadeo = ({
                 strActivIncreVentClient: values.strActivIncreVentClient || "",
                 strActivIncreVentClientDetalle:
                     values.strActivIncreVentClientDetalle || "",
-                strPlanRelFideClient: values.strPlanRelFideClient || "",
-                strPlanRelFideClientDetalle:
-                    values.strPlanRelFideClientDetalle || "",
                 strProceComerciEsta: values.strProceComerciEsta || "",
                 strProceComerciEstaDetalle:
                     values.strProceComerciEstaDetalle || "",
@@ -402,60 +397,6 @@ const InfoComMercadeo = ({
                                     error={
                                         errors?.objInfoComMercadeo
                                             ?.strActivIncreVentClientDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComMercadeo.strPlanRelFideClient"
-                            defaultValue={data.strPlanRelFideClient}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Tengo un plan de relacionamiento y fidelización con mis clientes"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComMercadeo
-                                            ?.strPlanRelFideClient
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComMercadeo
-                                            ?.strPlanRelFideClient?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="PlanRelFideClient"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComMercadeo.strPlanRelFideClientDetalle"
-                            defaultValue={data.strPlanRelFideClientDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Tengo un plan de relacionamiento y fidelización con mis clientes"
-                                    name={name}
-                                    disabled={disabled}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComMercadeo
-                                            ?.strPlanRelFideClientDetalle
                                             ? true
                                             : false
                                     }
