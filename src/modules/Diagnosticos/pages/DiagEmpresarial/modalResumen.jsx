@@ -98,6 +98,16 @@ const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
                             Competencias Técnicas
                         </Button>
                     </Grid>
+
+                    <Grid item xs={6}>
+                        <Button
+                            color="primary"
+                            disabled={true}
+                            startIcon={<ArticleIcon />}
+                        >
+                            Consolidado diagnóstico
+                        </Button>
+                    </Grid>
                 </Grid>
             </DialogContent>
 
