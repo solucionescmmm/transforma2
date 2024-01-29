@@ -98,6 +98,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     const [htmlTemasFortalecer, setHtmlTemasFortalecer] = useState("");
     const [htmlFortalezas, setHtmlFortalezas] = useState("");
     const [htmlConclusiones, setHtmlConclusiones] = useState("");
+    const [htmlNormatividad, setHtmlNormatividad] = useState("");
+    const [arrImagenes, setArrImagenes] = useState([]);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -114,7 +116,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     //===============================================================================================================================================
     useEffect(() => {
         if (data && data.length > 0) {
-            setObjEmpresario(data[0]?.objEmpresario);
+            setObjEmpresario(
+                data[0]?.objEmpresario?.find(
+                    (e) => e.strTipoEmpresario === "Principal"
+                )
+            );
             setObjEmpresa(data[0]?.objInfoEmpresa);
         }
     }, [data]);
@@ -127,6 +133,17 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             ? `<p class="textObj">${values.strConclusiones}</p>`
             : "";
 
+        let htmlNormatividad = "";
+
+        values?.objInfoNormatividad.forEach(
+            (e) =>
+                (htmlNormatividad =
+                    htmlNormatividad +
+                    `<p class="textObj">
+            ${e.label}: ${e.value || "No diligenciado"}
+        </p>`)
+        );
+
         values?.objInfoProductos.forEach(
             (e) =>
                 (htmlProductos =
@@ -136,141 +153,165 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             </p>`)
         );
 
-        htmlTemasFortalecer = htmlTemasFortalecer + `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`
+        htmlTemasFortalecer =
+            htmlTemasFortalecer +
+            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
-            if(valuesPDF?.[0].objInnovacionBajo?.length > 0) {
-                htmlTemasFortalecer = htmlTemasFortalecer + 
+        if (valuesPDF?.[0].objInnovacionBajo?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
                 `<div>
                     <p class="title">
                       En Innovación
                     </p>
                 </div>
                 
-                ${valuesPDF?.[0].objInnovacionBajo.map(e => 
-                    `<p class="pPDF"><span class="pPDFSpan">${
-                        e.label
-                        }:</span> ${e.value || "No diligenciado"}</p>`
+                ${valuesPDF?.[0].objInnovacionBajo
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
                     )
-                    .join("")}`
-            }
+                    .join("")}`;
+        }
 
-            
-            if(valuesPDF?.[0].objPersepcionBajo?.length > 0) {
-                htmlTemasFortalecer = htmlTemasFortalecer + 
+        if (valuesPDF?.[0].objPersepcionBajo?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
                 `<div>
                     <p class="title">
                        En Percepción y calidad
                     </p>
                 </div>
                 
-                ${valuesPDF?.[0].objPersepcionBajo.map(e => 
-                    `<p class="pPDF"><span class="pPDFSpan">${
-                        e.label
-                        }:</span> ${e.value || "No diligenciado"}</p>`
+                ${valuesPDF?.[0].objPersepcionBajo
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
                     )
-                    .join("")}`
-            }
+                    .join("")}`;
+        }
 
-            if(valuesPDF?.[0].objExperienciaBajo?.length > 0) {
-                htmlTemasFortalecer = htmlTemasFortalecer + 
+        if (valuesPDF?.[0].objExperienciaBajo?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
                 `<div>
                     <p class="title">
                        En Experiencia
                     </p>
                 </div>
                 
-                ${valuesPDF?.[0].objExperienciaBajo.map(e => 
-                    `<p class="pPDF"><span class="pPDFSpan">${
-                        e.label
-                        }:</span> ${e.value || "No diligenciado"}</p>`
+                ${valuesPDF?.[0].objExperienciaBajo
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
                     )
-                    .join("")}`
-            }
+                    .join("")}`;
+        }
 
-            if(valuesPDF?.[0].objMarcaBajo?.length > 0) {
-                htmlTemasFortalecer = htmlTemasFortalecer + 
+        if (valuesPDF?.[0].objMarcaBajo?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
                 `<div>
                     <p class="title">
                        En Marca
                     </p>
                 </div>
                 
-                ${valuesPDF?.[0].objMarcaBajo.map(e => 
-                    `<p class="pPDF"><span class="pPDFSpan">${
-                        e.label
-                        }:</span> ${e.value || "No diligenciado"}</p>`
+                ${valuesPDF?.[0].objMarcaBajo
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
                     )
-                    .join("")}`
-            }
+                    .join("")}`;
+        }
 
-            htmlTemasFortalecer = htmlTemasFortalecer + `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`
+        htmlTemasFortalecer =
+            htmlTemasFortalecer +
+            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
-            if(valuesPDF?.[0].objInnovacionMedio?.length > 0) {
-                htmlTemasFortalecer = htmlTemasFortalecer + 
+        if (valuesPDF?.[0].objInnovacionMedio?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
                 `<div>
                     <p class="title">
                       En Innovación
                     </p>
                 </div>
                 
-                ${valuesPDF?.[0].objInnovacionMedio.map(e => 
-                    `<p class="pPDF"><span class="pPDFSpan">${
-                        e.label
-                        }:</span> ${e.value || "No diligenciado"}</p>`
+                ${valuesPDF?.[0].objInnovacionMedio
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
                     )
-                    .join("")}`
-            }
+                    .join("")}`;
+        }
 
-
-            
-            if(valuesPDF?.[0].objPersepcionMedio?.length > 0) {
-                htmlTemasFortalecer = htmlTemasFortalecer + 
+        if (valuesPDF?.[0].objPersepcionMedio?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
                 `<div>
                     <p class="title">
                      En Percepción y calidad
                     </p>
                 </div>
                 
-                ${valuesPDF?.[0].objPersepcionMedio.map(e => 
-                    `<p class="pPDF"><span class="pPDFSpan">${
-                        e.label
-                        }:</span> ${e.value || "No diligenciado"}</p>`
+                ${valuesPDF?.[0].objPersepcionMedio
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
                     )
-                    .join("")}`
-            }
+                    .join("")}`;
+        }
 
-            if(valuesPDF?.[0].objExperienciaMedio?.length > 0) {
-                htmlTemasFortalecer = htmlTemasFortalecer + 
+        if (valuesPDF?.[0].objExperienciaMedio?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
                 `<div>
                     <p class="title">
                       En Experiencia
                     </p>
                 </div>
                 
-                ${valuesPDF?.[0].objExperienciaMedio.map(e => 
-                    `<p class="pPDF"><span class="pPDFSpan">${
-                        e.label
-                        }:</span> ${e.value || "No diligenciado"}</p>`
+                ${valuesPDF?.[0].objExperienciaMedio
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
                     )
-                    .join("")}`
-            }
+                    .join("")}`;
+        }
 
-            if(valuesPDF?.[0].objMarcaMedio?.length > 0) {
-                htmlTemasFortalecer = htmlTemasFortalecer + 
+        if (valuesPDF?.[0].objMarcaMedio?.length > 0) {
+            htmlTemasFortalecer =
+                htmlTemasFortalecer +
                 `<div>
                     <p class="title">
                       En Marca
                     </p>
                 </div>
                 
-                ${valuesPDF?.[0].objMarcaMedio.map(e => 
-                    `<p class="pPDF"><span class="pPDFSpan">${
-                        e.label
-                        }:</span> ${e.value || "No diligenciado"}</p>`
+                ${valuesPDF?.[0].objMarcaMedio
+                    .map(
+                        (e) =>
+                            `<p class="pPDF"><span class="pPDFSpan">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</p>`
                     )
-                    .join("")}`
-            }
-
+                    .join("")}`;
+        }
 
         values?.objInfoFortalezas.forEach((e) => {
             if (e.objInnovacionFortalezas) {
@@ -384,6 +425,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         setHtmlInfoProductos(htmlProductos);
         setHtmlFortalezas(htmlFortalezas);
         setHtmlConclusiones(htmlConclusiones);
+        setHtmlNormatividad(htmlNormatividad);
+        setArrImagenes(values?.arrImagenes || []);
 
         setLoading(false);
     }, [values, valuesPDF]);
@@ -489,28 +532,31 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             <hr />
 
                             <p>
-                                <span style="color: #00BBB4">${
-                                    objEmpresario?.strTipoDocto
-                                }: </span>
-                                ${objEmpresario?.strNroDocto}
-                            </p>
-
-                            <p >
-                                <span style="color: #00BBB4">Nombre: </span>
-                                 ${objEmpresario?.strNombres}  ${
-                            objEmpresario?.strApellidos
-                        }
+                            <span style="color: #00BBB4">Empresa: </span>
+                             ${objEmpresa?.strNombreMarca} 
                             </p>
 
                             <p>
-                                <span style="color: #00BBB4">Empresa: </span>
-                                 ${objEmpresa?.strNombreMarca} 
+                            <span style="color: #00BBB4">Representante: </span>
+                             ${objEmpresario?.strNombreCompleto}
+                            </p>
+
+                            <p>
+                            <span style="color: #00BBB4">Categoría: </span>
+                             ${objEmpresa?.strCategoriaProducto}
+                            </p>
+
+                            <p>
+                            <span style="color: #00BBB4">Descripción: </span>
+                             ${objEmpresa?.strDescProductosServicios}
                             </p>
 
                             <p>
                                 <span style="color: #00BBB4">Fecha de descarga: </span>
                                  ${new Date().toLocaleDateString("es-ES")} 
                             </p>
+
+                            <br />
 
                             <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
@@ -521,10 +567,101 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                             ${htmlInfoProductos}
 
+                            <br/>
+
                             <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
                             </p>
 
+                        </body>
+                        </html>
+                      `}
+                    </Html>
+
+                    <Image source={values?.imgChart} />
+                    <Html>
+                        {`
+                        <style>
+                        p {
+                            font-size: 12px;
+                            font-family: "Roboto";
+                        }
+
+                        .pMargin {
+                           margin-bottom: -10px;
+                        }
+                        </style>
+                        <p class="pMargin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam pariatur illum dolores quam ab reprehenderit, esse dolorem earum alias quasi, nulla quidem molestias placeat corporis, dignissimos aperiam voluptatem doloremque odio.</p>`}
+                    </Html>
+
+                    <Html>
+                        {`
+                           <html>
+                           <style>
+                           div {
+                               font-family: "Roboto";
+                           }
+   
+                              hr {
+                               border: 1px solid gray;
+                               border-radius: 1px;
+                               margin: 15px;
+                              }
+   
+                              p {
+                               font-size: 12px;
+                               margin: 0;
+                               font-family: "Roboto";
+                           }
+   
+                              .pMargin {
+                                 margin-bottom: -10px;
+                              }
+   
+                              .textObj {
+                                margin: 2px;
+                                font-size: 11px;
+                                display: flex;
+                                align-content: center;
+                              }
+   
+                              .title{
+                               font-size: 14px;
+                               font-weight: bold;
+                               color: #F5B335;
+                               margin: 10px;
+                              }
+   
+                              table {
+                               font-size: 8px;
+                               border-collapse: collapse;
+                               width: 100%;
+   
+                             }
+                             
+                             td, th {
+                               border: 1px solid #dddddd;
+                               text-align: left;
+                               padding: 5px;
+                             }
+   
+                             tr:nth-child(even) {
+                               background-color: #dddddd;
+                             }
+   
+                             th {
+                               padding-top: 12px;
+                               padding-bottom: 12px;
+                               text-align: center;
+                               background-color: #00BBB4;
+                               color: white;
+                             }
+   
+                             tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
+                           </style>
+
+                              <body>
+                              
                             ${
                                 htmlTemasFortalecer &&
                                 `
@@ -546,6 +683,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             ${htmlFortalezas}
 
                             ${
+                                htmlNormatividad &&
+                                `
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Normatividad</span></h5>
+                            <hr />
+                            `
+                            }
+
+                            ${htmlNormatividad}
+
+                            ${
                                 htmlConclusiones &&
                                 `
                             <h5 class="pMargin"> <span style="color: #00BBB4">Conclusiones</span></h5>
@@ -555,27 +702,22 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                             ${htmlConclusiones}
 
-                        </body>
-                        </html>
-                      `}
+                            ${
+                                arrImagenes.length > 0 &&
+                                `
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Registro fotográfico</span></h5>
+                            <hr />
+                            `
+                            }
+
+                        
+                              </body>
+                           </html>
+                        `}
                     </Html>
 
-                    <Image source={values?.imgChart} />
-
-                    <Html>
-                        {`
-                        <style>
-                        p {
-                            font-size: 12px;
-                            font-family: "Roboto";
-                        }
-
-                        .pMargin {
-                           margin-bottom: -10px;
-                        }
-                        </style>
-                        <p class="pMargin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam pariatur illum dolores quam ab reprehenderit, esse dolorem earum alias quasi, nulla quidem molestias placeat corporis, dignissimos aperiam voluptatem doloremque odio.</p>`}
-                    </Html>
+                    {arrImagenes.length > 0 &&
+                        arrImagenes.map((i) => <Image src={i.src} />)}
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y
