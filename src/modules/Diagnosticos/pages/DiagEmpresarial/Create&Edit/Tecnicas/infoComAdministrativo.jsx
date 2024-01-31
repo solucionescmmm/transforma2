@@ -230,6 +230,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="La unidad productiva genera empleo"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -254,6 +255,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Tengo un equipo de trabajo estructurado"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -307,6 +309,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Tengo una estructura formal en la organización"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -360,6 +363,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Elaboro planes de trabajo para organizar las actividades"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -413,6 +417,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Realizo evalución periodica de el equipo de trabajo"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -466,6 +471,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Mi empresa está formalizada de acuerdo con la normatividad laboral"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -519,6 +525,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Mi empresa está formalizada con los requisitos de ley"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -574,6 +581,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Tengo una planeación estratégica para mi empresa, mas que estrategica plan de trabajo, planificación"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -627,6 +635,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Mido constatemente el cumplimiento de mis metas y objetivos"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -680,6 +689,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Cuento con acompañamiento jurídico"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={

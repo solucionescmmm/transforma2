@@ -166,6 +166,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Participo en las reuniones periódicas de la organización social y solidaria (asociación)"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -219,6 +220,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Conozco y aplico estatutos de la organización social y solidaria"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -272,6 +274,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Los asociados están empoderados y cuentan con órganos de administración y control"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={

@@ -182,6 +182,7 @@ const InfoComMercadeo = ({
                                     label="Mi unidad productiva es sostenible financieramente"
                                     name={name}
                                     disabled={disabled}
+                                    value={value}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComFinanciero
@@ -235,6 +236,7 @@ const InfoComMercadeo = ({
                                     label="Tengo definidos los procesos contables de mi unidad productiva"
                                     name={name}
                                     disabled={disabled}
+                                    value={value}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComFinanciero
@@ -287,6 +289,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Elaboro un presupuesto para mi unidad productiva"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
@@ -340,6 +343,7 @@ const InfoComMercadeo = ({
                                 <TextField
                                     label="Sé como administrar el dinero de mi unidad productiva"
                                     name={name}
+                                    value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={

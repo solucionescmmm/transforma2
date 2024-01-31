@@ -107,16 +107,6 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Detalle - Realizo actividades enfocadas en incrementar el nivel de ventas y clientes",
             },
             {
-                parent: "strPlanRelFideClient",
-                value: "",
-                label: "Tengo un plan de relacionamiento y fidelización con mis clientes",
-            },
-            {
-                parent: "strPlanRelFideClientDetalle",
-                value: "",
-                label: "Detalle - Tengo un plan de relacionamiento y fidelización con mis clientes",
-            },
-            {
                 parent: "strProceComerciEsta",
                 value: "",
                 label: "Mis procesos comerciales están",

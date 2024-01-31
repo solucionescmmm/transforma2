@@ -265,6 +265,7 @@ const InfoComMercadeo = ({
                                     label="Mis procesos productivos están"
                                     name={name}
                                     disabled={disabled}
+                                    value={value}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
@@ -527,8 +528,8 @@ const InfoComMercadeo = ({
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <Controller
-                            name="objInfoComProductivo.strEquipNecDesProdServidDetalle"
-                            defaultValue={data.strEquipNecDesProdServidDetalle}
+                            name="objInfoComProductivo.strEquipNecDesProdServiDetalle"
+                            defaultValue={data.strEquipNecDesProdServiDetalle}
                             render={({ field: { name, onChange, value } }) => (
                                 <TextField
                                     label="Tengo los equipos necesarios para el desarrollo de mis productos/servicio(s)"
@@ -538,7 +539,7 @@ const InfoComMercadeo = ({
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoComProductivo
-                                            ?.strEquipNecDesProdServidDetalle
+                                            ?.strEquipNecDesProdServiDetalle
                                             ? true
                                             : false
                                     }
