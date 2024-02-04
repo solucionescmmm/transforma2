@@ -29,8 +29,6 @@ class daoDiagnosticoTecnicas {
                 ${data.strActivIncreVentClientDetalle},
                 ${data.strPlanAtraccionRelacionamientoFidelizacionClientes},
                 ${data.strPlanAtraccionRelacionamientoFidelizacionClientesDetalle},
-                ${data.strPlanRelFideClient},
-                ${data.strPlanRelFideClientDetalle},
                 ${data.strProceComerciEsta},
                 ${data.strProceComerciEstaDetalle},
                 ${data.strFormatosGestionComercial},
@@ -188,8 +186,6 @@ class daoDiagnosticoTecnicas {
                 strActivIncreVentClientDetalle = COALESCE(${data.strActivIncreVentClientDetalle},strActivIncreVentClientDetalle),
                 strPlanAtraccionRelacionamientoFidelizacionClientes = COALESCE(${data.strPlanAtraccionRelacionamientoFidelizacionClientes},strPlanAtraccionRelacionamientoFidelizacionClientes),
                 strPlanAtraccionRelacionamientoFidelizacionClientesDetalle = COALESCE(${data.strPlanAtraccionRelacionamientoFidelizacionClientesDetalle},strPlanAtraccionRelacionamientoFidelizacionClientesDetalle),
-                strPlanRelFideClient = COALESCE(${data.strPlanRelFideClient},strPlanRelFideClient),
-                strPlanRelFideClientDetalle = COALESCE(${data.strPlanRelFideClientDetalle},strPlanRelFideClientDetalle),
                 strProceComerciEsta = COALESCE(${data.strProceComerciEsta},strProceComerciEsta),
                 strProceComerciEstaDetalle = COALESCE(${data.strProceComerciEstaDetalle},strProceComerciEstaDetalle),
                 strFormatosGestionComercial = COALESCE(${data.strFormatosGestionComercial},strFormatosGestionComercial),
@@ -268,9 +264,8 @@ class daoDiagnosticoTecnicas {
                 strAsociEmpoOrgAdminDetalle = COALESCE(${data.strAsociEmpoOrgAdminDetalle},strAsociEmpoOrgAdminDetalle),
                 strLugarSesion = COALESCE(${data.strLugarSesion}, strLugarSesion),
                 dtmFechaSesion = COALESCE(${data.dtmFechaSesion}, dtmFechaSesion),
-                strUsuarioCreacion = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
                 dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuario)
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
                 
             WHERE intId = ${data.intId}
 

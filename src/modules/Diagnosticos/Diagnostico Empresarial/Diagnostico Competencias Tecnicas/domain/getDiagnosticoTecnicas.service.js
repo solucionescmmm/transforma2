@@ -68,6 +68,7 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     }
                 };
                 let objInfoComMercadeo = {
+                    ...array[i],
                     strCaractEmpresaComp: array[i]?.strCaractEmpresaComp,
                     strCaractEmpresaCompDetalle: array[i]?.strCaractEmpresaCompDetalle,
                     strAnalizoObjetivoEmpresa: array[i]?.strAnalizoObjetivoEmpresa,
@@ -76,8 +77,6 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     strAnalizoCompetiEmpresaDetalle: array[i]?.strAnalizoCompetiEmpresaDetalle,
                     strActivIncreVentClient: array[i]?.strActivIncreVentClient,
                     strActivIncreVentClientDetalle: array[i]?.strActivIncreVentClientDetalle,
-                    strPlanRelFideClient: array[i]?.strPlanRelFideClient,
-                    strPlanRelFideClientDetalle: array[i]?.strPlanRelFideClientDetalle,
                     strProceComerciEsta: array[i]?.strProceComerciEsta,
                     strProceComerciEstaDetalle: array[i]?.strProceComerciEstaDetalle,
                     strDefiniPortProd: array[i]?.strDefiniPortProd,
@@ -88,7 +87,18 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     strPartiRedesEmpreComerDetalle: array[i]?.strPartiRedesEmpreComerDetalle,
                     strPreseMedDigital: array[i]?.strPreseMedDigital,
                     strPreseMedDigitalDetalle: array[i]?.strPreseMedDigitalDetalle,
+                    strDefineDiscursoComercialClientes: array[i]?.strDefineDiscursoComercialClientes,
+                    strDefineDiscursoComercialClientesDetalle: array[i]?.strDefineDiscursoComercialClientesDetalle,
+                    strPlanAtraccionRelacionamientoFidelizacionClientes: array[i]?.strPlanAtraccionRelacionamientoFidelizacionClientes,
+                    strPlanAtraccionRelacionamientoFidelizacionClientesDetalle: array[i]?.strPlanAtraccionRelacionamientoFidelizacionClientesDetalle,
+                    strFormatosGestionComercial: array[i]?.strFormatosGestionComercial,
+                    strFormatosGestionComercialDetalle: array[i]?.strFormatosGestionComercialDetalle,
+                    strTieneBaseDatosClientes: array[i]?.strTieneBaseDatosClientes,
+                    strTieneBaseDatosClientesDetalle: array[i]?.strTieneBaseDatosClientesDetalle,
+                    strTieneLogisticaTransporteClientes: array[i]?.strTieneLogisticaTransporteClientes,
+                    strTieneLogisticaTransporteClientesDetalle: array[i]?.strTieneLogisticaTransporteClientesDetalle,
                 };
+
                 let objInfoComProductivo = {
                     strGradoIntervProdServi: array[i]?.strGradoIntervProdServi,
                     strGradoIntervProdServiDetalle: array[i]?.strGradoIntervProdServiDetalle,
@@ -106,6 +116,14 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     strEquipNecDesProdServiDetalle: array[i]?.strEquipNecDesProdServiDetalle,
                     strProcManAmbiProd: array[i]?.strProcManAmbiProd,
                     strProcManAmbiProdDetalle: array[i]?.strProcManAmbiProdDetalle,
+                    strConoceTiemposProduccionReferencias: array[i]?.strConoceTiemposProduccionReferencias,
+                    strConoceTiemposProduccionReferenciasDetalle: array[i]?.strConoceTiemposProduccionReferenciasDetalle,
+                    strDeterminaNumUnidadesInventario: array[i]?.strDeterminaNumUnidadesInventario,
+                    strDeterminaNumUnidadesInventarioDetalle: array[i]?.strDeterminaNumUnidadesInventarioDetalle,
+                    strProcesoProductivoLoRealiza: array[i]?.strProcesoProductivoLoRealiza,
+                    strProcesoProductivoLoRealizaDetalle: array[i]?.strProcesoProductivoLoRealizaDetalle,
+                    strCapacidadRespuestaTerceros: array[i]?.strCapacidadRespuestaTerceros,
+                    strCapacidadRespuestaTercerosDetalle: array[i]?.strCapacidadRespuestaTercerosDetalle,
                 };
                 let objInfoComFinanciero = {
                     strUniProdSosFinan: array[i]?.strUniProdSosFinan,

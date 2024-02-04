@@ -27,6 +27,7 @@ class updateDiagnosticoGeneral {
     }
 
     async main() {
+        console.log(this.#objData.objInfoGeneral.strUsuarioCreacion)
         await this.#getHistorico();
         await this.#validations();
         await this.#updateEmpresarioDiagnosticoGeneral();
@@ -79,79 +80,74 @@ class updateDiagnosticoGeneral {
             ...this.#objData.objInfoPerfilEco,
             ...this.#objData.objInfoAdicional,
             //Objeto de Información General
-            intIdEmpresario: this.#objData.objInfoGeneral.intId,
+            intIdDiagnostico: this.#objData.objInfoGeneral?.intIdDiagnostico,
+            intIdEmpresario: this.#objData.objInfoGeneral?.intIdEmpresario,
+            intIdTipoEmpresario: this.#objData.objInfoGeneral?.intIdTipoEmpresario,
             btFinalizado: false,
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
-            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion,
-            strUsuarioActualizacion: this.#objUser.strEmail,
+            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioCreacion?.strEmail || "",
 
             //Objeto de Información Familiar
             strCabezaHogar: this.#objData.objInfoFamiliar.strCabezaHogar,
-            intNumPersonasCargo:
-                this.#objData.objInfoFamiliar.intNumPersonasCargo,
+            intNumPersonasCargo: this.#objData.objInfoFamiliar.intNumPersonasCargo,
             intHijos: this.#objData.objInfoFamiliar.intHijos,
-            intHijosEstudiando:
-                this.#objData.objInfoFamiliar.intHijosEstudiando,
-            strMaxNivelEducativoHijos:
-                this.#objData.objInfoFamiliar.strMaxNivelEducativoHijos,
+            intHijosEstudiando: this.#objData.objInfoFamiliar.intHijosEstudiando,
+            strMaxNivelEducativoHijos: this.#objData.objInfoFamiliar.strMaxNivelEducativoHijos,
             strEstadoCivil: this.#objData.objInfoFamiliar.strEstadoCivil,
-            strSituacionVivienda:
-                this.#objData.objInfoFamiliar.strSituacionVivienda,
-            strGrupoVulnerable:
-                this.#objData.objInfoFamiliar.strGrupoVulnerable,
-            strPoblacionEtnica:
-                this.#objData.objInfoFamiliar.strPoblacionEtnica,
+            strSituacionVivienda: this.#objData.objInfoFamiliar.strSituacionVivienda,
+            strGrupoVulnerable: this.#objData.objInfoFamiliar.strGrupoVulnerable,
+            strPoblacionEtnica: this.#objData.objInfoFamiliar.strPoblacionEtnica,
 
             //Objeto de InfoEmprendimiento
             intAñoInicioOperacion: parseInt(this.#objData.objInfoEmprendimiento.intAñoInicioOperacion, 10),
             strUbicacionUP: this.#objData.objInfoEmprendimiento.strUbicacionUP,
-            strRegistroCamaraComercio:
-                this.#objData.objInfoEmprendimiento.strRegistroCamaraComercio,
+            strProductoServiciosEnValidacion: this.#objData.objInfoEmprendimiento.strProductoServiciosEnValidacion,
+            strNivelDlloProductoServicios: this.#objData.objInfoEmprendimiento.strNivelDlloProductoServicios,
+            strEtapaValidProductoServicios: this.#objData.objInfoEmprendimiento.strEtapaValidProductoServicios,
+            MinimoValorProducto: this.#objData.objInfoEmprendimiento.MinimoValorProducto,
+            MaximoValorProducto: this.#objData.objInfoEmprendimiento.MaximoValorProducto,
+            strEscojaProductoServicio: this.#objData.objInfoEmprendimiento.strEscojaProductoServicio,
+            ValorVentaProductoEscogido: this.#objData.objInfoEmprendimiento.ValorVentaProductoEscogido,
+            strConoceMargenRentaProductoEscogido: this.#objData.objInfoEmprendimiento.strConoceMargenRentaProductoEscogido,
+            intPorcentajeMargenRentaProductoEscogido: this.#objData.objInfoEmprendimiento.intPorcentajeMargenRentaProductoEscogido,
+            strConoceCostosProductoEscogido: this.#objData.objInfoEmprendimiento.strConoceCostosProductoEscogido,
+            CostoProduccionProductoEscogido: this.#objData.objInfoEmprendimiento.CostoProduccionProductoEscogido,
+            strPorcentajeIntermediacionVentas: this.#objData.objInfoEmprendimiento.strPorcentajeIntermediacionVentas,
+            strDefinePorcentajesCanal: this.#objData.objInfoEmprendimiento.strDefinePorcentajesCanal,
+            intRangoPorcentajeIntermediacionVentas: this.#objData.objInfoEmprendimiento.intRangoPorcentajeIntermediacionVentas,
+            strRegistroCamaraComercio: this.#objData.objInfoEmprendimiento.strRegistroCamaraComercio,
 
             //Objeto de InfoEmpresa
+            strTrabajanFamiliares: this.#objData.objInfoEmpresa.strTrabajanFamiliares,
             strHistoriaEmpresa: this.#objData.objInfoEmpresa.strHistoriaEmpresa,
             strSuenioEmpresa: this.#objData.objInfoEmpresa.strSuenioEmpresa,
-            strEstudioEmprendimiento:
-                this.#objData.objInfoEmpresa.strEstudioEmprendimiento,
-            strExperienciaEmprendimiento:
-                this.#objData.objInfoEmpresa.strExperienciaEmprendimiento,
-            strTipoContribuyente:
-                this.#objData.objInfoEmpresa.strTipoContribuyente,
+            strEstudioEmprendimiento: this.#objData.objInfoEmpresa.strEstudioEmprendimiento,
+            strExperienciaEmprendimiento: this.#objData.objInfoEmpresa.strExperienciaEmprendimiento,
+            strTipoContribuyente: this.#objData.objInfoEmpresa.strTipoContribuyente,
             strRut: this.#objData.objInfoEmpresa.strRut,
-            strPresupuestoFamiliar:
-                this.#objData.objInfoEmpresa.strPresupuestoFamiliar,
-            strIngresosDistintos:
-                this.#objData.objInfoEmpresa.strIngresosDistintos,
+            strPresupuestoFamiliar: this.#objData.objInfoEmpresa.strPresupuestoFamiliar,
+            strIngresosDistintos: this.#objData.objInfoEmpresa.strIngresosDistintos,
 
             //Objeto de InfoPerfilEco
-            strOperacionesVentas6Meses:
-                this.#objData.objInfoPerfilEco.strOperacionesVentas6Meses,
-            strEtapaValidacion:
-                this.#objData.objInfoPerfilEco.strEtapaValidacion,
-            strPromedioVentas6Meses:
-                this.#objData.objInfoPerfilEco.strPromedioVentas6Meses,
+            strOperacionesVentas6Meses: this.#objData.objInfoPerfilEco.strOperacionesVentas6Meses,
+            strEtapaValidacion: this.#objData.objInfoPerfilEco.strEtapaValidacion,
+            strPromedioVentas6Meses: this.#objData.objInfoPerfilEco.strPromedioVentas6Meses,
             strRangoVentas: this.#objData.objInfoPerfilEco.strRangoVentas,
             strRangoEmpleados: this.#objData.objInfoPerfilEco.strRangoEmpleados,
-            strTipoEmpleoGenerado:
-                this.#objData.objInfoPerfilEco.strTipoEmpleoGenerado,
-            strDlloAcitividadesContratados:
-                this.#objData.objInfoPerfilEco.strDlloAcitividadesContratados,
-            strPromedioTiempoInvertido:
-                this.#objData.objInfoPerfilEco.strPromedioTiempoInvertido,
-            strRolesEmprendimiento: JSON.stringify(
-                this.#objData.objInfoPerfilEco.strRolesEmprendimiento || null),
+            strTipoEmpleoGenerado: this.#objData.objInfoPerfilEco.strTipoEmpleoGenerado,
+            strDlloAcitividadesContratados: this.#objData.objInfoPerfilEco.strDlloAcitividadesContratados,
+            strPromedioTiempoInvertido: this.#objData.objInfoPerfilEco.strPromedioTiempoInvertido,
+            strRolesEmprendimiento: JSON.stringify(this.#objData.objInfoPerfilEco.strRolesEmprendimiento || null),
             strDiasProduccion: this.#objData.objInfoPerfilEco.strDiasProduccion,
-            strGeneraEmpleoRiesgoPobreza:
-                this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
-            valorGananciasMes: this.#objData.objInfoPerfilEco.valorGananciasMes,
+            strGeneraEmpleoRiesgoPobreza: this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
+            valorGananciasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
             strActivos: this.#objData.objInfoPerfilEco.strActivos,
             ValorActivos: this.#objData.objInfoPerfilEco.dblValorActivos,
 
             //Objeto de InfoAdicional
             strConclusiones: this.#objData.objInfoAdicional.strConclusiones,
-            strURLSFotosProducto:
-                this.#objData.objInfoAdicional.strURLSFotosProducto,
+            strURLSFotosProducto: this.#objData.objInfoAdicional.strURLSFotosProducto,
         };
 
         this.#objData = newData;

@@ -74,7 +74,8 @@ class setDiagnosticoTecnicas {
             ...this.#objData.objInfoComAsociativo,
             intIdEmpresario:this.#objData.objInfoGeneral.objEmpresario.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario.intIdTipoEmpresario,
-            strUsuarioActualizacion: this.#objUser.strEmail,
+            strUsuarioCreacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
+            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
             btFinalizado: false,
         };
 
