@@ -29,11 +29,13 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
     };
 
     let arrayData = await dao.getDiagnosticoTecnicas(query);
+    let arrayResultTecnicas = await dao.getResultDiagnosticoTecnicas(query)
 
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data;
+            let arrayTecnicas = arrayResultTecnicas.data
 
             let data = [];
 
@@ -157,6 +159,7 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     objInfoComFinanciero,
                     objInfoComAdministrativo,
                     objInfoComAsociativo,
+                    arrayTecnicas,
                 };
             }
             let result = {

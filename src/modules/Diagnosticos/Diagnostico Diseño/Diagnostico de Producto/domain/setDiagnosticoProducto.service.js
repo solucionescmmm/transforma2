@@ -4,11 +4,17 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOProducto = require("../infra/conectros/interfaseDAODiagnosticoProducto");
 
+//service
+const serviceGetIdEstadoDiagnostico = require("../../../Main/domain/getIdEstadoDiagnosticos.service")
+const serviceUpdateDiagnostico = require("../../../Main/domain/updateDiagnosticos.service");
+
 class setDiagnosticoProducto {
     #objData;
     #objUser;
     #objResult;
 
+    // Variables
+    #intIdEstadoDiagnostico;
     /**
      * @param {object} data
      */
@@ -18,9 +24,11 @@ class setDiagnosticoProducto {
     }
 
     async main() {
+        await this.#getIntIdEstadoDiagnostico()
         await this.#validations();
         await this.#setDiagnosticoProducto();
         await this.#setResultDiagnosticoProducto();
+        await this.#updateDiagnostico()
         return this.#objResult;
     }
 
@@ -38,6 +46,18 @@ class setDiagnosticoProducto {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+    }
+
+    async #getIntIdEstadoDiagnostico() {
+        let queryGetIntIdEstadoDiagnostico = await serviceGetIdEstadoDiagnostico({
+            strNombre: "En Proceso",
+        },this.#objUser);
+
+        if (queryGetIntIdEstadoDiagnostico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
     }
 
     async #setDiagnosticoProducto() {
@@ -77,6 +97,21 @@ class setDiagnosticoProducto {
 
         if (query.error) {
             throw new Error(query.msg);
+        }
+    }
+
+    async #updateDiagnostico() {
+        let data = {
+            intId: this.#objData.objInfoGeneral.intIdDiagnostico,
+            intIdEstadoDiagnostico: this.#intIdEstadoDiagnostico
+        };
+
+        let service = new serviceUpdateDiagnostico(data, this.#objUser);
+
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg)
         }
     }
 }
