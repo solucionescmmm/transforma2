@@ -8,6 +8,12 @@ class interfaceDAODiagnosticoTecnicas {
         return result;
     }
 
+    async setResultDiagnosticoTecnicas(data) {
+        const dao = new classDaoSql();
+        let result = await dao.setResultDiagnosticoTecnicas(data);
+        return result;
+    }
+
     async updateDiagnosticoTecnicas(data) {
         const dao = new classDaoSql();
         let result = await dao.updateDiagnosticoTecnicas(data);
@@ -29,6 +35,12 @@ class interfaceDAODiagnosticoTecnicas {
     async getDiagnosticoTecnicas(data) {
         const dao = new classDaoSql();
         let result = await dao.getDiagnosticoTecnicas(data);
+        return result;
+    }
+
+    async getResultDiagnosticoTecnicas(data) {
+        const dao = new classDaoSql();
+        let result = await dao.getResultDiagnosticoTecnicas(data);
         return result;
     }
 }

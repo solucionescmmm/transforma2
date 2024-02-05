@@ -4,11 +4,17 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAOServicio = require("../infra/conectors/interfaseDAODiagnosticoServicio");
 
+//service
+const serviceGetIdEstadoDiagnostico = require("../../../Main/domain/getIdEstadoDiagnosticos.service")
+const serviceUpdateDiagnostico = require("../../../Main/domain/updateDiagnosticos.service");
+
 class setDiagnosticoServicio {
     #objData;
     #objUser;
     #objResult;
 
+    // Variables
+    #intIdEstadoDiagnostico;
     /**
      * @param {object} data
      */
@@ -18,9 +24,11 @@ class setDiagnosticoServicio {
     }
 
     async main() {
+        await this.#getIntIdEstadoDiagnostico()
         await this.#validations();
         await this.#setDiagnosticoServicio();
         await this.#setResultDiagnosticoServicio();
+        await this.#updateDiagnostico()
         return this.#objResult;
     }
 
@@ -40,11 +48,23 @@ class setDiagnosticoServicio {
         }
     }
 
+    async #getIntIdEstadoDiagnostico() {
+        let queryGetIntIdEstadoDiagnostico = await serviceGetIdEstadoDiagnostico({
+            strNombre: "En Proceso",
+        }, this.#objUser);
+
+        if (queryGetIntIdEstadoDiagnostico.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
+    }
+
     async #setDiagnosticoServicio() {
         let dao = new classInterfaceDAOServicio();
 
         let newData = {
-            btFinalizado:false,
+            btFinalizado: false,
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEvaluacion,
             ...this.#objData.objInfoNormatividad,
@@ -77,6 +97,21 @@ class setDiagnosticoServicio {
 
         if (query.error) {
             throw new Error(query.msg);
+        }
+    }
+
+    async #updateDiagnostico() {
+        let data = {
+            intId: this.#objData.objInfoGeneral.intIdDiagnostico,
+            intIdEstadoDiagnostico: this.#intIdEstadoDiagnostico
+        };
+
+        let service = new serviceUpdateDiagnostico(data, this.#objUser);
+
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg)
         }
     }
 }

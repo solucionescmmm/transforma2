@@ -142,6 +142,33 @@ class daoDiagnosticoTecnicas {
         }
     }
 
+    async setResultDiagnosticoTecnicas(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            await conn
+                .request()
+                .input("intIdDiagnostico", sql.Int, data.intIdDiagnostico)
+                .execute("sp_SetResultDiagnosticoTecnico");
+
+            let result = {
+                error: false,
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo setResultDiagnosticoTecnicas de la clase daoDiagnosticoServicio",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateDiagnosticoTecnicas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -365,6 +392,35 @@ class daoDiagnosticoTecnicas {
                 msg:
                     error.message ||
                     "Error en el metodo getDiagnosticoTecnicas de la clase daoDiagnosticoTecnicas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getResultDiagnosticoTecnicas(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn
+                .request()
+                .input("intIdDiagnostico", sql.Int, data.intIdDiagnostico)
+                .execute("sp_GetResultDiagnosticoTecnico");
+
+            let result = {
+                error: false,
+                data: response.recordset[0]
+            };
+
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getResultDiagnosticoTecnicas de la clase daoDiagnosticoServicio",
             };
 
             sql.close(conexion);
