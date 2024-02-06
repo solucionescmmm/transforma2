@@ -6,7 +6,7 @@ const getTipoAcompañamiento = require("../../domain/getTipoAcompañamiento.serv
 const getTipoActividad = require("../../domain/getTipoActividad.service")
 const updateAcompañamiento = require("../../domain/updateAcompañamiento.service");
 const updateFinalizarSesionAcompañamiento = require("../../domain/updateFinalizarSesionAcompañamiento.service");
-const updateSesionAcompañamiento = require("../../domain/updateSesionAcompañamiento.service");
+//const updateSesionAcompañamiento = require("../../domain/updateSesionAcompañamiento.service");
 const deleteAcompañamiento = require("../../domain/deleteAcompañamiento.service");
 
 class ctrl_Acompañamiento {
