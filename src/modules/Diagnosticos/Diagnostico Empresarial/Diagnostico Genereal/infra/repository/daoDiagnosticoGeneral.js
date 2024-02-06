@@ -173,7 +173,7 @@ class daoDiagnosticoGeneral {
                 strRolesEmprendimiento                    = COALESCE(${data.strRolesEmprendimiento}, strRolesEmprendimiento),
                 strDiasProduccion                         = COALESCE(${data.strDiasProduccion}, strDiasProduccion),
                 strGeneraEmpleoRiesgoPobreza              = COALESCE(${data.strGeneraEmpleoRiesgoPobreza}, strGeneraEmpleoRiesgoPobreza),
-                ValorGananciasMes                         = COALESCE(${data.ValorGananciasMes}, ValorGananciasMes),
+                ValorGananciasMes                         = COALESCE(${data.valorGananciasMes}, ValorGananciasMes),
                 strActivos                                = COALESCE(${data.strActivos}, strActivos),
                 strMediosDigitales                        = COALESCE(${data.strRedesSociales}, strMediosDigitales),
                 ValorActivos                              = COALESCE(${data.ValorActivos}, ValorActivos),

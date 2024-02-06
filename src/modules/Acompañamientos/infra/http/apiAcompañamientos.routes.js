@@ -54,6 +54,22 @@ routes.put(
   }
 );
 
+routes.put(
+  "/transforma/api/Acompanamientos/updateSesionAcompanamiento",
+  async (req, res) => {
+    let controllerAcompañamientos = new classController();
+    await controllerAcompañamientos.updateSesionAcompañamiento(req, res);
+  }
+);
+
+routes.put(
+  "/transforma/api/Acompanamientos/updateFinalizarSesionAcompanamiento",
+  async (req, res) => {
+    let controllerAcompañamientos = new classController();
+    await controllerAcompañamientos.updateFinalizarSesionAcompañamiento(req, res);
+  }
+);
+
 routes.delete(
   "/transforma/api/Acompanamientos/deleteAcompanamiento",
   async (req, res) => {

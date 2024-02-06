@@ -340,6 +340,44 @@ class daoAcompañamientos {
         }
     }
 
+    async updateFinalizarSesionAcompañamiento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_Sesiones_Acompañamientos
+
+            SET btFinalizado            = COALESCE(${data.btFinalizado},btFinalizado),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+            WHERE intId = ${data.intId}
+
+            SELECT * FROM tbl_Sesiones_Acompañamientos WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `La sesión, fue finalizada con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateDiagnosticoTecnicas de la clase daoDiagnosticoTecnicas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async deleteAcompañamiento(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
