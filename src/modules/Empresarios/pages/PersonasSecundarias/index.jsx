@@ -3,23 +3,16 @@ import { useEffect, useRef, useState } from "react";
 import {
     Alert,
     Avatar,
-    Breadcrumbs,
     Button,
     CircularProgress,
     Container,
     Grid,
-    Link,
     Paper,
     TextField,
     Typography,
 } from "@mui/material";
-import { Link as RouterLink, useHistory } from "react-router-dom";
 
 //Iconos
-import {
-    Home as HomeIcon,
-    ChevronLeft as ChevronLeftIcon,
-} from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 
@@ -68,7 +61,7 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const SearchEmpresario = ({ isEdit, intIdIdea }) => {
+const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
     const [documento, setDocumento] = useState("");
     const [hiddenSearch, setHiddenSearch] = useState(false);
     const [data, setData] = useState();
@@ -87,8 +80,6 @@ const SearchEmpresario = ({ isEdit, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-
-    const { goBack } = useHistory();
     const {
         control,
         formState: { errors },
@@ -172,7 +163,6 @@ const SearchEmpresario = ({ isEdit, intIdIdea }) => {
                     });
 
                     for (let i = 0; i < objEmprPrincipal?.objInfoIdeaEmpresario?.length; i++) {
-                        console.log(objEmprPrincipal.objInfoIdeaEmpresario[i]?.intIdIdea, parseInt(intIdIdea))
                         if (objEmprPrincipal.objInfoIdeaEmpresario[i]?.intIdIdea === parseInt(intIdIdea)) {
                             setBitMismaIdea(true)
                         }
@@ -238,9 +228,10 @@ const SearchEmpresario = ({ isEdit, intIdIdea }) => {
     if (hiddenSearch || isEdit) {
         return (
             <CUPersona
-                values={data}
+                values={values ? values : data}
                 isEdit={isEdit}
                 resetSearch={setHiddenSearch}
+                onChangeRoute={onChangeRoute}
             />
         );
     }

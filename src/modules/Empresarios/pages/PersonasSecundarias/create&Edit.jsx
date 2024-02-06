@@ -27,7 +27,7 @@ import { AuthContext } from "../../../../common/middlewares/Auth";
 import axios from "axios";
 import NumberFormat from "react-number-format";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 // Componentes
 import SelectTipoDocumento from "../../components/selectTipoDocumento";
@@ -38,7 +38,6 @@ import SelectTipoRelacion from "../../components/selectTipoRelacion";
 import Dropzone from "../../../../common/components/dropzone";
 import ModalDireccionResidencia from "../../components/modalDireccionResidencia";
 import DropdownLocalizaciones from "../../components/dropdownLocalizaciones";
-import DropdownEmpresarios from "../../../../common/components/dropdownEmpresarios";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -91,11 +90,9 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
         setError,
         clearErrors,
         reset,
-        watch,
     } = useForm({ mode: "onChange" });
 
     const { intId } = useParams();
-
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -165,6 +162,8 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
         async (signalSubmitData) => {
             setLoading(true);
 
+            console.log(data.dtFechaNacimiento ? "Holaa": "Null")
+
             setFlagSubmit(false);
 
             await axios(
@@ -189,7 +188,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                             "yyyy-MM-dd"
                                         )
                                         : null,
-                                dtFechaNacimiento: data.dtFechaExpedicionDocto
+                                dtFechaNacimiento: data.dtFechaNacimiento
                                     ? format(
                                         data.dtFechaNacimiento,
                                         "yyyy-MM-dd"
@@ -254,8 +253,8 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                 strTipoDocto: values.strTipoDocto || "",
                 strNroDocto: values.strNroDocto || "",
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || null,
-                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto,
-                dtFechaNacimiento: values.dtFechaNacimiento,
+                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto? parseISO(values.dtFechaExpedicionDocto): null,
+                dtFechaNacimiento: values.dtFechaNacimiento? parseISO(values.dtFechaNacimiento): null,
                 strGenero: values.strGenero || "",
                 strCelular1: values.strCelular1 || "",
                 strCelular2: values.strCelular2 || "",
@@ -284,8 +283,8 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                 strTipoDocto: values.strTipoDocto || "",
                 strNroDocto: values.strNroDocto || "",
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || null,
-                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto,
-                dtFechaNacimiento: values.dtFechaNacimiento,
+                dtFechaExpedicionDocto: values?.dtFechaExpedicionDocto || null,
+                dtFechaNacimiento: values?.dtFechaNacimiento || null,
                 strGenero: values.strGenero || "",
                 strCelular1: values.strCelular1 || "",
                 strCelular2: values.strCelular2 || "",
