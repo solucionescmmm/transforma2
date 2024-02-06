@@ -18,6 +18,7 @@ class updateDiagnosticoTecnicas {
         await this.#validations();
         await this.#completeData();
         await this.#updateDiagnosticoTecnicas();
+        await this.#setResultDiagnosticoTecnicas();
         return this.#objResult;
     }
 
@@ -67,6 +68,18 @@ class updateDiagnosticoTecnicas {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #setResultDiagnosticoTecnicas() {
+        let dao = new classInterfaceDAOTecnicas();
+
+        let query = await dao.setResultDiagnosticoTecnicas({
+            intIdDiagnostico: this.#objData?.objInfoGeneral?.intIdDiagnostico
+        });
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 }
 module.exports = updateDiagnosticoTecnicas;
