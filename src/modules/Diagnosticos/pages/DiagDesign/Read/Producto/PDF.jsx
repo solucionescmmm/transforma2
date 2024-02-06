@@ -84,6 +84,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "grey",
     },
+    images: {
+        width: "100px",
+    },
 });
 
 const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
@@ -717,7 +720,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </Html>
 
                     {arrImagenes.length > 0 &&
-                        arrImagenes.map((i) => <Image src={i.src} />)}
+                        arrImagenes.map((i) => <Image src={i.src} style={styles.images} />)}
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y
