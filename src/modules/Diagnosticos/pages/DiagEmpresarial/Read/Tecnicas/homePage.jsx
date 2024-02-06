@@ -27,11 +27,12 @@ import {
 
 import Loader from "../../../../../../common/components/Loader";
 import ErrorPage from "../../../../../../common/components/Error";
-import useGetDiagnHumano from "../../../../hooks/useGetDiagnHumano";
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
 import ModalFinish from "./modalFinish";
 import { Can } from "../../../../../../common/functions/can";
+import ChartBar from "./chartBar";
+import useGetDiagnTecn from "../../../../hooks/useGetDiagnTecnico";
 
 const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
@@ -555,10 +556,13 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     ] = useState(true);
     const [openCollapseInfoComAsociativo, setOpenCollapseInfoComAsociativo] =
         useState(true);
+
+    const [openCollapseGrafico, setOpenCollapseGrafico] = useState(true);
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { getUniqueData } = useGetDiagnHumano({
+    const { getUniqueData } = useGetDiagnTecn({
         autoLoad: false,
         intIdDiagnostico,
     });
@@ -588,6 +592,9 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                     let data = res.data.data[0];
 
                     setFinalizado(data.objInfoGeneral.btFinalizado);
+
+                    debugger
+                    const arrayTecnicas = data.arrayTecnicas
 
                     const objInfoGeneral = {
                         dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
@@ -794,6 +801,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             objInfoComFinanciero: prevInfoComFinanciero,
                             objInfoComAdministrativo: prevInfoComAdministrativo,
                             objInfoComAsociativo: prevInfoComAsociativo,
+                            arrayTecnicas
                         };
                     });
                 }
@@ -846,6 +854,10 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
     const handlerChangeOpenCollapseInfoComAsociativo = () => {
         setOpenCollapseInfoComAsociativo(!openCollapseInfoComAsociativo);
+    };
+
+    const handlerChangeOpenCollapseGrafico = () => {
+        setOpenCollapseGrafico(!openCollapseGrafico);
     };
 
     //===============================================================================================================================================
@@ -1471,6 +1483,84 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                         </p>
                                     </Grid>
                                 ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Grafíco de resultados</b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseGrafico()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseGrafico
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseGrafico ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseGrafico} timeout="auto">
+                            <Grid container direction="row" spacing={2}>
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{ minWidth: "850px" }}
+                                            id="chart-diag-serv"
+                                        >
+                                            <ChartBar
+                                                title="DETALLE DEL DIAGNÓSTICO"
+                                                labels={[
+                                                    "Mercadeo",
+                                                    "Productivo",
+                                                    "Financiero",
+                                                    "Administrativo",
+                                                ]}
+                                                values={[
+                                                    data.arrayTecnicas
+                                                        ?.intMercadeoComercial ||
+                                                        0,
+                                                    data.arrayTecnicas
+                                                        ?.intTecnicoProductivo ||
+                                                        0,
+                                                    data.arrayTecnicas
+                                                        ?.intContableFinanciero ||
+                                                        0,
+                                                    data.arrayTecnicas
+                                                        ?.intAdministrativo ||
+                                                        0,
+                                                ]}
+                                                maxValues={[65, 55, 30, 50]}
+                                            />
+                                        </Box>
+                                    </Box>
+                                </Grid>
                             </Grid>
                         </Collapse>
                     </Paper>

@@ -84,6 +84,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "grey",
     },
+    images: {
+        width: "100px",
+    },
 });
 
 const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
@@ -175,7 +178,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objInnovacionBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan">${
+                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>`
                     )
@@ -194,7 +197,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objPersepcionBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan">${
+                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>`
                     )
@@ -213,7 +216,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objExperienciaBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan">${
+                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>`
                     )
@@ -232,7 +235,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objMarcaBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan">${
+                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>`
                     )
@@ -255,7 +258,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objInnovacionMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan">${
+                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>`
                     )
@@ -274,7 +277,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objPersepcionMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan">${
+                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>`
                     )
@@ -293,7 +296,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objExperienciaMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan">${
+                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>`
                     )
@@ -312,7 +315,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objMarcaMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan">${
+                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>`
                     )
@@ -333,7 +336,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             .map(
                                 (e) => `
                    
-                                <p class="pPDF"><span class="pPDFSpan">${
+                                <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</p>
                             `
@@ -357,7 +360,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         .map(
                             (e) => `
                         
-                            <p class="pPDF"><span class="pPDFSpan">${
+                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>
                         
@@ -374,7 +377,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     ${e.objEsteticaFortalezas
                         .map(
                             (e) => `         
-                            <p class="pPDF"><span class="pPDFSpan">${
+                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>
                         `
@@ -394,7 +397,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     ${e.objExperienciaFortalezas
                         .map(
                             (e) => `
-                            <p class="pPDF"><span class="pPDFSpan">${
+                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>
                         `
@@ -414,7 +417,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     ${e.objMarcaFortalezas
                         .map(
                             (e) => `
-                            <p class="pPDF"><span class="pPDFSpan">${
+                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</p>
                         `
@@ -501,6 +504,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             margin: 10px;
                            }
 
+                           .pPDFSpan {
+                            font-weight: 400;
+                            font-family: "Roboto";
+                           }
+
                            table {
                             font-size: 8px;
                             border-collapse: collapse;
@@ -529,12 +537,12 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                           tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
                         </style>
 
-                        <body>
+                    <body>
                         <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
                         <hr />
 
                         
-                        <p>
+                    <p>
                         <span style="color: #00BBB4">Empresa: </span>
                          ${objEmpresa?.strNombreMarca} 
                     </p>
@@ -555,8 +563,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     <span style="color: #00BBB4">Descripción: </span>
                      ${objEmpresa?.strDescProductosServicios}
                     </p>
-
-
 
                             <p>
                                 <span style="color: #00BBB4">Fecha de descarga: </span>
@@ -602,6 +608,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            <style>
                            div {
                                font-family: "Roboto";
+                           }
+
+                           .pPDFSpan {
+                            font-weight: 400;
+                            font-family: "Roboto";
                            }
    
                               hr {
@@ -719,7 +730,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </Html>
 
                     {arrImagenes.length > 0 &&
-                        arrImagenes.map((i) => <Image src={i.src} />)}
+                        arrImagenes.map((i) => <Image src={i.src} style={styles.images} />)}
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y

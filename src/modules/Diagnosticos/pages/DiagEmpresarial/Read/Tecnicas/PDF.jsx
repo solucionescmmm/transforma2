@@ -94,7 +94,11 @@ const PDFProduct = ({ intId, values }) => {
         setLoading(true);
 
         if (data && data.length > 0) {
-            setObjEmpresario(data[0]?.objEmpresario);
+            setObjEmpresario(
+                data[0]?.objEmpresario?.find(
+                    (e) => e.strTipoEmpresario === "Principal"
+                )
+            );
             setObjEmpresa(data[0]?.objInfoEmpresa);
             setLoading(false);
         }
@@ -207,45 +211,124 @@ const PDFProduct = ({ intId, values }) => {
                         </style>
 
                         <body>
-                            <p class="pMargin">
-                                <span style="color: #00BBB4">${
-                                    objEmpresario?.strTipoDocto
-                                }: </span>
-                                ${objEmpresario?.strNroDocto}
-                            </p>
+                        <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
+                        <hr />
 
-                            <p class="pMargin">
-                                <span style="color: #00BBB4">Nombre: </span>
-                                 ${objEmpresario?.strNombres}  ${
-                            objEmpresario?.strApellidos
-                        }
-                            </p>
+                        
+                    <p>
+                        <span style="color: #00BBB4">Empresa: </span>
+                         ${objEmpresa?.strNombreMarca} 
+                    </p>
 
-                            <p class="pMargin">
-                                <span style="color: #00BBB4">Empresa: </span>
-                                 ${objEmpresa?.strNombreMarca} 
-                            </p>
+                          
+                    <p>
+                    <span style="color: #00BBB4">Representante: </span>
+                     ${objEmpresario?.strNombreCompleto}
+                    </p>
+
+                    <p>
+                    <span style="color: #00BBB4">Categoría: </span>
+                     ${objEmpresa?.strCategoriaProducto}
+                    </p>
+
+
+                    <p>
+                    <span style="color: #00BBB4">Descripción: </span>
+                     ${objEmpresa?.strDescProductosServicios}
+                    </p>
+
+
 
                             <p>
                                 <span style="color: #00BBB4">Fecha de descarga: </span>
                                  ${new Date().toLocaleDateString("es-ES")} 
                             </p>
 
-                            <h5 class="pMargin"> <span style="color: #00BBB4">Competencias Humanas </span></h5>
-                            <hr />
+                            <br />
 
-                            ${htmlInfoEncuestaHumanas}
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae voluptas quas veniam cum illo temporibus alias, quaerat doloremque voluptate a ex dolores. Dolorem natus vel sit iure libero magnam mollitia.</p>
+
+
+                           
  
                         </body>
                         </html>
                       `}
                     </Html>
 
-                    <Text style={styles.title}>
-                        Grafíco de resultados
-                    </Text>
-
                     <Image source={values?.imgChart} />
+
+                    <Html>
+                        {`
+                          
+                          <html>
+                          <style>
+                          hr {
+                           border: 1px solid gray;
+                           border-radius: 1px;
+                           margin: 15px;
+                          }
+
+                          p {
+                              font-size: 12px;
+                          }
+
+                          .pMargin {
+                             margin-bottom: -10px;
+                          }
+
+                          .textObj {
+                            margin: 2px;
+                            font-size: 11px;
+                            display: flex;
+                            align-content: center;
+                          }
+
+                          .title{
+                           font-size: 14px;
+                           font-weight: bold;
+                           color: #F5B335;
+                           margin: 10px;
+                          }
+
+                          table {
+                           font-size: 8px;
+                           border-collapse: collapse;
+                           width: 100%;
+
+                         }
+                         
+                         td, th {
+                           border: 1px solid #dddddd;
+                           text-align: left;
+                           padding: 5px;
+                         }
+
+                         tr:nth-child(even) {
+                           background-color: #dddddd;
+                         }
+
+                         th {
+                           padding-top: 12px;
+                           padding-bottom: 12px;
+                           text-align: center;
+                           background-color: #00BBB4;
+                           color: white;
+                         }
+
+                         tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
+                       </style>
+
+                            <body>
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Competencias Humanas </span></h5>
+                            <hr />
+
+                            ${htmlInfoEncuestaHumanas}
+                            </body>
+
+                          </html>
+                        `}
+                    </Html>
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y
