@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
 
-//Context
-
 //Librerias
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -27,7 +25,7 @@ import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import { AuthContext } from "../../../../../../../common/middlewares/Auth";
+import { AuthContext } from "../../../../../common/middlewares/Auth"; 
 
 
 
@@ -38,7 +36,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea, onChangeRoute }) => {
+const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, intIdAcompañamiento, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -54,7 +52,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        intIdDiagnostico: null,
+        intIdSesion: null,
     });
 
     //===============================================================================================================================================
@@ -78,9 +76,9 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea
                 {
                     method: "PUT",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_FINISHGENERAL}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_FINISH_SESION}`,
                     data: {
-                        intId: data.intIdDiagnostico,
+                        intId: data.intIdSesion,
                     },
                     headers: {
                         token,
@@ -126,14 +124,13 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (intIdDiagnostico) {
+        if (intIdSesion) {
             setData({
-                intIdDiagnostico,
+                intIdSesion,
             });
         }
-
         setLoading(false);
-    }, [intIdDiagnostico]);
+    }, [intIdSesion]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -151,9 +148,9 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea
         if (success) {
             handleOpenDialog();
 
-            onChangeRoute("DiagEmpresarial", {
+            refresh({
                 intIdIdea,
-                intIdDiagnostico,
+                intId:intIdAcompañamiento
             });
 
             setSucces(false);
@@ -164,7 +161,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (!data.intIdDiagnostico) {
+    if (!data.intIdSesion) {
         return (
             <Dialog
                 fullScreen={bitMobile}
@@ -173,7 +170,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea
                 PaperProps={{
                     style: {
                         backgroundColor:
-                            !loading && !data.intIdDiagnostico ? "#FDEDED" : "inherit",
+                            !loading && !data.intIdSesion ? "#FDEDED" : "inherit",
                     },
                 }}
             >
@@ -194,7 +191,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea
                         <Alert severity="error">
                             <AlertTitle>
                                 <b>
-                                    No se encontro el identificador del diagnóstico
+                                    No se encontro el identificador de la sesión
                                 </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
@@ -228,13 +225,11 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas finalizar el diagnóstico seleccionado?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas finalizar la sesión seleccionada?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    Se ha detectado que la persona empresaria ya cuenta con
-                    un registro del diagnóstico general. ¿Deseas finalizar
-                    el diagnóstico general?
+                    ¿Deseas finalizar la sesión del acompañamiento?
                 </DialogContentText>
             </DialogContent>
 

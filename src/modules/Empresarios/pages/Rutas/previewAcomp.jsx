@@ -1,6 +1,6 @@
 import MaterialTable, { MTableToolbar } from "@material-table/core";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 //Iconos
 import {
@@ -22,14 +22,20 @@ import {
     RemoveRedEye as RemoveRedEyeIcon,
     Cancel as CancelIcon,
 } from "@mui/icons-material";
+
+//Hooks
 import useGetAcomp from "../../hooks/useGetAcomp";
+
+//Componentes
+import ModalFinalizacion from "./components/modalFinalizarSesion";
 
 const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const { data: values } = useGetAcomp({ autoLoad: true, intIdIdea, intId });
-
+    const { data: values, refreshGetData } = useGetAcomp({ autoLoad: true, intIdIdea, intId });
+    const [openModalFinalizacion, setOpenModalFinalizacion] = useState(false);
+    const [selectedData, setSelectedData] = useState();
     const [dataValues, setDataValues] = useState();
     const [dataTable, setDataTable] = useState([]);
     const [objColumns] = useState([
@@ -65,6 +71,13 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
             type: "date",
         },
     ]);
+
+    //===============================================================================================================================================
+    //========================================== Funciones ==========================================================================================
+    //===============================================================================================================================================
+    const handlerOpenModalFinalizacion = () => {
+        setOpenModalFinalizacion(!openModalFinalizacion);
+    };
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -111,7 +124,18 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
     }, [values]);
 
     return (
-        <Box sx={{ padding: "10px" }}>
+        <Fragment>
+            <ModalFinalizacion
+                handleOpenDialog={handlerOpenModalFinalizacion}
+                open={openModalFinalizacion}
+                intIdSesion={selectedData?.intId}
+                intIdAcompañamiento={selectedData?.intIdAcompañamiento}
+                intIdIdea={intIdIdea}
+                selectedData={selectedData}
+                refresh={refreshGetData}
+            />
+
+            <Box sx={{ padding: "10px" }}>
             <Grid container direction="row" spacing={2}>
                 <Grid item xs={12}>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -282,7 +306,9 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                                         ),
                                         tooltip: "Finalizar",
                                         onClick: (event, rowData) => {
+                                            setSelectedData(rowData)
                                             console.log(rowData)
+                                            handlerOpenModalFinalizacion()
                                         },
                                     };
                                 }
@@ -343,7 +369,9 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                     />
                 </Grid>
             </Grid>
-        </Box>
+            </Box>
+        </Fragment>
+
     );
 };
 
