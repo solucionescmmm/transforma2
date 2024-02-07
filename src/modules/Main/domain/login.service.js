@@ -20,7 +20,6 @@ const login = async (payload) => {
         let objUserData;
 
         if ((process.env.ENV === "prod" || process.env.ENV === "dev" || process.env.ENV === "test") && payload?.account) {
-            console.log(payload)
             const { account } = payload;
 
             objUserData = {
