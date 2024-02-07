@@ -361,7 +361,7 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     required
-                                    disabled={disabled}
+                                    disabled
                                     fullWidth
                                     variant="standard"
                                     error={
@@ -405,7 +405,7 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     required
-                                    disabled={disabled}
+                                    disabled
                                     fullWidth
                                     variant="standard"
                                     error={
@@ -448,7 +448,7 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     required
-                                    disabled={disabled}
+                                    disabled
                                     error={
                                         errors?.objInfoGeneral?.strTipoDocto
                                             ? true
@@ -480,7 +480,7 @@ const InfoGeneral = ({
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     required
-                                    disabled={disabled}
+                                    disabled
                                     fullWidth
                                     variant="standard"
                                     error={
@@ -513,7 +513,7 @@ const InfoGeneral = ({
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
-                                    disabled={disabled}
+                                    disabled
                                     fullWidth
                                     variant="standard"
                                     error={
@@ -542,7 +542,7 @@ const InfoGeneral = ({
                                 <DatePicker
                                     label="Fecha de expedición del documento"
                                     value={value}
-                                    disabled={disabled}
+                                    disabled
                                     onChange={(date) => onChange(date)}
                                     format="dd/MM/yyyy"
                                     slotProps={{
@@ -573,7 +573,7 @@ const InfoGeneral = ({
                                 <DatePicker
                                     label="Fecha de nacimiento"
                                     value={value}
-                                    disabled={disabled}
+                                    disabled
                                     onChange={(date) => onChange(date)}
                                     format="dd/MM/yyyy"
                                     slotProps={{
@@ -606,7 +606,7 @@ const InfoGeneral = ({
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
-                                    disabled={disabled}
+                                    disabled
                                     required
                                     error={
                                         errors?.objInfoGeneral?.strGenero

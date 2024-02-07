@@ -213,6 +213,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                                     ?.message ||
                                                 "Selecciona la fecha de vinculación",
                                             fullWidth: true,
+                                            required:true,
                                         },
                                     }}
                                 />
