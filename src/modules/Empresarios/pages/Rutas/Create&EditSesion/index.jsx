@@ -114,16 +114,16 @@ const CUSesion = ({
         intIdRuta,
         intIdFase,
         objEmpresario: null,
-        dtmFechaInicio: null,
+        dtmFechaInicial: null,
         intTipoAcomp: null,
-        strLugarActividad: "",
-        intTipoActividad: "",
-        objResponsable: null,
+        strUbicacion: "",
+        intIdTipoActividad: "",
+        strResponsables: null,
         strObjetivoActividad: "",
-        strActividades: "",
+        strTemasActividades: "",
         strLogros: "",
-        dtmFechaProx: null,
-        strRetroAlim: "",
+        dtmProximaActividad: null,
+        strObservaciones: "",
         strURLDocumento: "",
         objObjetivos: {
             bitFinalizaServ: false,
@@ -177,7 +177,7 @@ const CUSesion = ({
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${isEdit
                         ? process.env
-                            .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
+                            .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE_SESION
                         : process.env
                             .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET_SESION
                         }`,
@@ -231,30 +231,32 @@ const CUSesion = ({
         console.log(values)
         if (values) {
             setData({
+                intId:values?.intId || null,
                 objEmpresario: values.objEmpresario || null,
-                dtmFechaInicio: values.dtmFechaInicio ? parseISO(values?.dtmFechaInicio) : null,
+                dtmFechaInicial: values.dtmFechaInicial ? parseISO(values?.dtmFechaInicial) : null,
                 intTipoAcomp: values.intTipoAcomp || null,
-                strLugarActividad: values.strUbicacion || "",
-                intTipoActividad: values.intIdTipoActividad || "",
-                objResponsable: values.strResponsables || null,
+                strUbicacion: values.strUbicacion || "",
+                intIdTipoActividad: values.intIdTipoActividad || "",
+                strResponsables: values.strResponsables || null,
                 strObjetivoActividad: values.strObjetivoActividad || "",
-                strActividades: values.strTemasActividades || "",
-                dtmFechaProx: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
-                strRetroAlim: values.strObservaciones || "",
+                strTemasActividades: values.strTemasActividades || "",
+                dtmProximaActividad: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
+                strObservaciones: values.strObservaciones || "",
                 strURLDocumento: values.strURLDocumento || "",
             });
 
             reset({
+                intId:values?.intId || null,
                 objEmpresario: values.objEmpresario || null,
-                dtmFechaInicio: values.dtmFechaInicio ? parseISO(values?.dtmFechaInicio) : null,
+                dtmFechaInicial: values.dtmFechaInicial ? parseISO(values?.dtmFechaInicial) : null,
                 intTipoAcomp: values.intTipoAcomp || null,
-                strLugarActividad: values.strUbicacion || "",
-                intTipoActividad: values.intIdTipoActividad || "",
-                objResponsable: values.strResponsables || null,
+                strUbicacion: values.strUbicacion || "",
+                intIdTipoActividad: values.intIdTipoActividad || "",
+                strResponsables: values.strResponsables || null,
                 strObjetivoActividad: values.strObjetivoActividad || "",
-                strActividades: values.strTemasActividades || "",
-                dtmFechaProx: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
-                strRetroAlim: values.strObservaciones || "",
+                strTemasActividades: values.strTemasActividades || "",
+                dtmProximaActividad: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
+                strObservaciones: values.strObservaciones || "",
                 strURLDocumento: values.strURLDocumento || "",
             });
         }
@@ -302,7 +304,10 @@ const CUSesion = ({
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
     if (success) {
-        onChangeRoute("Rutas");
+        onChangeRoute("ViewAcomp", {
+            intIdIdea,
+            intIdAcompañamiento
+        })
     }
 
     if (data?.error) {
@@ -420,8 +425,8 @@ const CUSesion = ({
 
                                 <Grid item xs={12} md={6}>
                                     <Controller
-                                        defaultValue={data.dtmFechaInicio}
-                                        name="dtmFechaInicio"
+                                        defaultValue={data.dtmFechaInicial}
+                                        name="dtmFechaInicial"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
@@ -437,10 +442,10 @@ const CUSesion = ({
                                                     textField: {
                                                         name,
                                                         variant: "standard",
-                                                        error: !!errors?.dtmFechaInicio,
+                                                        error: !!errors?.dtmFechaInicial,
                                                         helperText:
                                                             errors
-                                                                ?.dtmFechaInicio
+                                                                ?.dtmFechaInicial
                                                                 ?.message ||
                                                             "Selecciona la fecha del acompañamiento",
                                                         fullWidth: true,
@@ -459,8 +464,8 @@ const CUSesion = ({
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={data.strLugarActividad}
-                                        name="strLugarActividad"
+                                        defaultValue={data.strUbicacion}
+                                        name="strUbicacion"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
@@ -473,10 +478,10 @@ const CUSesion = ({
                                                 disabled={loading || isPreview}
                                                 required
                                                 error={
-                                                    !!errors?.strLugarActividad
+                                                    !!errors?.strUbicacion
                                                 }
                                                 helperText={
-                                                    errors?.strLugarActividad
+                                                    errors?.strUbicacion
                                                         ?.message ||
                                                     "Digita el lugar donde se  realizo la actividad"
                                                 }
@@ -493,8 +498,8 @@ const CUSesion = ({
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={data.intTipoActividad}
-                                        name="intTipoActividad"
+                                        defaultValue={data.intIdTipoActividad}
+                                        name="intIdTipoActividad"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
@@ -507,10 +512,10 @@ const CUSesion = ({
                                                 disabled={loading || isPreview}
                                                 required
                                                 error={
-                                                    !!errors?.intTipoActividad
+                                                    !!errors?.intIdTipoActividad
                                                 }
                                                 helperText={
-                                                    errors?.intTipoActividad
+                                                    errors?.intIdTipoActividad
                                                         ?.message ||
                                                     "Selecciona el tipo de actividad"
                                                 }
@@ -526,8 +531,8 @@ const CUSesion = ({
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={data.objResponsable}
-                                        name="objResponsable"
+                                        defaultValue={data.strResponsables}
+                                        name="strResponsables"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
@@ -540,9 +545,9 @@ const CUSesion = ({
                                                 }
                                                 disabled={loading || isPreview}
                                                 required
-                                                error={!!errors?.objResponsable}
+                                                error={!!errors?.strResponsables}
                                                 helperText={
-                                                    errors?.objResponsable
+                                                    errors?.strResponsables
                                                         ?.message ||
                                                     "Selecciona el responsable"
                                                 }
@@ -558,8 +563,8 @@ const CUSesion = ({
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={data.strActividades}
-                                        name="strActividades"
+                                        defaultValue={data.strTemasActividades}
+                                        name="strTemasActividades"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
@@ -571,9 +576,9 @@ const CUSesion = ({
                                                 onChange={(e) => onChange(e)}
                                                 disabled={loading || isPreview}
                                                 required
-                                                error={!!errors?.strActividades}
+                                                error={!!errors?.strTemasActividades}
                                                 helperText={
-                                                    errors?.strActividades
+                                                    errors?.strTemasActividades
                                                         ?.message ||
                                                     "Digita las actividades a desarrollar"
                                                 }
@@ -592,8 +597,8 @@ const CUSesion = ({
 
                                 <Grid item xs={12} md={12}>
                                     <Controller
-                                        defaultValue={data.dtmFechaProx}
-                                        name="dtmFechaProx"
+                                        defaultValue={data.dtmProximaActividad}
+                                        name="dtmProximaActividad"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
@@ -610,9 +615,9 @@ const CUSesion = ({
                                                     textField: {
                                                         name,
                                                         variant: "standard",
-                                                        error: !!errors?.dtmFechaProx,
+                                                        error: !!errors?.dtmProximaActividad,
                                                         helperText:
-                                                            errors?.dtmFechaProx
+                                                            errors?.dtmProximaActividad
                                                                 ?.message ||
                                                             "Selecciona la fecha de la próxima reunión",
                                                         fullWidth: true,
@@ -630,8 +635,8 @@ const CUSesion = ({
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={data.strRetroAlim}
-                                        name="strRetroAlim"
+                                        defaultValue={data.strObservaciones}
+                                        name="strObservaciones"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
@@ -642,9 +647,9 @@ const CUSesion = ({
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
                                                 disabled={loading || isPreview}
-                                                error={!!errors?.strRetroAlim}
+                                                error={!!errors?.strObservaciones}
                                                 helperText={
-                                                    errors?.strRetroAlim
+                                                    errors?.strObservaciones
                                                         ?.message ||
                                                     "Digita la retroalimentación u observaciones en caso de tener"
                                                 }
