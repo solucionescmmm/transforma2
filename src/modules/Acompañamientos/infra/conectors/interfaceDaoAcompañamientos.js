@@ -38,6 +38,12 @@ class interfaceDAOAcompañamientos {
         return result
     }
 
+    async updateSesionAcompañamiento(data) {
+        const dao = new classDaoSql()
+        let result = await dao.updateSesionAcompañamiento(data)
+        return result
+    }
+
     async updateFinalizarSesionAcompañamiento(data) {
         const dao = new classDaoSql()
         let result = await dao.updateFinalizarSesionAcompañamiento(data)

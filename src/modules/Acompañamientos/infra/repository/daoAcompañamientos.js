@@ -294,13 +294,49 @@ class daoAcompañamientos {
 
             UPDATE tbl_Acompañamientos
 
+            SET intIdTipoAcompañamiento  = COALESCE(${data.intIdTipoAcompañamiento},intIdTipoAcompañamiento),
+                dtmActualizacion         = COALESCE(GETDATE(),dtmActualizacion),
+                strUsuarioActualizacion  = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+
+            WHERE intId = ${data.intId}
+
+            SELECT * FROM tbl_Acompañamientos WHERE intId = ${data.intId}`;
+
+            let result = {
+                error: false,
+                data: response.recordset[0],
+                msg: `La Acompañamiento, fue actualizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateAcompañamiento de la clase daoAcompañamientos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async updateSesionAcompañamiento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            UPDATE tbl_Sesiones_Acompañamientos
+
             SET intIdEmpresario          = COALESCE(${data.intIdEmpresario},intIdEmpresario),
-                intIdTipoAcompañamiento  = COALESCE(${data.intIdTipoAcompañamiento},intIdTipoAcompañamiento),
                 dtmFechaInicial          = COALESCE(${data.dtmFechaInicial},dtmFechaInicial),
                 dtmFechaFinal            = COALESCE(${data.dtmFechaFinal},dtmFechaFinal),
                 strUbicacion             = COALESCE(${data.strUbicacion},strUbicacion),
                 intIdTipoActividad       = COALESCE(${data.intIdTipoActividad},intIdTipoActividad),
-                intIdRutaPaqueteServicio = COALESCE(${data.intIdRutaPaqueteServicio},intIdRutaPaqueteServicio),
                 strResponsables          = COALESCE(${data.strResponsables},strResponsables),
                 strObjetivoActividad     = COALESCE(${data.strObjetivoActividad},strObjetivoActividad),
                 strTemasActividades      = COALESCE(${data.strTemasActividades},strTemasActividades),
@@ -315,7 +351,7 @@ class daoAcompañamientos {
 
             WHERE intId = ${data.intId}
 
-            SELECT * FROM tbl_Acompañamientos WHERE intId = ${data.intId}`;
+            SELECT * FROM tbl_Sesiones_Acompañamientos WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
