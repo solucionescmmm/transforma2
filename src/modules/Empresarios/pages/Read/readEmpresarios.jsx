@@ -111,7 +111,7 @@ const ReadSolicitudesUser = () => {
             type: "string",
         },
         {
-            title: "Fecha de registro",
+            title: "Fecha de vinculación",
             field: "objEmpresario[0].dtFechaVinculacion",
             type: "date",
         },

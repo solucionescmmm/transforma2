@@ -82,9 +82,17 @@ const CardAcom = ({ intIdIdea }) => {
                         <p
                             style={{
                                 fontSize: "12px",
+                                paddingRight: "5px"
                             }}
                         >
-                            {p.objInfoPrincipal.strTipoAcompañamiento}
+                            - {p.objInfoPrincipal.strTipoAcompañamiento}
+                        </p>
+                        <p
+                            style={{
+                                fontSize: "12px",
+                            }}
+                        >
+                            - {p.arrSesionAcompañamiento[0]?.strNombreServicio ? p.arrSesionAcompañamiento[0].strNombreServicio : ""}
                         </p>
                     </Box>
                     <hr style={{color: "black"}}/>

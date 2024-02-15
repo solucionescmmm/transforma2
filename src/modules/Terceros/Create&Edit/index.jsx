@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
     Alert,
     Avatar,
@@ -12,7 +13,10 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
+
+//Librerias
 import { Link as RouterLink, useHistory } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
 
 //Iconos
 import {
@@ -21,7 +25,6 @@ import {
 } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
-import { Fragment, useEffect, useRef, useState } from "react";
 
 // Componentes
 import CUEmpresario from "./pageCUTercero";
@@ -82,15 +85,25 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
     const [loadingGetData, setLoadingGetData] = useState(false);
 
     //===============================================================================================================================================
+    //========================================== Hooks personalizados ===============================================================================
+    //===============================================================================================================================================
+
+    const { goBack } = useHistory();
+    const {
+        control,
+        formState: { errors },
+        handleSubmit,
+    } = useForm({ mode: "onChange" });
+
+    //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = styles();
 
-    const { goBack } = useHistory();
+    const onSubmit = (data) => {
+        setDocumento(data.documento);
 
-    const handleChangeDocumento = (value) => {
-        setSendData();
-        setDocumento(value);
+        setFlagGetData(true);
     };
 
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false });
@@ -101,7 +114,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
         setLoadingGetData(true);
 
         await refFntGetData
-            .current({ strDocumento: sendData })
+            .current({ strDocumento: documento })
             .then((res) => {
                 if (res.data.error) {
                     throw new Error(res.data.msg);
@@ -112,6 +125,9 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                     const objEmprPrincipal = data;
 
                     setData({
+                        intIdIdea: data.objInfoIdeaEmpresario?.intIdIdea,
+                        objIdeaEmpresario: data.objInfoIdeaEmpresario,
+                        objInfoPrincipal: {},
                         objInfoEmpresarioPr: {
                             intId: objEmprPrincipal.intId,
                             strNombres: objEmprPrincipal.strNombres || "",
@@ -123,20 +139,20 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                             dtFechaExpedicionDocto:
                                 objEmprPrincipal.dtFechaExpedicionDocto
                                     ? parseISO(
-                                          objEmprPrincipal.dtFechaExpedicionDocto
-                                      )
+                                        objEmprPrincipal.dtFechaExpedicionDocto
+                                    )
                                     : null,
                             dtFechaNacimiento:
                                 objEmprPrincipal.dtFechaNacimiento
                                     ? parseISO(
-                                          objEmprPrincipal.dtFechaNacimiento
-                                      )
+                                        objEmprPrincipal.dtFechaNacimiento
+                                    )
                                     : null,
                             strGenero: objEmprPrincipal.strGenero || "",
-                            strCelular1: objEmprPrincipal.strCelular1 || "",
+                            strCelular1: objEmprPrincipal.strCelular1 || objEmprPrincipal.strCelular || "",
                             strCelular2: objEmprPrincipal.strCelular2 || "",
                             strCorreoElectronico1:
-                                objEmprPrincipal.strCorreoElectronico1 || "",
+                                objEmprPrincipal.strCorreoElectronico1 || objEmprPrincipal.strCorreoElectronico || "",
                             strCorreoElectronico2:
                                 objEmprPrincipal.strCorreoElectronico2 || "",
                             strNivelEducativo:
@@ -145,6 +161,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                             strCondicionDiscapacidad:
                                 objEmprPrincipal.strCondicionDiscapacidad || "",
                             strEstrato: objEmprPrincipal.strEstrato || "",
+                            btPerfilSensible: objEmprPrincipal.btPerfilSensible || "",
                             arrDepartamento:
                                 objEmprPrincipal.arrDepartamento || [],
                             arrCiudad: objEmprPrincipal.arrCiudad || [],
@@ -158,9 +175,10 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                 } else {
                     setData();
                     setSendData(false);
-                    setBitBuscar(true);
+
                 }
 
+                setBitBuscar(true);
                 setLoadingGetData(false);
                 setErrorGetData({ flag: false, msg: "" });
                 setFlagGetData(false);
@@ -172,12 +190,6 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                 setSendData(false);
             });
     }
-
-    useEffect(() => {
-        if (strDoc) {
-            setDocumento(strDoc);
-        }
-    }, [strDoc]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -198,6 +210,12 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
             setBitBuscar(false);
         };
     }, [hiddenSearch]);
+
+    useEffect(() => {
+        if (strDoc) {
+            setDocumento(strDoc);
+        }
+    }, [strDoc]);
 
     if (errorGetData.flag) {
         return (
@@ -285,6 +303,9 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                             container
                             direction="row"
                             spacing={2}
+                            component="form"
+                            onSubmit={handleSubmit(onSubmit)}
+                            noValidate
                             style={{ padding: "25px" }}
                         >
                             <Grid item xs={12}>
@@ -315,18 +336,43 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                             </Grid>
 
                             <Grid item xs={9} md={11}>
-                                <TextField
+                                <Controller
+                                    defaultValue={documento}
                                     name="documento"
-                                    label="Documento"
-                                    helperText="Digita el documento de la persona"
-                                    fullWidth
-                                    variant="standard"
-                                    value={documento}
-                                    disabled={loadingGetData}
-                                    onChange={(e) => {
-                                        handleChangeDocumento(e.target.value);
-                                        setData();
-                                        setBitBuscar(false);
+                                    render={({ field: { name, value, onChange } }) => (
+                                        <TextField
+                                            label="Número de documento"
+                                            name={name}
+                                            value={value.trim()}
+                                            onChange={(e) => {
+                                                onChange(e)
+                                                setBitBuscar(false)
+                                                setData()
+                                            }}
+                                            required
+                                            fullWidth
+                                            variant="standard"
+                                            error={
+                                                errors?.documento
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.documento
+                                                    ?.message ||
+                                                "Digita el número de documento"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            "Por favor, digita el número de documento",
+                                        validate: (value) => {
+                                            if (value === " ") {
+                                                return "Por favor, digita el número de documento";
+                                            }
+                                        },
                                     }}
                                 />
                             </Grid>
@@ -337,11 +383,8 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                     size="small"
                                     style={{ marginTop: "15px" }}
                                     fullWidth
+                                    type="submit"
                                     disabled={loadingGetData}
-                                    onClick={() => {
-                                        setSendData(documento);
-                                        setFlagGetData(true);
-                                    }}
                                 >
                                     Buscar
                                 </Button>
@@ -433,8 +476,8 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                         No se ha encontrado registros asociados
                                         al documento digitado
                                     </Alert>
-                                )}
-
+                                )} 
+                                
                                 {data && documento && (
                                     <Alert severity="warning">
                                         Lo sentimos no puedes volver a registrar
@@ -455,7 +498,6 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                     >
                                         <Button
                                             variant="contained"
-                                            type="submit"
                                             disabled={loadingGetData}
                                             onClick={() => {
                                                 setHiddenSearch(true);
