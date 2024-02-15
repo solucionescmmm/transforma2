@@ -251,9 +251,7 @@ const Login = () => {
                                             marginBottom: "5px",
                                         }}
                                     >
-                                        {process.env.REACT_APP_NODE_ENV ===
-                                        "development" || process.env.REACT_APP_NODE_ENV ===
-                                        "production" ? (
+                                        {process.env.REACT_APP_NODE_ENV !== 'local' ? (
                                             <MicrosoftLogin
                                                 clientId={
                                                     process.env
