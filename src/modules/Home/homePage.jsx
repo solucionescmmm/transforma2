@@ -323,6 +323,7 @@ const HomePage = () => {
                         <Box
                             flexGrow={1}
                             maxWidth={50}
+                            width="90%"
                             display="flex"
                             sx={{ backgroundColor: "#026d70" }}
                             padding="1px"
@@ -361,6 +362,7 @@ const HomePage = () => {
                                 <Box
                                     flexGrow={1}
                                     maxWidth={50}
+                                    width="45%"
                                     display="flex"
                                     sx={{ backgroundColor: "#fff" }}
                                     padding="1px"

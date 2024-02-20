@@ -103,7 +103,10 @@ const Coco = () => {
     });
     const location = useHistory();
 
-    const { data: dataTabla } = useGetHistTabla({ intIdIdea: intId, autoLoad: true });
+    const { data: dataTabla } = useGetHistTabla({
+        intIdIdea: intId,
+        autoLoad: true,
+    });
 
     const objColumns = [
         {
@@ -302,14 +305,16 @@ const Coco = () => {
                                 height: 80,
                             }}
                             alt="logo"
-                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
-                                }${process.env.REACT_APP_API_BACK_PORT}${objInteresado?.objEmpresario
+                            src={`${process.env.REACT_APP_API_BACK_PROT}://${
+                                process.env.REACT_APP_API_BACK_HOST
+                            }${process.env.REACT_APP_API_BACK_PORT}${
+                                objInteresado?.objEmpresario
                                     ?.filter(
                                         (p) =>
                                             p.strTipoEmpresario === "Principal"
                                     )
                                     ?.at(0)?.strUrlFileFoto || ""
-                                }`}
+                            }`}
                         />
 
                         <Box
@@ -469,256 +474,6 @@ const Coco = () => {
                                 spacing={1}
                                 sx={{ display: "flex", alignItems: "stretch" }}
                             >
-                                <Grid item xs={12} md={6} sx={{ flex: "1" }}>
-                                    <Card elevation={1} sx={{ height: "100%" }}>
-                                        <CardContent>
-                                            <Grid container direction="row">
-                                                <Grid item xs={12}>
-                                                    <Box
-                                                        sx={{
-                                                            display: "flex",
-                                                            width: "100%",
-                                                            alignItems:
-                                                                "center",
-                                                        }}
-                                                    >
-                                                        <Box>
-                                                            <Avatar
-                                                                sx={{
-                                                                    width: 50,
-                                                                    height: 50,
-                                                                }}
-                                                                alt="logo"
-                                                                src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado?.objInfoEmpresa?.strURLFileLogoEmpresa}`}
-                                                            />
-                                                        </Box>
-                                                        <Box
-                                                            sx={{
-                                                                width: "100%",
-                                                            }}
-                                                        >
-                                                            <Typography
-                                                                sx={{
-                                                                    textAlign:
-                                                                        "center",
-                                                                }}
-                                                            >
-                                                                <b>
-                                                                    Información
-                                                                    de la
-                                                                    empresa
-                                                                </b>
-                                                            </Typography>
-                                                        </Box>
-                                                    </Box>
-
-                                                    <Box
-                                                        sx={{
-                                                            display: "flex",
-                                                            flexGrow: "1",
-                                                            marginTop: "10px",
-                                                            flexDirection:
-                                                                "column",
-                                                        }}
-                                                    >
-                                                        <Typography
-                                                            sx={{
-                                                                fontSize:
-                                                                    "12px",
-                                                            }}
-                                                        >
-                                                            <span
-                                                                style={{
-                                                                    color: "#00BAB3",
-                                                                }}
-                                                            >
-                                                                Categoría:{" "}
-                                                            </span>
-                                                            {objInteresado
-                                                                ?.objInfoEmpresa
-                                                                ?.strCategoriaProducto ||
-                                                                objInteresado
-                                                                    ?.objInfoEmpresa
-                                                                    ?.strCategoriaServicio ||
-                                                                "No registro"}
-                                                        </Typography>
-
-                                                        <Typography
-                                                            sx={{
-                                                                fontSize:
-                                                                    "12px",
-                                                            }}
-                                                        >
-                                                            <span
-                                                                style={{
-                                                                    color: "#00BAB3",
-                                                                }}
-                                                            >
-                                                                Descripción:{" "}
-                                                            </span>
-                                                            {objInteresado
-                                                                ?.objInfoEmpresa
-                                                                ?.strDescProductosServicios ||
-                                                                "No registro"}
-                                                        </Typography>
-
-                                                        <Typography
-                                                            sx={{
-                                                                fontSize:
-                                                                    "12px",
-                                                            }}
-                                                        >
-                                                            <span
-                                                                style={{
-                                                                    color: "#00BAB3",
-                                                                }}
-                                                            >
-                                                                Dirección:{" "}
-                                                            </span>
-                                                            {objInteresado
-                                                                ?.objInfoEmpresa
-                                                                ?.strDireccionResidencia ||
-                                                                "No registro"}
-                                                        </Typography>
-
-                                                        <Typography
-                                                            sx={{
-                                                                fontSize:
-                                                                    "12px",
-                                                            }}
-                                                        >
-                                                            <span
-                                                                style={{
-                                                                    color: "#00BAB3",
-                                                                }}
-                                                            >
-                                                                NIT:{" "}
-                                                            </span>
-                                                            {objInteresado
-                                                                ?.objInfoEmpresa
-                                                                ?.strNIT ||
-                                                                "No registro"}
-                                                        </Typography>
-
-                                                        <Typography
-                                                            sx={{
-                                                                fontSize:
-                                                                    "12px",
-                                                            }}
-                                                        >
-                                                            <span
-                                                                style={{
-                                                                    color: "#00BAB3",
-                                                                }}
-                                                            >
-                                                                Instagram:{" "}
-                                                            </span>
-                                                            {objInteresado?.objInfoEmpresa?.arrMediosDigitales.find(
-                                                                (x) =>
-                                                                    x.label ===
-                                                                    "Instagram"
-                                                            )?.value ||
-                                                                "No registro"}
-                                                        </Typography>
-
-                                                        <Typography
-                                                            sx={{
-                                                                fontSize:
-                                                                    "12px",
-                                                            }}
-                                                        >
-                                                            <span
-                                                                style={{
-                                                                    color: "#00BAB3",
-                                                                }}
-                                                            >
-                                                                Facebook:{" "}
-                                                            </span>
-                                                            {objInteresado?.objInfoEmpresa?.arrMediosDigitales.find(
-                                                                (x) =>
-                                                                    x.label ===
-                                                                    "Facebook"
-                                                            )?.value ||
-                                                                "No registro"}
-                                                        </Typography>
-                                                    </Box>
-                                                </Grid>
-                                            </Grid>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-
-                                <Grid item xs={12} md={6} sx={{ flex: "1" }}>
-                                    <Card elevation={1} sx={{ height: "100%" }}>
-                                        <CardContent>
-                                            <Grid item xs={12}>
-                                                <Typography
-                                                    sx={{
-                                                        textAlign: "center",
-                                                        marginTop: "10px",
-                                                        marginBottom: "10px",
-                                                    }}
-                                                >
-                                                    <b>Acompañamientos</b>
-                                                </Typography>
-                                            </Grid>
-
-                                            <Grid item xs={12}>
-                                                <Box
-                                                    sx={{
-                                                        display: "flex",
-                                                        flexDirection:
-                                                            "columns",
-                                                        alignContent: "center",
-                                                        justifyContent:
-                                                            "center",
-                                                    }}
-                                                >
-                                                    <Box
-                                                        sx={{
-                                                            width: 800,
-                                                            height: 118,
-                                                            paddingLeft: "10px",
-                                                        }}
-                                                    >
-                                                        <CardAcom
-                                                            intIdIdea={intId}
-                                                        />
-                                                    </Box>
-                                                </Box>
-
-                                                <Grid item xs={12}>
-                                                    <Box
-                                                        sx={{
-                                                            display: "flex",
-                                                            flexDirection:
-                                                                "row-reverse",
-                                                            gap: 1,
-                                                            paddingRight: "5px",
-                                                        }}
-                                                    >
-                                                        <Button
-                                                            size="small"
-                                                            variant="contained"
-                                                            onClick={() =>
-                                                                onChangeRoute(
-                                                                    "Acompañamientos"
-                                                                )
-                                                            }
-                                                            sx={{
-                                                                fontSize:
-                                                                    "11px",
-                                                            }}
-                                                        >
-                                                            Ver más
-                                                        </Button>
-                                                    </Box>
-                                                </Grid>
-                                            </Grid>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-
                                 <Grid item xs={12} md={6} sx={{ flex: "1" }}>
                                     <Card elevation={1} sx={{ height: "100%" }}>
                                         <CardContent>
@@ -914,6 +669,256 @@ const Coco = () => {
                                                         )}
                                                     </Typography>
                                                 </Box>
+                                            </Grid>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+
+                                <Grid item xs={12} md={6} sx={{ flex: "1" }}>
+                                    <Card elevation={1} sx={{ height: "100%" }}>
+                                        <CardContent>
+                                            <Grid item xs={12}>
+                                                <Typography
+                                                    sx={{
+                                                        textAlign: "center",
+                                                        marginTop: "10px",
+                                                        marginBottom: "10px",
+                                                    }}
+                                                >
+                                                    <b>Acompañamientos</b>
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={12}>
+                                                <Box
+                                                    sx={{
+                                                        display: "flex",
+                                                        flexDirection:
+                                                            "columns",
+                                                        alignContent: "center",
+                                                        justifyContent:
+                                                            "center",
+                                                    }}
+                                                >
+                                                    <Box
+                                                        sx={{
+                                                            width: 800,
+                                                            height: 118,
+                                                            paddingLeft: "10px",
+                                                        }}
+                                                    >
+                                                        <CardAcom
+                                                            intIdIdea={intId}
+                                                        />
+                                                    </Box>
+                                                </Box>
+
+                                                <Grid item xs={12}>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "row-reverse",
+                                                            gap: 1,
+                                                            paddingRight: "5px",
+                                                        }}
+                                                    >
+                                                        <Button
+                                                            size="small"
+                                                            variant="contained"
+                                                            onClick={() =>
+                                                                onChangeRoute(
+                                                                    "Acompañamientos"
+                                                                )
+                                                            }
+                                                            sx={{
+                                                                fontSize:
+                                                                    "11px",
+                                                            }}
+                                                        >
+                                                            Ver más
+                                                        </Button>
+                                                    </Box>
+                                                </Grid>
+                                            </Grid>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+
+                                <Grid item xs={12} md={6} sx={{ flex: "1" }}>
+                                    <Card elevation={1} sx={{ height: "100%" }}>
+                                        <CardContent>
+                                            <Grid container direction="row">
+                                                <Grid item xs={12}>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            width: "100%",
+                                                            alignItems:
+                                                                "center",
+                                                        }}
+                                                    >
+                                                        <Box>
+                                                            <Avatar
+                                                                sx={{
+                                                                    width: 50,
+                                                                    height: 50,
+                                                                }}
+                                                                alt="logo"
+                                                                src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${objInteresado?.objInfoEmpresa?.strURLFileLogoEmpresa}`}
+                                                            />
+                                                        </Box>
+                                                        <Box
+                                                            sx={{
+                                                                width: "100%",
+                                                            }}
+                                                        >
+                                                            <Typography
+                                                                sx={{
+                                                                    textAlign:
+                                                                        "center",
+                                                                }}
+                                                            >
+                                                                <b>
+                                                                    Información
+                                                                    de la
+                                                                    empresa
+                                                                </b>
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexGrow: "1",
+                                                            marginTop: "10px",
+                                                            flexDirection:
+                                                                "column",
+                                                        }}
+                                                    >
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                        >
+                                                            <span
+                                                                style={{
+                                                                    color: "#00BAB3",
+                                                                }}
+                                                            >
+                                                                Categoría:{" "}
+                                                            </span>
+                                                            {objInteresado
+                                                                ?.objInfoEmpresa
+                                                                ?.strCategoriaProducto ||
+                                                                objInteresado
+                                                                    ?.objInfoEmpresa
+                                                                    ?.strCategoriaServicio ||
+                                                                "No registro"}
+                                                        </Typography>
+
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                        >
+                                                            <span
+                                                                style={{
+                                                                    color: "#00BAB3",
+                                                                }}
+                                                            >
+                                                                Descripción:{" "}
+                                                            </span>
+                                                            {objInteresado
+                                                                ?.objInfoEmpresa
+                                                                ?.strDescProductosServicios ||
+                                                                "No registro"}
+                                                        </Typography>
+
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                        >
+                                                            <span
+                                                                style={{
+                                                                    color: "#00BAB3",
+                                                                }}
+                                                            >
+                                                                Dirección:{" "}
+                                                            </span>
+                                                            {objInteresado
+                                                                ?.objInfoEmpresa
+                                                                ?.strDireccionResidencia ||
+                                                                "No registro"}
+                                                        </Typography>
+
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                        >
+                                                            <span
+                                                                style={{
+                                                                    color: "#00BAB3",
+                                                                }}
+                                                            >
+                                                                NIT:{" "}
+                                                            </span>
+                                                            {objInteresado
+                                                                ?.objInfoEmpresa
+                                                                ?.strNIT ||
+                                                                "No registro"}
+                                                        </Typography>
+
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                        >
+                                                            <span
+                                                                style={{
+                                                                    color: "#00BAB3",
+                                                                }}
+                                                            >
+                                                                Instagram:{" "}
+                                                            </span>
+                                                            {objInteresado?.objInfoEmpresa?.arrMediosDigitales.find(
+                                                                (x) =>
+                                                                    x.label ===
+                                                                    "Instagram"
+                                                            )?.value ||
+                                                                "No registro"}
+                                                        </Typography>
+
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                        >
+                                                            <span
+                                                                style={{
+                                                                    color: "#00BAB3",
+                                                                }}
+                                                            >
+                                                                Facebook:{" "}
+                                                            </span>
+                                                            {objInteresado?.objInfoEmpresa?.arrMediosDigitales.find(
+                                                                (x) =>
+                                                                    x.label ===
+                                                                    "Facebook"
+                                                            )?.value ||
+                                                                "No registro"}
+                                                        </Typography>
+                                                    </Box>
+                                                </Grid>
                                             </Grid>
                                         </CardContent>
                                     </Card>
