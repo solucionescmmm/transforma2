@@ -47,7 +47,7 @@ const useGetTarifas = ({ autoLoad = true, intIdEvento } = {}) => {
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_EVENTOS_GET}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_EVENTOS_TARIFAS_GET}`,
                     headers: {
                         token,
                     },
