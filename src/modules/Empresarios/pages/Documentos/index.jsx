@@ -52,7 +52,7 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
         },
         {
             title: "Observaciones",
-            field: "strTarea",
+            field: "strObservaciones",
             type: "string",
         },
         {

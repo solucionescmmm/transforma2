@@ -1,9 +1,4 @@
-import React, {
-    useState,
-    useEffect,
-    useCallback,
-    useContext,
-} from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 
 //Librerias
 import axios from "axios";
@@ -31,6 +26,7 @@ import { Controller, useForm } from "react-hook-form";
 import { AuthContext } from "../../../../../common/middlewares/Auth";
 import DropdownTerceros from "../../../../../common/components/dropdowTerceros";
 import DropdownEmpresarios from "../../../../../common/components/dropdownEmpresarios";
+import SelectTipoTarifas from "../../../components/selectTipoTarifa";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -39,12 +35,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalCEdit = ({
-    handleOpenDialog,
-    open,
-    refresh,
-    intIdEvento,
-}) => {
+const ModalCEdit = ({ handleOpenDialog, open, refresh, intIdEvento }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -60,6 +51,7 @@ const ModalCEdit = ({
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
+        intIdTarifa: null,
         arrTerceros: [],
         arrEmpresarios: [],
     });
@@ -200,6 +192,31 @@ const ModalCEdit = ({
                             Se debe diligenciar minimamente alguno de los
                             siguientes campos.
                         </Typography>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            name="intIdTarifa"
+                            defaultValue={data.intIdTarifa}
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectTipoTarifas
+                                intIdEvento={intIdEvento}
+                                    label="Tarifa"
+                                    name={name}
+                                    value={value}
+                                    disabled={loading}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    error={!!errors?.intIdTarifa}
+                                    helperText={
+                                        errors?.intIdTarifa?.message ||
+                                        "Selecciona los responsables de la sesion"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
                     </Grid>
 
                     <Grid item xs={12}>

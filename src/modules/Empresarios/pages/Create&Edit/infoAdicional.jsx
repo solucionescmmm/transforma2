@@ -421,13 +421,13 @@ const InfoAdicional = ({
                                 </TextField>
                             )}
                             control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (value === "" || value === undefined) {
-                                        return "Por favor, Selecciona si le gustaría recibir información de De Mis Manos";
-                                    }
-                                },
-                            }}
+                            // rules={{
+                            //     validate: (value) => {
+                            //         if (value === "" || value === undefined) {
+                            //             return "Por favor, Selecciona si le gustaría recibir información de De Mis Manos";
+                            //         }
+                            //     },
+                            // }}
                         />
                     </Grid>
 
