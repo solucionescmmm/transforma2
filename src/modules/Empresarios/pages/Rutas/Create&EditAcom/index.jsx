@@ -928,7 +928,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                             />
                                         </Grid>
 
-                                        {dataObj.map((x) => (
+                                        {dataObj?.map((x) => (
                                             <Fragment>
                                                 <Grid item xs={12}>
                                                     <Controller
