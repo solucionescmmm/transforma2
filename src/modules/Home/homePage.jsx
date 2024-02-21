@@ -148,12 +148,10 @@ const HomePage = () => {
                                                         width: 70,
                                                         height: 70,
                                                     }}
-                                                    src={
-                                                        e.objEmpresario?.find(
-                                                            (e) =>
-                                                                e.strTipoEmpresario ===
-                                                                "Principal"
-                                                        )?.strUrlFileFoto
+                                                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
+                                                        }${process.env.REACT_APP_API_BACK_PORT}${e.objEmpresario
+                                                        .filter((p) => p.strTipoEmpresario === "Principal")
+                                                        ?.at(0)?.strUrlFileFoto}`
                                                     }
                                                 >
                                                     {e.objEmpresario

@@ -23,6 +23,7 @@ import {
     Tooltip,
     IconButton,
     Checkbox,
+    createFilterOptions,
 } from "@mui/material";
 
 //Iconos
@@ -33,10 +34,10 @@ import {
 } from "@mui/icons-material";
 
 //Filtro personalizado
-const filterOptions = (options, { inputValue }) =>
-    matchSorter(options, inputValue, {
-        keys: ["strNombre", "strEmail"],
-    });
+const filterOptions = createFilterOptions({
+    matchFrom: 'start',
+    stringify: (option) => option.strNombre || option.strEmail,
+  });
 
 const DropdownUsuarios = ({
     id,
