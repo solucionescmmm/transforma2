@@ -9,7 +9,6 @@ const serviceSetHistorico = require("../../Historicos/domain/setHistorico.servic
 const serviceSetDocumento = require("../../Document/domain/setDocumento.service");
 const serviceUpdateTercero = require("../../Terceros/domain/updateTercero.service")
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
-const serviceGetIdTipoServicio = require("./getIdTipoEmpresario.service");
 const serviceGetIdFuenteHistorico = require("../../Historicos/domain/getIdFuenteHistoricos.service")
 const serviceGetEmpresario = require("./getEmpresario.service");
 
@@ -39,7 +38,6 @@ class setEmpresarioPrincipal {
     }
 
     async main() {
-        //console.log(this.#objData)
         await this.#getDataPersona();
         await this.#getIdEstadoActivo();
         await this.#getIdTipoEmpresario();

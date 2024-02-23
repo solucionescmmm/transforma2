@@ -27,7 +27,7 @@ const getSedeTipoTarifaServicioBySedeServicio = async (objParams, strDataUser) =
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
-            let array = arrayData.data?.reverse();
+            let array = arrayData.data;
 
             let result = {
                 error: false,
