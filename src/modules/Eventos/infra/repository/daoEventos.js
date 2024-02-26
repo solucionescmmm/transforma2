@@ -904,5 +904,34 @@ class daoEventos {
         }
     }
 
+    async sp_flujoFinalizarEvento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn
+                .request()
+                .input("p_intIdEvento", sql.Int, data.intIdEvento)
+                .execute("sp_flujoFinalizarEvento");
+            
+            let result = {
+                error: false,
+                data: response.recordsets[0]
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo sp_setFlujoAcompañamiento de la clase daoAcompañamientos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
 }
 module.exports = daoEventos;

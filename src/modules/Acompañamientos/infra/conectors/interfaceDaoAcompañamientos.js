@@ -67,5 +67,11 @@ class interfaceDAOAcompañamientos {
         let result = await dao.sp_setFlujoAcompañamiento(data)
         return result
     }
+
+    async sp_flujoFinalizarAcompañamiento(data) {
+        const dao = new classDaoSql()
+        let result = await dao.sp_flujoFinalizarAcompañamiento(data)
+        return result
+    }
 }
 module.exports = interfaceDAOAcompañamientos

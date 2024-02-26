@@ -501,5 +501,34 @@ class daoAcompañamientos {
             return result;
         }
     }
+
+    async sp_flujoFinalizarAcompañamiento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn
+                .request()
+                .input("p_intIdSesionAcompañamiento", sql.Int, data.intIdSesionAcompañamiento)
+                .execute("sp_flujoFinalizarAcompañamiento");
+            
+            let result = {
+                error: false,
+                data: response.recordsets[0]
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo sp_setFlujoAcompañamiento de la clase daoAcompañamientos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
 }
 module.exports = daoAcompañamientos;

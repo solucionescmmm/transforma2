@@ -17,6 +17,7 @@ class updateFinalizarSesionAcompañamiento {
     async main() {
         await this.#validations();
         await this.#updateFinalizarSesionAcompañamiento();
+        await this.#sp_flujoFinalizarAcompañamiento()
         return this.#objResult;
     }
 
@@ -56,6 +57,16 @@ class updateFinalizarSesionAcompañamiento {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #sp_flujoFinalizarAcompañamiento() {
+        let dao = new classInterfaceDAOAcompañamientos();
+
+        let query = await dao.sp_flujoFinalizarAcompañamiento({intIdSesionAcompañamiento: this.#objData.intId});
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 }
 module.exports = updateFinalizarSesionAcompañamiento;

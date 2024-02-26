@@ -50,6 +50,7 @@ class updateCambiarEstadoEventos {
                 await this.#getIdEstado(this.#objData?.strEstado)
                 await this.#validarSesionesEventos(false)
                 await this.#updateEventos()
+                await this.#sp_flujoFinalizarEvento()
                 break
         
             default:
@@ -142,6 +143,16 @@ class updateCambiarEstadoEventos {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #sp_flujoFinalizarEvento() {
+        let dao = new classInterfaceDAOEventos();
+
+        let query = await dao.sp_flujoFinalizarEvento({intIdEvento: this.#intIdEvento});
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 
 }

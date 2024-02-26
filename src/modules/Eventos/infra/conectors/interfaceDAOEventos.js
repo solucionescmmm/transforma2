@@ -128,5 +128,11 @@ class interfaceDAOEventos {
         return result
     }
 
+    async sp_flujoFinalizarEvento(data) {
+        const dao = new classDaoSql()
+        let result = await dao.sp_flujoFinalizarEvento(data)
+        return result
+    }
+
 }
 module.exports = interfaceDAOEventos
