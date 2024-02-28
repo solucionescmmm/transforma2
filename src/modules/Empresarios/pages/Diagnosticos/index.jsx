@@ -28,6 +28,7 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
     Delete as DeleteIcon,
+    Stop as StopIcon
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -76,8 +77,7 @@ const ReadDiagnosticos = ({
         },
     ]);
 
-    const [openModalCreate, setOpenModalCreate] =
-        useState(openModalCreateRoute);
+    const [openModalCreate, setOpenModalCreate] = useState(openModalCreateRoute);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
@@ -123,6 +123,7 @@ const ReadDiagnosticos = ({
                 intId={selectedData?.intId}
                 isEdit={selectedData}
                 refresh={refreshGetData}
+                intIdIdea={intIdIdea}
                 values={selectedData}
             />
 
@@ -284,11 +285,12 @@ const ReadDiagnosticos = ({
                                         if (ability.can("delete", "Diag")) {
                                             return {
                                                 icon: () => (
-                                                    <DeleteIcon
+                                                    <StopIcon
                                                         color={
-                                                            rowData.btFinalizada ===
-                                                            true
-                                                                ? "gray"
+                                                            rowData.strEstadoDiagnostico ===
+                                                            "Finalizado" || rowData.strEstadoDiagnostico ===
+                                                            "Finalizado con ruta"
+                                                                ? "inherit"
                                                                 : "error"
                                                         }
                                                         fontSize="small"
@@ -298,10 +300,8 @@ const ReadDiagnosticos = ({
                                                     setSelectedData(rowData);
                                                     handlerOpenModalDelete();
                                                 },
-                                                tooltip: "Eliminar",
-                                                disabled:
-                                                    rowData.btFinalizada ===
-                                                    true,
+                                                tooltip: "Finalizar",
+                                                disabled: rowData.strEstadoDiagnostico === "Finalizado" || rowData.strEstadoDiagnostico === "Finalizado con ruta" ? true : false
                                             };
                                         }
                                     },

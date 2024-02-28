@@ -51,7 +51,7 @@ import { MTableToolbar } from "@material-table/core";
 
 //Componentes
 import PanelEmpresarios from "../../components/panelEmpresarios";
-import FiltersEmpresarios from "./filter";
+//import FiltersEmpresarios from "./filter";
 import { AbilityContext, Can } from "../../../../common/functions/can";
 
 const styles = makeStyles((theme) => ({
@@ -126,7 +126,7 @@ const ReadSolicitudesUser = () => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { push } = useHistory();
-    const { data, alterData } = useGetEmpresarios({ autoload: true });
+    const { data } = useGetEmpresarios({ autoload: true });
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -325,11 +325,11 @@ const ReadSolicitudesUser = () => {
                                                             I="create"
                                                             a="Empresarios"
                                                         >
-                                                            <FiltersEmpresarios
+                                                            {/* <FiltersEmpresarios
                                                                 alterData={
                                                                     alterData
                                                                 }
-                                                            />
+                                                            /> */}
 
                                                             <Button
                                                                 onClick={() =>
