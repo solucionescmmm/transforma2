@@ -6,7 +6,7 @@ const validator = require("validator").default;
 
 //Service
 const serviceSetDocumento = require("../../Document/domain/setDocumento.service");
-const serviceSetRutaNoPlaneada = require("../../Rutas/domain/setRutaNoPlaneada.service")
+const serviceSetRutaVacia = require("../../Rutas/domain/setRutaVacia.service")
 const serviceSetFinalizarServicio = require("../../Rutas/domain/checkServicioFase.service")
 
 class setAcompañamiento {
@@ -144,6 +144,7 @@ class setAcompañamiento {
             intIdIdea: this.#objData.intIdIdea,
             strObservaciones: "Ruta creada apartir de un acompañamiento",
             strResponsable: this.#objData.objResponsable,
+            strTipoRuta:"No planeada",
             arrInfoFases: [{
                 strObservaciones: "Ruta creada apartir de un acompañamiento",
                 arrPaquetes: this.#objData.objNuevoServPaq?.objPaquete ? [this.#objData.objNuevoServPaq?.objPaquete] : null,
@@ -151,7 +152,7 @@ class setAcompañamiento {
             }]
         }
 
-        let service = new serviceSetRutaNoPlaneada(
+        let service = new serviceSetRutaVacia(
             data,
             this.#objUser
         );

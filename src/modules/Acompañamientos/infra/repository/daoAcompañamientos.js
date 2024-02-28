@@ -94,7 +94,7 @@ class daoAcompañamientos {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La Acompañamiento, fue registrado con éxito.`,
+                msg: `La sesión del acompañamiento, fue registrada con éxito.`,
             };
 
             sql.close(conexion);

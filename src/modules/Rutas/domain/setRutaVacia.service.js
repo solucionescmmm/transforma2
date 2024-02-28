@@ -9,7 +9,7 @@ const serviceGetIdEstado = require("./getIdEstadoRutas.service");
 const serviceGetIdTipo = require("./getIdTipoRutas.service")
 const getContadorRutas = require("./getContadorRutas.service")
 
-class setRutaNoPlaneada {
+class setRutaVacia {
     //obj info
     #objData;
     #objUser;
@@ -70,7 +70,7 @@ class setRutaNoPlaneada {
 
     async #getTipoRuta() {
         let queryGetIdTipo = await serviceGetIdTipo({
-            strNombre: "No planeada",
+            strNombre: this.#objData.strTipoRuta,
         });
 
         if (queryGetIdTipo.error) {
@@ -200,4 +200,4 @@ class setRutaNoPlaneada {
         }
     }
 }
-module.exports = setRutaNoPlaneada;
+module.exports = setRutaVacia;

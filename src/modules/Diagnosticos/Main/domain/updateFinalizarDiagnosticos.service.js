@@ -4,7 +4,8 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAODiagnosticos = require("../infra/conectors/interfaseDAODiagnosticos");
 
-//Servicios
+//Services
+const serviceSetRutaVacia = require("../../../Rutas/domain/setRutaVacia.service")
 
 
 class updateFinalizarDiagnosticos {
@@ -27,10 +28,12 @@ class updateFinalizarDiagnosticos {
     }
 
     async main() {
-        //console.log(this.#objData)
         await this.#validations();
         await this.#getIntIdEstadoDiagnostico()
         await this.#updateFinalizarDiagnosticos();
+        if (this.#objData.btConRuta === true) {
+            await this.#setRutasPlaneada()
+        }
         return this.#objResult;
     }
 
@@ -55,7 +58,7 @@ class updateFinalizarDiagnosticos {
         const dao = new classInterfaceDAODiagnosticos()
 
         let queryGetIntIdEstadoDiagnostico = await dao.getIdEstadoDiagnosticos({
-            strNombre: "Finalizado",
+            strNombre: this.#objData.btConRuta === true ? "Finalizado con ruta" : "Finalizado",
         });
 
         if (queryGetIntIdEstadoDiagnostico.error) {
@@ -82,6 +85,30 @@ class updateFinalizarDiagnosticos {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #setRutasPlaneada() {
+        let data = {
+            intIdIdea: this.#objData.intIdIdea,
+            strObservaciones: `Ruta creada apartir de la finalización del diagnóstico #${this.#objData.intIdDiagnostico}`,
+            strResponsable: '{}',
+            strTipoRuta:"Planeada",
+            arrInfoFases: [{
+                strObservaciones: `Ruta creada apartir de la finalización del diagnóstico #${this.#objData.intIdDiagnostico}`,
+                arrPaquetes: null,
+                arrServicios: null,
+            }]
+        }
+
+        let service = new serviceSetRutaVacia(
+            data,
+            this.#objUser
+        );
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 }
 module.exports = updateFinalizarDiagnosticos;

@@ -6,7 +6,6 @@ const validator = require("validator").default;
 
 //Service
 const serviceSetDocumento = require("../../Document/domain/setDocumento.service");
-const serviceSetRutaNoPlaneada = require("../../Rutas/domain/setRutaNoPlaneada.service")
 
 class setAcompañamiento {
     //obj info
@@ -28,7 +27,7 @@ class setAcompañamiento {
     }
 
     async main() {
-        //console.log(this.#objData)
+        console.log(this.#objData)
         await this.#validations();
         await this.#setSesionAcompañamiento();
         return this.#objResult;
@@ -66,23 +65,30 @@ class setAcompañamiento {
             intIdFase: this.#objData?.objInfoRutaExs?.objFase?.intId || null,
             intIdPaquete: this.#objData?.objNuevoServPaq?.objPaquete?.objInfoPrincipal?.intId || null,
             intIdServicio: this.#objData?.objNuevoServPaq?.objServicio?.objInfoPrincipal?.intId || this.#objData?.objInfoRutaExs?.objServicio?.objServicio?.objInfoPrincipal?.intId || null,
-            strUbicacion: this.#objData.strLugarActividad,
-            intIdTipoActividad: this.#objData.intTipoActividad,
+            strUbicacion: this.#objData.strUbicacion,
+            intIdTipoActividad: this.#objData.intIdTipoActividad,
             strResponsables: JSON.stringify(this.#objData.objResponsable || null),
-            strTemasActividades: this.#objData.strActividades,
+            strTemasActividades: this.#objData.strTemasActividades,
             strLogrosAvances: this.#objData.strLogros,
-            strObservaciones: this.#objData.strRetroAlim,
+            strObservaciones: this.#objData.strObservaciones,
             intIdTarea: null,
             dtmProximaActividad: this.#objData.dtmFechaProx,
             intIdDocumento: this.#intIdDocumento,
             strUsuarioCreacion: this.#objUser.strEmail,
             btFinalizado: this.#objData.intTipoAcomp === 1 ? false : true
         };
+
         let query = await dao.setSesionAcompañamiento(newData);
 
         if (query.error) {
             throw new Error(query.msg);
         }
+
+        this.#objResult = {
+            error: query.error,
+            data: query.data,
+            msg: query.msg,
+        };
     }
 
     async #setDocumento() {

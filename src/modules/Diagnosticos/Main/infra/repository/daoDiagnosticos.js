@@ -212,7 +212,7 @@ class daoDiagnosticos {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `El área, fue actualizada con éxito.`,
+                msg: `El diagnóstico, fue actualizado con éxito.`,
             };
 
             sql.close(conexion);
