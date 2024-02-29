@@ -115,6 +115,13 @@ const ModalCreate = ({
                         throw new Error(res.data.msg);
                     }
 
+                    reset({
+                        intIdIdea,
+                        intId: null,
+                        strNombre: "",
+                        strObservaciones: "",
+                        strUrlDocumento: "",
+                    });
                     toast.success(res.data.msg);
 
                     setLoading(false);
@@ -139,6 +146,7 @@ const ModalCreate = ({
                     }
                 });
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [token, data, isEdit]
     );
 

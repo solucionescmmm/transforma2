@@ -3,7 +3,6 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 //Librerias
 import { format, parseISO } from "date-fns";
 import validator from "validator";
-import html2canvas from "html2canvas";
 
 //Componentes de Mui
 import {
@@ -702,18 +701,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     }
 
     const handlerChangeOpenModalPDF = () => {
-        const divChart = window.document.getElementById("chart-diag-serv");
-
-        html2canvas(divChart).then((canvas) => {
-            const img = canvas.toDataURL("image/png");
-
-            setData((prevState) => ({
-                ...prevState,
-                imgChart: img,
-            }));
-
-            setOpenModalPDF(!openModalPDF);
-        });
+        setOpenModalPDF(!openModalPDF);
     };
 
     const handlerChangeOpenCollapseInfoGeneral = () => {
@@ -792,7 +780,8 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             <ModalPDF
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
-                intId={intIdDiagnostico}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
                 values={data}
             />
 
@@ -837,7 +826,6 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             <Tooltip title="Imprimir diagnóstico">
                                 <IconButton
                                     color="inherit"
-                                    disabled
                                     onClick={() => handlerChangeOpenModalPDF()}
                                 >
                                     <PrintIcon />

@@ -9,7 +9,7 @@ import {
     Image,
     Document,
     StyleSheet,
-    Font
+    Font,
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";
@@ -70,9 +70,12 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "grey",
     },
+    images: {
+        width: "100px",
+    },
 });
 
-const PDFProduct = ({ intId, values }) => {
+const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -80,21 +83,26 @@ const PDFProduct = ({ intId, values }) => {
 
     const [objEmpresario, setObjEmpresario] = useState();
     const [objEmpresa, setObjEmpresa] = useState();
-    const [htmlInfoEncuestaHumanas, setHtmlInfoEncuestaHumanas] = useState("");
+    const [htmlInfoFamiliar, setHtmlInfoFamiliar] = useState("");
+    const [htmlEmprend, setHtmlEmprend] = useState("");
+    const [htmlPErfilEco, setHtmlPErfilEco] = useState("");
+    const [arrImagenes, setArrImagenes] = useState([]);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { data } = useGetEmpresarios({ autoload: true, intId });
+    const { data } = useGetEmpresarios({ autoload: true, intIdIdea: intId });
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoading(true);
-
         if (data && data.length > 0) {
-            setObjEmpresario(data[0]?.objEmpresario);
+            setObjEmpresario(
+                data[0]?.objEmpresario?.find(
+                    (e) => e.strTipoEmpresario === "Principal"
+                )
+            );
             setObjEmpresa(data[0]?.objInfoEmpresa);
             setLoading(false);
         }
@@ -103,19 +111,47 @@ const PDFProduct = ({ intId, values }) => {
     useEffect(() => {
         setLoading(true);
 
-        let htmlCompetencias = "";
+        let htmlInfoFamiliar = "";
+        let htmlEmprend = "";
+        let htmlPErfilEco = "";
 
-        values?.objInfoEncuestaHumanas.forEach(
+        values?.objInfoFamiliar?.forEach(
             (e) =>
-                (htmlCompetencias =
-                    htmlCompetencias +
-                    `<p class="textObj">
-                ${e.label}: ${e.value || "No diligenciado"}
-            </p>`)
+                (htmlInfoFamiliar =
+                    htmlInfoFamiliar +
+                    `
+                    <p class="textObj">
+                    ${e.label}: ${e.value || "No diligenciado"}
+                </p>
+                    `)
         );
 
+        values?.objInfoEmprendimiento?.forEach(
+            (e) =>
+                (htmlEmprend =
+                    htmlEmprend +
+                    `
+                    <p class="textObj">
+                    ${e.label}: ${e.value || "No diligenciado"}
+                </p>
+                    `)
+        );
 
-        setHtmlInfoEncuestaHumanas(htmlCompetencias);
+        values?.objInfoPerfilEco?.forEach(
+            (e) =>
+                (htmlPErfilEco =
+                    htmlPErfilEco +
+                    `
+                    <p class="textObj">
+                    ${e.label}: ${e.value || "No diligenciado"}
+                </p>
+                    `)
+        );
+
+        setHtmlPErfilEco(htmlPErfilEco);
+        setHtmlEmprend(htmlEmprend);
+        setHtmlInfoFamiliar(htmlInfoFamiliar);
+        setArrImagenes(values?.arrImagenes || []);
 
         setLoading(true);
     }, [values]);
@@ -142,14 +178,11 @@ const PDFProduct = ({ intId, values }) => {
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
-                    <Text style={styles.title}>
-                        Reporte diagnóstico de competencias humanas
-                    </Text>
-
                     <Html>
                         {`
                         <html>
                         <style>
+                         
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
@@ -158,6 +191,10 @@ const PDFProduct = ({ intId, values }) => {
 
                            p {
                                font-size: 12px;
+                           }
+
+                           ol {
+                            font-size: 12px;
                            }
 
                            .pMargin {
@@ -207,45 +244,155 @@ const PDFProduct = ({ intId, values }) => {
                         </style>
 
                         <body>
-                            <p class="pMargin">
-                                <span style="color: #00BBB4">${
-                                    objEmpresario?.strTipoDocto
-                                }: </span>
-                                ${objEmpresario?.strNroDocto}
-                            </p>
+                        <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
+                        <hr />
 
-                            <p class="pMargin">
-                                <span style="color: #00BBB4">Nombre: </span>
-                                 ${objEmpresario?.strNombres}  ${
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">${
+                            objEmpresario?.strTipoDocto
+                        }: </span>
+                        ${objEmpresario?.strNroDocto}
+                    </p>
+
+                    <p class="pMargin">
+                        <span style="color: #00BBB4">Nombre: </span>
+                         ${objEmpresario?.strNombres}  ${
                             objEmpresario?.strApellidos
                         }
-                            </p>
+                    </p>
 
-                            <p class="pMargin">
-                                <span style="color: #00BBB4">Empresa: </span>
-                                 ${objEmpresa?.strNombreMarca} 
+                    <p class="pMargin">
+                        <span style="color: #00BBB4">Empresa: </span>
+                         ${objEmpresa?.strNombreMarca} 
+                    </p>
+
+                    <p>
+                        <span style="color: #00BBB4">Fecha de descarga: </span>
+                         ${new Date().toLocaleDateString("es-ES")} 
+                    </p>
+
+                    <p>
+                    A continuación, te presentamos el resumen de las respuestas recopiladas durante el diagnóstico. La información estará organizada en las siguientes secciones:
+                    </p>
+
+                    <ol>
+                       <li>Detalles sobre la estructura familiar.</li>
+                       <li>Información general de la empresa.</li>
+                       <li>Perfil económico y productivo.</li>
+                       <li>Etapa desarrollo.</li>
+                       <li>Registro fotográfico (si aplica).</li>
+                    </ol>
+
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Información familiar </span></h5>
+                            <hr />
+
+                         
+                            ${htmlInfoFamiliar}
+
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Información del emprendimiento </span></h5>
+                            <hr />
+                          
+                            ${htmlEmprend}
+
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Perfil económico y productivo</span></h5>
+                            <hr />
+ 
+                            ${htmlPErfilEco}
+
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Etapa de desarrollo</span></h5>
+                            <hr />
+
+                            <p>
+                            Las etapas de desarrollo son un concepto moldeado por De Mis Manos para definir en qué punto se encuentra tu emen el rango promedio de ventas actuales, empleos generados y tiempo de dedicación. Estas variables, estudiadas demprendimiento.
+De acuerdo con la información recolectada durante el diagnóstico, la etapa de desarrollo de tu emprendimiento es:
                             </p>
 
                             <p>
-                                <span style="color: #00BBB4">Fecha de descarga: </span>
-                                 ${new Date().toLocaleDateString("es-ES")} 
+                            ¿Qué significa esta etapa? 
                             </p>
 
-                            <h5 class="pMargin"> <span style="color: #00BBB4">Competencias Humanas </span></h5>
-                            <hr />
+                            <p>
+                            En esta etapa, los emprendimientos se encuentran activamente comprometidos con su actividad empresarial, siendo propietarios o copropietariosproceso de organización y creación legal y formal de la empresa para realizar operaciones en el mercado. Se aborda la construcción de las bases ocontables, así como la definición de canales de comercialización y ventas. Además, se realiza el refinamiento del modelo y plan de negocios.
+                            </p>
 
-                            ${htmlInfoEncuestaHumanas}
- 
-                        </body>
+                            <p>¿Cúales son las etapas? 
+                            </p>
+
+                            <p>
+                              <span style="color: #00BBB4">1. Etapa de Validación Comercial:
+                              </span>
+
+                              En esta fase, los emprendimientos se centran en desarrollar el producto o servicio,validación del producto o servicio, incluyendo el diseño correspondiente.
+                            </p>
+
+                            <p>
+                            <span style="color: #00BBB4">2. Etapa de Nueva Empresa:
+                            </span>
+
+                            En esta etapa, los emprendimientos se encuentran activamente comprometidos con su actividad empresarial, siendo propietarios o copropietarios. Están inmersos en el
+proceso de organización y creación legal y formal de la empresa para realizar operaciones en el mercado. Se aborda la construcción de las bases operativas, administrativas y
+contables, así como la definición de canales de comercialización y ventas. Además, se realiza el refinamiento del modelo y plan de negocios. </p>
+
+
+
+<p>
+<span style="color: #00BBB4">3. Etapa de Fortalecimiento Nivel I:
+</span>
+
+Durante esta fase temprana de actividad empresarial, se busca desarrollar el potencial de mercado con un enfoque especialmente centrado en los aspectos comerciales y
+administrativos. Existen expectativas de crecimiento en esta etapa inicial.</p>
+
+
+
+
+<p>
+<span style="color: #00BBB4">4. Etapa de Fortalecimiento Nivel II:
+</span>
+
+En este momento el emprendimiento está enfocado en el desarrollo del potencial de mercado con un enfoque comercial definido. Se trabaja en el fortalecimiento y
+estabilización de los procesos administrativos, y se inicia la búsqueda y desarrollo del recurso humano con la consiguiente delegación de tareas. La actividad empresarial está
+en proceso de crecimiento, con oportunidades para consolidar las actividades.</p>
+                        
+
+<p>
+<span style="color: #00BBB4">5. Etapa de Consolidación:
+</span>
+
+En esta etapa, la empresa logra estabilidad y solidez económico-financiera. Se considera una actividad empresarial avanzada con altas expectativas de crecimiento. Los
+factores clave para alcanzar la consolidación están relacionados con la viabilidad a mediano y largo plazo de la empresa.
+</p>
+
+
+<p>
+<span style="color: #00BBB4">6. Etapa de Escalamiento:
+</span>
+
+Esta fase se presenta cuando el negocio se vuelve escalable y adquiere una posición sólida en el mercado. Esto se logra mediante una nueva forma de administración que se
+centra en el cumplimiento de planes estratégicos y modelos de negocio.
+</p>
+
+
+<p>
+<span style="color: #00BBB4">7. Etapa de Expansión:
+</span>
+
+En la etapa de expansión, se define la estrategia de expansión, se establecen plataformas para el crecimiento y se desarrollan nuevas líneas de negocio. En algunas ocasiones,
+comienza la búsqueda de inversión para expandir el negocio y aprovechar al máximo las oportunidades del mercado, multiplicando así los márgenes de ganancia.
+</p>
+
+
+<h5 class="pMargin"> <span style="color: #00BBB4">Registro fotográfico</span></h5>
+<hr />
+
+
+
+</body>
                         </html>
                       `}
                     </Html>
 
-                    <Text style={styles.title}>
-                        Grafíco de resultados
-                    </Text>
-
-                    <Image source={values?.imgChart} />
+                    {arrImagenes.length > 0 &&
+                        arrImagenes.map((i) => <Image src={i.src} style={styles.images} />)}
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y

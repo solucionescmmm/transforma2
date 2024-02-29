@@ -4,7 +4,7 @@ import React from "react";
 //Componentes de Material UI
 import { DialogContent, DialogActions, Dialog, Button } from "@mui/material";
 
-import PDFService from "./PDF";
+import PDF from "./PDF";
 
 const ModalPDF = ({ handleOpenDialog, open, intId, values }) => {
     //===============================================================================================================================================
@@ -18,7 +18,7 @@ const ModalPDF = ({ handleOpenDialog, open, intId, values }) => {
             sx={{ padding: "0px" }}
         >
             <DialogContent sx={{ overflow: "hidden", padding: "0px" }}>
-                <PDFService intId={intId} values={values} />
+                <PDF intId={intId} values={values} />
             </DialogContent>
 
             <DialogActions>
