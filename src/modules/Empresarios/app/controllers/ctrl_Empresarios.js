@@ -15,6 +15,7 @@ const getEmpresario = require("../../domian/getEmpresario.service");
 const getEmpresarioByIdea = require("../../domian/getEmpresarioByIdea.service")
 const getEstadoVinculacion = require ("../../domian/getEstadoVinculacion.service")
 const uploadFile = require("../functions/uploadFile");
+const deleteFile = require("../functions/deleteFile");
 
 class ctrlEmpresarios {
     async uploadFileEmpresario(req, res) {
@@ -46,6 +47,23 @@ class ctrlEmpresarios {
 
                 res.status(200).json(result);
             });
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async deleteFileEmpresario(req, res) {
+        try {
+            let objParams = req.query;
+
+            let query = await deleteFile(objParams)
+
+            res.status(200).json(query);
         } catch (error) {
             let result = {
                 error: true,

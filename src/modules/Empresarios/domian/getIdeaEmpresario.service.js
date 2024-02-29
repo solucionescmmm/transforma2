@@ -150,6 +150,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                     dtFechaVinculacion: array[i]?.dtFechaVinculacion,
                     intIdEstadoVinculacion: array[i]?.intIdEstadoVinculacion,
                     strTipoVinculacion: array[i]?.strTipoVinculacion,
+                    strEstadoVinculacion: array[i]?.strEstadoVinculacion,
                     dtmCreacion: array[i]?.dtmCreacion,
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,

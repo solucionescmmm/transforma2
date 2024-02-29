@@ -862,7 +862,7 @@ class daoEmpresarios {
             Idea.strUsuarioCreacion,
             Idea.dtmActualizacion,
             Idea.strUsuarioActualizacion,
-            EstadoVinculacion.strNombre as strEstado,
+            EstadoVinculacion.strNombre as strEstadoVinculacion,
             (
                 SELECT
 

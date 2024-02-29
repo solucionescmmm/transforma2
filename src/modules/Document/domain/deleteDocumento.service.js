@@ -1,12 +1,17 @@
 //clases
 const classInterfaceDAODocumento = require("../infra/conectors/interfaceDaoDocumento")
 
+//Functions
+const deleteFile = require("../../Empresarios/app/functions/deleteFile")
+
 class deleteDocumento{
     #intIdDocumento;
+    #strFileName;
     #objResult;
 
     constructor(objParms) {
         this.#intIdDocumento = objParms.intId;
+        this.#strFileName = objParms.strFileName;
     }
 
     async main() {
@@ -27,6 +32,8 @@ class deleteDocumento{
         let query = await dao.deleteDocumento({
             intId: this.#intIdDocumento,
         });
+
+        await deleteFile({strFileName:this.#strFileName})
 
         if (query.error) {
             throw new Error(
