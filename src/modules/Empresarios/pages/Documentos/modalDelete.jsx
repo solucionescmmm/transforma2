@@ -36,7 +36,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
+const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -53,6 +53,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
 
     const [data, setData] = useState({
         intId: null,
+        strFileName: "",
     });
 
     //===============================================================================================================================================
@@ -79,6 +80,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
                     url: `${process.env.REACT_APP_API_TRANSFORMA_DOCUMENTOS_DELETE}`,
                     params: {
                         intId: data.intId,
+                        strFileName: data.strFileName
                     },
                     headers: {
                         token,
@@ -124,14 +126,18 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (intId) {
+        if (intId && values) {
             setData({
                 intId,
+                strFileName:values?.strUrlDocumento?.substring(
+                    values?.strUrlDocumento.lastIndexOf("/"),
+                    values?.strUrlDocumento.length
+                )
             });
         }
 
         setLoading(false);
-    }, [intId]);
+    }, [intId, values]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -222,12 +228,11 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar la tarea seleccionada?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas eliminar el documento seleccionada?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    El proceso es irreversible y no podrás recuperar la
-                    información.
+                    El proceso es irreversible y no podrás recuperar el documento.
                 </DialogContentText>
             </DialogContent>
 

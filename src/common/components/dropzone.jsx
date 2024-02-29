@@ -249,7 +249,7 @@ const Dropzone = ({
 
     const onDropRejected = useCallback(() => {}, []);
 
-    const removeFile = (file) => () => {
+    const removeFile = (file) => async () => {
         const newFiles = [...files];
         newFiles.splice(newFiles.indexOf(file), 1);
         setFiles(newFiles);
@@ -259,6 +259,46 @@ const Dropzone = ({
         const arrNewValues = arrValues.filter((e) => !e.includes(file.name));
 
         onChange(arrNewValues.join(";"));
+
+        await axios(
+            {
+                method: "DELETE",
+                baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+                url: `${process.env.REACT_APP_API_TRANSFORMA_EMPRESARIOS_DELETEFILE}`,
+                params:{
+                    strFileName: `/${file.name}`
+                },
+                headers: {
+                    token,
+                },
+            }
+        )
+            .then((res) => {
+                if (res.data.error) {
+                    throw new Error(res.data.msg);
+                }
+
+                setLoading(false);
+            })
+            .catch((error) => {
+                if (!axios.isCancel(error)) {
+                    let msg;
+
+                    if (error.response) {
+                        msg = error.response.data.msg;
+                    } else if (error.request) {
+                        msg = error.message;
+                    } else {
+                        msg = error.message;
+                    }
+
+                    console.error(error);
+                    setLoading(false);
+
+                    toast.error(msg);
+                    setError(name, msg);
+                }
+            });
     };
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({

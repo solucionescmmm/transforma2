@@ -39,6 +39,7 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import ModalCreate from "./modalCreate";
 import { AbilityContext, Can } from "../../../../common/functions/can";
+import ModalDelete from "./modalDelete";
 
 const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
     //===============================================================================================================================================
@@ -104,13 +105,14 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
     //===============================================================================================================================================
     return (
         <Fragment>
-            {/* <ModalDelete
+            <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
                 intId={selectedData?.intId}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
-            /> */}
+                values={selectedData}
+            />
 
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
@@ -237,6 +239,7 @@ const ReadDocumentos = ({ onChangeRoute, intIdIdea, openModalCreateRoute }) => {
                                         position: "sticky",
                                         top: "0",
                                         backgroundColor: "#cff3f2",
+                                        zIndex: 1,
                                     },
                                     detailPanelColumnStylele: {
                                         fontSize: 12,

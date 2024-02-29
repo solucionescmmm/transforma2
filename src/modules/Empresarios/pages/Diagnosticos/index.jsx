@@ -27,7 +27,6 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
-    Delete as DeleteIcon,
     Stop as StopIcon
 } from "@mui/icons-material";
 
@@ -242,6 +241,7 @@ const ReadDiagnosticos = ({
                                         position: "sticky",
                                         top: "0",
                                         backgroundColor: "#cff3f2",
+                                        zIndex: 1,
                                     },
                                     detailPanelColumnStylele: {
                                         fontSize: 12,

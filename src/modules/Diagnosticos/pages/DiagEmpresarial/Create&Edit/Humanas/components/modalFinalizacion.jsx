@@ -80,7 +80,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdDiagnostico, intIdIdea
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_FINISHHUMANA}`,
                     data: {
-                        intId: data.intIdDiagnostico,
+                        intIdDiagnostico: data.intIdDiagnostico,
                     },
                     headers: {
                         token,

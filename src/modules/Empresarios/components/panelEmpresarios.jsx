@@ -10,13 +10,13 @@ import { Paper, Box, Grid, Typography } from "@mui/material";
 import {
     Group as GroupIcon,
     PersonAdd as PersonAddIcon,
-    FilterAlt as FilterAltIcon,
+    HowToRegOutlined as InteresadoIcon,
 } from "@mui/icons-material";
 
 //Estilos de Material UI
 import { makeStyles } from "@mui/styles";
 
-const panelEmpresariosStyles = makeStyles((theme) => ({
+const panelEmpresariosStyles = makeStyles(() => ({
     paperTotal: {
         padding: "8px",
         backgroundColor: "#00BAB3",
@@ -27,7 +27,7 @@ const panelEmpresariosStyles = makeStyles((theme) => ({
         backgroundColor: "#5CB660",
         color: "white",
     },
-    paperFiltrados: {
+    paperInteresados: {
         padding: "8px",
         backgroundColor: "#676767",
         color: "white",
@@ -37,17 +37,25 @@ const panelEmpresariosStyles = makeStyles((theme) => ({
 const PanelEmpresarios = ({ data }) => {
     const [count, setCount] = useState({
         intActivos: 0,
+        intInteresados:0,
         intTotal: 0,
     });
 
     useEffect(() => {
         if (data) {
             let intActivos = 0;
+            let intInteresados = 0;
             let intTotal = 0;
+
+            console.log(data)
 
             for (let i = 0; i < data.length; i++) {
                 if (data[i].strEstadoVinculacion === "Activo") {
                     intActivos++;
+                }
+
+                if (data[i].strEstadoVinculacion === "Interesado") {
+                    intInteresados++;
                 }
 
                 intTotal++;
@@ -55,6 +63,7 @@ const PanelEmpresarios = ({ data }) => {
 
             setCount({
                 intActivos,
+                intInteresados,
                 intTotal,
             });
         }
@@ -130,7 +139,7 @@ const PanelEmpresarios = ({ data }) => {
             </Grid>
 
             <Grid item xs={12} md={4}>
-                <Paper className={classes.paperFiltrados}>
+                <Paper className={classes.paperInteresados}>
                     <Box
                         sx={{
                             display: "flex",
@@ -140,18 +149,18 @@ const PanelEmpresarios = ({ data }) => {
                         }}
                     >
                         <Box sx={{ flexGrow: 1 }}>
-                            <FilterAltIcon
+                            <InteresadoIcon
                                 sx={{
                                     float: "left",
                                     marginRight: "5px",
                                 }}
                             />
-                            <Typography>Filtradas</Typography>
+                            <Typography>Interesadas</Typography>
                         </Box>
                         <Box>
                             <Typography variant="h6">
                                 <b>
-                                    <CountUp end={count.intTotal} duration={3} />
+                                    <CountUp end={count.intInteresados} duration={3} />
                                 </b>
                             </Typography>
                         </Box>

@@ -261,6 +261,7 @@ const Read = () => {
                                         position: "sticky",
                                         top: "0",
                                         backgroundColor: "#cff3f2",
+                                        zIndex: 1,
                                     },
                                     detailPanelColumnStylele: {
                                         fontSize: 12,

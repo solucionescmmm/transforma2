@@ -109,7 +109,7 @@ const DropdownServicios = ({
             id={id}
             value={value}
             onChange={onChange}
-            options={options}
+            options={options?.filter(s => s?.objInfoPrincipal?.strEstado === "Activo")}
             clearText="Borrar"
             openText="Abrir"
             closeText="Cerrar"
