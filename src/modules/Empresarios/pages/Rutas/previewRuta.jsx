@@ -93,7 +93,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                         })
                             .format(valorTotal)
                             .toString(),
-                        intDuracion: intDuracionHorasTotalPaquete,
+                        intDuracion: intDuracionHorasTotalPaquete || 0,
                     };
 
                     arrDataTable.push(dataTable);
@@ -107,7 +107,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                     } = arrServicios[j];
                     const valorTotal = ValorTotalServicio;
 
-                    if (valorTotal) {
+                    if (typeof valorTotal === "number") {
                         const dataTable = {
                             intId: i + 1,
                             strNombre: objServicio.objInfoPrincipal?.strNombre,
@@ -119,7 +119,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                             })
                                 .format(valorTotal)
                                 .toString(),
-                            intDuracion: intDuracionHorasTotalServicio,
+                            intDuracion: intDuracionHorasTotalServicio || 0,
                         };
 
                         arrDataTable.push(dataTable);
@@ -152,7 +152,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Nombre ruta:
                                 </span>
-                                {values?.objInfoPrincipal?.strNombre}
+                                {values?.[0]?.objInfoPrincipal?.strNombre}
                             </Typography>
 
                             <Typography>
@@ -178,7 +178,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Total fases:
                                 </span>
-                                {values?.arrInfoFases?.length}
+                                {values?.[0]?.arrInfoFases?.length}
                             </Typography>
                         </Box>
 
@@ -192,29 +192,21 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Valor total:
                                 </span>
-                                {values?.valorTotalRuta
-                                    ? new Intl.NumberFormat("es-ES", {
-                                          style: "currency",
-                                          currency: "COP",
-                                      }).format(values?.valorTotalRuta)
-                                    : values?.objInfoPrincipal?.valorTotalRuta
-                                    ? new Intl.NumberFormat("es-ES", {
-                                          style: "currency",
-                                          currency: "COP",
-                                      }).format(
-                                          values?.objInfoPrincipal
-                                              ?.valorTotalRuta
-                                      )
-                                    : ""}
+                                {values?.[0]?.objInfoPrincipal
+                                    ?.valorTotalRuta &&
+                                    new Intl.NumberFormat("es-ES", {
+                                        style: "currency",
+                                        currency: "COP",
+                                    }).format(values?.[0]?.valorTotalRuta)}
                             </Typography>
 
                             <Typography>
                                 <span style={{ color: "#00BAB3" }}>
                                     Fecha creación:
                                 </span>
-                                {values?.objInfoPrincipal?.dtmCreacion
+                                {values?.[0]?.objInfoPrincipal?.dtmCreacion
                                     ? new Date(
-                                          values?.objInfoPrincipal?.dtmCreacion
+                                          values?.[0]?.objInfoPrincipal?.dtmCreacion
                                       ).toLocaleDateString("en-EN")
                                     : ""}
                             </Typography>
@@ -228,15 +220,29 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                         >
                             <Typography>
                                 <span style={{ color: "#00BAB3" }}>
-                                    Duración total:
+                                    Duración total:{" "}
                                 </span>
+                                {dataTable.length > 0 &&
+                                    (() => {
+                                        let intDuracion = 0;
+                                        for (
+                                            let i = 0;
+                                            i < dataTable.length;
+                                            i++
+                                        ) {
+                                            intDuracion =
+                                                +dataTable[i].intDuracion;
+                                        }
+
+                                        return intDuracion.toString();
+                                    })()}
                             </Typography>
 
                             <Typography>
                                 <span style={{ color: "#00BAB3" }}>
                                     Responsable:
                                 </span>
-                                {values?.objInfoPrincipal?.strResponsable
+                                {values?.[0]?.objInfoPrincipal?.strResponsable
                                     ?.strNombre || ""}
                             </Typography>
                         </Box>

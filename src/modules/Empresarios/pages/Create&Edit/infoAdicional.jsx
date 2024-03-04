@@ -403,7 +403,6 @@ const InfoAdicional = ({
                                     select
                                     fullWidth
                                     variant="standard"
-                                    required
                                     disabled={disabled}
                                     error={
                                         errors?.objInfoAdicional?.btRecibirInfoCMM
@@ -461,13 +460,13 @@ const InfoAdicional = ({
                                     />
                                 )}
                                 control={control}
-                                rules={{
-                                    validate: (value) => {
-                                        if (value === "" || value === undefined) {
-                                            return "Por favor, adjunte un documento que soporte el uso de datos personales.";
-                                        }
-                                    },
-                                }}
+                                // rules={{
+                                //     validate: (value) => {
+                                //         if (value === "" || value === undefined) {
+                                //             return "Por favor, adjunte un documento que soporte el uso de datos personales.";
+                                //         }
+                                //     },
+                                // }}
                             />
                         </Grid>
                     )}

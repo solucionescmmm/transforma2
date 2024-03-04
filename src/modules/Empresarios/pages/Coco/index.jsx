@@ -144,7 +144,7 @@ const Coco = () => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [route, setRoute] = useState({
         location: "Inicio",
         params: {
@@ -212,8 +212,6 @@ const Coco = () => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoading(true);
-
         if (dataPersonas && dataPersonas.length > 0) {
             setObjInteresado(dataPersonas[0]);
             setLoading(false);
@@ -221,8 +219,6 @@ const Coco = () => {
     }, [dataPersonas]);
 
     useEffect(() => {
-        setLoading(true);
-
         if (dataHistorico) {
             setStrEtapa(
                 dataHistorico?.arrEtapaDllo?.at(-1)?.strClasificacionFecha

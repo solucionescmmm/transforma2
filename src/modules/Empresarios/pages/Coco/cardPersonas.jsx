@@ -65,8 +65,8 @@ const CardPersonas = ({ intId, arrPerson }) => {
                 overflowY: "scroll",
             }}
         >
-            {arrPersonas.slice(0, 5).map((p) => (
-                <Box sx={{ display: "flex", flexDirection:"column" }}>
+            {arrPersonas.slice(0, 5).map((p, i) => (
+                <Box sx={{ display: "flex", flexDirection:"column" }} key={i}>
                     <p
                         style={{
                             fontSize: "12px",
