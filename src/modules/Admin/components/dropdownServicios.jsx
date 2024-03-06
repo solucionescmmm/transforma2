@@ -49,8 +49,9 @@ const DropdownServicios = ({
     helperText,
     label,
     multiple,
+    notInclude,
     required,
-    intIdTipoTarifa
+    intIdTipoTarifa,
 }) => {
     const [options, setOptions] = useState([]);
 
@@ -61,9 +62,16 @@ const DropdownServicios = ({
 
     useEffect(() => {
         if (data?.length > 0) {
-            setOptions(data);
+            if (notInclude) {
+                const options = data.map(
+                    (d) => d.objInfoPrincipal?.strEstado !== "En borrador"
+                );
+                setOptions(options);
+            } else {
+                setOptions(data);
+            }
         }
-    }, [data]);
+    }, [data, notInclude]);
 
     if (!data) {
         return (
@@ -109,7 +117,9 @@ const DropdownServicios = ({
             id={id}
             value={value}
             onChange={onChange}
-            options={options?.filter(s => s?.objInfoPrincipal?.strEstado === "Activo")}
+            options={options?.filter(
+                (s) => s?.objInfoPrincipal?.strEstado === "Activo"
+            )}
             clearText="Borrar"
             openText="Abrir"
             closeText="Cerrar"

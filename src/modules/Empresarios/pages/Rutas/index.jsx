@@ -140,7 +140,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
             <ModalPDF
                 handleOpenDialog={handleropenModalPDF}
                 open={openModalPDF}
-                values={selectedDataRuta}
+                intId={selectedDataRuta?.objInfoPrincipal?.intId}
                 intIdIdea={intIdIdea}
             />
 

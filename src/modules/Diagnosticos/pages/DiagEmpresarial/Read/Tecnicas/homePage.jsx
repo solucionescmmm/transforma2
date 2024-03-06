@@ -593,7 +593,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                     setFinalizado(data.objInfoGeneral.btFinalizado);
 
-                    debugger
+
                     const arrayTecnicas = data.arrayTecnicas
 
                     const objInfoGeneral = {

@@ -65,6 +65,7 @@ const InfoNuevoServPaq = ({
                             <DropdownPaquetes
                                 label="Paquete"
                                 name={name}
+                                notInclude
                                 value={value}
                                 onChange={(_, value) => {
                                     setValue(
@@ -97,6 +98,7 @@ const InfoNuevoServPaq = ({
                                 label="Servicio"
                                 name={name}
                                 value={value}
+                                notInclude
                                 onChange={(_, value) => {
                                     setValue(
                                         "objNuevoServPaq.objPaquete",

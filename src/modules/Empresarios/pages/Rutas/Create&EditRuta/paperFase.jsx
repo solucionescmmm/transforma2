@@ -1371,7 +1371,7 @@ const PaperFase = ({
                                                         }
                                                     )
                                                         .format(
-                                                            porce.valorPorce
+                                                            porce.valorPorce || porce.Valor || porce.ValorTotalFase
                                                         )
                                                         .toString()}`}
                                                 </p>

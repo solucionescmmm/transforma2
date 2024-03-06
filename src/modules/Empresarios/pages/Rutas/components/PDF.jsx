@@ -24,6 +24,7 @@ import bg6Img from "../../../../../static/img/rutas/bg6.png";
 import bg7Img from "../../../../../static/img/rutas/bg7.png";
 import logoHeader from "../../../../../static/img/rutas/logoPropuesta.png";
 import useGetEmpresarios from "../../../hooks/useGetEmpresarios";
+import useGetRutas from "../../../hooks/useGetRutas";
 
 // Register Font
 Font.register({
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const PDFProduct = ({ values, intIdIdea }) => {
+const PDFProduct = ({ intIdIdea, intId }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -130,6 +131,7 @@ const PDFProduct = ({ values, intIdIdea }) => {
     const [objInfoEmpresa, setObjInfoEmpresa] = useState();
     const [objInfoPrincipal, setObjInfoPrincipal] = useState();
     const [dataFases, setDataFases] = useState();
+    console.log(intId);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -139,14 +141,14 @@ const PDFProduct = ({ values, intIdIdea }) => {
         intId: intIdIdea,
     });
 
+    const { data: values } = useGetRutas({ autoLoad: true, intIdIdea, intId });
+
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoading(true);
-
         if (values && dataEmpr) {
-            const { objInfoPrincipal } = values;
+            const { objInfoPrincipal } = values[0];
             const { objEmpresario } = dataEmpr.at(0);
             const objPersona = objEmpresario.find(
                 (p) => p.strTipoEmpresario === "Principal"
@@ -156,9 +158,9 @@ const PDFProduct = ({ values, intIdIdea }) => {
 
             const arrDataFases = [];
 
-            for (let i = 0; i < values.arrInfoFases.length; i++) {
+            for (let i = 0; i < values[0].arrInfoFases.length; i++) {
                 const arrPaqueteServ = [];
-                const { arrPaquetes, arrServicios } = values.arrInfoFases[i];
+                const { arrPaquetes, arrServicios } = values[0].arrInfoFases[i];
 
                 for (let j = 0; j < arrPaquetes?.length; j++) {
                     const {
@@ -216,7 +218,7 @@ const PDFProduct = ({ values, intIdIdea }) => {
                 const htmlTable1 = `
                 <div>
                     <p class="title">
-                       Fase ${i + 1}: ${values.arrInfoFases[i].strNombre}
+                       Fase ${i + 1}: ${values[0].arrInfoFases[i].strNombre}
                     </p>
                 </div>
 
@@ -247,7 +249,7 @@ const PDFProduct = ({ values, intIdIdea }) => {
                         style: "currency",
                         currency: "COP",
                     })
-                        .format(values.arrInfoFases[i].dblValorFase)
+                        .format(values[0].arrInfoFases[i].dblValorFase)
                         .toString(),
                 };
             }
@@ -401,6 +403,26 @@ const PDFProduct = ({ values, intIdIdea }) => {
                         </div>`
                         )}
                          
+                        
+                        <div>
+                        <div style="padding-right: 100px; padding-left: 100px;">
+                            <div><span style="color: #1ccbc4; font-size: 12px !important;">Valor total de la Ruta: </span>
+                                 <span style="font-size: 12px !important;">$${new Intl.NumberFormat(
+                                     "es-ES",
+                                     {
+                                         style: "currency",
+                                         currency: "COP",
+                                     }
+                                 )
+                                     .format(
+                                         values[0].objInfoPrincipal
+                                             ?.valorTotalRuta
+                                     )
+                                     .toString()}</span>
+                            </div>   
+                        </div>
+                            
+                        </div>
                         </body>
                         </html>
                         `}

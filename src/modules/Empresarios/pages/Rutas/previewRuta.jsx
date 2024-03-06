@@ -197,7 +197,8 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                     new Intl.NumberFormat("es-ES", {
                                         style: "currency",
                                         currency: "COP",
-                                    }).format(values?.[0]?.valorTotalRuta)}
+                                    }).format(values?.[0]?.objInfoPrincipal
+                                        ?.valorTotalRuta)}
                             </Typography>
 
                             <Typography>

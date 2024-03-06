@@ -47,6 +47,7 @@ const DropdownPaquetes = ({
     disabled,
     error,
     helperText,
+    notInclude,
     label,
     multiple,
     required,
@@ -61,9 +62,14 @@ const DropdownPaquetes = ({
 
     useEffect(() => {
         if (data?.length > 0) {
-            setOptions(data);
+            if(notInclude) {
+                const options = data.map(d => d.objInfoPrincipal?.strEstado !== 'En borrador' )
+                setOptions(options);
+            } else {
+                setOptions(data);
+            }   
         }
-    }, [data]);
+    }, [data, notInclude]);
 
     if (!data) {
         return (

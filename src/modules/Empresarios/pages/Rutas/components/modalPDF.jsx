@@ -6,7 +6,7 @@ import { DialogContent, DialogActions, Dialog, Button } from "@mui/material";
 
 import PDFService from "./PDF";
 
-const ModalPDF = ({ handleOpenDialog, open, values, intIdIdea }) => {
+const ModalPDF = ({ handleOpenDialog, open, intIdIdea, intId}) => {
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -18,7 +18,7 @@ const ModalPDF = ({ handleOpenDialog, open, values, intIdIdea }) => {
             sx={{ padding: "0px" }}
         >
             <DialogContent sx={{ overflow: "hidden", padding: "0px" }}>
-                <PDFService values={values} intIdIdea={intIdIdea} />
+                <PDFService intIdIdea={intIdIdea} intId={intId} />
             </DialogContent>
 
             <DialogActions>

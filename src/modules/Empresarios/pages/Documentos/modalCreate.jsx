@@ -163,6 +163,28 @@ const ModalCreate = ({
     };
 
     useEffect(() => {
+        if (!isEdit) {
+            setData({
+                intIdIdea,
+                intId: null,
+                strNombre: "",
+                strObservaciones: "",
+                strUrlDocumento: "",
+            });
+
+            reset({
+                intIdIdea,
+                intId: null,
+                strNombre: "",
+                strObservaciones: "",
+                strUrlDocumento: "",
+            });
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isEdit]);
+
+    useEffect(() => {
         if (isEdit) {
             setData((prevState) => ({
                 ...prevState,

@@ -122,6 +122,45 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={1}>
+                    {isEdit && (
+                        <Grid item xs={12}>
+                            <Controller
+                                defaultValue={data.strNombre}
+                                name="objInfoPrincipal.strNombre"
+                                render={({
+                                    field: { name, onChange, value },
+                                }) => (
+                                    <TextField
+                                        label="Nombre de la ruta"
+                                        variant="standard"
+                                        name={name}
+                                        value={value}
+                                        onChange={(e) => onChange(e)}
+                                        disabled={disabled}
+                                        required
+                                        error={
+                                            errors?.objInfoPrincipal
+                                                ?.strNombre
+                                                ? true
+                                                : false
+                                        }
+                                        helperText={
+                                            errors?.objInfoPrincipal
+                                                ?.strNombre?.message ||
+                                            "Digita el nombre de la ruta"
+                                        }
+                                        fullWidth
+                                    />
+                                )}
+                                control={control}
+                                rules={{
+                                    required:
+                                        "Por favor, digita el nombre de la ruta",
+                                }}
+                            />
+                        </Grid>
+                    )}
+
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strResponsable}
