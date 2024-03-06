@@ -541,7 +541,7 @@ class daoRutas {
                         PagosFase.ValorTotalFase,
                         PagosFase.intNumPago,
                         PagosFase.intPorcentaje,
-                        PagosFase.Valor,
+                        PagosFase.Valor as valorPorce,
                         PagosFase.dtmCreacion,
                         PagosFase.strUsuarioCreacion,
                         PagosFase.dtmActualizacion,
