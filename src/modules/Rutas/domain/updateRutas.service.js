@@ -36,6 +36,7 @@ class updateRutas {
     }
 
     async main() {
+        //console.log(this.#objData.arrInfoFases[0]?.arrServicios)
         await this.#getIdEstado();
         await this.#getTipoRuta();
         await this.#validations();
@@ -105,7 +106,7 @@ class updateRutas {
 
             let arrPorcentajes = arrayFases[i].arrPorcentajes
 
-            if (arrPorcentajes.length <= 0) {
+            if (arrPorcentajes?.length <= 0) {
                 throw new Error(`El array de los porcentajes esta vacío en la fase #${i + 1}`);
             }
 
@@ -131,6 +132,7 @@ class updateRutas {
             },
             this.#objUser
         );
+
         let query = await service.main();
 
         if (query.error) {
@@ -255,11 +257,11 @@ class updateRutas {
                     let query = await dao.setPaquetesFases({
                         intIdFase: this.#intIdFase,
                         intIdPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intId,
-                        intIdSedeTipoTarifaPaqRef: objDataPaquete.objSedeTarifa.intId,
-                        ValorReferenciaPaquete: objDataPaquete.objSedeTarifa.dblValor,
-                        ValorTotalPaquete: objDataPaquete.valor,
-                        intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
-                        intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || null,
+                        intIdSedeTipoTarifaPaqRef: objDataPaquete.objSedeTarifa.intId || objDataPaquete?.intIdSedeTipoTarifaPaqRef,
+                        ValorReferenciaPaquete: objDataPaquete.objSedeTarifa.dblValor || objDataPaquete?.ValorReferenciaPaquete,
+                        ValorTotalPaquete: objDataPaquete.valor || objDataPaquete?.ValorTotalPaquete,
+                        intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || objDataPaquete?.intDuracionHorasReferenciaPaquete,
+                        intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || objDataPaquete?.intDuracionHorasTotalPaquete,
                         strResponsables: JSON.stringify(objDataPaquete.strResponsable || null),
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
@@ -326,15 +328,17 @@ class updateRutas {
                     let objDataServicio = arrServicios[j];
                     if (!objDataServicio.intIdPaqueteFase) {
 
+                        console.log(objDataServicio)
+
                         let query = await dao.setServiciosFases({
                             intIdFase: this.#intIdFase,
                             intIdServicio: objDataServicio.objServicio.objInfoPrincipal.intId,
                             intIdPaqueteFase: null,
-                            intIdSedeTipoTarifaServRef: objDataServicio.objSedeTarifa.intId,
-                            ValorReferenciaServicio: objDataServicio.objSedeTarifa.dblValor,
-                            ValorTotalServicio: objDataServicio.valor || null,
-                            intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
-                            intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
+                            intIdSedeTipoTarifaServRef: objDataServicio?.objSedeTarifa?.intId || objDataServicio?.intIdSedeTipoTarifaServRef,
+                            ValorReferenciaServicio: objDataServicio?.objSedeTarifa?.dblValor || objDataServicio?.ValorReferenciaServicio,
+                            ValorTotalServicio: objDataServicio.valor || objDataServicio?.ValorTotalServicio,
+                            intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || objDataServicio?.intDuracionHorasReferenciaServicio,
+                            intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || objDataServicio?.intDuracionHorasTotalServicio,
                             strResponsables: JSON.stringify(objDataServicio.strResponsable || null),
                             btFinalizado: false,
                             strUsuarioCreacion: this.#objUser.strEmail,
@@ -343,6 +347,8 @@ class updateRutas {
                         if (query.error) {
                             throw new Error(query.msg);
                         }
+
+                        console.log(query)
 
                         let intIdServicioFase = query.data.intId;
 
@@ -371,11 +377,11 @@ class updateRutas {
                 }
             }
 
-            let arrPagos = objDataFase.arrPorcentajes;
+            let arrPorcentajes = objDataFase.arrPorcentajes;
 
-            if (arrPagos.length > 0) {
-                for (let j = 0; j < arrPagos.length; j++) {
-                    let objDataPago = arrPagos[j];
+            if (arrPorcentajes.length > 0) {
+                for (let j = 0; j < arrPorcentajes.length; j++) {
+                    let objDataPago = arrPorcentajes[j];
 
                     let query = await dao.setPagosFases({
                         intIdFase: this.#intIdFase,

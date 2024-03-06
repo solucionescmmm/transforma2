@@ -328,11 +328,11 @@ class setRutas {
                 }
             }
 
-            let arrPagos = objDataFase.arrPorcentajes;
+            let arrPorcentajes = objDataFase.arrPorcentajes;
 
-            if (arrPagos?.length > 0) {
-                for (let j = 0; j < arrPagos.length; j++) {
-                    let objDataPago = arrPagos[j];
+            if (arrPorcentajes?.length > 0) {
+                for (let j = 0; j < arrPorcentajes.length; j++) {
+                    let objDataPago = arrPorcentajes[j];
 
                     let query = await dao.setPagosFases({
                         intIdFase: this.#intIdFase,
