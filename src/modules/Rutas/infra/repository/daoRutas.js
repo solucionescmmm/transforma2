@@ -532,7 +532,26 @@ class daoRutas {
 
                         WHERE FasesObjetivos.intIdFase = Fases.intId 
                         FOR JSON PATH
-                    )as arrObjetivos
+                    )as arrObjetivos,
+                    (
+                        SELECT
+
+                        PagosFase.intId,
+                        PagosFase.intIdFase,
+                        PagosFase.ValorTotalFase,
+                        PagosFase.intNumPago,
+                        PagosFase.intPorcentaje,
+                        PagosFase.Valor,
+                        PagosFase.dtmCreacion,
+                        PagosFase.strUsuarioCreacion,
+                        PagosFase.dtmActualizacion,
+                        PagosFase.strUsuarioActualizacion
+
+                        FROM tbl_PagosFase PagosFase
+
+                        WHERE PagosFase.intIdFase = Fases.intId 
+                        FOR JSON PATH
+                    )as arrPagos
 
                     FROM tbl_Fases Fases
                     WHERE Fases.intIdRuta = Rutas.intId 

@@ -168,6 +168,7 @@ const getRutas = async (objParams, strDataUser) => {
                             ),
                             arrPaquetes,
                             arrServicios,
+                            arrPagos: arrFasesRutas[j].arrPagos
                         };
                     }
 
