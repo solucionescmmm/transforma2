@@ -551,7 +551,7 @@ class daoRutas {
 
                         WHERE PagosFase.intIdFase = Fases.intId 
                         FOR JSON PATH
-                    )as arrPagos
+                    )as arrPorcentajes
 
                     FROM tbl_Fases Fases
                     WHERE Fases.intIdRuta = Rutas.intId 
