@@ -747,6 +747,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                             objResultadoNoAlimentos:
                                 data.objResultadoNoAlimentos,
                             objResultadoAlimentos: data.objResultadoAlimentos,
+                            strCategoriaProductos: data.objInfoProductos.strCategoriaProductos,
                         };
                     });
                 }
@@ -2881,9 +2882,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                         <Collapse in={openCollapseGrafico} timeout="auto">
                             <Grid container direction="row" spacing={2}>
-                                {data.objInfoProductos.strCategoriaProductos ===
-                                "No Alimentos" ? (
-                                    <Grid item xs={12} md={4}>
+                                {data.strCategoriaProductos ===
+                                "No alimentos" ? (
+                                    <Grid item xs={12}>
                                         <Box
                                             sx={{
                                                 display: "flex",
