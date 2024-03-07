@@ -443,7 +443,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                                 onChange={(date) =>
                                                     onChange(date)
                                                 }
-                                                format="dd/MM/yyyy H:mm a"
+                                                format="dd/MM/yyyy H:mm"
                                                 ampm
                                                 slotProps={{
                                                     textField: {

@@ -8,8 +8,9 @@ import { Paper, Box, Grid, Typography } from "@mui/material";
 
 //Iconos de Material UI
 import {
-    Group as GroupIcon,
-    FilterAlt as FilterAltIcon,
+    PlaylistAddCheck as TotalIcon,
+    PlayArrow as PlayIcon,
+    Stop as StopIcon,
 } from "@mui/icons-material";
 
 //Estilos de Material UI
@@ -21,7 +22,7 @@ const panelStyles = makeStyles((theme) => ({
         backgroundColor: "#00BAB3",
         color: "white",
     },
-    paperActivos: {
+    paperEjecucion: {
         padding: "8px",
         backgroundColor: "#5CB660",
         color: "white",
@@ -36,6 +37,8 @@ const panelStyles = makeStyles((theme) => ({
 const Panel = ({ data }) => {
     const [count, setCount] = useState({
         intActivos: 0,
+        intEjecucion: 0,
+        intSuspendido: 0,
         intTotal: 0,
     });
 
@@ -43,10 +46,20 @@ const Panel = ({ data }) => {
         if (data) {
             let intActivos = 0;
             let intTotal = 0;
+            let intEjecucion = 0;
+            let intSuspendido = 0;
 
             for (let i = 0; i < data.length; i++) {
-                if (data[i].strEstadoVinculacion === "Activo") {
+                if (data[i].strNombreEstado === "Activo") {
                     intActivos++;
+                }
+
+                if (data[i].strNombreEstado === "En ejecución") {
+                    intEjecucion++;
+                }
+
+                if (data[i].strNombreEstado === "Suspendido") {
+                    intSuspendido++;
                 }
 
                 intTotal++;
@@ -54,6 +67,8 @@ const Panel = ({ data }) => {
 
             setCount({
                 intActivos,
+                intEjecucion,
+                intSuspendido,
                 intTotal,
             });
         }
@@ -79,7 +94,7 @@ const Panel = ({ data }) => {
                         }}
                     >
                         <Box sx={{ flexGrow: 1 }}>
-                            <GroupIcon
+                            <TotalIcon
                                 sx={{
                                     float: "left",
                                     marginRight: "5px",
@@ -99,6 +114,36 @@ const Panel = ({ data }) => {
             </Grid>
 
             <Grid item xs={12} md={4}>
+                <Paper className={classes.paperEjecucion}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Box sx={{ flexGrow: 1 }}>
+                            <PlayIcon
+                                sx={{
+                                    float: "left",
+                                    marginRight: "5px",
+                                }}
+                            />
+                            <Typography>En ejecución</Typography>
+                        </Box>
+                        <Box>
+                            <Typography variant="h6">
+                                <b>
+                                    <CountUp end={count.intEjecucion} duration={3} />
+                                </b>
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
                 <Paper className={classes.paperFiltrados}>
                     <Box
                         sx={{
@@ -109,18 +154,18 @@ const Panel = ({ data }) => {
                         }}
                     >
                         <Box sx={{ flexGrow: 1 }}>
-                            <FilterAltIcon
+                            <StopIcon
                                 sx={{
                                     float: "left",
                                     marginRight: "5px",
                                 }}
                             />
-                            <Typography>Filtradas</Typography>
+                            <Typography>Suspendidos</Typography>
                         </Box>
                         <Box>
                             <Typography variant="h6">
                                 <b>
-                                    <CountUp end={count.intTotal} duration={3} />
+                                    <CountUp end={count.intSuspendido} duration={3} />
                                 </b>
                             </Typography>
                         </Box>

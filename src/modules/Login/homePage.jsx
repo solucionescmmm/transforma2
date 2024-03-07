@@ -34,7 +34,6 @@ import { makeStyles } from "@mui/styles";
 
 //Imagenes
 import LogoImg from "../../static/img/LogoLogin.svg";
-import BackGroundImg from "../../static/img/LoginBackground.svg";
 import BtnMicrosoft from "../../static/img/Microsoft_logo.svg.png";
 
 const loginStyles = makeStyles((theme) => ({
@@ -59,7 +58,6 @@ const loginStyles = makeStyles((theme) => ({
     backImage: {
         height: "100vh",
         width: "100vw",
-        backgroundImage: `url(${BackGroundImg})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         overflow: "hidden",
