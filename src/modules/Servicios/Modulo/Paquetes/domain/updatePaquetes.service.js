@@ -28,12 +28,12 @@ class updatePaquetes {
 
     async main() {
         await this.#validations();
-        this.#getDuracionHoras()
         if (typeof this.#objData.bitActivar !== "undefined") {
             await this.#getIdEstado();
             await this.#updatePaquetes();
             return this.#objResult;
         } else {
+            this.#getDuracionHoras()
             await this.#getDataPaquete();
             await this.#updatePaquetes();
             await this.#updateServiciosPaquetes();
@@ -59,7 +59,7 @@ class updatePaquetes {
         }
 
         if (typeof this.#objData.bitActivar === "undefined") {
-            let queryGetPaquetes = await getPaquetes(
+            let queryGetPaquetes = await serviceGetPaquetes(
                 { strNombre: this.#objData.objInfoPrincipal.strNombre.trim()},
                 this.#objUser
             );
