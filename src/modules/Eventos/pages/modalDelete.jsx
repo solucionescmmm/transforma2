@@ -79,8 +79,8 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh }) => {
                     method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${process.env.REACT_APP_API_TRANSFORMA_EVENTOS_DELETE}`,
-                    params: {
-                        intId: data.intId,
+                    data: {
+                        intIdEvento: data.intId,
                     },
                     headers: {
                         token,

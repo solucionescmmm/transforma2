@@ -118,7 +118,7 @@ const PanelEmpresarios = ({ data }) => {
                                     marginRight: "5px",
                                 }}
                             />
-                            <Typography>Filtrados</Typography>
+                            <Typography>Activos</Typography>
                         </Box>
                         <Box>
                             <Typography variant="h6">
