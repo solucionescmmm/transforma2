@@ -9,7 +9,7 @@ import { Paper, Box, Grid, Typography } from "@mui/material";
 //Iconos de Material UI
 import {
     Group as GroupIcon,
-    FilterAlt as FilterAltIcon,
+    PersonAdd as PersonAddIcon,
 } from "@mui/icons-material";
 
 //Estilos de Material UI
@@ -45,7 +45,7 @@ const PanelEmpresarios = ({ data }) => {
             let intTotal = 0;
 
             for (let i = 0; i < data.length; i++) {
-                if (data[i].strEstadoVinculacion === "Activo") {
+                if (data[i].strEstado === "Activo") {
                     intActivos++;
                 }
 
@@ -102,7 +102,7 @@ const PanelEmpresarios = ({ data }) => {
             </Grid>
 
             <Grid item xs={12} md={4}>
-                <Paper className={classes.paperFiltrados}>
+                <Paper className={classes.paperActivos}>
                     <Box
                         sx={{
                             display: "flex",
@@ -112,7 +112,7 @@ const PanelEmpresarios = ({ data }) => {
                         }}
                     >
                         <Box sx={{ flexGrow: 1 }}>
-                            <FilterAltIcon
+                            <PersonAddIcon
                                 sx={{
                                     float: "left",
                                     marginRight: "5px",
@@ -124,7 +124,7 @@ const PanelEmpresarios = ({ data }) => {
                             <Typography variant="h6">
                                 <b>
                                     <CountUp
-                                        end={count.intTotal}
+                                        end={count.intActivos}
                                         duration={3}
                                     />
                                 </b>
