@@ -126,12 +126,12 @@ const Coco = () => {
         },
         {
             title: "Puntuación",
-            field: "intPuntaje",
+            field: "intTotalPuntaje",
             type: "number",
         },
         {
-            title: "Tipo",
-            field: "strClasificacionFecha",
+            title: "Etapa",
+            field: "strClasificacionEtapaDllo",
             type: "string",
         },
         {
@@ -221,7 +221,7 @@ const Coco = () => {
     useEffect(() => {
         if (dataHistorico) {
             setStrEtapa(
-                dataHistorico?.arrEtapaDllo?.at(-1)?.strClasificacionFecha
+                dataHistorico?.arrEtapaDllo?.at(-1)?.strClasificacionEtapaDllo
             );
             setLoading(false);
         }

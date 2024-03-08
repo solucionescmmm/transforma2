@@ -143,7 +143,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
                 console.log(v);
                 ejeX.push({
                     x: parseISO(v.dtmCreacion),
-                    y: v.intIdPuntaje,
+                    y: v.intPuntajeEtapaDllo,
                 });
 
                 ejeY.push(format(parseISO(v.dtmCreacion), "yyyy MM dd"));
