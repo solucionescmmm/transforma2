@@ -23,6 +23,7 @@ class daoHistoricos {
                 NULL,
                 NULL,
                 NULL,
+                NULL,
                 ${data.intIdFuenteDato},
                 GETDATE()
             )
@@ -100,17 +101,16 @@ class daoHistoricos {
             Historico.ValorVentas,
             Historico.strTiempoDedicacionAdmin,
             Historico.intIdFuenteHistorico,
-            Historico.intIdEtapaDlloAuto,
-            Historico.intEtapaDlloFecha,
-            Historico.strClasificacionFecha,
+            Historico.intIdEtapaDllo,
+            Historico.intPuntajeEtapaDllo,
+            Historico.strClasificacionEtapaDllo,
+            Historico.intTotalPuntaje,
             Historico.intIdFuenteDato,
             Historico.dtmCreacion,
-            DesarrolloEtapa.intPuntaje as intPuntaje,
             FuenteHistorico.strNombre as strFuenteHistorico
 
             FROM tbl_Historicos Historico
 
-            LEFT JOIN tbl_EtapaDllo DesarrolloEtapa ON DesarrolloEtapa.intId = Historico.intEtapaDlloFecha
             LEFT JOIN tbl_FuentesHistorico FuenteHistorico ON FuenteHistorico.intId = Historico.intIdFuenteHistorico
 
             WHERE (Historico.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL)`;
