@@ -68,7 +68,7 @@ class setDiagnosticoGeneral {
         });
 
         if (queryGetIdFuenteHistorico.error) {
-            throw new Error(query.msg);
+            throw new Error(queryGetIdFuenteHistorico.msg);
         }
 
         this.#intIdFuenteHistorico = queryGetIdFuenteHistorico.data.intId;
@@ -80,7 +80,7 @@ class setDiagnosticoGeneral {
         }, this.#objUser);
 
         if (queryGetIntIdEstadoDiagnostico.error) {
-            throw new Error(query.msg);
+            throw new Error(queryGetIntIdEstadoDiagnostico.msg);
         }
 
         this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
@@ -92,7 +92,7 @@ class setDiagnosticoGeneral {
         });
 
         if (queryGetHistorico.error) {
-            throw new Error(query.msg);
+            throw new Error(queryGetHistorico.msg);
         }
 
         this.#bitTienePrediagnostico = queryGetHistorico.data ? true : false;

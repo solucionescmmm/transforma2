@@ -153,9 +153,10 @@ class daoHistoricos {
             Historico.ValorVentas,
             Historico.strTiempoDedicacionAdmin,
             Historico.intIdFuenteHistorico,
-            Historico.intIdEtapaDlloAuto,
-            Historico.intEtapaDlloFecha,
-            Historico.strClasificacionFecha,
+            Historico.intIdEtapaDllo,
+            Historico.intPuntajeEtapaDllo,
+            Historico.strClasificacionEtapaDllo,
+            Historico.intTotalPuntaje,
             Historico.intIdFuenteDato,
             Historico.dtmCreacion
             
