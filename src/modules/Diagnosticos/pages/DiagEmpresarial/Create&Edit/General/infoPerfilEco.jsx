@@ -187,7 +187,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strEtapaValidacion}
                             name="objInfoPerfilEco.strEtapaValidacion"
@@ -219,7 +219,7 @@ const InfoPerfilEco = ({
                                 required: "Por favor, selecciona una opción",
                             }}
                         />
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -409,7 +409,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strTipoEmpleoGenerado}
                             name="objInfoPerfilEco.strTipoEmpleoGenerado"
