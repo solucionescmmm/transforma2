@@ -464,12 +464,12 @@ const PaperFase = ({
         }
 
         setValue(`arrInfoFases[${index}].dblValorRef`, dblValorRef);
-        setValue(`arrInfoFases[${index}].dblValorFase`, dblValorRef);
+        setValue(`arrInfoFases[${index}].dblValorFase`, data.dblValorFase);
 
         setData((prevState) => ({
             ...prevState,
             dblValorRef,
-            dblValorFase: dblValorRef,
+            //dblValorFase: dblValorRef,
         }));
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
