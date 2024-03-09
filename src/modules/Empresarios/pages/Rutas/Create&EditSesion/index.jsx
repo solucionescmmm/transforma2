@@ -118,7 +118,7 @@ const CUSesion = ({
         intTipoAcomp: null,
         strUbicacion: "",
         intIdTipoActividad: "",
-        strResponsables: null,
+        strResponsables: [],
         strObjetivoActividad: "",
         strTemasActividades: "",
         strLogros: "",
@@ -237,7 +237,7 @@ const CUSesion = ({
                 intTipoAcomp: values.intTipoAcomp || null,
                 strUbicacion: values.strUbicacion || "",
                 intIdTipoActividad: values.intIdTipoActividad || "",
-                strResponsables: values.strResponsables || null,
+                strResponsables: values.strResponsables || [],
                 strObjetivoActividad: values.strObjetivoActividad || "",
                 strTemasActividades: values.strTemasActividades || "",
                 dtmProximaActividad: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
@@ -252,7 +252,7 @@ const CUSesion = ({
                 intTipoAcomp: values.intTipoAcomp || null,
                 strUbicacion: values.strUbicacion || "",
                 intIdTipoActividad: values.intIdTipoActividad || "",
-                strResponsables: values.strResponsables || null,
+                strResponsables: values.strResponsables || [],
                 strObjetivoActividad: values.strObjetivoActividad || "",
                 strTemasActividades: values.strTemasActividades || "",
                 dtmProximaActividad: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
@@ -538,6 +538,7 @@ const CUSesion = ({
                                         }) => (
                                             <DropdownUsuarios
                                                 label="Responsable"
+                                                multiple
                                                 name={name}
                                                 value={value}
                                                 onChange={(_, value) =>
@@ -563,24 +564,26 @@ const CUSesion = ({
 
                                 <Grid item xs={12}>
                                     <Controller
-                                        defaultValue={data.strTemasActividades}
-                                        name="strTemasActividades"
+                                        defaultValue={data.strObjetivoActividad}
+                                        name="strObjetivoActividad"
                                         render={({
                                             field: { name, onChange, value },
                                         }) => (
                                             <TextField
-                                                label="Temas y/o actividades a desarrollar"
+                                                label="Objetivo actividad"
                                                 variant="outlined"
                                                 name={name}
                                                 value={value}
                                                 onChange={(e) => onChange(e)}
                                                 disabled={loading || isPreview}
                                                 required
-                                                error={!!errors?.strTemasActividades}
+                                                error={
+                                                    !!errors?.strObjetivoActividad
+                                                }
                                                 helperText={
-                                                    errors?.strTemasActividades
+                                                    errors?.strObjetivoActividad
                                                         ?.message ||
-                                                    "Digita las actividades a desarrollar"
+                                                    "Digita el objetivo de la actividad"
                                                 }
                                                 fullWidth
                                                 multiline
@@ -590,7 +593,7 @@ const CUSesion = ({
                                         control={control}
                                         rules={{
                                             required:
-                                                "Por favor, digita las actividad a desarrollar",
+                                                "Por favor, digita el objetivo de la actividad",
                                         }}
                                     />
                                 </Grid>

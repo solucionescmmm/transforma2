@@ -63,7 +63,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
         },
         {
             title: "Responsable",
-            field: "objInfoPrincipal.strResponsables.strNombre",
+            field: "objInfoPrincipal.strResponsables[0].strNombre",
             type: "string",
         },
         {
