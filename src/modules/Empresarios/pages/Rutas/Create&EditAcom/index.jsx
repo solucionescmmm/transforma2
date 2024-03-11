@@ -108,7 +108,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
         objNuevoServPaq: {},
         strLugarActividad: "",
         intTipoActividad: "",
-        objResponsable: null,
+        objResponsable: [],
         strObjetivoActividad: "",
         strActividades: "",
         strLogros: "",
@@ -174,13 +174,12 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
+                    url: `${isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
+                                .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
                             : process.env
-                                  .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET
-                    }`,
+                                .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET
+                        }`,
                     data,
                     headers: {
                         token,
@@ -250,7 +249,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                 objNuevoServPaq: {},
                 strLugarActividad: "",
                 intTipoActividad: "",
-                objResponsable: null,
+                objResponsable: [],
                 strObjetivoActividad: "",
                 strActividades: "",
                 strLogros: "",
@@ -274,7 +273,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                 objNuevoServPaq: {},
                 strLugarActividad: "",
                 intTipoActividad: "",
-                objResponsable: null,
+                objResponsable: [],
                 strObjetivoActividad: "",
                 strActividades: "",
                 strLogros: "",
@@ -383,8 +382,8 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                                 {isEdit
                                                     ? "EDITAR ACOMPAÑAMIENTO"
                                                     : isPreview
-                                                    ? "PREVISUALIZAR ACOMPAÑAMIENTO"
-                                                    : "REGISTRAR ACOMPAÑAMIENTO"}
+                                                        ? "PREVISUALIZAR ACOMPAÑAMIENTO"
+                                                        : "REGISTRAR ACOMPAÑAMIENTO"}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -645,32 +644,33 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
 
                                 <Grid item xs={12}>
                                     <Controller
+                                        name={`objResponsable`}
                                         defaultValue={data.objResponsable}
-                                        name="objResponsable"
-                                        render={({
-                                            field: { name, onChange, value },
-                                        }) => (
+                                        render={({ field: { name, value, onChange } }) => (
                                             <DropdownUsuarios
-                                                label="Responsable"
+                                                label="Responsables"
+                                                multiple
                                                 name={name}
                                                 value={value}
-                                                onChange={(_, value) =>
-                                                    onChange(value)
-                                                }
-                                                disabled={loading || isPreview}
+                                                disabled={loading}
+                                                onChange={(e, value) => onChange(value)}
+                                                fullWidth
+                                                variant="standard"
                                                 required
                                                 error={!!errors?.objResponsable}
                                                 helperText={
-                                                    errors?.objResponsable
-                                                        ?.message ||
-                                                    "Selecciona el responsable"
+                                                    errors?.objResponsable?.message ||
+                                                    "Selecciona los responsables de la tarea"
                                                 }
                                             />
                                         )}
                                         control={control}
                                         rules={{
-                                            required:
-                                                "Por favor, selecciona el responsable",
+                                            validate: (value) => {
+                                                if (value?.length === 0) {
+                                                    return "Por favor, selecciona los responsables de la tarea";
+                                                }
+                                            },
                                         }}
                                     />
                                 </Grid>
@@ -770,10 +770,6 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                             />
                                         )}
                                         control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona la fecha de la próxima reunión",
-                                        }}
                                     />
                                 </Grid>
 
