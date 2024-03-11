@@ -412,6 +412,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
+                                    required
                                     error={
                                         errors?.objInfoPrincipal
                                             ?.strCorreoElectronico1
@@ -427,6 +428,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                             )}
                             control={control}
                             rules={{
+                                required:"Por favor, digita el correo electrónico de la persona",
                                 validate: (value) => {
                                     if (value) {
                                         if (!validator.isEmail(value)) {
