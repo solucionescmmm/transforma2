@@ -10,8 +10,10 @@ const serviceGetTerceros = require("../../Terceros/domain/getTercero.service")
 const getAsistentesSesionesEventos = async (objParams, strDataUser) => {
     let { intIdSesion, intIdAsistenteEvento } = objParams;
 
-    if(!intIdSesion){
-        throw new Error("Se esperaban paramentros de entrada")
+    if (!intIdAsistenteEvento) {
+        if(!intIdSesion){
+            throw new Error("Se esperaban paramentros de entrada")
+        }
     }
 
     if (
@@ -42,7 +44,7 @@ const getAsistentesSesionesEventos = async (objParams, strDataUser) => {
     let dao = new classInterfaceDAOEventos();
 
     let query = {
-        intIdSesion: intIdSesion,
+        intIdSesion: intIdSesion || null,
         intIdAsistenteEvento: intIdAsistenteEvento || null
     };
 

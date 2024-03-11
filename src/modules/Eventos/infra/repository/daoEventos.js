@@ -911,6 +911,8 @@ class daoEventos {
             let response = await conn
                 .request()
                 .input("p_intIdEvento", sql.Int, data.intIdEvento)
+                .output("p_bitError")
+                .output("p_strMsg")
                 .execute("sp_flujoFinalizarEvento");
             
             let result = {
