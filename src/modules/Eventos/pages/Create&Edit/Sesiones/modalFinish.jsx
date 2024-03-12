@@ -5,6 +5,7 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 //Librerias
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useForm, Controller } from "react-hook-form"
 
 //Componentes de Material UI
 import {
@@ -21,6 +22,8 @@ import {
     CircularProgress,
     Alert,
     AlertTitle,
+    Grid,
+    TextField
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -36,7 +39,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalFinish = ({ handleOpenDialog, open, intId, refresh }) => {
+const ModalFinish = ({ handleOpenDialog, open, intId, intIdEvento, refresh }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -53,6 +56,7 @@ const ModalFinish = ({ handleOpenDialog, open, intId, refresh }) => {
 
     const [data, setData] = useState({
         intId: null,
+        strObservacionFin: "",
     });
 
     //===============================================================================================================================================
@@ -61,10 +65,26 @@ const ModalFinish = ({ handleOpenDialog, open, intId, refresh }) => {
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+    const {
+        control,
+        formState: { errors },
+        handleSubmit,
+        reset,
+    } = useForm({ mode: "onChange" });
+
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = modalRejectStyles();
+
+    const onSubmit = (data) => {
+        setData((prevState) => ({
+            ...prevState,
+            ...data,
+        }));
+
+        setFlagSubmit(true);
+    };
 
     const submitData = useCallback(
         async (signalSubmitData) => {
@@ -78,6 +98,7 @@ const ModalFinish = ({ handleOpenDialog, open, intId, refresh }) => {
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${process.env.REACT_APP_API_TRANSFORMA_SESIONES_UPDATE_FINALIZAR_SESION}`,
                     data: {
+                        ...data,
                         intId: data.intId,
                     },
                     headers: {
@@ -147,7 +168,7 @@ const ModalFinish = ({ handleOpenDialog, open, intId, refresh }) => {
 
     useEffect(() => {
         if (success) {
-            refresh({ intId });
+            refresh({ intIdEvento });
             handleOpenDialog();
 
             setSucces(false);
@@ -229,6 +250,41 @@ const ModalFinish = ({ handleOpenDialog, open, intId, refresh }) => {
                     Recuerda que el proceso es irreversible y no podra reabrirse
                     nuevamente
                 </DialogContentText>
+                    <Grid
+                        container
+                        direction="row"
+                        spacing={2}
+                        style={{ padding: "15px" }}
+                    >
+
+                        <Grid item xs={12}>
+                            <Controller
+                                defaultValue={data.strObservacionFin}
+                                name="strObservacionFin"
+                                render={({
+                                    field: { name, value, onChange },
+                                }) => (
+                                    <TextField
+                                        label="Observaciones"
+                                        name={name}
+                                        multiline
+                                        rows={3}
+                                        value={value}
+                                        onChange={(e) => onChange(e)}
+                                        disabled={loading}
+                                        fullWidth
+                                        color="primary"
+                                        error={errors?.strObservacionFin ? true : false}
+                                        helperText={
+                                            errors?.strObservacionFin?.message ||
+                                            "Digíta la Observaciones"
+                                        }
+                                    />
+                                )}
+                                control={control}
+                            />
+                        </Grid>
+                    </Grid>
             </DialogContent>
 
             <DialogActions>
@@ -236,13 +292,16 @@ const ModalFinish = ({ handleOpenDialog, open, intId, refresh }) => {
                     color="error"
                     loading={loading}
                     type="button"
-                    onClick={() => setFlagSubmit(true)}
+                    onClick={handleSubmit(onSubmit)}
                 >
                     aceptar
                 </LoadingButton>
 
                 <Button
-                    onClick={() => handleOpenDialog()}
+                    onClick={() => {
+                        reset()
+                        handleOpenDialog()
+                    }}
                     color="inherit"
                     disabled={loading}
                 >

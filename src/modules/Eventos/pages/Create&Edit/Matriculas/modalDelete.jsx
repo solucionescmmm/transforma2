@@ -38,7 +38,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdEvento }) => {
+const ModalDelete = ({ handleOpenDialog, open, refresh, intIdEvento, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -55,6 +55,9 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdEvento }) =>
 
     const [data, setData] = useState({
         intId: null,
+        intIdEvento: null,
+        intIdEmpresario: null,
+        intIdIdea: null,
     });
 
     //===============================================================================================================================================
@@ -80,6 +83,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdEvento }) =>
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${process.env.REACT_APP_API_TRANSFORMA_MATRICULAS_DELETE}`,
                     data: {
+                        ...data,
                         intIdAsistentesEvento: data.intId,
                     },
                     headers: {
@@ -126,14 +130,18 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdEvento }) =>
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (intId) {
+        console.log(values)
+        if (values) {
             setData({
-                intId,
+                intId: values?.intId || null,
+                intIdEvento: values?.intIdEvento || null,
+                intIdEmpresario: values?.intIdEmpresario || null,
+                intIdIdea: values?.intIdIdea || null,
             });
         }
 
         setLoading(false);
-    }, [intId]);
+    }, [values]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();

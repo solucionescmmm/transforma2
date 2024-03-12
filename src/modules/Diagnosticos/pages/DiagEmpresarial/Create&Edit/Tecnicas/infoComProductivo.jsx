@@ -389,7 +389,7 @@ const InfoComMercadeo = ({
                             control={control}
                         />
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    {/* <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComProductivo.strCapProdRespMer"
                             defaultValue={data.strCapProdRespMer}
@@ -442,7 +442,7 @@ const InfoComMercadeo = ({
                             )}
                             control={control}
                         />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoComProductivo.strEstadTecProd"

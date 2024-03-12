@@ -230,7 +230,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intId, refresh }) => {
             <DialogContent>
                 <DialogContentText>
                 Al finalizar el evento las sesiones que se encuentren 
-                PLANEADAS, SUSPENDIDAS o EN EJECUCIÓN serán finalizadas. 
+                PLANEADAS, SUSPENDIDAS o EN EJECUCIÓN deberán ser finalizadas manualmente. 
                     El proceso es irreversible y no podrás recuperar la información.
                 </DialogContentText>
             </DialogContent>

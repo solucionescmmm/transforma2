@@ -250,16 +250,6 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Detalle - Llevo control y registro de los inventarios",
             },
             {
-                parent: "strCapProdRespMer",
-                value: "",
-                label: "Mi capacidad de producción y respuesta al mercado es",
-            },
-            {
-                parent: "strCapProdRespMerDetalle",
-                value: "",
-                label: "Detalle - Mi capacidad de producción y respuesta al mercado es",
-            },
-            {
                 parent: "strEstadTecProd",
                 value: "",
                 label: "El estado de la ficha técnica de los productos es",

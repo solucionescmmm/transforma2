@@ -112,6 +112,7 @@ const ReadMatriculas = ({ intIdEvento, isPreview }) => {
                 intId={selectedData?.intId}
                 refresh={refreshGetData}
                 intIdEvento={intIdEvento}
+                values={selectedData}
             />
 
             <ModalCEdit

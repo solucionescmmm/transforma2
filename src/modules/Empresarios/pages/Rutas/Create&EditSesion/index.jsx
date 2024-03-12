@@ -263,7 +263,7 @@ const CUSesion = ({
     }, [values]);
 
     useEffect(() => {
-        if (isEdit|| isPreview) {
+        if (isEdit || isPreview) {
             reset(data);
         }
     }, [data, reset, isEdit, isPreview]);

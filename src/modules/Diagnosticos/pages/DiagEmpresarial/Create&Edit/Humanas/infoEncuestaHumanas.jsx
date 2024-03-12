@@ -40,7 +40,7 @@ const InfoEncuestaHumanas = ({
         strTomaDesiciones: "",
         strMotivaciones: "",
         strNivelVida: "",
-        strRedesApoyoOtros: "",
+        strRedesApoyoOtros: [],
         strProyectoVidaEmpresa: "",
         strHabilidadesAutonomia: "",
         strHabilidadesCapacidad: "",
@@ -67,7 +67,7 @@ const InfoEncuestaHumanas = ({
                 strTomaDesiciones: values.strTomaDesiciones || "",
                 strMotivaciones: values.strMotivaciones || "",
                 strNivelVida: values.strNivelVida || "",
-                strRedesApoyoOtros: values.strRedesApoyoOtros || "",
+                strRedesApoyoOtros: values.strRedesApoyoOtros || [],
                 strProyectoVidaEmpresa: values.strProyectoVidaEmpresa || "",
                 strHabilidadesAutonomia: values.strHabilidadesAutonomia || "",
                 strHabilidadesCapacidad: values.strHabilidadesCapacidad || "",
@@ -247,25 +247,26 @@ const InfoEncuestaHumanas = ({
                             name="objInfoEncuestaHumanas.strRedesApoyoOtros"
                             defaultValue={data.strRedesApoyoOtros}
                             render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
+                                <DropdownLista
                                     label="¿En quiénes ha encontrado apoyo para salir adelante con su emprendimiento?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e, value) => onChange(value)}
                                     error={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strRedesApoyoOtros
-                                            ? true
-                                            : false
+                                        ?.strRedesApoyoOtros
+                                        ? true
+                                        : false
                                     }
                                     helperText={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strRedesApoyoOtros?.message ||
+                                        ?.strRedesApoyoOtros?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
                                     strCodigo="RedesApoyoOtros"
+                                    multiple
                                 />
                             )}
                             control={control}
