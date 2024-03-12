@@ -73,7 +73,7 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strTomaDesiciones: array[i]?.strTomaDesiciones,
                     strMotivaciones: array[i]?.strMotivaciones,
                     strNivelVida: array[i]?.strNivelVida,
-                    strRedesApoyoOtros: array[i]?.strRedesApoyoOtros,
+                    strRedesApoyoOtros: JSON.parse(array[i]?.strRedesApoyoOtros),
                     strProyectoVidaEmpresa: array[i]?.strProyectoVidaEmpresa,
                     strHabilidadesAutonomia: array[i]?.strHabilidadesAutonomia,
                     strHabilidadesCapacidad: array[i]?.strHabilidadesCapacidad,

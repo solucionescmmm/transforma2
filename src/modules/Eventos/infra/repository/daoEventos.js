@@ -70,7 +70,8 @@ class daoEventos {
                 ${data.strResponsables},
                 ${data.dtFechaInicio},
                 ${data.dtFechaFin},
-                ${data.btFinalizado}
+                ${data.btFinalizado},
+                NULL
             )
             SET @intId = SCOPE_IDENTITY();
             
@@ -308,6 +309,7 @@ class daoEventos {
                 strResponsables    = COALESCE(${data.strResponsables}, strResponsables),
                 dtFechaIni         = COALESCE(${data.dtFechaIni}, dtFechaIni),
                 dtFechaFin         = COALESCE(${data.dtFechaFin}, dtFechaFin),
+                strObservacionFin  = COALESCE(${data.strObservacionFin}, strObservacionFin),
                 btFinalizado       = COALESCE(${data.btFinalizado}, btFinalizado)
 
             WHERE (intId = ${data.intId})`;
@@ -914,6 +916,35 @@ class daoEventos {
                 .output("p_bitError")
                 .output("p_strMsg")
                 .execute("sp_flujoFinalizarEvento");
+            
+            let result = {
+                error: false,
+                data: response.recordsets[0]
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo sp_setFlujoAcompañamiento de la clase daoAcompañamientos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async sp_setFlujoSesionEvento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn
+                .request()
+                .input("p_intIdsesionEvento", sql.Int, data.intIdSesionEvento)
+                .execute("sp_setFlujoSesionEvento");
             
             let result = {
                 error: false,

@@ -21,6 +21,7 @@ class updateFinalizarSesionesEventos {
     async main() {
         await this.#validations();
         await this.#updateFinalizarSesionesEventos();
+        await this.#sp_setFlujoSesionEvento()
         return this.#objResult;
     }
 
@@ -45,7 +46,7 @@ class updateFinalizarSesionesEventos {
 
         let newData={
             ...this.#objData,
-            btFinalizado:true,
+            btFinalizado: true,
         }
 
         let query = await dao.updateSesionesEventos(newData);
@@ -59,6 +60,17 @@ class updateFinalizarSesionesEventos {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #sp_setFlujoSesionEvento() {
+        let dao = new classInterfaceDAOEventos();
+
+        let query = await dao.sp_setFlujoSesionEvento({intIdSesionEvento:this.#objData?.intId});
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+
     }
 
 }

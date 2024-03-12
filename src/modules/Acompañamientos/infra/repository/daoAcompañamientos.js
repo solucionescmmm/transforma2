@@ -530,5 +530,36 @@ class daoAcompañamientos {
             return result;
         }
     }
+
+    async sp_deleteFlujoAcompañamiento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn
+                .request()
+                .input("P_intIdIdea", sql.Int, data.intIdIdea)
+                .input("p_intIdEvento", sql.Int, data.intIdEvento)
+                .input("p_intIdEmpresario", sql.Int, data.intIdEmpresario)
+                .execute("sp_deleteFlujoAcompañamiento");
+            
+            let result = {
+                error: false,
+                data: response.recordsets[0]
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo sp_setFlujoAcompañamiento de la clase daoAcompañamientos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
 }
 module.exports = daoAcompañamientos;

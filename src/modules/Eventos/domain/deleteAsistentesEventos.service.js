@@ -6,6 +6,7 @@ const validator = require("validator").default;
 
 //service
 const serviceGetAsistentesSesionesEventos = require("./getAsistentesSesionesEventos.service")
+const serviceSp_deleteFlujoAcompañamiento = require("../../Acompañamientos/domain/sp_deleteFlujoAcompañamiento.service")
 
 class deleteAsistentesEventos {
 
@@ -26,6 +27,9 @@ class deleteAsistentesEventos {
         await this.#getAsistentesSesionesEventos()
         await this.#validations()
         await this.#deleteAsistentesEventos()
+        if (this.#objData.intIdEmpresario) {
+            await this.#sp_deleteFlujoAcompañamiento()
+        }
         return this.#objResult;
     }
 
@@ -79,6 +83,18 @@ class deleteAsistentesEventos {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #sp_deleteFlujoAcompañamiento(){
+        let query = await serviceSp_deleteFlujoAcompañamiento({
+            intIdIdea: this.#objData?.intIdIdea,
+            intIdEmpresario: this.#objData?.intIdEmpresario,
+            intIdEvento: this.#objData?.intIdEvento
+        },this.#objUser);
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 
 }
