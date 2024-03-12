@@ -143,7 +143,7 @@ const CardGrafica = ({ intIdIdea, type }) => {
                 console.log(v);
                 ejeX.push({
                     x: parseISO(v.dtmCreacion),
-                    y: v.intPuntajeEtapaDllo,
+                    y: v.intTotalPuntaje,
                 });
 
                 ejeY.push(format(parseISO(v.dtmCreacion), "yyyy MM dd"));
@@ -157,31 +157,18 @@ const CardGrafica = ({ intIdIdea, type }) => {
                             title: function (tooltipItem, data) {
                                 return "Etapa de desarrollo en el que se encuentra";
                             },
-                            label: function (tooltipItem) {
+                            label: function (tooltipItem, data) {
+                                debugger
                                 let y =
                                     tooltipItem.dataset.data[
                                         tooltipItem.datasetIndex
                                     ].y || "";
 
                                 const fntValue = (y) => {
-                                    switch (y) {
-                                        case 1:
-                                            return "Validación comercial";
-                                        case 2:
-                                            return "Nuevo empresario";
-                                        case 3:
-                                            return "Fortalecimiento empresarial I";
-                                        case 4:
-                                            return "Fortalecimiento empresarial II";
-                                        case 5:
-                                            return "Consolidación";
-                                        case 6:
-                                            return "Escalamiento";
-                                        case 7:
-                                            return "Expansion";
-                                        default:
-                                            return y;
-                                    }
+                                    const { arrEtapaDllo } = state;
+                                    const strClasificacionEtapaDllo = arrEtapaDllo.find(e => e.intTotalPuntaje === y)?.strClasificacionEtapaDllo
+                                    return strClasificacionEtapaDllo || "Sin clasificación"
+                                   
                                 };
 
                                 let label = fntValue(y);
