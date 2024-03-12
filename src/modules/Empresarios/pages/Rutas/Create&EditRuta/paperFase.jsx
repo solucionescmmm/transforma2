@@ -14,6 +14,7 @@ import {
     CircularProgress,
     TextField,
     Tooltip,
+    Alert,
     DialogTitle,
     DialogContent,
     DialogActions,
@@ -475,6 +476,26 @@ const PaperFase = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data.arrServicios, data.arrPaquetes]);
 
+    useEffect(() => {
+        setData((prevState) => {
+            debugger;
+            if (prevState.dblValorFase !== watchValor) {
+                setValue(`arrInfoFases[${index}].arrPorcentajes`, []);
+
+                return {
+                    ...prevState,
+                    arrPorcentajes: [],
+                    //dblValorFase: dblValorRef,
+                };
+            }
+
+            return {
+                ...prevState,
+            };
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watchValor]);
+
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -913,15 +934,18 @@ const PaperFase = ({
                                                         {`${
                                                             paquete.objPaquete
                                                                 .objInfoPrincipal
-                                                                ?.strNombre || "N/A"
+                                                                ?.strNombre ||
+                                                            "N/A"
                                                         } - ${
                                                             paquete
                                                                 ?.objSedeTarifa
-                                                                ?.strSede || "N/A"
+                                                                ?.strSede ||
+                                                            "N/A"
                                                         } - ${
                                                             paquete
                                                                 .objSedeTarifa
-                                                                ?.strTarifa || "N/A"
+                                                                ?.strTarifa ||
+                                                            "N/A"
                                                         } - ${new Intl.NumberFormat(
                                                             "es-ES",
                                                             {
@@ -950,7 +974,8 @@ const PaperFase = ({
                                                             }
                                                         )
                                                             .format(
-                                                                paquete.valor || 0
+                                                                paquete.valor ||
+                                                                    0
                                                             )
                                                             .toString()}
                                                     </p>
@@ -1107,11 +1132,13 @@ const PaperFase = ({
                                                             } - ${
                                                                 servicio
                                                                     ?.objSedeTarifa
-                                                                    ?.strSede || "N/A"
+                                                                    ?.strSede ||
+                                                                "N/A"
                                                             } - ${
                                                                 servicio
                                                                     ?.objSedeTarifa
-                                                                    ?.strTarifa || "N/A"
+                                                                    ?.strTarifa ||
+                                                                "N/A"
                                                             } - ${new Intl.NumberFormat(
                                                                 "es-ES",
                                                                 {
@@ -1123,7 +1150,8 @@ const PaperFase = ({
                                                                 .format(
                                                                     servicio
                                                                         ?.objSedeTarifa
-                                                                        ?.Valor || 0
+                                                                        ?.Valor ||
+                                                                        0
                                                                 )
                                                                 .toString()}`}
                                                         </p>
@@ -1303,6 +1331,15 @@ const PaperFase = ({
                                                 "Por favor, digita el valor de la fase",
                                         }}
                                     />
+
+                                    <Box>
+                                        <Alert severity="warning">
+                                            Modificar el valor de la fase
+                                            eliminará automáticamente los
+                                            porcentajes. ¡Asegúrate de guardar
+                                            tus cambios!
+                                        </Alert>
+                                    </Box>
                                 </Grid>
 
                                 <Grid item xs={12}>
@@ -1371,7 +1408,9 @@ const PaperFase = ({
                                                         }
                                                     )
                                                         .format(
-                                                            porce.valorPorce || porce.Valor || porce.ValorTotalFase
+                                                            porce.valorPorce ||
+                                                                porce.Valor ||
+                                                                porce.ValorTotalFase
                                                         )
                                                         .toString()}`}
                                                 </p>

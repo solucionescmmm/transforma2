@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     image: {
         marginVertical: 10,
         marginHorizontal: 210,
-        width: "120px",
+        width: "80px",
     },
     title: {
         textAlign: "center",
@@ -471,7 +471,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
-                            margin: 15px;
                            }
 
                            p {
@@ -581,7 +580,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                       `}
                     </Html>
 
-                    <Image source={values?.imgChart} />
+                    <Image source={values?.imgChart} style={{width: "270px", textAlign: "center"}} />
                     <Html>
                         {`
                         <style>
@@ -608,7 +607,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                               hr {
                                border: 1px solid gray;
                                border-radius: 1px;
-                               margin: 15px;
                               }
    
                               p {

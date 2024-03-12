@@ -155,7 +155,7 @@ const Dropzone = ({
             });
 
             let bitCont = 0;
-            const arrFiles = value ? value.split(";") : [];
+            const arrFiles = [];
 
             if (files.length === 0) {
                 setError(name, {
