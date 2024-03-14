@@ -8,7 +8,7 @@ const validator = require("validator").default;
 //service
 const serviceSp_setFlujoAcompañamiento = require("../../Acompañamientos/domain/sp_setFlujoAcompañamiento.service")
 const serviceGetAsistentesEventos = require("./getAsistentesEventos.service");
-const serviceGetValorTarifa = require("../../Servicios/Maestros/Tipos de Tarifa por Sede/domain/getSedeTipoTarifaServicioBySedeServicio.service")
+const serviceGetSedeTipoTarifaServicio = require("../../Servicios/Maestros/Tipos de Tarifa por Sede/domain/getSedeTipoTarifaServicio.service")
 
 class setAsistentesEventos {
     //objects
@@ -18,8 +18,6 @@ class setAsistentesEventos {
     #objResult;
 
     //Variable
-    #intIdSedeEvento
-    #intIdServicioEvento
     #intIdTarifa
     #ValorTarifa
 
@@ -29,12 +27,12 @@ class setAsistentesEventos {
     constructor(data, strDataUser) {
         this.#objData = data;
         this.#objUser = strDataUser;
+        this.#intIdTarifa = data.intIdTarifa
     }
 
     async main() {
-        await this.#getEventos()
-        await this.#getValorTarifa()
         await this.#validations()
+        await this.#getValorTarifa()
         await this.#setAsistentesEventos()
         return this.#objResult;
     }
@@ -49,7 +47,8 @@ class setAsistentesEventos {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
-        if (!this.#objData) {
+
+        if (!this.#objData || !this.#intIdTarifa) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
@@ -84,32 +83,16 @@ class setAsistentesEventos {
         }
     }
 
-    async #getEventos() {
-        let dao = new classInterfaceDAOEventos();
-
-        let query = await dao.getEventos({ intId: this.#objData.intIdEvento });
-
-        if (query.error) {
-            throw new Error(query.msg);
-        }
-
-        this.#intIdSedeEvento = query.data?.[0]?.intIdSede
-        this.#intIdServicioEvento = query.data?.[0]?.intIdServicio
-    }
-
     async #getValorTarifa() {
-        let query = await serviceGetValorTarifa({
-            intIdSede: this.#intIdSedeEvento,
-            intIdServicio: this.#intIdServicioEvento
+        let query = await serviceGetSedeTipoTarifaServicio({
+            intId: this.#intIdTarifa
         }, this.#objUser);
 
         if (query.error) {
             throw new Error(query.msg);
         }
 
-
-        this.#intIdTarifa = query.data?.[0]?.intId || null
-        this.#ValorTarifa = query.data?.[0]?.Valor || null
+        this.#ValorTarifa = query.data[0]?.Valor
     }
 
     async #setAsistentesEventos() {

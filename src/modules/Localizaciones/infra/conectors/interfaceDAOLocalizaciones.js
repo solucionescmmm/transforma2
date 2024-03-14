@@ -2,9 +2,15 @@
 const classSQL = require("../repository/daoLocalizaciones");
 
 class interfaceDAOLocalizaciones{
-    async getDepartamentos(){
+    async getPaises(){
         const dao = new classSQL();
-        let result = await dao.getDepartamento();
+        let result = await dao.getPaises();
+        return result;
+    }
+
+    async getDepartamentos(data){
+        const dao = new classSQL();
+        let result = await dao.getDepartamento(data);
         return result;
     }
 

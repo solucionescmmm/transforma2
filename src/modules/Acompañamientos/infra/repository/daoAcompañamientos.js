@@ -479,7 +479,7 @@ class daoAcompañamientos {
                 .input("P_intIdIdea", sql.Int, data.intIdIdea)
                 .input("p_intIdEvento", sql.Int, data.intIdEvento)
                 .input("p_intIdEmpresario", sql.Int, data.intIdEmpresario)
-                .input("intIdSedeTarifaServicio", sql.Int, data.intIdSedeTarifaServicio)
+                .input("p_intIdSedeTarifaServicio", sql.Int, data.intIdSedeTarifaServicio)
                 .execute("sp_setFlujoAcompañamiento");
             
             let result = {

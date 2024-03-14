@@ -174,6 +174,9 @@ class setEmpresarioPrincipal {
     async #setEmpresario() {
         let prevData = this.#objData.objEmpresario;
 
+        let aux_arrPais = JSON.stringify(
+            this.#objData.objEmpresario?.arrPais || null
+        );
         let aux_arrDepartamento = JSON.stringify(
             this.#objData.objEmpresario?.arrDepartamento || null
         );
@@ -184,6 +187,7 @@ class setEmpresarioPrincipal {
         let newData = {
             ...prevData,
             strUsuario: this.#objUser.strEmail,
+            arrPais:aux_arrPais,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad,
             intIdEstado:this.#intIdEstadoActivo,
@@ -209,6 +213,9 @@ class setEmpresarioPrincipal {
     async #updateEmpresario() {
         let prevData = this.#objData.objEmpresario;
 
+        let aux_arrPais = JSON.stringify(
+            this.#objData.objEmpresario?.arrPais || null
+        );
         let aux_arrDepartamento = JSON.stringify(
             this.#objData.objEmpresario?.arrDepartamento || null
         );
@@ -219,6 +226,7 @@ class setEmpresarioPrincipal {
         let newData = {
             ...prevData,
             strUsuarioActualizacion: this.#objUser.strEmail,
+            arrPais: aux_arrPais,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad
         };
@@ -312,6 +320,9 @@ class setEmpresarioPrincipal {
         let aux_arrRequisitosLey = JSON.stringify(
             this.#objData.objInfoEmpresa?.arrRequisitosLey || null
         );
+        let aux_arrPais = JSON.stringify(
+            this.#objData.objInfoEmpresa?.arrPais || null
+        );
         let aux_arrDepartamento = JSON.stringify(
             this.#objData.objInfoEmpresa?.arrDepartamento || null
         );
@@ -327,6 +338,7 @@ class setEmpresarioPrincipal {
             arrFormasComercializacion: aux_arrFormasComercializacion,
             arrMediosDigitales: aux_arrMediosDigitales,
             arrRequisitosLey: aux_arrRequisitosLey,
+            arrPais: aux_arrPais,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad,
             strUsuarioCreacion: this.#objUser.strEmail,

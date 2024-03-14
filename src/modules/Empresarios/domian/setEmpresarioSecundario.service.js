@@ -90,6 +90,7 @@ class setEmpresarioSecundario {
         let newData = {
             ...prevData,
             strUsuario: this.#objUser.strEmail,
+            arrPais: JSON.stringify(this.#objData?.arrPais || null),
             arrDepartamento: JSON.stringify(
                 this.#objData?.arrDepartamento || null
             ),

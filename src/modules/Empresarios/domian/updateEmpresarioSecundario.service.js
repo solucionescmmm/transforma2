@@ -105,20 +105,14 @@ class updateEmpresarioSecundario {
     async #updateEmpresario() {
         let prevData = this.#objData;
 
-        let aux_arrDepartamento = JSON.stringify(
-            this.#objData?.arrDepartamento || null
-        );
-        let aux_arrCiudad = JSON.stringify(
-            this.#objData?.arrCiudad || null
-        );
-
         let newData = {
-            intId: this.#objData.intIdEmpresario,
             ...prevData,
-            intIdIdea: this.#intIdIdea,
             strUsuario: this.#objUser.strEmail,
-            arrDepartamento: aux_arrDepartamento,
-            arrCiudad: aux_arrCiudad,
+            arrPais: JSON.stringify(this.#objData?.arrPais || null),
+            arrDepartamento: JSON.stringify(
+                this.#objData?.arrDepartamento || null
+            ),
+            arrCiudad: JSON.stringify(this.#objData?.arrCiudad || null),
         };
 
         let dao = new classInterfaceDAOEmpresarios();

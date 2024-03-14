@@ -170,6 +170,10 @@ class updateEmpresarioPrincipal {
     async #updateEmpresario() {
         let prevData = this.#objData.objEmpresario;
 
+        let aux_arrPais = JSON.stringify(
+            this.#objData.objEmpresario?.arrPais || null
+        );
+
         let aux_arrDepartamento = JSON.stringify(
             this.#objData.objEmpresario?.arrDepartamento || null
         );
@@ -181,8 +185,9 @@ class updateEmpresarioPrincipal {
             ...prevData,
             intIdIdea: this.#intIdIdea,
             strUsuario: this.#objUser.strEmail,
+            arrPais: aux_arrPais,
             arrDepartamento: aux_arrDepartamento,
-            arrCiudad: aux_arrCiudad
+            arrCiudad: aux_arrCiudad,
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -258,6 +263,9 @@ class updateEmpresarioPrincipal {
         let aux_arrRequisitosLey = JSON.stringify(
             this.#objData.objInfoEmpresa?.arrRequisitosLey || null
         );
+        let aux_arrPais = JSON.stringify(
+            this.#objData.objInfoEmpresa?.arrPais || null
+        );
         let aux_arrDepartamento = JSON.stringify(
             this.#objData.objInfoEmpresa?.arrDepartamento || null
         );
@@ -272,6 +280,7 @@ class updateEmpresarioPrincipal {
             arrFormasComercializacion: aux_arrFormasComercializacion,
             arrMediosDigitales: aux_arrMediosDigitales,
             arrRequisitosLey: aux_arrRequisitosLey,
+            arrPais: aux_arrPais,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad,
         };

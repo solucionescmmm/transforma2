@@ -85,7 +85,21 @@ class daoSedeTipoTarifaServicio {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`    
-                SELECT * FROM tbl_Sede_TipoTarifa_Servicio 
+                SELECT
+                
+                    SedeTarifaServicio.intId,
+                    SedeTarifaServicio.intIdSede,
+                    SedeTarifaServicio.intIdTipoTarifa,
+                    SedeTarifaServicio.intIdServicio,
+                    SedeTarifaServicio.Valor,
+                    SedeTarifaServicio.dtmCreacion,
+                    SedeTarifaServicio.strUsuarioCreacion,
+                    SedeTarifaServicio.dtmActualizacion,
+                    SedeTarifaServicio.strUsuarioActualizacion,
+                    Tarifa.strNombre
+
+                FROM tbl_Sede_TipoTarifa_Servicio SedeTarifaServicio
+                LEFT JOIN tbl_TipoTarifa Tarifa on Tarifa.intId = SedeTarifaServicio.intIdTipoTarifa
                 WHERE (intIdSede = ${data.intIdSede})
                 AND (intIdServicio = ${data.intIdServicio})`;
 
