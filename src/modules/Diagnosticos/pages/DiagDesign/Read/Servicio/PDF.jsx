@@ -38,42 +38,29 @@ const styles = StyleSheet.create({
     image: {
         marginVertical: 10,
         marginHorizontal: 210,
-        width: "120px",
+        width: "80px",
     },
     title: {
         textAlign: "center",
         fontSize: "14px",
         color: "#00BBB4",
-        fontFamily: "Roboto",
     },
     footerTitle: {
         textAlign: "center",
         fontSize: "10px",
         color: "#00BBB4",
         marginTop: "55px",
-        fontFamily: "Roboto",
-    },
-    pPDFSpan: {
-        fontWeight: 400,
-        fontFamily: "Roboto",
     },
     footerContact: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
         marginTop: "10px",
-        fontFamily: "Roboto",
     },
     footerPhoneEmail: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
-        fontFamily: "Roboto",
-    },
-    pPDF: {
-        fontSize: "10px",
-        marginBottom: "-15px",
-        fontFamily: "Roboto",
     },
     pageNumber: {
         position: "absolute",
@@ -144,14 +131,44 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
         let htmlNormatividad = "";
 
-        values?.objInfoNormatividad.forEach(
-            (e) =>
-                (htmlNormatividad =
-                    htmlNormatividad +
-                    `<p class="textObj">
-        ${e.label}: ${e.value || "No diligenciado"}
-    </p>`)
-        );
+                
+        if(values?.objInfoNormatividad) {
+            htmlNormatividad = `
+            <div>
+                <p class="title">
+                   
+                </p>
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoNormatividad
+                   .map(
+                       (e) => `<tr>
+                   <td>${e.label}</td>
+                   <td>${e.value}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
+
+        
+    //     values?.objInfoNormatividad.forEach(
+    //         (e) =>
+    //             (htmlNormatividad =
+    //                 htmlNormatividad +
+    //                 `<p class="textObj">
+    //     ${e.label}: ${e.value || "No diligenciado"}
+    // </p>`)
+    //     );
 
         values?.objInfoServicios.forEach(
             (e) =>

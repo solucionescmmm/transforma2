@@ -92,6 +92,7 @@ const Coco = () => {
         autoload: true,
         intId,
     });
+
     const { data: dataHistorico } = useGetHistorico({
         autoload: true,
         intIdIdea: intId,

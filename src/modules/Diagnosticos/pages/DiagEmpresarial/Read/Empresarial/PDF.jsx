@@ -115,38 +115,111 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         let htmlEmprend = "";
         let htmlPErfilEco = "";
 
-        values?.objInfoFamiliar?.forEach(
-            (e) =>
-                (htmlInfoFamiliar =
-                    htmlInfoFamiliar +
-                    `
-                    <p class="textObj">
-                    ${e.label}: ${e.value || "No diligenciado"}
+        if(values?.objInfoFamiliar) {
+        htmlInfoFamiliar = `
+            <div>
+                <p class="title">
+                   
                 </p>
-                    `)
-        );
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoFamiliar
+                   .map(
+                       (e) => `<tr>
+                   <td>${e.label}</td>
+                   <td>${e.value}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
 
-        values?.objInfoEmprendimiento?.forEach(
-            (e) =>
-                (htmlEmprend =
-                    htmlEmprend +
-                    `
-                    <p class="textObj">
-                    ${e.label}: ${e.value || "No diligenciado"}
+        if( values?.objInfoEmprendimiento) {
+            htmlEmprend = `
+            <div>
+                <p class="title">
+                   
                 </p>
-                    `)
-        );
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoEmprendimiento
+                   .map(
+                       (e) => `<tr>
+                   <td>${e.label}</td>
+                   <td>${e.value}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
 
-        values?.objInfoPerfilEco?.forEach(
-            (e) =>
-                (htmlPErfilEco =
-                    htmlPErfilEco +
-                    `
-                    <p class="textObj">
-                    ${e.label}: ${e.value || "No diligenciado"}
+        // values?.objInfoEmprendimiento?.forEach(
+        //     (e) =>
+        //         (htmlEmprend =
+        //             htmlEmprend +
+        //             `
+        //             <p class="textObj">
+        //             ${e.label}: ${e.value || "No diligenciado"}
+        //         </p>
+        //             `)
+        // );
+
+        if( values?.objInfoPerfilEco) {
+            htmlPErfilEco = `
+            <div>
+                <p class="title">
+                   
                 </p>
-                    `)
-        );
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${ values?.objInfoPerfilEco
+                   .map(
+                       (e) => `<tr>
+                   <td>${e.label}</td>
+                   <td>${e.value}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
+
+        // values?.objInfoPerfilEco?.forEach(
+        //     (e) =>
+        //         (htmlPErfilEco =
+        //             htmlPErfilEco +
+        //             `
+        //             <p class="textObj">
+        //             ${e.label}: ${e.value || "No diligenciado"}
+        //         </p>
+        //             `)
+        // );
 
         setHtmlPErfilEco(htmlPErfilEco);
         setHtmlEmprend(htmlEmprend);
@@ -174,7 +247,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
     return (
         <PDFViewer width="100%" height="100%">
-            <Document>
+            <Document title={`Diagnostico General - ${objEmpresario.strNroDocto} - ${objEmpresa.strNombreMarca}`}>
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
@@ -189,11 +262,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            }
 
                            p {
-                               font-size: 12px;
+                               font-size: 11px;
                            }
 
                            ol {
-                            font-size: 12px;
+                            font-size: 11px;
                            }
 
                            .pMargin {
@@ -270,9 +343,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                          ${new Date().toLocaleDateString("es-ES")} 
                     </p>
 
-                    <p>
+                    <div style="font-size: 12px">
                     A continuación, te presentamos el resumen de las respuestas recopiladas durante el diagnóstico. La información estará organizada en las siguientes secciones:
-                    </p>
+                    </div>
 
                     <ol>
                        <li>Detalles sobre la estructura familiar.</li>

@@ -3,7 +3,6 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 //Librerias
 import { format, parseISO } from "date-fns";
 import validator from "validator";
-import html2canvas from "html2canvas";
 
 //Componentes de Mui
 import {
@@ -299,18 +298,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     }
 
     const handlerChangeOpenModalPDF = () => {
-        const divChart = window.document.getElementById("chart-diag-serv");
-
-        html2canvas(divChart).then((canvas) => {
-            const img = canvas.toDataURL("image/png");
-
-            setData((prevState) => ({
-                ...prevState,
-                imgChart: img,
-            }));
-
-            setOpenModalPDF(!openModalPDF);
-        });
+        setOpenModalPDF(!openModalPDF);
     };
 
     const handlerChangeOpenCollapseInfoGeneral = () => {
@@ -373,6 +361,8 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 handleOpenDialog={handlerChangeOpenModalPDF}
                 open={openModalPDF}
                 values={data}
+                intIdIdea={intIdIdea}
+                intIdDiagnostico={intIdDiagnostico}
             />
 
             <Grid container direction="row" spacing={2}>

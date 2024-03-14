@@ -158,10 +158,9 @@ const CardGrafica = ({ intIdIdea, type }) => {
                                 return "Etapa de desarrollo en el que se encuentra";
                             },
                             label: function (tooltipItem, data) {
-                                debugger
                                 let y =
                                     tooltipItem.dataset.data[
-                                        tooltipItem.datasetIndex
+                                        tooltipItem.dataIndex
                                     ].y || "";
 
                                 const fntValue = (y) => {
