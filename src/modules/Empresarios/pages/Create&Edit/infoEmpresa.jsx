@@ -60,6 +60,7 @@ const InfoEmpresa = ({
         dtFechaFundacion: null,
         strLugarOperacion: "",
         strDireccionResidencia: "",
+        arrPais: [],
         arrDepartamento: [],
         arrCiudad: [],
         strBarrio: "",
@@ -113,6 +114,7 @@ const InfoEmpresa = ({
                 dtFechaFundacion: values.dtFechaFundacion || null,
                 strLugarOperacion: values.strLugarOperacion || "",
                 strDireccionResidencia: values.strDireccionResidencia || "",
+                arrPais: values.arrPais || [],
                 arrDepartamento: values.arrDepartamento || [],
                 arrCiudad: values.arrCiudad || [],
                 strBarrio: values.strBarrio || "",
@@ -442,6 +444,10 @@ const InfoEmpresa = ({
                                             ""
                                         );
                                         setValue(
+                                            "objInfoEmpresa.arrPais",
+                                            ""
+                                        );
+                                        setValue(
                                             "objInfoEmpresa.arrDepartamento",
                                             ""
                                         );
@@ -479,32 +485,37 @@ const InfoEmpresa = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strDireccionResidencia}
-                            name="objInfoEmpresa.strDireccionResidencia"
+                            defaultValue={data.arrPais}
+                            name="objInfoEmpresa.arrPais"
                             render={({ field: { name, value, onChange } }) => (
-                                <ModalDireccionResidencia
-                                    label="Dirección de la empresa"
+                                <DropdownLocalizaciones
+                                    label="Pais"
+                                    strCodigo="paises"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
                                     disabled={
                                         data.strLugarOperacion ===
                                         "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
-                                    fullWidth
-                                    variant="standard"
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData(
+                                            "arrPais",
+                                            value
+                                        );
+                                    }}
                                     error={
                                         errors?.objInfoEmpresa
-                                            ?.strDireccionResidencia
+                                            ?.arrPais
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa
-                                            ?.strDireccionResidencia?.message ||
-                                        "Digita la dirección de la empresa"
+                                            ?.arrPais?.message ||
+                                        "Selecciona el pais de residencia"
                                     }
                                 />
                             )}
@@ -539,6 +550,9 @@ const InfoEmpresa = ({
                                         errors?.objInfoEmpresa?.arrDepartamento
                                             ? true
                                             : false
+                                    }
+                                    strPais={
+                                        data.arrPais?.country_name
                                     }
                                     helperText={
                                         errors?.objInfoEmpresa?.arrDepartamento
@@ -618,6 +632,44 @@ const InfoEmpresa = ({
                                     }
                                     variant="standard"
                                     fullWidth
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strDireccionResidencia}
+                            name="objInfoEmpresa.strDireccionResidencia"
+                            render={({ field: { name, value, onChange } }) => (
+                                <ModalDireccionResidencia
+                                    label="Dirección de la empresa"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
+                                            ? true
+                                            : disabled
+                                    }
+                                    fullWidth
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmpresa
+                                            ?.strDireccionResidencia
+                                            ? true
+                                            : false
+                                    }
+                                    strPais={
+                                        data.arrPais?.country_name
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa
+                                            ?.strDireccionResidencia?.message ||
+                                        "Digita la dirección de la empresa"
+                                    }
                                 />
                             )}
                             control={control}

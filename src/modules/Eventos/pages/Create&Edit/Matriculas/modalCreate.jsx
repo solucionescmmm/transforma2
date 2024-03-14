@@ -200,7 +200,7 @@ const ModalCEdit = ({ handleOpenDialog, open, refresh, intIdEvento }) => {
                             defaultValue={data.intIdTarifa}
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTipoTarifas
-                                intIdEvento={intIdEvento}
+                                    intIdEvento={intIdEvento}
                                     label="Tarifa"
                                     name={name}
                                     value={value}

@@ -124,6 +124,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
         strCondicionDiscapacidad: "",
         btPerfilSensible: false,
         strEstrato: "",
+        arrPais: [],
         arrDepartamento: [],
         arrCiudad: [],
         strBarrio: "",
@@ -1069,6 +1070,38 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                             </Grid>
 
                             <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.arrPais}
+                            name="arrPais"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownLocalizaciones
+                                    label="Pais"
+                                    strCodigo="paises"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData(
+                                            "arrPais",
+                                            value
+                                        );
+                                    }}
+                                    error={
+                                        errors?.arrPais
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.arrPais?.message ||
+                                        "Selecciona el pais de residencia"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                            <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.arrDepartamento}
                                     name="arrDepartamento"
@@ -1092,6 +1125,9 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                                 errors?.arrDepartamento
                                                     ? true
                                                     : false
+                                            }
+                                            strPais={
+                                                data.arrPais?.country_name
                                             }
                                             helperText={
                                                 errors?.arrDepartamento
@@ -1169,7 +1205,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                 />
                             </Grid>
 
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={6}>
                                 <Controller
                                     defaultValue={data.strDireccionResidencia}
                                     name="strDireccionResidencia"
@@ -1188,6 +1224,9 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                                 errors?.strDireccionResidencia
                                                     ? true
                                                     : false
+                                            }
+                                            strPais={
+                                                data.arrPais?.country_name
                                             }
                                             helperText={
                                                 errors?.strDireccionResidencia

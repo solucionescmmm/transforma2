@@ -30,6 +30,7 @@ const ModalDireccionResidencia = ({
     helperText,
     onChange,
     required,
+    strPais,
 }) => {
     //========================================================================================================================
     //========================================= Estados  =====================================================================
@@ -147,7 +148,7 @@ const ModalDireccionResidencia = ({
                 required={required}
                 error={error}
                 fullWidth
-                onClick={() => (!disabled ? handleOpenDialog() : null)}
+                onClick={() => (strPais === "Colombia" && !disabled ? handleOpenDialog() : null)}
             >
                 <FormLabel
                     htmlFor={`txt${name}`}
@@ -163,6 +164,7 @@ const ModalDireccionResidencia = ({
                     id={`txt${name}`}
                     name={name}
                     value={value}
+                    onChange={(e) => onChange(e)}
                     placeholder="Haz clic para seleccionar"
                     disabled={disabled}
                 />

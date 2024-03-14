@@ -38,12 +38,14 @@ const DropdownLocalizaciones = ({
     label,
     multiple,
     strCodigo,
+    strPais,
     strDepartamento,
     strCiudad,
     required,
 }) => {
     const { data, refreshGetData } = useGetLocalizaciones({
         strCodigo,
+        strPais,
         strDepartamento,
         strCiudad,
     });
@@ -113,6 +115,10 @@ const DropdownLocalizaciones = ({
                 if (typeof value === "string") {
                     return option === value;
                 } else {
+                    if (option.country_name) {
+                        return option.country_name === value.country_name;
+                    }
+
                     if (option.region_name) {
                         return option.region_name === value.region_name;
                     }
@@ -122,9 +128,19 @@ const DropdownLocalizaciones = ({
                     }
                 }
             }}
-            getOptionLabel={(option) => option?.region_name || option?.city_name || option || []}
+            getOptionLabel={(option) => option?.country_name || option?.region_name || option?.city_name || option || []}
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
+                    if (option?.country_name) {
+                        return (
+                            <Chip
+                                key={index}
+                                label={option.country_name}
+                                {...getTagProps({ index })}
+                            />
+                        );
+                    }
+
                     if (option?.region_name) {
                         return (
                             <Chip
@@ -161,7 +177,7 @@ const DropdownLocalizaciones = ({
                                 checked={selected}
                             />
                         )}
-                        <ListItemText primary={option?.region_name || option?.city_name || option || ""} />
+                        <ListItemText primary={option?.country_name || option?.region_name || option?.city_name || option || ""} />
                     </ListItem>
                 </List>
             )}

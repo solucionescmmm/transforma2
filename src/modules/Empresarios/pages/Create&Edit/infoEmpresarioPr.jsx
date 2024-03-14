@@ -65,6 +65,7 @@ const InfoEmpresarioPr = ({
         strCondicionDiscapacidad: "",
         btPerfilSensible: false,
         strEstrato: "",
+        arrPais:[],
         arrDepartamento: [],
         arrCiudad: [],
         strBarrio: "",
@@ -112,6 +113,7 @@ const InfoEmpresarioPr = ({
                 strCondicionDiscapacidad: values.strCondicionDiscapacidad || "",
                 btPerfilSensible: values.btPerfilSensible || null,
                 strEstrato: values.strEstrato || "",
+                arrPais: values.arrPais || [],
                 arrDepartamento: values.arrDepartamento || [],
                 arrCiudad: values.arrCiudad || [],
                 strBarrio: values.strBarrio || "",
@@ -814,6 +816,41 @@ const InfoEmpresarioPr = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
+                            defaultValue={data.arrPais}
+                            name="objInfoEmpresarioPr.arrPais"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownLocalizaciones
+                                    label="Pais"
+                                    strCodigo="paises"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData(
+                                            "arrPais",
+                                            value
+                                        );
+                                    }}
+                                    error={
+                                        errors?.objInfoEmpresarioPr
+                                            ?.arrPais
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresarioPr
+                                            ?.arrPais?.message ||
+                                        "Selecciona el pais de residencia"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
                             defaultValue={data.arrDepartamento}
                             name="objInfoEmpresarioPr.arrDepartamento"
                             render={({ field: { name, value, onChange } }) => (
@@ -835,6 +872,9 @@ const InfoEmpresarioPr = ({
                                             ?.arrDepartamento
                                             ? true
                                             : false
+                                    }
+                                    strPais={
+                                        data.arrPais?.country_name
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr
@@ -910,7 +950,7 @@ const InfoEmpresarioPr = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strDireccionResidencia}
                             name="objInfoEmpresarioPr.strDireccionResidencia"
@@ -928,6 +968,9 @@ const InfoEmpresarioPr = ({
                                             ?.strDireccionResidencia
                                             ? true
                                             : false
+                                    }
+                                    strPais={
+                                        data.arrPais?.country_name
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr

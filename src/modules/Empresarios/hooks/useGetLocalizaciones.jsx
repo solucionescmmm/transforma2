@@ -35,7 +35,8 @@ import { toast } from "react-hot-toast";
  *
  */
 const useGetLocalidades = ({
-    strCodigo = "departamentos",
+    strCodigo = "paises",
+    strPais = null,
     strDepartamento = null,
     strCiudad = null,
     autoLoad = true,
@@ -54,13 +55,15 @@ const useGetLocalidades = ({
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, strDepartamento, strCiudad, strCodigo }) => {
+        async ({ signalSubmitData, strPais, strDepartamento, strCiudad, strCodigo }) => {
             await axios(
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url:
-                        strCodigo === "departamentos"
+                        strCodigo === "paises"
+                            ? `${process.env.REACT_APP_API_TRANSFORMA_LOCALIZACIONES_GETPAISES}`
+                            : strCodigo === "departamentos"
                             ? `${process.env.REACT_APP_API_TRANSFORMA_LOCALIZACIONES_GETDEPARTAMENTOS}`
                             : strCodigo === "municipios"
                             ? `${process.env.REACT_APP_API_TRANSFORMA_LOCALIZACIONES_GETMUNICIPIOS}`
@@ -71,6 +74,7 @@ const useGetLocalidades = ({
                         token,
                     },
                     params: {
+                        strPais,
                         strDepartamento,
                         strCiudad,
                     },
@@ -125,8 +129,16 @@ const useGetLocalidades = ({
         let signalSubmitData = axios.CancelToken.source();
 
         if (autoLoad) {
-            if (strCodigo === "departamentos") {
-                getData({ signalSubmitData, strDepartamento, strCiudad, strCodigo });
+            if (strCodigo === "paises") {
+                getData({ signalSubmitData, strCodigo });
+            }
+
+            if (strCodigo === "departamentos" && !strPais) {
+                setData([]);
+            }
+
+            if (strCodigo === "departamentos" && strPais) {
+                getData({ signalSubmitData, strPais, strDepartamento, strCiudad, strCodigo });
             }
 
             if (strCodigo === "municipios" && !strDepartamento) {
@@ -149,7 +161,7 @@ const useGetLocalidades = ({
         return () => {
             signalSubmitData.cancel("Petición abortada.");
         };
-    }, [getData, strDepartamento, strCiudad, strCodigo, autoLoad]);
+    }, [getData, strPais, strDepartamento, strCiudad, strCodigo, autoLoad]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================

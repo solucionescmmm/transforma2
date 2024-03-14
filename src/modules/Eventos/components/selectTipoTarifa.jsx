@@ -103,7 +103,7 @@ const SelectTipoTarifas = ({
         >
             {data.map((e, i) => (
                 <MenuItem value={e.intId} key={i}>
-                    {e.strNombre}
+                    {`${e.strNombre} - Valor de la tarifa: ${e.Valor}`}
                 </MenuItem>
             ))}
         </TextField>
