@@ -211,6 +211,7 @@ const ModalEditPaquete = ({ handleOpenDialog, open, onChange, values }) => {
                                     label="Paquete"
                                     name={name}
                                     required
+                                    notInclude
                                     value={value}
                                     onChange={(e, value) => {
                                         setValue(

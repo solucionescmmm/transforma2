@@ -91,10 +91,12 @@ const PDFProduct = ({ intId, values }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoading(true);
-
         if (data && data.length > 0) {
-            setObjEmpresario(data[0]?.objEmpresario);
+            setObjEmpresario(
+                data[0]?.objEmpresario?.find(
+                    (e) => e.strTipoEmpresario === "Principal"
+                )
+            );
             setObjEmpresa(data[0]?.objInfoEmpresa);
             setLoading(false);
         }
@@ -105,14 +107,42 @@ const PDFProduct = ({ intId, values }) => {
 
         let htmlCompetencias = "";
 
-        values?.objInfoEncuestaHumanas.forEach(
-            (e) =>
-                (htmlCompetencias =
-                    htmlCompetencias +
-                    `<p class="textObj">
-                ${e.label}: ${e.value || "No diligenciado"}
-            </p>`)
-        );
+        if(values?.objInfoEncuestaHumanas) {
+            htmlCompetencias = `
+            <div>
+                <p class="title">
+                   
+                </p>
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoEncuestaHumanas
+                   .map(
+                       (e) => `<tr>
+                   <td>${e.label}</td>
+                   <td>${e.value}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
+
+        // values?.objInfoEncuestaHumanas.forEach(
+        //     (e) =>
+        //         (htmlCompetencias =
+        //             htmlCompetencias +
+        //             `<p class="textObj">
+        //         ${e.label}: ${e.value || "No diligenciado"}
+        //     </p>`)
+        // );
 
 
         setHtmlInfoEncuestaHumanas(htmlCompetencias);
@@ -138,13 +168,13 @@ const PDFProduct = ({ intId, values }) => {
 
     return (
         <PDFViewer width="100%" height="100%">
-            <Document>
+            <Document title={`Diagnostico de competencias humanas - ${objEmpresario.strNroDocto} - ${objEmpresa.strNombreMarca}`}>
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
-                    <Text style={styles.title}>
+                    {/* <Text style={styles.title}>
                         Reporte diagnóstico de competencias humanas
-                    </Text>
+                    </Text> */}
 
                     <Html>
                         {`
@@ -153,11 +183,10 @@ const PDFProduct = ({ intId, values }) => {
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
-                            margin: 15px;
                            }
 
                            p {
-                               font-size: 12px;
+                               font-size: 11px;
                            }
 
                            .pMargin {
@@ -207,6 +236,9 @@ const PDFProduct = ({ intId, values }) => {
                         </style>
 
                         <body>
+                        <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
+                        <hr />
+
                             <p class="pMargin">
                                 <span style="color: #00BBB4">${
                                     objEmpresario?.strTipoDocto
@@ -240,12 +272,6 @@ const PDFProduct = ({ intId, values }) => {
                         </html>
                       `}
                     </Html>
-
-                    <Text style={styles.title}>
-                        Grafíco de resultados
-                    </Text>
-
-                    <Image source={values?.imgChart} />
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y

@@ -31,6 +31,7 @@ import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
 import ModalFinish from "./modalFinish";
 import { Can } from "../../../../../../common/functions/can";
+import { ImageViewer } from "../../../../../../common/components/ImageViewer";
 
 const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
@@ -421,19 +422,20 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 value: "",
                 label: "Valor de las ganancias mensuales",
             },
+            {
+                parten: "intMargenRentabilidad",
+                value: "",
+                label: "Margen de rentabilidad"
+            }
         ],
         objInfoAdicional: [
             {
                 parent: "strConclusiones",
                 value: "",
                 label: "Conclusiones y observaciones",
-            },
-            {
-                parent: "strURLSFotosProducto",
-                value: "",
-                label: "Registro fotográfico",
-            },
+            }
         ],
+        arrImagenes: [],
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
@@ -495,6 +497,21 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                     let data = res.data.data[0];
 
                     setFinalizado(data.objInfoGeneral.btFinalizado);
+
+                    const arrImagenes =
+                    data.objInfoAdicional?.strURLSFotosProducto?.split(";");
+
+                let newArrImagenes = [];
+
+                if (arrImagenes) {
+                    newArrImagenes = arrImagenes.map((url) => {
+                        return {
+                            src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
+                            width: 4,
+                            height: 3,
+                        };
+                    });
+                }
 
                     const objInfoGeneral = {
                         dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
@@ -685,6 +702,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             objInfoFamiliar: prevInfoFamiliar,
                             objInfoEmprendimiento: prevInfoEmprendimiento,
                             objInfoEmpresa: prevInfoEmpresa,
+                            arrImagenes: newArrImagenes,
                             objInfoPerfilEco: prevInfoPerfilEco,
                             objInfoAdicional: prevInfoAdicional,
                         };
@@ -1270,6 +1288,23 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                     </Grid>
                                 ))}
                             </Grid>
+
+                            <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "13px",
+                                            display: "flex",
+                                            alignContent: "center",
+                                        }}
+                                    >
+                                        {data.arrImagenes.length > 0 && (
+                                            <ImageViewer
+                                                images={data.arrImagenes}
+                                            />
+                                        )}
+                                    </p>
+                                </Grid>
                         </Collapse>
                     </Paper>
                 </Grid>

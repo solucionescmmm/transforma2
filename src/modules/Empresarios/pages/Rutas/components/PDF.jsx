@@ -226,7 +226,7 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                    <tr>
                       <th>Componente</th>
                       <th>Duración</th>
-                      <th>Resultado / Entregable</th>
+                      <th>Entregables</th>
                    </tr>
 
                    ${arrPaqueteServ
@@ -234,7 +234,7 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                            (e) => `<tr>
                        <td>${e.strComp}</td>
                        <td>${e.intDuracion}</td>
-                       <td>${e.strResultado}</td>
+                       <td>${e.strResultado || "Sin entregables"}</td>
                    </tr>
                    `
                        )

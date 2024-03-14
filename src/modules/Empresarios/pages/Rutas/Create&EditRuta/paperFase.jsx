@@ -478,8 +478,7 @@ const PaperFase = ({
 
     useEffect(() => {
         setData((prevState) => {
-            debugger;
-            if (prevState.dblValorFase !== watchValor) {
+           if (prevState.dblValorFase !== watchValor) {
                 setValue(`arrInfoFases[${index}].arrPorcentajes`, []);
 
                 return {

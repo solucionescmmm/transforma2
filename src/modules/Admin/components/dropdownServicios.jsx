@@ -63,9 +63,13 @@ const DropdownServicios = ({
     useEffect(() => {
         if (data?.length > 0) {
             if (notInclude) {
-                const options = data.map(
-                    (d) => d.objInfoPrincipal?.strEstado !== "En borrador"
-                );
+                const options = data.map(d => {
+                    if(d.objInfoPrincipal?.strEstado !== 'En borrador') {
+                        return d
+                    }
+                    return undefined
+                } ).filter(Boolean)
+                
                 setOptions(options);
             } else {
                 setOptions(data);

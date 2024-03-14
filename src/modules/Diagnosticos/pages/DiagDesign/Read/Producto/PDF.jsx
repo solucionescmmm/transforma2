@@ -44,36 +44,23 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: "14px",
         color: "#00BBB4",
-        fontFamily: "Roboto",
     },
     footerTitle: {
         textAlign: "center",
         fontSize: "10px",
         color: "#00BBB4",
         marginTop: "55px",
-        fontFamily: "Roboto",
     },
     footerContact: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
         marginTop: "10px",
-        fontFamily: "Roboto",
     },
     footerPhoneEmail: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
-        fontFamily: "Roboto",
-    },
-    pPDFSpan: {
-        fontWeight: 400,
-        fontFamily: "Roboto",
-    },
-    pPDF: {
-        fontSize: "10px",
-        marginBottom: "-15px",
-        fontFamily: "Roboto",
     },
     pageNumber: {
         position: "absolute",
@@ -137,22 +124,50 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             : "";
 
         let htmlNormatividad = "";
+        
+        if(values?.objInfoNormatividad) {
+            htmlNormatividad = `
+            <div>
+                <p class="title">
+                   
+                </p>
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoNormatividad
+                   .map(
+                       (e) => `<tr>
+                   <td>${e.label}</td>
+                   <td>${e.value}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
 
-        values?.objInfoNormatividad.forEach(
-            (e) =>
-                (htmlNormatividad =
-                    htmlNormatividad +
-                    `<p class="textObj">
-            ${e.label}: ${e.value || "No diligenciado"}
-        </p>`)
-        );
+        // values?.objInfoNormatividad.forEach(
+        //     (e) =>
+        //         (htmlNormatividad =
+        //             htmlNormatividad +
+        //             `<p class="textObj">
+        //     ${e.label}: ${e.value || "No diligenciado"}
+        // </p>`)
+        // );
 
         values?.objInfoProductos.forEach(
             (e) =>
                 (htmlProductos =
                     htmlProductos +
                     `<p class="textObj">
-                ${e.label}: ${e.value || "No diligenciado"}
+                    <span style="color: #00BBB4">${e.label}:</span> ${e.value || "No diligenciado"}
             </p>`)
         );
 
@@ -163,18 +178,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objInnovacionBajo?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                      En Innovación
-                    </p>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                    En Innovación         
                 </div>
                 
                 ${valuesPDF?.[0].objInnovacionBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -182,18 +195,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objPersepcionBajo?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                       En Percepción y calidad
-                    </p>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">        
+                    En Percepción y calidad
                 </div>
                 
                 ${valuesPDF?.[0].objPersepcionBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -201,18 +212,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objExperienciaBajo?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                       En Experiencia
-                    </p>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                    En Experiencia
                 </div>
                 
                 ${valuesPDF?.[0].objExperienciaBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -220,18 +229,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objMarcaBajo?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                        En Marca
-                    </p>
                 </div>
                 
                 ${valuesPDF?.[0].objMarcaBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -243,18 +250,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objInnovacionMedio?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                       En Innovación
-                    </p>
                 </div>
                 
                 ${valuesPDF?.[0].objInnovacionMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -262,18 +267,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objPersepcionMedio?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                      En Percepción y calidad
-                    </p>
                 </div>
                 
                 ${valuesPDF?.[0].objPersepcionMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -281,18 +284,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objExperienciaMedio?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                       En Experiencia
-                    </p>
                 </div>
                 
                 ${valuesPDF?.[0].objExperienciaMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -300,18 +301,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objMarcaMedio?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                       En Marca
-                    </p>
                 </div>
                 
                 ${valuesPDF?.[0].objMarcaMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -321,18 +320,18 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
-                            <p class="title" >
+                            <div class="title" style="margin-bottom: 10px; margin-top: 10px">
                                 En Innovación
-                            </p>
+                            </div>
            
 
                         ${e.objInnovacionFortalezas
                             .map(
                                 (e) => `
                    
-                                <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                                <div style="font-size: 11px"><span style="color: #00BBB4">${
                                     e.label
-                                }:</span> ${e.value || "No diligenciado"}</p>
+                                }:</span> ${e.value || "No diligenciado"}</div>
                             `
                             )
                             .join("")}
@@ -344,9 +343,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     htmlFortalezas +
                     ` 
         
-                        <p class="title">
+                        <div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         En Percepción y calidad
-                        </p>
+                        </div>
         
 
 
@@ -354,9 +353,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         .map(
                             (e) => `
                         
-                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            <div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>
+                            }:</span> ${e.value || "No diligenciado"}</div>
                         
                         `
                         )
@@ -368,12 +367,15 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
+                    <div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                    En Estética
+                    </div>
                     ${e.objEsteticaFortalezas
                         .map(
                             (e) => `         
-                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            <div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>
+                            }:</span> ${e.value || "No diligenciado"}</div>
                         `
                         )
                         .join("")}
@@ -384,16 +386,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
-                        <p class="title">
+                        <div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         En Experiencia
-                        </p>
+                        </div>
               
                     ${e.objExperienciaFortalezas
                         .map(
                             (e) => `
-                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            <div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>
+                            }:</span> ${e.value || "No diligenciado"}</div>
                         `
                         )
                         .join("")}
@@ -404,16 +406,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
-                        <p class="title">
+                        <div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         En Marca
-                        </p>
+                        </div>
 
                     ${e.objMarcaFortalezas
                         .map(
                             (e) => `
-                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            <div style="font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>
+                            }:</span> ${e.value || "No diligenciado"}</div>
                         `
                         )
                         .join("")}`;
@@ -466,7 +468,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                         <style>
                         div {
-                            font-family: "Roboto";
+                          
                         }
                            hr {
                             border: 1px solid gray;
@@ -474,9 +476,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            }
 
                            p {
-                               font-size: 12px;
-                               margin: 0;
-                               font-family: "Roboto";
+                               font-size: 11px;
                            }
 
                            .pMargin {
@@ -484,7 +484,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            }
 
                            .textObj {
-                             margin: 2px;
+                             margin-bottom: -10px;
                              font-size: 11px;
                              display: flex;
                              align-content: center;
@@ -533,27 +533,27 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
                             <hr />
 
-                            <p>
+                            <p class="pMargin">
                             <span style="color: #00BBB4">Empresa: </span>
                              ${objEmpresa?.strNombreMarca} 
                             </p>
 
-                            <p>
+                            <p class="pMargin">
                             <span style="color: #00BBB4">Representante: </span>
                              ${objEmpresario?.strNombreCompleto}
                             </p>
 
-                            <p>
+                            <p class="pMargin">
                             <span style="color: #00BBB4">Categoría: </span>
                              ${objEmpresa?.strCategoriaProducto}
                             </p>
 
-                            <p>
+                            <p class="pMargin">
                             <span style="color: #00BBB4">Descripción: </span>
                              ${objEmpresa?.strDescProductosServicios}
                             </p>
 
-                            <p>
+                            <p class="pMargin">
                                 <span style="color: #00BBB4">Fecha de descarga: </span>
                                  ${new Date().toLocaleDateString("es-ES")} 
                             </p>
@@ -580,39 +580,39 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                       `}
                     </Html>
 
-                    <Image source={values?.imgChart} style={{width: "270px", textAlign: "center"}} />
+                    <Image source={values?.imgChart} style={{width: "350px", alignSelf: "center"}} />
                     <Html>
                         {`
+                        <html>
                         <style>
                         p {
-                            font-size: 12px;
-                            font-family: "Roboto";
+                            font-size: 11px;
+             
                         }
 
                         .pMargin {
                            margin-bottom: -10px;
                         }
                         </style>
-                        <p class="pMargin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam pariatur illum dolores quam ab reprehenderit, esse dolorem earum alias quasi, nulla quidem molestias placeat corporis, dignissimos aperiam voluptatem doloremque odio.</p>`}
+                        <body>
+                             <p class="pMargin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam pariatur illum dolores quam ab reprehenderit, esse dolorem earum alias quasi, nulla quidem molestias placeat corporis, dignissimos aperiam voluptatem doloremque odio.</p>
+                        </body>
+                       
+                        </html>
+                     `}
                     </Html>
 
                     <Html>
                         {`
                            <html>
                            <style>
-                           div {
-                               font-family: "Roboto";
-                           }
-   
                               hr {
                                border: 1px solid gray;
                                border-radius: 1px;
                               }
    
                               p {
-                               font-size: 12px;
-                               margin: 0;
-                               font-family: "Roboto";
+                               font-size: 11px;
                            }
    
                               .pMargin {
@@ -627,10 +627,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                               }
    
                               .title{
-                               font-size: 14px;
+                               font-size: 11px;
                                font-weight: bold;
                                color: #F5B335;
-                               margin: 10px;
                               }
    
                               table {
