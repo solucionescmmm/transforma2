@@ -53,6 +53,7 @@ const InfoEmprendimiento = ({
         strUnidadProductiva: "",
         intAñoInicioOperacion: null,
         strLugarOperacion: "",
+        arrPais: [],
         arrDepartamento: [],
         arrCiudad: [],
         strBarrio: "",
@@ -109,6 +110,7 @@ const InfoEmprendimiento = ({
                 strUnidadProductiva: values.strUnidadProductiva || "",
                 intAñoInicioOperacion: values.intAñoInicioOperacion || null,
                 strLugarOperacion: values.strLugarOperacion || "",
+                arrPais: values.arrPais || [],
                 arrDepartamento: values.arrDepartamento || [],
                 arrCiudad: values.arrCiudad || [],
                 strBarrio: values.strBarrio || "",
@@ -317,6 +319,10 @@ const InfoEmprendimiento = ({
                                             ""
                                         );
                                         setValue(
+                                            "objInfoEmprendimiento.arrPais",
+                                            ""
+                                        );
+                                        setValue(
                                             "objInfoEmprendimiento.arrDepartamento",
                                             ""
                                         );
@@ -354,6 +360,45 @@ const InfoEmprendimiento = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
+                            defaultValue={data.arrPais}
+                            name="objInfoEmprendimiento.arrPais"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownLocalizaciones
+                                    label="Pais"
+                                    strCodigo="paises"
+                                    name={name}
+                                    value={value}
+                                    disabled={
+                                        data.strLugarOperacion ===
+                                        "Desde la vivienda"
+                                            ? true
+                                            : disabled
+                                    }
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData(
+                                            "arrPais",
+                                            value
+                                        );
+                                    }}
+                                    error={
+                                        errors?.objInfoEmprendimiento?.arrPais
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento?.arrPais
+                                            ?.message ||
+                                        "Selecciona el pais de residencia"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
                             defaultValue={data.arrDepartamento}
                             name="objInfoEmprendimiento.arrDepartamento"
                             render={({ field: { name, value, onChange } }) => (
@@ -380,6 +425,9 @@ const InfoEmprendimiento = ({
                                             ?.arrDepartamento
                                             ? true
                                             : false
+                                    }
+                                    strPais={
+                                        data.arrPais?.country_name
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento

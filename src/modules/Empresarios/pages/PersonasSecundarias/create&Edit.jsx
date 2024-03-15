@@ -27,7 +27,7 @@ import { AuthContext } from "../../../../common/middlewares/Auth";
 import axios from "axios";
 import NumberFormat from "react-number-format";
 import toast from "react-hot-toast";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // Componentes
 import SelectTipoDocumento from "../../components/selectTipoDocumento";

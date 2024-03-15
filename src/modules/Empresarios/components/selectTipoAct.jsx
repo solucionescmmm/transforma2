@@ -101,9 +101,10 @@ const SelectTipoAct = ({
             select
         >
             {data.map((e, i) => (
+                e.strNombre !== "Evento" ?
                 <MenuItem value={e.intId} key={i}>
                     {e.strNombre}
-                </MenuItem>
+                </MenuItem> : null
             ))}
         </TextField>
     );

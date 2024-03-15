@@ -63,6 +63,7 @@ const InfoGeneral = ({
         strNivelEducativo: "",
         strTitulos: "",
         strEstrato: "",
+        arrPais: [],
         arrDepartamento: [],
         arrCiudad: [],
         strDireccionResidencia: "",
@@ -91,6 +92,7 @@ const InfoGeneral = ({
         if (values) {
             setData({
                 intId: values.intId || null,
+                intIdEmpresario: values.intIdEmpresario || null,
                 dtmFechaSesion: values.dtmFechaSesion || null,
                 strLugarSesion: values.strLugarSesion || "",
                 strUsuarioCreacion: values.strUsuarioCreacion || "",
@@ -107,6 +109,7 @@ const InfoGeneral = ({
                 strNivelEducativo: values.strNivelEducativo || "",
                 strTitulos: values.strTitulos || "",
                 strEstrato: values.strEstrato || "",
+                arrPais: values.arrPais || [],
                 arrDepartamento: values.arrDepartamento || [],
                 arrCiudad: values.arrCiudad || [],
                 strDireccionResidencia: values.strDireccionResidencia || "",
@@ -735,6 +738,40 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
+                            defaultValue={data.arrPais}
+                            name="objInfoGeneral.arrPais"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownLocalizaciones
+                                    label="Pais"
+                                    strCodigo="paises"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData(
+                                            "arrPais",
+                                            value
+                                        );
+                                    }}
+                                    error={
+                                        errors?.objInfoGeneral?.arrPais
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoGeneral?.arrPais
+                                            ?.message ||
+                                        "Selecciona el pais de residencia"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
                             defaultValue={data.arrDepartamento}
                             name="objInfoGeneral.arrDepartamento"
                             render={({ field: { name, value, onChange } }) => (
@@ -755,6 +792,9 @@ const InfoGeneral = ({
                                         errors?.objInfoGeneral?.arrDepartamento
                                             ? true
                                             : false
+                                    }
+                                    strPais={
+                                        data.arrPais?.country_name
                                     }
                                     helperText={
                                         errors?.objInfoGeneral?.arrDepartamento

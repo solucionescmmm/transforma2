@@ -195,7 +195,6 @@ const PageCUGeneral = ({
                                     ...data.objInfoGeneral,
                                     intIdIdea,
                                     intIdDiagnostico,
-                                    intIdEmpresario: data.objEmpresario?.filter((p) => p.strTipoEmpresario === "Principal")?.at(0)?.intId,
                                     intIdTipoEmpresario: data.objEmpresario?.filter((p) => p.strTipoEmpresario === "Principal")?.at(0)?.intIdTipoEmpresario,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
@@ -365,6 +364,8 @@ const PageCUGeneral = ({
                                         objEmprPrincipal.strTitulos || "",
                                     strEstrato:
                                         objEmprPrincipal.strEstrato || "",
+                                    arrPais:
+                                        objEmprPrincipal.arrPais || [],
                                     arrDepartamento:
                                         objEmprPrincipal.arrDepartamento || [],
                                     arrCiudad: objEmprPrincipal.arrCiudad || [],
@@ -389,6 +390,8 @@ const PageCUGeneral = ({
                                         data.objInfoEmpresa.strNombreMarca,
                                     strLugarOperacion:
                                         data.objInfoEmpresa.strLugarOperacion,
+                                    arrPais:
+                                        data.objInfoEmpresa.arrPais,
                                     arrDepartamento:
                                         data.objInfoEmpresa.arrDepartamento,
                                     arrCiudad: data.objInfoEmpresa.arrCiudad,
