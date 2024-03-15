@@ -48,6 +48,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                 objEmpresario.push({
                     ...dataEmpresarioPrincipal,
                     strNombreCompleto: `${dataEmpresarioPrincipal?.strNombres} ${dataEmpresarioPrincipal?.strApellidos}`,
+                    arrPais: JSON.parse(arrayEmpresario[j]?.strPais || null),
                     arrDepartamento: JSON.parse(dataEmpresarioPrincipal?.strDepartamento || null),
                     arrCiudad: JSON.parse(dataEmpresarioPrincipal?.strCiudad || null),
                     strSede: dataEmpresarioPrincipal?.strNombreSedes,
@@ -65,6 +66,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                         objEmpresario.push({
                             ...arrayEmpresario[j],
                             strNombreCompleto: `${arrayEmpresario[j]?.strNombres} ${arrayEmpresario[j]?.strApellidos}`,
+                            arrPais: JSON.parse(arrayEmpresario[j]?.strPais || null),
                             arrDepartamento: JSON.parse(arrayEmpresario[j]?.strDepartamento || null),
                             arrCiudad: JSON.parse(arrayEmpresario[j]?.strCiudad || null),
                             strSede: arrayEmpresario[j]?.strNombreSedes,
@@ -100,6 +102,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                     strNombreMarca: array[i]?.objInfoEmpresa[0]?.strNombreMarca,
                     dtFechaFundacion: array[i]?.objInfoEmpresa[0]?.dtFechaFundacion,
                     strLugarOperacion: array[i]?.objInfoEmpresa[0]?.strLugarOperacion,
+                    arrPais: JSON.parse(arrayEmpresario[j]?.strPais || null),
                     arrDepartamento: JSON.parse(array[i]?.objInfoEmpresa[0]?.strDepartamento || null),
                     arrCiudad: JSON.parse(array[i]?.objInfoEmpresa[0]?.strCiudad || null),
                     strBarrio: array[i]?.objInfoEmpresa[0]?.strBarrio,
