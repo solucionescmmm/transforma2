@@ -47,8 +47,6 @@ const PanelEmpresarios = ({ data }) => {
             let intInteresados = 0;
             let intTotal = 0;
 
-            console.log(data)
-
             for (let i = 0; i < data.length; i++) {
                 if (data[i].strEstadoVinculacion === "Activo") {
                     intActivos++;

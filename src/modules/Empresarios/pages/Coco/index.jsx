@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useRef } from "react";
 
 //Librerias
 import { Link as RouterLink, useParams, useHistory } from "react-router-dom";
@@ -102,12 +102,14 @@ const Coco = () => {
         autoload: true,
         intIdIdea: intId,
     });
+
+    const { getUniqueData: getUniqueDataTabla } = useGetHistTabla({
+        autoload: true,
+        intIdIdea: intId,
+    });
     const location = useHistory();
 
-    const { data: dataTabla } = useGetHistTabla({
-        intIdIdea: intId,
-        autoLoad: true,
-    });
+
 
     const objColumns = [
         {
@@ -153,12 +155,15 @@ const Coco = () => {
         },
     });
 
+    const [dataTabla, setDataTabla]= useState([]);
     const [objInteresado, setObjInteresado] = useState({});
     const [strEtapa, setStrEtapa] = useState("N/A");
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = styles();
+
+    const refGetDataTabla = useRef(getUniqueDataTabla)
 
     const onChangeRoute = (location, params) => {
         setRoute((prevState) => ({
@@ -218,6 +223,20 @@ const Coco = () => {
             setLoading(false);
         }
     }, [dataPersonas]);
+
+    useEffect(() => {
+        if (getRealTab(route.location) === "Indicadores") {
+            async function getDataTable(){
+                await refGetDataTabla
+                .current({ intIdIdea:intId })
+                .then((res) => {
+                    setDataTabla(res)
+                })
+            }
+
+            getDataTable()
+        }
+    }, [route.location, intId]);
 
     useEffect(() => {
         if (dataHistorico) {
