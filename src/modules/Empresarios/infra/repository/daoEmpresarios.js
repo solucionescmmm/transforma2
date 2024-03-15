@@ -921,6 +921,7 @@ class daoEmpresarios {
                 Empresario.intIdSede,
                 Empresario.btPerfilSensible,
                 Empresario.strEstrato,
+                Empresario.strPais,
                 Empresario.strDepartamento,
                 Empresario.strCiudad,
                 Empresario.strBarrio,
