@@ -36,9 +36,9 @@ class setDiagnosticoGeneral {
         await this.#validations();
         await this.#updateEmpresarioDiagnosticoGeneral();
         await this.#updateEmpresaDiagnosticoGeneral();
-        await this.#updateDiagnostico();
         await this.#completeData();
         await this.#setDiagnosticoGeneral();
+        await this.#updateDiagnostico();
         return this.#objResult;
     }
 
@@ -203,6 +203,7 @@ class setDiagnosticoGeneral {
 
         let objInfoEmpresario = {
             ...this.#objData.objInfoGeneral,
+            arrPais: JSON.stringify(this.#objData.objInfoGeneral?.arrPais || null),
             arrDepartamento: JSON.stringify(this.#objData.objInfoGeneral?.arrDepartamento || null),
             arrCiudad: JSON.stringify(this.#objData.objInfoGeneral?.arrCiudad || null),
             intIdEmpresario: this.#objData.objInfoGeneral.intIdEmpresario,
@@ -224,6 +225,7 @@ class setDiagnosticoGeneral {
         let objInfoEmpresa = {
             ...this.#objData.objInfoEmprendimiento,
             intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
+            arrPais: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrPais || null),
             arrDepartamento: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrDepartamento || null),
             arrCiudad: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrCiudad || null),
             strMediosDigitales: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrMediosDigitales || null),

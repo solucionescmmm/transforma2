@@ -27,7 +27,6 @@ class updateDiagnosticoGeneral {
     }
 
     async main() {
-        console.log(this.#objData.objInfoGeneral.strUsuarioCreacion)
         await this.#getHistorico();
         await this.#validations();
         await this.#updateEmpresarioDiagnosticoGeneral();
@@ -141,7 +140,7 @@ class updateDiagnosticoGeneral {
             strRolesEmprendimiento: JSON.stringify(this.#objData.objInfoPerfilEco.strRolesEmprendimiento || null),
             strDiasProduccion: this.#objData.objInfoPerfilEco.strDiasProduccion,
             strGeneraEmpleoRiesgoPobreza: this.#objData.objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza,
-            valorGananciasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
+            valorGananciasMes: this.#objData.objInfoPerfilEco.dblValorGananciasMes,
             strActivos: this.#objData.objInfoPerfilEco.strActivos,
             ValorActivos: this.#objData.objInfoPerfilEco.dblValorActivos,
 
@@ -174,6 +173,7 @@ class updateDiagnosticoGeneral {
 
         let objInfoEmpresario = {
             ...this.#objData.objInfoGeneral,
+            arrPais: JSON.stringify(this.#objData.objInfoGeneral?.arrPais || null),
             arrDepartamento: JSON.stringify(
                 this.#objData.objInfoGeneral?.arrDepartamento || null
             ),
@@ -199,6 +199,7 @@ class updateDiagnosticoGeneral {
         let objInfoEmpresa = {
             ...this.#objData.objInfoEmprendimiento,
             intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
+            arrPais: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrPais || null),
             arrDepartamento: JSON.stringify(
                 this.#objData.objInfoEmprendimiento?.arrDepartamento || null
             ),

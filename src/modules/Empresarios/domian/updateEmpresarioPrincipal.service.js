@@ -385,7 +385,9 @@ class updateEmpresarioPrincipal {
         let prevData = this.#objIdeaEmpresarioActual;
 
         let objDataEmpresario = this.#objIdeaEmpresarioActual.objEmpresario.find((i)=> i.strTipoEmpresario === "Principal")
-
+        let aux_arrPaisEm = JSON.stringify(
+            objDataEmpresario?.arrPais || null
+        );
         let aux_arrDepartamentoEm = JSON.stringify(
             objDataEmpresario?.arrDepartamento || null
         );
@@ -395,6 +397,7 @@ class updateEmpresarioPrincipal {
 
         objDataEmpresario={
             ...objDataEmpresario,
+            arrPais:aux_arrPaisEm,
             arrDepartamento: aux_arrDepartamentoEm,
             arrCiudad: aux_arrCiudadEm
         }
@@ -415,6 +418,9 @@ class updateEmpresarioPrincipal {
         let aux_arrRequisitosLey = JSON.stringify(
             this.#objIdeaEmpresarioActual.objInfoEmpresa?.arrRequisitosLey || null
         );
+        let aux_arrPais = JSON.stringify(
+            this.#objIdeaEmpresarioActual.objInfoEmpresa?.arrPais || null
+        );
         let aux_arrDepartamento = JSON.stringify(
             this.#objIdeaEmpresarioActual.objInfoEmpresa?.arrDepartamento || null
         );
@@ -424,6 +430,7 @@ class updateEmpresarioPrincipal {
 
         let objDataEmpresa = {
             ...prevData.objInfoEmpresa,
+            arrPais: aux_arrPais,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad,
             arrCategoriasSecundarias: aux_arrCategoriasSecundarias,

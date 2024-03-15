@@ -273,6 +273,7 @@ class daoDiagnosticoGeneral {
                 strNivelEducativo        = COALESCE(${data.strNivelEducativo}, strNivelEducativo),
                 strTitulos               = COALESCE(${data.strTitulos}, strTitulos),
                 strEstrato               = COALESCE(${data.strEstrato}, strEstrato),
+                strPais                  = COALESCE(${data.arrPais}, strPais),
                 strDepartamento          = COALESCE(${data.arrDepartamento}, strDepartamento),
                 strCiudad                = COALESCE(${data.arrCiudad}, strCiudad),
                 strBarrio                = COALESCE(${data.strBarrio}, strBarrio),
@@ -316,6 +317,7 @@ class daoDiagnosticoGeneral {
 
             SET strNombreMarca                    = COALESCE(${data.strUnidadProductiva}, strNombreMarca),
                 strLugarOperacion                 = COALESCE(${data.strLugarOperacion}, strLugarOperacion),
+                strPais                           = COALESCE(${data.arrPais}, strPais),
                 strDepartamento                   = COALESCE(${data.arrDepartamento}, strDepartamento),
                 strCiudad                         = COALESCE(${data.arrCiudad}, strCiudad),
                 strBarrio                         = COALESCE(${data.strBarrio}, strBarrio),

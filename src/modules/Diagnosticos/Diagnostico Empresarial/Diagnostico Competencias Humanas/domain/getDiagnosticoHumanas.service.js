@@ -73,7 +73,7 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strTomaDesiciones: array[i]?.strTomaDesiciones,
                     strMotivaciones: array[i]?.strMotivaciones,
                     strNivelVida: array[i]?.strNivelVida,
-                    strRedesApoyoOtros: JSON.parse(array[i]?.strRedesApoyoOtros),
+                    strRedesApoyoOtros: validator.isJSON(array[i]?.strRedesApoyoOtros) ? JSON.parse(array[i]?.strRedesApoyoOtros): "",
                     strProyectoVidaEmpresa: array[i]?.strProyectoVidaEmpresa,
                     strHabilidadesAutonomia: array[i]?.strHabilidadesAutonomia,
                     strHabilidadesCapacidad: array[i]?.strHabilidadesCapacidad,
@@ -82,8 +82,8 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strHabilidadesCreatividad: array[i]?.strHabilidadesCreatividad,
                     strConfianza: array[i]?.strConfianza,
                     strActividadesDisminuyenActProductiva: array[i]?.strActividadesDisminuyenActProductiva,
-                    strSituacionesDesistirEmprendimiento: JSON.parse(array[i]?.strSituacionesDesistirEmprendimiento),
-                    strEquilibrioVida: JSON.parse(array[i]?.strEquilibrioVida),
+                    strSituacionesDesistirEmprendimiento: validator.isJSON(array[i]?.strSituacionesDesistirEmprendimiento) ?  JSON.parse(array[i]?.strSituacionesDesistirEmprendimiento): "",
+                    strEquilibrioVida: validator.isJSON(array[i]?.strEquilibrioVida) ?  JSON.parse(array[i]?.strEquilibrioVida): "",
                     strRedesApoyoPropia: array[i]?.strRedesApoyoPropia,
                     strObservaciones: array[i]?.strObservaciones
                 }
