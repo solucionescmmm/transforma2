@@ -104,7 +104,7 @@ class setDiagnosticoHumanas {
     
     async #updateDiagnostico(){
         let data = {
-            intId: this.#objData?.objInfoGeneral?.intIdDiagnostico,
+            intIdDiagnostico: this.#objData?.objInfoGeneral?.intIdDiagnostico,
             intIdEstadoDiagnostico: this.#intIdEstadoDiagnostico
         };
     
