@@ -251,6 +251,9 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                             .btPerfilSensible,
                                     strEstrato:
                                         data.objInfoEmpresarioPr.strEstrato,
+                                    arrPais:
+                                        data.objInfoEmpresarioPr
+                                            .arrPais,
                                     arrDepartamento:
                                         data.objInfoEmpresarioPr
                                             .arrDepartamento,
@@ -293,6 +296,8 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                     strDireccionResidencia:
                                         data.objInfoEmpresa
                                             .strDireccionResidencia,
+                                    arrPais:
+                                            data.objInfoEmpresa.arrPais,
                                     arrDepartamento:
                                         data.objInfoEmpresa.arrDepartamento,
                                     arrCiudad: data.objInfoEmpresa.arrCiudad,
@@ -510,6 +515,8 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                         objEmprPrincipal.btPerfilSensible,
                                     strEstrato:
                                         objEmprPrincipal.strEstrato || "",
+                                    arrPais:
+                                        objEmprPrincipal.arrPais || [],
                                     arrDepartamento:
                                         objEmprPrincipal.arrDepartamento || [],
                                     arrCiudad: objEmprPrincipal.arrCiudad || [],
@@ -548,6 +555,9 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                     strDireccionResidencia:
                                         data.objInfoEmpresa
                                             .strDireccionResidencia || "",
+                                    arrPais:
+                                        data.objInfoEmpresa.arrPais ||
+                                        [],
                                     arrDepartamento:
                                         data.objInfoEmpresa.arrDepartamento ||
                                         [],
