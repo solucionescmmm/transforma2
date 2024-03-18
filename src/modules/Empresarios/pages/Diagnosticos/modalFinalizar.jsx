@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, { useState, useEffect, useCallback, useContext, useRef, Fragment } from "react";
 
 //Context
 import { AuthContext } from "../../../../common/middlewares/Auth";
@@ -6,6 +6,9 @@ import { AuthContext } from "../../../../common/middlewares/Auth";
 //Librerias
 import axios from "axios";
 import { toast } from "react-hot-toast";
+
+//Hooks
+import useGetDiagnosticosByHijos from "../../hooks/useGetDiagnosticosByHijos";
 
 //Componentes de Material UI
 import {
@@ -21,6 +24,10 @@ import {
     Grid,
     Checkbox,
     FormControlLabel,
+    Typography,
+    List,
+    ListItem,
+    ListItemText,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -28,6 +35,10 @@ import { LoadingButton } from "@mui/lab";
 //Estilos
 import { makeStyles } from "@mui/styles";
 import { useForm } from "react-hook-form";
+
+//Componentes
+import Loader from "../../../../common/components/Loader";
+import ErrorPage from "../../../../common/components/Error";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -53,10 +64,19 @@ const ModalFinalizar = ({
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [success, setSucces] = useState(false);
-
+    const [dense] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [loadingGetData, setLoadingGetData] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
+
+    const [errorGetData, setErrorGetData] = useState({
+        flag: false,
+        msg: "",
+    });
+
+    const [objDataHijos, setObjDataHijos]= useState(null)
+    const [bitFinalizar, setBitFinalizar] = useState(false)
 
     const [data, setData] = useState({
         intIdDiagnostico:"",
@@ -72,6 +92,12 @@ const ModalFinalizar = ({
     const {
         handleSubmit,
     } = useForm({ mode: "onChange" });
+
+    const { getUniqueData } = useGetDiagnosticosByHijos({
+        intId
+    })
+
+    const refGetDataDiagnosticosHijos = useRef(getUniqueData)
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -176,6 +202,45 @@ const ModalFinalizar = ({
     }, [flagSubmit, submitData]);
 
     useEffect(() => {
+        if (intId && values) {
+            setLoadingGetData(true);
+
+            async function getData() {
+                await refGetDataDiagnosticosHijos
+                    .current({
+                        intId
+                    })
+                    .then((res) => {
+                        if (res.data.error) {
+                            throw new Error(res.data.msg);
+                        }
+    
+                        if (res.data?.data) {
+                            setObjDataHijos(res.data.data[0])
+                            if (
+                                res.data.data[0]?.objDiagnosticoGeneral ||
+                                res.data.data[0]?.objDiagnosticoHumanoSocial ||
+                                res.data.data[0]?.objDiagnosticoCompetenciasTecnicas ||
+                                res.data.data[0]?.objDiagnosticoProductos ||
+                                res.data.data[0]?.objDiagnosticoServicios
+                            ) {
+                                setBitFinalizar(true)
+                            }
+                        }
+    
+                        setErrorGetData({ flag: false, msg: "" });
+                    })
+                    .catch((error) => {
+                        setErrorGetData({ flag: true, msg: error.message });
+                    });
+    
+                setLoadingGetData(false);
+            }
+            getData();
+        }
+    }, [intId,values]);
+
+    useEffect(() => {
         if (success) {
             refresh({ intIdIdea });
             handleOpenDialog();
@@ -188,6 +253,20 @@ const ModalFinalizar = ({
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
+    if (loadingGetData) {
+        return <Loader />;
+    }
+
+    if (errorGetData.flag) {
+        return (
+            <ErrorPage
+                severity="error"
+                msg="Ha ocurrido un error al obtener los datos del empresario seleccionado, por favor escala al área de TI para más información."
+                title={errorGetData.msg}
+            />
+        );
+    }
+    
     return (
         <Dialog
             fullScreen={bitMobile}
@@ -207,24 +286,73 @@ const ModalFinalizar = ({
             <DialogTitle>Finalizar diagnóstico</DialogTitle>
 
             <DialogContent>
-                <DialogContentText>
-                    Se va a finalizar el diagnóstico con identificador {data.intIdDiagnostico}.
-                </DialogContentText>
                 <Grid container direction="row">
                     <Grid item xs={12}>
-                        <FormControlLabel 
-                            control={<Checkbox 
-                                checked={data.btConRuta}
-                                onChange={handleChange}
-                                inputProps={{ 'aria-label': 'controlled' }} />} 
-                            label="¿Deseas Finalizar el diagnóstico con una ruta asociada? "
-                        />
+                        <Typography sx={{ mt: 2, mb: 1 }} variant="body1" component="div">
+                          Tienes los siguientes diagnósticos sin finalizar:
+                        </Typography>
+                            <List dense={dense}>
+                                {objDataHijos?.objDiagnosticoGeneral 
+                                ? <ListItem>
+                                    <ListItemText
+                                      primary="Diagnónstico información general"
+                                    />
+                                </ListItem>: null}
+                                {objDataHijos?.objDiagnosticoHumanoSocial 
+                                ? <ListItem>
+                                    <ListItemText
+                                      primary="Diagnónstico competencias humanas"
+                                    />
+                                </ListItem>: null}
+                                {objDataHijos?.objDiagnosticoCompetenciasTecnicas 
+                                ? <ListItem>
+                                    <ListItemText
+                                      primary="Diagnónstico competencias técnicas"
+                                    />
+                                </ListItem>: null}
+                                {objDataHijos?.objDiagnosticoProductos 
+                                ? <ListItem>
+                                    <ListItemText
+                                      primary="Diagnónstico producto"
+                                    />
+                                </ListItem>: null}
+                                {objDataHijos?.objDiagnosticoServicios 
+                                ? <ListItem>
+                                    <ListItemText
+                                      primary="Diagnónstico servicio"
+                                    />
+                                </ListItem>: null}
+                            </List>
+                        <Typography sx={{ mt: 2, mb: 1 }} variant="caption" component="div">
+                            Debes de finalizarlos manualmente antes de finalizar el diagnóstico padre
+                        </Typography>
                     </Grid>
+                    {bitFinalizar ? null: (
+                        <Fragment>
+                            <DialogContentText>
+                                Se va a finalizar el diagnóstico con identificador {data.intIdDiagnostico}.
+                            </DialogContentText>
+                            <Grid item xs={12}>
+                                <FormControlLabel 
+                                    control={<Checkbox 
+                                        checked={data.btConRuta}
+                                        onChange={handleChange}
+                                        inputProps={{ 'aria-label': 'controlled' }} />} 
+                                    label="¿Deseas Finalizar el diagnóstico con una ruta asociada? "
+                                />
+                            </Grid>
+                        </Fragment> 
+                    )}
                 </Grid>
             </DialogContent>
 
             <DialogActions>
-                <LoadingButton color="error" loading={loading} type="submit">
+                <LoadingButton 
+                    color="error" 
+                    loading={loading} 
+                    type="submit"
+                    disabled={bitFinalizar}
+                >
                     Finalizar
                 </LoadingButton>
 
