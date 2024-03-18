@@ -72,7 +72,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
             {
                 parent: "strCategoriaProductos",
                 value: "",
-                label: "Categoría de productos",
+                label: "Tipo de diagnóstico aplicado",
             },
             {
                 parent: "strProductos",

@@ -108,7 +108,7 @@ const InfoProductos = ({
                             name="objInfoProductos.strCategoriaProductos"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Categoría de productos"
+                                    label="Tipo de diagnóstico aplicado"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
