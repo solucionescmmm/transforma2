@@ -13,6 +13,12 @@ class interfaceDAODiagnosticos {
         return query;
     }
 
+    async getDiagnosticosHijos(data) {
+        let dao = new classDAO();
+        let query = await dao.getDiagnosticosHijos(data);
+        return query;
+    }
+
     async getTipoDiagnosticos(data) {
         let dao = new classDAO();
         let query = await dao.getTipoDiagnosticos(data);

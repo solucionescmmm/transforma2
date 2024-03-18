@@ -1,6 +1,7 @@
 //Servicios
 const setDiagnosticos = require("../../domain/setDiagnosticos.service");
 const getDiagnosticos = require("../../domain/getDiagnosticos.service");
+const getDiagnosticosHijos = require("../../domain/getDiagnosticosHijos.service");
 const getTipoDiagnosticos = require("../../domain/getTipoDiagnosticos.service")
 const getEstadoDiagnosticos = require("../../domain/getEstadoDiagnosticos.service")
 const getIdEstadoDiagnosticos = require("../../domain/getIdEstadoDiagnosticos.service")
@@ -39,6 +40,28 @@ class ctrl_Diagnosticos {
             let { strDataUser } = req;
 
             let query = await getDiagnosticos(objParams, strDataUser);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async getDiagnosticosHijos(req, res) {
+        try {
+            let objParams = req.query;
+            let { strDataUser } = req;
+
+            let query = await getDiagnosticosHijos(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);

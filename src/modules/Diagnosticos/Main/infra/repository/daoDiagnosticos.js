@@ -1,5 +1,6 @@
 //librerias
 const sql = require("mssql");
+const validator = require("validator").default
 
 //Conexion
 const {
@@ -79,6 +80,123 @@ class daoDiagnosticos {
             AND   (Diagnostico.intIdEstadoDiagnostico = ${data.intIdEstadoDiagnostico} OR ${data.intIdEstadoDiagnostico} IS NULL) `;
 
             let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getDiagnosticos de la clase daoDiagnosticos",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getDiagnosticosHijos(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+            
+            SELECT 
+
+            (
+                SELECT *
+                FROM tbl_DiagnosticoGeneral
+                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                FOR JSON PATH
+            )AS objDiagnosticoGeneral,
+            (
+                SELECT *
+                FROM tbl_DiagnosticoHumanoSocial
+                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                FOR JSON PATH
+            )AS objDiagnosticoHumanoSocial,
+            (
+                SELECT *
+                FROM tbl_DiagnosticoCompetenciasTecnicas
+                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                FOR JSON PATH
+            )AS objDiagnosticoCompetenciasTecnicas,
+            (
+                SELECT *
+                FROM tbl_DiagnosticoProductos
+                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                FOR JSON PATH
+            )AS objDiagnosticoProductos,
+            (
+                SELECT *
+                FROM tbl_DiagnosticoServicios
+                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                FOR JSON PATH
+            )AS objDiagnosticoServicios
+            
+            FROM tbl_Diagnostico Diagnostico
+
+            WHERE (Diagnostico.intId = ${data.intId}) `;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].objDiagnosticoGeneral) {
+                    let { objDiagnosticoGeneral } = arrNewData[i];
+
+                    if (validator.isJSON(objDiagnosticoGeneral)) {
+                        objDiagnosticoGeneral = JSON.parse(
+                            objDiagnosticoGeneral
+                        );
+                        arrNewData[i].objDiagnosticoGeneral =
+                        objDiagnosticoGeneral;
+                    }
+                }
+                if (arrNewData[i].objDiagnosticoHumanoSocial) {
+                    let { objDiagnosticoHumanoSocial } = arrNewData[i];
+
+                    if (validator.isJSON(objDiagnosticoHumanoSocial)) {
+                        objDiagnosticoHumanoSocial = JSON.parse(objDiagnosticoHumanoSocial);
+                        arrNewData[i].objDiagnosticoHumanoSocial = objDiagnosticoHumanoSocial;
+                    }
+                }
+                if (arrNewData[i].objDiagnosticoCompetenciasTecnicas) {
+                    let { objDiagnosticoCompetenciasTecnicas } = arrNewData[i];
+
+                    if (validator.isJSON(objDiagnosticoCompetenciasTecnicas)) {
+                        objDiagnosticoCompetenciasTecnicas = JSON.parse(objDiagnosticoCompetenciasTecnicas);
+                        arrNewData[i].objDiagnosticoCompetenciasTecnicas = objDiagnosticoCompetenciasTecnicas;
+                    }
+                }
+                if (arrNewData[i].objDiagnosticoProductos) {
+                    let { objDiagnosticoProductos } = arrNewData[i];
+
+                    if (validator.isJSON(objDiagnosticoProductos)) {
+                        objDiagnosticoProductos = JSON.parse(objDiagnosticoProductos);
+                        arrNewData[i].objDiagnosticoProductos = objDiagnosticoProductos;
+                    }
+                }
+
+                if (arrNewData[i].objDiagnosticoServicios) {
+                    let { objDiagnosticoServicios } = arrNewData[i];
+
+                    if (validator.isJSON(objDiagnosticoServicios)) {
+                        objDiagnosticoServicios = JSON.parse(objDiagnosticoServicios);
+                        arrNewData[i].objDiagnosticoServicios = objDiagnosticoServicios;
+                    }
+                }
+            }
 
             let result = {
                 error: false,

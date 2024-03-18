@@ -22,6 +22,14 @@ routes.get(
 );
 
 routes.get(
+    "/transforma/api/Diagnosticos/main/getDiagnosticosHijos",
+    async (req, res) => {
+        let controllerComentarios = new classController();
+        await controllerComentarios.getDiagnosticosHijos(req, res);
+    }
+);
+
+routes.get(
     "/transforma/api/Diagnosticos/main/getTipoDiagnosticos",
     async (req, res) => {
         let controllerComentarios = new classController();
