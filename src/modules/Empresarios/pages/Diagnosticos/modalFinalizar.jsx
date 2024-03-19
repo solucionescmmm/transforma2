@@ -287,46 +287,50 @@ const ModalFinalizar = ({
 
             <DialogContent>
                 <Grid container direction="row">
-                    <Grid item xs={12}>
-                        <Typography sx={{ mt: 2, mb: 1 }} variant="body1" component="div">
-                          Tienes los siguientes diagnósticos sin finalizar:
-                        </Typography>
-                            <List dense={dense}>
-                                {objDataHijos?.objDiagnosticoGeneral 
-                                ? <ListItem>
-                                    <ListItemText
-                                      primary="Diagnónstico información general"
-                                    />
-                                </ListItem>: null}
-                                {objDataHijos?.objDiagnosticoHumanoSocial 
-                                ? <ListItem>
-                                    <ListItemText
-                                      primary="Diagnónstico competencias humanas"
-                                    />
-                                </ListItem>: null}
-                                {objDataHijos?.objDiagnosticoCompetenciasTecnicas 
-                                ? <ListItem>
-                                    <ListItemText
-                                      primary="Diagnónstico competencias técnicas"
-                                    />
-                                </ListItem>: null}
-                                {objDataHijos?.objDiagnosticoProductos 
-                                ? <ListItem>
-                                    <ListItemText
-                                      primary="Diagnónstico producto"
-                                    />
-                                </ListItem>: null}
-                                {objDataHijos?.objDiagnosticoServicios 
-                                ? <ListItem>
-                                    <ListItemText
-                                      primary="Diagnónstico servicio"
-                                    />
-                                </ListItem>: null}
-                            </List>
-                        <Typography sx={{ mt: 2, mb: 1 }} variant="caption" component="div">
-                            Debes de finalizarlos manualmente antes de finalizar el diagnóstico padre
-                        </Typography>
-                    </Grid>
+                    {!bitFinalizar ? null: (
+                        <Fragment>
+                            <Grid item xs={12}>
+                                <Typography sx={{ mt: 2, mb: 1 }} variant="body1" component="div">
+                                  Tienes los siguientes diagnósticos sin finalizar:
+                                </Typography>
+                                    <List dense={dense}>
+                                        {objDataHijos?.objDiagnosticoGeneral 
+                                        ? <ListItem>
+                                            <ListItemText
+                                              primary="Diagnónstico información general"
+                                            />
+                                        </ListItem>: null}
+                                        {objDataHijos?.objDiagnosticoHumanoSocial 
+                                        ? <ListItem>
+                                            <ListItemText
+                                              primary="Diagnónstico competencias humanas"
+                                            />
+                                        </ListItem>: null}
+                                        {objDataHijos?.objDiagnosticoCompetenciasTecnicas 
+                                        ? <ListItem>
+                                            <ListItemText
+                                              primary="Diagnónstico competencias técnicas"
+                                            />
+                                        </ListItem>: null}
+                                        {objDataHijos?.objDiagnosticoProductos 
+                                        ? <ListItem>
+                                            <ListItemText
+                                              primary="Diagnónstico producto"
+                                            />
+                                        </ListItem>: null}
+                                        {objDataHijos?.objDiagnosticoServicios 
+                                        ? <ListItem>
+                                            <ListItemText
+                                              primary="Diagnónstico servicio"
+                                            />
+                                        </ListItem>: null}
+                                    </List>
+                                <Typography sx={{ mt: 2, mb: 1 }} variant="caption" component="div">
+                                    Debes de finalizarlos manualmente antes de finalizar el diagnóstico padre
+                                </Typography>
+                            </Grid>
+                        </Fragment> 
+                    )}
                     {bitFinalizar ? null: (
                         <Fragment>
                             <DialogContentText>
