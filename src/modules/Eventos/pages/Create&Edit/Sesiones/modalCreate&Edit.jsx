@@ -241,13 +241,6 @@ const ModalCEdit = ({
 
     useEffect(() => {
         if (success) {
-            reset({
-                strNombre: "",
-                dtFechaInicio: null,
-                dtFechaFin: null,
-                strArea: null,
-                strResponsables: [],
-            });
             refresh({ intIdEvento });
             handleOpenDialog();
 
@@ -553,7 +546,10 @@ const ModalCEdit = ({
                             </LoadingButton>
 
                             <Button
-                                onClick={() => handleOpenDialog()}
+                                onClick={() => {
+                                    handleOpenDialog()
+                                    reset()
+                                }}
                                 color="inherit"
                                 type="button"
                                 disabled={loading}
