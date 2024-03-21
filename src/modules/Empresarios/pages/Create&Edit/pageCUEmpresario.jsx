@@ -910,13 +910,6 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                     >
                                         {isEdit ? "guardar" : "registrar"}
                                     </LoadingButton>
-
-                                    <Button
-                                        
-                                        onClick={() => resetSearch(false)}
-                                    >
-                                        Nueva busqueda
-                                    </Button>
                                 </Box>
                             </Grid>
                         </Grid>
