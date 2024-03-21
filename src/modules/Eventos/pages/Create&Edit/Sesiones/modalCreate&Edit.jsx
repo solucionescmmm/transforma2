@@ -10,6 +10,7 @@ import React, {
 //Librerias
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import validator from "validator"
 
 //Componentes de Material UI
 import {
@@ -364,6 +365,11 @@ const ModalCEdit = ({
                                 rules={{
                                     required:
                                         "Por favor, digíta el nombre de la sesion",
+                                    validate:(value)=>{
+                                        if (validator.isLength(value,{min:100})) {
+                                            return "El número maximo de carácteres es de 100"
+                                        }
+                                    }
                                 }}
                             />
                         </Grid>

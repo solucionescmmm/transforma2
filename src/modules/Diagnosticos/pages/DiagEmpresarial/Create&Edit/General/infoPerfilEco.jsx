@@ -3,6 +3,7 @@ import React, { useState, useEffect, Fragment } from "react";
 //Librerias
 import { Controller } from "react-hook-form";
 import NumberFormat from "react-number-format";
+import validator from "validator";
 
 //Componentes de Material UI
 import {
@@ -479,6 +480,11 @@ const InfoPerfilEco = ({
                             rules={{
                                 required:
                                     "Por favor, digita detalladamente tu respuesta",
+                                validate:(value)=>{
+                                    if (validator.isLength(value,{min:100})) {
+                                        return "El número maximo de carácteres es de 100"
+                                    }
+                                }
                             }}
                         />
                     </Grid>

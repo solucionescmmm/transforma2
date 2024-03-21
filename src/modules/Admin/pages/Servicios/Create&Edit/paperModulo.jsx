@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 //Librerias
 import { Controller } from "react-hook-form";
 import "animate.css";
-
+import validator from "validator";
 //Componentes de Material UI
 import {
     Box,
@@ -303,6 +303,11 @@ const PaperModulo = ({
                                     rules={{
                                         required:
                                             "Por favor, digita el nombre del módulo",
+                                        validate:(value)=>{
+                                            if (validator.isLength(value,{min:100})) {
+                                                return "El número maximo de carácteres es de 100"
+                                            }
+                                        }
                                     }}
                                 />
                             </Grid>
