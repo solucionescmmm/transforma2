@@ -40,6 +40,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
         strCelular1: "",
         strCorreoElectronico1: "",
         strEstrato: "",
+        arrPais:[],
         arrDepartamento: [],
         arrCiudad: [],
     });
@@ -64,6 +65,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
     }, [isEdit]);
 
     useEffect(() => {
+        console.log(values)
         if (values) {
             setData({
                 intId: values.intId || null,
@@ -74,6 +76,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                 strCelular1: values.strCelular1 || "",
                 strCorreoElectronico1: values.strCorreoElectronico1 || "",
                 strEstrato: values.strEstrato || "",
+                arrPais: values.arrPais || [],
                 arrDepartamento: values.arrDepartamento || [],
                 arrCiudad: values.arrCiudad || [],
             });
@@ -440,7 +443,42 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
+                        <Controller
+                            defaultValue={data.arrPais}
+                            name="objInfoPrincipal.arrPais"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownLocalizaciones
+                                    label="Pais"
+                                    strCodigo="paises"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e, value) => {
+                                        onChange(value);
+                                        handlerChangeData(
+                                            "arrPais",
+                                            value
+                                        );
+                                    }}
+                                    error={
+                                        errors?.objInfoPrincipal
+                                            ?.arrPais
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPrincipal
+                                            ?.arrPais?.message ||
+                                        "Selecciona el pais de residencia"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.arrDepartamento}
                             name="objInfoPrincipal.arrDepartamento"
@@ -464,6 +502,9 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                             ? true
                                             : false
                                     }
+                                    strPais={
+                                        data.arrPais?.country_name
+                                    }
                                     helperText={
                                         errors?.objInfoPrincipal
                                             ?.arrDepartamento?.message ||
@@ -475,7 +516,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.arrCiudad}
                             name="objInfoPrincipal.arrCiudad"
