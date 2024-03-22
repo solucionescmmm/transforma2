@@ -521,20 +521,10 @@ const ModalCEdit = ({
                     <Box
                         sx={{
                             display: "flex",
-                            flexDirection: "row",
+                            flexDirection: "row-reverse",
                             minWidth: "100%",
                         }}
                     >
-                        <Box sx={{ flexGrow: 1 }}>
-                            <LoadingButton
-                                color="error"
-                                loading={loading}
-                                type="button"
-                                onClick={handleSubmit(onSubmit)}
-                            >
-                                finalizar sesión
-                            </LoadingButton>
-                        </Box>
                         <Box>
                             <LoadingButton
                                 color="primary"
