@@ -328,8 +328,6 @@ class updateRutas {
                     let objDataServicio = arrServicios[j];
                     if (!objDataServicio.intIdPaqueteFase) {
 
-                        console.log(objDataServicio)
-
                         let query = await dao.setServiciosFases({
                             intIdFase: this.#intIdFase,
                             intIdServicio: objDataServicio.objServicio.objInfoPrincipal.intId,
@@ -347,8 +345,6 @@ class updateRutas {
                         if (query.error) {
                             throw new Error(query.msg);
                         }
-
-                        console.log(query)
 
                         let intIdServicioFase = query.data.intId;
 

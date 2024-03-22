@@ -273,8 +273,6 @@ class daoEmpresarios {
             )
             SET @intId = SCOPE_IDENTITY();
 
-            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
-
             SELECT * FROM tbl_InfoAdicional WHERE intId = @intId`;
 
             let result = {
@@ -291,33 +289,6 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo setInfoAdicional de la clase daoEmpresarios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async sp_SetInfoPrincipalIdea(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            await conn.query`EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}`;
-
-            let result = {
-                error: false,
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo sp_SetInfoPrincipalIdea de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
@@ -559,8 +530,6 @@ class daoEmpresarios {
 
             WHERE intId = ${data.intId}
 
-            EXEC sp_SetInfoPrincipalIdea @intIdIdea =  ${data.intIdIdea}
-
             SELECT * FROM tbl_InfoAdicional WHERE intId = ${data.intId}`;
 
             let result = {
@@ -577,6 +546,35 @@ class daoEmpresarios {
                 msg:
                     error.message ||
                     "Error en el metodo updateInfoAdicional de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async sp_SetInfoPrincipalIdea(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn
+                .request()
+                .input("p_intIdIdea", sql.Int, data.intIdIdea)
+                .execute("sp_SetInfoPrincipalIdea");
+            
+            let result = {
+                error: false,
+                data: response.recordsets[0]
+            };
+            sql.close(conexion);
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo sp_SetInfoPrincipalIdea de la clase daoEmpresario",
             };
 
             sql.close(conexion);

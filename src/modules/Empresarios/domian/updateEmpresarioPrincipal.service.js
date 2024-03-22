@@ -49,6 +49,7 @@ class updateEmpresarioPrincipal {
         await this.#updateEmpresario();
         await this.#updateEmpresa();
         await this.#updateInfoAdicional();
+        await this.#sp_SetInfoPrincipalIdea();
 
         return this.#objResult;
     }
@@ -377,6 +378,16 @@ class updateEmpresarioPrincipal {
 
         if (query.error) {
             throw new Error(query.msg);
+        }
+    }
+
+    async #sp_SetInfoPrincipalIdea(){
+        let dao = new classInterfaceDAOEmpresarios();
+
+        let query = await dao.sp_SetInfoPrincipalIdea({intIdIdea: this.#intIdIdea});
+
+        if (query.error) {
+            throw new Error(query.msg)
         }
     }
 

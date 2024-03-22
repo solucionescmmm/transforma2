@@ -6,17 +6,21 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 
 //servicios
 const serviceGetIdEstado = require("../../Estados/domain/getIdEstado.service");
+const serviceGetEmpresario = require("./getEmpresario.service");
+const serviceUpdateTercero = require("../../Terceros/domain/updateTercero.service")
 
 class setEmpresarioSecundario {
     //Objetos
     #objData;
     #objUser;
     #objResult;
+    #objDataPersona;
 
     //Variables
     #intIdEmpresario;
     #intIdTipoEmpresario;
     #intIdEstado;
+    #intIdEstadoInactivo;
     /**
      * @param {object} data
      */
@@ -29,15 +33,22 @@ class setEmpresarioSecundario {
     }
 
     async main() {
+        await this.#getDataPersona();
         await this.#getIdTipoEmpresario();
         await this.#getIdEstado();
         await this.#validations();
-        if (this.#objData.intIdEmpresario) {
+        if (this.#objDataPersona?.bitIsEmpresario) {
+            await this.#updateEmpresario();
             await this.#setIdeaEmpresario();
             this.#objResult = {
                 error: false,
                 msg: "El empresario se registro exitosamente en la idea.",
             };
+        } else if (this.#objDataPersona) {
+            await this.#getIdEstadoInactivo();
+            await this.#updateInactivarTercero();
+            await this.#setEmpresario();
+            await this.#setIdeaEmpresario();
         } else {
             await this.#setEmpresario();
             await this.#setIdeaEmpresario();
@@ -71,6 +82,18 @@ class setEmpresarioSecundario {
         this.#intIdEstado = queryGetIdEstado.data.intId;
     }
 
+    async #getIdEstadoInactivo() {
+        let queryGetIdEstado = await serviceGetIdEstado({
+            strNombre: "Inactivo",
+        });
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstadoInactivo = queryGetIdEstado.data.intId;
+    }
+
     async #getIdTipoEmpresario() {
         let dao = new classInterfaceDAOEmpresarios();
         let queryGetIdTipoEmpresario = await dao.getIdTipoEmpresario({
@@ -82,6 +105,34 @@ class setEmpresarioSecundario {
         }
 
         this.#intIdTipoEmpresario = queryGetIdTipoEmpresario.data.intId;
+    }
+
+    async #getDataPersona() {
+        let queryGetDataPersona = await serviceGetEmpresario({
+            strDocumento: this.#objData.strNroDocto,
+        }, this.#objUser);
+
+        if (queryGetDataPersona.error) {
+            throw new Error(queryGetDataPersona.msg);
+        }
+
+        this.#objDataPersona = queryGetDataPersona.data ? queryGetDataPersona.data[0] : null;
+    }
+
+    async #updateInactivarTercero() {
+        let newData ={
+            objInfoPrincipal:{
+                ...this.#objDataPersona,
+                intIdEstado:this.#intIdEstadoInactivo
+            }
+        }
+
+        let service = new serviceUpdateTercero(newData, this.#objUser);
+        let query = await service.main();
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
     }
 
     async #setEmpresario() {
@@ -114,6 +165,45 @@ class setEmpresarioSecundario {
         };
     }
 
+    async #updateEmpresario() {
+        let prevData = this.#objData.objEmpresario;
+
+        let aux_arrPais = JSON.stringify(
+            this.#objData.objEmpresario?.arrPais || null
+        );
+        let aux_arrDepartamento = JSON.stringify(
+            this.#objData.objEmpresario?.arrDepartamento || null
+        );
+        let aux_arrCiudad = JSON.stringify(
+            this.#objData.objEmpresario?.arrCiudad || null
+        );
+
+        let newData = {
+            ...prevData,
+            strUsuarioActualizacion: this.#objUser.strEmail,
+            arrPais: aux_arrPais,
+            arrDepartamento: aux_arrDepartamento,
+            arrCiudad: aux_arrCiudad
+        };
+
+        let dao = new classInterfaceDAOEmpresarios();
+
+        let query = await dao.updateEmpresario(newData);
+
+        if (query.error) {
+            await this.#rollbackTransaction();
+            throw new Error(query.msg);
+        }
+
+        this.#intIdEmpresario = query.data.intId;
+
+        this.#objResult = {
+            error: query.error,
+            data: query.data,
+            msg: `La iniciativa de la persona ${query.data?.strNombres} ${query.data?.strApellidos}, fue registrada con éxito.`,
+        };
+    }
+
     async #setIdeaEmpresario() {
         let newData = {
             intIdIdea: this.#objData.intIdIdea,
@@ -138,7 +228,7 @@ class setEmpresarioSecundario {
     async #sp_SetInfoPrincipalIdea(){
         const dao = new classInterfaceDAOEmpresarios
 
-        let query = dao.sp_SetInfoPrincipalIdea({intIdIdea: this.#objData.intIdIdea,})
+        let query = dao.sp_SetInfoPrincipalIdea({intIdIdea: this.#objData.intIdIdea})
 
         if (query.error) {
             await this.#rollbackTransaction();

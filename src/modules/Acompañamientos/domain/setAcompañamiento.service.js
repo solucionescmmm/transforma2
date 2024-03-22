@@ -29,7 +29,6 @@ class setAcompañamiento {
     }
 
     async main() {
-        //console.log(this.#objData.objObjetivos)
         await this.#validations();
         await this.#setAcompañamiento();
         await this.#setSesionAcompañamiento();
