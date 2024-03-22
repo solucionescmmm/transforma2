@@ -26,6 +26,7 @@ const getTercero = async (objParams) => {
             for (let i = 0; i < array.length; i++) {
                 array[i] = {
                     ...array[i],
+                    arrPais: JSON.parse(array[i]?.strPais || null),
                     arrDepartamento: JSON.parse(
                         array[i]?.strDepartamento || null
                     ),

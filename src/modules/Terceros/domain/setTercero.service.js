@@ -64,6 +64,7 @@ class setTercero {
         let newData = {
             ...this.#objData.objInfoPrincipal,
             intIdEstado: this.#intIdEstado,
+            strPais: JSON.stringify(this.#objData.objInfoPrincipal?.arrPais || null),
             strDepartamento: JSON.stringify(this.#objData.objInfoPrincipal?.arrDepartamento || null),
             strCiudad: JSON.stringify(this.#objData.objInfoPrincipal?.arrCiudad || null),
             strUsuarioCreacion:this.#objUser.strEmail,

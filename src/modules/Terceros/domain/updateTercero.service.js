@@ -49,6 +49,7 @@ class updateTercero {
     async #completeData() {
         let newData = {
             ...this.#objData.objInfoPrincipal,
+            strPais: JSON.stringify(this.#objData?.objInfoPrincipal?.arrPais || null),
             strDepartamento: JSON.stringify(this.#objData?.objInfoPrincipal?.arrDepartamento || null),
             strCiudad: JSON.stringify(this.#objData?.objInfoPrincipal?.arrCiudad || null),
             strUsuarioActualizacion:this.#objUser.strEmail,
