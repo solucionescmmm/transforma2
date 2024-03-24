@@ -484,6 +484,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             font-family: "Roboto";
                         }
 
+                        h5 {
+                            font-family: Roboto;
+                        }
+
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
@@ -625,6 +629,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                               border: 1px solid gray;
                               border-radius: 1px;
                              }
+
+                             h5 {
+                                font-family: Roboto;
+                            }
   
                              p {
                                  font-size: 11px;
@@ -711,6 +719,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             border: 1px solid gray;
                             border-radius: 1px;
                            }
+
+                           h5 {
+                            font-family: Roboto;
+                        }
 
                            p {
                                font-size: 11px;

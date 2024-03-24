@@ -484,6 +484,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             border-radius: 1px;
                            }
 
+                           h5 {
+                            font-family: Roboto;
+                        }
+
                            p {
                                font-size: 11px;
                                font-family: Roboto;
@@ -620,6 +624,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                               border: 1px solid gray;
                               border-radius: 1px;
                              }
+
+                             h5 {
+                                font-family: Roboto;
+                            }
   
                              p {
                                  font-size: 11px;
@@ -707,6 +715,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             color: #505050;
                         }
 
+                        h5 {
+                            font-family: Roboto;
+                        }
+
                         .pMargin {
                            margin-bottom: -10px;
                         }
@@ -730,6 +742,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                                border: 1px solid gray;
                                border-radius: 1px;
                               }
+
+                              h5 {
+                                font-family: Roboto;
+                            }
    
                               p {
                                font-size: 11px;

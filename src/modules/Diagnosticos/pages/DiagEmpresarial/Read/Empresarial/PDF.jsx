@@ -272,6 +272,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             border-radius: 1px;
                            }
 
+                           h5 {
+                            font-family: Roboto;
+                        }
+
                            p {
                             font-size: 11px;
                             font-family: Roboto;
