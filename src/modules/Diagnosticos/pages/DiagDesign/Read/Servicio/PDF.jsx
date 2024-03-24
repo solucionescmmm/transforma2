@@ -20,7 +20,12 @@ import useGetDataPDFService from "../../../../hooks/useGetDatPDFService";
 // Register Font
 Font.register({
     family: "Roboto",
-    src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+    fonts: [
+        {src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf", fontStyle: 'normal', fontWeight: 'thin'},
+        {src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf", fontStyle: 'normal', fontWeight: 'normal'},
+        { src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf", fontStyle: "italic" },
+        { src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf", fontStyle: "bold" },
+    ],
 });
 
 const styles = StyleSheet.create({
@@ -44,23 +49,27 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: "14px",
         color: "#00BBB4",
+        fontFamily: "Roboto",
     },
     footerTitle: {
         textAlign: "center",
         fontSize: "10px",
         color: "#00BBB4",
         marginTop: "55px",
+        fontFamily: "Roboto",
     },
     footerContact: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
         marginTop: "10px",
+        fontFamily: "Roboto",
     },
     footerPhoneEmail: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
+        fontFamily: "Roboto",
     },
     pageNumber: {
         position: "absolute",
@@ -70,6 +79,7 @@ const styles = StyleSheet.create({
         right: 0,
         textAlign: "center",
         color: "grey",
+        fontFamily: "Roboto",
     },
     images: {
         width: "100px",
@@ -186,18 +196,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objInnovacionBajo?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                      En Innovación
-                    </p>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                     En Innovación         
                 </div>
                 
                 ${valuesPDF?.[0].objInnovacionBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
-                                e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            e.label
+                        }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -205,18 +213,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objPersepcionBajo?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                       En Percepción y calidad
-                    </p>
-                </div>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">        
+                    En Percepción y calidad
+                 </div>
                 
                 ${valuesPDF?.[0].objPersepcionBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
-                                e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            e.label
+                        }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -224,18 +230,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objExperienciaBajo?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                       En Experiencia
-                    </p>
-                </div>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                    En Experiencia
+                 </div>
                 
                 ${valuesPDF?.[0].objExperienciaBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
-                                e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            e.label
+                        }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -243,18 +247,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objMarcaBajo?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                       En Marca
-                    </p>
-                </div>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                   En Marca
+                 </div>
                 
                 ${valuesPDF?.[0].objMarcaBajo
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
-                                e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            e.label
+                        }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -266,18 +268,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objInnovacionMedio?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                      En Innovación
-                    </p>
-                </div>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                   En Innovación
+                 </div>
                 
                 ${valuesPDF?.[0].objInnovacionMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
-                                e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            e.label
+                        }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -285,18 +285,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objPersepcionMedio?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                     En Percepción y calidad
-                    </p>
-                </div>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                   En Percepción y calidad
+                 </div>
                 
                 ${valuesPDF?.[0].objPersepcionMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
-                                e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            e.label
+                        }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -304,18 +302,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objExperienciaMedio?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                      En Experiencia
-                    </p>
-                </div>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                    En Experiencia
+                  </div>
                 
                 ${valuesPDF?.[0].objExperienciaMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
-                                e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            e.label
+                        }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -323,18 +319,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         if (valuesPDF?.[0].objMarcaMedio?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div>
-                    <p class="title">
-                      En Marca
-                    </p>
+                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                    En Marca
                 </div>
                 
                 ${valuesPDF?.[0].objMarcaMedio
                     .map(
                         (e) =>
-                            `<p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
-                                e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>`
+                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            e.label
+                        }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -344,18 +338,17 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
-                            <p class="title" >
-                                En Innovación
-                            </p>
+                <div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                    En Innovación
+                </div>
            
 
                         ${e.objInnovacionFortalezas
                             .map(
                                 (e) => `
-                   
-                                <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                                <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                     e.label
-                                }:</span> ${e.value || "No diligenciado"}</p>
+                                }:</span> ${e.value || "No diligenciado"}</div>
                             `
                             )
                             .join("")}
@@ -367,9 +360,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     htmlFortalezas +
                     ` 
         
-                        <p class="title">
-                        En Percepción y calidad
-                        </p>
+                    <div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                    En Percepción y calidad
+                    </div>
         
 
 
@@ -377,9 +370,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         .map(
                             (e) => `
                         
-                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>
+                            }:</span> ${e.value || "No diligenciado"}</div>
                         
                         `
                         )
@@ -391,12 +384,15 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
+                    <div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                    En Estética
+                    </div>
                     ${e.objEsteticaFortalezas
                         .map(
                             (e) => `         
-                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>
+                            }:</span> ${e.value || "No diligenciado"}</div>
                         `
                         )
                         .join("")}
@@ -407,36 +403,37 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
-                        <p class="title">
+                        <div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         En Experiencia
-                        </p>
+                        </div>
               
                     ${e.objExperienciaFortalezas
                         .map(
                             (e) => `
-                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>
+                            }:</span> ${e.value || "No diligenciado"}</div>
                         `
                         )
                         .join("")}
                    `;
             }
 
+
             if (e.objMarcaFortalezas) {
                 htmlFortalezas =
                     htmlFortalezas +
                     ` 
-                        <p class="title">
+                        <div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         En Marca
-                        </p>
+                        </div>
 
                     ${e.objMarcaFortalezas
                         .map(
                             (e) => `
-                            <p class="pPDF"><span class="pPDFSpan" style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
-                            }:</span> ${e.value || "No diligenciado"}</p>
+                            }:</span> ${e.value || "No diligenciado"}</div>
                         `
                         )
                         .join("")}`;
@@ -479,10 +476,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
-                    <Text style={styles.title}>
-                        Reporte diagnóstico de servicio
-                    </Text>
-
                     <Html>
                         {`
                         <html>
@@ -494,13 +487,12 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
-                            margin: 15px;
                            }
 
                            p {
-                            font-size: 12px;
-                            margin: 0;
-                            font-family: "Roboto";
+                            font-size: 11px;
+                            font-family: Roboto;
+                            color: #505050;
                         }
 
                            .pMargin {
@@ -508,29 +500,24 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            }
 
                            .textObj {
-                             margin: 2px;
-                             font-size: 11px;
-                             display: flex;
-                             align-content: center;
+                            margin-bottom: -10px;
+                            font-size: 11px;
+                            display: flex;
+                            align-content: center;
                            }
 
                            .title{
                             font-size: 14px;
-                            font-weight: bold;
-                            color: #F5B335;
+                            color: black;
                             margin: 10px;
                            }
 
-                           .pPDFSpan {
-                            font-weight: 400;
-                            font-family: "Roboto";
-                           }
 
                            table {
-                            font-size: 8px;
+                            font-family: Roboto;
+                            font-size: 9px;
                             border-collapse: collapse;
                             width: 100%;
-
                           }
                           
                           td, th {
@@ -551,6 +538,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             color: white;
                           }
 
+                          .imgChart {
+                            width: 100%; height: 100%
+                         }
+
                           tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
                         </style>
 
@@ -559,37 +550,141 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         <hr />
 
                         
-                    <p>
+                        <p class="pMargin">
                         <span style="color: #00BBB4">Empresa: </span>
                          ${objEmpresa?.strNombreMarca} 
-                    </p>
+                        </p>
 
                           
-                    <p>
-                    <span style="color: #00BBB4">Representante: </span>
-                     ${objEmpresario?.strNombreCompleto}
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Representante: </span>
+                         ${objEmpresario?.strNombreCompleto}
+                        </p>
+
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Categoría: </span>
+                         ${objEmpresa?.strCategoriaProducto}
+                        </p>
+
+
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Descripción: </span>
+                         ${objEmpresa?.strDescProductosServicios}
+                        </p>
+
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Fecha y hora de la sesión: </span>
+                         ${
+                             values?.objInfoGeneral?.find(
+                                 (v) => v.parent === "dtmFechaSesion"
+                             )?.value
+                         } 
                     </p>
 
-                    <p>
-                    <span style="color: #00BBB4">Categoría: </span>
-                     ${objEmpresa?.strCategoriaProducto}
-                    </p>
+                    <p class="pMargin">
+                    <span style="color: #00BBB4">Responsable del diagnóstico: </span>
+                    ${
+                        values?.objInfoGeneral?.find(
+                            (v) => v.parent === "strUsuarioCreacion"
+                        )?.value
+                    } 
+                </p>
 
-
-                    <p>
-                    <span style="color: #00BBB4">Descripción: </span>
-                     ${objEmpresa?.strDescProductosServicios}
-                    </p>
-
-                            <p>
-                                <span style="color: #00BBB4">Fecha de descarga: </span>
-                                 ${new Date().toLocaleDateString("es-ES")} 
-                            </p>
+                <p class="pMargin">
+                <span style="color: #00BBB4">Lugar de la sesión: </span>
+                ${
+                    values?.objInfoGeneral?.find(
+                        (v) => v.parent === "strLugarSesion"
+                    )?.value
+                } 
+            </p>
 
                             <br />
 
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae voluptas quas veniam cum illo temporibus alias, quaerat doloremque voluptate a ex dolores. Dolorem natus vel sit iure libero magnam mollitia.</p>
 
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Gráfico resumen </span></h5>
+                            <hr />
+                        </body>
+                        </html>
+                      `}
+                    </Html>
+                    <Image
+                        source={values?.imgChart}
+                        style={{ width: "321px", alignSelf: "center" }}
+                    />
+
+                    <Html>
+                        {`
+                          <html>
+                          <style>
+                          div {
+                              font-family: Roboto;
+                          }
+                             hr {
+                              border: 1px solid gray;
+                              border-radius: 1px;
+                             }
+  
+                             p {
+                                 font-size: 11px;
+                                 font-family: Roboto;
+                                 color: #505050;
+                             }
+  
+                             .pMargin {
+                                margin-bottom: -10px;
+                             }
+  
+                             .textObj {
+                               margin-bottom: -10px;
+                               font-size: 11px;
+                               display: flex;
+                               align-content: center;
+                             }
+  
+                             .title{
+                              font-size: 14px;
+                              font-weight: 700;
+                              color: black;
+                              margin: 10px;
+                             }
+  
+                             table {
+                              font-family: Roboto;
+                              font-size: 9px;
+                              border-collapse: collapse;
+                              width: 100%;
+                              color: #505050;
+                            }
+                            
+                            td, th {
+                              border: 1px solid #dddddd;
+                              text-align: left;
+                              padding: 5px;
+                            }
+  
+                            tr:nth-child(even) {
+                              background-color: #dddddd;
+                            }
+  
+                            th {
+                              padding-top: 12px;
+                              padding-bottom: 12px;
+                              text-align: center;
+                              background-color: #00BBB4;
+                              color: white;
+                            }
+  
+                            .imgChart {
+                               width: 100%; height: 100%
+                            }
+  
+                            tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
+                          </style>
+
+                             <body>
+                             
                             <h5 class="pMargin"> <span style="color: #00BBB4">Servicios evaluados en el diagnóstico </span></h5>
                             <hr />
 
@@ -597,26 +692,12 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                             <br/>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic aspernatur nihil eius amet earum dicta ratione repudiandae, iste nesciunt quo illo, beatae deserunt quos libero, perspiciatis quas modi cum magnam.</p>
-
-                        </body>
-                        </html>
-                      `}
-                    </Html>
-                    <Image source={values?.imgChart} />
-                    <Html>
-                        {`
-                        <style>
-                        p {
-                            font-size: 12px;
-                            font-family: "Roboto";
-                        }
-
-                        .pMargin {
-                           margin-bottom: -10px;
-                        }
-                        </style>
-                        <p class="pMargin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam pariatur illum dolores quam ab reprehenderit, esse dolorem earum alias quasi, nulla quidem molestias placeat corporis, dignissimos aperiam voluptatem doloremque odio.</p>`}
+                            <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
+                            </p>
+                             </body>
+                          </html>
+                        `}
                     </Html>
 
                     <Html>
@@ -624,68 +705,62 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            <html>
                            <style>
                            div {
-                               font-family: "Roboto";
+                            font-family: Roboto;
+                        }
+                           hr {
+                            border: 1px solid gray;
+                            border-radius: 1px;
                            }
 
-                           .pPDFSpan {
-                            font-weight: 400;
-                            font-family: "Roboto";
+                           p {
+                               font-size: 11px;
+                               font-family: Roboto;
+                               color: #505050;
                            }
-   
-                              hr {
-                               border: 1px solid gray;
-                               border-radius: 1px;
-                               margin: 15px;
-                              }
-   
-                              p {
-                               font-size: 12px;
-                               margin: 0;
-                               font-family: "Roboto";
+
+                           .pMargin {
+                              margin-bottom: -10px;
                            }
-   
-                              .pMargin {
-                                 margin-bottom: -10px;
-                              }
-   
-                              .textObj {
-                                margin: 2px;
-                                font-size: 11px;
-                                display: flex;
-                                align-content: center;
-                              }
-   
-                              .title{
-                               font-size: 14px;
-                               font-weight: bold;
-                               color: #F5B335;
-                               margin: 10px;
-                              }
-   
-                              table {
-                               font-size: 8px;
-                               border-collapse: collapse;
-                               width: 100%;
-   
-                             }
-                             
-                             td, th {
-                               border: 1px solid #dddddd;
-                               text-align: left;
-                               padding: 5px;
-                             }
-   
-                             tr:nth-child(even) {
-                               background-color: #dddddd;
-                             }
-   
-                             th {
-                               padding-top: 12px;
-                               padding-bottom: 12px;
-                               text-align: center;
-                               background-color: #00BBB4;
-                               color: white;
-                             }
+
+                           .textObj {
+                             margin-bottom: -10px;
+                             font-size: 11px;
+                             display: flex;
+                             align-content: center;
+                           }
+
+                           .title{
+                            font-size: 14px;
+                            color: black;
+                            margin: 10px;
+                           }
+
+                           table {
+                            font-family: Roboto;
+                            font-size: 9px;
+                            border-collapse: collapse;
+                            width: 100%;
+                            color: #505050;
+                          }
+                          
+                          td, th {
+                            border: 1px solid #dddddd;
+                            text-align: left;
+                            padding: 5px;
+                          }
+
+                          tr:nth-child(even) {
+                            background-color: #dddddd;
+                          }
+
+                          th {
+                            padding-top: 12px;
+                            padding-bottom: 12px;
+                            text-align: center;
+                            background-color: #00BBB4;
+                            color: white;
+                          }
+
    
                              tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
                            </style>

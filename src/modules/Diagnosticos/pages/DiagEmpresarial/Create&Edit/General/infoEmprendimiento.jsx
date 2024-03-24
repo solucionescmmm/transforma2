@@ -756,7 +756,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strRegistroCamaraComercio}
                             name="objInfoEmprendimiento.strRegistroCamaraComercio"

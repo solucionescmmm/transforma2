@@ -25,7 +25,7 @@ import {
     LinearProgress,
     Container,
     TextField,
-    MenuItem,
+    // MenuItem,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -131,7 +131,7 @@ const CUSesion = ({
         bitFinalizarSesion: false,
     });
 
-    const [dataObj, setDataObj] = useState([]);
+    // const [dataObj, setDataObj] = useState([]);
 
     const [success, setSucces] = useState(false);
 
@@ -275,15 +275,15 @@ const CUSesion = ({
             );
 
             if (objFase) {
-                const { arrServicios } = objFase;
+                // const { arrServicios } = objFase;
 
-                const objServicio = arrServicios.find(
-                    (x) => x.intIdServicio === intIdServicio
-                );
+                // const objServicio = arrServicios.find(
+                //     (x) => x.intIdServicio === intIdServicio
+                // );
 
-                const { arrObjetivos } = objServicio;
+                // const { arrObjetivos } = objServicio;
 
-                setDataObj(arrObjetivos);
+                // setDataObj(arrObjetivos);
             }
         }
     }, [dataRutas]);

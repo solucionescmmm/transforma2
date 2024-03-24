@@ -202,6 +202,7 @@ const ModalMediosDigitales = ({
                         id="chip-components-mediosDigitales"
                         name={name}
                         disabled={disabled}
+                        readOnly
                         sx={{ flexWrap: "wrap" }}
                         startAdornment={value.map((e, i) => (
                             <Chip
@@ -220,6 +221,7 @@ const ModalMediosDigitales = ({
                         name={name}
                         id="chip-components-mediosDigitales"
                         placeholder="Haz clic para seleccionar"
+                        readOnly
                         disabled={disabled}
                     />
                 )}
