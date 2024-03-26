@@ -400,6 +400,158 @@ class daoDiagnosticoTecnicas {
         }
     }
 
+    async getDiagnosticoTecnicasNivel(data){
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`DECLARE @p_intIdDiagnostico INT
+            SET @p_intIdDiagnostico=${data.intIdDiagnostico}
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strCaractEmpresaComp,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strCaractEmpresaComp
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='CaractEmpresaComp'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strAnalizoObjetivoEmpresa,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strAnalizoObjetivoEmpresa
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='AnalizoObjetivoEmpresa'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strAnalizoCompetiEmpresa,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strAnalizoCompetiEmpresa
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='AnalizoCompetiEmpresa'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strDefineDiscursoComercialClientes,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strDefineDiscursoComercialClientes
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='DefineDiscursoComercialClientes'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strPlanAtraccionRelacionamientoFidelizacionClientes,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strPlanAtraccionRelacionamientoFidelizacionClientes
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='PlanAtraccionRelacionamientoFidelizacionClientes'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strFormatosGestionComercial,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strFormatosGestionComercial
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='FormatosGestionComercial'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strTieneBaseDatosClientes,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strTieneBaseDatosClientes
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='TieneBaseDatosClientes'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strDefiniPortProd,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strDefiniPortProd
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='DefiniPortProd'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strTieneLogisticaTransporteClientes,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strTieneLogisticaTransporteClientes
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='TieneLogisticaTransporteClientes'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strPartiRedesEmpreComer,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strPartiRedesEmpreComer
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='PartiRedesEmpreComer'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strPreseMedDigital,'Mercadeo Comercial' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strPreseMedDigital
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='PreseMedDigital'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strGradoIntervProdServi,'Tecnico Productivo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strGradoIntervProdServi
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='GradoIntervProdServi'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strProcProdEst,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strProcProdEst
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='ProcProdEst'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strDefProcComProv,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strDefProcComProv
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='DefProcComProv'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strContrlRegInv,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strContrlRegInv
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='ContrlRegInv'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strConoceTiemposProduccionReferencias,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strConoceTiemposProduccionReferencias
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='ConoceTiemposProduccionReferencias'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strDeterminaNumUnidadesInventario,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strDeterminaNumUnidadesInventario
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='DeterminaNumUnidadesInventario'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strProcesoProductivoLoRealiza,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strProcesoProductivoLoRealiza
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='ProcesoProductivoLoRealiza'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strCapacidadRespuestaTerceros,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strCapacidadRespuestaTerceros
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='CapacidadRespuestaTerceros'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strEstadTecProd,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strEstadTecProd
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='EstadTecProd'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strEquipNecDesProdServi,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strEquipNecDesProdServi
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='EquipNecDesProdServi'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strProcManAmbiProd,'Tecnico Productivo'  FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strProcManAmbiProd
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='ProcManAmbiProd'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strUniProdSosFinan,'Contable Financiero' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strUniProdSosFinan
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='UniProdSosFinan'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strDefProcConUniProd,'Contable Financiero' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strDefProcConUniProd
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='DefProcConUniProd'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strElabPresUniProd,'Contable Financiero' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strElabPresUniProd
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='ElabPresUniProd'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strAdminDinUniProd,'Contable Financiero' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strAdminDinUniProd
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='AdminDinUniProd'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strUniProdGenEmple,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strUniProdGenEmple
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='UniProdGenEmple'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strEquipTrabEstruct,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strEquipTrabEstruct
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='EquipTrabEstruct'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strEstrucFormaOrganiza,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strEstrucFormaOrganiza
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='EstrucFormaOrganiza'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strElabPlanTrabActiv,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strElabPlanTrabActiv
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='ElabPlanTrabActiv'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strReaEvalPerioEquipTrab,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strReaEvalPerioEquipTrab
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='ReaEvalPerioEquipTrab'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strEmprFormaAcuerNormLab,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strEmprFormaAcuerNormLab
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='EmprFormaAcuerNormLab'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strEmprFormaReqLey,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strEmprFormaReqLey
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='EmprFormaReqLey'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strPlaneaEstraEmpPlanPlani,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strPlaneaEstraEmpPlanPlani
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='PlaneaEstraEmpPlanPlani'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strMidConstCumpliMetObj,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strMidConstCumpliMetObj
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='MidConstCumpliMetObj'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strCueAcompJuri,'Administrativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strCueAcompJuri
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='CueAcompJuri'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strPartReuPerioSociSoli,'Asociativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strPartReuPerioSociSoli
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='PartReuPerioSociSoli'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strConApliEstOrgSociSoli,'Asociativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strConApliEstOrgSociSoli
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='ConApliEstOrgSociSoli'
+            
+            SELECT intIdDiagnostico,strGrupo,strDescripcion as strPregunta,strCodigo,strNivel,strAsociEmpoOrgAdmin,'Asociativo' FROM tbl_Listas L INNER JOIN tbl_DiagnosticoCompetenciasTecnicas D ON L.strCodigoRetorno= D.strAsociEmpoOrgAdmin
+            WHERE intIdDiagnostico=@p_intIdDiagnostico AND strGrupo='DiagnosticoTecnico' AND strCodigo='AsociEmpoOrgAdmin'`
+    
+            let arrNewData = response.recordsets;
+    
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+    
+            sql.close(conexion);
+    
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getDiagnosticoTecnicas de la clase daoDiagnosticoTecnicas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getResultDiagnosticoTecnicas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();

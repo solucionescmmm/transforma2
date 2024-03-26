@@ -38,6 +38,12 @@ class interfaceDAODiagnosticoTecnicas {
         return result;
     }
 
+    async getDiagnosticoTecnicasNivel(data) {
+        const dao = new classDaoSql();
+        let result = await dao.getDiagnosticoTecnicasNivel(data);
+        return result;
+    }
+
     async getResultDiagnosticoTecnicas(data) {
         const dao = new classDaoSql();
         let result = await dao.getResultDiagnosticoTecnicas(data);

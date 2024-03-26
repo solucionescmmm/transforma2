@@ -5,7 +5,7 @@ const validator = require("validator").default;
 //service
 const serviceGetEmpresario = require("../../../../Empresarios/domian/getEmpresario.service")
 
-const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
+const getDiagnosticoTecnicasInforme = async (objParams, strDataUser) => {
     let { intId, intIdDiagnostico } = objParams;
 
     if (!intIdDiagnostico) {
@@ -151,6 +151,7 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     strCapacidadRespuestaTercerosDetalle: array[i]?.strCapacidadRespuestaTercerosDetalle,
                     strCapacidadRespuestaTercerosNivel: arrDataNiveles?.data?.flat().find(objeto => objeto['strCapacidadRespuestaTerceros'])?.strNivel
                 };
+
                 let objInfoComFinanciero = {
                     strUniProdSosFinan: array[i]?.strUniProdSosFinan,
                     strUniProdSosFinanDetalle: array[i]?.strUniProdSosFinanDetalle,
@@ -171,6 +172,7 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     strAdminDinUniProdDetalle: array[i]?.strAdminDinUniProdDetalle,
                     strAdminDinUniProdNivel: arrDataNiveles?.data?.flat().find(objeto => objeto['strAdminDinUniProd'])?.strNivel
                 };
+
                 let objInfoComAdministrativo = {
                     strUniProdGenEmple: array[i]?.strUniProdGenEmple,
                     strUniProdGenEmpleDetalle: array[i]?.strUniProdGenEmpleDetalle,
@@ -203,6 +205,7 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     strCueAcompJuriDetalle: array[i]?.strCueAcompJuriDetalle,
                     strCueAcompJuriNivel: arrDataNiveles?.data?.flat().find(objeto => objeto['strCueAcompJuri'])?.strNivel,
                 };
+
                 let objInfoComAsociativo = {
                     strPartReuPerioSociSoli: array[i]?.strPartReuPerioSociSoli,
                     strPartReuPerioSociSoliDetalle: array[i]?.strPartReuPerioSociSoliDetalle,
@@ -215,6 +218,316 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     strAsociEmpoOrgAdminNivel: arrDataNiveles?.data?.flat().find(objeto => objeto['strAsociEmpoOrgAdmin'])?.strNivel,
                 };
 
+                const objMercadeoBajo = []
+                const objMercadeoMedio = []
+                const objMercadeoAlto = []
+
+                const objProductivoBajo = []
+                const objProductivoMedio = []
+                const objProductivoAlto = []
+
+                const objFinancieroBajo = []
+                const objFinancieroMedio = []
+                const objFinancieroAlto = []
+
+                const objAdministrativoBajo = []
+                const objAdministrativoMedio = []
+                const objAdministrativoAlto = []
+
+                const objAsociativoBajo = []
+                const objAsociativoMedio = []
+                const objAsociativoAlto = []
+
+                for (const key in objInfoComMercadeo) {
+                    if (
+                        Object.hasOwnProperty.call(
+                            objInfoComMercadeo,
+                            key
+                        )
+                    ) {
+                        if (
+                            objInfoComMercadeo[`${key}Nivel`] ===
+                            "BAJO"
+                        ) {
+                            objMercadeoBajo.push({
+                                parent: key,
+                                value: objInfoComMercadeo[key],
+                                detalle:
+                                    objInfoComMercadeo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComMercadeo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComMercadeo[`${key}Nivel`] ===
+                            "MEDIO"
+                        ) {
+                            objMercadeoMedio.push({
+                                parent: key,
+                                value: objInfoComMercadeo[key],
+                                detalle:
+                                    objInfoComMercadeo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComMercadeo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComMercadeo[`${key}Nivel`] ===
+                            "ALTO"
+                        ) {
+                            objMercadeoAlto.push({
+                                parent: key,
+                                value: objInfoComMercadeo[key],
+                                detalle:
+                                    objInfoComMercadeo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComMercadeo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                    }
+                }
+
+                for (const key in objInfoComProductivo) {
+                    if (
+                        Object.hasOwnProperty.call(
+                            objInfoComProductivo,
+                            key
+                        )
+                    ) {
+                        if (
+                            objInfoComProductivo[`${key}Nivel`] ===
+                            "BAJO"
+                        ) {
+                            objProductivoBajo.push({
+                                parent: key,
+                                value: objInfoComProductivo[key],
+                                detalle:
+                                    objInfoComProductivo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComProductivo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComProductivo[`${key}Nivel`] ===
+                            "MEDIO"
+                        ) {
+                            objProductivoMedio.push({
+                                parent: key,
+                                value: objInfoComProductivo[key],
+                                detalle:
+                                    objInfoComProductivo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComProductivo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComProductivo[`${key}Nivel`] ===
+                            "ALTO"
+                        ) {
+                            objProductivoAlto.push({
+                                parent: key,
+                                value: objInfoComProductivo[key],
+                                detalle:
+                                    objInfoComProductivo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComProductivo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                    }
+                }
+
+                for (const key in objInfoComFinanciero) {
+                    if (
+                        Object.hasOwnProperty.call(
+                            objInfoComFinanciero,
+                            key
+                        )
+                    ) {
+                        if (
+                            objInfoComFinanciero[`${key}Nivel`] ===
+                            "BAJO"
+                        ) {
+                            objFinancieroBajo.push({
+                                parent: key,
+                                value: objInfoComFinanciero[key],
+                                detalle:
+                                    objInfoComFinanciero[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComFinanciero[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComFinanciero[`${key}Nivel`] ===
+                            "MEDIO"
+                        ) {
+                            objFinancieroMedio.push({
+                                parent: key,
+                                value: objInfoComFinanciero[key],
+                                detalle:
+                                    objInfoComFinanciero[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComFinanciero[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComFinanciero[`${key}Nivel`] ===
+                            "ALTO"
+                        ) {
+                            objFinancieroAlto.push({
+                                parent: key,
+                                value: objInfoComFinanciero[key],
+                                detalle:
+                                    objInfoComFinanciero[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComFinanciero[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                    }
+                }
+
+                for (const key in objInfoComAdministrativo) {
+                    if (
+                        Object.hasOwnProperty.call(
+                            objInfoComAdministrativo,
+                            key
+                        )
+                    ) {
+                        if (
+                            objInfoComAdministrativo[`${key}Nivel`] ===
+                            "BAJO"
+                        ) {
+                            objAdministrativoBajo.push({
+                                parent: key,
+                                value: objInfoComAdministrativo[key],
+                                detalle:
+                                    objInfoComAdministrativo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComAdministrativo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComAdministrativo[`${key}Nivel`] ===
+                            "MEDIO"
+                        ) {
+                            objAdministrativoMedio.push({
+                                parent: key,
+                                value: objInfoComAdministrativo[key],
+                                detalle:
+                                    objInfoComAdministrativo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComAdministrativo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComAdministrativo[`${key}Nivel`] ===
+                            "ALTO"
+                        ) {
+                            objAdministrativoAlto.push({
+                                parent: key,
+                                value: objInfoComAdministrativo[key],
+                                detalle:
+                                    objInfoComAdministrativo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComAdministrativo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                    }
+                }
+
+                for (const key in objInfoComAsociativo) {
+                    if (
+                        Object.hasOwnProperty.call(
+                            objInfoComAsociativo,
+                            key
+                        )
+                    ) {
+                        if (
+                            objInfoComAsociativo[`${key}Nivel`] ===
+                            "BAJO"
+                        ) {
+                            objAsociativoBajo.push({
+                                parent: key,
+                                value: objInfoComAsociativo[key],
+                                detalle:
+                                    objInfoComAsociativo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComAsociativo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComAsociativo[`${key}Nivel`] ===
+                            "MEDIO"
+                        ) {
+                            objAsociativoMedio.push({
+                                parent: key,
+                                value: objInfoComAsociativo[key],
+                                detalle:
+                                    objInfoComAsociativo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComAsociativo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                        if (
+                            objInfoComAsociativo[`${key}Nivel`] ===
+                            "ALTO"
+                        ) {
+                            objAsociativoAlto.push({
+                                parent: key,
+                                value: objInfoComAsociativo[key],
+                                detalle:
+                                    objInfoComAsociativo[
+                                    `${key}Detalle`
+                                    ],
+                                nivel: objInfoComAsociativo[
+                                    `${key}Nivel`
+                                ],
+                            });
+                        }
+                    }
+                }
+
                 data[i] = {
                     objInfoGeneral,
                     objInfoComMercadeo,
@@ -222,6 +535,21 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     objInfoComFinanciero,
                     objInfoComAdministrativo,
                     objInfoComAsociativo,
+                    objMercadeoBajo,
+                    objMercadeoMedio,
+                    objMercadeoAlto,
+                    objProductivoBajo,
+                    objProductivoMedio,
+                    objProductivoAlto,
+                    objFinancieroBajo,
+                    objFinancieroMedio,
+                    objFinancieroAlto,
+                    objAdministrativoBajo,
+                    objAdministrativoMedio,
+                    objAdministrativoAlto,
+                    objAsociativoBajo,
+                    objAsociativoMedio,
+                    objAsociativoAlto,
                     arrayTecnicas,
                 };
             }
@@ -236,4 +564,4 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
 
     return arrayData;
 };
-module.exports = getDiagnosticoTecnicas;
+module.exports = getDiagnosticoTecnicasInforme;
