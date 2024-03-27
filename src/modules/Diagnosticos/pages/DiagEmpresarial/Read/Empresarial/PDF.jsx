@@ -19,7 +19,12 @@ import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresario
 // Register Font
 Font.register({
     family: "Roboto",
-    src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+    fonts: [
+        {src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf", fontStyle: 'normal', fontWeight: 'thin'},
+        {src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf", fontStyle: 'normal', fontWeight: 'normal'},
+        { src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf", fontStyle: "italic" },
+        { src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf", fontStyle: "bold" },
+    ],
 });
 
 const styles = StyleSheet.create({
@@ -43,23 +48,27 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: "14px",
         color: "#00BBB4",
+        fontFamily: "Roboto",
     },
     footerTitle: {
         textAlign: "center",
         fontSize: "10px",
         color: "#00BBB4",
         marginTop: "55px",
+        fontFamily: "Roboto",
     },
     footerContact: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
         marginTop: "10px",
+        fontFamily: "Roboto",
     },
     footerPhoneEmail: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
+        fontFamily: "Roboto",
     },
     pageNumber: {
         position: "absolute",
@@ -133,7 +142,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                    .map(
                        (e) => `<tr>
                    <td>${e.label}</td>
-                   <td>${e.value}</td>
+                   <td>${e.value || "No diligenciado"}</td>
                   
                </tr>
                `
@@ -161,7 +170,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                    .map(
                        (e) => `<tr>
                    <td>${e.label}</td>
-                   <td>${e.value}</td>
+                   <td>${e.value || "No diligenciado"}</td>
                   
                </tr>
                `
@@ -200,7 +209,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                    .map(
                        (e) => `<tr>
                    <td>${e.label}</td>
-                   <td>${e.value}</td>
+                   <td>${e.value || "No diligenciado"}</td>
                   
                </tr>
                `
@@ -255,14 +264,22 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         {`
                         <html>
                         <style>
-                         
+                        div {
+                            font-family: Roboto;
+                        }
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
                            }
 
+                           h5 {
+                            font-family: Roboto;
+                        }
+
                            p {
-                               font-size: 11px;
+                            font-size: 11px;
+                            font-family: Roboto;
+                            color: #505050;
                            }
 
                            ol {
@@ -274,24 +291,25 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            }
 
                            .textObj {
-                             margin: 2px;
-                             font-size: 11px;
-                             display: flex;
-                             align-content: center;
-                           }
+                            margin-bottom: -10px;
+                            font-size: 11px;
+                            display: flex;
+                            align-content: center;
+                          }
 
-                           .title{
-                            font-size: 14px;
-                            font-weight: bold;
-                            color: #F5B335;
-                            margin: 10px;
-                           }
+                          .title{
+                           font-size: 14px;
+                           color: black;
+                           margin: 10px;
+                          }
 
-                           table {
-                            font-size: 8px;
+
+                          table {
+                            font-family: Roboto;
+                            font-size: 9px;
                             border-collapse: collapse;
                             width: 100%;
-
+                            color: #505050;
                           }
                           
                           td, th {
@@ -320,34 +338,57 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         <hr />
 
                         <p class="pMargin">
-                        <span style="color: #00BBB4">${
-                            objEmpresario?.strTipoDocto
-                        }: </span>
-                        ${objEmpresario?.strNroDocto}
-                    </p>
-
-                    <p class="pMargin">
-                        <span style="color: #00BBB4">Nombre: </span>
-                         ${objEmpresario?.strNombres}  ${
-                            objEmpresario?.strApellidos
-                        }
-                    </p>
-
-                    <p class="pMargin">
                         <span style="color: #00BBB4">Empresa: </span>
                          ${objEmpresa?.strNombreMarca} 
-                    </p>
+                        </p>
 
-                    <p>
-                        <span style="color: #00BBB4">Fecha de descarga: </span>
-                         ${new Date().toLocaleDateString("es-ES")} 
-                    </p>
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Representante: </span>
+                         ${objEmpresario?.strNombreCompleto}
+                        </p>
 
-                    <div style="font-size: 12px">
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Categoría: </span>
+                         ${objEmpresa?.strCategoriaProducto}
+                        </p>
+
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Descripción: </span>
+                         ${objEmpresa?.strDescProductosServicios}
+                        </p>
+
+                        <p class="pMargin">
+                            <span style="color: #00BBB4">Fecha y hora de la sesión: </span>
+                             ${
+                                 values?.objInfoGeneral?.find(
+                                     (v) => v.parent === "dtmFechaSesion"
+                                 )?.value
+                             } 
+                        </p>
+
+                        <p class="pMargin">
+                            <span style="color: #00BBB4">Responsable del diagnóstico: </span>
+                            ${
+                                values?.objInfoGeneral?.find(
+                                    (v) => v.parent === "strUsuarioCreacion"
+                                )?.value
+                            } 
+                        </p>
+
+                        <p class="pMargin">
+                            <span style="color: #00BBB4">Lugar de la sesión: </span>
+                            ${
+                                values?.objInfoGeneral?.find(
+                                    (v) => v.parent === "strLugarSesion"
+                                )?.value
+                            } 
+                        </p>
+
+                    <p style="font-family: Roboto; color: #505050; font-size: 11px">
                     A continuación, te presentamos el resumen de las respuestas recopiladas durante el diagnóstico. La información estará organizada en las siguientes secciones:
-                    </div>
+                    </p>
 
-                    <ol>
+                    <ol style="font-family: Roboto; color: #505050; font-size: 11px">
                        <li>Detalles sobre la estructura familiar.</li>
                        <li>Información general de la empresa.</li>
                        <li>Perfil económico y productivo.</li>

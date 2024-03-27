@@ -9,7 +9,7 @@ import {
     Image,
     Document,
     StyleSheet,
-    Font
+    Font,
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";
@@ -19,7 +19,26 @@ import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresario
 // Register Font
 Font.register({
     family: "Roboto",
-    src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+    fonts: [
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "thin",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "normal",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf",
+            fontStyle: "italic",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
+            fontStyle: "bold",
+        },
+    ],
 });
 
 const styles = StyleSheet.create({
@@ -43,23 +62,27 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: "14px",
         color: "#00BBB4",
+        fontFamily: "Roboto",
     },
     footerTitle: {
         textAlign: "center",
         fontSize: "10px",
         color: "#00BBB4",
         marginTop: "55px",
+        fontFamily: "Roboto",
     },
     footerContact: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
         marginTop: "10px",
+        fontFamily: "Roboto",
     },
     footerPhoneEmail: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
+        fontFamily: "Roboto",
     },
     pageNumber: {
         position: "absolute",
@@ -69,6 +92,7 @@ const styles = StyleSheet.create({
         right: 0,
         textAlign: "center",
         color: "grey",
+        fontFamily: "Roboto",
     },
 });
 
@@ -107,7 +131,7 @@ const PDFProduct = ({ intId, values }) => {
 
         let htmlCompetencias = "";
 
-        if(values?.objInfoEncuestaHumanas) {
+        if (values?.objInfoEncuestaHumanas) {
             htmlCompetencias = `
             <div>
                 <p class="title">
@@ -144,7 +168,6 @@ const PDFProduct = ({ intId, values }) => {
         //     </p>`)
         // );
 
-
         setHtmlInfoEncuestaHumanas(htmlCompetencias);
 
         setLoading(true);
@@ -168,7 +191,9 @@ const PDFProduct = ({ intId, values }) => {
 
     return (
         <PDFViewer width="100%" height="100%">
-            <Document title={`Diagnostico de competencias humanas - ${objEmpresario.strNroDocto} - ${objEmpresa.strNombreMarca}`}>
+            <Document
+                title={`Diagnostico de competencias humanas - ${objEmpresario.strNroDocto} - ${objEmpresa.strNombreMarca}`}
+            >
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
@@ -180,13 +205,23 @@ const PDFProduct = ({ intId, values }) => {
                         {`
                         <html>
                         <style>
+                        div {
+                            font-family: Roboto;
+                        }
+
+                        h5 {
+                            font-family: Roboto;
+                        }
+
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
                            }
 
                            p {
-                               font-size: 11px;
+                                 font-size: 11px;
+                            font-family: Roboto;
+                            color: #505050;
                            }
 
                            .pMargin {
@@ -208,10 +243,11 @@ const PDFProduct = ({ intId, values }) => {
                            }
 
                            table {
-                            font-size: 8px;
+                            font-family: Roboto;
+                            font-size: 9px;
                             border-collapse: collapse;
                             width: 100%;
-
+                            color: #505050;
                           }
                           
                           td, th {
@@ -239,29 +275,53 @@ const PDFProduct = ({ intId, values }) => {
                         <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
                         <hr />
 
-                            <p class="pMargin">
-                                <span style="color: #00BBB4">${
-                                    objEmpresario?.strTipoDocto
-                                }: </span>
-                                ${objEmpresario?.strNroDocto}
-                            </p>
+                          
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Empresa: </span>
+                         ${objEmpresa?.strNombreMarca} 
+                        </p>
 
-                            <p class="pMargin">
-                                <span style="color: #00BBB4">Nombre: </span>
-                                 ${objEmpresario?.strNombres}  ${
-                            objEmpresario?.strApellidos
-                        }
-                            </p>
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Representante: </span>
+                         ${objEmpresario?.strNombreCompleto}
+                        </p>
 
-                            <p class="pMargin">
-                                <span style="color: #00BBB4">Empresa: </span>
-                                 ${objEmpresa?.strNombreMarca} 
-                            </p>
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Categoría: </span>
+                         ${objEmpresa?.strCategoriaProducto}
+                        </p>
 
-                            <p>
-                                <span style="color: #00BBB4">Fecha de descarga: </span>
-                                 ${new Date().toLocaleDateString("es-ES")} 
-                            </p>
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Descripción: </span>
+                         ${objEmpresa?.strDescProductosServicios}
+                        </p>
+
+                        <p class="pMargin">
+                            <span style="color: #00BBB4">Fecha y hora de la sesión: </span>
+                             ${
+                                 values?.objInfoGeneral?.find(
+                                     (v) => v.parent === "dtmFechaSesion"
+                                 )?.value
+                             } 
+                        </p>
+
+                        <p class="pMargin">
+                            <span style="color: #00BBB4">Responsable del diagnóstico: </span>
+                            ${
+                                values?.objInfoGeneral?.find(
+                                    (v) => v.parent === "strUsuarioCreacion"
+                                )?.value
+                            } 
+                        </p>
+
+                        <p class="pMargin">
+                            <span style="color: #00BBB4">Lugar de la sesión: </span>
+                            ${
+                                values?.objInfoGeneral?.find(
+                                    (v) => v.parent === "strLugarSesion"
+                                )?.value
+                            } 
+                        </p>
 
                             <h5 class="pMargin"> <span style="color: #00BBB4">Competencias Humanas </span></h5>
                             <hr />

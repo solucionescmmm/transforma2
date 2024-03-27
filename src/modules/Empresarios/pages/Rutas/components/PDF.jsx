@@ -29,12 +29,32 @@ import useGetRutas from "../../../hooks/useGetRutas";
 // Register Font
 Font.register({
     family: "Roboto",
-    src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+    fonts: [
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "thin",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "normal",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf",
+            fontStyle: "italic",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
+            fontStyle: "bold",
+        },
+    ],
 });
 
 const styles = StyleSheet.create({
     page: {
         flexDirection: "column",
+        fontFamily: "Roboto",
     },
     BGImg: {
         width: "100vw",
@@ -50,6 +70,7 @@ const styles = StyleSheet.create({
         left: "540",
         width: "300px",
         bottom: "0",
+        fontFamily: "Roboto",
     },
     BG1Desc1: {
         textAlign: "center",
@@ -59,6 +80,7 @@ const styles = StyleSheet.create({
         top: "390",
         left: "490",
         bottom: "0",
+        fontFamily: "Roboto",
     },
     BG1Desc2: {
         textAlign: "center",
@@ -68,6 +90,7 @@ const styles = StyleSheet.create({
         top: "420",
         left: "490",
         bottom: "0",
+        fontFamily: "Roboto",
     },
     BG1Desc3: {
         textAlign: "center",
@@ -77,6 +100,7 @@ const styles = StyleSheet.create({
         top: "450",
         left: "490",
         bottom: "0",
+        fontFamily: "Roboto",
     },
     BG1Desc4: {
         textAlign: "center",
@@ -86,6 +110,7 @@ const styles = StyleSheet.create({
         top: "480",
         left: "490",
         bottom: "0",
+        fontFamily: "Roboto",
     },
     BG1Desc5: {
         textAlign: "center",
@@ -95,6 +120,7 @@ const styles = StyleSheet.create({
         top: "510",
         left: "490",
         bottom: "0",
+        fontFamily: "Roboto",
     },
     BG2Title: {
         textAlign: "center",
@@ -106,6 +132,7 @@ const styles = StyleSheet.create({
         left: "10",
         width: "400px",
         bottom: "0",
+        fontFamily: "Roboto",
     },
     BG2Desc1: {
         position: "absolute",
@@ -116,6 +143,7 @@ const styles = StyleSheet.create({
         bottom: "0",
         width: "350px",
         lineHeight: 2,
+        fontFamily: "Roboto",
     },
     logoHeader: {
         width: "100vw",
@@ -166,14 +194,36 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                     const {
                         objPaquete,
                         intDuracionHorasTotalPaquete,
-                        arrObjetivos,
+                        // arrObjetivos,
                     } = arrPaquetes[j];
 
                     let htmlResultado = "";
 
-                    arrObjetivos?.forEach((o) => {
-                        htmlResultado = htmlResultado + "\n" + o.strNombre;
-                    });
+                    if (objPaquete) {
+                        const { objInfoPrincipal } = objPaquete;
+
+                        if (
+                            objInfoPrincipal?.arrServicios &&
+                            objInfoPrincipal?.arrServicios.length > 0
+                        ) {
+                            htmlResultado = "<ol>";
+
+                            for (let k = 0; k < arrServicios?.length; k++) {
+                                const { arrModulos } = arrServicios[k];
+
+                                // eslint-disable-next-line no-loop-func
+                                arrModulos?.forEach((modulo) => {
+                                    htmlResultado += `<li>${modulo.strEntregables}</li>`;
+                                });
+                            }
+
+                            htmlResultado += "</ol>";
+                        }
+                    }
+
+                    // arrObjetivos?.forEach((o) => {
+                    //     htmlResultado = htmlResultado + "\n" + o.strNombre;
+                    // });
 
                     const dataTable = {
                         strComp: objPaquete?.objInfoPrincipal?.strNombre,
@@ -189,16 +239,22 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                     const {
                         objServicio,
                         intDuracionHorasTotalServicio,
-                        arrObjetivos,
+                        // arrObjetivos,
                         ValorTotalServicio,
                     } = arrServicios[j];
 
                     if (ValorTotalServicio) {
-                        let htmlResultado = "";
+                        let htmlResultado = "<ol>";
 
-                        arrObjetivos?.forEach((o) => {
-                            htmlResultado = htmlResultado + "\n" + o.strNombre;
+                        // arrObjetivos?.forEach((o) => {
+                        //     htmlResultado += `<li>${o.strNombre}</li>`;
+                        // });
+
+                        objServicio?.arrModulos?.forEach((modulo) => {
+                            htmlResultado += `<li>${modulo.strEntregables}</li>`;
                         });
+
+                        htmlResultado += "</ol>";
 
                         const dataTable = {
                             strComp: objServicio?.objInfoPrincipal?.strNombre,
@@ -326,7 +382,7 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                         continuación y si tienes alguna duda, llámame para
                         brindarte una oportuna asesoría e iniciar pronto este
                         maravilloso proceso.{"\n"}
-                        {"\n"} ¡Espero te animes a dar este gran paso! Saludos,
+                        {"\n"} ¡Espero te animes a dar este gran paso! Saludos.
                     </Text>
                 </Page>
                 <Page size="A4" style={styles.page} orientation="landscape">
@@ -351,6 +407,8 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                              font-size: 11px;
                              display: flex;
                              align-content: center;
+                             font-family: Roboto;
+                             color: #505050;
                            }
 
                            .title {
@@ -359,12 +417,15 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                             margin: 10px;
                             color: #F5B335;
                             text-align: center;
+                            font-family: Roboto;
                            }
 
                            table {
                             font-size: 12px;
                             border-collapse: collapse;
                             width: 100%;
+                            font-family: Roboto;
+                            color: #505050;
                           }
                           
                           td, th {

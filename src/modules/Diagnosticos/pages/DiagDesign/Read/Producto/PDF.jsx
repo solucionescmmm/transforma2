@@ -198,7 +198,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objInnovacionBajo
                     .map(
                         (e) =>
-                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -215,7 +215,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objPersepcionBajo
                     .map(
                         (e) =>
-                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -232,7 +232,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objExperienciaBajo
                     .map(
                         (e) =>
-                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -249,7 +249,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objMarcaBajo
                     .map(
                         (e) =>
-                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -270,7 +270,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objInnovacionMedio
                     .map(
                         (e) =>
-                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -287,7 +287,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objPersepcionMedio
                     .map(
                         (e) =>
-                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -304,7 +304,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objExperienciaMedio
                     .map(
                         (e) =>
-                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -321,7 +321,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objMarcaMedio
                     .map(
                         (e) =>
-                            `<div style="font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -342,7 +342,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             .map(
                                 (e) => `
                    
-                                <div style="font-size: 11px"><span style="color: #00BBB4">${
+                                <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>
                             `
@@ -366,7 +366,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         .map(
                             (e) => `
                         
-                            <div style="font-size: 11px"><span style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>
                         
@@ -386,7 +386,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     ${e.objEsteticaFortalezas
                         .map(
                             (e) => `         
-                            <div style="font-size: 11px"><span style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>
                         `
@@ -406,7 +406,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     ${e.objExperienciaFortalezas
                         .map(
                             (e) => `
-                            <div style="font-size: 11px"><span style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>
                         `
@@ -426,7 +426,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     ${e.objMarcaFortalezas
                         .map(
                             (e) => `
-                            <div style="font-size: 11px"><span style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>
                         `
@@ -484,9 +484,14 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             border-radius: 1px;
                            }
 
+                           h5 {
+                            font-family: Roboto;
+                        }
+
                            p {
                                font-size: 11px;
                                font-family: Roboto;
+                               color: #505050;
                            }
 
                            .pMargin {
@@ -507,10 +512,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            }
 
                            table {
-                            font-size: 8px;
+                            font-family: Roboto;
+                            font-size: 9px;
                             border-collapse: collapse;
                             width: 100%;
-
+                            color: #505050;
                           }
                           
                           td, th {
@@ -539,7 +545,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         </style>
 
                         <body>
-                        <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
                             <hr />
 
                             <p class="pMargin">
@@ -618,10 +624,15 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                               border: 1px solid gray;
                               border-radius: 1px;
                              }
+
+                             h5 {
+                                font-family: Roboto;
+                            }
   
                              p {
                                  font-size: 11px;
                                  font-family: Roboto;
+                                 color: #505050;
                              }
   
                              .pMargin {
@@ -643,10 +654,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                              }
   
                              table {
+                                font-family: Roboto;
                               font-size: 8px;
                               border-collapse: collapse;
                               width: 100%;
-  
                             }
                             
                             td, th {
@@ -701,6 +712,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         p {
                             font-size: 11px;
                             font-family: Roboto;
+                            color: #505050;
+                        }
+
+                        h5 {
+                            font-family: Roboto;
                         }
 
                         .pMargin {
@@ -726,10 +742,15 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                                border: 1px solid gray;
                                border-radius: 1px;
                               }
+
+                              h5 {
+                                font-family: Roboto;
+                            }
    
                               p {
                                font-size: 11px;
                                font-family: Roboto;
+                               color: #505050;
                            }
    
                               .pMargin {
@@ -750,9 +771,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                               }
    
                               table {
-                               font-size: 10px;
+                                font-family: Roboto;
+                               font-size: 9px;
                                border-collapse: collapse;
                                width: 100%;
+                               color: #505050;
    
                              }
                              

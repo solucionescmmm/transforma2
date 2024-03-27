@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-//Librerias
-import { matchSorter } from "match-sorter";
+// //Librerias
+// import { matchSorter } from "match-sorter";
 
 //Hooks
 import useGetUsers from "../hooks/useGetUsers";
