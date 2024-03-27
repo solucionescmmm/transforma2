@@ -99,7 +99,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     strOperacionesVentas6Meses:
                         array[i]?.strOperacionesVentas6Meses,
                     strEtapaValidacion: array[i]?.strEtapaValidacion,
-                    strPromedioVentas6Meses: array[i]?.strPromedioVentas6Meses,
+                    PromedioVentas6Meses: array[i]?.PromedioVentas6Meses,
                     strRangoVentas: array[i]?.strRangoVentas,
                     strRangoEmpleados: array[i]?.strRangoEmpleados,
                     strTipoEmpleoGenerado: array[i]?.strTipoEmpleoGenerado,

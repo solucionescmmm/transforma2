@@ -105,8 +105,8 @@ class updateDiagnosticoExpress {
                 this.#objData.objInfoPerfilEco.strOperacionesVentas6Meses,
             strEtapaValidacion:
                 this.#objData.objInfoPerfilEco.strEtapaValidacion,
-            strPromedioVentas6Meses:
-                this.#objData.objInfoPerfilEco.strPromedioVentas6Meses,
+            PromedioVentas6Meses:
+                this.#objData.objInfoPerfilEco.PromedioVentas6Meses,
             strRangoVentas: this.#objData.objInfoPerfilEco.strRangoVentas,
             strRangoEmpleados: this.#objData.objInfoPerfilEco.strRangoEmpleados,
             strTipoEmpleoGenerado:
