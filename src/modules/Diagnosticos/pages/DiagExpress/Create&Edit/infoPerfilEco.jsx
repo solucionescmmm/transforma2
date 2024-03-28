@@ -38,7 +38,7 @@ const InfoPerfilEco = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        strPromedioVentas6Meses: "",
+        PromedioVentas6Meses: "",
         strRangoVentas: "",
         strEscojaProductoServicio: "",
         ValorVentaProductoEscogido: "",
@@ -68,7 +68,7 @@ const InfoPerfilEco = ({
     useEffect(() => {
         if (values) {
             setData({
-                strPromedioVentas6Meses: values?.strPromedioVentas6Meses || "",
+                PromedioVentas6Meses: values?.PromedioVentas6Meses || "",
                 strRangoVentas: values?.strRangoVentas || "",
                 strEscojaProductoServicio: values?.strEscojaProductoServicio || "",
                 ValorVentaProductoEscogido: values?.ValorVentaProductoEscogido || "",
@@ -131,34 +131,40 @@ const InfoPerfilEco = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strPromedioVentas6Meses}
-                            name="objInfoPerfilEco.strPromedioVentas6Meses"
+                            defaultValue={data.PromedioVentas6Meses}
+                            name="objInfoPerfilEco.PromedioVentas6Meses"
                             render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
+                                <NumberFormat
                                     label="Promedio de ventas de los últimos 6 meses"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
                                     fullWidth
-                                    required
                                     variant="standard"
+                                    disabled={disabled}
+                                    required
                                     error={
-                                        errors?.objInfoPerfilEco?.strPromedioVentas6Meses
+                                        errors?.objInfoPerfilEco
+                                            ?.PromedioVentas6Meses
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.strPromedioVentas6Meses
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoPerfilEco
+                                            ?.PromedioVentas6Meses?.message ||
+                                        "Digita la cantidad promedio de las ventas de los últimos 6 meses"
                                     }
-                                    strGrupo="DiagnosticoGeneral"
-                                    strCodigo="PromedioVentas6Meses"
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona una opción",
+                                required: "Por favor, digita la cantidad promedio de las ventas de los últimos 6 meses",
                             }}
                         />
                     </Grid>

@@ -353,7 +353,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "¿En qué etapa de validación se encuentra tu producto?",
             },
             {
-                parent: "strPromedioVentas6Meses",
+                parent: "PromedioVentas6Meses",
                 value: "",
                 label: "Promedio de ventas de los últimos 6 meses",
             },
