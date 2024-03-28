@@ -386,7 +386,7 @@ const InfoPerfilEco = ({
                                     }}
                                     thousandSeparator={true}
                                     allowNegative={false}
-                                    prefix={"%"}
+                                    suffix="%"
                                     customInput={TextField}
                                     fullWidth
                                     variant="standard"
