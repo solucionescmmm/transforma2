@@ -280,8 +280,8 @@ const InfoEmpresa = ({
                                         errors?.objInfoEmpresa?.strTipoContribuyente
                                             ?.message || "Selecciona una opción"
                                     }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="TipoContribuyente"
                                 />
                             )}
                             control={control}
