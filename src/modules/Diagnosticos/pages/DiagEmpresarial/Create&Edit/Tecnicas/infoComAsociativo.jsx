@@ -23,6 +23,7 @@ import {
 
 //Componentes
 import SelectListas from "../../../../components/selectLista";
+import SelectListasNivel from "../../../../components/selectListasNivel";
 
 const InfoComMercadeo = ({
     disabled,
@@ -38,10 +39,13 @@ const InfoComMercadeo = ({
     const [data, setData] = useState({
         strPartReuPerioSociSoli: "",
         strPartReuPerioSociSoliDetalle: "",
+        strPartReuPerioSociSoliNivel: "",
         strConApliEstOrgSociSoli: "",
         strConApliEstOrgSociSoliDetalle: "",
+        strConApliEstOrgSociSoliNivel: "",
         strAsociEmpoOrgAdmin: "",
         strAsociEmpoOrgAdminDetalle: "",
+        strAsociEmpoOrgAdminNivel: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -56,17 +60,165 @@ const InfoComMercadeo = ({
                 strPartReuPerioSociSoli: values.strPartReuPerioSociSoli || "",
                 strPartReuPerioSociSoliDetalle:
                     values.strPartReuPerioSociSoliDetalle || "",
+                strPartReuPerioSociSoliNivel: "",
                 strConApliEstOrgSociSoli: values.strConApliEstOrgSociSoli || "",
                 strConApliEstOrgSociSoliDetalle:
                     values.strConApliEstOrgSociSoliDetalle || "",
+                strConApliEstOrgSociSoliNivel: "",
                 strAsociEmpoOrgAdmin: values.strAsociEmpoOrgAdmin || "",
                 strAsociEmpoOrgAdminDetalle:
                     values.strAsociEmpoOrgAdminDetalle || "",
+                strAsociEmpoOrgAdminNivel: "",
             });
         }
 
         setLoading(false);
     }, [values]);
+
+    const propiedades = [
+        {
+            name: "strPartReuPerioSociSoli",
+            label: "Participo en las reuniones periódicas de la organización social y solidaria (asociación)",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "PartReuPerioSociSoli",
+        },
+        {
+            name: "strPartReuPerioSociSoliDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "PartReuPerioSociSoli",
+        },
+        {
+            name: "strPartReuPerioSociSoliNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "PartReuPerioSociSoli",
+        },
+        {
+            name: "strConApliEstOrgSociSoli",
+            label: "Conozco y aplico estatutos de la organización social y solidaria",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ConApliEstOrgSociSoli",
+        },
+        {
+            name: "strConApliEstOrgSociSoliDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ConApliEstOrgSociSoli",
+        },
+        {
+            name: "strConApliEstOrgSociSoliNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ConApliEstOrgSociSoli",
+        },
+        {
+            name: "strAsociEmpoOrgAdmin",
+            label: "Los asociados están empoderados y cuentan con órganos de administración y control",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "AsociEmpoOrgAdmin",
+        },
+        {
+            name: "strAsociEmpoOrgAdminDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "AsociEmpoOrgAdmin",
+        },
+        {
+            name: "strAsociEmpoOrgAdminNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "AsociEmpoOrgAdmin",
+        },
+    ];
+
+    const handlerChangeData = (key, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [key]: value,
+        }));
+    };
+
+    const render = (datos) => {
+        return datos.map(({ nombre, label, strGrupo, strCodigo }) => (
+            <Grid
+                item
+                xs={12}
+                md={label === "Detalle" ? 3 : label === "Nivel" ? 2 : 7}
+            >
+                <Controller
+                    name={`objInfoComAsociativo.${nombre}`}
+                    defaultValue={data[nombre]}
+                    render={({ field: { name, value, onChange } }) =>
+                        label === "Detalle" ? (
+                            <TextField
+                                label={label}
+                                autoFocus
+                                name={name}
+                                value={value}
+                                disabled={disabled}
+                                onChange={(e) => onChange(e)}
+                                error={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ? true
+                                        : false
+                                }
+                                helperText={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ?.message ||
+                                    "Digita el detalle en caso de que aplique"
+                                }
+                                fullWidth
+                                variant="standard"
+                            />
+                        ) : label === "Nivel" ? (
+                            <SelectListasNivel
+                                label={label}
+                                name={name}
+                                value={value}
+                                valueList={data[nombre]}
+                                onChange={(e) => onChange(e)}
+                                error={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ? true
+                                        : false
+                                }
+                                helperText={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ?.message || "Nivel"
+                                }
+                                strGrupo={strGrupo}
+                                strCodigo={strCodigo}
+                            />
+                        ) : (
+                            <SelectListas
+                                label={label}
+                                name={name}
+                                value={value}
+                                disabled={disabled}
+                                onChange={(e) => {
+                                    onChange(e);
+                                    handlerChangeData(strGrupo, e.target.value);
+                                }}
+                                error={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ? true
+                                        : false
+                                }
+                                helperText={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ?.message || "Seleccione una opción"
+                                }
+                                strGrupo={strGrupo}
+                                strCodigo={strCodigo}
+                            />
+                        )
+                    }
+                    control={control}
+                />
+            </Grid>
+        ));
+    };
 
     if (loading) {
         return (
@@ -129,168 +281,7 @@ const InfoComMercadeo = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAsociativo.strPartReuPerioSociSoli"
-                            defaultValue={data.strPartReuPerioSociSoli}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Participo en las reuniones periódicas de la organización social y solidaria (asociación)"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAsociativo
-                                            ?.strPartReuPerioSociSoli
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAsociativo
-                                            ?.strPartReuPerioSociSoli
-                                            ?.message || "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="PartReuPerioSociSoli"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAsociativo.strPartReuPerioSociSoliDetalle"
-                            defaultValue={data.strPartReuPerioSociSoliDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Participo en las reuniones periódicas de la organización social y solidaria (asociación)"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAsociativo
-                                            ?.strPartReuPerioSociSoliDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAsociativo.strConApliEstOrgSociSoli"
-                            defaultValue={data.strConApliEstOrgSociSoli}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Conozco y aplico estatutos de la organización social y solidaria"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAsociativo
-                                            ?.strConApliEstOrgSociSoli
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAsociativo
-                                            ?.strConApliEstOrgSociSoli
-                                            ?.message || "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="ConApliEstOrgSociSoli"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAsociativo.strConApliEstOrgSociSoliDetalle"
-                            defaultValue={data.strConApliEstOrgSociSoliDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Conozco y aplico estatutos de la organización social y solidaria"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAsociativo
-                                            ?.strConApliEstOrgSociSoliDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAsociativo.strAsociEmpoOrgAdmin"
-                            defaultValue={data.strAsociEmpoOrgAdmin}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Los asociados están empoderados y cuentan con órganos de administración y control"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAsociativo
-                                            ?.strAsociEmpoOrgAdmin
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAsociativo
-                                            ?.strAsociEmpoOrgAdmin?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="AsociEmpoOrgAdmin"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAsociativo.strAsociEmpoOrgAdminDetalle"
-                            defaultValue={data.strAsociEmpoOrgAdminDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Los asociados están empoderados y cuentan con órganos de administración y control"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAsociativo
-                                            ?.strAsociEmpoOrgAdminDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
+                    {render(propiedades)}
                 </Grid>
             </Collapse>
         </Fragment>

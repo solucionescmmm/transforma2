@@ -23,6 +23,7 @@ import {
 
 //Componentes
 import SelectListas from "../../../../components/selectLista";
+import SelectListasNivel from "../../../../components/selectListasNivel";
 
 const InfoComMercadeo = ({
     disabled,
@@ -38,16 +39,22 @@ const InfoComMercadeo = ({
     const [data, setData] = useState({
         strUniProdSosFinan: "",
         strUniProdSosFinanDetalle: "",
+        strUniProdSosFinanNivel: "",
         strEstrCosUniProdDef: "",
         strEstrCosUniProdDefDetalle: "",
+        strEstrCosUniProdDefNivel: "",
         strPrecProdServDef: "",
         strPrecProdServDefDetalle: "",
+        strPrecProdServDefNivel: "",
         strDefProcConUniProd: "",
         strDefProcConUniProdDetalle: "",
+        strDefProcConUniProdNivel: "",
         strElabPresUniProd: "",
         strElabPresUniProdDetalle: "",
+        strElabPresUniProdNivel: "",
         strAdminDinUniProd: "",
         strAdminDinUniProdDetalle: "",
+        strAdminDinUniProdNivel: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -62,26 +69,197 @@ const InfoComMercadeo = ({
                 strUniProdSosFinan: values.strUniProdSosFinan || "",
                 strUniProdSosFinanDetalle:
                     values.strUniProdSosFinanDetalle || "",
+                strUniProdSosFinanNivel: values.strUniProdSosFinanNivel || "",
                 strEstrCosUniProdDef: values.strEstrCosUniProdDef || "",
                 strEstrCosUniProdDefDetalle:
                     values.strEstrCosUniProdDefDetalle || "",
+                strEstrCosUniProdDefNivel:
+                    values.strEstrCosUniProdDefNivel || "",
                 strPrecProdServDef: values.strPrecProdServDef || "",
                 strPrecProdServDefDetalle:
                     values.strPrecProdServDefDetalle || "",
+                strPrecProdServDefNivel: values.strPrecProdServDefNivel || "",
                 strDefProcConUniProd: values.strDefProcConUniProd || "",
-                strDefProcConUnirPodDetalle:
+                strDefProcConUniProdDetalle:
                     values.strDefProcConUniProdDetalle || "",
+                strDefProcConUniProdNivel:
+                    values.strDefProcConUniProdNivel || "",
                 strElabPresUniProd: values.strElabPresUniProd || "",
                 strElabPresUniProdDetalle:
                     values.strElabPresUniProdDetalle || "",
+                strElabPresUniProdNivel: values.strElabPresUniProdNivel || "",
                 strAdminDinUniProd: values.strAdminDinUniProd || "",
                 strAdminDinUniProdDetalle:
                     values.strAdminDinUniProdDetalle || "",
+                strAdminDinUniProdNivel: values.strAdminDinUniProdNivel || "",
             });
         }
 
         setLoading(false);
     }, [values]);
+
+    const propiedades = [
+        {
+            nombre: "strUniProdSosFinan",
+            label: "Mi unidad productiva es sostenible financieramente",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "UniProdSosFinan",
+        },
+        {
+            nombre: "strUniProdSosFinanDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "UniProdSosFinan",
+        },
+        {
+            nombre: "strUniProdSosFinanNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "UniProdSosFinan",
+        },
+        {
+            nombre: "strDefProcConUniProd",
+            label: "Tengo definidos los procesos contables de mi unidad productiva",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "DefProcConUniProd",
+        },
+        {
+            nombre: "strDefProcConUniProdDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "DefProcConUniProd",
+        },
+        {
+            nombre: "strDefProcConUniProdNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "DefProcConUniProd",
+        },
+        {
+            nombre: "strElabPresUniProd",
+            label: "Elaboro un presupuesto para mi unidad productiva",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ElabPresUniProd",
+        },
+        {
+            nombre: "strElabPresUniProdDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ElabPresUniProd",
+        },
+        {
+            nombre: "strElabPresUniProdNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ElabPresUniProd",
+        },
+        {
+            nombre: "strAdminDinUniProd",
+            label: "Sé como administrar el dinero de mi unidad productiva",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "AdminDinUniProd",
+        },
+        {
+            nombre: "strAdminDinUniProdDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "AdminDinUniProd",
+        },
+        {
+            nombre: "strAdminDinUniProdNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "AdminDinUniProd",
+        },
+    ];
+
+    const handlerChangeData = (key, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [key]: value,
+        }));
+    };
+
+    const render = (datos) => {
+        return datos.map(({ nombre, label, strGrupo, strCodigo }) => (
+            <Grid
+                item
+                xs={12}
+                md={label === "Detalle" ? 3 : label === "Nivel" ? 2 : 7}
+            >
+                <Controller
+                    name={`objInfoComFinanciero.${nombre}`}
+                    defaultValue={data[nombre]}
+                    render={({ field: { name, value, onChange } }) =>
+                        label === "Detalle" ? (
+                            <TextField
+                                label={label}
+                                autoFocus
+                                name={name}
+                                value={value}
+                                disabled={disabled}
+                                onChange={(e) => onChange(e)}
+                                error={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ? true
+                                        : false
+                                }
+                                helperText={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ?.message ||
+                                    "Digita el detalle en caso de que aplique"
+                                }
+                                fullWidth
+                                variant="standard"
+                            />
+                        ) : label === "Nivel" ? (
+                            <SelectListasNivel
+                                label={label}
+                                name={name}
+                                value={value}
+                                valueList={data[nombre]}
+                                onChange={(e) => onChange(e)}
+                                error={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ? true
+                                        : false
+                                }
+                                helperText={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ?.message || "Nivel"
+                                }
+                                strGrupo={strGrupo}
+                                strCodigo={strCodigo}
+                            />
+                        ) : (
+                            <SelectListas
+                                label={label}
+                                name={name}
+                                value={value}
+                                disabled={disabled}
+                                onChange={(e) => {
+                                    onChange(e);
+                                    handlerChangeData(strGrupo, e.target.value);
+                                }}
+                                error={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ? true
+                                        : false
+                                }
+                                helperText={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ?.message || "Seleccione una opción"
+                                }
+                                strGrupo={strGrupo}
+                                strCodigo={strCodigo}
+                            />
+                        )
+                    }
+                    control={control}
+                />
+            </Grid>
+        ));
+    };
 
     if (loading) {
         return (
@@ -144,222 +322,7 @@ const InfoComMercadeo = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strUniProdSosFinan"
-                            defaultValue={data.strUniProdSosFinan}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Mi unidad productiva es sostenible financieramente"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strUniProdSosFinan
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComFinanciero
-                                            ?.strUniProdSosFinan?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="UniProdSosFinan"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strUniProdSosFinanDetalle"
-                            defaultValue={data.strUniProdSosFinanDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Mi unidad productiva es sostenible financieramente"
-                                    name={name}
-                                    disabled={disabled}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strUniProdSosFinanDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strDefProcConUniProd"
-                            defaultValue={data.strDefProcConUniProd}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Tengo definidos los procesos contables de mi unidad productiva"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strDefProcConUniProd
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComFinanciero
-                                            ?.strDefProcConUniProd?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="DefProcConUniProd"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strDefProcConUniProdDetalle"
-                            defaultValue={data.strDefProcConUniProdDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Tengo definidos los procesos contables de mi unidad productiva"
-                                    name={name}
-                                    disabled={disabled}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strDefProcConUniProdDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strElabPresUniProd"
-                            defaultValue={data.strElabPresUniProd}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Elaboro un presupuesto para mi unidad productiva"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strElabPresUniProd
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComFinanciero
-                                            ?.strElabPresUniProd?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="ElabPresUniProd"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strElabPresUniProdDetalle"
-                            defaultValue={data.strElabPresUniProdDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Elaboro un presupuesto para mi unidad productiva"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strElabPresUniProdDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strAdminDinUniProd"
-                            defaultValue={data.strAdminDinUniProd}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Sé como administrar el dinero de mi unidad productiva"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strAdminDinUniProd
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComFinanciero
-                                            ?.strAdminDinUniProd?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="AdminDinUniProd"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComFinanciero.strAdminDinUniProdDetalle"
-                            defaultValue={data.strAdminDinUniProdDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Sé como administrar el dinero de mi unidad productiva"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComFinanciero
-                                            ?.strAdminDinUniProdDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
+                    {render(propiedades)}
                 </Grid>
             </Collapse>
         </Fragment>

@@ -23,6 +23,7 @@ import {
 
 //Componentes
 import SelectListas from "../../../../components/selectLista";
+import SelectListasNivel from "../../../../components/selectListasNivel";
 
 const InfoComMercadeo = ({
     disabled,
@@ -38,24 +39,34 @@ const InfoComMercadeo = ({
     const [data, setData] = useState({
         strUniProdGenEmple: "",
         strUniProdGenEmpleDetalle: "",
+        strUniProdGenEmpleNivel: "",
         strEquipTrabEstruct: "",
         strEquipTrabEstructDetalle: "",
+        strEquipTrabEstructNivel: "",
         strEstrucFormaOrganiza: "",
         strEstrucFormaOrganizaDetalle: "",
+        strEstrucFormaOrganizaNivel: "",
         strElabPlanTrabActiv: "",
         strElabPlanTrabActivDetalle: "",
+        strElabPlanTrabActivNivel: "",
         strReaEvalPerioEquipTrab: "",
         strReaEvalPerioEquipTrabDetalle: "",
+        strReaEvalPerioEquipTrabNivel: "",
         strEmprFormaAcuerNormLab: "",
         strEmprFormaAcuerNormLabDetalle: "",
+        strEmprFormaAcuerNormLabNivel: "",
         strEmprFormaReqLey: "",
         strEmprFormaReqLeyDetalle: "",
+        strEmprFormaReqLeyNivel: "",
         strPlaneaEstraEmpPlanPlani: "",
         strPlaneaEstraEmpPlanPlaniDetalle: "",
+        strPlaneaEstraEmpPlanPlaniNivel: "",
         strMidConstCumpliMetObj: "",
         strMidConstCumpliMetObjDetalle: "",
+        strMidConstCumpliMetObjNivel: "",
         strCueAcompJuri: "",
         strCueAcompJuriDetalle: "",
+        strCueAcompJuriNivel: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -102,6 +113,277 @@ const InfoComMercadeo = ({
 
         setLoading(false);
     }, [values]);
+
+    const propiedades = [
+        {
+            name: "strUniProdGenEmple",
+            label: "La unidad productiva genera empleo",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "UniProdGenEmple",
+        },
+        {
+            name: "strUniProdGenEmpleDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "UniProdGenEmple",
+        },
+        {
+            name: "strUniProdGenEmpleNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "UniProdGenEmple",
+        },
+        {
+            name: "strEquipTrabEstruct",
+            label: "Tengo un equipo de trabajo estructurado",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EquipTrabEstruct",
+        },
+        {
+            name: "strEquipTrabEstructDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EquipTrabEstruct",
+        },
+        {
+            name: "strEquipTrabEstructNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EquipTrabEstruct",
+        },
+        {
+            name: "strEstrucFormaOrganiza",
+            label: "Tengo una estructura formal en la organización",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EstrucFormaOrganiza",
+        },
+        {
+            name: "strEstrucFormaOrganizaDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EstrucFormaOrganiza",
+        },
+        {
+            name: "strEstrucFormaOrganizaNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EstrucFormaOrganiza",
+        },
+        {
+            name: "strElabPlanTrabActiv",
+            label: "Elaboro planes de trabajo para organizar las actividades",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ElabPlanTrabActiv",
+        },
+        {
+            name: "strElabPlanTrabActivDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ElabPlanTrabActiv",
+        },
+        {
+            name: "strElabPlanTrabActivNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ElabPlanTrabActiv",
+        },
+        {
+            name: "strReaEvalPerioEquipTrab",
+            label: "Realizo evalución periodica de el equipo de trabajo",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ReaEvalPerioEquipTrab",
+        },
+        {
+            name: "strReaEvalPerioEquipTrabDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ReaEvalPerioEquipTrab",
+        },
+        {
+            name: "strReaEvalPerioEquipTrabNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "ReaEvalPerioEquipTrab",
+        },
+        {
+            name: "strEmprFormaAcuerNormLab",
+            label: "Mi empresa está formalizada de acuerdo con la normatividad laboral",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EmprFormaAcuerNormLab",
+        },
+        {
+            name: "strEmprFormaAcuerNormLabDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EmprFormaAcuerNormLab",
+        },
+        {
+            name: "strEmprFormaAcuerNormLabNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EmprFormaAcuerNormLab",
+        },
+        {
+            name: "strEmprFormaReqLey",
+            label: "Mi empresa está formalizada con los requisitos de ley",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EmprFormaReqLey",
+        },
+        {
+            name: "strEmprFormaReqLeyDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EmprFormaReqLey",
+        },
+        {
+            name: "strEmprFormaReqLeyNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "EmprFormaReqLey",
+        },
+        {
+            name: "strPlaneaEstraEmpPlanPlani",
+            label: "Tengo una planeación estratégica para mi empresa, mas que estrategica plan de trabajo, planificación",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "PlaneaEstraEmpPlanPlani",
+        },
+        {
+            name: "strPlaneaEstraEmpPlanPlaniDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "PlaneaEstraEmpPlanPlani",
+        },
+        {
+            name: "strPlaneaEstraEmpPlanPlaniNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "PlaneaEstraEmpPlanPlani",
+        },
+        {
+            name: "strMidConstCumpliMetObj",
+            label: "Mido constatemente el cumplimiento de mis metas y objetivos",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "MidConstCumpliMetObj",
+        },
+        {
+            name: "strMidConstCumpliMetObjDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "MidConstCumpliMetObj",
+        },
+        {
+            name: "strMidConstCumpliMetObjNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "MidConstCumpliMetObj",
+        },
+        {
+            name: "strCueAcompJuri",
+            label: "Cuento con acompañamiento jurídico",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "CueAcompJuri",
+        },
+        {
+            name: "strCueAcompJuriDetalle",
+            label: "Detalle",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "CueAcompJuri",
+        },
+        {
+            name: "strCueAcompJuriNivel",
+            label: "Nivel",
+            strGrupo: "DiagnosticoTecnico",
+            strCodigo: "CueAcompJuri",
+        },
+    ];
+
+    const handlerChangeData = (key, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [key]: value,
+        }));
+    };
+
+    const render = (datos) => {
+        return datos.map(({ nombre, label, strGrupo, strCodigo }) => (
+            <Grid
+                item
+                xs={12}
+                md={label === "Detalle" ? 3 : label === "Nivel" ? 2 : 7}
+            >
+                <Controller
+                    name={`objInfoComAdministrativo.${nombre}`}
+                    defaultValue={data[nombre]}
+                    render={({ field: { name, value, onChange } }) =>
+                        label === "Detalle" ? (
+                            <TextField
+                                label={label}
+                                autoFocus
+                                name={name}
+                                value={value}
+                                disabled={disabled}
+                                onChange={(e) => onChange(e)}
+                                error={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ? true
+                                        : false
+                                }
+                                helperText={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ?.message ||
+                                    "Digita el detalle en caso de que aplique"
+                                }
+                                fullWidth
+                                variant="standard"
+                            />
+                        ) : label === "Nivel" ? (
+                            <SelectListasNivel
+                                label={label}
+                                name={name}
+                                value={value}
+                                valueList={data[nombre]}
+                                onChange={(e) => onChange(e)}
+                                error={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ? true
+                                        : false
+                                }
+                                helperText={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ?.message || "Nivel"
+                                }
+                                strGrupo={strGrupo}
+                                strCodigo={strCodigo}
+                            />
+                        ) : (
+                            <SelectListas
+                                label={label}
+                                name={name}
+                                value={value}
+                                disabled={disabled}
+                                onChange={(e) => {
+                                    onChange(e);
+                                    handlerChangeData(strGrupo, e.target.value);
+                                }}
+                                error={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ? true
+                                        : false
+                                }
+                                helperText={
+                                    errors?.objInfoComMercadeo?.[nombre]
+                                        ?.message || "Seleccione una opción"
+                                }
+                                strGrupo={strGrupo}
+                                strCodigo={strCodigo}
+                            />
+                        )
+                    }
+                    control={control}
+                />
+            </Grid>
+        ));
+    };
 
     if (loading) {
         return (
@@ -164,548 +446,7 @@ const InfoComMercadeo = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            name="objInfoComAdministrativo.strUniProdGenEmple"
-                            defaultValue={data.strUniProdGenEmple}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="La unidad productiva genera empleo"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strUniProdGenEmple
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strUniProdGenEmple?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="UniProdGenEmple"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            name="objInfoComAdministrativo.strEquipTrabEstruct"
-                            defaultValue={data.strEquipTrabEstruct}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Tengo un equipo de trabajo estructurado"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEquipTrabEstruct
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEquipTrabEstruct?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="EquipTrabEstruct"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            name="objInfoComAdministrativo.strUniProdGenEmpleDetalle"
-                            defaultValue={data.strUniProdGenEmpleDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="La unidad productiva genera empleo"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strUniProdGenEmpleDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            name="objInfoComAdministrativo.strEquipTrabEstructDetalle"
-                            defaultValue={data.strEquipTrabEstructDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Tengo un equipo de trabajo estructurado"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEquipTrabEstructDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strEstrucFormaOrganiza"
-                            defaultValue={data.strEstrucFormaOrganiza}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Tengo una estructura formal en la organización"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEstrucFormaOrganiza
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEstrucFormaOrganiza?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="EstrucFormaOrganiza"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strEstrucFormaOrganizaDetalle"
-                            defaultValue={data.strEstrucFormaOrganizaDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Tengo una estructura formal en la organización"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEstrucFormaOrganizaDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strElabPlanTrabActiv"
-                            defaultValue={data.strElabPlanTrabActiv}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Elaboro planes de trabajo para organizar las actividades"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strElabPlanTrabActiv
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strElabPlanTrabActiv?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="ElabPlanTrabActiv"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strElabPlanTrabActivDetalle"
-                            defaultValue={data.strElabPlanTrabActivDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Elaboro planes de trabajo para organizar las actividades"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strElabPlanTrabActivDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strReaEvalPerioEquipTrab"
-                            defaultValue={data.strReaEvalPerioEquipTrab}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Realizo evalución periodica de el equipo de trabajo"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strReaEvalPerioEquipTrab
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strReaEvalPerioEquipTrab
-                                            ?.message || "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="ReaEvalPerioEquipTrab"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strReaEvalPerioEquipTrabDetalle"
-                            defaultValue={data.strReaEvalPerioEquipTrabDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Realizo evalución periodica de el equipo de trabajo"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strReaEvalPerioEquipTrabDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strEmprFormaAcuerNormLab"
-                            defaultValue={data.strEmprFormaAcuerNormLab}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Mi empresa está formalizada de acuerdo con la normatividad laboral"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEmprFormaAcuerNormLab
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEmprFormaAcuerNormLab
-                                            ?.message || "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="EmprFormaAcuerNormLab"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strEmprFormaAcuerNormLabDetalle"
-                            defaultValue={data.strEmprFormaAcuerNormLabDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Mi empresa está formalizada de acuerdo con la normatividad laboral"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEmprFormaAcuerNormLabDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strEmprFormaReqLey"
-                            defaultValue={data.strEmprFormaReqLey}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Mi empresa está formalizada con los requisitos de ley"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEmprFormaReqLey
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEmprFormaReqLey?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="EmprFormaReqLey"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strEmprFormaReqLeyDetalle"
-                            defaultValue={data.strEmprFormaReqLeyDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Mi empresa está formalizada con los requisitos de ley"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strEmprFormaReqLeyDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strPlaneaEstraEmpPlanPlani"
-                            defaultValue={data.strPlaneaEstraEmpPlanPlani}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Tengo una planeación estratégica para mi empresa, mas que estrategica plan de trabajo, planificación"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strPlaneaEstraEmpPlanPlani
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strPlaneaEstraEmpPlanPlani
-                                            ?.message || "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="PlaneaEstraEmpPlanPlani"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strPlaneaEstraEmpPlanPlaniDetalle"
-                            defaultValue={
-                                data.strPlaneaEstraEmpPlanPlaniDetalle
-                            }
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Tengo una planeación estratégica para mi empresa, mas que estrategica plan de trabajo, planificación"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strPlaneaEstraEmpPlanPlaniDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strMidConstCumpliMetObj"
-                            defaultValue={data.strMidConstCumpliMetObj}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Mido constatemente el cumplimiento de mis metas y objetivos"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strMidConstCumpliMetObj
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strMidConstCumpliMetObj
-                                            ?.message || "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="MidConstCumpliMetObj"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strMidConstCumpliMetObjDetalle"
-                            defaultValue={data.strMidConstCumpliMetObjDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Mido constatemente el cumplimiento de mis metas y objetivos"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strMidConstCumpliMetObjDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strCueAcompJuri"
-                            defaultValue={data.strCueAcompJuri}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Cuento con acompañamiento jurídico"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strCueAcompJuri
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strCueAcompJuri?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="CueAcompJuri"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoComAdministrativo.strCueAcompJuriDetalle"
-                            defaultValue={data.strCueAcompJuriDetalle}
-                            render={({ field: { name, onChange, value } }) => (
-                                <TextField
-                                    label="Cuento con acompañamiento jurídico"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoComAdministrativo
-                                            ?.strCueAcompJuriDetalle
-                                            ? true
-                                            : false
-                                    }
-                                    helperText="Escribe el detalle"
-                                    fullWidth
-                                    multiline
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
+                    {render(propiedades)}
                 </Grid>
             </Collapse>
         </Fragment>
