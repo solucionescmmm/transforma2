@@ -36,9 +36,9 @@ import { toast } from "react-hot-toast";
  */
 const useGetDiagnProd = ({
     intId = null,
+    intIdEmpresario = null,
     intIdDiagnostico,
     intIdIdea,
-    intIdEmpresario = null,
     autoLoad = true,
 } = {}) => {
     //===============================================================================================================================================
@@ -134,6 +134,8 @@ const useGetDiagnProd = ({
     const getUniqueData = async ({
         intId = null,
         intIdEmpresario = null,
+        intIdDiagnostico,
+        intIdIdea,
     } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 

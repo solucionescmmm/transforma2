@@ -601,17 +601,64 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         );
     }
 
-    if (route.location === "DiagEmpresarialRead") {
+    if (route.location === "DiagEmpresarialPrev") {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagEmpresarial", {
+                                onChangeRoute("DiagnosticoCoco", {
                                     ...route.params,
                                 })
                             }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <DiagEmpresarialCreate
+                            isPreview
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagnosticoCoco", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
+    if (route.location === "DiagEmpresarialRead") {
+        return (
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() => {
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -630,11 +677,11 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
                     <Grid item xs={12}>
                         <Button
-                            onClick={() =>
-                                onChangeRoute("DiagEmpresarial", {
+                            onClick={() => {
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagEmpresarial", {
                                     ...route.params,
                                 })
-                            }
+                            }}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -747,7 +794,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagEmpresarial", {
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagEmpresarial", {
                                     ...route.params,
                                 })
                             }
@@ -770,7 +817,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagEmpresarial", {
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagEmpresarial", {
                                     ...route.params,
                                 })
                             }
@@ -886,7 +933,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagEmpresarial", {
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagEmpresarial", {
                                     ...route.params,
                                 })
                             }
@@ -909,7 +956,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagEmpresarial", {
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagEmpresarial", {
                                     ...route.params,
                                 })
                             }
@@ -1063,7 +1110,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagDesign", { ...route.params })
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagDesign", {
+                                    ...route.params,
+                                })
                             }
                             startIcon={<ChevronLeftIcon />}
                             size="small"
@@ -1084,7 +1133,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagDesign", { ...route.params })
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagDesign", {
+                                    ...route.params,
+                                })
                             }
                             startIcon={<ChevronLeftIcon />}
                             size="small"
@@ -1190,7 +1241,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagDesign", { ...route.params })
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagDesign", {
+                                    ...route.params,
+                                })
                             }
                             startIcon={<ChevronLeftIcon />}
                             size="small"
@@ -1211,7 +1264,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagDesign", { ...route.params })
+                                onChangeRoute(route.params.isPreview ? "DiagnosticoCoco" : "DiagDesign", {
+                                    ...route.params,
+                                })
                             }
                             startIcon={<ChevronLeftIcon />}
                             size="small"

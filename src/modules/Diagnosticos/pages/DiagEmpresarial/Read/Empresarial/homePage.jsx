@@ -22,6 +22,7 @@ import {
     Edit as EditIcon,
     Print as PrintIcon,
     CheckCircle as CheckCircleIcon,
+    RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
 import Loader from "../../../../../../common/components/Loader";
@@ -499,19 +500,19 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                     setFinalizado(data.objInfoGeneral.btFinalizado);
 
                     const arrImagenes =
-                    data.objInfoAdicional?.strURLSFotosProducto?.split(";");
+                        data.objInfoAdicional?.strURLSFotosProducto?.split(";");
 
-                let newArrImagenes = [];
+                    let newArrImagenes = [];
 
-                if (arrImagenes) {
-                    newArrImagenes = arrImagenes.map((url) => {
-                        return {
-                            src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
-                            width: 4,
-                            height: 3,
-                        };
-                    });
-                }
+                    if (arrImagenes) {
+                        newArrImagenes = arrImagenes.map((url) => {
+                            return {
+                                src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
+                                width: 4,
+                                height: 3,
+                            };
+                        });
+                    }
 
                     const objInfoGeneral = {
                         dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
@@ -560,9 +561,9 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                         if (key === "dtmFechaSesion") {
                                             e.value = validator.isDate(e.value)
                                                 ? format(
-                                                      e.value,
-                                                      "yyyy-MM-dd hh:mm"
-                                                  )
+                                                    e.value,
+                                                    "yyyy-MM-dd hh:mm"
+                                                )
                                                 : "No diligenciado";
                                         }
                                     }
@@ -849,6 +850,19 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                     <PrintIcon />
                                 </IconButton>
                             </Tooltip>
+                            {finalizado ? (
+                                <Tooltip title="Previsualizar diagnóstico">
+                                    <IconButton
+                                        color="inherit"
+                                        onClick={()=> onChangeRoute("DiagEmpresarialPrev", {
+                                            intIdIdea,
+                                            intIdDiagnostico,
+                                        })}
+                                    >
+                                        <RemoveRedEyeIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            ) : null}
                         </Box>
                     </Box>
                 </Grid>
@@ -1290,21 +1304,21 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                    <p
-                                        style={{
-                                            margin: "0px",
-                                            fontSize: "13px",
-                                            display: "flex",
-                                            alignContent: "center",
-                                        }}
-                                    >
-                                        {data.arrImagenes.length > 0 && (
-                                            <ImageViewer
-                                                images={data.arrImagenes}
-                                            />
-                                        )}
-                                    </p>
-                                </Grid>
+                                <p
+                                    style={{
+                                        margin: "0px",
+                                        fontSize: "13px",
+                                        display: "flex",
+                                        alignContent: "center",
+                                    }}
+                                >
+                                    {data.arrImagenes.length > 0 && (
+                                        <ImageViewer
+                                            images={data.arrImagenes}
+                                        />
+                                    )}
+                                </p>
+                            </Grid>
                         </Collapse>
                     </Paper>
                 </Grid>

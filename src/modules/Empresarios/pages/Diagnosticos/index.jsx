@@ -27,7 +27,8 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
-    Stop as StopIcon
+    Stop as StopIcon,
+    RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -39,6 +40,7 @@ import ModalCreate from "./modalCreate";
 import ModalFinalizar from "./modalFinalizar";
 import useGetDiagnosticosCoco from "../../hooks/useGetDiagnosticosCoco";
 import { AbilityContext, Can } from "../../../../common/functions/can";
+import ModalPreview from "./modalPreview";
 
 const ReadDiagnosticos = ({
     onChangeRoute,
@@ -78,6 +80,7 @@ const ReadDiagnosticos = ({
 
     const [openModalCreate, setOpenModalCreate] = useState(openModalCreateRoute);
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalPreview, setOpenModalPreview] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     //===============================================================================================================================================
@@ -93,6 +96,10 @@ const ReadDiagnosticos = ({
     //===============================================================================================================================================
     const handlerOpenModalDelete = () => {
         setOpenModalDelete(!openModalDelete);
+    };
+
+    const handlerOpenModalPreview = () => {
+        setOpenModalPreview(!openModalPreview);
     };
 
     const handlerOpenModalCreate = () => {
@@ -124,6 +131,14 @@ const ReadDiagnosticos = ({
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
                 values={selectedData}
+            />
+
+            <ModalPreview
+                handleOpenDialog={handlerOpenModalPreview}
+                open={openModalPreview}
+                intIdDiagnostico={selectedData?.intId}
+                intIdIdea={intIdIdea}
+                onChangeRoute={onChangeRoute}
             />
 
             <Grid container direction="row" spacing={2}>
@@ -256,28 +271,46 @@ const ReadDiagnosticos = ({
                                     (rowData) => {
                                         if (ability.can("update", "Diag")) {
                                             return {
-                                                icon: () => (
-                                                    <EditIcon
-                                                        color={
-                                                            rowData.btFinalizada ===
-                                                            true
-                                                                ? "gray"
-                                                                : "success"
-                                                        }
+                                                icon: () => (rowData.strEstadoDiagnostico === "Finalizado" ? (
+                                                    <RemoveRedEyeIcon
+                                                        color="gray"
                                                         fontSize="small"
                                                         onClick={() => {
-                                                            setSelectedData(
-                                                                rowData
-                                                            );
-                                                            handlerOpenModalCreate();
+                                                            if (
+                                                                rowData.strTipoDiagnostico !== "Express"
+                                                            ) {
+                                                                setSelectedData(rowData);
+                                                                handlerOpenModalPreview();
+                                                            } else {
+                                                                onChangeRoute("DiagnExpress", {
+                                                                    intIdDiagnostico: rowData.intId,
+                                                                    intIdIdea,
+                                                                });
+                                                            }
                                                         }}
                                                     />
-                                                ),
-                                                tooltip: "Editar",
-
-                                                disabled:
-                                                    rowData.btFinalizada ===
-                                                    true,
+                                                ) : (
+                                                    <EditIcon
+                                                        color="success"
+                                                        fontSize="small"
+                                                        onClick={() => {
+                                                            if (
+                                                                rowData.strTipoDiagnostico !== "Express"
+                                                            ) {
+                                                                onChangeRoute("Diagnosticos", {
+                                                                    intIdDiagnostico: rowData.intId,
+                                                                    intIdIdea,
+                                                                });
+                                                            } else {
+                                                                onChangeRoute("DiagnExpress", {
+                                                                    intIdDiagnostico: rowData.intId,
+                                                                    intIdIdea,
+                                                                });
+                                                            }
+                                                        }}
+                                                    />
+                                                )),
+                                                tooltip: rowData.strEstadoDiagnostico === "Finalizado" ? "Previsualizar" : "Editar",
                                             };
                                         }
                                     },
@@ -288,8 +321,8 @@ const ReadDiagnosticos = ({
                                                     <StopIcon
                                                         color={
                                                             rowData.strEstadoDiagnostico ===
-                                                            "Finalizado" || rowData.strEstadoDiagnostico ===
-                                                            "Finalizado con ruta"
+                                                                "Finalizado" || rowData.strEstadoDiagnostico ===
+                                                                "Finalizado con ruta"
                                                                 ? "inherit"
                                                                 : "error"
                                                         }
@@ -359,21 +392,21 @@ const ReadDiagnosticos = ({
                                         </div>
                                     ),
                                 }}
-                                onRowClick={(e, rowData) => {
-                                    if (
-                                        rowData.strTipoDiagnostico !== "Express"
-                                    ) {
-                                        onChangeRoute("Diagnosticos", {
-                                            intIdDiagnostico: rowData.intId,
-                                            intIdIdea,
-                                        });
-                                    } else {
-                                        onChangeRoute("DiagnExpress", {
-                                            intIdDiagnostico: rowData.intId,
-                                            intIdIdea,
-                                        });
-                                    }
-                                }}
+                            // onRowClick={(e, rowData) => {
+                            //     if (
+                            //         rowData.strTipoDiagnostico !== "Express"
+                            //     ) {
+                            //         onChangeRoute("Diagnosticos", {
+                            //             intIdDiagnostico: rowData.intId,
+                            //             intIdIdea,
+                            //         });
+                            //     } else {
+                            //         onChangeRoute("DiagnExpress", {
+                            //             intIdDiagnostico: rowData.intId,
+                            //             intIdIdea,
+                            //         });
+                            //     }
+                            // }}
                             />
                         </ThemeProvider>
                     </StyledEngineProvider>

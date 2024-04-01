@@ -446,7 +446,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                             <b>Dirección de residencia: </b>{" "}
                                             {
                                                 data.objInfoEmpresarioPr
-                                                    .strDireccionResidencia
+                                                    .strDireccionResidencia || "No diligenciado"
                                             }{" "}
                                         </p>
                                     </Alert>

@@ -363,7 +363,6 @@ const ReadSolicitudesUser = () => {
                                                 )),
                                                 tooltip: rowData.strNombreEstado === "Cancelado" || rowData.strNombreEstado === "Finalizado" ? "Visualizar" : "Editar",
                                                 onClick: (event, rowData) => {
-                                                    console.log(rowData.strNombreEstado)
                                                     push(
                                                         rowData.strNombreEstado === "Cancelado" || rowData.strNombreEstado === "Finalizado"
                                                             ? `/transforma/asesor/eventos/read/${rowData.intId}`
