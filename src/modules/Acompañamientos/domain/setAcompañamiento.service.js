@@ -32,9 +32,8 @@ class setAcompañamiento {
         await this.#validations();
         await this.#setAcompañamiento();
         await this.#setSesionAcompañamiento();
-        if (this.#objData.intTipoAcomp === 2) {
-            await this.#setRutasNoPlaneada()
-        }
+        //await this.#setRutasNoPlaneada()
+
         return this.#objResult;
     }
 
@@ -68,7 +67,7 @@ class setAcompañamiento {
             intIdIdea: this.#objData.intIdIdea,
             intIdTipoAcompañamiento: this.#objData.intTipoAcomp,
             strUsuarioCreacion: this.#objUser.strEmail,
-            btFinalizado: this.#objData.intTipoAcomp === 2 ? true : this.#objData?.bitFinalizarSesion
+            btFinalizado: this.#objData?.bitFinalizarSesion
         };
 
         let query = await dao.setAcompañamiento(newData);
@@ -109,7 +108,7 @@ class setAcompañamiento {
             intIdDocumento: this.#intIdDocumento,
             intIdAcompañamiento: this.#intIdAcompañamiento,
             strUsuarioCreacion: this.#objUser.strEmail,
-            btFinalizado: this.#objData.intTipoAcomp === 2 ? true : this.#objData?.bitFinalizarSesion
+            btFinalizado: this.#objData?.bitFinalizarSesion
         };
 
         let query = await dao.setSesionAcompañamiento(newData);
