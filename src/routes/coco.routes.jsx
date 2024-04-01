@@ -787,6 +787,53 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         );
     }
 
+    if (route.location === "DiagEmpresarialHumPrev") {
+        return (
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagnosticoCoco", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <DiagEmpresarialHumCreate
+                            isPreview
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagnosticoCoco", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
     if (route.location === "DiagEmpresarialHumRead") {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
@@ -901,6 +948,53 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <DiagEmpresarialTecCreate
                             isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
+    if (route.location === "DiagEmpresarialTecPrev") {
+        return (
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagEmpresarial", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <DiagEmpresarialTecCreate
+                            isPreview
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
                             intIdDiagnostico={route.params.intIdDiagnostico}
@@ -1103,6 +1197,49 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
         );
     }
 
+    if (route.location === "DiagDesignProdPrev") {
+        return (
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <DiagDesignCUProducto
+                            isPreview
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
     if (route.location === "DiagDesignProdRead") {
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
@@ -1211,6 +1348,49 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <DiagDesignCUServicio
                             isEdit
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
+    if (route.location === "DiagDesignServPrev") {
+        return (
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagDesign", { ...route.params })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <DiagDesignCUServicio
+                            isPreview
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
                             intIdDiagnostico={route.params.intIdDiagnostico}

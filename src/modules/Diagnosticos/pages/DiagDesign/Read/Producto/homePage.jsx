@@ -24,6 +24,7 @@ import {
     Edit as EditIcon,
     Print as PrintIcon,
     CheckCircle as CheckCircleIcon,
+    RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
 import Loader from "../../../../../../common/components/Loader";
@@ -918,6 +919,19 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                     <PrintIcon />
                                 </IconButton>
                             </Tooltip>
+                            {finalizado ? (
+                                <Tooltip title="Previsualizar diagnóstico">
+                                    <IconButton
+                                        color="inherit"
+                                        onClick={()=> onChangeRoute("DiagDesignProdPrev", {
+                                            intIdIdea,
+                                            intIdDiagnostico,
+                                        })}
+                                    >
+                                        <RemoveRedEyeIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            ) : null}
                         </Box>
                     </Box>
                 </Grid>

@@ -93,6 +93,7 @@ const styles = makeStyles((theme) => ({
 
 const PageCUGeneral = ({
     isEdit,
+    isPreview,
     intIdIdea,
     intIdDiagnostico,
     onChangeRoute,
@@ -337,7 +338,7 @@ const PageCUGeneral = ({
                         }
 
                         if (res.data?.data) {
-                            if (!isEdit) {
+                            if (!isEdit && !isPreview) {
                                 setFinalizado(
                                     res.data.data[0].objInfoGeneral.btFinalizado
                                 );
@@ -554,7 +555,8 @@ const PageCUGeneral = ({
                                                 variant="body1"
                                             >
                                                 {isEdit
-                                                    ? "editar diagnóstico de competencias técnicas"
+                                                    ? "editar diagnóstico de competencias técnicas" :
+                                                    isPreview ? "Previsualizar diagnóstico de competencias técnicas"
                                                     : "registrar diagnóstico de competencias técnicas"}
                                             </Typography>
                                         </Box>
@@ -571,7 +573,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoGeneral
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoGeneral}
                                         errors={errors}
                                         intIdIdea={intIdIdea}
@@ -584,7 +586,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoComMercadeo
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoComMercadeo}
                                         errors={errors}
                                         setValue={setValue}
@@ -596,7 +598,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoComProductivo
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoComProductivo}
                                         errors={errors}
                                         setValue={setValue}
@@ -608,7 +610,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoComFinanciero
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoComFinanciero}
                                         errors={errors}
                                         setValue={setValue}
@@ -620,7 +622,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoComAdministrativo
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoComAdministrativo}
                                         errors={errors}
                                         setValue={setValue}
@@ -632,7 +634,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoComAsociativo
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoComAsociativo}
                                         errors={errors}
                                         setValue={setValue}
@@ -652,53 +654,55 @@ const PageCUGeneral = ({
                                     </Grid>
                                 )}
 
-                                <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: isEdit ? "row" : "row-reverse",
-                                        }}
-                                    >
-                                        {
-                                            isEdit ? (
-                                                <Box sx={{ flexGrow: 1 }}>
-                                                    <LoadingButton
-                                                        variant="text"
-                                                        loading={loading}
-                                                        color="error"
-                                                        onClick={() =>
-                                                            handlerOpenModalDelete()
-                                                        }>
-                                                        Borrar diagnóstico
-                                                    </LoadingButton>
-                                                </Box>
-                                            ) : null
-                                        }
-                                        {
-                                            isEdit ? (
-                                                <LoadingButton
-                                                    variant="contained"
-                                                    loading={loading}
-                                                    onClick={() =>
-                                                        handlerOpenModalFinalizacion()
-                                                    }
-                                                    style={{
-                                                        marginLeft: 15
-                                                    }}>
-                                                    Finalizar
-                                                </LoadingButton>
-                                            ) : null
-                                        }
-                                        <LoadingButton
-                                            variant="contained"
-                                            type="submit"
-                                            loading={loading}
-                                            sx={{ marginLeft: "15px" }}
+                                {isPreview ? null :(
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: isEdit ? "row" : "row-reverse",
+                                            }}
                                         >
-                                            {isEdit ? "guardar" : "registrar"}
-                                        </LoadingButton>
-                                    </Box>
-                                </Grid>
+                                            {
+                                                isEdit ? (
+                                                    <Box sx={{ flexGrow: 1 }}>
+                                                        <LoadingButton
+                                                            variant="text"
+                                                            loading={loading}
+                                                            color="error"
+                                                            onClick={() =>
+                                                                handlerOpenModalDelete()
+                                                            }>
+                                                            Borrar diagnóstico
+                                                        </LoadingButton>
+                                                    </Box>
+                                                ) : null
+                                            }
+                                            {
+                                                isEdit ? (
+                                                    <LoadingButton
+                                                        variant="contained"
+                                                        loading={loading}
+                                                        onClick={() =>
+                                                            handlerOpenModalFinalizacion()
+                                                        }
+                                                        style={{
+                                                            marginLeft: 15
+                                                        }}>
+                                                        Finalizar
+                                                    </LoadingButton>
+                                                ) : null
+                                            }
+                                            <LoadingButton
+                                                variant="contained"
+                                                type="submit"
+                                                loading={loading}
+                                                sx={{ marginLeft: "15px" }}
+                                            >
+                                                {isEdit ? "guardar" : "registrar"}
+                                            </LoadingButton>
+                                        </Box>
+                                    </Grid>
+                                )}
                             </Grid>
                         </Paper>
                     </Container>
