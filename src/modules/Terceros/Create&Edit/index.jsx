@@ -170,6 +170,8 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                 objEmprPrincipal.strDireccionResidencia || "",
                             strURLFileFoto:
                                 objEmprPrincipal.strUrlFileFoto || "",
+                            strEstado: objEmprPrincipal.strEstado || "",
+                            intIdEstado: objEmprPrincipal.intIdEstado || "",
                         },
                     });
                 } else {
@@ -190,6 +192,8 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                 setSendData(false);
             });
     }
+
+    console.log(data)
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -479,6 +483,30 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                 )} 
                                 
                                 {data && documento && (
+                                    data?.objInfoEmpresarioPr?.strEstado === "Inactivo" 
+                                        ? 
+                                        <Grid item xs={12}>
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    flexDirection: "row-reverse",
+                                                }}
+                                            >
+                                                <Button
+                                                    variant="contained"
+                                                    disabled={loadingGetData}
+                                                    onClick={() => {
+                                                        setHiddenSearch(true);
+                                                        setData({
+                                                            objInfoPrincipal: data?.objInfoEmpresarioPr
+                                                        });
+                                                    }}
+                                                >
+                                                    {"Agregar Empresario inactivo como tercero"}
+                                                </Button>
+                                            </Box>
+                                        </Grid> 
+                                        :
                                     <Alert severity="warning">
                                         Lo sentimos no puedes volver a registrar
                                         a esta persona
