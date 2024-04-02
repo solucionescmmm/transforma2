@@ -1056,14 +1056,18 @@ class daoEmpresarios {
             Empresario.intIdSede,
             Empresario.btPerfilSensible,
             Empresario.strEstrato,
+            Empresario.strPais,
             Empresario.strDepartamento,
             Empresario.strCiudad,
             Empresario.strBarrio,
             Empresario.strDireccionResidencia,
             Empresario.strUrlFileFoto,
+            Empresario.intIdEstado,
+            Empresario.btNoContactar,
             Empresario.dtmCreacion,
             Empresario.dtmActualizacion,
             Empresario.strUsuario,
+            Estados.strNombre as strEstado,
             (
                 SELECT 
                 
@@ -1097,6 +1101,8 @@ class daoEmpresarios {
             ) as objInfoIdeaEmpresario
 
             FROM tbl_Empresario Empresario
+
+            INNER JOIN tbl_Estados Estados ON Estados.intId = Empresario.intIdEstado
             
             WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)
             AND   (Empresario.strNroDocto = ${data.strDocumento} OR ${data.strDocumento} IS NULL)`;
