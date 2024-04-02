@@ -926,6 +926,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                         onClick={()=> onChangeRoute("DiagDesignProdPrev", {
                                             intIdIdea,
                                             intIdDiagnostico,
+                                            isPreview : true
                                         })}
                                     >
                                         <RemoveRedEyeIcon />

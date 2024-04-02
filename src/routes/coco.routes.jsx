@@ -1204,7 +1204,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagDesign", { ...route.params })
+                                onChangeRoute("DiagnosticoCoco", { ...route.params })
                             }
                             startIcon={<ChevronLeftIcon />}
                             size="small"
@@ -1226,7 +1226,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagDesign", { ...route.params })
+                                onChangeRoute("DiagnosticoCoco", { ...route.params })
                             }
                             startIcon={<ChevronLeftIcon />}
                             size="small"
@@ -1378,7 +1378,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagDesign", { ...route.params })
+                                onChangeRoute("DiagnosticoCoco", { ...route.params })
                             }
                             startIcon={<ChevronLeftIcon />}
                             size="small"
@@ -1400,7 +1400,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     <Grid item xs={12}>
                         <Button
                             onClick={() =>
-                                onChangeRoute("DiagDesign", { ...route.params })
+                                onChangeRoute("DiagnosticoCoco", { ...route.params })
                             }
                             startIcon={<ChevronLeftIcon />}
                             size="small"

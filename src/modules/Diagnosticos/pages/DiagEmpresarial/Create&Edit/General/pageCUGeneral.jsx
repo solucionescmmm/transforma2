@@ -93,6 +93,7 @@ const styles = makeStyles((theme) => ({
 
 const PageCUGeneral = ({
     isEdit,
+    isPreview,
     intIdIdea,
     intIdDiagnostico,
     onChangeRoute,
@@ -309,145 +310,264 @@ const PageCUGeneral = ({
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
+    useEffect(()=>{
+        if (intIdIdea) {
+            async function getData(){
+                await refFntGetData
+                .current({ intIdIdea })
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    if (res.data?.data) {
+                        let dataEmpr = res.data.data?.[0];
+                        const objEmprPrincipal = dataEmpr.objEmpresario.find(
+                            (emp) => emp.strTipoEmpresario === "Principal"
+                        );
+
+                        setData({
+                            ...dataEmpr,
+                            intIdIdea: intIdIdea,
+                            objIdeaEmpresario: dataEmpr.objInfoIdeaEmpresario,
+                            objInfoGeneral: {
+                                intIdEmpresario: objEmprPrincipal.intId,
+                                strNombres:
+                                    objEmprPrincipal.strNombres || "",
+                                strApellidos:
+                                    objEmprPrincipal.strApellidos || "",
+                                strTipoDocto:
+                                    objEmprPrincipal.strTipoDocto || "",
+                                strNroDocto:
+                                    objEmprPrincipal.strNroDocto || "",
+                                strLugarExpedicionDocto:
+                                    objEmprPrincipal.strLugarExpedicionDocto ||
+                                    "",
+                                dtFechaExpedicionDocto:
+                                    objEmprPrincipal.dtFechaExpedicionDocto
+                                        ? parseISO(
+                                            objEmprPrincipal.dtFechaExpedicionDocto
+                                        )
+                                        : null,
+                                dtFechaNacimiento:
+                                    objEmprPrincipal.dtFechaNacimiento
+                                        ? parseISO(
+                                            objEmprPrincipal.dtFechaNacimiento
+                                        )
+                                        : null,
+                                strGenero: objEmprPrincipal.strGenero || "",
+                                strNivelEducativo:
+                                    objEmprPrincipal.strNivelEducativo ||
+                                    "",
+                                strTitulos:
+                                    objEmprPrincipal.strTitulos || "",
+                                strEstrato:
+                                    objEmprPrincipal.strEstrato || "",
+                                arrPais:
+                                    objEmprPrincipal.arrPais || [],
+                                arrDepartamento:
+                                    objEmprPrincipal.arrDepartamento || [],
+                                arrCiudad: objEmprPrincipal.arrCiudad || [],
+                                strDireccionResidencia:
+                                    objEmprPrincipal.strDireccionResidencia ||
+                                    "",
+                                strBarrio: objEmprPrincipal.strBarrio || "",
+                                strUbicacionVivienda: "",
+                                strCelular1:
+                                    objEmprPrincipal.strCelular1 || "",
+                                strCelular2:
+                                    objEmprPrincipal.strCelular2 || "",
+                                strCorreoElectronico1:
+                                    objEmprPrincipal.strCorreoElectronico1 ||
+                                    "",
+                                strCorreoElectronico2:
+                                    objEmprPrincipal.strCorreoElectronico2 ||
+                                    "",
+                            },
+                            objInfoEmprendimiento: {
+                                strUnidadProductiva:
+                                dataEmpr.objInfoEmpresa.strNombreMarca,
+                                strLugarOperacion:
+                                dataEmpr.objInfoEmpresa.strLugarOperacion,
+                                arrPais:
+                                dataEmpr.objInfoEmpresa.arrPais,
+                                arrDepartamento:
+                                dataEmpr.objInfoEmpresa.arrDepartamento,
+                                arrCiudad: dataEmpr.objInfoEmpresa.arrCiudad,
+                                strBarrio: dataEmpr.objInfoEmpresa.strBarrio,
+                                strDireccionResidencia:
+                                dataEmpr.objInfoEmpresa
+                                        .strDireccionResidencia,
+                                strCelular: objEmprPrincipal.strCelular1 || "",
+                                strCorreoElectronico: objEmprPrincipal.strCorreoElectronico1 || "",
+                                strRedesSociales:
+                                dataEmpr.objInfoEmpresa.arrMediosDigitales
+                                        ?.length > 0
+                                        ? "Sí"
+                                        : "No",
+                                arrMediosDigitales:
+                                dataEmpr.objInfoEmpresa
+                                        .arrMediosDigitales || [],
+                                strTiempoDedicacion:
+                                dataEmpr.objInfoEmpresa
+                                        .strTiempoDedicacion || "",
+                                strSectorEconomico:
+                                dataEmpr.objInfoEmpresa
+                                        .strSectorEconomico || "",
+                                strCategoriaProducto:
+                                dataEmpr.objInfoEmpresa
+                                        .strCategoriaProducto || "",
+                                strCategoriaServicio:
+                                dataEmpr.objInfoEmpresa
+                                        .strCategoriaServicio || "",
+                                arrCategoriasSecundarias:
+                                dataEmpr.objInfoEmpresa
+                                        .arrCategoriasSecundarias || [],
+                                strOtraCategoria:
+                                dataEmpr.objInfoEmpresa.strOtraCategoria ||
+                                    "",
+                                btGeneraEmpleo:
+                                    typeof dataEmpr.objInfoEmpresa
+                                        .btGeneraEmpleo === "boolean"
+                                        ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
+                                        : "",
+                            },
+                            objInfoPerfilEco: {
+                                dblValorVentasMes: dataEmpr.objInfoEmpresa.valorVentasMes || "",
+                                intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados || "",
+                            }
+                        });
+
+                        reset({
+                            ...dataEmpr,
+                            intIdIdea: intIdIdea,
+                            objIdeaEmpresario: dataEmpr.objInfoIdeaEmpresario,
+                            objInfoGeneral: {
+                                intIdEmpresario: objEmprPrincipal.intId,
+                                strNombres:
+                                    objEmprPrincipal.strNombres || "",
+                                strApellidos:
+                                    objEmprPrincipal.strApellidos || "",
+                                strTipoDocto:
+                                    objEmprPrincipal.strTipoDocto || "",
+                                strNroDocto:
+                                    objEmprPrincipal.strNroDocto || "",
+                                strLugarExpedicionDocto:
+                                    objEmprPrincipal.strLugarExpedicionDocto ||
+                                    "",
+                                dtFechaExpedicionDocto:
+                                    objEmprPrincipal.dtFechaExpedicionDocto
+                                        ? parseISO(
+                                            objEmprPrincipal.dtFechaExpedicionDocto
+                                        )
+                                        : null,
+                                dtFechaNacimiento:
+                                    objEmprPrincipal.dtFechaNacimiento
+                                        ? parseISO(
+                                            objEmprPrincipal.dtFechaNacimiento
+                                        )
+                                        : null,
+                                strGenero: objEmprPrincipal.strGenero || "",
+                                strNivelEducativo:
+                                    objEmprPrincipal.strNivelEducativo ||
+                                    "",
+                                strTitulos:
+                                    objEmprPrincipal.strTitulos || "",
+                                strEstrato:
+                                    objEmprPrincipal.strEstrato || "",
+                                arrPais:
+                                    objEmprPrincipal.arrPais || [],
+                                arrDepartamento:
+                                    objEmprPrincipal.arrDepartamento || [],
+                                arrCiudad: objEmprPrincipal.arrCiudad || [],
+                                strDireccionResidencia:
+                                    objEmprPrincipal.strDireccionResidencia ||
+                                    "",
+                                strBarrio: objEmprPrincipal.strBarrio || "",
+                                strUbicacionVivienda: "",
+                                strCelular1:
+                                    objEmprPrincipal.strCelular1 || "",
+                                strCelular2:
+                                    objEmprPrincipal.strCelular2 || "",
+                                strCorreoElectronico1:
+                                    objEmprPrincipal.strCorreoElectronico1 ||
+                                    "",
+                                strCorreoElectronico2:
+                                    objEmprPrincipal.strCorreoElectronico2 ||
+                                    "",
+                            },
+                            objInfoEmprendimiento: {
+                                strUnidadProductiva:
+                                dataEmpr.objInfoEmpresa.strNombreMarca,
+                                strLugarOperacion:
+                                dataEmpr.objInfoEmpresa.strLugarOperacion,
+                                arrPais:
+                                dataEmpr.objInfoEmpresa.arrPais,
+                                arrDepartamento:
+                                dataEmpr.objInfoEmpresa.arrDepartamento,
+                                arrCiudad: dataEmpr.objInfoEmpresa.arrCiudad,
+                                strBarrio: dataEmpr.objInfoEmpresa.strBarrio,
+                                strDireccionResidencia:
+                                dataEmpr.objInfoEmpresa
+                                        .strDireccionResidencia,
+                                strCelular: objEmprPrincipal.strCelular1 || "",
+                                strCorreoElectronico: objEmprPrincipal.strCorreoElectronico1 || "",
+                                strRedesSociales:
+                                dataEmpr.objInfoEmpresa.arrMediosDigitales
+                                        ?.length > 0
+                                        ? "Sí"
+                                        : "No",
+                                arrMediosDigitales:
+                                dataEmpr.objInfoEmpresa
+                                        .arrMediosDigitales || [],
+                                strTiempoDedicacion:
+                                dataEmpr.objInfoEmpresa
+                                        .strTiempoDedicacion || "",
+                                strSectorEconomico:
+                                dataEmpr.objInfoEmpresa
+                                        .strSectorEconomico || "",
+                                strCategoriaProducto:
+                                dataEmpr.objInfoEmpresa
+                                        .strCategoriaProducto || "",
+                                strCategoriaServicio:
+                                dataEmpr.objInfoEmpresa
+                                        .strCategoriaServicio || "",
+                                arrCategoriasSecundarias:
+                                dataEmpr.objInfoEmpresa
+                                        .arrCategoriasSecundarias || [],
+                                strOtraCategoria:
+                                dataEmpr.objInfoEmpresa.strOtraCategoria ||
+                                    "",
+                                btGeneraEmpleo:
+                                    typeof dataEmpr.objInfoEmpresa
+                                        .btGeneraEmpleo === "boolean"
+                                        ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
+                                        : "",
+                            },
+                            objInfoPerfilEco: {
+                                dblValorVentasMes: dataEmpr.objInfoEmpresa.valorVentasMes || "",
+                                intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados || "",
+                            }
+                        });
+                    }
+                    
+                    setErrorGetData({ flag: false, msg: "" });
+                })
+                .catch((error) => {
+                    setErrorGetData({ flag: true, msg: error.message });
+                    setLoadingGetData(false);
+                });
+            }
+
+            getData()
+        }
+    },[intIdIdea, reset])
+    
     useEffect(() => {
         if (intIdIdea) {
             setLoadingGetData(true);
 
             async function getData() {
-                await refFntGetData
-                    .current({ intIdIdea })
-                    .then((res) => {
-                        if (res.data.error) {
-                            throw new Error(res.data.msg);
-                        }
-
-                        if (res.data?.data?.[0]) {
-                            let data = res.data.data?.[0];
-                            const objEmprPrincipal = data.objEmpresario.find(
-                                (emp) => emp.strTipoEmpresario === "Principal"
-                            );
-
-                            setData({
-                                ...data,
-                                intIdIdea: intIdIdea,
-                                intIdDiagnostico,
-                                objIdeaEmpresario: data.objInfoIdeaEmpresario,
-                                objInfoGeneral: {
-                                    intIdEmpresario: objEmprPrincipal.intId,
-                                    strNombres:
-                                        objEmprPrincipal.strNombres || "",
-                                    strApellidos:
-                                        objEmprPrincipal.strApellidos || "",
-                                    strTipoDocto:
-                                        objEmprPrincipal.strTipoDocto || "",
-                                    strNroDocto:
-                                        objEmprPrincipal.strNroDocto || "",
-                                    strLugarExpedicionDocto:
-                                        objEmprPrincipal.strLugarExpedicionDocto ||
-                                        "",
-                                    dtFechaExpedicionDocto:
-                                        objEmprPrincipal.dtFechaExpedicionDocto
-                                            ? parseISO(
-                                                objEmprPrincipal.dtFechaExpedicionDocto
-                                            )
-                                            : null,
-                                    dtFechaNacimiento:
-                                        objEmprPrincipal.dtFechaNacimiento
-                                            ? parseISO(
-                                                objEmprPrincipal.dtFechaNacimiento
-                                            )
-                                            : null,
-                                    strGenero: objEmprPrincipal.strGenero || "",
-                                    strNivelEducativo:
-                                        objEmprPrincipal.strNivelEducativo ||
-                                        "",
-                                    strTitulos:
-                                        objEmprPrincipal.strTitulos || "",
-                                    strEstrato:
-                                        objEmprPrincipal.strEstrato || "",
-                                    arrPais:
-                                        objEmprPrincipal.arrPais || [],
-                                    arrDepartamento:
-                                        objEmprPrincipal.arrDepartamento || [],
-                                    arrCiudad: objEmprPrincipal.arrCiudad || [],
-                                    strDireccionResidencia:
-                                        objEmprPrincipal.strDireccionResidencia ||
-                                        "",
-                                    strBarrio: objEmprPrincipal.strBarrio || "",
-                                    strUbicacionVivienda: "",
-                                    strCelular1:
-                                        objEmprPrincipal.strCelular1 || "",
-                                    strCelular2:
-                                        objEmprPrincipal.strCelular2 || "",
-                                    strCorreoElectronico1:
-                                        objEmprPrincipal.strCorreoElectronico1 ||
-                                        "",
-                                    strCorreoElectronico2:
-                                        objEmprPrincipal.strCorreoElectronico2 ||
-                                        "",
-                                },
-                                objInfoEmprendimiento: {
-                                    strUnidadProductiva:
-                                        data.objInfoEmpresa.strNombreMarca,
-                                    strLugarOperacion:
-                                        data.objInfoEmpresa.strLugarOperacion,
-                                    arrPais:
-                                        data.objInfoEmpresa.arrPais,
-                                    arrDepartamento:
-                                        data.objInfoEmpresa.arrDepartamento,
-                                    arrCiudad: data.objInfoEmpresa.arrCiudad,
-                                    strBarrio: data.objInfoEmpresa.strBarrio,
-                                    strDireccionResidencia:
-                                        data.objInfoEmpresa
-                                            .strDireccionResidencia,
-                                    strCelular: objEmprPrincipal.strCelular1 || "",
-                                    strCorreoElectronico: objEmprPrincipal.strCorreoElectronico1 || "",
-                                    strRedesSociales:
-                                        data.objInfoEmpresa.arrMediosDigitales
-                                            ?.length > 0
-                                            ? "Sí"
-                                            : "No",
-                                    arrMediosDigitales:
-                                        data.objInfoEmpresa
-                                            .arrMediosDigitales || [],
-                                    strTiempoDedicacion:
-                                        data.objInfoEmpresa
-                                            .strTiempoDedicacion || "",
-                                    strSectorEconomico:
-                                        data.objInfoEmpresa
-                                            .strSectorEconomico || "",
-                                    strCategoriaProducto:
-                                        data.objInfoEmpresa
-                                            .strCategoriaProducto || "",
-                                    strCategoriaServicio:
-                                        data.objInfoEmpresa
-                                            .strCategoriaServicio || "",
-                                    arrCategoriasSecundarias:
-                                        data.objInfoEmpresa
-                                            .arrCategoriasSecundarias || [],
-                                    strOtraCategoria:
-                                        data.objInfoEmpresa.strOtraCategoria ||
-                                        "",
-                                    btGeneraEmpleo:
-                                        typeof data.objInfoEmpresa
-                                            .btGeneraEmpleo === "boolean"
-                                            ? data.objInfoEmpresa.btGeneraEmpleo
-                                            : "",
-                                },
-                                objInfoPerfilEco: {
-                                    dblValorVentasMes: data.objInfoEmpresa.valorVentasMes || "",
-                                    intNumeroEmpleados: data.objInfoEmpresa.intNumeroEmpleados || "",
-                                }
-                            });
-                        }
-                        
-                        setErrorGetData({ flag: false, msg: "" });
-                    })
-                    .catch((error) => {
-                        setErrorGetData({ flag: true, msg: error.message });
-                        setLoadingGetData(false);
-                    });
-
                 await refFntGetDataGen
                     .current({
                         intIdIdea,
@@ -459,7 +579,7 @@ const PageCUGeneral = ({
                         }
 
                         if (res.data?.data) {
-                            if (!isEdit) {
+                            if (!isEdit && !isPreview) {
                                 setFinalizado(
                                     res.data.data[0].objInfoGeneral.btFinalizado
                                 );
@@ -767,7 +887,8 @@ const PageCUGeneral = ({
                                                 variant="body1"
                                             >
                                                 {isEdit
-                                                    ? "editar diagnóstico empresarial"
+                                                    ? "editar diagnóstico empresarial" :
+                                                    isPreview ?  "previsualizar diagnóstico empresarial" 
                                                     : "registrar diagnóstico empresarial"}
                                             </Typography>
                                         </Box>
@@ -784,7 +905,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoGeneral
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoGeneral}
                                         errors={errors}
                                         intIdIdea={intIdIdea}
@@ -797,7 +918,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoFamiliar
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoFamiliar}
                                         errors={errors}
                                         setValue={setValue}
@@ -809,7 +930,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoEmprendimiento
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoEmprendimiento}
                                         errors={errors}
                                         setValue={setValue}
@@ -821,7 +942,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoEmpresa
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoEmpresa}
                                         errors={errors}
                                         setValue={setValue}
@@ -833,7 +954,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoPerfilEco
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoPerfilEco}
                                         errors={errors}
                                         setValue={setValue}
@@ -845,7 +966,7 @@ const PageCUGeneral = ({
                                 <Grid item xs={12}>
                                     <InfoAdicional
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoAdicional}
                                         errors={errors}
                                         setValue={setValue}
@@ -870,53 +991,55 @@ const PageCUGeneral = ({
                                         </Grid>
                                     )}
 
-                                <Grid item xs={12}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: isEdit ? "row" : "row-reverse",
-                                        }}
-                                    >
-                                        {
-                                            isEdit ? (
-                                                <Box sx={{ flexGrow: 1 }}>
-                                                    <LoadingButton
-                                                        variant="text"
-                                                        loading={loading}
-                                                        color="error"
-                                                        onClick={() =>
-                                                            handlerOpenModalDelete()
-                                                        }>
-                                                        Borrar diagnóstico
-                                                    </LoadingButton>
-                                                </Box>
-                                            ) : null
-                                        }
-                                        {
-                                            isEdit ? (
-                                                <LoadingButton
-                                                    variant="contained"
-                                                    loading={loading}
-                                                    onClick={() =>
-                                                        handlerOpenModalFinalizacion()
-                                                    }
-                                                    style={{
-                                                        marginLeft: 15
-                                                    }}>
-                                                    Finalizar
-                                                </LoadingButton>
-                                            ) : null
-                                        }
-                                        <LoadingButton
-                                            variant="contained"
-                                            type="submit"
-                                            loading={loading}
-                                            sx={{ marginLeft: "15px" }}
+                                {isPreview ? null : (
+                                    <Grid item xs={12}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: isEdit ? "row" : "row-reverse",
+                                            }}
                                         >
-                                            {isEdit ? "guardar" : "registrar"}
-                                        </LoadingButton>
-                                    </Box>
-                                </Grid>
+                                            {
+                                                isEdit ? (
+                                                    <Box sx={{ flexGrow: 1 }}>
+                                                        <LoadingButton
+                                                            variant="text"
+                                                            loading={loading}
+                                                            color="error"
+                                                            onClick={() =>
+                                                                handlerOpenModalDelete()
+                                                            }>
+                                                            Borrar diagnóstico
+                                                        </LoadingButton>
+                                                    </Box>
+                                                ) : null
+                                            }
+                                            {
+                                                isEdit ? (
+                                                    <LoadingButton
+                                                        variant="contained"
+                                                        loading={loading}
+                                                        onClick={() =>
+                                                            handlerOpenModalFinalizacion()
+                                                        }
+                                                        style={{
+                                                            marginLeft: 15
+                                                        }}>
+                                                        Finalizar
+                                                    </LoadingButton>
+                                                ) : null
+                                            }
+                                            <LoadingButton
+                                                variant="contained"
+                                                type="submit"
+                                                loading={loading}
+                                                sx={{ marginLeft: "15px" }}
+                                            >
+                                                {isEdit ? "guardar" : "registrar"}
+                                            </LoadingButton>
+                                        </Box>
+                                    </Grid>
+                                )}
                             </Grid>
                         </Paper>
                     </Container>

@@ -857,6 +857,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                         onClick={()=> onChangeRoute("DiagEmpresarialPrev", {
                                             intIdIdea,
                                             intIdDiagnostico,
+                                            isPreview : true
                                         })}
                                     >
                                         <RemoveRedEyeIcon />

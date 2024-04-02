@@ -961,6 +961,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                         onClick={()=> onChangeRoute("DiagEmpresarialTecPrev", {
                                             intIdIdea,
                                             intIdDiagnostico,
+                                            isPreview : true
                                         })}
                                     >
                                         <RemoveRedEyeIcon />

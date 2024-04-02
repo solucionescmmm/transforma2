@@ -419,6 +419,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                         onClick={()=> onChangeRoute("DiagEmpresarialHumPrev", {
                                             intIdIdea,
                                             intIdDiagnostico,
+                                            isPreview : true
                                         })}
                                     >
                                         <RemoveRedEyeIcon />
