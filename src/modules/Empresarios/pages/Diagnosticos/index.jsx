@@ -271,7 +271,7 @@ const ReadDiagnosticos = ({
                                     (rowData) => {
                                         if (ability.can("update", "Diag")) {
                                             return {
-                                                icon: () => (rowData.strEstadoDiagnostico === "Finalizado" ? (
+                                                icon: () => (rowData.strEstadoDiagnostico === "Finalizado" || rowData.strEstadoDiagnostico === "Finalizado con ruta" ? (
                                                     <RemoveRedEyeIcon
                                                         color="gray"
                                                         fontSize="small"
@@ -310,7 +310,7 @@ const ReadDiagnosticos = ({
                                                         }}
                                                     />
                                                 )),
-                                                tooltip: rowData.strEstadoDiagnostico === "Finalizado" ? "Previsualizar" : "Editar",
+                                                tooltip: rowData.strEstadoDiagnostico === "Finalizado" || rowData.strEstadoDiagnostico === "Finalizado con ruta" ? "Previsualizar" : "Editar",
                                             };
                                         }
                                     },

@@ -641,11 +641,11 @@ const PageCUServicio = ({
                                         <Box
                                             sx={{
                                                 display: "flex",
-                                                flexDirection: !isEdit ? "row" : "row-reverse",
+                                                flexDirection: isEdit ? "row" : "row-reverse",
                                             }}
                                         >
                                             {
-                                                !isEdit ? (
+                                                isEdit ? (
                                                     <Box sx={{ flexGrow: 1 }}>
                                                         <LoadingButton
                                                             variant="text"
@@ -660,7 +660,7 @@ const PageCUServicio = ({
                                                 ) : null
                                             }
                                             {
-                                                !isEdit ? (
+                                                isEdit ? (
                                                     <LoadingButton
                                                         variant="contained"
                                                         loading={loading}

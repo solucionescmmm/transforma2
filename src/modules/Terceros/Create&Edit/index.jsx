@@ -312,7 +312,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                             noValidate
                             style={{ padding: "25px" }}
                         >
-                            <Grid item xs={12}>
+                            <Grid item xs={12}> 
                                 <Box
                                     sx={{
                                         display: "flex",
@@ -490,6 +490,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                                 sx={{
                                                     display: "flex",
                                                     flexDirection: "row-reverse",
+                                                    paddingTop: 2,
                                                 }}
                                             >
                                                 <Button
