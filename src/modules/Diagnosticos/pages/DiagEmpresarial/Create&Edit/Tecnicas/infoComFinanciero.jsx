@@ -200,12 +200,12 @@ const InfoComMercadeo = ({
                                 disabled={disabled}
                                 onChange={(e) => onChange(e)}
                                 error={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComFinanciero?.[nombre]
                                         ? true
                                         : false
                                 }
                                 helperText={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComFinanciero?.[nombre]
                                         ?.message ||
                                     "Digita el detalle en caso de que aplique"
                                 }
@@ -220,12 +220,12 @@ const InfoComMercadeo = ({
                                 valueList={data[nombre]}
                                 onChange={(e) => onChange(e)}
                                 error={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComFinanciero?.[nombre]
                                         ? true
                                         : false
                                 }
                                 helperText={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComFinanciero?.[nombre]
                                         ?.message || "Nivel"
                                 }
                                 strGrupo={strGrupo}
@@ -242,12 +242,12 @@ const InfoComMercadeo = ({
                                     handlerChangeData(strGrupo, e.target.value);
                                 }}
                                 error={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComFinanciero?.[nombre]
                                         ? true
                                         : false
                                 }
                                 helperText={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComFinanciero?.[nombre]
                                         ?.message || "Seleccione una opción"
                                 }
                                 strGrupo={strGrupo}

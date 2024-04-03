@@ -113,24 +113,6 @@ const InfoComMercadeo = ({
             strCodigo: "ProcProdEst",
         },
         {
-            nombre: "strGradoIntervProdServi",
-            label: "Grado de intervención en el producto/servicion",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "ProcProdEst",
-        },
-        {
-            nombre: "strGradoIntervProdServiDetalle",
-            label: "Detalle",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "ProcProdEst",
-        },
-        {
-            nombre: "strGradoIntervProdServiNivel",
-            label: "Nivel",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "ProcProdEst",
-        },
-        {
             nombre: "strDefProcComProv",
             label: "Tengo definido los procesos de compra y los proveedores",
             strGrupo: "DiagnosticoTecnico",
@@ -407,12 +389,12 @@ const InfoComMercadeo = ({
                                 disabled={disabled}
                                 onChange={(e) => onChange(e)}
                                 error={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComProductivo?.[nombre]
                                         ? true
                                         : false
                                 }
                                 helperText={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComProductivo?.[nombre]
                                         ?.message ||
                                     "Digita el detalle en caso de que aplique"
                                 }
@@ -427,12 +409,12 @@ const InfoComMercadeo = ({
                                 valueList={data[nombre]}
                                 onChange={(e) => onChange(e)}
                                 error={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComProductivo?.[nombre]
                                         ? true
                                         : false
                                 }
                                 helperText={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComProductivo?.[nombre]
                                         ?.message || "Nivel"
                                 }
                                 strGrupo={strGrupo}
@@ -449,12 +431,12 @@ const InfoComMercadeo = ({
                                     handlerChangeData(strGrupo, e.target.value);
                                 }}
                                 error={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComProductivo?.[nombre]
                                         ? true
                                         : false
                                 }
                                 helperText={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComProductivo?.[nombre]
                                         ?.message || "Seleccione una opción"
                                 }
                                 strGrupo={strGrupo}
