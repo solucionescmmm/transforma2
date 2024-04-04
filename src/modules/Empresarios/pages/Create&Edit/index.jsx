@@ -169,6 +169,9 @@ const SearchEmpresario = ({ isEdit }) => {
                                 objEmprPrincipal.strDireccionResidencia || "",
                             strURLFileFoto:
                                 objEmprPrincipal.strUrlFileFoto || "",
+                            bitIsEmpresario: objEmprPrincipal.bitIsEmpresario,
+                            bitIsTercero: objEmprPrincipal.bitIsTercero,
+                            strEstado: objEmprPrincipal.strEstado,
                         },
                         objInfoEmpresa: {},
                         objInfoAdicional: {},
@@ -380,7 +383,8 @@ const SearchEmpresario = ({ isEdit }) => {
                                 {data && !loadingGetData && documento && (
                                     <Alert severity="warning">
                                         Se encontro un registro con los
-                                        siguientes datos:
+                                        siguientes datos {data.objInfoEmpresarioPr.bitIsTercero ? "de una persona externa activa": ""}
+                                        {data.objInfoEmpresarioPr.strEstado === "Inactivo" && data.objInfoEmpresarioPr.bitIsEmpresario ? "de una persona empresaria inactiva con las siguiente empresas asociadas" : ""}:
                                         <Avatar
                                             style={{ margin: "10px" }}
                                             alt={
