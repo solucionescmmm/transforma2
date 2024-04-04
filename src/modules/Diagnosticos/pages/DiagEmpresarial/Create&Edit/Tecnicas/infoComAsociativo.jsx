@@ -140,15 +140,15 @@ const InfoComMercadeo = ({
     };
 
     const render = (datos) => {
-        return datos.map(({ nombre, label, strGrupo, strCodigo }) => (
+        return datos.map(({ name, label, strGrupo, strCodigo }) => (
             <Grid
                 item
                 xs={12}
                 md={label === "Detalle" ? 3 : label === "Nivel" ? 2 : 7}
             >
                 <Controller
-                    name={`objInfoComAsociativo.${nombre}`}
-                    defaultValue={data[nombre]}
+                    name={`objInfoComAsociativo.${name}`}
+                    defaultValue={data[name]}
                     render={({ field: { name, value, onChange } }) =>
                         label === "Detalle" ? (
                             <TextField
@@ -159,12 +159,12 @@ const InfoComMercadeo = ({
                                 disabled={disabled}
                                 onChange={(e) => onChange(e)}
                                 error={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComAsociativo?.[name]
                                         ? true
                                         : false
                                 }
                                 helperText={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComAsociativo?.[name]
                                         ?.message ||
                                     "Digita el detalle en caso de que aplique"
                                 }
@@ -176,15 +176,15 @@ const InfoComMercadeo = ({
                                 label={label}
                                 name={name}
                                 value={value}
-                                valueList={data[nombre]}
+                                valueList={data[name]}
                                 onChange={(e) => onChange(e)}
                                 error={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComAsociativo?.[name]
                                         ? true
                                         : false
                                 }
                                 helperText={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComAsociativo?.[name]
                                         ?.message || "Nivel"
                                 }
                                 strGrupo={strGrupo}
@@ -201,12 +201,12 @@ const InfoComMercadeo = ({
                                     handlerChangeData(strGrupo, e.target.value);
                                 }}
                                 error={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComAsociativo?.[name]
                                         ? true
                                         : false
                                 }
                                 helperText={
-                                    errors?.objInfoComMercadeo?.[nombre]
+                                    errors?.objInfoComAsociativo?.[name]
                                         ?.message || "Seleccione una opción"
                                 }
                                 strGrupo={strGrupo}
