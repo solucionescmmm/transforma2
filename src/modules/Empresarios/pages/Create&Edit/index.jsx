@@ -432,7 +432,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                             <b>Dirección de residencia: </b>{" "}
                                             {
                                                 data.objInfoEmpresarioPr
-                                                    .strDireccionResidencia
+                                                    .strDireccionResidencia || "No aplica"
                                             }{" "}
                                         </p>
                                         {data.objIdeaEmpresario && (

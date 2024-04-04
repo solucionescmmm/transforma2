@@ -92,6 +92,11 @@ const ModalMediosVetanProductos = ({
             label: "Ventas corporativas",
             parent: "strVentasCorporativas",
         },
+        objReferidos: {
+            checked: false,
+            label: "Referidos",
+            parent: "strReferidos",
+        },
     });
 
     // eslint-disable-next-line
