@@ -131,7 +131,7 @@ const getLastEmpresarios = async (objParams, strDataUser) => {
                     strModalidadIngreso: array[i]?.strModalidadIngreso,
                     dtFechaVinculacion: array[i]?.dtFechaVinculacion,
                     intIdEstadoVinculacion: array[i]?.intIdEstadoVinculacion,
-                    strEstado: array[i]?.strEstado,
+                    strEstado: array[i]?.strEstadoVinculacion,
                     strTipoVinculacion: array[i]?.strTipoVinculacion,
                     dtmCreacion: array[i]?.dtmCreacion,
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
