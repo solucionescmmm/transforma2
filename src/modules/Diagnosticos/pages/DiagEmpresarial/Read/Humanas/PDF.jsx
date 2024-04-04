@@ -148,7 +148,7 @@ const PDFProduct = ({ intId, values }) => {
                ${values?.objInfoEncuestaHumanas
                    .map(
                        (e) => `<tr>
-                   <td>${e.label}</td>
+                    <td style="color: black">${e.label}</td>
                    <td>${e.value}</td>
                   
                </tr>
@@ -192,7 +192,7 @@ const PDFProduct = ({ intId, values }) => {
     return (
         <PDFViewer width="100%" height="100%">
             <Document
-                title={`Diagnostico de competencias humanas - ${objEmpresario.strNroDocto} - ${objEmpresa.strNombreMarca}`}
+                title={`Diagnostico de competencias humanas - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}
             >
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />

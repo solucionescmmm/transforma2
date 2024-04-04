@@ -25,6 +25,63 @@ import {
 import SelectListas from "../../../../components/selectLista";
 import SelectListasNivel from "../../../../components/selectListasNivel";
 
+export const propiedades = [
+    {
+        name: "strPartReuPerioSociSoli",
+        label: "Participo en las reuniones periódicas de la organización social y solidaria (asociación)",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "PartReuPerioSociSoli",
+    },
+    {
+        name: "strPartReuPerioSociSoliDetalle",
+        label: "Detalle",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "PartReuPerioSociSoli",
+    },
+    {
+        name: "strPartReuPerioSociSoliNivel",
+        label: "Nivel",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "PartReuPerioSociSoli",
+    },
+    {
+        name: "strConApliEstOrgSociSoli",
+        label: "Conozco y aplico estatutos de la organización social y solidaria",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "ConApliEstOrgSociSoli",
+    },
+    {
+        name: "strConApliEstOrgSociSoliDetalle",
+        label: "Detalle",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "ConApliEstOrgSociSoli",
+    },
+    {
+        name: "strConApliEstOrgSociSoliNivel",
+        label: "Nivel",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "ConApliEstOrgSociSoli",
+    },
+    {
+        name: "strAsociEmpoOrgAdmin",
+        label: "Los asociados están empoderados y cuentan con órganos de administración y control",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "AsociEmpoOrgAdmin",
+    },
+    {
+        name: "strAsociEmpoOrgAdminDetalle",
+        label: "Detalle",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "AsociEmpoOrgAdmin",
+    },
+    {
+        name: "strAsociEmpoOrgAdminNivel",
+        label: "Nivel",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "AsociEmpoOrgAdmin",
+    },
+];
+
 const InfoComMercadeo = ({
     disabled,
     values,
@@ -75,62 +132,7 @@ const InfoComMercadeo = ({
         setLoading(false);
     }, [values]);
 
-    const propiedades = [
-        {
-            name: "strPartReuPerioSociSoli",
-            label: "Participo en las reuniones periódicas de la organización social y solidaria (asociación)",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "PartReuPerioSociSoli",
-        },
-        {
-            name: "strPartReuPerioSociSoliDetalle",
-            label: "Detalle",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "PartReuPerioSociSoli",
-        },
-        {
-            name: "strPartReuPerioSociSoliNivel",
-            label: "Nivel",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "PartReuPerioSociSoli",
-        },
-        {
-            name: "strConApliEstOrgSociSoli",
-            label: "Conozco y aplico estatutos de la organización social y solidaria",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "ConApliEstOrgSociSoli",
-        },
-        {
-            name: "strConApliEstOrgSociSoliDetalle",
-            label: "Detalle",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "ConApliEstOrgSociSoli",
-        },
-        {
-            name: "strConApliEstOrgSociSoliNivel",
-            label: "Nivel",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "ConApliEstOrgSociSoli",
-        },
-        {
-            name: "strAsociEmpoOrgAdmin",
-            label: "Los asociados están empoderados y cuentan con órganos de administración y control",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "AsociEmpoOrgAdmin",
-        },
-        {
-            name: "strAsociEmpoOrgAdminDetalle",
-            label: "Detalle",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "AsociEmpoOrgAdmin",
-        },
-        {
-            name: "strAsociEmpoOrgAdminNivel",
-            label: "Nivel",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "AsociEmpoOrgAdmin",
-        },
-    ];
+  
 
     const handlerChangeData = (key, value) => {
         setData((prevState) => ({

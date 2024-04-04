@@ -10,6 +10,7 @@ import {
     Document,
     StyleSheet,
     Font,
+    View
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     image: {
         marginVertical: 10,
         marginHorizontal: 210,
-        width: "80px",
+        width: "120px",
     },
     title: {
         textAlign: "center",
@@ -83,6 +84,10 @@ const styles = StyleSheet.create({
     },
     images: {
         width: "100px",
+    },
+    container: {
+        flexDirection: 'row', // Organiza las imágenes en una fila
+        justifyContent: 'center', // Centra las imágenes horizontalmente
     },
 });
 
@@ -159,7 +164,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                ${values?.objInfoNormatividad
                    .map(
                        (e) => `<tr>
-                   <td>${e.label}</td>
+                   <td style="color: black">${e.label}</td>
                    <td>${e.value}</td>
                   
                </tr>
@@ -472,7 +477,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
     return (
         <PDFViewer width="100%" height="100%">
-            <Document title="Informe_Diagnostico_Servicio">
+            <Document  title={`Diagnostico de servicio - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}>
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
@@ -833,8 +838,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         `}
                     </Html>
 
+                    <View style={styles.container}>
                     {arrImagenes.length > 0 &&
-                        arrImagenes.map((i) => <Image src={i.src} style={styles.images} />)}
+                        arrImagenes.map((i, index) => (
+                            <Image
+                                src={i.src}
+                                style={styles.images}
+                                key={index}
+                            />
+                        ))}
+                    </View>
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y

@@ -9,6 +9,7 @@ import {
     Image,
     Document,
     Font,
+    View,
     StyleSheet,
 } from "@react-pdf/renderer";
 
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     image: {
         marginVertical: 10,
         marginHorizontal: 210,
-        width: "80px",
+        width: "120px",
     },
     title: {
         textAlign: "center",
@@ -84,6 +85,10 @@ const styles = StyleSheet.create({
     images: {
         width: "100px",
     },
+    container: {
+        flexDirection: 'row', // Organiza las imágenes en una fila
+        justifyContent: 'center', // Centra las imágenes horizontalmente
+      },
 });
 
 const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
@@ -153,7 +158,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                ${values?.objInfoNormatividad
                    .map(
                        (e) => `<tr>
-                   <td>${e.label}</td>
+                   <td style="color: black">${e.label}</td>
                    <td>${e.value || "Sin diligenciar"}</td>
                   
                </tr>
@@ -467,7 +472,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
     return (
         <PDFViewer width="100%" height="100%">
-            <Document title="Informe_Diagnostico_Producto">
+            <Document   title={`Diagnostico de producto - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}
+   >
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
@@ -610,7 +616,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                     <Image
                         source={values?.imgChart}
-                        style={{ width: "321px", alignSelf: "center" }}
+                        style={{ width: "300px", alignSelf: "center" }}
                     />
 
                     <Html>
@@ -856,6 +862,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         `}
                     </Html>
 
+                    <View style={styles.container}>
                     {arrImagenes.length > 0 &&
                         arrImagenes.map((i, index) => (
                             <Image
@@ -864,6 +871,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                                 key={index}
                             />
                         ))}
+                    </View>
+                 
 
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y
