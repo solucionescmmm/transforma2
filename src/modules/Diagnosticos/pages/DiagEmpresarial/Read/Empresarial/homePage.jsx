@@ -412,15 +412,15 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parten: "intMargenRentabilidad",
                 value: "",
-                label: "Margen de rentabilidad"
-            }
+                label: "Margen de rentabilidad",
+            },
         ],
         objInfoAdicional: [
             {
                 parent: "strConclusiones",
                 value: "",
                 label: "Conclusiones y observaciones",
-            }
+            },
         ],
         arrImagenes: [],
     });
@@ -457,14 +457,13 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     const { getUniqueData: getUniqueDataGen } = useGetDiagnGeneral({
         autoLoad: false,
         intIdDiagnostico,
+        intIdIdea,
     });
 
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false, intIdIdea });
 
-
     const refFntGetData = useRef(getUniqueData);
     const refFntGetDataGen = useRef(getUniqueDataGen);
-
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
@@ -479,14 +478,24 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
     async function getData() {
         await refFntGetData
-            .current({ intIdDiagnostico })
-            .then((res) => {
-                if (res.data.error) {
-                    throw new Error(res.data.msg);
+            .current({ intIdIdea })
+            .then(async (res) => {
+                const resData = await refFntGetDataGen.current({
+                    intIdDiagnostico,
+                    intIdIdea,
+                });
+
+                if (res.data.error || resData.data.error) {
+                    throw new Error(res.data.msg || resData.data.msg);
                 }
 
-                if (res.data) {
-                    let data = res.data.data[0];
+                if (res.data && resData.data) {
+                    let dataEmpr = res.data.data?.[0];
+                    const objEmprPrincipal = dataEmpr.objEmpresario.find(
+                        (emp) => emp.strTipoEmpresario === "Principal"
+                    );
+
+                    let data = resData.data.data[0];
 
                     setFinalizado(data.objInfoGeneral.btFinalizado);
 
@@ -521,9 +530,56 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                     };
 
                     const objInfoFamiliar = data.objInfoFamiliar;
-                    const objInfoEmprendimiento = data.objInfoEmprendimiento;
+                    const objInfoEmprendimiento = {
+                        ...data.objInfoEmprendimiento,
+                        strUnidadProductiva:
+                            dataEmpr.objInfoEmpresa.strNombreMarca,
+                        strLugarOperacion:
+                            dataEmpr.objInfoEmpresa.strLugarOperacion,
+                        arrPais: dataEmpr.objInfoEmpresa.arrPais,
+                        arrDepartamento:
+                            dataEmpr.objInfoEmpresa.arrDepartamento,
+                        arrCiudad: dataEmpr.objInfoEmpresa.arrCiudad,
+                        strBarrio: dataEmpr.objInfoEmpresa.strBarrio,
+                        strDireccionResidencia:
+                            dataEmpr.objInfoEmpresa.strDireccionResidencia,
+                        strCelular: objEmprPrincipal.strCelular1 || "",
+                        strCorreoElectronico:
+                            objEmprPrincipal.strCorreoElectronico1 || "",
+                        strRedesSociales:
+                            dataEmpr.objInfoEmpresa.arrMediosDigitales?.length >
+                            0
+                                ? "Sí"
+                                : "No",
+                        arrMediosDigitales:
+                            dataEmpr.objInfoEmpresa.arrMediosDigitales || [],
+                        strTiempoDedicacion:
+                            dataEmpr.objInfoEmpresa.strTiempoDedicacion || "",
+                        strSectorEconomico:
+                            dataEmpr.objInfoEmpresa.strSectorEconomico || "",
+                        strCategoriaProducto:
+                            dataEmpr.objInfoEmpresa.strCategoriaProducto || "",
+                        strCategoriaServicio:
+                            dataEmpr.objInfoEmpresa.strCategoriaServicio || "",
+                        arrCategoriasSecundarias:
+                            dataEmpr.objInfoEmpresa.arrCategoriasSecundarias ||
+                            [],
+                        strOtraCategoria:
+                            dataEmpr.objInfoEmpresa.strOtraCategoria || "",
+                        btGeneraEmpleo:
+                            typeof dataEmpr.objInfoEmpresa.btGeneraEmpleo ===
+                            "boolean"
+                                ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
+                                : "",
+                    };
                     const objInfoEmpresa = data.objInfoEmpresa;
-                    const objInfoPerfilEco = data.objInfoPerfilEco;
+                    const objInfoPerfilEco = {
+                        ...dataEmpr.objInfoPerfilEco,
+                        dblValorVentasMes:
+                            dataEmpr.objInfoEmpresa.valorVentasMes || "",
+                        intNumeroEmpleados:
+                            dataEmpr.objInfoEmpresa.intNumeroEmpleados || "",
+                    };
                     const objInfoAdicional = data.objInfoAdicional;
 
                     setData((prevState) => {
@@ -535,6 +591,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         let prevInfoPerfilEco = prevState.objInfoPerfilEco;
                         let prevInfoAdicional = prevState.objInfoAdicional;
 
+                        
                         for (const key in objInfoGeneral) {
                             if (
                                 Object.hasOwnProperty.call(objInfoGeneral, key)
@@ -552,9 +609,9 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                         if (key === "dtmFechaSesion") {
                                             e.value = validator.isDate(e.value)
                                                 ? format(
-                                                    e.value,
-                                                    "yyyy-MM-dd hh:mm"
-                                                )
+                                                      e.value,
+                                                      "yyyy-MM-dd hh:mm"
+                                                  )
                                                 : "No diligenciado";
                                         }
                                     }
@@ -586,6 +643,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         }
 
                         for (const key in objInfoEmprendimiento) {
+                        
                             if (
                                 Object.hasOwnProperty.call(
                                     objInfoEmprendimiento,
@@ -593,7 +651,16 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 )
                             ) {
                                 prevInfoEmprendimiento.forEach((e) => {
-                                    if (e.parent === key) {
+                                    if(e.parent === key && key === "arrDepartamento") {
+                                        e.value =
+                                        objInfoEmprendimiento[key].region_name;
+                                    }
+                                    else if(e.parent === key && key === "arrCiudad") {
+                                        e.value =
+                                        objInfoEmprendimiento[key].city_name;
+                                    }
+
+                                    else if (e.parent === key) {
                                         if (objInfoEmprendimiento[key]?.map) {
                                             const json =
                                                 objInfoEmprendimiento[key];
@@ -845,11 +912,16 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 <Tooltip title="Previsualizar diagnóstico">
                                     <IconButton
                                         color="inherit"
-                                        onClick={()=> onChangeRoute("DiagEmpresarialPrev", {
-                                            intIdIdea,
-                                            intIdDiagnostico,
-                                            isPreview : true
-                                        })}
+                                        onClick={() =>
+                                            onChangeRoute(
+                                                "DiagEmpresarialPrev",
+                                                {
+                                                    intIdIdea,
+                                                    intIdDiagnostico,
+                                                    isPreview: true,
+                                                }
+                                            )
+                                        }
                                     >
                                         <RemoveRedEyeIcon />
                                     </IconButton>
