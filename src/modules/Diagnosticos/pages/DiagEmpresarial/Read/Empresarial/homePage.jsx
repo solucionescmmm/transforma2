@@ -215,54 +215,39 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "¿La empresa genera empleo para otras personas?",
             },
             {
-                parent: "strProductoServiciosEnValidacion",
-                value: "",
-                label: "¿Tiene definidas las líneas de productos/servicios del negocio?",
-            },
-            {
                 parent: "strNivelDlloProductoServicios",
-                value: "",
-                label: "¿Cuál es la línea de productos/servicios más destacada?",
-            },
-            {
-                parent: "strEtapaValidProductoServicios",
-                value: "",
-                label: "¿Cuenta con productos/servicios en validación?",
-            },
-            {
-                parent: "MinimoValorProducto",
                 value: "",
                 label: "Nivel de desarrollo del producto/servicio",
             },
             {
-                parent: "MaximoValorProducto",
+                parent: "strEtapaValidProductoServicios",
                 value: "",
                 label: "¿En qué etapa de validación se encuentra el producto/servicio?",
             },
             {
-                parent: "intCantidadUnidadesProducidasMes",
+                parent: "MinimoValorProducto",
                 value: "",
                 label: "Rango de precios de productos mínimo",
             },
             {
-                parent: "strEscojaProductoServicio",
+                parent: "MaximoValorProducto",
                 value: "",
                 label: "Rango de precios de productos máximo",
             },
             {
                 parent: "ValorVentaProductoEscogido",
                 value: "",
-                label: "Cantidad de unidades producidas al mes actualmente",
+                label: "De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?",
             },
             {
-                parent: "strConoceCostosProductoEscogido",
+                parent: "strEscojaProductoServicio",
                 value: "",
                 label: "Escoja uno de los productos/servicios de su empresa",
             },
             {
                 parent: "CostoProduccionProductoEscogido",
                 value: "",
-                label: "De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?",
+                label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?",
             },
             {
                 parent: "strDefinePorcentajesCanal",
