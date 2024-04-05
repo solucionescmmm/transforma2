@@ -39,6 +39,7 @@ const getEmpresario = async (objParams, strDataUser) => {
             for (let i = 0; i < array.length; i++) {
                 array[i] = {
                     ...array[i],
+                    arrPais: JSON.parse(array[i]?.strPais || null),
                     arrDepartamento: JSON.parse(
                         array[i]?.strDepartamento || null
                     ),
@@ -46,6 +47,7 @@ const getEmpresario = async (objParams, strDataUser) => {
                     bitIsEmpresario: true
                 };
             }
+
             let result = {
                 error: false,
                 data: array,
@@ -66,6 +68,18 @@ const getEmpresario = async (objParams, strDataUser) => {
 
         if (!arrayDataTercero.error && arrayDataTercero.data) {
             let array = arrayDataTercero.data;
+
+            for (let i = 0; i < array.length; i++) {
+                array[i] = {
+                    ...array[i],
+                    arrPais: JSON.parse(array[i]?.strPais || null),
+                    arrDepartamento: JSON.parse(
+                        array[i]?.strDepartamento || null
+                    ),
+                    arrCiudad: JSON.parse(array[i]?.strCiudad || null),
+                    bitIsTercero: true
+                };
+            }
     
             let result = {
                 error: false,
