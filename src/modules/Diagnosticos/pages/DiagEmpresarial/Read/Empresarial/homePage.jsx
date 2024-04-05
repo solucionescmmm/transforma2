@@ -33,6 +33,7 @@ import ModalPDF from "./modalPDF";
 import ModalFinish from "./modalFinish";
 import { Can } from "../../../../../../common/functions/can";
 import { ImageViewer } from "../../../../../../common/components/ImageViewer";
+import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
 
 const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
@@ -468,12 +469,17 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { getUniqueData } = useGetDiagnGeneral({
+    const { getUniqueData: getUniqueDataGen } = useGetDiagnGeneral({
         autoLoad: false,
         intIdDiagnostico,
     });
 
+    const { getUniqueData } = useGetEmpresarios({ autoLoad: false, intIdIdea });
+
+
     const refFntGetData = useRef(getUniqueData);
+    const refFntGetDataGen = useRef(getUniqueDataGen);
+
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
