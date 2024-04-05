@@ -1332,11 +1332,8 @@ const PaperFase = ({
                                     />
 
                                     <Box>
-                                        <Alert severity="warning">
-                                            Modificar el valor de la fase
-                                            eliminará automáticamente los
-                                            porcentajes. ¡Asegúrate de guardar
-                                            tus cambios!
+                                        <Alert severity="info">
+                                            En caso tal de modificar el valor de fase, debes ingresar nuevamente los porcentajes de pago
                                         </Alert>
                                     </Box>
                                 </Grid>
