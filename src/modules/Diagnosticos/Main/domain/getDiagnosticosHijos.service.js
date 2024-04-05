@@ -4,7 +4,7 @@ const validator = require("validator").default;
 const classInterfaceDiagnosticos = require("../infra/conectors/interfaseDAODiagnosticos");
 
 const getDiagnosticosHijos = async (objParams, strDataUser) => {
-    let = { intId } = objParams;
+    let = { intId, btFinalizado } = objParams;
 
     if (
         !validator.isEmail(strDataUser.strEmail, {
@@ -27,6 +27,18 @@ const getDiagnosticosHijos = async (objParams, strDataUser) => {
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data;
+
+            for (let i = 0; i < array.length; i++) {
+                if (!btFinalizado) {
+                    array[i] = {
+                        objDiagnosticoGeneral: array[i]?.objDiagnosticoGeneral?.[0]?.btFinalizado ? null : array[i]?.objDiagnosticoGeneral,
+                        objDiagnosticoHumanoSocial: array[i]?.objDiagnosticoHumanoSocial?.[0]?.btFinalizado ? null : array[i]?.objDiagnosticoHumanoSocial,
+                        objDiagnosticoCompetenciasTecnicas: array[i]?.objDiagnosticoCompetenciasTecnicas?.[0]?.btFinalizado ? null : array[i]?.objDiagnosticoCompetenciasTecnicas,
+                        objDiagnosticoProductos: array[i]?.objDiagnosticoProductos?.[0]?.btFinalizado ? null : array[i]?.objDiagnosticoProductos,
+                        objDiagnosticoServicios: array[i]?.objDiagnosticoServicios?.[0]?.btFinalizado ? null : array[i]?.objDiagnosticoServicios,
+                    }
+                }
+            }
 
             let result = {
                 error: false,

@@ -117,31 +117,31 @@ class daoDiagnosticos {
             (
                 SELECT *
                 FROM tbl_DiagnosticoGeneral
-                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                WHERE intIdDiagnostico = Diagnostico.intId
                 FOR JSON PATH
             )AS objDiagnosticoGeneral,
             (
                 SELECT *
                 FROM tbl_DiagnosticoHumanoSocial
-                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                WHERE intIdDiagnostico = Diagnostico.intId
                 FOR JSON PATH
             )AS objDiagnosticoHumanoSocial,
             (
                 SELECT *
                 FROM tbl_DiagnosticoCompetenciasTecnicas
-                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                WHERE intIdDiagnostico = Diagnostico.intId
                 FOR JSON PATH
             )AS objDiagnosticoCompetenciasTecnicas,
             (
                 SELECT *
                 FROM tbl_DiagnosticoProductos
-                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                WHERE intIdDiagnostico = Diagnostico.intId
                 FOR JSON PATH
             )AS objDiagnosticoProductos,
             (
                 SELECT *
                 FROM tbl_DiagnosticoServicios
-                WHERE intIdDiagnostico = Diagnostico.intId AND btFinalizado = 0
+                WHERE intIdDiagnostico = Diagnostico.intId
                 FOR JSON PATH
             )AS objDiagnosticoServicios
             
