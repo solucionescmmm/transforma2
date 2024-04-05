@@ -210,6 +210,7 @@ const ModalMediosVetanProductos = ({
                         id="chip-components-mediosVentaProductos"
                         name={name}
                         disabled={disabled}
+                        readOnly
                         sx={{ flexWrap: "wrap" }}
                         startAdornment={value.map((e, i) => (
                             <Chip
