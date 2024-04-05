@@ -10,6 +10,7 @@ import {
     Document,
     StyleSheet,
     Font,
+    View
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";
@@ -82,6 +83,10 @@ const styles = StyleSheet.create({
     images: {
         width: "100px",
     },
+    container: {
+        flexDirection: 'row', // Organiza las imágenes en una fila
+        justifyContent: 'center', // Centra las imágenes horizontalmente
+      },
 });
 
 const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
@@ -141,7 +146,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                ${values?.objInfoFamiliar
                    .map(
                        (e) => `<tr>
-                   <td>${e.label}</td>
+                   <td style="color: black">${e.label}</td>
                    <td>${e.value || "No diligenciado"}</td>
                   
                </tr>
@@ -169,7 +174,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                ${values?.objInfoEmprendimiento
                    .map(
                        (e) => `<tr>
-                   <td>${e.label}</td>
+                   <td style="color: black">${e.label}</td>
                    <td>${e.value || "No diligenciado"}</td>
                   
                </tr>
@@ -208,7 +213,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                ${ values?.objInfoPerfilEco
                    .map(
                        (e) => `<tr>
-                   <td>${e.label}</td>
+                   <td style="color: black">${e.label}</td>
                    <td>${e.value || "No diligenciado"}</td>
                   
                </tr>
@@ -256,7 +261,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
     return (
         <PDFViewer width="100%" height="100%">
-            <Document title={`Diagnostico General - ${objEmpresario.strNroDocto} - ${objEmpresa.strNombreMarca}`}>
+            <Document title={`Diagnostico General - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}>
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
@@ -504,9 +509,12 @@ comienza la búsqueda de inversión para expandir el negocio y aprovechar al má
                       `}
                     </Html>
 
+                    <View style={styles.container}>
                     {arrImagenes.length > 0 &&
                         arrImagenes.map((i) => <Image src={i.src} style={styles.images} />)}
 
+                    </View>
+                
                     <Text style={styles.footerTitle}>
                         Promovemos la transformación de personas emprendedoras y
                         empresarias en Colombia, mediante asesoría, formación y

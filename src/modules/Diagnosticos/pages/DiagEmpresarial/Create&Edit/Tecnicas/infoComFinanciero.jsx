@@ -25,6 +25,81 @@ import {
 import SelectListas from "../../../../components/selectLista";
 import SelectListasNivel from "../../../../components/selectListasNivel";
 
+export const propiedades = [
+    {
+        nombre: "strUniProdSosFinan",
+        label: "Mi unidad productiva es sostenible financieramente",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "UniProdSosFinan",
+    },
+    {
+        nombre: "strUniProdSosFinanDetalle",
+        label: "Detalle",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "UniProdSosFinan",
+    },
+    {
+        nombre: "strUniProdSosFinanNivel",
+        label: "Nivel",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "UniProdSosFinan",
+    },
+    {
+        nombre: "strDefProcConUniProd",
+        label: "Tengo definidos los procesos contables de mi unidad productiva",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "DefProcConUniProd",
+    },
+    {
+        nombre: "strDefProcConUniProdDetalle",
+        label: "Detalle",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "DefProcConUniProd",
+    },
+    {
+        nombre: "strDefProcConUniProdNivel",
+        label: "Nivel",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "DefProcConUniProd",
+    },
+    {
+        nombre: "strElabPresUniProd",
+        label: "Elaboro un presupuesto para mi unidad productiva",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "ElabPresUniProd",
+    },
+    {
+        nombre: "strElabPresUniProdDetalle",
+        label: "Detalle",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "ElabPresUniProd",
+    },
+    {
+        nombre: "strElabPresUniProdNivel",
+        label: "Nivel",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "ElabPresUniProd",
+    },
+    {
+        nombre: "strAdminDinUniProd",
+        label: "Sé como administrar el dinero de mi unidad productiva",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "AdminDinUniProd",
+    },
+    {
+        nombre: "strAdminDinUniProdDetalle",
+        label: "Detalle",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "AdminDinUniProd",
+    },
+    {
+        nombre: "strAdminDinUniProdNivel",
+        label: "Nivel",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "AdminDinUniProd",
+    },
+];
+
 const InfoComMercadeo = ({
     disabled,
     values,
@@ -98,80 +173,6 @@ const InfoComMercadeo = ({
         setLoading(false);
     }, [values]);
 
-    const propiedades = [
-        {
-            nombre: "strUniProdSosFinan",
-            label: "Mi unidad productiva es sostenible financieramente",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "UniProdSosFinan",
-        },
-        {
-            nombre: "strUniProdSosFinanDetalle",
-            label: "Detalle",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "UniProdSosFinan",
-        },
-        {
-            nombre: "strUniProdSosFinanNivel",
-            label: "Nivel",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "UniProdSosFinan",
-        },
-        {
-            nombre: "strDefProcConUniProd",
-            label: "Tengo definidos los procesos contables de mi unidad productiva",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "DefProcConUniProd",
-        },
-        {
-            nombre: "strDefProcConUniProdDetalle",
-            label: "Detalle",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "DefProcConUniProd",
-        },
-        {
-            nombre: "strDefProcConUniProdNivel",
-            label: "Nivel",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "DefProcConUniProd",
-        },
-        {
-            nombre: "strElabPresUniProd",
-            label: "Elaboro un presupuesto para mi unidad productiva",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "ElabPresUniProd",
-        },
-        {
-            nombre: "strElabPresUniProdDetalle",
-            label: "Detalle",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "ElabPresUniProd",
-        },
-        {
-            nombre: "strElabPresUniProdNivel",
-            label: "Nivel",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "ElabPresUniProd",
-        },
-        {
-            nombre: "strAdminDinUniProd",
-            label: "Sé como administrar el dinero de mi unidad productiva",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "AdminDinUniProd",
-        },
-        {
-            nombre: "strAdminDinUniProdDetalle",
-            label: "Detalle",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "AdminDinUniProd",
-        },
-        {
-            nombre: "strAdminDinUniProdNivel",
-            label: "Nivel",
-            strGrupo: "DiagnosticoTecnico",
-            strCodigo: "AdminDinUniProd",
-        },
-    ];
 
     const handlerChangeData = (key, value) => {
         setData((prevState) => ({

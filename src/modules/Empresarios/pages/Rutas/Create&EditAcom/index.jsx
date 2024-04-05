@@ -25,7 +25,7 @@ import {
     Container,
     Alert,
     TextField,
-    MenuItem,
+    // MenuItem,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -128,7 +128,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
-    const [dataObj, setDataObj] = useState([]);
+    // const [dataObj, setDataObj] = useState([]);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -553,7 +553,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                         remove={remove}
                                         watch={watch}
                                         intIdIdea={intIdIdea}
-                                        setDataObj={setDataObj}
+                                        //setDataObj={setDataObj}
                                     />
                                 )}
 
@@ -836,7 +836,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                     />
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                {/* <Grid item xs={12}>
                                     <Typography
                                         style={{
                                             fontWeight: "bold",
@@ -845,9 +845,9 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                         Información adicional
                                     </Typography>
                                     <hr />
-                                </Grid>
+                                </Grid> */}
 
-                                <Grid item xs={12}>
+                                {/* <Grid item xs={12}>
                                     <Controller
                                         defaultValue={data.bitFinalizarSesion}
                                         name="bitFinalizarSesion"
@@ -1027,7 +1027,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                             </Fragment>
                                         ))}
                                     </Fragment>
-                                )}
+                                )} */}
 
                                 <Grid item xs={12}>
                                     <Box

@@ -12,6 +12,7 @@ import { AuthContext } from "../../../../common/middlewares/Auth";
 // Librerias
 import axios from "axios";
 import toast from "react-hot-toast";
+import validator from "validator";
 import { Controller, useForm } from "react-hook-form";
 
 // MUI
@@ -430,6 +431,11 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                     rules={{
                                         required:
                                             "Por favor, digíta el nombre del evento",
+                                        validate:(value)=>{
+                                            if (validator.isLength(value,{min:100})) {
+                                                return "El número maximo de carácteres es de 100"
+                                            }
+                                        }
                                     }}
                                 />
                             </Grid>

@@ -25,6 +25,51 @@ import {
 import SelectListas from "../../../../components/selectLista";
 import SelectListasNivel from "../../../../components/selectListasNivel";
 
+export const propiedades = [
+    { nombre: "strCaractEmpresaComp", label: "Reconozco las características que hacen diferente a mi empresa frente a la competencia", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
+    { nombre: "strCaractEmpresaCompDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
+    { nombre: "strCaractEmpresaCompNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
+    { nombre: "strAnalizoObjetivoEmpresa", label: "Conozco y analizo el público objetivo de mi empresa", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
+    { nombre: "strAnalizoObjetivoEmpresaDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
+    { nombre: "strAnalizoObjetivoEmpresaNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
+    { nombre: "strAnalizoCompetiEmpresa", label: "Conozco y analizo los competidores de mi empresa", strGrupo: "DiagnosticoTecnico", strCodigo: "AnalizoCompetiEmpresa" },
+    { nombre: "strAnalizoCompetiEmpresaDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "AnalizoCompetiEmpresa" },
+    { nombre: "strAnalizoCompetiEmpresaNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "AnalizoCompetiEmpresa" },
+    { nombre: "strActivIncreVentClient", label: "Realizo actividades enfocadas en incrementar el nivel de ventas y clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "ActivIncreVentClient" },
+    { nombre: "strActivIncreVentClientDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "ActivIncreVentClient" },
+    { nombre: "strActivIncreVentClientNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "ActivIncreVentClient" },
+    { nombre: "strProceComerciEsta", label: "Mis procesos comerciales están", strGrupo: "DiagnosticoTecnico", strCodigo: "ProceComerciEsta" },
+    { nombre: "strProceComerciEstaDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "ProceComerciEsta" },
+    { nombre: "strProceComerciEstaNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "ProceComerciEsta" },
+    { nombre: "strDefiniPortProd", label: "Tengo definido el portafolio de productos", strGrupo: "DiagnosticoTecnico", strCodigo: "DefiniPortProd" },
+    { nombre: "strDefiniPortProdDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "DefiniPortProd" },
+    { nombre: "strDefiniPortProdNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "DefiniPortProd" },
+    { nombre: "strNumLugMedComerProd", label: "El número de lugares y medios en los que comercializo mis productos es", strGrupo: "DiagnosticoTecnico", strCodigo: "NumLugMedComerProd" },
+    { nombre: "strNumLugMedComerProdDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "NumLugMedComerProd" },
+    { nombre: "strNumLugMedComerProdNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "NumLugMedComerProd" },
+    { nombre: "strPartiRedesEmpreComer", label: "Pertenezco y participo en redes empresariales para la comercialización", strGrupo: "DiagnosticoTecnico", strCodigo: "PartiRedesEmpreComer" },
+    { nombre: "strPartiRedesEmpreComerDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "PartiRedesEmpreComer" },
+    { nombre: "strPartiRedesEmpreComerNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "PartiRedesEmpreComer" },
+    { nombre: "strPreseMedDigital", label: "Tengo presencia en medios digitales", strGrupo: "DiagnosticoTecnico", strCodigo: "PreseMedDigital" },
+    { nombre: "strPreseMedDigitalDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "PreseMedDigital" },
+    { nombre: "strPreseMedDigitalNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "PreseMedDigital" },
+    { nombre: "strDefineDiscursoComercialClientes", label: "Tengo definido un discurso comercial atractivo para mis clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "DefineDiscursoComercialClientes" },
+    { nombre: "strDefineDiscursoComercialClientesDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "DefineDiscursoComercialClientes" },
+    { nombre: "strDefineDiscursoComercialClientesNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "DefineDiscursoComercialClientes" },
+    { nombre: "strPlanAtraccionRelacionamientoFidelizacionClientes", label: "Tengo un plan de atracción, relacionamiento y fidelización con mis clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "PlanAtraccionRelacionamientoFidelizacionClientes" },
+    { nombre: "strPlanAtraccionRelacionamientoFidelizacionClientesDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "PlanAtraccionRelacionamientoFidelizacionClientes" },
+    { nombre: "strPlanAtraccionRelacionamientoFidelizacionClientesNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "PlanAtraccionRelacionamientoFidelizacionClientes" },
+    { nombre: "strFormatosGestionComercial", label: "Cuento con formatos para realizar mi gestión comercial", strGrupo: "DiagnosticoTecnico", strCodigo: "FormatosGestionComercial" },
+    { nombre: "strFormatosGestionComercialDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "FormatosGestionComercial" },
+    { nombre: "strFormatosGestionComercialNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "FormatosGestionComercial" },
+    { nombre: "strTieneBaseDatosClientes", label: "Cuento con una base de datos de clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneBaseDatosClientes" },
+    { nombre: "strTieneBaseDatosClientesDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneBaseDatosClientes" },
+    { nombre: "strTieneBaseDatosClientesNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneBaseDatosClientes" },
+    { nombre: "strTieneLogisticaTransporteClientes", label: "Cuento con capacidad logística y de transporte para llegar a mis clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneLogisticaTransporteClientes" },
+    { nombre: "strTieneLogisticaTransporteClientesDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneLogisticaTransporteClientes" },
+    { nombre: "strTieneLogisticaTransporteClientesNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneLogisticaTransporteClientes" }
+];
+
 const InfoComMercadeo = ({
     disabled,
     values,
@@ -81,50 +126,7 @@ const InfoComMercadeo = ({
         strTieneLogisticaTransporteClientesNivel: ""
     });
 
-    const propiedades = [
-        { nombre: "strCaractEmpresaComp", label: "Reconozco las características que hacen diferente a mi empresa frente a la competencia", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
-        { nombre: "strCaractEmpresaCompDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
-        { nombre: "strCaractEmpresaCompNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
-        { nombre: "strAnalizoObjetivoEmpresa", label: "Conozco y analizo el público objetivo de mi empresa", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
-        { nombre: "strAnalizoObjetivoEmpresaDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
-        { nombre: "strAnalizoObjetivoEmpresaNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "CaractEmpresaComp" },
-        { nombre: "strAnalizoCompetiEmpresa", label: "Conozco y analizo los competidores de mi empresa", strGrupo: "DiagnosticoTecnico", strCodigo: "AnalizoCompetiEmpresa" },
-        { nombre: "strAnalizoCompetiEmpresaDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "AnalizoCompetiEmpresa" },
-        { nombre: "strAnalizoCompetiEmpresaNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "AnalizoCompetiEmpresa" },
-        { nombre: "strActivIncreVentClient", label: "Realizo actividades enfocadas en incrementar el nivel de ventas y clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "ActivIncreVentClient" },
-        { nombre: "strActivIncreVentClientDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "ActivIncreVentClient" },
-        { nombre: "strActivIncreVentClientNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "ActivIncreVentClient" },
-        { nombre: "strProceComerciEsta", label: "Mis procesos comerciales están", strGrupo: "DiagnosticoTecnico", strCodigo: "ProceComerciEsta" },
-        { nombre: "strProceComerciEstaDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "ProceComerciEsta" },
-        { nombre: "strProceComerciEstaNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "ProceComerciEsta" },
-        { nombre: "strDefiniPortProd", label: "Tengo definido el portafolio de productos", strGrupo: "DiagnosticoTecnico", strCodigo: "DefiniPortProd" },
-        { nombre: "strDefiniPortProdDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "DefiniPortProd" },
-        { nombre: "strDefiniPortProdNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "DefiniPortProd" },
-        { nombre: "strNumLugMedComerProd", label: "El número de lugares y medios en los que comercializo mis productos es", strGrupo: "DiagnosticoTecnico", strCodigo: "NumLugMedComerProd" },
-        { nombre: "strNumLugMedComerProdDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "NumLugMedComerProd" },
-        { nombre: "strNumLugMedComerProdNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "NumLugMedComerProd" },
-        { nombre: "strPartiRedesEmpreComer", label: "Pertenezco y participo en redes empresariales para la comercialización", strGrupo: "DiagnosticoTecnico", strCodigo: "PartiRedesEmpreComer" },
-        { nombre: "strPartiRedesEmpreComerDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "PartiRedesEmpreComer" },
-        { nombre: "strPartiRedesEmpreComerNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "PartiRedesEmpreComer" },
-        { nombre: "strPreseMedDigital", label: "Tengo presencia en medios digitales", strGrupo: "DiagnosticoTecnico", strCodigo: "PreseMedDigital" },
-        { nombre: "strPreseMedDigitalDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "PreseMedDigital" },
-        { nombre: "strPreseMedDigitalNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "PreseMedDigital" },
-        { nombre: "strDefineDiscursoComercialClientes", label: "Tengo definido un discurso comercial atractivo para mis clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "DefineDiscursoComercialClientes" },
-        { nombre: "strDefineDiscursoComercialClientesDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "DefineDiscursoComercialClientes" },
-        { nombre: "strDefineDiscursoComercialClientesNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "DefineDiscursoComercialClientes" },
-        { nombre: "strPlanAtraccionRelacionamientoFidelizacionClientes", label: "Tengo un plan de atracción, relacionamiento y fidelización con mis clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "PlanAtraccionRelacionamientoFidelizacionClientes" },
-        { nombre: "strPlanAtraccionRelacionamientoFidelizacionClientesDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "PlanAtraccionRelacionamientoFidelizacionClientes" },
-        { nombre: "strPlanAtraccionRelacionamientoFidelizacionClientesNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "PlanAtraccionRelacionamientoFidelizacionClientes" },
-        { nombre: "strFormatosGestionComercial", label: "Cuento con formatos para realizar mi gestión comercial", strGrupo: "DiagnosticoTecnico", strCodigo: "FormatosGestionComercial" },
-        { nombre: "strFormatosGestionComercialDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "FormatosGestionComercial" },
-        { nombre: "strFormatosGestionComercialNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "FormatosGestionComercial" },
-        { nombre: "strTieneBaseDatosClientes", label: "Cuento con una base de datos de clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneBaseDatosClientes" },
-        { nombre: "strTieneBaseDatosClientesDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneBaseDatosClientes" },
-        { nombre: "strTieneBaseDatosClientesNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneBaseDatosClientes" },
-        { nombre: "strTieneLogisticaTransporteClientes", label: "Cuento con capacidad logística y de transporte para llegar a mis clientes", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneLogisticaTransporteClientes" },
-        { nombre: "strTieneLogisticaTransporteClientesDetalle", label: "Detalle", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneLogisticaTransporteClientes" },
-        { nombre: "strTieneLogisticaTransporteClientesNivel", label: "Nivel", strGrupo: "DiagnosticoTecnico", strCodigo: "TieneLogisticaTransporteClientes" }
-    ];
+
 
     const render = (datos) => {
         return datos.map(({ nombre, label, strGrupo, strCodigo }) => (

@@ -9,7 +9,7 @@ import {
     Image,
     Document,
     StyleSheet,
-    Font
+    Font,
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";
@@ -19,7 +19,26 @@ import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresario
 // Register Font
 Font.register({
     family: "Roboto",
-    src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+    fonts: [
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "thin",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "normal",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf",
+            fontStyle: "italic",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
+            fontStyle: "bold",
+        },
+    ],
 });
 
 const styles = StyleSheet.create({
@@ -43,23 +62,27 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: "14px",
         color: "#00BBB4",
+        fontFamily: "Roboto",
     },
     footerTitle: {
         textAlign: "center",
         fontSize: "10px",
         color: "#00BBB4",
         marginTop: "55px",
+        fontFamily: "Roboto",
     },
     footerContact: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
         marginTop: "10px",
+        fontFamily: "Roboto",
     },
     footerPhoneEmail: {
         textAlign: "center",
         fontSize: "10px",
         color: "#F5B335",
+        fontFamily: "Roboto",
     },
     pageNumber: {
         position: "absolute",
@@ -69,6 +92,7 @@ const styles = StyleSheet.create({
         right: 0,
         textAlign: "center",
         color: "grey",
+        fontFamily: "Roboto",
     },
 });
 
@@ -80,8 +104,8 @@ const PDFProduct = ({ intId, values }) => {
 
     const [objEmpresario, setObjEmpresario] = useState();
     const [objEmpresa, setObjEmpresa] = useState();
-    const [htmlInfoEncuestaHumanas, setHtmlInfoEncuestaHumanas] = useState("");
-
+    const [htmlTemasFortalecer, setHtmlTemasFortalecer] = useState("");
+    const [htmlFortalezas, setHtmlFortalezas] = useState("");
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -91,8 +115,6 @@ const PDFProduct = ({ intId, values }) => {
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoading(true);
-
         if (data && data.length > 0) {
             setObjEmpresario(
                 data[0]?.objEmpresario?.find(
@@ -100,28 +122,203 @@ const PDFProduct = ({ intId, values }) => {
                 )
             );
             setObjEmpresa(data[0]?.objInfoEmpresa);
-            setLoading(false);
         }
     }, [data]);
 
     useEffect(() => {
-        setLoading(true);
+        let htmlTemasFortalecer = "";
+        let htmlFortalezas = "";
 
-        let htmlCompetencias = "";
+        htmlTemasFortalecer =
+            htmlTemasFortalecer +
+            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
-        values?.objInfoEncuestaHumanas.forEach(
-            (e) =>
-                (htmlCompetencias =
-                    htmlCompetencias +
-                    `<p class="textObj">
-                ${e.label}: ${e.value || "No diligenciado"}
-            </p>`)
-        );
+        if (values.objInfoTemasFortalecer?.length > 0) {
+            values.objInfoTemasFortalecer.forEach((tema) => {
+                if (tema.objMercadeoFortalecer) {
+                    htmlTemasFortalecer =
+                        htmlTemasFortalecer +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Mercadeo        
+                    </div>
+                    
+                    ${tema.objMercadeoFortalecer
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
 
+                if (tema.objProductivoFortalecer) {
+                    htmlTemasFortalecer =
+                        htmlTemasFortalecer +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Productivo        
+                    </div>
+                    
+                    ${tema.objProductivoFortalecer
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
 
-        setHtmlInfoEncuestaHumanas(htmlCompetencias);
+                if (tema.objFinancieroFortalecer) {
+                    htmlTemasFortalecer =
+                        htmlTemasFortalecer +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Financiero        
+                    </div>
+                    
+                    ${tema.objFinancieroFortalecer
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
 
-        setLoading(true);
+                if (tema.objAdministrativoFortalecer) {
+                    htmlTemasFortalecer =
+                        htmlTemasFortalecer +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Administrativo        
+                    </div>
+                    
+                    ${tema.objAdministrativoFortalecer
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
+
+                if (tema.objAsociativoFortalecer) {
+                    htmlTemasFortalecer =
+                        htmlTemasFortalecer +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Asociativo        
+                    </div>
+                    
+                    ${tema.objAsociativoFortalecer
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
+            });
+        }
+
+        if (values.objInfoFortalezas?.length > 0) {
+            values.objInfoFortalezas.forEach((tema) => {
+                if (tema.objMercadeoFortalezas) {
+                    htmlFortalezas =
+                    htmlFortalezas +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Mercadeo        
+                    </div>
+                    
+                    ${tema.objMercadeoFortalezas
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
+
+                if (tema.objProductivoFortalezas) {
+                    htmlFortalezas =
+                    htmlFortalezas +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Productivo        
+                    </div>
+                    
+                    ${tema.objProductivoFortalezas
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
+
+                if (tema.objFinancieroFortalezas) {
+                    htmlFortalezas =
+                    htmlFortalezas +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Financiero        
+                    </div>
+                    
+                    ${tema.objFinancieroFortalezas
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
+
+                if (tema.objAdministrativoFortalezas) {
+                    htmlFortalezas =
+                    htmlFortalezas +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Administrativo        
+                    </div>
+                    
+                    ${tema.objAdministrativoFortalezas
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
+
+                if (tema.objAsociativoFortalezas) {
+                    htmlFortalezas =
+                    htmlFortalezas +
+                        `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                        Componente Asociativo        
+                    </div>
+                    
+                    ${tema.objAsociativoFortalezas
+                        .map(
+                            (e) =>
+                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                    e.label
+                                }:</span> ${e.value || "No diligenciado"}</div>`
+                        )
+                        .join("")}`;
+                }
+            });
+        }
+
+        htmlFortalezas =
+            htmlFortalezas +
+            `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
+
+        setHtmlTemasFortalecer(htmlTemasFortalecer);
+        setHtmlFortalezas(htmlFortalezas);
+
+        setLoading(false);
     }, [values]);
 
     if (loading || !data) {
@@ -141,27 +338,33 @@ const PDFProduct = ({ intId, values }) => {
     }
 
     return (
-        <PDFViewer width="100%" height="100%">
-            <Document>
+        <PDFViewer width="100%" height="100%" >
+            <Document
+                title={`Diagnostico de competencias técnicas - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}
+            >
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
-
-                    <Text style={styles.title}>
-                        Reporte diagnóstico de competencias humanas
-                    </Text>
 
                     <Html>
                         {`
                         <html>
                         <style>
+                        div {
+                            font-family: Roboto;
+                        }
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
-                            margin: 15px;
                            }
 
+                           h5 {
+                            font-family: Roboto;
+                        }
+
                            p {
-                               font-size: 12px;
+                               font-size: 11px;
+                               font-family: Roboto;
+                               color: #505050;
                            }
 
                            .pMargin {
@@ -169,7 +372,7 @@ const PDFProduct = ({ intId, values }) => {
                            }
 
                            .textObj {
-                             margin: 2px;
+                             margin-bottom: -10px;
                              font-size: 11px;
                              display: flex;
                              align-content: center;
@@ -177,16 +380,16 @@ const PDFProduct = ({ intId, values }) => {
 
                            .title{
                             font-size: 14px;
-                            font-weight: bold;
-                            color: #F5B335;
+                            color: black;
                             margin: 10px;
                            }
 
                            table {
-                            font-size: 8px;
+                            font-family: Roboto;
+                            font-size: 9px;
                             border-collapse: collapse;
                             width: 100%;
-
+                            color: #505050;
                           }
                           
                           td, th {
@@ -207,6 +410,10 @@ const PDFProduct = ({ intId, values }) => {
                             color: white;
                           }
 
+                          .imgChart {
+                             width: 100%; height: 100%
+                          }
+
                           tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
                         </style>
 
@@ -214,119 +421,164 @@ const PDFProduct = ({ intId, values }) => {
                         <h5 class="pMargin"> <span style="color: #00BBB4">Información General</span></h5>
                         <hr />
 
-                        
-                    <p>
+                        <p class="pMargin">
                         <span style="color: #00BBB4">Empresa: </span>
                          ${objEmpresa?.strNombreMarca} 
-                    </p>
+                        </p>
 
-                          
-                    <p>
-                    <span style="color: #00BBB4">Representante: </span>
-                     ${objEmpresario?.strNombreCompleto}
-                    </p>
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Representante: </span>
+                         ${objEmpresario?.strNombreCompleto}
+                        </p>
 
-                    <p>
-                    <span style="color: #00BBB4">Categoría: </span>
-                     ${objEmpresa?.strCategoriaProducto}
-                    </p>
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Categoría: </span>
+                         ${objEmpresa?.strCategoriaProducto}
+                        </p>
 
+                        <p class="pMargin">
+                        <span style="color: #00BBB4">Descripción: </span>
+                         ${objEmpresa?.strDescProductosServicios}
+                        </p>
 
-                    <p>
-                    <span style="color: #00BBB4">Descripción: </span>
-                     ${objEmpresa?.strDescProductosServicios}
-                    </p>
+                        <p class="pMargin">
+                            <span style="color: #00BBB4">Fecha y hora de la sesión: </span>
+                             ${
+                                 values?.objInfoGeneral?.find(
+                                     (v) => v.parent === "dtmFechaSesion"
+                                 )?.value
+                             } 
+                        </p>
 
+                        <p class="pMargin">
+                            <span style="color: #00BBB4">Responsable del diagnóstico: </span>
+                            ${
+                                values?.objInfoGeneral?.find(
+                                    (v) => v.parent === "strUsuarioCreacion"
+                                )?.value
+                            } 
+                        </p>
 
+                        <p class="pMargin">
+                            <span style="color: #00BBB4">Lugar de la sesión: </span>
+                            ${
+                                values?.objInfoGeneral?.find(
+                                    (v) => v.parent === "strLugarSesion"
+                                )?.value
+                            } 
+                        </p>
 
-                            <p>
-                                <span style="color: #00BBB4">Fecha de descarga: </span>
-                                 ${new Date().toLocaleDateString("es-ES")} 
-                            </p>
+                        <br />
 
-                            <br />
+                        <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
+                        </p>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae voluptas quas veniam cum illo temporibus alias, quaerat doloremque voluptate a ex dolores. Dolorem natus vel sit iure libero magnam mollitia.</p>
-
-
-                           
- 
+                        <h5 class="pMargin"> <span style="color: #00BBB4">Gráfico resumen </span></h5>
+                        <hr />
                         </body>
                         </html>
                       `}
                     </Html>
 
-                    <Image source={values?.imgChart} />
+                    <Image
+                        source={values?.imgChart}
+                        style={{ width: "300px", alignSelf: "center" }}
+                    />
 
                     <Html>
                         {`
-                          
-                          <html>
-                          <style>
-                          hr {
-                           border: 1px solid gray;
-                           border-radius: 1px;
-                           margin: 15px;
-                          }
+                           <html>
+                           <style>
+                           div {
+                            font-family: Roboto;
+                           }
+                              hr {
+                               border: 1px solid gray;
+                               border-radius: 1px;
+                              }
 
-                          p {
-                              font-size: 12px;
-                          }
+                              h5 {
+                                font-family: Roboto;
+                            }
+   
+                              p {
+                               font-size: 11px;
+                               font-family: Roboto;
+                               color: #505050;
+                           }
+   
+                              .pMargin {
+                                 margin-bottom: -10px;
+                              }
+   
+                              .textObj {
+                                margin: 2px;
+                                font-size: 11px;
+                                display: flex;
+                                align-content: center;
+                              }
+   
+                              .title{
+                               font-size: 11px;
+                               font-weight: bold;
+                               color: black;
+                              }
+   
+                              table {
+                                font-family: Roboto;
+                               font-size: 9px;
+                               border-collapse: collapse;
+                               width: 100%;
+                               color: #505050;
+   
+                             }
+                             
+                             td, th {
+                               border: 1px solid #dddddd;
+                               text-align: left;
+                               padding: 5px;
+                             }
+   
+                             tr:nth-child(even) {
+                               background-color: #dddddd;
+                             }
+   
+                             th {
+                               padding-top: 12px;
+                               padding-bottom: 12px;
+                               text-align: center;
+                               background-color: #00BBB4;
+                               color: white;
+                             }
+   
+                             tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
+                           </style>
 
-                          .pMargin {
-                             margin-bottom: -10px;
-                          }
-
-                          .textObj {
-                            margin: 2px;
-                            font-size: 11px;
-                            display: flex;
-                            align-content: center;
-                          }
-
-                          .title{
-                           font-size: 14px;
-                           font-weight: bold;
-                           color: #F5B335;
-                           margin: 10px;
-                          }
-
-                          table {
-                           font-size: 8px;
-                           border-collapse: collapse;
-                           width: 100%;
-
-                         }
-                         
-                         td, th {
-                           border: 1px solid #dddddd;
-                           text-align: left;
-                           padding: 5px;
-                         }
-
-                         tr:nth-child(even) {
-                           background-color: #dddddd;
-                         }
-
-                         th {
-                           padding-top: 12px;
-                           padding-bottom: 12px;
-                           text-align: center;
-                           background-color: #00BBB4;
-                           color: white;
-                         }
-
-                         tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
-                       </style>
-
-                            <body>
-                            <h5 class="pMargin"> <span style="color: #00BBB4">Competencias Humanas </span></h5>
+                              <body>
+                              
+                            ${
+                                htmlFortalezas &&
+                                `
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Fortalezas</span></h5>
                             <hr />
+                            `
+                            }
 
-                            ${htmlInfoEncuestaHumanas}
-                            </body>
+                            ${htmlFortalezas}
 
-                          </html>
+                            ${
+                                htmlTemasFortalecer &&
+                                `
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Temas a fortalecer</span></h5>
+                            <hr />
+                            `
+                            }
+
+                            ${htmlTemasFortalecer}
+
+                              </body>
+                           </html>
                         `}
                     </Html>
 

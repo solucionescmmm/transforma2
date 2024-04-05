@@ -20,7 +20,7 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
     RemoveRedEye as RemoveRedEyeIcon,
-    Cancel as CancelIcon,
+    Stop as StopIcon,
 } from "@mui/icons-material";
 
 //Hooks
@@ -300,7 +300,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                                 if (!rowData?.btFinalizado) {
                                     return {
                                         icon: () => (
-                                            <CancelIcon
+                                            <StopIcon
                                                 color="error"
                                                 fontSize="small"
                                             />
