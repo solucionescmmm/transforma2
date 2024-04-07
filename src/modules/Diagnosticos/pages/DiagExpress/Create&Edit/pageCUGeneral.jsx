@@ -304,6 +304,8 @@ const PageCUExpress = ({
                                 (emp) => emp.strTipoEmpresario === "Principal"
                             );
 
+                            console.log(data.objInfoEmpresa)
+
                             setData({
                                 intIdIdea: intIdIdea,
                                 intIdDiagnostico,
@@ -319,6 +321,8 @@ const PageCUExpress = ({
                                 objInfoEmprendimiento: {
                                     strUnidadProductiva:
                                         data.objInfoEmpresa.strNombreMarca,
+                                    strDescProductosServicios:
+                                        data.objInfoEmpresa.strDescProductosServicios,
                                     strLugarOperacion:
                                         data.objInfoEmpresa.strLugarOperacion,
                                     strRedesSociales:
@@ -329,6 +333,9 @@ const PageCUExpress = ({
                                     arrMediosDigitales:
                                         data.objInfoEmpresa
                                             .arrMediosDigitales || [],
+                                    arrFormasComercializacion:
+                                        data.objInfoEmpresa
+                                                .arrFormasComercializacion || [],
                                     strTiempoDedicacion:
                                         data.objInfoEmpresa
                                             .strTiempoDedicacion || "",
@@ -360,6 +367,11 @@ const PageCUExpress = ({
                                     dblValorVentasMes:
                                         data.objInfoEmpresa.valorVentasMes ||
                                         "",
+                                    btGeneraEmpleo:
+                                        typeof data.objInfoEmpresa
+                                            .btGeneraEmpleo === "boolean"
+                                            ? data.objInfoEmpresa.btGeneraEmpleo
+                                            : "",
                                 },
                             });
                         }

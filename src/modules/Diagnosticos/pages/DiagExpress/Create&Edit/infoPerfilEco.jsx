@@ -66,6 +66,7 @@ const InfoPerfilEco = ({
     };
 
     useEffect(() => {
+        console.log(values)
         if (values) {
             setData({
                 PromedioVentas6Meses: values?.PromedioVentas6Meses || "",
@@ -234,7 +235,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.ValorVentaProductoEscogido}
                             name="objInfoPerfilEco.ValorVentaProductoEscogido"
@@ -271,7 +272,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={
                                 data.strConoceMargenRentaProductoEscogido
@@ -306,7 +307,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strConoceCostosProductoEscogido}
                             name="objInfoPerfilEco.strConoceCostosProductoEscogido"
@@ -339,7 +340,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.CostoProduccionProductoEscogido}
                             name="objInfoPerfilEco.CostoProduccionProductoEscogido"
@@ -376,7 +377,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={
                                 data.intPorcentajeMargenRentaProductoEscogido

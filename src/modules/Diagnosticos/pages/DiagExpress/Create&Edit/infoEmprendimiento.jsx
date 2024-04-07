@@ -80,6 +80,7 @@ const InfoEmprendimiento = ({
 
     useEffect(() => {
         if (values) {
+            console.log(values)
             setData({
                 strUnidadProductiva: values.strUnidadProductiva || "",
                 strLugarOperacion: values.strLugarOperacion || "",
@@ -250,7 +251,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* arrFormasComercializacion */}
-                    <Grid item xs={12} >
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.arrFormasComercializacion}
                             name="objInfoEmprendimiento.arrFormasComercializacion"
@@ -279,7 +280,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* arrMediosDigitales */}
-                    <Grid item xs={12} >
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.arrMediosDigitales}
                             name="objInfoEmprendimiento.arrMediosDigitales"
@@ -308,7 +309,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strTiempoDedicacion */}
-                    <Grid item xs={12} >
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strTiempoDedicacion}
                             name="objInfoEmprendimiento.strTiempoDedicacion"
@@ -340,7 +341,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strRegistroCamaraComercio */}
-                    <Grid item xs={12} >
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strRegistroCamaraComercio}
                             name="objInfoEmprendimiento.strRegistroCamaraComercio"
@@ -374,7 +375,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strSectorEconomico */}
-                    <Grid item xs={12} >
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strSectorEconomico}
                             name="objInfoEmprendimiento.strSectorEconomico"
@@ -495,7 +496,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strDefinineLineasProductoServicios */}
-                    <Grid item xs={12} >
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={
                                 data.strDefinineLineasProductoServicios
@@ -530,7 +531,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* arrCategoriasSecundarias */}
-                    <Grid item xs={12} >
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoEmprendimiento.arrCategoriasSecundarias"
                             defaultValue={data.arrCategoriasSecundarias}
@@ -560,7 +561,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strDescProductosServicios */}
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strDescProductosServicios}
                             name="objInfoEmprendimiento.strDescProductosServicios"
@@ -598,7 +599,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strLineaProductoServicioDestacada */}
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={
                                 data.strLineaProductoServicioDestacada
@@ -633,7 +634,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strProductoServiciosNuevosUltimoAño */}
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.btTieneProdServUltimoAn}
                             name="objInfoEmprendimiento.btTieneProdServUltimoAn"
@@ -675,7 +676,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strListaProductoServiciosNuevosUltimoAño */}
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={
                                 data.strProductosNuevos
@@ -710,7 +711,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strProductoServiciosEnValidacion}
                             name="objInfoEmprendimiento.strProductoServiciosEnValidacion"
@@ -743,7 +744,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strNivelDlloProductoServicios}
                             name="objInfoEmprendimiento.strNivelDlloProductoServicios"
@@ -776,7 +777,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strEtapaValidProductoServicios}
                             name="objInfoEmprendimiento.strEtapaValidProductoServicios"

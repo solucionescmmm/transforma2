@@ -124,7 +124,7 @@ const InfoMercadoYComercial = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoMercado.strUniProdSosFinan"
                             defaultValue={data.strUniProdSosFinan}
@@ -154,7 +154,7 @@ const InfoMercadoYComercial = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoMercado.strTieneBaseDatosClientes"
                             defaultValue={data.strTieneBaseDatosClientes}
@@ -184,7 +184,7 @@ const InfoMercadoYComercial = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoMercado.strActivIncreVentClient"
                             defaultValue={data.strActivIncreVentClient}
@@ -214,7 +214,7 @@ const InfoMercadoYComercial = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoMercado.strPlanAtraccionRelacionamientoFidelizacionClientes"
                             defaultValue={
@@ -276,7 +276,7 @@ const InfoMercadoYComercial = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoMercado.strEmprFormaAcuerNormLab"
                             defaultValue={data.strEmprFormaAcuerNormLab}
@@ -306,7 +306,7 @@ const InfoMercadoYComercial = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoMercado.strPlaneaEstraEmpPlanPlani"
                             defaultValue={data.strPlaneaEstraEmpPlanPlani}
@@ -336,7 +336,7 @@ const InfoMercadoYComercial = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={7}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoMercado.strIdentidadMarca"
                             defaultValue={data.strIdentidadMarca}
@@ -370,7 +370,7 @@ const InfoMercadoYComercial = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={7}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoMercado.strComunicacionMarca"
                             defaultValue={data.strComunicacionMarca}

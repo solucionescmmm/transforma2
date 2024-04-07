@@ -127,7 +127,7 @@ const InfoEncuestaHumanas = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strTomaDesiciones"
                             defaultValue={data.strTomaDesiciones}
@@ -157,7 +157,7 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesAutonomia"
                             defaultValue={data.strHabilidadesAutonomia}
@@ -217,7 +217,7 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesComunicacion"
                             defaultValue={data.strHabilidadesComunicacion}
@@ -247,7 +247,7 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesCreatividad"
                             defaultValue={data.strHabilidadesCreatividad}
@@ -277,7 +277,7 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoEncuestaHumanas.strConfianza"
                             defaultValue={data.strConfianza}

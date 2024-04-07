@@ -134,7 +134,7 @@ const InfoNormatividad = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoNormatividad.strPermisoFuncionamiento"
                             defaultValue={data.strPermisoFuncionamiento}
@@ -164,7 +164,7 @@ const InfoNormatividad = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoNormatividad.strCertificadosRequeridos"
                             defaultValue={data.strCertificadosRequeridos}
@@ -195,7 +195,7 @@ const InfoNormatividad = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoNormatividad.strCertificadosActuales"
                             defaultValue={data.strCertificadosActuales}
@@ -226,7 +226,7 @@ const InfoNormatividad = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoNormatividad.strRegistroMarca"
                             defaultValue={data.strRegistroMarca}
@@ -256,7 +256,7 @@ const InfoNormatividad = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoNormatividad.strPatentesUtilidad"
                             defaultValue={data.strPatentesUtilidad}
@@ -303,7 +303,7 @@ const InfoNormatividad = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoNormatividad.strCualPatenteUtilidad"
                             defaultValue={data.strCualPatenteUtilidad}
