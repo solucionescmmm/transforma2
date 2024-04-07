@@ -45,6 +45,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
 
                 let objInfoGeneral = {
                     intIdDiagnostico: array[i]?.intIdDiagnostico,
+                    intIdEmpresario: array[i]?.intIdEmpresario,
                     strLugarSesion: array[i]?.strLugarSesion,
                     dtmFechaSesion: array[i]?.dtmFechaSesion,
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
@@ -60,25 +61,12 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                         strCorreoElectronico: objDataEmpresario?.strCorreoElectronico1
                     }
                 };
-                let objInfoFamiliar = {
-                    strCabezaHogar: array[i]?.strCabezaHogar,
-                    intNumPersonasCargo: array[i]?.intNumPersonasCargo,
-                    intHijos: array[i]?.intHijos,
-                    intHijosEstudiando: array[i]?.intHijosEstudiando,
-                    strMaxNivelEducativoHijos:
-                        array[i]?.strMaxNivelEducativoHijos,
-                    strEstadoCivil: array[i]?.strEstadoCivil,
-                    strSituacionVivienda: array[i]?.strSituacionVivienda,
-                    strGrupoVulnerable: array[i]?.strGrupoVulnerable,
-                    strPoblacionEtnica: array[i]?.strPoblacionEtnica,
-                };
+
                 let objInfoEmprendimiento = {
                     intAñoInicioOperacion: array[i]?.intAñoInicioOperacion,
                     strUbicacionUP: array[i]?.strUbicacionUP,
                     strRegistroCamaraComercio:
                         array[i]?.strRegistroCamaraComercio,
-                };
-                let objInfoEmpresa = {
                     strHistoriaEmpresa: array[i]?.strHistoriaEmpresa,
                     strSuenioEmpresa: array[i]?.strSuenioEmpresa,
                     strEstudioEmprendimiento:
@@ -111,6 +99,33 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     ValorActivos: array[i]?.ValorActivos,
                     strEtapaDllo: array[i]?.strEtapaDllo,
                 };
+                let objHumanas = {
+                    strHabilidadesAutonomia:array[i]?.strHabilidadesAutonomia,
+                    strHabilidadesCapacidad:array[i]?.strHabilidadesCapacidad,
+                    strHabilidadesComunicacion:array[i]?.strHabilidadesComunicacion,
+                    strHabilidadesCreatividad:array[i]?.strHabilidadesCreatividad,
+                    strTomaDesiciones:array[i]?.strTomaDesiciones,
+                    strConfianza:array[i]?.strConfianza
+                }
+                let objTecnicas = {
+                    strUniProdSosFinan: array[i]?.strUniProdSosFinan,
+                    strTieneBaseDatosClientes: array[i]?.strTieneBaseDatosClientes,
+                    strActivIncreVentClient: array[i]?.strActivIncreVentClient,
+                    strPlanAtraccionRelacionamientoFidelizacionClientes: array[i]?.strPlanAtraccionRelacionamientoFidelizacionClientes,
+                    strEquipTrabEstruct: array[i]?.strEquipTrabEstruct,
+                    strEmprFormaAcuerNormLab: array[i]?.strEmprFormaAcuerNormLab,
+                    strPlaneaEstraEmpPlanPlani: array[i]?.strPlaneaEstraEmpPlanPlani
+                }
+                let objProducto = {
+                    strPermisoFuncionamiento:array[i]?.strPermisoFuncionamiento,
+                    strCertificadosRequeridos:array[i]?.strCertificadosRequeridos,
+                    strCertificadosActuales:array[i]?.strCertificadosActuales,
+                    strPatentesUtilidad:array[i]?.strPatentesUtilidad,
+                    strCualPatenteUtilidad:array[i]?.strCualPatenteUtilidad,
+                    strRegistroMarca:array[i]?.strRegistroMarca,
+                    strIdentidadMarca:array[i]?.strIdentidadMarca,
+                    strComunicacionMarca:array[i]?.strComunicacionMarca
+                }
                 let objInfoAdicional = {
                     strConclusiones: array[i]?.strConclusiones,
                     strURLSFotosProducto: array[i]?.strURLSFotosProducto,
@@ -120,8 +135,10 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     objInfoGeneral,
                     objInfoFamiliar,
                     objInfoEmprendimiento,
-                    objInfoEmpresa,
                     objInfoPerfilEco,
+                    objTecnicas,
+                    objHumanas,
+                    objProducto,
                     objInfoAdicional,
                 };
             }

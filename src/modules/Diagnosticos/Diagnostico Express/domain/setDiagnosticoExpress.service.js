@@ -76,7 +76,7 @@ class setDiagnosticoExpress {
     async #getIntIdEstadoDiagnostico() {
         let queryGetIntIdEstadoDiagnostico = await serviceGetIdEstadoDiagnostico({
             strNombre: "Finalizado",
-        });
+        },this.#objUser);
 
         if (queryGetIntIdEstadoDiagnostico.error) {
             throw new Error(query.msg);
