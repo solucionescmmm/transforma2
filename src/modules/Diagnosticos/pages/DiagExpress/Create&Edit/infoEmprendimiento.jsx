@@ -24,7 +24,7 @@ import {
 
 //Componentes
 import SelectLugarOperacion from "../../../../Empresarios/components/selectLugarOperacion";
-import ModalMediosVetanProductos from "../../../components/modalMediosVentaProductos";
+import ModalMediosVetanProductos from "../../../../Empresarios/components/modalMediosVentaProductos";
 import ModalMediosDigitales from "../../../../Empresarios/components/modalMediosDigitales";
 import SelectSectorEconomico from "../../../../Empresarios/components/selectSectorEconomico";
 import SelectCategoriaServicio from "../../../../Empresarios/components/selectCategoriaServicio";
@@ -250,6 +250,35 @@ const InfoEmprendimiento = ({
                             }}
                         />
                     </Grid>
+                    {/* arrMediosDigitales */}
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.arrMediosDigitales}
+                            name="objInfoEmprendimiento.arrMediosDigitales"
+                            render={({ field: { name, value, onChange } }) => (
+                                <ModalMediosDigitales
+                                    label="Medios digitales"
+                                    name={name}
+                                    value={value}
+                                    onChange={(value) => onChange(value)}
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrMediosDigitales
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrMediosDigitales?.message ||
+                                        "Selecciona los medios digitales que utilice y registre su ID"
+                                    }
+                                    required
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
                     {/* arrFormasComercializacion */}
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -279,30 +308,35 @@ const InfoEmprendimiento = ({
                             control={control}
                         />
                     </Grid>
-                    {/* arrMediosDigitales */}
+                    {/* strRegistroCamaraComercio */}
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.arrMediosDigitales}
-                            name="objInfoEmprendimiento.arrMediosDigitales"
+                            defaultValue={data.strRegistroCamaraComercio}
+                            name="objInfoEmprendimiento.strRegistroCamaraComercio"
                             render={({ field: { name, value, onChange } }) => (
-                                <ModalMediosDigitales
-                                    label="Medios digitales"
+                                <SelectListas
+                                    label="¿Cuenta con registro en cámara de comercio?"
                                     name={name}
                                     value={value}
-                                    onChange={(value) => onChange(value)}
                                     disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
-                                            ?.arrMediosDigitales
+                                            ?.strRegistroCamaraComercio
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.arrMediosDigitales?.message ||
-                                        "Selecciona los medios digitales que utilice y registre su ID"
+                                            ?.strRegistroCamaraComercio
+                                            ?.message ||
+                                        "Selecciona si la empresa cuenta con registro en la cámara de comercio"
                                     }
-                                    required
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
                                 />
                             )}
                             control={control}
@@ -338,40 +372,6 @@ const InfoEmprendimiento = ({
                             rules={{
                                 required: "Por favor, selecciona una opción",
                             }}
-                        />
-                    </Grid>
-                    {/* strRegistroCamaraComercio */}
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strRegistroCamaraComercio}
-                            name="objInfoEmprendimiento.strRegistroCamaraComercio"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
-                                    label="¿Cuenta con registro en cámara de comercio?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strRegistroCamaraComercio
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strRegistroCamaraComercio
-                                            ?.message ||
-                                        "Selecciona si la empresa cuenta con registro en la cámara de comercio"
-                                    }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
-                                />
-                            )}
-                            control={control}
                         />
                     </Grid>
                     {/* strSectorEconomico */}
@@ -495,6 +495,37 @@ const InfoEmprendimiento = ({
                             control={control}
                         />
                     </Grid>
+                    {/* Listado Prod/Serv */}
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strListadoProdServ}
+                            name="objInfoEmprendimiento.strListadoProdServ"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Listado de los productos o servicios"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strListadoProdServ
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.strListadoProdServ?.message ||
+                                        "Digita los productos o servicios que ofrece la empresa"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
                     {/* strDefinineLineasProductoServicios */}
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -560,46 +591,8 @@ const InfoEmprendimiento = ({
                             control={control}
                         />
                     </Grid>
-                    {/* strDescProductosServicios */}
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strDescProductosServicios}
-                            name="objInfoEmprendimiento.strDescProductosServicios"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Describe los productos o servicios que ofrece"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled={disabled}
-                                    fullWidth
-                                    variant="outlined"
-                                    required
-                                    multiline
-                                    rows={4}
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strDescProductosServicios
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strDescProductosServicios
-                                            ?.message ||
-                                        "Describe detalladamente los servicios que ofrece la empresa"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, describe detalladamente los servicios que ofrece la empresa",
-                            }}
-                        />
-                    </Grid>
                     {/* strLineaProductoServicioDestacada */}
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={
                                 data.strLineaProductoServicioDestacada
@@ -634,7 +627,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strProductoServiciosNuevosUltimoAño */}
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.btTieneProdServUltimoAn}
                             name="objInfoEmprendimiento.btTieneProdServUltimoAn"
@@ -683,7 +676,7 @@ const InfoEmprendimiento = ({
                             }
                             name="objInfoEmprendimiento.strProductosNuevos"
                             render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
+                                <TextField
                                     label="¿Cuáles son estos productos nuevos?"
                                     name={name}
                                     value={value}
@@ -703,8 +696,6 @@ const InfoEmprendimiento = ({
                                             ?.strProductosNuevos
                                             ?.message || "Selecciona una opción"
                                     }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
                                 />
                             )}
                             control={control}
