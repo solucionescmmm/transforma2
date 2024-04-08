@@ -395,8 +395,12 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                            hr {
                             border: 1px solid gray;
                             border-radius: 1px;
-                            margin: 15px;
                            }
+
+                           h5 {
+                            font-family: Roboto;
+                        }
+
 
                            .pMargin {
                               margin-bottom: -10px;
@@ -457,17 +461,19 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                              <div><span style="color: #1ccbc4; font-size: 12px !important;">Total horas de acompañamiento: </span>
                                 <span style="font-size: 12px !important;">${e.intTotalHoras} horas</span>
                              </div>
-                             <div><span style="color: #1ccbc4; font-size: 12px !important;">Valor total: </span>
+                             <div><span style="color: #1ccbc4; font-size: 12px !important;">Valor total fase: </span>
                                 <span style="font-size: 12px !important;">$${e.dblValorFase}</span>
                              </div>                                 
                            </div>
                         </div>`
                         )}
                          
+                        <br/>
+                        <br/>
                         
                         <div>
                         <div style="padding-right: 100px; padding-left: 100px;">
-                            <div><span style="color: #1ccbc4; font-size: 12px !important;">Valor total de la Ruta: </span>
+                            <div><span style="color: #1ccbc4; font-size: 12px !important;">Valor final propuesta: </span>
                                  <span style="font-size: 12px !important;">$${new Intl.NumberFormat(
                                      "es-ES",
                                      {

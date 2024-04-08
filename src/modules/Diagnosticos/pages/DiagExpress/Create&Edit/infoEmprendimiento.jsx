@@ -527,6 +527,38 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
                     {/* strDefinineLineasProductoServicios */}
+     
+                    {/* arrCategoriasSecundarias */}
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoEmprendimiento.arrCategoriasSecundarias"
+                            defaultValue={data.arrCategoriasSecundarias}
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownCategoriasSecundarias
+                                    label="Categorías secundarias"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e, value) => onChange(value)}
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrCategoriasSecundarias
+                                            ? true
+                                            : false
+                                    }
+                                    multiple
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrCategoriasSecundarias
+                                            ?.message ||
+                                        "Selecciona las categorías secundarias en caso de que aplique"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={
@@ -556,36 +588,6 @@ const InfoEmprendimiento = ({
                                     }
                                     strGrupo="Lista_Generica"
                                     strCodigo="SI_NO_N/A"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    {/* arrCategoriasSecundarias */}
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            name="objInfoEmprendimiento.arrCategoriasSecundarias"
-                            defaultValue={data.arrCategoriasSecundarias}
-                            render={({ field: { name, onChange, value } }) => (
-                                <DropdownCategoriasSecundarias
-                                    label="Categorías secundarias"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e, value) => onChange(value)}
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrCategoriasSecundarias
-                                            ? true
-                                            : false
-                                    }
-                                    multiple
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrCategoriasSecundarias
-                                            ?.message ||
-                                        "Selecciona las categorías secundarias en caso de que aplique"
-                                    }
                                 />
                             )}
                             control={control}
@@ -708,7 +710,7 @@ const InfoEmprendimiento = ({
                             name="objInfoEmprendimiento.strProductoServiciosEnValidacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
-                                    label="¿Cuenta con productos/servicios en validación?"
+                                    label="¿Cuenta con productos/servicios en prototipado?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}

@@ -12,12 +12,17 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
+    CardContent,
+    Card,
 } from "@mui/material";
+
+import { blue } from "@mui/material/colors";
 
 //Iconos de Material UI
 import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
+    InfoOutlined as InfoIcon,
 } from "@mui/icons-material";
 
 //Componentes
@@ -128,6 +133,32 @@ const InfoEncuestaHumanas = ({
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12}>
+                        <Card
+                            variant="outlined"
+                            sx={{ backgroundColor: blue[50] }}
+                        >
+                            <CardContent>
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    <InfoIcon sx={{ marginRight: "0.5rem" }} />
+                                    Toma de decisiones
+                                </Typography>
+                                <Typography variant="body2">
+                                    Los negocios se enfrentan a permanentes
+                                    cambios, a innovaciones y no siempre es
+                                    fácil tomar e implementar las decisiones con
+                                    oportunidad.
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strTomaDesiciones"
                             defaultValue={data.strTomaDesiciones}
@@ -155,6 +186,34 @@ const InfoEncuestaHumanas = ({
                             )}
                             control={control}
                         />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Card
+                            variant="outlined"
+                            sx={{ backgroundColor: blue[50] }}
+                        >
+                            <CardContent>
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    <InfoIcon sx={{ marginRight: "0.5rem" }} />
+                                    Habilidades personales para emprender
+                                </Typography>
+                                <Typography variant="body2">
+                                    Las personas empresarias siempre desean
+                                    contar con todas las habilidades que se
+                                    requieren para su desarrollo empresarial,
+                                    sin embargo, el desarrollo de estas es un
+                                    proceso que está en permanente desarrollo{" "}
+                                </Typography>
+                            </CardContent>
+                        </Card>
                     </Grid>
 
                     <Grid item xs={12}>
@@ -219,36 +278,6 @@ const InfoEncuestaHumanas = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            name="objInfoEncuestaHumanas.strHabilidadesComunicacion"
-                            defaultValue={data.strHabilidadesComunicacion}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Comunicación efectiva con los clientes, con los empleados, los proveedores"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesComunicacion
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesComunicacion
-                                            ?.message || "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoHumanoSocial"
-                                    strCodigo="HabilidadesComunicacion"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesCreatividad"
                             defaultValue={data.strHabilidadesCreatividad}
                             render={({ field: { name, onChange, value } }) => (
@@ -277,7 +306,65 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
+                        <Controller
+                            name="objInfoEncuestaHumanas.strHabilidadesComunicacion"
+                            defaultValue={data.strHabilidadesComunicacion}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Comunicación efectiva con los clientes, con los empleados, los proveedores"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strHabilidadesComunicacion
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strHabilidadesComunicacion
+                                            ?.message || "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="HabilidadesComunicacion"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Card
+                            variant="outlined"
+                            sx={{ backgroundColor: blue[50] }}
+                        >
+                            <CardContent>
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    <InfoIcon sx={{ marginRight: "0.5rem" }} />
+                                    Confianza
+                                </Typography>
+                                <Typography variant="body2">
+                                    La capacitación, el conocimiento, y las
+                                    experiencias adquiridas, van generando
+                                    certezas que permiten construir confianza y
+                                    facilitan el actuar certero de la persona
+                                    empresaria
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strConfianza"
                             defaultValue={data.strConfianza}

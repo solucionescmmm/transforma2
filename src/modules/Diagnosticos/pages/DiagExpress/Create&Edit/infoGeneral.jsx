@@ -31,7 +31,7 @@ import DropdownEmpresarios from "../../../components/dropdownEmpresarios";
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios"
 import DropdownLocalizaciones from "../../../../Empresarios/components/dropdownLocalizaciones";
 import SelectTipoDocumento from "../../../../Empresarios/components/selectTipoDocumento";
-import SelectNivelEducativo from "../../../../Empresarios/components/selectNivelEducativo";
+// import SelectNivelEducativo from "../../../../Empresarios/components/selectNivelEducativo";
 import ModalDireccionResidencia from "../../../../Empresarios/components/modalDireccionResidencia";
 
 const InfoGeneral = ({

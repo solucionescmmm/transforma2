@@ -126,36 +126,6 @@ const InfoMercadoYComercial = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12} md={6}>
                         <Controller
-                            name="objInfoMercado.strUniProdSosFinan"
-                            defaultValue={data.strUniProdSosFinan}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Mi unidad productiva es sostenible financieramente"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoMercado
-                                            ?.strUniProdSosFinan
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoMercado
-                                            ?.strUniProdSosFinan?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="UniProdSosFinan"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
                             name="objInfoMercado.strTieneBaseDatosClientes"
                             defaultValue={data.strTieneBaseDatosClientes}
                             render={({ field: { name, onChange, value } }) => (
