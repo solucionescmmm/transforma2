@@ -100,6 +100,7 @@ class daoDiagnosticoExpress {
                 strActivIncreVentClient,
                 strPlanAtraccionRelacionamientoFidelizacionClientes,
                 strEquipTrabEstruct,
+                PrecProdServDef,
                 strEmprFormaAcuerNormLab,
                 strPlaneaEstraEmpPlanPlani,
                 dtmFechaSesion,
@@ -115,6 +116,7 @@ class daoDiagnosticoExpress {
                 ${data.strActivIncreVentClient},
                 ${data.strPlanAtraccionRelacionamientoFidelizacionClientes},
                 ${data.strEquipTrabEstruct},
+                ${data.strPrecProdServDef},
                 ${data.strEmprFormaAcuerNormLab},
                 ${data.strPlaneaEstraEmpPlanPlani},
                 GETDATE(),
@@ -136,6 +138,7 @@ class daoDiagnosticoExpress {
                 intIdEmpresario,
                 intIdTipoEmpresario,
                 strRegistroCamaraComercio,
+                strOperacionesVentas6Meses,
                 strDefinineLineasProductoServicios,
                 strLineaProductoServicioDestacada,
                 strProductoServiciosNuevosUltimoAño,
@@ -165,6 +168,7 @@ class daoDiagnosticoExpress {
                 ${data.intIdEmpresario},
                 ${data.intIdTipoEmpresario},
                 ${data.strRegistroCamaraComercio},
+                ${data.strOperacionesVentas6Meses},
                 ${data.strDefinineLineasProductoServicios},
                 ${data.strLineaProductoServicioDestacada},
                 ${data.strProductoServiciosNuevosUltimoAño},
@@ -216,77 +220,83 @@ class daoDiagnosticoExpress {
     async updateDiagnosticoExpress(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            let response = await conn.query`
 
-            UPDATE tbl_DiagnosticoExpress
+            await conn.query`
+            UPDATE tbl_DiagnosticoHumanoSocial
+            
+            SET 
+                strHabilidadesAutonomia = COALESCE(${data.strHabilidadesAutonomia}, strHabilidadesAutonomia),
+                strHabilidadesCapacidad = COALESCE(${data.strHabilidadesCapacidad}, strHabilidadesCapacidad),
+                strHabilidadesComunicacion = COALESCE(${data.strHabilidadesComunicacion}, strHabilidadesComunicacion),
+                strHabilidadesCreatividad = COALESCE(${data.strHabilidadesCreatividad}, strHabilidadesCreatividad),
+                strTomaDesiciones = COALESCE(${data.strTomaDesiciones}, strTomaDesiciones),
+                strConfianza = COALESCE(${data.strConfianza}, strConfianza),
+                dtmActualizacion = NULL,
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
+            WHERE intIdDiagnostico = ${data.intIdDiagnostico}; 
+            
+            UPDATE tbl_DiagnosticoProductos
+            SET 
+                strPermisoFuncionamiento = COALESCE(${data.strPermisoFuncionamiento}, strPermisoFuncionamiento),
+                strCertificadosRequeridos = COALESCE(${data.strCertificadosRequeridos}, strCertificadosRequeridos),
+                strCertificadosActuales = COALESCE(${data.strCertificadosActuales}, strCertificadosActuales),
+                strPatentesUtilidad = COALESCE(${data.strPatentesUtilidad}, strPatentesUtilidad),
+                strCualPatenteUtilidad = COALESCE(${data.strCualPatenteUtilidad}, strCualPatenteUtilidad),
+                strRegistroMarca = COALESCE(${data.strRegistroMarca}, strRegistroMarca),
+                strIdentidadMarca = COALESCE(${data.strIdentidadMarca}, strIdentidadMarca),
+                strComunicacionMarca = COALESCE(${data.strComunicacionMarca}, strComunicacionMarca),
+                strUsuarioCreacion = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
+                dtmActualizacion = NULL,
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
+            WHERE intIdDiagnostico = ${data.intIdDiagnostico}; 
+            
 
-            SET strUbicacionVivienda                      = COALESCE(${data.strUbicacionVivienda}, strUbicacionVivienda),
-                strTrabajanFamiliares                     = COALESCE(${data.strTrabajanFamiliares}, strTrabajanFamiliares),
-                strCabezaHogar                            = COALESCE(${data.strCabezaHogar}, strCabezaHogar),
-                intNumPersonasCargo                       = COALESCE(${data.intNumPersonasCargo}, intNumPersonasCargo),
-                intHijos                                  = COALESCE(${data.intHijos}, intHijos),
-                intHijosEstudiando                        = COALESCE(${data.intHijosEstudiando}, intHijosEstudiando),
-                strmaxNivelEducativoHijos                 = COALESCE(${data.strmaxNivelEducativoHijos}, strmaxNivelEducativoHijos),
-                strEstadoCivil                            = COALESCE(${data.strEstadoCivil}, strEstadoCivil),
-                strSituacionVivienda                      = COALESCE(${data.strSituacionVivienda}, strSituacionVivienda),
-                strGrupoVulnerable                        = COALESCE(${data.strGrupoVulnerable}, strGrupoVulnerable),
-                strPoblacionEtnica                        = COALESCE(${data.strPoblacionEtnica}, strPoblacionEtnica),
-                intAñoInicioOperacion                     = COALESCE(${data.intAñoInicioOperacion}, intAñoInicioOperacion),
-                strUbicacionUP                            = COALESCE(${data.strUbicacionUP}, strUbicacionUP),
-                strRegistroCamaraComercio                 = COALESCE(${data.strRegistroCamaraComercio}, strRegistroCamaraComercio),
-                strDefinineLineasProductoServicios        = COALESCE(${data.strDefinineLineasProductoServicios}, strDefinineLineasProductoServicios),
-                strLineaProductoServicioDestacada         = COALESCE(${data.strLineaProductoServicioDestacada}, strLineaProductoServicioDestacada),
-                strHistoriaEmpresa                        = COALESCE(${data.strHistoriaEmpresa}, strHistoriaEmpresa),
-                strSuenioEmpresa                          = COALESCE(${data.strSuenioEmpresa}, strSuenioEmpresa),
-                strEstudioEmprendimiento                  = COALESCE(${data.strEstudioEmprendimiento}, strEstudioEmprendimiento),
-                strExperienciaEmprendimiento              = COALESCE(${data.strExperienciaEmprendimiento}, strExperienciaEmprendimiento),
-                strTipoContribuyente                      = COALESCE(${data.strTipoContribuyente}, strTipoContribuyente),
-                strRut                                    = COALESCE(${data.strRut}, strRut),
-                strPresupuestoFamiliar                    = COALESCE(${data.strPresupuestoFamiliar}, strPresupuestoFamiliar),
-                strIngresosDistintos                      = COALESCE(${data.strIngresosDistintos}, strIngresosDistintos),
-                strOperacionesVentas6Meses                = COALESCE(${data.strOperacionesVentas6Meses}, strOperacionesVentas6Meses),
-                strEtapaValidacion                        = COALESCE(${data.strEtapaValidacion}, strEtapaValidacion),
-                strProductoServiciosEnValidacion          = COALESCE(${data.strProductoServiciosEnValidacion}, strProductoServiciosEnValidacion),
-                strNivelDlloProductoServicios             = COALESCE(${data.strNivelDlloProductoServicios}, strNivelDlloProductoServicios),
-                strEtapaValidProductoServicios            = COALESCE(${data.strEtapaValidProductoServicios}, strEtapaValidProductoServicios),
-                PromedioVentas6Meses                   = COALESCE(${data.PromedioVentas6Meses}, PromedioVentas6Meses),
-                strRangoVentas                            = COALESCE(${data.strRangoVentas}, strRangoVentas),
-                strRangoEmpleados                         = COALESCE(${data.strRangoEmpleados}, strRangoEmpleados),
-                MinimoValorProducto                       = COALESCE(${data.MinimoValorProducto}, MinimoValorProducto),
-                MaximoValorProducto                       = COALESCE(${data.MaximoValorProducto}, MaximoValorProducto),
-                intCantidadUnidadesProducidasMes          = COALESCE(${data.intCantidadUnidadesProducidasMes}, intCantidadUnidadesProducidasMes),
-                strEscojaProductoServicio                 = COALESCE(${data.strEscojaProductoServicio}, strEscojaProductoServicio),
-                ValorVentaProductoEscogido                = COALESCE(${data.ValorVentaProductoEscogido}, ValorVentaProductoEscogido),
-                strConoceMargenRentaProductoEscogido      = COALESCE(${data.strConoceMargenRentaProductoEscogido}, strConoceMargenRentaProductoEscogido),
-                intPorcentajeMargenRentaProductoEscogido  = COALESCE(${data.intPorcentajeMargenRentaProductoEscogido}, intPorcentajeMargenRentaProductoEscogido),
-                strConoceCostosProduccionProductoEscogido = COALESCE(${data.strConoceCostosProductoEscogido}, strConoceCostosProduccionProductoEscogido),
-                CostoProduccionProductoEscogido           = COALESCE(${data.CostoProduccionProductoEscogido}, CostoProduccionProductoEscogido),
-                strPorcentajeIntermediacionVentas         = COALESCE(${data.strPorcentajeIntermediacionVentas}, strPorcentajeIntermediacionVentas),
-                strDefinePorcentajesCanal                 = COALESCE(${data.strDefinePorcentajesCanal}, strDefinePorcentajesCanal),
-                intRangoPorcentajeIntermediacionVentas    = COALESCE(${data.intRangoPorcentajeIntermediacionVentas}, intRangoPorcentajeIntermediacionVentas),
-                strTipoEmpleoGenerado                     = COALESCE(${data.strTipoEmpleoGenerado}, strTipoEmpleoGenerado),
-                strDlloAcitividadesContratados            = COALESCE(${data.strDlloAcitividadesContratados}, strDlloAcitividadesContratados),
-                strPromedioTiempoInvertido                = COALESCE(${data.strPromedioTiempoInvertido}, strPromedioTiempoInvertido),
-                strRolesEmprendimiento                    = COALESCE(${data.strRolesEmprendimiento}, strRolesEmprendimiento),
-                strDiasProduccion                         = COALESCE(${data.strDiasProduccion}, strDiasProduccion),
-                strGeneraEmpleoRiesgoPobreza              = COALESCE(${data.strGeneraEmpleoRiesgoPobreza}, strGeneraEmpleoRiesgoPobreza),
-                ValorGananciasMes                         = COALESCE(${data.ValorGananciasMes}, ValorGananciasMes),
-                strActivos                                = COALESCE(${data.strActivos}, strActivos),
-                ValorActivos                              = COALESCE(${data.ValorActivos}, ValorActivos),
-                strEtapaDllo                              = COALESCE(${data.strEtapaDllo}, strEtapaDllo),
-                strConclusiones                           = COALESCE(${data.strConclusiones}, strConclusiones),
-                strURLSFotosProducto                      = COALESCE(${data.strURLSFotosProducto}, strURLSFotosProducto),
-                strLugarSesion                            = COALESCE(${data.strLugarSesion}, strLugarSesion)
-                strUsuarioActualizacion                   = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
-                dtmActualizacion                          = COALESCE(GETDATE(), dtmActualizacion)
-
-            WHERE intId = ${data.intId}
-
-            SELECT * FROM tbl_DiagnosticoExpress WHERE intId = ${data.intId}`;
+            UPDATE tbl_DiagnosticoCompetenciasTecnicas
+            SET 
+                strUniProdSosFinan = COALESCE(${data.strUniProdSosFinan}, strUniProdSosFinan),
+                strTieneBaseDatosClientes = COALESCE(${data.strTieneBaseDatosClientes}, strTieneBaseDatosClientes),
+                strActivIncreVentClient = COALESCE(${data.strActivIncreVentClient}, strActivIncreVentClient),
+                strPlanAtraccionRelacionamientoFidelizacionClientes = COALESCE(${data.strPlanAtraccionRelacionamientoFidelizacionClientes}, strPlanAtraccionRelacionamientoFidelizacionClientes),
+                strEquipTrabEstruct = COALESCE(${data.strEquipTrabEstruct}, strEquipTrabEstruct),
+                PrecProdServDef = COALESCE(${data.PrecProdServDef}, PrecProdServDef),
+                strEmprFormaAcuerNormLab = COALESCE(${data.strEmprFormaAcuerNormLab}, strEmprFormaAcuerNormLab),
+                strPlaneaEstraEmpPlanPlani = COALESCE(${data.strPlaneaEstraEmpPlanPlani}, strPlaneaEstraEmpPlanPlani),
+                dtmActualizacion = NULL,
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
+            WHERE intIdDiagnostico = ${data.intIdDiagnostico}; 
+            
+            UPDATE tbl_DiagnosticoGeneral
+            SET 
+                intIdDiagnostico = COALESCE(${data.intIdDiagnostico}, intIdDiagnostico),
+                intIdEmpresario = COALESCE(${data.intIdEmpresario}, intIdEmpresario),
+                intIdTipoEmpresario = COALESCE(${data.intIdTipoEmpresario}, intIdTipoEmpresario),
+                strRegistroCamaraComercio = COALESCE(${data.strRegistroCamaraComercio}, strRegistroCamaraComercio),
+                strOperacionesVentas6Meses = COALESCE(${data.strOperacionesVentas6Meses}, strOperacionesVentas6Meses),
+                strDefinineLineasProductoServicios = COALESCE(${data.strDefinineLineasProductoServicios}, strDefinineLineasProductoServicios),
+                strLineaProductoServicioDestacada = COALESCE(${data.strLineaProductoServicioDestacada}, strLineaProductoServicioDestacada),
+                strProductoServiciosNuevosUltimoAño = COALESCE(${data.strProductoServiciosNuevosUltimoAño}, strProductoServiciosNuevosUltimoAño),
+                strListaProductoServiciosNuevosUltimoAño = COALESCE(${data.strListaProductoServiciosNuevosUltimoAño}, strListaProductoServiciosNuevosUltimoAño),
+                strProductoServiciosEnValidacion = COALESCE(${data.strProductoServiciosEnValidacion}, strProductoServiciosEnValidacion),
+                strNivelDlloProductoServicios = COALESCE(${data.strNivelDlloProductoServicios}, strNivelDlloProductoServicios),
+                strEtapaValidProductoServicios = COALESCE(${data.strEtapaValidProductoServicios}, strEtapaValidProductoServicios),
+                PromedioVentas6Meses = COALESCE(${data.PromedioVentas6Meses}, PromedioVentas6Meses),
+                strRangoVentas = COALESCE(${data.strRangoVentas}, strRangoVentas),
+                strEscojaProductoServicio = COALESCE(${data.strEscojaProductoServicio}, strEscojaProductoServicio),
+                ValorVentaProductoEscogido = COALESCE(${data.ValorVentaProductoEscogido}, ValorVentaProductoEscogido),
+                strConoceMargenRentaProductoEscogido = COALESCE(${data.strConoceMargenRentaProductoEscogido}, strConoceMargenRentaProductoEscogido),
+                strConoceCostosProduccionProductoEscogido = COALESCE(${data.strConoceCostosProduccionProductoEscogido}, strConoceCostosProduccionProductoEscogido),
+                CostoProduccionProductoEscogido = COALESCE(${data.CostoProduccionProductoEscogido}, CostoProduccionProductoEscogido),
+                intPorcentajeMargenRentaProductoEscogido = COALESCE(${data.intPorcentajeMargenRentaProductoEscogido}, intPorcentajeMargenRentaProductoEscogido),
+                strRangoEmpleados = COALESCE(${data.strRangoEmpleados}, strRangoEmpleados),
+                strEtapaDllo = COALESCE(${data.strEtapaDllo}, strEtapaDllo),
+                strLugarSesion = COALESCE(${data.strLugarSesion}, strLugarSesion),
+                dtmActualizacion = NULL,
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
+            WHERE intIdDiagnostico = ${data.intIdDiagnostico}; 
+                `;
 
             let result = {
                 error: false,
-                data: response.recordset[0],
                 msg: `El diagnostico Express, fue actualizado con éxito.`,
             };
 
