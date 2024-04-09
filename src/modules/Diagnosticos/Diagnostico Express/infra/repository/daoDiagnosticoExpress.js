@@ -422,7 +422,7 @@ class daoDiagnosticoExpress {
 
             FROM tbl_DiagnosticoGeneral
 
-            WHERE (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)
+            WHERE (intIdDiagnostico = ${data.intIdDiagnostico})
     
 
             SELECT 
@@ -437,7 +437,7 @@ class daoDiagnosticoExpress {
 
             FROM tbl_DiagnosticoCompetenciasTecnicas
 
-            WHERE (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)
+            WHERE (intIdDiagnostico = ${data.intIdDiagnostico})
             
 
             SELECT
@@ -453,7 +453,7 @@ class daoDiagnosticoExpress {
 
             FROM tbl_DiagnosticoProductos
 
-            WHERE (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)
+            WHERE (intIdDiagnostico = ${data.intIdDiagnostico})
 
 
             SELECT
@@ -467,9 +467,16 @@ class daoDiagnosticoExpress {
 
             FROM tbl_DiagnosticoHumanoSocial
 
-            WHERE (intIdDiagnostico = ${data.intIdDiagnostico} OR ${data.intIdDiagnostico} IS NULL)`;
+            WHERE (intIdDiagnostico = ${data.intIdDiagnostico})`;
 
-            let arrNewData = response.recordsets[0];
+            let arrNewData = [{
+                ...response.recordsets[0][0],
+                ...response.recordsets[1][0],
+                ...response.recordsets[2][0],
+                ...response.recordsets[3][0]
+            }];
+
+            console.log(arrNewData)
 
             let result = {
                 error: false,
