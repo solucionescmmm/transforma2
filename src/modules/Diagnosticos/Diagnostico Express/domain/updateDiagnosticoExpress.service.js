@@ -7,6 +7,7 @@ const classInterfaceDAODiagnosticoExpress = require("../infra/conectors/interfas
 
 //service
 const serviceUpdateHistorico = require("../../../Historicos/domain/updateHistorico.service")
+const serviceGetHistoricoByFuente = require("../../../Historicos/domain/getHistoricoByFuente.service")
 
 class updateDiagnosticoExpress {
     #objData;
@@ -77,7 +78,6 @@ class updateDiagnosticoExpress {
             intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario.intIdTipoEmpresario,
             strUsuarioActualizacion: this.#objData?.objInfoGeneral?.strUsuarioCreacion.strEmail,
-            btFinalizado: 0
         };
 
         this.#objData = newData;
