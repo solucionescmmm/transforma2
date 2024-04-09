@@ -75,7 +75,7 @@ class setDiagnosticoExpress {
     
     async #getIntIdEstadoDiagnostico() {
         let queryGetIntIdEstadoDiagnostico = await serviceGetIdEstadoDiagnostico({
-            strNombre: "Finalizado",
+            strNombre: "En Proceso",
         },this.#objUser);
 
         if (queryGetIntIdEstadoDiagnostico.error) {
@@ -108,6 +108,8 @@ class setDiagnosticoExpress {
             ...this.#objData.objInfoEncuestaHumanas,
             intIdEmpresario:this.#objData.objInfoGeneral.objEmpresario.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario.intIdTipoEmpresario,
+            strUsuarioCreacion: this.#objData?.objInfoGeneral?.strUsuarioCreacion.strEmail,
+            btFinalizado: 0
         };
 
         this.#objData = newData;
@@ -180,7 +182,7 @@ class setDiagnosticoExpress {
 
     async #updateDiagnostico(){
         let data = {
-            intIdDiagnostico: this.#objData.objInfoGeneral.intIdDiagnostico,
+            intIdDiagnostico: this.#objData.intIdDiagnostico,
             intIdEstadoDiagnostico: this.#intIdEstadoDiagnostico
         };
     

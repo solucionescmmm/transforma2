@@ -30,6 +30,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data;
+            console.log(array)
 
             let data = [];
 

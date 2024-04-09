@@ -43,7 +43,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
 
                 let objDataEmpresario = queryGetEmpresario.data[0]
 
-                let objInfoGeneral = {
+                let objInfoGeneral = {                    
                     intIdDiagnostico: array[i]?.intIdDiagnostico,
                     intIdEmpresario: array[i]?.intIdEmpresario,
                     strLugarSesion: array[i]?.strLugarSesion,
@@ -61,8 +61,18 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                         strCorreoElectronico: objDataEmpresario?.strCorreoElectronico1
                     }
                 };
-
                 let objInfoEmprendimiento = {
+                    strRegistroCamaraComercio:array[i]?.strRegistroCamaraComercio,
+                    strDefinineLineasProductoServicios:array[i]?.strDefinineLineasProductoServicios,
+                    strDescProductosServicios:array[i]?.strDescProductosServicios,
+                    strLineaProductoServicioDestacada:array[i]?.strLineaProductoServicioDestacada,
+                    btTieneProdServUltimoAn:array[i]?.btTieneProdServUltimoAn,
+                    strProductosNuevos:array[i]?.strProductosNuevos,
+                    strListadoProdServ: array[i]?.strListaProductoServiciosNuevosUltimoAño,
+                    strProductoServiciosEnValidacion:array[i]?.strProductoServiciosEnValidacion,
+                    strNivelDlloProductoServicios:array[i]?.strNivelDlloProductoServicios,
+                    strEtapaValidProductoServicios:array[i]?.strEtapaValidProductoServicios,
+
                     intAñoInicioOperacion: array[i]?.intAñoInicioOperacion,
                     strUbicacionUP: array[i]?.strUbicacionUP,
                     strRegistroCamaraComercio:
@@ -79,25 +89,20 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     strIngresosDistintos: array[i]?.strIngresosDistintos,
                 };
                 let objInfoPerfilEco = {
-                    strOperacionesVentas6Meses:
-                        array[i]?.strOperacionesVentas6Meses,
-                    strEtapaValidacion: array[i]?.strEtapaValidacion,
                     PromedioVentas6Meses: array[i]?.PromedioVentas6Meses,
                     strRangoVentas: array[i]?.strRangoVentas,
+                    strEscojaProductoServicio: array[i]?.strEscojaProductoServicio,
+                    ValorVentaProductoEscogido: array[i]?.ValorVentaProductoEscogido,
+                    strConoceMargenRentaProductoEscogido: array[i]?.strConoceMargenRentaProductoEscogido,
+                    strConoceCostosProductoEscogido: array[i]?.strConoceCostosProductoEscogido,
+                    CostoProduccionProductoEscogido: array[i]?.CostoProduccionProductoEscogido,
+                    intPorcentajeMargenRentaProductoEscogido: array[i]?.intPorcentajeMargenRentaProductoEscogido,
+                    btGeneraEmpleo: array[i]?.btGeneraEmpleo,
+                    intNumeroEmpleados: array[i]?.intNumeroEmpleados,
                     strRangoEmpleados: array[i]?.strRangoEmpleados,
-                    strTipoEmpleoGenerado: array[i]?.strTipoEmpleoGenerado,
-                    strDlloAcitividadesContratados:
-                        array[i]?.strDlloAcitividadesContratados,
-                    strPromedioTiempoInvertido:
-                        array[i]?.strPromedioTiempoInvertido,
-                    strRolesEmprendimiento: JSON.parse(array[i]?.strRolesEmprendimiento),
-                    strDiasProduccion: array[i]?.strDiasProduccion,
-                    strGeneraEmpleoRiesgoPobreza:
-                        array[i]?.strGeneraEmpleoRiesgoPobreza,
-                    ValorGananciasMes: array[i]?.ValorGananciasMes,
-                    strActivos: array[i]?.strActivos,
-                    ValorActivos: array[i]?.ValorActivos,
                     strEtapaDllo: array[i]?.strEtapaDllo,
+                    strOperacionesVentas6Meses: array[i]?.strOperacionesVentas6Meses,
+                    strPrecProdServ: array[i]?.strPrecProdServ,
                 };
                 let objHumanas = {
                     strHabilidadesAutonomia:array[i]?.strHabilidadesAutonomia,
@@ -126,20 +131,14 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     strIdentidadMarca:array[i]?.strIdentidadMarca,
                     strComunicacionMarca:array[i]?.strComunicacionMarca
                 }
-                let objInfoAdicional = {
-                    strConclusiones: array[i]?.strConclusiones,
-                    strURLSFotosProducto: array[i]?.strURLSFotosProducto,
-                };
 
                 data[i] = {
                     objInfoGeneral,
-                    objInfoFamiliar,
                     objInfoEmprendimiento,
                     objInfoPerfilEco,
                     objTecnicas,
                     objHumanas,
                     objProducto,
-                    objInfoAdicional,
                 };
             }
             let result = {

@@ -8,6 +8,7 @@ const {
 
 class daoDiagnosticoExpress {
     async setDiagnosticoExpress(data) {
+        console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -19,6 +20,9 @@ class daoDiagnosticoExpress {
             INSERT INTO tbl_DiagnosticoHumanoSocial 
             ( 
                 intIdDiagnostico,
+                intIdEmpresario,
+                intIdTipoEmpresario,
+                btFinalizado,
                 strHabilidadesAutonomia,
                 strHabilidadesCapacidad,
                 strHabilidadesComunicacion,
@@ -33,6 +37,9 @@ class daoDiagnosticoExpress {
             VALUES 
             (
                 ${data.intIdDiagnostico},
+                ${data.intIdEmpresario},
+                ${data.intIdTipoEmpresario},
+                ${data.btFinalizado},
                 ${data.strHabilidadesAutonomia},
                 ${data.strHabilidadesCapacidad},
                 ${data.strHabilidadesComunicacion},
@@ -55,6 +62,9 @@ class daoDiagnosticoExpress {
             INSERT INTO tbl_DiagnosticoProductos 
             ( 
                 intIdDiagnostico,
+                intIdEmpresario,
+                intIdTipoEmpresario,
+                btFinalizado,
                 strPermisoFuncionamiento, 
                 strCertificadosRequeridos,
                 strCertificadosActuales,
@@ -71,6 +81,9 @@ class daoDiagnosticoExpress {
             VALUES 
             (
                 ${data.intIdDiagnostico},
+                ${data.intIdEmpresario},
+                ${data.intIdTipoEmpresario},
+                ${data.btFinalizado},
                 ${data.strPermisoFuncionamiento}, 
                 ${data.strCertificadosRequeridos},
                 ${data.strCertificadosActuales},
@@ -95,6 +108,9 @@ class daoDiagnosticoExpress {
             INSERT INTO tbl_DiagnosticoCompetenciasTecnicas 
             ( 
                 intIdDiagnostico,
+                intIdEmpresario,
+                intTipoEmpresario,
+                btFinalizado,
                 strUniProdSosFinan,
                 strTieneBaseDatosClientes,
                 strActivIncreVentClient,
@@ -111,6 +127,9 @@ class daoDiagnosticoExpress {
             VALUES 
             (
                 ${data.intIdDiagnostico},
+                ${data.intIdEmpresario},
+                ${data.intIdTipoEmpresario},
+                ${data.btFinalizado},
                 ${data.strUniProdSosFinan},
                 ${data.strTieneBaseDatosClientes},
                 ${data.strActivIncreVentClient},
@@ -137,6 +156,7 @@ class daoDiagnosticoExpress {
                 intIdDiagnostico,
                 intIdEmpresario,
                 intIdTipoEmpresario,
+                btFinalizado,
                 strRegistroCamaraComercio,
                 strOperacionesVentas6Meses,
                 strDefinineLineasProductoServicios,
@@ -155,7 +175,6 @@ class daoDiagnosticoExpress {
                 CostoProduccionProductoEscogido,
                 intPorcentajeMargenRentaProductoEscogido,
                 strRangoEmpleados,
-                strEtapaDllo,
                 strLugarSesion,
                 dtmFechaSesion,
                 strUsuarioCreacion,
@@ -167,6 +186,7 @@ class daoDiagnosticoExpress {
                 ${data.intIdDiagnostico},
                 ${data.intIdEmpresario},
                 ${data.intIdTipoEmpresario},
+                ${data.btFinalizado},
                 ${data.strRegistroCamaraComercio},
                 ${data.strOperacionesVentas6Meses},
                 ${data.strDefinineLineasProductoServicios},
@@ -185,7 +205,6 @@ class daoDiagnosticoExpress {
                 ${data.CostoProduccionProductoEscogido},
                 ${data.intPorcentajeMargenRentaProductoEscogido},
                 ${data.strRangoEmpleados},
-                ${data.strEtapaDllo},
                 ${data.strLugarSesion},
                 GETDATE(),
                 ${data.strUsuarioCreacion},
@@ -231,7 +250,7 @@ class daoDiagnosticoExpress {
                 strHabilidadesCreatividad = COALESCE(${data.strHabilidadesCreatividad}, strHabilidadesCreatividad),
                 strTomaDesiciones = COALESCE(${data.strTomaDesiciones}, strTomaDesiciones),
                 strConfianza = COALESCE(${data.strConfianza}, strConfianza),
-                dtmActualizacion = NULL,
+                dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
             WHERE intIdDiagnostico = ${data.intIdDiagnostico}; 
             
@@ -246,7 +265,7 @@ class daoDiagnosticoExpress {
                 strIdentidadMarca = COALESCE(${data.strIdentidadMarca}, strIdentidadMarca),
                 strComunicacionMarca = COALESCE(${data.strComunicacionMarca}, strComunicacionMarca),
                 strUsuarioCreacion = COALESCE(${data.strUsuarioCreacion}, strUsuarioCreacion),
-                dtmActualizacion = NULL,
+                dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
             WHERE intIdDiagnostico = ${data.intIdDiagnostico}; 
             
@@ -261,7 +280,7 @@ class daoDiagnosticoExpress {
                 PrecProdServDef = COALESCE(${data.PrecProdServDef}, PrecProdServDef),
                 strEmprFormaAcuerNormLab = COALESCE(${data.strEmprFormaAcuerNormLab}, strEmprFormaAcuerNormLab),
                 strPlaneaEstraEmpPlanPlani = COALESCE(${data.strPlaneaEstraEmpPlanPlani}, strPlaneaEstraEmpPlanPlani),
-                dtmActualizacion = NULL,
+                dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
             WHERE intIdDiagnostico = ${data.intIdDiagnostico}; 
             
@@ -290,7 +309,7 @@ class daoDiagnosticoExpress {
                 strRangoEmpleados = COALESCE(${data.strRangoEmpleados}, strRangoEmpleados),
                 strEtapaDllo = COALESCE(${data.strEtapaDllo}, strEtapaDllo),
                 strLugarSesion = COALESCE(${data.strLugarSesion}, strLugarSesion),
-                dtmActualizacion = NULL,
+                dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
             WHERE intIdDiagnostico = ${data.intIdDiagnostico}; 
                 `;
@@ -318,7 +337,6 @@ class daoDiagnosticoExpress {
     }
 
     async updateEmpresaDiagnosticoExpress(data) {
-
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
             let response = await conn.query`
@@ -333,7 +351,7 @@ class daoDiagnosticoExpress {
                 strSectorEconomico        = COALESCE(${data.strSectorEconomico}, strSectorEconomico),
                 strCategoriaProducto      = COALESCE(${data.strCategoriaProducto}, strCategoriaProducto),
                 strCategoriaServicio      = COALESCE(${data.strCategoriaServicio}, strCategoriaServicio),
-                strCategoriasSecundarias  = COALESCE(${data.arrCategoriasSecundarias}, strCategoriasSecundarias),
+                strCategoriasSecundarias  = COALESCE(${data.strCategoriasSecundarias}, strCategoriasSecundarias),
                 strDescProductosServicios = COALESCE(${data.strDescProductosServicios}, strDescProductosServicios),
                 btGeneraEmpleo            = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
                 valorVentasMes            = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
