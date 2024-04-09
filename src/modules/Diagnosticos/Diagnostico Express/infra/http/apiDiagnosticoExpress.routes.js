@@ -25,7 +25,7 @@ routes.put(
     "/transforma/api/diagnosticos/diagnosticoExpress/updateDiagnosticoExpress",
     async (req, res) => {
         let controllerDiagnosticoExpress = new classController();
-        await controllerDiagnosticoExpress(req, res);
+        await controllerDiagnosticoExpress.updateDiagnosticoExpress(req, res);
     }
 );
 
