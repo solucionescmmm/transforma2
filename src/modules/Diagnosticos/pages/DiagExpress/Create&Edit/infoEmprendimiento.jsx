@@ -56,7 +56,7 @@ const InfoEmprendimiento = ({
         strCategoriaServicio: "",
         strDefinineLineasProductoServicios: "",
         arrCategoriasSecundarias: [],
-        strDescProductosServicios: "",
+        strListadoProdServ: "",
         strLineaProductoServicioDestacada: "",
         btTieneProdServUltimoAn: "",
         strProductosNuevos: "",
@@ -65,7 +65,7 @@ const InfoEmprendimiento = ({
         strEtapaValidProductoServicios: "",
     });
 
-    const [openCollapese, setOpenCollapse] = useState(false);
+    const [openCollapese, setOpenCollapse] = useState(true);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
@@ -95,7 +95,7 @@ const InfoEmprendimiento = ({
                 strDefinineLineasProductoServicios:
                     values.strDefinineLineasProductoServicios || "",
                 arrCategoriasSecundarias: values.arrCategoriasSecundarias || [],
-                strDescProductosServicios:
+                strListadoProdServ:
                     values.strDescProductosServicios || "",
                 strLineaProductoServicioDestacada:
                     values.strLineaProductoServicioDestacada || "",

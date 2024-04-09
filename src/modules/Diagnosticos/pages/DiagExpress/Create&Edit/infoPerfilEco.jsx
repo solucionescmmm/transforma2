@@ -209,6 +209,47 @@ const InfoPerfilEco = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
+                            defaultValue={data.dblValorVentasMes}
+                            name="objInfoPerfilEco.dblValorVentasMes"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="Valor promedio de las ventas mensuales"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorVentasMes
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorVentasMes?.message ||
+                                        "Digita la cantidad promedio de las ventas mensuales"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digita la cantidad promedio de las ventas mensuales",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
                             defaultValue={data.strEscojaProductoServicio}
                             name="objInfoPerfilEco.strEscojaProductoServicio"
                             render={({ field: { name, value, onChange } }) => (
