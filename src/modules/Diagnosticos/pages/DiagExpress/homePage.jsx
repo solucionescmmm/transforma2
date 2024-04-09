@@ -68,7 +68,7 @@ const DiagExpress = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                     if (res.data?.data) {
                         setObjResumen((prevState) => ({
                             ...prevState,
-                            bitResumenProducto: true,
+                            bitResumenExpress: true,
                         }));
                     }
 

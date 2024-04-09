@@ -14,8 +14,8 @@ import {
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";
+import useGetEmpresarios from "../../../../Empresarios/hooks/useGetEmpresarios";
 
-import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
 
 // Register Font
 Font.register({

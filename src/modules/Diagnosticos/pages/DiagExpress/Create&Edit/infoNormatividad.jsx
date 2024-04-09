@@ -134,7 +134,7 @@ const InfoNormatividad = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoNormatividad.strPermisoFuncionamiento"
                             defaultValue={data.strPermisoFuncionamiento}
@@ -164,7 +164,7 @@ const InfoNormatividad = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoNormatividad.strCertificadosRequeridos"
                             defaultValue={data.strCertificadosRequeridos}

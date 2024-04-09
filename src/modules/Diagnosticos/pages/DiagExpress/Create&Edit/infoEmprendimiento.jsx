@@ -273,7 +273,6 @@ const InfoEmprendimiento = ({
                                             ?.arrMediosDigitales?.message ||
                                         "Selecciona los medios digitales que utilice y registre su ID"
                                     }
-                                    required
                                 />
                             )}
                             control={control}
@@ -321,7 +320,6 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
@@ -508,7 +506,7 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
@@ -573,7 +571,7 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
@@ -608,7 +606,7 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                    
                                     variant="outlined"
                                     error={
                                         errors?.objInfoEmprendimiento
@@ -685,7 +683,7 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
@@ -716,7 +714,7 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
@@ -749,7 +747,7 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
@@ -782,7 +780,7 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento

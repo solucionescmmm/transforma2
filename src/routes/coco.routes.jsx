@@ -18,6 +18,10 @@ const DiagnosticoExpress = lazy(() =>
     import("../modules/Diagnosticos/pages/DiagExpress/homePage")
 );
 
+const DiagnosticoExpressRead = lazy(() =>
+    import("../modules/Diagnosticos/pages/DiagExpress/Read/homePage")
+);
+
 const DiagnosticoExpressCU = lazy(() =>
     import(
         "../modules/Diagnosticos/pages/DiagExpress/Create&Edit/pageCUGeneral"
@@ -331,17 +335,6 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                             intIdDiagnostico={route.params.intIdDiagnostico}
                         />
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <Button
-                            onClick={() => onChangeRoute("DiagnosticoCoco")}
-                            startIcon={<ChevronLeftIcon />}
-                            size="small"
-                            color="inherit"
-                        >
-                            regresar
-                        </Button>
-                    </Grid>
                 </Grid>
             </TabPanel>
         );
@@ -353,7 +346,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            onClick={() => onChangeRoute("DiagnExpress")}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -391,7 +384,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            onClick={() => onChangeRoute("DiagnExpress")}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -430,7 +423,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            onClick={() => onChangeRoute("DiagnExpress")}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -440,7 +433,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <DiagnosticoExpress
+                        <DiagnosticoExpressRead
                             onChangeRoute={onChangeRoute}
                             intIdIdea={route.params.intIdIdea}
                             intIdDiagnostico={route.params.intIdDiagnostico}
@@ -449,7 +442,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            onClick={() => onChangeRoute("DiagnExpress")}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"

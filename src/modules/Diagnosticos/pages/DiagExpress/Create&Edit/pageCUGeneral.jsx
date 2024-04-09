@@ -16,7 +16,7 @@ import useGetEmpresarios from "../../../../Empresarios/hooks/useGetEmpresarios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 // Componentes de MUI
 import {
@@ -291,6 +291,8 @@ const PageCUExpress = ({
             setLoadingGetData(true);
 
             async function getData() {
+                let dataEmp;
+
                 await refFntGetData
                     .current({ intIdIdea })
                     .then((res) => {
@@ -304,7 +306,7 @@ const PageCUExpress = ({
                                 (emp) => emp.strTipoEmpresario === "Principal"
                             );
 
-                            setData({
+                            dataEmp = {
                                 intIdIdea: intIdIdea,
                                 intIdDiagnostico,
                                 objIdeaEmpresario: data.objInfoIdeaEmpresario,
@@ -320,7 +322,8 @@ const PageCUExpress = ({
                                     strUnidadProductiva:
                                         data.objInfoEmpresa.strNombreMarca,
                                     strDescProductosServicios:
-                                        data.objInfoEmpresa.strDescProductosServicios,
+                                        data.objInfoEmpresa
+                                            .strDescProductosServicios,
                                     strLugarOperacion:
                                         data.objInfoEmpresa.strLugarOperacion,
                                     strRedesSociales:
@@ -333,7 +336,7 @@ const PageCUExpress = ({
                                             .arrMediosDigitales || [],
                                     arrFormasComercializacion:
                                         data.objInfoEmpresa
-                                                .arrFormasComercializacion || [],
+                                            .arrFormasComercializacion || [],
                                     strTiempoDedicacion:
                                         data.objInfoEmpresa
                                             .strTiempoDedicacion || "",
@@ -371,10 +374,11 @@ const PageCUExpress = ({
                                             ? data.objInfoEmpresa.btGeneraEmpleo
                                             : "",
                                 },
-                            });
+                            };
+
+                            setData(dataEmp);
                         }
 
-                        setLoadingGetData(false);
                         setErrorGetData({ flag: false, msg: "" });
                     })
                     .catch((error) => {
@@ -395,11 +399,71 @@ const PageCUExpress = ({
                         if (res.data?.data) {
                             if (!isEdit) {
                                 setOpenModal(true);
+                            } else {
+                                const dataDiagn = res.data.data[0];
+
+                                setData((prevState) => {
+                                    const objInfoGeneral = {
+                                        ...prevState.objInfoGeneral,
+                                        ...dataEmp.objInfoGeneral,
+                                        ...dataDiagn.objInfoGeneral,
+                                        dtmFechaSesion: dataDiagn.objInfoGeneral
+                                            .dtmFechaSesion
+                                            ? parseISO(
+                                                  dataDiagn.objInfoGeneral
+                                                      .dtmFechaSesion
+                                              )
+                                            : null,
+                                        dtmActualizacion: dataDiagn
+                                            .objInfoGeneral.dtmActualizacion
+                                            ? parseISO(
+                                                  dataDiagn.objInfoGeneral
+                                                      .dtmActualizacion
+                                              )
+                                            : null,
+                                    };
+
+                                    const objInfoEmprendimiento = {
+                                        ...prevState.objInfoEmprendimiento,
+                                        ...dataEmp.objInfoEmprendimiento,
+                                        ...dataDiagn.objInfoEmprendimiento,
+                                    };
+
+                                    const objInfoPerfilEco = {
+                                        ...prevState.objInfoPerfilEco,
+                                        ...dataEmp.objInfoPerfilEco,
+                                        ...dataDiagn.objInfoPerfilEco,
+                                    };
+                                    const objInfoMercado = {
+                                        ...prevState.objInfoMercado,
+                                        ...dataEmp.objInfoMercado,
+                                        ...dataDiagn.objInfoMercado,
+                                    };
+                                    const objInfoNormatividad = {
+                                        ...prevState.objInfoNormatividad,
+                                        ...dataEmp.objInfoNormatividad,
+                                        ...dataDiagn.objInfoNormatividad,
+                                    };
+                                    const objInfoEncuestaHumanas = {
+                                        ...prevState.objInfoEncuestaHumanas,
+                                        ...dataEmp.objInfoEncuestaHumanas,
+                                        ...dataDiagn.objInfoEncuestaHumanas,
+                                    };
+
+                                    return {
+                                        ...prevState,
+                                        objInfoGeneral,
+                                        objInfoEmprendimiento,
+                                        objInfoPerfilEco,
+                                        objInfoMercado,
+                                        objInfoNormatividad,
+                                        objInfoEncuestaHumanas,
+                                    };
+                                });
                             }
                         }
 
                         setErrorGetData({ flag: false, msg: "" });
-
                         setLoadingGetData(false);
                     })
                     .catch((error) => {
@@ -478,7 +542,7 @@ const PageCUExpress = ({
                 <DialogContent>
                     <DialogContentText>
                         Se ha detectado que la persona empresaria ya cuenta con
-                        un registro del diagnóstico general. ¿Deseas editar la
+                        un registro del diagnóstico exprés. ¿Deseas editar la
                         información o previsualizar la información?
                     </DialogContentText>
                 </DialogContent>

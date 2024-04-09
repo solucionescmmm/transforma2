@@ -25,17 +25,17 @@ import {
     RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
-import Loader from "../../../../../../common/components/Loader";
-import ErrorPage from "../../../../../../common/components/Error";
-import useGetDiagnGeneral from "../../../../hooks/useGetDiagnGeneral";
+
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
 import ModalFinish from "./modalFinish";
-import { Can } from "../../../../../../common/functions/can";
-import { ImageViewer } from "../../../../../../common/components/ImageViewer";
-import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
+import useGetDiagnExp from "../../../hooks/useGetDiagnExp";
+import useGetEmpresarios from "../../../../Empresarios/hooks/useGetEmpresarios";
+import ErrorPage from "../../../../../common/components/Error";
+import Loader from "../../../../../common/components/Loader";
+import { Can } from "../../../../../common/functions/can";
 
-const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
+const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -330,11 +330,6 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         ],
         objInfoPerfilEco: [
             {
-                parent: "strEtapaDllo",
-                value: "",
-                label: "Etapa de desarrollo",
-            },
-            {
                 parent: "strOperacionesVentas6Meses",
                 value: "",
                 label: "¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?",
@@ -459,7 +454,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
-    const { getUniqueData: getUniqueDataGen } = useGetDiagnGeneral({
+    const { getUniqueData: getUniqueDataGen } = useGetDiagnExp({
         autoLoad: false,
         intIdDiagnostico,
         intIdIdea,
@@ -942,7 +937,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         sx={{ color: "#F5B335", textTransform: "uppercase" }}
                         textAlign="center"
                     >
-                        <b>detalle diagnóstico general</b>
+                        <b>detalle diagnóstico exprés</b>
                     </Typography>
                 </Grid>
 
@@ -1372,23 +1367,6 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                     </Grid>
                                 ))}
                             </Grid>
-
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "13px",
-                                        display: "flex",
-                                        alignContent: "center",
-                                    }}
-                                >
-                                    {data.arrImagenes.length > 0 && (
-                                        <ImageViewer
-                                            images={data.arrImagenes}
-                                        />
-                                    )}
-                                </p>
-                            </Grid>
                         </Collapse>
                     </Paper>
                 </Grid>
@@ -1397,4 +1375,4 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     );
 };
 
-export default ResumenEmp;
+export default ResumenExp;

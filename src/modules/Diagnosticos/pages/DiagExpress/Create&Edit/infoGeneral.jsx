@@ -304,7 +304,7 @@ const InfoGeneral = ({
                                     disabled
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                
                                     variant="standard"
                                     error={
                                         errors?.objInfoGeneral

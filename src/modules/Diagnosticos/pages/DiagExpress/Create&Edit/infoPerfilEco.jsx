@@ -207,7 +207,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strEscojaProductoServicio}
                             name="objInfoPerfilEco.strEscojaProductoServicio"
@@ -219,7 +219,7 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoPerfilEco
@@ -238,7 +238,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.ValorVentaProductoEscogido}
                             name="objInfoPerfilEco.ValorVentaProductoEscogido"
@@ -257,7 +257,7 @@ const InfoPerfilEco = ({
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
-                                    required
+                                    
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.ValorVentaProductoEscogido
@@ -275,7 +275,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={
                                 data.strConoceMargenRentaProductoEscogido
@@ -289,7 +289,7 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
+                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoPerfilEco
@@ -310,7 +310,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={
                                 data.intPorcentajeMargenRentaProductoEscogido
@@ -331,7 +331,7 @@ const InfoPerfilEco = ({
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
-                                    required
+                                    
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.intPorcentajeMargenRentaProductoEscogido
@@ -350,7 +350,7 @@ const InfoPerfilEco = ({
                     </Grid>
 
         
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strConoceCostosProductoEscogido}
                             name="objInfoPerfilEco.strConoceCostosProductoEscogido"
@@ -383,7 +383,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.CostoProduccionProductoEscogido}
                             name="objInfoPerfilEco.CostoProduccionProductoEscogido"
@@ -402,7 +402,7 @@ const InfoPerfilEco = ({
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
-                                    required
+                                    
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.CostoProduccionProductoEscogido
@@ -420,7 +420,6 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-              
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.btGeneraEmpleo}
@@ -527,7 +526,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strRangoEmpleados}
                             name="objInfoPerfilEco.strRangoEmpleados"
@@ -624,7 +623,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strPrecProdServ}
                             name="objInfoPerfilEco.strPrecProdServ"
@@ -659,7 +658,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoMercado.strUniProdSosFinan"
                             defaultValue={data.strUniProdSosFinan}
