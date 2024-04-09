@@ -43,23 +43,8 @@ const InfoGeneral = ({
         dtmFechaSesion: null,
         strLugarSesion: "",
         strUsuarioCreacion: "",
-        dtActualizacion: null,
+        dtmActualizacion: null,
         strUsuarioActualizacion: "",
-        strNombres: "",
-        strApellidos: "",
-        strTipoDocto: "",
-        strNroDocto: "",
-        strLugarExpedicionDocto: "",
-        dtFechaExpedicionDocto: null,
-        arrDepartamento: [],
-        arrCiudad: [],
-        strDireccionResidencia: "",
-        strBarrio: "",
-        strUbicacionVivienda: "",
-        strCelular1: "",
-        strCelular2: "",
-        strCorreoElectronico1: "",
-        strCorreoElectronico2: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -76,7 +61,7 @@ const InfoGeneral = ({
                 dtmFechaSesion: values.dtmFechaSesion || null,
                 strLugarSesion: values.strLugarSesion || "",
                 strUsuarioCreacion: values.strUsuarioCreacion || "",
-                dtActualizacion: values.dtActualizacion || null,
+                dtmActualizacion: values.dtmActualizacion || null,
                 strUsuarioActualizacion: values.strUsuarioActualizacion || "",
             });
         }
@@ -158,10 +143,10 @@ const InfoGeneral = ({
                                     }}
                                     required
                                     helperText={
-                                        errors?.objEmpresario?.message ||
+                                        errors?.objInfoGeneral?.objEmpresario?.message ||
                                         "Selecciona una persona"
                                     }
-                                    error={!!errors?.objEmpresario}
+                                    error={!!errors?.objInfoGeneral?.objEmpresario}
                                     intIdIdea={intIdIdea}
                                 />
                             )}
@@ -243,8 +228,8 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={4}>
                         <Controller
-                            defaultValue={data.dtActualizacion}
-                            name="objInfoGeneral.dtActualizacion"
+                            defaultValue={data.dtmActualizacion}
+                            name="objInfoGeneral.dtmActualizacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
                                     label="Fecha de ultima actualización"
@@ -257,10 +242,10 @@ const InfoGeneral = ({
                                             name,
                                             variant: "standard",
                                             error: !!errors?.objInfoGeneral
-                                                ?.dtActualizacion,
+                                                ?.dtmActualizacion,
                                             helperText:
                                                 errors?.objInfoGeneral
-                                                    ?.dtActualizacion
+                                                    ?.dtmActualizacion
                                                     ?.message ||
                                                 "Fecha de la última vez que se actualizó el diagnóstico",
                                             fullWidth: true,

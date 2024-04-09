@@ -50,7 +50,7 @@ import InfoEncuestaHumanas from "./infoEncuestaHumanas";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import useGetDiagnGeneral from "../../../hooks/useGetDiagnGeneral";
+import useGetDiagnExp from "../../../hooks/useGetDiagnExp";
 import { useTheme } from "@emotion/react";
 import { Can } from "../../../../../common/functions/can";
 
@@ -141,7 +141,7 @@ const PageCUExpress = ({
 
     const { getUniqueData } = useGetEmpresarios({ autoLoad: false, intIdIdea });
 
-    const { getUniqueData: getUniqueDataGen } = useGetDiagnGeneral({
+    const { getUniqueData: getUniqueDataGen } = useGetDiagnExp({
         autoLoad: false,
         intIdIdea,
         intIdDiagnostico,
@@ -255,7 +255,7 @@ const PageCUExpress = ({
 
                     setLoading(false);
 
-                    onChangeRoute("DiagEmpresarial", {
+                    onChangeRoute("DiagnExpress", {
                         intIdIdea,
                         intIdDiagnostico,
                     });
@@ -303,8 +303,6 @@ const PageCUExpress = ({
                             const objEmprPrincipal = data.objEmpresario.find(
                                 (emp) => emp.strTipoEmpresario === "Principal"
                             );
-
-                            console.log(data.objInfoEmpresa)
 
                             setData({
                                 intIdIdea: intIdIdea,
@@ -419,6 +417,12 @@ const PageCUExpress = ({
     }, [intIdIdea, intIdDiagnostico, isEdit]);
 
     useEffect(() => {
+        if (isEdit) {
+            setOpenModal(false);
+        }
+    }, [isEdit]);
+
+    useEffect(() => {
         if (intIdIdea) {
             reset(data);
         }
@@ -481,13 +485,25 @@ const PageCUExpress = ({
 
                 <DialogActions>
                     <Button
-                        to={`/diagnosticos/diagEmpresarial/humanas/read/${data.objInfoGeneral?.intId}`}
+                        onClick={() =>
+                            onChangeRoute("DiagnExpressRead", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            })
+                        }
                         color="inherit"
                     >
                         ver detalle
                     </Button>
 
-                    <Button to={`/diagnosticos/diagEmpresarial/humanas/edit/`}>
+                    <Button
+                        onClick={() =>
+                            onChangeRoute("DiagnExpressEdit", {
+                                intIdIdea,
+                                intIdDiagnostico,
+                            })
+                        }
+                    >
                         editar
                     </Button>
                 </DialogActions>

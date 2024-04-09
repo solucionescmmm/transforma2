@@ -649,7 +649,7 @@ const InfoPerfilEco = ({
                                             ?.message || "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoTecnico"
-                                    strCodigo="PrecProdServ"
+                                    strCodigo="PrecProdServDef"
                                 />
                             )}
                             control={control}
