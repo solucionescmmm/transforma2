@@ -314,6 +314,7 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
     }
 
     if (route.location === "DiagnExpress") {
+        console.log(route.params)
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
@@ -346,7 +347,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnExpress")}
+                            onClick={() => onChangeRoute("DiagnExpress", {
+                                ...route.params,
+                            })}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -365,7 +368,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            onClick={() => onChangeRoute("DiagnExpress", {
+                                ...route.params,
+                            })}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -384,7 +389,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnExpress")}
+                            onClick={() => onChangeRoute("DiagnExpress", {
+                                ...route.params,
+                            })}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -404,7 +411,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnosticoCoco")}
+                            onClick={() => onChangeRoute("DiagnExpress", {
+                                ...route.params,
+                            })}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -423,7 +432,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                 <Grid container direction="row" spacing={3}>
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnExpress")}
+                            onClick={() => onChangeRoute("DiagnExpress",{
+                                ...route.params,
+                            })}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
@@ -442,7 +453,9 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
 
                     <Grid item xs={12}>
                         <Button
-                            onClick={() => onChangeRoute("DiagnExpress")}
+                            onClick={() => onChangeRoute("DiagnExpress",{
+                                ...route.params,
+                            })}
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"
