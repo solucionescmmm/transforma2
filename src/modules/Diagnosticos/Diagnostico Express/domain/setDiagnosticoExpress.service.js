@@ -147,7 +147,7 @@ class setDiagnosticoExpress {
                 this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias ||
                     null
             ),
-            dblValorVentasMes: this.#objData.objInfoPerfilEco.ValorVentaProductoEscogido,
+            dblValorVentasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
             intNumeroEmpleados:this.#objData.objInfoPerfilEco.intNumeroEmpleados,
             btGeneraEmpleo:this.#objData.objInfoPerfilEco.btGeneraEmpleo
         };
@@ -165,7 +165,7 @@ class setDiagnosticoExpress {
         let data = {
             intIdIdea:this.#objData.objInfoGeneral.intIdIdea,
             intNumeroEmpleados:parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10),
-            ValorVentas:this.#objData.objInfoPerfilEco.ValorVentaProductoEscogido,
+            ValorVentas:this.#objData.objInfoPerfilEco.dblValorVentasMes,
             strTiempoDedicacionAdmin:this.#objData.objInfoEmprendimiento.strTiempoDedicacion,
             intIdFuenteHistorico: this.#intIdFuenteHistorico,
             intIdFuenteDato:this.#objData.objInfoGeneral.intIdDiagnostico

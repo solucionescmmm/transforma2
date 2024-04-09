@@ -43,7 +43,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
 
                 let objDataEmpresario = queryGetEmpresario.data[0]
 
-                let objInfoGeneral = {                    
+                let objInfoGeneral = {
                     intIdDiagnostico: array[i]?.intIdDiagnostico,
                     intIdEmpresario: array[i]?.intIdEmpresario,
                     strLugarSesion: array[i]?.strLugarSesion,
@@ -62,31 +62,16 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     }
                 };
                 let objInfoEmprendimiento = {
-                    strRegistroCamaraComercio:array[i]?.strRegistroCamaraComercio,
-                    strDefinineLineasProductoServicios:array[i]?.strDefinineLineasProductoServicios,
-                    strDescProductosServicios:array[i]?.strDescProductosServicios,
-                    strLineaProductoServicioDestacada:array[i]?.strLineaProductoServicioDestacada,
-                    btTieneProdServUltimoAn:array[i]?.btTieneProdServUltimoAn,
-                    strProductosNuevos:array[i]?.strProductosNuevos,
+                    strRegistroCamaraComercio: array[i]?.strRegistroCamaraComercio,
+                    strDefinineLineasProductoServicios: array[i]?.strDefinineLineasProductoServicios,
+                    strDescProductosServicios: array[i]?.strDescProductosServicios,
+                    strLineaProductoServicioDestacada: array[i]?.strLineaProductoServicioDestacada,
+                    btTieneProdServUltimoAn: array[i]?.btTieneProdServUltimoAn,
+                    strProductosNuevos: array[i]?.strProductosNuevos,
                     strListadoProdServ: array[i]?.strListaProductoServiciosNuevosUltimoAño,
-                    strProductoServiciosEnValidacion:array[i]?.strProductoServiciosEnValidacion,
-                    strNivelDlloProductoServicios:array[i]?.strNivelDlloProductoServicios,
-                    strEtapaValidProductoServicios:array[i]?.strEtapaValidProductoServicios,
-
-                    intAñoInicioOperacion: array[i]?.intAñoInicioOperacion,
-                    strUbicacionUP: array[i]?.strUbicacionUP,
-                    strRegistroCamaraComercio:
-                        array[i]?.strRegistroCamaraComercio,
-                    strHistoriaEmpresa: array[i]?.strHistoriaEmpresa,
-                    strSuenioEmpresa: array[i]?.strSuenioEmpresa,
-                    strEstudioEmprendimiento:
-                        array[i]?.strEstudioEmprendimiento,
-                    strExperienciaEmprendimiento:
-                        array[i]?.strExperienciaEmprendimiento,
-                    strTipoContribuyente: array[i]?.strTipoContribuyente,
-                    strRut: array[i]?.strRut,
-                    strPresupuestoFamiliar: array[i]?.strPresupuestoFamiliar,
-                    strIngresosDistintos: array[i]?.strIngresosDistintos,
+                    strProductoServiciosEnValidacion: array[i]?.strProductoServiciosEnValidacion,
+                    strNivelDlloProductoServicios: array[i]?.strNivelDlloProductoServicios,
+                    strEtapaValidProductoServicios: array[i]?.strEtapaValidProductoServicios,
                 };
                 let objInfoPerfilEco = {
                     PromedioVentas6Meses: array[i]?.PromedioVentas6Meses,
@@ -97,48 +82,45 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     strConoceCostosProductoEscogido: array[i]?.strConoceCostosProductoEscogido,
                     CostoProduccionProductoEscogido: array[i]?.CostoProduccionProductoEscogido,
                     intPorcentajeMargenRentaProductoEscogido: array[i]?.intPorcentajeMargenRentaProductoEscogido,
-                    btGeneraEmpleo: array[i]?.btGeneraEmpleo,
-                    intNumeroEmpleados: array[i]?.intNumeroEmpleados,
                     strRangoEmpleados: array[i]?.strRangoEmpleados,
                     strEtapaDllo: array[i]?.strEtapaDllo,
                     strOperacionesVentas6Meses: array[i]?.strOperacionesVentas6Meses,
                     strPrecProdServ: array[i]?.strPrecProdServ,
                 };
-                let objHumanas = {
-                    strHabilidadesAutonomia:array[i]?.strHabilidadesAutonomia,
-                    strHabilidadesCapacidad:array[i]?.strHabilidadesCapacidad,
-                    strHabilidadesComunicacion:array[i]?.strHabilidadesComunicacion,
-                    strHabilidadesCreatividad:array[i]?.strHabilidadesCreatividad,
-                    strTomaDesiciones:array[i]?.strTomaDesiciones,
-                    strConfianza:array[i]?.strConfianza
-                }
-                let objTecnicas = {
-                    strUniProdSosFinan: array[i]?.strUniProdSosFinan,
+                let objInfoMercado = {
                     strTieneBaseDatosClientes: array[i]?.strTieneBaseDatosClientes,
                     strActivIncreVentClient: array[i]?.strActivIncreVentClient,
                     strPlanAtraccionRelacionamientoFidelizacionClientes: array[i]?.strPlanAtraccionRelacionamientoFidelizacionClientes,
                     strEquipTrabEstruct: array[i]?.strEquipTrabEstruct,
                     strEmprFormaAcuerNormLab: array[i]?.strEmprFormaAcuerNormLab,
-                    strPlaneaEstraEmpPlanPlani: array[i]?.strPlaneaEstraEmpPlanPlani
+                    strPlaneaEstraEmpPlanPlani: array[i]?.strPlaneaEstraEmpPlanPlani,
+                    strIdentidadMarca: array[i]?.strIdentidadMarca,
+                    strComunicacionMarca: array[i]?.strComunicacionMarca,
+                };
+                let objInfoNormatividad = {
+                    strPermisoFuncionamiento: array[i]?.strPermisoFuncionamiento,
+                    strCertificadosRequeridos: array[i]?.strCertificadosRequeridos,
+                    strCertificadosActuales: array[i]?.strCertificadosActuales,
+                    strRegistroMarca: array[i]?.strRegistroMarca,
+                    strPatentesUtilidad: array[i]?.strPatentesUtilidad,
+                    strCualPatenteUtilidad: array[i]?.strCualPatenteUtilidad,
                 }
-                let objProducto = {
-                    strPermisoFuncionamiento:array[i]?.strPermisoFuncionamiento,
-                    strCertificadosRequeridos:array[i]?.strCertificadosRequeridos,
-                    strCertificadosActuales:array[i]?.strCertificadosActuales,
-                    strPatentesUtilidad:array[i]?.strPatentesUtilidad,
-                    strCualPatenteUtilidad:array[i]?.strCualPatenteUtilidad,
-                    strRegistroMarca:array[i]?.strRegistroMarca,
-                    strIdentidadMarca:array[i]?.strIdentidadMarca,
-                    strComunicacionMarca:array[i]?.strComunicacionMarca
+                let objInfoEncuestaHumanas = {
+                    strTomaDesiciones: array[i]?.strTomaDesiciones,
+                    strHabilidadesAutonomia: array[i]?.strHabilidadesAutonomia,
+                    strHabilidadesCapacidad: array[i]?.strHabilidadesCapacidad,
+                    strHabilidadesComunicacion: array[i]?.strHabilidadesComunicacion,
+                    strHabilidadesCreatividad: array[i]?.strHabilidadesCreatividad,
+                    strConfianza: array[i]?.strConfianza,
                 }
 
                 data[i] = {
                     objInfoGeneral,
                     objInfoEmprendimiento,
                     objInfoPerfilEco,
-                    objTecnicas,
-                    objHumanas,
-                    objProducto,
+                    objInfoMercado,
+                    objInfoNormatividad,
+                    objInfoEncuestaHumanas,
                 };
             }
             let result = {
