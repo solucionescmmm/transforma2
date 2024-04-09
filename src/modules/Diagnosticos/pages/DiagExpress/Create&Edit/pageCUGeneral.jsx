@@ -302,22 +302,11 @@ const PageCUExpress = ({
 
                         if (res.data?.data?.[0]) {
                             let data = res.data.data?.[0];
-                            const objEmprPrincipal = data.objEmpresario.find(
-                                (emp) => emp.strTipoEmpresario === "Principal"
-                            );
 
                             dataEmp = {
                                 intIdIdea: intIdIdea,
                                 intIdDiagnostico,
                                 objIdeaEmpresario: data.objInfoIdeaEmpresario,
-                                objInfoGeneral: {
-                                    intIdEmpresario: objEmprPrincipal.intId,
-                                    dtmFechaSesion: null,
-                                    strLugarSesion: "",
-                                    strUsuarioCreacion: "",
-                                    dtActualizacion: null,
-                                    strUsuarioActualizacion: "",
-                                },
                                 objInfoEmprendimiento: {
                                     strUnidadProductiva:
                                         data.objInfoEmpresa.strNombreMarca,
@@ -326,11 +315,6 @@ const PageCUExpress = ({
                                             .strDescProductosServicios,
                                     strLugarOperacion:
                                         data.objInfoEmpresa.strLugarOperacion,
-                                    strRedesSociales:
-                                        data.objInfoEmpresa.arrMediosDigitales
-                                            ?.length > 0
-                                            ? "Sí"
-                                            : "No",
                                     arrMediosDigitales:
                                         data.objInfoEmpresa
                                             .arrMediosDigitales || [],
@@ -355,11 +339,6 @@ const PageCUExpress = ({
                                     strOtraCategoria:
                                         data.objInfoEmpresa.strOtraCategoria ||
                                         "",
-                                    btGeneraEmpleo:
-                                        typeof data.objInfoEmpresa
-                                            .btGeneraEmpleo === "boolean"
-                                            ? data.objInfoEmpresa.btGeneraEmpleo
-                                            : "",
                                 },
                                 objInfoPerfilEco: {
                                     intNumeroEmpleados:
@@ -397,6 +376,8 @@ const PageCUExpress = ({
                         }
 
                         if (res.data?.data) {
+                            let dataDiag = res?.data?.data?.[0]
+                            console.log(dataDiag)
                             if (!isEdit) {
                                 setOpenModal(true);
                             } else {
@@ -461,6 +442,41 @@ const PageCUExpress = ({
                                     };
                                 });
                             }
+                            setData({
+                                ...data,
+                                objInfoGeneral:{
+                                    ...dataDiag.objInfoGeneral,
+                                    dtmFechaSesion: dataDiag.objInfoGeneral
+                                    .dtmFechaSesion
+                                    ? parseISO(
+                                        dataDiag.objInfoGeneral
+                                            .dtmFechaSesion
+                                    )
+                                    : null,
+                                dtmActualizacion: dataDiag.objInfoGeneral
+                                    .dtmActualizacion
+                                    ? parseISO(
+                                        dataDiag.objInfoGeneral
+                                            .dtmActualizacion
+                                    )
+                                    : null,
+                                },
+                                objInfoEmprendimiento: {
+                                    ...data.objInfoEmprendimiento,
+                                },
+                                objInfoPerfilEco: {
+                                    ...data.objInfoPerfilEco,
+                                },
+                                objInfoMercado: {
+                                    ...data.objInfoMercado,
+                                },
+                                objInfoNormatividad: {
+                                    ...data.objInfoNormatividad,
+                                },
+                                objInfoEncuestaHumanas: {
+                                    ...data.objInfoEncuestaHumanas,
+                                },
+                            })
                         }
 
                         setErrorGetData({ flag: false, msg: "" });

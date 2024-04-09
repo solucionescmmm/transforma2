@@ -35,7 +35,6 @@ const InfoMercadoYComercial = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        strUniProdSosFinan: "",
         strTieneBaseDatosClientes: "",
         strActivIncreVentClient: "",
         strPlanAtraccionRelacionamientoFidelizacionClientes: "",
@@ -44,8 +43,6 @@ const InfoMercadoYComercial = ({
         strPlaneaEstraEmpPlanPlani: "",
         strIdentidadMarca: "",
         strComunicacionMarca: "",
-        strRangoEmpleados: "",
-        strEtapaDllo:"",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -64,7 +61,6 @@ const InfoMercadoYComercial = ({
     useEffect(() => {
         if (values) {
             setData({
-                strUniProdSosFinan: values?.strUniProdSosFinan || "",
                 strTieneBaseDatosClientes: values?.strTieneBaseDatosClientes || "",
                 strActivIncreVentClient: values?.strActivIncreVentClient || "",
                 strPlanAtraccionRelacionamientoFidelizacionClientes: values?.strPlanAtraccionRelacionamientoFidelizacionClientes || "",
@@ -73,8 +69,6 @@ const InfoMercadoYComercial = ({
                 strPlaneaEstraEmpPlanPlani: values?.strPlaneaEstraEmpPlanPlani || "",
                 strIdentidadMarca: values?.strIdentidadMarca || "",
                 strComunicacionMarca: values?.strComunicacionMarca || "",
-                strRangoEmpleados: values?.strRangoEmpleados || "",
-                strEtapaDllo: values?.strEtapaDllo ||"",
             });
         }
 
