@@ -509,6 +509,8 @@ class daoAcompañamientos {
             let response = await conn
                 .request()
                 .input("p_intIdSesionAcompañamiento", sql.Int, data.intIdSesionAcompañamiento)
+                .output("P_bitError", sql.Bit)
+                .output("P_strMsg", sql.VarChar)
                 .execute("sp_flujoFinalizarAcompañamiento");
             
             let result = {

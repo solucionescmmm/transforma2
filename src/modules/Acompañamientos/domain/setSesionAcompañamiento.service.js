@@ -75,7 +75,7 @@ class setAcompañamiento {
             dtmProximaActividad: this.#objData.dtmFechaProx,
             intIdDocumento: this.#intIdDocumento,
             strUsuarioCreacion: this.#objUser.strEmail,
-            btFinalizado: this.#objData.intTipoAcomp === 1 ? false : true
+            btFinalizado: false,
         };
 
         let query = await dao.setSesionAcompañamiento(newData);
