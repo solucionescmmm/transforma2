@@ -8,7 +8,6 @@ const {
 
 class daoDiagnosticoExpress {
     async setDiagnosticoExpress(data) {
-        console.log(data)
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -135,7 +134,7 @@ class daoDiagnosticoExpress {
                 ${data.strActivIncreVentClient},
                 ${data.strPlanAtraccionRelacionamientoFidelizacionClientes},
                 ${data.strEquipTrabEstruct},
-                ${data.strPrecProdServDef},
+                ${data.strPrecProdServ},
                 ${data.strEmprFormaAcuerNormLab},
                 ${data.strPlaneaEstraEmpPlanPlani},
                 GETDATE(),
@@ -277,7 +276,7 @@ class daoDiagnosticoExpress {
                 strActivIncreVentClient = COALESCE(${data.strActivIncreVentClient}, strActivIncreVentClient),
                 strPlanAtraccionRelacionamientoFidelizacionClientes = COALESCE(${data.strPlanAtraccionRelacionamientoFidelizacionClientes}, strPlanAtraccionRelacionamientoFidelizacionClientes),
                 strEquipTrabEstruct = COALESCE(${data.strEquipTrabEstruct}, strEquipTrabEstruct),
-                PrecProdServDef = COALESCE(${data.PrecProdServDef}, PrecProdServDef),
+                PrecProdServDef = COALESCE(${data.strPrecProdServ}, PrecProdServDef),
                 strEmprFormaAcuerNormLab = COALESCE(${data.strEmprFormaAcuerNormLab}, strEmprFormaAcuerNormLab),
                 strPlaneaEstraEmpPlanPlani = COALESCE(${data.strPlaneaEstraEmpPlanPlani}, strPlaneaEstraEmpPlanPlani),
                 dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
@@ -432,6 +431,7 @@ class daoDiagnosticoExpress {
             strActivIncreVentClient,
             strPlanAtraccionRelacionamientoFidelizacionClientes,
             strEquipTrabEstruct,
+            PrecProdServDef,
             strEmprFormaAcuerNormLab,
             strPlaneaEstraEmpPlanPlani
 
@@ -481,7 +481,7 @@ class daoDiagnosticoExpress {
             let result = {
                 error: false,
                 data: arrNewData
-                    ? arrNewData.length > 0
+                    ? arrNewData[0]?.hasOwnProperty("intIdDiagnostico")
                         ? arrNewData
                         : null
                     : null,
