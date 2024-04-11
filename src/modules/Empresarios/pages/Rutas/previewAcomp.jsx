@@ -115,7 +115,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                 strUbicacion: values[0].objInfoPrincipal.strUbicacion,
                 btFinalizado: values[0].objInfoPrincipal.btFinalizado,
                 strResponsables:
-                    values[0].objInfoPrincipal.strResponsables.strNombre,
+                    values[0].objInfoPrincipal.strResponsables[0].strNombre,
                 dtmCreacion: values[0].objInfoPrincipal.dtmCreacion,
             });
 
