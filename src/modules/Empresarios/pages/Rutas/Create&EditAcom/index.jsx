@@ -25,7 +25,7 @@ import {
     Container,
     Alert,
     TextField,
-    // MenuItem,
+    MenuItem,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -128,7 +128,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
 
     const [flagSubmit, setFlagSubmit] = useState(false);
 
-    // const [dataObj, setDataObj] = useState([]);
+    const [dataObj, setDataObj] = useState([]);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -553,7 +553,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                         remove={remove}
                                         watch={watch}
                                         intIdIdea={intIdIdea}
-                                        //setDataObj={setDataObj}
+                                        setDataObj={setDataObj}
                                     />
                                 )}
 
@@ -877,11 +877,11 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                         )}
                                         control={control}
                                     />
-                                </Grid>
+                                </Grid> */}
 
                                 {watchIntTipoAcomp === 1 && (
                                     <Fragment>
-                                        <Grid item xs={12}>
+                                        {/* <Grid item xs={12}>
                                             <Controller
                                                 defaultValue={
                                                     data.objObjetivos
@@ -922,13 +922,13 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                                 )}
                                                 control={control}
                                             />
-                                        </Grid>
+                                        </Grid> */}
 
                                         {dataObj?.map((x) => (
                                             <Fragment>
                                                 <Grid item xs={12}>
                                                     <Controller
-                                                        name={`objObjetivos.${x.intId}.bitCumplio`}
+                                                        name={`objObjetivos.${x?.intId}.bitCumplio`}
                                                         defaultValue={false}
                                                         render={({
                                                             field: {
@@ -993,7 +993,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                                     />
 
                                                     <Controller
-                                                        name={`objObjetivos.${x.intId}.strMotivo`}
+                                                        name={`objObjetivos.${x?.intId}.strMotivo`}
                                                         defaultValue=""
                                                         render={({
                                                             field: {
@@ -1027,7 +1027,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                             </Fragment>
                                         ))}
                                     </Fragment>
-                                )} */}
+                                )}
 
                                 <Grid item xs={12}>
                                     <Box
