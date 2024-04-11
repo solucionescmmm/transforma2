@@ -30,7 +30,7 @@ class updatePaquetes {
         await this.#validations();
         if (typeof this.#objData.bitActivar !== "undefined") {
             await this.#getIdEstado();
-            await this.#updatePaquetes();
+            await this.#updatePaquetesActivar();
             return this.#objResult;
         } else {
             this.#getDuracionHoras()
@@ -129,6 +129,29 @@ class updatePaquetes {
         for (let i = 0; i < arrServicios.length; i++) {
             this.#intDuracionHoras += arrServicios[i]?.objInfoPrincipal?.intDuracionHoras
         }
+    }
+
+    async #updatePaquetesActivar() {
+        let dao = new classInterfaceDAOPaquetes();
+
+        let query = await dao.updatePaquetes({
+            intId: this.#objData.intId,
+            ...this.#objData.objInfoPrincipal,
+            intIdEstado: this.#intIdEstado,
+            strUsuarioActualizacion: this.#objUser.strEmail,
+        });
+
+        if (query.error) {
+            throw new Error(query.msg);
+        }
+
+        this.#intIdPaquete = query.data.intId;
+
+        this.#objResult = {
+            error: query.error,
+            data: query.data,
+            msg: query.msg,
+        };
     }
 
     async #updatePaquetes() {
