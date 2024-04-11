@@ -288,7 +288,7 @@ const PDFProduct = ({ intId, values }) => {
 
                         <p class="pMargin">
                         <span style="color: #00BBB4">Categoría: </span>
-                         ${objEmpresa?.strCategoriaProducto}
+                         ${objEmpresa?.strCategoriaProducto || objEmpresa?.strCategoriaServicio}  
                         </p>
 
                         <p class="pMargin">
