@@ -91,6 +91,7 @@ const InfoEmpresa = ({
     };
 
     const handlerChangeData = (name, value) => {
+        console.log(name, value)
         setData((prevState) => ({
             ...prevState,
             [name]: value,
@@ -267,21 +268,6 @@ const InfoEmpresa = ({
                                         setValue(
                                             "objInfoEmpresa.dtFechaFundacion",
                                             null
-                                        );
-
-                                        setValue(
-                                            "objInfoEmpresa.btGeneraEmpleo",
-                                            ""
-                                        );
-
-                                        setValue(
-                                            "objInfoEmpresa.intNumeroEmpleados",
-                                            ""
-                                        );
-
-                                        setValue(
-                                            "objInfoEmpresa.dblValorVentasMes",
-                                            0
                                         );
                                     }}
                                     select
@@ -1002,7 +988,7 @@ const InfoEmpresa = ({
                         <Controller
                             defaultValue={data.btGeneraEmpleo}
                             name="objInfoEmpresa.btGeneraEmpleo"
-                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true: disabled}
+                            disabled={data.strEstadoNegocio === "Idea de negocio" ? true: null}
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿La empresa genera empleo para otras personas?"
@@ -1059,7 +1045,7 @@ const InfoEmpresa = ({
                         <Controller
                             defaultValue={data.intNumeroEmpleados}
                             name="objInfoEmpresa.intNumeroEmpleados"
-                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true: disabled}
+                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true: null}
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Número de empleos generados"
@@ -1119,7 +1105,7 @@ const InfoEmpresa = ({
                         <Controller
                             defaultValue={data.dblValorVentasMes}
                             name="objInfoEmpresa.dblValorVentasMes"
-                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true: disabled}
+                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true : null}
                             render={({ field: { name, value, onChange } }) => (
                                 <NumberFormat
                                     label="Valor promedio de las ventas mensuales"
