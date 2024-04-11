@@ -268,6 +268,21 @@ const InfoEmpresa = ({
                                             "objInfoEmpresa.dtFechaFundacion",
                                             null
                                         );
+
+                                        setValue(
+                                            "objInfoEmpresa.btGeneraEmpleo",
+                                            ""
+                                        );
+
+                                        setValue(
+                                            "objInfoEmpresa.intNumeroEmpleados",
+                                            ""
+                                        );
+
+                                        setValue(
+                                            "objInfoEmpresa.dblValorVentasMes",
+                                            0
+                                        );
                                     }}
                                     select
                                     variant="standard"
@@ -987,6 +1002,7 @@ const InfoEmpresa = ({
                         <Controller
                             defaultValue={data.btGeneraEmpleo}
                             name="objInfoEmpresa.btGeneraEmpleo"
+                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true: disabled}
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿La empresa genera empleo para otras personas?"
@@ -1007,7 +1023,12 @@ const InfoEmpresa = ({
                                     fullWidth
                                     variant="standard"
                                     required
-                                    disabled={disabled}
+                                    disabled={
+                                        data.strEstadoNegocio ===
+                                        "Idea de negocio"
+                                            ? true
+                                            : disabled
+                                    }
                                     error={
                                         errors?.objInfoEmpresa?.btGeneraEmpleo
                                             ? true
@@ -1038,6 +1059,7 @@ const InfoEmpresa = ({
                         <Controller
                             defaultValue={data.intNumeroEmpleados}
                             name="objInfoEmpresa.intNumeroEmpleados"
+                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true: disabled}
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Número de empleos generados"
@@ -1048,7 +1070,11 @@ const InfoEmpresa = ({
                                     fullWidth
                                     variant="standard"
                                     disabled={
-                                        !data.btGeneraEmpleo ? true : disabled
+                                        !data.btGeneraEmpleo ? true :
+                                            data.strEstadoNegocio ===
+                                                "Idea de negocio"
+                                                    ? true
+                                                    : disabled
                                     }
                                     required={
                                         data.btGeneraEmpleo ? true : false
@@ -1093,6 +1119,7 @@ const InfoEmpresa = ({
                         <Controller
                             defaultValue={data.dblValorVentasMes}
                             name="objInfoEmpresa.dblValorVentasMes"
+                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true: disabled}
                             render={({ field: { name, value, onChange } }) => (
                                 <NumberFormat
                                     label="Valor promedio de las ventas mensuales"
@@ -1107,7 +1134,12 @@ const InfoEmpresa = ({
                                     customInput={TextField}
                                     fullWidth
                                     variant="standard"
-                                    disabled={disabled}
+                                    disabled={
+                                        data.strEstadoNegocio ===
+                                        "Idea de negocio"
+                                            ? true
+                                            : disabled
+                                    }
                                     required
                                     error={
                                         errors?.objInfoEmpresa
