@@ -313,7 +313,7 @@ const InfoComMercadeo = ({
                                 : "inherit",
                         }}
                     >
-                        Componente mercadeo
+                        Componente mercadeo - comercial
                     </Typography>
                 </Box>
 

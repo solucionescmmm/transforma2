@@ -477,7 +477,7 @@ const InfoComMercadeo = ({
                                 : "inherit",
                         }}
                     >
-                        Componente productivo
+                        Componente técnico - productivo
                     </Typography>
                 </Box>
 

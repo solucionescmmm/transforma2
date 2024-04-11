@@ -21,7 +21,6 @@ import {
 import {
     ExpandLess as ExpandLessIcon,
     ExpandMore as ExpandMoreIcon,
-    InfoOutlined as InfoIcon,
 } from "@mui/icons-material";
 
 //Componentes
@@ -168,9 +167,10 @@ const InfoEncuestaHumanas = ({
                                         display: "flex",
                                         alignItems: "center",
                                         fontWeight: "bold",
+                                        paddingBottom: '5px'
                                     }}
                                 >
-                                    <InfoIcon sx={{ marginRight: "0.5rem" }} />
+                                  
                                     Toma de decisiones
                                 </Typography>
                                 <Typography variant="body2">
@@ -346,9 +346,10 @@ const InfoEncuestaHumanas = ({
                                         display: "flex",
                                         alignItems: "center",
                                         fontWeight: "bold",
+                                        paddingBottom: '5px'
                                     }}
                                 >
-                                    <InfoIcon sx={{ marginRight: "0.5rem" }} />
+                                 
                                     Habilidades personales para emprender
                                 </Typography>
                                 <Typography variant="body2">
@@ -524,9 +525,10 @@ const InfoEncuestaHumanas = ({
                                         display: "flex",
                                         alignItems: "center",
                                         fontWeight: "bold",
+                                        paddingBottom: '5px'
                                     }}
                                 >
-                                    <InfoIcon sx={{ marginRight: "0.5rem" }} />
+                                   
                                     Confianza
                                 </Typography>
                                 <Typography variant="body2">

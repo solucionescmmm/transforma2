@@ -248,7 +248,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strEscojaProductoServicio}
                             name="objInfoPerfilEco.strEscojaProductoServicio"

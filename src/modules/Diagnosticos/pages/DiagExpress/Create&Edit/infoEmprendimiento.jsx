@@ -633,7 +633,7 @@ const InfoEmprendimiento = ({
                             name="objInfoEmprendimiento.btTieneProdServUltimoAn"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿Tiene productos/servicios nuevos en el último año o se encuentra renovando los productos actuales? "
+                                    label="¿Tiene productos/servicios nuevos en el último año o se encuentra renovando los productos actuales?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}

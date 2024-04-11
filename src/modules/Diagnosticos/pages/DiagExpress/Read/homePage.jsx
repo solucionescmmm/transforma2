@@ -67,362 +67,171 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Responsable de actualizar la información",
             },
         ],
-        objInfoFamiliar: [
-            {
-                parent: "strCabezaHogar",
-                value: "",
-                label: "¿Es cabeza de hogar?",
-            },
-            {
-                parent: "intNumPersonasCargo",
-                value: "",
-                label: "Número de personas que dependen económicamente de usted",
-            },
-            {
-                parent: "intHijos",
-                value: "",
-                label: "Número de hijos",
-            },
-            {
-                parent: "intHijosEstudiando",
-                value: "",
-                label: "¿Cuántos de ellos están estudiando?",
-            },
-            {
-                parent: "strMaxNivelEducativoHijos",
-                value: "",
-                label: "Nivel educativo máximo de los hijos",
-            },
-            {
-                parent: "strEstadoCivil",
-                value: "",
-                label: "Estado Civil",
-            },
-            {
-                parent: "strSituacionVivienda",
-                value: "",
-                label: "Situación de vivienda",
-            },
-            {
-                parent: "strGrupoVulnerable",
-                value: "",
-                label: "Grupo poblacional vulnerable (no preguntar de observación)",
-            },
-            {
-                parent: "strPoblacionEtnica",
-                value: "",
-                label: "Población étnica",
-            },
-        ],
         objInfoEmprendimiento: [
             {
-                parent: "strUnidadProductiva",
-                value: "",
-                label: "Nombre de la empresa",
+                parent: 'strUnidadProductiva',
+                value: '',
+                label: 'Nombre de la empresa'
             },
             {
-                parent: "strLugarOperacion",
-                value: "",
-                label: "¿En qué año inició la operación?",
+                parent: 'strLugarOperacion',
+                value: '',
+                label: 'Lugar de operación de la empresa'
             },
             {
-                parent: "arrDepartamento",
-                value: "",
-                label: "Lugar de operación de la empresa",
+                parent: 'arrFormasComercializacion',
+                value: '',
+                label: 'Formas de comercialización'
             },
             {
-                parent: "arrCiudad",
-                value: "",
-                label: "Departamento",
+                parent: 'arrMediosDigitales',
+                value: '',
+                label: 'Medios digitales'
             },
             {
-                parent: "strBarrio",
-                value: "",
-                label: "Ciudad",
+                parent: 'strTiempoDedicacion',
+                value: '',
+                label: 'Tiempo de dedicación actual a la empresa'
             },
             {
-                parent: "strDireccionResidencia",
-                value: "",
-                label: "Barrio/Corregimiento/Vereda",
+                parent: 'strRegistroCamaraComercio',
+                value: '',
+                label: '¿Cuenta con registro en cámara de comercio?'
             },
             {
-                parent: "strUbicacionUP",
-                value: "",
-                label: "Dirección de la empresa",
+                parent: 'strSectorEconomico',
+                value: '',
+                label: 'Sector económico'
             },
             {
-                parent: "strCelular",
-                value: "",
-                label: "Ubicación de la UP (Urbana o Rural)",
+                parent: 'strCategoriaProducto',
+                value: '',
+                label: 'Categoría de los productos'
             },
             {
-                parent: "strCorreoElectronico",
-                value: "",
-                label: "Correo electrónico",
+                parent: 'strCategoriaServicio',
+                value: '',
+                label: 'Categoría de los servicios'
+            }, {
+                parent: 'strDefinineLineasProductoServicios',
+                value: '',
+                label: '¿Tiene definidas las líneas de productos/servicios del negocio?'
             },
             {
-                parent: "strRedesSociales",
-                value: "",
-                label: "¿Tiene presencia en redes sociales?",
+                parent: 'arrCategoriasSecundarias',
+                value: '',
+                label: 'Categorías secundarias'
             },
             {
-                parent: "arrMediosDigitales",
-                value: "",
-                label: "Medios digitales",
+                parent: 'strListadoProdServ',
+                value: '',
+                label: 'Listado de los productos o servicios'
             },
             {
-                parent: "strRegistroCamaraComercio",
-                value: "",
-                label: "¿Cuenta con registro en cámara de comercio?",
+                parent: 'strLineaProductoServicioDestacada',
+                value: '',
+                label: '¿Cuál es la línea de productos/servicios más destacada?'
             },
             {
-                parent: "strTiempoDedicacion",
-                value: "",
-                label: "Tiempo de dedicación actual a la empresa",
+                parent: 'btTieneProdServUltimoAn',
+                value: '',
+                label: '¿Tiene productos/servicios nuevos en el último año o se encuentra renovando los productos actuales?'
             },
             {
-                parent: "strSectorEconomico",
-                value: "",
-                label: "Sector económico",
+                parent: 'strProductosNuevos',
+                value: '',
+                label: '¿Cuáles son estos productos nuevos?'
             },
             {
-                parent: "strCategoriaProducto",
-                value: "",
-                label: "Categoría de los productos",
+                parent: 'strProductoServiciosEnValidacion',
+                value: '',
+                label: '¿Cuenta con productos/servicios en prototipado?'
             },
             {
-                parent: "strCategoriaServicio",
-                value: "",
-                label: "Categoría de los servicios",
+                parent: 'strNivelDlloProductoServicios',
+                value: '',
+                label: 'Nivel de desarrollo del producto/servicio'
             },
             {
-                parent: "arrCategoriasSecundarias",
-                value: "",
-                label: "Categorías secundarias",
-            },
-            {
-                parent: "strOtraCategoria",
-                value: "",
-                label: "Otra categoría ¿cuál?",
-            },
-            {
-                parent: "strListadoProdServ",
-                value: "",
-                label: "Listado de los productos o servicios",
-            },
-            {
-                parent: "btGeneraEmpleo",
-                value: "",
-                label: "¿La empresa genera empleo para otras personas?",
-            },
-            {
-                parent: "strNivelDlloProductoServicios",
-                value: "",
-                label: "Nivel de desarrollo del producto/servicio",
-            },
-            {
-                parent: "strEtapaValidProductoServicios",
-                value: "",
-                label: "¿En qué etapa de validación se encuentra el producto/servicio?",
-            },
-            {
-                parent: "MinimoValorProducto",
-                value: "",
-                label: "Rango de precios de productos mínimo",
-            },
-            {
-                parent: "MaximoValorProducto",
-                value: "",
-                label: "Rango de precios de productos máximo",
-            },
-            {
-                parent: "ValorVentaProductoEscogido",
-                value: "",
-                label: "De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?",
-            },
-            {
-                parent: "strEscojaProductoServicio",
-                value: "",
-                label: "Escoja uno de los productos/servicios de su empresa",
-            },
-            {
-                parent: "CostoProduccionProductoEscogido",
-                value: "",
-                label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?",
-            },
-            {
-                parent: "strDefinePorcentajesCanal",
-                value: "",
-                label: "Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?",
-            },
-            {
-                parent: "strDefinineLineasProductoServicios",
-                value: "",
-                label: "¿Tiene definidas las líneas de productos/servicios del negocio?",
-            },
-            {
-                parent: "strLineaProductoServicioDestacada",
-                value: "",
-                label: "¿Cuál es la línea de productos/servicios más destacada?",
-            },
-            {
-                parent: "intCantidadUnidadesProducidasMes",
-                value: "",
-                label: "Cantidad de unidades producidas al mes actualmente",
-            },
-            {
-                parent: "strEscojaProductoServicio",
-                value: "",
-                label: "Escoja uno de los productos/servicios de su empresa",
-            },
-            {
-                parent: "strConoceCostosProductoEscogido",
-                value: "",
-                label: "¿Conoce los costos de producción de este producto?",
-            },
-        ],
-        objInfoEmpresa: [
-            {
-                parent: "strHistoriaEmpresa",
-                value: "",
-                label: "¿Cómo nace la empresa? - Historia",
-            },
-            {
-                parent: "strSuenioEmpresa",
-                value: "",
-                label: "¿Cómo sueña su empresa?/¿Cómo se ve usted en cinco años?",
-            },
-            {
-                parent: "strEstudioEmprendimiento",
-                value: "",
-                label: "¿Tiene estudio o aprendizaje sobre el tema de emprendimiento? ",
-            },
-            {
-                parent: "strExperienciaEmprendimiento",
-                value: "",
-                label: "¿Tiene experiencia en este tipo de emprendimiento?",
-            },
-            {
-                parent: "strTipoContribuyente",
-                value: "",
-                label: "Tipo de contribuyente",
-            },
-            {
-                parent: "strRut",
-                value: "",
-                label: "N° de Identificación del RUT (NIT)",
-            },
-            {
-                parent: "strPresupuestoFamiliar",
-                value: "",
-                label: "¿Los ingresos de esta inicativa son una fuente fundamental para el presupuesto familiar?",
-            },
-            {
-                parent: "strIngresosDistintos",
-                value: "",
-                label: "¿Tu familia recibe ingresos por origen de otras fuentes distintas del emprendimiento?",
-            },
-            {
-                parent: "strTrabajanFamiliares",
-                value: "",
-                label: "¿En la empresa participan familiares?",
-            },
+                parent: 'strEtapaValidProductoServicios',
+                value: '',
+                label: '¿En qué etapa de validación se encuentra el producto/servicio?'
+            }
         ],
         objInfoPerfilEco: [
             {
-                parent: "strOperacionesVentas6Meses",
-                value: "",
-                label: "¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?",
+                parent: 'PromedioVentas6Meses',
+                value: '',
+                label: 'Promedio de ventas de los últimos 6 meses'
             },
             {
-                parent: "strEtapaValidacion",
-                value: "",
-                label: "¿En qué etapa de validación se encuentra tu producto?",
+                parent: 'strRangoVentas',
+                value: '',
+                label: 'Rango de ventas'
+            },
+
+            {
+                parent: 'strEscojaProductoServicio',
+                value: '',
+                label: 'Escoja uno de los productos/servicios de su empresa'
             },
             {
-                parent: "PromedioVentas6Meses",
-                value: "",
-                label: "Promedio de ventas de los últimos 6 meses",
+                parent: 'ValorVentaProductoEscogido',
+                value: '',
+                label: 'De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?'
             },
             {
-                parent: "dblValorVentasMes",
-                value: "",
-                label: "Valor promedio de las ventas mensuales",
+                parent: 'strConoceMargenRentaProductoEscogido',
+                value: '',
+                label: 'Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?'
             },
             {
-                parent: "strRangoVentas",
-                value: "",
-                label: "Rango de ventas",
+                parent: 'strConoceCostosProductoEscogido',
+                value: '',
+                label: '¿Conoce los costos de producción de este producto?'
             },
             {
-                parent: "intNumeroEmpleados",
-                value: "",
-                label: "Número de empleos generados",
+                parent: 'CostoProduccionProductoEscogido',
+                value: '',
+                label: 'En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?'
             },
             {
-                parent: "strRangoEmpleados",
-                value: "",
-                label: "Rango de empleados",
+                parent: 'intPorcentajeMargenRentaProductoEscogido',
+                value: '',
+                label: 'En caso de que la pregunta anterior sea afirmativa, ¿Cuál es el margen de utilidad de este producto?'
             },
             {
-                parent: "strTipoEmpleoGenerado",
-                value: "",
-                label: "¿Qué tipo de empleo genera?",
+                parent: 'btGeneraEmpleo',
+                value: '',
+                label: '¿La empresa genera empleo para otras personas?'
             },
             {
-                parent: "strDlloAcitividadesContratados",
-                value: "",
-                label: "¿Cuáles actividades desarrollan las personas contratadas?",
+                parent: 'intNumeroEmpleados',
+                value: '',
+                label: ''
             },
             {
-                parent: "strPromedioTiempoInvertido",
-                value: "",
-                label: "En promedio, cuánto tiempo durante el día puede invertir para su emprendimiento entre las diferentes activiades que realiza",
+                parent: 'strRangoEmpleados',
+                value: '',
+                label: ''
             },
             {
-                parent: "strRolesEmprendimiento",
-                value: "",
-                label: "¿Cuál son tus roles en la operación de tú emprendimiento?",
+                parent: 'strEtapaDllo',
+                value: '',
+                label: ''
             },
             {
-                parent: "strDiasProduccion",
-                value: "",
-                label: "¿En promedio al día cuántas horas dispones para la producción?",
+                parent: 'strOperacionesVentas6Meses',
+                value: '',
+                label: ''
             },
             {
-                parent: "strGeneraEmpleoRiesgoPobreza",
-                value: "",
-                label: "¿Genera empleo o ingresos para personas que se encuentren en riesgo de pobreza o de exclusión social?",
+                parent: 'strPrecProdServ',
+                value: '',
+                label: ''
             },
-            {
-                parent: "strActivos",
-                value: "",
-                label: "¿Qué activos tiene la unidad productiva a la fecha?",
-            },
-            {
-                parent: "dblValorActivos",
-                value: "",
-                label: "Valor estimado de los activos",
-            },
-            {
-                parent: "dblValorGananciasMes",
-                value: "",
-                label: "Valor de las ganancias mensuales",
-            },
-            {
-                parent: "intMargenRentabilidad",
-                value: "",
-                label: "Margen de rentabilidad",
-            },
-        ],
-        objInfoAdicional: [
-            {
-                parent: "strConclusiones",
-                value: "",
-                label: "Conclusiones y observaciones",
-            },
-        ],
-        arrImagenes: [],
+        ]
+ 
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);

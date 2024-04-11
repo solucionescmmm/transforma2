@@ -16,6 +16,7 @@ import {
 import { Box, CircularProgress } from "@mui/material";
 
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
+import { isSimilar } from "../../../../../../common/functions/all";
 
 // Register Font
 Font.register({
@@ -105,11 +106,12 @@ const styles = StyleSheet.create({
 
 const propiedadesEtapas = [
     {
-        parent: "N/A",
-        label: "No aplica",
+        parent: "Ideación",
+        label: "Ideación",
         html: `
         <p>
-        Aun no estas asignado en ninguna etapa.
+        En esta fase, los emprendimiento aun no han realizado ventas en sus productos o
+        servicios.
         </p>`,
     },
     {
@@ -532,12 +534,14 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
          De acuerdo con la información recolectada durante el diagnóstico, la etapa de desarrollo de tu emprendimiento
          es: <span style="color: #00BBB4">
          ${
-             propiedadesEtapas.find(
-                 (etapa) =>
-                     etapa.parent ===
+             propiedadesEtapas.find((etapa) =>
+                 isSimilar(
+                     etapa.parent.toLowerCase(),
                      values?.objInfoPerfilEco.find(
                          (x) => x.parent === "strEtapaDllo"
-                     )?.value
+                     )?.value.toLowerCase(),
+                     0.7
+                 )
              )?.label
          }
          </span>
@@ -547,15 +551,17 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
          ¿Qué significa esta etapa?
      </p>
 
-     ${
-         propiedadesEtapas.find(
-             (etapa) =>
-                 etapa.parent ===
-                 values?.objInfoPerfilEco.find(
-                     (x) => x.parent === "strEtapaDllo"
-                 )?.value
-         )?.html
-     }
+    ${
+        propiedadesEtapas.find((etapa) =>
+            isSimilar(
+                etapa.parent.toLowerCase(),
+                values?.objInfoPerfilEco.find(
+                    (x) => x.parent === "strEtapaDllo"
+                )?.value.toLowerCase(),
+                0.7
+            )
+        )?.html
+    }
 
      <h5 class="pMargin"> <span style="color: #00BBB4">Registro fotográfico</span></h5>
      <hr />
