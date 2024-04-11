@@ -390,109 +390,124 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                         <Image src={logoHeader} style={styles.logoHeader} />
                     </View>
                     <Html>
-                        {`  <html>
-                        <style>
-                           hr {
-                            border: 1px solid gray;
-                            border-radius: 1px;
-                           }
+                        {`  
+<html>
 
-                           h5 {
-                            font-family: Roboto;
-                        }
+ <style>
+     hr {
+         border: 1px solid gray;
+         border-radius: 1px;
+     }
 
+     h5 {
+         font-family: Roboto;
+     }
 
-                           .pMargin {
-                              margin-bottom: -10px;
-                           }
+     div {
+        font-family: Roboto;
+     }
 
-                           .textObj {
-                             margin: 2px;
-                             font-size: 11px;
-                             display: flex;
-                             align-content: center;
-                             font-family: Roboto;
-                             color: #505050;
-                           }
+     p {
+        font-family: Roboto;
+     }
 
-                           .title {
-                            font-size: 20px;
-                            font-weight: bold;
-                            margin: 10px;
-                            color: #F5B335;
-                            text-align: center;
-                            font-family: Roboto;
-                           }
+     .pMargin {
+         margin-bottom: -10px;
+     }
 
-                           table {
-                            font-size: 12px;
-                            border-collapse: collapse;
-                            width: 100%;
-                            font-family: Roboto;
-                            color: #505050;
-                          }
-                          
-                          td, th {
-                            border: 1px solid #dddddd;
-                            text-align: left;
-                            padding: 5px;
-                          }
+     .textObj {
+         margin: 2px;
+         font-size: 11px;
+         display: flex;
+         align-content: center;
+         font-family: Roboto;
+         color: #505050;
+     }
 
-                          tr:nth-child(even) {
-                            background-color: #dddddd;
-                          }
+     .title {
+         font-size: 20px;
+         font-weight: bold;
+         margin: 10px;
+         color: #F5B335;
+         text-align: center;
+         font-family: Roboto;
+     }
 
-                          th {
-                            padding-top: 12px;
-                            padding-bottom: 12px;
-                            text-align: center;
-                            background-color: #00BBB4;
-                            color: white;
-                          }
+     table {
+         font-size: 12px;
+         border-collapse: collapse;
+         width: 100%;
+         font-family: Roboto;
+         color: #505050;
+     }
 
-                          tr:nth-child(even){background-color: #f2f2f2; text-align: left;}
-                        </style>
-                        <body>
-                        ${dataFases.map(
-                            (e) => `
-                        <div>
-                            ${e.htmlTable1}
-                           <div style="padding-right: 100px; padding-left: 100px;">
-                             <div><span style="color: #1ccbc4; font-size: 12px !important;">Total horas de acompañamiento: </span>
-                                <span style="font-size: 12px !important;">${e.intTotalHoras} horas</span>
-                             </div>
-                             <div><span style="color: #1ccbc4; font-size: 12px !important;">Valor total fase: </span>
-                                <span style="font-size: 12px !important;">$${e.dblValorFase}</span>
-                             </div>                                 
-                           </div>
-                        </div>`
-                        )}
-                         
-                        <br/>
-                        <br/>
-                        
-                        <div>
-                        <div style="padding-right: 100px; padding-left: 100px;">
-                            <div><span style="color: #1ccbc4; font-size: 12px !important;">Valor final propuesta: </span>
-                                 <span style="font-size: 12px !important;">$${new Intl.NumberFormat(
-                                     "es-ES",
-                                     {
-                                         style: "currency",
-                                         currency: "COP",
-                                     }
-                                 )
-                                     .format(
-                                         values[0].objInfoPrincipal
-                                             ?.valorTotalRuta
-                                     )
-                                     .toString()}</span>
-                            </div>   
-                        </div>
-                            
-                        </div>
-                        </body>
-                        </html>
-                        `}
+     td,
+     th {
+         border: 1px solid #dddddd;
+         text-align: left;
+         padding: 5px;
+     }
+
+     tr:nth-child(even) {
+         background-color: #dddddd;
+     }
+
+     th {
+         padding-top: 12px;
+         padding-bottom: 12px;
+         text-align: center;
+         background-color: #00BBB4;
+         color: white;
+     }
+
+     tr:nth-child(even) {
+         background-color: #f2f2f2;
+         text-align: left;
+     }
+ </style>
+
+ <body>
+     ${dataFases.map(
+     (e) => `
+     <div>
+         ${e.htmlTable1}
+         <div style="padding-right: 100px; padding-left: 100px;">
+             <div><span style="color: #1ccbc4; font-size: 12px !important;">Total horas de acompañamiento: </span>
+                 <span style="font-size: 12px !important;">${e.intTotalHoras} horas</span>
+             </div>
+             <div><span style="color: #1ccbc4; font-size: 12px !important;">Valor total fase: </span>
+                 <span style="font-size: 12px !important;">$${e.dblValorFase}</span>
+             </div>
+         </div>
+     </div>`
+     )}
+
+     <br />
+     <br />
+
+     <div>
+         <div style="padding-right: 100px; padding-left: 100px;">
+             <div><span style="color: #1ccbc4; font-size: 12px !important;">Valor final propuesta: </span>
+                 <span style="font-size: 12px !important;">$${new Intl.NumberFormat(
+                     "es-ES",
+                     {
+                     style: "currency",
+                     currency: "COP",
+                     }
+                     )
+                     .format(
+                     values[0].objInfoPrincipal
+                     ?.valorTotalRuta
+                     )
+                     .toString()}</span>
+             </div>
+         </div>
+
+     </div>
+ </body>
+
+ </html>
+ `}
                     </Html>
                 </Page>
                 <Page size="A4" style={styles.page} orientation="landscape">

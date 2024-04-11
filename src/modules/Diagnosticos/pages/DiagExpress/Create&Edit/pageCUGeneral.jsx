@@ -376,29 +376,27 @@ const PageCUExpress = ({
                         }
 
                         if (res.data?.data) {
-                            let dataDiag = res?.data?.data?.[0]
-                            console.log(dataDiag)
                             if (!isEdit) {
                                 setOpenModal(true);
                             } else {
-                                const dataDiagn = res.data.data[0];
+                                const dataDiag = res.data.data[0];
 
                                 setData((prevState) => {
                                     const objInfoGeneral = {
                                         ...prevState.objInfoGeneral,
                                         ...dataEmp.objInfoGeneral,
-                                        ...dataDiagn.objInfoGeneral,
-                                        dtmFechaSesion: dataDiagn.objInfoGeneral
+                                        ...dataDiag.objInfoGeneral,
+                                        dtmFechaSesion: dataDiag.objInfoGeneral
                                             .dtmFechaSesion
                                             ? parseISO(
-                                                  dataDiagn.objInfoGeneral
+                                                dataDiag.objInfoGeneral
                                                       .dtmFechaSesion
                                               )
                                             : null,
-                                        dtmActualizacion: dataDiagn
+                                        dtmActualizacion: dataDiag
                                             .objInfoGeneral.dtmActualizacion
                                             ? parseISO(
-                                                  dataDiagn.objInfoGeneral
+                                                dataDiag.objInfoGeneral
                                                       .dtmActualizacion
                                               )
                                             : null,
@@ -407,29 +405,39 @@ const PageCUExpress = ({
                                     const objInfoEmprendimiento = {
                                         ...prevState.objInfoEmprendimiento,
                                         ...dataEmp.objInfoEmprendimiento,
-                                        ...dataDiagn.objInfoEmprendimiento,
+                                        ...dataDiag.objInfoEmprendimiento,
                                     };
 
                                     const objInfoPerfilEco = {
                                         ...prevState.objInfoPerfilEco,
                                         ...dataEmp.objInfoPerfilEco,
-                                        ...dataDiagn.objInfoPerfilEco,
+                                        ...dataDiag.objInfoPerfilEco,
                                     };
                                     const objInfoMercado = {
                                         ...prevState.objInfoMercado,
                                         ...dataEmp.objInfoMercado,
-                                        ...dataDiagn.objInfoMercado,
+                                        ...dataDiag.objInfoMercado,
                                     };
                                     const objInfoNormatividad = {
                                         ...prevState.objInfoNormatividad,
                                         ...dataEmp.objInfoNormatividad,
-                                        ...dataDiagn.objInfoNormatividad,
+                                        ...dataDiag.objInfoNormatividad,
                                     };
                                     const objInfoEncuestaHumanas = {
                                         ...prevState.objInfoEncuestaHumanas,
                                         ...dataEmp.objInfoEncuestaHumanas,
-                                        ...dataDiagn.objInfoEncuestaHumanas,
+                                        ...dataDiag.objInfoEncuestaHumanas,
                                     };
+
+                                    reset({
+                                        ...prevState,
+                                        objInfoGeneral,
+                                        objInfoEmprendimiento,
+                                        objInfoPerfilEco,
+                                        objInfoMercado,
+                                        objInfoNormatividad,
+                                        objInfoEncuestaHumanas,
+                                    })
 
                                     return {
                                         ...prevState,
@@ -441,42 +449,9 @@ const PageCUExpress = ({
                                         objInfoEncuestaHumanas,
                                     };
                                 });
+
+                             
                             }
-                            setData({
-                                ...data,
-                                objInfoGeneral:{
-                                    ...dataDiag.objInfoGeneral,
-                                    dtmFechaSesion: dataDiag.objInfoGeneral
-                                    .dtmFechaSesion
-                                    ? parseISO(
-                                        dataDiag.objInfoGeneral
-                                            .dtmFechaSesion
-                                    )
-                                    : null,
-                                dtmActualizacion: dataDiag.objInfoGeneral
-                                    .dtmActualizacion
-                                    ? parseISO(
-                                        dataDiag.objInfoGeneral
-                                            .dtmActualizacion
-                                    )
-                                    : null,
-                                },
-                                objInfoEmprendimiento: {
-                                    ...data.objInfoEmprendimiento,
-                                },
-                                objInfoPerfilEco: {
-                                    ...data.objInfoPerfilEco,
-                                },
-                                objInfoMercado: {
-                                    ...data.objInfoMercado,
-                                },
-                                objInfoNormatividad: {
-                                    ...data.objInfoNormatividad,
-                                },
-                                objInfoEncuestaHumanas: {
-                                    ...data.objInfoEncuestaHumanas,
-                                },
-                            })
                         }
 
                         setErrorGetData({ flag: false, msg: "" });
@@ -494,19 +469,13 @@ const PageCUExpress = ({
 
             getData();
         }
-    }, [intIdIdea, intIdDiagnostico, isEdit]);
+    }, [intIdIdea, intIdDiagnostico, isEdit, reset]);
 
     useEffect(() => {
         if (isEdit) {
             setOpenModal(false);
         }
     }, [isEdit]);
-
-    useEffect(() => {
-        if (intIdIdea) {
-            reset(data);
-        }
-    }, [data, reset, intIdIdea]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
