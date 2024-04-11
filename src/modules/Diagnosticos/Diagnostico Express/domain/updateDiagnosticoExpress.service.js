@@ -104,7 +104,7 @@ class updateDiagnosticoExpress {
         let data = {
             intIdIdea:this.#objData.objInfoGeneral.intIdIdea,
             intNumeroEmpleados:parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10),
-            ValorVentas:this.#objData.objInfoPerfilEco.ValorVentaProductoEscogido,
+            ValorVentas:this.#objData.objInfoPerfilEco.PromedioVentas6Meses,
             strTiempoDedicacionAdmin:this.#objData.objInfoEmprendimiento.strTiempoDedicacion,
             intIdFuenteDato:this.#objData.objInfoGeneral.intIdDiagnostico
         };
