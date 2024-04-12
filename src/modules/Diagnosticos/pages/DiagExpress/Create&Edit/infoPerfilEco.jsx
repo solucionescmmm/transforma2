@@ -51,7 +51,8 @@ const InfoPerfilEco = ({
         strRangoEmpleados: "",
         strEtapaDllo:"",
         strOperacionesVentas6Meses: "",
-        strPrecProdServ: ""
+        strPrecProdServ: "",
+        strUniProdSosFinan: ""
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -83,7 +84,8 @@ const InfoPerfilEco = ({
                 strRangoEmpleados: values?.strRangoEmpleados || "",
                 strEtapaDllo: values?.strEtapaDllo ||"",
                 strOperacionesVentas6Meses: values?.strOperacionesVentas6Meses || "",
-                strPrecProdServ: values?.strPrecProdServ || ""
+                strPrecProdServ: values?.strPrecProdServ || "",
+                strUniProdSosFinan: values?.strUniProdSosFinan || ""
             });
         }
 

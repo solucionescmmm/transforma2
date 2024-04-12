@@ -25,7 +25,6 @@ import {
     RemoveRedEye as RemoveRedEyeIcon,
 } from "@mui/icons-material";
 
-
 import ModalEditDiag from "./modalEdit";
 import ModalPDF from "./modalPDF";
 import ModalFinish from "./modalFinish";
@@ -69,169 +68,275 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         ],
         objInfoEmprendimiento: [
             {
-                parent: 'strUnidadProductiva',
-                value: '',
-                label: 'Nombre de la empresa'
+                parent: "strUnidadProductiva",
+                value: "",
+                label: "Nombre de la empresa",
             },
             {
-                parent: 'strLugarOperacion',
-                value: '',
-                label: 'Lugar de operación de la empresa'
+                parent: "strLugarOperacion",
+                value: "",
+                label: "Lugar de operación de la empresa",
             },
             {
-                parent: 'arrFormasComercializacion',
-                value: '',
-                label: 'Formas de comercialización'
+                parent: "arrFormasComercializacion",
+                value: "",
+                label: "Formas de comercialización",
             },
             {
-                parent: 'arrMediosDigitales',
-                value: '',
-                label: 'Medios digitales'
+                parent: "arrMediosDigitales",
+                value: "",
+                label: "Medios digitales",
             },
             {
-                parent: 'strTiempoDedicacion',
-                value: '',
-                label: 'Tiempo de dedicación actual a la empresa'
+                parent: "strTiempoDedicacion",
+                value: "",
+                label: "Tiempo de dedicación actual a la empresa",
             },
             {
-                parent: 'strRegistroCamaraComercio',
-                value: '',
-                label: '¿Cuenta con registro en cámara de comercio?'
+                parent: "strRegistroCamaraComercio",
+                value: "",
+                label: "¿Cuenta con registro en cámara de comercio?",
             },
             {
-                parent: 'strSectorEconomico',
-                value: '',
-                label: 'Sector económico'
+                parent: "strSectorEconomico",
+                value: "",
+                label: "Sector económico",
             },
             {
-                parent: 'strCategoriaProducto',
-                value: '',
-                label: 'Categoría de los productos'
+                parent: "strCategoriaProducto",
+                value: "",
+                label: "Categoría de los productos",
             },
             {
-                parent: 'strCategoriaServicio',
-                value: '',
-                label: 'Categoría de los servicios'
-            }, {
-                parent: 'strDefinineLineasProductoServicios',
-                value: '',
-                label: '¿Tiene definidas las líneas de productos/servicios del negocio?'
+                parent: "strCategoriaServicio",
+                value: "",
+                label: "Categoría de los servicios",
             },
             {
-                parent: 'arrCategoriasSecundarias',
-                value: '',
-                label: 'Categorías secundarias'
+                parent: "strDefinineLineasProductoServicios",
+                value: "",
+                label: "¿Tiene definidas las líneas de productos/servicios del negocio?",
             },
             {
-                parent: 'strListadoProdServ',
-                value: '',
-                label: 'Listado de los productos o servicios'
+                parent: "arrCategoriasSecundarias",
+                value: "",
+                label: "Categorías secundarias",
             },
             {
-                parent: 'strLineaProductoServicioDestacada',
-                value: '',
-                label: '¿Cuál es la línea de productos/servicios más destacada?'
+                parent: "strListadoProdServ",
+                value: "",
+                label: "Listado de los productos o servicios",
             },
             {
-                parent: 'btTieneProdServUltimoAn',
-                value: '',
-                label: '¿Tiene productos/servicios nuevos en el último año o se encuentra renovando los productos actuales?'
+                parent: "strLineaProductoServicioDestacada",
+                value: "",
+                label: "¿Cuál es la línea de productos/servicios más destacada?",
             },
             {
-                parent: 'strProductosNuevos',
-                value: '',
-                label: '¿Cuáles son estos productos nuevos?'
+                parent: "btTieneProdServUltimoAn",
+                value: "",
+                label: "¿Tiene productos/servicios nuevos en el último año o se encuentra renovando los productos actuales?",
             },
             {
-                parent: 'strProductoServiciosEnValidacion',
-                value: '',
-                label: '¿Cuenta con productos/servicios en prototipado?'
+                parent: "strProductosNuevos",
+                value: "",
+                label: "¿Cuáles son estos productos nuevos?",
             },
             {
-                parent: 'strNivelDlloProductoServicios',
-                value: '',
-                label: 'Nivel de desarrollo del producto/servicio'
+                parent: "strProductoServiciosEnValidacion",
+                value: "",
+                label: "¿Cuenta con productos/servicios en prototipado?",
             },
             {
-                parent: 'strEtapaValidProductoServicios',
-                value: '',
-                label: '¿En qué etapa de validación se encuentra el producto/servicio?'
-            }
+                parent: "strNivelDlloProductoServicios",
+                value: "",
+                label: "Nivel de desarrollo del producto/servicio",
+            },
+            {
+                parent: "strEtapaValidProductoServicios",
+                value: "",
+                label: "¿En qué etapa de validación se encuentra el producto/servicio?",
+            },
         ],
         objInfoPerfilEco: [
             {
-                parent: 'PromedioVentas6Meses',
-                value: '',
-                label: 'Promedio de ventas de los últimos 6 meses'
+                parent: "PromedioVentas6Meses",
+                value: "",
+                label: "Promedio de ventas de los últimos 6 meses",
             },
             {
-                parent: 'strRangoVentas',
-                value: '',
-                label: 'Rango de ventas'
+                parent: "strRangoVentas",
+                value: "",
+                label: "Rango de ventas",
             },
 
             {
-                parent: 'strEscojaProductoServicio',
-                value: '',
-                label: 'Escoja uno de los productos/servicios de su empresa'
+                parent: "strEscojaProductoServicio",
+                value: "",
+                label: "Escoja uno de los productos/servicios de su empresa",
             },
             {
-                parent: 'ValorVentaProductoEscogido',
-                value: '',
-                label: 'De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?'
+                parent: "ValorVentaProductoEscogido",
+                value: "",
+                label: "De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?",
             },
             {
-                parent: 'strConoceMargenRentaProductoEscogido',
-                value: '',
-                label: 'Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?'
+                parent: "strConoceMargenRentaProductoEscogido",
+                value: "",
+                label: "Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?",
             },
             {
-                parent: 'strConoceCostosProductoEscogido',
-                value: '',
-                label: '¿Conoce los costos de producción de este producto?'
+                parent: "strConoceCostosProductoEscogido",
+                value: "",
+                label: "¿Conoce los costos de producción de este producto?",
             },
             {
-                parent: 'CostoProduccionProductoEscogido',
-                value: '',
-                label: 'En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?'
+                parent: "CostoProduccionProductoEscogido",
+                value: "",
+                label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?",
             },
             {
-                parent: 'intPorcentajeMargenRentaProductoEscogido',
-                value: '',
-                label: 'En caso de que la pregunta anterior sea afirmativa, ¿Cuál es el margen de utilidad de este producto?'
+                parent: "intPorcentajeMargenRentaProductoEscogido",
+                value: "",
+                label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuál es el margen de utilidad de este producto?",
             },
             {
-                parent: 'btGeneraEmpleo',
-                value: '',
-                label: '¿La empresa genera empleo para otras personas?'
+                parent: "btGeneraEmpleo",
+                value: "",
+                label: "¿La empresa genera empleo para otras personas?",
             },
             {
-                parent: 'intNumeroEmpleados',
-                value: '',
-                label: ''
+                parent: "intNumeroEmpleados",
+                value: "",
+                label: "¿La empresa genera empleo para otras personas?",
             },
             {
-                parent: 'strRangoEmpleados',
-                value: '',
-                label: ''
+                parent: "strRangoEmpleados",
+                value: "",
+                label: "Rango de empleados",
             },
             {
-                parent: 'strEtapaDllo',
-                value: '',
-                label: ''
+                parent: "strOperacionesVentas6Meses",
+                value: "",
+                label: "¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?",
             },
             {
-                parent: 'strOperacionesVentas6Meses',
-                value: '',
-                label: ''
+                parent: "strPrecProdServ",
+                value: "",
+                label: "¿Cómo están definidos los precios de tus productos/servicios?",
             },
             {
-                parent: 'strPrecProdServ',
-                value: '',
-                label: ''
+                parent: "strUniProdSosFinan",
+                value: "",
+                label: "Mi unidad productiva es sostenible financieramente",
             },
-        ]
- 
+        ],
+        objInfoMercado: [
+            {
+                parent: "strTieneBaseDatosClientes",
+                value: "",
+                label: "Cuento con una base de datos de clientes",
+            },
+            {
+                parent: "strActivIncreVentClient",
+                value: "",
+                label: "Realizo actividades enfocadas en incrementar el nivel de ventas y clientes",
+            },
+            {
+                parent: "strPlanAtraccionRelacionamientoFidelizacionClientes",
+                value: "",
+                label: "Tengo un plan de atracción, relacionamiento y fidelización con mis clientes",
+            },
+            {
+                parent: "strEquipTrabEstruct",
+                value: "",
+                label: "Tengo un equipo de trabajo estructurado",
+            },
+            {
+                parent: "strEmprFormaAcuerNormLab",
+                value: "",
+                label: "Mi empresa está formalizada de acuerdo con la normatividad laboral",
+            },
+            {
+                parent: "strPlaneaEstraEmpPlanPlani",
+                value: "",
+                label: "Tengo una planeación estratégica para mi empresa, mas que estrategica plan de trabajo, planificación",
+            },
+            {
+                parent: "strIdentidadMarca",
+                value: "",
+                label: "Identidad de la marca",
+            },
+            {
+                parent: "strComunicacionMarca",
+                value: "",
+                label: "Comunicación de la marca",
+            },
+        ],
+        objInfoNormatividad: [
+            {
+                parent: "strPermisoFuncionamiento",
+                value: "",
+                label: "¿La unidad productiva o empresa requiere algún permiso, registro, licencia de funcionamiento o similares para su operación?",
+            },
+            {
+                parent: "strCertificadosRequeridos",
+                value: "",
+                label: "¿Cuáles son las certificaciones que requieren?",
+            },
+            {
+                parent: "strCertificadosActuales",
+                value: "",
+                label: "¿Cuáles son las certificaciones que tiene actualmente?",
+            },
+            {
+                parent: "strRegistroMarca",
+                value: "",
+                label: "¿Cuenta con registro de marca?",
+            },
+            {
+                parent: "strPatentesUtilidad",
+                value: "",
+                label: "¿Cuenta con patentes de modelo de utilidad?",
+            },
+            {
+                parent: "strCualPatenteUtilidad",
+                value: "",
+                label: "¿Cuál?",
+            },
+        ],
+        objInfoEncuestaHumanas: [
+            {
+                parent: "strTomaDesiciones",
+                value: "",
+                label: "¿Cómo se siente al momento de tomar las decisiones en su emprendimiento?",
+            },
+            {
+                parent: "strHabilidadesAutonomia",
+                value: "",
+                label: "Autonomía para el manejo de su negocio",
+            },
+            {
+                parent: "strHabilidadesCapacidad",
+                value: "",
+                label: "Capacidad de adaptarse a los cambios",
+            },
+            {
+                parent: "strHabilidadesComunicacion",
+                value: "",
+                label: "Comunicación efectiva con los clientes, con los empleados, los proveedores",
+            },
+            {
+                parent: "strHabilidadesCreatividad",
+                value: "",
+                label: "Creatividad en productos y en procesos productivos",
+            },
+            {
+                parent: "strConfianza",
+                value: "",
+                label: "De acuerdo con las experiencias y el conocimiento adquirido en su actuar empresarial, en la siguiente escala en qué nivel confianza se ubicaría",
+            },
+        ],
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
@@ -308,21 +413,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                     setFinalizado(data.objInfoGeneral.btFinalizado);
 
-                    const arrImagenes =
-                        data.objInfoAdicional?.strURLSFotosProducto?.split(";");
-
-                    let newArrImagenes = [];
-
-                    if (arrImagenes) {
-                        newArrImagenes = arrImagenes.map((url) => {
-                            return {
-                                src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
-                                width: 4,
-                                height: 3,
-                            };
-                        });
-                    }
-
                     const objInfoGeneral = {
                         dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
                             ? parseISO(data.objInfoGeneral.dtmFechaSesion)
@@ -338,69 +428,59 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             data.objInfoGeneral.strUsuarioActualizacion || "",
                     };
 
-                    const objInfoFamiliar = data.objInfoFamiliar;
                     const objInfoEmprendimiento = {
                         ...data.objInfoEmprendimiento,
-                        strUnidadProductiva:
-                            dataEmpr.objInfoEmpresa.strNombreMarca,
-                        strLugarOperacion:
-                            dataEmpr.objInfoEmpresa.strLugarOperacion,
-                        arrPais: dataEmpr.objInfoEmpresa.arrPais,
-                        arrDepartamento:
-                            dataEmpr.objInfoEmpresa.arrDepartamento,
-                        arrCiudad: dataEmpr.objInfoEmpresa.arrCiudad,
-                        strBarrio: dataEmpr.objInfoEmpresa.strBarrio,
-                        strDireccionResidencia:
-                            dataEmpr.objInfoEmpresa.strDireccionResidencia,
-                        strCelular: objEmprPrincipal.strCelular1 || "",
-                        strCorreoElectronico:
-                            objEmprPrincipal.strCorreoElectronico1 || "",
                         strRedesSociales:
-                            dataEmpr.objInfoEmpresa.arrMediosDigitales?.length >
-                            0
+                            data.objInfoEmprendimiento.arrMediosDigitales
+                                ?.length > 0
                                 ? "Sí"
                                 : "No",
                         arrMediosDigitales:
-                            dataEmpr.objInfoEmpresa.arrMediosDigitales || [],
+                            data.objInfoEmprendimiento.arrMediosDigitales || [],
                         strTiempoDedicacion:
-                            dataEmpr.objInfoEmpresa.strTiempoDedicacion || "",
+                            data.objInfoEmprendimiento.strTiempoDedicacion ||
+                            "",
                         strSectorEconomico:
-                            dataEmpr.objInfoEmpresa.strSectorEconomico || "",
+                            data.objInfoEmprendimiento.strSectorEconomico || "",
                         strCategoriaProducto:
-                            dataEmpr.objInfoEmpresa.strCategoriaProducto || "",
+                            data.objInfoEmprendimiento.strCategoriaProducto ||
+                            "",
                         strCategoriaServicio:
-                            dataEmpr.objInfoEmpresa.strCategoriaServicio || "",
+                            data.objInfoEmprendimiento.strCategoriaServicio ||
+                            "",
                         arrCategoriasSecundarias:
-                            dataEmpr.objInfoEmpresa.arrCategoriasSecundarias ||
-                            [],
+                            data.objInfoEmprendimiento
+                                .arrCategoriasSecundarias || [],
                         strOtraCategoria:
-                            dataEmpr.objInfoEmpresa.strOtraCategoria || "",
+                            data.objInfoEmprendimiento.strOtraCategoria || "",
                         btGeneraEmpleo:
-                            typeof dataEmpr.objInfoEmpresa.btGeneraEmpleo ===
+                            typeof data.objInfoEmprendimiento.btGeneraEmpleo ===
                             "boolean"
-                                ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
+                                ? data.objInfoEmprendimiento.btGeneraEmpleo
                                 : "",
                     };
-                    const objInfoEmpresa = data.objInfoEmpresa;
+
                     const objInfoPerfilEco = {
                         ...data.objInfoPerfilEco,
-                        dblValorVentasMes:
-                            dataEmpr.objInfoEmpresa.valorVentasMes || "",
-                        intNumeroEmpleados:
-                            dataEmpr.objInfoEmpresa.intNumeroEmpleados || "",
                     };
-                    const objInfoAdicional = data.objInfoAdicional;
+
+                    const objInfoMercado = data.objInfoMercado;
+                    const objInfoNormatividad = data.objInfoNormatividad;
+                    const objInfoEncuestaHumanas = data.objInfoEncuestaHumanas;
 
                     setData((prevState) => {
                         let prevInfoGeneral = prevState.objInfoGeneral;
-                        let prevInfoFamiliar = prevState.objInfoFamiliar;
+
                         let prevInfoEmprendimiento =
                             prevState.objInfoEmprendimiento;
-                        let prevInfoEmpresa = prevState.objInfoEmpresa;
-                        let prevInfoPerfilEco = prevState.objInfoPerfilEco;
-                        let prevInfoAdicional = prevState.objInfoAdicional;
 
-                        
+                        let prevInfoPerfilEco = prevState.objInfoPerfilEco;
+                        let prevInfoMercado = prevState.objInfoMercado;
+                        let prevInfoNormatividad =
+                            prevState.objInfoNormatividad;
+                        let prevInfoEncuestaHumanas =
+                            prevState.objInfoEncuestaHumanas;
+
                         for (const key in objInfoGeneral) {
                             if (
                                 Object.hasOwnProperty.call(objInfoGeneral, key)
@@ -428,31 +508,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             }
                         }
 
-                        for (const key in objInfoFamiliar) {
-                            if (
-                                Object.hasOwnProperty.call(objInfoFamiliar, key)
-                            ) {
-                                prevInfoFamiliar.forEach((e) => {
-                                    if (e.parent === key) {
-                                        if (objInfoFamiliar[key]?.map) {
-                                            const json = objInfoFamiliar[key];
-
-                                            const str = json
-                                                .map((x) => {
-                                                    return x.strCodigoRetorno;
-                                                })
-                                                .join(", ");
-                                            e.value = str;
-                                        } else {
-                                            e.value = objInfoFamiliar[key];
-                                        }
-                                    }
-                                });
-                            }
-                        }
-
                         for (const key in objInfoEmprendimiento) {
-                        
                             if (
                                 Object.hasOwnProperty.call(
                                     objInfoEmprendimiento,
@@ -460,16 +516,23 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 )
                             ) {
                                 prevInfoEmprendimiento.forEach((e) => {
-                                    if(e.parent === key && key === "arrDepartamento") {
+                                    if (
+                                        e.parent === key &&
+                                        key === "arrDepartamento"
+                                    ) {
                                         e.value =
-                                        objInfoEmprendimiento[key]?.region_name;
-                                    }
-                                    else if(e.parent === key && key === "arrCiudad") {
+                                            objInfoEmprendimiento[
+                                                key
+                                            ].region_name;
+                                    } else if (
+                                        e.parent === key &&
+                                        key === "arrCiudad"
+                                    ) {
                                         e.value =
-                                        objInfoEmprendimiento[key]?.city_name;
-                                    }
-
-                                    else if (e.parent === key) {
+                                            objInfoEmprendimiento[
+                                                key
+                                            ].city_name;
+                                    } else if (e.parent === key) {
                                         if (objInfoEmprendimiento[key]?.map) {
                                             const json =
                                                 objInfoEmprendimiento[key];
@@ -489,36 +552,13 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             }
                         }
 
-                        for (const key in objInfoEmpresa) {
-                            if (
-                                Object.hasOwnProperty.call(objInfoEmpresa, key)
-                            ) {
-                                prevInfoEmpresa.forEach((e) => {
-                                    if (e.parent === key) {
-                                        if (objInfoEmpresa[key]?.map) {
-                                            const json = objInfoEmpresa[key];
-
-                                            const str = json
-                                                .map((x) => {
-                                                    return x.strCodigoRetorno;
-                                                })
-                                                .join(", ");
-                                            e.value = str;
-                                        } else {
-                                            e.value = objInfoEmpresa[key];
-                                        }
-                                    }
-                                });
-                            }
-                        }
-
                         for (const key in objInfoPerfilEco) {
                             if (
                                 Object.hasOwnProperty.call(
                                     objInfoPerfilEco,
                                     key
                                 )
-                            ) {                            
+                            ) {
                                 prevInfoPerfilEco.forEach((e) => {
                                     if (e.parent === key) {
                                         if (objInfoPerfilEco[key]?.map) {
@@ -531,7 +571,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            
                                             e.value = objInfoPerfilEco[key];
                                         }
                                     }
@@ -539,17 +578,17 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             }
                         }
 
-                        for (const key in objInfoAdicional) {
+                        for (const key in objInfoMercado) {
                             if (
                                 Object.hasOwnProperty.call(
-                                    objInfoAdicional,
+                                    objInfoMercado,
                                     key
                                 )
                             ) {
-                                prevInfoAdicional.forEach((e) => {
+                                prevInfoMercado.forEach((e) => {
                                     if (e.parent === key) {
-                                        if (objInfoAdicional[key]?.map) {
-                                            const json = objInfoAdicional[key];
+                                        if (objInfoMercado[key]?.map) {
+                                            const json = objInfoMercado[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -558,7 +597,59 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = objInfoAdicional[key];
+                                            e.value = objInfoMercado[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoNormatividad) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoMercado,
+                                    key
+                                )
+                            ) {
+                                prevInfoNormatividad.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (objInfoNormatividad[key]?.map) {
+                                            const json = objInfoNormatividad[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = objInfoNormatividad[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        for (const key in objInfoEncuestaHumanas) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoMercado,
+                                    key
+                                )
+                            ) {
+                                prevInfoEncuestaHumanas.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (objInfoEncuestaHumanas[key]?.map) {
+                                            const json = objInfoEncuestaHumanas[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = objInfoEncuestaHumanas[key];
                                         }
                                     }
                                 });
@@ -568,12 +659,11 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         return {
                             ...prevState,
                             objInfoGeneral: prevInfoGeneral,
-                            objInfoFamiliar: prevInfoFamiliar,
                             objInfoEmprendimiento: prevInfoEmprendimiento,
-                            objInfoEmpresa: prevInfoEmpresa,
-                            arrImagenes: newArrImagenes,
                             objInfoPerfilEco: prevInfoPerfilEco,
-                            objInfoAdicional: prevInfoAdicional,
+                            objInfoMercado: prevInfoMercado,
+                            objInfoNormatividad: prevInfoNormatividad,
+                            objInfoEncuestaHumanas: prevInfoEncuestaHumanas
                         };
                     });
                 }
