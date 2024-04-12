@@ -79,8 +79,8 @@ const InfoEmprendimiento = ({
     };
 
     useEffect(() => {
+        console.log(values)
         if (values) {
-            console.log(values)
             setData({
                 strUnidadProductiva: values.strUnidadProductiva || "",
                 strLugarOperacion: values.strLugarOperacion || "",
@@ -496,8 +496,8 @@ const InfoEmprendimiento = ({
                     {/* Listado Prod/Serv */}
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strListadoProdServ}
-                            name="objInfoEmprendimiento.strListadoProdServ"
+                            defaultValue={data.strDescProductosServicios}
+                            name="objInfoEmprendimiento.strDescProductosServicios"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Listado de los productos o servicios"
@@ -510,13 +510,13 @@ const InfoEmprendimiento = ({
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
-                                            ?.strListadoProdServ
+                                            ?.strDescProductosServicios
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.strListadoProdServ?.message ||
+                                            ?.strDescProductosServicios?.message ||
                                         "Digita los productos o servicios que ofrece la empresa"
                                     }
                                 />
