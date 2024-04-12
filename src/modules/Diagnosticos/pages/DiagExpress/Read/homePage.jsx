@@ -354,16 +354,23 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
     const [openCollapseInfoGeneral, setOpenCollapseInfoGeneral] =
         useState(true);
-    const [openCollapseInfoFamiliar, setOpenCollapseInfoFamiliar] =
-        useState(true);
+
     const [openCollapseInfoEmprendimiento, setOpenCollapseInfoEmprendimiento] =
         useState(true);
-    const [openCollapseInfoEmpresa, setOpenCollapseInfoEmpresa] =
-        useState(true);
+
     const [openCollapseInfoPerfilEco, setOpenCollapseInfoPerfilEco] =
         useState(true);
-    const [openCollapseInfoAdicional, setOpenCollapseInfoAdicional] =
+
+    const [openCollapseInfoMercado, setOpenCollapseInfoMercado] =
         useState(true);
+
+    const [openCollapseInfoNormatividad, setOpenCollapseInfoNormatividad] =
+        useState(true);
+
+    const [
+        openCollapseInfoEncuestaHumanas,
+        setOpenCollapseInfoEncuestaHumanas,
+    ] = useState(true);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -429,34 +436,46 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                     };
 
                     const objInfoEmprendimiento = {
+                        ...dataEmpr.objInfoEmprendimiento,
                         ...data.objInfoEmprendimiento,
+                        strUnidadProductiva:
+                            dataEmpr.objInfoEmpresa.strNombreMarca,
+                        strLugarOperacion:
+                            dataEmpr.objInfoEmpresa.strLugarOperacion,
+                        arrPais: dataEmpr.objInfoEmpresa.arrPais,
+                        arrDepartamento:
+                            dataEmpr.objInfoEmpresa.arrDepartamento,
+                        arrCiudad: dataEmpr.objInfoEmpresa.arrCiudad,
+                        strBarrio: dataEmpr.objInfoEmpresa.strBarrio,
+                        strDireccionResidencia:
+                            dataEmpr.objInfoEmpresa.strDireccionResidencia,
+                        strCelular: objEmprPrincipal.strCelular1 || "",
+                        strCorreoElectronico:
+                            objEmprPrincipal.strCorreoElectronico1 || "",
                         strRedesSociales:
-                            data.objInfoEmprendimiento.arrMediosDigitales
-                                ?.length > 0
+                            dataEmpr.objInfoEmpresa.arrMediosDigitales?.length >
+                            0
                                 ? "Sí"
                                 : "No",
                         arrMediosDigitales:
-                            data.objInfoEmprendimiento.arrMediosDigitales || [],
+                            dataEmpr.objInfoEmpresa.arrMediosDigitales || [],
                         strTiempoDedicacion:
-                            data.objInfoEmprendimiento.strTiempoDedicacion ||
-                            "",
+                            dataEmpr.objInfoEmpresa.strTiempoDedicacion || "",
                         strSectorEconomico:
-                            data.objInfoEmprendimiento.strSectorEconomico || "",
+                            dataEmpr.objInfoEmpresa.strSectorEconomico || "",
                         strCategoriaProducto:
-                            data.objInfoEmprendimiento.strCategoriaProducto ||
-                            "",
+                            dataEmpr.objInfoEmpresa.strCategoriaProducto || "",
                         strCategoriaServicio:
-                            data.objInfoEmprendimiento.strCategoriaServicio ||
-                            "",
+                            dataEmpr.objInfoEmpresa.strCategoriaServicio || "",
                         arrCategoriasSecundarias:
-                            data.objInfoEmprendimiento
-                                .arrCategoriasSecundarias || [],
+                            dataEmpr.objInfoEmpresa.arrCategoriasSecundarias ||
+                            [],
                         strOtraCategoria:
-                            data.objInfoEmprendimiento.strOtraCategoria || "",
+                            dataEmpr.objInfoEmpresa.strOtraCategoria || "",
                         btGeneraEmpleo:
-                            typeof data.objInfoEmprendimiento.btGeneraEmpleo ===
+                            typeof dataEmpr.objInfoEmpresa.btGeneraEmpleo ===
                             "boolean"
-                                ? data.objInfoEmprendimiento.btGeneraEmpleo
+                                ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
                                 : "",
                     };
 
@@ -580,10 +599,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                         for (const key in objInfoMercado) {
                             if (
-                                Object.hasOwnProperty.call(
-                                    objInfoMercado,
-                                    key
-                                )
+                                Object.hasOwnProperty.call(objInfoMercado, key)
                             ) {
                                 prevInfoMercado.forEach((e) => {
                                     if (e.parent === key) {
@@ -606,15 +622,13 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                         for (const key in objInfoNormatividad) {
                             if (
-                                Object.hasOwnProperty.call(
-                                    objInfoMercado,
-                                    key
-                                )
+                                Object.hasOwnProperty.call(objInfoMercado, key)
                             ) {
                                 prevInfoNormatividad.forEach((e) => {
                                     if (e.parent === key) {
                                         if (objInfoNormatividad[key]?.map) {
-                                            const json = objInfoNormatividad[key];
+                                            const json =
+                                                objInfoNormatividad[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -632,15 +646,13 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                         for (const key in objInfoEncuestaHumanas) {
                             if (
-                                Object.hasOwnProperty.call(
-                                    objInfoMercado,
-                                    key
-                                )
+                                Object.hasOwnProperty.call(objInfoMercado, key)
                             ) {
                                 prevInfoEncuestaHumanas.forEach((e) => {
                                     if (e.parent === key) {
                                         if (objInfoEncuestaHumanas[key]?.map) {
-                                            const json = objInfoEncuestaHumanas[key];
+                                            const json =
+                                                objInfoEncuestaHumanas[key];
 
                                             const str = json
                                                 .map((x) => {
@@ -649,7 +661,8 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = objInfoEncuestaHumanas[key];
+                                            e.value =
+                                                objInfoEncuestaHumanas[key];
                                         }
                                     }
                                 });
@@ -663,7 +676,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             objInfoPerfilEco: prevInfoPerfilEco,
                             objInfoMercado: prevInfoMercado,
                             objInfoNormatividad: prevInfoNormatividad,
-                            objInfoEncuestaHumanas: prevInfoEncuestaHumanas
+                            objInfoEncuestaHumanas: prevInfoEncuestaHumanas,
                         };
                     });
                 }
@@ -685,24 +698,24 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         setOpenCollapseInfoGeneral(!openCollapseInfoGeneral);
     };
 
-    const handlerChangeOpenCollapseInfoFamiliar = () => {
-        setOpenCollapseInfoFamiliar(!openCollapseInfoFamiliar);
-    };
-
     const handlerChangeOpenCollapseInfoEmprendimiento = () => {
         setOpenCollapseInfoEmprendimiento(!openCollapseInfoEmprendimiento);
-    };
-
-    const handlerChangeOpenCollapseInfoEmpresa = () => {
-        setOpenCollapseInfoEmpresa(!openCollapseInfoEmpresa);
     };
 
     const handlerChangeOpenCollapseInfoPerfilEco = () => {
         setOpenCollapseInfoPerfilEco(!openCollapseInfoPerfilEco);
     };
 
-    const handlerChangeOpenCollapseInfoAdicional = () => {
-        setOpenCollapseInfoAdicional(!openCollapseInfoAdicional);
+    const handlerChangeOpenCollapseInfoMercado = () => {
+        setOpenCollapseInfoMercado(!openCollapseInfoMercado);
+    };
+
+    const handlerChangeOpenCollapseInfoNormatividad = () => {
+        setOpenCollapseInfoNormatividad(!openCollapseInfoNormatividad);
+    };
+
+    const handlerChangeOpenCollapseInfoEncuestaHumanas = () => {
+        setOpenCollapseInfoEncuestaHumanas(!openCollapseInfoEncuestaHumanas);
     };
 
     //===============================================================================================================================================
@@ -907,78 +920,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>Información familiar</b>
-                                </Typography>
-                            </Box>
-
-                            <Box>
-                                <IconButton
-                                    onClick={() =>
-                                        handlerChangeOpenCollapseInfoFamiliar()
-                                    }
-                                    size="large"
-                                >
-                                    <Tooltip
-                                        title={
-                                            openCollapseInfoFamiliar
-                                                ? "Contraer detalle"
-                                                : "Expandir detalle"
-                                        }
-                                    >
-                                        {openCollapseInfoFamiliar ? (
-                                            <ExpandLessIcon />
-                                        ) : (
-                                            <ExpandMoreIcon />
-                                        )}
-                                    </Tooltip>
-                                </IconButton>
-                            </Box>
-                        </Box>
-
-                        <Collapse in={openCollapseInfoFamiliar} timeout="auto">
-                            <Grid
-                                container
-                                direction="row"
-                                spacing={0}
-                                sx={{ padding: "15px" }}
-                            >
-                                {data.objInfoFamiliar.map((e, i) => (
-                                    <Grid item xs={12} md={12} key={i}>
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
-                                            <b style={{ marginRight: "5px" }}>
-                                                {e.label}:{" "}
-                                            </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
-                                            {e.value || "No diligenciado"}
-                                        </p>
-                                    </Grid>
-                                ))}
-                            </Grid>
-                        </Collapse>
-                    </Paper>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Paper sx={{ padding: "10px" }}>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <Box sx={{ flexGrow: 1 }}>
-                                <Typography sx={{ color: "#00BBB4" }}>
                                     <b>Información del emprendimiento</b>
                                 </Typography>
                             </Box>
@@ -1018,80 +959,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 sx={{ padding: "15px" }}
                             >
                                 {data.objInfoEmprendimiento.map((e, i) => (
-                                    <Grid item xs={12} md={12} key={i}>
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
-                                            <b style={{ marginRight: "5px" }}>
-                                                {e.label}:{" "}
-                                            </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
-                                            {e.value || "No diligenciado"}
-                                        </p>
-                                    </Grid>
-                                ))}
-                            </Grid>
-                        </Collapse>
-                    </Paper>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Paper sx={{ padding: "10px" }}>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <Box sx={{ flexGrow: 1 }}>
-                                <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>
-                                        Profundización información de la empresa
-                                    </b>
-                                </Typography>
-                            </Box>
-
-                            <Box>
-                                <IconButton
-                                    onClick={() =>
-                                        handlerChangeOpenCollapseInfoEmpresa()
-                                    }
-                                    size="large"
-                                >
-                                    <Tooltip
-                                        title={
-                                            openCollapseInfoEmpresa
-                                                ? "Contraer detalle"
-                                                : "Expandir detalle"
-                                        }
-                                    >
-                                        {openCollapseInfoEmpresa ? (
-                                            <ExpandLessIcon />
-                                        ) : (
-                                            <ExpandMoreIcon />
-                                        )}
-                                    </Tooltip>
-                                </IconButton>
-                            </Box>
-                        </Box>
-
-                        <Collapse in={openCollapseInfoEmpresa} timeout="auto">
-                            <Grid
-                                container
-                                direction="row"
-                                spacing={0}
-                                sx={{ padding: "15px" }}
-                            >
-                                {data.objInfoEmpresa.map((e, i) => (
                                     <Grid item xs={12} md={12} key={i}>
                                         <p
                                             style={{
@@ -1200,28 +1067,25 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>
-                                        Información adicional (Concluciones,
-                                        observaciones y registro fotográfico)
-                                    </b>
+                                    <b>Perfil de mercado y comercial</b>
                                 </Typography>
                             </Box>
 
                             <Box>
                                 <IconButton
                                     onClick={() =>
-                                        handlerChangeOpenCollapseInfoAdicional()
+                                        handlerChangeOpenCollapseInfoMercado()
                                     }
                                     size="large"
                                 >
                                     <Tooltip
                                         title={
-                                            openCollapseInfoAdicional
+                                            openCollapseInfoMercado
                                                 ? "Contraer detalle"
                                                 : "Expandir detalle"
                                         }
                                     >
-                                        {openCollapseInfoAdicional ? (
+                                        {openCollapseInfoMercado ? (
                                             <ExpandLessIcon />
                                         ) : (
                                             <ExpandMoreIcon />
@@ -1231,14 +1095,239 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             </Box>
                         </Box>
 
-                        <Collapse in={openCollapseInfoAdicional} timeout="auto">
+                        <Collapse in={openCollapseInfoMercado} timeout="auto">
                             <Grid
                                 container
                                 direction="row"
                                 spacing={0}
                                 sx={{ padding: "15px" }}
                             >
-                                {data.objInfoAdicional.map((e, i) => (
+                                {data.objInfoMercado.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
+                                        </p>
+
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Normatividad</b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoNormatividad()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoNormatividad
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoNormatividad ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse
+                            in={openCollapseInfoNormatividad}
+                            timeout="auto"
+                        >
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoNormatividad.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
+                                        </p>
+
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Normatividad</b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoNormatividad()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoNormatividad
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoNormatividad ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse
+                            in={openCollapseInfoNormatividad}
+                            timeout="auto"
+                        >
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoNormatividad.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
+                                        </p>
+
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Componente humano</b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoEncuestaHumanas()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoEncuestaHumanas
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoEncuestaHumanas ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse
+                            in={openCollapseInfoEncuestaHumanas}
+                            timeout="auto"
+                        >
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoEncuestaHumanas.map((e, i) => (
                                     <Grid item xs={12} md={12} key={i}>
                                         <p
                                             style={{

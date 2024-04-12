@@ -116,7 +116,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Validación comercial",
-        label: "Etapa de Validación Comercial",
+        label: "Validación Comercial",
         html: `
         <p>
         En esta fase, los emprendimientos se centran en desarrollar el producto o servicio,
@@ -125,7 +125,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Nuevo empresario",
-        label: "Etapa de Nueva Empresa",
+        label: "Nueva Empresa",
         html: `
         <p>
         En esta etapa, los emprendimientos se encuentran activamente comprometidos con su actividad empresarial, 
@@ -137,7 +137,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Fortalecimiento empresariaI I",
-        label: "Etapa de Fortalecimiento Nivel I",
+        label: "Fortalecimiento Nivel I",
         html: `
         <p>
         Durante esta fase temprana de actividad empresarial, se busca desarrollar el potencial de mercado 
@@ -147,7 +147,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Fortalecimiento empresarial II",
-        label: "Etapa de Fortalecimiento Nivel II",
+        label: "Fortalecimiento Nivel II",
         html: `
         <p>
         En este momento el emprendimiento está enfocado en el desarrollo del potencial de mercado con un 
@@ -159,7 +159,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Consolidación",
-        label: "Etapa de Consolidación",
+        label: "Consolidación",
         html: `
         <p>
           En esta etapa, la empresa logra estabilidad y solidez económico-financiera. 
@@ -170,7 +170,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Escalamiento",
-        label: "Etapa de Escalamiento",
+        label: "Escalamiento",
         html: `
         <p>
         Esta fase se presenta cuando el negocio se vuelve escalable y adquiere una posición sólida en el mercado. 
@@ -180,7 +180,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Expansión",
-        label: "Etapa de Expansión",
+        label: "Expansión",
         html: `
         <p>
         En la etapa de expansión, se define la estrategia de expansión, se establecen plataformas 
@@ -529,27 +529,35 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
      <p>
          Las etapas de desarrollo son un concepto moldeado por De Mis Manos para definir en qué punto se encuentra tu
-         emen el rango promedio de ventas actuales, empleos generados y tiempo de dedicación. Estas variables,
-         estudiadas demprendimiento.
-         De acuerdo con la información recolectada durante el diagnóstico, la etapa de desarrollo de tu emprendimiento
-         es: <span style="color: #00BBB4">
-         ${
-             propiedadesEtapas.find((etapa) =>
-                 isSimilar(
-                     etapa.parent.toLowerCase(),
-                     values?.objInfoPerfilEco.find(
-                         (x) => x.parent === "strEtapaDllo"
-                     )?.value.toLowerCase(),
-                     0.7
-                 )
-             )?.label
-         }
-         </span>
+         empresa. En el cálculo de estas etapas, nos fundamentamos en el rango promedio de ventas actuales, empleos generados y tiempo de dedicación. 
+         Estas variables estudiadas detenidamente, se consideran claves en el desarrollo de un emprendimiento.
+
+         <br />
+         <br />
+
+         De acuerdo con la información recolectada durante el diagnóstico, la etapa de desarrollo de tu emprendimiento es:
+
+         <div style="border-style: solid; border-width: 3px; padding-bottom: 5px; padding-top: 2px; padding-left: 5px; border-color: #F5B335; display:flex; justify-content: center; margin: auto">
+            <span style="color: #00BBB4; font-family: Roboto; font-size: 13px">
+            ${
+                propiedadesEtapas.find((etapa) =>
+                    isSimilar(
+                        etapa.parent.toLowerCase(),
+                        values?.objInfoPerfilEco.find(
+                            (x) => x.parent === "strEtapaDllo"
+                        )?.value.toLowerCase(),
+                        0.7
+                    )
+                )?.label
+            }
+            </span>
+         </div>
+
+        <span style="color: black; font-size: 11px; font-family: Roboto">
+         ¿Qué significa esta etapa?
+        </span>
      </p>
 
-     <p>
-         ¿Qué significa esta etapa?
-     </p>
 
     ${
         propiedadesEtapas.find((etapa) =>
