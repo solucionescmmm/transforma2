@@ -39,6 +39,7 @@ class setDiagnosticoGeneral {
         await this.#completeData();
         await this.#setDiagnosticoGeneral();
         await this.#updateDiagnostico();
+        await this.#setHistorico();
         return this.#objResult;
     }
 
@@ -55,10 +56,6 @@ class setDiagnosticoGeneral {
 
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
-        }
-
-        if (this.#bitTienePrediagnostico) {
-            await this.#setHistorico();
         }
     }
 

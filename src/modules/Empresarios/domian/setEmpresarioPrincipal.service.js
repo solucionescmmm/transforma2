@@ -57,9 +57,7 @@ class setEmpresarioPrincipal {
         await this.#setIdeaEmpresario();
         await this.#setEmpresa();
         await this.#setInfoAdicional();
-        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio") {
-            await this.#setHistorico()
-        }
+        await this.#setHistorico()
         if (this.#objData?.objInfoAdicional?.strURLDocumento) {
             await this.#setDocumento()
         }
@@ -120,7 +118,7 @@ class setEmpresarioPrincipal {
 
     async #getIdTipoEmpresario() {
         const dao = new classInterfaceDAOEmpresarios()
-        
+
         let queryGetIdTipoEmpresario = await dao.getIdTipoEmpresario({
             strNombre: "Principal",
         });
@@ -157,10 +155,10 @@ class setEmpresarioPrincipal {
     }
 
     async #updateInactivarTercero() {
-        let newData ={
-            objInfoPrincipal:{
+        let newData = {
+            objInfoPrincipal: {
                 ...this.#objDataPersona,
-                intIdEstado:this.#intIdEstadoInactivo
+                intIdEstado: this.#intIdEstadoInactivo
             }
         }
 
@@ -188,10 +186,10 @@ class setEmpresarioPrincipal {
         let newData = {
             ...prevData,
             strUsuario: this.#objUser.strEmail,
-            arrPais:aux_arrPais,
+            arrPais: aux_arrPais,
             arrDepartamento: aux_arrDepartamento,
             arrCiudad: aux_arrCiudad,
-            intIdEstado:this.#intIdEstadoActivo,
+            intIdEstado: this.#intIdEstadoActivo,
         };
 
         let dao = new classInterfaceDAOEmpresarios();
@@ -256,14 +254,14 @@ class setEmpresarioPrincipal {
             newData = {
                 strNombre: `Idea de ${this.#objData.objEmpresario?.strNombres?.trim()} ${this.#objData.objEmpresario.strApellidos?.trim()}`,
                 intIdEstado: this.#intIdEstadoActivo,
-                intIdEstadoVinculacion:this.#intIdEstadoVinculacion,
+                intIdEstadoVinculacion: this.#intIdEstadoVinculacion,
                 strUsuarioCreacion: this.#objUser.strEmail,
             };
         } else {
             newData = {
                 strNombre: this.#objData.objInfoEmpresa?.strNombreMarca,
                 intIdEstado: this.#intIdEstadoActivo,
-                intIdEstadoVinculacion:this.#intIdEstadoVinculacion,
+                intIdEstadoVinculacion: this.#intIdEstadoVinculacion,
                 strUsuarioCreacion: this.#objUser.strEmail,
             };
         }
@@ -285,7 +283,7 @@ class setEmpresarioPrincipal {
             intIdIdea: this.#intIdIdea,
             intIdEmpresario: this.#intIdEmpresario,
             intIdTipoEmpresario: this.#intIdTipoEmpresario,
-            strModalidadIngreso:this.#objData?.objEmpresario?.strModalidadIngreso,
+            strModalidadIngreso: this.#objData?.objEmpresario?.strModalidadIngreso,
             dtFechaVinculacion: this.#objData?.objEmpresario?.dtFechaVinculacion,
             strTipoVinculacion: this.#objData?.objEmpresario?.strTipoVinculacion,
             intIdEstadoVinculacion: this.#intIdEstadoVinculacion,
@@ -392,8 +390,8 @@ class setEmpresarioPrincipal {
     async #setHistorico() {
         let data = {
             intIdIdea: this.#intIdIdea,
-            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10) : 1,
-            ValorVentas: this.#objData.objInfoEmpresa.dblValorVentasMes,
+            intNumeroEmpleados: !this.#objData.objInfoEmpresa.btGeneraEmpleo || this.#objData?.objInfoEmpresa?.strEstadoNegocio === "Idea de negocio" ? 0 : parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10),
+            ValorVentas: this.#objData?.objInfoEmpresa?.strEstadoNegocio === "Idea de negocio" ? 0 : this.#objData.objInfoEmpresa.dblValorVentasMes,
             strTiempoDedicacionAdmin: this.#objData.objInfoEmpresa.strTiempoDedicacion,
             intIdFuenteHistorico: this.#intIdFuenteHistorico,
             intIdFuenteDato: this.#intIdEmpresa
@@ -425,10 +423,10 @@ class setEmpresarioPrincipal {
         }
     }
 
-    async #sp_SetInfoPrincipalIdea(){
+    async #sp_SetInfoPrincipalIdea() {
         let dao = new classInterfaceDAOEmpresarios();
 
-        let query = await dao.sp_SetInfoPrincipalIdea({intIdIdea: this.#intIdIdea});
+        let query = await dao.sp_SetInfoPrincipalIdea({ intIdIdea: this.#intIdIdea });
 
         if (query.error) {
             throw new Error(query.msg)

@@ -33,6 +33,7 @@ class updateDiagnosticoGeneral {
         await this.#updateEmpresaDiagnosticoGeneral();
         await this.#completeData();
         await this.#updateDiagnosticoGeneral();
+        await this.#updateHistorico();
 
         return this.#objResult;
     }
@@ -50,10 +51,6 @@ class updateDiagnosticoGeneral {
 
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
-        }
-
-        if (this.#bitTienePrediagnostico) {
-            await this.#updateHistorico();
         }
     }
 

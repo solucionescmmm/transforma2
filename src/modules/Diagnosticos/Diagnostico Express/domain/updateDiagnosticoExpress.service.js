@@ -14,8 +14,6 @@ class updateDiagnosticoExpress {
     #objUser;
     #objResult;
 
-    #bitTienePrediagnostico
-
     /**
      * @param {object} data
      */
@@ -25,9 +23,9 @@ class updateDiagnosticoExpress {
     }
 
     async main() {
-        await this.#getHistorico()
         await this.#validations();
         await this.#updateEmpresaDiagnosticoExpress();
+        await this.#updateHistorico();
         await this.#completeData();
         await this.#updateDiagnosticoExpress();
         
@@ -48,22 +46,6 @@ class updateDiagnosticoExpress {
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
-
-        if (this.#bitTienePrediagnostico) {
-            await this.#updateHistorico();
-        }
-    }
-
-    async #getHistorico() {
-        let queryGetHistorico = await serviceGetHistoricoByFuente({
-            intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
-        });
-
-        if (queryGetHistorico.error) {
-            throw new Error(query.msg);
-        }
-
-        this.#bitTienePrediagnostico = queryGetHistorico.data ? true : false;
     }
 
     async #completeData() {

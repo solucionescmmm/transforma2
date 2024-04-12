@@ -37,7 +37,6 @@ class updateEmpresarioPrincipal {
     }
 
     async main() {
-        //console.log(this.#objData)
         await this.#getIdeaEmpresario();
         await this.#getIdFuenteHistorico();
         await this.#getHistorico();
@@ -89,12 +88,8 @@ class updateEmpresarioPrincipal {
             }
         }
 
-        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && this.#bitTienePrediagnostico) {
+        if (!this.#bitTienePrediagnostico) {
             await this.#updateHistorico()
-        }
-
-        if (this.#objData?.objInfoEmpresa?.strEstadoNegocio !== "Idea de negocio" && !this.#bitTienePrediagnostico) {
-            await this.#setHistorico()
         }
 
         if (this.#objData.objInfoAdicional.strURLDocumento) {
@@ -349,9 +344,9 @@ class updateEmpresarioPrincipal {
     async #updateHistorico() {
         let data = {
             intIdIdea: this.#intIdIdea,
-            intNumeroEmpleados: this.#objData.objInfoEmpresa.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10) : 1,
-            ValorVentas: this.#objData.objInfoEmpresa.dblValorVentasMes,
-            strTiempoDedicacionAdmin: this.#objData.objInfoEmpresa.strTiempoDedicacion,
+            intNumeroEmpleados: this.#objData?.objInfoEmpresa?.btGeneraEmpleo === true ? parseInt(this.#objData.objInfoEmpresa.intNumeroEmpleados, 10) : 1,
+            ValorVentas: this.#objData?.objInfoEmpresa?.dblValorVentasMes,
+            strTiempoDedicacionAdmin: this.#objData?.objInfoEmpresa?.strTiempoDedicacion,
             intIdFuenteDato: this.#objData.objInfoEmpresa.intId,
         };
 

@@ -165,7 +165,7 @@ class daoHistoricos {
             LEFT JOIN tbl_FuentesHistorico FuenteHistorico ON FuenteHistorico.intId = Historico.intIdFuenteHistorico
 
             WHERE (Historico.intIdIdea = ${data.intIdIdea})
-            AND (FuenteHistorico.strNombre = 'Prediagnóstico')`;
+            AND (FuenteHistorico.strNombre = 'Diagnóstico Normal' OR FuenteHistorico.strNombre = 'Diagnóstico Express')`;
 
             let arrNewData = response.recordsets[0];
 
