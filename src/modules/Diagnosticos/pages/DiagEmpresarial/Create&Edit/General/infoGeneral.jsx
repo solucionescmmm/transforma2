@@ -745,6 +745,7 @@ const InfoGeneral = ({
                                     label="Pais"
                                     strCodigo="paises"
                                     name={name}
+                                    required
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e, value) => {
@@ -767,6 +768,9 @@ const InfoGeneral = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona el pais de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -780,6 +784,7 @@ const InfoGeneral = ({
                                     strCodigo="departamentos"
                                     name={name}
                                     value={value}
+                                    required
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
@@ -804,6 +809,9 @@ const InfoGeneral = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona el departamento de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -817,6 +825,7 @@ const InfoGeneral = ({
                                     strCodigo="municipios"
                                     name={name}
                                     value={value}
+                                    required
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
@@ -838,6 +847,9 @@ const InfoGeneral = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona la ciudad de residencia",
+                            }}
                         />
                     </Grid>
 

@@ -119,12 +119,12 @@ const DropdownLocalizaciones = ({
                         return option.country_name === value.country_name;
                     }
 
-                    if (option.region_name) {
-                        return option.region_name === value.region_name;
+                    if (option?.region_name) {
+                        return option?.region_name === value?.region_name;
                     }
 
-                    if (option.city_name) {
-                        return option.city_name === value.city_name;
+                    if (option?.city_name) {
+                        return option?.city_name === value?.city_name;
                     }
                 }
             }}
@@ -145,7 +145,7 @@ const DropdownLocalizaciones = ({
                         return (
                             <Chip
                                 key={index}
-                                label={option.region_name}
+                                label={option?.region_name}
                                 {...getTagProps({ index })}
                             />
                         );
@@ -155,7 +155,7 @@ const DropdownLocalizaciones = ({
                         return (
                             <Chip
                                 key={index}
-                                label={option.city_name}
+                                label={option?.city_name}
                                 {...getTagProps({ index })}
                             />
                         );

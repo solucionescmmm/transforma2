@@ -493,6 +493,12 @@ const InfoEmpresa = ({
                                     label="Pais"
                                     strCodigo="paises"
                                     name={name}
+                                    required={
+                                        data.strLugarOperacion !==
+                                        "Desde la vivienda"
+                                            ? true
+                                            : false
+                                    }
                                     value={value}
                                     disabled={
                                         data.strLugarOperacion ===
@@ -521,6 +527,9 @@ const InfoEmpresa = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required: data.strLugarOperacion === "Desde la vivienda" ? null : "Por favor, selecciona el pais de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -539,6 +548,12 @@ const InfoEmpresa = ({
                                             : disabled
                                     }
                                     name={name}
+                                    required={
+                                        data.strLugarOperacion !==
+                                        "Desde la vivienda"
+                                            ? true
+                                            : false
+                                    }
                                     value={value}
                                     onChange={(e, value) => {
                                         onChange(value);
@@ -563,6 +578,9 @@ const InfoEmpresa = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required: data.strLugarOperacion === "Desde la vivienda" ? null : "Por favor, selecciona el departamento de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -575,6 +593,12 @@ const InfoEmpresa = ({
                                     label="Ciudad"
                                     strCodigo="municipios"
                                     name={name}
+                                    required={
+                                        data.strLugarOperacion !==
+                                        "Desde la vivienda"
+                                            ? true
+                                            : false
+                                    }
                                     value={value}
                                     disabled={
                                         data.strLugarOperacion ===
@@ -602,6 +626,9 @@ const InfoEmpresa = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required: data.strLugarOperacion === "Desde la vivienda" ? null : "Por favor, selecciona la ciudad de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -988,7 +1015,6 @@ const InfoEmpresa = ({
                         <Controller
                             defaultValue={data.btGeneraEmpleo}
                             name="objInfoEmpresa.btGeneraEmpleo"
-                            disabled={data.strEstadoNegocio === "Idea de negocio" ? true: null}
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿La empresa genera empleo para otras personas?"
@@ -1009,12 +1035,7 @@ const InfoEmpresa = ({
                                     fullWidth
                                     variant="standard"
                                     required
-                                    disabled={
-                                        data.strEstadoNegocio ===
-                                        "Idea de negocio"
-                                            ? true
-                                            : disabled
-                                    }
+                                    disabled={disabled}
                                     error={
                                         errors?.objInfoEmpresa?.btGeneraEmpleo
                                             ? true
@@ -1045,7 +1066,6 @@ const InfoEmpresa = ({
                         <Controller
                             defaultValue={data.intNumeroEmpleados}
                             name="objInfoEmpresa.intNumeroEmpleados"
-                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true: null}
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Número de empleos generados"
@@ -1056,11 +1076,7 @@ const InfoEmpresa = ({
                                     fullWidth
                                     variant="standard"
                                     disabled={
-                                        !data.btGeneraEmpleo ? true :
-                                            data.strEstadoNegocio ===
-                                                "Idea de negocio"
-                                                    ? true
-                                                    : disabled
+                                        !data.btGeneraEmpleo ? true : disabled
                                     }
                                     required={
                                         data.btGeneraEmpleo ? true : false
@@ -1105,7 +1121,6 @@ const InfoEmpresa = ({
                         <Controller
                             defaultValue={data.dblValorVentasMes}
                             name="objInfoEmpresa.dblValorVentasMes"
-                            disabled={data.strEstadoNegocio ==="Idea de negocio"? true : null}
                             render={({ field: { name, value, onChange } }) => (
                                 <NumberFormat
                                     label="Valor promedio de las ventas mensuales"
@@ -1120,12 +1135,7 @@ const InfoEmpresa = ({
                                     customInput={TextField}
                                     fullWidth
                                     variant="standard"
-                                    disabled={
-                                        data.strEstadoNegocio ===
-                                        "Idea de negocio"
-                                            ? true
-                                            : disabled
-                                    }
+                                    disabled={disabled}
                                     required
                                     error={
                                         errors?.objInfoEmpresa

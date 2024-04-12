@@ -823,6 +823,7 @@ const InfoEmpresarioPr = ({
                                     label="Pais"
                                     strCodigo="paises"
                                     name={name}
+                                    required
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e, value) => {
@@ -846,6 +847,9 @@ const InfoEmpresarioPr = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona el pais de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -859,6 +863,7 @@ const InfoEmpresarioPr = ({
                                     strCodigo="departamentos"
                                     name={name}
                                     value={value}
+                                    required
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
@@ -884,6 +889,9 @@ const InfoEmpresarioPr = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona el departamento de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -897,6 +905,7 @@ const InfoEmpresarioPr = ({
                                     strCodigo="municipios"
                                     name={name}
                                     value={value}
+                                    required
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
@@ -918,6 +927,9 @@ const InfoEmpresarioPr = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona la ciudad de residencia",
+                            }}
                         />
                     </Grid>
 

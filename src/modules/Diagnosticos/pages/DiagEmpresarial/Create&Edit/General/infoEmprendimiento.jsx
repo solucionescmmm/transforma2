@@ -362,11 +362,13 @@ const InfoEmprendimiento = ({
                         <Controller
                             defaultValue={data.arrPais}
                             name="objInfoEmprendimiento.arrPais"
+                            disabled={data.strLugarOperacion ==="Desde la vivienda" ? true: false}
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownLocalizaciones
                                     label="Pais"
                                     strCodigo="paises"
                                     name={name}
+                                    required
                                     value={value}
                                     disabled={
                                         data.strLugarOperacion ===
@@ -394,6 +396,9 @@ const InfoEmprendimiento = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona el pais de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -401,6 +406,7 @@ const InfoEmprendimiento = ({
                         <Controller
                             defaultValue={data.arrDepartamento}
                             name="objInfoEmprendimiento.arrDepartamento"
+                            disabled={data.strLugarOperacion ==="Desde la vivienda" ? true: false}
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownLocalizaciones
                                     label="Departamento"
@@ -412,6 +418,7 @@ const InfoEmprendimiento = ({
                                             : disabled
                                     }
                                     name={name}
+                                    required
                                     value={value}
                                     onChange={(e, value) => {
                                         onChange(value);
@@ -437,6 +444,9 @@ const InfoEmprendimiento = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona el departamento de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -444,12 +454,14 @@ const InfoEmprendimiento = ({
                         <Controller
                             defaultValue={data.arrCiudad}
                             name="objInfoEmprendimiento.arrCiudad"
+                            disabled={data.strLugarOperacion ==="Desde la vivienda" ? true: false}
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownLocalizaciones
                                     label="Ciudad"
                                     strCodigo="municipios"
                                     name={name}
                                     value={value}
+                                    required
                                     disabled={
                                         data.strLugarOperacion ===
                                         "Desde la vivienda"
@@ -476,6 +488,9 @@ const InfoEmprendimiento = ({
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona la ciudad de residencia",
+                            }}
                         />
                     </Grid>
 

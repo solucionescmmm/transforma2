@@ -667,14 +667,14 @@ const InfoRegistro = () => {
                                                 element.value =
                                                     newObjInfoEmpresarioPr[
                                                         key
-                                                    ].region_name;
+                                                    ]?.region_name;
                                             }
 
                                             if (key === "arrCiudad") {
                                                 element.value =
                                                     newObjInfoEmpresarioPr[
                                                         key
-                                                    ].city_name;
+                                                    ]?.city_name;
                                             }
                                         }
                                     });

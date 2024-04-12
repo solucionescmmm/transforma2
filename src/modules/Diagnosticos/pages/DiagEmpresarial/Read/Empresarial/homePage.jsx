@@ -658,11 +658,11 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 prevInfoEmprendimiento.forEach((e) => {
                                     if(e.parent === key && key === "arrDepartamento") {
                                         e.value =
-                                        objInfoEmprendimiento[key].region_name;
+                                        objInfoEmprendimiento[key]?.region_name;
                                     }
                                     else if(e.parent === key && key === "arrCiudad") {
                                         e.value =
-                                        objInfoEmprendimiento[key].city_name;
+                                        objInfoEmprendimiento[key]?.city_name;
                                     }
 
                                     else if (e.parent === key) {

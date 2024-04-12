@@ -422,14 +422,14 @@ const SearchEmpresario = ({ isEdit }) => {
                                             <b>Departamento: </b>{" "}
                                             {
                                                 data.objInfoEmpresarioPr
-                                                    .arrDepartamento.region_name
+                                                    .arrDepartamento?.region_name
                                             }{" "}
                                         </p>
                                         <p>
                                             <b>Ciudad: </b>{" "}
                                             {
                                                 data.objInfoEmpresarioPr
-                                                    .arrCiudad.city_name
+                                                    .arrCiudad?.city_name
                                             }{" "}
                                         </p>
                                         <p>

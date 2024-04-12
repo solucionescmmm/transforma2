@@ -452,6 +452,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     label="Pais"
                                     strCodigo="paises"
                                     name={name}
+                                    required
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e, value) => {
@@ -475,6 +476,9 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona el pais de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -488,6 +492,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     strCodigo="departamentos"
                                     name={name}
                                     value={value}
+                                    required
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
@@ -513,6 +518,9 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona el departamento de residencia",
+                            }}
                         />
                     </Grid>
 
@@ -526,6 +534,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     strCodigo="municipios"
                                     name={name}
                                     value={value}
+                                    required
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
@@ -547,6 +556,9 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:"Por favor, selecciona la ciudad de residencia",
+                            }}
                         />
                     </Grid>
                 </Grid>
