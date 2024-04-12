@@ -244,7 +244,7 @@ class setDiagnosticoGeneral {
     async #setHistorico() {
         let data = {
             intIdIdea: this.#objData.objInfoGeneral.intIdIdea,
-            intNumeroEmpleados: parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10),
+            intNumeroEmpleados: parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10) || 0,
             ValorVentas: this.#objData.objInfoPerfilEco.dblValorVentasMes,
             strTiempoDedicacionAdmin: this.#objData.objInfoEmprendimiento.strTiempoDedicacion,
             intIdFuenteHistorico: this.#intIdFuenteHistorico,

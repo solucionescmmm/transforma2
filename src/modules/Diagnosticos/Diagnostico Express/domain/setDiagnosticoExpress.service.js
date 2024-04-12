@@ -147,7 +147,7 @@ class setDiagnosticoExpress {
     async #setHistorico(){
         let data = {
             intIdIdea:this.#objData.objInfoGeneral.intIdIdea,
-            intNumeroEmpleados:parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10),
+            intNumeroEmpleados: parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10) || 0,
             ValorVentas:this.#objData.objInfoPerfilEco.PromedioVentas6Meses,
             strTiempoDedicacionAdmin:this.#objData.objInfoEmprendimiento.strTiempoDedicacion,
             intIdFuenteHistorico: this.#intIdFuenteHistorico,
