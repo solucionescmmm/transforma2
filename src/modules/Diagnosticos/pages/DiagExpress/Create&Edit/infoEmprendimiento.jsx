@@ -58,8 +58,8 @@ const InfoEmprendimiento = ({
         arrCategoriasSecundarias: [],
         strListadoProdServ: "",
         strLineaProductoServicioDestacada: "",
-        btTieneProdServUltimoAn: "",
-        strProductosNuevos: "",
+        strProductoServiciosNuevosUltimoAño: "",
+        strListaProductoServiciosNuevosUltimoAño: "",
         strProductoServiciosEnValidacion: "",
         strNivelDlloProductoServicios: "",
         strEtapaValidProductoServicios: "",
@@ -99,9 +99,9 @@ const InfoEmprendimiento = ({
                     values.strDescProductosServicios || "",
                 strLineaProductoServicioDestacada:
                     values.strLineaProductoServicioDestacada || "",
-                btTieneProdServUltimoAn: values.btTieneProdServUltimoAn || "",
-                strProductosNuevos:
-                    values.strProductosNuevos || "",
+                strProductoServiciosNuevosUltimoAño: values.strProductoServiciosNuevosUltimoAño || "",
+                strListaProductoServiciosNuevosUltimoAño:
+                    values.strListaProductoServiciosNuevosUltimoAño || "",
                 strProductoServiciosEnValidacion:
                     values.strProductoServiciosEnValidacion || "",
                 strNivelDlloProductoServicios:
@@ -629,8 +629,8 @@ const InfoEmprendimiento = ({
                     {/* strProductoServiciosNuevosUltimoAño */}
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.btTieneProdServUltimoAn}
-                            name="objInfoEmprendimiento.btTieneProdServUltimoAn"
+                            defaultValue={data.strProductoServiciosNuevosUltimoAño}
+                            name="objInfoEmprendimiento.strProductoServiciosNuevosUltimoAño"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Tiene productos/servicios nuevos en el último año o se encuentra renovando los productos actuales?"
@@ -644,27 +644,23 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     error={
                                         errors?.objInfoEmprendimiento
-                                            ?.btTieneProdServUltimoAn
+                                            ?.strProductoServiciosNuevosUltimoAño
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.btTieneProdServUltimoAn?.message ||
-                                        "Selecciona si la empresa genera empleo o no"
+                                            ?.strProductoServiciosNuevosUltimoAño?.message ||
+                                        "Selecciona si tienes producto nuevos o estas renovando"
                                     }
                                 >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
+                                    <MenuItem value="Si">Sí</MenuItem>
+                                    <MenuItem value="No">No</MenuItem>
                                 </TextField>
                             )}
                             control={control}
                             rules={{
-                                validate: (value) => {
-                                    if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona si la empresa genera empleo o no";
-                                    }
-                                },
+                                required: "Por favor, selecciona si tienes producto nuevos o estas renovando",
                             }}
                         />
                     </Grid>
@@ -672,9 +668,9 @@ const InfoEmprendimiento = ({
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={
-                                data.strProductosNuevos
+                                data.strListaProductoServiciosNuevosUltimoAño
                             }
-                            name="objInfoEmprendimiento.strProductosNuevos"
+                            name="objInfoEmprendimiento.strListaProductoServiciosNuevosUltimoAño"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Cuáles son estos productos nuevos?"
@@ -687,13 +683,13 @@ const InfoEmprendimiento = ({
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
-                                            ?.strProductosNuevos
+                                            ?.strListaProductoServiciosNuevosUltimoAño
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.strProductosNuevos
+                                            ?.strListaProductoServiciosNuevosUltimoAño
                                             ?.message || "Selecciona una opción"
                                     }
                                 />

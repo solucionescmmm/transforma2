@@ -133,12 +133,12 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "¿Cuál es la línea de productos/servicios más destacada?",
             },
             {
-                parent: "btTieneProdServUltimoAn",
+                parent: "strProductoServiciosNuevosUltimoAño",
                 value: "",
                 label: "¿Tiene productos/servicios nuevos en el último año o se encuentra renovando los productos actuales?",
             },
             {
-                parent: "strProductosNuevos",
+                parent: "strListaProductoServiciosNuevosUltimoAño",
                 value: "",
                 label: "¿Cuáles son estos productos nuevos?",
             },
