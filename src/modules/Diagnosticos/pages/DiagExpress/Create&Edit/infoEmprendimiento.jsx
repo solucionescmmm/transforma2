@@ -65,7 +65,7 @@ const InfoEmprendimiento = ({
         strEtapaValidProductoServicios: "",
     });
 
-    const [openCollapese, setOpenCollapse] = useState(true);
+    const [openCollapese, setOpenCollapse] = useState(false);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
