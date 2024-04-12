@@ -434,7 +434,7 @@ const PageCUGeneral = ({
                             },
                             objInfoPerfilEco: {
                                 dblValorVentasMes: dataEmpr.objInfoEmpresa.valorVentasMes || "",
-                                intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados || "",
+                                intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados || 0,
                             }
                         });
 

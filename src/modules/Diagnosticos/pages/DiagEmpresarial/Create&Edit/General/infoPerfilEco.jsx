@@ -371,12 +371,6 @@ const InfoPerfilEco = ({
                                     if (value === "" || value === undefined) {
                                         return "Por favor, digita la cantidad de empleos generados";
                                     }
-
-                                    let intNumeroEmpleados = parseInt(value);
-
-                                    if (intNumeroEmpleados < 1) {
-                                        return "La cantidad de empleados no pueden ser inferiores a 1";
-                                    }
                                 },
                             }}
                         />
