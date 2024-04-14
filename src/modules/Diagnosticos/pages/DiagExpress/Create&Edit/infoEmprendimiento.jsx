@@ -24,8 +24,6 @@ import {
 
 //Componentes
 import SelectLugarOperacion from "../../../../Empresarios/components/selectLugarOperacion";
-import ModalMediosVetanProductos from "../../../../Empresarios/components/modalMediosVentaProductos";
-import ModalMediosDigitales from "../../../../Empresarios/components/modalMediosDigitales";
 import SelectSectorEconomico from "../../../../Empresarios/components/selectSectorEconomico";
 import SelectCategoriaServicio from "../../../../Empresarios/components/selectCategoriaServicio";
 import SelectCategoriaProducto from "../../../../Empresarios/components/selectCategoriaProducto";
@@ -139,7 +137,7 @@ const InfoEmprendimiento = ({
                                 : "inherit",
                         }}
                     >
-                        Información del emprendimiento
+                        Información de la empresa
                     </Typography>
                 </Box>
 
@@ -238,7 +236,7 @@ const InfoEmprendimiento = ({
                                     helperText={
                                         errors?.objInfoEmprendimiento
                                             ?.strLugarOperacion?.message ||
-                                        "Selecciona el lugar donde opera la empresa"
+                                        "Selecciona una opción"
                                     }
                                     required
                                 />
@@ -246,65 +244,8 @@ const InfoEmprendimiento = ({
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona el lugar donde opera la empresa",
+                                    "Por favor, selecciona una opción",
                             }}
-                        />
-                    </Grid>
-                    {/* arrMediosDigitales */}
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.arrMediosDigitales}
-                            name="objInfoEmprendimiento.arrMediosDigitales"
-                            render={({ field: { name, value, onChange } }) => (
-                                <ModalMediosDigitales
-                                    label="Medios digitales"
-                                    name={name}
-                                    value={value}
-                                    onChange={(value) => onChange(value)}
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrMediosDigitales
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrMediosDigitales?.message ||
-                                        "Selecciona los medios digitales que utilice y registre su ID"
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-                    {/* arrFormasComercializacion */}
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.arrFormasComercializacion}
-                            name="objInfoEmprendimiento.arrFormasComercializacion"
-                            render={({ field: { name, value, onChange } }) => (
-                                <ModalMediosVetanProductos
-                                    label="Formas de comercialización"
-                                    name={name}
-                                    value={value}
-                                    onChange={(value) => onChange(value)}
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrFormasComercializacion
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrFormasComercializacion
-                                            ?.message ||
-                                        "Selecciona los medios que utilice para la venta de sus productos o servicios"
-                                    }
-                                />
-                            )}
-                            control={control}
                         />
                     </Grid>
                     {/* strRegistroCamaraComercio */}
@@ -331,7 +272,7 @@ const InfoEmprendimiento = ({
                                         errors?.objInfoEmprendimiento
                                             ?.strRegistroCamaraComercio
                                             ?.message ||
-                                        "Selecciona si la empresa cuenta con registro en la cámara de comercio"
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="Lista_Generica"
                                     strCodigo="SI_NO_N/A"
@@ -347,7 +288,7 @@ const InfoEmprendimiento = ({
                             name="objInfoEmprendimiento.strTiempoDedicacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTiempoDedicacionEmpresa
-                                    label="Tiempo de dedicación actual a la empresa"
+                                    label="¿Cuánto tiempo dedica actualmente a la empresa? "
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -412,7 +353,7 @@ const InfoEmprendimiento = ({
                             name="objInfoEmprendimiento.strCategoriaProducto"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectCategoriaProducto
-                                    label="Categoría de los productos"
+                                    label="Categoría principal de productos"
                                     name={name}
                                     value={value}
                                     onChange={(e) => {
@@ -442,7 +383,7 @@ const InfoEmprendimiento = ({
                                     helperText={
                                         errors?.objInfoEmprendimiento
                                             ?.strCategoriaProducto?.message ||
-                                        "Selecciona la categoría de los productos"
+                                        "Selecciona la categoría principal de productos"
                                     }
                                 />
                             )}
@@ -456,7 +397,7 @@ const InfoEmprendimiento = ({
                             name="objInfoEmprendimiento.strCategoriaServicio"
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectCategoriaServicio
-                                    label="Categoría de los servicios"
+                                    label="Categoría principal de los servicios"
                                     name={name}
                                     value={value}
                                     onChange={(e) => {
@@ -529,36 +470,6 @@ const InfoEmprendimiento = ({
                     {/* arrCategoriasSecundarias */}
                     <Grid item xs={12} md={6}>
                         <Controller
-                            name="objInfoEmprendimiento.arrCategoriasSecundarias"
-                            defaultValue={data.arrCategoriasSecundarias}
-                            render={({ field: { name, onChange, value } }) => (
-                                <DropdownCategoriasSecundarias
-                                    label="Categorías secundarias"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e, value) => onChange(value)}
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrCategoriasSecundarias
-                                            ? true
-                                            : false
-                                    }
-                                    multiple
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrCategoriasSecundarias
-                                            ?.message ||
-                                        "Selecciona las categorías secundarias en caso de que aplique"
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
                             defaultValue={
                                 data.strDefinineLineasProductoServicios
                             }
@@ -586,6 +497,36 @@ const InfoEmprendimiento = ({
                                     }
                                     strGrupo="Lista_Generica"
                                     strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoEmprendimiento.arrCategoriasSecundarias"
+                            defaultValue={data.arrCategoriasSecundarias}
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownCategoriasSecundarias
+                                    label="Categorías alternas"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e, value) => onChange(value)}
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrCategoriasSecundarias
+                                            ? true
+                                            : false
+                                    }
+                                    multiple
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrCategoriasSecundarias
+                                            ?.message ||
+                                        "Selecciona las categorías alternas en caso de que aplique"
+                                    }
                                 />
                             )}
                             control={control}
@@ -651,7 +592,7 @@ const InfoEmprendimiento = ({
                                     helperText={
                                         errors?.objInfoEmprendimiento
                                             ?.strProductoServiciosNuevosUltimoAño?.message ||
-                                        "Selecciona si tienes producto nuevos o estas renovando"
+                                        "Selecciona una opción"
                                     }
                                 >
                                     <MenuItem value="Si">Sí</MenuItem>

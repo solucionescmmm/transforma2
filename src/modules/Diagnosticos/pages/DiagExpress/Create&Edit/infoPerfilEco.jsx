@@ -14,7 +14,7 @@ import {
     Tooltip,
     CircularProgress,
     TextField,
-    MenuItem
+    MenuItem,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -49,10 +49,10 @@ const InfoPerfilEco = ({
         btGeneraEmpleo: "",
         intNumeroEmpleados: "",
         strRangoEmpleados: "",
-        strEtapaDllo:"",
+        strEtapaDllo: "",
         strOperacionesVentas6Meses: "",
         strPrecProdServ: "",
-        strUniProdSosFinan: ""
+        strUniProdSosFinan: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -73,19 +73,26 @@ const InfoPerfilEco = ({
             setData({
                 PromedioVentas6Meses: values?.PromedioVentas6Meses || "",
                 strRangoVentas: values?.strRangoVentas || "",
-                strEscojaProductoServicio: values?.strEscojaProductoServicio || "",
-                ValorVentaProductoEscogido: values?.ValorVentaProductoEscogido || "",
-                strConoceMargenRentaProductoEscogido: values?.strConoceMargenRentaProductoEscogido || "",
-                strConoceCostosProductoEscogido: values?.strConoceCostosProductoEscogido || "",
-                CostoProduccionProductoEscogido: values?.CostoProduccionProductoEscogido || "",
-                intPorcentajeMargenRentaProductoEscogido: values?.intPorcentajeMargenRentaProductoEscogido || "",
+                strEscojaProductoServicio:
+                    values?.strEscojaProductoServicio || "",
+                ValorVentaProductoEscogido:
+                    values?.ValorVentaProductoEscogido || "",
+                strConoceMargenRentaProductoEscogido:
+                    values?.strConoceMargenRentaProductoEscogido || "",
+                strConoceCostosProductoEscogido:
+                    values?.strConoceCostosProductoEscogido || "",
+                CostoProduccionProductoEscogido:
+                    values?.CostoProduccionProductoEscogido || "",
+                intPorcentajeMargenRentaProductoEscogido:
+                    values?.intPorcentajeMargenRentaProductoEscogido || "",
                 btGeneraEmpleo: values?.btGeneraEmpleo || "",
                 intNumeroEmpleados: values?.intNumeroEmpleados || "",
                 strRangoEmpleados: values?.strRangoEmpleados || "",
-                strEtapaDllo: values?.strEtapaDllo ||"",
-                strOperacionesVentas6Meses: values?.strOperacionesVentas6Meses || "",
+                strEtapaDllo: values?.strEtapaDllo || "",
+                strOperacionesVentas6Meses:
+                    values?.strOperacionesVentas6Meses || "",
                 strPrecProdServ: values?.strPrecProdServ || "",
-                strUniProdSosFinan: values?.strUniProdSosFinan || ""
+                strUniProdSosFinan: values?.strUniProdSosFinan || "",
             });
         }
 
@@ -94,7 +101,12 @@ const InfoPerfilEco = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -107,7 +119,9 @@ const InfoPerfilEco = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoPerfilEco ? "#D33030" : "inherit",
+                            color: errors?.objInfoPerfilEco
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
                         Perfil económico y productivo
@@ -115,13 +129,22 @@ const InfoPerfilEco = ({
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -129,12 +152,114 @@ const InfoPerfilEco = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoPerfilEco ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoPerfilEco
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strOperacionesVentas6Meses}
+                            name="objInfoPerfilEco.strOperacionesVentas6Meses"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.strOperacionesVentas6Meses
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.strOperacionesVentas6Meses
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoMercado.strUniProdSosFinan"
+                            defaultValue={data.strUniProdSosFinan}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="La unidad productiva es sostenible financieramente"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoMercado
+                                            ?.strUniProdSosFinan
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoMercado
+                                            ?.strUniProdSosFinan?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="UniProdSosFinan"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strPrecProdServ}
+                            name="objInfoPerfilEco.strPrecProdServ"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="¿Cómo están definidos los precios de tus productos/servicios?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.strPrecProdServ
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.strPrecProdServ?.message ||
+                                        "Selecciona una opción"
+                                    }
+                                    strGrupo="DiagnosticoTecnico"
+                                    strCodigo="PrecProdServDef"
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción",
+                            }}
+                        />
+                    </Grid>
+
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.PromedioVentas6Meses}
@@ -170,7 +295,8 @@ const InfoPerfilEco = ({
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita la cantidad promedio de las ventas de los últimos 6 meses",
+                                required:
+                                    "Por favor, digita la cantidad promedio de las ventas de los últimos 6 meses",
                             }}
                         />
                     </Grid>
@@ -221,7 +347,6 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoPerfilEco
@@ -259,7 +384,6 @@ const InfoPerfilEco = ({
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
-                                    
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.ValorVentaProductoEscogido
@@ -291,7 +415,6 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoPerfilEco
@@ -333,7 +456,6 @@ const InfoPerfilEco = ({
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
-                                    
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.intPorcentajeMargenRentaProductoEscogido
@@ -351,7 +473,6 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-        
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strConoceCostosProductoEscogido}
@@ -404,7 +525,6 @@ const InfoPerfilEco = ({
                                     fullWidth
                                     variant="standard"
                                     disabled={disabled}
-                                    
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.CostoProduccionProductoEscogido
@@ -422,7 +542,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.btGeneraEmpleo}
                             name="objInfoPerfilEco.btGeneraEmpleo"
@@ -473,7 +593,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.intNumeroEmpleados}
                             name="objInfoPerfilEco.intNumeroEmpleados"
@@ -528,7 +648,7 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue={data.strRangoEmpleados}
                             name="objInfoPerfilEco.strRangoEmpleados"
@@ -542,13 +662,15 @@ const InfoPerfilEco = ({
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoPerfilEco?.strRangoEmpleados
+                                        errors?.objInfoPerfilEco
+                                            ?.strRangoEmpleados
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPerfilEco?.strRangoEmpleados
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoPerfilEco
+                                            ?.strRangoEmpleados?.message ||
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="RangoEmpleados"
@@ -557,7 +679,7 @@ const InfoPerfilEco = ({
                             control={control}
                         />
                     </Grid>
-{/* 
+                    {/* 
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strEtapaDllo}
@@ -589,106 +711,6 @@ const InfoPerfilEco = ({
                             control={control}
                         />
                     </Grid> */}
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.strOperacionesVentas6Meses}
-                            name="objInfoPerfilEco.strOperacionesVentas6Meses"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
-                                    label="¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoPerfilEco
-                                            ?.strOperacionesVentas6Meses
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPerfilEco
-                                            ?.strOperacionesVentas6Meses
-                                            ?.message || "Selecciona una opción"
-                                    }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, selecciona una opción",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strPrecProdServ}
-                            name="objInfoPerfilEco.strPrecProdServ"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
-                                    label="¿Cómo están definidos los precios de tus productos/servicios?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoPerfilEco
-                                            ?.strPrecProdServ
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPerfilEco
-                                            ?.strPrecProdServ
-                                            ?.message || "Selecciona una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="PrecProdServDef"
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, selecciona una opción",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            name="objInfoMercado.strUniProdSosFinan"
-                            defaultValue={data.strUniProdSosFinan}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Mi unidad productiva es sostenible financieramente"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoMercado
-                                            ?.strUniProdSosFinan
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoMercado
-                                            ?.strUniProdSosFinan?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoTecnico"
-                                    strCodigo="UniProdSosFinan"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
                 </Grid>
             </Collapse>
         </Fragment>

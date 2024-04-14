@@ -93,7 +93,7 @@ const InfoMercadoYComercial = ({
                             color: errors?.objInfoMercado ? "#D33030" : "inherit",
                         }}
                     >
-                        Perfil de mercado y comercial
+                       Componente de mercados y comercial
                     </Typography>
                 </Box>
 
@@ -124,7 +124,7 @@ const InfoMercadoYComercial = ({
                             defaultValue={data.strTieneBaseDatosClientes}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Cuento con una base de datos de clientes"
+                                    label="Base de datos de clientes"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -186,7 +186,7 @@ const InfoMercadoYComercial = ({
                             }
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Tengo un plan de atracción, relacionamiento y fidelización con mis clientes"
+                                    label="Tengo un plan de relacionamiento y fidelización con mis clientes"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -246,7 +246,7 @@ const InfoMercadoYComercial = ({
                             defaultValue={data.strEmprFormaAcuerNormLab}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Mi empresa está formalizada de acuerdo con la normatividad laboral"
+                                    label="La empresa está formalizada de acuerdo con la normatividad laboral "
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -276,7 +276,7 @@ const InfoMercadoYComercial = ({
                             defaultValue={data.strPlaneaEstraEmpPlanPlani}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Tengo una planeación estratégica para mi empresa, mas que estrategica plan de trabajo, planificación"
+                                    label="Tengo una planeación estratégica para mi empresa, más que estratégica plan de trabajo, planificación"
                                     name={name}
                                     value={value}
                                     disabled={disabled}

@@ -195,7 +195,7 @@ const InfoNormatividad = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoNormatividad.strCertificadosActuales"
                             defaultValue={data.strCertificadosActuales}
@@ -220,36 +220,6 @@ const InfoNormatividad = ({
                                     }
                                     fullWidth
                                     variant="standard"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            name="objInfoNormatividad.strRegistroMarca"
-                            defaultValue={data.strRegistroMarca}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="¿Cuenta con registro de marca?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoNormatividad
-                                            ?.strRegistroMarca
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoNormatividad
-                                            ?.strRegistroMarca?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
                                 />
                             )}
                             control={control}
@@ -344,6 +314,36 @@ const InfoNormatividad = ({
                                     }
                                 },
                             }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            name="objInfoNormatividad.strRegistroMarca"
+                            defaultValue={data.strRegistroMarca}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="¿Cuenta con registro de marca?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoNormatividad
+                                            ?.strRegistroMarca
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoNormatividad
+                                            ?.strRegistroMarca?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
                         />
                     </Grid>
                 </Grid>

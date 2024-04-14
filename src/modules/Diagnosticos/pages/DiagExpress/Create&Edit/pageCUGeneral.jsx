@@ -53,6 +53,7 @@ import { makeStyles } from "@mui/styles";
 import useGetDiagnExp from "../../../hooks/useGetDiagnExp";
 import { useTheme } from "@emotion/react";
 import { Can } from "../../../../../common/functions/can";
+import InfoCanalesVenta from "./infoCanalesVenta";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -110,6 +111,7 @@ const PageCUExpress = ({
         objInfoPerfilEco: {},
         objInfoMercado: {},
         objInfoNormatividad: {},
+        objInfoCanalesVenta: {},
         objInfoEncuestaHumanas: {},
     });
 
@@ -389,14 +391,14 @@ const PageCUExpress = ({
                                         dtmFechaSesion: dataDiag.objInfoGeneral
                                             .dtmFechaSesion
                                             ? parseISO(
-                                                dataDiag.objInfoGeneral
+                                                  dataDiag.objInfoGeneral
                                                       .dtmFechaSesion
                                               )
                                             : null,
                                         dtmActualizacion: dataDiag
                                             .objInfoGeneral.dtmActualizacion
                                             ? parseISO(
-                                                dataDiag.objInfoGeneral
+                                                  dataDiag.objInfoGeneral
                                                       .dtmActualizacion
                                               )
                                             : null,
@@ -437,7 +439,7 @@ const PageCUExpress = ({
                                         objInfoMercado,
                                         objInfoNormatividad,
                                         objInfoEncuestaHumanas,
-                                    })
+                                    });
 
                                     return {
                                         ...prevState,
@@ -449,8 +451,6 @@ const PageCUExpress = ({
                                         objInfoEncuestaHumanas,
                                     };
                                 });
-
-                             
                             }
                         }
 
@@ -683,6 +683,18 @@ const PageCUExpress = ({
                                 </Grid>
 
                                 <Grid item xs={12}>
+                                    <InfoCanalesVenta
+                                        control={control}
+                                        disabled={loading}
+                                        values={data.objInfoNormatividad}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
                                     <InfoEncuestaHumanas
                                         control={control}
                                         disabled={loading}
@@ -699,6 +711,7 @@ const PageCUExpress = ({
                                     errors.objInfoPerfilEco ||
                                     errors.objInfoMercado ||
                                     errors.objInfoNormatividad ||
+                                    errors.objInfoCanalesVenta ||
                                     errors.objInfoEncuestaHumanas) && (
                                     <Grid item xs={12}>
                                         <Alert severity="error">

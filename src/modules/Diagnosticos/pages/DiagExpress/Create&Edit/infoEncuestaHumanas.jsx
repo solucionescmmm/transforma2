@@ -146,62 +146,6 @@ const InfoEncuestaHumanas = ({
                                         paddingBottom: "5px",
                                     }}
                                 >
-                                    Toma de decisiones
-                                </Typography>
-                                <Typography variant="body2">
-                                    Los negocios se enfrentan a permanentes
-                                    cambios, a innovaciones y no siempre es
-                                    fácil tomar e implementar las decisiones con
-                                    oportunidad.
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Controller
-                            name="objInfoEncuestaHumanas.strTomaDesiciones"
-                            defaultValue={data.strTomaDesiciones}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="¿Cómo se siente al momento de tomar las decisiones en su emprendimiento? "
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strTomaDesiciones
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strTomaDesiciones?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoHumanoSocial"
-                                    strCodigo="TomaDesiciones"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Card
-                            variant="outlined"
-                            sx={{ backgroundColor: blue[50] }}
-                        >
-                            <CardContent>
-                                <Typography
-                                    component="div"
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        fontWeight: "bold",
-                                        paddingBottom: "5px"
-                                    }}
-                                >
                                     Habilidades personales para emprender
                                 </Typography>
                                 <Typography variant="body2">
@@ -209,7 +153,10 @@ const InfoEncuestaHumanas = ({
                                     contar con todas las habilidades que se
                                     requieren para su desarrollo empresarial,
                                     sin embargo, el desarrollo de estas es un
-                                    proceso que está en permanente desarrollo{" "}
+                                    proceso que está en permanente desarrollo.
+                                    Teniendo presente esta definición evalúa en
+                                    qué nivel te encuentras para las siguientes
+                                    preguntas:{" "}
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -347,7 +294,65 @@ const InfoEncuestaHumanas = ({
                                         display: "flex",
                                         alignItems: "center",
                                         fontWeight: "bold",
-                                        paddingBottom: "5px"
+                                        paddingBottom: "5px",
+                                    }}
+                                >
+                                    Toma de decisiones
+                                </Typography>
+                                <Typography variant="body2">
+                                    Los negocios se enfrentan a permanentes
+                                    cambios, a innovaciones y no siempre es
+                                    fácil tomar e implementar las decisiones con
+                                    oportunidad. Teniendo presente esta
+                                    definición evalúa en qué nivel te encuentras
+                                    para las siguiente pregunta:
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Controller
+                            name="objInfoEncuestaHumanas.strTomaDesiciones"
+                            defaultValue={data.strTomaDesiciones}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="¿Cómo se siente al momento de tomar las decisiones en su emprendimiento? "
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strTomaDesiciones
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strTomaDesiciones?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="TomaDesiciones"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Card
+                            variant="outlined"
+                            sx={{ backgroundColor: blue[50] }}
+                        >
+                            <CardContent>
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontWeight: "bold",
+                                        paddingBottom: "5px",
                                     }}
                                 >
                                     Confianza
@@ -357,7 +362,9 @@ const InfoEncuestaHumanas = ({
                                     experiencias adquiridas, van generando
                                     certezas que permiten construir confianza y
                                     facilitan el actuar certero de la persona
-                                    empresaria
+                                    empresaria. Teniendo presente esta
+                                    definición evalúa en qué nivel te encuentras
+                                    para las siguiente pregunta:
                                 </Typography>
                             </CardContent>
                         </Card>

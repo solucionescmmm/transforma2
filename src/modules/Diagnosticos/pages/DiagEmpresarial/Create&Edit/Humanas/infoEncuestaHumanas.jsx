@@ -55,7 +55,7 @@ const InfoEncuestaHumanas = ({
         strRedesApoyoPropia: "",
         strActividadesDisminuyenActProductiva: "",
         strSituacionesDesistirEmprendimiento: [],
-        strObservaciones: ""
+        strObservaciones: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -155,7 +155,7 @@ const InfoEncuestaHumanas = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <Card
                             variant="outlined"
                             sx={{ backgroundColor: blue[50] }}
@@ -167,17 +167,18 @@ const InfoEncuestaHumanas = ({
                                         display: "flex",
                                         alignItems: "center",
                                         fontWeight: "bold",
-                                        paddingBottom: '5px'
+                                        paddingBottom: "5px",
                                     }}
                                 >
-                                  
                                     Toma de decisiones
                                 </Typography>
                                 <Typography variant="body2">
                                     Los negocios se enfrentan a permanentes
                                     cambios, a innovaciones y no siempre es
                                     fácil tomar e implementar las decisiones con
-                                    oportunidad.
+                                    oportunidad. Teniendo presente esta
+                                    definición evalúa en qué nivel te encuentras
+                                    para las siguiente pregunta:
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -286,13 +287,13 @@ const InfoEncuestaHumanas = ({
                                     onChange={(e, value) => onChange(value)}
                                     error={
                                         errors?.objInfoEncuestaHumanas
-                                        ?.strRedesApoyoOtros
-                                        ? true
-                                        : false
+                                            ?.strRedesApoyoOtros
+                                            ? true
+                                            : false
                                     }
                                     helperText={
                                         errors?.objInfoEncuestaHumanas
-                                        ?.strRedesApoyoOtros?.message ||
+                                            ?.strRedesApoyoOtros?.message ||
                                         "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
@@ -346,10 +347,9 @@ const InfoEncuestaHumanas = ({
                                         display: "flex",
                                         alignItems: "center",
                                         fontWeight: "bold",
-                                        paddingBottom: '5px'
+                                        paddingBottom: "5px",
                                     }}
                                 >
-                                 
                                     Habilidades personales para emprender
                                 </Typography>
                                 <Typography variant="body2">
@@ -357,7 +357,10 @@ const InfoEncuestaHumanas = ({
                                     contar con todas las habilidades que se
                                     requieren para su desarrollo empresarial,
                                     sin embargo, el desarrollo de estas es un
-                                    proceso que está en permanente desarrollo{" "}
+                                    proceso que está en permanente desarrollo.
+                                    Teniendo presente esta definición evalúa en
+                                    qué nivel te encuentras para las siguientes
+                                    preguntas:{" "}
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -525,10 +528,9 @@ const InfoEncuestaHumanas = ({
                                         display: "flex",
                                         alignItems: "center",
                                         fontWeight: "bold",
-                                        paddingBottom: '5px'
+                                        paddingBottom: "5px",
                                     }}
                                 >
-                                   
                                     Confianza
                                 </Typography>
                                 <Typography variant="body2">
@@ -536,7 +538,9 @@ const InfoEncuestaHumanas = ({
                                     experiencias adquiridas, van generando
                                     certezas que permiten construir confianza y
                                     facilitan el actuar certero de la persona
-                                    empresaria
+                                    empresaria. Teniendo presente esta
+                                    definición evalúa en qué nivel te encuentras
+                                    para las siguiente pregunta:
                                 </Typography>
                             </CardContent>
                         </Card>
