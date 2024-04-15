@@ -37,6 +37,7 @@ const InfoFamiliar = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
+        strTrabajanFamiliares: "",
         strCabezaHogar: "",
         intNumPersonasCargo: "",
         intHijos: "",
@@ -64,6 +65,7 @@ const InfoFamiliar = ({
     useEffect(() => {
         if (values) {
             setData({
+                strTrabajanFamiliares: values?.strTrabajanFamiliares || "",
                 strCabezaHogar: values.strCabezaHogar || "",
                 intNumPersonasCargo: values.intNumPersonasCargo || "",
                 intHijos: values.intHijos || "",
@@ -141,6 +143,39 @@ const InfoFamiliar = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
+                <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strTrabajanFamiliares}
+                            name="objInfoEmpresa.strTrabajanFamiliares"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="¿En la empresa participan familiares?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoEmpresa?.strTrabajanFamiliares
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strTrabajanFamiliares
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="DiagnosticoGeneral"
+                                    strCodigo="TrabajanFamiliares"
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, selecciona una opción",
+                            }}
+                        />
+                    </Grid>
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strCabezaHogar}

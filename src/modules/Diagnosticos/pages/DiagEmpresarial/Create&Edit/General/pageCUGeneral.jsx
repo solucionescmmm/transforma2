@@ -54,6 +54,7 @@ import ModalDelete from "./components/modalDelete";
 import { makeStyles } from "@mui/styles";
 import useGetDiagnGeneral from "../../../../hooks/useGetDiagnGeneral";
 import { useTheme } from "@emotion/react";
+import InfoCanalesVenta from "./infoCanalesVenta";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -112,6 +113,7 @@ const PageCUGeneral = ({
         objInfoEmprendimiento: {},
         objInfoEmpresa: {},
         objInfoPerfilEco: {},
+        objInfoCanalesVenta: {},
         objInfoAdicional: {},
     });
 
@@ -435,6 +437,10 @@ const PageCUGeneral = ({
                             objInfoPerfilEco: {
                                 dblValorVentasMes: dataEmpr.objInfoEmpresa.valorVentasMes || "",
                                 intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados || 0,
+                            },
+                            objInfoCanalesVenta:{
+                                arrMediosDigitales: dataEmpr.objInfoEmpresa.arrMediosDigitales || [],
+                                arrFormasComercializacion: dataEmpr.objInfoEmpresa.arrFormasComercializacion || [],
                             }
                         });
 
@@ -547,6 +553,10 @@ const PageCUGeneral = ({
                             objInfoPerfilEco: {
                                 dblValorVentasMes: dataEmpr.objInfoEmpresa.valorVentasMes || "",
                                 intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados || "",
+                            },
+                            objInfoCanalesVenta:{
+                                arrMediosDigitales: dataEmpr.objInfoEmpresa.arrMediosDigitales || [],
+                                arrFormasComercializacion: dataEmpr.objInfoEmpresa.arrFormasComercializacion || [],
                             }
                         });
                     }
@@ -647,6 +657,10 @@ const PageCUGeneral = ({
                                     objInfoAdicional: {
                                         ...dataDiagn.objInfoAdicional,
                                     },
+                                    objInfoCanalesVenta: {
+                                        ...data.objInfoCanalesVenta,
+                                        ...dataDiagn.objInfoCanalesVenta,
+                                    },
                                 });
 
                                 reset({
@@ -708,6 +722,10 @@ const PageCUGeneral = ({
                                     },
                                     objInfoAdicional: {
                                         ...dataDiagn.objInfoAdicional,
+                                    },
+                                    objInfoCanalesVenta: {
+                                        ...data.objInfoCanalesVenta,
+                                        ...dataDiagn.objInfoCanalesVenta,
                                     },
                                 });
                             }
@@ -887,9 +905,9 @@ const PageCUGeneral = ({
                                                 variant="body1"
                                             >
                                                 {isEdit
-                                                    ? "editar diagnóstico empresarial" :
-                                                    isPreview ?  "previsualizar diagnóstico empresarial" 
-                                                    : "registrar diagnóstico empresarial"}
+                                                    ? "editar información general" :
+                                                    isPreview ?  "previsualizar información general" 
+                                                    : "registrar información general"}
                                             </Typography>
                                         </Box>
                                     </Grid>
@@ -968,6 +986,18 @@ const PageCUGeneral = ({
                                         control={control}
                                         disabled={isPreview ? true : loading}
                                         values={data.objInfoAdicional}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoCanalesVenta
+                                        control={control}
+                                        disabled={isPreview ? true : loading}
+                                        values={data.objInfoCanalesVenta}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}

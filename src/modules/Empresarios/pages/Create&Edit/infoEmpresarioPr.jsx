@@ -454,14 +454,14 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strGenero
                                             ?.message ||
-                                        "Selecciona el género de la persona"
+                                        "Selecciona una opción"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona el género de la persona",
+                                    "Por favor, selecciona una opción",
                             }}
                         />
                     </Grid>

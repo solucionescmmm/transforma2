@@ -570,6 +570,38 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
+                            defaultValue={data.strGenero}
+                            name="objInfoGeneral.strGenero"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectGenero
+                                    label="Género"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled
+                                    required
+                                    error={
+                                        errors?.objInfoGeneral?.strGenero
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoGeneral?.strGenero
+                                            ?.message ||
+                                        "Selecciona una opción"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona una opción",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
                             defaultValue={data.dtFechaNacimiento}
                             name="objInfoGeneral.dtFechaNacimiento"
                             render={({ field: { name, value, onChange } }) => (
@@ -596,38 +628,6 @@ const InfoGeneral = ({
                                 />
                             )}
                             control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strGenero}
-                            name="objInfoGeneral.strGenero"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectGenero
-                                    label="Género"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    disabled
-                                    required
-                                    error={
-                                        errors?.objInfoGeneral?.strGenero
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoGeneral?.strGenero
-                                            ?.message ||
-                                        "Selecciona el género de la persona"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona el género de la persona",
-                            }}
                         />
                     </Grid>
 
@@ -683,54 +683,6 @@ const InfoGeneral = ({
                                         "Digita los títulos o título del empresario en caso de poseer alguno"
                                     }
                                 />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strEstrato}
-                            name="objInfoGeneral.strEstrato"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Estrato socioeconómico"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    select
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoGeneral?.strEstrato
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoGeneral?.strEstrato
-                                            ?.message ||
-                                        "Selecciona el estrato socioeconómico de la persona"
-                                    }
-                                >
-                                    {(() => {
-                                        let arrItem = [
-                                            { value: 1 },
-                                            { value: 2 },
-                                            { value: 3 },
-                                            { value: 4 },
-                                            { value: 5 },
-                                            { value: 6 },
-                                            { value: "Rural" },
-                                        ];
-
-                                        return arrItem.map((e, i) => (
-                                            <MenuItem key={i} value={e.value}>
-                                                {e.value}
-                                            </MenuItem>
-                                        ));
-                                    })()}
-                                </TextField>
                             )}
                             control={control}
                         />
@@ -855,6 +807,35 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
+                            defaultValue={data.strBarrio}
+                            name="objInfoGeneral.strBarrio"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Barrio/Corregimiento/Vereda"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoGeneral?.strBarrio
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoGeneral?.strBarrio
+                                            ?.message ||
+                                        "Selecciona el barrio/corregimiento/vereda de residencia"
+                                    }
+                                    variant="standard"
+                                    fullWidth
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
                             defaultValue={data.strDireccionResidencia}
                             name="objInfoGeneral.strDireccionResidencia"
                             render={({ field: { name, value, onChange } }) => (
@@ -885,28 +866,47 @@ const InfoGeneral = ({
 
                     <Grid item xs={12} md={6}>
                         <Controller
-                            defaultValue={data.strBarrio}
-                            name="objInfoGeneral.strBarrio"
+                            defaultValue={data.strEstrato}
+                            name="objInfoGeneral.strEstrato"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Barrio/Corregimiento/Vereda"
+                                    label="Estrato socioeconómico"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
+                                    select
                                     onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
                                     error={
-                                        errors?.objInfoGeneral?.strBarrio
+                                        errors?.objInfoGeneral?.strEstrato
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoGeneral?.strBarrio
+                                        errors?.objInfoGeneral?.strEstrato
                                             ?.message ||
-                                        "Selecciona el barrio/corregimiento/vereda de residencia"
+                                        "Selecciona el estrato socioeconómico de la persona"
                                     }
-                                    variant="standard"
-                                    fullWidth
-                                />
+                                >
+                                    {(() => {
+                                        let arrItem = [
+                                            { value: 1 },
+                                            { value: 2 },
+                                            { value: 3 },
+                                            { value: 4 },
+                                            { value: 5 },
+                                            { value: 6 },
+                                            { value: "Rural" },
+                                        ];
+
+                                        return arrItem.map((e, i) => (
+                                            <MenuItem key={i} value={e.value}>
+                                                {e.value}
+                                            </MenuItem>
+                                        ));
+                                    })()}
+                                </TextField>
                             )}
                             control={control}
                         />

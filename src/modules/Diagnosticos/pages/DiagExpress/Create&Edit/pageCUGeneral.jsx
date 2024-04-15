@@ -317,12 +317,6 @@ const PageCUExpress = ({
                                             .strDescProductosServicios,
                                     strLugarOperacion:
                                         data.objInfoEmpresa.strLugarOperacion,
-                                    arrMediosDigitales:
-                                        data.objInfoEmpresa
-                                            .arrMediosDigitales || [],
-                                    arrFormasComercializacion:
-                                        data.objInfoEmpresa
-                                            .arrFormasComercializacion || [],
                                     strTiempoDedicacion:
                                         data.objInfoEmpresa
                                             .strTiempoDedicacion || "",
@@ -355,6 +349,14 @@ const PageCUExpress = ({
                                             ? data.objInfoEmpresa.btGeneraEmpleo
                                             : "",
                                 },
+                                objInfoCanalesVenta:{
+                                    arrMediosDigitales:
+                                        data.objInfoEmpresa
+                                            .arrMediosDigitales || [],
+                                    arrFormasComercializacion:
+                                        data.objInfoEmpresa
+                                            .arrFormasComercializacion || [],
+                                }
                             };
 
                             setData(dataEmp);
@@ -431,6 +433,11 @@ const PageCUExpress = ({
                                         ...dataDiag.objInfoEncuestaHumanas,
                                     };
 
+                                    const objInfoCanalesVenta = {
+                                        ...prevState.objInfoCanalesVenta,
+                                        ...dataDiag.objInfoCanalesVenta,
+                                    };
+
                                     reset({
                                         ...prevState,
                                         objInfoGeneral,
@@ -438,6 +445,7 @@ const PageCUExpress = ({
                                         objInfoPerfilEco,
                                         objInfoMercado,
                                         objInfoNormatividad,
+                                        objInfoCanalesVenta,
                                         objInfoEncuestaHumanas,
                                     });
 
@@ -448,6 +456,7 @@ const PageCUExpress = ({
                                         objInfoPerfilEco,
                                         objInfoMercado,
                                         objInfoNormatividad,
+                                        objInfoCanalesVenta,
                                         objInfoEncuestaHumanas,
                                     };
                                 });
@@ -686,7 +695,7 @@ const PageCUExpress = ({
                                     <InfoCanalesVenta
                                         control={control}
                                         disabled={loading}
-                                        values={data.objInfoNormatividad}
+                                        values={data.objInfoCanalesVenta}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}

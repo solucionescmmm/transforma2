@@ -79,6 +79,7 @@ const InfoEmprendimiento = ({
         strEtapaValidProductoServicios: "",
         MinimoValorProducto: "",
         MaximoValorProducto: "",
+        strHistoriaEmpresa: "",
         intCantidadUnidadesProducidasMes: "",
         strEscojaProductoServicio: "",
         ValorVentaProductoEscogido: "",
@@ -130,6 +131,7 @@ const InfoEmprendimiento = ({
                 strOtraCategoria: values.strOtraCategoria || "",
                 strListadoProdServ: values.strListadoProdServ || "",
                 btGeneraEmpleo: values.btGeneraEmpleo || "",
+                strHistoriaEmpresa: values.strHistoriaEmpresa || "",
                 strDefinineLineasProductoServicios:
                     values.strDefinineLineasProductoServicios || "",
                 strLineaProductoServicioDestacada:
@@ -684,7 +686,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.strRedesSociales}
                             name="objInfoEmprendimiento.strRedesSociales"
@@ -722,51 +724,7 @@ const InfoEmprendimiento = ({
                             )}
                             control={control}
                         />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.arrMediosDigitales}
-                            name="objInfoEmprendimiento.arrMediosDigitales"
-                            render={({ field: { name, value, onChange } }) => (
-                                <ModalMediosDigitales
-                                    label="Medios digitales"
-                                    name={name}
-                                    value={value}
-                                    onChange={(value) => onChange(value)}
-                                    disabled={
-                                        data.strRedesSociales === "NO"
-                                            ? true
-                                            : disabled
-                                    }
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrMediosDigitales
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrMediosDigitales?.message ||
-                                        "Selecciona los medios digitales que utilice y registre su ID"
-                                    }
-                                    required={
-                                        data.strRedesSociales ? true : false
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (data.strRedesSociales === "SI") {
-                                        if (value.length === 0) {
-                                            return "Por favor, selecciona los medios digitales que utilice y coloque su ID";
-                                        }
-                                    }
-                                },
-                            }}
-                        />
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -799,6 +757,42 @@ const InfoEmprendimiento = ({
                                 />
                             )}
                             control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strHistoriaEmpresa}
+                            name="objInfoEmpresa.strHistoriaEmpresa"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Cómo nace la empresa? - Historia"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="outlined"
+                                    multiline
+                                    rows={4}
+                                    error={
+                                        errors?.objInfoEmpresa?.strHistoriaEmpresa
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strHistoriaEmpresa
+                                            ?.message ||
+                                        "Digita con detalle como nace la empresa"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digita con detalle como nace la empresa",
+                            }}
                         />
                     </Grid>
 

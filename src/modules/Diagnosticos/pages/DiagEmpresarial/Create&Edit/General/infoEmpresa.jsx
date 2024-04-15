@@ -380,40 +380,6 @@ const InfoEmpresa = ({
                             }}
                         />
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.strTrabajanFamiliares}
-                            name="objInfoEmpresa.strTrabajanFamiliares"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
-                                    label="¿En la empresa participan familiares?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmpresa?.strTrabajanFamiliares
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmpresa?.strTrabajanFamiliares
-                                            ?.message || "Selecciona una opción"
-                                    }
-                                    strGrupo="DiagnosticoGeneral"
-                                    strCodigo="TrabajanFamiliares"
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, selecciona una opción",
-                            }}
-                        />
-                    </Grid>
                 </Grid>
             </Collapse>
         </Fragment>
