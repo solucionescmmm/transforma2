@@ -115,6 +115,7 @@ class setDiagnosticoGeneral {
             strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
 
             //Objeto de Información Familiar
+            strTrabajanFamiliares: this.#objData.objInfoFamiliar.strTrabajanFamiliares,
             strCabezaHogar: this.#objData.objInfoFamiliar.strCabezaHogar,
             intNumPersonasCargo: this.#objData.objInfoFamiliar.intNumPersonasCargo,
             intHijos: this.#objData.objInfoFamiliar.intHijos,
@@ -145,7 +146,6 @@ class setDiagnosticoGeneral {
             strRegistroCamaraComercio: this.#objData.objInfoEmprendimiento.strRegistroCamaraComercio,
 
             //Objeto de InfoEmpresa
-            strTrabajanFamiliares: this.#objData.objInfoEmpresa.strTrabajanFamiliares,
             strHistoriaEmpresa: this.#objData.objInfoEmpresa.strHistoriaEmpresa,
             strSuenioEmpresa: this.#objData.objInfoEmpresa.strSuenioEmpresa,
             strEstudioEmprendimiento: this.#objData.objInfoEmpresa.strEstudioEmprendimiento,
