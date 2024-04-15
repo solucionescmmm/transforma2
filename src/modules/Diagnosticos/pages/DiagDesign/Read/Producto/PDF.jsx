@@ -22,10 +22,24 @@ import useGetDataPDFProduct from "../../../../hooks/useGetDataPDFProduct";
 Font.register({
     family: "Roboto",
     fonts: [
-        {src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf", fontStyle: 'normal', fontWeight: 'thin'},
-        {src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf", fontStyle: 'normal', fontWeight: 'normal'},
-        { src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf", fontStyle: "italic" },
-        { src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf", fontStyle: "bold" },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "thin",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "normal",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf",
+            fontStyle: "italic",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
+            fontStyle: "bold",
+        },
     ],
 });
 
@@ -86,9 +100,9 @@ const styles = StyleSheet.create({
         width: "100px",
     },
     container: {
-        flexDirection: 'row', // Organiza las imágenes en una fila
-        justifyContent: 'center', // Centra las imágenes horizontalmente
-      },
+        flexDirection: "row", // Organiza las imágenes en una fila
+        justifyContent: "center", // Centra las imágenes horizontalmente
+    },
 });
 
 const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
@@ -472,8 +486,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
     return (
         <PDFViewer width="100%" height="100%">
-            <Document   title={`Diagnostico de producto - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}
-   >
+            <Document
+                title={`Diagnostico de producto - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}
+            >
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
@@ -566,7 +581,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                             <p class="pMargin">
                             <span style="color: #00BBB4">Categoría: </span>
-                             ${objEmpresa?.strCategoriaProducto || objEmpresa?.strCategoriaServicio}  
+                             ${
+                                 objEmpresa?.strCategoriaProducto ||
+                                 objEmpresa?.strCategoriaServicio
+                             }  
                             </p>
 
                             <p class="pMargin">
@@ -863,27 +881,24 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </Html>
 
                     <View style={styles.container}>
-                    {arrImagenes.length > 0 &&
-                        arrImagenes.map((i, index) => (
-                            <Image
-                                src={i.src}
-                                style={styles.images}
-                                key={index}
-                            />
-                        ))}
+                        {arrImagenes.length > 0 &&
+                            arrImagenes.map((i, index) => (
+                                <Image
+                                    src={i.src}
+                                    style={styles.images}
+                                    key={index}
+                                />
+                            ))}
                     </View>
-                 
 
                     <Text style={styles.footerTitle}>
-                        Promovemos la transformación de personas emprendedoras y
-                        empresarias en Colombia, mediante asesoría, formación y
-                        gestión de oportunidades.
+                    Transformamos la vida de las personas emprendedoras y empresarias desde el ser y el hacer
                     </Text>
 
                     <Text style={styles.footerContact}>Contacto</Text>
 
                     <Text style={styles.footerContact}>
-                        Email: comunicaciones@cmmmedellin.org
+                        Email: asistentedesarrollo@demismanos.org
                     </Text>
 
                     <Text style={styles.footerPhoneEmail}>

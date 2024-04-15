@@ -10,7 +10,7 @@ import {
     Document,
     StyleSheet,
     Font,
-    View
+    View,
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";
@@ -22,10 +22,24 @@ import useGetDataPDFService from "../../../../hooks/useGetDatPDFService";
 Font.register({
     family: "Roboto",
     fonts: [
-        {src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf", fontStyle: 'normal', fontWeight: 'thin'},
-        {src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf", fontStyle: 'normal', fontWeight: 'normal'},
-        { src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf", fontStyle: "italic" },
-        { src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf", fontStyle: "bold" },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "thin",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf",
+            fontStyle: "normal",
+            fontWeight: "normal",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf",
+            fontStyle: "italic",
+        },
+        {
+            src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
+            fontStyle: "bold",
+        },
     ],
 });
 
@@ -86,8 +100,8 @@ const styles = StyleSheet.create({
         width: "100px",
     },
     container: {
-        flexDirection: 'row', // Organiza las imágenes en una fila
-        justifyContent: 'center', // Centra las imágenes horizontalmente
+        flexDirection: "row", // Organiza las imágenes en una fila
+        justifyContent: "center", // Centra las imágenes horizontalmente
     },
 });
 
@@ -146,8 +160,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
         let htmlNormatividad = "";
 
-                
-        if(values?.objInfoNormatividad) {
+        if (values?.objInfoNormatividad) {
             htmlNormatividad = `
             <div>
                 <p class="title">
@@ -175,15 +188,14 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             `;
         }
 
-        
-    //     values?.objInfoNormatividad.forEach(
-    //         (e) =>
-    //             (htmlNormatividad =
-    //                 htmlNormatividad +
-    //                 `<p class="textObj">
-    //     ${e.label}: ${e.value || "No diligenciado"}
-    // </p>`)
-    //     );
+        //     values?.objInfoNormatividad.forEach(
+        //         (e) =>
+        //             (htmlNormatividad =
+        //                 htmlNormatividad +
+        //                 `<p class="textObj">
+        //     ${e.label}: ${e.value || "No diligenciado"}
+        // </p>`)
+        //     );
 
         values?.objInfoServicios.forEach(
             (e) =>
@@ -208,9 +220,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objInnovacionBajo
                     .map(
                         (e) =>
-                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
-                            e.label
-                        }:</span> ${e.value || "No diligenciado"}</div>`
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -225,9 +237,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objPersepcionBajo
                     .map(
                         (e) =>
-                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
-                            e.label
-                        }:</span> ${e.value || "No diligenciado"}</div>`
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -242,9 +254,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objExperienciaBajo
                     .map(
                         (e) =>
-                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
-                            e.label
-                        }:</span> ${e.value || "No diligenciado"}</div>`
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -259,9 +271,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objMarcaBajo
                     .map(
                         (e) =>
-                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
-                            e.label
-                        }:</span> ${e.value || "No diligenciado"}</div>`
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -280,9 +292,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objInnovacionMedio
                     .map(
                         (e) =>
-                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
-                            e.label
-                        }:</span> ${e.value || "No diligenciado"}</div>`
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -297,9 +309,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objPersepcionMedio
                     .map(
                         (e) =>
-                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
-                            e.label
-                        }:</span> ${e.value || "No diligenciado"}</div>`
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -314,9 +326,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objExperienciaMedio
                     .map(
                         (e) =>
-                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
-                            e.label
-                        }:</span> ${e.value || "No diligenciado"}</div>`
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -331,9 +343,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objMarcaMedio
                     .map(
                         (e) =>
-                        `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
-                            e.label
-                        }:</span> ${e.value || "No diligenciado"}</div>`
+                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                e.label
+                            }:</span> ${e.value || "No diligenciado"}</div>`
                     )
                     .join("")}`;
         }
@@ -424,7 +436,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                    `;
             }
 
-
             if (e.objMarcaFortalezas) {
                 htmlFortalezas =
                     htmlFortalezas +
@@ -477,7 +488,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
     return (
         <PDFViewer width="100%" height="100%">
-            <Document  title={`Diagnostico de servicio - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}>
+            <Document
+                title={`Diagnostico de servicio - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}
+            >
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
@@ -572,7 +585,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                         <p class="pMargin">
                         <span style="color: #00BBB4">Categoría: </span>
-                         ${objEmpresa?.strCategoriaProducto || objEmpresa?.strCategoriaServicio}  
+                         ${
+                             objEmpresa?.strCategoriaProducto ||
+                             objEmpresa?.strCategoriaServicio
+                         }  
                         </p>
 
 
@@ -839,26 +855,25 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </Html>
 
                     <View style={styles.container}>
-                    {arrImagenes.length > 0 &&
-                        arrImagenes.map((i, index) => (
-                            <Image
-                                src={i.src}
-                                style={styles.images}
-                                key={index}
-                            />
-                        ))}
+                        {arrImagenes.length > 0 &&
+                            arrImagenes.map((i, index) => (
+                                <Image
+                                    src={i.src}
+                                    style={styles.images}
+                                    key={index}
+                                />
+                            ))}
                     </View>
 
                     <Text style={styles.footerTitle}>
-                        Promovemos la transformación de personas emprendedoras y
-                        empresarias en Colombia, mediante asesoría, formación y
-                        gestión de oportunidades.
+                        Transformamos la vida de las personas emprendedoras y
+                        empresarias desde el ser y el hacer
                     </Text>
 
                     <Text style={styles.footerContact}>Contacto</Text>
 
                     <Text style={styles.footerContact}>
-                        Email: comunicaciones@cmmmedellin.org
+                        Email: asistentedesarrollo@demismanos.org
                     </Text>
 
                     <Text style={styles.footerPhoneEmail}>

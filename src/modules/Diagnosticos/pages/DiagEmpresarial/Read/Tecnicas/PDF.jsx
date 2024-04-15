@@ -226,7 +226,7 @@ const PDFProduct = ({ intId, values }) => {
             values.objInfoFortalezas.forEach((tema) => {
                 if (tema.objMercadeoFortalezas) {
                     htmlFortalezas =
-                    htmlFortalezas +
+                        htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         Componente Mercadeo        
                     </div>
@@ -243,7 +243,7 @@ const PDFProduct = ({ intId, values }) => {
 
                 if (tema.objProductivoFortalezas) {
                     htmlFortalezas =
-                    htmlFortalezas +
+                        htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         Componente Productivo        
                     </div>
@@ -260,7 +260,7 @@ const PDFProduct = ({ intId, values }) => {
 
                 if (tema.objFinancieroFortalezas) {
                     htmlFortalezas =
-                    htmlFortalezas +
+                        htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         Componente Financiero        
                     </div>
@@ -277,7 +277,7 @@ const PDFProduct = ({ intId, values }) => {
 
                 if (tema.objAdministrativoFortalezas) {
                     htmlFortalezas =
-                    htmlFortalezas +
+                        htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         Componente Administrativo        
                     </div>
@@ -294,7 +294,7 @@ const PDFProduct = ({ intId, values }) => {
 
                 if (tema.objAsociativoFortalezas) {
                     htmlFortalezas =
-                    htmlFortalezas +
+                        htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         Componente Asociativo        
                     </div>
@@ -338,7 +338,7 @@ const PDFProduct = ({ intId, values }) => {
     }
 
     return (
-        <PDFViewer width="100%" height="100%" >
+        <PDFViewer width="100%" height="100%">
             <Document
                 title={`Diagnostico de competencias técnicas - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}
             >
@@ -433,7 +433,10 @@ const PDFProduct = ({ intId, values }) => {
 
                         <p class="pMargin">
                         <span style="color: #00BBB4">Categoría: </span>
-                         ${objEmpresa?.strCategoriaProducto || objEmpresa?.strCategoriaServicio}
+                         ${
+                             objEmpresa?.strCategoriaProducto ||
+                             objEmpresa?.strCategoriaServicio
+                         }
                         </p>
 
                         <p class="pMargin">
@@ -583,15 +586,13 @@ const PDFProduct = ({ intId, values }) => {
                     </Html>
 
                     <Text style={styles.footerTitle}>
-                        Promovemos la transformación de personas emprendedoras y
-                        empresarias en Colombia, mediante asesoría, formación y
-                        gestión de oportunidades.
+                    Transformamos la vida de las personas emprendedoras y empresarias desde el ser y el hacer
                     </Text>
 
                     <Text style={styles.footerContact}>Contacto</Text>
 
                     <Text style={styles.footerContact}>
-                        Email: comunicaciones@cmmmedellin.org
+                        Email: asistentedesarrollo@demismanos.org
                     </Text>
 
                     <Text style={styles.footerPhoneEmail}>

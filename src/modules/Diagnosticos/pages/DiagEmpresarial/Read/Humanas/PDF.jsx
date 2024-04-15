@@ -288,7 +288,10 @@ const PDFProduct = ({ intId, values }) => {
 
                         <p class="pMargin">
                         <span style="color: #00BBB4">Categoría: </span>
-                         ${objEmpresa?.strCategoriaProducto || objEmpresa?.strCategoriaServicio}  
+                         ${
+                             objEmpresa?.strCategoriaProducto ||
+                             objEmpresa?.strCategoriaServicio
+                         }  
                         </p>
 
                         <p class="pMargin">
@@ -334,15 +337,13 @@ const PDFProduct = ({ intId, values }) => {
                     </Html>
 
                     <Text style={styles.footerTitle}>
-                        Promovemos la transformación de personas emprendedoras y
-                        empresarias en Colombia, mediante asesoría, formación y
-                        gestión de oportunidades.
+                    Transformamos la vida de las personas emprendedoras y empresarias desde el ser y el hacer
                     </Text>
 
                     <Text style={styles.footerContact}>Contacto</Text>
 
                     <Text style={styles.footerContact}>
-                        Email: comunicaciones@cmmmedellin.org
+                        Email: asistentedesarrollo@demismanos.org
                     </Text>
 
                     <Text style={styles.footerPhoneEmail}>
