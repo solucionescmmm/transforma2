@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
 
 //Context
-import { AuthContext } from "../../../../../common/middlewares/Auth";
-
+import { AuthContext } from "../../../../common/middlewares/Auth";
 //Librerias
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -45,7 +44,6 @@ const ModalFinish = ({
     open,
     intIdDiagnostico,
     intIdIdea,
-    onChangeRoute,
     refresh,
 }) => {
     //===============================================================================================================================================
@@ -181,8 +179,7 @@ const ModalFinish = ({
     useEffect(() => {
         if (success) {
             handleOpenDialog();
-            onChangeRoute("DiagnosticoCoco")
-            refresh()
+            refresh({ intIdIdea })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [success]);

@@ -38,6 +38,7 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import ModalCreate from "./modalCreate";
 import ModalFinalizar from "./modalFinalizar";
+import ModalFinalizarExpress from "./modalFinalizarExpress";
 import useGetDiagnosticosCoco from "../../hooks/useGetDiagnosticosCoco";
 import { AbilityContext, Can } from "../../../../common/functions/can";
 import ModalPreview from "./modalPreview";
@@ -80,22 +81,29 @@ const ReadDiagnosticos = ({
 
     const [openModalCreate, setOpenModalCreate] = useState(openModalCreateRoute);
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalDeleteExpress, setOpenModalDeleteExpress] = useState(false);
     const [openModalPreview, setOpenModalPreview] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
+
     const { data, refreshGetData } = useGetDiagnosticosCoco({
         autoload: true,
         intIdIdea: intIdIdea,
     });
+
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const handlerOpenModalDelete = () => {
         setOpenModalDelete(!openModalDelete);
+    };
+
+    const handlerOpenModalDeleteExpress = () => {
+        setOpenModalDeleteExpress(!openModalDeleteExpress);
     };
 
     const handlerOpenModalPreview = () => {
@@ -113,11 +121,18 @@ const ReadDiagnosticos = ({
     //===============================================================================================================================================
     return (
         <Fragment>
+            <ModalFinalizarExpress
+                handleOpenDialog={handlerOpenModalDeleteExpress}
+                open={openModalDeleteExpress}
+                intIdDiagnostico={selectedData?.intId}
+                refresh={refreshGetData}
+                intIdIdea={intIdIdea}
+            />
+
             <ModalCreate
                 handleOpenDialog={handlerOpenModalCreate}
                 open={openModalCreate}
                 intId={selectedData?.intId}
-                isEdit={selectedData}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
                 values={selectedData}
@@ -127,7 +142,6 @@ const ReadDiagnosticos = ({
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
                 intId={selectedData?.intId}
-                isEdit={selectedData}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
                 values={selectedData}
@@ -329,7 +343,10 @@ const ReadDiagnosticos = ({
                                                         fontSize="small"
                                                     />
                                                 ),
-                                                onClick: (_, rowData) => {
+                                                onClick: rowData.strTipoDiagnostico !== "Normal" ? (_, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalDeleteExpress();
+                                                }: (_, rowData) => {
                                                     setSelectedData(rowData);
                                                     handlerOpenModalDelete();
                                                 },

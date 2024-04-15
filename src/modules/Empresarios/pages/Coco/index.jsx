@@ -905,7 +905,7 @@ const Coco = () => {
                                                             >
                                                                 Instagram:{" "}
                                                             </span>
-                                                            {objInteresado?.objInfoEmpresa?.arrMediosDigitales.find(
+                                                            {objInteresado?.objInfoEmpresa?.arrMediosDigitales?.find(
                                                                 (x) =>
                                                                     x.label ===
                                                                     "Instagram"
@@ -926,7 +926,7 @@ const Coco = () => {
                                                             >
                                                                 Facebook:{" "}
                                                             </span>
-                                                            {objInteresado?.objInfoEmpresa?.arrMediosDigitales.find(
+                                                            {objInteresado?.objInfoEmpresa?.arrMediosDigitales?.find(
                                                                 (x) =>
                                                                     x.label ===
                                                                     "Facebook"

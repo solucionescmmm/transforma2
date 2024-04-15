@@ -202,7 +202,7 @@ const ModalFinalizar = ({
     }, [flagSubmit, submitData]);
 
     useEffect(() => {
-        if (intId && values) {
+        if (intId && values && open) {
             setLoadingGetData(true);
 
             async function getData() {
@@ -236,9 +236,10 @@ const ModalFinalizar = ({
     
                 setLoadingGetData(false);
             }
+
             getData();
         }
-    }, [intId,values]);
+    }, [intId,values, open]);
 
     useEffect(() => {
         if (success) {

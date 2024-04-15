@@ -105,7 +105,7 @@ const ModalPreview = ({
     //===============================================================================================================================================
 
     useEffect(() => {
-        if (intIdDiagnostico && intIdIdea) {
+        if (intIdDiagnostico && intIdIdea && open) {
             setLoadingGetData(true);
             async function getData() {
                 await refFntGetDataServ
@@ -227,7 +227,7 @@ const ModalPreview = ({
             }
             getData();
         }
-    }, [intIdDiagnostico, intIdIdea]);
+    }, [intIdDiagnostico, intIdIdea, open]);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
