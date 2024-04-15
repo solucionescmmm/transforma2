@@ -26,6 +26,11 @@ class interfaceDAODiagnosticoExpress {
         return result;
     }
 
+    async updateFinalizarDiagnosticoExpress(data) {
+        const dao = new classDaoSql();
+        let result = await dao.updateFinalizarDiagnosticoExpress(data);
+        return result;
+    }
     async getDiagnosticoExpress(data) {
         const dao = new classDaoSql();
         let result = await dao.getDiagnosticoExpress(data);

@@ -51,7 +51,12 @@ class setRutaVacia {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
+
         if (!this.#objData) {
+            throw new Error("Se esperaban parámetros de entrada.");
+        }
+
+        if (!this.#objData.intIdIdea) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
     }

@@ -384,6 +384,68 @@ class daoDiagnosticoExpress {
         }
     }
 
+    async updateFinalizarDiagnosticoExpress(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            
+            await conn.query`
+
+                UPDATE tbl_DiagnosticoCompetenciasTecnicas
+
+                SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+                WHERE intIdDiagnostico = ${data.intIdDiagnostico}
+
+                UPDATE tbl_DiagnosticoProductos
+
+                SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+                WHERE intIdDiagnostico = ${data.intIdDiagnostico}
+
+                UPDATE tbl_DiagnosticoHumanoSocial
+
+                SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+                WHERE intIdDiagnostico = ${data.intIdDiagnostico}
+
+                UPDATE tbl_DiagnosticoGeneral
+
+                SET btFinalizado            = COALESCE(${data.btFinalizado}, btFinalizado),
+                    strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
+                    dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
+
+                WHERE intIdDiagnostico = ${data.intIdDiagnostico}
+            
+            `;
+
+            let result = {
+                error: false,
+                msg: `El diagnostico Express, fue finalizado con éxito.`,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo updateDiagnosticoGeneral de la clase daoDiagnosticoGeneral",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getDiagnosticoExpress(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
