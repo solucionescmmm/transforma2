@@ -8,6 +8,7 @@ const validator = require("validator").default;
 const serviceSetDocumento = require("../../Document/domain/setDocumento.service");
 const serviceSetRutaVacia = require("../../Rutas/domain/setRutaVacia.service")
 const serviceSetFinalizarServicio = require("../../Rutas/domain/checkServicioFase.service")
+const serviceGetTipoAcompañamiento = require("../domain/getTipoAcompañamiento.service")
 
 class setAcompañamiento {
     //obj info
@@ -18,6 +19,7 @@ class setAcompañamiento {
     //Variable
     #intIdAcompañamiento;
     #intIdDocumento = null;
+    #strTipoAcompañamiento;
 
     /**
      * @param {object} data
@@ -29,10 +31,13 @@ class setAcompañamiento {
     }
 
     async main() {
+        await this.#getTipoAcompañamiento()
         await this.#validations();
         await this.#setAcompañamiento();
         await this.#setSesionAcompañamiento();
-        //await this.#setRutasNoPlaneada()
+        if (this.#strTipoAcompañamiento === "Para un nuevo servicio/paquete") {
+            await this.#setRutasNoPlaneada()
+        }
 
         return this.#objResult;
     }
@@ -58,6 +63,17 @@ class setAcompañamiento {
         if (this.#objData.objObjetivos.bitFinalizaServ) {
             await this.#setFinalizarServicio()
         }
+    }
+
+    async #getTipoAcompañamiento(){
+        let query = await serviceGetTipoAcompañamiento({intId:this.#objData.intTipoAcomp},this.#objUser)
+
+        if (query.error) {
+            throw new Error(query.msg)
+        }
+
+        
+        this.#strTipoAcompañamiento = query.data?.[0]?.strNombre
     }
 
     async #setAcompañamiento() {
@@ -142,6 +158,11 @@ class setAcompañamiento {
             intIdIdea: this.#objData.intIdIdea,
             strObservaciones: "Ruta creada apartir de un acompañamiento",
             strResponsable: this.#objData.objResponsable,
+            strNombre:`Ruta no planeada de paquete o servicio ${
+                this.#objData.objNuevoServPaq?.objPaquete ? 
+                this.#objData.objNuevoServPaq?.objPaquete?.objInfoPrincipal?.strNombre : 
+                this.#objData.objNuevoServPaq?.objServicio?.objInfoPrincipal?.strNombre
+            }`,
             strTipoRuta:"No planeada",
             arrInfoFases: [{
                 strObservaciones: "Ruta creada apartir de un acompañamiento",

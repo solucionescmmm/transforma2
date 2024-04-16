@@ -4,6 +4,7 @@ const getRutas = require("../../domain/getRutas.service");
 const getEstadosRutas = require("../../domain/getEstadosRutas.service")
 const getContadorRutas = require("../../domain/getContadorRutas.service")
 const getRutasActivas = require("../../domain/getRutasActivas.service")
+const getServicioFases = require("../../domain/getServiciosFase.service")
 const updateRutas = require("../../domain/updateRutas.service");
 const updateRutaEnviada = require("../../domain/updateRutaEnviada.service");
 const updateRutaActivada = require("../../domain/updateRutaActivada.service");
@@ -105,6 +106,27 @@ class ctrl_Rutas {
             let objParams = req.query;
 
             let query = await getRutasActivas(objParams);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async getServicioFases(req, res) {
+        try {
+            let objParams = req.query;
+
+            let query = await getServicioFases(objParams);
 
             if (query.error) {
                 throw new Error(query.msg);

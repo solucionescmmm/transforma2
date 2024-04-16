@@ -102,11 +102,11 @@ class setRutaVacia {
 
         let newData = {
             ...this.#objData,
-            strNombre: `Ruta #${this.#intNumRutas + 1}`,
+            strNombre: this.#objData?.strNombre ? this.#objData?.strNombre :  `Ruta #${this.#intNumRutas + 1}`,
             valorTotalRuta: null,
             intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
-            valorTotalRuta:0,
+            valorTotalRuta: 0,
             strResponsable: JSON.stringify(this.#objData.strResponsable || null),
             strUsuarioCreacion: this.#objUser.strEmail,
         };

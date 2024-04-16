@@ -15,6 +15,7 @@ class updateFinalizarSesionAcompañamiento {
     }
 
     async main() {
+        console.log(this.#objData)
         await this.#validations();
         await this.#updateFinalizarSesionAcompañamiento();
         await this.#sp_flujoFinalizarAcompañamiento()
@@ -42,7 +43,7 @@ class updateFinalizarSesionAcompañamiento {
 
         let newData={
             ...this.#objData,
-            btFinalizado:true,
+            btFinalizado: true,
             strUsuarioActualizacion: this.#objUser.strEmail
         }
 

@@ -824,6 +824,87 @@ class daoRutas {
         }
     }
 
+    async getServicioFases(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            SELECT 
+                        
+            FasesServicios.intId,
+            FasesServicios.intIdFase,
+            FasesServicios.intIdServicio,
+            FasesServicios.intIdPaqueteFase,
+            FasesServicios.intIdSedeTipoTarifaServRef,
+            FasesServicios.ValorReferenciaServicio,
+            FasesServicios.ValorTotalServicio,
+            FasesServicios.intDuracionHorasReferenciaServicio,
+            FasesServicios.intDuracionHorasTotalServicio,
+            FasesServicios.btFinalizado,
+            FasesServicios.strResponsables,
+            FasesServicios.dtmCreacion,
+            FasesServicios.strUsuarioCreacion,
+            FasesServicios.dtmActualizacion,
+            FasesServicios.strUsuarioActualizacion,
+            (
+                SELECT 
+
+                FasesObjServicios.intId,
+                FasesObjServicios.intIdServicios_Fases,
+                FasesObjServicios.intIdObjetivo,
+                FasesObjServicios.btCumplio,
+                FasesObjServicios.strObservacionesCumplimiento,
+                FasesObjServicios.dtmCreacion,
+                FasesObjServicios.strUsuarioCreacion,
+                FasesObjServicios.dtmActualizacion,
+                FasesObjServicios.strUsuarioActualizacion,
+                Objetivo.strNombre
+                
+                FROM tbl_Objetivos_Servicios_Fases FasesObjServicios
+
+                INNER JOIN tbl_Objetivos Objetivo on Objetivo.intId = FasesObjServicios.intIdObjetivo
+
+                WHERE FasesObjServicios.intIdServicios_Fases = FasesServicios.intId 
+                FOR JSON PATH
+            )as arrObjetivos
+
+            FROM tbl_Servicios_Fases FasesServicios
+            WHERE FasesServicios.intIdFase = ${data.intIdFase} AND FasesServicios.intIdServicio = ${data.intIdServicio}`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                let { arrObjetivos } = arrNewData[i];
+
+                if (validator.isJSON(arrObjetivos)) {
+                    arrObjetivos = JSON.parse(arrObjetivos);
+                    arrNewData[i].arrObjetivos = arrObjetivos;
+                }
+                
+            }
+
+            let result = {
+                error: false,
+                data: response.recordsets[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getServicioFases de la clase daoRutas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateRutas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
