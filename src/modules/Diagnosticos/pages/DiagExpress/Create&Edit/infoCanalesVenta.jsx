@@ -235,7 +235,7 @@ const InfoCanalesVenta = ({
                                     name={name}
                                     value={value}
                                     disabled={
-                                        !data.strCualesOtrosCanales || disabled
+                                        !data.strOtrosCanales || disabled
                                     }
                                     onChange={(e) => onChange(e)}
                                     fullWidth

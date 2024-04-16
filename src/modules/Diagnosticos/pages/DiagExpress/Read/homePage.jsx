@@ -77,20 +77,20 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 value: "",
                 label: "Lugar de operación de la empresa",
             },
-            {
-                parent: "arrFormasComercializacion",
-                value: "",
-                label: "Formas de comercialización",
-            },
-            {
-                parent: "arrMediosDigitales",
-                value: "",
-                label: "Medios digitales",
-            },
+            // {
+            //     parent: "arrFormasComercializacion",
+            //     value: "",
+            //     label: "Formas de comercialización",
+            // },
+            // {
+            //     parent: "arrMediosDigitales",
+            //     value: "",
+            //     label: "Medios digitales",
+            // },
             {
                 parent: "strTiempoDedicacion",
                 value: "",
-                label: "Tiempo de dedicación actual a la empresa",
+                label: "¿Cuánto tiempo dedica actualmente a la empresa?",
             },
             {
                 parent: "strRegistroCamaraComercio",
@@ -105,12 +105,12 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parent: "strCategoriaProducto",
                 value: "",
-                label: "Categoría de los productos",
+                label: "Categoría principal de productos",
             },
             {
                 parent: "strCategoriaServicio",
                 value: "",
-                label: "Categoría de los servicios",
+                label: "Categoría principal de los servicios",
             },
             {
                 parent: "strDefinineLineasProductoServicios",
@@ -337,6 +337,28 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "De acuerdo con las experiencias y el conocimiento adquirido en su actuar empresarial, en la siguiente escala en qué nivel confianza se ubicaría",
             },
         ],
+        objInfoCanalesVenta: [
+            {
+                parent: "arrMediosDigitales",
+                value: "",
+                label: "Medios digitales",
+            },
+            {
+                parent: "arrFormasComercializacion",
+                value: "",
+                label: "Formas de comercialización",
+            },
+            {
+                parent: "strOtrosCanales",
+                value: "",
+                label: "¿Ha desarrollado otros canales que le apoyen en el crecimiento en ventas?",
+            },
+            {
+                parent: "strCualesOtrosCanales",
+                value: "",
+                label: "¿Cuáles?",
+            },
+        ],
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
@@ -365,6 +387,9 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         useState(true);
 
     const [openCollapseInfoNormatividad, setOpenCollapseInfoNormatividad] =
+        useState(true);
+
+    const [openCollapseInfoCanalesVenta, setOpenCollapseInfoCanalesVenta] =
         useState(true);
 
     const [
@@ -486,6 +511,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                     const objInfoMercado = data.objInfoMercado;
                     const objInfoNormatividad = data.objInfoNormatividad;
                     const objInfoEncuestaHumanas = data.objInfoEncuestaHumanas;
+                    const objInfoCanalesVenta = data.objInfoCanalesVenta;
 
                     setData((prevState) => {
                         let prevInfoGeneral = prevState.objInfoGeneral;
@@ -499,6 +525,9 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             prevState.objInfoNormatividad;
                         let prevInfoEncuestaHumanas =
                             prevState.objInfoEncuestaHumanas;
+
+                        let prevInforCanalesVenta =
+                            prevState.objInfoCanalesVenta;
 
                         for (const key in objInfoGeneral) {
                             if (
@@ -622,7 +651,10 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                         for (const key in objInfoNormatividad) {
                             if (
-                                Object.hasOwnProperty.call(objInfoMercado, key)
+                                Object.hasOwnProperty.call(
+                                    objInfoNormatividad,
+                                    key
+                                )
                             ) {
                                 prevInfoNormatividad.forEach((e) => {
                                     if (e.parent === key) {
@@ -646,7 +678,10 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                         for (const key in objInfoEncuestaHumanas) {
                             if (
-                                Object.hasOwnProperty.call(objInfoMercado, key)
+                                Object.hasOwnProperty.call(
+                                    objInfoEncuestaHumanas,
+                                    key
+                                )
                             ) {
                                 prevInfoEncuestaHumanas.forEach((e) => {
                                     if (e.parent === key) {
@@ -669,6 +704,33 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             }
                         }
 
+                        for (const key in objInfoCanalesVenta) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoCanalesVenta,
+                                    key
+                                )
+                            ) {
+                                prevInforCanalesVenta.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (objInfoCanalesVenta[key]?.map) {
+                                            const json =
+                                                objInfoCanalesVenta[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    return x.strCodigoRetorno;
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = objInfoCanalesVenta[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
                         return {
                             ...prevState,
                             objInfoGeneral: prevInfoGeneral,
@@ -677,6 +739,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             objInfoMercado: prevInfoMercado,
                             objInfoNormatividad: prevInfoNormatividad,
                             objInfoEncuestaHumanas: prevInfoEncuestaHumanas,
+                            objInfoCanalesVenta: prevInforCanalesVenta,
                         };
                     });
                 }
@@ -716,6 +779,10 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
     const handlerChangeOpenCollapseInfoEncuestaHumanas = () => {
         setOpenCollapseInfoEncuestaHumanas(!openCollapseInfoEncuestaHumanas);
+    };
+
+    const handlerChangeOpenCollapseInfoCanalesVentas = () => {
+        setOpenCollapseInfoCanalesVenta(!openCollapseInfoCanalesVenta);
     };
 
     //===============================================================================================================================================
@@ -920,7 +987,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>Información del emprendimiento</b>
+                                    <b>Información de la empresa</b>
                                 </Typography>
                             </Box>
 
@@ -971,16 +1038,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
@@ -995,7 +1052,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b> Perfil económico y productivo</b>
+                                    <b>Perfil económico y productivo</b>
                                 </Typography>
                             </Box>
 
@@ -1043,16 +1100,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
@@ -1067,7 +1114,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>Perfil de mercado y comercial</b>
+                                    <b>Componente de mercados y comercial</b>
                                 </Typography>
                             </Box>
 
@@ -1115,16 +1162,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
@@ -1190,16 +1227,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
@@ -1214,25 +1241,25 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>Normatividad</b>
+                                    <b>Canales de ventas</b>
                                 </Typography>
                             </Box>
 
                             <Box>
                                 <IconButton
                                     onClick={() =>
-                                        handlerChangeOpenCollapseInfoNormatividad()
+                                        handlerChangeOpenCollapseInfoCanalesVentas()
                                     }
                                     size="large"
                                 >
                                     <Tooltip
                                         title={
-                                            openCollapseInfoNormatividad
+                                            openCollapseInfoCanalesVenta
                                                 ? "Contraer detalle"
                                                 : "Expandir detalle"
                                         }
                                     >
-                                        {openCollapseInfoNormatividad ? (
+                                        {openCollapseInfoCanalesVenta ? (
                                             <ExpandLessIcon />
                                         ) : (
                                             <ExpandMoreIcon />
@@ -1242,18 +1269,15 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             </Box>
                         </Box>
 
-                        <Collapse
-                            in={openCollapseInfoNormatividad}
-                            timeout="auto"
-                        >
+                        <Collapse in={openCollapseInfoCanalesVenta} timeout="auto">
                             <Grid
                                 container
                                 direction="row"
                                 spacing={0}
                                 sx={{ padding: "15px" }}
                             >
-                                {data.objInfoNormatividad.map((e, i) => (
-                                    <Grid item xs={12} md={12} key={i}>
+                                {data.objInfoCanalesVenta.map((e, i) => (
+                                    <Grid item xs={12} md={6} key={i}>
                                         <p
                                             style={{
                                                 margin: "0px",
@@ -1265,16 +1289,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
@@ -1340,16 +1354,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>

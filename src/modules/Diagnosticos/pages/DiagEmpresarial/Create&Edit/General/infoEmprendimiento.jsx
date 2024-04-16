@@ -30,7 +30,7 @@ import {
 import SelectLugarOperacion from "../../../../../Empresarios/components/selectLugarOperacion";
 import DropdownLocalizaciones from "../../../../../Empresarios/components/dropdownLocalizaciones";
 import ModalDireccionResidencia from "../../../../../Empresarios/components/modalDireccionResidencia";
-import ModalMediosDigitales from "../../../../../Empresarios/components/modalMediosDigitales";
+// import ModalMediosDigitales from "../../../../../Empresarios/components/modalMediosDigitales";
 import SelectSectorEconomico from "../../../../../Empresarios/components/selectSectorEconomico";
 import SelectCategoriaServicio from "../../../../../Empresarios/components/selectCategoriaServicio";
 import SelectCategoriaProducto from "../../../../../Empresarios/components/selectCategoriaProducto";

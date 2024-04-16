@@ -10,7 +10,6 @@ import {
     Document,
     StyleSheet,
     Font,
-    View,
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";
@@ -102,91 +101,6 @@ const styles = StyleSheet.create({
     },
 });
 
-const propiedadesEtapas = [
-    {
-        parent: "N/A",
-        label: "No aplica",
-        html: `
-        <p>
-        Aun no estas asignado en ninguna etapa.
-        </p>`,
-    },
-    {
-        parent: "Validación comercial",
-        label: "Etapa de Validación Comercial",
-        html: `
-        <p>
-        En esta fase, los emprendimientos se centran en desarrollar el producto o servicio,
-        validación del producto o servicio, incluyendo el diseño correspondiente.
-        </p>`,
-    },
-    {
-        parent: "Nuevo empresario",
-        label: "Etapa de Nueva Empresa",
-        html: `
-        <p>
-        En esta etapa, los emprendimientos se encuentran activamente comprometidos con su actividad empresarial, 
-        siendo propietarios o copropietarios. Están inmersos en el proceso de organización y creación legal y 
-        formal de la empresa para realizar operaciones en el mercado. Se aborda la construcción de las bases 
-        operativas, administrativas y contables, así como la definición de canales de comercialización y ventas. 
-        Además, se realiza el refinamiento del modelo y plan de negocios. 
-        </p>`,
-    },
-    {
-        parent: "Fortalecimiento empresariaI I",
-        label: "Etapa de Fortalecimiento Nivel I",
-        html: `
-        <p>
-        Durante esta fase temprana de actividad empresarial, se busca desarrollar el potencial de mercado 
-        con un enfoque especialmente centrado en los aspectos comerciales y administrativos. 
-        Existen expectativas de crecimiento en esta etapa inicial.
-        </p>`,
-    },
-    {
-        parent: "Fortalecimiento empresarial II",
-        label: "Etapa de Fortalecimiento Nivel II",
-        html: `
-        <p>
-        En este momento el emprendimiento está enfocado en el desarrollo del potencial de mercado con un 
-        enfoque comercial definido. Se trabaja en el fortalecimiento y estabilización de los procesos 
-        administrativos, y se inicia la búsqueda y desarrollo del recurso humano con la consiguiente 
-        delegación de tareas. La actividad empresarial está en proceso de crecimiento, 
-        con oportunidades para consolidar las actividades.
-        </p>`,
-    },
-    {
-        parent: "Consolidación",
-        label: "Etapa de Consolidación",
-        html: `
-        <p>
-          En esta etapa, la empresa logra estabilidad y solidez económico-financiera. 
-          Se considera una actividad empresarial avanzada con altas expectativas de crecimiento. Los factores 
-          clave para alcanzar la consolidación están relacionados con la viabilidad a mediano y 
-          largo plazo de la empresa.
-        </p>`,
-    },
-    {
-        parent: "Escalamiento",
-        label: "Etapa de Escalamiento",
-        html: `
-        <p>
-        Esta fase se presenta cuando el negocio se vuelve escalable y adquiere una posición sólida en el mercado. 
-        Esto se logra mediante una nueva forma de administración que se centra en el cumplimiento de planes 
-        estratégicos y modelos de negocio.
-        </p>`,
-    },
-    {
-        parent: "Expansión",
-        label: "Etapa de Expansión",
-        html: `
-        <p>
-        En la etapa de expansión, se define la estrategia de expansión, se establecen plataformas 
-        para el crecimiento y se desarrollan nuevas líneas de negocio. En algunas ocasiones,
-        comienza la búsqueda de inversión para expandir el negocio y aprovechar al máximo las oportunidades 
-        del mercado, multiplicando así los márgenes de ganancia.
-        </p>`,
-    },
-];
 
 const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     //===============================================================================================================================================
@@ -196,10 +110,12 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
     const [objEmpresario, setObjEmpresario] = useState();
     const [objEmpresa, setObjEmpresa] = useState();
-    const [htmlInfoFamiliar, setHtmlInfoFamiliar] = useState("");
     const [htmlEmprend, setHtmlEmprend] = useState("");
     const [htmlPErfilEco, setHtmlPErfilEco] = useState("");
-    const [arrImagenes, setArrImagenes] = useState([]);
+    const [htmlMercado, setHtmlMercado] = useState("");
+    const [htmlNormatividad, setHtmlNormatividad] = useState("");
+    const [htmlCanalesVenta, setHtmlCanalesVenta] = useState("");
+    const [htmlEncuestasHumanas, setHtmlEncuenstasHumanas] = useState("");
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -224,37 +140,12 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     useEffect(() => {
         setLoading(true);
 
-        let htmlInfoFamiliar = "";
         let htmlEmprend = "";
         let htmlPErfilEco = "";
-
-        if (values?.objInfoFamiliar) {
-            htmlInfoFamiliar = `
-            <div>
-                <p class="title">
-                   
-                </p>
-            </div>
-    
-            <table style="">
-               <tr>
-                  <th>Pregunta</th>
-                  <th>Respuesta</th>
-               </tr>
-    
-               ${values?.objInfoFamiliar
-                   .map(
-                       (e) => `<tr>
-                   <td style="color: black">${e.label}</td>
-                   <td>${e.value || "No diligenciado"}</td>
-                  
-               </tr>
-               `
-                   )
-                   .join("")}
-            </table>
-            `;
-        }
+        let htmlMercado = ''
+        let htmlNormatividad = ""
+        let htmlEncuestasHumanas = ""
+        let htmlCanalesVenta = ""
 
         if (values?.objInfoEmprendimiento) {
             htmlEmprend = `
@@ -323,6 +214,118 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             `;
         }
 
+        if (values?.objInfoMercado) {
+            htmlMercado = `
+            <div>
+                <p class="title">
+                   
+                </p>
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoMercado
+                   .map(
+                       (e) => `<tr>
+                   <td style="color: black">${e.label}</td>
+                   <td>${e.value || "No diligenciado"}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
+
+        if (values?.objInfoNormatividad) {
+            htmlNormatividad = `
+            <div>
+                <p class="title">
+                   
+                </p>
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoNormatividad
+                   .map(
+                       (e) => `<tr>
+                   <td style="color: black">${e.label}</td>
+                   <td>${e.value || "No diligenciado"}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
+
+        if (values?.objInfoCanalesVenta) {
+            htmlCanalesVenta = `
+            <div>
+                <p class="title">
+                   
+                </p>
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoCanalesVenta
+                   .map(
+                       (e) => `<tr>
+                   <td style="color: black">${e.label}</td>
+                   <td>${e.value || "No diligenciado"}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
+
+        if (values?.objInfoEncuestaHumanas) {
+            htmlEncuestasHumanas = `
+            <div>
+                <p class="title">
+                   
+                </p>
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoEncuestaHumanas
+                   .map(
+                       (e) => `<tr>
+                   <td style="color: black">${e.label}</td>
+                   <td>${e.value || "No diligenciado"}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
+
         // values?.objInfoPerfilEco?.forEach(
         //     (e) =>
         //         (htmlPErfilEco =
@@ -336,9 +339,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
         setHtmlPErfilEco(htmlPErfilEco);
         setHtmlEmprend(htmlEmprend);
-        setHtmlInfoFamiliar(htmlInfoFamiliar);
-        setArrImagenes(values?.arrImagenes || []);
-
+        setHtmlMercado(htmlMercado)
+        setHtmlNormatividad(htmlNormatividad)
+        setHtmlCanalesVenta(htmlCanalesVenta)
+        setHtmlEncuenstasHumanas(htmlEncuestasHumanas)
+  
         setLoading(true);
     }, [values]);
 
@@ -361,7 +366,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     return (
         <PDFViewer width="100%" height="100%">
             <Document
-                title={`Diagnostico General - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}
+                title={`Diagnostico Exprés - ${objEmpresario?.strNroDocto} - ${objEmpresa?.strNombreMarca}`}
             >
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
@@ -509,12 +514,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
          <li>Registro fotográfico (si aplica).</li>
      </ol>
 
-     <h5 class="pMargin"> <span style="color: #00BBB4">Información familiar </span></h5>
-     <hr />
 
-     ${htmlInfoFamiliar}
-
-     <h5 class="pMargin"> <span style="color: #00BBB4">Información del emprendimiento </span></h5>
+     <h5 class="pMargin"> <span style="color: #00BBB4">Información de la empresa </span></h5>
      <hr />
 
      ${htmlEmprend}
@@ -524,56 +525,31 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
      ${htmlPErfilEco}
 
-     <h5 class="pMargin"> <span style="color: #00BBB4">Etapa de desarrollo</span></h5>
+     <h5 class="pMargin"> <span style="color: #00BBB4">Componente de mercados y comercial</span></h5>
      <hr />
 
-     <p>
-         Las etapas de desarrollo son un concepto moldeado por De Mis Manos para definir en qué punto se encuentra tu
-         emen el rango promedio de ventas actuales, empleos generados y tiempo de dedicación. Estas variables,
-         estudiadas demprendimiento.
-         De acuerdo con la información recolectada durante el diagnóstico, la etapa de desarrollo de tu emprendimiento
-         es: <span style="color: #00BBB4">
-         ${
-             propiedadesEtapas.find(
-                 (etapa) =>
-                     etapa.parent ===
-                     values?.objInfoPerfilEco.find(
-                         (x) => x.parent === "strEtapaDllo"
-                     )?.value
-             )?.label
-         }
-         </span>
-     </p>
+     ${htmlMercado}
 
-     <p>
-         ¿Qué significa esta etapa?
-     </p>
-
-     ${
-         propiedadesEtapas.find(
-             (etapa) =>
-                 etapa.parent ===
-                 values?.objInfoPerfilEco.find(
-                     (x) => x.parent === "strEtapaDllo"
-                 )?.value
-         )?.html
-     }
-
-     <h5 class="pMargin"> <span style="color: #00BBB4">Registro fotográfico</span></h5>
+     <h5 class="pMargin"> <span style="color: #00BBB4">Normatividad</span></h5>
      <hr />
+
+     ${htmlNormatividad}
+
+     <h5 class="pMargin"> <span style="color: #00BBB4">Canales de ventas</span></h5>
+     <hr />
+
+     ${htmlCanalesVenta}
+
+     <h5 class="pMargin"> <span style="color: #00BBB4">Componente humano</span></h5>
+     <hr />
+
+     ${htmlEncuestasHumanas}
 
  </body>
 
  </html>
  `}
                     </Html>
-
-                    <View style={styles.container}>
-                        {arrImagenes.length > 0 &&
-                            arrImagenes.map((i) => (
-                                <Image src={i.src} style={styles.images} />
-                            ))}
-                    </View>
 
                     <Text style={styles.footerTitle}>
                     Transformamos la vida de las personas emprendedoras y empresarias desde el ser y el hacer

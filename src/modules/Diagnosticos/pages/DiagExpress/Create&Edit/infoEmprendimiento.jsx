@@ -288,7 +288,7 @@ const InfoEmprendimiento = ({
                             name="objInfoEmprendimiento.strTiempoDedicacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectTiempoDedicacionEmpresa
-                                    label="¿Cuánto tiempo dedica actualmente a la empresa? "
+                                    label="¿Cuánto tiempo dedica actualmente a la empresa?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
