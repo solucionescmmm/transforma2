@@ -115,6 +115,11 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     strConfianza: array[i]?.strConfianza,
                 }
 
+                let objInfoCanales = {
+                    strOtrosCanalesCrecimiento: array[i]?.strOtrosCanalesCrecimiento,
+                    strCualesCanalesCrecimiento: array[i]?.strCualesCanalesCrecimiento,
+                }
+
                 data[i] = {
                     objInfoGeneral,
                     objInfoEmprendimiento,
@@ -122,6 +127,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     objInfoMercado,
                     objInfoNormatividad,
                     objInfoEncuestaHumanas,
+                    objInfoCanales,
                 };
             }
             let result = {

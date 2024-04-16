@@ -79,6 +79,7 @@ class daoDiagnosticoGeneral {
                 ${data.strEtapaDllo},
                 NULL,
                 NULL,
+                NULL,
                 ${data.strRedesSociales},
                 ${data.strConclusiones},
                 ${data.strURLSFotosProducto},
