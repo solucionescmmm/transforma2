@@ -187,7 +187,7 @@ class daoComentarios {
             
             INSERT INTO tbl_RespuestaComentarios VALUES
             (
-                ${data.intIdComentario},
+                ${data.intId},
                 ${data.strMensaje},
                 ${data.strURLImagenUsuario},
                 GETDATE(),
