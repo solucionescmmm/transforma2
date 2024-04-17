@@ -19,6 +19,9 @@ import {
     CircularProgress,
     Alert,
     AlertTitle,
+    Grid,
+    FormControlLabel,
+    Checkbox,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -53,6 +56,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
 
     const [data, setData] = useState({
         intIdSesion: null,
+        bitFinalizarAcompañamiento: null
     });
 
     //===============================================================================================================================================
@@ -66,6 +70,13 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     //===============================================================================================================================================
     const classes = modalRejectStyles();
 
+    const handleChange = (e) =>{
+        setData((prevState)=>({
+            ...prevState,
+            bitFinalizarAcompañamiento: e.target.checked
+        }))
+    }
+
     const submitData = useCallback(
         async (signalSubmitData) => {
             setLoading(true);
@@ -78,6 +89,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${process.env.REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_FINISH_SESION}`,
                     data: {
+                        ...data,
                         intId: data.intIdSesion,
                     },
                     headers: {
@@ -232,6 +244,18 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
                 <DialogContentText>
                     ¿Deseas finalizar la sesión del acompañamiento?
                 </DialogContentText>
+                {selectedData.bitUltimaSesion ?
+                                    <Grid item xs={12}>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={data.bitFinalizarAcompañamiento}
+                                                onChange={handleChange}
+                                                inputProps={{ 'aria-label': 'controlled' }} 
+                                            />} 
+                                        label="¿Deseas finalizar el acompañamiento? "
+                                    />
+                                </Grid> : null}
             </DialogContent>
 
             <DialogActions>

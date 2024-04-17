@@ -120,8 +120,6 @@ const CUSesion = ({
         intIdTipoActividad: "",
         strResponsables: [],
         strObjetivoActividad: "",
-        strTemasActividades: "",
-        strLogros: "",
         dtmProximaActividad: null,
         strObservaciones: "",
         strURLDocumento: "",
@@ -239,7 +237,6 @@ const CUSesion = ({
                 intIdTipoActividad: values.intIdTipoActividad || "",
                 strResponsables: values.strResponsables || [],
                 strObjetivoActividad: values.strObjetivoActividad || "",
-                strTemasActividades: values.strTemasActividades || "",
                 dtmProximaActividad: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
                 strObservaciones: values.strObservaciones || "",
                 strURLDocumento: values.strURLDocumento || "",
@@ -254,7 +251,6 @@ const CUSesion = ({
                 intIdTipoActividad: values.intIdTipoActividad || "",
                 strResponsables: values.strResponsables || [],
                 strObjetivoActividad: values.strObjetivoActividad || "",
-                strTemasActividades: values.strTemasActividades || "",
                 dtmProximaActividad: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
                 strObservaciones: values.strObservaciones || "",
                 strURLDocumento: values.strURLDocumento || "",
@@ -629,10 +625,6 @@ const CUSesion = ({
                                             />
                                         )}
                                         control={control}
-                                        rules={{
-                                            required:
-                                                "Por favor, selecciona la fecha de la próxima reunión",
-                                        }}
                                     />
                                 </Grid>
 
