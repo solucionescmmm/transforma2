@@ -140,7 +140,7 @@ class daoRutas {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La fase, fue agregada con éxito.`,
+                msg: `El paquete, fue agregado con éxito.`,
             };
 
             sql.close(conexion);
@@ -191,7 +191,7 @@ class daoRutas {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg: `La fase, fue agregada con éxito.`,
+                msg: `El servicio, fue agregada con éxito.`,
             };
 
             sql.close(conexion);

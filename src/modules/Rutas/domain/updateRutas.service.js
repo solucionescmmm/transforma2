@@ -36,7 +36,7 @@ class updateRutas {
     }
 
     async main() {
-        //console.log(this.#objData.arrInfoFases[0]?.arrServicios)
+        console.log(this.#objData?.arrInfoFases[0]?.arrServicios[5])
         await this.#getIdEstado();
         await this.#getTipoRuta();
         await this.#validations();
@@ -60,31 +60,6 @@ class updateRutas {
         }
         if (!this.#objData) {
             throw new Error("Se esperaban parámetros de entrada.");
-        }
-
-        let dao = new classInterfaceDAORutas();
-
-        let queryGetRuta = await dao.getEstadoFase(
-            {
-                intId: this.#objData.objInfoPrincipal.intId,
-                intIdIdea: this.#objData.objInfoPrincipal.intIdIdea,
-            },
-            this.#objUser
-        );
-
-        if (queryGetRuta.error) {
-            throw new Error(queryGetRuta.msg);
-        }
-
-        let array = queryGetRuta.data[0]?.arrFasesRutas
-
-        if (array?.length > 0) {
-            for (let i = 0; i < array.length; i++) {
-                let objDataFase = array[i];
-                if (objDataFase.intIdEstadoFase !== this.#intIdEstado) {
-                    throw new Error("No se puede editar la ruta ya hay una fase en proceso")
-                }
-            }
         }
 
         let arrayFases = this.#objData.arrInfoFases
@@ -127,8 +102,8 @@ class updateRutas {
     async #deleteRuta() {
         let service = new serviceDeleteRutas(
             {
-                intId: this.#objData.objInfoPrincipal.intId,
-                intIdIdea: this.#objData.objInfoPrincipal.intIdIdea,
+                intId: this.#objData?.objInfoPrincipal?.intId,
+                intIdIdea: this.#objData?.objInfoPrincipal?.intIdIdea,
             },
             this.#objUser
         );
@@ -256,12 +231,12 @@ class updateRutas {
 
                     let query = await dao.setPaquetesFases({
                         intIdFase: this.#intIdFase,
-                        intIdPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intId,
-                        intIdSedeTipoTarifaPaqRef: objDataPaquete.objSedeTarifa.intId || objDataPaquete?.intIdSedeTipoTarifaPaqRef,
-                        ValorReferenciaPaquete: objDataPaquete.objSedeTarifa.dblValor || objDataPaquete?.ValorReferenciaPaquete,
-                        ValorTotalPaquete: objDataPaquete.valor || objDataPaquete?.ValorTotalPaquete,
-                        intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || objDataPaquete?.intDuracionHorasReferenciaPaquete,
-                        intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || objDataPaquete?.intDuracionHorasTotalPaquete,
+                        intIdPaquete: objDataPaquete.objPaquete?.objInfoPrincipal?.intId,
+                        intIdSedeTipoTarifaPaqRef: objDataPaquete?.intIdSedeTipoTarifaPaqRef || objDataPaquete?.objSedeTarifa?.intId,
+                        ValorReferenciaPaquete: objDataPaquete.objSedeTarifa?.dblValor || objDataPaquete?.ValorReferenciaPaquete,
+                        ValorTotalPaquete: objDataPaquete?.valor || objDataPaquete?.ValorTotalPaquete,
+                        intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal?.intDuracionHoras || objDataPaquete?.intDuracionHorasReferenciaPaquete,
+                        intDuracionHorasTotalPaquete: objDataPaquete?.intDuracionHoras || objDataPaquete?.intDuracionHorasTotalPaquete,
                         strResponsables: JSON.stringify(objDataPaquete.strResponsable || ""),
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
@@ -271,7 +246,7 @@ class updateRutas {
                         throw new Error(query.msg);
                     }
 
-                    let intIdPaqueteFase = query.data.intId;
+                    let intIdPaqueteFase = query.data?.intId;
 
                     let arrServicios = objDataPaquete.objPaquete.objInfoPrincipal.arrServicios
 
@@ -306,7 +281,7 @@ class updateRutas {
                             let objDataObjetivoPaquete = arrObjetivosPaquete[k];
 
                             let query = await dao.setObjetivosPaquetesFases({
-                                intIdObjetivo: objDataObjetivoPaquete.intIdObjetivo || objDataObjetivoPaquete.intId,
+                                intIdObjetivo: objDataObjetivoPaquete?.intIdObjetivo || objDataObjetivoPaquete.intId,
                                 intIdPaquetes_Fases: intIdPaqueteFase,
                                 btCumplio: false,
                                 strObservacionesCumplimiento: "",
@@ -332,11 +307,11 @@ class updateRutas {
                             intIdFase: this.#intIdFase,
                             intIdServicio: objDataServicio.objServicio.objInfoPrincipal.intId,
                             intIdPaqueteFase: null,
-                            intIdSedeTipoTarifaServRef: objDataServicio?.objSedeTarifa?.intId || objDataServicio?.intIdSedeTipoTarifaServRef,
-                            ValorReferenciaServicio: objDataServicio?.objSedeTarifa?.dblValor || objDataServicio?.ValorReferenciaServicio,
-                            ValorTotalServicio: objDataServicio.valor || objDataServicio?.ValorTotalServicio,
-                            intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || objDataServicio?.intDuracionHorasReferenciaServicio,
-                            intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || objDataServicio?.intDuracionHorasTotalServicio,
+                            intIdSedeTipoTarifaServRef: objDataServicio?.intIdSedeTipoTarifaServRef || objDataServicio?.objSedeTarifa?.intId,
+                            ValorReferenciaServicio: objDataServicio?.ValorReferenciaServicio || objDataServicio?.objSedeTarifa?.dblValor,
+                            ValorTotalServicio: objDataServicio?.ValorTotalServicio || objDataServicio?.valor,
+                            intDuracionHorasReferenciaServicio: objDataServicio?.intDuracionHorasReferenciaServicio || objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras,
+                            intDuracionHorasTotalServicio: objDataServicio?.intDuracionHorasTotalServicio || objDataServicio?.intDuracionHoras,
                             strResponsables: JSON.stringify(objDataServicio.strResponsable || ""),
                             btFinalizado: false,
                             strUsuarioCreacion: this.#objUser.strEmail,
