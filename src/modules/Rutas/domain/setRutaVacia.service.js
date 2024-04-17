@@ -107,7 +107,7 @@ class setRutaVacia {
             intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
             valorTotalRuta: 0,
-            strResponsable: JSON.stringify(this.#objData.strResponsable || null),
+            strResponsable: JSON.stringify(this.#objData.strResponsable || ""),
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 
@@ -170,7 +170,7 @@ class setRutaVacia {
                                 .intId,
                         ValorReferenciaPaquete: 0,
                         ValorTotalPaquete: 0,
-                        strResponsables: JSON.stringify(this.#objData.strResponsable || null),
+                        strResponsables: JSON.stringify(this.#objData.strResponsable || ""),
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 
@@ -193,7 +193,7 @@ class setRutaVacia {
                                 .intId,
                         ValorReferenciaServicio:0,
                         ValorTotalServicio:0,
-                        strResponsables: JSON.stringify(this.#objData.strResponsable || null),
+                        strResponsables: JSON.stringify(this.#objData.strResponsable || ""),
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 

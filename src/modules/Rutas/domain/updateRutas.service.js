@@ -184,7 +184,7 @@ class updateRutas {
             strNombre: objDataRuta.strNombre || `Ruta # ${this.#intNumRutas + 1}`,
             intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
-            strResponsable: JSON.stringify(objDataRuta.strResponsable || null),
+            strResponsable: JSON.stringify(objDataRuta.strResponsable || ""),
             strUsuarioCreacion: this.#objUser.strEmail,
         };
 
@@ -262,7 +262,7 @@ class updateRutas {
                         ValorTotalPaquete: objDataPaquete.valor || objDataPaquete?.ValorTotalPaquete,
                         intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || objDataPaquete?.intDuracionHorasReferenciaPaquete,
                         intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || objDataPaquete?.intDuracionHorasTotalPaquete,
-                        strResponsables: JSON.stringify(objDataPaquete.strResponsable || null),
+                        strResponsables: JSON.stringify(objDataPaquete.strResponsable || ""),
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
@@ -288,7 +288,7 @@ class updateRutas {
                                 ValorTotalServicio: 0,
                                 intDuracionHorasReferenciaServicio: null,
                                 intDuracionHorasTotalServicio: null,
-                                strResponsables: JSON.stringify(objDataPaquete.strResponsable || null),
+                                strResponsables: JSON.stringify(objDataPaquete.strResponsable || ""),
                                 btFinalizado: false,
                                 strUsuarioCreacion: this.#objUser.strEmail,
                             });
@@ -337,7 +337,7 @@ class updateRutas {
                             ValorTotalServicio: objDataServicio.valor || objDataServicio?.ValorTotalServicio,
                             intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || objDataServicio?.intDuracionHorasReferenciaServicio,
                             intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || objDataServicio?.intDuracionHorasTotalServicio,
-                            strResponsables: JSON.stringify(objDataServicio.strResponsable || null),
+                            strResponsables: JSON.stringify(objDataServicio.strResponsable || ""),
                             btFinalizado: false,
                             strUsuarioCreacion: this.#objUser.strEmail,
                         });
