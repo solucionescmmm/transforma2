@@ -36,10 +36,50 @@ const ModalMediosVetanProductos = ({
     const [openModal, setOpenModal] = useState(false);
 
     const [dataCheckbox, setDataCheckbox] = useState({
+        objAlmacenesCadena: {
+            checked: false,
+            label: "Almacenes de cadena",
+            parent: "strAlmacenesCadena",
+        },
+        objExportaciones: {
+            checked: false,
+            label: "Exportaciones",
+            parent: "strExportaciones",
+        },
+        objFerias: {
+            checked: false,
+            label: "Ferias",
+            parent: "strFerias",
+        },
+        objRedesComercializacion: {
+            checked: false,
+            label: "Grupos o redes para la comercialización",
+            parent: "strRedesComercializacion",
+        },
+        objMultimarcas: {
+            checked: false,
+            label: "Multimarcas y/o minimercados ",
+            parent: "strMultimarcas",
+        },
         objEncargo: {
             checked: false,
             label: "Por encargo (personalizado)",
             parent: null,
+        },
+        objReferidos: {
+            checked: false,
+            label: "Referidos",
+            parent: "strReferidos",
+        },
+        objVentaPorMayor: {
+            checked: false,
+            label: "Venta al por mayor",
+            parent: "strVentaPorMayor",
+        },
+        objVentasCorporativas: {
+            checked: false,
+            label: "Ventas corporativas",
+            parent: "strVentasCorporativas",
         },
         objVentaDirectaVivienda: {
             checked: false,
@@ -51,52 +91,11 @@ const ModalMediosVetanProductos = ({
             label: "Venta directa en local",
             parent: "strVentaDirectaLocal",
         },
-        objVentaPorMayor: {
-            checked: false,
-            label: "Venta al por mayor",
-            parent: "strVentaPorMayor",
-        },
-        objExportaciones: {
-            checked: false,
-            label: "Exportaciones",
-            parent: "strExportaciones",
-        },
         objVentaCatalogo: {
             checked: false,
             label: "Venta por catálogo",
             parent: "strVentaCatalogo",
-        },
-
-        objFerias: {
-            checked: false,
-            label: "Ferias",
-            parent: "strFerias",
-        },
-        objMultimarcas: {
-            checked: false,
-            label: "Multimarcas y/o minimercados ",
-            parent: "strMultimarcas",
-        },
-        objRedesComercializacion: {
-            checked: false,
-            label: "Grupos o redes para la comercialización",
-            parent: "strRedesComercializacion",
-        },
-        objAlmacenesCadena: {
-            checked: false,
-            label: "Almacenes de cadena",
-            parent: "strAlmacenesCadena",
-        },
-        objVentasCorporativas: {
-            checked: false,
-            label: "Ventas corporativas",
-            parent: "strVentasCorporativas",
-        },
-        objReferidos: {
-            checked: false,
-            label: "Referidos",
-            parent: "strReferidos",
-        },
+        }
     });
 
     // eslint-disable-next-line
