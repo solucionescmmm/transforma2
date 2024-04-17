@@ -108,16 +108,15 @@ class updateDiagnosticoExpress {
             ...this.#objData.objInfoEmprendimiento,
             intIdIdea: this.#objData?.objInfoGeneral?.intIdIdea,
             strMediosDigitales: JSON.stringify(
-                this.#objData.objInfoEmprendimiento?.arrMediosDigitales || null
+                this.#objData.objInfoCanalesVenta?.arrMediosDigitales || null
             ),
             strFormasComercializacion: JSON.stringify(
-                this.#objData.objInfoEmprendimiento?.arrFormasComercializacion || null
+                this.#objData.objInfoCanalesVenta?.arrFormasComercializacion || null
             ),
             strCategoriasSecundarias: JSON.stringify(
                 this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias ||
                     null
             ),
-            dblValorVentasMes: this.#objData.objInfoPerfilEco.ValorVentaProductoEscogido,
             intNumeroEmpleados:this.#objData.objInfoPerfilEco.intNumeroEmpleados,
             btGeneraEmpleo:this.#objData.objInfoPerfilEco.btGeneraEmpleo
         };
