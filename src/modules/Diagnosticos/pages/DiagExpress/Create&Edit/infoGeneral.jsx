@@ -135,7 +135,7 @@ const InfoGeneral = ({
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownEmpresarios
                                     label="Persona empresaria a la cual se le realiza el diagnóstico"
-                                    disabled={loading}
+                                    disabled={disabled}
                                     name={name}
                                     value={value}
                                     onChange={(target, value) => {

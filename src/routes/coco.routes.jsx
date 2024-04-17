@@ -314,7 +314,6 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
     }
 
     if (route.location === "DiagnExpress") {
-        console.log(route.params)
         return (
             <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
                 <Grid container direction="row" spacing={3}>
@@ -414,6 +413,53 @@ const CocoRoutes = ({ route, onChangeRoute, refreshGlobal }) => {
                             onClick={() => onChangeRoute("DiagnExpress", {
                                 ...route.params,
                             })}
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabPanel>
+        );
+    }
+
+    if (route.location === "DiagExpressPrev") {
+        return (
+            <TabPanel value="DiagnosticoCoco" sx={{ width: "100%" }}>
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagnosticoCoco", {
+                                    ...route.params,
+                                })
+                            }
+                            startIcon={<ChevronLeftIcon />}
+                            size="small"
+                            color="inherit"
+                        >
+                            regresar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <DiagnosticoExpressCU
+                            isPreview
+                            onChangeRoute={onChangeRoute}
+                            intIdIdea={route.params.intIdIdea}
+                            intIdDiagnostico={route.params.intIdDiagnostico}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={() =>
+                                onChangeRoute("DiagnosticoCoco", {
+                                    ...route.params,
+                                })
+                            }
                             startIcon={<ChevronLeftIcon />}
                             size="small"
                             color="inherit"

@@ -3,7 +3,6 @@ import { defineAbility } from '@casl/ability';
 export const defineAbilitiesFor = (strData) => {
     return defineAbility((can) => {
         if(strData) {
-            console.log(strData)
             if (strData?.strRol === "Admin") {
                 can("manage", "all");
             }

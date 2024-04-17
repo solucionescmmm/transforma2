@@ -93,6 +93,7 @@ const styles = makeStyles((theme) => ({
 
 const PageCUExpress = ({
     isEdit,
+    isPreview,
     intIdIdea,
     intIdDiagnostico,
     onChangeRoute,
@@ -380,7 +381,7 @@ const PageCUExpress = ({
                         }
 
                         if (res.data?.data) {
-                            if (!isEdit) {
+                            if (!isEdit && !isPreview) {
                                 setOpenModal(true);
                             } else {
                                 const dataDiag = res.data.data[0];
@@ -478,7 +479,7 @@ const PageCUExpress = ({
 
             getData();
         }
-    }, [intIdIdea, intIdDiagnostico, isEdit, reset]);
+    }, [intIdIdea, intIdDiagnostico, isEdit, reset, isPreview]);
 
     useEffect(() => {
         if (isEdit) {
@@ -616,7 +617,8 @@ const PageCUExpress = ({
                                                 variant="body1"
                                             >
                                                 {isEdit
-                                                    ? "editar diagnóstico exprés"
+                                                    ? "editar diagnóstico exprés" :
+                                                    isPreview ?  "previsualizar diagnóstico exprés" 
                                                     : "registrar diagnóstico exprés"}
                                             </Typography>
                                         </Box>
@@ -633,7 +635,7 @@ const PageCUExpress = ({
                                 <Grid item xs={12}>
                                     <InfoGeneral
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoGeneral}
                                         errors={errors}
                                         intIdIdea={intIdIdea}
@@ -646,7 +648,7 @@ const PageCUExpress = ({
                                 <Grid item xs={12}>
                                     <InfoEmprendimiento
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoEmprendimiento}
                                         errors={errors}
                                         setValue={setValue}
@@ -658,7 +660,7 @@ const PageCUExpress = ({
                                 <Grid item xs={12}>
                                     <InfoPerfilEco
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoPerfilEco}
                                         errors={errors}
                                         setValue={setValue}
@@ -670,7 +672,7 @@ const PageCUExpress = ({
                                 <Grid item xs={12}>
                                     <InfoMercadoYComercial
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoMercado}
                                         errors={errors}
                                         setValue={setValue}
@@ -682,7 +684,7 @@ const PageCUExpress = ({
                                 <Grid item xs={12}>
                                     <InfoNormatividad
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoNormatividad}
                                         errors={errors}
                                         setValue={setValue}
@@ -694,7 +696,7 @@ const PageCUExpress = ({
                                 <Grid item xs={12}>
                                     <InfoCanalesVenta
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoCanalesVenta}
                                         errors={errors}
                                         setValue={setValue}
@@ -706,7 +708,7 @@ const PageCUExpress = ({
                                 <Grid item xs={12}>
                                     <InfoEncuestaHumanas
                                         control={control}
-                                        disabled={loading}
+                                        disabled={isPreview ? true : loading}
                                         values={data.objInfoEncuestaHumanas}
                                         errors={errors}
                                         setValue={setValue}
@@ -732,7 +734,7 @@ const PageCUExpress = ({
                                     </Grid>
                                 )}
 
-                                <Grid item xs={12}>
+                                {isPreview ? null:<Grid item xs={12}>
                                     <Can I="create" a="Diag">
                                         <Box
                                             sx={{
@@ -751,7 +753,7 @@ const PageCUExpress = ({
                                             </LoadingButton>
                                         </Box>
                                     </Can>
-                                </Grid>
+                                </Grid>}
                             </Grid>
                         </Paper>
                     </Container>

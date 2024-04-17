@@ -899,7 +899,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                         color="inherit"
                                         onClick={() =>
                                             onChangeRoute(
-                                                "DiagEmpresarialPrev",
+                                                "DiagExpressPrev",
                                                 {
                                                     intIdIdea,
                                                     intIdDiagnostico,

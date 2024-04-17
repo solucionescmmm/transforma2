@@ -296,7 +296,7 @@ const ReadDiagnosticos = ({
                                                                 setSelectedData(rowData);
                                                                 handlerOpenModalPreview();
                                                             } else {
-                                                                onChangeRoute("DiagnExpress", {
+                                                                onChangeRoute("DiagnExpressRead", {
                                                                     intIdDiagnostico: rowData.intId,
                                                                     intIdIdea,
                                                                 });
