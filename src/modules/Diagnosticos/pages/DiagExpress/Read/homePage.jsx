@@ -354,12 +354,12 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Formas de comercialización",
             },
             {
-                parent: "strOtrosCanales",
+                parent: "strOtrosCanalesCrecimiento",
                 value: "",
                 label: "¿Ha desarrollado otros canales que le apoyen en el crecimiento en ventas?",
             },
             {
-                parent: "strCualesOtrosCanales",
+                parent: "strCualesCanalesCrecimiento",
                 value: "",
                 label: "¿Cuáles?",
             },

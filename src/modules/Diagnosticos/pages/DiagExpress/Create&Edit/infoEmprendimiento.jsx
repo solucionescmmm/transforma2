@@ -77,7 +77,6 @@ const InfoEmprendimiento = ({
     };
 
     useEffect(() => {
-        console.log(values)
         if (values) {
             setData({
                 strUnidadProductiva: values.strUnidadProductiva || "",

@@ -41,8 +41,8 @@ const InfoCanalesVenta = ({
     const [data, setData] = useState({
         arrMediosDigitales: [],
         arrFormasComercializacion: [],
-        strOtrosCanales: "",
-        strCualesOtrosCanales: "",
+        strOtrosCanalesCrecimiento: "",
+        strCualesCanalesCrecimiento: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -58,8 +58,8 @@ const InfoCanalesVenta = ({
                 arrMediosDigitales: values.arrMediosDigitales || [],
                 arrFormasComercializacion:
                     values.arrFormasComercializacion || [],
-                strOtrosCanales: values.strOtrosCanales || "",
-                strCualesOtrosCanales: values.strCualesOtrosCanales || "",
+                strOtrosCanalesCrecimiento: values.strOtrosCanalesCrecimiento || "",
+                strCualesCanalesCrecimiento: values.strCualesCanalesCrecimiento || "",
             });
         }
 
@@ -186,8 +186,8 @@ const InfoCanalesVenta = ({
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.strOtrosCanales}
-                            name="objInfoCanalesVenta.strOtrosCanales"
+                            defaultValue={data.strOtrosCanalesCrecimiento}
+                            name="objInfoCanalesVenta.strOtrosCanalesCrecimiento"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
                                     label="¿Ha desarrollado otros canales que le apoyen en el crecimiento en ventas?"
@@ -198,10 +198,10 @@ const InfoCanalesVenta = ({
                                         onChange(e);
                                         setData((prev) => ({
                                             ...prev,
-                                            strOtrosCanales: e.target.value,
+                                            strOtrosCanalesCrecimiento: e.target.value,
                                         }));
                                         setValue(
-                                            "objInfoCanalesVenta.strCualesOtrosCanales",
+                                            "objInfoCanalesVenta.strCualesCanalesCrecimiento",
                                             ""
                                         );
                                     }}
@@ -209,13 +209,13 @@ const InfoCanalesVenta = ({
                                     variant="standard"
                                     error={
                                         errors?.objInfoCanalesVenta
-                                            ?.strOtrosCanales
+                                            ?.strOtrosCanalesCrecimiento
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoCanalesVenta
-                                            ?.strOtrosCanales?.message ||
+                                            ?.strOtrosCanalesCrecimiento?.message ||
                                         "Selecciona si la empresa ha desarrollado otros canales que le apoyen en el crecimiento en ventas"
                                     }
                                     strGrupo="Lista_Generica"
@@ -228,14 +228,14 @@ const InfoCanalesVenta = ({
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.strCualesOtrosCanales}
-                            name="objInfoCanalesVenta.strCualesOtrosCanales"
+                            defaultValue={data.strCualesCanalesCrecimiento}
+                            name="objInfoCanalesVenta.strCualesCanalesCrecimiento"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Cuáles?"
                                     name={name}
                                     value={value}
-                                    disabled={!data.strOtrosCanales || disabled}
+                                    disabled={!data.strOtrosCanalesCrecimiento || disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     variant="outlined"
@@ -243,13 +243,13 @@ const InfoCanalesVenta = ({
                                     minRows={4}
                                     error={
                                         errors?.objInfoCanalesVenta
-                                            ?.strCualesOtrosCanales
+                                            ?.strCualesCanalesCrecimiento
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoCanalesVenta
-                                            ?.strCualesOtrosCanales?.message ||
+                                            ?.strCualesCanalesCrecimiento?.message ||
                                         "Digita tu respuesta"
                                     }
                                 />

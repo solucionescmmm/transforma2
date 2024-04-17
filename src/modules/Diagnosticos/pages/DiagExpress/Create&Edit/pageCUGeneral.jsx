@@ -235,6 +235,9 @@ const PageCUExpress = ({
                                 objInfoEncuestaHumanas: {
                                     ...data.objInfoEncuestaHumanas,
                                 },
+                                objInfoCanalesVenta: {
+                                    ...data.objInfoCanalesVenta,
+                                },
                             };
 
                             return JSON.stringify(newData);
@@ -385,6 +388,8 @@ const PageCUExpress = ({
                                 setOpenModal(true);
                             } else {
                                 const dataDiag = res.data.data[0];
+
+                                console.log(dataDiag)
 
                                 setData((prevState) => {
                                     const objInfoGeneral = {
