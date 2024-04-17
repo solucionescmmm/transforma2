@@ -63,7 +63,10 @@ class updateFinalizarSesionAcompañamiento {
     async #sp_flujoFinalizarAcompañamiento() {
         let dao = new classInterfaceDAOAcompañamientos();
 
-        let query = await dao.sp_flujoFinalizarAcompañamiento({intIdSesionAcompañamiento: this.#objData.intId});
+        let query = await dao.sp_flujoFinalizarAcompañamiento({
+            intIdSesionAcompañamiento: this.#objData.intId,
+            bitFinalizarAcompañamiento: this.#objData?.bitFinalizarAcompañamiento
+        });
 
         if (query.error) {
             throw new Error(query.msg);

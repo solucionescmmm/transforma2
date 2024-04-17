@@ -57,7 +57,7 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                     strTipoAcompañamiento: array[i]?.strTipoAcompañamiento,
                     strResponsables: JSON.parse(array[i]?.arrSesionAcompañamiento[0]?.strResponsables || ""),
                     strUbicacion: array[i]?.arrSesionAcompañamiento[0]?.strUbicacion,
-                    btFinalizado: array[i]?.arrSesionAcompañamiento[0]?.btFinalizado,
+                    btFinalizado: array[i]?.btFinalizado,
                     dtmCreacion: array[i]?.dtmCreacion,
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,

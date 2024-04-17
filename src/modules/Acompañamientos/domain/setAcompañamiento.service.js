@@ -115,7 +115,7 @@ class setAcompañamiento {
             intIdServicio: this.#objData?.objNuevoServPaq?.objServicio?.objInfoPrincipal?.intId || this.#objData?.objInfoRutaExs?.objServicio?.objServicio?.objInfoPrincipal?.intId || null,
             strUbicacion: this.#objData.strLugarActividad,
             intIdTipoActividad: this.#objData.intTipoActividad,
-            strResponsables: JSON.stringify(this.#objData.objResponsable || null),
+            strResponsables: JSON.stringify(this.#objData.objResponsable || ""),
             strTemasActividades: this.#objData.strActividades,
             strLogrosAvances: this.#objData.strLogros,
             strObservaciones: this.#objData.strRetroAlim,
@@ -157,7 +157,7 @@ class setAcompañamiento {
         let data = {
             intIdIdea: this.#objData.intIdIdea,
             strObservaciones: "Ruta creada apartir de un acompañamiento",
-            strResponsable: this.#objData.objResponsable,
+            strResponsable: this.#objData.objResponsable[0],
             strNombre:`Ruta no planeada de paquete o servicio ${
                 this.#objData.objNuevoServPaq?.objPaquete ? 
                 this.#objData.objNuevoServPaq?.objPaquete?.objInfoPrincipal?.strNombre : 

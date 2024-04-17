@@ -27,7 +27,6 @@ class setAcompañamiento {
     }
 
     async main() {
-        console.log(this.#objData)
         await this.#validations();
         await this.#setSesionAcompañamiento();
         return this.#objResult;
@@ -59,7 +58,7 @@ class setAcompañamiento {
             ...this.#objData,
             intIdAcompañamiento: this.#objData.intIdAcompañamiento,
             intIdEmpresario: this.#objData.objEmpresario?.intId,
-            dtmFechaInicial: this.#objData.dtmFechaInicio,
+            dtmFechaInicial: this.#objData.dtmFechaInicial,
             dtmFechaFinal: this.#objData.dtmFechaFinal,
             intIdRuta: this.#objData?.objInfoRutaExs?.objRuta?.objInfoPrincipal?.intId || null,
             intIdFase: this.#objData?.objInfoRutaExs?.objFase?.intId || null,
@@ -67,12 +66,12 @@ class setAcompañamiento {
             intIdServicio: this.#objData?.objNuevoServPaq?.objServicio?.objInfoPrincipal?.intId || this.#objData?.objInfoRutaExs?.objServicio?.objServicio?.objInfoPrincipal?.intId || null,
             strUbicacion: this.#objData.strUbicacion,
             intIdTipoActividad: this.#objData.intIdTipoActividad,
-            strResponsables: JSON.stringify(this.#objData.objResponsable || null),
+            strResponsables: JSON.stringify(this.#objData.strResponsables || ""),
             strTemasActividades: this.#objData.strTemasActividades,
             strLogrosAvances: this.#objData.strLogros,
             strObservaciones: this.#objData.strObservaciones,
             intIdTarea: null,
-            dtmProximaActividad: this.#objData.dtmFechaProx,
+            dtmProximaActividad: this.#objData.dtmProximaActividad,
             intIdDocumento: this.#intIdDocumento,
             strUsuarioCreacion: this.#objUser.strEmail,
             btFinalizado: false,
