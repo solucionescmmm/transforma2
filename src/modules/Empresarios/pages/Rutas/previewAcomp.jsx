@@ -85,10 +85,21 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
     useEffect(() => {
         if (values?.[0]?.arrSesionAcompañamiento?.length > 0) {
             const arrDataTable = [];
+            let intCountFinalizadas = 0
 
             for (let i = 0; i < values[0].arrSesionAcompañamiento.length; i++) {
                 const data = values[0].arrSesionAcompañamiento[i];
+                console.log(data.btFinalizado)
+                if (data.btFinalizado) {
+                    intCountFinalizadas += 1
+                }
+            }
 
+            let resta = values[0].arrSesionAcompañamiento.length - intCountFinalizadas
+            console.log(resta, values[0].arrSesionAcompañamiento.length, intCountFinalizadas)
+
+            for (let i = 0; i < values[0].arrSesionAcompañamiento.length; i++) {
+                const data = values[0].arrSesionAcompañamiento[i];
                 arrDataTable.push({
                     ...data,
                     intId: data.intId,
@@ -100,6 +111,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                     strNombreRuta: data.strNombreRuta,
                     dtmCreacion: data.dtmCreacion,
                     objInfoPrincipal: values[0].objInfoPrincipal,
+                    bitUltimaSesion: values[0].arrSesionAcompañamiento?.length === 1 ? true : resta === 1 ? true : false
                 });
             }
 
@@ -308,7 +320,6 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                                         tooltip: "Finalizar",
                                         onClick: (event, rowData) => {
                                             setSelectedData(rowData)
-                                            console.log(rowData)
                                             handlerOpenModalFinalizacion()
                                         },
                                     };
