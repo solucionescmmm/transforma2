@@ -456,7 +456,6 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
                                     multiline
                                     row={4}
                                     variant="outlined"
@@ -476,8 +475,6 @@ const InfoPerfilEco = ({
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, digita detalladamente tu respuesta",
                                 validate:(value)=>{
                                     if (validator.isLength(value,{min:100})) {
                                         return "El número maximo de carácteres es de 100"

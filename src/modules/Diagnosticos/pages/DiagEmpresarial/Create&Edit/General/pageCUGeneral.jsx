@@ -982,10 +982,10 @@ const PageCUGeneral = ({
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <InfoAdicional
+                                    <InfoCanalesVenta
                                         control={control}
                                         disabled={isPreview ? true : loading}
-                                        values={data.objInfoAdicional}
+                                        values={data.objInfoCanalesVenta}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -994,10 +994,10 @@ const PageCUGeneral = ({
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <InfoCanalesVenta
+                                    <InfoAdicional
                                         control={control}
                                         disabled={isPreview ? true : loading}
-                                        values={data.objInfoCanalesVenta}
+                                        values={data.objInfoAdicional}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}

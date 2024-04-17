@@ -390,26 +390,9 @@ const InfoFamiliar = ({
                                             ?.message ||
                                         "Selecciona el nivel educativo máximo de los hijos"
                                     }
-                                    required={
-                                        parseInt(data.intHijos) === 0 ||
-                                        !data.intHijos
-                                            ? false
-                                            : true
-                                    }
                                 />
                             )}
                             control={control}
-                            rules={{
-                                validate: (value) => {
-                                    let intHijos = parseInt(data.intHijos);
-
-                                    if (intHijos > 0) {
-                                        if (!value) {
-                                            return "Por favor, selecciona el nivel educativo máximo de los hijos";
-                                        }
-                                    }
-                                },
-                            }}
                         />
                     </Grid>
 

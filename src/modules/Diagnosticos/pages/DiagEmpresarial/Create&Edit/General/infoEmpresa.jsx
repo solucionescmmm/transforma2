@@ -36,7 +36,7 @@ const InfoEmpresa = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        strHistoriaEmpresa: "",
+        strComoVeCincoAños: "",
         strSuenioEmpresa: "",
         strEstudioEmprendimiento: "",
         strExperienciaEmprendimiento: "",
@@ -56,7 +56,7 @@ const InfoEmpresa = ({
     useEffect(() => {
         if (values) {
             setData({
-                strHistoriaEmpresa: values.strHistoriaEmpresa || "",
+                strComoVeCincoAños: values.strComoVeCincoAños || "",
                 strSuenioEmpresa: values.strSuenioEmpresa || "",
                 strEstudioEmprendimiento: values.strEstudioEmprendimiento || "",
                 strExperienciaEmprendimiento: values.strExperienciaEmprendimiento || "",
@@ -114,49 +114,13 @@ const InfoEmpresa = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strHistoriaEmpresa}
-                            name="objInfoEmpresa.strHistoriaEmpresa"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿Cómo nace la empresa? - Historia"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="outlined"
-                                    multiline
-                                    rows={4}
-                                    error={
-                                        errors?.objInfoEmpresa?.strHistoriaEmpresa
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmpresa?.strHistoriaEmpresa
-                                            ?.message ||
-                                        "Digita con detalle como nace la empresa"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, digita con detalle como nace la empresa",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strSuenioEmpresa}
                             name="objInfoEmpresa.strSuenioEmpresa"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿Cómo sueña su empresa?/¿Cómo se ve usted en cinco años?"
+                                    label="¿Cómo sueña su empresa?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -182,6 +146,42 @@ const InfoEmpresa = ({
                             rules={{
                                 required:
                                     "Por favor, digita con detalle como sueña la empresa",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strComoVeCincoAños}
+                            name="objInfoEmpresa.strComoVeCincoAños"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Cómo se ve usted en cinco años?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="outlined"
+                                    multiline
+                                    rows={4}
+                                    error={
+                                        errors?.objInfoEmpresa?.strComoVeCincoAños
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strComoVeCincoAños
+                                            ?.message ||
+                                        "Digita con detalle como nace la empresa"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digita con detalle como nace la empresa",
                             }}
                         />
                     </Grid>
