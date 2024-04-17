@@ -51,6 +51,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
+                    btFinalizado: array[i]?.btFinalizado,
                     objEmpresario: {
                         strNombreCompleto: objDataEmpresario.strNombres + " " + objDataEmpresario.strApellidos,
                         intId: array[i]?.intIdEmpresario,

@@ -463,6 +463,7 @@ class daoDiagnosticoExpress {
             intIdDiagnostico,
             intIdEmpresario,
             intIdTipoEmpresario,
+            btFinalizado,
             strRegistroCamaraComercio,
             strOperacionesVentas6Meses,
             strDefinineLineasProductoServicios,
@@ -547,8 +548,6 @@ class daoDiagnosticoExpress {
                 ...response.recordsets[2][0],
                 ...response.recordsets[3][0]
             }];
-
-            console.log(arrNewData)
 
             let result = {
                 error: false,
