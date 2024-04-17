@@ -39,7 +39,7 @@ const ModalDeleteComentario = ({ socket, values, onClose, open }) => {
 
         socket.emit("mdlComentarios:deleteComentario", {
             intId: values.intId,
-            intIdEmpresario: values.intIdEmpresario,
+            intIdIdea: values.intIdIdea,
         });
 
         socket.on("mdlComentarios:deleteComentario", (res) => {
@@ -62,9 +62,6 @@ const ModalDeleteComentario = ({ socket, values, onClose, open }) => {
                 component: "form",
                 noValidate: "noValidate",
                 onSubmit: handleSubmit(onSubmit),
-                style: {
-                    backgroundColor: !loading ? "#FDEDED" : "inherit",
-                },
             }}
         >
             <DialogTitle>¿Está seguro de eliminar este comentario?</DialogTitle>

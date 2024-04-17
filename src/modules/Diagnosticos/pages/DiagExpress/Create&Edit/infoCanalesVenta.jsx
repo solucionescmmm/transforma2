@@ -154,6 +154,7 @@ const InfoCanalesVenta = ({
                             control={control}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.arrFormasComercializacion}
@@ -234,9 +235,7 @@ const InfoCanalesVenta = ({
                                     label="¿Cuáles?"
                                     name={name}
                                     value={value}
-                                    disabled={
-                                        !data.strOtrosCanales || disabled
-                                    }
+                                    disabled={!data.strOtrosCanales || disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     variant="outlined"

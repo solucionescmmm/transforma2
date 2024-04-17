@@ -305,7 +305,7 @@ const InfoEncuestaHumanas = ({
                                     fácil tomar e implementar las decisiones con
                                     oportunidad. Teniendo presente esta
                                     definición evalúa en qué nivel te encuentras
-                                    para las siguiente pregunta:
+                                    para la siguiente pregunta:
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -364,7 +364,7 @@ const InfoEncuestaHumanas = ({
                                     facilitan el actuar certero de la persona
                                     empresaria. Teniendo presente esta
                                     definición evalúa en qué nivel te encuentras
-                                    para las siguiente pregunta:
+                                    para la siguiente pregunta:
                                 </Typography>
                             </CardContent>
                         </Card>

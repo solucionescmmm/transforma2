@@ -31,7 +31,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        intIdComentario: values?.intIdComentario,
+        intId: values?.intId,
         intIdIdea: values?.intIdIdea,
         strMensaje: "",
         dtmCreacion: null,
@@ -62,7 +62,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
 
         socket.emit("mdlComentarios:setRespuesta", {
             ...data,
-            intIdComentario: values.intIdComentario,
+            intId: values.intId,
             intIdIdea: values.intIdIdea,
             strUsuarioCreacion: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
@@ -72,7 +72,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
             onClose();
 
             setData({
-                intIdComentario: values.intIdComentario,
+                intId: values.intId,
                 intIdIdea: values?.intIdIdea,
                 strMensaje: "",
                 dtmCreacion: null,
@@ -81,7 +81,7 @@ const ModalAddComentario = ({ socket, onClose, open, values }) => {
             });
 
             reset({
-                intIdComentario: values.intIdComentario,
+                intId: values.intId,
                 intIdIdea: values?.intIdIdea,
                 strMensaje: "",
                 dtmCreacion: null,

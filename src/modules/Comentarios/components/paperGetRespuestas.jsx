@@ -54,6 +54,7 @@ const PaperGetRespuestas = ({ values, socket }) => {
 
     const [data, setData] = useState({
         intId: null,
+        intIdIdea: values.intIdIdea,
         intIdComentario: null,
         strMensaje: "",
         dtmCreacion: null,
@@ -82,6 +83,7 @@ const PaperGetRespuestas = ({ values, socket }) => {
     useEffect(() => {
         setData({
             intId: values.intId || null,
+            intIdIdea: values.intIdIdea || null,
             intIdComentarioPr: values.intIdComentario || "",
             strMensaje: values.strMensaje || "",
             dtmCreacion: values.dtmCreacion
@@ -100,6 +102,7 @@ const PaperGetRespuestas = ({ values, socket }) => {
                 open={openModalDelete}
                 values={{
                     intId: data.intId,
+                    intIdIdea: values.intIdIdea
                 }}
             />
 

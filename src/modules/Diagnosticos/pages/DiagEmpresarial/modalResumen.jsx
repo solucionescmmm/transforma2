@@ -99,7 +99,7 @@ const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
                         </Button>
                     </Grid>
 
-                    <Grid item xs={6}>
+                    {/* <Grid item xs={6}>
                         <Button
                             color="primary"
                             disabled={true}
@@ -107,7 +107,7 @@ const ModalResumen = ({ onClose, open, values, onChangeRoute }) => {
                         >
                             Consolidado diagnóstico
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </DialogContent>
 

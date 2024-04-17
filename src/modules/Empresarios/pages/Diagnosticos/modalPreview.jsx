@@ -350,7 +350,7 @@ const ModalPreview = ({
                             Servicio
                         </Button>
                     </Grid>
-
+{/* 
                     <Grid item xs={6}>
                         <Button
                             color="primary"
@@ -359,7 +359,7 @@ const ModalPreview = ({
                         >
                             Consolidado diagnóstico
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </DialogContent>
 

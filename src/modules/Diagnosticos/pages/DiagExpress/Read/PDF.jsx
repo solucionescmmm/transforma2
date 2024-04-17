@@ -14,6 +14,7 @@ import {
 
 import { Box, CircularProgress } from "@mui/material";
 import useGetEmpresarios from "../../../../Empresarios/hooks/useGetEmpresarios";
+import { isSimilar } from "../../../../../common/functions/all";
 
 // Register Font
 Font.register({
@@ -101,6 +102,92 @@ const styles = StyleSheet.create({
     },
 });
 
+const propiedadesEtapas = [
+    {
+        parent: "Ideación",
+        label: "Ideación",
+        html: `
+        <p>
+        En esta fase, los emprendimiento aun no han realizado ventas en sus productos o
+        servicios.
+        </p>`,
+    },
+    {
+        parent: "Validación comercial",
+        label: "Validación Comercial",
+        html: `
+        <p>
+        En esta fase, los emprendimientos se centran en desarrollar el producto o servicio,
+        validación del producto o servicio, incluyendo el diseño correspondiente.
+        </p>`,
+    },
+    {
+        parent: "Nuevo empresario",
+        label: "Nueva Empresa",
+        html: `
+        <p>
+        En esta etapa, los emprendimientos se encuentran activamente comprometidos con su actividad empresarial, 
+        siendo propietarios o copropietarios. Están inmersos en el proceso de organización y creación legal y 
+        formal de la empresa para realizar operaciones en el mercado. Se aborda la construcción de las bases 
+        operativas, administrativas y contables, así como la definición de canales de comercialización y ventas. 
+        Además, se realiza el refinamiento del modelo y plan de negocios. 
+        </p>`,
+    },
+    {
+        parent: "Fortalecimiento empresariaI I",
+        label: "Fortalecimiento Nivel I",
+        html: `
+        <p>
+        Durante esta fase temprana de actividad empresarial, se busca desarrollar el potencial de mercado 
+        con un enfoque especialmente centrado en los aspectos comerciales y administrativos. 
+        Existen expectativas de crecimiento en esta etapa inicial.
+        </p>`,
+    },
+    {
+        parent: "Fortalecimiento empresarial II",
+        label: "Fortalecimiento Nivel II",
+        html: `
+        <p>
+        En este momento el emprendimiento está enfocado en el desarrollo del potencial de mercado con un 
+        enfoque comercial definido. Se trabaja en el fortalecimiento y estabilización de los procesos 
+        administrativos, y se inicia la búsqueda y desarrollo del recurso humano con la consiguiente 
+        delegación de tareas. La actividad empresarial está en proceso de crecimiento, 
+        con oportunidades para consolidar las actividades.
+        </p>`,
+    },
+    {
+        parent: "Consolidación",
+        label: "Consolidación",
+        html: `
+        <p>
+          En esta etapa, la empresa logra estabilidad y solidez económico-financiera. 
+          Se considera una actividad empresarial avanzada con altas expectativas de crecimiento. Los factores 
+          clave para alcanzar la consolidación están relacionados con la viabilidad a mediano y 
+          largo plazo de la empresa.
+        </p>`,
+    },
+    {
+        parent: "Escalamiento",
+        label: "Escalamiento",
+        html: `
+        <p>
+        Esta fase se presenta cuando el negocio se vuelve escalable y adquiere una posición sólida en el mercado. 
+        Esto se logra mediante una nueva forma de administración que se centra en el cumplimiento de planes 
+        estratégicos y modelos de negocio.
+        </p>`,
+    },
+    {
+        parent: "Expansión",
+        label: "Expansión",
+        html: `
+        <p>
+        En la etapa de expansión, se define la estrategia de expansión, se establecen plataformas 
+        para el crecimiento y se desarrollan nuevas líneas de negocio. En algunas ocasiones,
+        comienza la búsqueda de inversión para expandir el negocio y aprovechar al máximo las oportunidades 
+        del mercado, multiplicando así los márgenes de ganancia.
+        </p>`,
+    },
+];
 
 const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     //===============================================================================================================================================
@@ -507,11 +594,13 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
      </p>
 
      <ol style="font-family: Roboto; color: #505050; font-size: 11px">
-         <li>Detalles sobre la estructura familiar.</li>
-         <li>Información general de la empresa.</li>
+         <li>Información de la empresa.</li>
          <li>Perfil económico y productivo.</li>
-         <li>Etapa desarrollo.</li>
-         <li>Registro fotográfico (si aplica).</li>
+         <li>Etapa de desarrollo.</li>
+         <li>Componente de mercados y comercial.</li>
+         <li>Normatividad.</li>
+         <li>Canales de ventas.</li>
+         <li>Componente humano.</li>
      </ol>
 
 
@@ -524,6 +613,53 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
      <hr />
 
      ${htmlPErfilEco}
+
+     <h5 class="pMargin"> <span style="color: #00BBB4">Etapa de desarrollo</span></h5>
+     <hr />
+
+     <p>
+         Las etapas de desarrollo son un concepto moldeado por De Mis Manos para definir en qué punto se encuentra tu
+         empresa. En el cálculo de estas etapas, nos fundamentamos en el rango promedio de ventas actuales, empleos generados y tiempo de dedicación. 
+         Estas variables estudiadas detenidamente, se consideran claves en el desarrollo de un emprendimiento.
+
+         <br />
+         <br />
+
+         De acuerdo con la información recolectada durante el diagnóstico, la etapa de desarrollo de tu emprendimiento es:
+
+         <div style="border-style: solid; border-width: 3px; padding-bottom: 5px; padding-top: 2px; padding-left: 5px; border-color: #F5B335; display:flex; justify-content: center; margin: auto">
+            <span style="color: #00BBB4; font-family: Roboto; font-size: 13px">
+            ${
+                propiedadesEtapas.find((etapa) =>
+                    isSimilar(
+                        etapa.parent.toLowerCase(),
+                        values?.objInfoPerfilEco
+                            .find((x) => x.parent === "strEtapaDllo")
+                            ?.value.toLowerCase(),
+                        1
+                    )
+                )?.label
+            }
+            </span>
+         </div>
+
+        <span style="color: black; font-size: 11px; font-family: Roboto">
+         ¿Qué significa esta etapa?
+        </span>
+     </p>
+
+
+    ${
+        propiedadesEtapas.find((etapa) =>
+            isSimilar(
+                etapa.parent.toLowerCase(),
+                values?.objInfoPerfilEco
+                    .find((x) => x.parent === "strEtapaDllo")
+                    ?.value.toLowerCase(),
+                1
+            )
+        )?.html
+    }
 
      <h5 class="pMargin"> <span style="color: #00BBB4">Componente de mercados y comercial</span></h5>
      <hr />

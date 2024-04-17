@@ -160,6 +160,11 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         ],
         objInfoPerfilEco: [
             {
+                parent: "strEtapaDllo",
+                value: "",
+                label: "Etapa de desarrollo",
+            },
+            {
                 parent: "PromedioVentas6Meses",
                 value: "",
                 label: "Promedio de ventas de los últimos 6 meses",

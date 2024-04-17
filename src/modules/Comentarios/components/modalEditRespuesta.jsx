@@ -32,6 +32,7 @@ const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
     //===============================================================================================================================================
     const [data, setData] = useState({
         intId: values?.intId,
+        intIdIdea: values?.intIdIdea,
         intIdComentario: values?.intIdComentario,
         strMensaje: "",
         dtFechaCreacion: null,
@@ -63,14 +64,18 @@ const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
         socket.emit("mdlComentarios:updateRespuesta", {
             ...data,
             strUsuario: strInfoUser.strUsuario,
+            intId: values?.intId,
+            intIdIdea: values?.intIdIdea,
+            intIdComentario: values?.intIdComentario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
-            intIdEmpresario: values.intIdEmpresario,
         });
 
         socket.on("mdlComentarios:updateRespuesta", () => {
             onClose();
 
             setData({
+                intId: values?.intId,
+                intIdIdea: values?.intIdIdea,
                 intIdComentario: values?.intIdComentario,
                 strMensaje: "",
                 dtFechaCreacion: null,
@@ -79,6 +84,8 @@ const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
             });
 
             reset({
+                intId: values?.intId,
+                intIdIdea: values?.intIdIdea,
                 intIdComentario: values?.intIdComentario,
                 strMensaje: "",
                 dtFechaCreacion: null,
@@ -164,7 +171,11 @@ const ModalEditRespuesta = ({ socket, onClose, open, values }) => {
                     guardar
                 </LoadingButton>
 
-                <Button onClick={() => onClose()} disabled={loading} color="inherit">
+                <Button
+                    onClick={() => onClose()}
+                    disabled={loading}
+                    color="inherit"
+                >
                     Cancelar
                 </Button>
             </DialogActions>

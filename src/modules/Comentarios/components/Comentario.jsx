@@ -100,7 +100,7 @@ const Comentario = ({ values, socket }) => {
 
     useEffect(() => {
         setData({
-            intIdComentario: values.intId || null,
+            intId: values.intId || null,
             intIdIdea: values.intIdIdea || null,
             strMensaje: values.strMensaje || "",
             dtmCreacion: values.dtmCreacion
@@ -120,7 +120,7 @@ const Comentario = ({ values, socket }) => {
                 onClose={handleOpenModalAddRespuesta}
                 open={openModalAddRespuesta}
                 values={{
-                    intIdComentario: data.intIdComentario,
+                    intId: data.intId,
                     intIdIdea: data.intIdIdea,
                 }}
             />
@@ -130,7 +130,7 @@ const Comentario = ({ values, socket }) => {
                 onClose={handleOpenModalDeleteComentario}
                 open={openModalDeleteComentario}
                 values={{
-                    intId: data.intIdComentario,
+                    intId: data.intId,
                     intIdIdea: data.intIdIdea,
                 }}
             />
@@ -259,7 +259,7 @@ const Comentario = ({ values, socket }) => {
                                         <PaperGetRespuestas
                                             values={{
                                                 ...e,
-                                                intIdIdea: data.intIdIdea,
+                                                intIdIdea: values.intIdIdea,
                                             }}
                                             socket={socket}
                                         />

@@ -62,7 +62,7 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
 
         socket.emit("mdlComentarios:updateComentario", {
             ...data,
-            intId: values.intIdComentario,
+            intId: values.intId,
             intIdIdea: values?.intIdIdea,
             strUsuarioCreacion: strInfoUser.strUsuario,
             strURLImagenUsuario: strInfoUser.strURLImagen,
@@ -72,7 +72,7 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
             onClose();
 
             setData({
-                intId: values.intIdComentario,
+                intId: values.intId,
                 intIdIdea: values?.intIdIdea,
                 strMensaje: "",
                 strUsuarioCreacion: "",
@@ -80,7 +80,7 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
             });
 
             reset({
-                intId: values.intIdComentario,
+                intId: values.intId,
                 intIdIdea: values?.intIdIdea,
                 strMensaje: "",
                 strUsuarioCreacion: "",
@@ -93,7 +93,7 @@ const ModalEditComentario = ({ socket, values, onClose, open }) => {
 
     useEffect(() => {
         setData({
-            intId: values.intIdComentario,
+            intId: values.intId,
             intIdIdea: values.intIdIdea || null,
             strMensaje: values.strMensaje || "",
             strUsuarioCreacion: values.strUsuarioCreacion || "",

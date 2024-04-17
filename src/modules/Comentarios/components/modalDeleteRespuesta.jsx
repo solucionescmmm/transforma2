@@ -39,6 +39,7 @@ const ModalDeleteRespuesta = ({ socket, values, onClose, open }) => {
 
         socket.emit("mdlComentarios:deleteRespuesta", {
             intId: values.intId,
+            intIdIdea: values.intIdIdea
         });
 
         socket.on("mdlComentarios:deleteRespuesta", () => {
@@ -60,10 +61,7 @@ const ModalDeleteRespuesta = ({ socket, values, onClose, open }) => {
             PaperProps={{
                 component: "form",
                 noValidate: "noValidate",
-                onSubmit: handleSubmit(onSubmit),
-                style: {
-                    backgroundColor: !loading ? "#FDEDED" : "inherit",
-                },
+                onSubmit: handleSubmit(onSubmit)
             }}
         >
             <DialogTitle>¿Está seguro de eliminar está respuesta?</DialogTitle>
