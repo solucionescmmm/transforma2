@@ -47,6 +47,7 @@ import InfoPerfilEco from "./infoPerfilEco";
 import InfoMercadoYComercial from "./infoMercadoYComercial";
 import InfoNormatividad from "./infoNormatividad";
 import InfoEncuestaHumanas from "./infoEncuestaHumanas";
+import InfoAdicional from "./infoAdicional";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
@@ -114,6 +115,7 @@ const PageCUExpress = ({
         objInfoNormatividad: {},
         objInfoCanalesVenta: {},
         objInfoEncuestaHumanas: {},
+        objInfoAdicional: {},
     });
 
     const [openModal, setOpenModal] = useState(false);
@@ -237,6 +239,9 @@ const PageCUExpress = ({
                                 },
                                 objInfoCanalesVenta: {
                                     ...data.objInfoCanalesVenta,
+                                },
+                                objInfoAdicional: {
+                                    ...data.objInfoAdicional,
                                 },
                             };
 
@@ -443,6 +448,9 @@ const PageCUExpress = ({
                                         ...prevState.objInfoCanalesVenta,
                                         ...dataDiag.objInfoCanalesVenta,
                                     };
+                                    const objInfoAdicional = {
+                                        ...dataDiag.objInfoAdicional,
+                                    };
 
                                     reset({
                                         ...prevState,
@@ -453,6 +461,7 @@ const PageCUExpress = ({
                                         objInfoNormatividad,
                                         objInfoCanalesVenta,
                                         objInfoEncuestaHumanas,
+                                        objInfoAdicional
                                     });
 
                                     return {
@@ -464,6 +473,7 @@ const PageCUExpress = ({
                                         objInfoNormatividad,
                                         objInfoCanalesVenta,
                                         objInfoEncuestaHumanas,
+                                        objInfoAdicional
                                     };
                                 });
                             }
@@ -715,6 +725,18 @@ const PageCUExpress = ({
                                         control={control}
                                         disabled={isPreview ? true : loading}
                                         values={data.objInfoEncuestaHumanas}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <InfoAdicional
+                                        control={control}
+                                        disabled={isPreview ? true : loading}
+                                        values={data.objInfoAdicional}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
