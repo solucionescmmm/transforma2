@@ -196,6 +196,11 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?",
             },
             {
+                parent: "intPorcentajeMargenRentaProductoEscogido",
+                value: "",
+                label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuál es el margen de utilidad de este producto?",
+            },
+            {
                 parent: "strConoceCostosProductoEscogido",
                 value: "",
                 label: "¿Conoce los costos de producción de este producto?",
@@ -204,11 +209,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 parent: "CostoProduccionProductoEscogido",
                 value: "",
                 label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?",
-            },
-            {
-                parent: "intPorcentajeMargenRentaProductoEscogido",
-                value: "",
-                label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuál es el margen de utilidad de este producto?",
             },
             {
                 parent: "btGeneraEmpleo",
