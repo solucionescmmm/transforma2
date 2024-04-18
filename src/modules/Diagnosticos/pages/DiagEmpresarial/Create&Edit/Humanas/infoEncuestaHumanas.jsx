@@ -428,6 +428,36 @@ const InfoEncuestaHumanas = ({
 
                     <Grid item xs={12} md={12}>
                         <Controller
+                            name="objInfoEncuestaHumanas.strHabilidadesCreatividad"
+                            defaultValue={data.strHabilidadesCreatividad}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Creatividad en productos y en procesos productivos"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strHabilidadesCreatividad
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strHabilidadesCreatividad
+                                            ?.message || "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="HabilidadesCreatividad"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesComunicacion"
                             defaultValue={data.strHabilidadesComunicacion}
                             render={({ field: { name, onChange, value } }) => (
@@ -480,36 +510,6 @@ const InfoEncuestaHumanas = ({
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
                                     strCodigo="ProyectoVidaEmprendimiento"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoEncuestaHumanas.strHabilidadesCreatividad"
-                            defaultValue={data.strHabilidadesCreatividad}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="Creatividad en productos y en procesos productivos"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesCreatividad
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strHabilidadesCreatividad
-                                            ?.message || "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoHumanoSocial"
-                                    strCodigo="HabilidadesCreatividad"
                                 />
                             )}
                             control={control}

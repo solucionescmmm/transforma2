@@ -379,10 +379,7 @@ const InfoEmprendimiento = ({
                                     }
                                     onChange={(e, value) => {
                                         onChange(value);
-                                        handlerChangeData(
-                                            "arrPais",
-                                            value
-                                        );
+                                        handlerChangeData("arrPais", value);
                                     }}
                                     error={
                                         errors?.objInfoEmprendimiento?.arrPais
@@ -398,7 +395,11 @@ const InfoEmprendimiento = ({
                             )}
                             control={control}
                             rules={{
-                                required:data.strLugarOperacion ==="Desde la vivienda" ? null : "Por favor, selecciona el pais de residencia",
+                                required:
+                                    data.strLugarOperacion ===
+                                    "Desde la vivienda"
+                                        ? null
+                                        : "Por favor, selecciona el pais de residencia",
                             }}
                         />
                     </Grid>
@@ -433,9 +434,7 @@ const InfoEmprendimiento = ({
                                             ? true
                                             : false
                                     }
-                                    strPais={
-                                        data.arrPais?.country_name
-                                    }
+                                    strPais={data.arrPais?.country_name}
                                     helperText={
                                         errors?.objInfoEmprendimiento
                                             ?.arrDepartamento?.message ||
@@ -445,7 +444,11 @@ const InfoEmprendimiento = ({
                             )}
                             control={control}
                             rules={{
-                                required: data.strLugarOperacion ==="Desde la vivienda" ? null : "Por favor, selecciona el departamento de residencia",
+                                required:
+                                    data.strLugarOperacion ===
+                                    "Desde la vivienda"
+                                        ? null
+                                        : "Por favor, selecciona el departamento de residencia",
                             }}
                         />
                     </Grid>
@@ -488,7 +491,11 @@ const InfoEmprendimiento = ({
                             )}
                             control={control}
                             rules={{
-                                required: data.strLugarOperacion ==="Desde la vivienda" ? null : "Por favor, selecciona la ciudad de residencia",
+                                required:
+                                    data.strLugarOperacion ===
+                                    "Desde la vivienda"
+                                        ? null
+                                        : "Por favor, selecciona la ciudad de residencia",
                             }}
                         />
                     </Grid>
@@ -777,13 +784,14 @@ const InfoEmprendimiento = ({
                                     multiline
                                     rows={4}
                                     error={
-                                        errors?.objInfoEmpresa?.strHistoriaEmpresa
+                                        errors?.objInfoEmpresa
+                                            ?.strHistoriaEmpresa
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strHistoriaEmpresa
-                                            ?.message ||
+                                        errors?.objInfoEmpresa
+                                            ?.strHistoriaEmpresa?.message ||
                                         "Digita con detalle como nace la empresa"
                                     }
                                 />
@@ -955,7 +963,7 @@ const InfoEmprendimiento = ({
                             defaultValue={data.arrCategoriasSecundarias}
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownCategoriasSecundarias
-                                    label="Categorías secundarias"
+                                    label="Categorías alternas"
                                     name={name}
                                     value={value}
                                     onChange={(e, value) => onChange(value)}
@@ -971,7 +979,7 @@ const InfoEmprendimiento = ({
                                         errors?.objInfoEmprendimiento
                                             ?.arrCategoriasSecundarias
                                             ?.message ||
-                                        "Selecciona las categorías secundarias en caso de que aplique"
+                                        "Selecciona las Categorías alternas en caso de que aplique"
                                     }
                                 />
                             )}
@@ -993,13 +1001,14 @@ const InfoEmprendimiento = ({
                                     variant="standard"
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoEmprendimiento?.strOtraCategoria
+                                        errors?.objInfoEmprendimiento
+                                            ?.strOtraCategoria
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmprendimiento?.strOtraCategoria
-                                            ?.message ||
+                                        errors?.objInfoEmprendimiento
+                                            ?.strOtraCategoria?.message ||
                                         "En caso de que aplique, digita cuál sería la otra categoría del producto o servicio"
                                     }
                                 />
