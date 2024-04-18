@@ -15,7 +15,7 @@ import {
     Typography,
     TextField,
     MenuItem,
-    Button
+    // Button
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -1293,12 +1293,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                             </LoadingButton>
 
 
-                            <Button
+                            {/* <Button
 
                                 onClick={() => resetSearch(false)}
                             >
                                 Nueva busqueda
-                            </Button>
+                            </Button> */}
                         </Box>
                     </Grid>
                 </Grid>

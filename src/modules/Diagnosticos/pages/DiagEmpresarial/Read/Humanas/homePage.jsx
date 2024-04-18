@@ -268,7 +268,19 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;

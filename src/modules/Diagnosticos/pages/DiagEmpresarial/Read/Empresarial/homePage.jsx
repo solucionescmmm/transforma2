@@ -596,7 +596,6 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         let prevInfoPerfilEco = prevState.objInfoPerfilEco;
                         let prevInfoAdicional = prevState.objInfoAdicional;
 
-                        
                         for (const key in objInfoGeneral) {
                             if (
                                 Object.hasOwnProperty.call(objInfoGeneral, key)
@@ -635,7 +634,19 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
@@ -648,7 +659,6 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         }
 
                         for (const key in objInfoEmprendimiento) {
-                        
                             if (
                                 Object.hasOwnProperty.call(
                                     objInfoEmprendimiento,
@@ -656,23 +666,42 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 )
                             ) {
                                 prevInfoEmprendimiento.forEach((e) => {
-                                    if(e.parent === key && key === "arrDepartamento") {
+                                    if (
+                                        e.parent === key &&
+                                        key === "arrDepartamento"
+                                    ) {
                                         e.value =
-                                        objInfoEmprendimiento[key]?.region_name;
-                                    }
-                                    else if(e.parent === key && key === "arrCiudad") {
+                                            objInfoEmprendimiento[
+                                                key
+                                            ]?.region_name;
+                                    } else if (
+                                        e.parent === key &&
+                                        key === "arrCiudad"
+                                    ) {
                                         e.value =
-                                        objInfoEmprendimiento[key]?.city_name;
-                                    }
-
-                                    else if (e.parent === key) {
+                                            objInfoEmprendimiento[
+                                                key
+                                            ]?.city_name;
+                                    } else if (e.parent === key) {
                                         if (objInfoEmprendimiento[key]?.map) {
                                             const json =
                                                 objInfoEmprendimiento[key];
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
@@ -696,7 +725,19 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
@@ -714,7 +755,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                     objInfoPerfilEco,
                                     key
                                 )
-                            ) {                            
+                            ) {
                                 prevInfoPerfilEco.forEach((e) => {
                                     if (e.parent === key) {
                                         if (objInfoPerfilEco[key]?.map) {
@@ -722,12 +763,23 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            
                                             e.value = objInfoPerfilEco[key];
                                         }
                                     }
@@ -749,7 +801,19 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;

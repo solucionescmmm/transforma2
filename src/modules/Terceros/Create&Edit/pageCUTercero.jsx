@@ -462,13 +462,13 @@ const CUTercero = ({ isEdit, values, resetSearch, inModal, resetModal, closeModa
                                         {isEdit ? "guardar" : "registrar"}
                                     </LoadingButton>
 
-                                    {!isEdit && (
+                                    {/* {!isEdit && (
                                         <Button
                                             onClick={() => resetSearch(false)}
                                         >
                                             Nueva busqueda
                                         </Button>
-                                    )}
+                                    )} */}
                                 </Box>
                             </Grid>
                         </Grid>

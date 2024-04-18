@@ -65,6 +65,11 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 value: "",
                 label: "Responsable de actualizar la información",
             },
+            {
+                parent: "strEtapaDllo",
+                value: "",
+                label: "Etapa de desarrollo",
+            },
         ],
         objInfoEmprendimiento: [
             {
@@ -463,6 +468,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             : null,
                         strUsuarioActualizacion:
                             data.objInfoGeneral.strUsuarioActualizacion || "",
+                        strEtapaDllo: data.objInfoPerfilEco.strEtapaDllo
                     };
 
                     const objInfoEmprendimiento = {
@@ -516,7 +522,14 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                     const objInfoMercado = data.objInfoMercado;
                     const objInfoNormatividad = data.objInfoNormatividad;
                     const objInfoEncuestaHumanas = data.objInfoEncuestaHumanas;
-                    const objInfoCanalesVenta = data.objInfoCanalesVenta;
+                    const objInfoCanalesVenta = {
+                        ...data.objInfoCanalesVenta,
+                        arrMediosDigitales:
+                            dataEmpr.objInfoEmpresa.arrMediosDigitales || [],
+                        arrFormasComercializacion:
+                            dataEmpr.objInfoEmpresa.arrFormasComercializacion ||
+                            [],
+                    };
 
                     setData((prevState) => {
                         let prevInfoGeneral = prevState.objInfoGeneral;
@@ -592,7 +605,19 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
@@ -619,7 +644,19 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
@@ -642,7 +679,19 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
@@ -669,7 +718,19 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
@@ -696,7 +757,19 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
@@ -724,7 +797,19 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                             const str = json
                                                 .map((x) => {
-                                                    return x.strCodigoRetorno;
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
                                                 })
                                                 .join(", ");
                                             e.value = str;
@@ -898,14 +983,11 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                     <IconButton
                                         color="inherit"
                                         onClick={() =>
-                                            onChangeRoute(
-                                                "DiagExpressPrev",
-                                                {
-                                                    intIdIdea,
-                                                    intIdDiagnostico,
-                                                    isPreview: true,
-                                                }
-                                            )
+                                            onChangeRoute("DiagExpressPrev", {
+                                                intIdIdea,
+                                                intIdDiagnostico,
+                                                isPreview: true,
+                                            })
                                         }
                                     >
                                         <RemoveRedEyeIcon />
@@ -1036,7 +1118,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
@@ -1098,7 +1179,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
@@ -1160,7 +1240,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
@@ -1225,7 +1304,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
@@ -1274,7 +1352,10 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             </Box>
                         </Box>
 
-                        <Collapse in={openCollapseInfoCanalesVenta} timeout="auto">
+                        <Collapse
+                            in={openCollapseInfoCanalesVenta}
+                            timeout="auto"
+                        >
                             <Grid
                                 container
                                 direction="row"
@@ -1287,7 +1368,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
@@ -1352,7 +1432,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >

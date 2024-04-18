@@ -343,7 +343,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal, disabled }) => {
                                             return (
                                                 <p>
                                                     <span>
-                                                        <b>Obeservaciones: </b>
+                                                        <b>Observaciones: </b>
                                                     </span>
                                                     {rowData.strObservaciones}
                                                 </p>
