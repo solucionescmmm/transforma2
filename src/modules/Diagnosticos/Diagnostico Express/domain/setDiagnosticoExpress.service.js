@@ -89,6 +89,7 @@ class setDiagnosticoExpress {
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoCanalesVenta,
             ...this.#objData.objInfoEncuestaHumanas,
+            ...this.#objData.objInfoAdicional,
             intIdEmpresario:this.#objData.objInfoGeneral.objEmpresario.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario.intIdTipoEmpresario,
             strUsuarioCreacion: this.#objData?.objInfoGeneral?.strUsuarioCreacion.strEmail,

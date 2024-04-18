@@ -121,6 +121,11 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     strCualesCanalesCrecimiento: array[i]?.strCualesCanalesCrecimiento,
                 }
 
+                let objInfoAdicional = {
+                    strConclusiones: array[i]?.strConclusiones,
+                    strURLSFotosProducto: array[i]?.strURLSFotosProducto,
+                };
+
                 data[i] = {
                     objInfoGeneral,
                     objInfoEmprendimiento,
@@ -129,6 +134,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     objInfoNormatividad,
                     objInfoEncuestaHumanas,
                     objInfoCanalesVenta,
+                    objInfoAdicional
                 };
             }
             let result = {

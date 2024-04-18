@@ -58,6 +58,7 @@ class updateDiagnosticoExpress {
             ...this.#objData.objInfoNormatividad,
             ...this.#objData.objInfoCanalesVenta,
             ...this.#objData.objInfoEncuestaHumanas,
+            ...this.#objData.objInfoAdicional,
             intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario.intIdTipoEmpresario,
             intPorcentajeMargenRentaProductoEscogido: this.#objData?.objInfoPerfilEco?.intPorcentajeMargenRentaProductoEscogido || 0,
