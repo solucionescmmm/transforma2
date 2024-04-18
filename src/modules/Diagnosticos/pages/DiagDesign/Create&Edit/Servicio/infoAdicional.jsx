@@ -156,7 +156,7 @@ const InfoAdicional = ({
                                     }
                                     helperText={
                                         errors?.objInfoAdicional?.strURLSFotos?.message ||
-                                        "Selecciona las fotografias del registro"
+                                        "Selecciona las fotografías del registro"
                                     }
                                 />
                             )}

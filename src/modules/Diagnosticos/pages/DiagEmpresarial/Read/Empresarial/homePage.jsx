@@ -1371,7 +1371,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
                                     <b>
-                                        Información adicional (Concluciones,
+                                        Información adicional (Conclusiones,
                                         observaciones y registro fotográfico)
                                     </b>
                                 </Typography>

@@ -74,7 +74,7 @@ const InfoAdicional = ({
                             color: errors?.objInfoAdicional ? "#D33030" : "inherit",
                         }}
                     >
-                        Información adicional (Concluciones, observaciones y registro
+                        Información adicional (Conclusiones, observaciones y registro
                         fotográfico)
                     </Typography>
                 </Box>
@@ -158,7 +158,7 @@ const InfoAdicional = ({
                                     helperText={
                                         errors?.objInfoAdicional?.strURLSFotosProducto
                                             ?.message ||
-                                        "Selecciona las fotografias del registro del producto"
+                                        "Selecciona las fotografías del registro del producto"
                                     }
                                 />
                             )}
