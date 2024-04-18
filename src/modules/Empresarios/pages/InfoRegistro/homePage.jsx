@@ -228,7 +228,7 @@ const InfoRegistro = () => {
             {
                 parent: "arrCategoriasSecundarias",
                 value: "",
-                label: "Categorías secundarias",
+                label: "Categorías alternas",
             },
             {
                 parent: "strOtraCategoria",

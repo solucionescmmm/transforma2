@@ -33,6 +33,7 @@ import useGetEmpresarios from "../../../../Empresarios/hooks/useGetEmpresarios";
 import ErrorPage from "../../../../../common/components/Error";
 import Loader from "../../../../../common/components/Loader";
 import { Can } from "../../../../../common/functions/can";
+import { ImageViewer } from "../../../../../common/components/ImageViewer";
 
 const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     //===============================================================================================================================================
@@ -65,11 +66,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 value: "",
                 label: "Responsable de actualizar la información",
             },
-            {
-                parent: "strEtapaDllo",
-                value: "",
-                label: "Etapa de desarrollo",
-            },
         ],
         objInfoEmprendimiento: [
             {
@@ -93,14 +89,14 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             //     label: "Medios digitales",
             // },
             {
-                parent: "strTiempoDedicacion",
-                value: "",
-                label: "¿Cuánto tiempo dedica actualmente a la empresa?",
-            },
-            {
                 parent: "strRegistroCamaraComercio",
                 value: "",
                 label: "¿Cuenta con registro en cámara de comercio?",
+            },
+            {
+                parent: "strTiempoDedicacion",
+                value: "",
+                label: "¿Cuánto tiempo dedica actualmente a la empresa?",
             },
             {
                 parent: "strSectorEconomico",
@@ -118,6 +114,11 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Categoría principal de los servicios",
             },
             {
+                parent: "strListadoProdServ",
+                value: "",
+                label: "Listado de los productos o servicios",
+            },
+            {
                 parent: "strDefinineLineasProductoServicios",
                 value: "",
                 label: "¿Tiene definidas las líneas de productos/servicios del negocio?",
@@ -125,12 +126,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parent: "arrCategoriasSecundarias",
                 value: "",
-                label: "Categorías secundarias",
-            },
-            {
-                parent: "strListadoProdServ",
-                value: "",
-                label: "Listado de los productos o servicios",
+                label: "Categorías alternas",
             },
             {
                 parent: "strLineaProductoServicioDestacada",
@@ -168,6 +164,21 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 parent: "strEtapaDllo",
                 value: "",
                 label: "Etapa de desarrollo",
+            },
+            {
+                parent: "strOperacionesVentas6Meses",
+                value: "",
+                label: "¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?",
+            },
+            {
+                parent: "strUniProdSosFinan",
+                value: "",
+                label: "Mi unidad productiva es sostenible financieramente",
+            },
+            {
+                parent: "strPrecProdServ",
+                value: "",
+                label: "¿Cómo están definidos los precios de tus productos/servicios?",
             },
             {
                 parent: "PromedioVentas6Meses",
@@ -211,6 +222,11 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?",
             },
             {
+                parent: "intMargenRentabilidad",
+                value: "",
+                label: "Margen de rentabilidad",
+            },
+            {
                 parent: "btGeneraEmpleo",
                 value: "",
                 label: "¿La empresa genera empleo para otras personas?",
@@ -218,27 +234,12 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parent: "intNumeroEmpleados",
                 value: "",
-                label: "¿La empresa genera empleo para otras personas?",
+                label: "Número de empleos generados",
             },
             {
                 parent: "strRangoEmpleados",
                 value: "",
                 label: "Rango de empleados",
-            },
-            {
-                parent: "strOperacionesVentas6Meses",
-                value: "",
-                label: "¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?",
-            },
-            {
-                parent: "strPrecProdServ",
-                value: "",
-                label: "¿Cómo están definidos los precios de tus productos/servicios?",
-            },
-            {
-                parent: "strUniProdSosFinan",
-                value: "",
-                label: "Mi unidad productiva es sostenible financieramente",
             },
         ],
         objInfoMercado: [
@@ -265,7 +266,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parent: "strEmprFormaAcuerNormLab",
                 value: "",
-                label: "Mi empresa está formalizada de acuerdo con la normatividad laboral",
+                label: "La empresa está formalizada de acuerdo con la normatividad laboral",
             },
             {
                 parent: "strPlaneaEstraEmpPlanPlani",
@@ -369,6 +370,14 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "¿Cuáles?",
             },
         ],
+        objInfoAdicional: [
+            {
+                parent: "strConclusiones",
+                value: "",
+                label: "Conclusiones y observaciones",
+            },
+        ],
+        arrImagenes: [],
     });
 
     const [loadingGetData, setLoadingGetData] = useState(false);
@@ -406,6 +415,9 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         openCollapseInfoEncuestaHumanas,
         setOpenCollapseInfoEncuestaHumanas,
     ] = useState(true);
+
+    const [openCollapseInfoAdicional, setOpenCollapseInfoAdicional] =
+        useState(true);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -455,6 +467,21 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                     setFinalizado(data.objInfoGeneral.btFinalizado);
 
+                    const arrImagenes =
+                        data.objInfoAdicional?.strURLSFotosProducto?.split(";");
+
+                    let newArrImagenes = [];
+
+                    if (arrImagenes) {
+                        newArrImagenes = arrImagenes.map((url) => {
+                            return {
+                                src: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${url}`,
+                                width: 4,
+                                height: 3,
+                            };
+                        });
+                    }
+
                     const objInfoGeneral = {
                         dtmFechaSesion: data.objInfoGeneral.dtmFechaSesion
                             ? parseISO(data.objInfoGeneral.dtmFechaSesion)
@@ -468,7 +495,7 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             : null,
                         strUsuarioActualizacion:
                             data.objInfoGeneral.strUsuarioActualizacion || "",
-                        strEtapaDllo: data.objInfoPerfilEco.strEtapaDllo
+                        strEtapaDllo: data.objInfoPerfilEco.strEtapaDllo,
                     };
 
                     const objInfoEmprendimiento = {
@@ -517,6 +544,13 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                     const objInfoPerfilEco = {
                         ...data.objInfoPerfilEco,
+                        btGeneraEmpleo:
+                            typeof dataEmpr.objInfoEmpresa.btGeneraEmpleo ===
+                            "boolean"
+                                ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
+                                : "",
+                        intNumeroEmpleados:
+                            dataEmpr.objInfoEmpresa.intNumeroEmpleados,
                     };
 
                     const objInfoMercado = data.objInfoMercado;
@@ -530,6 +564,8 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             dataEmpr.objInfoEmpresa.arrFormasComercializacion ||
                             [],
                     };
+
+                    const objInfoAdicional = data.objInfoAdicional;
 
                     setData((prevState) => {
                         let prevInfoGeneral = prevState.objInfoGeneral;
@@ -546,6 +582,8 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                         let prevInforCanalesVenta =
                             prevState.objInfoCanalesVenta;
+
+                        let prevInfoAdicional = prevState.objInfoAdicional;
 
                         for (const key in objInfoGeneral) {
                             if (
@@ -661,7 +699,14 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = objInfoPerfilEco[key];
+                                            e.value =
+                                                typeof objInfoPerfilEco[key] ===
+                                                "boolean"
+                                                    ? objInfoPerfilEco[key] ===
+                                                      true
+                                                        ? "Sí"
+                                                        : "No"
+                                                    : objInfoPerfilEco[key];
                                         }
                                     }
                                 });
@@ -821,6 +866,44 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             }
                         }
 
+                        for (const key in objInfoAdicional) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoAdicional,
+                                    key
+                                )
+                            ) {
+                                prevInfoAdicional.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (objInfoAdicional[key]?.map) {
+                                            const json = objInfoAdicional[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = objInfoAdicional[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
                         return {
                             ...prevState,
                             objInfoGeneral: prevInfoGeneral,
@@ -830,6 +913,8 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             objInfoNormatividad: prevInfoNormatividad,
                             objInfoEncuestaHumanas: prevInfoEncuestaHumanas,
                             objInfoCanalesVenta: prevInforCanalesVenta,
+                            objInfoAdicional: prevInfoAdicional,
+                            arrImagenes: newArrImagenes,
                         };
                     });
                 }
@@ -873,6 +958,10 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
     const handlerChangeOpenCollapseInfoCanalesVentas = () => {
         setOpenCollapseInfoCanalesVenta(!openCollapseInfoCanalesVenta);
+    };
+
+    const handlerChangeOpenCollapseInfoAdicional = () => {
+        setOpenCollapseInfoAdicional(!openCollapseInfoAdicional);
     };
 
     //===============================================================================================================================================
@@ -1442,6 +1531,98 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                         </p>
                                     </Grid>
                                 ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>
+                                        Información adicional (Concluciones,
+                                        observaciones y registro fotográfico)
+                                    </b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoAdicional()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoAdicional
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoAdicional ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseInfoAdicional} timeout="auto">
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoAdicional.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
+                                        </p>
+
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                display: "flex",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <p
+                                    style={{
+                                        margin: "0px",
+                                        fontSize: "13px",
+                                        display: "flex",
+                                        alignContent: "center",
+                                    }}
+                                >
+                                    {data.arrImagenes.length > 0 && (
+                                        <ImageViewer
+                                            images={data.arrImagenes}
+                                        />
+                                    )}
+                                </p>
                             </Grid>
                         </Collapse>
                     </Paper>

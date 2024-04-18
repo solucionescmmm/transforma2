@@ -91,7 +91,7 @@ const InfoEmpresa = ({
     };
 
     const handlerChangeData = (name, value) => {
-        console.log(name, value)
+        console.log(name, value);
         setData((prevState) => ({
             ...prevState,
             [name]: value,
@@ -444,10 +444,7 @@ const InfoEmpresa = ({
                                             "objInfoEmpresa.strDireccionResidencia",
                                             ""
                                         );
-                                        setValue(
-                                            "objInfoEmpresa.arrPais",
-                                            ""
-                                        );
+                                        setValue("objInfoEmpresa.arrPais", "");
                                         setValue(
                                             "objInfoEmpresa.arrDepartamento",
                                             ""
@@ -508,27 +505,27 @@ const InfoEmpresa = ({
                                     }
                                     onChange={(e, value) => {
                                         onChange(value);
-                                        handlerChangeData(
-                                            "arrPais",
-                                            value
-                                        );
+                                        handlerChangeData("arrPais", value);
                                     }}
                                     error={
-                                        errors?.objInfoEmpresa
-                                            ?.arrPais
+                                        errors?.objInfoEmpresa?.arrPais
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa
-                                            ?.arrPais?.message ||
+                                        errors?.objInfoEmpresa?.arrPais
+                                            ?.message ||
                                         "Selecciona el pais de residencia"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: data.strLugarOperacion === "Desde la vivienda" ? null : "Por favor, selecciona el pais de residencia",
+                                required:
+                                    data.strLugarOperacion ===
+                                    "Desde la vivienda"
+                                        ? null
+                                        : "Por favor, selecciona el pais de residencia",
                             }}
                         />
                     </Grid>
@@ -567,9 +564,7 @@ const InfoEmpresa = ({
                                             ? true
                                             : false
                                     }
-                                    strPais={
-                                        data.arrPais?.country_name
-                                    }
+                                    strPais={data.arrPais?.country_name}
                                     helperText={
                                         errors?.objInfoEmpresa?.arrDepartamento
                                             ?.message ||
@@ -579,7 +574,11 @@ const InfoEmpresa = ({
                             )}
                             control={control}
                             rules={{
-                                required: data.strLugarOperacion === "Desde la vivienda" ? null : "Por favor, selecciona el departamento de residencia",
+                                required:
+                                    data.strLugarOperacion ===
+                                    "Desde la vivienda"
+                                        ? null
+                                        : "Por favor, selecciona el departamento de residencia",
                             }}
                         />
                     </Grid>
@@ -627,7 +626,11 @@ const InfoEmpresa = ({
                             )}
                             control={control}
                             rules={{
-                                required: data.strLugarOperacion === "Desde la vivienda" ? null : "Por favor, selecciona la ciudad de residencia",
+                                required:
+                                    data.strLugarOperacion ===
+                                    "Desde la vivienda"
+                                        ? null
+                                        : "Por favor, selecciona la ciudad de residencia",
                             }}
                         />
                     </Grid>
@@ -690,9 +693,7 @@ const InfoEmpresa = ({
                                             ? true
                                             : false
                                     }
-                                    strPais={
-                                        data.arrPais?.country_name
-                                    }
+                                    strPais={data.arrPais?.country_name}
                                     helperText={
                                         errors?.objInfoEmpresa
                                             ?.strDireccionResidencia?.message ||
@@ -826,7 +827,7 @@ const InfoEmpresa = ({
                             defaultValue={data.arrCategoriasSecundarias}
                             render={({ field: { name, onChange, value } }) => (
                                 <DropdownCategoriasSecundarias
-                                    label="Categorías secundarias"
+                                    label="Categorías alternas"
                                     name={name}
                                     value={value}
                                     onChange={(e, value) => onChange(value)}
@@ -842,7 +843,7 @@ const InfoEmpresa = ({
                                         errors?.objInfoEmpresa
                                             ?.arrCategoriasSecundarias
                                             ?.message ||
-                                        "Selecciona las categorías secundarias en caso de que aplique"
+                                        "Selecciona las Categorías alternas en caso de que aplique"
                                     }
                                 />
                             )}

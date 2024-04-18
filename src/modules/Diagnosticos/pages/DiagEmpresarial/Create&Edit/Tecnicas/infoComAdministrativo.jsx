@@ -118,7 +118,7 @@ export const propiedades = [
     },
     {
         name: "strEmprFormaAcuerNormLab",
-        label: "Mi empresa está formalizada de acuerdo con la normatividad laboral",
+        label: "La empresa está formalizada de acuerdo con la normatividad laboral",
         strGrupo: "DiagnosticoTecnico",
         strCodigo: "EmprFormaAcuerNormLab",
     },

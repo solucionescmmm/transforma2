@@ -198,7 +198,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parent: "arrCategoriasSecundarias",
                 value: "",
-                label: "Categorías secundarias",
+                label: "Categorías alternas",
             },
             {
                 parent: "strOtraCategoria",

@@ -358,14 +358,14 @@ const PageCUExpress = ({
                                             ? data.objInfoEmpresa.btGeneraEmpleo
                                             : "",
                                 },
-                                objInfoCanalesVenta:{
+                                objInfoCanalesVenta: {
                                     arrMediosDigitales:
                                         data.objInfoEmpresa
                                             .arrMediosDigitales || [],
                                     arrFormasComercializacion:
                                         data.objInfoEmpresa
                                             .arrFormasComercializacion || [],
-                                }
+                                },
                             };
 
                             setData(dataEmp);
@@ -394,7 +394,7 @@ const PageCUExpress = ({
                             } else {
                                 const dataDiag = res.data.data[0];
 
-                                console.log(dataDiag)
+                                console.log(dataDiag);
 
                                 setData((prevState) => {
                                     const objInfoGeneral = {
@@ -461,7 +461,7 @@ const PageCUExpress = ({
                                         objInfoNormatividad,
                                         objInfoCanalesVenta,
                                         objInfoEncuestaHumanas,
-                                        objInfoAdicional
+                                        objInfoAdicional,
                                     });
 
                                     return {
@@ -473,7 +473,7 @@ const PageCUExpress = ({
                                         objInfoNormatividad,
                                         objInfoCanalesVenta,
                                         objInfoEncuestaHumanas,
-                                        objInfoAdicional
+                                        objInfoAdicional,
                                     };
                                 });
                             }
@@ -632,8 +632,9 @@ const PageCUExpress = ({
                                                 variant="body1"
                                             >
                                                 {isEdit
-                                                    ? "editar diagnóstico exprés" :
-                                                    isPreview ?  "previsualizar diagnóstico exprés" 
+                                                    ? "editar diagnóstico exprés"
+                                                    : isPreview
+                                                    ? "previsualizar diagnóstico exprés"
                                                     : "registrar diagnóstico exprés"}
                                             </Typography>
                                         </Box>
@@ -750,7 +751,8 @@ const PageCUExpress = ({
                                     errors.objInfoMercado ||
                                     errors.objInfoNormatividad ||
                                     errors.objInfoCanalesVenta ||
-                                    errors.objInfoEncuestaHumanas) && (
+                                    errors.objInfoEncuestaHumanas ||
+                                    errors.objInfoAdicional) && (
                                     <Grid item xs={12}>
                                         <Alert severity="error">
                                             Lo sentimos, tienes campos
@@ -761,26 +763,29 @@ const PageCUExpress = ({
                                     </Grid>
                                 )}
 
-                                {isPreview ? null:<Grid item xs={12}>
-                                    <Can I="create" a="Diag">
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "row-reverse",
-                                            }}
-                                        >
-                                            <LoadingButton
-                                                variant="contained"
-                                                type="submit"
-                                                loading={loading}
+                                {isPreview ? null : (
+                                    <Grid item xs={12}>
+                                        <Can I="create" a="Diag">
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    flexDirection:
+                                                        "row-reverse",
+                                                }}
                                             >
-                                                {isEdit
-                                                    ? "guardar"
-                                                    : "registrar"}
-                                            </LoadingButton>
-                                        </Box>
-                                    </Can>
-                                </Grid>}
+                                                <LoadingButton
+                                                    variant="contained"
+                                                    type="submit"
+                                                    loading={loading}
+                                                >
+                                                    {isEdit
+                                                        ? "guardar"
+                                                        : "registrar"}
+                                                </LoadingButton>
+                                            </Box>
+                                        </Can>
+                                    </Grid>
+                                )}
                             </Grid>
                         </Paper>
                     </Container>

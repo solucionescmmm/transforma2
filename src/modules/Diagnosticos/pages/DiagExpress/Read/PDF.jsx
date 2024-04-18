@@ -636,7 +636,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         values?.objInfoPerfilEco
                             .find((x) => x.parent === "strEtapaDllo")
                             ?.value.toLowerCase(),
-                        1
+                        0.7
                     )
                 )?.label
             }
@@ -656,7 +656,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 values?.objInfoPerfilEco
                     .find((x) => x.parent === "strEtapaDllo")
                     ?.value.toLowerCase(),
-                1
+                0.7
             )
         )?.html
     }
