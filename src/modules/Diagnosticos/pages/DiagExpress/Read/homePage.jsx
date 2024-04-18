@@ -544,8 +544,13 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                     const objInfoPerfilEco = {
                         ...data.objInfoPerfilEco,
-                        btGeneraEmpleo: dataEmpr.objInfoEmpresa.btGeneraEmpleo,
-                        intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados
+                        btGeneraEmpleo:
+                            typeof dataEmpr.objInfoEmpresa.btGeneraEmpleo ===
+                            "boolean"
+                                ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
+                                : "",
+                        intNumeroEmpleados:
+                            dataEmpr.objInfoEmpresa.intNumeroEmpleados,
                     };
 
                     const objInfoMercado = data.objInfoMercado;
@@ -694,7 +699,14 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = objInfoPerfilEco[key];
+                                            e.value =
+                                                typeof objInfoPerfilEco[key] ===
+                                                "boolean"
+                                                    ? objInfoPerfilEco[key] ===
+                                                      true
+                                                        ? "Sí"
+                                                        : "No"
+                                                    : objInfoPerfilEco[key];
                                         }
                                     }
                                 });
