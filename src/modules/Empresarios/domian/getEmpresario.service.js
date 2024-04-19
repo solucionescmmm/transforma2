@@ -45,7 +45,8 @@ const getEmpresario = async (objParams, strDataUser) => {
                         array[i]?.strDepartamento || null
                     ),
                     arrCiudad: JSON.parse(array[i]?.strCiudad || null),
-                    bitIsEmpresario: true
+                    bitIsEmpresario: true,
+                    strTipoEmpresario: array[i]?.objInfoIdeaEmpresario?.find((i) => i.strTipoEmpresario === "Principal")?.strTipoEmpresario || array[i]?.objInfoIdeaEmpresario?.find((i) => i.strTipoEmpresario === "Secundario")?.strTipoEmpresario
                 };
             }
 
