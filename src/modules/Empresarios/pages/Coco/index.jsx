@@ -109,8 +109,6 @@ const Coco = () => {
     });
     const location = useHistory();
 
-
-
     const objColumns = [
         {
             title: "Fecha",
@@ -155,7 +153,7 @@ const Coco = () => {
         },
     });
 
-    const [dataTabla, setDataTabla]= useState([]);
+    const [dataTabla, setDataTabla] = useState([]);
     const [objInteresado, setObjInteresado] = useState({});
     const [strEtapa, setStrEtapa] = useState("N/A");
     //===============================================================================================================================================
@@ -163,7 +161,7 @@ const Coco = () => {
     //===============================================================================================================================================
     const classes = styles();
 
-    const refGetDataTabla = useRef(getUniqueDataTabla)
+    const refGetDataTabla = useRef(getUniqueDataTabla);
 
     const onChangeRoute = (location, params) => {
         setRoute((prevState) => ({
@@ -226,15 +224,15 @@ const Coco = () => {
 
     useEffect(() => {
         if (getRealTab(route.location) === "Indicadores") {
-            async function getDataTable(){
+            async function getDataTable() {
                 await refGetDataTabla
-                .current({ intIdIdea:intId })
-                .then((res) => {
-                    setDataTabla(res)
-                })
+                    .current({ intIdIdea: intId })
+                    .then((res) => {
+                        setDataTabla(res);
+                    });
             }
 
-            getDataTable()
+            getDataTable();
         }
     }, [route.location, intId]);
 
@@ -407,7 +405,10 @@ const Coco = () => {
                                 flexDirection: "column",
                             }}
                         >
-                            <Typography variant="caption">
+                            <Typography
+                                variant="caption"
+                                sx={{ fontSize: "0.78rem !important" }}
+                            >
                                 <b>Fecha de vinculación: </b>
                                 {objInteresado?.objEmpresario
                                     ?.filter(
@@ -417,7 +418,10 @@ const Coco = () => {
                                     ?.at(0)?.dtFechaVinculacion || ""}
                             </Typography>
 
-                            <Typography variant="caption">
+                            <Typography
+                                variant="caption"
+                                style={{ fontSize: "0.78rem !important" }}
+                            >
                                 <b>Sede: </b>
                                 {objInteresado?.objEmpresario
                                     ?.filter(
@@ -427,12 +431,18 @@ const Coco = () => {
                                     ?.at(0)?.strSede || ""}
                             </Typography>
 
-                            <Typography variant="caption">
+                            <Typography
+                                variant="caption"
+                                style={{ fontSize: "0.78rem !important" }}
+                            >
                                 <b>Ruta activa: </b>
                                 {dataRuta ? "Si" : "No"}
                             </Typography>
 
-                            <Typography variant="caption">
+                            <Typography
+                                variant="caption"
+                                style={{ fontSize: "0.78rem !important" }}
+                            >
                                 <b>Etapa de desarrollo: </b>
                                 {strEtapa}
                             </Typography>
@@ -441,7 +451,11 @@ const Coco = () => {
                                     (p) => p.strTipoEmpresario === "Principal"
                                 )
                                 ?.at(0)?.btPerfilSensible ? (
-                                <Typography color="red" variant="caption">
+                                <Typography
+                                    color="red"
+                                    variant="caption"
+                                    style={{ fontSize: "0.78rem !important" }}
+                                >
                                     Perfil sensible
                                 </Typography>
                             ) : null}
@@ -513,7 +527,6 @@ const Coco = () => {
                                                         flexDirection: "column",
                                                     }}
                                                 >
-
                                                     <Typography
                                                         sx={{
                                                             fontSize: "12px",
@@ -592,7 +605,7 @@ const Coco = () => {
                                                             display: "flex",
                                                             flexDirection:
                                                                 "row",
-                                                            marginTop: "5px"
+                                                            marginTop: "5px",
                                                         }}
                                                     >
                                                         <EmailIcon
