@@ -231,8 +231,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                             i < dataTable.length;
                                             i++
                                         ) {
-                                            intDuracion =
-                                                +dataTable[i].intDuracion;
+                                            intDuracion +=dataTable[i].intDuracion;
                                         }
 
                                         return intDuracion.toString();

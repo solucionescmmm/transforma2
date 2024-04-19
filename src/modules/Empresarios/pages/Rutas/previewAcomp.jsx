@@ -89,14 +89,12 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
 
             for (let i = 0; i < values[0].arrSesionAcompañamiento.length; i++) {
                 const data = values[0].arrSesionAcompañamiento[i];
-                console.log(data.btFinalizado)
                 if (data.btFinalizado) {
                     intCountFinalizadas += 1
                 }
             }
 
-            let resta = values[0].arrSesionAcompañamiento.length - intCountFinalizadas
-            console.log(resta, values[0].arrSesionAcompañamiento.length, intCountFinalizadas)
+            let intResta = values[0].arrSesionAcompañamiento.length - intCountFinalizadas
 
             for (let i = 0; i < values[0].arrSesionAcompañamiento.length; i++) {
                 const data = values[0].arrSesionAcompañamiento[i];
@@ -111,7 +109,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                     strNombreRuta: data.strNombreRuta,
                     dtmCreacion: data.dtmCreacion,
                     objInfoPrincipal: values[0].objInfoPrincipal,
-                    bitUltimaSesion: values[0].arrSesionAcompañamiento?.length === 1 ? true : resta === 1 ? true : false
+                    bitUltimaSesion: intResta === 1 ? true : false
                 });
             }
 
