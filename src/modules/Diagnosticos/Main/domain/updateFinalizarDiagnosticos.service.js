@@ -175,6 +175,7 @@ class updateFinalizarDiagnosticos {
 
     async #setRutasPlaneada() {
         let data = {
+            intIdDiagnostico:this.#objData?.intIdDiagnostico,
             intIdIdea: this.#objData.intIdIdea,
             strObservaciones: `Ruta creada apartir de la finalización del diagnóstico #${
                 this.#objData.intIdDiagnostico

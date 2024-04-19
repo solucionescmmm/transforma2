@@ -157,29 +157,6 @@ class setRutaVacia {
 
             this.#intIdFase = query.data.intId;
 
-            let arrPaquetes = objDataFase.arrPaquetes;
-
-            if (arrPaquetes?.length > 0) {
-                for (let j = 0; j < arrPaquetes.length; j++) {
-                    let objDataPaquete = arrPaquetes[j];
-
-                    let query = await dao.setPaquetesFases({
-                        intIdFase: this.#intIdFase,
-                        intIdPaquete:
-                            objDataPaquete.objInfoPrincipal
-                                .intId,
-                        ValorReferenciaPaquete: 0,
-                        ValorTotalPaquete: 0,
-                        strResponsables: JSON.stringify(this.#objData.strResponsable || ""),
-                        strUsuarioCreacion: this.#objUser.strEmail,
-                    });
-
-                    if (query.error) {
-                        throw new Error(query.msg);
-                    }
-                }
-            }
-
             let arrServicios = objDataFase.arrServicios;
 
             if (arrServicios?.length > 0) {
@@ -188,12 +165,15 @@ class setRutaVacia {
 
                     let query = await dao.setServiciosFases({
                         intIdFase: this.#intIdFase,
-                        intIdServicio:
-                            objDataServicio.objInfoPrincipal
-                                .intId,
-                        ValorReferenciaServicio:0,
-                        ValorTotalServicio:0,
-                        strResponsables: JSON.stringify(this.#objData.strResponsable || ""),
+                        intIdServicio: objDataServicio.objInfoPrincipal?.intId,
+                        intIdPaqueteFase: null,
+                        intIdSedeTipoTarifaServRef: objDataServicio.objSedeTarifa.intId,
+                        ValorReferenciaServicio: objDataServicio.objSedeTarifa.dblValor,
+                        ValorTotalServicio: objDataServicio.objSedeTarifa.dblValor,
+                        intDuracionHorasReferenciaServicio: objDataServicio.objInfoPrincipal.intDuracionHoras || null,
+                        intDuracionHorasTotalServicio: objDataServicio.objInfoPrincipal.intDuracionHoras || null,
+                        strResponsables: JSON.stringify(objDataServicio?.strResponsable),
+                        btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
 

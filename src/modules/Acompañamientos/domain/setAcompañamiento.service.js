@@ -71,7 +71,6 @@ class setAcompañamiento {
         if (query.error) {
             throw new Error(query.msg)
         }
-
         
         this.#strTipoAcompañamiento = query.data?.[0]?.strNombre
     }
@@ -83,7 +82,7 @@ class setAcompañamiento {
             intIdIdea: this.#objData.intIdIdea,
             intIdTipoAcompañamiento: this.#objData.intTipoAcomp,
             strUsuarioCreacion: this.#objUser.strEmail,
-            btFinalizado: this.#objData?.bitFinalizarSesion
+            btFinalizado: false
         };
 
         let query = await dao.setAcompañamiento(newData);
@@ -111,11 +110,11 @@ class setAcompañamiento {
             dtmFechaFinal: this.#objData.dtmFechaFinal,
             intIdRuta: this.#objData?.objInfoRutaExs?.objRuta?.objInfoPrincipal?.intId || null,
             intIdFase: this.#objData?.objInfoRutaExs?.objFase?.intId || null,
-            intIdPaquete: this.#objData?.objNuevoServPaq?.objPaquete?.objInfoPrincipal?.intId || null,
+            intIdPaquete: null,
             intIdServicio: this.#objData?.objNuevoServPaq?.objServicio?.objInfoPrincipal?.intId || this.#objData?.objInfoRutaExs?.objServicio?.objServicio?.objInfoPrincipal?.intId || null,
             strUbicacion: this.#objData.strLugarActividad,
             intIdTipoActividad: this.#objData.intTipoActividad,
-            strResponsables: JSON.stringify(this.#objData.objResponsable || ""),
+            strResponsables: JSON.stringify(this.#objData.objResponsable),
             strTemasActividades: this.#objData.strActividades,
             strLogrosAvances: this.#objData.strLogros,
             strObservaciones: this.#objData.strRetroAlim,
@@ -158,16 +157,18 @@ class setAcompañamiento {
             intIdIdea: this.#objData.intIdIdea,
             strObservaciones: "Ruta creada apartir de un acompañamiento",
             strResponsable: this.#objData.objResponsable[0],
-            strNombre:`Ruta no planeada de paquete o servicio ${
-                this.#objData.objNuevoServPaq?.objPaquete ? 
-                this.#objData.objNuevoServPaq?.objPaquete?.objInfoPrincipal?.strNombre : 
+            strNombre:`Ruta no planeada del servicio ${ 
                 this.#objData.objNuevoServPaq?.objServicio?.objInfoPrincipal?.strNombre
             }`,
             strTipoRuta:"No planeada",
             arrInfoFases: [{
                 strObservaciones: "Ruta creada apartir de un acompañamiento",
-                arrPaquetes: this.#objData.objNuevoServPaq?.objPaquete ? [this.#objData.objNuevoServPaq?.objPaquete] : null,
-                arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [this.#objData.objNuevoServPaq?.objServicio] : null,
+                arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [
+                    {
+                        ...this.#objData?.objNuevoServPaq?.objServicio,
+                        objSedeTarifa: this.#objData?.objNuevoServPaq?.objSedeTarifa
+                    }
+                ] : null,
             }]
         }
 
