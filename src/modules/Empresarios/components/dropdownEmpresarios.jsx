@@ -72,13 +72,13 @@ const DropdownEmpresarios = ({
                     objEmpresario.forEach((emp) => {
                         newArrOptions.push({
                             intId: emp.intId,
+                            strNombreCompleto:emp.strNombres + " " + emp.strApellidos,
                             strURLFileFoto: emp.strURLFileFoto,
                             strNombres: emp.strNombres,
                             strApellidos: emp.strApellidos,
                             strNroDocto: emp.strNroDocto,
-                            strNombreCompleto:
-                                emp.strNombres + " " + emp.strApellidos,
                             strCorreoElectronico: emp.strCorreoElectronico1,
+                            strTipoEmpresario: emp.strTipoEmpresario
                         });
                     });
                 } else {
@@ -86,13 +86,13 @@ const DropdownEmpresarios = ({
                         if (emp.strTipoEmpresario === "Principal") {
                             newArrOptions.push({
                                 intId: emp.intId,
+                                strNombreCompleto: emp.strNombres + " " + emp.strApellidos,
                                 strURLFileFoto: emp.strURLFileFoto,
                                 strNombres: emp.strNombres,
                                 strApellidos: emp.strApellidos,
                                 strNroDocto: emp.strNroDocto,
-                                strNombreCompleto:
-                                    emp.strNombres + " " + emp.strApellidos,
                                 strCorreoElectronico: emp.strCorreoElectronico1,
+                                strTipoEmpresario: emp.strTipoEmpresario
                             });
                         }
                     });
@@ -238,7 +238,12 @@ const DropdownEmpresarios = ({
                             primary={
                                 option.strNombreCompleto || option.strNroDocto
                             }
-                            secondary={`Doc: ${option.strNroDocto}`}
+                            secondary={
+                                <div>
+                                    <p>{`Doc: ${option?.strNroDocto}`}</p>
+                                    <p>{`Tipo de empresario: ${option?.strTipoEmpresario}`}</p>
+                                </div>
+                            }
                         />
                     </ListItem>
                 </List>
