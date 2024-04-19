@@ -131,7 +131,7 @@ const getRutas = async (objParams, strDataUser) => {
 
                                 arrPaquetes.push({
                                     ...arrObjPaquetes[k],
-                                    strResponsables: JSON.parse(arrObjPaquetes[k]?.strResponsables || null),
+                                    strResponsable: JSON.parse(arrObjPaquetes[k]?.strResponsables || null),
                                     objPaquete: queryGetPaquetes.data[0]
                                 });
                             }
@@ -155,7 +155,7 @@ const getRutas = async (objParams, strDataUser) => {
                                 arrServicios.push({
                                     ...arrObjServicios[k],
                                     arrObjetivos: arrObjServicios[k].intIdPaqueteFase ? arrPaquetes[0]?.arrObjetivos : arrObjServicios[k].arrObjetivos,
-                                    strResponsables: JSON.parse(arrObjServicios[k]?.strResponsables || null),
+                                    strResponsable: JSON.parse(arrObjServicios[k]?.strResponsables || null),
                                     objServicio: queryGetServicio.data[0]
                                 });
                             }
