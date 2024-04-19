@@ -111,7 +111,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                         const dataTable = {
                             intId: i + 1,
                             strNombre: objServicio.objInfoPrincipal?.strNombre,
-                            strEstado: "Sin ejecutar",
+                            strEstado: !arrServicios[j]?.btFinalizado ? "Sin ejecutar" : "Finalizado",
                             intFase: i + 1,
                             valorTotal: new Intl.NumberFormat("es-ES", {
                                 style: "currency",

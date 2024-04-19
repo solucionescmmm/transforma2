@@ -300,7 +300,13 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                             rowData
                                                                 .objInfoPrincipal
                                                                 ?.strEstadoRuta ===
-                                                            "Aceptada/En Proceso"
+                                                                "Aceptada/En Proceso" ||
+                                                                rowData.objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Finalizada" ||
+                                                                rowData.objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Cancelada"
                                                                 ? "gray"
                                                                 : "success"
                                                         }
@@ -323,7 +329,13 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                 disabled:
                                                     rowData.objInfoPrincipal
                                                         ?.strEstadoRuta ===
-                                                    "Aceptada/En Proceso",
+                                                    "Aceptada/En Proceso" ||
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                    "Finalizada" ||
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                    "Cancelada",
                                             };
                                         }
                                     },
@@ -333,7 +345,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                 <PictureAsPdfIcon
                                                     htmlColor={
                                                         rowData.btFinalizada ===
-                                                        true
+                                                            true
                                                             ? "gray"
                                                             : "#ff6d07"
                                                     }
@@ -359,10 +371,16 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                                 .objInfoPrincipal
                                                                 ?.strEstadoRuta ===
                                                                 "Aceptada/En Proceso" ||
-                                                            rowData
-                                                                .objInfoPrincipal
-                                                                ?.strEstadoRuta ===
-                                                                "Enviada"
+                                                                rowData
+                                                                    .objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Enviada" ||
+                                                                rowData.objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Finalizada" ||
+                                                                rowData.objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Cancelada"
                                                                 ? "gray"
                                                                 : "error"
                                                         }
@@ -379,10 +397,16 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                 disabled:
                                                     rowData.objInfoPrincipal
                                                         ?.strEstadoRuta ===
-                                                        "Aceptada/En Proceso" ||
+                                                    "Aceptada/En Proceso" ||
                                                     rowData.objInfoPrincipal
                                                         ?.strEstadoRuta ===
-                                                        "Enviada",
+                                                    "Enviada" ||
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                    "Finalizada" ||
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                    "Cancelada",
                                             };
                                         }
                                     },
@@ -413,7 +437,13 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                     color={
                                                         rowData.objInfoPrincipal
                                                             ?.strEstadoRuta ===
-                                                        "Aceptada/En Proceso"
+                                                            "Aceptada/En Proceso" ||
+                                                            rowData.objInfoPrincipal
+                                                                ?.strEstadoRuta ===
+                                                            "Finalizada" ||
+                                                            rowData.objInfoPrincipal
+                                                                ?.strEstadoRuta ===
+                                                            "Cancelada"
                                                             ? "gray"
                                                             : "success"
                                                     }
@@ -424,7 +454,13 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                             disabled:
                                                 rowData.objInfoPrincipal
                                                     ?.strEstadoRuta ===
-                                                "Aceptada/En Proceso",
+                                                "Aceptada/En Proceso" ||
+                                                rowData.objInfoPrincipal
+                                                    ?.strEstadoRuta ===
+                                                "Finalizada" ||
+                                                rowData.objInfoPrincipal
+                                                    ?.strEstadoRuta ===
+                                                "Cancelada",
                                             onClick: (event, rowData) => {
                                                 setselectedDataRuta(rowData);
                                                 handleropenModalActiveRuta();
@@ -439,9 +475,15 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                         rowData.objInfoPrincipal
                                                             ?.strEstadoRuta ===
                                                             "Aceptada/En Proceso" ||
-                                                        rowData.objInfoPrincipal
-                                                            ?.strEstadoRuta ===
-                                                            "Enviada"
+                                                            rowData.objInfoPrincipal
+                                                                ?.strEstadoRuta ===
+                                                            "Enviada" ||
+                                                            rowData.objInfoPrincipal
+                                                                ?.strEstadoRuta ===
+                                                            "Finalizada" ||
+                                                            rowData.objInfoPrincipal
+                                                                ?.strEstadoRuta ===
+                                                            "Cancelada"
                                                             ? "gray"
                                                             : "#571845"
                                                     }
@@ -452,10 +494,16 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                             disabled:
                                                 rowData.objInfoPrincipal
                                                     ?.strEstadoRuta ===
-                                                    "Aceptada/En Proceso" ||
+                                                "Aceptada/En Proceso" ||
                                                 rowData.objInfoPrincipal
                                                     ?.strEstadoRuta ===
-                                                    "Enviada",
+                                                "Enviada" ||
+                                                rowData.objInfoPrincipal
+                                                    ?.strEstadoRuta ===
+                                                "Finalizada" ||
+                                                rowData.objInfoPrincipal
+                                                    ?.strEstadoRuta ===
+                                                "Cancelada",
                                             onClick: (event, rowData) => {
                                                 setselectedDataRuta(rowData);
                                                 handleropenModalSendRuta();
