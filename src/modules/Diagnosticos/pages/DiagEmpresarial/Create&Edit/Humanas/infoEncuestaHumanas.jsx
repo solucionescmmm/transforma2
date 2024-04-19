@@ -155,7 +155,7 @@ const InfoEncuestaHumanas = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                    <Grid item xs={12}>
+                <Grid item xs={12}>
                         <Card
                             variant="outlined"
                             sx={{ backgroundColor: blue[50] }}
@@ -170,48 +170,15 @@ const InfoEncuestaHumanas = ({
                                         paddingBottom: "5px",
                                     }}
                                 >
-                                    Toma de decisiones
+                                    Motivación
                                 </Typography>
                                 <Typography variant="body2">
-                                    Los negocios se enfrentan a permanentes
-                                    cambios, a innovaciones y no siempre es
-                                    fácil tomar e implementar las decisiones con
-                                    oportunidad. Teniendo presente esta
-                                    definición evalúa en qué nivel te encuentras
-                                    para las siguiente pregunta:
+                                    Todas las personas cuando emprenden tienen diferentes motivaciones para hacerlo, pero siempre
+                                    hay una razón principal que es el impulso para llevar a cabo el emprendimiento.
+                                    Teniendo presente esta definición evalúa en que nivel te encuentras para la siguiente pregunta
                                 </Typography>
                             </CardContent>
                         </Card>
-                    </Grid>
-
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoEncuestaHumanas.strTomaDesiciones"
-                            defaultValue={data.strTomaDesiciones}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="¿Cómo se siente al momento de tomar las decisiones en su emprendimiento? "
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strTomaDesiciones
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strTomaDesiciones?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoHumanoSocial"
-                                    strCodigo="TomaDesiciones"
-                                />
-                            )}
-                            control={control}
-                        />
                     </Grid>
 
                     <Grid item xs={12} md={12}>
@@ -243,98 +210,7 @@ const InfoEncuestaHumanas = ({
                             control={control}
                         />
                     </Grid>
-
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoEncuestaHumanas.strNivelVida"
-                            defaultValue={data.strNivelVida}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="¿Desde que inició su empresa hasta hoy, cuánto ha influido en el nivel de vida de su familia (ingresos, salud, educación…)"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strNivelVida
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strNivelVida?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoHumanoSocial"
-                                    strCodigo="NivelVida"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoEncuestaHumanas.strRedesApoyoOtros"
-                            defaultValue={data.strRedesApoyoOtros}
-                            render={({ field: { name, onChange, value } }) => (
-                                <DropdownLista
-                                    label="¿En quiénes ha encontrado apoyo para salir adelante con su emprendimiento?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e, value) => onChange(value)}
-                                    error={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strRedesApoyoOtros
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strRedesApoyoOtros?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoHumanoSocial"
-                                    strCodigo="RedesApoyoOtros"
-                                    multiple
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoEncuestaHumanas.strProyectoVidaEmpresa"
-                            defaultValue={data.strProyectoVidaEmpresa}
-                            render={({ field: { name, onChange, value } }) => (
-                                <SelectListas
-                                    label="¿En su momento actual de desarrollo, cuánto diría que su empresa se ha convertido en su proyecto de vida?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    error={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strProyectoVidaEmpresa
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strProyectoVidaEmpresa?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoHumanoSocial"
-                                    strCodigo="ProyectoVidaEmpresa"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
+         
                     <Grid item xs={12}>
                         <Card
                             variant="outlined"
@@ -366,7 +242,7 @@ const InfoEncuestaHumanas = ({
                         </Card>
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesAutonomia"
                             defaultValue={data.strHabilidadesAutonomia}
@@ -426,7 +302,7 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesCreatividad"
                             defaultValue={data.strHabilidadesCreatividad}
@@ -456,7 +332,7 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strHabilidadesComunicacion"
                             defaultValue={data.strHabilidadesComunicacion}
@@ -486,30 +362,59 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid>
 
+                    <Grid item xs={12}>
+                        <Card
+                            variant="outlined"
+                            sx={{ backgroundColor: blue[50] }}
+                        >
+                            <CardContent>
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontWeight: "bold",
+                                        paddingBottom: "5px",
+                                    }}
+                                >
+                                    Toma de decisiones
+                                </Typography>
+                                <Typography variant="body2">
+                                    Los negocios se enfrentan a permanentes
+                                    cambios, a innovaciones y no siempre es
+                                    fácil tomar e implementar las decisiones con
+                                    oportunidad. Teniendo presente esta
+                                    definición evalúa en qué nivel te encuentras
+                                    para las siguiente pregunta:
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
                     <Grid item xs={12} md={12}>
                         <Controller
-                            name="objInfoEncuestaHumanas.strProyectoVidaEmprendimiento"
-                            defaultValue={data.strProyectoVidaEmprendimiento}
+                            name="objInfoEncuestaHumanas.strTomaDesiciones"
+                            defaultValue={data.strTomaDesiciones}
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="Consideras que el emprendimiento, te permite cumplir tus aspiraciones y proyectos"
+                                    label="¿Cómo se siente al momento de tomar las decisiones en su emprendimiento? "
                                     name={name}
                                     value={value}
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strProyectoVidaEmprendimiento
+                                            ?.strTomaDesiciones
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEncuestaHumanas
-                                            ?.strProyectoVidaEmprendimiento
-                                            ?.message || "Seleccione una opción"
+                                            ?.strTomaDesiciones?.message ||
+                                        "Seleccione una opción"
                                     }
                                     strGrupo="DiagnosticoHumanoSocial"
-                                    strCodigo="ProyectoVidaEmprendimiento"
+                                    strCodigo="TomaDesiciones"
                                 />
                             )}
                             control={control}
@@ -576,37 +481,32 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
-                        <Controller
-                            name="objInfoEncuestaHumanas.strEquilibrioVida"
-                            defaultValue={data.strEquilibrioVida}
-                            render={({ field: { name, onChange, value } }) => (
-                                <DropdownLista
-                                    label="Seleccione las actividades que en tú rutina realizas para el descanso y esparcimiento"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e, value) => onChange(value)}
-                                    error={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strEquilibrioVida
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEncuestaHumanas
-                                            ?.strEquilibrioVida?.message ||
-                                        "Seleccione una opción"
-                                    }
-                                    strGrupo="DiagnosticoHumanoSocial"
-                                    strCodigo="EquilibrioVida"
-                                    multiple
-                                />
-                            )}
-                            control={control}
-                        />
+                    <Grid item xs={12}>
+                        <Card
+                            variant="outlined"
+                            sx={{ backgroundColor: blue[50] }}
+                        >
+                            <CardContent>
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontWeight: "bold",
+                                        paddingBottom: "5px",
+                                    }}
+                                >
+                                    Apoyo del entorno
+                                </Typography>
+                                <Typography variant="body2">
+                                    Crear y utilizar redes de apoyo con la familia, con amigos, con otras personas 
+                                    empresarias, es importante para avanzar en mejores prácticas, en innovación, en la búsqueda de logros.
+                                    Teniendo presente esta definición evalúa en qué nivel te encuentras para la siguiente pregunta:
+                                </Typography>
+                            </CardContent>
+                        </Card>
                     </Grid>
-
+   
                     <Grid item xs={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strRedesApoyoPropia"
@@ -639,13 +539,245 @@ const InfoEncuestaHumanas = ({
 
                     <Grid item xs={12} md={12}>
                         <Controller
+                            name="objInfoEncuestaHumanas.strRedesApoyoOtros"
+                            defaultValue={data.strRedesApoyoOtros}
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownLista
+                                    label="¿En quiénes ha encontrado apoyo para salir adelante con su emprendimiento?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e, value) => onChange(value)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strRedesApoyoOtros
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strRedesApoyoOtros?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="RedesApoyoOtros"
+                                    multiple
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Card
+                            variant="outlined"
+                            sx={{ backgroundColor: blue[50] }}
+                        >
+                            <CardContent>
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontWeight: "bold",
+                                        paddingBottom: "5px",
+                                    }}
+                                >
+                                    Proyecto de vida
+                                </Typography>
+                                <Typography variant="body2">
+                                    Lo que uno crea, por ejemplo, una empresa, tiene mas posibilidades
+                                    de triunfar sí se convierte en parte del proyecto de vida.
+                                    Teniendo presente esta definición evalúa en qué nivel te encuentras
+                                    para la siguiente pregunta:
+                                    
+                                     </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+   
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoEncuestaHumanas.strProyectoVidaEmpresa"
+                            defaultValue={data.strProyectoVidaEmpresa}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="¿En su momento actual de desarrollo, cuánto diría que su empresa se ha convertido en su proyecto de vida?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strProyectoVidaEmpresa
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strProyectoVidaEmpresa?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="ProyectoVidaEmpresa"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoEncuestaHumanas.strProyectoVidaEmprendimiento"
+                            defaultValue={data.strProyectoVidaEmprendimiento}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="Consideras que el emprendimiento, te permite cumplir tus aspiraciones y proyectos"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strProyectoVidaEmprendimiento
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strProyectoVidaEmprendimiento
+                                            ?.message || "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="ProyectoVidaEmprendimiento"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Card
+                            variant="outlined"
+                            sx={{ backgroundColor: blue[50] }}
+                        >
+                            <CardContent>
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontWeight: "bold",
+                                        paddingBottom: "5px",
+                                    }}
+                                >
+                                   Influencia al entorno
+                                </Typography>
+                                <Typography variant="body2">
+                                    Lo que hacemos siempre tiene un impacto en diferentes niveles (personal, familiar y social) y el emprendimiento se convierte en la búsqueda 
+                                    de mejorar el nivel de vida. Teniendo presente esta definición evalúa en qué nivel te encuentras para la siguiente pregunta:
+                                    
+                                     </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoEncuestaHumanas.strNivelVida"
+                            defaultValue={data.strNivelVida}
+                            render={({ field: { name, onChange, value } }) => (
+                                <SelectListas
+                                    label="¿Desde que inició su empresa hasta hoy, cuánto ha influido en el nivel de vida de su familia (ingresos, salud, educación…)"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strNivelVida
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strNivelVida?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="NivelVida"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+
+                    <Grid item xs={12}>
+                        <Card
+                            variant="outlined"
+                            sx={{ backgroundColor: blue[50] }}
+                        >
+                            <CardContent>
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontWeight: "bold",
+                                        paddingBottom: "5px",
+                                    }}
+                                >
+                                   Equilibrio de vida
+                                </Typography>
+                                <Typography variant="body2">
+                                    El equilibrio entre la vida laboral y personal se da cuando logramos dedicar tiempo a ambos aspectos.
+                                    Teniendo presente esta definición evalúa en qué nivel te encuentras para la siguiente pregunta:
+                                     </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Controller
+                            name="objInfoEncuestaHumanas.strEquilibrioVida"
+                            defaultValue={data.strEquilibrioVida}
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownLista
+                                    label="Seleccione las actividades que en tú rutina realizas para el descanso y esparcimiento"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e, value) => onChange(value)}
+                                    error={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strEquilibrioVida
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoEncuestaHumanas
+                                            ?.strEquilibrioVida?.message ||
+                                        "Seleccione una opción"
+                                    }
+                                    strGrupo="DiagnosticoHumanoSocial"
+                                    strCodigo="EquilibrioVida"
+                                    multiple
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    {/* <Grid item xs={12} md={12}>
+                        <Controller
                             name="objInfoEncuestaHumanas.strActividadesDisminuyenActProductiva"
                             defaultValue={
                                 data.strActividadesDisminuyenActProductiva
                             }
                             render={({ field: { name, onChange, value } }) => (
                                 <SelectListas
-                                    label="¿Cuáles son las tareas de cuidado que disminuyen el tiempo para dedicarse a su actividad productiva de manera continua?"
+                                    label=" "
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -701,7 +833,7 @@ const InfoEncuestaHumanas = ({
                             )}
                             control={control}
                         />
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item xs={12} md={12}>
                         <Controller

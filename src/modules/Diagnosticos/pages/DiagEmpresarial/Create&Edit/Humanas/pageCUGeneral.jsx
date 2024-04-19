@@ -552,9 +552,9 @@ const PageCUGeneral = ({
                                                 variant="body1"
                                             >
                                                 {isEdit
-                                                    ? "editar diagnóstico de competencias humanas" :
-                                                    isPreview ? "Previsualizar diagnóstico de competencias humanas"
-                                                    : "registrar diagnóstico de competencias humanas"}
+                                                    ? "editar competencias humanas" :
+                                                    isPreview ? "Previsualizar competencias humanas"
+                                                    : "registrar competencias humanas"}
                                             </Typography>
                                         </Box>
                                     </Grid>

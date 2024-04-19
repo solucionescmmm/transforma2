@@ -233,7 +233,7 @@ const InfoGeneral = ({
                             name="objInfoGeneral.dtmActualizacion"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
-                                    label="Fecha de ultima actualización"
+                                    label="Fecha de última actualización"
                                     value={value}
                                     onChange={(date) => onChange(date)}
                                     format="dd/MM/yyyy H:mm"

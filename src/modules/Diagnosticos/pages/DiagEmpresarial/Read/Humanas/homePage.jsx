@@ -67,29 +67,9 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         ],
         objInfoEncuestaHumanas: [
             {
-                parent: "strTomaDesiciones",
-                value: "",
-                label: "¿Cómo se siente al momento de tomar las decisiones en su emprendimiento?",
-            },
-            {
                 parent: "strMotivaciones",
                 value: "",
                 label: "¿Cuál es tú principal motivación para emprender?",
-            },
-            {
-                parent: "strNivelVida",
-                value: "",
-                label: "¿Desde que inició su empresa hasta hoy, cuánto ha influido en el nivel de vida de su familia(ingresos, salud, educación…)",
-            },
-            {
-                parent: "strRedesApoyoOtros",
-                value: "",
-                label: "¿En quiénes usted ha encontrado apoyo para salir adelante con su emprendimiento?",
-            },
-            {
-                parent: "strProyectoVidaEmpresa",
-                value: "",
-                label: "¿En su momento actual de desarrollo, cuánto diría que su empresa se ha convertido en su proyecto de vida?",
             },
             {
                 parent: "strHabilidadesAutonomia",
@@ -102,19 +82,19 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Capacidad de adaptarse a los cambios",
             },
             {
+                parent: "strHabilidadesCreatividad",
+                value: "",
+                label: "Creatividad en productos y en procesos productivos",
+            },
+            {
                 parent: "strHabilidadesComunicacion",
                 value: "",
                 label: "Comunicación efectiva con los clientes, con los empleados, los proveedores",
             },
             {
-                parent: "strProyectoVidaEmprendimiento",
+                parent: "strTomaDesiciones",
                 value: "",
-                label: "Consideras que el emprendimiento, te permite cumplir tus aspiraciones y proyectos",
-            },
-            {
-                parent: "strHabilidadesCreatividad",
-                value: "",
-                label: "Creatividad en productos y en procesos productivos",
+                label: "¿Cómo se siente al momento de tomar las decisiones en su emprendimiento?",
             },
             {
                 parent: "strConfianza",
@@ -122,30 +102,50 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "De acuerdo con las experiencias y el conocimiento adquirido en su actuar empresarial, en la siguiente escala en qué nivel confianza se ubicaría",
             },
             {
-                parent: "strEquilibrioVida",
-                value: "",
-                label: "En tú rutina realizas actividades de descanso y esparcimiento (Ejemplos: leer, tocar un instrumento, bailar, compartir con amistades, estudiar, orar, deportivas, entre otros)",
-            },
-            {
                 parent: "strRedesApoyoPropia",
                 value: "",
                 label: "Evalúe su capacidad, su actitud para crear redes",
             },
             {
-                parent: "strActividadesDisminuyenActProductiva",
+                parent: "strRedesApoyoOtros",
                 value: "",
-                label: "¿Cuáles son las tareas de cuidado que disminuyen el tiempo para dedicarse a su actividad productiva de manera continua?",
+                label: "¿En quiénes usted ha encontrado apoyo para salir adelante con su emprendimiento?",
             },
             {
-                parent: "strSituacionesDesistirEmprendimiento",
+                parent: "strProyectoVidaEmpresa",
                 value: "",
-                label: "¿Cuáles son las situaciones que te podrían llevar a desistir del emprendimiento?",
+                label: "¿En su momento actual de desarrollo, cuánto diría que su empresa se ha convertido en su proyecto de vida?",
+            },
+            {
+                parent: "strProyectoVidaEmprendimiento",
+                value: "",
+                label: "Consideras que el emprendimiento, te permite cumplir tus aspiraciones y proyectos",
+            },
+            {
+                parent: "strNivelVida",
+                value: "",
+                label: "¿Desde que inició su empresa hasta hoy, cuánto ha influido en el nivel de vida de su familia(ingresos, salud, educación…)",
+            },
+            {
+                parent: "strEquilibrioVida",
+                value: "",
+                label: "Seleccione las actividades que en tú rutina realizas para el descanso y esparcimiento",
             },
             {
                 parent: "strObservaciones",
                 value: "",
                 label: "Conclusiones y observaciones ",
-            },
+            },  
+            // {
+            //     parent: "strActividadesDisminuyenActProductiva",
+            //     value: "",
+            //     label: "¿Cuáles son las tareas de cuidado que disminuyen el tiempo para dedicarse a su actividad productiva de manera continua?",
+            // },
+            // {
+            //     parent: "strSituacionesDesistirEmprendimiento",
+            //     value: "",
+            //     label: "¿Cuáles son las situaciones que te podrían llevar a desistir del emprendimiento?",
+            // },     
         ],
     });
 
@@ -497,7 +497,6 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
@@ -562,7 +561,6 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
