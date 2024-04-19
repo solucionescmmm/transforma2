@@ -139,6 +139,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
         formState: { errors },
         handleSubmit,
         reset,
+        setValue
     } = useForm({ mode: "onChange" });
 
     const { intId } = useParams();
@@ -151,6 +152,13 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = styles();
+
+    const handlerChangeData = (name, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
     const onSubmit = (data) => {
         setData((prevState) => ({
@@ -171,8 +179,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
+                    url: `${isEdit
                             ? process.env
                                 .REACT_APP_API_TRANSFORMA_EVENTOS_UPDATE
                             : process.env.REACT_APP_API_TRANSFORMA_EVENTOS_SET
@@ -431,8 +438,8 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                     rules={{
                                         required:
                                             "Por favor, digíta el nombre del evento",
-                                        validate:(value)=>{
-                                            if (validator.isLength(value,{min:100})) {
+                                        validate: (value) => {
+                                            if (validator.isLength(value, { min: 100 })) {
                                                 return "El número maximo de carácteres es de 100"
                                             }
                                         }
@@ -625,6 +632,11 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                             value={value}
                                             onChange={(e) => {
                                                 onChange(e);
+                                                setValue("strServicio")
+                                                handlerChangeData(
+                                                    "strSede",
+                                                    e.target.value
+                                                )
                                             }}
                                             disabled={loading || isPreview}
                                             required
@@ -654,10 +666,14 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                             label="Servicio asociado"
                                             name={name}
                                             value={value}
-                                            disabled={loading || isPreview}
-                                            onChange={(_, value) =>
+                                            disabled={!data.strSede || loading || isPreview}
+                                            onChange={(_, value) => {
                                                 onChange(value)
-                                            }
+                                                handlerChangeData(
+                                                    "strServicio",
+                                                    value
+                                                )
+                                            }}
                                             required
                                             error={
                                                 errors?.strServicio
@@ -674,6 +690,12 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                     rules={{
                                         required:
                                             "Por favor, selecciona un servicio",
+                                        validate: (value) => {
+                                            if (!value?.arrSedesTarifas?.find((t) => t.intIdSede === data.strSede)
+                                            ) {
+                                                return `No existe sede tarifa para este servicio`;
+                                            }
+                                        },
                                     }}
                                 />
                             </Grid>
