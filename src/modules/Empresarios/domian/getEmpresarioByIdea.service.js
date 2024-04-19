@@ -23,7 +23,8 @@ const getEmpresarioByIdea = async (objParams) => {
                     ...array[i],
                     objEmpresario:[{
                         ...array[i]?.objEmpresario[0],
-                        intIdTipoEmpresario:array[i]?.intIdTipoEmpresario
+                        intIdTipoEmpresario:array[i]?.intIdTipoEmpresario,
+                        strTipoEmpresario:array[i]?.strTipoEmpresario
                     }]
                 };
             }
