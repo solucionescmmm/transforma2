@@ -45,6 +45,7 @@ const DropdownEmpresarios = ({
     onChange,
     disabled,
     error,
+    principal,
     helperText,
     label,
     multiple,
@@ -59,9 +60,49 @@ const DropdownEmpresarios = ({
 
     useEffect(() => {
         if (data?.length > 0 && !defaultOptions) {
-            setOptions(data);
+            let newArrOptions = [];
+
+            data.forEach((e,i) => {
+                let { objEmpresario } = e;
+
+                if (!principal) {
+                    objEmpresario.forEach((emp) => {
+                        newArrOptions.push({
+                            intId: emp.intId,
+                            intIdTipoEmpresario:emp.intIdTipoEmpresario,
+                            strURLFileFoto: emp.strURLFileFoto,
+                            strNombres: emp.strNombres,
+                            strApellidos: emp.strApellidos,
+                            strNroDocto: emp.strNroDocto,
+                            strNombreCompleto:
+                                emp.strNombres + " " + emp.strApellidos,
+                            strCorreoElectronico: emp.strCorreoElectronico1,
+                            strTipoEmpresario: emp.strTipoEmpresario
+                        });
+                    });
+                } else {
+                    objEmpresario.forEach((emp) => {
+                        if (emp.strTipoEmpresario === "Principal") {
+                            newArrOptions.push({
+                                intId: emp.intId,
+                                intIdTipoEmpresario:emp.intIdTipoEmpresario,
+                                strURLFileFoto: emp.strURLFileFoto,
+                                strNombres: emp.strNombres,
+                                strApellidos: emp.strApellidos,
+                                strNroDocto: emp.strNroDocto,
+                                strNombreCompleto:
+                                    emp.strNombres + " " + emp.strApellidos,
+                                strCorreoElectronico: emp.strCorreoElectronico1,
+                                strTipoEmpresario: emp.strTipoEmpresario
+                            });
+                        }
+                    });
+                }
+            });
+
+            setOptions(newArrOptions);
         }
-    }, [data, defaultOptions]);
+    }, [data, principal, defaultOptions]);
 
     useEffect(() => {
         if (defaultOptions) {
@@ -200,7 +241,12 @@ const DropdownEmpresarios = ({
                             primary={
                                 option.strNombres + " " + option.strApellidos
                             }
-                            secondary={`Documento: ${option.strNroDocto}`}
+                            secondary={
+                                <div>
+                                    <p>{`Doc: ${option?.strNroDocto}`}</p>
+                                    <p>{`Tipo de empresario: ${option?.strTipoEmpresario}`}</p>
+                                </div>
+                            }
                         />
                     </ListItem>
                 </List>

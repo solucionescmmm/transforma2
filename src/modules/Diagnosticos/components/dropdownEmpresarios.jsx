@@ -80,6 +80,7 @@ const DropdownEmpresarios = ({
                             strNombreCompleto:
                                 emp.strNombres + " " + emp.strApellidos,
                             strCorreoElectronico: emp.strCorreoElectronico1,
+                            strTipoEmpresario: emp.strTipoEmpresario
                         });
                     });
                 } else {
@@ -95,6 +96,7 @@ const DropdownEmpresarios = ({
                                 strNombreCompleto:
                                     emp.strNombres + " " + emp.strApellidos,
                                 strCorreoElectronico: emp.strCorreoElectronico1,
+                                strTipoEmpresario: emp.strTipoEmpresario
                             });
                         }
                     });
@@ -242,7 +244,12 @@ const DropdownEmpresarios = ({
                             primary={
                                 option.strNombreCompleto || option.strNroDocto
                             }
-                            secondary={`Doc: ${option.strNroDocto}`}
+                            secondary={
+                                <div>
+                                    <p>{`Doc: ${option?.strNroDocto}`}</p>
+                                    <p>{`Tipo de empresario: ${option?.strTipoEmpresario}`}</p>
+                                </div>
+                            }
                         />
                     </ListItem>
                 </List>
