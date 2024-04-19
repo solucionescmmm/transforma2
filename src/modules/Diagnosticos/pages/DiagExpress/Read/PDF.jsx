@@ -10,6 +10,7 @@ import {
     Document,
     StyleSheet,
     Font,
+    View,
 } from "@react-pdf/renderer";
 
 import { Box, CircularProgress } from "@mui/material";
@@ -203,6 +204,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     const [htmlNormatividad, setHtmlNormatividad] = useState("");
     const [htmlCanalesVenta, setHtmlCanalesVenta] = useState("");
     const [htmlEncuestasHumanas, setHtmlEncuenstasHumanas] = useState("");
+    const [htmlAdicional, setHtmlAdicional] = useState('')
+    const [arrImagenes, setArrImagenes] = useState([]);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -233,6 +236,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         let htmlNormatividad = ""
         let htmlEncuestasHumanas = ""
         let htmlCanalesVenta = ""
+        let htmlAdicional = ""
 
         if (values?.objInfoEmprendimiento) {
             htmlEmprend = `
@@ -413,6 +417,34 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             `;
         }
 
+        if (values?.objInfoAdicional) {
+            htmlAdicional = `
+            <div>
+                <p class="title">
+                   
+                </p>
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoAdicional
+                   .map(
+                       (e) => `<tr>
+                   <td style="color: black">${e.label}</td>
+                   <td>${e.value || "No diligenciado"}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
+
         // values?.objInfoPerfilEco?.forEach(
         //     (e) =>
         //         (htmlPErfilEco =
@@ -430,6 +462,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         setHtmlNormatividad(htmlNormatividad)
         setHtmlCanalesVenta(htmlCanalesVenta)
         setHtmlEncuenstasHumanas(htmlEncuestasHumanas)
+        setHtmlAdicional(htmlAdicional)
+        setArrImagenes(values?.arrImagenes || []);
   
         setLoading(true);
     }, [values]);
@@ -681,11 +715,26 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
      ${htmlEncuestasHumanas}
 
+     <h5 class="pMargin"> <span style="color: #00BBB4">Información adicional</span></h5>
+     <hr />
+
+     ${htmlAdicional}
+
+     <h5 class="pMargin"> <span style="color: #00BBB4">Registro fotográfico</span></h5>
+     <hr />
+
  </body>
 
  </html>
  `}
                     </Html>
+
+                    <View style={styles.container}>
+                        {arrImagenes.length > 0 &&
+                            arrImagenes.map((i) => (
+                                <Image src={i.src} style={styles.images} />
+                            ))}
+                    </View>
 
                     <Text style={styles.footerTitle}>
                     Transformamos la vida de las personas emprendedoras y empresarias desde el ser y el hacer
