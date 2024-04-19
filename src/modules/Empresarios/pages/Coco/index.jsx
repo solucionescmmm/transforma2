@@ -79,7 +79,7 @@ const styles = makeStyles((theme) => ({
         alignItems: "center",
     },
     icon: {
-        marginRight: theme.spacing(0.5),
+        marginRight: theme.spacing(1),
     },
 }));
 
@@ -513,11 +513,86 @@ const Coco = () => {
                                                         flexDirection: "column",
                                                     }}
                                                 >
+
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: "12px",
+                                                            marginLeft: "3px",
+                                                        }}
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                color: "#00BAB3",
+                                                            }}
+                                                        >
+                                                            Número de documento:{" "}
+                                                        </span>
+                                                        {objInteresado?.objEmpresario
+                                                            ?.filter(
+                                                                (p) =>
+                                                                    p.strTipoEmpresario ===
+                                                                    "Principal"
+                                                            )
+                                                            ?.at(0)
+                                                            ?.strNroDocto ||
+                                                            "No registro"}
+                                                    </Typography>
+
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: "12px",
+                                                            marginLeft: "3px",
+                                                        }}
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                color: "#00BAB3",
+                                                            }}
+                                                        >
+                                                            Tipo de documento:{" "}
+                                                        </span>
+                                                        {objInteresado?.objEmpresario
+                                                            ?.filter(
+                                                                (p) =>
+                                                                    p.strTipoEmpresario ===
+                                                                    "Principal"
+                                                            )
+                                                            ?.at(0)
+                                                            ?.strTipoDocto ||
+                                                            "No registro"}
+                                                    </Typography>
+
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: "12px",
+                                                            marginLeft: "3px",
+                                                        }}
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                color: "#00BAB3",
+                                                            }}
+                                                        >
+                                                            Edad:{" "}
+                                                        </span>
+                                                        {calcularEdad(
+                                                            objInteresado?.objEmpresario
+                                                                ?.filter(
+                                                                    (p) =>
+                                                                        p.strTipoEmpresario ===
+                                                                        "Principal"
+                                                                )
+                                                                ?.at(0)
+                                                                ?.dtFechaNacimiento
+                                                        )}
+                                                    </Typography>
+
                                                     <Box
                                                         sx={{
                                                             display: "flex",
                                                             flexDirection:
                                                                 "row",
+                                                            marginTop: "5px"
                                                         }}
                                                     >
                                                         <EmailIcon
@@ -611,79 +686,6 @@ const Coco = () => {
                                                                 "No registro"}
                                                         </Typography>
                                                     </Box>
-
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "12px",
-                                                            marginLeft: "27px",
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                color: "#00BAB3",
-                                                            }}
-                                                        >
-                                                            Tipo de documento:{" "}
-                                                        </span>
-                                                        {objInteresado?.objEmpresario
-                                                            ?.filter(
-                                                                (p) =>
-                                                                    p.strTipoEmpresario ===
-                                                                    "Principal"
-                                                            )
-                                                            ?.at(0)
-                                                            ?.strTipoDocto ||
-                                                            "No registro"}
-                                                    </Typography>
-
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "12px",
-                                                            marginLeft: "27px",
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                color: "#00BAB3",
-                                                            }}
-                                                        >
-                                                            Número de documento:{" "}
-                                                        </span>
-                                                        {objInteresado?.objEmpresario
-                                                            ?.filter(
-                                                                (p) =>
-                                                                    p.strTipoEmpresario ===
-                                                                    "Principal"
-                                                            )
-                                                            ?.at(0)
-                                                            ?.strNroDocto ||
-                                                            "No registro"}
-                                                    </Typography>
-
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: "12px",
-                                                            marginLeft: "27px",
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                color: "#00BAB3",
-                                                            }}
-                                                        >
-                                                            Edad:{" "}
-                                                        </span>
-                                                        {calcularEdad(
-                                                            objInteresado?.objEmpresario
-                                                                ?.filter(
-                                                                    (p) =>
-                                                                        p.strTipoEmpresario ===
-                                                                        "Principal"
-                                                                )
-                                                                ?.at(0)
-                                                                ?.dtFechaNacimiento
-                                                        )}
-                                                    </Typography>
                                                 </Box>
                                             </Grid>
                                         </CardContent>
