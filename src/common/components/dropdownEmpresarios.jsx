@@ -60,49 +60,10 @@ const DropdownEmpresarios = ({
 
     useEffect(() => {
         if (data?.length > 0 && !defaultOptions) {
-            let newArrOptions = [];
 
-            data.forEach((e,i) => {
-                let { objEmpresario } = e;
-
-                if (!principal) {
-                    objEmpresario.forEach((emp) => {
-                        newArrOptions.push({
-                            intId: emp.intId,
-                            intIdTipoEmpresario:emp.intIdTipoEmpresario,
-                            strURLFileFoto: emp.strURLFileFoto,
-                            strNombres: emp.strNombres,
-                            strApellidos: emp.strApellidos,
-                            strNroDocto: emp.strNroDocto,
-                            strNombreCompleto:
-                                emp.strNombres + " " + emp.strApellidos,
-                            strCorreoElectronico: emp.strCorreoElectronico1,
-                            strTipoEmpresario: emp.strTipoEmpresario
-                        });
-                    });
-                } else {
-                    objEmpresario.forEach((emp) => {
-                        if (emp.strTipoEmpresario === "Principal") {
-                            newArrOptions.push({
-                                intId: emp.intId,
-                                intIdTipoEmpresario:emp.intIdTipoEmpresario,
-                                strURLFileFoto: emp.strURLFileFoto,
-                                strNombres: emp.strNombres,
-                                strApellidos: emp.strApellidos,
-                                strNroDocto: emp.strNroDocto,
-                                strNombreCompleto:
-                                    emp.strNombres + " " + emp.strApellidos,
-                                strCorreoElectronico: emp.strCorreoElectronico1,
-                                strTipoEmpresario: emp.strTipoEmpresario
-                            });
-                        }
-                    });
-                }
-            });
-
-            setOptions(newArrOptions);
+            setOptions(data);
         }
-    }, [data, principal, defaultOptions]);
+    }, [data, defaultOptions]);
 
     useEffect(() => {
         if (defaultOptions) {

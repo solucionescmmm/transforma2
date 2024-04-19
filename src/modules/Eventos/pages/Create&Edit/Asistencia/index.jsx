@@ -63,6 +63,11 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
             type: "string",
         },
         {
+            title: "Tipo de Persona",
+            field: "strTipoPersona",
+            type: "string",
+        },
+        {
             title: "Correo electronico",
             field: "strCorreoElectronico",
             type: "string",
