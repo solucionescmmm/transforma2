@@ -4,11 +4,11 @@ import React, { useState, useEffect, Fragment } from "react";
 import { Controller } from "react-hook-form";
 
 //Componentes de Material UI
-import { Grid, Box, CircularProgress } from "@mui/material";
+import { Grid, Box, CircularProgress, Alert } from "@mui/material";
 
 //Componentes
-import DropdownPaquetes from "../../../../Admin/components/dropdownPaquetes";
 import DropdownServicios from "../../../../Admin/components/dropdownServicios";
+import DropdownSedeTarifa from "../components/dropdownSedeTarifa";
 
 const InfoNuevoServPaq = ({
     disabled,
@@ -23,17 +23,14 @@ const InfoNuevoServPaq = ({
     const [loading, setLoading] = useState(true);
 
     const [data, setData] = useState({
-        objPaquete: null,
         objServicio: null,
     });
 
-    const watchPaquete = watch("objNuevoServPaq.objPaquete");
     const watchServicio = watch("objNuevoServPaq.objServicio");
 
     useEffect(() => {
         if (values) {
             setData({
-                objPaquete: values.objPaquete || null,
                 objServicio: values.objServicio || null,
             });
         }
@@ -58,38 +55,6 @@ const InfoNuevoServPaq = ({
         <Fragment>
             <Grid item xs={12} md={6}>
                 <Controller
-                    defaultValue={data.objPaquete}
-                    name="objNuevoServPaq.objPaquete"
-                    render={({ field: { name, value, onChange } }) => {
-                        return (
-                            <DropdownPaquetes
-                                label="Paquete"
-                                name={name}
-                                notInclude
-                                value={value}
-                                onChange={(_, value) => {
-                                    setValue(
-                                        "objNuevoServPaq.objServicio",
-                                        null
-                                    );
-                                    onChange(value);
-                                }}
-                                disabled={watchServicio || disabled}
-                                error={!!errors?.objNuevoServPaq?.objPaquete}
-                                helperText={
-                                    errors?.objNuevoServPaq?.objPaquete
-                                        ?.message || "Selecciona un paquete"
-                                }
-                                intIdIdea={intIdIdea}
-                            />
-                        );
-                    }}
-                    control={control}
-                />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-                <Controller
                     defaultValue={data.objServicio}
                     name="objNuevoServPaq.objServicio"
                     render={({ field: { name, value, onChange } }) => {
@@ -100,13 +65,10 @@ const InfoNuevoServPaq = ({
                                 value={value}
                                 notInclude
                                 onChange={(_, value) => {
-                                    setValue(
-                                        "objNuevoServPaq.objPaquete",
-                                        null
-                                    );
+                                    setValue("objSedeTarifa", null);
                                     onChange(value);
                                 }}
-                                disabled={watchPaquete || disabled}
+                                disabled={disabled}
                                 error={!!errors?.objNuevoServPaq?.objServicio}
                                 helperText={
                                     errors?.objNuevoServPaq?.objServicio
@@ -116,9 +78,67 @@ const InfoNuevoServPaq = ({
                             />
                         );
                     }}
+                    rules={{
+                        required:
+                            "Por favor, selcciona un servicio.",
+                    }}
                     control={control}
                 />
             </Grid>
+
+                    {!watchServicio?.arrSedesTarifas && (
+                        <Grid item xs={12} md={6}>
+                            <Alert severity="info">
+                                Selecciona un servicio para listar las sedes y
+                                tarifas
+                            </Alert>
+                        </Grid>
+                    )}
+
+                    {watchServicio && (
+                        <Fragment>
+                            <Grid item xs={12} md={6}>
+                                <Controller
+                                    name="objNuevoServPaq.objSedeTarifa"
+                                    defaultValue={data.objSedeTarifa}
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <DropdownSedeTarifa
+                                            label="Sedes y tarifas (Referencia)"
+                                            name={name}
+                                            required
+                                            data={watchServicio.arrSedesTarifas}
+                                            value={value}
+                                            onChange={(e, value) => {
+                                                setValue(
+                                                    "valor",
+                                                    value?.Valor || ""
+                                                );
+                                                onChange(value);
+                                            }}
+                                            disabled={loading}
+                                            error={
+                                                errors?.objNuevoServPaq?.objSedeTarifa
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.objNuevoServPaq?.objSedeTarifa
+                                                    ?.message ||
+                                                "Selecciona la sede tarifa"
+                                            }
+                                        />
+                                    )}
+                                    rules={{
+                                        required:
+                                            "Por favor, selcciona la sede tarifa",
+                                    }}
+                                    control={control}
+                                />
+                            </Grid>
+                        </Fragment>
+                    )}
         </Fragment>
     );
 };

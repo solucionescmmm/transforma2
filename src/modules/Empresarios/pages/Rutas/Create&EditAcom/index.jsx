@@ -503,11 +503,6 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                                     );
 
                                                     setValue(
-                                                        "objNuevoServPaq.objPaquete",
-                                                        null
-                                                    );
-
-                                                    setValue(
                                                         "objNuevoServPaq.objServicio",
                                                         null
                                                     );
