@@ -36,7 +36,6 @@ class updateRutas {
     }
 
     async main() {
-        //console.log(this.#objData?.arrInfoFases[0]?.arrPaquetes)
         await this.#getIdEstado();
         await this.#getTipoRuta();
         await this.#validations();
@@ -237,7 +236,7 @@ class updateRutas {
                         ValorTotalPaquete: objDataPaquete?.valor || objDataPaquete?.ValorTotalPaquete,
                         intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal?.intDuracionHoras || objDataPaquete?.intDuracionHorasReferenciaPaquete,
                         intDuracionHorasTotalPaquete: objDataPaquete?.intDuracionHoras || objDataPaquete?.intDuracionHorasTotalPaquete,
-                        strResponsables: JSON.stringify(objDataPaquete?.strResponsable),
+                        strResponsables: JSON.stringify(objDataPaquete?.strResponsables || objDataPaquete?.strResponsable),
                         btFinalizado: false,
                         strUsuarioCreacion: this.#objUser.strEmail,
                     });
@@ -261,9 +260,9 @@ class updateRutas {
                                 intIdSedeTipoTarifaServRef: null,
                                 ValorReferenciaServicio: 0,
                                 ValorTotalServicio: 0,
-                                intDuracionHorasReferenciaServicio: null,
-                                intDuracionHorasTotalServicio: null,
-                                strResponsables: JSON.stringify(objDataPaquete?.strResponsable),
+                                intDuracionHorasReferenciaServicio: 0,
+                                intDuracionHorasTotalServicio: 0,
+                                strResponsables: JSON.stringify(objDataPaquete?.strResponsables || objDataPaquete?.strResponsable),
                                 btFinalizado: false,
                                 strUsuarioCreacion: this.#objUser.strEmail,
                             });
@@ -312,7 +311,7 @@ class updateRutas {
                             ValorTotalServicio: objDataServicio?.ValorTotalServicio || objDataServicio?.valor,
                             intDuracionHorasReferenciaServicio: objDataServicio?.intDuracionHorasReferenciaServicio || objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras,
                             intDuracionHorasTotalServicio: objDataServicio?.intDuracionHorasTotalServicio || objDataServicio?.intDuracionHoras,
-                            strResponsables: JSON.stringify(objDataServicio?.strResponsable),
+                            strResponsables: JSON.stringify(objDataServicio?.strResponsables || objDataServicio?.strResponsable),
                             btFinalizado: false,
                             strUsuarioCreacion: this.#objUser.strEmail,
                         });

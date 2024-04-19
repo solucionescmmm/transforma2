@@ -564,7 +564,7 @@ class daoRutas {
 
                 WHERE (Rutas.intIdIdea = ${data.intIdIdea})
                 AND   (Rutas.intId = ${data.intId} OR ${data.intId} IS NULL)
-                AND   (EstadosRutas.strNombre <> 'Cancelada' AND EstadosRutas.strNombre <> 'Finalizada')`;
+                AND   (EstadosRutas.strNombre <> 'Cancelada')`;
 
             let arrNewData = response.recordsets[0];
 

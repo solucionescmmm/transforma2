@@ -85,12 +85,12 @@ class setRutas {
 
             let intPorcentaje = 0
             let intTotalValor = 0
-            
+
             for (let j = 0; j < arrPorcentajes.length; j++) {
                 intPorcentaje = intPorcentaje + arrPorcentajes[j].intPorcentaje,
-                intTotalValor = intTotalValor + arrPorcentajes[j].valorPorce
+                    intTotalValor = intTotalValor + arrPorcentajes[j].valorPorce
             }
-            
+
             if (intPorcentaje !== 100 && intTotalValor !== arrayFases[i].dblValorFase) {
                 throw new Error(`Los valores de los pagos no correctos por favor revisalos en la fase #${i + 1}`);
             }
@@ -217,7 +217,7 @@ class setRutas {
                         intIdPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intId,
                         intIdSedeTipoTarifaPaqRef: objDataPaquete.objSedeTarifa.intId,
                         ValorReferenciaPaquete: objDataPaquete.objSedeTarifa.dblValor,
-                        ValorTotalPaquete:objDataPaquete.valor,
+                        ValorTotalPaquete: objDataPaquete.valor,
                         intDuracionHorasReferenciaPaquete: objDataPaquete.objPaquete.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalPaquete: objDataPaquete.intDuracionHoras || null,
                         strResponsables: JSON.stringify(objDataPaquete?.strResponsable),
@@ -241,11 +241,11 @@ class setRutas {
                                 intIdFase: this.#intIdFase,
                                 intIdServicio: objDataServicio.objInfoPrincipal.intId,
                                 intIdPaqueteFase: intIdPaqueteFase,
-                                intIdSedeTipoTarifaServRef: null,
+                                intIdSedeTipoTarifaServRef: 0,
                                 ValorReferenciaServicio: 0,
                                 ValorTotalServicio: 0,
-                                intDuracionHorasReferenciaServicio: null,
-                                intDuracionHorasTotalServicio: null,
+                                intDuracionHorasReferenciaServicio: 0,
+                                intDuracionHorasTotalServicio: 0,
                                 strResponsables: JSON.stringify(objDataPaquete?.strResponsable),
                                 btFinalizado: false,
                                 strUsuarioCreacion: this.#objUser.strEmail,
@@ -291,7 +291,7 @@ class setRutas {
                         intIdPaqueteFase: null,
                         intIdSedeTipoTarifaServRef: objDataServicio.objSedeTarifa.intId,
                         ValorReferenciaServicio: objDataServicio.objSedeTarifa.dblValor,
-                        ValorTotalServicio:objDataServicio.valor || null,
+                        ValorTotalServicio: objDataServicio.valor || null,
                         intDuracionHorasReferenciaServicio: objDataServicio.objServicio.objInfoPrincipal.intDuracionHoras || null,
                         intDuracionHorasTotalServicio: objDataServicio.intDuracionHoras || null,
                         strResponsables: JSON.stringify(objDataServicio?.strResponsable),
@@ -346,7 +346,7 @@ class setRutas {
                     if (query.error) {
                         throw new Error(query.msg);
                     }
-                    
+
                 }
             }
         }
