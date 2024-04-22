@@ -396,7 +396,7 @@ const CUSesion = ({
                                             <DropdownEmpresarios
                                                 name={name}
                                                 value={value}
-                                                label="Empresario"
+                                                label="Persona Empresaria"
                                                 helperText={
                                                     errors?.objEmpresario
                                                         ?.message ||

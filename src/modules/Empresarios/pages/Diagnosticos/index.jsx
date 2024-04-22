@@ -63,12 +63,12 @@ const ReadDiagnosticos = ({
             type: "string",
         },
         {
-            title: "Fecha de creación",
+            title: "Fecha creación diagnóstico",
             field: "dtmCreacion",
             type: "date",
         },
         {
-            title: "Usuario de creación",
+            title: "Usuario",
             field: "strUsuarioCreacion",
             type: "string",
         },

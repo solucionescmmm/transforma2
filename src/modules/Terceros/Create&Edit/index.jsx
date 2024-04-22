@@ -555,7 +555,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                                             });
                                                         }}
                                                     >
-                                                        {"Agregar Empresario inactivo como tercero"}
+                                                        {"Agregar Persona Empresaria inactivo como tercero"}
                                                     </Button>
                                                 </Box>
                                             </Grid>
