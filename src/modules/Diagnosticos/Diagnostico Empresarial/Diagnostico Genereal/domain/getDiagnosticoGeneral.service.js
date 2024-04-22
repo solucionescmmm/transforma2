@@ -31,6 +31,8 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
         if (arrayData.data.length > 0) {
             let array = arrayData.data;
 
+            console.log(array[i])
+
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
@@ -120,7 +122,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                 };
                 let objInfoAdicional = {
                     strConclusiones: array[i]?.strConclusiones,
-                    strURLSFotosProducto: array[i]?.strURLSFotosProducto,
+                    strURLSFotosProducto: array[i]?.strURLSFotosProducto || null,
                 };
 
                 data[i] = {

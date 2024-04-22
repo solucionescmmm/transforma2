@@ -123,7 +123,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
 
                 let objInfoAdicional = {
                     strConclusiones: array[i]?.strConclusiones,
-                    strURLSFotosProducto: array[i]?.strURLSFotosProducto,
+                    strURLSFotosProducto: array[i]?.strURLSFotosProducto || null,
                 };
 
                 data[i] = {

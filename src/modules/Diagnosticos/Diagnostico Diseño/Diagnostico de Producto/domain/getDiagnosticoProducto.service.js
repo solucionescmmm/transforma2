@@ -186,7 +186,7 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
                 };
                 let objInfoAdicional = {
                     strConclusiones: array[i]?.strConclusiones,
-                    strURLSFotos: array[i]?.strURLSFotos,
+                    strURLSFotos: array[i]?.strURLSFotos || null,
                 };
 
                 let objResultadoAlimentos = arrayAlimentos
