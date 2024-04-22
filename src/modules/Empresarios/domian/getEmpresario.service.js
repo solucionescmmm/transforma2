@@ -7,7 +7,7 @@ const classInterfaceDAOEmpresarios = require("../infra/conectors/interfaceDAOEmp
 const serviceGetTercero = require("../../Terceros/domain/getTercero.service");
 
 const getEmpresario = async (objParams, strDataUser) => {
-    let { intId, strDocumento } = objParams;
+    let { intId, strDocumento, strActivo } = objParams;
 
     if (!objParams) {
         throw new Error("Se esperaban parámetros de búsqueda.");
@@ -28,6 +28,7 @@ const getEmpresario = async (objParams, strDataUser) => {
     let query = {
         intId: intId || null,
         strDocumento: strDocumento || null,
+        strActivo: strActivo || null,
     };
 
     let arrayData = await dao.getEmpresario(query);

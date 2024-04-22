@@ -1105,7 +1105,8 @@ class daoEmpresarios {
             INNER JOIN tbl_Estados Estados ON Estados.intId = Empresario.intIdEstado
             
             WHERE (Empresario.intId = ${data.intId} OR ${data.intId} IS NULL)
-            AND   (Empresario.strNroDocto = ${data.strDocumento} OR ${data.strDocumento} IS NULL)`;
+            AND   (Empresario.strNroDocto = ${data.strDocumento} OR ${data.strDocumento} IS NULL)
+            AND   (Estados.strNombre = ${data.strActivo} OR ${data.strActivo} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
