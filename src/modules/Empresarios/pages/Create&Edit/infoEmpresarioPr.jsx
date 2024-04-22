@@ -688,7 +688,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strTitulos
                                             ?.message ||
-                                        "Digita los títulos o título del empresario, en caso de poseer alguno"
+                                        "Digita los títulos o título de la persona empresaria, en caso de poseer alguno"
                                     }
                                 />
                             )}
@@ -779,7 +779,7 @@ const InfoEmpresarioPr = ({
                             name="objInfoEmpresarioPr.btPerfilSensible"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿El empresario es perfil sensible?"
+                                    label="¿La persona empresaria es perfil sensible?"
                                     name={name}
                                     value={value}
                                     onChange={(e) => {

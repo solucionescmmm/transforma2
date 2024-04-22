@@ -205,7 +205,7 @@ const DropdownEmpresarios = ({
                             secondary={
                                 <div>
                                     <p>{`Doc: ${option?.strNroDocto}`}</p>
-                                    <p>{`Tipo de empresario: ${option?.strTipoEmpresario}`}</p>
+                                    <p>{`Tipo de persona empresaria: ${option?.strTipoEmpresario}`}</p>
                                 </div>
                             }
                         />

@@ -115,8 +115,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
 
         await refFntGetData
             .current({
-                strDocumento: documento,
-                strActivo: "Activo"
+                strDocumento: documento
             })
             .then((res) => {
                 if (res.data.error) {
@@ -403,7 +402,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                 {data && !loadingGetData && documento && (
                                     <Alert severity="warning">
                                         Se encontro un registro con los
-                                        siguientes datos {data.objInfoEmpresarioPr?.bitIsTercero ? "de una persona externa activa": ""}
+                                        siguientes datos {data.objInfoEmpresarioPr.strEstado === "Activo" && data.objInfoEmpresarioPr?.bitIsTercero ? "de una persona externa activa": ""}
                                         {data.objInfoEmpresarioPr.strEstado === "Inactivo" && data.objInfoEmpresarioPr.bitIsEmpresario ? "de una persona empresaria inactiva con las siguiente empresas asociadas" : ""}:
                                         <Avatar
                                             style={{ margin: "10px" }}
@@ -529,11 +528,11 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                 )}
 
                                 {data && documento && (
-                                    data?.objInfoEmpresarioPr?.strEstado === "Activo" && !data?.objInfoEmpresarioPr?.bitIsEmpresario
+                                    data?.objInfoEmpresarioPr?.bitIsTercero
                                         ?
                                         <Alert severity="warning">
                                             Lo sentimos no puedes volver a registrar
-                                            a esta persona
+                                            a esta persona ya que es una persona externa
                                         </Alert> :
                                         data?.objInfoEmpresarioPr?.strEstado === "Inactivo" && data?.objInfoEmpresarioPr?.bitIsEmpresario
                                             ?

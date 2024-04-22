@@ -1035,7 +1035,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                         field: { name, value, onChange },
                                     }) => (
                                         <TextField
-                                            label="¿El empresario es perfil sensible?"
+                                            label="¿La persona empresaria es perfil sensible?"
                                             name={name}
                                             value={value}
                                             onChange={(e) => {

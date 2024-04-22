@@ -260,7 +260,7 @@ const ModalCEdit = ({ handleOpenDialog, open, refresh, intIdEvento }) => {
                             defaultValue={data.arrEmpresarios}
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownEmpresarios
-                                    label="Empresarios a matricular"
+                                    label="Persona Empresaria a matricular"
                                     multiple
                                     name={name}
                                     value={value}

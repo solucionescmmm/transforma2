@@ -223,11 +223,11 @@ const ModalNoContactar = ({ handleOpenDialog, open, refresh, intIdIdea, selected
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas suspender la comucicación con el empresario seleccionado?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas suspender la comucicación con la persona empresaria seleccionado?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    Al suspender las llamadas a este empresario no saldra mas en esta lista.
+                    Al suspender las llamadas a esta persona empresaria no saldra mas en esta lista.
                 </DialogContentText>
             </DialogContent>
 

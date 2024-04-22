@@ -400,7 +400,7 @@ const CUSesion = ({
                                                 helperText={
                                                     errors?.objEmpresario
                                                         ?.message ||
-                                                    "selecciona el empresario"
+                                                    "selecciona la persona empresaria"
                                                 }
                                                 error={!!errors?.objEmpresario}
                                                 disabled={loading || isPreview}
@@ -414,7 +414,7 @@ const CUSesion = ({
                                         control={control}
                                         rules={{
                                             required:
-                                                "Por favor, selecciona el empresario",
+                                                "Por favor, selecciona la persona empresaria",
                                         }}
                                     />
                                 </Grid>

@@ -410,7 +410,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                                 helperText={
                                                     errors?.objEmpresario
                                                         ?.message ||
-                                                    "Selecciona el empresario"
+                                                    "Selecciona la persona empresaria"
                                                 }
                                                 error={!!errors?.objEmpresario}
                                                 disabled={loading || isPreview}
@@ -424,7 +424,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                         control={control}
                                         rules={{
                                             required:
-                                                "Por favor, selecciona el empresario",
+                                                "Por favor, selecciona la persona empresaria",
                                         }}
                                     />
                                 </Grid>
