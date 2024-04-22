@@ -22,7 +22,6 @@ class updateNoContactarEmpresario {
     }
 
     async main() {
-        //console.log(this.#objData)
         await this.#validations();
         await this.#updateNoContactarEmpresario();
 
