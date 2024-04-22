@@ -169,7 +169,11 @@ const CUTercero = ({ isEdit, values, resetSearch, inModal, resetModal, closeModa
                         (data) => {
                             let newData = {
                                 intIdIdea: data.intIdIdea,
-                                ...data,
+                                objInfoPrincipal:{
+                                    ...data.objInfoPrincipal,
+                                    strNroDocto:
+                                        data.objInfoPrincipal.strNroDocto?.trim(),
+                                }
                             };
 
                             return JSON.stringify(newData);

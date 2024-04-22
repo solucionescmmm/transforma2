@@ -114,7 +114,10 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
         setLoadingGetData(true);
 
         await refFntGetData
-            .current({ strDocumento: documento })
+            .current({
+                strDocumento: documento,
+                strActivo: "Activo"
+            })
             .then((res) => {
                 if (res.data.error) {
                     throw new Error(res.data.msg);
@@ -172,8 +175,12 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                 objEmprPrincipal.strUrlFileFoto || "",
                             strEstado: objEmprPrincipal.strEstado || "",
                             intIdEstado: objEmprPrincipal.intIdEstado || "",
+                            bitIsEmpresario: objEmprPrincipal?.bitIsEmpresario || false,
+                            bitIsTercero: objEmprPrincipal?.bitIsTercero || false,
+                            
                         },
                     });
+                    console.log(data)
                 } else {
                     setData();
                     setSendData(false);
@@ -192,8 +199,6 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                 setSendData(false);
             });
     }
-
-    console.log(data)
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -312,7 +317,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                             noValidate
                             style={{ padding: "25px" }}
                         >
-                            <Grid item xs={12}> 
+                            <Grid item xs={12}>
                                 <Box
                                     sx={{
                                         display: "flex",
@@ -398,7 +403,8 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                 {data && !loadingGetData && documento && (
                                     <Alert severity="warning">
                                         Se encontro un registro con los
-                                        siguientes datos:
+                                        siguientes datos {data.objInfoEmpresarioPr?.bitIsTercero ? "de una persona externa activa": ""}
+                                        {data.objInfoEmpresarioPr.strEstado === "Inactivo" && data.objInfoEmpresarioPr.bitIsEmpresario ? "de una persona empresaria inactiva con las siguiente empresas asociadas" : ""}:
                                         <Avatar
                                             style={{ margin: "10px" }}
                                             alt={
@@ -453,6 +459,46 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                                     .strDireccionResidencia || "No aplica"
                                             }{" "}
                                         </p>
+                                        {data.objIdeaEmpresario && (
+                                            <table>
+                                                <tr
+                                                    style={{ fontSize: "12px" }}
+                                                >
+                                                    <th>Marca</th>
+                                                    <th>Rol</th>
+                                                </tr>
+                                                {data.objIdeaEmpresario.map(
+                                                    (x) => (
+                                                        <tr
+                                                            style={{
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                            key={x.intIdIdea}
+                                                        >
+                                                            <td>
+                                                                {
+                                                                    x.strNombreIdea
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    x.strTipoEmpresario
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )}
+                                            </table>
+                                        )}
+                                        <p style={{ marginTop: "15px" }}>
+                                            <b>Nota importante: </b>
+                                            La información de la persona será
+                                            precargada y podrá ser editada, sin
+                                            embargo, en caso de estar registrado
+                                            en una empresa, no podrá ser
+                                            asociada nuevamente a la misma.
+                                        </p>
                                     </Alert>
                                 )}
 
@@ -480,38 +526,44 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                         No se ha encontrado registros asociados
                                         al documento digitado
                                     </Alert>
-                                )} 
-                                
+                                )}
+
                                 {data && documento && (
-                                    data?.objInfoEmpresarioPr?.strEstado === "Inactivo" 
-                                        ? 
-                                        <Grid item xs={12}>
-                                            <Box
-                                                sx={{
-                                                    display: "flex",
-                                                    flexDirection: "row-reverse",
-                                                    paddingTop: 2,
-                                                }}
-                                            >
-                                                <Button
-                                                    variant="contained"
-                                                    disabled={loadingGetData}
-                                                    onClick={() => {
-                                                        setHiddenSearch(true);
-                                                        setData({
-                                                            objInfoPrincipal: data?.objInfoEmpresarioPr
-                                                        });
+                                    data?.objInfoEmpresarioPr?.strEstado === "Activo" && !data?.objInfoEmpresarioPr?.bitIsEmpresario
+                                        ?
+                                        <Alert severity="warning">
+                                            Lo sentimos no puedes volver a registrar
+                                            a esta persona
+                                        </Alert> :
+                                        data?.objInfoEmpresarioPr?.strEstado === "Inactivo" && data?.objInfoEmpresarioPr?.bitIsEmpresario
+                                            ?
+                                            <Grid item xs={12}>
+                                                <Box
+                                                    sx={{
+                                                        display: "flex",
+                                                        flexDirection: "row-reverse",
+                                                        paddingTop: 2,
                                                     }}
                                                 >
-                                                    {"Agregar Empresario inactivo como tercero"}
-                                                </Button>
-                                            </Box>
-                                        </Grid> 
-                                        :
-                                    <Alert severity="warning">
-                                        Lo sentimos no puedes volver a registrar
-                                        a esta persona
-                                    </Alert>
+                                                    <Button
+                                                        variant="contained"
+                                                        disabled={loadingGetData}
+                                                        onClick={() => {
+                                                            setHiddenSearch(true);
+                                                            setData({
+                                                                objInfoPrincipal: data?.objInfoEmpresarioPr
+                                                            });
+                                                        }}
+                                                    >
+                                                        {"Agregar Empresario inactivo como tercero"}
+                                                    </Button>
+                                                </Box>
+                                            </Grid>
+                                            :
+                                            <Alert severity="warning">
+                                                Lo sentimos no puedes volver a registrar
+                                                a esta persona
+                                            </Alert>
                                 )}
 
                                 <div style={{ width: "500px" }}></div>

@@ -32,7 +32,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData()
  *
  */
-const useGetUsers = ({ autoLoad = true, strDocumento = null } = {}) => {
+const useGetUsers = ({ autoLoad = true, strDocumento = null, strActivo = null } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -47,7 +47,7 @@ const useGetUsers = ({ autoLoad = true, strDocumento = null } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, strDocumento }) => {
+        async ({ signalSubmitData, strDocumento, strActivo }) => {
             return await axios(
                 {
                     method: "GET",
@@ -57,7 +57,8 @@ const useGetUsers = ({ autoLoad = true, strDocumento = null } = {}) => {
                         token,
                     },
                     params: {
-                        strDocumento,
+                        strDocumento:strDocumento?.trim(),
+                        strActivo:strActivo
                     },
                 },
                 {
@@ -103,11 +104,12 @@ const useGetUsers = ({ autoLoad = true, strDocumento = null } = {}) => {
         getData({ signalSubmitData });
     };
 
-    const getUniqueData = async ({ strDocumento = null } = {}) => {
+    const getUniqueData = async ({ strDocumento = null, strActivo = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
             strDocumento,
+            strActivo,
             signalSubmitData,
         });
 
