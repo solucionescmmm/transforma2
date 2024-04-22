@@ -213,7 +213,7 @@ class daoDiagnosticoExpress {
                 ${data.strConclusiones},
                 ${data.strURLSFotosProducto},
                 ${data.strLugarSesion},
-                GETDATE(),
+                ${data.dtmFechaSesion},
                 ${data.strUsuarioCreacion},
                 NULL,
                 ${data.strUsuarioActualizacion}
