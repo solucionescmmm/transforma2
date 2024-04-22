@@ -39,6 +39,7 @@ const InfoGeneral = ({
     values,
     errors,
     control,
+    isEdit,
     intIdIdea,
     setValue,
     clearErrors,
@@ -193,7 +194,7 @@ const InfoGeneral = ({
                                     label="Fecha y hora de la sesión"
                                     value={value}
                                     onChange={(date) => onChange(date)}
-                                    disabled={disabled}
+                                    disabled={isEdit ? true : disabled}
                                     format="dd/MM/yyyy H:mm"
                                     ampm
                                     slotProps={{
@@ -265,7 +266,6 @@ const InfoGeneral = ({
                                     onChange={(date) => onChange(date)}
                                     disabled
                                     format="dd/MM/yyyy H:mm"
-                                    ampm
                                     slotProps={{
                                         textField: {
                                             name,
