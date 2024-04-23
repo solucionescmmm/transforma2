@@ -54,7 +54,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                 label: "Lugar de la sesión",
             },
             {
-                parent: "dtActualizacion",
+                parent: "dtmActualizacion",
                 value: null,
                 label: "Fecha de ultima actualización",
             },
@@ -221,8 +221,8 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                             data.objInfoGeneral.strLugarSesion || "",
                         strUsuarioCreacion:
                             data.objInfoGeneral.strUsuarioCreacion || "",
-                        dtActualizacion: data.objInfoGeneral.dtActualizacion
-                            ? parseISO(data.objInfoGeneral.dtActualizacion)
+                        dtmActualizacion: data.objInfoGeneral.dtmActualizacion
+                            ? parseISO(data.objInfoGeneral.dtmActualizacion)
                             : null,
                         strUsuarioActualizacion:
                             data.objInfoGeneral.strUsuarioActualizacion || "",
@@ -277,9 +277,9 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                     if (e.parent === key) {
                                         e.value = objInfoGeneral[key];
 
-                                        if (key === "dtActualizacion") {
+                                        if (key === "dtmActualizacion") {
                                             e.value = validator.isDate(e.value)
-                                                ? format(e.value, "yyyy-MM-dd")
+                                                ? format(e.value, "yyyy-MM-dd H:mm")
                                                 : "No diligenciado";
                                         }
 
@@ -287,7 +287,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                             e.value = validator.isDate(e.value)
                                                 ? format(
                                                       e.value,
-                                                      "yyyy-MM-dd hh:mm"
+                                                      "yyyy-MM-dd H:mm"
                                                   )
                                                 : "No diligenciado";
                                         }
