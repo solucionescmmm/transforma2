@@ -115,7 +115,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Validación comercial",
-        label: "Validación Comercial",
+        label: "Validación comercial",
         html: `
         <p>
         En esta fase, los emprendimientos se centran en desarrollar el producto o servicio,
@@ -123,8 +123,8 @@ const propiedadesEtapas = [
         </p>`,
     },
     {
-        parent: "Nuevo empresario",
-        label: "Nueva Empresa",
+        parent: "Nueva empresa",
+        label: "Nueva empresa",
         html: `
         <p>
         En esta etapa, los emprendimientos se encuentran activamente comprometidos con su actividad empresarial, 
@@ -136,7 +136,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Fortalecimiento empresariaI I",
-        label: "Fortalecimiento Nivel I",
+        label: "Fortalecimiento empresariaI I",
         html: `
         <p>
         Durante esta fase temprana de actividad empresarial, se busca desarrollar el potencial de mercado 
@@ -146,7 +146,7 @@ const propiedadesEtapas = [
     },
     {
         parent: "Fortalecimiento empresarial II",
-        label: "Fortalecimiento Nivel II",
+        label: "Fortalecimiento empresarial II",
         html: `
         <p>
         En este momento el emprendimiento está enfocado en el desarrollo del potencial de mercado con un 
