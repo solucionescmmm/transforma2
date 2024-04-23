@@ -143,7 +143,7 @@ const InfoFamiliar = ({
 
             <Collapse in={openCollapese} timeout="auto">
                 <Grid container direction="row" spacing={2}>
-                <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strTrabajanFamiliares}
                             name="objInfoEmpresa.strTrabajanFamiliares"
@@ -158,13 +158,15 @@ const InfoFamiliar = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresa?.strTrabajanFamiliares
+                                        errors?.objInfoEmpresa
+                                            ?.strTrabajanFamiliares
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa?.strTrabajanFamiliares
-                                            ?.message || "Selecciona una opción"
+                                        errors?.objInfoEmpresa
+                                            ?.strTrabajanFamiliares?.message ||
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="TrabajanFamiliares"
@@ -196,8 +198,7 @@ const InfoFamiliar = ({
                                     }
                                     helperText={
                                         errors?.objInfoFamiliar?.strCabezaHogar
-                                            ?.message ||
-                                        "Seleccione, si es cabeza de hogar o no"
+                                            ?.message || "Selecciona una opción"
                                     }
                                     strGrupo="Lista_Generica"
                                     strCodigo="SI_NO_N/A"
@@ -387,8 +388,7 @@ const InfoFamiliar = ({
                                     helperText={
                                         errors?.objInfoFamiliar
                                             ?.strMaxNivelEducativoHijos
-                                            ?.message ||
-                                        "Selecciona el nivel educativo máximo de los hijos"
+                                            ?.message || "Selecciona una opción"
                                     }
                                 />
                             )}
@@ -416,8 +416,7 @@ const InfoFamiliar = ({
                                     }
                                     helperText={
                                         errors?.objInfoFamiliar?.strEstadoCivil
-                                            ?.message ||
-                                        "Seleccione, el estado civil"
+                                            ?.message || "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="EstadoCivil"
@@ -449,7 +448,7 @@ const InfoFamiliar = ({
                                     helperText={
                                         errors?.objInfoFamiliar
                                             ?.strSituacionVivienda?.message ||
-                                        "Seleccione, la situación de la vivienda"
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="SituacionVivienda"
@@ -481,7 +480,7 @@ const InfoFamiliar = ({
                                     helperText={
                                         errors?.objInfoFamiliar
                                             ?.strGrupoVulnerable?.message ||
-                                        "Seleccione, si la persona pertenece a algún grupo vulnerable"
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="PoblacionVulnerable"
@@ -513,7 +512,7 @@ const InfoFamiliar = ({
                                     helperText={
                                         errors?.objInfoFamiliar
                                             ?.strPoblacionEtnica?.message ||
-                                        "Seleccione, si la persona pertenece a algúna población étnica"
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="PoblacionEtnica"

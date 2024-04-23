@@ -65,7 +65,7 @@ const InfoEmpresarioPr = ({
         strCondicionDiscapacidad: "",
         btPerfilSensible: false,
         strEstrato: "",
-        arrPais:[],
+        arrPais: [],
         arrDepartamento: [],
         arrCiudad: [],
         strBarrio: "",
@@ -453,15 +453,13 @@ const InfoEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strGenero
-                                            ?.message ||
-                                        "Selecciona una opción"
+                                            ?.message || "Selecciona una opción"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, selecciona una opción",
+                                required: "Por favor, selecciona una opción",
                             }}
                         />
                     </Grid>
@@ -659,7 +657,7 @@ const InfoEmpresarioPr = ({
                                     helperText={
                                         errors?.objInfoEmpresarioPr
                                             ?.strNivelEducativo?.message ||
-                                        "Selecciona el nivel educativo de la persona"
+                                        "Selecciona una opción"
                                     }
                                 />
                             )}
@@ -746,8 +744,7 @@ const InfoEmpresarioPr = ({
                                     }
                                     helperText={
                                         errors?.objInfoEmpresarioPr?.strEstrato
-                                            ?.message ||
-                                        "Selecciona el estrato socioeconómico de la persona"
+                                            ?.message || "Selecciona una opción"
                                     }
                                 >
                                     {(() => {
@@ -828,27 +825,24 @@ const InfoEmpresarioPr = ({
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
-                                        handlerChangeData(
-                                            "arrPais",
-                                            value
-                                        );
+                                        handlerChangeData("arrPais", value);
                                     }}
                                     error={
-                                        errors?.objInfoEmpresarioPr
-                                            ?.arrPais
+                                        errors?.objInfoEmpresarioPr?.arrPais
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresarioPr
-                                            ?.arrPais?.message ||
+                                        errors?.objInfoEmpresarioPr?.arrPais
+                                            ?.message ||
                                         "Selecciona el pais de residencia"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, selecciona el pais de residencia",
+                                required:
+                                    "Por favor, selecciona el pais de residencia",
                             }}
                         />
                     </Grid>
@@ -878,9 +872,7 @@ const InfoEmpresarioPr = ({
                                             ? true
                                             : false
                                     }
-                                    strPais={
-                                        data.arrPais?.country_name
-                                    }
+                                    strPais={data.arrPais?.country_name}
                                     helperText={
                                         errors?.objInfoEmpresarioPr
                                             ?.arrDepartamento?.message ||
@@ -890,7 +882,8 @@ const InfoEmpresarioPr = ({
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, selecciona el departamento de residencia",
+                                required:
+                                    "Por favor, selecciona el departamento de residencia",
                             }}
                         />
                     </Grid>
@@ -928,7 +921,8 @@ const InfoEmpresarioPr = ({
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, selecciona la ciudad de residencia",
+                                required:
+                                    "Por favor, selecciona la ciudad de residencia",
                             }}
                         />
                     </Grid>
@@ -981,9 +975,7 @@ const InfoEmpresarioPr = ({
                                             ? true
                                             : false
                                     }
-                                    strPais={
-                                        data.arrPais?.country_name
-                                    }
+                                    strPais={data.arrPais?.country_name}
                                     helperText={
                                         errors?.objInfoEmpresarioPr
                                             ?.strDireccionResidencia?.message ||

@@ -15,6 +15,7 @@ import {
     Tooltip,
     CircularProgress,
     TextField,
+    MenuItem,
 } from "@mui/material";
 
 //Iconos de Material UI
@@ -55,6 +56,20 @@ const InfoPerfilEco = ({
         strActivos: "",
         dblValorActivos: "",
         dblValorGananciasMes: "",
+        MinimoValorProducto: "",
+        MaximoValorProducto: "",
+        strHistoriaEmpresa: "",
+        intCantidadUnidadesProducidasMes: "",
+        strEscojaProductoServicio: "",
+        ValorVentaProductoEscogido: "",
+        strConoceMargenRentaProductoEscogido: "",
+        intPorcentajeMargenRentaProductoEscogido: "",
+        strConoceCostosProductoEscogido: "",
+        CostoProduccionProductoEscogido: "",
+        strPorcentajeIntermediacionVentas: "",
+        strDefinePorcentajesCanal: "",
+        intRangoPorcentajeIntermediacionVentas: "",
+        btGeneraEmpleo: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -86,6 +101,29 @@ const InfoPerfilEco = ({
                 strActivos: values.strActivos || "",
                 dblValorActivos: values.dblValorActivos || "",
                 dblValorGananciasMes: values.dblValorGananciasMes || "",
+                MinimoValorProducto: values.MinimoValorProducto || "",
+                MaximoValorProducto: values.MaximoValorProducto || "",
+                intCantidadUnidadesProducidasMes:
+                    values.intCantidadUnidadesProducidasMes || "",
+                strEscojaProductoServicio:
+                    values.strEscojaProductoServicio || "",
+                ValorVentaProductoEscogido:
+                    values.ValorVentaProductoEscogido || "",
+                strConoceMargenRentaProductoEscogido:
+                    values.strConoceMargenRentaProductoEscogido || "",
+                intPorcentajeMargenRentaProductoEscogido:
+                    values.intPorcentajeMargenRentaProductoEscogido || "",
+                strConoceCostosProductoEscogido:
+                    values.strConoceCostosProductoEscogido || "",
+                CostoProduccionProductoEscogido:
+                    values.CostoProduccionProductoEscogido || "",
+                strPorcentajeIntermediacionVentas:
+                    values.strPorcentajeIntermediacionVentas || "",
+                strDefinePorcentajesCanal:
+                    values.strDefinePorcentajesCanal || "",
+                intRangoPorcentajeIntermediacionVentas:
+                    values.intRangoPorcentajeIntermediacionVentas || "",
+                btGeneraEmpleo: values.btGeneraEmpleo || "",
             });
         }
 
@@ -251,13 +289,13 @@ const InfoPerfilEco = ({
                                     helperText={
                                         errors?.objInfoPerfilEco
                                             ?.PromedioVentas6Meses?.message ||
-                                        "Digita la cantidad promedio de las ventas de los últimos 6 meses"
+                                        "Selecciona una opción"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita la cantidad promedio de las ventas de los últimos 6 meses",
+                                required: "Por favor, selecciona una opción",
                             }}
                         />
                     </Grid>
@@ -291,14 +329,53 @@ const InfoPerfilEco = ({
                                     helperText={
                                         errors?.objInfoPerfilEco
                                             ?.dblValorVentasMes?.message ||
-                                        "Digita la cantidad promedio de las ventas mensuales"
+                                        "Digita la cantidad"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, digita la cantidad promedio de las ventas mensuales",
+                                required: "Por favor, digita la cantidad",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.dblValorGananciasMes}
+                            name="objInfoPerfilEco.dblValorGananciasMes"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="Valor de las ganancias mensuales"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorGananciasMes
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorGananciasMes?.message ||
+                                        "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, digita la cantidad",
                             }}
                         />
                     </Grid>
@@ -337,6 +414,545 @@ const InfoPerfilEco = ({
                         />
                     </Grid>
 
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strActivos}
+                            name="objInfoPerfilEco.strActivos"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿Qué activos tiene la unidad productiva a la fecha?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="outlined"
+                                    multiline
+                                    minRows={3}
+                                    error={
+                                        errors?.objInfoPerfilEco?.strActivos
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco?.strActivos
+                                            ?.message || "Digita una opción"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, digita una opción",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.dblValorActivos}
+                            name="objInfoPerfilEco.dblValorActivos"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="Valor estimado de los activos"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorActivos
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.dblValorActivos?.message ||
+                                        "Digita una opción"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required: "Por favor, digita una opción",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.MinimoValorProducto}
+                            name="objInfoPerfilEco.MinimoValorProducto"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="Rango de precios de productos mínimo"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.MinimoValorProducto
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.MinimoValorProducto?.message ||
+                                        "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.MaximoValorProducto}
+                            name="objInfoPerfilEco.MaximoValorProducto"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="Rango de precios de productos máximo"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.MaximoValorProducto
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.MaximoValorProducto?.message ||
+                                        "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.intCantidadUnidadesProducidasMes}
+                            name="objInfoPerfilEco.intCantidadUnidadesProducidasMes"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Cantidad de unidades producidas al mes actualmente"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.intCantidadUnidadesProducidasMes
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.intCantidadUnidadesProducidasMes
+                                            ?.message || "Digita la cantidad"
+                                    }
+                                    type="number"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strEscojaProductoServicio}
+                            name="objInfoPerfilEco.strEscojaProductoServicio"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Escoja uno de los productos/servicios de su empresa"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.strEscojaProductoServicio
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.strEscojaProductoServicio
+                                            ?.message || "Digita tu respuesta"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.ValorVentaProductoEscogido}
+                            name="objInfoPerfilEco.ValorVentaProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.ValorVentaProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.ValorVentaProductoEscogido
+                                            ?.message || "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.strConoceMargenRentaProductoEscogido
+                            }
+                            name="objInfoPerfilEco.strConoceMargenRentaProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.strConoceMargenRentaProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.strConoceMargenRentaProductoEscogido
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.intPorcentajeMargenRentaProductoEscogido
+                            }
+                            name="objInfoPerfilEco.intPorcentajeMargenRentaProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="En caso de que la pregunta anterior sea afirmativa, ¿Cuál es el margen de utilidad de este producto?"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    suffix={"%"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.intPorcentajeMargenRentaProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.intPorcentajeMargenRentaProductoEscogido
+                                            ?.message || "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strConoceCostosProductoEscogido}
+                            name="objInfoPerfilEco.strConoceCostosProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="¿Conoce los costos de producción de este producto?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.strConoceCostosProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.strConoceCostosProductoEscogido
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.CostoProduccionProductoEscogido}
+                            name="objInfoPerfilEco.CostoProduccionProductoEscogido"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    prefix={"$"}
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.CostoProduccionProductoEscogido
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.CostoProduccionProductoEscogido
+                                            ?.message || "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.strPorcentajeIntermediacionVentas
+                            }
+                            name="objInfoPerfilEco.strPorcentajeIntermediacionVentas"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="Tiene porcentaje(s) estimados para la intermediación en ventas?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.strPorcentajeIntermediacionVentas
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.strPorcentajeIntermediacionVentas
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.strDefinePorcentajesCanal}
+                            name="objInfoPerfilEco.strDefinePorcentajesCanal"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectListas
+                                    label="En caso de que la pregunta anterior sea afirmativa, ¿tiene definido este porcentaje, de acuerdo con cada canal?"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    required
+                                    variant="standard"
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.strDefinePorcentajesCanal
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.strDefinePorcentajesCanal
+                                            ?.message || "Selecciona una opción"
+                                    }
+                                    strGrupo="Lista_Generica"
+                                    strCodigo="SI_NO_N/A"
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={
+                                data.intRangoPorcentajeIntermediacionVentas
+                            }
+                            name="objInfoPerfilEco.intRangoPorcentajeIntermediacionVentas"
+                            render={({ field: { name, value, onChange } }) => (
+                                <NumberFormat
+                                    label="¿De cuánto es el rango o porcentaje definido?"
+                                    name={name}
+                                    value={value}
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    suffix="%"
+                                    customInput={TextField}
+                                    fullWidth
+                                    variant="standard"
+                                    disabled={disabled}
+                                    required
+                                    error={
+                                        errors?.objInfoPerfilEco
+                                            ?.intRangoPorcentajeIntermediacionVentas
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco
+                                            ?.intRangoPorcentajeIntermediacionVentas
+                                            ?.message || "Digita la cantidad"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.btGeneraEmpleo}
+                            name="objInfoPerfilEco.btGeneraEmpleo"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="¿La empresa genera empleo para otras personas?"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    select
+                                    fullWidth
+                                    variant="standard"
+                                    required
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoPerfilEco?.btGeneraEmpleo
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        errors?.objInfoPerfilEco?.btGeneraEmpleo
+                                            ?.message ||
+                                        "Selecciona una opción"
+                                    }
+                                >
+                                    <MenuItem value={true}>Sí</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                </TextField>
+                            )}
+                            control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (value === "" || value === undefined) {
+                                        return "Por favor, selecciona una opción";
+                                    }
+                                },
+                            }}
+                        />
+                    </Grid>
+
                     <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intNumeroEmpleados}
@@ -361,7 +977,7 @@ const InfoPerfilEco = ({
                                     helperText={
                                         errors?.objInfoPerfilEco
                                             ?.intNumeroEmpleados?.message ||
-                                        "Digita la cantidad de empleos generados"
+                                        "Digita la cantidad"
                                     }
                                 />
                             )}
@@ -369,7 +985,7 @@ const InfoPerfilEco = ({
                             rules={{
                                 validate: (value) => {
                                     if (value === "" || value === undefined) {
-                                        return "Por favor, digita la cantidad de empleos generados";
+                                        return "Por favor, digita la cantidad";
                                     }
                                 },
                             }}
@@ -469,17 +1085,19 @@ const InfoPerfilEco = ({
                                         errors?.objInfoPerfilEco
                                             ?.strDlloAcitividadesContratados
                                             ?.message ||
-                                        "Digita detalladamente tu respuesta"
+                                        "Digita tu respuesta"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                validate:(value)=>{
-                                    if (validator.isLength(value,{min:100})) {
-                                        return "El número maximo de carácteres es de 100"
+                                validate: (value) => {
+                                    if (
+                                        validator.isLength(value, { min: 100 })
+                                    ) {
+                                        return "El número maximo de carácteres es de 100";
                                     }
-                                }
+                                },
                             }}
                         />
                     </Grid>
@@ -580,7 +1198,7 @@ const InfoPerfilEco = ({
                                     helperText={
                                         errors?.objInfoPerfilEco
                                             ?.strDiasProduccion?.message ||
-                                        "Digita detalladamente"
+                                        "Digita tu respuesta"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="PromedioDiaHorasProduccion"
@@ -588,7 +1206,7 @@ const InfoPerfilEco = ({
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, degita detalladamente",
+                                required: "Por favor, degita tu respuesta",
                             }}
                         />
                     </Grid>
@@ -625,118 +1243,6 @@ const InfoPerfilEco = ({
                             control={control}
                             rules={{
                                 required: "Por favor, selecciona una opción",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strActivos}
-                            name="objInfoPerfilEco.strActivos"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿Qué activos tiene la unidad productiva a la fecha?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoPerfilEco?.strActivos
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPerfilEco?.strActivos
-                                            ?.message || "Digita una opción"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, digita una opción",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.dblValorActivos}
-                            name="objInfoPerfilEco.dblValorActivos"
-                            render={({ field: { name, value, onChange } }) => (
-                                <NumberFormat
-                                    label="Valor estimado de los activos"
-                                    name={name}
-                                    value={value}
-                                    onValueChange={(v) => {
-                                        onChange(v.floatValue);
-                                    }}
-                                    thousandSeparator={true}
-                                    allowNegative={false}
-                                    prefix={"$"}
-                                    customInput={TextField}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoPerfilEco
-                                            ?.dblValorActivos
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPerfilEco
-                                            ?.dblValorActivos?.message ||
-                                        "Digita una opción"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required: "Por favor, digita una opción",
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.dblValorGananciasMes}
-                            name="objInfoPerfilEco.dblValorGananciasMes"
-                            render={({ field: { name, value, onChange } }) => (
-                                <NumberFormat
-                                    label="Valor de las ganancias mensuales"
-                                    name={name}
-                                    value={value}
-                                    onValueChange={(v) => {
-                                        onChange(v.floatValue);
-                                    }}
-                                    thousandSeparator={true}
-                                    allowNegative={false}
-                                    prefix={"$"}
-                                    customInput={TextField}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoPerfilEco
-                                            ?.dblValorGananciasMes
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoPerfilEco
-                                            ?.dblValorGananciasMes?.message ||
-                                        "Digita la cantidad promedio de las ganancias mensuales"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, digita la cantidad promedio de las ganancias mensuales",
                             }}
                         />
                     </Grid>

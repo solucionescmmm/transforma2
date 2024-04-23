@@ -42,13 +42,13 @@ const ModalMediosDigitales = ({
             checked: false,
             label: "Instagram",
             parent: "strIdInstragram",
-            segidores: "",
+            seguidores: "",
         },
         objFacebook: {
             checked: false,
             label: "Facebook",
             parent: "strIdFacebook",
-            segidores: "",
+            seguidores: "",
         },
         objYouTube: {
             checked: false,
@@ -88,8 +88,8 @@ const ModalMediosDigitales = ({
     });
 
     const [valuesSeg, setValuesSeg] = useState({
-        strIdFacebook: "",
-        strIdInstragram: "",
+        'seg-strIdFacebook': "",
+        'seg-strIdInstragram': "",
     });
 
     //===============================================================================================================================================
@@ -109,6 +109,8 @@ const ModalMediosDigitales = ({
                         label: dataCheckbox[keyDataCheck].label,
                         name: keyDataCheck.toString(),
                         value: valuesCheck[dataCheckbox[keyDataCheck].parent],
+                        seguidores:
+                            valuesSeg[`seg-${dataCheckbox[keyDataCheck].parent}`],
                     });
                 }
             }
@@ -125,6 +127,7 @@ const ModalMediosDigitales = ({
                 checked: value,
                 label: prevState[key].label,
                 parent: prevState[key].parent,
+                seguidores: prevState[key].seguidores
             },
         }));
     };
@@ -159,14 +162,16 @@ const ModalMediosDigitales = ({
         if (value) {
             let prevData = dataCheckbox;
             let prevValuesCheck = valuesCheck;
+            let prevValuesSeg = valuesSeg;
 
             value.forEach((value) => {
                 for (const key in prevData) {
                     if (Object.hasOwnProperty.call(prevData, key)) {
                         if (prevData[key].label === value.label) {
                             prevData[key].checked = true;
-
                             prevValuesCheck[prevData[key].parent] = value.value;
+                            prevValuesSeg[`seg-${prevData[key].parent}`] =
+                                value.seguidores;
                         }
                     }
                 }
@@ -174,8 +179,10 @@ const ModalMediosDigitales = ({
 
             setDataCheckbox(prevData);
             setValuesCheck(prevValuesCheck);
+            setValuesSeg(prevValuesSeg);
         }
-    }, [value, dataCheckbox, valuesCheck]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value]);
 
     return (
         <Fragment>
@@ -326,12 +333,12 @@ const ModalMediosDigitales = ({
 
                                             {value.checked &&
                                                 value.parent &&
-                                                value.segidores !==
+                                                value.seguidores !==
                                                     undefined && (
                                                     <Controller
                                                         defaultValue={
                                                             valuesSeg[
-                                                                value.segidores
+                                                                value.parent
                                                             ]
                                                         }
                                                         name={`seg-${Object.keys(
@@ -365,7 +372,7 @@ const ModalMediosDigitales = ({
                                                                 ) => {
                                                                     handleChangeValuesSeg(
                                                                         e.target
-                                                                            .name,
+                                                                        .name,
                                                                         e.target
                                                                             .value
                                                                     );

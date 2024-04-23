@@ -40,7 +40,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
         strCelular1: "",
         strCorreoElectronico1: "",
         strEstrato: "",
-        arrPais:[],
+        arrPais: [],
         arrDepartamento: [],
         arrCiudad: [],
     });
@@ -65,7 +65,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
     }, [isEdit]);
 
     useEffect(() => {
-        console.log(values)
+        console.log(values);
         if (values) {
             setData({
                 intId: values.intId || null,
@@ -205,14 +205,13 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     fullWidth
                                     variant="standard"
                                     error={
-                                        errors?.objInfoPrincipal
-                                            ?.strApellidos
+                                        errors?.objInfoPrincipal?.strApellidos
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal
-                                            ?.strApellidos?.message ||
+                                        errors?.objInfoPrincipal?.strApellidos
+                                            ?.message ||
                                         "Digita los apellidos de la persona"
                                     }
                                 />
@@ -247,14 +246,13 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     required
                                     disabled={disabled}
                                     error={
-                                        errors?.objInfoPrincipal
-                                            ?.strTipoDocto
+                                        errors?.objInfoPrincipal?.strTipoDocto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal
-                                            ?.strTipoDocto?.message ||
+                                        errors?.objInfoPrincipal?.strTipoDocto
+                                            ?.message ||
                                         "Selecciona el tipo de documento"
                                     }
                                 />
@@ -323,8 +321,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     }
                                     helperText={
                                         errors?.objInfoPrincipal?.strEstrato
-                                            ?.message ||
-                                        "Selecciona el estrato socioeconómico de la persona"
+                                            ?.message || "Selecciona una opción"
                                     }
                                 >
                                     {(() => {
@@ -348,8 +345,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, selecciona el estrato socioeconómico de la persona",
+                                required: "Por favor, Selecciona una opción",
                             }}
                         />
                     </Grid>
@@ -431,7 +427,8 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, digita el correo electrónico de la persona",
+                                required:
+                                    "Por favor, digita el correo electrónico de la persona",
                                 validate: (value) => {
                                     if (value) {
                                         if (!validator.isEmail(value)) {
@@ -457,27 +454,24 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
-                                        handlerChangeData(
-                                            "arrPais",
-                                            value
-                                        );
+                                        handlerChangeData("arrPais", value);
                                     }}
                                     error={
-                                        errors?.objInfoPrincipal
-                                            ?.arrPais
+                                        errors?.objInfoPrincipal?.arrPais
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoPrincipal
-                                            ?.arrPais?.message ||
+                                        errors?.objInfoPrincipal?.arrPais
+                                            ?.message ||
                                         "Selecciona el pais de residencia"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, selecciona el pais de residencia",
+                                required:
+                                    "Por favor, selecciona el pais de residencia",
                             }}
                         />
                     </Grid>
@@ -507,9 +501,7 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                             ? true
                                             : false
                                     }
-                                    strPais={
-                                        data.arrPais?.country_name
-                                    }
+                                    strPais={data.arrPais?.country_name}
                                     helperText={
                                         errors?.objInfoPrincipal
                                             ?.arrDepartamento?.message ||
@@ -519,7 +511,8 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, selecciona el departamento de residencia",
+                                required:
+                                    "Por favor, selecciona el departamento de residencia",
                             }}
                         />
                     </Grid>
@@ -557,7 +550,8 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, selecciona la ciudad de residencia",
+                                required:
+                                    "Por favor, selecciona la ciudad de residencia",
                             }}
                         />
                     </Grid>

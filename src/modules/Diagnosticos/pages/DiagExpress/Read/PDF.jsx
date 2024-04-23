@@ -204,7 +204,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     const [htmlNormatividad, setHtmlNormatividad] = useState("");
     const [htmlCanalesVenta, setHtmlCanalesVenta] = useState("");
     const [htmlEncuestasHumanas, setHtmlEncuenstasHumanas] = useState("");
-    const [htmlAdicional, setHtmlAdicional] = useState('')
+    const [htmlAdicional, setHtmlAdicional] = useState("");
     const [arrImagenes, setArrImagenes] = useState([]);
 
     //===============================================================================================================================================
@@ -232,11 +232,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
         let htmlEmprend = "";
         let htmlPErfilEco = "";
-        let htmlMercado = ''
-        let htmlNormatividad = ""
-        let htmlEncuestasHumanas = ""
-        let htmlCanalesVenta = ""
-        let htmlAdicional = ""
+        let htmlMercado = "";
+        let htmlNormatividad = "";
+        let htmlEncuestasHumanas = "";
+        let htmlCanalesVenta = "";
+        let htmlAdicional = "";
 
         if (values?.objInfoEmprendimiento) {
             htmlEmprend = `
@@ -418,31 +418,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         }
 
         if (values?.objInfoAdicional) {
-            htmlAdicional = `
-            <div>
-                <p class="title">
-                   
-                </p>
-            </div>
-    
-            <table style="">
-               <tr>
-                  <th>Pregunta</th>
-                  <th>Respuesta</th>
-               </tr>
-    
-               ${values?.objInfoAdicional
-                   .map(
-                       (e) => `<tr>
-                   <td style="color: black">${e.label}</td>
-                   <td>${e.value || "No diligenciado"}</td>
-                  
-               </tr>
-               `
-                   )
-                   .join("")}
-            </table>
-            `;
+            htmlAdicional = `<p class="textObj">${
+                values.objInfoAdicional.find(
+                    (key) => key.parent === "strConclusiones"
+                ).value
+            }</p>`;
         }
 
         // values?.objInfoPerfilEco?.forEach(
@@ -458,13 +438,13 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
         setHtmlPErfilEco(htmlPErfilEco);
         setHtmlEmprend(htmlEmprend);
-        setHtmlMercado(htmlMercado)
-        setHtmlNormatividad(htmlNormatividad)
-        setHtmlCanalesVenta(htmlCanalesVenta)
-        setHtmlEncuenstasHumanas(htmlEncuestasHumanas)
-        setHtmlAdicional(htmlAdicional)
+        setHtmlMercado(htmlMercado);
+        setHtmlNormatividad(htmlNormatividad);
+        setHtmlCanalesVenta(htmlCanalesVenta);
+        setHtmlEncuenstasHumanas(htmlEncuestasHumanas);
+        setHtmlAdicional(htmlAdicional);
         setArrImagenes(values?.arrImagenes || []);
-  
+
         setLoading(true);
     }, [values]);
 
@@ -715,7 +695,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
      ${htmlEncuestasHumanas}
 
-     <h5 class="pMargin"> <span style="color: #00BBB4">Información adicional</span></h5>
+     <h5 class="pMargin"> <span style="color: #00BBB4">Conclusiones y observaciones</span></h5>
      <hr />
 
      ${htmlAdicional}
@@ -737,7 +717,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </View>
 
                     <Text style={styles.footerTitle}>
-                    Transformamos la vida de las personas emprendedoras y empresarias desde el ser y el hacer
+                        Transformamos la vida de las personas emprendedoras y
+                        empresarias desde el ser y el hacer
                     </Text>
 
                     <Text style={styles.footerContact}>Contacto</Text>

@@ -202,18 +202,20 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 (htmlServicios =
                     htmlServicios +
                     `<p class="textObj">
-                ${e.label}: ${e.value || "No diligenciado"}
+                    <span style="color: #00BBB4">${e.label}:</span> ${
+                        e.value || "No diligenciado"
+                    }
             </p>`)
         );
 
         htmlTemasFortalecer =
             htmlTemasFortalecer +
-            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+            `<p>Lorem BAJO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
         if (valuesPDF?.[0].objInnovacionBajo?.length > 0) {
             htmlTemasFortalecer =
                 htmlTemasFortalecer +
-                `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
+                `<div class="title" style="font-size: 11px !important; margin-bottom: 10px; margin-top: 10px">
                      En Innovación         
                 </div>
                 
@@ -279,8 +281,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         }
 
         htmlTemasFortalecer =
-            htmlTemasFortalecer +
-            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+        htmlTemasFortalecer +
+        `<p>Lorem MEDIO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+
 
         if (valuesPDF?.[0].objInnovacionMedio?.length > 0) {
             htmlTemasFortalecer =
@@ -349,6 +352,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     )
                     .join("")}`;
         }
+        
+        htmlFortalezas =
+        htmlFortalezas +
+        `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
 
         values?.objInfoFortalezas.forEach((e) => {
             if (e.objInnovacionFortalezas) {
@@ -456,10 +463,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             }
         });
 
-        htmlFortalezas =
-            htmlFortalezas +
-            `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
-
         setHtmlTemasFortalecer(htmlTemasFortalecer);
         setHtmlInfoServicios(htmlServicios);
         setHtmlFortalezas(htmlFortalezas);
@@ -529,7 +532,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            }
 
                            .title{
-                            font-size: 14px;
+                            font-size: 11px;
                             color: black;
                             margin: 10px;
                            }
@@ -636,7 +639,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </Html>
                     <Image
                         source={values?.imgChart}
-                        style={{ width: "321px", alignSelf: "center" }}
+                        style={{ width: "315px", alignSelf: "center" }}
                     />
 
                     <Html>
@@ -673,7 +676,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                              }
   
                              .title{
-                              font-size: 14px;
+                              font-size: 11px;
                               font-weight: 700;
                               color: black;
                               margin: 10px;
@@ -763,9 +766,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                            }
 
                            .title{
-                            font-size: 14px;
+                            font-size: 11px;
                             color: black;
-                            margin: 10px;
                            }
 
                            table {
@@ -801,6 +803,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                               <body>
                               
                             ${
+                                htmlFortalezas &&
+                                `
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Fortalezas</span></h5>
+                            <hr />
+                            `
+                            }
+
+                            ${htmlFortalezas}
+
+                            ${
                                 htmlTemasFortalecer &&
                                 `
                             <h5 class="pMargin"> <span style="color: #00BBB4">Temas a fortalecer</span></h5>
@@ -810,15 +822,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                             ${htmlTemasFortalecer}
 
-                            ${
-                                htmlFortalezas &&
-                                `
-                            <h5 class="pMargin"> <span style="color: #00BBB4">Fortalezas</span></h5>
-                            <hr />
-                            `
-                            }
-
-                            ${htmlFortalezas}
 
                             ${
                                 htmlNormatividad &&

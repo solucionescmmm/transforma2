@@ -289,14 +289,13 @@ const InfoPerfilEco = ({
                                     helperText={
                                         errors?.objInfoPerfilEco
                                             ?.PromedioVentas6Meses?.message ||
-                                        "Digita la cantidad promedio de las ventas de los últimos 6 meses"
+                                        "Selecciona una opción"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, digita la cantidad promedio de las ventas de los últimos 6 meses",
+                                required: "Por favor, Selecciona una opción",
                             }}
                         />
                     </Grid>
