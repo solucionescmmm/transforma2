@@ -587,15 +587,13 @@ const InfoGeneral = ({
                                     }
                                     helperText={
                                         errors?.objInfoGeneral?.strGenero
-                                            ?.message ||
-                                        "Selecciona una opción"
+                                            ?.message || "Selecciona una opción"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, selecciona una opción",
+                                required: "Por favor, selecciona una opción",
                             }}
                         />
                     </Grid>
@@ -651,7 +649,7 @@ const InfoGeneral = ({
                                     helperText={
                                         errors?.objInfoGeneral
                                             ?.strNivelEducativo?.message ||
-                                        "Selecciona el nivel educativo de la persona"
+                                        "Selecciona una opción"
                                     }
                                 />
                             )}
@@ -702,10 +700,7 @@ const InfoGeneral = ({
                                     disabled={disabled}
                                     onChange={(e, value) => {
                                         onChange(value);
-                                        handlerChangeData(
-                                            "arrPais",
-                                            value
-                                        );
+                                        handlerChangeData("arrPais", value);
                                     }}
                                     error={
                                         errors?.objInfoGeneral?.arrPais
@@ -721,7 +716,8 @@ const InfoGeneral = ({
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, selecciona el pais de residencia",
+                                required:
+                                    "Por favor, selecciona el pais de residencia",
                             }}
                         />
                     </Grid>
@@ -750,9 +746,7 @@ const InfoGeneral = ({
                                             ? true
                                             : false
                                     }
-                                    strPais={
-                                        data.arrPais?.country_name
-                                    }
+                                    strPais={data.arrPais?.country_name}
                                     helperText={
                                         errors?.objInfoGeneral?.arrDepartamento
                                             ?.message ||
@@ -762,7 +756,8 @@ const InfoGeneral = ({
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, selecciona el departamento de residencia",
+                                required:
+                                    "Por favor, selecciona el departamento de residencia",
                             }}
                         />
                     </Grid>
@@ -800,7 +795,8 @@ const InfoGeneral = ({
                             )}
                             control={control}
                             rules={{
-                                required:"Por favor, selecciona la ciudad de residencia",
+                                required:
+                                    "Por favor, selecciona la ciudad de residencia",
                             }}
                         />
                     </Grid>
@@ -888,8 +884,7 @@ const InfoGeneral = ({
                                     }
                                     helperText={
                                         errors?.objInfoGeneral?.strEstrato
-                                            ?.message ||
-                                        "Selecciona el estrato socioeconómico de la persona"
+                                            ?.message || "Selecciona una opción"
                                     }
                                 >
                                     {(() => {
@@ -921,7 +916,7 @@ const InfoGeneral = ({
                             name="objInfoGeneral.strUbicacionVivienda"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Ubicación de la vivienda"
+                                    label="Entorno residencia"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
@@ -937,7 +932,7 @@ const InfoGeneral = ({
                                     helperText={
                                         errors?.objInfoGeneral
                                             ?.strUbicacionVivienda?.message ||
-                                        "Seleccione la ubicación de la vivienda"
+                                        "Selecciona una opción"
                                     }
                                     select
                                 >

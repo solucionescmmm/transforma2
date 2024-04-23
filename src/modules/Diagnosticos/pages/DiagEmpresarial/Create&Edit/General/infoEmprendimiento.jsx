@@ -15,7 +15,6 @@ import {
     Tooltip,
     TextField,
     CircularProgress,
-    MenuItem,
 } from "@mui/material";
 
 import { DatePicker } from "@mui/x-date-pickers";
@@ -195,7 +194,7 @@ const InfoEmprendimiento = ({
                                 : "inherit",
                         }}
                     >
-                        Información del emprendimiento
+                        Información de la empresa
                     </Typography>
                 </Box>
 
@@ -595,7 +594,7 @@ const InfoEmprendimiento = ({
                                     helperText={
                                         errors?.objInfoEmprendimiento
                                             ?.strUbicacionUP?.message ||
-                                        "Selecciona la ubicación de la UP (Urbana o Rural)"
+                                        "Selecciona una opción"
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="UbicacionViviendaEmpresa"
@@ -603,8 +602,7 @@ const InfoEmprendimiento = ({
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, selecciona la ubicación de la UP (Urbana o Rural)",
+                                required: "Por favor, selecciona una opción",
                             }}
                         />
                     </Grid>
@@ -759,8 +757,7 @@ const InfoEmprendimiento = ({
                                     helperText={
                                         errors?.objInfoEmprendimiento
                                             ?.strRegistroCamaraComercio
-                                            ?.message ||
-                                        "Selecciona si la empresa cuenta con registro en la cámara de comercio"
+                                            ?.message || "Selecciona una opción"
                                     }
                                     strGrupo="Lista_Generica"
                                     strCodigo="SI_NO_N/A"
@@ -1020,7 +1017,7 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strListadoProdServ}
                             name="objInfoEmprendimiento.strListadoProdServ"
@@ -1048,48 +1045,6 @@ const InfoEmprendimiento = ({
                                 />
                             )}
                             control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.btGeneraEmpleo}
-                            name="objInfoEmprendimiento.btGeneraEmpleo"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="¿La empresa genera empleo para otras personas?"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    select
-                                    fullWidth
-                                    variant="standard"
-                                    required
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.btGeneraEmpleo
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.btGeneraEmpleo?.message ||
-                                        "Selecciona si la empresa genera empleo o no"
-                                    }
-                                >
-                                    <MenuItem value={true}>Sí</MenuItem>
-                                    <MenuItem value={false}>No</MenuItem>
-                                </TextField>
-                            )}
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona si la empresa genera empleo o no";
-                                    }
-                                },
-                            }}
                         />
                     </Grid>
 
@@ -1256,431 +1211,6 @@ const InfoEmprendimiento = ({
                                     }
                                     strGrupo="DiagnosticoGeneral"
                                     strCodigo="EtapaValidProductoServicios"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.MinimoValorProducto}
-                            name="objInfoEmprendimiento.MinimoValorProducto"
-                            render={({ field: { name, value, onChange } }) => (
-                                <NumberFormat
-                                    label="Rango de precios de productos mínimo"
-                                    name={name}
-                                    value={value}
-                                    onValueChange={(v) => {
-                                        onChange(v.floatValue);
-                                    }}
-                                    thousandSeparator={true}
-                                    allowNegative={false}
-                                    prefix={"$"}
-                                    customInput={TextField}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.MinimoValorProducto
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.MinimoValorProducto?.message ||
-                                        "Digita la cantidad"
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.MaximoValorProducto}
-                            name="objInfoEmprendimiento.MaximoValorProducto"
-                            render={({ field: { name, value, onChange } }) => (
-                                <NumberFormat
-                                    label="Rango de precios de productos máximo"
-                                    name={name}
-                                    value={value}
-                                    onValueChange={(v) => {
-                                        onChange(v.floatValue);
-                                    }}
-                                    thousandSeparator={true}
-                                    allowNegative={false}
-                                    prefix={"$"}
-                                    customInput={TextField}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.MaximoValorProducto
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.MaximoValorProducto?.message ||
-                                        "Digita la cantidad"
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.intCantidadUnidadesProducidasMes}
-                            name="objInfoEmprendimiento.intCantidadUnidadesProducidasMes"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Cantidad de unidades producidas al mes actualmente"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.intCantidadUnidadesProducidasMes
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.intCantidadUnidadesProducidasMes
-                                            ?.message || "Digita tu respuesta"
-                                    }
-                                    type="number"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strEscojaProductoServicio}
-                            name="objInfoEmprendimiento.strEscojaProductoServicio"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Escoja uno de los productos/servicios de su empresa"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strEscojaProductoServicio
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strEscojaProductoServicio
-                                            ?.message || "Digita tu respuesta"
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.ValorVentaProductoEscogido}
-                            name="objInfoEmprendimiento.ValorVentaProductoEscogido"
-                            render={({ field: { name, value, onChange } }) => (
-                                <NumberFormat
-                                    label="De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?"
-                                    name={name}
-                                    value={value}
-                                    onValueChange={(v) => {
-                                        onChange(v.floatValue);
-                                    }}
-                                    thousandSeparator={true}
-                                    allowNegative={false}
-                                    prefix={"$"}
-                                    customInput={TextField}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.ValorVentaProductoEscogido
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.ValorVentaProductoEscogido
-                                            ?.message || "Digita la cantidad"
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={
-                                data.strConoceMargenRentaProductoEscogido
-                            }
-                            name="objInfoEmprendimiento.strConoceMargenRentaProductoEscogido"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
-                                    label="Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strConoceMargenRentaProductoEscogido
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strConoceMargenRentaProductoEscogido
-                                            ?.message || "Selecciona una opción"
-                                    }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={
-                                data.intPorcentajeMargenRentaProductoEscogido
-                            }
-                            name="objInfoEmprendimiento.intPorcentajeMargenRentaProductoEscogido"
-                            render={({ field: { name, value, onChange } }) => (
-                                <NumberFormat
-                                    label="En caso de que la pregunta anterior sea afirmativa, ¿Cuál es el margen de utilidad de este producto?"
-                                    name={name}
-                                    value={value}
-                                    onValueChange={(v) => {
-                                        onChange(v.floatValue);
-                                    }}
-                                    thousandSeparator={true}
-                                    allowNegative={false}
-                                    suffix={"%"}
-                                    customInput={TextField}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.intPorcentajeMargenRentaProductoEscogido
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.intPorcentajeMargenRentaProductoEscogido
-                                            ?.message || "Digita la cantidad"
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.strConoceCostosProductoEscogido}
-                            name="objInfoEmprendimiento.strConoceCostosProductoEscogido"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
-                                    label="¿Conoce los costos de producción de este producto?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strConoceCostosProductoEscogido
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strConoceCostosProductoEscogido
-                                            ?.message || "Selecciona una opción"
-                                    }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.CostoProduccionProductoEscogido}
-                            name="objInfoEmprendimiento.CostoProduccionProductoEscogido"
-                            render={({ field: { name, value, onChange } }) => (
-                                <NumberFormat
-                                    label="En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?"
-                                    name={name}
-                                    value={value}
-                                    onValueChange={(v) => {
-                                        onChange(v.floatValue);
-                                    }}
-                                    thousandSeparator={true}
-                                    allowNegative={false}
-                                    prefix={"$"}
-                                    customInput={TextField}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.CostoProduccionProductoEscogido
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.CostoProduccionProductoEscogido
-                                            ?.message || "Digita la cantidad"
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={
-                                data.strPorcentajeIntermediacionVentas
-                            }
-                            name="objInfoEmprendimiento.strPorcentajeIntermediacionVentas"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
-                                    label="Tiene porcentaje(s) estimados para la intermediación en ventas?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strPorcentajeIntermediacionVentas
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strPorcentajeIntermediacionVentas
-                                            ?.message || "Selecciona una opción"
-                                    }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.strDefinePorcentajesCanal}
-                            name="objInfoEmprendimiento.strDefinePorcentajesCanal"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
-                                    label="En caso de que la pregunta anterior sea afirmativa, ¿tiene definido este porcentaje, de acuerdo con cada canal?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strDefinePorcentajesCanal
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strDefinePorcentajesCanal
-                                            ?.message || "Selecciona una opción"
-                                    }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={
-                                data.intRangoPorcentajeIntermediacionVentas
-                            }
-                            name="objInfoEmprendimiento.intRangoPorcentajeIntermediacionVentas"
-                            render={({ field: { name, value, onChange } }) => (
-                                <NumberFormat
-                                    label="¿De cuánto es el rango o porcentaje definido?"
-                                    name={name}
-                                    value={value}
-                                    onValueChange={(v) => {
-                                        onChange(v.floatValue);
-                                    }}
-                                    thousandSeparator={true}
-                                    allowNegative={false}
-                                    suffix="%"
-                                    customInput={TextField}
-                                    fullWidth
-                                    variant="standard"
-                                    disabled={disabled}
-                                    required
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.intRangoPorcentajeIntermediacionVentas
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.intRangoPorcentajeIntermediacionVentas
-                                            ?.message || "Digita la cantidad"
-                                    }
                                 />
                             )}
                             control={control}

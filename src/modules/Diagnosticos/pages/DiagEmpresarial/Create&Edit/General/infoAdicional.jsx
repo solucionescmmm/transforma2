@@ -40,9 +40,14 @@ const InfoAdicional = ({
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
+    const [openCollapeseImg, setOpenCollapseImg] = useState(false);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
+    };
+
+    const handlerChangeOpenCollapseImg = () => {
+        setOpenCollapseImg(!openCollapeseImg);
     };
 
     useEffect(() => {
@@ -74,8 +79,7 @@ const InfoAdicional = ({
                             color: errors?.objInfoAdicional ? "#D33030" : "inherit",
                         }}
                     >
-                        Información adicional (Conclusiones, observaciones y registro
-                        fotográfico)
+                        Conclusiones y observaciones
                     </Typography>
                 </Box>
 
@@ -134,11 +138,46 @@ const InfoAdicional = ({
                             }}
                         />
                     </Grid>
+                </Grid>
+            </Collapse>
 
+            <Box sx={{ display: "flex", alignItems: "center", paddingTop: "15px" }}>
+                <Box sx={{ flexGrow: 1 }}>
+                    <Typography
+                        style={{
+                            fontWeight: "bold",
+                            color: errors?.objInfoAdicional ? "#D33030" : "inherit",
+                        }}
+                    >
+                        Registro fotográfico
+                    </Typography>
+                </Box>
+
+                <Box>
+                    <IconButton onClick={() => handlerChangeOpenCollapseImg()} size="large">
+                        <Tooltip
+                            title={
+                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                            }
+                        >
+                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                        </Tooltip>
+                    </IconButton>
+                </Box>
+            </Box>
+
+            <hr
+                style={{
+                    borderColor: errors?.objInfoAdicional ? "#D33030" : "inherit",
+                }}
+            />
+
+            <Collapse in={openCollapeseImg} timeout="auto">
+                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.strURLSFotosProducto}
-                            name="objInfoAdicional.strURLSFotosProducto"
+                            defaultValue={data.strURLSFotos}
+                            name="objInfoAdicional.strURLSFotos"
                             render={({ field: { name, onChange, value } }) => (
                                 <Dropzone
                                     label="Registro fotográfico"
@@ -151,14 +190,13 @@ const InfoAdicional = ({
                                     setError={setError}
                                     clearErrors={clearErrors}
                                     error={
-                                        errors?.objInfoAdicional?.strURLSFotosProducto
+                                        errors?.objInfoAdicional?.strURLSFotos
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.strURLSFotosProducto
-                                            ?.message ||
-                                        "Selecciona las fotografías del registro del producto"
+                                        errors?.objInfoAdicional?.strURLSFotos?.message ||
+                                        "Selecciona las fotografías del registro"
                                     }
                                 />
                             )}

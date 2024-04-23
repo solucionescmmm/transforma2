@@ -79,7 +79,12 @@ const styles = makeStyles((theme) => ({
     },
 }));
 
-const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) => {
+const CreateEditPersonasSec = ({
+    isEdit,
+    values,
+    onChangeRoute,
+    resetSearch,
+}) => {
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -163,7 +168,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
         async (signalSubmitData) => {
             setLoading(true);
 
-            console.log(data.dtFechaNacimiento ? "Holaa": "Null")
+            console.log(data.dtFechaNacimiento ? "Holaa" : "Null");
 
             setFlagSubmit(false);
 
@@ -171,12 +176,13 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${isEdit
-                        ? process.env
-                            .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATE_SECUNDARIOS
-                        : process.env
-                            .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
-                        }`,
+                    url: `${
+                        isEdit
+                            ? process.env
+                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATE_SECUNDARIOS
+                            : process.env
+                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
+                    }`,
                     data,
                     transformRequest: [
                         (data) => {
@@ -185,15 +191,15 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                 dtFechaExpedicionDocto:
                                     data.dtFechaExpedicionDocto
                                         ? format(
-                                            data.dtFechaExpedicionDocto,
-                                            "yyyy-MM-dd"
-                                        )
+                                              data.dtFechaExpedicionDocto,
+                                              "yyyy-MM-dd"
+                                          )
                                         : null,
                                 dtFechaNacimiento: data.dtFechaNacimiento
                                     ? format(
-                                        data.dtFechaNacimiento,
-                                        "yyyy-MM-dd"
-                                    )
+                                          data.dtFechaNacimiento,
+                                          "yyyy-MM-dd"
+                                      )
                                     : null,
                             };
 
@@ -254,8 +260,12 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                 strTipoDocto: values.strTipoDocto || "",
                 strNroDocto: values.strNroDocto || "",
                 strLugarExpedicionDocto: values.strLugarExpedicionDocto || null,
-                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto? parseISO(values.dtFechaExpedicionDocto): null,
-                dtFechaNacimiento: values.dtFechaNacimiento? parseISO(values.dtFechaNacimiento): null,
+                dtFechaExpedicionDocto: values.dtFechaExpedicionDocto
+                    ? parseISO(values.dtFechaExpedicionDocto)
+                    : null,
+                dtFechaNacimiento: values.dtFechaNacimiento
+                    ? parseISO(values.dtFechaNacimiento)
+                    : null,
                 strGenero: values.strGenero || "",
                 strCelular1: values.strCelular1 || "",
                 strCelular2: values.strCelular2 || "",
@@ -904,7 +914,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                             helperText={
                                                 errors?.strNivelEducativo
                                                     ?.message ||
-                                                "Selecciona el nivel educativo de la persona"
+                                                "Selecciona una opción"
                                             }
                                         />
                                     )}
@@ -994,7 +1004,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                             }
                                             helperText={
                                                 errors?.strEstrato?.message ||
-                                                "Selecciona el estrato socioeconómico de la persona"
+                                                "Selecciona una opción"
                                             }
                                         >
                                             {(() => {
@@ -1022,7 +1032,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                     control={control}
                                     rules={{
                                         require:
-                                            "Por favor, selecciona el estrato socioeconómico de la persona",
+                                            "Por favor, Selecciona una opción",
                                     }}
                                 />
                             </Grid>
@@ -1072,36 +1082,36 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                             </Grid>
 
                             <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.arrPais}
-                            name="arrPais"
-                            render={({ field: { name, value, onChange } }) => (
-                                <DropdownLocalizaciones
-                                    label="Pais"
-                                    strCodigo="paises"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e, value) => {
-                                        onChange(value);
-                                        handlerChangeData(
-                                            "arrPais",
-                                            value
-                                        );
-                                    }}
-                                    error={
-                                        errors?.arrPais
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.arrPais?.message ||
-                                        "Selecciona el pais de residencia"
-                                    }
+                                <Controller
+                                    defaultValue={data.arrPais}
+                                    name="arrPais"
+                                    render={({
+                                        field: { name, value, onChange },
+                                    }) => (
+                                        <DropdownLocalizaciones
+                                            label="Pais"
+                                            strCodigo="paises"
+                                            name={name}
+                                            value={value}
+                                            onChange={(e, value) => {
+                                                onChange(value);
+                                                handlerChangeData(
+                                                    "arrPais",
+                                                    value
+                                                );
+                                            }}
+                                            error={
+                                                errors?.arrPais ? true : false
+                                            }
+                                            helperText={
+                                                errors?.arrPais?.message ||
+                                                "Selecciona el pais de residencia"
+                                            }
+                                        />
+                                    )}
+                                    control={control}
                                 />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
+                            </Grid>
 
                             <Grid item xs={12} md={6}>
                                 <Controller
@@ -1128,9 +1138,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                                     ? true
                                                     : false
                                             }
-                                            strPais={
-                                                data.arrPais?.country_name
-                                            }
+                                            strPais={data.arrPais?.country_name}
                                             helperText={
                                                 errors?.arrDepartamento
                                                     ?.message ||
@@ -1227,9 +1235,7 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                                                     ? true
                                                     : false
                                             }
-                                            strPais={
-                                                data.arrPais?.country_name
-                                            }
+                                            strPais={data.arrPais?.country_name}
                                             helperText={
                                                 errors?.strDireccionResidencia
                                                     ?.message ||
@@ -1291,7 +1297,6 @@ const CreateEditPersonasSec = ({ isEdit, values, onChangeRoute, resetSearch }) =
                             >
                                 {isEdit ? "guardar" : "registrar"}
                             </LoadingButton>
-
 
                             {/* <Button
 

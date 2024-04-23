@@ -40,16 +40,21 @@ const InfoAdicional = ({
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
+    const [openCollapeseImg, setOpenCollapseImg] = useState(false);
 
     const handlerChangeOpenCollapse = () => {
         setOpenCollapse(!openCollapese);
     };
 
+    const handlerChangeOpenCollapseImg = () => {
+        setOpenCollapseImg(!openCollapeseImg);
+    };
+
     useEffect(() => {
         if (values) {
             setData({
-                strConclusiones:values.strConclusiones || "",
-                strURLSFotosProducto:values.strURLSFotosProducto || "",
+                strConclusiones: values.strConclusiones || "",
+                strURLSFotosProducto: values.strURLSFotosProducto || "",
             });
         }
 
@@ -58,7 +63,12 @@ const InfoAdicional = ({
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+            >
                 <CircularProgress size={30} />
             </Box>
         );
@@ -71,22 +81,32 @@ const InfoAdicional = ({
                     <Typography
                         style={{
                             fontWeight: "bold",
-                            color: errors?.objInfoAdicional ? "#D33030" : "inherit",
+                            color: errors?.objInfoAdicional
+                                ? "#D33030"
+                                : "inherit",
                         }}
                     >
-                        Información adicional (Conclusiones, observaciones y registro
-                        fotográfico)
+                        Conclusiones y observaciones
                     </Typography>
                 </Box>
 
                 <Box>
-                    <IconButton onClick={() => handlerChangeOpenCollapse()} size="large">
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapse()}
+                        size="large"
+                    >
                         <Tooltip
                             title={
-                                openCollapese ? "Contraer detalle" : "Expandir detalle"
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
                             }
                         >
-                            {openCollapese ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Box>
@@ -94,7 +114,9 @@ const InfoAdicional = ({
 
             <hr
                 style={{
-                    borderColor: errors?.objInfoAdicional ? "#D33030" : "inherit",
+                    borderColor: errors?.objInfoAdicional
+                        ? "#D33030"
+                        : "inherit",
                 }}
             />
 
@@ -117,28 +139,84 @@ const InfoAdicional = ({
                                     minRows={4}
                                     variant="outlined"
                                     error={
-                                        errors?.objInfoAdicional?.strConclusiones
+                                        errors?.objInfoAdicional
+                                            ?.strConclusiones
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.strConclusiones
-                                            ?.message ||
+                                        errors?.objInfoAdicional
+                                            ?.strConclusiones?.message ||
                                         "Digita detalladamente tu respuesta"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, digita detalladamente tu respuesta",
+                                required:
+                                    "Por favor, digita detalladamente tu respuesta",
                             }}
                         />
                     </Grid>
+                </Grid>
+            </Collapse>
 
+            <Box
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    paddingTop: "15px",
+                }}
+            >
+                <Box sx={{ flexGrow: 1 }}>
+                    <Typography
+                        style={{
+                            fontWeight: "bold",
+                            color: errors?.objInfoAdicional
+                                ? "#D33030"
+                                : "inherit",
+                        }}
+                    >
+                        Registro fotográfico
+                    </Typography>
+                </Box>
+
+                <Box>
+                    <IconButton
+                        onClick={() => handlerChangeOpenCollapseImg()}
+                        size="large"
+                    >
+                        <Tooltip
+                            title={
+                                openCollapese
+                                    ? "Contraer detalle"
+                                    : "Expandir detalle"
+                            }
+                        >
+                            {openCollapese ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
+                        </Tooltip>
+                    </IconButton>
+                </Box>
+            </Box>
+
+            <hr
+                style={{
+                    borderColor: errors?.objInfoAdicional
+                        ? "#D33030"
+                        : "inherit",
+                }}
+            />
+
+            <Collapse in={openCollapeseImg} timeout="auto">
+                <Grid container direction="row" spacing={2}>
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.strURLSFotosProducto}
-                            name="objInfoAdicional.strURLSFotosProducto"
+                            defaultValue={data.strURLSFotos}
+                            name="objInfoAdicional.strURLSFotos"
                             render={({ field: { name, onChange, value } }) => (
                                 <Dropzone
                                     label="Registro fotográfico"
@@ -151,14 +229,14 @@ const InfoAdicional = ({
                                     setError={setError}
                                     clearErrors={clearErrors}
                                     error={
-                                        errors?.objInfoAdicional?.strURLSFotosProducto
+                                        errors?.objInfoAdicional?.strURLSFotos
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.strURLSFotosProducto
+                                        errors?.objInfoAdicional?.strURLSFotos
                                             ?.message ||
-                                        "Selecciona las fotografías del registro del producto"
+                                        "Selecciona las fotografías del registro"
                                     }
                                 />
                             )}

@@ -205,7 +205,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
         htmlTemasFortalecer =
             htmlTemasFortalecer +
-            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+            `<p>Lorem BAJO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
         if (valuesPDF?.[0].objInnovacionBajo?.length > 0) {
             htmlTemasFortalecer =
@@ -277,7 +277,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
         htmlTemasFortalecer =
             htmlTemasFortalecer +
-            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+            `<p>Lorem MEDIO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
         if (valuesPDF?.[0].objInnovacionMedio?.length > 0) {
             htmlTemasFortalecer =
@@ -346,6 +346,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     )
                     .join("")}`;
         }
+
+        htmlFortalezas =
+            htmlFortalezas +
+            `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
 
         values?.objInfoFortalezas.forEach((e) => {
             if (e.objInnovacionFortalezas) {
@@ -453,10 +457,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         .join("")}`;
             }
         });
-
-        htmlFortalezas =
-            htmlFortalezas +
-            `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
 
         setHtmlTemasFortalecer(htmlTemasFortalecer);
         setHtmlInfoProductos(htmlProductos);
@@ -715,12 +715,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             <hr />
 
                             ${htmlInfoProductos}
-
-                            <br/>
-
-                            <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
-                            </p>
                              </body>
                           </html>
                         `}
@@ -892,7 +886,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </View>
 
                     <Text style={styles.footerTitle}>
-                    Transformamos la vida de las personas emprendedoras y empresarias desde el ser y el hacer
+                        Transformamos la vida de las personas emprendedoras y
+                        empresarias desde el ser y el hacer
                     </Text>
 
                     <Text style={styles.footerContact}>Contacto</Text>

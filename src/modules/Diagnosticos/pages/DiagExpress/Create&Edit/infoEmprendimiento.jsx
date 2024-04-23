@@ -433,6 +433,35 @@ const InfoEmprendimiento = ({
                             control={control}
                         />
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name="objInfoEmprendimiento.arrCategoriasSecundarias"
+                            defaultValue={data.arrCategoriasSecundarias}
+                            render={({ field: { name, onChange, value } }) => (
+                                <DropdownCategoriasSecundarias
+                                    label="Categorías alternas"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e, value) => onChange(value)}
+                                    disabled={disabled}
+                                    error={
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrCategoriasSecundarias
+                                            ? true
+                                            : false
+                                    }
+                                    multiple
+                                    helperText={
+                                        errors?.objInfoEmprendimiento
+                                            ?.arrCategoriasSecundarias
+                                            ?.message ||
+                                        "Selecciona las categorías alternas en caso de que aplique"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
                     {/* Listado Prod/Serv */}
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -502,35 +531,6 @@ const InfoEmprendimiento = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
-                        <Controller
-                            name="objInfoEmprendimiento.arrCategoriasSecundarias"
-                            defaultValue={data.arrCategoriasSecundarias}
-                            render={({ field: { name, onChange, value } }) => (
-                                <DropdownCategoriasSecundarias
-                                    label="Categorías alternas"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e, value) => onChange(value)}
-                                    disabled={disabled}
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrCategoriasSecundarias
-                                            ? true
-                                            : false
-                                    }
-                                    multiple
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.arrCategoriasSecundarias
-                                            ?.message ||
-                                        "Selecciona las categorías alternas en caso de que aplique"
-                                    }
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid>
                     {/* strLineaProductoServicioDestacada */}
                     <Grid item xs={12}>
                         <Controller

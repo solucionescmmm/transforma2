@@ -1175,7 +1175,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={e.detalle ? 8 : 10}
+                                                                md={8}
                                                             >
                                                                 <p
                                                                     style={{
@@ -1326,7 +1326,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={e.datelle ? 8: 10}
+                                                                md={8}
                                                             >
                                                                 <p
                                                                     style={{
@@ -1476,7 +1476,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={e.detalle ? 8 : 10}
+                                                                md={8}
                                                             >
                                                                 <p
                                                                     style={{
@@ -1627,7 +1627,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={e.detalle ? 8 : 10}
+                                                                md={8}
                                                             >
                                                                 <p
                                                                     style={{
@@ -1974,7 +1974,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={e.detalle ? 8 : 10}
+                                                                md={8}
                                                             >
                                                                 <p
                                                                     style={{
@@ -2123,7 +2123,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={e.detalle ? 8 : 10}
+                                                                md={8}
                                                             >
                                                                 <p
                                                                     style={{
@@ -2272,7 +2272,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={e.detalle ? 8 : 10}
+                                                                md={8}
                                                             >
                                                                 <p
                                                                     style={{
@@ -2570,7 +2570,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={e.detalle ? 8 : 10}
+                                                                md={8}
                                                             >
                                                                 <p
                                                                     style={{
@@ -2749,7 +2749,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>Conlusiones </b>
+                                    <b>Conclusiones y observaciones </b>
                                 </Typography>
                             </Box>
 

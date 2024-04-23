@@ -416,8 +416,10 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         setOpenCollapseInfoEncuestaHumanas,
     ] = useState(true);
 
-    const [openCollapseInfoAdicional, setOpenCollapseInfoAdicional] =
+    const [openCollapseConclusiones, setOpenCollapseConclusiones] =
         useState(true);
+
+    const [openCollapseFotos, setOpenCollapseFotos] = useState(true);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -699,6 +701,46 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
+                                            if (
+                                                (key ===
+                                                    "PromedioVentas6Meses" ||
+                                                    key ===
+                                                        "ValorVentaProductoEscogido" ||
+                                                    key ===
+                                                        "CostoProduccionProductoEscogido") &&
+                                                objInfoPerfilEco[key]
+                                            ) {
+                                                e.value = new Intl.NumberFormat(
+                                                    "es-ES",
+                                                    {
+                                                        style: "currency",
+                                                        currency: "COP",
+                                                    }
+                                                ).format(objInfoPerfilEco[key]);
+
+                                                return;
+                                            }
+
+                                            if (
+                                                key ===
+                                                    "intPorcentajeMargenRentaProductoEscogido" &&
+                                                objInfoPerfilEco[key]
+                                            ) {
+                                                e.value = `${objInfoPerfilEco[key]}%`;
+                                                return;
+                                            }
+
+                                            if (
+                                                key ===
+                                                    "intMargenRentabilidad" &&
+                                                objInfoPerfilEco[key]
+                                            ) {
+                                                e.value = `${
+                                                    objInfoPerfilEco[key] * 100
+                                                }%`;
+                                                return;
+                                            }
+
                                             e.value =
                                                 typeof objInfoPerfilEco[key] ===
                                                 "boolean"
@@ -960,8 +1002,12 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         setOpenCollapseInfoCanalesVenta(!openCollapseInfoCanalesVenta);
     };
 
-    const handlerChangeOpenCollapseInfoAdicional = () => {
-        setOpenCollapseInfoAdicional(!openCollapseInfoAdicional);
+    const handlerChangeOpenCollapseConclusiones = () => {
+        setOpenCollapseConclusiones(!openCollapseConclusiones);
+    };
+
+    const handlerChangeOpenCollapseFotos = () => {
+        setOpenCollapseFotos(!openCollapseFotos);
     };
 
     //===============================================================================================================================================
@@ -1536,33 +1582,30 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid id item xs={12}>
                     <Paper sx={{ padding: "10px" }}>
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>
-                                        Información adicional (Concluciones,
-                                        observaciones y registro fotográfico)
-                                    </b>
+                                    <b>Conclusiones y observaciones </b>
                                 </Typography>
                             </Box>
 
                             <Box>
                                 <IconButton
                                     onClick={() =>
-                                        handlerChangeOpenCollapseInfoAdicional()
+                                        handlerChangeOpenCollapseConclusiones()
                                     }
                                     size="large"
                                 >
                                     <Tooltip
                                         title={
-                                            openCollapseInfoAdicional
+                                            openCollapseConclusiones
                                                 ? "Contraer detalle"
                                                 : "Expandir detalle"
                                         }
                                     >
-                                        {openCollapseInfoAdicional ? (
+                                        {openCollapseConclusiones ? (
                                             <ExpandLessIcon />
                                         ) : (
                                             <ExpandMoreIcon />
@@ -1572,33 +1615,19 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             </Box>
                         </Box>
 
-                        <Collapse in={openCollapseInfoAdicional} timeout="auto">
+                        <Collapse in={openCollapseConclusiones} timeout="auto">
                             <Grid
                                 container
                                 direction="row"
                                 spacing={0}
                                 sx={{ padding: "15px" }}
                             >
-                                {data.objInfoAdicional.map((e, i) => (
+                                 {data.objInfoAdicional.map((e, i) => (
                                     <Grid item xs={12} md={12} key={i}>
                                         <p
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
-                                            <b style={{ marginRight: "5px" }}>
-                                                {e.label}:{" "}
-                                            </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
@@ -1607,22 +1636,66 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                     </Grid>
                                 ))}
                             </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
 
-                            <Grid item xs={12}>
-                                <p
-                                    style={{
-                                        margin: "0px",
-                                        fontSize: "13px",
-                                        display: "flex",
-                                        alignContent: "center",
-                                    }}
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Registro fotográfico </b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseFotos()
+                                    }
+                                    size="large"
                                 >
-                                    {data.arrImagenes.length > 0 && (
-                                        <ImageViewer
-                                            images={data.arrImagenes}
-                                        />
-                                    )}
-                                </p>
+                                    <Tooltip
+                                        title={
+                                            openCollapseFotos
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseFotos ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseFotos} timeout="auto">
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                <Grid item xs={12}>
+                                    <p
+                                        style={{
+                                            margin: "0px",
+                                            fontSize: "13px",
+                                            display: "flex",
+                                            alignContent: "center",
+                                        }}
+                                    >
+                                        {data.arrImagenes.length > 0 && (
+                                            <ImageViewer
+                                                images={data.arrImagenes}
+                                            />
+                                        )}
+                                    </p>
+                                </Grid>
                             </Grid>
                         </Collapse>
                     </Paper>

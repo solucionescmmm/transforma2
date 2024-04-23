@@ -1147,14 +1147,13 @@ const InfoEmpresa = ({
                                     helperText={
                                         errors?.objInfoEmpresa
                                             ?.dblValorVentasMes?.message ||
-                                        "Digita la cantidad promedio de las ventas mensuales"
+                                        "Digita la cantidad"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, digita la cantidad promedio de las ventas mensuales",
+                                required: "Por favor, Digita la cantidad",
                             }}
                         />
                     </Grid>
