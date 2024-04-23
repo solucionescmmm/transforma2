@@ -551,6 +551,9 @@ const InfoEmprendimiento = ({
                                             : disabled
                                     }
                                     fullWidth
+                                    strPais={
+                                        data.arrPais?.country_name
+                                    }
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento

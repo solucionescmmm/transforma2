@@ -847,6 +847,9 @@ const InfoGeneral = ({
                                     disabled={disabled}
                                     fullWidth
                                     variant="standard"
+                                    strPais={
+                                        data.arrPais?.country_name
+                                    }
                                     error={
                                         errors?.objInfoGeneral
                                             ?.strDireccionResidencia

@@ -189,7 +189,7 @@ const ModalDireccionResidencia = ({
                     <Grid container direction="row" spacing={2}>
                         <Grid item xs={12} md={6}>
                             <Controller
-                                defaultValu={data.strTipoVia}
+                                defaultValue={data.strTipoVia}
                                 name="strTipoVia"
                                 render={({ field: { name, onChange, value } }) => (
                                     <TextField
