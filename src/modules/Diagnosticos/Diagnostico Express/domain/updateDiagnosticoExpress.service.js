@@ -64,7 +64,7 @@ class updateDiagnosticoExpress {
             intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario.intIdTipoEmpresario,
             intPorcentajeMargenRentaProductoEscogido: this.#objData?.objInfoPerfilEco?.intPorcentajeMargenRentaProductoEscogido || 0,
-            strUsuarioActualizacion: this.#objData?.objInfoGeneral?.strUsuarioCreacion.strEmail,
+            strUsuarioActualizacion: this.#objUser?.strEmail,
         };
 
         let query = await dao.updateDiagnosticoExpress(newData);

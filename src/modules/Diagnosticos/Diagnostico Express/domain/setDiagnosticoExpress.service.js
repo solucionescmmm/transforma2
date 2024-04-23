@@ -93,6 +93,7 @@ class setDiagnosticoExpress {
             intIdEmpresario:this.#objData.objInfoGeneral.objEmpresario.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario.intIdTipoEmpresario,
             strUsuarioCreacion: this.#objData?.objInfoGeneral?.strUsuarioCreacion.strEmail,
+            strUsuarioActualizacion: this.#objUser?.strEmail,
             intPorcentajeMargenRentaProductoEscogido: this.#objData?.objInfoPerfilEco?.intPorcentajeMargenRentaProductoEscogido || 0,
             btFinalizado: 0
         };
