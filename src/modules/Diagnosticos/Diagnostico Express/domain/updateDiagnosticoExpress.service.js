@@ -25,9 +25,8 @@ class updateDiagnosticoExpress {
     async main() {
         await this.#validations();
         await this.#updateEmpresaDiagnosticoExpress();
-        await this.#updateHistorico();
-        await this.#completeData();
         await this.#updateDiagnosticoExpress();
+        await this.#updateHistorico();
         
         return this.#objResult;
     }
@@ -48,8 +47,11 @@ class updateDiagnosticoExpress {
         }
     }
 
-    async #completeData() {
-        //Objeto de Información Express
+
+
+    async #updateDiagnosticoExpress() {
+        let dao = new classInterfaceDAODiagnosticoExpress();
+
         let newData = {
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEmprendimiento,
@@ -65,13 +67,7 @@ class updateDiagnosticoExpress {
             strUsuarioActualizacion: this.#objData?.objInfoGeneral?.strUsuarioCreacion.strEmail,
         };
 
-        this.#objData = newData;
-    }
-
-    async #updateDiagnosticoExpress() {
-        let dao = new classInterfaceDAODiagnosticoExpress();
-
-        let query = await dao.updateDiagnosticoExpress(this.#objData);
+        let query = await dao.updateDiagnosticoExpress(newData);
 
         if (query.error) {
             throw new Error(query.msg);

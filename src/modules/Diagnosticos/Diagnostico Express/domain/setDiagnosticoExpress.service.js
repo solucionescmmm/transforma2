@@ -32,10 +32,9 @@ class setDiagnosticoExpress {
         await this.#getIntIdEstadoDiagnostico();
         await this.#validations();
         await this.#updateEmpresaDiagnosticoExpress();
-        await this.#setHistorico();
-        await this.#completeData();
         await this.#setDiagnosticoExpress();
         await this.#updateDiagnostico();
+        await this.#setHistorico();
         return this.#objResult;
     }
 
@@ -79,8 +78,9 @@ class setDiagnosticoExpress {
         this.#intIdEstadoDiagnostico = queryGetIntIdEstadoDiagnostico.data.intId;
     }
 
-    async #completeData() {
-        //Objeto de Información Express
+    async #setDiagnosticoExpress() {
+        let dao = new classInterfaceDAODiagnosticoExpress();
+
         let newData = {
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoEmprendimiento,
@@ -97,13 +97,7 @@ class setDiagnosticoExpress {
             btFinalizado: 0
         };
 
-        this.#objData = newData;
-    }
-
-    async #setDiagnosticoExpress() {
-        let dao = new classInterfaceDAODiagnosticoExpress();
-
-        let query = await dao.setDiagnosticoExpress(this.#objData);
+        let query = await dao.setDiagnosticoExpress(newData);
 
         if (query.error) {
             throw new Error(query.msg);
