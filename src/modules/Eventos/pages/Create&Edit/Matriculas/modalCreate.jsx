@@ -271,7 +271,7 @@ const ModalCEdit = ({ handleOpenDialog, open, refresh, intIdEvento }) => {
                                     error={!!errors?.arrEmpresarios}
                                     helperText={
                                         errors?.arrEmpresarios?.message ||
-                                        "Selecciona los empresarios que asistiran al evento"
+                                        "Selecciona las personas empresarias que asistiran al evento"
                                     }
                                 />
                             )}
@@ -282,7 +282,7 @@ const ModalCEdit = ({ handleOpenDialog, open, refresh, intIdEvento }) => {
                                         watchTerceros?.length === 0 &&
                                         value?.length === 0
                                     ) {
-                                        return "Por favor, selecciona las personas a matricular";
+                                        return "Por favor, selecciona las personas empresarias a matricular";
                                     }
                                 },
                             }}
