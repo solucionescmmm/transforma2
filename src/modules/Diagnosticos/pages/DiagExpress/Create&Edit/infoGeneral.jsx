@@ -236,7 +236,7 @@ const InfoGeneral = ({
                                     label="Fecha de última actualización"
                                     value={value}
                                     onChange={(date) => onChange(date)}
-                                    format="dd/MM/yyyy"
+                                    format="dd/MM/yyyy H:mm"
                                     disabled
                                     slotProps={{
                                         textField: {
