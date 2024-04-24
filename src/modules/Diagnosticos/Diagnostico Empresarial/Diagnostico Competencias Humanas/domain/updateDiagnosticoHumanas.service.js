@@ -49,7 +49,7 @@ class updateDiagnosticoHumanas {
             intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
-            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
         this.#objData = newData;
     }

@@ -47,7 +47,7 @@ class updateDiagnosticoServicio {
             ...this.#objData.objInfoAdicional,
             intIdEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intId,
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
-            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioCreacion.strEmail || "",
+            strUsuarioActualizacion: this.#objUser.strEmail,
         };
 
         let query = await dao.updateDiagnosticoServicio(newData);

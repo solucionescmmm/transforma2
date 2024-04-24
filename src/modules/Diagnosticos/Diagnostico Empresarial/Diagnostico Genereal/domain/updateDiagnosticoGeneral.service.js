@@ -82,7 +82,7 @@ class updateDiagnosticoGeneral {
             btFinalizado: false,
             strLugarSesion: this.#objData.objInfoGeneral.strLugarSesion,
             dtmFechaSesion: this.#objData.objInfoGeneral.dtmFechaSesion,
-            strUsuarioActualizacion: this.#objData.objInfoGeneral.strUsuarioCreacion?.strEmail || "",
+            strUsuarioActualizacion: this.#objUser.strEmail,
 
             //Objeto de Información Familiar
             strCabezaHogar: this.#objData.objInfoFamiliar.strCabezaHogar,
