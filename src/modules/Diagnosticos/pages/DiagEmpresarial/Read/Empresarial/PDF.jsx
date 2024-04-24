@@ -203,6 +203,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     const [htmlEmprend, setHtmlEmprend] = useState("");
     const [htmlPErfilEco, setHtmlPErfilEco] = useState("");
     const [arrImagenes, setArrImagenes] = useState([]);
+    const [htmlCanalesVenta, setHtmlCanalesVenta] = useState("");
+    const [htmlAdicional, setHtmlAdicional] = useState("");
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -230,6 +232,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         let htmlInfoFamiliar = "";
         let htmlEmprend = "";
         let htmlPErfilEco = "";
+        let htmlCanalesVenta = "";
+        let htmlAdicional = "";
 
         if (values?.objInfoFamiliar) {
             htmlInfoFamiliar = `
@@ -326,6 +330,43 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             `;
         }
 
+        if (values?.objInfoCanalesVenta) {
+            htmlCanalesVenta = `
+            <div>
+                <p class="title">
+                   
+                </p>
+            </div>
+    
+            <table style="">
+               <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+               </tr>
+    
+               ${values?.objInfoCanalesVenta
+                   .map(
+                       (e) => `<tr>
+                   <td style="color: black">${e.label}</td>
+                   <td>${e.value || "No diligenciado"}</td>
+                  
+               </tr>
+               `
+                   )
+                   .join("")}
+            </table>
+            `;
+        }
+
+        
+        if (values?.objInfoAdicional) {
+            htmlAdicional = `<p class="textObj">${
+                values.objInfoAdicional.find(
+                    (key) => key.parent === "strConclusiones"
+                ).value
+            }</p>`;
+        }
+
         // values?.objInfoPerfilEco?.forEach(
         //     (e) =>
         //         (htmlPErfilEco =
@@ -341,6 +382,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
         setHtmlEmprend(htmlEmprend);
         setHtmlInfoFamiliar(htmlInfoFamiliar);
         setArrImagenes(values?.arrImagenes || []);
+        setHtmlCanalesVenta(htmlCanalesVenta);
+        setHtmlAdicional(htmlAdicional);
 
         setLoading(true);
     }, [values]);
@@ -505,11 +548,13 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
      </p>
 
      <ol style="font-family: Roboto; color: #505050; font-size: 11px">
-         <li>Detalles sobre la estructura familiar.</li>
-         <li>Información general de la empresa.</li>
-         <li>Perfil económico y productivo.</li>
-         <li>Etapa desarrollo.</li>
-         <li>Registro fotográfico (si aplica).</li>
+         <li>Información familiar</li>
+         <li>Información de la empresa</li>
+         <li>Perfil económico y productivo</li>
+         <li>Etapa desarrollo</li>
+         <li>Canales de ventas</li>
+         <li>Conclusiones y observaciones</li>
+         <li>Registro fotográfico (si aplica)</li>
      </ol>
 
      <h5 class="pMargin"> <span style="color: #00BBB4">Información familiar </span></h5>
@@ -517,7 +562,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
      ${htmlInfoFamiliar}
 
-     <h5 class="pMargin"> <span style="color: #00BBB4">Información del emprendimiento </span></h5>
+     <h5 class="pMargin"> <span style="color: #00BBB4">Información de la empresa </span></h5>
      <hr />
 
      ${htmlEmprend}
@@ -573,6 +618,16 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             )
         )?.html
     }
+
+    <h5 class="pMargin"> <span style="color: #00BBB4">Canales de ventas</span></h5>
+    <hr />
+
+    ${htmlCanalesVenta}
+
+    <h5 class="pMargin"> <span style="color: #00BBB4">Conclusiones y observaciones</span></h5>
+    <hr />
+
+    ${htmlAdicional}
 
      <h5 class="pMargin"> <span style="color: #00BBB4">Registro fotográfico</span></h5>
      <hr />

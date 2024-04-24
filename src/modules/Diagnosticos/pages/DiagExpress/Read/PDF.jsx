@@ -608,13 +608,13 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
      </p>
 
      <ol style="font-family: Roboto; color: #505050; font-size: 11px">
-         <li>Información de la empresa.</li>
-         <li>Perfil económico y productivo.</li>
-         <li>Etapa de desarrollo.</li>
-         <li>Componente de mercados y comercial.</li>
-         <li>Normatividad.</li>
-         <li>Canales de ventas.</li>
-         <li>Componente humano.</li>
+         <li>Información de la empresa</li>
+         <li>Perfil económico y productivo</li>
+         <li>Etapa de desarrollo</li>
+         <li>Componente de mercados y comercial</li>
+         <li>Normatividad</li>
+         <li>Canales de ventas</li>
+         <li>Componente humano</li>
      </ol>
 
 

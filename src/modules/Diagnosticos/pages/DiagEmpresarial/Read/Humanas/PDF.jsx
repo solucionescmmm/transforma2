@@ -105,7 +105,8 @@ const PDFProduct = ({ intId, values }) => {
     const [objEmpresario, setObjEmpresario] = useState();
     const [objEmpresa, setObjEmpresa] = useState();
     const [htmlInfoEncuestaHumanas, setHtmlInfoEncuestaHumanas] = useState("");
-
+    const [htmlAdicional, setHtmlAdicional] = useState("");
+    
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -130,6 +131,7 @@ const PDFProduct = ({ intId, values }) => {
         setLoading(true);
 
         let htmlCompetencias = "";
+        let htmlAdicional = "";
 
         if (values?.objInfoEncuestaHumanas) {
             htmlCompetencias = `
@@ -159,6 +161,14 @@ const PDFProduct = ({ intId, values }) => {
             `;
         }
 
+        if (values?.objInfoAdicional) {
+            htmlAdicional = `<p class="textObj">${
+                values.objInfoAdicional.find(
+                    (key) => key.parent === "strConclusiones"
+                ).value
+            }</p>`;
+        }
+
         // values?.objInfoEncuestaHumanas.forEach(
         //     (e) =>
         //         (htmlCompetencias =
@@ -169,6 +179,7 @@ const PDFProduct = ({ intId, values }) => {
         // );
 
         setHtmlInfoEncuestaHumanas(htmlCompetencias);
+        setHtmlAdicional(htmlAdicional);
 
         setLoading(true);
     }, [values]);
@@ -330,6 +341,11 @@ const PDFProduct = ({ intId, values }) => {
                             <hr />
 
                             ${htmlInfoEncuestaHumanas}
+
+                            <h5 class="pMargin"> <span style="color: #00BBB4">Conclusiones y observaciones</span></h5>
+                            <hr />
+                       
+                            ${htmlAdicional}
  
                         </body>
                         </html>

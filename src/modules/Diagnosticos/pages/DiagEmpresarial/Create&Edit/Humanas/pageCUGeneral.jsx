@@ -50,6 +50,7 @@ import ModalDelete from "./components/modalDelete";
 //Estilos
 import { makeStyles } from "@mui/styles";
 import InfoEncuestaHumanas from "./infoEncuestaHumanas";
+import InfoAdicional from "./infoAdicional";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -105,6 +106,7 @@ const PageCUGeneral = ({
     const [data, setData] = useState({
         objInfoGeneral: {},
         objInfoEncuestaHumanas: {},
+        objInfoAdicional: {},
     });
 
     const [openModal, setOpenModal] = useState(false);
@@ -168,7 +170,7 @@ const PageCUGeneral = ({
         async (signalSubmitData) => {
             setLoading(true);
 
-            let objEmprPrincipal
+            let objEmprPrincipal;
 
             if (data.objEmpresario) {
                 objEmprPrincipal = data?.objEmpresario?.find(
@@ -182,37 +184,42 @@ const PageCUGeneral = ({
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${isEdit
+                    url: `${
+                        isEdit
                             ? process.env
-                                .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEHUMANAS
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_UPDATEHUMANAS
                             : process.env
-                                .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETHUMANAS
-                        }`,
+                                  .REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_SETHUMANAS
+                    }`,
                     data,
                     transformRequest: [
                         (data) => {
                             let newData = {
                                 objInfoGeneral: {
-                                    intIdEmpresario: data.objInfoGeneral?.objEmpresario.intId,
-                                    intIdTipoEmpresario: objEmprPrincipal ? objEmprPrincipal.intIdTipoEmpresario : null,
+                                    intIdEmpresario:
+                                        data.objInfoGeneral?.objEmpresario
+                                            .intId,
+                                    intIdTipoEmpresario: objEmprPrincipal
+                                        ? objEmprPrincipal.intIdTipoEmpresario
+                                        : null,
                                     ...data.objInfoGeneral,
                                     intIdIdea,
                                     intIdDiagnostico,
                                     dtmFechaSesion: data.objInfoGeneral
                                         .dtmFechaSesion
                                         ? format(
-                                            data.objInfoGeneral
-                                                .dtmFechaSesion,
-                                            "yyyy-MM-dd hh:mm:ss"
-                                        )
+                                              data.objInfoGeneral
+                                                  .dtmFechaSesion,
+                                              "yyyy-MM-dd hh:mm:ss"
+                                          )
                                         : null,
                                     dtmActualizacion: data.objInfoGeneral
                                         .dtmActualizacion
                                         ? format(
-                                            data.objInfoGeneral
-                                                .dtmActualizacion,
-                                            "yyyy-MM-dd hh:mm:ss"
-                                        )
+                                              data.objInfoGeneral
+                                                  .dtmActualizacion,
+                                              "yyyy-MM-dd hh:mm:ss"
+                                          )
                                         : null,
                                 },
                                 objInfoEncuestaHumanas: {
@@ -297,7 +304,7 @@ const PageCUGeneral = ({
 
                             setData({
                                 ...data,
-                                objEmpresario: data.objEmpresario
+                                objEmpresario: data.objEmpresario,
                             });
                         }
 
@@ -335,21 +342,24 @@ const PageCUGeneral = ({
                                         dtmFechaSesion: data.objInfoGeneral
                                             .dtmFechaSesion
                                             ? parseISO(
-                                                data.objInfoGeneral
-                                                    .dtmFechaSesion
-                                            )
+                                                  data.objInfoGeneral
+                                                      .dtmFechaSesion
+                                              )
                                             : null,
                                         dtmActualizacion: data.objInfoGeneral
                                             .dtmActualizacion
                                             ? parseISO(
-                                                data.objInfoGeneral
-                                                    .dtmActualizacion
-                                            )
+                                                  data.objInfoGeneral
+                                                      .dtmActualizacion
+                                              )
                                             : null,
                                     },
                                     objInfoEncuestaHumanas: {
                                         ...data.objInfoEncuestaHumanas,
-                                    }
+                                    },
+                                    objInfoAdicional: {
+                                        ...data.objInfoAdicional,
+                                    },
                                 });
 
                                 reset({
@@ -360,21 +370,21 @@ const PageCUGeneral = ({
                                         dtmFechaSesion: data.objInfoGeneral
                                             .dtmFechaSesion
                                             ? parseISO(
-                                                data.objInfoGeneral
-                                                    .dtmFechaSesion
-                                            )
+                                                  data.objInfoGeneral
+                                                      .dtmFechaSesion
+                                              )
                                             : null,
                                         dtmActualizacion: data.objInfoGeneral
                                             .dtmActualizacion
                                             ? parseISO(
-                                                data.objInfoGeneral
-                                                    .dtmActualizacion
-                                            )
+                                                  data.objInfoGeneral
+                                                      .dtmActualizacion
+                                              )
                                             : null,
                                     },
                                     objInfoEncuestaHumanas: {
                                         ...data.objInfoEncuestaHumanas,
-                                    }
+                                    },
                                 });
                             }
                         }
@@ -445,7 +455,6 @@ const PageCUGeneral = ({
 
     return (
         <div style={{ marginTop: "25px", width: "100%" }}>
-
             <ModalFinalizacion
                 handleOpenDialog={handlerOpenModalFinalizacion}
                 open={openModalFinalizacion}
@@ -552,8 +561,9 @@ const PageCUGeneral = ({
                                                 variant="body1"
                                             >
                                                 {isEdit
-                                                    ? "editar competencias humanas" :
-                                                    isPreview ? "Previsualizar competencias humanas"
+                                                    ? "editar competencias humanas"
+                                                    : isPreview
+                                                    ? "Previsualizar competencias humanas"
                                                     : "registrar competencias humanas"}
                                             </Typography>
                                         </Box>
@@ -593,7 +603,21 @@ const PageCUGeneral = ({
                                     />
                                 </Grid>
 
-                                {(errors.objInfoGeneral || errors.objInfoEncuestaHumanas) && (
+                                <Grid item xs={12}>
+                                    <InfoAdicional
+                                        control={control}
+                                        disabled={isPreview ? true : loading}
+                                        values={data.objInfoAdicional}
+                                        errors={errors}
+                                        setValue={setValue}
+                                        setError={setError}
+                                        clearErrors={clearErrors}
+                                    />
+                                </Grid>
+
+                                {(errors.objInfoGeneral ||
+                                    errors.objInfoEncuestaHumanas ||
+                                    errors.objInfoAdicional) && (
                                     <Grid item xs={12}>
                                         <Alert severity="error">
                                             Lo sentimos, tienes campos
@@ -604,51 +628,53 @@ const PageCUGeneral = ({
                                     </Grid>
                                 )}
 
-                                {isPreview ? null :(
+                                {isPreview ? null : (
                                     <Grid item xs={12}>
                                         <Box
                                             sx={{
                                                 display: "flex",
-                                                flexDirection: isEdit ? "row" : "row-reverse",
+                                                flexDirection: isEdit
+                                                    ? "row"
+                                                    : "row-reverse",
                                             }}
                                         >
-                                            {
-                                                isEdit ? (
-                                                    <Box sx={{ flexGrow: 1 }}>
-                                                        <LoadingButton
-                                                            variant="text"
-                                                            loading={loading}
-                                                            color="error"
-                                                            onClick={() =>
-                                                                handlerOpenModalDelete()
-                                                            }>
-                                                            Borrar diagnóstico
-                                                        </LoadingButton>
-                                                    </Box>
-                                                ) : null
-                                            }
-                                            {
-                                                isEdit ? (
+                                            {isEdit ? (
+                                                <Box sx={{ flexGrow: 1 }}>
                                                     <LoadingButton
-                                                        variant="contained"
+                                                        variant="text"
                                                         loading={loading}
+                                                        color="error"
                                                         onClick={() =>
-                                                            handlerOpenModalFinalizacion()
+                                                            handlerOpenModalDelete()
                                                         }
-                                                        style={{
-                                                            marginLeft: 15
-                                                        }}>
-                                                        Finalizar
+                                                    >
+                                                        Borrar diagnóstico
                                                     </LoadingButton>
-                                                ) : null
-                                            }
+                                                </Box>
+                                            ) : null}
+                                            {isEdit ? (
+                                                <LoadingButton
+                                                    variant="contained"
+                                                    loading={loading}
+                                                    onClick={() =>
+                                                        handlerOpenModalFinalizacion()
+                                                    }
+                                                    style={{
+                                                        marginLeft: 15,
+                                                    }}
+                                                >
+                                                    Finalizar
+                                                </LoadingButton>
+                                            ) : null}
                                             <LoadingButton
                                                 variant="contained"
                                                 type="submit"
                                                 loading={loading}
                                                 sx={{ marginLeft: "15px" }}
                                             >
-                                                {isEdit ? "guardar" : "registrar"}
+                                                {isEdit
+                                                    ? "guardar"
+                                                    : "registrar"}
                                             </LoadingButton>
                                         </Box>
                                     </Grid>

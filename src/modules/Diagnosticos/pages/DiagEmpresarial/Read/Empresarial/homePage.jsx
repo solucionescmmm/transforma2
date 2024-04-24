@@ -69,6 +69,11 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         ],
         objInfoFamiliar: [
             {
+                parent: "strTrabajanFamiliares",
+                value: "",
+                label: "¿En la empresa participan familiares?",
+            },
+            {
                 parent: "strCabezaHogar",
                 value: "",
                 label: "¿Es cabeza de hogar?",
@@ -121,39 +126,49 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Nombre de la empresa",
             },
             {
-                parent: "strLugarOperacion",
+                parent: "intAñoInicioOperacion",
                 value: "",
                 label: "¿En qué año inició la operación?",
             },
             {
-                parent: "arrDepartamento",
+                parent: "strLugarOperacion",
                 value: "",
                 label: "Lugar de operación de la empresa",
             },
             {
-                parent: "arrCiudad",
+                parent: "arrPais",
+                value: "",
+                label: "País",
+            },
+            {
+                parent: "arrDepartamento",
                 value: "",
                 label: "Departamento",
             },
             {
-                parent: "strBarrio",
+                parent: "arrCiudad",
                 value: "",
                 label: "Ciudad",
             },
             {
-                parent: "strDireccionResidencia",
+                parent: "strBarrio",
                 value: "",
                 label: "Barrio/Corregimiento/Vereda",
             },
             {
-                parent: "strUbicacionUP",
+                parent: "strDireccionResidencia",
                 value: "",
                 label: "Dirección de la empresa",
             },
             {
-                parent: "strCelular",
+                parent: "strUbicacionUP",
                 value: "",
                 label: "Ubicación de la UP (Urbana o Rural)",
+            },
+            {
+                parent: "strCelular",
+                value: "",
+                label: "Celular",
             },
             {
                 parent: "strCorreoElectronico",
@@ -161,19 +176,14 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Correo electrónico",
             },
             {
-                parent: "strRedesSociales",
-                value: "",
-                label: "¿Tiene presencia en redes sociales?",
-            },
-            {
-                parent: "arrMediosDigitales",
-                value: "",
-                label: "Medios digitales",
-            },
-            {
                 parent: "strRegistroCamaraComercio",
                 value: "",
                 label: "¿Cuenta con registro en cámara de comercio?",
+            },
+            {
+                parent: "strHistoriaEmpresa",
+                value: "",
+                label: "¿Cómo nace la empresa? - Historia",
             },
             {
                 parent: "strTiempoDedicacion",
@@ -211,9 +221,19 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Listado de los productos o servicios",
             },
             {
-                parent: "btGeneraEmpleo",
+                parent: "strDefinineLineasProductoServicios",
                 value: "",
-                label: "¿La empresa genera empleo para otras personas?",
+                label: "¿Tiene definidas las líneas de productos/servicios del negocio?",
+            },
+            {
+                parent: "strLineaProductoServicioDestacada",
+                value: "",
+                label: "¿Cuál es la línea de productos/servicios más destacada?",
+            },
+            {
+                parent: "strProductoServiciosEnValidacion",
+                value: "",
+                label: "¿Cuenta con productos/servicios en validación?",
             },
             {
                 parent: "strNivelDlloProductoServicios",
@@ -225,72 +245,17 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 value: "",
                 label: "¿En qué etapa de validación se encuentra el producto/servicio?",
             },
-            {
-                parent: "MinimoValorProducto",
-                value: "",
-                label: "Rango de precios de productos mínimo",
-            },
-            {
-                parent: "MaximoValorProducto",
-                value: "",
-                label: "Rango de precios de productos máximo",
-            },
-            {
-                parent: "ValorVentaProductoEscogido",
-                value: "",
-                label: "De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?",
-            },
-            {
-                parent: "strEscojaProductoServicio",
-                value: "",
-                label: "Escoja uno de los productos/servicios de su empresa",
-            },
-            {
-                parent: "CostoProduccionProductoEscogido",
-                value: "",
-                label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?",
-            },
-            {
-                parent: "strDefinePorcentajesCanal",
-                value: "",
-                label: "Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?",
-            },
-            {
-                parent: "strDefinineLineasProductoServicios",
-                value: "",
-                label: "¿Tiene definidas las líneas de productos/servicios del negocio?",
-            },
-            {
-                parent: "strLineaProductoServicioDestacada",
-                value: "",
-                label: "¿Cuál es la línea de productos/servicios más destacada?",
-            },
-            {
-                parent: "intCantidadUnidadesProducidasMes",
-                value: "",
-                label: "Cantidad de unidades producidas al mes actualmente",
-            },
-            {
-                parent: "strEscojaProductoServicio",
-                value: "",
-                label: "Escoja uno de los productos/servicios de su empresa",
-            },
-            {
-                parent: "strConoceCostosProductoEscogido",
-                value: "",
-                label: "¿Conoce los costos de producción de este producto?",
-            },
         ],
         objInfoEmpresa: [
             {
-                parent: "strHistoriaEmpresa",
-                value: "",
-                label: "¿Cómo nace la empresa? - Historia",
-            },
-            {
                 parent: "strSuenioEmpresa",
                 value: "",
-                label: "¿Cómo sueña su empresa?/¿Cómo se ve usted en cinco años?",
+                label: "¿Cómo sueña su empresa?",
+            },
+            {
+                parent: "strComoVeCincoAños",
+                value: "",
+                label: "¿Cómo se ve usted en cinco años?",
             },
             {
                 parent: "strEstudioEmprendimiento",
@@ -322,11 +287,6 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 value: "",
                 label: "¿Tu familia recibe ingresos por origen de otras fuentes distintas del emprendimiento?",
             },
-            {
-                parent: "strTrabajanFamiliares",
-                value: "",
-                label: "¿En la empresa participan familiares?",
-            },
         ],
         objInfoPerfilEco: [
             {
@@ -340,11 +300,6 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "¿La empresa tiene operaciones de producción y venta en los últimos 6 meses de manera continua?",
             },
             {
-                parent: "strEtapaValidacion",
-                value: "",
-                label: "¿En qué etapa de validación se encuentra tu producto?",
-            },
-            {
                 parent: "PromedioVentas6Meses",
                 value: "",
                 label: "Promedio de ventas de los últimos 6 meses",
@@ -352,12 +307,92 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parent: "dblValorVentasMes",
                 value: "",
-                label: "Valor promedio de las ventas mensuales",
+                label: "Valor de ventas del último mes",
+            },
+            {
+                parent: "dblValorGananciasMes",
+                value: "",
+                label: "Valor de las ganancias mensuales",
             },
             {
                 parent: "strRangoVentas",
                 value: "",
                 label: "Rango de ventas",
+            },
+            {
+                parent: "strActivos",
+                value: "",
+                label: "¿Qué activos tiene la unidad productiva a la fecha?",
+            },
+            {
+                parent: "dblValorActivos",
+                value: "",
+                label: "Valor estimado de los activos",
+            },
+            {
+                parent: "MinimoValorProducto",
+                value: "",
+                label: "Rango de precios de productos mínimo",
+            },
+            {
+                parent: "MaximoValorProducto",
+                value: "",
+                label: "Rango de precios de productos máximo",
+            },
+            {
+                parent: "intCantidadUnidadesProducidasMes",
+                value: "",
+                label: "Cantidad de unidades producidas al mes actualmente",
+            },
+            {
+                parent: "strEscojaProductoServicio",
+                value: "",
+                label: "Escoja uno de los productos/servicios de su empresa",
+            },
+            {
+                parent: "ValorVentaProductoEscogido",
+                value: "",
+                label: "De acuerdo con el producto/servicio escogido ¿Cuál es el precio de venta de este?",
+            },
+            {
+                parent: "strConoceMargenRentaProductoEscogido",
+                value: "",
+                label: "Del producto escogido ¿Tiene conocimiento de cuál es el margen de rentabilidad?",
+            },
+            {
+                parent: "intPorcentajeMargenRentaProductoEscogido",
+                value: "",
+                label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuál es el margen de utilidad de este producto?",
+            },
+            {
+                parent: "strConoceCostosProductoEscogido",
+                value: "",
+                label: "¿Conoce los costos de producción de este producto?",
+            },
+            {
+                parent: "CostoProduccionProductoEscogido",
+                value: "",
+                label: "En caso de que la pregunta anterior sea afirmativa, ¿Cuáles son los costos de producción asociados a este producto?",
+            },
+            {
+                parent: "strPorcentajeIntermediacionVentas",
+                value: "",
+                label: "Tiene porcentaje(s) estimados para la intermediación en ventas?",
+            },
+            {
+                parent: "strDefinePorcentajesCanal",
+                value: "",
+                label: "En caso de que la pregunta anterior sea afirmativa, ¿tiene definido este porcentaje, de acuerdo con cada canal?",
+            },
+            {
+                parent: "intRangoPorcentajeIntermediacionVentas",
+                value: "",
+                label: "¿De cuánto es el rango o porcentaje definido?",
+            },
+            {
+                parent: "btGeneraEmpleo",
+                value: "",
+                label: "¿La empresa genera empleo para otras personas?",
             },
             {
                 parent: "intNumeroEmpleados",
@@ -399,25 +434,27 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 value: "",
                 label: "¿Genera empleo o ingresos para personas que se encuentren en riesgo de pobreza o de exclusión social?",
             },
+        ],
+        objInfoCanalesVenta: [
             {
-                parent: "strActivos",
+                parent: "arrMediosDigitales",
                 value: "",
-                label: "¿Qué activos tiene la unidad productiva a la fecha?",
+                label: "Medios digitales",
             },
             {
-                parent: "dblValorActivos",
+                parent: "arrFormasComercializacion",
                 value: "",
-                label: "Valor estimado de los activos",
+                label: "Formas de comercialización",
             },
             {
-                parent: "dblValorGananciasMes",
+                parent: "strOtrosCanalesCrecimiento",
                 value: "",
-                label: "Valor de las ganancias mensuales",
+                label: "¿Ha desarrollado otros canales que le apoyen en el crecimiento en ventas?",
             },
             {
-                parent: "intMargenRentabilidad",
+                parent: "strCualesCanalesCrecimiento",
                 value: "",
-                label: "Margen de rentabilidad",
+                label: "¿Cuáles?",
             },
         ],
         objInfoAdicional: [
@@ -454,6 +491,9 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     const [openCollapseInfoPerfilEco, setOpenCollapseInfoPerfilEco] =
         useState(true);
     const [openCollapseConclusiones, setOpenCollapseConclusiones] =
+        useState(true);
+
+    const [openCollapseInfoCanalesVenta, setOpenCollapseInfoCanalesVenta] =
         useState(true);
 
     const [openCollapseFotos, setOpenCollapseFotos] = useState(true);
@@ -582,12 +622,26 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                     const objInfoEmpresa = data.objInfoEmpresa;
                     const objInfoPerfilEco = {
                         ...data.objInfoPerfilEco,
+                        btGeneraEmpleo:
+                            typeof dataEmpr.objInfoEmpresa.btGeneraEmpleo ===
+                            "boolean"
+                                ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
+                                : "",
                         dblValorVentasMes:
                             dataEmpr.objInfoEmpresa.valorVentasMes || "",
                         intNumeroEmpleados:
                             dataEmpr.objInfoEmpresa.intNumeroEmpleados || "",
                     };
                     const objInfoAdicional = data.objInfoAdicional;
+
+                    const objInfoCanalesVenta = {
+                        ...data.objInfoCanalesVenta,
+                        arrMediosDigitales:
+                            dataEmpr.objInfoEmpresa.arrMediosDigitales || [],
+                        arrFormasComercializacion:
+                            dataEmpr.objInfoEmpresa.arrFormasComercializacion ||
+                            [],
+                    };
 
                     setData((prevState) => {
                         let prevInfoGeneral = prevState.objInfoGeneral;
@@ -597,6 +651,8 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         let prevInfoEmpresa = prevState.objInfoEmpresa;
                         let prevInfoPerfilEco = prevState.objInfoPerfilEco;
                         let prevInfoAdicional = prevState.objInfoAdicional;
+                        let prevInforCanalesVenta =
+                        prevState.objInfoCanalesVenta;
 
                         for (const key in objInfoGeneral) {
                             if (
@@ -608,7 +664,10 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                         if (key === "dtmActualizacion") {
                                             e.value = validator.isDate(e.value)
-                                                ? format(e.value, "yyyy-MM-dd H:mm")
+                                                ? format(
+                                                      e.value,
+                                                      "yyyy-MM-dd H:mm"
+                                                  )
                                                 : "No diligenciado";
                                         }
 
@@ -676,6 +735,14 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             objInfoEmprendimiento[
                                                 key
                                             ]?.region_name;
+                                    } else if (
+                                        e.parent === key &&
+                                        key === "arrPais"
+                                    ) {
+                                        e.value =
+                                            objInfoEmprendimiento[
+                                                key
+                                            ]?.country_name;
                                     } else if (
                                         e.parent === key &&
                                         key === "arrCiudad"
@@ -782,7 +849,54 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 .join(", ");
                                             e.value = str;
                                         } else {
-                                            e.value = objInfoPerfilEco[key];
+                                            if (
+                                                (key ===
+                                                    "PromedioVentas6Meses" ||
+                                                    key ===
+                                                        "ValorVentaProductoEscogido" ||
+                                                    key ===
+                                                        "CostoProduccionProductoEscogido") &&
+                                                objInfoPerfilEco[key]
+                                            ) {
+                                                e.value = new Intl.NumberFormat(
+                                                    "es-ES",
+                                                    {
+                                                        style: "currency",
+                                                        currency: "COP",
+                                                    }
+                                                ).format(objInfoPerfilEco[key]);
+
+                                                return;
+                                            }
+
+                                            if (
+                                                key ===
+                                                    "intPorcentajeMargenRentaProductoEscogido" &&
+                                                objInfoPerfilEco[key]
+                                            ) {
+                                                e.value = `${objInfoPerfilEco[key]}%`;
+                                                return;
+                                            }
+
+                                            if (
+                                                key ===
+                                                    "intMargenRentabilidad" &&
+                                                objInfoPerfilEco[key]
+                                            ) {
+                                                e.value = `${
+                                                    objInfoPerfilEco[key] * 100
+                                                }%`;
+                                                return;
+                                            }
+
+                                            e.value =
+                                                typeof objInfoPerfilEco[key] ===
+                                                "boolean"
+                                                    ? objInfoPerfilEco[key] ===
+                                                      true
+                                                        ? "Sí"
+                                                        : "No"
+                                                    : objInfoPerfilEco[key];
                                         }
                                     }
                                 });
@@ -827,6 +941,45 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             }
                         }
 
+                        for (const key in objInfoCanalesVenta) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoCanalesVenta,
+                                    key
+                                )
+                            ) {
+                                prevInforCanalesVenta.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (objInfoCanalesVenta[key]?.map) {
+                                            const json =
+                                                objInfoCanalesVenta[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = objInfoCanalesVenta[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
                         return {
                             ...prevState,
                             objInfoGeneral: prevInfoGeneral,
@@ -834,6 +987,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             objInfoEmprendimiento: prevInfoEmprendimiento,
                             objInfoEmpresa: prevInfoEmpresa,
                             arrImagenes: newArrImagenes,
+                            objInfoCanalesVenta: prevInforCanalesVenta,
                             objInfoPerfilEco: prevInfoPerfilEco,
                             objInfoAdicional: prevInfoAdicional,
                         };
@@ -879,6 +1033,10 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
     const handlerChangeOpenCollapseFotos = () => {
         setOpenCollapseFotos(!openCollapseFotos);
+    };
+
+    const handlerChangeOpenCollapseInfoCanalesVentas = () => {
+        setOpenCollapseInfoCanalesVenta(!openCollapseInfoCanalesVenta);
     };
 
     //===============================================================================================================================================
@@ -1012,7 +1170,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         sx={{ color: "#F5B335", textTransform: "uppercase" }}
                         textAlign="center"
                     >
-                        <b>detalle diagnóstico general</b>
+                        <b>detalle información general</b>
                     </Typography>
                 </Grid>
 
@@ -1124,23 +1282,12 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
@@ -1155,7 +1302,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography sx={{ color: "#00BBB4" }}>
-                                    <b>Información del emprendimiento</b>
+                                    <b>Información de la empresa</b>
                                 </Typography>
                             </Box>
 
@@ -1199,23 +1346,12 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
@@ -1273,23 +1409,12 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                        </p>
-
-                                        <p
-                                            style={{
-                                                margin: "0px",
-                                                fontSize: "13px",
-                                                display: "flex",
-                                                alignContent: "center",
-                                            }}
-                                        >
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
@@ -1345,23 +1470,76 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
+                                            {e.value || "No diligenciado"}
                                         </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
 
+                <Grid item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Canales de ventas</b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseInfoCanalesVentas()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseInfoCanalesVenta
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseInfoCanalesVenta ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse
+                            in={openCollapseInfoCanalesVenta}
+                            timeout="auto"
+                        >
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoCanalesVenta.map((e, i) => (
+                                    <Grid item xs={12} md={6} key={i}>
                                         <p
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >
+                                            <b style={{ marginRight: "5px" }}>
+                                                {e.label}:{" "}
+                                            </b>
                                             {e.value || "No diligenciado"}
                                         </p>
                                     </Grid>

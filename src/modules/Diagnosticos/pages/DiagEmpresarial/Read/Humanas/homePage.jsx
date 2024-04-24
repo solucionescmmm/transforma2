@@ -131,11 +131,6 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 value: "",
                 label: "Seleccione las actividades que en tú rutina realizas para el descanso y esparcimiento",
             },
-            {
-                parent: "strObservaciones",
-                value: "",
-                label: "Conclusiones y observaciones ",
-            },  
             // {
             //     parent: "strActividadesDisminuyenActProductiva",
             //     value: "",
@@ -145,7 +140,14 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             //     parent: "strSituacionesDesistirEmprendimiento",
             //     value: "",
             //     label: "¿Cuáles son las situaciones que te podrían llevar a desistir del emprendimiento?",
-            // },     
+            // },
+        ],
+        objInfoAdicional: [
+            {
+                parent: "strConclusiones",
+                value: "",
+                label: "Conclusiones y observaciones",
+            },
         ],
     });
 
@@ -163,6 +165,9 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
     const [openModalPDF, setOpenModalPDF] = useState(false);
 
     const [openCollapseInfoGeneral, setOpenCollapseInfoGeneral] =
+        useState(true);
+
+    const [openCollapseConclusiones, setOpenCollapseConclusiones] =
         useState(true);
 
     const [
@@ -189,6 +194,10 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
     const handlerChangeOpenModalFinish = () => {
         setOpenModalFinish(!openModalFinish);
+    };
+
+    const handlerChangeOpenCollapseConclusiones = () => {
+        setOpenCollapseConclusiones(!openCollapseConclusiones);
     };
 
     async function getData() {
@@ -221,10 +230,13 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                     const objInfoEncuestaHumanas = data.objInfoEncuestaHumanas;
 
+                    const objInfoAdicional = data.objInfoAdicional;
+
                     setData((prevState) => {
                         let prevInfoGeneral = prevState.objInfoGeneral;
                         let prevInfoEncuestaHumanas =
                             prevState.objInfoEncuestaHumanas;
+                        let prevInfoAdicional = prevState.objInfoAdicional;
 
                         for (const key in objInfoGeneral) {
                             if (
@@ -236,7 +248,10 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                         if (key === "dtmActualizacion") {
                                             e.value = validator.isDate(e.value)
-                                                ? format(e.value, "yyyy-MM-dd H:mm")
+                                                ? format(
+                                                      e.value,
+                                                      "yyyy-MM-dd H:mm"
+                                                  )
                                                 : "No diligenciado";
                                         }
 
@@ -293,9 +308,48 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             }
                         }
 
+                        for (const key in objInfoAdicional) {
+                            if (
+                                Object.hasOwnProperty.call(
+                                    objInfoAdicional,
+                                    key
+                                )
+                            ) {
+                                prevInfoAdicional.forEach((e) => {
+                                    if (e.parent === key) {
+                                        if (objInfoAdicional[key]?.map) {
+                                            const json = objInfoAdicional[key];
+
+                                            const str = json
+                                                .map((x) => {
+                                                    if (x.strCodigoRetorno) {
+                                                        return x.strCodigoRetorno;
+                                                    }
+
+                                                    if (x.label && x.value) {
+                                                        return `${x.label}:${x.value}`;
+                                                    }
+
+                                                    if (x.label) {
+                                                        return x.label;
+                                                    }
+
+                                                    return "";
+                                                })
+                                                .join(", ");
+                                            e.value = str;
+                                        } else {
+                                            e.value = objInfoAdicional[key];
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
                         return {
                             ...prevState,
                             objInfoGeneral: prevInfoGeneral,
+                            objInfoAdicional: prevInfoAdicional,
                             objInfoEncuestaHumanas: prevInfoEncuestaHumanas,
                         };
                     });
@@ -428,11 +482,16 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 <Tooltip title="Previsualizar diagnóstico">
                                     <IconButton
                                         color="inherit"
-                                        onClick={()=> onChangeRoute("DiagEmpresarialHumPrev", {
-                                            intIdIdea,
-                                            intIdDiagnostico,
-                                            isPreview : true
-                                        })}
+                                        onClick={() =>
+                                            onChangeRoute(
+                                                "DiagEmpresarialHumPrev",
+                                                {
+                                                    intIdIdea,
+                                                    intIdDiagnostico,
+                                                    isPreview: true,
+                                                }
+                                            )
+                                        }
                                     >
                                         <RemoveRedEyeIcon />
                                     </IconButton>
@@ -567,13 +626,61 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
+                                            {e.value || "No diligenciado"}
                                         </p>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Collapse>
+                    </Paper>
+                </Grid>
 
+                <Grid id item xs={12}>
+                    <Paper sx={{ padding: "10px" }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography sx={{ color: "#00BBB4" }}>
+                                    <b>Conclusiones y observaciones </b>
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <IconButton
+                                    onClick={() =>
+                                        handlerChangeOpenCollapseConclusiones()
+                                    }
+                                    size="large"
+                                >
+                                    <Tooltip
+                                        title={
+                                            openCollapseConclusiones
+                                                ? "Contraer detalle"
+                                                : "Expandir detalle"
+                                        }
+                                    >
+                                        {openCollapseConclusiones ? (
+                                            <ExpandLessIcon />
+                                        ) : (
+                                            <ExpandMoreIcon />
+                                        )}
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+
+                        <Collapse in={openCollapseConclusiones} timeout="auto">
+                            <Grid
+                                container
+                                direction="row"
+                                spacing={0}
+                                sx={{ padding: "15px" }}
+                            >
+                                {data.objInfoAdicional.map((e, i) => (
+                                    <Grid item xs={12} md={12} key={i}>
                                         <p
                                             style={{
                                                 margin: "0px",
                                                 fontSize: "13px",
-                                                display: "flex",
                                                 alignContent: "center",
                                             }}
                                         >

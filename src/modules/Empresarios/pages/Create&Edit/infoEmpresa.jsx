@@ -1124,7 +1124,7 @@ const InfoEmpresa = ({
                             name="objInfoEmpresa.dblValorVentasMes"
                             render={({ field: { name, value, onChange } }) => (
                                 <NumberFormat
-                                    label="Valor promedio de las ventas mensuales"
+                                    label="Valor de ventas del último mes"
                                     name={name}
                                     value={value}
                                     onValueChange={(v) => {

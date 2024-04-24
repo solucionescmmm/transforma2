@@ -268,7 +268,7 @@ const InfoRegistro = () => {
             {
                 parent: "dblValorVentasMes",
                 value: "",
-                label: "Valor promedio de las ventas mensuales",
+                label: "Valor de ventas del último mes",
             },
             {
                 parent: "arrRequisitosLey",

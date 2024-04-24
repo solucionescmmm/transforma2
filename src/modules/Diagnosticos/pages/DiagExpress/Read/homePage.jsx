@@ -114,6 +114,11 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Categoría principal de los servicios",
             },
             {
+                parent: "arrCategoriasSecundarias",
+                value: "",
+                label: "Categorías alternas",
+            },
+            {
                 parent: "strListadoProdServ",
                 value: "",
                 label: "Listado de los productos o servicios",
@@ -122,11 +127,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 parent: "strDefinineLineasProductoServicios",
                 value: "",
                 label: "¿Tiene definidas las líneas de productos/servicios del negocio?",
-            },
-            {
-                parent: "arrCategoriasSecundarias",
-                value: "",
-                label: "Categorías alternas",
             },
             {
                 parent: "strLineaProductoServicioDestacada",
@@ -358,16 +358,6 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 parent: "arrFormasComercializacion",
                 value: "",
                 label: "Formas de comercialización",
-            },
-            {
-                parent: "strOtrosCanalesCrecimiento",
-                value: "",
-                label: "¿Ha desarrollado otros canales que le apoyen en el crecimiento en ventas?",
-            },
-            {
-                parent: "strCualesCanalesCrecimiento",
-                value: "",
-                label: "¿Cuáles?",
             },
         ],
         objInfoAdicional: [
@@ -631,6 +621,14 @@ const ResumenExp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                 key
                                             ].region_name;
                                     } else if (
+                                        e.parent === key &&
+                                        key === "arrPais"
+                                    ) {
+                                        e.value =
+                                            objInfoEmprendimiento[
+                                                key
+                                            ]?.country_name;
+                                    }  else if (
                                         e.parent === key &&
                                         key === "arrCiudad"
                                     ) {

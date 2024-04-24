@@ -12,7 +12,6 @@ import {
     IconButton,
     Tooltip,
     CircularProgress,
-    TextField,
     Card,
     CardContent,
 } from "@mui/material";
@@ -86,8 +85,7 @@ const InfoEncuestaHumanas = ({
                 strActividadesDisminuyenActProductiva:
                     values.strActividadesDisminuyenActProductiva || "",
                 strSituacionesDesistirEmprendimiento:
-                    values.strSituacionesDesistirEmprendimiento || [],
-                strObservaciones: values.strObservaciones || "",
+                    values.strSituacionesDesistirEmprendimiento || []
             });
         }
 
@@ -835,7 +833,7 @@ const InfoEncuestaHumanas = ({
                         />
                     </Grid> */}
 
-                    <Grid item xs={12} md={12}>
+                    {/* <Grid item xs={12} md={12}>
                         <Controller
                             name="objInfoEncuestaHumanas.strObservaciones"
                             defaultValue={data.strObservaciones}
@@ -864,7 +862,7 @@ const InfoEncuestaHumanas = ({
                             )}
                             control={control}
                         />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Collapse>
         </Fragment>
