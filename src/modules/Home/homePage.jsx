@@ -93,7 +93,7 @@ const HomePage = () => {
                         style={{ fontWeight: "bold" }}
                         variant="subtitle1"
                     >
-                        {`${strInfoUser?.strNombre} ${strInfoUser?.strApellidos}`}
+                        {`${strInfoUser?.strNombre} ${strInfoUser?.strApellidos || ""}`}
                     </Typography>
 
                     <Typography>
