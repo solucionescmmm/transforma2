@@ -399,6 +399,8 @@ class daoRutas {
                 Rutas.intId,
                 Rutas.intIdIdea,
                 Rutas.strNombre,
+                Rutas.intIdTipoRuta,
+                Rutas.intIdDiagnostico,
                 Rutas.intIdEstadoRuta,
                 Rutas.valorTotalRuta,
                 Rutas.intIdDoctoPropuesta,
@@ -410,6 +412,7 @@ class daoRutas {
                 Rutas.dtmActualizacion,
                 Rutas.strUsuarioActualizacion,
                 EstadosRutas.strNombre as strEstadoRuta,
+                TipoRutas.strNombre as strTipoRuta,
                 (
                     SELECT 
                     Fases.intId,
@@ -561,6 +564,7 @@ class daoRutas {
                 FROM tbl_Rutas Rutas
 
                 INNER JOIN tbl_EstadoRuta_Fase EstadosRutas on EstadosRutas.intId = Rutas.intIdEstadoRuta
+                INNER JOIN tbl_TiposRutas TipoRutas on TipoRutas.intId = Rutas.intIdTipoRuta
 
                 WHERE (Rutas.intIdIdea = ${data.intIdIdea})
                 AND   (Rutas.intId = ${data.intId} OR ${data.intId} IS NULL)`;

@@ -59,6 +59,7 @@ const getRutas = async (objParams, strDataUser) => {
                         dtmActualizacion: array[i]?.dtmActualizacion,
                         strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                         strEstadoRuta: array[i]?.strEstadoRuta,
+                        strTipoRuta: array[i]?.strTipoRuta,
                     };
 
                     for (let j = 0; j < arrFasesRutas.length; j++) {
@@ -109,6 +110,7 @@ const getRutas = async (objParams, strDataUser) => {
                         dtmActualizacion: array[i]?.dtmActualizacion,
                         strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                         strEstadoRuta: array[i]?.strEstadoRuta,
+                        strTipoRuta: array[i]?.strTipoRuta,
                     };
 
                     for (let j = 0; j < arrFasesRutas.length; j++) {
