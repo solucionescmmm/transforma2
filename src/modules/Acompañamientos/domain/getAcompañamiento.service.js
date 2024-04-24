@@ -24,6 +24,15 @@ const getAcompañamiento = async (objParams, strDataUser) => {
         );
     }
 
+    let dao = new classInterfaceAcompañamientos();
+
+    let query = {
+        intIdIdea: intIdIdea || null,
+        intId: intId || null,
+    };
+
+    let arrayData = await dao.getAcompañamiento(query);
+
     let queryGetEmpresario = await serviceGetEmpresarios({}, strDataUser)
 
     if (queryGetEmpresario.error) {
@@ -31,15 +40,6 @@ const getAcompañamiento = async (objParams, strDataUser) => {
     }
     
     const arrDataEmpresario = queryGetEmpresario?.data
-    let dao = new classInterfaceAcompañamientos();
-
-    let query = {
-        intId: intId || null,
-        intIdIdea: intIdIdea || null
-    };
-
-    let arrayData = await dao.getAcompañamiento(query);
-
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data?.length > 0) {
