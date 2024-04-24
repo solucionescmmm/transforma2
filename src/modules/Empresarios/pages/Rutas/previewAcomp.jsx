@@ -141,7 +141,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                 intIdSesion={selectedData?.intId}
                 intIdAcompañamiento={selectedData?.intIdAcompañamiento}
                 intIdIdea={intIdIdea}
-                selectedData={selectedData}
+                values={selectedData}
                 refresh={refreshGetData}
             />
 
@@ -307,7 +307,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                                 }
                             },
                             (rowData) => {
-                                if (!rowData?.btFinalizado) {
+                                if (!rowData?.btFinalizado && rowData.objInfoPrincipal.strTipoAcompañamiento !== "Asociado a un evento") {
                                     return {
                                         icon: () => (
                                             <StopIcon

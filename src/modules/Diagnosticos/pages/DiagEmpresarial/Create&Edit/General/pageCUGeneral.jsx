@@ -428,15 +428,15 @@ const PageCUGeneral = ({
                                 strOtraCategoria:
                                 dataEmpr.objInfoEmpresa.strOtraCategoria ||
                                     "",
-                                btGeneraEmpleo:
-                                    typeof dataEmpr.objInfoEmpresa
-                                        .btGeneraEmpleo === "boolean"
-                                        ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
-                                        : "",
                             },
                             objInfoPerfilEco: {
                                 dblValorVentasMes: dataEmpr.objInfoEmpresa.valorVentasMes || "",
                                 intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados || 0,
+                                btGeneraEmpleo:
+                                typeof dataEmpr.objInfoEmpresa
+                                    .btGeneraEmpleo === "boolean"
+                                    ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
+                                    : "",
                             },
                             objInfoCanalesVenta:{
                                 arrMediosDigitales: dataEmpr.objInfoEmpresa.arrMediosDigitales || [],
