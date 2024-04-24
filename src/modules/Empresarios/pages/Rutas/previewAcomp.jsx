@@ -98,6 +98,7 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
 
             for (let i = 0; i < values[0].arrSesionAcompañamiento.length; i++) {
                 const data = values[0].arrSesionAcompañamiento[i];
+
                 arrDataTable.push({
                     ...data,
                     intId: data.intId,
@@ -272,7 +273,6 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                                         ),
                                         tooltip: "Previsualizar",
                                         onClick: (event, rowData) => {
-                                            console.log(rowData)
                                             onChangeRoute("PreviewSesion", {
                                                 intIdAcompañamiento:
                                                     rowData
@@ -293,7 +293,6 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
                                         ),
                                         tooltip: "Editar",
                                         onClick: (event, rowData) => {
-                                            console.log(rowData)
                                             onChangeRoute("EditSesion", {
                                                 intIdAcompañamiento:
                                                     rowData

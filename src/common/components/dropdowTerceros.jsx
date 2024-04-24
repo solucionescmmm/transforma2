@@ -64,6 +64,7 @@ const DropdownTerceros = ({
     label,
     multiple,
     required,
+    bitActivos,
 }) => {
     const [options, setOptions] = useState([]);
     const [open, setOpen] = useState(false);
@@ -79,9 +80,13 @@ const DropdownTerceros = ({
 
     useEffect(() => {
         if (data?.length > 0) {
-            setOptions(data);
+            if (bitActivos) {
+                setOptions(data?.filter((e)=>e.strEstado === "Activo"));
+            }else{
+                setOptions(data);
+            }
         }
-    }, [data]);
+    }, [data,bitActivos]);
 
     if (!data) {
         return (

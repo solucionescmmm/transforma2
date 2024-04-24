@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, { useState, useEffect, useCallback, useContext, useRef } from "react";
 
 //Librerias
 import axios from "axios";
@@ -28,9 +28,10 @@ import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import { AuthContext } from "../../../../../common/middlewares/Auth"; 
+import { AuthContext } from "../../../../../common/middlewares/Auth";
 
-
+//hooks
+import useGetServiciosFases from "../hooks/useGetServiciosFases";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -39,7 +40,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, intIdAcompañamiento, refresh, selectedData }) => {
+const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, intIdAcompañamiento, refresh, values }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -56,7 +57,8 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
 
     const [data, setData] = useState({
         intIdSesion: null,
-        bitFinalizarAcompañamiento: null
+        bitFinalizarAcompañamiento: null,
+        arrObjetivos: null
     });
 
     //===============================================================================================================================================
@@ -65,13 +67,17 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+    const { getUniqueData } = useGetServiciosFases()
+
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = modalRejectStyles();
 
-    const handleChange = (e) =>{
-        setData((prevState)=>({
+    const refFntGetData = useRef(getUniqueData);
+
+    const handleChange = (e) => {
+        setData((prevState) => ({
             ...prevState,
             bitFinalizarAcompañamiento: e.target.checked
         }))
@@ -135,7 +141,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
-    console.log(selectedData)
+
     useEffect(() => {
         if (intIdSesion) {
             setData({
@@ -144,6 +150,30 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
         }
         setLoading(false);
     }, [intIdSesion]);
+
+    useEffect(() => {
+        if (values?.objInfoPrincipal?.strTipoAcompañamiento === "Asociado a ruta/servicio existente" && open === true) {
+            refFntGetData.current({
+                intIdFase: values?.intIdFase,
+                intIdServicio: values?.intIdServicio
+            }).then((res) => {
+                if (res?.data?.error) {
+                    toast.error(res.data.msg)
+                }
+
+                const dataServ = res?.data?.data[0]
+
+                setData((prevState) => ({
+                    ...prevState,
+                    arrObjetivos: dataServ.arrObjetivos
+                }))
+
+            }).catch((error) => {
+                toast.error(error?.message);
+            })
+        }
+        setLoading(false);
+    }, [values, open]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -163,7 +193,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
 
             refresh({
                 intIdIdea,
-                intId:intIdAcompañamiento
+                intId: intIdAcompañamiento
             });
 
             setSucces(false);
@@ -238,24 +268,37 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas finalizar la sesión seleccionada?`}</DialogTitle>
+            <DialogTitle>{`Finalizar la sesión del acompañamiento`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
                     ¿Deseas finalizar la sesión del acompañamiento?
                 </DialogContentText>
-                {selectedData.bitUltimaSesion ?
-                                    <Grid item xs={12}>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={data.bitFinalizarAcompañamiento}
-                                                onChange={handleChange}
-                                                inputProps={{ 'aria-label': 'controlled' }} 
-                                            />} 
-                                        label="¿Deseas finalizar el acompañamiento? "
-                                    />
-                                </Grid> : null}
+                {values.bitUltimaSesion ?
+                    <Grid item xs={12}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={data.bitFinalizarAcompañamiento}
+                                    onChange={handleChange}
+                                    inputProps={{ 'aria-label': 'controlled' }}
+                                />}
+                            label="¿Deseas finalizar el acompañamiento?"
+                        />
+                    </Grid> : null}
+                {data.bitFinalizarAcompañamiento &&
+                    values?.objInfoPrincipal?.strTipoAcompañamiento === "Asociado a ruta/servicio existente" ?
+                    <Grid item xs={12}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={data.bitFinalizarAcompañamiento}
+                                    onChange={handleChange}
+                                    inputProps={{ 'aria-label': 'controlled' }}
+                                />}
+                            label="¿Deseas finalizar el acompañamiento?"
+                        />
+                    </Grid> : null}
             </DialogContent>
 
             <DialogActions>

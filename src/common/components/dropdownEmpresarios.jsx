@@ -51,6 +51,7 @@ const DropdownEmpresarios = ({
     multiple,
     required,
     defaultOptions,
+    bitActivos,
 }) => {
     const [options, setOptions] = useState([]);
 
@@ -60,10 +61,13 @@ const DropdownEmpresarios = ({
 
     useEffect(() => {
         if (data?.length > 0 && !defaultOptions) {
-
-            setOptions(data);
+            if (bitActivos) {
+                setOptions(data?.filter((e)=>e.strEstado === "Activo"));
+            }else{
+                setOptions(data);
+            }
         }
-    }, [data, defaultOptions]);
+    }, [data, defaultOptions, bitActivos]);
 
     useEffect(() => {
         if (defaultOptions) {

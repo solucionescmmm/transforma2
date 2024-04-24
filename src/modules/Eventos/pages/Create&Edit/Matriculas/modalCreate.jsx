@@ -230,6 +230,7 @@ const ModalCEdit = ({ handleOpenDialog, open, refresh, intIdEvento }) => {
                                     name={name}
                                     value={value}
                                     disabled={loading}
+                                    bitActivos
                                     onChange={(e, value) => onChange(value)}
                                     fullWidth
                                     variant="standard"
@@ -267,6 +268,7 @@ const ModalCEdit = ({ handleOpenDialog, open, refresh, intIdEvento }) => {
                                     disabled={loading}
                                     onChange={(e, value) => onChange(value)}
                                     fullWidth
+                                    bitActivos
                                     variant="standard"
                                     error={!!errors?.arrEmpresarios}
                                     helperText={
