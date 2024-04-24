@@ -176,8 +176,8 @@ const InfoAdicional = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.strURLSFotos}
-                            name="objInfoAdicional.strURLSFotos"
+                            defaultValue={data.strURLSFotosProducto}
+                            name="objInfoAdicional.strURLSFotosProducto"
                             render={({ field: { name, onChange, value } }) => (
                                 <Dropzone
                                     label="Registro fotográfico"
@@ -190,12 +190,12 @@ const InfoAdicional = ({
                                     setError={setError}
                                     clearErrors={clearErrors}
                                     error={
-                                        errors?.objInfoAdicional?.strURLSFotos
+                                        errors?.objInfoAdicional?.strURLSFotosProducto
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoAdicional?.strURLSFotos?.message ||
+                                        errors?.objInfoAdicional?.strURLSFotosProducto?.message ||
                                         "Selecciona las fotografías del registro"
                                     }
                                 />
