@@ -177,14 +177,14 @@ class updateFinalizarDiagnosticos {
         let data = {
             intIdDiagnostico:this.#objData?.intIdDiagnostico,
             intIdIdea: this.#objData.intIdIdea,
-            strObservaciones: `Ruta creada apartir de la finalización del diagnóstico #${
+            strObservaciones: `Ruta creada a partir de la finalización del diagnóstico #${
                 this.#objData.intIdDiagnostico
             }`,
             strResponsable: "{}",
             strTipoRuta: "Planeada",
             arrInfoFases: [
                 {
-                    strObservaciones: `Ruta creada apartir de la finalización del diagnóstico #${
+                    strObservaciones: `Ruta creada a partir de la finalización del diagnóstico #${
                         this.#objData.intIdDiagnostico
                     }`,
                     arrPaquetes: null,

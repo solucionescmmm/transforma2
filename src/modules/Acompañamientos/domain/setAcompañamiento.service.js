@@ -155,14 +155,14 @@ class setAcompañamiento {
     async #setRutasNoPlaneada() {
         let data = {
             intIdIdea: this.#objData.intIdIdea,
-            strObservaciones: "Ruta creada apartir de un acompañamiento",
+            strObservaciones: "Ruta creada a partir de un acompañamiento",
             strResponsable: this.#objData.objResponsable[0],
             strNombre:`Ruta no planeada del servicio ${ 
                 this.#objData.objNuevoServPaq?.objServicio?.objInfoPrincipal?.strNombre
             }`,
             strTipoRuta:"No planeada",
             arrInfoFases: [{
-                strObservaciones: "Ruta creada apartir de un acompañamiento",
+                strObservaciones: "Ruta creada a partir de un acompañamiento",
                 arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [
                     {
                         ...this.#objData?.objNuevoServPaq?.objServicio,
