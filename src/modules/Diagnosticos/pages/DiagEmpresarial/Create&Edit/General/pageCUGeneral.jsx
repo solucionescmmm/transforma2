@@ -428,6 +428,7 @@ const PageCUGeneral = ({
                                 strOtraCategoria:
                                 dataEmpr.objInfoEmpresa.strOtraCategoria ||
                                     "",
+                                strDescProductosServicios: dataEmpr.objInfoEmpresa.strDescProductosServicios,
                             },
                             objInfoPerfilEco: {
                                 dblValorVentasMes: dataEmpr.objInfoEmpresa.valorVentasMes || "",
