@@ -1019,32 +1019,39 @@ const InfoEmprendimiento = ({
 
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.strListadoProdServ}
-                            name="objInfoEmprendimiento.strListadoProdServ"
+                            defaultValue={data.strDescProductosServicios}
+                            name="objInfoEmprendimiento.strDescProductosServicios"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Listado de los productos o servicios"
+                                    label="Describe los productos o servicios que ofrece"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
                                     onChange={(e) => onChange(e)}
+                                    disabled={disabled}
                                     fullWidth
+                                    variant="outlined"
                                     required
-                                    variant="standard"
+                                    multiline
+                                    rows={4}
                                     error={
                                         errors?.objInfoEmprendimiento
-                                            ?.strListadoProdServ
+                                            ?.strDescProductosServicios
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoEmprendimiento
-                                            ?.strListadoProdServ?.message ||
-                                        "Digita los productos o servicios que ofrece la empresa"
+                                            ?.strDescProductosServicios
+                                            ?.message ||
+                                        "Describe detalladamente los servicios que ofrece la empresa"
                                     }
                                 />
                             )}
                             control={control}
+                            rules={{
+                                required:
+                                    "Por favor, describe detalladamente los servicios que ofrece la empresa",
+                            }}
                         />
                     </Grid>
 
