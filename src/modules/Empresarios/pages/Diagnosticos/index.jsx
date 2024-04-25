@@ -29,6 +29,7 @@ import {
     AddBox as AddBoxIcon,
     Stop as StopIcon,
     RemoveRedEye as RemoveRedEyeIcon,
+    Delete as DeleteIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -42,6 +43,7 @@ import ModalFinalizarExpress from "./modalFinalizarExpress";
 import useGetDiagnosticosCoco from "../../hooks/useGetDiagnosticosCoco";
 import { AbilityContext, Can } from "../../../../common/functions/can";
 import ModalPreview from "./modalPreview";
+import ModalDelete from "./modalDelete";
 
 const ReadDiagnosticos = ({
     onChangeRoute,
@@ -83,6 +85,7 @@ const ReadDiagnosticos = ({
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalDeleteExpress, setOpenModalDeleteExpress] = useState(false);
     const [openModalPreview, setOpenModalPreview] = useState(false);
+    const [openModalFinish, setOpenModalFinish] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
     //===============================================================================================================================================
@@ -98,6 +101,10 @@ const ReadDiagnosticos = ({
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
+    const handlerOpenModalFinish = () => {
+        setOpenModalFinish(!openModalFinish);
+    };
+
     const handlerOpenModalDelete = () => {
         setOpenModalDelete(!openModalDelete);
     };
@@ -138,9 +145,17 @@ const ReadDiagnosticos = ({
                 values={selectedData}
             />
 
-            <ModalFinalizar
+            <ModalDelete
                 handleOpenDialog={handlerOpenModalDelete}
                 open={openModalDelete}
+                intId={selectedData?.intId}
+                refresh={refreshGetData}
+                intIdIdea={intIdIdea}
+            />
+
+            <ModalFinalizar
+                handleOpenDialog={handlerOpenModalFinish}
+                open={openModalFinish}
                 intId={selectedData?.intId}
                 refresh={refreshGetData}
                 intIdIdea={intIdIdea}
@@ -346,11 +361,36 @@ const ReadDiagnosticos = ({
                                                 onClick: rowData.strTipoDiagnostico !== "Normal" ? (_, rowData) => {
                                                     setSelectedData(rowData);
                                                     handlerOpenModalDeleteExpress();
-                                                }: (_, rowData) => {
+                                                } : (_, rowData) => {
+                                                    setSelectedData(rowData);
+                                                    handlerOpenModalFinish();
+                                                },
+                                                tooltip: "Finalizar",
+                                                disabled: rowData.strEstadoDiagnostico === "Finalizado" || rowData.strEstadoDiagnostico === "Finalizado con ruta" ? true : false
+                                            };
+                                        }
+                                    },
+
+                                    (rowData) => {
+                                        if (ability.can("delete", "Diag")) {
+                                            return {
+                                                icon: () => (
+                                                    <DeleteIcon
+                                                        color={
+                                                            rowData.strEstadoDiagnostico ===
+                                                                "Finalizado" || rowData.strEstadoDiagnostico ===
+                                                                "Finalizado con ruta"
+                                                                ? "inherit"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                onClick: (_, rowData) => {
                                                     setSelectedData(rowData);
                                                     handlerOpenModalDelete();
                                                 },
-                                                tooltip: "Finalizar",
+                                                tooltip: "Eliminar",
                                                 disabled: rowData.strEstadoDiagnostico === "Finalizado" || rowData.strEstadoDiagnostico === "Finalizado con ruta" ? true : false
                                             };
                                         }

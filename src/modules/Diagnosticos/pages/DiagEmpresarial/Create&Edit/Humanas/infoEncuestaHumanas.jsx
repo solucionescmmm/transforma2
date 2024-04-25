@@ -173,7 +173,7 @@ const InfoEncuestaHumanas = ({
                                 <Typography variant="body2">
                                     Todas las personas cuando emprenden tienen diferentes motivaciones para hacerlo, pero siempre
                                     hay una razón principal que es el impulso para llevar a cabo el emprendimiento.
-                                    Teniendo presente esta definición evalúa en que nivel te encuentras para la siguiente pregunta
+                                    Teniendo en cuenta lo anterior, seleccione su principal motivación al momento de emprender
                                 </Typography>
                             </CardContent>
                         </Card>

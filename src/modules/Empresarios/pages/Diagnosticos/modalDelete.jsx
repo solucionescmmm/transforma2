@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback, useContext, useRef } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
+
+//Context
 
 //Librerias
 import axios from "axios";
@@ -19,19 +21,13 @@ import {
     CircularProgress,
     Alert,
     AlertTitle,
-    Grid,
-    FormControlLabel,
-    Checkbox,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 
 //Estilos
 import { makeStyles } from "@mui/styles";
-import { AuthContext } from "../../../../../common/middlewares/Auth";
-
-//hooks
-import useGetServiciosFases from "../hooks/useGetServiciosFases";
+import { AuthContext } from "../../../../common/middlewares/Auth";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -40,7 +36,7 @@ const modalRejectStyles = makeStyles(() => ({
     },
 }));
 
-const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, intIdAcompañamiento, refresh, values }) => {
+const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
     //===============================================================================================================================================
@@ -56,10 +52,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     const [flagSubmit, setFlagSubmit] = useState(false);
 
     const [data, setData] = useState({
-        intIdSesion: null,
-        bitFinalizarAcompañamiento: null,
-        arrObjetivos: null,
-        bitCumplieronServicio: null,
+        intId: null,
     });
 
     //===============================================================================================================================================
@@ -68,21 +61,10 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const { getUniqueData } = useGetServiciosFases()
-
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = modalRejectStyles();
-
-    const refFntGetData = useRef(getUniqueData);
-
-    const handlerChangeData = (name, value) => {
-        setData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
 
     const submitData = useCallback(
         async (signalSubmitData) => {
@@ -92,12 +74,11 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
 
             await axios(
                 {
-                    method: "PUT",
+                    method: "DELETE",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_FINISH_SESION}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_DIAGNOSTICOS_DELETE}`,
                     data: {
-                        ...data,
-                        intId: data.intIdSesion,
+                        intIdDiagnostico: data.intId,
                     },
                     headers: {
                         token,
@@ -142,39 +123,15 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
-
     useEffect(() => {
-        if (intIdSesion) {
+        if (intId) {
             setData({
-                intIdSesion,
+                intId,
             });
         }
+
         setLoading(false);
-    }, [intIdSesion]);
-
-    useEffect(() => {
-        if (values?.objInfoPrincipal?.strTipoAcompañamiento === "Asociado a ruta/servicio existente" && open === true) {
-            refFntGetData.current({
-                intIdFase: values?.intIdFase,
-                intIdServicio: values?.intIdServicio
-            }).then((res) => {
-                if (res?.data?.error) {
-                    toast.error(res.data.msg)
-                }
-
-                const dataServ = res?.data?.data[0]
-
-                setData((prevState) => ({
-                    ...prevState,
-                    arrObjetivos: dataServ?.arrObjetivos
-                }))
-
-            }).catch((error) => {
-                toast.error(error?.message);
-            })
-        }
-        setLoading(false);
-    }, [values, open]);
+    }, [intId]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -190,12 +147,8 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
 
     useEffect(() => {
         if (success) {
+            refresh({intIdIdea});
             handleOpenDialog();
-
-            refresh({
-                intIdIdea,
-                intId: intIdAcompañamiento
-            });
 
             setSucces(false);
         }
@@ -205,7 +158,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (!data.intIdSesion) {
+    if (!data.intId) {
         return (
             <Dialog
                 fullScreen={bitMobile}
@@ -214,7 +167,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
                 PaperProps={{
                     style: {
                         backgroundColor:
-                            !loading && !data.intIdSesion ? "#FDEDED" : "inherit",
+                            !loading && !data.intId ? "#FDEDED" : "inherit",
                     },
                 }}
             >
@@ -235,7 +188,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
                         <Alert severity="error">
                             <AlertTitle>
                                 <b>
-                                    No se encontro el identificador de la sesión
+                                    No se encontro el identificador del diagnóstico
                                 </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
@@ -269,41 +222,13 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`Finalizar la sesión del acompañamiento`}</DialogTitle>
+            <DialogTitle>{`¿Deseas eliminar el diagnóstico seleccionado?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    ¿Deseas finalizar la sesión del acompañamiento?
+                    El proceso es irreversible y no podrás recuperar la
+                    información.
                 </DialogContentText>
-                {values.bitUltimaSesion ?
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={data.bitFinalizarAcompañamiento}
-                                    onChange={(e)=>{
-                                        handlerChangeData("bitFinalizarAcompañamiento", e.target.checked)
-                                    }}
-                                    inputProps={{ 'aria-label': 'controlled' }}
-                                />}
-                            label="¿Deseas finalizar el acompañamiento?"
-                        />
-                    </Grid> : null}
-                {data.bitFinalizarAcompañamiento &&
-                    values?.objInfoPrincipal?.strTipoAcompañamiento === "Asociado a ruta/servicio existente" ?
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={data.bitCumplieronServicio}
-                                    onChange={(e)=>{
-                                        handlerChangeData("bitCumplieronServicio", e.target.checked)
-                                    }}
-                                    inputProps={{ 'aria-label': 'controlled' }}
-                                />}
-                            label="¿Se cumplieron los objetivos del servicio?"
-                        />
-                    </Grid> : null}
             </DialogContent>
 
             <DialogActions>
@@ -328,4 +253,4 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     );
 };
 
-export default ModalFinalizacion;
+export default ModalDelete;

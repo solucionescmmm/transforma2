@@ -560,7 +560,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                 <InfoSedesTarifa
                                     isEdit={isEdit}
                                     control={control}
-                                    values={data.arrModulos}
+                                    values={data.arrSedesTarifas}
                                     disabled={isPreview ? true : loading}
                                     errors={errors}
                                     setValue={setValue}
@@ -578,7 +578,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                 <InfoResponsables
                                     isEdit={isEdit}
                                     control={control}
-                                    values={data.arrModulos}
+                                    values={data.arrResponsables}
                                     disabled={isPreview ? true : loading}
                                     errors={errors}
                                     setValue={setValue}
