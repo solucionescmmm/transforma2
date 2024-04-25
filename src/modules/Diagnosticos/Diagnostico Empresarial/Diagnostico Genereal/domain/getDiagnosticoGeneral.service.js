@@ -82,9 +82,9 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     strConoceCostosProductoEscogido: array[i]?.strConoceCostosProduccionProductoEscogido,
                     CostoProduccionProductoEscogido: array[i]?.CostoProduccionProductoEscogido,
                     strDefinineLineasProductoServicios: array[i]?.strDefinineLineasProductoServicios,
+                    strHistoriaEmpresa: array[i]?.strHistoriaEmpresa,
                 };
                 let objInfoEmpresa = {
-                    strHistoriaEmpresa: array[i]?.strHistoriaEmpresa,
                     strComoVeCincoAños: array[i]?.strComoVeCincoAños,
                     strSuenioEmpresa: array[i]?.strSuenioEmpresa,
                     strEstudioEmprendimiento:
