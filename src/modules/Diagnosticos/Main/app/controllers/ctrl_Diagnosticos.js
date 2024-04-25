@@ -215,9 +215,10 @@ class ctrl_Diagnosticos {
 
     async deleteDiagnosticos(req, res) {
         try {
-            let objParams = req.query;
+            let data = req.body;
+            let { strDataUser } = req;
 
-            let service = new deleteDiagnosticos(objParams);
+            let service = new deleteDiagnosticos(data, strDataUser);
             let query = await service.main();
 
             if (query.error) {

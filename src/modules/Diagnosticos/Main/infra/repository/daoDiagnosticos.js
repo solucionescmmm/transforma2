@@ -353,11 +353,11 @@ class daoDiagnosticos {
     async deleteDiagnosticos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn.query`DELETE FROM tbl_Diagnosticos WHERE intId = ${data.intId}`;
+            await conn.query`DELETE FROM tbl_Diagnostico WHERE intId = ${data.intId}`;
 
             let result = {
                 error: false,
-                msg: `Se eliminó exitosamente el área.`,
+                msg: `Se eliminó exitosamente el diagnóstico.`,
             };
 
             sql.close(conexion);

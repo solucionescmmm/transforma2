@@ -879,7 +879,7 @@ class daoRutas {
             for (let i = 0; i < arrNewData.length; i++) {
                 let { arrObjetivos } = arrNewData[i];
 
-                if (validator.isJSON(arrObjetivos)) {
+                if (validator.isJSON(arrObjetivos || "")) {
                     arrObjetivos = JSON.parse(arrObjetivos);
                     arrNewData[i].arrObjetivos = arrObjetivos;
                 }
