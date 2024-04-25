@@ -298,14 +298,13 @@ const InfoGeneral = ({
                             defaultValue={data.strUsuarioActualizacion}
                             name="objInfoGeneral.strUsuarioActualizacion"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <DropdownUsuarios
                                     label="Responsable de actualizar la información"
                                     name={name}
                                     value={value}
                                     disabled
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                
                                     variant="standard"
                                     error={
                                         errors?.objInfoGeneral

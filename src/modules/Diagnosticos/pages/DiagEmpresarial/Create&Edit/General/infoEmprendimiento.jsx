@@ -288,7 +288,7 @@ const InfoEmprendimiento = ({
                                                 errors?.objInfoEmprendimiento
                                                     ?.intAñoInicioOperacion
                                                     ?.message ||
-                                                "Fecha de la última vez que se actualizó el diagnóstico",
+                                                "Ingrese el año de inicio de operación de la empresa",
                                             fullWidth: true,
                                         },
                                     }}
