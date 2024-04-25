@@ -159,21 +159,21 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                         <p>
                             <span style={{ color: "#11BEB8" }}>
                                 Nombre ruta:
-                            </span>
+                            </span>{" "}
                             {values?.objInfoPrincipal?.strNombre}
                         </p>
                     </Grid>
 
                     <Grid item xs={6}>
                         <p>
-                            <span style={{ color: "#11BEB8" }}>Tipo:</span>
+                            <span style={{ color: "#11BEB8" }}>Tipo:</span>{" "}
                             Planeada
                         </p>
                     </Grid>
 
                     <Grid item xs={6}>
                         <p>
-                            <span style={{ color: "#11BEB8" }}>Estado:</span>
+                            <span style={{ color: "#11BEB8" }}>Estado:</span>{" "}
                             Sin ejecutar
                         </p>
                     </Grid>
@@ -182,7 +182,7 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                         <p>
                             <span style={{ color: "#11BEB8" }}>
                                 Total fases:
-                            </span>
+                            </span>{" "}
                             {values?.arrInfoFases?.length}
                         </p>
                     </Grid>
@@ -191,20 +191,20 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                         <p>
                             <span style={{ color: "#11BEB8" }}>
                                 Valor Total:
-                            </span>
+                            </span>{" "}
                             {values?.valorTotalRuta
                                 ? new Intl.NumberFormat("es-ES", {
-                                      style: "currency",
-                                      currency: "COP",
-                                  }).format(values?.valorTotalRuta)
+                                    style: "currency",
+                                    currency: "COP",
+                                }).format(values?.valorTotalRuta)
                                 : values?.objInfoPrincipal?.valorTotalRuta
-                                ? new Intl.NumberFormat("es-ES", {
-                                      style: "currency",
-                                      currency: "COP",
-                                  }).format(
-                                      values?.objInfoPrincipal?.valorTotalRuta
-                                  )
-                                : ""}
+                                    ? new Intl.NumberFormat("es-ES", {
+                                        style: "currency",
+                                        currency: "COP",
+                                    }).format(
+                                        values?.objInfoPrincipal?.valorTotalRuta
+                                    )
+                                    : ""}
                         </p>
                     </Grid>
 
@@ -212,7 +212,7 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                         <p>
                             <span style={{ color: "#11BEB8" }}>
                                 Fecha creación:
-                            </span>
+                            </span>{" "}
                             {values?.objInfoPrincipal?.dtmCreacion ||
                                 new Date().toLocaleDateString("en-US")}
                         </p>
@@ -222,14 +222,27 @@ const ModalPreview = ({ handleOpenDialog, open, values }) => {
                         <p>
                             <span style={{ color: "#11BEB8" }}>
                                 Duración total:
-                            </span>
+                            </span>{" "}
+                            {dataTable.length > 0 &&
+                                (() => {
+                                    let intDuracion = 0;
+                                    for (
+                                        let i = 0;
+                                        i < dataTable.length;
+                                        i++
+                                    ) {
+                                        intDuracion += dataTable[i].intDuracion;
+                                    }
+
+                                    return intDuracion.toString();
+                                })()}
                         </p>
                     </Grid>
 
                     <Grid item xs={6}>
                         <p>
                             <span style={{ color: "#11BEB8" }}>
-                                Responsable
+                                Responsable:
                             </span>{" "}
                             {values?.objInfoPrincipal?.strResponsable
                                 ?.strNombre || ""}

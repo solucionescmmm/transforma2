@@ -52,6 +52,8 @@ const DropdownUsuarios = ({
     required,
 }) => {
     const [options, setOptions] = useState([]);
+    const [valueRef, setValueRef] = useState(value)
+
 
     const { data, refreshGetData } = useGetUsers();
 
@@ -60,6 +62,18 @@ const DropdownUsuarios = ({
             setOptions(data);
         }
     }, [data]);
+
+    useEffect(() => {
+        if (typeof value === "string") {
+            if (value !== "") {
+                setValueRef({
+                    ...options.find((u)=>u?.strEmail === value)
+                })
+            }
+        }
+    }, [value, options]);
+
+
 
     if (!data) {
         return (
@@ -98,7 +112,7 @@ const DropdownUsuarios = ({
     return (
         <Autocomplete
             id={id}
-            value={value}
+            value={typeof value === "string" ? valueRef: value}
             onChange={onChange}
             options={options}
             clearText="Borrar"
