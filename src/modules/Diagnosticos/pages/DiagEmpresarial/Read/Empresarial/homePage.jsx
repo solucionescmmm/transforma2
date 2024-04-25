@@ -380,6 +380,11 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Tiene porcentaje(s) estimados para la intermediación en ventas?",
             },
             {
+                parent: "intMargenRentabilidad",
+                value: "",
+                label: "Margen de rentabilidad",
+            },
+            {
                 parent: "strDefinePorcentajesCanal",
                 value: "",
                 label: "En caso de que la pregunta anterior sea afirmativa, ¿tiene definido este porcentaje, de acuerdo con cada canal?",
@@ -445,16 +450,6 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 parent: "arrFormasComercializacion",
                 value: "",
                 label: "Formas de comercialización",
-            },
-            {
-                parent: "strOtrosCanalesCrecimiento",
-                value: "",
-                label: "¿Ha desarrollado otros canales que le apoyen en el crecimiento en ventas?",
-            },
-            {
-                parent: "strCualesCanalesCrecimiento",
-                value: "",
-                label: "¿Cuáles?",
             },
         ],
         objInfoAdicional: [
@@ -652,7 +647,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                         let prevInfoPerfilEco = prevState.objInfoPerfilEco;
                         let prevInfoAdicional = prevState.objInfoAdicional;
                         let prevInforCanalesVenta =
-                        prevState.objInfoCanalesVenta;
+                            prevState.objInfoCanalesVenta;
 
                         for (const key in objInfoGeneral) {
                             if (
@@ -855,7 +850,16 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                     key ===
                                                         "ValorVentaProductoEscogido" ||
                                                     key ===
-                                                        "CostoProduccionProductoEscogido") &&
+                                                        "CostoProduccionProductoEscogido" ||
+                                                    key ===
+                                                        "dblValorVentasMes" ||
+                                                    key ===
+                                                        "dblValorGananciasMes" ||
+                                                    key === "dblValorActivos" ||
+                                                    key ===
+                                                        "MinimoValorProducto" ||
+                                                    key ===
+                                                        "MaximoValorProducto") &&
                                                 objInfoPerfilEco[key]
                                             ) {
                                                 e.value = new Intl.NumberFormat(
@@ -1288,7 +1292,9 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             <b style={{ marginRight: "5px" }}>
                                                 {e.label}:{" "}
                                             </b>
-                                            {e.value || "No diligenciado"}
+                                            {typeof e.value === "number"
+                                                ? e.value
+                                                : e.value || "No diligenciado"}
                                         </p>
                                     </Grid>
                                 ))}
@@ -1589,18 +1595,19 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                 spacing={0}
                                 sx={{ padding: "15px" }}
                             >
-                                <Grid item xs={12}>
-                                    <p
-                                        style={{
-                                            margin: "0px",
-                                            fontSize: "13px",
-                                            display: "flex",
-                                            alignContent: "center",
-                                        }}
-                                    >
-                                        {data.strConclusiones}
-                                    </p>
-                                </Grid>
+                                {data.objInfoAdicional.map((e, i) => (
+                                    <Grid item xs={12} md={6} key={i}>
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                fontSize: "13px",
+                                                alignContent: "center",
+                                            }}
+                                        >
+                                            {e.value || "No diligenciado"}
+                                        </p>
+                                    </Grid>
+                                ))}
                             </Grid>
                         </Collapse>
                     </Paper>

@@ -407,7 +407,9 @@ const Coco = () => {
                         >
                             <Typography
                                 variant="caption"
-                                sx={{ fontSize: "0.78rem !important" }}
+                                sx={{
+                                    fontSize: "0.80rem !important",
+                                }}
                             >
                                 <b>Fecha de vinculación: </b>
                                 {objInteresado?.objEmpresario
@@ -420,7 +422,9 @@ const Coco = () => {
 
                             <Typography
                                 variant="caption"
-                                style={{ fontSize: "0.78rem !important" }}
+                                sx={{
+                                    fontSize: "0.80rem !important",
+                                }}
                             >
                                 <b>Sede: </b>
                                 {objInteresado?.objEmpresario
@@ -433,7 +437,9 @@ const Coco = () => {
 
                             <Typography
                                 variant="caption"
-                                style={{ fontSize: "0.78rem !important" }}
+                                sx={{
+                                    fontSize: "0.80rem !important",
+                                }}
                             >
                                 <b>Ruta activa: </b>
                                 {dataRuta ? "Si" : "No"}
@@ -441,7 +447,9 @@ const Coco = () => {
 
                             <Typography
                                 variant="caption"
-                                style={{ fontSize: "0.78rem !important" }}
+                                sx={{
+                                    fontSize: "0.80rem !important",
+                                }}
                             >
                                 <b>Etapa de desarrollo: </b>
                                 {strEtapa}
@@ -454,7 +462,7 @@ const Coco = () => {
                                 <Typography
                                     color="red"
                                     variant="caption"
-                                    style={{ fontSize: "0.78rem !important" }}
+                                    style={{ fontSize: "0.80rem !important" }}
                                 >
                                     Perfil sensible
                                 </Typography>

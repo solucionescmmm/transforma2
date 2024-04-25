@@ -387,10 +387,6 @@ const ModalMediosDigitales = ({
                                                             />
                                                         )}
                                                         control={control}
-                                                        rules={{
-                                                            required:
-                                                                "Por favor digita la cantidad de seguidores.",
-                                                        }}
                                                     />
                                                 )}
                                         </Fragment>

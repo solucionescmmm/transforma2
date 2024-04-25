@@ -770,7 +770,7 @@ const InfoEmprendimiento = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strHistoriaEmpresa}
-                            name="objInfoEmpresa.strHistoriaEmpresa"
+                            name="objInfoEmprendimiento.strHistoriaEmpresa"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="¿Cómo nace la empresa? - Historia"
