@@ -35,7 +35,7 @@ class setAcompañamiento {
         await this.#validations();
         await this.#setAcompañamiento();
         await this.#setSesionAcompañamiento();
-        if (this.#strTipoAcompañamiento === "Para un nuevo servicio/paquete") {
+        if (this.#strTipoAcompañamiento === "Para un nuevo servicio") {
             await this.#setRutasNoPlaneada()
         }
 
