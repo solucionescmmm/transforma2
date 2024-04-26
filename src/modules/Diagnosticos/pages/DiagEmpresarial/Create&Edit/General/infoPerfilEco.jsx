@@ -58,7 +58,6 @@ const InfoPerfilEco = ({
         dblValorGananciasMes: "",
         MinimoValorProducto: "",
         MaximoValorProducto: "",
-        strHistoriaEmpresa: "",
         intCantidadUnidadesProducidasMes: "",
         strEscojaProductoServicio: "",
         ValorVentaProductoEscogido: "",

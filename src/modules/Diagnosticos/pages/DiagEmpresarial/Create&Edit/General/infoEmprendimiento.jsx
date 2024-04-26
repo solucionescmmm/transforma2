@@ -60,8 +60,6 @@ const InfoEmprendimiento = ({
         strUbicacionUP: "",
         strCelular: "",
         strCorreoElectronico: "",
-        strRedesSociales: "",
-        arrMediosDigitales: [],
         strRegistroCamaraComercio: "",
         strTiempoDedicacion: "",
         strSectorEconomico: "",
@@ -69,26 +67,12 @@ const InfoEmprendimiento = ({
         strCategoriaServicio: "",
         arrCategoriasSecundarias: [],
         strOtraCategoria: "",
-        strListadoProdServ: "",
-        btGeneraEmpleo: "",
         strDefinineLineasProductoServicios: "",
         strLineaProductoServicioDestacada: "",
         strProductoServiciosEnValidacion: "",
         strNivelDlloProductoServicios: "",
         strEtapaValidProductoServicios: "",
-        MinimoValorProducto: "",
-        MaximoValorProducto: "",
         strHistoriaEmpresa: "",
-        intCantidadUnidadesProducidasMes: "",
-        strEscojaProductoServicio: "",
-        ValorVentaProductoEscogido: "",
-        strConoceMargenRentaProductoEscogido: "",
-        intPorcentajeMargenRentaProductoEscogido: "",
-        strConoceCostosProductoEscogido: "",
-        CostoProduccionProductoEscogido: "",
-        strPorcentajeIntermediacionVentas: "",
-        strDefinePorcentajesCanal: "",
-        intRangoPorcentajeIntermediacionVentas: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -118,8 +102,6 @@ const InfoEmprendimiento = ({
                 strUbicacionUP: values.strUbicacionUP || "",
                 strCelular: values.strCelular || "",
                 strCorreoElectronico: values.strCorreoElectronico || "",
-                strRedesSociales: values.strRedesSociales || "",
-                arrMediosDigitales: values.arrMediosDigitales || [],
                 strRegistroCamaraComercio:
                     values.strRegistroCamaraComercio || "",
                 strTiempoDedicacion: values.strTiempoDedicacion || "",
@@ -145,24 +127,6 @@ const InfoEmprendimiento = ({
                 MaximoValorProducto: values.MaximoValorProducto || "",
                 intCantidadUnidadesProducidasMes:
                     values.intCantidadUnidadesProducidasMes || "",
-                strEscojaProductoServicio:
-                    values.strEscojaProductoServicio || "",
-                ValorVentaProductoEscogido:
-                    values.ValorVentaProductoEscogido || "",
-                strConoceMargenRentaProductoEscogido:
-                    values.strConoceMargenRentaProductoEscogido || "",
-                intPorcentajeMargenRentaProductoEscogido:
-                    values.intPorcentajeMargenRentaProductoEscogido || "",
-                strConoceCostosProductoEscogido:
-                    values.strConoceCostosProductoEscogido || "",
-                CostoProduccionProductoEscogido:
-                    values.CostoProduccionProductoEscogido || "",
-                strPorcentajeIntermediacionVentas:
-                    values.strPorcentajeIntermediacionVentas || "",
-                strDefinePorcentajesCanal:
-                    values.strDefinePorcentajesCanal || "",
-                intRangoPorcentajeIntermediacionVentas:
-                    values.intRangoPorcentajeIntermediacionVentas || "",
             });
         }
 
@@ -693,46 +657,6 @@ const InfoEmprendimiento = ({
                             }}
                         />
                     </Grid>
-
-                    {/* <Grid item xs={12} md={6}>
-                        <Controller
-                            defaultValue={data.strRedesSociales}
-                            name="objInfoEmprendimiento.strRedesSociales"
-                            render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
-                                    label="¿Tiene presencia en redes sociales?"
-                                    name={name}
-                                    value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => {
-                                        onChange(e);
-
-                                        handlerChangeData(
-                                            "strRedesSociales",
-                                            e.target.value
-                                        );
-                                    }}
-                                    select
-                                    fullWidth
-                                    variant="standard"
-                                    error={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strRedesSociales
-                                            ? true
-                                            : false
-                                    }
-                                    helperText={
-                                        errors?.objInfoEmprendimiento
-                                            ?.strRedesSociales?.message ||
-                                        "Selecciona si la empresa tiene presencia en redes sociales"
-                                    }
-                                    strGrupo="Lista_Generica"
-                                    strCodigo="SI_NO_N/A"
-                                />
-                            )}
-                            control={control}
-                        />
-                    </Grid> */}
 
                     <Grid item xs={12} md={6}>
                         <Controller
