@@ -203,7 +203,7 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
                         options={{
                             selection: true,
                             selectionProps: (rowData) => ({
-                                disabled: rowData.btAsistio,
+                                disabled: rowData.btAsistio || isPreview,
                                 color: "primary",
                             }),
                             grouping: true,

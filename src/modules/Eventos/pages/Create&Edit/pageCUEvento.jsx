@@ -693,7 +693,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                         validate: (value) => {
                                             if (!value?.arrSedesTarifas?.find((t) => t.intIdSede === data.strSede)
                                             ) {
-                                                return `No existe sede tarifa para este servicio`;
+                                                return `Este servicio no está creado para esta sede`;
                                             }
                                         },
                                     }}

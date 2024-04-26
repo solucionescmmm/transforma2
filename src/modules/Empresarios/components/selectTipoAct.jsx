@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //Hooks
 import usegetTipoAct from "../hooks/usegetTipoAct";
@@ -29,6 +29,16 @@ const SelectTipoAct = ({
     required,
 }) => {
     const { data, refreshGetData } = usegetTipoAct();
+
+    const [objValueInactivo, setObjValueInactivo] = useState(null)
+
+    useEffect(() => {
+        if (value) {
+            const objValue = data?.find((s) => s.intId === value)
+            console.log(objValue)
+            setObjValueInactivo(objValue)
+        }
+    }, [data, value]);
 
     if (data === undefined) {
         return (
@@ -100,11 +110,16 @@ const SelectTipoAct = ({
             fullWidth
             select
         >
+            {disabled ? (
+                <MenuItem value={objValueInactivo?.intId} key={0}>
+                    {objValueInactivo?.strNombre}
+                </MenuItem>
+            ) : null}
             {data.map((e, i) => (
                 e.strNombre !== "Evento" ?
-                <MenuItem value={e.intId} key={i}>
-                    {e.strNombre}
-                </MenuItem> : null
+                    <MenuItem value={e.intId} key={i}>
+                        {e.strNombre}
+                    </MenuItem> : null
             ))}
         </TextField>
     );

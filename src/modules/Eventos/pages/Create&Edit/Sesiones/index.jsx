@@ -82,6 +82,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
 
     const [openModalRegister, setOpenModalRegister] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalPreview, setOpenModalPreview] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalFinalizacion, setOpenModalFinalizacion] = useState(false);
     const [selectedData, setSelectedData] = useState();
@@ -107,6 +108,9 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
 
     const handlerOpenModalEdit = () => {
         setOpenModalEdit(!openModalEdit);
+    };
+    const handlerOpenModalPreview = () => {
+        setOpenModalPreview(!openModalPreview);
     };
 
     const handlerOpenModalFinalizacion = () => {
@@ -143,6 +147,16 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                 intId={selectedData?.intId}
                 intIdEvento={intIdEvento}
                 isEdit
+                refresh={refreshGetData}
+            />
+
+            <ModalCEdit
+                key={"preview"}
+                handleOpenDialog={handlerOpenModalPreview}
+                open={openModalPreview}
+                intId={selectedData?.intId}
+                intIdEvento={intIdEvento}
+                isPreview
                 refresh={refreshGetData}
             />
 
@@ -288,7 +302,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                         ) : (
                                             <EditIcon
                                                 color={
-                                                    rowData.btFinalizada ===
+                                                    rowData.btFinalizado ===
                                                         true || isPreview
                                                         ? "gray"
                                                         : "success"
@@ -297,11 +311,13 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                                             />
                                         )),
                                         tooltip: rowData.btFinalizado === true ? "Visualizar" : "Editar",
-                                        onClick: (event, rowData) => {
+                                        onClick: rowData.btFinalizado === true ? (event, rowData) => {
+                                            setSelectedData(rowData);
+                                            handlerOpenModalPreview();
+                                        }: (event, rowData) => {
                                             setSelectedData(rowData);
                                             handlerOpenModalEdit();
                                         },
-                                        disabled: isPreview
                                     };
                                 }
                             },

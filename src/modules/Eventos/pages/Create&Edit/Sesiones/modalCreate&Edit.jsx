@@ -57,6 +57,7 @@ const ModalCEdit = ({
     refresh,
     intIdEvento,
     isEdit,
+    isPreview,
 }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
@@ -130,12 +131,11 @@ const ModalCEdit = ({
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
+                    url: `${isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_SESIONES_UPDATE
+                                .REACT_APP_API_TRANSFORMA_SESIONES_UPDATE
                             : process.env.REACT_APP_API_TRANSFORMA_SESIONES_SET
-                    }`,
+                        }`,
                     data,
                     headers: {
                         token,
@@ -182,7 +182,7 @@ const ModalCEdit = ({
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        if (isEdit && intId) {
+        if ((isEdit || isPreview) && intId) {
             setLoadingGetData(true);
 
             async function getData() {
@@ -225,7 +225,7 @@ const ModalCEdit = ({
             getData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isEdit, intId]);
+    }, [isEdit, intId, isPreview]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -317,7 +317,8 @@ const ModalCEdit = ({
                                         variant="h6"
                                     >
                                         {isEdit
-                                            ? "EDITAR SESION"
+                                            ? "EDITAR SESION" :
+                                        isPreview ? "PREVISUALIZAR SESION"
                                             : "REGISTRAR SESION"}
                                     </Typography>
                                 </Box>
@@ -344,7 +345,7 @@ const ModalCEdit = ({
                                         value={value}
                                         onChange={(e) => onChange(e)}
                                         required
-                                        disabled={loading}
+                                        disabled={isPreview || loading}
                                         fullWidth
                                         variant="standard"
                                         error={errors?.strNombre ? true : false}
@@ -358,8 +359,8 @@ const ModalCEdit = ({
                                 rules={{
                                     required:
                                         "Por favor, digíta el nombre de la sesion",
-                                    validate:(value)=>{
-                                        if (validator.isLength(value,{min:100})) {
+                                    validate: (value) => {
+                                        if (validator.isLength(value, { min: 100 })) {
                                             return "El número maximo de carácteres es de 100"
                                         }
                                     }
@@ -377,7 +378,7 @@ const ModalCEdit = ({
                                     <DatePicker
                                         label="Fecha de inicio"
                                         value={value}
-                                        disabled={loading}
+                                        disabled={isPreview || loading}
                                         onChange={(date) => onChange(date)}
                                         format="dd/MM/yyyy"
                                         slotProps={{
@@ -413,7 +414,7 @@ const ModalCEdit = ({
                                     <DatePicker
                                         label="Fecha de finalización"
                                         value={value}
-                                        disabled={loading}
+                                        disabled={isPreview || loading}
                                         onChange={(date) => onChange(date)}
                                         format="dd/MM/yyyy"
                                         slotProps={{
@@ -450,7 +451,7 @@ const ModalCEdit = ({
                                         label="Área responsable"
                                         name={name}
                                         value={value}
-                                        disabled={loading}
+                                        disabled={isPreview || loading}
                                         onChange={(_, value) => onChange(value)}
                                         required
                                         error={errors?.strArea ? true : false}
@@ -483,7 +484,7 @@ const ModalCEdit = ({
                                         multiple
                                         name={name}
                                         value={value}
-                                        disabled={loading}
+                                        disabled={isPreview || loading}
                                         onChange={(e, value) => onChange(value)}
                                         fullWidth
                                         variant="standard"
@@ -506,11 +507,12 @@ const ModalCEdit = ({
                             />
                         </Grid>
 
-                        {isEdit && (
+                        {(isEdit || isPreview) && (
                             <Grid item xs={12}>
                                 <ReadAsistencia
                                     intIdSesion={intId}
                                     intIdEvento={intIdEvento}
+                                    isPreview={isPreview}
                                 />
                             </Grid>
                         )}
@@ -529,6 +531,7 @@ const ModalCEdit = ({
                             <LoadingButton
                                 color="primary"
                                 loading={loading}
+                                disabled={isPreview}
                                 type="button"
                                 onClick={handleSubmit(onSubmit)}
                             >
@@ -542,7 +545,7 @@ const ModalCEdit = ({
                                 }}
                                 color="inherit"
                                 type="button"
-                                disabled={loading}
+                                disabled={isPreview || loading}
                             >
                                 cancelar
                             </Button>
