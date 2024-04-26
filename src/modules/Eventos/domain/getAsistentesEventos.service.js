@@ -63,7 +63,7 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
                             strTipoPersona: "Empresaria",
                             objDataAsistente:{
                                 ...objDataEmpresario,
-                                strCorreoElectronico: objDataEmpresario.strCorreoElectronico1
+                                strCorreoElectronico: objDataEmpresario.strCorreoElectronico1 || objDataEmpresario.strCorreoElectronico2
                             }
                         })
                     }
@@ -98,7 +98,7 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
                             intId: array[i].intId,
                             strTipoDocto: objDataAsistente?.strTipoDocto,
                             strNroDocto: objDataAsistente?.strNroDocto,
-                            strCorreoElectronico: objDataAsistente?.strCorreoElectronico1,
+                            strCorreoElectronico: objDataAsistente?.strCorreoElectronico1 || objDataAsistente?.strCorreoElectronico2,
                             strTipoPersona: "Empresaria",
                             strNombre: `${objDataAsistente.strNombres.trim()} ${objDataAsistente.strApellidos.trim()}`,
                             btAsistio: btAsistio ? true : false,
