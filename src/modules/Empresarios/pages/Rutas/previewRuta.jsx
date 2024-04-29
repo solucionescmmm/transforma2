@@ -157,7 +157,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
 
                             <Typography>
                                 <span style={{ color: "#00BAB3" }}>Tipo: </span>
-                                Planeada
+                                {values?.[0]?.objInfoPrincipal?.strTipoRuta}
                             </Typography>
                         </Box>
 
@@ -171,7 +171,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Estado:
                                 </span>
-                                Sin ejecutar
+                                {values?.[0]?.objInfoPrincipal?.strEstadoRuta} 
                             </Typography>
 
                             <Typography>
