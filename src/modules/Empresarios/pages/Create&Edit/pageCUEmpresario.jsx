@@ -332,6 +332,8 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                         data.objInfoEmpresa.dblValorVentasMes,
                                     arrRequisitosLey:
                                         data.objInfoEmpresa.arrRequisitosLey,
+                                    strRut:
+                                        data.objInfoEmpresa.strRut,
                                     strOtrosRequisitosLey:
                                         data.objInfoEmpresa
                                             .strOtrosRequisitosLey,
@@ -606,6 +608,7 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                     arrRequisitosLey:
                                         data.objInfoEmpresa.arrRequisitosLey ||
                                         [],
+                                    strRut: data.objInfoEmpresa?.strRut || "",
                                     strOtrosRequisitosLey:
                                         data.objInfoEmpresa
                                             .strOtrosRequisitosLey || "",

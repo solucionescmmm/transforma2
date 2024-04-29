@@ -77,6 +77,7 @@ const InfoEmpresa = ({
         intNumeroEmpleados: "",
         dblValorVentasMes: "",
         arrRequisitosLey: [],
+        strRut: "",
         strOtrosRequisitosLey: "",
         arrFormasComercializacion: [],
         arrMediosDigitales: [],
@@ -136,6 +137,7 @@ const InfoEmpresa = ({
                 intNumeroEmpleados: values.intNumeroEmpleados || "",
                 dblValorVentasMes: values.valorVentasMes || "",
                 arrRequisitosLey: values.arrRequisitosLey || [],
+                strRut: values.strRut || "",
                 strOtrosRequisitosLey: values.strOtrosRequisitosLey || "",
                 arrFormasComercializacion:
                     values.arrFormasComercializacion || [],
@@ -316,7 +318,7 @@ const InfoEmpresa = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={
                                         data.strEstadoNegocio ===
-                                        "Negocio con ventas realizadas"
+                                            "Negocio con ventas realizadas"
                                             ? true
                                             : disabled
                                     }
@@ -328,7 +330,7 @@ const InfoEmpresa = ({
                                     }
                                     required={
                                         data.strEstadoNegocio ===
-                                        "Idea de negocio"
+                                            "Idea de negocio"
                                             ? true
                                             : false
                                     }
@@ -399,7 +401,7 @@ const InfoEmpresa = ({
                                     format="dd/MM/yyyy"
                                     disabled={
                                         data.strEstadoNegocio ===
-                                        "Idea de negocio"
+                                            "Idea de negocio"
                                             ? true
                                             : disabled
                                     }
@@ -492,14 +494,14 @@ const InfoEmpresa = ({
                                     name={name}
                                     required={
                                         data.strLugarOperacion !==
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : false
                                     }
                                     value={value}
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -523,7 +525,7 @@ const InfoEmpresa = ({
                             rules={{
                                 required:
                                     data.strLugarOperacion ===
-                                    "Desde la vivienda"
+                                        "Desde la vivienda"
                                         ? null
                                         : "Por favor, selecciona el pais de residencia",
                             }}
@@ -540,14 +542,14 @@ const InfoEmpresa = ({
                                     strCodigo="departamentos"
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
                                     name={name}
                                     required={
                                         data.strLugarOperacion !==
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : false
                                     }
@@ -576,7 +578,7 @@ const InfoEmpresa = ({
                             rules={{
                                 required:
                                     data.strLugarOperacion ===
-                                    "Desde la vivienda"
+                                        "Desde la vivienda"
                                         ? null
                                         : "Por favor, selecciona el departamento de residencia",
                             }}
@@ -594,14 +596,14 @@ const InfoEmpresa = ({
                                     name={name}
                                     required={
                                         data.strLugarOperacion !==
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : false
                                     }
                                     value={value}
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -628,7 +630,7 @@ const InfoEmpresa = ({
                             rules={{
                                 required:
                                     data.strLugarOperacion ===
-                                    "Desde la vivienda"
+                                        "Desde la vivienda"
                                         ? null
                                         : "Por favor, selecciona la ciudad de residencia",
                             }}
@@ -645,7 +647,7 @@ const InfoEmpresa = ({
                                     name={name}
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -681,7 +683,7 @@ const InfoEmpresa = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -1158,7 +1160,7 @@ const InfoEmpresa = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Controller
                             defaultValue={data.arrRequisitosLey}
                             name="objInfoEmpresa.arrRequisitosLey"
@@ -1179,6 +1181,30 @@ const InfoEmpresa = ({
                                         errors?.objInfoEmpresa?.arrRequisitosLey
                                             ?.message ||
                                         "Selecciona los requerimientos legales que cumple actualmente"
+                                    }
+                                />
+                            )}
+                            control={control}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strRut}
+                            name="objInfoEmpresa.strRut"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="N° de Identificación del RUT (NIT)"
+                                    name={name}
+                                    value={value}
+                                    disabled={disabled}
+                                    onChange={(e) => onChange(e)}
+                                    fullWidth
+                                    variant="standard"
+                                    error={errors?.objInfoEmpresa?.strRut ? true : false}
+                                    helperText={
+                                        errors?.objInfoEmpresa?.strRut?.message ||
+                                        "Digita el número del RUT"
                                     }
                                 />
                             )}
