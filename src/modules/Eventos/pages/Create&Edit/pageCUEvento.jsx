@@ -780,6 +780,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                     <ReadSesiones
                                         intIdEvento={intId}
                                         isPreview={isPreview}
+                                        values={data}
                                     />
                                 </Grid>
                             )}

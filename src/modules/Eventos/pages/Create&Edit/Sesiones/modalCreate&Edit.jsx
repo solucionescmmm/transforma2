@@ -58,6 +58,7 @@ const ModalCEdit = ({
     intIdEvento,
     isEdit,
     isPreview,
+    values,
 }) => {
     //===============================================================================================================================================
     //========================================== Context ============================================================================================
@@ -78,6 +79,11 @@ const ModalCEdit = ({
     const [errorGetData, setErrorGetData] = useState({
         flag: false,
         msg: "",
+    });
+
+    const [dtmValidations, setDtmValidations] = useState({
+        dtmInicial: null,
+        dtmFinal: null,
     });
 
     const [data, setData] = useState({
@@ -226,6 +232,17 @@ const ModalCEdit = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEdit, intId, isPreview]);
+
+    useEffect(() => {
+        if (values) {
+            console.log(values);
+            setDtmValidations({
+                dtmInicial: values?.dtFechaInicio,
+                dtmFinal: values?.dtFechaFin,
+            })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [values]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -381,6 +398,8 @@ const ModalCEdit = ({
                                         disabled={isPreview || loading}
                                         onChange={(date) => onChange(date)}
                                         format="dd/MM/yyyy"
+                                        minDate={dtmValidations?.dtmInicial}
+                                        maxDate={dtmValidations?.dtmFinal}
                                         slotProps={{
                                             textField: {
                                                 name,
@@ -400,6 +419,15 @@ const ModalCEdit = ({
                                 rules={{
                                     required:
                                         "Por favor, selecciona la fecha de inicio",
+                                    validate:(value)=>{
+                                        if (dtmValidations?.dtmFinal < value) {
+                                            return "La fecha inicial debe ser menor o igual a la fecha de finalización del evento"
+                                        }
+
+                                        if (dtmValidations?.dtmInicial > value) {
+                                            return "La fecha inicial debe ser mayor o igual a la fecha inicial del evento"
+                                        }
+                                    }
                                 }}
                             />
                         </Grid>
@@ -416,6 +444,8 @@ const ModalCEdit = ({
                                         value={value}
                                         disabled={isPreview || loading}
                                         onChange={(date) => onChange(date)}
+                                        minDate={dtmValidations?.dtmInicial}
+                                        maxDate={dtmValidations?.dtmFinal}
                                         format="dd/MM/yyyy"
                                         slotProps={{
                                             textField: {
@@ -436,6 +466,15 @@ const ModalCEdit = ({
                                 rules={{
                                     required:
                                         "Por favor, selecciona la fecha de finalización",
+                                    validate:(value)=>{
+                                        if (dtmValidations?.dtmFinal < value) {
+                                            return "La fecha de finalización debe ser menor o igual a la fecha de finalización del evento"
+                                        }
+
+                                        if (dtmValidations?.dtmInicial > value) {
+                                            return "La fecha de finalización debe ser mayor o igual a la fecha inicial del evento"
+                                        }
+                                    }
                                 }}
                             />
                         </Grid>

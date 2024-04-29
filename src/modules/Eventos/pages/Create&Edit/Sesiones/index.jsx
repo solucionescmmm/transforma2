@@ -43,7 +43,7 @@ import useGetSesiones from "../../../hooks/useGetSesiones";
 import ModalCEdit from "./modalCreate&Edit";
 import { AbilityContext, Can } from "../../../../../common/functions/can";
 
-const ReadSesiones = ({ intIdEvento, isPreview }) => {
+const ReadSesiones = ({ intIdEvento, isPreview, values }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -138,6 +138,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                 intId={selectedData?.intId}
                 intIdEvento={intIdEvento}
                 refresh={refreshGetData}
+                values={values}
             />
 
             <ModalCEdit
@@ -148,6 +149,7 @@ const ReadSesiones = ({ intIdEvento, isPreview }) => {
                 intIdEvento={intIdEvento}
                 isEdit
                 refresh={refreshGetData}
+                values={values}
             />
 
             <ModalCEdit
