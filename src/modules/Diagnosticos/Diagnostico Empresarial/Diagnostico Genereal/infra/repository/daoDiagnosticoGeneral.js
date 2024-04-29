@@ -334,6 +334,7 @@ class daoDiagnosticoGeneral {
                 btGeneraEmpleo                    = COALESCE(${data.btGeneraEmpleo}, btGeneraEmpleo),
                 intNumeroEmpleados                = COALESCE(${data.intNumeroEmpleados}, intNumeroEmpleados),
                 valorVentasMes                    = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
+                strRut                            = COALESCE(${data.strRut}, strRut),
                 strMediosDigitales                = COALESCE(${data.strMediosDigitales}, strMediosDigitales),
                 dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion           = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
