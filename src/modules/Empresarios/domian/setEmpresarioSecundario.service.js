@@ -166,20 +166,21 @@ class setEmpresarioSecundario {
     }
 
     async #updateEmpresario() {
-        let prevData = this.#objData.objEmpresario;
+        let prevData = this.#objData;
 
         let aux_arrPais = JSON.stringify(
-            this.#objData.objEmpresario?.arrPais || null
+            this.#objData?.arrPais || null
         );
         let aux_arrDepartamento = JSON.stringify(
-            this.#objData.objEmpresario?.arrDepartamento || null
+            this.#objData?.arrDepartamento || null
         );
         let aux_arrCiudad = JSON.stringify(
-            this.#objData.objEmpresario?.arrCiudad || null
+            this.#objData?.arrCiudad || null
         );
 
         let newData = {
             ...prevData,
+            intId:this.#objData?.intIdEmpresario,
             strUsuarioActualizacion: this.#objUser.strEmail,
             arrPais: aux_arrPais,
             arrDepartamento: aux_arrDepartamento,
@@ -190,8 +191,9 @@ class setEmpresarioSecundario {
 
         let query = await dao.updateEmpresario(newData);
 
+        console.log(query)
+
         if (query.error) {
-            await this.#rollbackTransaction();
             throw new Error(query.msg);
         }
 

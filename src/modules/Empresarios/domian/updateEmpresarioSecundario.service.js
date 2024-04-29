@@ -107,6 +107,7 @@ class updateEmpresarioSecundario {
 
         let newData = {
             ...prevData,
+            intId:this.#objData?.intIdEmpresario,
             strUsuario: this.#objUser.strEmail,
             arrPais: JSON.stringify(this.#objData?.arrPais || null),
             arrDepartamento: JSON.stringify(

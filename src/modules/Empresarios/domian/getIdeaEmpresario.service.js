@@ -35,7 +35,6 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
         if (arrayData.data.length > 0) {
             let array = arrayData.data.reverse();
             let data = [];
-
             for (let i = 0; i < array.length; i++) {
                 let arrayEmpresario = array[i].objInfoEmpresario
                 let arrayIdeaEmpresario = array[i]?.objInfoIdeaEmpresario;
@@ -124,6 +123,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                     btGrupoAsociativo: array[i]?.objInfoEmpresa[0]?.btGrupoAsociativo,
                     strAsociacionUnidadProdIndividual: array[i]?.objInfoEmpresa[0]?.strAsociacionUnidadProdIndividual,
                     arrRequisitosLey: JSON.parse(array[i].objInfoEmpresa[0]?.strRequisitosLey || null),
+                    strRut:array[i]?.objInfoEmpresa[0]?.strRut,
                     strOtrosRequisitosLey: array[i]?.objInfoEmpresa[0]?.strOtrosRequisitosLey,
                     dtmActualizacion: array[i]?.objInfoEmpresa[0]?.dtmActualizacion,
                     strUsuario: array[i]?.objInfoEmpresa[0]?.strUsuario,
