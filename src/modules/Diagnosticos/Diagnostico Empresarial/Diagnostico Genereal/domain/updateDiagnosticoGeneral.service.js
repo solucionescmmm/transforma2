@@ -147,7 +147,7 @@ class updateDiagnosticoGeneral {
             strDlloAcitividadesContratados: this.#objData?.objInfoPerfilEco?.strDlloAcitividadesContratados,
             strPromedioTiempoInvertido: this.#objData?.objInfoPerfilEco?.strPromedioTiempoInvertido,
             strDiasProduccion: this.#objData?.objInfoPerfilEco?.strDiasProduccion,
-            strGeneraEmpleoRiesgoPobreza: this.#objData?.objInfoPerfilEco?.strGeneraEmpleoRiesgoPobreza,
+            strGeneraEmpleoRiesgoPobreza: JSON.stringify(this.#objData?.objInfoPerfilEco?.strGeneraEmpleoRiesgoPobreza),
             strActivos: this.#objData?.objInfoPerfilEco?.strActivos,
             dblValorActivos: this.#objData?.objInfoPerfilEco?.dblValorActivos,
             dblValorGananciasMes: this.#objData?.objInfoPerfilEco?.dblValorGananciasMes,
