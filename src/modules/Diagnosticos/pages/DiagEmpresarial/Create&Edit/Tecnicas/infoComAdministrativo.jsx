@@ -264,40 +264,71 @@ const InfoComMercadeo = ({
                 strUniProdGenEmple: values.strUniProdGenEmple || "",
                 strUniProdGenEmpleDetalle:
                     values.strUniProdGenEmpleDetalle || "",
+                strUniProdGenEmpleNivel: values.strUniProdGenEmpleNivel || "",
+
                 strEquipTrabEstruct: values.strEquipTrabEstruct || "",
                 strEquipTrabEstructDetalle:
                     values.strEquipTrabEstructDetalle || "",
+                strEquipTrabEstructNivel: values.strEquipTrabEstructNivel || "",
+
                 strEstrucFormaOrganiza: values.strEstrucFormaOrganiza || "",
                 strEstrucFormaOrganizaDetalle:
                     values.strEstrucFormaOrganizaDetalle || "",
+                strEstrucFormaOrganizaNivel:
+                    values.strEstrucFormaOrganizaNivel || "",
+
                 strElabPlanTrabActiv: values.strElabPlanTrabActiv || "",
                 strElabPlanTrabActivDetalle:
                     values.strElabPlanTrabActivDetalle || "",
+                strElabPlanTrabActivNivel:
+                    values.strElabPlanTrabActivNivel || "",
+
                 strReaEvalPerioEquipTrab: values.strReaEvalPerioEquipTrab || "",
                 strReaEvalPerioEquipTrabDetalle:
                     values.strReaEvalPerioEquipTrabDetalle || "",
+                strReaEvalPerioEquipTrabNivel:
+                    values.strReaEvalPerioEquipTrabNivel || "",
+
                 strEmprFormaAcuerNormLab: values.strEmprFormaAcuerNormLab || "",
                 strEmprFormaAcuerNormLabDetalle:
                     values.strEmprFormaAcuerNormLabDetalle || "",
+                strEmprFormaAcuerNormLabNivel:
+                    values.strEmprFormaAcuerNormLabNivel || "",
+
                 strEmprFormaReqLey: values.strEmprFormaReqLey || "",
                 strEmprFormaReqLeyDetalle:
                     values.strEmprFormaReqLeyDetalle || "",
+                strEmprFormaReqLeyNivel: values.strEmprFormaReqLeyNivel || "",
+
                 strPlaneaEstraEmpPlanPlani:
                     values.strPlaneaEstraEmpPlanPlani || "",
                 strPlaneaEstraEmpPlanPlaniDetalle:
                     values.strPlaneaEstraEmpPlanPlaniDetalle || "",
+                strPlaneaEstraEmpPlanPlaniNivel:
+                    values.strPlaneaEstraEmpPlanPlaniNivel || "",
+
                 strMidConstCumpliMetObj: values.strMidConstCumpliMetObj || "",
                 strMidConstCumpliMetObjDetalle:
                     values.strMidConstCumpliMetObjDetalle || "",
+                strMidConstCumpliMetObjNivel:
+                    values.strMidConstCumpliMetObjNivel || "",
+
                 strCueAcompJuri: values.strCueAcompJuri || "",
                 strCueAcompJuriDetalle: values.strCueAcompJuriDetalle || "",
+                strCueAcompJuriNivel: values.strCueAcompJuriNivel || "",
             });
         }
 
         setLoading(false);
     }, [values]);
 
-
+    const getNameWithoutNivel = (name) => {
+        const propertyName = name.replace(/^objInfoComAdministrativo\./, '');
+        if (propertyName.endsWith("Nivel")) {
+            return propertyName.slice(0, -5);
+        }
+        return propertyName;
+    };
 
     const handlerChangeData = (key, value) => {
         setData((prevState) => ({
@@ -312,6 +343,7 @@ const InfoComMercadeo = ({
                 item
                 xs={12}
                 md={label === "Detalle" ? 3 : label === "Nivel" ? 2 : 7}
+                key={name}
             >
                 <Controller
                     name={`objInfoComAdministrativo.${name}`}
@@ -343,7 +375,7 @@ const InfoComMercadeo = ({
                                 label={label}
                                 name={name}
                                 value={value}
-                                valueList={data[name]}
+                                valueList={data[getNameWithoutNivel(name)]}
                                 onChange={(e) => onChange(e)}
                                 error={
                                     errors?.objInfoComAdministrativo?.[name]
@@ -365,7 +397,7 @@ const InfoComMercadeo = ({
                                 disabled={disabled}
                                 onChange={(e) => {
                                     onChange(e);
-                                    handlerChangeData(strGrupo, e.target.value);
+                                    handlerChangeData(getNameWithoutNivel(name), e.target.value);
                                 }}
                                 error={
                                     errors?.objInfoComAdministrativo?.[name]

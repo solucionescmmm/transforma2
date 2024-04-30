@@ -132,7 +132,13 @@ const InfoComMercadeo = ({
         setLoading(false);
     }, [values]);
 
-  
+    const getNameWithoutNivel = (name) => {
+        const propertyName = name.replace(/^objInfoComAsociativo\./, "");
+        if (propertyName.endsWith("Nivel")) {
+            return propertyName.slice(0, -5);
+        }
+        return propertyName;
+    };
 
     const handlerChangeData = (key, value) => {
         setData((prevState) => ({
@@ -178,7 +184,7 @@ const InfoComMercadeo = ({
                                 label={label}
                                 name={name}
                                 value={value}
-                                valueList={data[name]}
+                                valueList={data[getNameWithoutNivel(name)]}
                                 onChange={(e) => onChange(e)}
                                 error={
                                     errors?.objInfoComAsociativo?.[name]
@@ -200,7 +206,10 @@ const InfoComMercadeo = ({
                                 disabled={disabled}
                                 onChange={(e) => {
                                     onChange(e);
-                                    handlerChangeData(strGrupo, e.target.value);
+                                    handlerChangeData(
+                                        getNameWithoutNivel(name),
+                                        e.target.value
+                                    );
                                 }}
                                 error={
                                     errors?.objInfoComAsociativo?.[name]
