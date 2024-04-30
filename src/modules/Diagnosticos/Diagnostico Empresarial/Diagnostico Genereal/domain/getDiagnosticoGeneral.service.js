@@ -111,8 +111,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     strRolesEmprendimiento: JSON.parse(array[i]?.strRolesEmprendimiento || ""),
                     strDiasProduccion: array[i]?.strDiasProduccion,
                     intMargenRentabilidad: array[i]?.intMargenRentabilidad,
-                    strGeneraEmpleoRiesgoPobreza:
-                        array[i]?.strGeneraEmpleoRiesgoPobreza,
+                    strGeneraEmpleoRiesgoPobreza: JSON.parse(array[i]?.strGeneraEmpleoRiesgoPobreza || ""),
                     dblValorGananciasMes: array[i]?.ValorGananciasMes,
                     strActivos: array[i]?.strActivos,
                     dblValorActivos: array[i]?.ValorActivos,
