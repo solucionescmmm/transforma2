@@ -115,7 +115,7 @@ class daoDiagnosticoExpress {
                 strActivIncreVentClient,
                 strPlanAtraccionRelacionamientoFidelizacionClientes,
                 strEquipTrabEstruct,
-                PrecProdServDef,
+                strPrecProdServDef,
                 strEmprFormaAcuerNormLab,
                 strPlaneaEstraEmpPlanPlani,
                 dtmFechaSesion,
@@ -284,7 +284,7 @@ class daoDiagnosticoExpress {
                 strActivIncreVentClient = COALESCE(${data.strActivIncreVentClient}, strActivIncreVentClient),
                 strPlanAtraccionRelacionamientoFidelizacionClientes = COALESCE(${data.strPlanAtraccionRelacionamientoFidelizacionClientes}, strPlanAtraccionRelacionamientoFidelizacionClientes),
                 strEquipTrabEstruct = COALESCE(${data.strEquipTrabEstruct}, strEquipTrabEstruct),
-                PrecProdServDef = COALESCE(${data.strPrecProdServ}, PrecProdServDef),
+                strPrecProdServDef = COALESCE(${data.strPrecProdServ}, strPrecProdServDef),
                 strEmprFormaAcuerNormLab = COALESCE(${data.strEmprFormaAcuerNormLab}, strEmprFormaAcuerNormLab),
                 strPlaneaEstraEmpPlanPlani = COALESCE(${data.strPlaneaEstraEmpPlanPlani}, strPlaneaEstraEmpPlanPlani),
                 dtmActualizacion = COALESCE(GETDATE(), dtmActualizacion),
@@ -511,7 +511,7 @@ class daoDiagnosticoExpress {
             strActivIncreVentClient,
             strPlanAtraccionRelacionamientoFidelizacionClientes,
             strEquipTrabEstruct,
-            PrecProdServDef,
+            strPrecProdServDef,
             strEmprFormaAcuerNormLab,
             strPlaneaEstraEmpPlanPlani
 

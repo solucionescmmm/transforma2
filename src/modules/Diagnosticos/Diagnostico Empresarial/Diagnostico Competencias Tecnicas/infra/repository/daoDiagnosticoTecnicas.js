@@ -71,10 +71,10 @@ class daoDiagnosticoTecnicas {
                 ${data.strProcManAmbiProdDetalle},
                 ${data.strUniProdSosFinan},
                 ${data.strUniProdSosFinanDetalle},
-                ${data.EstrCosUniProdDef},
-                ${data.EstrCosUniProdDefDetalle},
-                ${data.PrecProdServDef},
-                ${data.PrecProdServDefDetalle},
+                ${data.strEstrCosUniProdDef},
+                ${data.strEstrCosUniProdDefDetalle},
+                ${data.strPrecProdServDef},
+                ${data.strPrecProdServDefDetalle},
                 ${data.strDefProcConUniProd},
                 ${data.strDefProcConUniProdDetalle},
                 ${data.strElabPresUniProd},
@@ -176,7 +176,8 @@ class daoDiagnosticoTecnicas {
 
             UPDATE tbl_DiagnosticoCompetenciasTecnicas
 
-            SET strCaractEmpresaComp = COALESCE(${data.strCaractEmpresaComp},strCaractEmpresaComp),
+            SET 
+                strCaractEmpresaComp = COALESCE(${data.strCaractEmpresaComp},strCaractEmpresaComp),
                 strCaractEmpresaCompDetalle = COALESCE(${data.strCaractEmpresaCompDetalle},strCaractEmpresaCompDetalle),
                 strAnalizoObjetivoEmpresa = COALESCE(${data.strAnalizoObjetivoEmpresa},strAnalizoObjetivoEmpresa),
                 strAnalizoObjetivoEmpresaDetalle = COALESCE(${data.strAnalizoObjetivoEmpresaDetalle},strAnalizoObjetivoEmpresaDetalle),
@@ -228,6 +229,10 @@ class daoDiagnosticoTecnicas {
                 strProcManAmbiProdDetalle = COALESCE(${data.strProcManAmbiProdDetalle},strProcManAmbiProdDetalle),
                 strUniProdSosFinan = COALESCE(${data.strUniProdSosFinan},strUniProdSosFinan),
                 strUniProdSosFinanDetalle = COALESCE(${data.strUniProdSosFinanDetalle},strUniProdSosFinanDetalle),
+                strEstrCosUniProdDef = COALESCE(${data.strEstrCosUniProdDef},strEstrCosUniProdDef),
+                strEstrCosUniProdDefDetalle = COALESCE(${data.strEstrCosUniProdDefDetalle},strEstrCosUniProdDefDetalle),
+                strPrecProdServDef = COALESCE(${data.strPrecProdServDef},strPrecProdServDef),
+                strPrecProdServDefDetalle = COALESCE(${data.strPrecProdServDefDetalle},strPrecProdServDefDetalle),
                 strDefProcConUniProd = COALESCE(${data.strDefProcConUniProd},strDefProcConUniProd),
                 strDefProcConUniProdDetalle = COALESCE(${data.strDefProcConUniProdDetalle},strDefProcConUniProdDetalle),
                 strElabPresUniProd = COALESCE(${data.strElabPresUniProd},strElabPresUniProd),

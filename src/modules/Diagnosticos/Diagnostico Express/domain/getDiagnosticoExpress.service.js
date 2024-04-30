@@ -86,7 +86,7 @@ const getDiagnosticoExpress = async (objParams, strDataUser) => {
                     strRangoEmpleados: array[i]?.strRangoEmpleados,
                     strEtapaDllo: array[i]?.strEtapaDllo,
                     strOperacionesVentas6Meses: array[i]?.strOperacionesVentas6Meses,
-                    strPrecProdServ: array[i]?.PrecProdServDef,
+                    strPrecProdServ: array[i]?.strPrecProdServDef,
                     strUniProdSosFinan:array[i]?.strUniProdSosFinan,
                 };
                 let objInfoMercado = {
