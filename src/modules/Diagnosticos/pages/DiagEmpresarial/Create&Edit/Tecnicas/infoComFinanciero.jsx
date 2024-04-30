@@ -45,6 +45,42 @@ export const propiedades = [
         strCodigo: "UniProdSosFinan",
     },
     {
+        nombre: "strEstrCosUniProdDef",
+        label: "La estructura de costos de mi empresa está definida",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "EstrCosUniProdDef",
+    },
+    {
+        nombre: "strEstrCosUniProdDefDetalle",
+        label: "Detalle",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "EstrCosUniProdDef",
+    },
+    {
+        nombre: "strEstrCosUniProdDefNivel",
+        label: "Nivel",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "EstrCosUniProdDef",
+    },
+    {
+        nombre: "strPrecProdServDef",
+        label: "Los precios de mis productos/servicios están definidos",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "PrecProdServDef",
+    },
+    {
+        nombre: "strPrecProdServDefDetalle",
+        label: "Detalle",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "PrecProdServDef",
+    },
+    {
+        nombre: "strPrecProdServDefNivel",
+        label: "Nivel",
+        strGrupo: "DiagnosticoTecnico",
+        strCodigo: "PrecProdServDef",
+    },
+    {
         nombre: "strDefProcConUniProd",
         label: "Tengo definidos los procesos contables de mi unidad productiva",
         strGrupo: "DiagnosticoTecnico",
