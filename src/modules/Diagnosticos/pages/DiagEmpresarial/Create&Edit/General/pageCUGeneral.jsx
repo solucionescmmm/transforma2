@@ -430,6 +430,9 @@ const PageCUGeneral = ({
                                     "",
                                 strDescProductosServicios: dataEmpr.objInfoEmpresa.strDescProductosServicios,
                             },
+                            objInfoEmpresa:{
+                                strRut: dataEmpr?.objInfoEmpresa?.strRut,
+                            },
                             objInfoPerfilEco: {
                                 dblValorVentasMes: dataEmpr.objInfoEmpresa.valorVentasMes || "",
                                 intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados || 0,
@@ -551,6 +554,9 @@ const PageCUGeneral = ({
                                         ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
                                         : "",
                             },
+                            objInfoEmpresa:{
+                                strRut: dataEmpr?.objInfoEmpresa?.strRut,
+                            },
                             objInfoPerfilEco: {
                                 dblValorVentasMes: dataEmpr.objInfoEmpresa.valorVentasMes || "",
                                 intNumeroEmpleados: dataEmpr.objInfoEmpresa.intNumeroEmpleados || "",
@@ -649,6 +655,7 @@ const PageCUGeneral = ({
                                             : null,
                                     },
                                     objInfoEmpresa: {
+                                        ...data.objInfoEmpresa,
                                         ...dataDiagn.objInfoEmpresa,
                                     },
                                     objInfoPerfilEco: {
@@ -715,6 +722,7 @@ const PageCUGeneral = ({
                                             : null,
                                     },
                                     objInfoEmpresa: {
+                                        ...data.objInfoEmpresa,
                                         ...dataDiagn.objInfoEmpresa,
                                     },
                                     objInfoPerfilEco: {
