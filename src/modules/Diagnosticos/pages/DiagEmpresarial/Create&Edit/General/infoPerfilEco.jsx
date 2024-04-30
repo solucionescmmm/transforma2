@@ -52,7 +52,7 @@ const InfoPerfilEco = ({
         strPromedioTiempoInvertido: "",
         strRolesEmprendimiento: [],
         strDiasProduccion: "",
-        strGeneraEmpleoRiesgoPobreza: "",
+        strGeneraEmpleoRiesgoPobreza: [],
         strActivos: "",
         dblValorActivos: "",
         dblValorGananciasMes: "",
@@ -96,7 +96,7 @@ const InfoPerfilEco = ({
                 strRolesEmprendimiento: values.strRolesEmprendimiento || [],
                 strDiasProduccion: values.strDiasProduccion || "",
                 strGeneraEmpleoRiesgoPobreza:
-                    values.strGeneraEmpleoRiesgoPobreza || "",
+                    values.strGeneraEmpleoRiesgoPobreza || [],
                 strActivos: values.strActivos || "",
                 dblValorActivos: values.dblValorActivos || "",
                 dblValorGananciasMes: values.dblValorGananciasMes || "",
@@ -1215,14 +1215,15 @@ const InfoPerfilEco = ({
                             defaultValue={data.strGeneraEmpleoRiesgoPobreza}
                             name="objInfoPerfilEco.strGeneraEmpleoRiesgoPobreza"
                             render={({ field: { name, value, onChange } }) => (
-                                <SelectListas
+                                <DropdownLista
                                     label="¿Genera empleo o ingresos para personas que se encuentren en riesgo de pobreza o de exclusión social?"
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e, value) => onChange(value)}
                                     fullWidth
                                     required
+                                    multiple
                                     variant="standard"
                                     error={
                                         errors?.objInfoPerfilEco
