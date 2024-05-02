@@ -2377,113 +2377,6 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={7}>
                                 <Controller
-                                    name="objInfoCategoria1.strEmpaqueEtiqueta"
-                                    defaultValue={data.strEmpaqueEtiqueta}
-                                    render={({
-                                        field: { name, onChange, value },
-                                    }) => (
-                                        <SelectListas
-                                            label="Empaque, Envase y Etiqueta"
-                                            name={name}
-                                            value={value}
-                                            disabled={disabled}
-                                            onChange={(e) => {
-                                                onChange(e);
-                                                handlerChangeData(
-                                                    "strEmpaqueEtiqueta",
-                                                    e.target.value
-                                                );
-                                            }}
-                                            error={
-                                                errors?.objInfoCategoria1
-                                                    ?.strEmpaqueEtiqueta
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoCategoria1
-                                                    ?.strEmpaqueEtiqueta
-                                                    ?.message ||
-                                                "Seleccione una opción"
-                                            }
-                                            strGrupo="DiagnosticoProducto"
-                                            strCodigo="EmpaqueEnvaseEtiquetaExperiencia"
-                                        />
-                                    )}
-                                    control={control}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={3}>
-                                <Controller
-                                    name="objInfoCategoria1.strEmpaqueEtiquetaDetalle"
-                                    defaultValue={
-                                        data.strEmpaqueEtiquetaDetalle
-                                    }
-                                    render={({
-                                        field: { name, onChange, value },
-                                    }) => (
-                                        <TextField
-                                            label="Detalle"
-                                            name={name}
-                                            value={value}
-                                            disabled={disabled}
-                                            onChange={(e) => onChange(e)}
-                                            error={
-                                                errors?.objInfoCategoria1
-                                                    ?.strEmpaqueEtiquetaDetalle
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoCategoria1
-                                                    ?.strEmpaqueEtiquetaDetalle
-                                                    ?.message ||
-                                                "Digite el detalle en caso de que aplique"
-                                            }
-                                            fullWidth
-                                            variant="standard"
-                                            multiline
-                                        />
-                                    )}
-                                    control={control}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={2}>
-                                <Controller
-                                    name="objInfoCategoria1.strEmpaqueEtiquetaNivel"
-                                    defaultValue={data.strEmpaqueEtiquetaNivel}
-                                    render={({
-                                        field: { name, onChange, value },
-                                    }) => (
-                                        <SelectListasNivel
-                                            label="Nivel"
-                                            name={name}
-                                            value={value}
-                                            valueList={data.strEmpaqueEtiqueta}
-                                            onChange={(e) => onChange(e)}
-                                            error={
-                                                errors?.objInfoCategoria1
-                                                    ?.strEmpaqueEtiquetaNivel
-                                                    ? true
-                                                    : false
-                                            }
-                                            helperText={
-                                                errors?.objInfoCategoria1
-                                                    ?.strEmpaqueEtiquetaNivel
-                                                    ?.message || "Nivel"
-                                            }
-                                            strGrupo="DiagnosticoProducto"
-                                            strCodigo="EmpaqueEnvaseEtiquetaExperiencia"
-                                        />
-                                    )}
-                                    control={control}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={7}>
-                                <Controller
                                     name="objInfoCategoria1.strUsabilidad"
                                     defaultValue={data.strUsabilidad}
                                     render={({
@@ -2691,6 +2584,113 @@ const InfoCategoria1 = ({
                                             }
                                             strGrupo="DiagnosticoProducto"
                                             strCodigo="DiseñoExperiencia"
+                                        />
+                                    )}
+                                    control={control}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} md={7}>
+                                <Controller
+                                    name="objInfoCategoria1.strEmpaqueEtiqueta"
+                                    defaultValue={data.strEmpaqueEtiqueta}
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListas
+                                            label="Empaque, Envase y Etiqueta"
+                                            name={name}
+                                            value={value}
+                                            disabled={disabled}
+                                            onChange={(e) => {
+                                                onChange(e);
+                                                handlerChangeData(
+                                                    "strEmpaqueEtiqueta",
+                                                    e.target.value
+                                                );
+                                            }}
+                                            error={
+                                                errors?.objInfoCategoria1
+                                                    ?.strEmpaqueEtiqueta
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.objInfoCategoria1
+                                                    ?.strEmpaqueEtiqueta
+                                                    ?.message ||
+                                                "Seleccione una opción"
+                                            }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="EmpaqueEnvaseEtiquetaExperiencia"
+                                        />
+                                    )}
+                                    control={control}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} md={3}>
+                                <Controller
+                                    name="objInfoCategoria1.strEmpaqueEtiquetaDetalle"
+                                    defaultValue={
+                                        data.strEmpaqueEtiquetaDetalle
+                                    }
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <TextField
+                                            label="Detalle"
+                                            name={name}
+                                            value={value}
+                                            disabled={disabled}
+                                            onChange={(e) => onChange(e)}
+                                            error={
+                                                errors?.objInfoCategoria1
+                                                    ?.strEmpaqueEtiquetaDetalle
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.objInfoCategoria1
+                                                    ?.strEmpaqueEtiquetaDetalle
+                                                    ?.message ||
+                                                "Digite el detalle en caso de que aplique"
+                                            }
+                                            fullWidth
+                                            variant="standard"
+                                            multiline
+                                        />
+                                    )}
+                                    control={control}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} md={2}>
+                                <Controller
+                                    name="objInfoCategoria1.strEmpaqueEtiquetaNivel"
+                                    defaultValue={data.strEmpaqueEtiquetaNivel}
+                                    render={({
+                                        field: { name, onChange, value },
+                                    }) => (
+                                        <SelectListasNivel
+                                            label="Nivel"
+                                            name={name}
+                                            value={value}
+                                            valueList={data.strEmpaqueEtiqueta}
+                                            onChange={(e) => onChange(e)}
+                                            error={
+                                                errors?.objInfoCategoria1
+                                                    ?.strEmpaqueEtiquetaNivel
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                errors?.objInfoCategoria1
+                                                    ?.strEmpaqueEtiquetaNivel
+                                                    ?.message || "Nivel"
+                                            }
+                                            strGrupo="DiagnosticoProducto"
+                                            strCodigo="EmpaqueEnvaseEtiquetaExperiencia"
                                         />
                                     )}
                                     control={control}

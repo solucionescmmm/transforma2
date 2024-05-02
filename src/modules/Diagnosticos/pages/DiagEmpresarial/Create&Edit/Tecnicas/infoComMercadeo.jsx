@@ -134,24 +134,24 @@ export const propiedades = [
         strGrupo: "DiagnosticoTecnico",
         strCodigo: "DefiniPortProd",
     },
-    {
-        nombre: "strNumLugMedComerProd",
-        label: "El número de lugares y medios en los que comercializo mis productos es",
-        strGrupo: "DiagnosticoTecnico",
-        strCodigo: "NumLugMedComerProd",
-    },
-    {
-        nombre: "strNumLugMedComerProdDetalle",
-        label: "Detalle",
-        strGrupo: "DiagnosticoTecnico",
-        strCodigo: "NumLugMedComerProd",
-    },
-    {
-        nombre: "strNumLugMedComerProdNivel",
-        label: "Nivel",
-        strGrupo: "DiagnosticoTecnico",
-        strCodigo: "NumLugMedComerProd",
-    },
+    // {
+    //     nombre: "strNumLugMedComerProd",
+    //     label: "El número de lugares y medios en los que comercializo mis productos es",
+    //     strGrupo: "DiagnosticoTecnico",
+    //     strCodigo: "NumLugMedComerProd",
+    // },
+    // {
+    //     nombre: "strNumLugMedComerProdDetalle",
+    //     label: "Detalle",
+    //     strGrupo: "DiagnosticoTecnico",
+    //     strCodigo: "NumLugMedComerProd",
+    // },
+    // {
+    //     nombre: "strNumLugMedComerProdNivel",
+    //     label: "Nivel",
+    //     strGrupo: "DiagnosticoTecnico",
+    //     strCodigo: "NumLugMedComerProd",
+    // },
     {
         nombre: "strPartiRedesEmpreComer",
         label: "Pertenezco y participo en redes empresariales para la comercialización",
