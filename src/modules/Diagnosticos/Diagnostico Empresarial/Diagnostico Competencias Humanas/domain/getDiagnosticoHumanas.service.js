@@ -87,13 +87,18 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strRedesApoyoPropia: array[i]?.strRedesApoyoPropia,
                     strObservaciones: array[i]?.strObservaciones
                 }
+                
+                let objInfoAdicional = {
+                    strObservaciones: array[i]?.strObservaciones
+                }
 
                 let objResultDiagnosticoHumanas = arrayResultDiagnosticoHumanas?.data
 
                 data[i] = {
                     objInfoGeneral,
                     objInfoEncuestaHumanas,
-                    objResultDiagnosticoHumanas
+                    objResultDiagnosticoHumanas,
+                    objInfoAdicional
                 };
             }
             let result = {
