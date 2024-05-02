@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 //Librerias
-import { matchSorter } from "match-sorter";
+//import { matchSorter } from "match-sorter";
 
 //Hooks
 import useGetEmpresarios from "../hooks/useGetEmpresarios";
@@ -23,6 +23,7 @@ import {
     Tooltip,
     IconButton,
     Checkbox,
+    createFilterOptions
 } from "@mui/material";
 
 //Iconos
@@ -33,10 +34,15 @@ import {
 } from "@mui/icons-material";
 
 //Filtro personalizado
-const filterOptions = (options, { inputValue }) =>
-    matchSorter(options, inputValue, {
-        keys: ["strNombres", "strApellidos", "strNroDocto", "strCorreoElectronico1"],
-    });
+// const filterOptions = (options, { inputValue }) =>
+//     matchSorter(options, inputValue, {
+//         keys: ["strNombres", "strApellidos", "strNroDocto", "strCorreoElectronico1"],
+// });
+
+const filterLimits = createFilterOptions({
+    limit: 50
+})
+
 
 const DropdownEmpresarios = ({
     id,
@@ -127,7 +133,7 @@ const DropdownEmpresarios = ({
             disabled={disabled}
             fullWidth
             multiple={multiple}
-            filterOptions={filterOptions}
+            filterOptions={filterLimits}
             disableCloseOnSelect={multiple ? true : false}
             renderInput={(props) => (
                 <TextField
