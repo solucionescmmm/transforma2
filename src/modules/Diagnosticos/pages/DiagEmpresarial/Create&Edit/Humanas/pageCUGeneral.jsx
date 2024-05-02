@@ -224,6 +224,7 @@ const PageCUGeneral = ({
                                 },
                                 objInfoEncuestaHumanas: {
                                     ...data.objInfoEncuestaHumanas,
+                                    ...data.objInfoAdicional,
                                 },
                             };
 

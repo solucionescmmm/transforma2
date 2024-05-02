@@ -115,8 +115,8 @@ const InfoAdicional = ({
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12}>
                         <Controller
-                            defaultValue={data.strConclusiones}
-                            name="objInfoAdicional.strConclusiones"
+                            defaultValue={data.strObservaciones}
+                            name="objInfoAdicional.strObservaciones"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
                                     label="Conclusiones y observaciones"
@@ -131,13 +131,13 @@ const InfoAdicional = ({
                                     variant="outlined"
                                     error={
                                         errors?.objInfoAdicional
-                                            ?.strConclusiones
+                                            ?.strObservaciones
                                             ? true
                                             : false
                                     }
                                     helperText={
                                         errors?.objInfoAdicional
-                                            ?.strConclusiones?.message ||
+                                            ?.strObservaciones?.message ||
                                         "Digita detalladamente tu respuesta"
                                     }
                                 />
