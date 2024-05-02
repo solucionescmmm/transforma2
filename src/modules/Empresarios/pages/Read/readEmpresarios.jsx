@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useState } from "react";
 
 //Hooks
-import useGetEmpresarios from "../../hooks/useGetEmpresarios";
+import useGetEmpresarios from "../../hooks/useGetEmpresariosTabla";
 
 //Librerias
 import { Link as RouterLink, useHistory } from "react-router-dom";
@@ -73,31 +73,21 @@ const ReadSolicitudesUser = () => {
             title: "Foto",
             render: (rowData) => (
                 <Avatar
-                    alt={
-                        rowData.objEmpresario
-                            ?.filter((p) => p.strTipoEmpresario === "Principal")
-                            ?.at(0)?.strNombres +
-                        rowData.objEmpresario
-                            ?.filter((p) => p.strTipoEmpresario === "Principal")
-                            ?.at(0)?.strApellidos
-                    }
+                    alt={rowData?.strNombreCompleto}
                     src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
-                        }${process.env.REACT_APP_API_BACK_PORT}${rowData.objEmpresario
-                            .filter((p) => p.strTipoEmpresario === "Principal")
-                            ?.at(0)?.strUrlFileFoto
-                        }`}
+                        }${process.env.REACT_APP_API_BACK_PORT}${rowData?.strUrlFileFoto}`}
                 />
             ),
             width: "0%",
         },
         {
             title: "Representante",
-            field: "objEmpresario[0].strNombreCompleto",
+            field: "strNombreCompleto",
             type: "string",
         },
         {
             title: "Documento del representante",
-            field: "objEmpresario[0].strNroDocto",
+            field: "strNroDocto",
             type: "string",
         },
         {
@@ -107,17 +97,24 @@ const ReadSolicitudesUser = () => {
         },
         {
             title: "Sede",
-            field: "objEmpresario[0].strSede",
+            field: "strSede",
             type: "string",
         },
         {
+            title: "secundarios",
+            field: "JsonEmpresario",
+            type: "string",
+            hidden: true,
+            searchable: true
+        },
+        {
             title: "Fecha de vinculación",
-            field: "objEmpresario[0].dtFechaVinculacion",
+            field: "dtFechaVinculacion",
             type: "date",
         },
         {
             title: "Estado Vinculación",
-            field: "objEmpresario[0].strEstadoVinculacion",
+            field: "strEstadoVinculacion",
             type: "string",
         },
     ]);
