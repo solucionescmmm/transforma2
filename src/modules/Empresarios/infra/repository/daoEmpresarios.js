@@ -556,7 +556,7 @@ class daoEmpresarios {
         }
     }
 
-    async sp_SetInfoPrincipalIdea(data){
+    async sp_SetInfoPrincipalIdea(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
 
@@ -564,7 +564,7 @@ class daoEmpresarios {
                 .request()
                 .input("p_intIdIdea", sql.Int, data.intIdIdea)
                 .execute("sp_SetInfoPrincipalIdea");
-            
+
             let result = {
                 error: false,
                 data: response.recordsets[0]
@@ -603,7 +603,7 @@ class daoEmpresarios {
             let result = {
                 error: false,
                 data: response.recordset[0],
-                msg:`Se interrumpio la comunicación con el empresario ${response.recordset[0]?.strNombres} ${response.recordset[0]?.strApellidos}`,
+                msg: `Se interrumpio la comunicación con el empresario ${response.recordset[0]?.strNombres} ${response.recordset[0]?.strApellidos}`,
             };
 
             sql.close(conexion);
@@ -1031,6 +1031,235 @@ class daoEmpresarios {
         }
     }
 
+    async getLastEmpresario() {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            
+            SELECT TOP (10)
+            Idea.intId,
+            Idea.strNombre,
+            Idea.intIdEstado,
+            Idea.intIdSede,
+            Idea.strModalidadIngreso,
+            Idea.dtFechaVinculacion,
+            Idea.intIdEstadoVinculacion,
+            Idea.strTipoVinculacion,
+            Idea.dtmCreacion,
+            Idea.strUsuarioCreacion,
+            Idea.dtmActualizacion,
+            Idea.strUsuarioActualizacion,
+            EstadoVinculacion.strNombre as strEstadoVinculacion,
+            (
+                SELECT
+
+                IdeaEmpresario.intId,
+                IdeaEmpresario.intIdIdea,
+                IdeaEmpresario.intIdEmpresario,
+                IdeaEmpresario.intIdTipoEmpresario,
+                IdeaEmpresario.strTipoRelacionPrincipal,
+                IdeaEmpresario.dtFechaInicio,
+                IdeaEmpresario.dtFechaFin,
+                IdeaEmpresario.intIdEstado,
+                IdeaEmpresario.strModalidadIngreso,
+                IdeaEmpresario.dtFechaVinculacion,
+                IdeaEmpresario.strTipoVinculacion,
+                IdeaEmpresario.intIdEstadoVinculacionEmpresario,
+                IdeaEmpresario.dtmCreacion,
+                IdeaEmpresario.strUsuarioCreacion,
+                IdeaEmpresario.dtmActualizacion,
+                IdeaEmpresario.strUsuarioActualizacion,
+                Tipo.strNombre as strTipoEmpresario,
+                Estados.strNombre as strEstado,
+                EstadosVinculacion.strNombre as strEstadoVinculacion
+
+                FROM tbl_Idea_Empresario IdeaEmpresario
+
+                INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+                LEFT JOIN tbl_EstadoVinculacion EstadosVinculacion ON EstadosVinculacion.intId = IdeaEmpresario.intIdEstadoVinculacionEmpresario
+                INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
+
+                WHERE IdeaEmpresario.intIdIdea = Idea.intId AND Estados.strNombre = 'Activo'
+                FOR JSON PATH
+            ) as objInfoIdeaEmpresario,
+            (
+                SELECT
+                Empresario.intId,
+                Empresario.strNombres,
+                Empresario.strApellidos,
+                Empresario.strTipoDocto,
+                Empresario.strNroDocto,
+                Empresario.strLugarExpedicionDocto,
+                Empresario.dtFechaExpedicionDocto,
+                Empresario.dtFechaNacimiento,
+                Empresario.strNacionalidad,
+                Empresario.strGenero,
+                Empresario.strCelular1,
+                Empresario.strCelular2,
+                Empresario.strCorreoElectronico1,
+                Empresario.strCorreoElectronico2,
+                Empresario.strNivelEducativo,
+                Empresario.strTitulos,
+                Empresario.strCondicionDiscapacidad,
+                Empresario.intIdSede,
+                Empresario.btPerfilSensible,
+                Empresario.strEstrato,
+                Empresario.strPais,
+                Empresario.strDepartamento,
+                Empresario.strCiudad,
+                Empresario.strBarrio,
+                Empresario.strDireccionResidencia,
+                Empresario.strUrlFileFoto,
+                Empresario.intIdEstado,
+                Empresario.btNoContactar,
+                Empresario.dtmCreacion,
+                Empresario.dtmActualizacion,
+                Empresario.strUsuario,
+                IdeaEmpresario.intIdTipoEmpresario,
+                IdeaEmpresario.strTipoRelacionPrincipal as strTipoRelacion,
+                Tipo.strNombre as strTipoEmpresario,
+                Sedes.strNombre as strNombreSedes
+
+                FROM tbl_Empresario Empresario
+
+                INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
+                LEFT JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+                INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
+                LEFT JOIN tbl_Sedes Sedes ON Sedes.intId = Empresario.intIdSede
+
+                WHERE IdeaEmpresario.intIdIdea = Idea.intId AND Estados.strNombre = 'Activo'
+                FOR JSON PATH
+            ) as objInfoEmpresario
+
+            FROM tbl_Idea Idea
+
+            LEFT JOIN tbl_EstadoVinculacion EstadoVinculacion ON EstadoVinculacion.intId = Idea.intIdEstadoVinculacion
+            
+            ORDER BY intId DESC`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].objInfoIdeaEmpresario) {
+                    let { objInfoIdeaEmpresario } = arrNewData[i];
+
+                    if (validator.isJSON(objInfoIdeaEmpresario)) {
+                        objInfoIdeaEmpresario = JSON.parse(
+                            objInfoIdeaEmpresario
+                        );
+                        arrNewData[i].objInfoIdeaEmpresario =
+                            objInfoIdeaEmpresario;
+                    }
+                }
+                if (arrNewData[i].objInfoEmpresario) {
+                    let { objInfoEmpresario } = arrNewData[i];
+
+                    if (validator.isJSON(objInfoEmpresario)) {
+                        objInfoEmpresario = JSON.parse(objInfoEmpresario);
+                        arrNewData[i].objInfoEmpresario = objInfoEmpresario;
+                    }
+                }
+            }
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo deleteEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getEmpresarioTabla() {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            
+            SELECT I.intId,
+            E.strUrlFileFoto,
+            E.strNombres +' '+ E.strApellidos AS strNombreCompleto,
+            E.strNroDocto,
+            I.strNombre,
+            S.strNombre AS strSede,
+            I.dtFechaVinculacion,
+            EV.strNombre AS strEstadoVinculacion,
+            JsonEmpresarios.JsonEmpresario
+        FROM 
+            tbl_Idea_Empresario IE 
+        INNER JOIN tbl_Empresario E ON IE.intIdEmpresario=E.intId
+        INNER JOIN tbl_Idea I ON IE.intIdIdea=I.intId
+        LEFT JOIN tbl_Sedes S ON S.intId=I.intIdSede
+        LEFT JOIN tbl_EstadoVinculacion EV ON EV.intId=I.intIdEstadoVinculacion
+        CROSS APPLY (
+            SELECT
+                (
+                    SELECT
+                        Empresario.strNombres,
+                        Empresario.strApellidos,
+                        Empresario.strNroDocto,
+                        IdeaEmpresario.intIdTipoEmpresario
+                    FROM 
+                        tbl_Empresario Empresario
+                    INNER JOIN 
+                        tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
+                    INNER JOIN 
+                        tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+                    WHERE 
+                        IdeaEmpresario.intIdIdea = IE.intIdIdea
+                    FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
+                ) AS JsonEmpresario
+        ) AS JsonEmpresarios
+        WHERE 
+            IE.intIdTipoEmpresario = 1 AND IE.intIdEstado=1 
+            ORDER BY intId DESC `;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEmpresarioTabla de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getEmpresario(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -1203,7 +1432,7 @@ class daoEmpresarios {
                             objEmpresario
                         );
                         arrNewData[i].objEmpresario =
-                        objEmpresario;
+                            objEmpresario;
                     }
                 }
             }
