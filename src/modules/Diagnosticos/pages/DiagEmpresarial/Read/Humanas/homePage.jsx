@@ -144,7 +144,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
         ],
         objInfoAdicional: [
             {
-                parent: "strConclusiones",
+                parent: "strObservaciones",
                 value: "",
                 label: "Conclusiones y observaciones",
             },

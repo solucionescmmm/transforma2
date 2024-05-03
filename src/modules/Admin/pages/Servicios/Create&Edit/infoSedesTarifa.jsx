@@ -24,19 +24,27 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 //Componentes
 import PaperSedesTarifa from "./paperSedesTarifa";
+import { useFieldArray } from "react-hook-form";
 
 const InfoSedesTarifa = ({
     disabled,
     values,
     errors,
     control,
-    fields,
-    append,
-    remove,
     isEdit,
     isPreview,
     getValues,
 }) => {
+    const {
+        fields,
+        append,
+        remove,
+    } = useFieldArray({
+        control,
+        name: "arrSedesTarifas",
+        keyName: "Id",
+    });
+
     const [loading, setLoading] = useState(true);
 
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -50,7 +58,7 @@ const InfoSedesTarifa = ({
 
         if (fields.length === 0) {
             append({
-                id: shortid.generate(),
+                Id: shortid.generate(),
                 intIdSede: "",
                 intIdTipoTarifa: "",
                 dblValor: "",
@@ -60,7 +68,7 @@ const InfoSedesTarifa = ({
         setLoading(false);
 
         // eslint-disable-next-line
-    }, [fields]);
+    }, [fields.length]);
 
     if (loading) {
         return (
@@ -138,7 +146,7 @@ const InfoSedesTarifa = ({
                                             "animate__animated animate__bounceOutRight",
                                         exitDone: "animate__bounceOutRight",
                                     }}
-                                    key={e.id}
+                                    key={e.Id}
                                 >
                                     <PaperSedesTarifa
                                         control={control}
@@ -164,7 +172,7 @@ const InfoSedesTarifa = ({
                             type="button"
                             onClick={() =>
                                 append({
-                                    id: shortid.generate(),
+                                    Id: shortid.generate(),
                                     intIdSede: "",
                                     intIdTipoTarifa: "",
                                     dblValor: "",

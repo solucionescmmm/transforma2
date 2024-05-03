@@ -56,7 +56,7 @@ const InfoAtributos = ({
         setLoading(false);
 
         // eslint-disable-next-line
-    }, [values, fields]);
+    }, [values, fields.length]);
 
     if (loading) {
         return (

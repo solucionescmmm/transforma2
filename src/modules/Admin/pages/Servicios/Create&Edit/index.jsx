@@ -132,41 +132,12 @@ const CreateEdit = ({ isEdit, isPreview }) => {
         watch,
     } = useForm({ mode: "onChange" });
 
-    const {
-        fields: arrST,
-        append: apST,
-        remove: rmST,
-    } = useFieldArray({
-        control,
-        name: "arrSedesTarifas",
-        keyName: "id",
-    });
-
     const { fields: arrAT, append: apAT, replace } = useFieldArray({
         control,
         name: "arrAtributos",
         keyName: "id",
     });
 
-    const {
-        fields: arrMO,
-        append: apMO,
-        remove: rmMO,
-    } = useFieldArray({
-        control,
-        name: "arrModulos",
-        keyName: "id",
-    });
-
-    const {
-        fields: arrRE,
-        append: apRE,
-        remove: rmRE,
-    } = useFieldArray({
-        control,
-        name: "arrResponsables",
-        keyName: "id",
-    });
 
     const { intId } = useParams();
 
@@ -327,7 +298,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                             const arrResponsables = data.arrResponsables;
 
                             for (let i = 0; i < arrResponsables.length; i++) {
-                                arrResponsables[i].id = shortid.generate();
+                                arrResponsables[i].Id = shortid.generate();
                             }
 
                             setData({
@@ -548,9 +519,6 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                         setValue={setValue}
                                         setError={setError}
                                         clearErrors={clearErrors}
-                                        fields={arrMO}
-                                        append={apMO}
-                                        remove={rmMO}
                                         isPreview={isPreview}
                                     />
                                 </Grid>
@@ -567,9 +535,6 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     setError={setError}
                                     getValues={getValues}
                                     clearErrors={clearErrors}
-                                    fields={arrST}
-                                    append={apST}
-                                    remove={rmST}
                                     isPreview={isPreview}
                                 />
                             </Grid>
@@ -584,9 +549,6 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     setValue={setValue}
                                     setError={setError}
                                     clearErrors={clearErrors}
-                                    fields={arrRE}
-                                    append={apRE}
-                                    remove={rmRE}
                                     getValues={getValues}
                                     isPreview={isPreview}
                                 />

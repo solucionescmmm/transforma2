@@ -24,19 +24,27 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 //Componentes
 import PaperModulo from "./paperModulo";
+import { useFieldArray } from "react-hook-form";
 
 const InfoModulos = ({
     disabled,
     values,
     errors,
     control,
-    fields,
-    append,
-    remove,
     isEdit,
     isPreview,
     bitModulos
 }) => {
+    const {
+        fields,
+        append,
+        remove,
+    } = useFieldArray({
+        control,
+        name: "arrModulos",
+        keyName: "id",
+    });
+
     const [loading, setLoading] = useState(true);
 
     const [openCollapese, setOpenCollapse] = useState(true);
@@ -46,8 +54,6 @@ const InfoModulos = ({
     };
 
     useEffect(() => {
-        setLoading(true);
-
         if (fields.length === 0) {
             append({
                 id: shortid.generate(),
@@ -61,7 +67,7 @@ const InfoModulos = ({
         setLoading(false);
 
         // eslint-disable-next-line
-    }, [fields]);
+    }, [fields.length]);
 
     if (loading) {
         return (

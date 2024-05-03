@@ -53,7 +53,7 @@ const PaperSedesTarifa = ({
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
     const [data, setData] = useState({
-        id: "",
+        Id: "",
         intIdSede: "",
         intIdTipoTarifa: "",
         dblValor: "",
@@ -84,20 +84,15 @@ const PaperSedesTarifa = ({
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        setLoading(true);
+        setData({
+            Id: values.Id || values.strId || values.intId || null,
+            intIdSede: values.intIdSede,
+            intIdTipoTarifa: values.intIdTipoTarifa,
+            dblValor: values.dblValor,
+        });
 
-        if (values) {
-            setData({
-                id: values.id,
-                intIdSede: values.intIdSede,
-                intIdTipoTarifa: values.intIdTipoTarifa,
-                dblValor: values.dblValor,
-            });
-        }
-
-        if (!values.id) {
+        if (!values.Id) {
             remove(index);
-            setOpenModalDelete(!openModalDelete);
         }
 
         setLoading(false);
@@ -108,7 +103,7 @@ const PaperSedesTarifa = ({
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
-    if (loading || !data.id) {
+    if (loading || !data.Id) {
         return (
             <Box
                 display="flex"
@@ -121,7 +116,7 @@ const PaperSedesTarifa = ({
         );
     }
 
-    if (!data.id) {
+    if (!data.Id) {
         return (
             <Box
                 sx={{

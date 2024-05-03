@@ -23,6 +23,7 @@ import {
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 //Componentes
 import PaperResponsable from "./paperResponsables";
+import { useFieldArray } from "react-hook-form";
 
 const InfoResponsables = ({
     getValues,
@@ -30,13 +31,16 @@ const InfoResponsables = ({
     values,
     errors,
     control,
-    fields,
-    append,
-    remove,
     isEdit,
     isPreview,
 }) => {
     const [loading, setLoading] = useState(true);
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "arrResponsables",
+        keyName: "Id",
+    });
 
     const [openCollapese, setOpenCollapse] = useState(true);
 
@@ -49,7 +53,7 @@ const InfoResponsables = ({
 
         if (fields.length === 0) {
             append({
-                id: shortid.generate(),
+                Id: shortid.generate(),
                 intIdArea: "",
             });
         }
@@ -57,7 +61,7 @@ const InfoResponsables = ({
         setLoading(false);
 
         // eslint-disable-next-line
-    }, [fields]);
+    }, [fields.length]);
 
     if (loading) {
         return (
@@ -135,7 +139,7 @@ const InfoResponsables = ({
                                             "animate__animated animate__bounceOutRight",
                                         exitDone: "animate__bounceOutRight",
                                     }}
-                                    key={e.id}
+                                    key={e.Id}
                                 >
                                     <PaperResponsable
                                         control={control}
@@ -160,7 +164,7 @@ const InfoResponsables = ({
                             type="button"
                             onClick={() =>
                                 append({
-                                    id: shortid.generate(),
+                                    Id: shortid.generate(),
                                     intIdArea: "",
                                 })
                             }
