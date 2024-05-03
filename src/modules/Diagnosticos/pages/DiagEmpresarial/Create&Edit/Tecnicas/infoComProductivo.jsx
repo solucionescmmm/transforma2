@@ -98,24 +98,24 @@ export const propiedades = [
         strGrupo: "DiagnosticoTecnico",
         strCodigo: "ContrlRegInv",
     },
-    {
-        nombre: "strCapProdRespMer",
-        label: "Mi capacidad de producción y respuesta al mercado es",
-        strGrupo: "DiagnosticoTecnico",
-        strCodigo: "CapProdRespMer",
-    },
-    {
-        nombre: "strCapProdRespMerDetalle",
-        label: "Detalle",
-        strGrupo: "DiagnosticoTecnico",
-        strCodigo: "CapProdRespMer",
-    },
-    {
-        nombre: "strCapProdRespMerNivel",
-        label: "Nivel",
-        strGrupo: "DiagnosticoTecnico",
-        strCodigo: "CapProdRespMer",
-    },
+    // {
+    //     nombre: "strCapProdRespMer",
+    //     label: "Mi capacidad de producción y respuesta al mercado es",
+    //     strGrupo: "DiagnosticoTecnico",
+    //     strCodigo: "CapProdRespMer",
+    // },
+    // {
+    //     nombre: "strCapProdRespMerDetalle",
+    //     label: "Detalle",
+    //     strGrupo: "DiagnosticoTecnico",
+    //     strCodigo: "CapProdRespMer",
+    // },
+    // {
+    //     nombre: "strCapProdRespMerNivel",
+    //     label: "Nivel",
+    //     strGrupo: "DiagnosticoTecnico",
+    //     strCodigo: "CapProdRespMer",
+    // },
     {
         nombre: "strEstadTecProd",
         label: "El estado de la ficha técnica de los productos es",
