@@ -44,7 +44,7 @@ class clsServer {
                 .createServer(
                     {
                         key: fs.readFileSync(
-                            "/var/www/transforma-api-test.demismanos.org/ssl/transforma-api-test.demismanos.org-le.crt"
+                            "/var/www/transforma-api-test.demismanos.org/ssl/transforma-api-test.demismanos.org-le.key"
                         ),
                         cert: fs.readFileSync(
                             "/var/www/transforma-api-test.demismanos.org/ssl/transforma-api-test.demismanos.org-le.crt"
