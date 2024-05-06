@@ -8,7 +8,7 @@ const getEmpresario = async (objParams, strDataUser) => {
         intId,
         intIdTipoTarifa
     } = objParams;
-    
+
     if (!objParams) {
         throw new Error("Se esperaban parámetros de búsqueda.");
     }
@@ -36,65 +36,69 @@ const getEmpresario = async (objParams, strDataUser) => {
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data.reverse();
-            
+
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
-                let objInfoPrincipal ={
+                let objInfoPrincipal = {
                     intId: array[i].intId,
                     intIdTipoServicio: array[i].intIdTipoServicio,
-                    strNombreTipoServicio:array[i].strNombreTipoServicio,
-                    strNombre:array[i].strNombre,
-                    strDescripcion:array[i].strDescripcion,
-                    bitModulos:array[i].btModulos,
-                    intIdProyectoEs:array[i].intIdProyectosEspeciales,
-                    intDuracionHoras:array[i].intDuracionHoras,
+                    strNombreTipoServicio: array[i].strNombreTipoServicio,
+                    strNombre: array[i].strNombre,
+                    strDescripcion: array[i].strDescripcion,
+                    bitModulos: array[i].btModulos,
+                    intIdProyectoEs: array[i].intIdProyectosEspeciales,
+                    intDuracionHoras: array[i].intDuracionHoras,
                     strProyecto: array[i].strProyecto,
-                    intIdEstado:array[i].intIdEstado,
-                    strEstado:array[i].strEstado,
-                    dtmCreacion:array[i].dtmCreacion,
-                    strUsuarioCreacion:array[i].strUsuarioCreacion,
-                    dtmActualizacion:array[i].dtmActualizacion,
-                    strUsuarioActualizacion:array[i].strUsuarioActualizacion,
-                }
-                
-                let queryAtributos = await dao.getAtributosTiposServicios({
-                    intIdTipoServicio: array[i].intIdTipoServicio
-                })
-
-                if (queryAtributos.error) {
-                    throw new Error(queryAtributos.msg)
+                    intIdEstado: array[i].intIdEstado,
+                    strEstado: array[i].strEstado,
+                    dtmCreacion: array[i].dtmCreacion,
+                    strUsuarioCreacion: array[i].strUsuarioCreacion,
+                    dtmActualizacion: array[i].dtmActualizacion,
+                    strUsuarioActualizacion: array[i].strUsuarioActualizacion,
                 }
 
-                let arrAtributos = queryAtributos.data
+                let arrAtributos = []
 
-                let objResultAtributos = array[i].objResultAtributos
+                if (intId) {
+                    let queryAtributos = await dao.getAtributosTiposServicios({
+                        intIdTipoServicio: array[i].intIdTipoServicio
+                    })
 
-                for (const prop in objResultAtributos) {
-                    for (let j = 0; j < arrAtributos.length; j++) {
-                        if (prop === arrAtributos[j].strNombreAtributo) {
-                            arrAtributos[j]={
-                                ...arrAtributos[j],
-                                [prop]:objResultAtributos[prop]
+                    if (queryAtributos.error) {
+                        throw new Error(queryAtributos.msg)
+                    }
+
+                    arrAtributos = queryAtributos.data
+
+                    let objResultAtributos = array[i].objResultAtributos
+
+                    for (const prop in objResultAtributos) {
+                        for (let j = 0; j < arrAtributos.length; j++) {
+                            if (prop === arrAtributos[j].strNombreAtributo) {
+                                arrAtributos[j] = {
+                                    ...arrAtributos[j],
+                                    [prop]: objResultAtributos[prop]
+                                }
                             }
                         }
                     }
                 }
 
-                data[i] ={
+                data[i] = {
                     objInfoPrincipal,
-                    arrModulos:array[i]?.arrModulos||[],
-                    arrSedesTarifas:array[i]?.arrSedesTarifas||[],
-                    arrResponsables:array[i]?.arrResponsables||[],
-                    arrAtributos
+                    arrModulos: array[i]?.arrModulos || [],
+                    arrSedesTarifas: array[i]?.arrSedesTarifas || [],
+                    arrResponsables: array[i]?.arrResponsables || [],
+                    arrAtributos: arrAtributos
                 }
-                
+
             }
             let result = {
                 error: false,
                 data,
             };
-        
+
             return result;
         }
     }
