@@ -104,11 +104,6 @@ const ReadPaquetes = () => {
             type: "string",
         },
         {
-            title: "Tipo de servicio",
-            field: "objInfoPrincipal.strNombreTipoServicio",
-            type: "string",
-        },
-        {
             title: "Fecha de creación",
             field: "objInfoPrincipal.dtmCreacion",
             type: "date",

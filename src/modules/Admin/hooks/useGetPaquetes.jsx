@@ -27,7 +27,7 @@ const useGetPaquetes = ({ autoLoad = true, intIdTipoTarifa = null } = {}) => {
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intIdTipoTarifa }) => {
+        async ({ signalSubmitData, intIdTipoTarifa, intId }) => {
             return await axios(
                 {
                     method: "GET",
@@ -38,6 +38,7 @@ const useGetPaquetes = ({ autoLoad = true, intIdTipoTarifa = null } = {}) => {
                     },
                     params: {
                         intIdTipoTarifa,
+                        intId
                     },
                 },
                 {
@@ -90,11 +91,11 @@ const useGetPaquetes = ({ autoLoad = true, intIdTipoTarifa = null } = {}) => {
         getData({ signalSubmitData, intIdTipoTarifa });
     };
 
-    const getUniqueData = async ({ intIdTipoTarifa = null } = {}) => {
+    const getUniqueData = async ({ intId = null } = {}) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
-            intIdTipoTarifa,
+            intId,
             signalSubmitData,
         });
 
