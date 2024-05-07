@@ -179,7 +179,6 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                             
                         },
                     });
-                    console.log(data)
                 } else {
                     setData();
                     setSendData(false);
@@ -312,7 +311,6 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                             direction="row"
                             spacing={2}
                             component="form"
-                            onSubmit={handleSubmit(onSubmit)}
                             noValidate
                             style={{ padding: "25px" }}
                         >
@@ -391,7 +389,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                     size="small"
                                     style={{ marginTop: "15px" }}
                                     fullWidth
-                                    type="submit"
+                                    onClick={handleSubmit(onSubmit)}
                                     disabled={loadingGetData}
                                 >
                                     Buscar

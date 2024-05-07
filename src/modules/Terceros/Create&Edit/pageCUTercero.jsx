@@ -328,7 +328,6 @@ const CUTercero = ({ isEdit, values, resetSearch, inModal, resetModal, closeModa
             direction="row"
             spacing={3}
             component="form"
-            onSubmit={handleSubmit(onSubmit)}
             noValidate
         >
             {!inModal && (
@@ -460,7 +459,7 @@ const CUTercero = ({ isEdit, values, resetSearch, inModal, resetModal, closeModa
                                 >
                                     <LoadingButton
                                         variant="contained"
-                                        type="submit"
+                                        onClick={handleSubmit(onSubmit)}
                                         loading={loading}
                                     >
                                         {isEdit ? "guardar" : "registrar"}
