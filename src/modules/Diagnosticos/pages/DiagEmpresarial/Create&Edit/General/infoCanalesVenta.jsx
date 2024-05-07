@@ -48,7 +48,6 @@ const InfoCanalesVenta = ({
     };
 
     useEffect(() => {
-        console.log(values)
         if (values) {
             setData({
                 arrMediosDigitales: values.arrMediosDigitales || [],

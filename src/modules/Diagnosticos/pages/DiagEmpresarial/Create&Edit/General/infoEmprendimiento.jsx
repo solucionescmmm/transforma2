@@ -29,7 +29,6 @@ import {
 import SelectLugarOperacion from "../../../../../Empresarios/components/selectLugarOperacion";
 import DropdownLocalizaciones from "../../../../../Empresarios/components/dropdownLocalizaciones";
 import ModalDireccionResidencia from "../../../../../Empresarios/components/modalDireccionResidencia";
-// import ModalMediosDigitales from "../../../../../Empresarios/components/modalMediosDigitales";
 import SelectSectorEconomico from "../../../../../Empresarios/components/selectSectorEconomico";
 import SelectCategoriaServicio from "../../../../../Empresarios/components/selectCategoriaServicio";
 import SelectCategoriaProducto from "../../../../../Empresarios/components/selectCategoriaProducto";
@@ -60,6 +59,7 @@ const InfoEmprendimiento = ({
         strUbicacionUP: "",
         strCelular: "",
         strCorreoElectronico: "",
+        strDescProductosServicios: "",
         strRegistroCamaraComercio: "",
         strTiempoDedicacion: "",
         strSectorEconomico: "",
@@ -90,7 +90,9 @@ const InfoEmprendimiento = ({
 
     useEffect(() => {
         if (values) {
+            console.log(values?.strDescProductosServicios);
             setData({
+                strDescProductosServicios: values.strDescProductosServicios || "",
                 strUnidadProductiva: values.strUnidadProductiva || "",
                 intAñoInicioOperacion: values.intAñoInicioOperacion || null,
                 strLugarOperacion: values.strLugarOperacion || "",
@@ -110,7 +112,6 @@ const InfoEmprendimiento = ({
                 strCategoriaServicio: values.strCategoriaServicio || "",
                 arrCategoriasSecundarias: values.arrCategoriasSecundarias || [],
                 strOtraCategoria: values.strOtraCategoria || "",
-                strListadoProdServ: values.strListadoProdServ || "",
                 btGeneraEmpleo: values.btGeneraEmpleo || "",
                 strHistoriaEmpresa: values.strHistoriaEmpresa || "",
                 strDefinineLineasProductoServicios:
@@ -336,7 +337,7 @@ const InfoEmprendimiento = ({
                                     value={value}
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -360,7 +361,7 @@ const InfoEmprendimiento = ({
                             rules={{
                                 required:
                                     data.strLugarOperacion ===
-                                    "Desde la vivienda"
+                                        "Desde la vivienda"
                                         ? null
                                         : "Por favor, selecciona el pais de residencia",
                             }}
@@ -377,7 +378,7 @@ const InfoEmprendimiento = ({
                                     strCodigo="departamentos"
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -409,7 +410,7 @@ const InfoEmprendimiento = ({
                             rules={{
                                 required:
                                     data.strLugarOperacion ===
-                                    "Desde la vivienda"
+                                        "Desde la vivienda"
                                         ? null
                                         : "Por favor, selecciona el departamento de residencia",
                             }}
@@ -429,7 +430,7 @@ const InfoEmprendimiento = ({
                                     required
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -456,7 +457,7 @@ const InfoEmprendimiento = ({
                             rules={{
                                 required:
                                     data.strLugarOperacion ===
-                                    "Desde la vivienda"
+                                        "Desde la vivienda"
                                         ? null
                                         : "Por favor, selecciona la ciudad de residencia",
                             }}
@@ -473,7 +474,7 @@ const InfoEmprendimiento = ({
                                     name={name}
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -509,7 +510,7 @@ const InfoEmprendimiento = ({
                                     onChange={(e) => onChange(e)}
                                     disabled={
                                         data.strLugarOperacion ===
-                                        "Desde la vivienda"
+                                            "Desde la vivienda"
                                             ? true
                                             : disabled
                                     }
@@ -708,13 +709,13 @@ const InfoEmprendimiento = ({
                                     multiline
                                     rows={4}
                                     error={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoEmprendimiento
                                             ?.strHistoriaEmpresa
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoEmprendimiento
                                             ?.strHistoriaEmpresa?.message ||
                                         "Digita con detalle como nace la empresa"
                                     }
