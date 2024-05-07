@@ -1037,7 +1037,7 @@ class daoEmpresarios {
 
             let response = await conn.query`
             
-            SELECT TOP (10)
+            SELECT TOP (12)
             Idea.intId,
             Idea.strNombre,
             Idea.intIdEstado,
