@@ -193,6 +193,7 @@ const DropdownServicios = ({
                         )}
                         <ListItemText
                             primary={option.objInfoPrincipal?.strNombre}
+                            secondary={`Tipo de servicio: ${option.objInfoPrincipal?.strNombreTipoServicio}`}
                         />
                     </ListItem>
                 </List>

@@ -397,7 +397,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
             {
                 parent: "btGeneraEmpleo",
                 value: "",
-                label: "¿La empresa genera empleo para otras personas?",
+                label: "¿La empresa genera empleo para ti y/o para otras personas? ",
             },
             {
                 parent: "intNumeroEmpleados",

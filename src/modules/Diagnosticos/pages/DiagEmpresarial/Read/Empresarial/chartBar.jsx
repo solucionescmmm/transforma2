@@ -44,7 +44,7 @@ const ChartBar = ({ values, labels, title }) => {
         labels,
         datasets: [
             {
-                label: 'Puntaje',
+                label: 'Puntaje actual',
                 data: values,
                 borderColor: "rgb(255, 99, 132)",
                 backgroundColor: "rgba(255, 99, 132, 0.5)",

@@ -1020,7 +1020,7 @@ const InfoEmpresa = ({
                             name="objInfoEmpresa.btGeneraEmpleo"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="¿La empresa genera empleo para otras personas?"
+                                    label="¿La empresa genera empleo para ti y/o para otras personas? "
                                     name={name}
                                     value={value}
                                     onChange={(e) => {
