@@ -76,13 +76,13 @@ const ReadPersonaSecundaria = ({
             type: "string",
         },
         {
-            title: "Fecha de registro",
+            title: "Fecha de registro en la aplicación",
             field: "dtmCreacion",
             type: "date",
         },
         {
-            title: "Estado",
-            field: "strEstadoVinculacion",
+            title: "Estado de vinculación con la empresa",
+            field: "strEstado",
             type: "string",
         },
         {

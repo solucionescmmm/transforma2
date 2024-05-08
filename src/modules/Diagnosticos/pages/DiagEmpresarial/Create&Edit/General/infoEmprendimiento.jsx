@@ -704,7 +704,6 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
                                     variant="outlined"
                                     multiline
                                     rows={4}
@@ -722,10 +721,6 @@ const InfoEmprendimiento = ({
                                 />
                             )}
                             control={control}
-                            rules={{
-                                required:
-                                    "Por favor, digita con detalle como nace la empresa",
-                            }}
                         />
                     </Grid>
 

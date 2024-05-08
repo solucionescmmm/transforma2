@@ -65,7 +65,6 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
     }, [isEdit]);
 
     useEffect(() => {
-        console.log(values);
         if (values) {
             setData({
                 intId: values.intId || null,
@@ -310,7 +309,6 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                     value={value}
                                     disabled={disabled}
                                     select
-                                    required
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     variant="standard"
@@ -344,9 +342,6 @@ const InfoPrincipal = ({ disabled, values, errors, control, isEdit }) => {
                                 </TextField>
                             )}
                             control={control}
-                            rules={{
-                                required: "Por favor, Selecciona una opción",
-                            }}
                         />
                     </Grid>
 
