@@ -145,8 +145,8 @@ class setAsistentesEventos {
                 intIdEmpresario: null,
                 intIdTercero: arrTerceros[i]?.intId,
                 intTipoEmpresario: null,
-                intIdSedeTarifaServicio: null,
-                ValorMatricula: null,
+                intIdSedeTarifaServicio: this.#intIdTarifa,
+                ValorMatricula: this.#ValorTarifa,
                 btFinalizoEvento: false
             }
 

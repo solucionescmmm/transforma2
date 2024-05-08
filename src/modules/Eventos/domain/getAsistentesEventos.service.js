@@ -61,6 +61,7 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
                         data.push({
                             ...array[i],
                             strTipoPersona: "Empresaria",
+                            strTarifaServicio: `${array[i]?.strTarifaServicio?.trim()} - Valor: ${array[i]?.ValorMatricula}`,
                             objDataAsistente:{
                                 ...objDataEmpresario,
                                 strCorreoElectronico: objDataEmpresario.strCorreoElectronico1 || objDataEmpresario.strCorreoElectronico2
@@ -72,6 +73,7 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
                         data.push({
                             ...array[i],
                             strTipoPersona: "Tercero",
+                            strTarifaServicio: `${array[i]?.strTarifaServicio?.trim()} - Valor: ${array[i]?.ValorMatricula}`,
                             objDataAsistente: arrDataTerceros.find((data) => data.intId === array[i]?.intIdTercero),
                         })
                     }

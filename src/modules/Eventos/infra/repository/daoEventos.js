@@ -649,9 +649,23 @@ class daoEventos {
 
             let response = await conn.query`
 
-            SELECT *
+            SELECT
+
+            AsistenteEvento.intId,
+            AsistenteEvento.intIdEvento,
+            AsistenteEvento.intIdIdea,
+            AsistenteEvento.intIdEmpresario,
+            AsistenteEvento.intIdTercero,
+            AsistenteEvento.intTipoEmpresario,
+            AsistenteEvento.intIdSedeTarifaServicio,
+            AsistenteEvento.ValorMatricula,
+            AsistenteEvento.btFinalizoEvento,
+            TipoTarifa.strNombre as strTarifaServicio
             
-            FROM tbl_AsistentesEventos 
+            FROM tbl_AsistentesEventos AsistenteEvento
+
+            RIGHT JOIN tbl_Sede_TipoTarifa_Servicio TarifaServicio ON TarifaServicio.intId = AsistenteEvento.intIdSedeTarifaServicio
+            INNER JOIN tbl_TipoTarifa TipoTarifa ON TipoTarifa.intId = TarifaServicio.intIdTipoTarifa
 
             WHERE (intIdEvento = ${data.intIdEvento})`;
 
