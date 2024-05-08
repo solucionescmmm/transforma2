@@ -90,7 +90,6 @@ const InfoEmprendimiento = ({
 
     useEffect(() => {
         if (values) {
-            console.log(values?.strDescProductosServicios);
             setData({
                 strDescProductosServicios: values.strDescProductosServicios || "",
                 strUnidadProductiva: values.strUnidadProductiva || "",

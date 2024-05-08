@@ -246,10 +246,10 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
                                     }
                                     color="primary"
                                     variant="contained"
-                                    style={{ textTransform: "none" }}
+                                    style={{ margin: "5px" }}
                                     size="small"
                                 >
-                                    registrar asistencia
+                                    Registrar asistencia
                                 </Button>
                             ),
                         }}

@@ -41,7 +41,6 @@ import { parseISO } from "date-fns";
 import { AuthContext } from "../../../../../common/middlewares/Auth";
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 import useGetSesiones from "../../../hooks/useGetSesiones";
-import ReadAsistencia from "../Asistencia";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -545,16 +544,6 @@ const ModalCEdit = ({
                                 }}
                             />
                         </Grid>
-
-                        {(isEdit || isPreview) && (
-                            <Grid item xs={12}>
-                                <ReadAsistencia
-                                    intIdSesion={intId}
-                                    intIdEvento={intIdEvento}
-                                    isPreview={isPreview}
-                                />
-                            </Grid>
-                        )}
                     </Grid>
                 </DialogContent>
 

@@ -430,6 +430,13 @@ const PageCUGeneral = ({
                                         dataEmpr.objInfoEmpresa.strOtraCategoria ||
                                         "",
                                     strDescProductosServicios: dataEmpr.objInfoEmpresa.strDescProductosServicios,
+                                    intAñoInicioOperacion: dataEmpr.objInfoEmpresa
+                                            .dtFechaFundacion
+                                            ? parseISO(
+                                                dataEmpr.objInfoEmpresa
+                                                    .dtFechaFundacion
+                                            )
+                                            : null,
                                 },
                                 objInfoEmpresa: {
                                     strRut: dataEmpr?.objInfoEmpresa?.strRut,
@@ -555,6 +562,13 @@ const PageCUGeneral = ({
                                             ? dataEmpr.objInfoEmpresa.btGeneraEmpleo
                                             : "",
                                     strDescProductosServicios: dataEmpr.objInfoEmpresa.strDescProductosServicios,
+                                    intAñoInicioOperacion: dataEmpr.objInfoEmpresa
+                                            .dtFechaFundacion
+                                            ? parseISO(
+                                                dataEmpr.objInfoEmpresa
+                                                    .dtFechaFundacion
+                                            )
+                                            : null,
                                 },
                                 objInfoEmpresa: {
                                     strRut: dataEmpr?.objInfoEmpresa?.strRut,

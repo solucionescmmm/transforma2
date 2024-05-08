@@ -30,6 +30,7 @@ import {
     Delete as DeleteIcon,
     Stop as StopIcon,
     RemoveRedEye as RemoveRedEyeIcon,
+    Checklist as AssistanceIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -39,6 +40,7 @@ import { MTableToolbar } from "@material-table/core";
 //Componentes
 import ModalDelete from "./modalDelete";
 import ModalFinish from "./modalFinish";
+import ModalAssistance from "./modalAssistance";
 import useGetSesiones from "../../../hooks/useGetSesiones";
 import ModalCEdit from "./modalCreate&Edit";
 import { AbilityContext, Can } from "../../../../../common/functions/can";
@@ -84,6 +86,7 @@ const ReadSesiones = ({ intIdEvento, isPreview, values }) => {
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalPreview, setOpenModalPreview] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalAssistance, setOpenModalAssistance] = useState(false);
     const [openModalFinalizacion, setOpenModalFinalizacion] = useState(false);
     const [selectedData, setSelectedData] = useState();
 
@@ -100,6 +103,10 @@ const ReadSesiones = ({ intIdEvento, isPreview, values }) => {
     //===============================================================================================================================================
     const handlerOpenModalDelete = () => {
         setOpenModalDelete(!openModalDelete);
+    };
+
+    const handlerOpenModalAssistance = () => {
+        setOpenModalAssistance(!openModalAssistance);
     };
 
     const handlerOpenModalRegister = () => {
@@ -168,6 +175,14 @@ const ReadSesiones = ({ intIdEvento, isPreview, values }) => {
                 intId={selectedData?.intId}
                 intIdEvento={intIdEvento}
                 refresh={refreshGetData}
+            />
+
+            <ModalAssistance
+                handleOpenDialog={handlerOpenModalAssistance}
+                open={openModalAssistance}
+                intId={selectedData?.intId}
+                intIdEvento={intIdEvento}
+                isPreview={selectedData?.btFinalizado}
             />
 
             <StyledEngineProvider injectFirst>
@@ -316,10 +331,33 @@ const ReadSesiones = ({ intIdEvento, isPreview, values }) => {
                                         onClick: rowData.btFinalizado === true ? (event, rowData) => {
                                             setSelectedData(rowData);
                                             handlerOpenModalPreview();
-                                        }: (event, rowData) => {
+                                        } : (event, rowData) => {
                                             setSelectedData(rowData);
                                             handlerOpenModalEdit();
                                         },
+                                    };
+                                }
+                            },
+                            (rowData) => {
+                                if (ability.can("update", "Sesiones")) {
+                                    return {
+                                        icon: () => (
+                                            <AssistanceIcon
+                                                color={
+                                                    rowData.btFinalizado ===
+                                                        true || isPreview
+                                                        ? "gray"
+                                                        : "success"
+                                                }
+                                                fontSize="small"
+                                            />
+                                        ),
+                                        //disabled: rowData.btFinalizado === true ? true : isPreview,
+                                        onClick: (event, rowData) => {
+                                            setSelectedData(rowData);
+                                            handlerOpenModalAssistance();
+                                        },
+                                        tooltip: rowData.btFinalizado === true ?  "Previsualizar asistencia" : "Registrar asistencia" ,
                                     };
                                 }
                             },
