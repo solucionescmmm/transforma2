@@ -1230,7 +1230,7 @@ class daoEmpresarios {
         ) AS JsonEmpresarios
         WHERE 
             IE.intIdTipoEmpresario = 1 AND IE.intIdEstado=1 
-            ORDER BY intId DESC `;
+            ORDER BY EV.strNombre ASC,I.dtFechaVinculacion DESC `;
 
             let arrNewData = response.recordsets[0];
 
