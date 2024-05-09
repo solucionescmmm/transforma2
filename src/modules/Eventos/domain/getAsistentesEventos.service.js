@@ -4,7 +4,7 @@ const validator = require("validator").default;
 const classInterfaceDAOEventos = require("../infra/conectors/interfaceDAOEventos");
 
 //services
-const serviceGetEmpresarios = require("../../Empresarios/domian/getEmpresario.service")
+const serviceGetEmpresarios = require("../../Empresarios/domian/getEmpresarioBasica.service")
 const serviceGetTerceros = require("../../Terceros/domain/getTercero.service")
 
 const getAsistentesEventos = async (objParams, strDataUser) => {
@@ -48,6 +48,7 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
     };
 
     let arrData = await dao.getAsistentesEventos(query);
+    const arrDataAsistencia = await dao.getAsistentesSesionesEventos(query)
 
     if (!arrData.error && arrData.data) {
         if (arrData.data.length > 0) {
@@ -86,7 +87,7 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
 
                 return result;
             } else {
-                let arrDataAsistencia = await dao.getAsistentesSesionesEventos(query)
+                
                 let array = arrData.data
                 let data = []
 
@@ -96,7 +97,6 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
                     if (array[i]?.intIdEmpresario) {
                         let objDataAsistente = arrDataEmpresario.find((data) => data.intId === array[i]?.intIdEmpresario)
                         data.push({
-                            //...array[i],
                             intId: array[i].intId,
                             strTipoDocto: objDataAsistente?.strTipoDocto,
                             strNroDocto: objDataAsistente?.strNroDocto,
@@ -110,7 +110,6 @@ const getAsistentesEventos = async (objParams, strDataUser) => {
                     if (array[i]?.intIdTercero) {
                         let objDataAsistente = arrDataTerceros.find((data) => data.intId === array[i]?.intIdTercero)
                         data.push({
-                            //...array[i],
                             intId: array[i].intId,
                             strTipoDocto: objDataAsistente?.strTipoDocto,
                             strNroDocto: objDataAsistente?.strNroDocto,

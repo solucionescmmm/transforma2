@@ -1381,6 +1381,60 @@ class daoEmpresarios {
         }
     }
 
+    async getEmpresarioBasica() {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            
+            SELECT
+            Empresario.intId,
+            Empresario.strNombres,
+            Empresario.strApellidos,
+            Empresario.strTipoDocto,
+            Empresario.strNroDocto,
+            Empresario.strLugarExpedicionDocto,
+            Empresario.dtFechaExpedicionDocto,
+            Empresario.dtFechaNacimiento,
+            Empresario.strNacionalidad,
+            Empresario.strGenero,
+            Empresario.strCelular1,
+            Empresario.strCelular2,
+            Empresario.strCorreoElectronico1,
+            Empresario.strCorreoElectronico2,
+            Empresario.btPerfilSensible,
+            Empresario.strUrlFileFoto
+
+            FROM tbl_Empresario Empresario`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async getEmpresarioByIdea(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
