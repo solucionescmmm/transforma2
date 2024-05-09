@@ -30,7 +30,7 @@ import {
     Delete as DeleteIcon,
     Stop as StopIcon,
     RemoveRedEye as RemoveRedEyeIcon,
-    Checklist as AssistanceIcon,
+    CheckCircleOutlineSharp as AssistanceIcon
 } from "@mui/icons-material";
 
 //Table Material UI
