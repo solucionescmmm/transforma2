@@ -1,12 +1,15 @@
 import React, { Fragment, useState } from "react";
 
 //Librerias
+
 //Componentes de Material UI
 import {
     ThemeProvider,
     StyledEngineProvider,
     createTheme,
 } from "@mui/material/styles";
+
+import { Button, IconButton } from "@mui/material";
 
 //Iconos
 import {
@@ -26,6 +29,7 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
+    Delete as DeleteIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -34,7 +38,7 @@ import MaterialTable from "@material-table/core";
 //Componentes
 import useGetMatriculas from "../../../hooks/useGetMatriculas";
 import ModalState from "./modalState";
-import { Button } from "@mui/material";
+import ModalDelete from "./modalDelete";
 
 const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
     //===============================================================================================================================================
@@ -72,9 +76,26 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
             field: "strCorreoElectronico",
             type: "string",
         },
+        {
+            title: "Acciones",
+            render: (rowData) => (
+                <IconButton
+                    aria-label="delete"
+                    color="error"
+                    onClick={() => {
+                        setSelectedData(rowData);
+                        handlerOpenModalDelete();
+                    }}
+                    disabled={!rowData?.btAsistio || isPreview}
+                >
+                    <DeleteIcon fontSize="small" />
+                </IconButton>
+            ),
+        },
     ]);
     const [selectedData, setSelectedData] = useState();
     const [openModalState, setOpenModalState] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -88,6 +109,10 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
     const handlerOpenModalState = () => {
         setOpenModalState(!openModalState);
     };
+
+    const handlerOpenModalDelete = () => {
+        setOpenModalDelete(!openModalDelete);
+    };
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
     //===============================================================================================================================================
@@ -96,6 +121,13 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
             <ModalState
                 handleOpenDialog={handlerOpenModalState}
                 open={openModalState}
+                values={{ ...selectedData, intIdSesion, intIdEvento }}
+                refresh={refreshGetData}
+            />
+
+            <ModalDelete
+                handleOpenDialog={handlerOpenModalDelete}
+                open={openModalDelete}
                 values={{ ...selectedData, intIdSesion, intIdEvento }}
                 refresh={refreshGetData}
             />
@@ -166,7 +198,7 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
                                 labelRowsPerPage: "Filas por página:",
                             },
                             toolbar: {
-                                nRowsSelected: "{0} filas seleccionadas",
+                                nRowsSelected: "{0} persona(s) empresaria(s) seleccionadas",
                                 searchTooltip: "Buscar",
                                 searchPlaceholder: "Buscar",
                             },
@@ -203,7 +235,7 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
                         options={{
                             selection: true,
                             selectionProps: (rowData) => ({
-                                disabled: rowData.btAsistio || isPreview,
+                                disabled: rowData?.btAsistio || isPreview,
                                 color: "primary",
                             }),
                             grouping: true,
@@ -236,14 +268,14 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
                                     setSelectedData({ arrData: rowData });
                                     handlerOpenModalState();
                                 },
-                            },
+                            }
                         ]}
                         components={{
                             Action: (props) => (
                                 <Button
-                                    onClick={(event) =>
+                                    onClick={(event) => {
                                         props.action.onClick(event, props.data)
-                                    }
+                                    }}
                                     color="primary"
                                     variant="contained"
                                     style={{ margin: "5px" }}

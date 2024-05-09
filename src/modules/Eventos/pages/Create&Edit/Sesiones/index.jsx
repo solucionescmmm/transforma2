@@ -407,7 +407,6 @@ const ReadSesiones = ({ intIdEvento, isPreview, values }) => {
                                 }
                             },
                         ]}
-                        onRowClick={(e, rowData) => { }}
                         components={{
                             Toolbar: (props) => (
                                 <div
