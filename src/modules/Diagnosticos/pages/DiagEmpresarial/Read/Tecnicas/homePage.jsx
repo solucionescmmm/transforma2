@@ -776,7 +776,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                                                                                         </Grid>
                                                                                                
                                                             
-                                                                                                                        {e.detalle && (
+                                                                                                                        {(
                                                                                                                             <Grid
                                                                                                                                 item
                                                                                                                                 xs={12}
@@ -927,7 +927,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                             </Grid>
 
                                                           
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1078,7 +1078,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                                   
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1229,7 +1229,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                                      
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1380,7 +1380,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                                        
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1576,7 +1576,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                                         
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1725,7 +1725,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                                     
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1874,7 +1874,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                                    
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -2023,7 +2023,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                                        
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -2172,7 +2172,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
 
                                                    
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -2271,7 +2271,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             id="chart-diag-serv"
                                         >
                                             <ChartBar
-                                                title="DETALLE DEL DIAGNÓSTICO"
+                                                title=""
                                                 labels={[
                                                     "Mercadeo",
                                                     "Productivo",

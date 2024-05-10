@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        fontSize: "14px",
-        color: "#00BBB4",
+        fontSize: "12px",
+        color: "#505050",
         fontFamily: "Roboto",
     },
     footerTitle: {
@@ -411,6 +411,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             >
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
+
+                    <Text style={styles.title}>
+                     Diagnóstico empresarial
+                    </Text>
 
                     <Html>
                         {`
