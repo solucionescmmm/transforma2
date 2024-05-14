@@ -883,13 +883,12 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             }
 
                                             if (
-                                                key ===
-                                                    "intMargenRentabilidad" &&
+                                                key === "intMargenRentabilidad" &&
                                                 objInfoPerfilEco[key]
                                             ) {
-                                                e.value = `${
-                                                    objInfoPerfilEco[key] * 100
-                                                }%`;
+                                                // Multiplica por 100 y redondea a 2 decimales
+                                                const valorRedondeado = (objInfoPerfilEco[key] * 100).toFixed(2);
+                                                e.value = `${valorRedondeado}%`;
                                                 return;
                                             }
 

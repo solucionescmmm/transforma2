@@ -263,7 +263,10 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                                         if (key === "dtmActualizacion") {
                                             e.value = validator.isDate(e.value)
-                                                ? format(e.value, "yyyy-MM-dd H:mm")
+                                                ? format(
+                                                      e.value,
+                                                      "yyyy-MM-dd H:mm"
+                                                  )
                                                 : "No diligenciado";
                                         }
 
@@ -722,11 +725,16 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                 <Tooltip title="Previsualizar diagnóstico">
                                     <IconButton
                                         color="inherit"
-                                        onClick={()=> onChangeRoute("DiagDesignServPrev", {
-                                            intIdIdea,
-                                            intIdDiagnostico,
-                                            isPreview : true
-                                        })}
+                                        onClick={() =>
+                                            onChangeRoute(
+                                                "DiagDesignServPrev",
+                                                {
+                                                    intIdIdea,
+                                                    intIdDiagnostico,
+                                                    isPreview: true,
+                                                }
+                                            )
+                                        }
                                     >
                                         <RemoveRedEyeIcon />
                                     </IconButton>
@@ -931,7 +939,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objInnovacionFortalecer.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
-                                                                      <Grid
+                                                            <Grid
                                                                 item
                                                                 xs={12}
                                                                 md={2}
@@ -947,9 +955,12 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                      <b>    {i === 0
+                                                                    <b>
+                                                                        {" "}
+                                                                        {i === 0
                                                                             ? "Nivel"
-                                                                            : ""}</b>
+                                                                            : ""}
+                                                                    </b>
                                                                 </p>
 
                                                                 <p
@@ -972,7 +983,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 item
                                                                 xs={12}
                                                                 md={8}
-                                                             >
+                                                            >
                                                                 <p
                                                                     style={{
                                                                         margin: "0px",
@@ -1015,46 +1026,42 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 </p>
                                                             </Grid>
 
-                                                  
-
-                                                            {e.detalle && (
-                                                                <Grid
-                                                                    item
-                                                                    xs={12}
-                                                                    md={2}
+                                                            <Grid
+                                                                item
+                                                                xs={12}
+                                                                md={2}
+                                                            >
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
                                                                 >
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        <b>
-                                                                            Detalle
-                                                                        </b>
-                                                                    </p>
+                                                                    <b>
+                                                                        Detalle
+                                                                    </b>
+                                                                </p>
 
-                                                                    <p
-                                                                        style={{
-                                                                            margin: "0px",
-                                                                            fontSize:
-                                                                                "13px",
-                                                                            display:
-                                                                                "flex",
-                                                                            alignContent:
-                                                                                "center",
-                                                                        }}
-                                                                    >
-                                                                        {e.detalle ||
-                                                                            "No diligenciado"}
-                                                                    </p>
-                                                                </Grid>
-                                                            )}
+                                                                <p
+                                                                    style={{
+                                                                        margin: "0px",
+                                                                        fontSize:
+                                                                            "13px",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignContent:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                    {e.detalle ||
+                                                                        "No diligenciado"}
+                                                                </p>
+                                                            </Grid>
                                                         </Fragment>
                                                     )
                                                 )}
@@ -1080,7 +1087,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objExperienciaFortalecer.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
-                                                                          <Grid
+                                                            <Grid
                                                                 item
                                                                 xs={12}
                                                                 md={2}
@@ -1096,7 +1103,11 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                    <b>
+                                                                        {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}
+                                                                    </b>
                                                                 </p>
 
                                                                 <p
@@ -1164,9 +1175,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 </p>
                                                             </Grid>
 
-                                              
-
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1245,7 +1254,11 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                    <b>
+                                                                        {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}
+                                                                    </b>
                                                                 </p>
 
                                                                 <p
@@ -1270,7 +1283,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 item
                                                                 xs={12}
                                                                 md={8}
-                                                           
                                                             >
                                                                 <p
                                                                     style={{
@@ -1314,7 +1326,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 </p>
                                                             </Grid>
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1425,7 +1437,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objInnovacionFortalezas.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
-
                                                             <Grid
                                                                 item
                                                                 xs={12}
@@ -1442,7 +1453,11 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                    <b>
+                                                                        {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}
+                                                                    </b>
                                                                 </p>
 
                                                                 <p
@@ -1465,7 +1480,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 item
                                                                 xs={12}
                                                                 md={8}
-                                                           
                                                             >
                                                                 <p
                                                                     style={{
@@ -1509,7 +1523,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 </p>
                                                             </Grid>
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1572,7 +1586,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objExperienciaFortalezas.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
-
                                                             <Grid
                                                                 item
                                                                 xs={12}
@@ -1589,7 +1602,11 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                    <b>
+                                                                        {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}
+                                                                    </b>
                                                                 </p>
 
                                                                 <p
@@ -1612,7 +1629,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 item
                                                                 xs={12}
                                                                 md={8}
-                                                            
                                                             >
                                                                 <p
                                                                     style={{
@@ -1656,7 +1672,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 </p>
                                                             </Grid>
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1719,7 +1735,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 {e.objMarcaFortalezas.map(
                                                     (e, i) => (
                                                         <Fragment key={i}>
-                                                
                                                             <Grid
                                                                 item
                                                                 xs={12}
@@ -1736,7 +1751,11 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                             "center",
                                                                     }}
                                                                 >
-                                                                      <b>{i === 0? "Nivel": ""}</b>
+                                                                    <b>
+                                                                        {i === 0
+                                                                            ? "Nivel"
+                                                                            : ""}
+                                                                    </b>
                                                                 </p>
 
                                                                 <p
@@ -1759,7 +1778,6 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 item
                                                                 xs={12}
                                                                 md={8}
-                                                            
                                                             >
                                                                 <p
                                                                     style={{
@@ -1803,7 +1821,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                                 </p>
                                                             </Grid>
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -2096,7 +2114,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                             id="chart-diag-serv"
                                         >
                                             <ChartBar
-                                                title="DETALLE DEL DIAGNÓSTICO"
+                                                title=""
                                                 labels={[
                                                     "Innovación",
                                                     "Experiencia",
@@ -2110,7 +2128,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                     data.objResultServicio
                                                         ?.intMarca || 0,
                                                 ]}
-                                                maxValues={[40,30,30]}
+                                                maxValues={[40, 30, 30]}
                                             />
                                         </Box>
                                     </Box>

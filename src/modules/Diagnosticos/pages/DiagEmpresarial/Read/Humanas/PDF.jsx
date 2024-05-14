@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        fontSize: "14px",
-        color: "#00BBB4",
+        fontSize: "12px",
+        color: "#505050",
         fontFamily: "Roboto",
     },
     footerTitle: {
@@ -106,7 +106,7 @@ const PDFProduct = ({ intId, values }) => {
     const [objEmpresa, setObjEmpresa] = useState();
     const [htmlInfoEncuestaHumanas, setHtmlInfoEncuestaHumanas] = useState("");
     const [htmlAdicional, setHtmlAdicional] = useState("");
-    
+
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
@@ -208,9 +208,9 @@ const PDFProduct = ({ intId, values }) => {
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
-                    {/* <Text style={styles.title}>
-                        Reporte diagnóstico de competencias humanas
-                    </Text> */}
+                    <Text style={styles.title}>
+                        Diagnóstico empresarial - componente humano
+                    </Text>
 
                     <Html>
                         {`
@@ -353,7 +353,8 @@ const PDFProduct = ({ intId, values }) => {
                     </Html>
 
                     <Text style={styles.footerTitle}>
-                    Transformamos la vida de las personas emprendedoras y empresarias desde el ser y el hacer
+                        Transformamos la vida de las personas emprendedoras y
+                        empresarias desde el ser y el hacer
                     </Text>
 
                     <Text style={styles.footerContact}>Contacto</Text>

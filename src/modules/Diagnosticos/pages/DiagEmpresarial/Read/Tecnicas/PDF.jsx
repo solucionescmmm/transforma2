@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        fontSize: "14px",
-        color: "#00BBB4",
+        fontSize: "12px",
+        color: "#505050",
         fontFamily: "Roboto",
     },
     footerTitle: {
@@ -129,9 +129,9 @@ const PDFProduct = ({ intId, values }) => {
         let htmlTemasFortalecer = "";
         let htmlFortalezas = "";
 
-        htmlTemasFortalecer =
-            htmlTemasFortalecer +
-            `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+        // htmlTemasFortalecer =
+        //     htmlTemasFortalecer +
+        //     `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
         if (values.objInfoTemasFortalecer?.length > 0) {
             values.objInfoTemasFortalecer.forEach((tema) => {
@@ -139,13 +139,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Mercadeo        
+                        Componente mercadeo - comercial   
+                        <hr />     
                     </div>
                     
                     ${tema.objMercadeoFortalecer
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -156,13 +157,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Productivo        
+                        Componente técnico  - productivo    
+                        <hr />         
                     </div>
                     
                     ${tema.objProductivoFortalecer
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -173,13 +175,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Financiero        
+                        Componente contable  - financiero        
+                        <hr />     
                     </div>
                     
                     ${tema.objFinancieroFortalecer
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -190,13 +193,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Administrativo        
+                        Componente administrativo    
+                        <hr />         
                     </div>
                     
                     ${tema.objAdministrativoFortalecer
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -207,13 +211,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Asociativo        
+                        Componente asociativo 
+                        <hr />            
                     </div>
                     
                     ${tema.objAsociativoFortalecer
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -228,13 +233,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlFortalezas =
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Mercadeo        
+                        Componente mercadeo - comercial   
+                        <hr />          
                     </div>
                     
                     ${tema.objMercadeoFortalezas
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -245,13 +251,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlFortalezas =
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Productivo        
+                        Componente técnico  - productivo  
+                        <hr />           
                     </div>
                     
                     ${tema.objProductivoFortalezas
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -262,13 +269,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlFortalezas =
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Financiero        
+                        Componente contable  - financiero 
+                        <hr />            
                     </div>
                     
                     ${tema.objFinancieroFortalezas
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -279,13 +287,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlFortalezas =
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Administrativo        
+                        Componente administrativo        
+                        <hr />     
                     </div>
                     
                     ${tema.objAdministrativoFortalezas
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -296,13 +305,14 @@ const PDFProduct = ({ intId, values }) => {
                     htmlFortalezas =
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente Asociativo        
+                        Componente asociativo   
+                        <hr />          
                     </div>
                     
                     ${tema.objAsociativoFortalezas
                         .map(
                             (e) =>
-                                `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>`
                         )
@@ -311,9 +321,9 @@ const PDFProduct = ({ intId, values }) => {
             });
         }
 
-        htmlFortalezas =
-            htmlFortalezas +
-            `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
+        // htmlFortalezas =
+        //     htmlFortalezas +
+        //     `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
 
         setHtmlTemasFortalecer(htmlTemasFortalecer);
         setHtmlFortalezas(htmlFortalezas);
@@ -344,7 +354,9 @@ const PDFProduct = ({ intId, values }) => {
             >
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
-
+                    <Text style={styles.title}>
+                     Diagnóstico empresarial - componente técnico
+                    </Text>
                     <Html>
                         {`
                         <html>
@@ -474,8 +486,27 @@ const PDFProduct = ({ intId, values }) => {
                         <br />
 
                         <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
-                        </p>
+                        A continuación, te presento un resumen del diagnóstico empresarial - componente técnico. En primer lugar, verás un gráfico que muestra el puntaje actual de tu emprendimiento en relación con el puntaje máximo de cada grupo temático analizado. Luego, encontrarás una sección donde podrás identificar las fortalezas y temas a fortalecer de tu emprendimiento, agrupadas en los siguientes temas: </p>
+
+                        <ol style="font-family: Roboto; color: #505050; font-size: 11px">
+                        <li>Mercadeo – Comercial</li>
+                        <li>Técnico – Productivo</li>
+                           <li>Contable – Financiero</li>
+                           <li>Administrativo</li>
+                        </ol>
+
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                       
+                        
 
                         <h5 class="pMargin"> <span style="color: #00BBB4">Gráfico resumen </span></h5>
                         <hr />
@@ -486,7 +517,7 @@ const PDFProduct = ({ intId, values }) => {
 
                     <Image
                         source={values?.imgChart}
-                        style={{ width: "300px", alignSelf: "center" }}
+                        style={{ width: "260px", alignSelf: "center" }}
                     />
 
                     <Html>

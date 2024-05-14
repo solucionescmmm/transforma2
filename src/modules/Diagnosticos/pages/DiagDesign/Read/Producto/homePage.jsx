@@ -1220,7 +1220,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             </Grid>
                                    
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1371,7 +1371,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                             </Grid>
 
                                                           
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1522,7 +1522,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                                                   
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1673,7 +1673,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                                                      
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -1824,7 +1824,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                                                        
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -2020,7 +2020,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                                                         
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -2169,7 +2169,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                                                     
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -2318,7 +2318,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                                                    
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -2467,7 +2467,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                                                        
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}
@@ -2616,7 +2616,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
 
                                                    
 
-                                                            {e.detalle && (
+                                                            {(
                                                                 <Grid
                                                                     item
                                                                     xs={12}

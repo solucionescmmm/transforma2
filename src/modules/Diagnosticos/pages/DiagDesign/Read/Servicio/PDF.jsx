@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        fontSize: "14px",
-        color: "#00BBB4",
+        fontSize: "12px",
+        color: "#505050",
         fontFamily: "Roboto",
     },
     footerTitle: {
@@ -178,7 +178,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                    .map(
                        (e) => `<tr>
                    <td style="color: black">${e.label}</td>
-                   <td>${e.value}</td>
+                   <td>${e.value || "No diligenciado"}</td>
                   
                </tr>
                `
@@ -497,6 +497,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
+                    <Text style={styles.title}>
+                     Diagnóstico de servicio
+                    </Text>
+
                     <Html>
                         {`
                         <html>
@@ -639,7 +643,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </Html>
                     <Image
                         source={values?.imgChart}
-                        style={{ width: "315px", alignSelf: "center" }}
+                        style={{ width: "280px", alignSelf: "center" }}
                     />
 
                     <Html>
@@ -802,7 +806,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                               <body>
                               
-                            ${
+                              ${
                                 htmlFortalezas &&
                                 `
                             <h5 class="pMargin"> <span style="color: #00BBB4">Fortalezas</span></h5>
@@ -844,11 +848,11 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             ${htmlConclusiones}
 
                             ${
-                                arrImagenes.length > 0 &&
+                                arrImagenes?.length > 0 ?
                                 `
                             <h5 class="pMargin"> <span style="color: #00BBB4">Registro fotográfico</span></h5>
                             <hr />
-                            `
+                            ` : ""
                             }
 
                         
@@ -858,7 +862,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </Html>
 
                     <View style={styles.container}>
-                        {arrImagenes.length > 0 &&
+                        {arrImagenes?.length > 0 &&
                             arrImagenes.map((i, index) => (
                                 <Image
                                     src={i.src}
