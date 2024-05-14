@@ -234,7 +234,6 @@ const ModalCEdit = ({
 
     useEffect(() => {
         if (values) {
-            console.log(values);
             setDtmValidations({
                 dtmInicial: values?.dtFechaInicio,
                 dtmFinal: values?.dtFechaFin,

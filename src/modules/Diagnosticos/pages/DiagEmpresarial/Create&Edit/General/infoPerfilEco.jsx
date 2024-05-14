@@ -77,6 +77,13 @@ const InfoPerfilEco = ({
         setOpenCollapse(!openCollapese);
     };
 
+    const handlerChangeData = (name, value) => {
+        setData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
     useEffect(() => {
         if (values) {
             setData({
@@ -672,7 +679,14 @@ const InfoPerfilEco = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        handlerChangeData(
+                                            "strConoceMargenRentaProductoEscogido",
+                                            e.target.value
+                                        );
+                                        setValue("objInfoPerfilEco.intPorcentajeMargenRentaProductoEscogido", "")
+                                    }}
                                     fullWidth
                                     required
                                     variant="standard"
@@ -715,7 +729,7 @@ const InfoPerfilEco = ({
                                     customInput={TextField}
                                     fullWidth
                                     variant="standard"
-                                    disabled={disabled}
+                                    disabled={data.strConoceMargenRentaProductoEscogido !== "Sí" ? true : disabled}
                                     required
                                     error={
                                         errors?.objInfoPerfilEco
@@ -744,7 +758,14 @@ const InfoPerfilEco = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        handlerChangeData(
+                                            "strConoceCostosProductoEscogido",
+                                            e.target.value
+                                        );
+                                        setValue("objInfoPerfilEco.CostoProduccionProductoEscogido", "")
+                                    }}
                                     fullWidth
                                     required
                                     variant="standard"
@@ -785,8 +806,7 @@ const InfoPerfilEco = ({
                                     customInput={TextField}
                                     fullWidth
                                     variant="standard"
-                                    disabled={disabled}
-                                    required
+                                    disabled={data.strConoceCostosProductoEscogido !== "Sí" ? true : disabled}
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.CostoProduccionProductoEscogido
@@ -816,7 +836,19 @@ const InfoPerfilEco = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        handlerChangeData(
+                                            "strPorcentajeIntermediacionVentas",
+                                            e.target.value
+                                        );
+                                        handlerChangeData(
+                                            "strDefinePorcentajesCanal",
+                                            ""
+                                        );
+                                        setValue("objInfoPerfilEco.strDefinePorcentajesCanal", "")
+                                        setValue("objInfoPerfilEco.intRangoPorcentajeIntermediacionVentas", "")
+                                    }}
                                     fullWidth
                                     required
                                     variant="standard"
@@ -848,10 +880,16 @@ const InfoPerfilEco = ({
                                     label="En caso de que la pregunta anterior sea afirmativa, ¿tiene definido este porcentaje, de acuerdo con cada canal?"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    disabled={data.strPorcentajeIntermediacionVentas !== "Sí" ? true : disabled}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        handlerChangeData(
+                                            "strDefinePorcentajesCanal",
+                                            e.target.value
+                                        );
+                                        setValue("objInfoPerfilEco.intRangoPorcentajeIntermediacionVentas", "")
+                                    }}
                                     fullWidth
-                                    required
                                     variant="standard"
                                     error={
                                         errors?.objInfoPerfilEco
@@ -892,7 +930,7 @@ const InfoPerfilEco = ({
                                     customInput={TextField}
                                     fullWidth
                                     variant="standard"
-                                    disabled={disabled}
+                                    disabled={data.strDefinePorcentajesCanal !== "Sí" ? true : disabled}
                                     required
                                     error={
                                         errors?.objInfoPerfilEco

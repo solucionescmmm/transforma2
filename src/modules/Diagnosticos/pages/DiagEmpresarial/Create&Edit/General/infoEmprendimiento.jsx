@@ -1054,7 +1054,14 @@ const InfoEmprendimiento = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        console.log(e.target)
+                                        handlerChangeData(
+                                            "strProductoServiciosEnValidacion",
+                                            e.target.value
+                                        );
+                                    }}
                                     fullWidth
                                     required
                                     variant="standard"

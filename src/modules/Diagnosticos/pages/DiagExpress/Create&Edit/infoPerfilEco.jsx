@@ -412,7 +412,14 @@ const InfoPerfilEco = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        handlerChangeData(
+                                            "strConoceMargenRentaProductoEscogido",
+                                            e.target.value
+                                        );
+                                        setValue("objInfoPerfilEco.intPorcentajeMargenRentaProductoEscogido", "")
+                                    }}
                                     fullWidth
                                     variant="standard"
                                     error={
@@ -454,7 +461,7 @@ const InfoPerfilEco = ({
                                     customInput={TextField}
                                     fullWidth
                                     variant="standard"
-                                    disabled={disabled}
+                                    disabled={data.strConoceMargenRentaProductoEscogido !== "Sí" ? true : disabled}
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.intPorcentajeMargenRentaProductoEscogido
@@ -482,7 +489,14 @@ const InfoPerfilEco = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        handlerChangeData(
+                                            "strConoceCostosProductoEscogido",
+                                            e.target.value
+                                        );
+                                        setValue("objInfoPerfilEco.CostoProduccionProductoEscogido", "")
+                                    }}
                                     fullWidth
                                     required
                                     variant="standard"
@@ -523,7 +537,7 @@ const InfoPerfilEco = ({
                                     customInput={TextField}
                                     fullWidth
                                     variant="standard"
-                                    disabled={disabled}
+                                    disabled={data.strConoceCostosProductoEscogido !== "Sí" ? true : disabled}
                                     error={
                                         errors?.objInfoPerfilEco
                                             ?.CostoProduccionProductoEscogido

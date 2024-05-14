@@ -29,7 +29,7 @@ import {
     FilterList as FilterListIcon,
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
-    Delete as DeleteIcon,
+    Cancel as CancelIcon,
 } from "@mui/icons-material";
 
 //Table Material UI
@@ -88,7 +88,7 @@ const ReadAsistencia = ({ isPreview, intIdSesion, intIdEvento }) => {
                     }}
                     disabled={!rowData?.btAsistio || isPreview}
                 >
-                    <DeleteIcon fontSize="small" />
+                    <CancelIcon fontSize="small" />
                 </IconButton>
             ),
         },
